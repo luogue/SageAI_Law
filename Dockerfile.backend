@@ -1,0 +1,51 @@
+# SageAI 后端镜像
+FROM python:3.11-slim
+
+# 创建非 root 用户
+RUN groupadd -r sageai && useradd -r -g sageai -d /app sageai
+
+WORKDIR /app
+
+# 安装系统依赖（添加重试机制应对网络不稳定）
+RUN apt-get update -o Acquire::Retries=5 -o Acquire::http::Timeout=30 && \
+    apt-get install -y --no-install-recommends \
+    gcc \
+    libffi-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# 安装 Python 依赖
+COPY backend/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 复制源码
+COPY backend/ .
+
+# 创建数据和日志目录
+RUN mkdir -p /app/data /app/logs && chown -R sageai:sageai /app
+
+# 切换到非 root 用户
+USER sageai
+
+# 健康检查
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')" || exit 1
+
+# 暴露端口
+EXPOSE 8000
+
+# 启动（使用 gunicorn + uvicorn）
+# workers=6: 更多工作进程可避免单个 worker 阻塞时影响整体服务
+# timeout=180: LLM 调用最长等待 3 分钟
+# graceful-timeout=120: 优雅关闭等待时间，配合长时间 LLM 调用
+# max-requests=100: 每个 worker 处理 100 请求后自动重启，防止内存泄漏
+CMD ["gunicorn", "main:app", \
+     "--workers", "6", \
+     "--worker-class", "uvicorn.workers.UvicornWorker", \
+     "--bind", "0.0.0.0:8000", \
+     "--timeout", "180", \
+     "--graceful-timeout", "120", \
+     "--keep-alive", "5", \
+     "--max-requests", "100", \
+     "--max-requests-jitter", "20", \
+     "--access-logfile", "-", \
+     "--error-logfile", "-"]

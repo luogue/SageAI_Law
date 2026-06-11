@@ -1,0 +1,87 @@
+version: '3.8'
+
+services:
+  # ========== 后端 API 服务 ==========
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: sageai-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    # 内存限制（防止 OOM → 502）
+    mem_limit: 2g
+    mem_reservation: 512m
+    environment:
+      - ENV=production
+      - LOG_LEVEL=INFO
+      - LOG_DIR=/app/logs
+      - DATABASE_URL=sqlite:////app/data/app.db
+    env_file:
+      - .env.production
+    volumes:
+      # SQLite 数据库持久化
+      - db-data:/app/data
+      # 日志持久化
+      - log-data:/app/logs
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
+      - sageai-network
+
+  # ========== 前端 Nginx 服务 ==========
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: sageai-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"  # SSL（如需）
+    depends_on:
+      backend:
+        condition: service_healthy
+    volumes: []
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      - sageai-network
+
+  # ========== Redis（可选，用于分布式限流和缓存）==========
+  redis:
+    image: redis:7-alpine
+    container_name: sageai-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    networks:
+      - sageai-network
+    # profiles only for docker compose v2, v1 ignores redis by default
+
+# ========== 数据卷 ==========
+volumes:
+  db-data:
+    name: sageai-db-data
+  log-data:
+    name: sageai-log-data
+  redis-data:
+    name: sageai-redis-data
+
+# ========== 网络 ==========
+networks:
+  sageai-network:
+    name: sageai-network
+    driver: bridge
