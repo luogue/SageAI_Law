@@ -17,6 +17,10 @@
           <i class="el-icon-data-board"></i>
           <span>数据统计</span>
         </el-menu-item>
+        <el-menu-item index="/admin/users">
+          <i class="el-icon-user"></i>
+          <span>用户管理</span>
+        </el-menu-item>
         <el-menu-item index="/admin/feedbacks">
           <i class="el-icon-message"></i>
           <span>反馈审核</span>
@@ -69,15 +73,20 @@ const username = ref(localStorage.getItem('admin_username') || '管理员')
 const activeMenu = computed(() => route.path)
 
 const pageTitle = computed(() => {
-  const titles = {
-    '/admin': '数据统计',
-    '/admin/feedbacks': '反馈审核',
-    '/admin/blacklist': '黑名单管理',
-    '/admin/settings': '系统设置',
-    '/admin/usage': '使用记录'
-  }
-  return titles[route.path] || '管理后台'
-})
+    const titles = {
+      '/admin': '数据统计',
+      '/admin/users': '用户管理',
+      '/admin/feedbacks': '反馈审核',
+      '/admin/blacklist': '黑名单管理',
+      '/admin/settings': '系统设置',
+      '/admin/usage': '使用记录'
+    }
+    // 用户详情页特殊处理
+    if (route.path.startsWith('/admin/users/')) {
+      return '用户详情'
+    }
+    return titles[route.path] || '管理后台'
+  })
 
 function handleMenuSelect(index) {
   router.push(index)

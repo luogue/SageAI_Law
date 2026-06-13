@@ -1,12 +1,8 @@
-#!/bin/bash
-REMOTE="root@120.77.171.21"
-REMOTE_DIR="/opt/sageai"
+# 1. 本地打包（在项目目录 Git Bash 中）：
+tar --exclude='.env' --exclude='node_modules' --exclude='.git' --exclude='__pycache__' --exclude='*.pyc' --exclude='Qwen3-4B-Thinking-2507' --exclude='.history' -czf deploy.tar.gz .
 
-tar --exclude='.env' --exclude='node_modules' --exclude='.git' --exclude='__pycache__' -czf deploy.tar.gz .
+# 2. 上传到服务器：
+scp deploy.tar.gz root@120.77.171.21:/opt/sageai/
 
-scp deploy.tar.gz $REMOTE:$REMOTE_DIR/
-
-ssh $REMOTE "cd $REMOTE_DIR && tar -xzf deploy.tar.gz --overwrite && nohup docker-compose up -d --build > /tmp/deploy.log 2>&1 &"
-
-rm deploy.tar.gz
-echo "部署已触发，稍后访问网站"
+# 3. 登录服务器并部署（可合并为一条 SSH 命令）：
+ssh root@120.77.171.21 "cd /opt/sageai && sudo tar -xzf deploy.tar.gz --overwrite && sudo docker-compose up -d --build"

@@ -26,6 +26,9 @@ class OutputLayer:
         用户应该看到：
         - 5. 结论与行动建议（包含结论、行动建议、声明）
         - 二、对用户额外要求的专项回应（如果有）
+        
+        兜底逻辑：如果过滤后没有任何有效内容（全部被跳过），则返回原始报告的
+        最后1/3部分（通常是结论和行动建议部分），避免因LLM输出格式偏差导致空报告。
         """
         lines = raw_report.split('\n')
         filtered_lines = []
@@ -35,22 +38,33 @@ class OutputLayer:
         internal_section_starts = [
             r'^\*{0,2}\s*\d+\.\s*自上而下建逻辑结构',
             r'^\*{0,2}\s*\d+\.\s*逻辑推理(?!步骤)',
-            r'^\*{0,2}\s*\d+\.\s*风险评估与商业可行性评估',
             r'^\*{0,2}\s*\d+\.\s*自检',
             r'^\*{0,2}\s*[iv]+\.\s*自检',
-            r'^\*{0,2}\s*前置步骤',
-            r'^\*{0,2}\s*【新增】信息来源',
-            r'^\*{0,2}\s*【优化】风险/问题概率评估',
-            r'^\*{0,2}\s*【新增】商业可行性评估',
             r'^\*{0,2}\s*###?\s*b\.\s*第二步',
             r'^\*{0,2}\s*####?\s*i\.\s*约束合规链式推理',
         ]
         
-        # 用户可见章节的起始标记
+        # 用户可见章节的起始标记（支持 markdown 粗体/斜体/标题等多种格式）
+        # [\*#]{0,3} 匹配：无前缀、#、##、###、*、**、*** 及其组合
         user_visible_starts = [
-            r'^\*{0,2}\s*\d+\.\s*结论与行动建议',
-            r'^\*{0,2}\s*##\s*二、对用户额外要求',
-            r'^\*{0,2}\s*二、对用户额外要求',
+            # 新增：结论部分（"应该怎么做？" 和 "为什么是这样？"）
+            r'^\s*i{1,3}\.\s*应该怎么做',
+            r'^\s*ii{1,2}\.\s*为什么是这样',
+            r'^[\*#]{0,3}\s*应该怎么做',
+            r'^[\*#]{0,3}\s*为什么是这样',
+            # 新增：前置步骤章节（关键前提确认）
+            r'^\*{0,2}\s*前置步骤：关键前提确认',
+            r'^前置步骤：关键前提确认',
+            # 新增：风险评估相关内容（作为逻辑推理的一部分）
+            r'^\*{0,2}\s*【优化】风险/问题概率评估',
+            r'^\*{0,2}\s*【新增】商业可行性评估',
+            # 标准格式
+            r'^[\*#]{0,3}\s*\d+\.\s*结论与行动建议',
+            r'^[\*#]{0,3}\s*[五六五四5五五]+\s*[、．.]?\s*结论与行动建议',
+            r'^[\*#]{0,3}\s*#*\s*二、对用户额外要求',
+            r'^[\*#]{0,3}\s*二、对用户额外要求',
+            r'^[\*#]{0,3}\s*#*\s*审查结论',
+            r'^[\*#]{0,3}\s*审查结论',
         ]
         
         for line in lines:
@@ -82,9 +96,50 @@ class OutputLayer:
             if '层级标注' in line or '模型补充' in line:
                 continue
             
+            # 将"前置步骤：关键前提确认"标题改为"审查基准"
+            if re.match(r'^\*{0,2}\s*前置步骤：关键前提确认', stripped):
+                line = line.replace('前置步骤：关键前提确认', '审查基准')
+            
             filtered_lines.append(line)
         
-        return '\n'.join(filtered_lines)
+        result = '\n'.join(filtered_lines).strip()
+        
+        # 兜底：如果过滤后只剩下空内容（LLM输出被截断或格式偏差导致全部被跳过）
+        # 返回原始报告的后半部分作为降级展示
+        # 注意：检查长度时避免过滤后只剩空白字符
+        result_stripped = result.strip() if result else ""
+        if not result_stripped or len(result_stripped) < 50:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning("[OUTPUT] 过滤后内容为空或过短(len=%d)，原始报告长度=%d，使用降级策略", 
+                          len(result_stripped), len(raw_report))
+            # 输出原始报告前500字符用于调试
+            if raw_report:
+                logger.info(f"[OUTPUT_DEBUG] 原始报告前500字符:\n{raw_report[:500]}...")
+            
+            # 逐级降级：后1/3 → 后1/2 → 全文
+            for fallback_ratio, desc in [(1/3, "后1/3"), (1/2, "后1/2"), (1, "全文")]:
+                fallback_start = max(0, len(lines) - max(1, int(len(lines) * fallback_ratio)))
+                fallback_lines = []
+                for line in lines[fallback_start:]:
+                    stripped = line.strip()
+                    # 跳过纯格式标记行和内部标记
+                    if not stripped or stripped in ('---', '```', '***'):
+                        continue
+                    if '层级标注' in stripped or '模型补充' in stripped:
+                        continue
+                    # 跳过明显的内部推理子标题
+                    if re.match(r'^[\*#]{0,3}\s*[iv]+\.\s*', stripped):
+                        continue
+                    fallback_lines.append(line)
+                fallback_result = '\n'.join(fallback_lines).strip()
+                if fallback_result and len(fallback_result) >= 50:
+                    logger.warning("[OUTPUT] 降级策略(%s)成功，恢复 %d 字符", desc, len(fallback_result))
+                    result = fallback_result
+                    break
+                logger.warning("[OUTPUT] 降级策略(%s)仍不足，继续扩大范围", desc)
+        
+        return result
     
     def _generate_metadata(self, validation_result: Dict) -> Dict:
         """生成元数据"""
@@ -105,6 +160,18 @@ class OutputLayer:
         """格式化Markdown输出"""
         # 过滤内部推理步骤，只保留对最终用户有用的内容
         filtered_report = self._filter_internal_content(raw_report)
+        
+        # 兜底：如果过滤后内容为空或过短，使用原始报告全文
+        if not filtered_report or not filtered_report.strip() or len(filtered_report.strip()) < 50:
+            import logging
+            logger = logging.getLogger(__name__)
+            filtered_len = len(filtered_report.strip()) if filtered_report else 0
+            raw_len = len(raw_report.strip()) if raw_report else 0
+            logger.warning("[OUTPUT] 过滤后内容过短(len=%d)，使用原始报告全文(%d chars)", filtered_len, raw_len)
+            if raw_report and raw_report.strip():
+                filtered_report = raw_report.strip()
+            else:
+                filtered_report = "报告生成遇到问题，请稍后重试或联系管理员。"
         
         markdown = f"""# 合同审查报告
 
@@ -440,8 +507,7 @@ class OutputLayer:
                 "has_warnings": validation_result.get('has_warnings', False),
                 "warnings": validation_result.get('warnings', []),
                 "confidence_score": validation_result.get('confidence_check', {}).get('confidence_score', 0)
-            },
-            "raw_report": raw_report
+            }
         }
         
         return output

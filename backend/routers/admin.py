@@ -7,6 +7,10 @@ from datetime import datetime, timedelta
 import logging
 import json
 
+from auth.utils import verify_password
+from storage.crud import verify_admin_password, get_admin_by_username, create_admin
+from auth.utils import hash_password
+
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/admin", tags=["admin"])
@@ -33,22 +37,49 @@ async def get_admin_token(token: str = Depends(api_key_header)):
 @router.post("/login", summary="管理员登录")
 async def admin_login(request: Request) -> Dict[str, Any]:
     """管理员登录"""
+    username = None
+    password = None
+
     try:
         body = await request.json()
         username = body.get('username')
         password = body.get('password')
-    except:
+        logger.info(f"JSON格式: username={username}, password={password}")
+    except Exception as e:
+        logger.info(f"JSON解析失败: {e}")
         # 尝试表单格式
         form_data = await request.form()
         username = form_data.get('username')
         password = form_data.get('password')
+        logger.info(f"表单格式: username={username}, password={password}")
+
+    logger.info(f"最终参数: username={username}, password={password}")
     
-    if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
-        return {
-            "success": True,
-            "token": ADMIN_TOKEN,
-            "username": username
-        }
+    # 检查数据库中是否有管理员账号
+    admin = get_admin_by_username(username)
+    logger.info(f"查询管理员: {admin is not None}")
+    if admin:
+        logger.info(f"管理员用户名: {admin.username}")
+        logger.info(f"密码哈希: {admin.password_hash}")
+        # 数据库中有管理员，使用数据库验证
+        password_valid = verify_password(password, admin.password_hash)
+        logger.info(f"密码验证结果: {password_valid}")
+        if password_valid:
+            return {
+                "success": True,
+                "token": ADMIN_TOKEN,
+                "username": username
+            }
+    else:
+        logger.info("数据库中没有管理员，使用环境变量验证")
+        # 数据库中没有管理员，使用环境变量验证（兼容旧版）
+        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+            return {
+                "success": True,
+                "token": ADMIN_TOKEN,
+                "username": username
+            }
+    
     return {"success": False, "detail": "用户名或密码错误"}
 
 
@@ -445,7 +476,7 @@ async def get_category_stats(token: str = Depends(get_admin_token)) -> Dict[str,
 
 @router.get("/blacklist", summary="获取所有黑名单记录")
 async def get_blacklist(token: str = Depends(get_admin_token)) -> Dict[str, Any]:
-    """获取所有黑名单记录"""
+    """获取所有黑名单记录（含封禁类型、解封状态）"""
     from security.blacklist import blacklist_manager
     
     try:
@@ -460,14 +491,51 @@ async def get_blacklist(token: str = Depends(get_admin_token)) -> Dict[str, Any]
         return {"success": False, "detail": str(e)}
 
 
+@router.post("/blacklist/unban", summary="解封黑名单记录")
+async def unban_from_blacklist(
+    type: str,
+    value: str,
+    unban_reason: str = "",
+    token: str = Depends(get_admin_token)
+) -> Dict[str, Any]:
+    """解封黑名单记录（标记为已解封，需填写解封理由）"""
+    from security.blacklist import unban as do_unban
+    from security.security_events import record_admin_log
+    
+    if type not in ["ip", "user_id"]:
+        return {"success": False, "detail": "无效的类型，必须是 'ip' 或 'user_id'"}
+    
+    if not unban_reason.strip():
+        return {"success": False, "detail": "解封必须填写理由"}
+    
+    try:
+        success = do_unban(type, value, ADMIN_USERNAME, unban_reason)
+        if success:
+            # 记录审计日志
+            record_admin_log(
+                admin_user=ADMIN_USERNAME,
+                action="unban",
+                target_type=type,
+                target_value=value,
+                detail=unban_reason
+            )
+            return {"success": True, "detail": f"已解封 {type}: {value}"}
+        else:
+            return {"success": False, "detail": "未找到该记录或解封失败"}
+    except Exception as e:
+        logger.error(f"解封失败: {e}")
+        return {"success": False, "detail": str(e)}
+
+
 @router.delete("/blacklist", summary="移除黑名单记录")
 async def remove_from_blacklist(
     type: str,
     value: str,
     token: str = Depends(get_admin_token)
 ) -> Dict[str, Any]:
-    """移除黑名单记录"""
+    """移除黑名单记录（物理删除）"""
     from security.blacklist import blacklist_manager
+    from security.security_events import record_admin_log
     
     if type not in ["ip", "user_id"]:
         return {"success": False, "detail": "无效的类型，必须是 'ip' 或 'user_id'"}
@@ -475,6 +543,13 @@ async def remove_from_blacklist(
     try:
         success = blacklist_manager.remove(type, value)
         if success:
+            record_admin_log(
+                admin_user=ADMIN_USERNAME,
+                action="delete_ban",
+                target_type=type,
+                target_value=value,
+                detail="物理删除黑名单记录"
+            )
             return {"success": True, "detail": f"已从黑名单移除 {type}: {value}"}
         else:
             return {"success": False, "detail": "未找到该记录"}
@@ -493,6 +568,7 @@ async def add_to_blacklist(
 ) -> Dict[str, Any]:
     """添加黑名单记录"""
     from security.blacklist import blacklist_manager
+    from security.security_events import record_admin_log
     
     if type not in ["ip", "user_id"]:
         return {"success": False, "detail": "无效的类型，必须是 'ip' 或 'user_id'"}
@@ -506,13 +582,161 @@ async def add_to_blacklist(
             return {"success": False, "detail": "无效的过期时间格式，应为 ISO 格式（如 2024-01-01T12:00:00）"}
     
     try:
-        success = blacklist_manager.add(type, value, reason, expires_datetime)
+        success = blacklist_manager.add(type, value, reason, expires_datetime, ban_type="manual")
         if success:
+            record_admin_log(
+                admin_user=ADMIN_USERNAME,
+                action="ban",
+                target_type=type,
+                target_value=value,
+                detail=reason or "管理员手动封禁"
+            )
             return {"success": True, "detail": f"已添加到黑名单: {type}={value}"}
         else:
             return {"success": False, "detail": "该记录已存在"}
     except Exception as e:
         logger.error(f"添加黑名单失败: {e}")
+        return {"success": False, "detail": str(e)}
+
+
+# ========== 安全事件接口 ==========
+
+@router.get("/security-events", summary="获取安全事件列表")
+async def get_security_events(
+    event_type: Optional[str] = None,
+    severity: Optional[str] = None,
+    limit: int = Query(50, ge=1, le=200),
+    page: int = Query(1, ge=1),
+    token: str = Depends(get_admin_token)
+) -> Dict[str, Any]:
+    """获取安全事件列表"""
+    try:
+        from storage.database import get_db
+        from storage.models import SecurityEvent
+        from sqlalchemy import desc
+
+        db = next(get_db())
+        query = db.query(SecurityEvent)
+
+        if event_type:
+            query = query.filter(SecurityEvent.event_type == event_type)
+        if severity:
+            query = query.filter(SecurityEvent.severity == severity)
+
+        total = query.count()
+        events = query.order_by(desc(SecurityEvent.created_at)) \
+                      .offset((page - 1) * limit) \
+                      .limit(limit) \
+                      .all()
+
+        return {
+            "success": True,
+            "data": [
+                {
+                    "id": e.id,
+                    "event_type": e.event_type,
+                    "severity": e.severity,
+                    "source": e.source,
+                    "detail": e.detail,
+                    "user_id": e.user_id,
+                    "ip": e.ip,
+                    "meta_json": e.meta_json,
+                    "created_at": e.created_at.isoformat() if e.created_at else None
+                }
+                for e in events
+            ],
+            "total": total,
+            "page": page,
+            "limit": limit
+        }
+    except Exception as e:
+        logger.error(f"获取安全事件失败: {e}")
+        return {"success": False, "detail": str(e)}
+
+
+@router.get("/security-events/stats", summary="获取安全事件统计")
+async def get_security_event_stats(
+    days: int = 7,
+    token: str = Depends(get_admin_token)
+) -> Dict[str, Any]:
+    """获取按事件类型统计的安全事件数据"""
+    try:
+        from storage.database import get_db
+        from storage.models import SecurityEvent
+        from sqlalchemy import func
+
+        db = next(get_db())
+        cutoff = datetime.now() - timedelta(days=days)
+
+        stats = db.query(
+            SecurityEvent.event_type,
+            func.count(SecurityEvent.id).label('count')
+        ).filter(
+            SecurityEvent.created_at >= cutoff
+        ).group_by(
+            SecurityEvent.event_type
+        ).all()
+
+        return {
+            "success": True,
+            "data": [
+                {"event_type": s[0], "count": s[1]}
+                for s in stats
+            ],
+            "days": days
+        }
+    except Exception as e:
+        logger.error(f"获取安全事件统计失败: {e}")
+        return {"success": False, "detail": str(e)}
+
+
+# ========== 管理员操作日志接口 ==========
+
+@router.get("/admin-logs", summary="获取管理员操作日志")
+async def get_admin_logs(
+    action: Optional[str] = None,
+    limit: int = Query(50, ge=1, le=200),
+    page: int = Query(1, ge=1),
+    token: str = Depends(get_admin_token)
+) -> Dict[str, Any]:
+    """获取管理员操作审计日志"""
+    try:
+        from storage.database import get_db
+        from storage.models import AdminLog
+        from sqlalchemy import desc
+
+        db = next(get_db())
+        query = db.query(AdminLog)
+
+        if action:
+            query = query.filter(AdminLog.action == action)
+
+        total = query.count()
+        logs = query.order_by(desc(AdminLog.created_at)) \
+                    .offset((page - 1) * limit) \
+                    .limit(limit) \
+                    .all()
+
+        return {
+            "success": True,
+            "data": [
+                {
+                    "id": l.id,
+                    "admin_user": l.admin_user,
+                    "action": l.action,
+                    "target_type": l.target_type,
+                    "target_value": l.target_value,
+                    "detail": l.detail,
+                    "created_at": l.created_at.isoformat() if l.created_at else None
+                }
+                for l in logs
+            ],
+            "total": total,
+            "page": page,
+            "limit": limit
+        }
+    except Exception as e:
+        logger.error(f"获取管理员日志失败: {e}")
         return {"success": False, "detail": str(e)}
 
 
@@ -835,4 +1059,311 @@ async def get_admin_report(
         }
     except Exception as e:
         logger.error(f"获取报告详情失败: {e}")
+        return {"success": False, "detail": str(e)}
+
+
+# ========== 用户管理接口 ==========
+
+@router.get("/users", summary="获取用户列表")
+async def get_users(
+    page: int = Query(1, ge=1),
+    size: int = Query(20, ge=1, le=100),
+    mobile: Optional[str] = None,
+    status: Optional[str] = None,
+    token: str = Depends(get_admin_token)
+) -> Dict[str, Any]:
+    """获取用户列表（分页），支持按手机号搜索和状态筛选"""
+    from storage.crud import get_users
+    
+    try:
+        result = get_users(page=page, limit=size, mobile=mobile, status=status)
+        
+        # 脱敏手机号
+        for user in result["data"]:
+            user["mobile"] = _mask_phone(user["mobile"])
+        
+        return {
+            "success": True,
+            "data": result["data"],
+            "total": result["total"],
+            "page": result["page"],
+            "size": result["limit"]
+        }
+    except Exception as e:
+        logger.error(f"获取用户列表失败: {e}")
+        return {"success": False, "detail": str(e)}
+
+
+@router.get("/users/{user_id}", summary="获取用户详情")
+async def get_user_detail(
+    user_id: int,
+    token: str = Depends(get_admin_token)
+) -> Dict[str, Any]:
+    """获取用户详情（含额度变动流水）"""
+    from storage.crud import get_user_detail, get_admin_logs_by_target
+    
+    try:
+        user = get_user_detail(user_id)
+        if not user:
+            return {"success": False, "detail": "用户不存在"}
+        
+        # 脱敏手机号
+        user["mobile"] = _mask_phone(user["mobile"])
+        
+        # 获取额度变动流水（从admin_logs中提取）
+        logs = get_admin_logs_by_target("user_id", str(user_id))
+        
+        return {
+            "success": True,
+            "data": {
+                "user": user,
+                "credit_logs": logs["data"]
+            }
+        }
+    except Exception as e:
+        logger.error(f"获取用户详情失败: {e}")
+        return {"success": False, "detail": str(e)}
+
+
+@router.post("/users/{user_id}/ban", summary="封禁用户")
+async def ban_user(
+    user_id: int,
+    reason: Optional[str] = "",
+    token: str = Depends(get_admin_token)
+) -> Dict[str, Any]:
+    """封禁用户账号"""
+    from storage.crud import update_user_status, create_admin_log
+    
+    try:
+        success = update_user_status(user_id, "blocked")
+        if not success:
+            return {"success": False, "detail": "用户不存在"}
+        
+        # 记录操作日志
+        create_admin_log(
+            admin_user=ADMIN_USERNAME,
+            action="ban_user",
+            target_type="user_id",
+            target_value=str(user_id),
+            detail=reason or "管理员手动封禁"
+        )
+        
+        logger.info(f"用户 {user_id} 已被封禁")
+        return {"success": True, "detail": "已封禁用户"}
+    except Exception as e:
+        logger.error(f"封禁用户失败: {e}")
+        return {"success": False, "detail": str(e)}
+
+
+@router.post("/users/{user_id}/unban", summary="解封用户")
+async def unban_user(
+    user_id: int,
+    reason: Optional[str] = "",
+    token: str = Depends(get_admin_token)
+) -> Dict[str, Any]:
+    """解封用户账号"""
+    from storage.crud import update_user_status, create_admin_log
+    
+    try:
+        success = update_user_status(user_id, "normal")
+        if not success:
+            return {"success": False, "detail": "用户不存在"}
+        
+        # 记录操作日志
+        create_admin_log(
+            admin_user=ADMIN_USERNAME,
+            action="unban_user",
+            target_type="user_id",
+            target_value=str(user_id),
+            detail=reason or "管理员手动解封"
+        )
+        
+        logger.info(f"用户 {user_id} 已被解封")
+        return {"success": True, "detail": "已解封用户"}
+    except Exception as e:
+        logger.error(f"解封用户失败: {e}")
+        return {"success": False, "detail": str(e)}
+
+
+@router.post("/users/{user_id}/add-credits", summary="增加额度")
+async def add_credits(
+    user_id: int,
+    amount: int = Query(1, ge=1),
+    reason: Optional[str] = "",
+    token: str = Depends(get_admin_token)
+) -> Dict[str, Any]:
+    """增加用户免费审查额度"""
+    from storage.crud import add_user_credits, create_admin_log
+    
+    try:
+        new_credits = add_user_credits(user_id, amount)
+        if new_credits == 0:
+            return {"success": False, "detail": "用户不存在"}
+        
+        # 记录操作日志
+        create_admin_log(
+            admin_user=ADMIN_USERNAME,
+            action="add_credits",
+            target_type="user_id",
+            target_value=str(user_id),
+            detail=f"增加额度 +{amount}，理由: {reason}" if reason else f"增加额度 +{amount}"
+        )
+        
+        logger.info(f"用户 {user_id} 额度增加 {amount}，当前额度: {new_credits}")
+        return {
+            "success": True,
+            "detail": f"已增加 {amount} 次免费审查额度",
+            "remaining_credits": new_credits
+        }
+    except Exception as e:
+        logger.error(f"增加额度失败: {e}")
+        return {"success": False, "detail": str(e)}
+
+
+@router.post("/users/{user_id}/reduce-credits", summary="减少额度")
+async def reduce_credits(
+    user_id: int,
+    amount: int = Query(1, ge=1),
+    reason: Optional[str] = "",
+    token: str = Depends(get_admin_token)
+) -> Dict[str, Any]:
+    """减少用户免费审查额度"""
+    from storage.crud import reduce_user_credits, create_admin_log
+    
+    try:
+        new_credits = reduce_user_credits(user_id, amount)
+        if new_credits == 0:
+            # 需要检查是用户不存在还是额度已为0
+            from storage.crud import get_user_detail
+            user = get_user_detail(user_id)
+            if not user:
+                return {"success": False, "detail": "用户不存在"}
+        
+        # 记录操作日志
+        create_admin_log(
+            admin_user=ADMIN_USERNAME,
+            action="reduce_credits",
+            target_type="user_id",
+            target_value=str(user_id),
+            detail=f"减少额度 -{amount}，理由: {reason}" if reason else f"减少额度 -{amount}"
+        )
+        
+        logger.info(f"用户 {user_id} 额度减少 {amount}，当前额度: {new_credits}")
+        return {
+            "success": True,
+            "detail": f"已减少 {amount} 次免费审查额度",
+            "remaining_credits": new_credits
+        }
+    except Exception as e:
+        logger.error(f"减少额度失败: {e}")
+        return {"success": False, "detail": str(e)}
+
+
+@router.get("/users/{user_id}/records", summary="获取用户审查记录")
+async def get_user_records(
+    user_id: int,
+    page: int = Query(1, ge=1),
+    size: int = Query(20, ge=1, le=100),
+    token: str = Depends(get_admin_token)
+) -> Dict[str, Any]:
+    """获取用户审查记录（分页）"""
+    from storage.crud import get_user_records
+    
+    try:
+        result = get_user_records(user_id, page=page, limit=size)
+        
+        # 处理每条记录
+        records = []
+        for record in result["data"]:
+            # 计算风险数量
+            risk_count = _count_risks(record["report_markdown"] or "")
+            
+            # 解析状态
+            status_val = _parse_status(record["metadata"])
+            
+            records.append({
+                "id": record["id"],
+                "filename": record["filename"],
+                "created_at": record["created_at"].isoformat() if record["created_at"] else "",
+                "status": status_val,
+                "risk_count": risk_count
+            })
+        
+        return {
+            "success": True,
+            "data": records,
+            "total": result["total"],
+            "page": result["page"],
+            "size": result["limit"]
+        }
+    except Exception as e:
+        logger.error(f"获取用户审查记录失败: {e}")
+        return {"success": False, "detail": str(e)}
+
+
+@router.get("/users/{user_id}/records/{record_id}/final-report", summary="获取最终报告")
+async def get_final_report(
+    user_id: int,
+    record_id: int,
+    token: str = Depends(get_admin_token)
+) -> Dict[str, Any]:
+    """获取审查记录的最终报告（用户可见版本）"""
+    try:
+        from storage.database import get_db
+        from storage.models import Record
+
+        db = next(get_db())
+        record = db.query(Record).filter(
+            Record.id == record_id,
+            Record.user_id == user_id
+        ).first()
+
+        if not record:
+            return {"success": False, "detail": "记录不存在"}
+
+        return {
+            "success": True,
+            "data": {
+                "id": record.id,
+                "filename": record.filename,
+                "report_markdown": record.report_markdown or "",
+                "created_at": record.created_at.isoformat() if record.created_at else ""
+            }
+        }
+    except Exception as e:
+        logger.error(f"获取最终报告失败: {e}")
+        return {"success": False, "detail": str(e)}
+
+
+@router.get("/users/{user_id}/records/{record_id}/raw-report", summary="获取原始报告")
+async def get_raw_report(
+    user_id: int,
+    record_id: int,
+    token: str = Depends(get_admin_token)
+) -> Dict[str, Any]:
+    """获取审查记录的原始报告（大模型返回的完整内容）"""
+    try:
+        from storage.database import get_db
+        from storage.models import Record
+
+        db = next(get_db())
+        record = db.query(Record).filter(
+            Record.id == record_id,
+            Record.user_id == user_id
+        ).first()
+
+        if not record:
+            return {"success": False, "detail": "记录不存在"}
+
+        return {
+            "success": True,
+            "data": {
+                "id": record.id,
+                "filename": record.filename,
+                "raw_output": record.raw_output or "",
+                "created_at": record.created_at.isoformat() if record.created_at else ""
+            }
+        }
+    except Exception as e:
+        logger.error(f"获取原始报告失败: {e}")
         return {"success": False, "detail": str(e)}

@@ -183,12 +183,15 @@ def get_task(task_id: str) -> Optional[Task]:
             if record:
                 task = _db_record_to_task(record)
                 _tasks[task_id] = task  # 恢复到内存缓存
-                logger.info(f"[TaskDB] 从数据库恢复了任务 {task_id}（状态: {task.status.value}）")
+                # 初始化 SSE 通知事件（如果尚未存在）
+                if task_id not in _task_events:
+                    _task_events[task_id] = asyncio.Event()
+                logger.info(f"[TaskDB] 从数据库恢复了任务 {task_id}（状态：{task.status.value}）")
                 return task
         finally:
             db.close()
     except Exception as e:
-        logger.warning(f"[TaskDB] 查询任务 {task_id} 失败: {e}")
+        logger.warning(f"[TaskDB] 查询任务 {task_id} 失败：{e}")
     return None
 
 def update_task(task_id: str, **kwargs):

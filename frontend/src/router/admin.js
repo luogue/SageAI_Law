@@ -28,6 +28,16 @@ const routes = [
         component: () => import('../views/admin/Dashboard.vue')
       },
       {
+        path: 'users',
+        name: 'UserList',
+        component: () => import('../views/admin/UserList.vue')
+      },
+      {
+        path: 'users/:id',
+        name: 'UserDetail',
+        component: () => import('../views/admin/UserDetail.vue')
+      },
+      {
         path: 'feedbacks',
         name: 'FeedbackList',
         component: () => import('../views/admin/FeedbackList.vue')

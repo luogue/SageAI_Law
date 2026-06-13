@@ -65,8 +65,8 @@ ARK_ENDPOINT_ID = os.getenv("ARK_ENDPOINT_ID", "")
 # DeepSeek - 备选模型
 DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY", "")
 
-# 模型优先级（可选，逗号分隔，默认: qwen,doubao,deepseek）
-LLM_PRIORITY = os.getenv("LLM_PRIORITY", "qwen,doubao,deepseek")
+# 模型优先级（可选，逗号分隔，默认: doubao,qwen,deepseek）
+LLM_PRIORITY = os.getenv("LLM_PRIORITY", "doubao,qwen,deepseek")
 
 # 备用模型列表（兼容旧配置）
 ALTERNATIVE_MODELS = os.getenv("ALTERNATIVE_MODELS", "")

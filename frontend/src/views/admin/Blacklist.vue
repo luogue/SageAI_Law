@@ -49,7 +49,7 @@
       <el-table :data="blacklist" border>
         <el-table-column prop="id" label="ID" width="80" />
         <el-table-column 
-          prop="blacklist_type" 
+          prop="type" 
           label="类型" 
           width="100"
           :formatter="formatType"
@@ -127,7 +127,7 @@ async function handleAdd() {
 
 async function handleRemove(row) {
   try {
-    await removeFromBlacklist(row.blacklist_type, row.value)
+    await removeFromBlacklist(row.type, row.value)
     loadBlacklist()
   } catch (e) {
     console.error('移除黑名单失败:', e)
@@ -135,7 +135,7 @@ async function handleRemove(row) {
 }
 
 function formatType(row) {
-  return row.blacklist_type === 'ip' ? 'IP' : '用户ID'
+  return row.type === 'ip' ? 'IP' : '用户ID'
 }
 
 function formatExpiresAt(row) {

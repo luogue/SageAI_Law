@@ -39,7 +39,7 @@ class SecurityMiddleware(BaseHTTPMiddleware):
         user_id = getattr(request.state, "user_id", "anonymous")
         start_time = time.time()
 
-        # ========== 黑名单检查 ==========
+        # ========== 黑名单检查（统一，含解封状态检查） ==========
         blacklisted = check_blacklist(client_ip, str(user_id) if user_id != "anonymous" else None)
         if blacklisted:
             structured_logger.log_security(
@@ -47,10 +47,22 @@ class SecurityMiddleware(BaseHTTPMiddleware):
             )
             return JSONResponse(
                 status_code=403,
-                content={"success": False, "detail": "您的访问已被禁止，如有疑问请联系管理员"}
+                content={"success": False, "detail": "账号已被封禁，请联系管理员"}
             )
 
-        # ========== 自动封禁检查 ==========
+        # ========== 限流检查（在封禁检查之后） ==========
+        if ENABLE_RATE_LIMIT:
+            path = request.url.path
+            if path.startswith("/api/review") or path.startswith("/api/batch"):
+                limiter = get_rate_limiter()
+                allowed, msg = limiter.is_allowed(str(user_id), client_ip, "review")
+                if not allowed:
+                    structured_logger.log_security(
+                        "RATE_LIMIT_BLOCK", client_ip, str(user_id), reason=msg
+                    )
+                    return JSONResponse(status_code=429, content={"success": False, "detail": "请求过于频繁，请稍后再试"})
+
+        # ========== 自动封禁检查（在限流之后） ==========
         if ENABLE_AUTO_BAN:
             try:
                 from utils.security import check_auto_ban
@@ -61,23 +73,10 @@ class SecurityMiddleware(BaseHTTPMiddleware):
                     )
                     return JSONResponse(
                         status_code=403,
-                        content={"success": False, "detail": "您的访问已被系统自动禁止，如有疑问请联系管理员"}
+                        content={"success": False, "detail": "账号已被封禁，请联系管理员"}
                     )
             except Exception as e:
                 logger.error(f"[AUTO_BAN] 自动封禁检查失败: {e}")
-                # 自动封禁检查失败不应影响正常请求
-
-        # ========== 限流检查 ==========
-        if ENABLE_RATE_LIMIT:
-            path = request.url.path
-            if path.startswith("/api/review") or path.startswith("/api/batch"):
-                limiter = get_rate_limiter()
-                allowed, msg = limiter.is_allowed(str(user_id), client_ip, "review")
-                if not allowed:
-                    structured_logger.log_security(
-                        "RATE_LIMIT_BLOCK", client_ip, str(user_id), reason=msg
-                    )
-                    return JSONResponse(status_code=429, content={"success": False, "detail": msg})
 
         # ========== 敏感词检查（仅对特定输入） ==========
         # 注意：不在这里检查，因为需要读取请求体，而是放在业务逻辑中检查

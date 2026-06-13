@@ -7,10 +7,10 @@
       </div>
       
       <el-form ref="loginForm" :model="form" :rules="rules" class="login-form">
-        <el-form-item prop="phone">
-          <el-input 
-            v-model="form.phone" 
-            placeholder="手机号" 
+        <el-form-item prop="username">
+          <el-input
+            v-model="form.username"
+            placeholder="用户名"
             prefix-icon="el-icon-user"
             size="large"
           />
@@ -50,7 +50,7 @@ import { ref, reactive } from 'vue'
 import { adminLogin } from '../../api/admin'
 
 const form = reactive({
-  phone: '',
+  username: '',
   password: ''
 })
 
@@ -58,8 +58,8 @@ const loading = ref(false)
 const error = ref('')
 
 const rules = {
-  phone: [
-    { required: true, message: '请输入手机号', trigger: 'blur' }
+  username: [
+    { required: true, message: '请输入用户名', trigger: 'blur' }
   ],
   password: [
     { required: true, message: '请输入密码', trigger: 'blur' }
@@ -71,7 +71,7 @@ async function handleLogin() {
   error.value = ''
   
   try {
-    const result = await adminLogin(form.phone, form.password)
+    const result = await adminLogin(form.username, form.password)
     if (result.success) {
       localStorage.setItem('admin_token', result.token)
       localStorage.setItem('admin_username', result.username)

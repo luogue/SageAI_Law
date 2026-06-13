@@ -205,6 +205,10 @@
           <span>{{ isProcessing ? '审查中...' : '批量审查上传' }}</span>
         </button>
         
+        <div class="upload-hint-wrapper">
+          <p class="upload-hint">上传过程中，请耐心等待，请勿刷新页面。假如不小心刷新，如果合同已经上传成功，请不要重复上传，避免重复扣费，后台正在为您处理，等待2~3分钟，查看审查报告即可。</p>
+        </div>
+        
         <button 
           v-if="completedContracts.length > 0"
           class="download-all-btn"
@@ -223,7 +227,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, onActivated, watch } from 'vue';
+import { ref, computed, onMounted, onUnmounted, onActivated, onDeactivated, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import { batchReviewContracts, confirmDuplicateContract, getTaskStatus, getBonusCredits } from '../utils/api';
@@ -377,14 +381,33 @@ onMounted(async () => {
 
 // 组件激活时（从 KeepAlive 缓存恢复）
 onActivated(() => {
-  console.log('UploadPage 从缓存激活，文件列表应保持原样');
-  // 注意：不要在onActivated中自动启动轮询，避免切换页面时重复调用api/task
-  // 轮询应该只在用户点击"批量审查上传"按钮后启动
+  console.log('UploadPage 从缓存激活，恢复处理状态');
+  // 恢复正在处理的任务的 SSE 连接（如果连接已断开）
+  const activeTasks = contracts.value.filter(
+    c => c.taskId && c.status !== 'completed' && c.status !== 'failed'
+  );
+  
+  if (activeTasks.length > 0) {
+    isProcessing.value = true;
+    activeTasks.forEach(contract => {
+      if (!taskEventSources[contract.taskId]) {
+        connectTaskStream(contract.taskId, contract);
+      }
+    });
+  }
 });
 
+// 组件被缓存时（切换页面）- 保持 SSE 连接和所有处理状态
+onDeactivated(() => {
+  console.log('UploadPage 进入缓存，保持 SSE 连接和后台处理');
+  // 不关闭 SSE 连接，让后端继续处理，前端恢复时可以看到最新进度
+});
+
+// 组件真正销毁时（如退出登录）- 清理所有连接
 onUnmounted(() => {
   isPageUnmounting = true;
   closeAllTaskStreams();
+  console.log('UploadPage 已销毁，所有 SSE 连接已关闭');
 });
 
 function triggerFileInput() {
@@ -747,6 +770,12 @@ async function startBatchReview() {
             
             if (status === 400) {
               errorMsg = detail.message || '请求参数错误';
+            } else if (status === 403) {
+              errorMsg = detail.message || '账号受限，请联系客服';
+              // 账号封禁需要显示轻提示
+              if (detail.error_code === 'BLACKLISTED') {
+                ElMessage.error(errorMsg);
+              }
             } else if (status === 422) {
               errorMsg = detail.message || '文件校验失败';
             } else if (status === 500) {
@@ -1140,8 +1169,13 @@ async function downloadAllAsZip() {
 
 .action-buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 20px;
+}
+
+.upload-hint-wrapper {
+  width: 100%;
 }
 
 .batch-btn {
@@ -1167,6 +1201,18 @@ async function downloadAllAsZip() {
 .batch-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.upload-hint {
+  flex: 1;
+  padding: 12px;
+  background: #fff3cd;
+  border: 1px solid #ffeeba;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #856404;
+  line-height: 1.6;
+  margin: 0;
 }
 
 .download-all-btn {

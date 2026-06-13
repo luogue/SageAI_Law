@@ -35,6 +35,10 @@ from security.rate_limiter import get_rate_limiter
 from security.blacklist import blacklist_manager
 from security.pre_validation import validate_file_basic, validate_content, validate_with_extractor
 from security.malicious_behavior_detector import get_malicious_tracker, record_violation, is_auto_banned
+from security.injection_detector import get_injection_detector
+from security.output_guard import init_output_guard, get_output_guard, check_output_leak
+from security.security_events import record_security_event
+from utils.security import ban_user_for_injection
 
 load_dotenv()
 
@@ -63,7 +67,7 @@ app = FastAPI(title="AI合同审查系统", version="5.0.0", description="基于
 
 @app.on_event("startup")
 async def startup_event():
-    """启动时清理过期日志并预初始化Redis"""
+    """启动时清理过期日志、预初始化Redis、初始化安全模块"""
     from security.sensitive_filter import cleanup_old_logs
     deleted = cleanup_old_logs(days=90)
     logger.info(f"启动时清理了 {deleted} 条过期拦截日志")
@@ -71,7 +75,6 @@ async def startup_event():
     # 预初始化Redis客户端，避免首次请求时的连接延迟
     try:
         from utils.redis_client import redis_client
-        # 尝试连接Redis，如果失败会快速返回（2秒超时）
         redis_client.connect()
         if redis_client.get_client():
             logger.info("Redis连接成功，将使用Redis进行限流和缓存")
@@ -79,6 +82,35 @@ async def startup_event():
             logger.info("Redis连接失败，已切换到内存模式，后续请求无延迟")
     except Exception as e:
         logger.warning(f"Redis预初始化失败: {e}，将使用内存模式")
+    
+    # ========== 初始化输出安全守卫（SHA256滑动窗口检测） ==========
+    try:
+        from layers.inference_layer import InferenceLayer
+        temp_layer = InferenceLayer()
+        system_prompt = temp_layer.prompt_template
+        guard = init_output_guard(system_prompt)
+        logger.info(f"[STARTUP] 输出安全守卫初始化完成: 片段哈希数={len(guard._fragment_hashes)}")
+    except Exception as e:
+        logger.error(f"[STARTUP] 输出安全守卫初始化失败: {e}")
+    
+    # ========== 初始注入检测器 ==========
+    try:
+        get_injection_detector()
+        logger.info("[STARTUP] 注入检测器初始化完成")
+    except Exception as e:
+        logger.error(f"[STARTUP] 注入检测器初始化失败: {e}")
+    
+    # ========== 运行安全增强迁移 ==========
+    try:
+        import importlib.util
+        migration_path = os.path.join(os.path.dirname(__file__), "migrations", "006_add_security_enhancements.py")
+        spec = importlib.util.spec_from_file_location("mig_006", migration_path)
+        mig = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mig)
+        mig.migrate()
+        logger.info("[STARTUP] 安全增强迁移完成")
+    except Exception as e:
+        logger.error(f"[STARTUP] 安全增强迁移失败: {e}")
 
 app.add_middleware(
     CORSMiddleware,
@@ -136,14 +168,6 @@ class ValidationErrorResponse(BaseModel):
     error_code: str
     filename: Optional[str] = None
 
-class RecordListResponse(BaseModel):
-    success: bool
-    records: List[Dict[str, Any]]
-
-class RecordDetailResponse(BaseModel):
-    success: bool
-    record: Optional[Dict[str, Any]] = None
-
 class BlacklistItemRequest(BaseModel):
     type: str  # "ip" or "user_id"
     value: str
@@ -162,6 +186,44 @@ def check_sensitive_content(text: str, extra_requirements: str = "") -> Tuple[bo
             if not ok:
                 return False, f"内容包含敏感信息：{', '.join(hits[:5])}"
     return True, ""
+
+async def run_inference_with_progress(task_id: str, inference_func, contract_text: str, additional_instructions: str):
+    """带进度更新的LLM推理调用，定期发送心跳防止前端超时"""
+    import threading
+    
+    stop_event = threading.Event()
+    progress = 40
+    
+    def progress_updater():
+        nonlocal progress
+        while not stop_event.is_set():
+            # 模拟进度逐步增加（从40%到60%）
+            if progress < 60:
+                progress += 5
+                try:
+                    update_task(task_id, progress=progress)
+                except Exception:
+                    pass
+            # 每10秒更新一次
+            stop_event.wait(10)
+    
+    # 启动进度更新线程
+    updater_thread = threading.Thread(target=progress_updater, daemon=True)
+    updater_thread.start()
+    
+    try:
+        # 执行推理（阻塞调用，已移至线程池）
+        result = await asyncio.to_thread(
+            inference_func,
+            contract_text,
+            additional_instructions
+        )
+        return result
+    finally:
+        # 停止进度更新线程
+        stop_event.set()
+        updater_thread.join(timeout=1)
+
 
 async def process_contract_task(task_id: str, file_content: bytes, filename: str, additional_instructions: str = "", file_hash: str = None):
     """异步处理单个合同审查任务"""
@@ -198,9 +260,9 @@ async def process_contract_task(task_id: str, file_content: bytes, filename: str
             # ========== 推理层处理 ==========
             update_task(task_id, progress=40)
             try:
-                # 使用 asyncio.to_thread 将阻塞的 LLM API 调用移至线程池
-                # 避免阻塞 asyncio 事件循环导致 Gunicorn worker 无响应 → 502
-                raw_report = await asyncio.to_thread(
+                # 使用带进度更新的LLM调用，定期发送心跳
+                raw_report = await run_inference_with_progress(
+                    task_id,
                     inference_layer.run_inference,
                     input_result.get('contract_text', ''),
                     additional_instructions
@@ -210,13 +272,11 @@ async def process_contract_task(task_id: str, file_content: bytes, filename: str
                     "raw_report": raw_report
                 }
             except AllModelsFailedError as e:
-                # 所有模型均失败，返回兜底消息（HTTP 200 + status: fallback）
+                # 所有模型均失败，返回兜底消息并标记任务失败
                 logger.warning(f"[Fallback] {task_id} 所有模型不可用，返回兜底消息")
-                inference_result = {
-                    "status": "fallback",
-                    "raw_report": e.fallback_message
-                }
-                update_task(task_id, progress=50, status=TaskStatus.PROCESSING)
+                update_task(task_id, status=TaskStatus.FAILED, error=e.fallback_message)
+                logger.error(f"[ALL_MODELS_FAILED] {task_id} 所有模型调用失败，任务标记为失败")
+                return
             except CircuitBreakerOpenError as e:
                 # 熔断器打开，返回503
                 update_task(task_id, status=TaskStatus.FAILED, error=f"服务暂时不可用: {str(e)}")
@@ -230,7 +290,7 @@ async def process_contract_task(task_id: str, file_content: bytes, filename: str
                 update_task(task_id, status=TaskStatus.FAILED, error=f"推理失败: {inference_result['message']}")
                 return
             
-            # ========== 校验层处理 ==========
+            # ========== 校验层处理（在原始报告上执行）==========
             update_task(task_id, progress=60)
             validation_result = validation_layer.process(
                 inference_result['raw_report'],
@@ -241,11 +301,35 @@ async def process_contract_task(task_id: str, file_content: bytes, filename: str
                 leak_msg = validation_result.get('warnings', ['校验失败'])
                 update_task(task_id, status=TaskStatus.FAILED, error=f"校验未通过: {'; '.join(leak_msg)}")
                 return
+
+            # ========== 输出封装层处理（提取用户可见内容）==========
+            update_task(task_id, progress=65)
+            # 先过滤内部推理步骤，只保留对用户有用的内容
+            filtered_report = output_layer._filter_internal_content(inference_result['raw_report'])
             
-            # ========== 输出封装层处理 ==========
+            # ========== SHA256滑动窗口输出泄露检测（在过滤后的内容上执行）==========
+            update_task(task_id, progress=70)
+            leak_passed, leak_detail = check_output_leak(filtered_report)
+            if not leak_passed:
+                logger.critical(f"[SECURITY] 输出泄露检测告警: task_id={task_id}, detail={leak_detail}")
+                # 记录安全事件（输出泄露不封禁账号，仅记录事件）
+                record_security_event(
+                    event_type="output_leak",
+                    severity="warning",
+                    source="output_guard",
+                    detail=f"task_id={task_id}, reason={leak_detail}, "
+                           f"output_preview={filtered_report[:200]}",
+                    user_id=task.user_id,
+                    ip=None  # 异步任务中可能没有IP
+                )
+                update_task(task_id, status=TaskStatus.FAILED,
+                           error="无法生成报告，请稍后重试")
+                return
+            
+            # ========== 生成最终输出（使用过滤后的报告）==========
             update_task(task_id, progress=80)
             output_result = output_layer.package_output(
-                inference_result['raw_report'],
+                filtered_report,  # 使用过滤后的报告
                 validation_result,
                 input_result
             )
@@ -273,13 +357,20 @@ async def process_contract_task(task_id: str, file_content: bytes, filename: str
                     if file_hash:
                         metadata['file_hash'] = file_hash
                     
+                    report_md = frontend_output.get('result', '')
+                    # 安全兜底：如果报告内容过短（只有模板框架），记录警告
+                    if not report_md or len(report_md.strip()) < 100:
+                        logger.warning(f"[RECORD] 报告内容异常过短(len={len(report_md) if report_md else 0})，"
+                                      f"raw_result_preview={str(frontend_output.get('result',''))[:200]}")
+                    
                     record_id = create_record(
                         user_id=task.user_id,
                         filename=task.filename,
-                        report_md=frontend_output.get('result', ''),
-                        metadata=metadata
+                        report_md=report_md,
+                        metadata=metadata,
+                        raw_output=inference_result.get('raw_report')
                     )
-                    logger.info(f"[RECORD] 用户 {task.user_id} 报告已保存，记录ID: {record_id}")
+                    logger.info(f"[RECORD] 用户 {task.user_id} 报告已保存，记录ID: {record_id}, 报告长度: {len(report_md) if report_md else 0}")
                 except Exception as e:
                     logger.error(f"[RECORD] 用户 {task.user_id} 报告保存失败: {e}")
             
@@ -330,7 +421,7 @@ async def review_contract(
     if blacklisted:
         raise HTTPException(status_code=403, detail={
             "error_code": "BLACKLISTED",
-            "message": f"您的访问已被限制"
+            "message": "账号因异常操作被临时限制，请联系客服处理"
         })
     # 检查自动封禁
     auto_banned, ban_reason = is_auto_banned(ip=client_ip, user_id=user_id)
@@ -361,8 +452,27 @@ async def review_contract(
             record_violation(ip=client_ip, user_id=user_id, violation_type="size_exceeded", reason=validation_error.get("message"))
         raise HTTPException(status_code=400, detail=validation_error)
 
-    # ========== 前置防护3.5：额外审查要求安全校验 ==========
+    # ========== 前置防护3.5：额外审查要求安全校验（增强版 - 含自动封禁） ==========
     from utils.security import validate_extra_requirements
+    from security.injection_detector import check_input_injection as enhanced_injection_check
+
+    # 先进行增强注入检测
+    inj_passed, inj_error, inj_rules = enhanced_injection_check(
+        additional_instructions or "", user_id=user_id, ip=client_ip
+    )
+    if not inj_passed:
+        # 自动封禁
+        ban_user_for_injection(
+            user_id=user_id,
+            ip=client_ip,
+            input_text=additional_instructions or "",
+            trigger_rule=", ".join(inj_rules) if inj_rules else "injection_pattern_matched"
+        )
+        raise HTTPException(status_code=403, detail={
+            "error_code": "INJECTION_DETECTED",
+            "message": "账号已被封禁，请联系管理员"
+        })
+
     req_valid, req_error = validate_extra_requirements(additional_instructions, user_id=user_id, ip=client_ip)
     if not req_valid:
         raise HTTPException(status_code=400, detail={
@@ -436,16 +546,6 @@ async def review_contract(
             # ========== 仅成功后才扣费 ==========
             used_bonus = use_user_bonus_credit(user_id)
             remaining_bonus = get_user_bonus_credits(user_id)
-            
-            record_id = create_record(
-                user_id=user_id,
-                filename=task_result.filename,
-                report_md=task_result.result or "",
-                metadata=task_result.metadata
-            )
-
-            # 更新任务记录ID
-            update_task(task.task_id, record_id=record_id)
 
             # ========== 更新文件哈希缓存 ==========
             enable_duplicate_check = os.getenv("ENABLE_DUPLICATE_CHECK", "true").lower() == "true"
@@ -461,7 +561,7 @@ async def review_contract(
                 "metadata": filter_metadata_for_frontend(task_result.metadata),
                 "validation": task_result.validation,
                 "summary": task_result.summary,
-                "record_id": record_id,
+                "record_id": task_result.record_id,
                 "used_bonus": used_bonus,
                 "remaining_bonus": remaining_bonus
             }
@@ -551,16 +651,6 @@ async def review_contract_confirm_duplicate(
             # ========== 仅成功后才扣费 ==========
             used_bonus = use_user_bonus_credit(user_id)
             remaining_bonus = get_user_bonus_credits(user_id)
-            
-            record_id = create_record(
-                user_id=user_id,
-                filename=task_result.filename,
-                report_md=task_result.result or "",
-                metadata=task_result.metadata
-            )
-
-            # 更新任务记录ID
-            update_task(task.task_id, record_id=record_id)
 
             # ========== 更新文件哈希缓存 ==========
             enable_duplicate_check = os.getenv("ENABLE_DUPLICATE_CHECK", "true").lower() == "true"
@@ -576,7 +666,7 @@ async def review_contract_confirm_duplicate(
                 "metadata": filter_metadata_for_frontend(task_result.metadata),
                 "validation": task_result.validation,
                 "summary": task_result.summary,
-                "record_id": record_id,
+                "record_id": task_result.record_id,
                 "used_bonus": used_bonus,
                 "remaining_bonus": remaining_bonus
             }
@@ -623,7 +713,7 @@ async def batch_review_contract(
     if blacklisted:
         raise HTTPException(status_code=403, detail={
             "error_code": "BLACKLISTED",
-            "message": "您的访问已被限制"
+            "message": "账号因异常操作被临时限制，请稍后再试或联系客服解封"
         })
     auto_banned, ban_reason = is_auto_banned(ip=client_ip, user_id=user_id)
     if auto_banned:
@@ -645,8 +735,25 @@ async def batch_review_contract(
     task_ids = []
     rejected_files = []
 
-    # ========== 前置防护2.5：额外审查要求安全校验 ==========
+    # ========== 前置防护2.5：额外审查要求安全校验（增强版） ==========
     from utils.security import validate_extra_requirements
+    from security.injection_detector import check_input_injection as enhanced_injection_check
+
+    inj_passed, inj_error, inj_rules = enhanced_injection_check(
+        additional_instructions or "", user_id=user_id, ip=client_ip
+    )
+    if not inj_passed:
+        ban_user_for_injection(
+            user_id=user_id,
+            ip=client_ip,
+            input_text=additional_instructions or "",
+            trigger_rule=", ".join(inj_rules) if inj_rules else "injection_pattern_matched"
+        )
+        raise HTTPException(status_code=403, detail={
+            "error_code": "INJECTION_DETECTED",
+            "message": "账号已被封禁，请联系管理员"
+        })
+
     req_valid, req_error = validate_extra_requirements(additional_instructions, user_id=user_id, ip=client_ip)
     if not req_valid:
         raise HTTPException(status_code=400, detail={
@@ -783,12 +890,14 @@ async def stream_task_status(task_id: str):
     
     async def event_generator():
         # 1. 发送初始状态
-        task_data = _build_task_sse_data(task)
+        current_task = task
+        task_data = _build_task_sse_data(current_task)
         yield _sse_event("status", task_data)
         
-        # 如果任务已结束，直接返回
-        status = task.status.value if isinstance(task.status, TaskStatus) else str(task.status)
+        # 如果任务已结束，发送结果并返回
+        status = current_task.status.value if isinstance(current_task.status, TaskStatus) else str(current_task.status)
         if status in ("completed", "failed"):
+            yield _sse_event("result", task_data)
             return
         
         # 2. 等待状态变更并推送
@@ -796,15 +905,15 @@ async def stream_task_status(task_id: str):
             # 等待任务状态变更（最长 25 秒发一次心跳）
             got_update = await wait_for_task_update(task_id, timeout=25.0)
             
-            task = get_task(task_id)
-            if not task:
+            current_task = get_task(task_id)
+            if not current_task:
                 yield _sse_event("error", {"error": "任务已删除"})
                 return
             
-            status = task.status.value if isinstance(task.status, TaskStatus) else str(task.status)
+            status = current_task.status.value if isinstance(current_task.status, TaskStatus) else str(current_task.status)
             
             if got_update:
-                task_data = _build_task_sse_data(task)
+                task_data = _build_task_sse_data(current_task)
                 if status in ("completed", "failed"):
                     yield _sse_event("result", task_data)
                     return
@@ -925,30 +1034,7 @@ async def delete_task(task_id: str):
     delete_task_func(task_id)
     return {"success": True, "message": "任务已删除"}
 
-# ========== 记录管理接口 ==========
-
-@app.get("/api/records", response_model=RecordListResponse)
-async def get_user_records(user_id: int = Depends(get_current_user)):
-    """获取当前用户的所有审查记录"""
-    records = get_records_by_user(user_id)
-    return {"success": True, "records": records}
-
-@app.get("/api/records/{record_id}", response_model=RecordDetailResponse)
-async def get_single_record(record_id: int, user_id: int = Depends(get_current_user)):
-    """获取单条审查记录详情"""
-    record = get_record(record_id, user_id)
-    if not record:
-        raise HTTPException(status_code=404, detail="记录不存在")
-    return {"success": True, "record": record}
-
-@app.delete("/api/records/{record_id}")
-async def delete_single_record(record_id: int, user_id: int = Depends(get_current_user)):
-    """删除单条审查记录"""
-    success = delete_record(record_id, user_id)
-    if not success:
-        raise HTTPException(status_code=404, detail="记录不存在")
-    return {"success": True, "message": "记录已删除"}
-
+# ========== 下载记录报告接口 ==========
 @app.get("/api/download/{record_id}")
 async def download_record_report(
     record_id: int,

@@ -39,11 +39,11 @@ async function adminRequest(url, options = {}) {
 }
 
 // ========== 登录 ==========
-export async function adminLogin(phone, password) {
+export async function adminLogin(username, password) {
   const response = await fetch(`${ADMIN_BASE_URL}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({ phone, password })
+    body: new URLSearchParams({ username, password })
   })
   return response.json()
 }
@@ -148,4 +148,61 @@ export async function getUsageUsers() {
 
 export async function getReportDetail(recordId) {
   return adminRequest(`/report/${recordId}`)
+}
+
+// ========== 用户管理 ==========
+export async function getUsers(params = {}) {
+  const query = new URLSearchParams()
+  if (params.page) query.append('page', params.page)
+  if (params.size) query.append('size', params.size)
+  if (params.mobile) query.append('mobile', params.mobile)
+  if (params.status) query.append('status', params.status)
+  return adminRequest(`/users?${query}`)
+}
+
+export async function getUserDetail(userId) {
+  return adminRequest(`/users/${userId}`)
+}
+
+export async function banUser(userId, reason = '') {
+  return adminRequest(`/users/${userId}/ban?reason=${encodeURIComponent(reason)}`, {
+    method: 'POST'
+  })
+}
+
+export async function unbanUser(userId, reason = '') {
+  return adminRequest(`/users/${userId}/unban?reason=${encodeURIComponent(reason)}`, {
+    method: 'POST'
+  })
+}
+
+export async function addUserCredits(userId, amount, reason = '') {
+  const params = new URLSearchParams({ amount })
+  if (reason) params.append('reason', reason)
+  return adminRequest(`/users/${userId}/add-credits?${params}`, {
+    method: 'POST'
+  })
+}
+
+export async function reduceUserCredits(userId, amount, reason = '') {
+  const params = new URLSearchParams({ amount })
+  if (reason) params.append('reason', reason)
+  return adminRequest(`/users/${userId}/reduce-credits?${params}`, {
+    method: 'POST'
+  })
+}
+
+export async function getUserRecords(userId, params = {}) {
+  const query = new URLSearchParams()
+  if (params.page) query.append('page', params.page)
+  if (params.size) query.append('size', params.size)
+  return adminRequest(`/users/${userId}/records?${query}`)
+}
+
+export async function getFinalReport(userId, recordId) {
+  return adminRequest(`/users/${userId}/records/${recordId}/final-report`)
+}
+
+export async function getRawReport(userId, recordId) {
+  return adminRequest(`/users/${userId}/records/${recordId}/raw-report`)
 }

@@ -38,7 +38,7 @@ MODEL_DEFINITIONS = {
         "api_key_env": "DASHSCOPE_API_KEY",
         "url": "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
         "model": os.getenv("QWEN_MODEL", "qwen-max"),
-        "max_tokens": 4096,
+        "max_tokens": 8192,  # qwen-max 最大输出 8192 tokens
         "temperature": 0.1,
     },
     "doubao": {
@@ -47,7 +47,7 @@ MODEL_DEFINITIONS = {
         "api_key_env": "ARK_API_KEY",
         "url": "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
         "model": os.getenv("ARK_ENDPOINT_ID", "doubao-pro-32k"),
-        "max_tokens": 4096,
+        "max_tokens": 16384,  # 豆包 doubao-pro-32k 最大输出 16384 tokens
         "temperature": 0.1,
     },
     "deepseek": {
@@ -56,13 +56,13 @@ MODEL_DEFINITIONS = {
         "api_key_env": "DEEPSEEK_API_KEY",
         "url": "https://api.deepseek.com/v1/chat/completions",
         "model": "deepseek-chat",
-        "max_tokens": 4096,
+        "max_tokens": 8192,  # deepseek-chat 最大输出 8192 tokens
         "temperature": 0.1,
     },
 }
 
-# 默认模型优先级：千问 -> 豆包 -> DeepSeek
-DEFAULT_PRIORITY = ["qwen", "doubao", "deepseek"]
+# 默认模型优先级：火山方舟(豆包) -> 千问 -> DeepSeek
+DEFAULT_PRIORITY = ["doubao", "qwen", "deepseek"]
 
 # 从环境变量读取自定义优先级（可选）
 # 格式: LLM_PRIORITY=qwen,doubao,deepseek （逗号分隔）
@@ -83,9 +83,14 @@ else:
     LLM_PRIORITY = DEFAULT_PRIORITY
 
 # 重试配置
-MAX_RETRIES_PER_MODEL = 3  # 每个模型最多重试次数
+MAX_RETRIES_PER_MODEL = 1   # 仅对瞬时网络错误重试1次（总耗时<5秒）
 RETRY_BACKOFF_BASE = 1      # 初始等待秒数
 RETRY_BACKOFF_MULTIPLIER = 2  # 指数倍增因子
+
+# API 调用超时配置（分离连接和读取超时）
+API_CONNECT_TIMEOUT = 5      # 连接超时（秒）- 短超时，快速检测网络闪断
+API_READ_TIMEOUT = 180       # 读取响应超时（秒），模型推理可能需要较长时间
+API_TOTAL_TIMEOUT = 180      # 单次请求总超时（秒）
 
 # 兜底消息
 FALLBACK_MESSAGE = "大模型服务暂时不可用，请稍后再试。"
@@ -95,15 +100,18 @@ FALLBACK_MESSAGE = "大模型服务暂时不可用，请稍后再试。"
 def _is_retryable_error(response_or_error) -> bool:
     """
     判断是否可重试
-    可重试: 网络超时、连接错误、5xx 状态码
-    不可重试: 401(无效密钥)、429(配额不足)、4xx(参数错误)、非网络异常
+    可重试: 连接超时(ConnectTimeout)、连接错误(ConnectionError)、5xx 状态码
+    不可重试: 读取超时(ReadTimeout)-模型处理慢直接降级、401(无效密钥)、429(配额不足)、4xx(参数错误)
     """
+    if isinstance(response_or_error, requests.exceptions.ConnectTimeout):
+        return True  # 连接超时-网络闪断，可重试
+    if isinstance(response_or_error, requests.exceptions.ReadTimeout):
+        return False  # 读取超时-模型处理慢，不可重试，直接降级
     if isinstance(response_or_error, requests.exceptions.Timeout):
-        return True
+        return False  # 通用Timeout默认不可重试（应具体区分）
     if isinstance(response_or_error, requests.exceptions.ConnectionError):
-        return True
+        return True  # 连接错误，可重试
     if isinstance(response_or_error, requests.exceptions.RequestException):
-        # 其他网络异常也可重试
         if hasattr(response_or_error, 'response') and response_or_error.response is not None:
             status = response_or_error.response.status_code
             if 500 <= status < 600:
@@ -116,6 +124,10 @@ def _is_retryable_error(response_or_error) -> bool:
 
 def _get_error_category(response_or_error) -> str:
     """获取错误分类描述（用于日志）"""
+    if isinstance(response_or_error, requests.exceptions.ConnectTimeout):
+        return "连接超时"
+    if isinstance(response_or_error, requests.exceptions.ReadTimeout):
+        return "读取超时(模型处理慢)"
     if isinstance(response_or_error, requests.exceptions.Timeout):
         return "网络超时"
     if isinstance(response_or_error, requests.exceptions.ConnectionError):
@@ -353,7 +365,10 @@ def call_llm(prompt: str, response_format: str = "text", max_retries: int = 3) -
                     logger.info(f"[LLM] {model_name} 第 {attempt + 1}/{max_retries} 次尝试，等待 {wait_seconds} 秒...")
                     time.sleep(wait_seconds)
 
-                response = requests.post(url, headers=headers, json=data, timeout=180)
+                response = requests.post(
+                    url, headers=headers, json=data,
+                    timeout=(API_CONNECT_TIMEOUT, API_READ_TIMEOUT)
+                )
 
                 if response.status_code == 200:
                     result = response.json()
@@ -391,10 +406,20 @@ def call_llm(prompt: str, response_format: str = "text", max_retries: int = 3) -
             except requests.exceptions.Timeout as e:
                 last_error = e
                 error_cat = _get_error_category(e)
-                logger.warning(f"[LLM] {model_name} {error_cat}（第 {attempt + 1}/{max_retries} 次尝试）")
-                if attempt < max_retries - 1:
-                    continue  # 可重试
-                all_errors.append(f"[{model_name}] {error_cat}（{max_retries}次重试后失败）")
+                
+                # 区分连接超时和读取超时
+                if isinstance(e, requests.exceptions.ReadTimeout):
+                    # 读取超时-模型处理慢，不重试，直接切换模型
+                    logger.warning(f"[LLM] ❌ {model_name} {error_cat}，不重试，立即切换模型")
+                    all_errors.append(f"[{model_name}] {error_cat}")
+                    model_success = False
+                    break
+                else:
+                    # 连接超时或其他超时，可重试
+                    logger.warning(f"[LLM] {model_name} {error_cat}（第 {attempt + 1}/{max_retries} 次尝试）")
+                    if attempt < max_retries - 1:
+                        continue  # 可重试
+                    all_errors.append(f"[{model_name}] {error_cat}（{max_retries}次重试后失败）")
 
             except requests.exceptions.ConnectionError as e:
                 last_error = e

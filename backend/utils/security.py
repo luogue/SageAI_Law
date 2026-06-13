@@ -102,14 +102,70 @@ def check_auto_ban(ip: str, user_id: Optional[int] = None) -> bool:
         from security.blacklist import add_to_blacklist
         
         if ip:
-            add_to_blacklist(ip=ip, reason=reason, expires_at=None)
+            add_to_blacklist(ip=ip, reason=reason, expires_at=None, ban_type="auto_ban")
         if user_id:
-            add_to_blacklist(user_id=str(user_id), reason=reason, expires_at=None)
+            add_to_blacklist(user_id=str(user_id), reason=reason, expires_at=None, ban_type="auto_ban")
         
         logger.info(f"[AUTO_BAN] 已成功封禁: ip={ip}, user_id={user_id}")
         return True
     
     return False
+
+
+def ban_user_for_injection(
+    user_id: Optional[int] = None,
+    ip: Optional[str] = None,
+    input_text: str = "",
+    trigger_rule: str = ""
+):
+    """
+    因提示注入攻击立即封禁用户
+
+    Args:
+        user_id: 用户ID
+        ip: 用户IP
+        input_text: 触发封禁的原始输入
+        trigger_rule: 触发的规则描述
+    """
+    from security.blacklist import add_to_blacklist
+    from security.security_events import record_security_event
+
+    reason = f"提示注入攻击: {trigger_rule[:100]}"
+    input_preview = input_text[:200] if input_text else ""
+
+    try:
+        if user_id:
+            add_to_blacklist(
+                user_id=str(user_id),
+                reason=reason,
+                ban_type="prompt_injection",
+                input_preview=input_preview,
+                trigger_rule=trigger_rule[:200]
+            )
+        if ip:
+            add_to_blacklist(
+                ip=ip,
+                reason=reason,
+                ban_type="prompt_injection",
+                input_preview=input_preview,
+                trigger_rule=trigger_rule[:200]
+            )
+
+        record_security_event(
+            event_type="prompt_injection",
+            severity="critical",
+            source="injection_detector",
+            detail=f"user_id={user_id}, ip={ip}, rule={trigger_rule[:200]}",
+            user_id=user_id,
+            ip=ip
+        )
+
+        logger.critical(
+            f"[INJECTION_BAN] 用户因提示注入攻击被自动封禁: "
+            f"user_id={user_id}, ip={ip}, rule={trigger_rule[:100]}"
+        )
+    except Exception as e:
+        logger.error(f"[INJECTION_BAN] 封禁操作失败: {e}")
 
 
 def _count_recent_intercepts(ip: str, user_id: Optional[int] = None) -> int:
@@ -210,7 +266,9 @@ def validate_extra_requirements(
     ip: Optional[str] = None
 ) -> Tuple[bool, str]:
     """
-    校验额外审查要求字段
+    校验额外审查要求字段（基础校验层）
+    注意：主调用点应在 endpoin 中先执行增强版注入检测
+    此函数作为补充校验使用
     
     Args:
         extra_requirements: 用户输入的额外审查要求
@@ -238,22 +296,20 @@ def validate_extra_requirements(
         _log_interception(user_id, ip, input_summary, "length_exceeded")
         return False, "额外要求过长"
     
-    # 2. 恶意意图检测（关键词匹配）
+    # 2. 恶意意图检测（关键词匹配 - 补充检测）
     if _detect_malicious_intent(input_text):
         _log_interception(user_id, ip, input_summary, "malicious_intent")
+        # 触发自动封禁
+        ban_user_for_injection(user_id=user_id, ip=ip, input_text=input_text, trigger_rule="malicious_keyword_matched")
         return False, "额外要求包含不合规内容，已拒绝"
     
-    # 3. 语义相似度检测（可选，初期可关闭）
-    # 此功能需要额外的模型或规则引擎，当前暂不实现
-    # if not _check_semantic_relevance(input_text):
-    #     _log_interception(user_id, ip, input_summary, "irrelevant_content")
-    #     return False, "额外要求包含不合规内容，已拒绝"
-    
-    # 4. 内容安全审核（阿里云内容安全API）
-    # 需要阿里云SDK和配置，当前暂不实现
-    # if not _check_content_safety(input_text):
-    #     _log_interception(user_id, ip, input_summary, "content_safety")
-    #     return False, "额外要求包含不合规内容，已拒绝"
+    # 3. 分隔符滥用检测（补充）
+    import re
+    separator_abuse_pattern = re.compile(r'([\-\#\=\*\_\[\]\{\}\|\~]{3,}\s*){3,}')
+    if separator_abuse_pattern.search(input_text):
+        _log_interception(user_id, ip, input_summary, "separator_abuse")
+        ban_user_for_injection(user_id=user_id, ip=ip, input_text=input_text, trigger_rule="separator_abuse_detected")
+        return False, "额外要求包含不合规内容，已拒绝"
     
     logger.debug("[EXTRA_REQ] 所有校验通过")
     return True, ""

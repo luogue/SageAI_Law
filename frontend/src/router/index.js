@@ -20,6 +20,16 @@ function redirectIfLoggedIn(to, from, next) {
   }
 }
 
+// 管理员路由守卫
+function requireAdminAuth(to, from, next) {
+  const adminToken = localStorage.getItem('admin_token')
+  if (adminToken) {
+    next()
+  } else {
+    next('/admin/login')
+  }
+}
+
 const routes = [
   {
     path: '/login',
@@ -54,6 +64,55 @@ const routes = [
         path: 'report/:id',
         name: 'ReportDetail',
         component: () => import('../components/ResultPage.vue')
+      }
+    ]
+  },
+  // ========== 后台管理路由 ==========
+  {
+    path: '/admin/login',
+    name: 'AdminLogin',
+    component: () => import('../views/admin/Login.vue')
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/admin/AdminLayout.vue'),
+    beforeEnter: requireAdminAuth,
+    children: [
+      {
+        path: '',
+        name: 'AdminDashboard',
+        component: () => import('../views/admin/Dashboard.vue')
+      },
+      {
+        path: 'users',
+        name: 'UserList',
+        component: () => import('../views/admin/UserList.vue')
+      },
+      {
+        path: 'users/:id',
+        name: 'UserDetail',
+        component: () => import('../views/admin/UserDetail.vue')
+      },
+      {
+        path: 'feedbacks',
+        name: 'FeedbackList',
+        component: () => import('../views/admin/FeedbackList.vue')
+      },
+      {
+        path: 'blacklist',
+        name: 'Blacklist',
+        component: () => import('../views/admin/Blacklist.vue')
+      },
+      {
+        path: 'settings',
+        name: 'Settings',
+        component: () => import('../views/admin/Settings.vue')
+      },
+      {
+        path: 'usage',
+        name: 'Usage',
+        component: () => import('../views/admin/Usage.vue')
       }
     ]
   }

@@ -13,7 +13,8 @@ from storage.crud import (
     create_invite_reward,
     check_phone_has_been_invited,
     get_invitee_count_by_ip,
-    get_user_by_id
+    get_user_by_id,
+    parse_phone_number
 )
 from security.registration_rate_limiter import (
     check_registration_allowed,
@@ -34,6 +35,7 @@ NEW_USER_DEFAULT_CREDITS = 3  # 新用户默认赠送额度
 MAX_INVITEES_PER_IP_24H = 3  # 24小时内同一IP最多被邀请注册次数
 MAX_LOGIN_ATTEMPTS = 5  # 最大登录失败次数
 LOGIN_LOCK_DURATION = 15 * 60  # 登录锁定时长（秒）
+CAPTCHA_THRESHOLD = 3  # 登录失败几次后需要验证码
 
 # 短信限流配置
 SMS_RATE_LIMIT_PHONE_MINUTE = 1  # 同一手机号每分钟最多1次
@@ -54,6 +56,7 @@ class RegisterRequest(BaseModel):
 class LoginRequest(BaseModel):
     phone: str
     password: str
+    captcha_token: Optional[str] = None
 
 
 class SendCodeRequest(BaseModel):
@@ -195,6 +198,23 @@ async def send_sms_code(request: SendCodeRequest, req: Request) -> Dict[str, Any
     return {"success": True, "message": "验证码已发送，请注意查收"}
 
 
+def check_need_captcha(phone: str, client_ip: str) -> bool:
+    """检查是否需要验证码（登录失败3次后需要）"""
+    # 检查手机号登录失败次数
+    phone_fail_key = f"login:fail:phone:{phone}"
+    phone_fail_count = redis_client.get(phone_fail_key)
+    if phone_fail_count and int(phone_fail_count) >= CAPTCHA_THRESHOLD:
+        return True
+    
+    # 检查IP登录失败次数
+    ip_fail_key = f"login:fail:ip:{client_ip}"
+    ip_fail_count = redis_client.get(ip_fail_key)
+    if ip_fail_count and int(ip_fail_count) >= CAPTCHA_THRESHOLD:
+        return True
+    
+    return False
+
+
 @router.post("/login")
 async def login(request: LoginRequest, req: Request) -> Dict[str, Any]:
     """登录接口 - 仅支持手机号+密码登录"""
@@ -203,37 +223,50 @@ async def login(request: LoginRequest, req: Request) -> Dict[str, Any]:
     # 验证手机号格式
     valid, phone_msg = validate_phone_number(request.phone)
     if not valid:
-        raise HTTPException(status_code=422, detail=phone_msg)
+        return {"success": False, "code": 4001, "detail": phone_msg}
     
     # 检查登录锁定
     lock_msg = check_login_lock(request.phone, client_ip)
     if lock_msg:
-        raise HTTPException(status_code=422, detail=lock_msg)
+        return {"success": False, "code": 4002, "detail": lock_msg}
     
-    # 获取用户 - 支持带国际区号和不带区号的查询
-    user = get_user_by_mobile(request.phone)
+    # 检查是否需要验证码
+    need_captcha = check_need_captcha(request.phone, client_ip)
+    if need_captcha and not request.captcha_token:
+        return {"success": False, "code": 4004, "detail": "请先完成图形验证码验证"}
     
-    # 如果带区号查询不到，尝试去掉区号查询
+    # 解析手机号，分离区号和手机号
+    country_code, mobile = parse_phone_number(request.phone)
+    
+    # 获取用户
+    user = get_user_by_mobile(mobile, country_code)
+    
+    # 如果带区号查询不到，尝试只按手机号查询（兼容旧数据）
     if not user:
-        # 处理国际区号：提取纯数字后，去掉可能的区号前缀
-        phone_digits = ''.join(filter(str.isdigit, request.phone))
-        
-        # 如果是中国手机号（+86开头），去掉前两位86
-        if request.phone.startswith('+86') and len(phone_digits) == 13:
-            phone_digits = phone_digits[2:]  # 去掉86前缀
-        
-        user = get_user_by_mobile(phone_digits)
+        user = get_user_by_mobile(mobile)
     
     if not user:
         # 记录失败并返回通用错误
         record_login_failure(request.phone, client_ip)
-        raise HTTPException(status_code=422, detail="手机号或密码错误")
+        new_fail_count = int(redis_client.get(f"login:fail:phone:{request.phone}") or 0)
+        return {
+            "success": False, 
+            "code": 4003, 
+            "detail": "手机号或密码错误",
+            "need_captcha": new_fail_count >= CAPTCHA_THRESHOLD
+        }
     
     # 验证密码
     if not verify_password(request.password, user.password_hash):
         # 记录失败
         record_login_failure(request.phone, client_ip)
-        raise HTTPException(status_code=422, detail="手机号或密码错误")
+        new_fail_count = int(redis_client.get(f"login:fail:phone:{request.phone}") or 0)
+        return {
+            "success": False, 
+            "code": 4003, 
+            "detail": "手机号或密码错误",
+            "need_captcha": new_fail_count >= CAPTCHA_THRESHOLD
+        }
     
     # 清除失败记录
     clear_login_failure(request.phone, client_ip)
@@ -270,13 +303,15 @@ async def register(request: RegisterRequest, req: Request) -> Dict[str, Any]:
         # TODO: 实际实现滑动验证码验证
         pass
     
-    # 检查用户是否已存在
-    existing_user = get_user_by_mobile(request.phone)
+    # 解析手机号，分离区号和手机号
+    country_code, mobile = parse_phone_number(request.phone)
     
-    # 如果带区号查询不到，尝试去掉区号查询
+    # 检查用户是否已存在
+    existing_user = get_user_by_mobile(mobile, country_code)
+    
+    # 如果带区号查询不到，尝试只按手机号查询（兼容旧数据）
     if not existing_user:
-        phone_digits = ''.join(filter(str.isdigit, request.phone))
-        existing_user = get_user_by_mobile(phone_digits)
+        existing_user = get_user_by_mobile(mobile)
     
     if existing_user:
         return {"success": False, "detail": "该手机号已被注册"}
@@ -308,11 +343,11 @@ async def register(request: RegisterRequest, req: Request) -> Dict[str, Any]:
             return {"success": False, "detail": "操作频繁，请稍后再试"}
         
         # 防刷检查：禁止自我邀请
-        if inviter.mobile == request.phone:
+        if inviter.mobile == mobile:
             return {"success": False, "detail": "不能邀请自己注册"}
     
     # 创建用户（支持邀请人）
-    user = create_user_with_invite(request.phone, hash_password(request.password), inviter_id)
+    user = create_user_with_invite(mobile, hash_password(request.password), inviter_id, country_code)
     
     # 为新用户赠送默认免费审查额度
     add_user_bonus_credits(user.id, NEW_USER_DEFAULT_CREDITS)

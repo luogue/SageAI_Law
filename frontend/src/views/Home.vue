@@ -65,11 +65,14 @@
 
     <!-- 主内容区 -->
     <main class="main-content">
-      <router-view v-slot="{ Component }">
-        <component 
-          :is="Component" 
-          @update-credits="handleUpdateCredits"
-        />
+      <router-view v-slot="{ Component, route: childRoute }">
+        <keep-alive :include="cachedComponents">
+          <component 
+            :is="Component" 
+            :key="childRoute.name"
+            @update-credits="handleUpdateCredits"
+          />
+        </keep-alive>
       </router-view>
     </main>
 
@@ -98,8 +101,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
-import { KeepAlive } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import PrivacyPolicy from '../components/PrivacyPolicy.vue'
 import TermsOfService from '../components/TermsOfService.vue'
@@ -115,6 +117,9 @@ const showTermsModal = ref(false)
 const showCreditSupplyModal = ref(false)
 const showFeedbackModal = ref(false)
 const bonusCredits = ref(0)
+
+// 需要缓存的组件名称列表（对应 router.meta.keepAlive 标记的组件）
+const cachedComponents = ref(['UploadPage'])
 
 const maskedMobile = computed(() => {
   const mobile = localStorage.getItem('user_mobile')

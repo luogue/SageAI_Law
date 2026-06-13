@@ -1,5 +1,5 @@
 """数据库模型"""
-from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, Boolean
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, Boolean, JSON
 from sqlalchemy.sql import func
 from .database import Base, CHINA_TZ
 
@@ -9,11 +9,14 @@ class User(Base):
     __tablename__ = "user"
     
     id = Column(Integer, primary_key=True, index=True)
-    mobile = Column(String, unique=True, index=True, nullable=False)
+    country_code = Column(String(10), default="+86", nullable=False)  # 国际区号，如 +86
+    mobile = Column(String(20), unique=True, index=True, nullable=False)  # 纯手机号，不含区号
     password_hash = Column(String, nullable=False)
     bonus_credits = Column(Integer, default=0, nullable=False)  # 免费赠送的审查额度
     free_review_quota = Column(Integer, default=0, nullable=False)  # 免费审查额度（历史字段）
     invited_by = Column(Integer, ForeignKey("user.id"))  # 邀请人ID
+    status = Column(String(20), default="normal", nullable=False)  # 账号状态：normal/blocked
+    last_active_at = Column(DateTime(timezone=True))  # 最后活跃时间
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 
@@ -24,7 +27,8 @@ class Record(Base):
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
     filename = Column(String, nullable=False)  # 仅保存文件名
-    report_markdown = Column(Text)
+    report_markdown = Column(Text)  # 经输出封装层提取的用户可见报告
+    raw_output = Column(Text)  # 大模型返回的完整原始报告（用于内部审计和调试）
     metadata_json = Column(Text)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
@@ -103,7 +107,14 @@ class Blacklist(Base):
     id = Column(Integer, primary_key=True, index=True)
     blacklist_type = Column(String, nullable=False)  # 'ip' 或 'user_id'
     value = Column(String, nullable=False, unique=True, index=True)
-    reason = Column(String)
+    reason = Column(String)  # 封禁原因
+    ban_type = Column(String, default="manual")  # 封禁类型: manual, prompt_injection, auto_ban, output_leak
+    input_preview = Column(Text)  # 触发封禁的原始输入（截断）
+    trigger_rule = Column(String)  # 触发的规则描述
+    is_unbanned = Column(Boolean, default=False)  # 是否已解封
+    unbanned_by = Column(String)  # 解封操作人
+    unban_reason = Column(Text)  # 解封理由
+    unbanned_at = Column(DateTime(timezone=True))  # 解封时间
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 
@@ -138,6 +149,44 @@ class FileHashCache(Base):
         # 同一用户的同一文件哈希唯一
         {'extend_existing': True},
     )
+
+
+class AdminLog(Base):
+    """管理员操作审计日志表"""
+    __tablename__ = "admin_logs"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    admin_user = Column(String(50), nullable=False)  # 管理员用户名
+    action = Column(String(50), nullable=False)  # 操作类型: ban, unban, approve, reject
+    target_type = Column(String(50), nullable=False)  # 目标类型: user_id, ip, feedback
+    target_value = Column(String(200), nullable=False)  # 目标值
+    detail = Column(Text)  # 操作详情/理由
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class Admin(Base):
+    """管理员账号表"""
+    __tablename__ = "admins"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String(50), unique=True, index=True, nullable=False)
+    password_hash = Column(String, nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class SecurityEvent(Base):
+    """安全事件记录表"""
+    __tablename__ = "security_events"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    event_type = Column(String(50), nullable=False, index=True)  # 事件类型: prompt_injection, output_leak, auto_ban, rate_limit
+    severity = Column(String(20), nullable=False, default="warning")  # 严重程度: info, warning, critical
+    source = Column(String(50), nullable=False, default="system")  # 来源: middleware, injection_detector, output_guard
+    detail = Column(Text)  # 事件详情
+    user_id = Column(String(50))  # 关联用户ID (可为字符串)
+    ip = Column(String(45))  # 来源IP
+    meta_json = Column(Text)  # 额外元数据 (JSON)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), index=True)
 
 
 class TaskRecord(Base):

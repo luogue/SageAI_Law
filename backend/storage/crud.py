@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from typing import Optional, List
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
-from .models import User, Record, Blacklist, Feedback, BonusLog, RewardLog, InviteReward, FileHashCache
+from .models import User, Record, Blacklist, Feedback, BonusLog, RewardLog, InviteReward, FileHashCache, AdminLog, SecurityEvent, Admin
 from .database import get_db, engine, Base
 
 
@@ -14,19 +14,63 @@ def init_db():
     Base.metadata.create_all(bind=engine)
 
 
-def create_user(mobile: str, password_hash: str) -> User:
+def parse_phone_number(phone: str) -> tuple:
+    """
+    解析手机号，分离区号和手机号
+    :return: (country_code, mobile) 元组
+    """
+    # 提取纯数字
+    phone_digits = ''.join(filter(str.isdigit, phone))
+    
+    # 默认区号
+    country_code = "+86"
+    
+    # 处理带区号的情况
+    if phone.startswith('+'):
+        # 找到第一个数字的位置
+        for i, char in enumerate(phone):
+            if char.isdigit():
+                # 尝试解析区号
+                if phone[i:i+2] == '86':  # +86
+                    country_code = '+86'
+                    phone_digits = phone_digits[2:]
+                elif phone[i] == '1':  # +1 (USA)
+                    country_code = '+1'
+                    phone_digits = phone_digits[1:]
+                else:
+                    # 默认中国区号
+                    country_code = '+86'
+                break
+    
+    # 如果是中国手机号且长度为11位，直接使用
+    if len(phone_digits) == 11 and phone_digits.startswith('1'):
+        return country_code, phone_digits
+    
+    return country_code, phone_digits
+
+
+def create_user(mobile: str, password_hash: str, country_code: str = "+86") -> User:
     """创建用户"""
     db = next(get_db())
-    user = User(mobile=mobile, password_hash=password_hash)
+    user = User(country_code=country_code, mobile=mobile, password_hash=password_hash)
     db.add(user)
     db.commit()
     db.refresh(user)
     return user
 
 
-def get_user_by_mobile(mobile: str) -> User:
-    """根据手机号获取用户"""
+def get_user_by_mobile(mobile: str, country_code: str = None) -> User:
+    """根据手机号获取用户（支持纯手机号或带区号的手机号）"""
     db = next(get_db())
+    
+    # 如果提供了区号，精确查询
+    if country_code:
+        return db.query(User).filter(
+            User.mobile == mobile,
+            User.country_code == country_code
+        ).first()
+    
+    # 否则只按手机号查询（兼容旧数据）
     return db.query(User).filter(User.mobile == mobile).first()
 
 
@@ -51,7 +95,7 @@ def update_user_password(mobile: str, new_password_hash: str) -> bool:
     return False
 
 
-def create_record(user_id: int, filename: str, report_md: str, metadata: dict) -> int:
+def create_record(user_id: int, filename: str, report_md: str, metadata: dict, raw_output: str = None) -> int:
     """创建记录 - 不保存原始合同文件"""
     db = next(get_db())
     
@@ -59,6 +103,7 @@ def create_record(user_id: int, filename: str, report_md: str, metadata: dict) -
         user_id=user_id,
         filename=filename,
         report_markdown=report_md,
+        raw_output=raw_output,
         metadata_json=json.dumps(metadata) if metadata else None
     )
     db.add(record)
@@ -78,8 +123,8 @@ def get_records_by_user(user_id: int) -> list:
         result.append({
             "id": r.id,
             "filename": r.filename,
-            "created_at": r.created_at,
-            "metadata": metadata  # 添加metadata字段，包含file_hash
+            "created_at": r.created_at.isoformat() if r.created_at else None,
+            "metadata": metadata  # 添加 metadata 字段，包含 file_hash
         })
     return result
 
@@ -99,8 +144,8 @@ def get_record(record_id: int, user_id: int) -> dict:
         "filename": record.filename,
         "report_markdown": record.report_markdown,
         "metadata": metadata,
-        "created_at": record.created_at,
-        "updated_at": record.updated_at
+        "created_at": record.created_at.isoformat() if record.created_at else None,
+        "updated_at": record.updated_at.isoformat() if record.updated_at else None
     }
 
 
@@ -167,7 +212,7 @@ def get_all_blacklist() -> list:
             "blacklist_type": i.blacklist_type,
             "value": i.value,
             "reason": i.reason,
-            "created_at": i.created_at
+            "created_at": i.created_at.isoformat() if i.created_at else None
         }
         for i in items
     ]
@@ -396,10 +441,10 @@ def get_feedbacks(
             "ai_reason": f.ai_reason,
             "bonus_awarded": f.bonus_awarded,
             "status": f.status,
-            "reviewed_at": f.reviewed_at,
+            "reviewed_at": f.reviewed_at.isoformat() if f.reviewed_at else None,
             "reviewed_by": f.reviewed_by,
             "reject_reason": f.reject_reason,
-            "created_at": f.created_at
+            "created_at": f.created_at.isoformat() if f.created_at else None
         })
     return result
 
@@ -465,7 +510,7 @@ def get_reward_logs(
             "reason": log.reason,
             "related_feedback_id": log.related_feedback_id,
             "operator": log.operator,
-            "created_at": log.created_at
+            "created_at": log.created_at.isoformat() if log.created_at else None
         }
         for log in logs
     ]
@@ -493,10 +538,10 @@ def get_total_reward_amount(user_id: int = None) -> int:
 
 # ========== 邀请奖励管理 ==========
 
-def create_user_with_invite(mobile: str, password_hash: str, inviter_id: int = None) -> User:
+def create_user_with_invite(mobile: str, password_hash: str, inviter_id: int = None, country_code: str = "+86") -> User:
     """创建用户（支持邀请人）"""
     db = next(get_db())
-    user = User(mobile=mobile, password_hash=password_hash, invited_by=inviter_id)
+    user = User(country_code=country_code, mobile=mobile, password_hash=password_hash, invited_by=inviter_id)
     db.add(user)
     db.commit()
     db.refresh(user)
@@ -522,6 +567,32 @@ def get_invite_reward_by_invitee(invitee_id: int) -> Optional[InviteReward]:
     """根据被邀请人ID获取邀请奖励记录"""
     db = next(get_db())
     return db.query(InviteReward).filter(InviteReward.invitee_id == invitee_id).first()
+
+
+# ========== 管理员账号管理 ==========
+
+def get_admin_by_username(username: str) -> Optional[Admin]:
+    """根据用户名获取管理员"""
+    db = next(get_db())
+    return db.query(Admin).filter(Admin.username == username).first()
+
+
+def create_admin(username: str, password_hash: str) -> Admin:
+    """创建管理员账号"""
+    db = next(get_db())
+    admin = Admin(username=username, password_hash=password_hash)
+    db.add(admin)
+    db.commit()
+    db.refresh(admin)
+    return admin
+
+
+def verify_admin_password(username: str, password_hash: str) -> bool:
+    """验证管理员密码，返回是否验证成功"""
+    admin = get_admin_by_username(username)
+    if not admin:
+        return False
+    return admin.password_hash == password_hash
 
 
 def get_invite_reward_by_inviter_and_invitee(inviter_id: int, invitee_id: int) -> Optional[InviteReward]:
@@ -575,7 +646,7 @@ def get_invite_rewards_by_inviter(inviter_id: int) -> List[dict]:
             "invitee_id": r.invitee_id,
             "reward_credits": r.reward_credits,
             "status": r.status,
-            "created_at": r.created_at
+            "created_at": r.created_at.isoformat() if r.created_at else None
         }
         for r in rewards
     ]
@@ -711,6 +782,189 @@ def expire_old_invite_rewards() -> int:
     
     db.commit()
     return count
+
+
+# ========== 用户管理（管理员接口）==========
+
+def get_users(
+    page: int = 1,
+    limit: int = 20,
+    mobile: str = None,
+    status: str = None
+) -> dict:
+    """获取用户列表（分页），支持按手机号搜索和状态筛选"""
+    db = next(get_db())
+    query = db.query(User).order_by(User.created_at.desc())
+    
+    if mobile:
+        query = query.filter(User.mobile.like(f'%{mobile}%'))
+    
+    if status:
+        query = query.filter(User.status == status)
+    
+    total = query.count()
+    offset = (page - 1) * limit
+    users = query.offset(offset).limit(limit).all()
+    
+    result = []
+    for user in users:
+        result.append({
+            "id": user.id,
+            "country_code": user.country_code,
+            "mobile": user.mobile,
+            "bonus_credits": user.bonus_credits,
+            "status": user.status,
+            "created_at": user.created_at.isoformat() if user.created_at else None,
+            "last_active_at": user.last_active_at.isoformat() if user.last_active_at else None,
+            "invited_by": user.invited_by
+        })
+    
+    return {
+        "data": result,
+        "total": total,
+        "page": page,
+        "limit": limit
+    }
+
+
+def get_user_detail(user_id: int) -> dict:
+    """获取用户详情"""
+    db = next(get_db())
+    user = db.query(User).filter(User.id == user_id).first()
+    
+    if not user:
+        return None
+    
+    return {
+        "id": user.id,
+        "country_code": user.country_code,
+        "mobile": user.mobile,
+        "bonus_credits": user.bonus_credits,
+        "status": user.status,
+        "created_at": user.created_at.isoformat() if user.created_at else None,
+        "last_active_at": user.last_active_at.isoformat() if user.last_active_at else None,
+        "invited_by": user.invited_by
+    }
+
+
+def update_user_status(user_id: int, status: str) -> bool:
+    """更新用户状态"""
+    db = next(get_db())
+    user = db.query(User).filter(User.id == user_id).first()
+    
+    if not user:
+        return False
+    
+    user.status = status
+    db.commit()
+    return True
+
+
+def add_user_credits(user_id: int, amount: int) -> int:
+    """增加用户额度，返回更新后的额度"""
+    db = next(get_db())
+    user = db.query(User).filter(User.id == user_id).first()
+    
+    if not user:
+        return 0
+    
+    user.bonus_credits += amount
+    db.commit()
+    db.refresh(user)
+    return user.bonus_credits
+
+
+def reduce_user_credits(user_id: int, amount: int) -> int:
+    """减少用户额度，返回更新后的额度"""
+    db = next(get_db())
+    user = db.query(User).filter(User.id == user_id).first()
+    
+    if not user:
+        return 0
+    
+    user.bonus_credits = max(0, user.bonus_credits - amount)
+    db.commit()
+    db.refresh(user)
+    return user.bonus_credits
+
+
+def get_user_records(user_id: int, page: int = 1, limit: int = 20) -> dict:
+    """获取用户审查记录（分页）"""
+    db = next(get_db())
+    from sqlalchemy import desc
+    
+    query = db.query(Record).filter(Record.user_id == user_id).order_by(desc(Record.created_at))
+    total = query.count()
+    offset = (page - 1) * limit
+    records = query.offset(offset).limit(limit).all()
+    
+    result = []
+    for record in records:
+        metadata = json.loads(record.metadata_json) if record.metadata_json else {}
+        result.append({
+            "id": record.id,
+            "filename": record.filename,
+            "report_markdown": record.report_markdown,
+            "raw_output": record.raw_output,
+            "metadata": metadata,
+            "created_at": record.created_at.isoformat() if record.created_at else None,
+            "updated_at": record.updated_at.isoformat() if record.updated_at else None
+        })
+    
+    return {
+        "data": result,
+        "total": total,
+        "page": page,
+        "limit": limit
+    }
+
+
+def get_admin_logs_by_target(target_type: str, target_value: str, page: int = 1, limit: int = 20) -> dict:
+    """获取针对特定目标的管理员操作日志"""
+    db = next(get_db())
+    from sqlalchemy import desc
+    
+    query = db.query(AdminLog).filter(
+        AdminLog.target_type == target_type,
+        AdminLog.target_value == target_value
+    ).order_by(desc(AdminLog.created_at))
+    
+    total = query.count()
+    offset = (page - 1) * limit
+    logs = query.offset(offset).limit(limit).all()
+    
+    result = []
+    for log in logs:
+        result.append({
+            "id": log.id,
+            "admin_user": log.admin_user,
+            "action": log.action,
+            "target_type": log.target_type,
+            "target_value": log.target_value,
+            "detail": log.detail,
+            "created_at": log.created_at.isoformat() if log.created_at else None
+        })
+    
+    return {
+        "data": result,
+        "total": total,
+        "page": page,
+        "limit": limit
+    }
+
+
+def create_admin_log(admin_user: str, action: str, target_type: str, target_value: str, detail: str = None) -> None:
+    """创建管理员操作日志"""
+    db = next(get_db())
+    log = AdminLog(
+        admin_user=admin_user,
+        action=action,
+        target_type=target_type,
+        target_value=str(target_value),
+        detail=detail
+    )
+    db.add(log)
+    db.commit()
 
 
 # ========== 文件哈希缓存管理（重复上传检测）==========
