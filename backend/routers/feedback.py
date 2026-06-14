@@ -1,8 +1,11 @@
 """用户反馈路由 - 完整审查流程实现"""
-from fastapi import APIRouter, Depends, HTTPException, Header, Request
+from fastapi import APIRouter, Depends, HTTPException, Header, Request, UploadFile, File, Form
 from pydantic import BaseModel
 from typing import Optional, List, Dict, Any
 import uuid
+import io
+import hashlib
+import json as json_lib
 from datetime import datetime, timedelta
 import asyncio
 import logging
@@ -22,25 +25,30 @@ from storage.crud import (
     get_feedback_by_id,
     update_feedback_status,
     update_feedback_score,
-    create_reward_log
+    create_reward_log,
+    get_record,
+    check_feedback_contract_uploaded,
 )
+from layers.input_layer import InputLayer
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/feedback", tags=["feedback"])
 
+# 初始化输入层（用于解析上传的合同文件）
+_input_layer = InputLayer()
+
+
+# ========== 文件包装器 - 用于适配InputLayer ==========
+
+class _BytesFileWrapper:
+    """将 bytes 内容包装成类文件对象，供 InputLayer.extract_text_from_file 使用"""
+    def __init__(self, filename: str, content: bytes):
+        self.filename = filename
+        self.file = io.BytesIO(content)
+
 
 # ========== Pydantic模型 ==========
-
-class SubmitFeedbackRequest(BaseModel):
-    report_id: str
-    feedback_type: str  # "useful" 或 "not_useful" 或 "detailed"
-    categories: List[str] = []
-    comment: str = ""
-    upload_consent: bool = False
-    contract_text: Optional[str] = None
-    captcha_token: Optional[str] = None  # 滑动验证码token
-
 
 class SubmitFeedbackResponse(BaseModel):
     success: bool
@@ -230,19 +238,34 @@ async def score_feedback_async(feedback_id: int, categories: list, comment: str,
 
 @router.post("", response_model=SubmitFeedbackResponse)
 async def submit_feedback(
-    request: SubmitFeedbackRequest,
+    report_id: str = Form(...),
+    feedback_type: str = Form(...),
+    categories: str = Form("[]"),
+    comment: str = Form(""),
+    upload_consent: str = Form("false"),
+    contract_file: Optional[UploadFile] = File(None),
+    captcha_token: Optional[str] = Form(None),
     user_id: int = Depends(get_current_user),
     client_ip: str = Header(None, alias="X-Forwarded-For")
 ):
-    """提交用户反馈 - 完整审查流程"""
+    """提交用户反馈 - 完整审查流程（支持multipart/form-data上传合同文件）"""
     # 获取真实IP
     if not client_ip:
         client_ip = "unknown"
     if "," in client_ip:
         client_ip = client_ip.split(",")[0].strip()
     
+    # 解析 categories JSON 字符串
+    try:
+        categories_list = json_lib.loads(categories)
+    except (json_lib.JSONDecodeError, TypeError):
+        categories_list = []
+    
+    # 解析 upload_consent 布尔值
+    upload_consent_bool = upload_consent.lower() in ("true", "1", "yes")
+    
     # ========== 1. 验证验证码（开发环境可跳过）==========
-    # if not validate_captcha_token(request.captcha_token):
+    # if not validate_captcha_token(captcha_token):
     #     raise HTTPException(status_code=400, detail="验证码验证失败")
     
     # ========== 2. 频率限制检查 ==========
@@ -258,56 +281,110 @@ async def submit_feedback(
     
     # ========== 3. 基础规则过滤 ==========
     # 检查分类标签
-    if not request.categories or len(request.categories) == 0:
+    if not categories_list or len(categories_list) == 0:
         raise HTTPException(status_code=400, detail="请至少选择一个反馈分类")
     
     # 验证分类有效性
-    for cat in request.categories:
+    for cat in categories_list:
         if cat not in VALID_CATEGORIES:
             raise HTTPException(status_code=400, detail=f"无效的分类标签: {cat}")
     
     # 检查描述长度
-    comment_length = len(request.comment.strip())
+    comment_length = len(comment.strip())
     if comment_length < MIN_COMMENT_LENGTH:
         raise HTTPException(status_code=400, detail=f"反馈描述至少需要{MIN_COMMENT_LENGTH}个字符")
     if comment_length > MAX_COMMENT_LENGTH:
         raise HTTPException(status_code=400, detail=f"反馈描述最多{MAX_COMMENT_LENGTH}个字符")
     
     # 检查无效内容
-    if check_invalid_content(request.comment):
+    if check_invalid_content(comment):
         logger.warning(f"用户 {user_id} 提交无效反馈内容")
         raise HTTPException(status_code=400, detail="反馈内容包含不当信息")
     
-    # 检查合同文本（如果勾选上传）
+    # ========== 4. 处理合同文件上传 ==========
+    contract_text = None
     has_valid_contract = False
-    if request.upload_consent and request.contract_text:
-        if len(request.contract_text.strip()) >= MIN_CONTRACT_LENGTH:
-            has_valid_contract = True
-        # 合同文本不足则视为未上传，但不影响提交
     
-    # ========== 4. 更新计数器 ==========
+    if upload_consent_bool and contract_file and contract_file.filename:
+        # 4a. 读取文件内容并计算 MD5
+        try:
+            file_bytes = await contract_file.read()
+        except Exception as e:
+            logger.error(f"[反馈-合同上传] 读取文件失败: {e}")
+            raise HTTPException(status_code=400, detail="合同文件读取失败，请重新上传")
+        
+        if not file_bytes or len(file_bytes) == 0:
+            raise HTTPException(status_code=400, detail="合同文件为空，请重新上传")
+        
+        file_md5 = hashlib.md5(file_bytes).hexdigest()
+        logger.info(f"[反馈-合同上传] 文件MD5: {file_md5}, 文件名: {contract_file.filename}")
+        
+        # 4b. 查询关联报告的 file_hash 进行 MD5 校验
+        try:
+            record_id_int = int(report_id)
+            record = get_record(record_id_int, user_id)
+        except (ValueError, TypeError):
+            raise HTTPException(status_code=400, detail="无效的报告ID")
+        
+        if not record:
+            raise HTTPException(status_code=400, detail="关联的报告不存在")
+        
+        expected_hash = record.get("metadata", {}).get("file_hash", "")
+        if expected_hash:
+            if file_md5 != expected_hash:
+                logger.warning(
+                    f"[反馈-合同上传] MD5不匹配! 期望: {expected_hash}, 实际: {file_md5}, "
+                    f"用户: {user_id}, 报告: {report_id}"
+                )
+                raise HTTPException(status_code=400, detail="上传的合同文件与原始审查的合同不一致，请上传原始合同文件")
+            logger.info(f"[反馈-合同上传] ✅ MD5校验通过")
+        else:
+            logger.warning(f"[反馈-合同上传] 报告 {report_id} 无 file_hash，跳过MD5校验")
+        
+        # 4c. 检查同一报告是否已上传过合同（最多一次）
+        if check_feedback_contract_uploaded(report_id, user_id):
+            raise HTTPException(status_code=400, detail="该报告的合同文件已上传，同一报告只能上传一次合同")
+        
+        # 4d. 解析文件内容为文本
+        try:
+            wrapper = _BytesFileWrapper(contract_file.filename, file_bytes)
+            contract_text = _input_layer.extract_text_from_file(wrapper)
+        except ValueError as e:
+            raise HTTPException(status_code=400, detail=str(e))
+        except Exception as e:
+            logger.error(f"[反馈-合同上传] 文件解析失败: {e}")
+            raise HTTPException(status_code=400, detail=f"合同文件解析失败: {str(e)}")
+        
+        # 4e. 验证合同文本长度
+        if contract_text and len(contract_text.strip()) >= MIN_CONTRACT_LENGTH:
+            has_valid_contract = True
+        else:
+            # 文本不足则不视为有效上传
+            logger.warning(f"[反馈-合同上传] 合同文本不足{MIN_CONTRACT_LENGTH}字符，不计入有效上传")
+    
+    # ========== 5. 更新计数器 ==========
     update_feedback_counter(user_id, client_ip)
     
-    # ========== 5. 创建反馈记录（先不评分）==========
+    # ========== 6. 创建反馈记录（先不评分）==========
     feedback = create_feedback(
         user_id=user_id,
-        report_id=request.report_id,
-        feedback_type=request.feedback_type,
-        categories=request.categories,
-        comment=request.comment,
-        upload_consent=request.upload_consent,
-        contract_text=request.contract_text if request.upload_consent else None,
+        report_id=report_id,
+        feedback_type=feedback_type,
+        categories=categories_list,
+        comment=comment,
+        upload_consent=upload_consent_bool,
+        contract_text=contract_text if upload_consent_bool else None,
         quality_score=0,
         suggested_bonus=0,
         ai_reason=None
     )
     
-    # ========== 6. 异步执行AI评分（不阻塞）==========
+    # ========== 7. 异步执行AI评分（不阻塞）==========
     asyncio.create_task(
         score_feedback_async(
             feedback.id,
-            request.categories,
-            request.comment,
+            categories_list,
+            comment,
             has_valid_contract
         )
     )

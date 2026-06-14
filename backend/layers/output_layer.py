@@ -1,146 +1,152 @@
-"""输出封装层：将校验后的报告打包成统一格式，添加元数据，支持多种输出格式"""
+"""输出层：处理LLM输出，提取关键信息并格式化"""
 import json
 import time
 import io
 import re
+import logging
 from typing import Dict, Optional, Tuple
+
+logger = logging.getLogger(__name__)
+
 
 class OutputLayer:
     SUPPORTED_FORMATS = ["md", "docx", "pdf"]
-    
+
     def __init__(self):
-        pass
-    
+        # 章节标题关键词映射（支持多种格式）
+        # 新版提示词输出5个章节，这里只提取用户可见的3个模块：
+        #   审查前提（来自"1. 前置步骤：关键前提确认"）
+        #   风险评估（来自"3. 风险评估与商业可行性评估"）
+        #   结论与行动建议（来自"5. 结论与行动建议"）
+        # 排除的章节："2. 逻辑推理"和"4. 自检"（内部推理内容，不展示给用户）
+        self.section_keywords = {
+            '审查前提': ['前置步骤', '关键前提', '前提确认'],
+            '风险评估': ['风险评估', '商业可行性评估', '风险分析'],
+            '结论与行动建议': ['结论与行动建议', '应该怎么做', '总结']
+        }
+
+    def _extract_section(self, content: str, section_name: str) -> str:
+        """
+        从内容中提取指定章节
+        使用更灵活的正则匹配，适配多种markdown格式
+        """
+        keywords = self.section_keywords.get(section_name, [])
+        if not keywords:
+            return ""
+
+        for keyword in keywords:
+            # 模式1：匹配带序号的加粗标题 **3. xxx** 或 **xxx**
+            pattern1 = rf'\*\*(\d+\.\s+)?{keyword}[^\*]*\*\*([\s\S]*?)(?=\n\*\*|\n---|\Z)'
+            # 模式2：匹配普通标题 3. xxx
+            pattern2 = rf'(\d+\.\s+){keyword}([\s\S]*?)(?=\n\d+\.\s+|\n---|\Z)'
+            # 模式3：匹配markdown标题 ## xxx 或 ### xxx
+            pattern3 = rf'#{1,4}\s+{keyword}([\s\S]*?)(?=\n#|\n---|\Z)'
+            # 模式4：匹配纯文本标题（无格式）
+            pattern4 = rf'^[\s]*{keyword}([\s\S]*?)(?=\n[A-Za-z0-9一二三四五六七八九十]{{1,3}}\.\s+|\n---|\Z)'
+
+            for pattern in [pattern1, pattern2, pattern3, pattern4]:
+                match = re.search(pattern, content)
+                if match:
+                    result = match.group(0).strip()
+                    # 移除标题标记，保留内容
+                    result = re.sub(rf'^\*\*(\d+\.\s+)?{keyword}[^\*]*\*\*\s*', '', result)
+                    result = re.sub(rf'^(\d+\.\s+){keyword}\s*', '', result)
+                    result = re.sub(rf'^#{{1,4}}\s+{keyword}\s*', '', result)
+                    result = re.sub(rf'^{keyword}\s*', '', result)
+                    return result.strip()
+
+        return ""
+
+    def process(self, raw_output: str) -> str:
+        """
+        处理原始输出，提取并格式化3个用户可见章节。
+        排除"逻辑推理"和"自检"两个内部章节。
+        
+        :param raw_output: LLM原始输出
+        :return: 格式化后的用户可见报告内容
+        """
+        try:
+            # 提取3个用户可见章节
+            premise_section = self._extract_section(raw_output, '审查前提')
+            risk_section = self._extract_section(raw_output, '风险评估')
+            conclusion_section = self._extract_section(raw_output, '结论与行动建议')
+
+            # 构建最终报告
+            sections = []
+            
+            if premise_section:
+                sections.append(f"## 1. 审查前提\n\n{premise_section}")
+            
+            if risk_section:
+                sections.append(f"## 2. 风险评估\n\n{risk_section}")
+            
+            if conclusion_section:
+                sections.append(f"## 3. 结论与行动建议\n\n{conclusion_section}")
+
+            # 如果没有找到任何章节，返回原始内容（降级处理）
+            if not sections:
+                logger.warning("[OutputLayer] 未找到任何章节，返回原始内容")
+                return self._clean_output(raw_output)
+
+            return "\n\n---\n\n".join(sections)
+
+        except Exception as e:
+            logger.error(f"[OutputLayer] 处理失败: {str(e)}", exc_info=True)
+            return self._clean_output(raw_output)
+
     def _filter_internal_content(self, raw_report: str) -> str:
         """
-        过滤报告中的内部推理步骤，只保留对最终用户有用的内容
+        过滤 LLM 原始输出中的 XML 标签，提取 <FINAL_REPORT> 内的纯内容。
         
-        需要隐藏的内容：
-        - 从"前置步骤：关键前提确认"到"4. 自检"之间的所有结构化推理步骤
-        - "1. 自上而下建逻辑结构"整个章节
-        - "2. 逻辑推理"整个章节
-        - "3. 风险评估与商业可行性评估"章节
-        - "4. 自检"章节
-        - 任何"层级标注"、"模型补充"等内部标记
+        注意：此方法只做 XML 标签清理，不做章节过滤。
+        章节级别的过滤（排除"逻辑推理""自检"）由 process() / package_output() 负责。
         
-        用户应该看到：
-        - 5. 结论与行动建议（包含结论、行动建议、声明）
-        - 二、对用户额外要求的专项回应（如果有）
+        Args:
+            raw_report: LLM 原始输出（可能包含 XML 标签）
         
-        兜底逻辑：如果过滤后没有任何有效内容（全部被跳过），则返回原始报告的
-        最后1/3部分（通常是结论和行动建议部分），避免因LLM输出格式偏差导致空报告。
+        Returns:
+            去除 XML 标签后的报告内容（仍包含全部5个章节）
         """
-        lines = raw_report.split('\n')
-        filtered_lines = []
-        skip_section = False
+        if not raw_report:
+            return ""
         
-        # 内部推理章节的起始标记（支持markdown格式化版本）
-        internal_section_starts = [
-            r'^\*{0,2}\s*\d+\.\s*自上而下建逻辑结构',
-            r'^\*{0,2}\s*\d+\.\s*逻辑推理(?!步骤)',
-            r'^\*{0,2}\s*\d+\.\s*自检',
-            r'^\*{0,2}\s*[iv]+\.\s*自检',
-            r'^\*{0,2}\s*###?\s*b\.\s*第二步',
-            r'^\*{0,2}\s*####?\s*i\.\s*约束合规链式推理',
-        ]
+        content = raw_report
         
-        # 用户可见章节的起始标记（支持 markdown 粗体/斜体/标题等多种格式）
-        # [\*#]{0,3} 匹配：无前缀、#、##、###、*、**、*** 及其组合
-        user_visible_starts = [
-            # 新增：结论部分（"应该怎么做？" 和 "为什么是这样？"）
-            r'^\s*i{1,3}\.\s*应该怎么做',
-            r'^\s*ii{1,2}\.\s*为什么是这样',
-            r'^[\*#]{0,3}\s*应该怎么做',
-            r'^[\*#]{0,3}\s*为什么是这样',
-            # 新增：前置步骤章节（关键前提确认）
-            r'^\*{0,2}\s*前置步骤：关键前提确认',
-            r'^前置步骤：关键前提确认',
-            # 新增：风险评估相关内容（作为逻辑推理的一部分）
-            r'^\*{0,2}\s*【优化】风险/问题概率评估',
-            r'^\*{0,2}\s*【新增】商业可行性评估',
-            # 标准格式
-            r'^[\*#]{0,3}\s*\d+\.\s*结论与行动建议',
-            r'^[\*#]{0,3}\s*[五六五四5五五]+\s*[、．.]?\s*结论与行动建议',
-            r'^[\*#]{0,3}\s*#*\s*二、对用户额外要求',
-            r'^[\*#]{0,3}\s*二、对用户额外要求',
-            r'^[\*#]{0,3}\s*#*\s*审查结论',
-            r'^[\*#]{0,3}\s*审查结论',
-        ]
+        # 1. 优先提取 <FINAL_REPORT> 标签（防御性提取，即使上游已解析）
+        final_pattern = r'<FINAL_REPORT>\s*([\s\S]*?)\s*</FINAL_REPORT>'
+        final_match = re.search(final_pattern, content, re.IGNORECASE)
+        if final_match:
+            content = final_match.group(1).strip()
+            logger.debug(f"[OutputLayer] 从 <FINAL_REPORT> 标签提取内容，长度: {len(content)}")
         
-        for line in lines:
-            stripped = line.strip()
-            
-            # 检查是否是内部推理章节开头
-            is_internal_start = False
-            for pattern in internal_section_starts:
-                if re.match(pattern, stripped, re.IGNORECASE):
-                    is_internal_start = True
-                    skip_section = True
-                    break
-            
-            if is_internal_start:
-                continue
-            
-            # 检查是否是用户可见章节开头（退出跳过模式）
-            if skip_section:
-                for pattern in user_visible_starts:
-                    if re.match(pattern, stripped, re.IGNORECASE):
-                        skip_section = False
-                        break
-            
-            # 如果在跳过模式中，继续跳过
-            if skip_section:
-                continue
-            
-            # 过滤单行内部标记
-            if '层级标注' in line or '模型补充' in line:
-                continue
-            
-            # 将"前置步骤：关键前提确认"标题改为"审查基准"
-            if re.match(r'^\*{0,2}\s*前置步骤：关键前提确认', stripped):
-                line = line.replace('前置步骤：关键前提确认', '审查基准')
-            
-            filtered_lines.append(line)
+        # 2. 移除 <INTERNAL>...</INTERNAL> 标签及其内容（如果上游未清除）
+        internal_pattern = r'<INTERNAL>\s*[\s\S]*?\s*</INTERNAL>'
+        content = re.sub(internal_pattern, '', content, flags=re.IGNORECASE)
         
-        result = '\n'.join(filtered_lines).strip()
+        # 3. 移除残留的独立 XML 标签
+        content = re.sub(r'</?FINAL_REPORT>', '', content, flags=re.IGNORECASE)
+        content = re.sub(r'</?INTERNAL>', '', content, flags=re.IGNORECASE)
         
-        # 兜底：如果过滤后只剩下空内容（LLM输出被截断或格式偏差导致全部被跳过）
-        # 返回原始报告的后半部分作为降级展示
-        # 注意：检查长度时避免过滤后只剩空白字符
-        result_stripped = result.strip() if result else ""
-        if not result_stripped or len(result_stripped) < 50:
-            import logging
-            logger = logging.getLogger(__name__)
-            logger.warning("[OUTPUT] 过滤后内容为空或过短(len=%d)，原始报告长度=%d，使用降级策略", 
-                          len(result_stripped), len(raw_report))
-            # 输出原始报告前500字符用于调试
-            if raw_report:
-                logger.info(f"[OUTPUT_DEBUG] 原始报告前500字符:\n{raw_report[:500]}...")
-            
-            # 逐级降级：后1/3 → 后1/2 → 全文
-            for fallback_ratio, desc in [(1/3, "后1/3"), (1/2, "后1/2"), (1, "全文")]:
-                fallback_start = max(0, len(lines) - max(1, int(len(lines) * fallback_ratio)))
-                fallback_lines = []
-                for line in lines[fallback_start:]:
-                    stripped = line.strip()
-                    # 跳过纯格式标记行和内部标记
-                    if not stripped or stripped in ('---', '```', '***'):
-                        continue
-                    if '层级标注' in stripped or '模型补充' in stripped:
-                        continue
-                    # 跳过明显的内部推理子标题
-                    if re.match(r'^[\*#]{0,3}\s*[iv]+\.\s*', stripped):
-                        continue
-                    fallback_lines.append(line)
-                fallback_result = '\n'.join(fallback_lines).strip()
-                if fallback_result and len(fallback_result) >= 50:
-                    logger.warning("[OUTPUT] 降级策略(%s)成功，恢复 %d 字符", desc, len(fallback_result))
-                    result = fallback_result
-                    break
-                logger.warning("[OUTPUT] 降级策略(%s)仍不足，继续扩大范围", desc)
+        # 4. 清理多余空行
+        content = re.sub(r'\n{4,}', '\n\n\n', content)
         
-        return result
-    
+        # 5. 基础清理
+        content = self._clean_output(content)
+        
+        logger.debug(f"[OutputLayer] _filter_internal_content: 输入 {len(raw_report)} → 输出 {len(content)} 字符")
+        return content
+
+    def _clean_output(self, text: str) -> str:
+        """清理输出内容，移除多余格式"""
+        text = re.sub(r'<\|.*?\|>', '', text)
+        text = re.sub(r'---+', '', text)
+        text = text.strip()
+        return text
+
+    # ============================================================
+    # 以下方法从旧版 output_layer.py 恢复，适配新版 3 模块提取
+    # ============================================================
+
     def _generate_metadata(self, validation_result: Dict) -> Dict:
         """生成元数据"""
         metadata = {
@@ -155,19 +161,19 @@ class OutputLayer:
             "source_check_status": validation_result.get('source_check', {}).get('status', 'unknown')
         }
         return metadata
-    
+
     def _format_markdown(self, raw_report: str) -> str:
-        """格式化Markdown输出"""
-        # 过滤内部推理步骤，只保留对最终用户有用的内容
-        filtered_report = self._filter_internal_content(raw_report)
+        """
+        格式化 Markdown 输出：先提取3个用户可见模块，再包装为完整报告。
+        """
+        # 使用 process() 提取3个用户可见模块（排除"逻辑推理""自检"）
+        filtered_report = self.process(raw_report)
         
         # 兜底：如果过滤后内容为空或过短，使用原始报告全文
         if not filtered_report or not filtered_report.strip() or len(filtered_report.strip()) < 50:
-            import logging
-            logger = logging.getLogger(__name__)
             filtered_len = len(filtered_report.strip()) if filtered_report else 0
             raw_len = len(raw_report.strip()) if raw_report else 0
-            logger.warning("[OUTPUT] 过滤后内容过短(len=%d)，使用原始报告全文(%d chars)", filtered_len, raw_len)
+            logger.warning("[OUTPUT] process() 后内容过短(len=%d)，使用原始报告全文(%d chars)", filtered_len, raw_len)
             if raw_report and raw_report.strip():
                 filtered_report = raw_report.strip()
             else:
@@ -185,7 +191,100 @@ class OutputLayer:
 *模型版本：qwen-plus*
 """
         return markdown
-    
+
+    def _extract_key_info(self, report: str) -> Dict:
+        """从报告中提取关键信息"""
+        risk_level_pattern = r'风险等级[：:]?\s*(低|中|高|极高)'
+        risk_level_match = re.search(risk_level_pattern, report)
+        risk_level = risk_level_match.group(1) if risk_level_match else '未知'
+        
+        risk_pattern = r'[一二三四五六七八九十]+\.\s*([^\n]+)'
+        risk_points = re.findall(risk_pattern, report)[:10]
+        
+        suggestion_pattern = r'(建议|修改建议)[：:]?\s*([^\n]+)'
+        suggestions = re.findall(suggestion_pattern, report)[:5]
+        suggestions = [s[1] if len(s) > 1 else s[0] for s in suggestions]
+        
+        conclusion_pattern = r'(结论与建议)[：:]?\s*([\s\S]*?)(?=\n### |$)'
+        conclusion_match = re.search(conclusion_pattern, report)
+        summary = conclusion_match.group(2).strip() if conclusion_match else ''
+        
+        return {
+            "risk_level": risk_level,
+            "risk_points": risk_points,
+            "suggestions": suggestions,
+            "summary": summary
+        }
+
+    def generate_html_preview(self, report_markdown: str) -> str:
+        """生成HTML预览版本"""
+        import markdown
+        html_content = markdown.markdown(
+            report_markdown,
+            extensions=['tables', 'fenced_code', 'codehilite']
+        )
+        return html_content
+
+    def package_output(self, raw_report: str, validation_result: Dict, input_data: Dict = None) -> Dict:
+        """
+        打包输出：3模块提取 → Markdown 格式化 → 结构化包装
+        
+        流程：
+        1. 调用 _format_markdown → process() 提取3个用户可见模块
+        2. 排除"逻辑推理""自检"等内部章节
+        3. 包装为结构化输出供前端使用
+        """
+        metadata = self._generate_metadata(validation_result)
+        markdown_content = self._format_markdown(raw_report)
+        
+        if input_data and 'contract_text' in input_data:
+            metadata['contract_text'] = input_data['contract_text']
+        
+        key_info = self._extract_key_info(raw_report)
+        
+        output = {
+            "status": "success",
+            "metadata": metadata,
+            "content": {
+                "markdown": markdown_content,
+                "html_preview": self.generate_html_preview(markdown_content),
+                "summary": key_info.get('summary', ''),
+                "risk_level": key_info.get('risk_level', '未知'),
+                "risk_points": key_info.get('risk_points', []),
+                "suggestions": key_info.get('suggestions', [])
+            },
+            "validation": {
+                "has_warnings": validation_result.get('has_warnings', False),
+                "warnings": validation_result.get('warnings', []),
+                "confidence_score": validation_result.get('confidence_check', {}).get('confidence_score', 0)
+            }
+        }
+        
+        return output
+
+    def format_for_frontend(self, output: Dict) -> Dict:
+        """格式化输出供前端使用"""
+        frontend_output = {
+            "success": True,
+            "message": "审查完成",
+            "result": output['content']['markdown'],
+            "html_preview": output['content'].get('html_preview', ''),
+            "metadata": output['metadata'],
+            "validation": output['validation'],
+            "summary": {
+                "risk_level": output['content']['risk_level'],
+                "risk_count": len(output['content']['risk_points']),
+                "suggestion_count": len(output['content']['suggestions']),
+                "confidence": output['validation']['confidence_score']
+            }
+        }
+        
+        return frontend_output
+
+    # ============================================================
+    # 文件生成方法（用于报告下载）
+    # ============================================================
+
     def generate_report_file(self, report_markdown: str, format: str = "md", filename: str = "合同审查报告") -> Tuple[bytes, str]:
         """
         根据格式生成报告文件
@@ -196,19 +295,19 @@ class OutputLayer:
         :return: (二进制文件内容, MIME类型)
         """
         if format == "md":
-            return self._generate_markdown(report_markdown, filename)
+            return self._generate_markdown_file(report_markdown, filename)
         elif format == "docx":
             return self._generate_word(report_markdown, filename)
         elif format == "pdf":
             return self._generate_pdf(report_markdown, filename)
         else:
             raise ValueError(f"不支持的格式: {format}，支持的格式: {self.SUPPORTED_FORMATS}")
-    
-    def _generate_markdown(self, report_markdown: str, filename: str) -> Tuple[bytes, str]:
+
+    def _generate_markdown_file(self, report_markdown: str, filename: str) -> Tuple[bytes, str]:
         """生成Markdown文件"""
         content = report_markdown.encode('utf-8')
         return content, "text/markdown"
-    
+
     def _generate_word(self, report_markdown: str, filename: str) -> Tuple[bytes, str]:
         """将Markdown转换为Word文档"""
         from docx import Document
@@ -256,7 +355,7 @@ class OutputLayer:
         content = buffer.getvalue()
         
         return content, "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    
+
     def _parse_inline_formatting(self, line: str) -> list:
         """解析行内格式（加粗等）"""
         result = []
@@ -281,7 +380,7 @@ class OutputLayer:
             result.append((line, False))
         
         return result
-    
+
     def _generate_pdf(self, report_markdown: str, filename: str) -> Tuple[bytes, str]:
         """将Markdown转换为PDF"""
         from reportlab.lib.pagesizes import A4
@@ -301,256 +400,29 @@ class OutputLayer:
         )
         
         styles = getSampleStyleSheet()
-        
-        title_style = ParagraphStyle(
-            'CustomTitle',
-            parent=styles['Heading1'],
-            fontSize=18,
-            alignment=TA_CENTER,
-            spaceAfter=20,
-            spaceBefore=20
-        )
-        
-        heading2_style = ParagraphStyle(
-            'CustomHeading2',
-            parent=styles['Heading2'],
-            fontSize=14,
-            spaceAfter=12,
-            spaceBefore=12
-        )
-        
-        heading3_style = ParagraphStyle(
-            'CustomHeading3',
-            parent=styles['Heading3'],
-            fontSize=12,
-            spaceAfter=8,
-            spaceBefore=8
-        )
-        
-        normal_style = styles['Normal']
-        bullet_style = ParagraphStyle(
-            'Bullet',
-            parent=styles['Normal'],
-            leftIndent=20,
-            bulletIndent=10,
-            spaceAfter=4
-        )
-        
         story = []
         
         for line in report_markdown.split('\n'):
-            line = line.rstrip()
-            
+            line = line.strip()
             if not line:
                 story.append(Spacer(1, 6))
                 continue
             
             if line.startswith('# '):
-                story.append(Paragraph(line[2:], title_style))
+                story.append(Paragraph(line[2:], styles['Title']))
             elif line.startswith('## '):
-                story.append(Paragraph(line[3:], heading2_style))
+                story.append(Paragraph(line[3:], styles['Heading2']))
             elif line.startswith('### '):
-                story.append(Paragraph(line[4:], heading3_style))
-            elif line.startswith('- ') or line.startswith('* '):
-                text = line[2:]
-                text = self._strip_markdown_formatting(text)
-                story.append(Paragraph(f"• {text}", bullet_style))
-            elif line.startswith('| '):
-                pass
+                story.append(Paragraph(line[4:], styles['Heading3']))
             elif line.startswith('---'):
-                story.append(Spacer(1, 10))
-            elif line.startswith('*') and line.endswith('*'):
-                text = line[1:-1]
-                text = self._strip_markdown_formatting(text)
-                story.append(Paragraph(text, normal_style))
+                story.append(Spacer(1, 12))
+            elif line.startswith('- '):
+                story.append(Paragraph(f"• {line[2:]}", styles['Normal']))
+            elif line.startswith('*') and not line.startswith('**'):
+                story.append(Paragraph(f"<i>{line.strip('*')}</i>", styles['Normal']))
             else:
-                text = self._strip_markdown_formatting(line)
-                story.append(Paragraph(text, normal_style))
+                story.append(Paragraph(line, styles['Normal']))
         
         doc.build(story)
-        buffer.seek(0)
         content = buffer.getvalue()
-        
         return content, "application/pdf"
-    
-    def _strip_markdown_formatting(self, text: str) -> str:
-        """去除Markdown格式符号"""
-        text = re.sub(r'\*\*([^*]+)\*\*', r'\1', text)
-        text = re.sub(r'\*([^*]+)\*', r'\1', text)
-        text = re.sub(r'`([^`]+)`', r'\1', text)
-        return text
-    
-    def generate_html_preview(self, report_markdown: str) -> str:
-        """
-        生成HTML预览版本
-        
-        :param report_markdown: Markdown格式的报告内容
-        :return: HTML字符串
-        """
-        import markdown
-        
-        html_content = markdown.markdown(
-            report_markdown,
-            extensions=['tables', 'fenced_code', 'codehilite']
-        )
-        
-        html = f"""<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>合同审查报告预览</title>
-    <style>
-        body {{
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            color: #333;
-            line-height: 1.6;
-        }}
-        h1 {{
-            text-align: center;
-            color: #2c3e50;
-            border-bottom: 2px solid #409EFF;
-            padding-bottom: 10px;
-        }}
-        h2 {{
-            color: #34495e;
-            margin-top: 30px;
-            border-left: 4px solid #409EFF;
-            padding-left: 10px;
-        }}
-        h3 {{
-            color: #546e7a;
-        }}
-        table {{
-            border-collapse: collapse;
-            width: 100%;
-            margin: 20px 0;
-        }}
-        th, td {{
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }}
-        th {{
-            background-color: #f5f7fa;
-        }}
-        code {{
-            background-color: #f5f7fa;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: Consolas, Monaco, monospace;
-        }}
-        pre {{
-            background-color: #f5f7fa;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }}
-        blockquote {{
-            border-left: 4px solid #409EFF;
-            margin: 20px 0;
-            padding: 10px 20px;
-            background-color: #f5f7fa;
-        }}
-        .warning {{
-            background-color: #fff3cd;
-            border: 1px solid #ffc107;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 20px 0;
-        }}
-        .footer {{
-            text-align: center;
-            color: #999;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }}
-    </style>
-</head>
-<body>
-    {html_content}
-    <div class="footer">
-        <p>报告生成时间：{time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())}</p>
-    </div>
-</body>
-</html>"""
-        
-        return html
-    
-    def package_output(self, raw_report: str, validation_result: Dict, input_data: Dict = None) -> Dict:
-        """打包输出"""
-        metadata = self._generate_metadata(validation_result)
-        markdown_content = self._format_markdown(raw_report)
-        
-        # 如果有 input_data，将合同文本添加到 metadata 中（用于反馈功能）
-        if input_data and 'contract_text' in input_data:
-            metadata['contract_text'] = input_data['contract_text']
-        
-        key_info = self._extract_key_info(raw_report)
-        
-        output = {
-            "status": "success",
-            "metadata": metadata,
-            "content": {
-                "markdown": markdown_content,
-                "html_preview": self.generate_html_preview(markdown_content),
-                "summary": key_info.get('summary', ''),
-                "risk_level": key_info.get('risk_level', '未知'),
-                "risk_points": key_info.get('risk_points', []),
-                "suggestions": key_info.get('suggestions', [])
-            },
-            "validation": {
-                "has_warnings": validation_result.get('has_warnings', False),
-                "warnings": validation_result.get('warnings', []),
-                "confidence_score": validation_result.get('confidence_check', {}).get('confidence_score', 0)
-            }
-        }
-        
-        return output
-    
-    def _extract_key_info(self, report: str) -> Dict:
-        """从报告中提取关键信息"""
-        risk_level_pattern = r'风险等级[：:]?\s*(低|中|高|极高)'
-        risk_level_match = re.search(risk_level_pattern, report)
-        risk_level = risk_level_match.group(1) if risk_level_match else '未知'
-        
-        risk_pattern = r'[一二三四五六七八九十]+\.\s*([^\n]+)'
-        risk_points = re.findall(risk_pattern, report)[:10]
-        
-        suggestion_pattern = r'(建议|修改建议)[：:]?\s*([^\n]+)'
-        suggestions = re.findall(suggestion_pattern, report)[:5]
-        suggestions = [s[1] if len(s) > 1 else s[0] for s in suggestions]
-        
-        conclusion_pattern = r'(结论与建议)[：:]?\s*([\s\S]*?)(?=\n### |$)'
-        conclusion_match = re.search(conclusion_pattern, report)
-        summary = conclusion_match.group(2).strip() if conclusion_match else ''
-        
-        return {
-            "risk_level": risk_level,
-            "risk_points": risk_points,
-            "suggestions": suggestions,
-            "summary": summary
-        }
-    
-    def format_for_frontend(self, output: Dict) -> Dict:
-        """格式化输出供前端使用"""
-        frontend_output = {
-            "success": True,
-            "message": "审查完成",
-            "result": output['content']['markdown'],
-            "html_preview": output['content'].get('html_preview', ''),
-            "metadata": output['metadata'],
-            "validation": output['validation'],
-            "summary": {
-                "risk_level": output['content']['risk_level'],
-                "risk_count": len(output['content']['risk_points']),
-                "suggestion_count": len(output['content']['suggestions']),
-                "confidence": output['validation']['confidence_score']
-            }
-        }
-        
-        return frontend_output

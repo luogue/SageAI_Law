@@ -460,6 +460,17 @@ def get_feedback_count(category: Optional[str] = None, status: Optional[str] = N
     return query.count()
 
 
+def check_feedback_contract_uploaded(report_id: str, user_id: int) -> bool:
+    """检查该用户是否已为同一报告上传过合同"""
+    db = next(get_db())
+    exists = db.query(Feedback).filter(
+        Feedback.report_id == report_id,
+        Feedback.user_id == user_id,
+        Feedback.upload_consent == True
+    ).first() is not None
+    return exists
+
+
 # ========== 奖励发放记录管理 ==========
 
 def create_reward_log(

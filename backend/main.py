@@ -14,6 +14,23 @@ import json
 
 logger = logging.getLogger(__name__)
 
+# 专门记录任务结果的日志（成功/失败都记录）
+_task_result_log_file = os.path.join(os.getenv("LOG_DIR", "./logs"), "task_result.log")
+_task_result_handler = logging.FileHandler(_task_result_log_file, encoding="utf-8")
+_task_result_handler.setFormatter(logging.Formatter(
+    "%(asctime)s | %(levelname)-8s | %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S"
+))
+task_result_logger = logging.getLogger("task_result")
+task_result_logger.addHandler(_task_result_handler)
+task_result_logger.setLevel(logging.INFO)
+
+def _log_task_result(task_id: str, filename: str, status: str, user_id: Optional[int] = None, error: Optional[str] = None, record_id: Optional[int] = None, file_size: int = 0):
+    """记录任务结果到专门的日志"""
+    error_str = f", error={error}" if error else ""
+    record_str = f", record_id={record_id}" if record_id else ""
+    task_result_logger.info(f"task_id={task_id}, filename={filename}, file_size={file_size}, user_id={user_id}, status={status}{error_str}{record_str}")
+
 from layers.input_layer import InputLayer
 from layers.inference_layer import InferenceLayer
 from layers.validation_layer import ValidationLayer
@@ -39,6 +56,7 @@ from security.injection_detector import get_injection_detector
 from security.output_guard import init_output_guard, get_output_guard, check_output_leak
 from security.security_events import record_security_event
 from utils.security import ban_user_for_injection
+from layers.legal_check_layer import init_legal_check_layer, check_and_correct_legal_citations
 
 load_dotenv()
 
@@ -111,6 +129,13 @@ async def startup_event():
         logger.info("[STARTUP] 安全增强迁移完成")
     except Exception as e:
         logger.error(f"[STARTUP] 安全增强迁移失败: {e}")
+    
+    # ========== 初始化法条校验层 ==========
+    try:
+        init_legal_check_layer()
+        logger.info("[STARTUP] 法条校验层初始化完成")
+    except Exception as e:
+        logger.error(f"[STARTUP] 法条校验层初始化失败: {e}")
 
 app.add_middleware(
     CORSMiddleware,
@@ -255,6 +280,7 @@ async def process_contract_task(task_id: str, file_content: bytes, filename: str
             input_result = input_layer.process(file_obj, additional_instructions)
             if input_result['status'] == 'error':
                 update_task(task_id, status=TaskStatus.FAILED, error=f"输入处理失败: {input_result['message']}")
+                _log_task_result(task_id=task_id, filename=filename, status="FAILED", user_id=task.user_id, error=f"输入处理失败: {input_result['message']}", file_size=len(file_content))
                 return
             
             # ========== 推理层处理 ==========
@@ -276,18 +302,22 @@ async def process_contract_task(task_id: str, file_content: bytes, filename: str
                 logger.warning(f"[Fallback] {task_id} 所有模型不可用，返回兜底消息")
                 update_task(task_id, status=TaskStatus.FAILED, error=e.fallback_message)
                 logger.error(f"[ALL_MODELS_FAILED] {task_id} 所有模型调用失败，任务标记为失败")
+                _log_task_result(task_id=task_id, filename=filename, status="FAILED", user_id=task.user_id, error=e.fallback_message, file_size=len(file_content))
                 return
             except CircuitBreakerOpenError as e:
                 # 熔断器打开，返回503
                 update_task(task_id, status=TaskStatus.FAILED, error=f"服务暂时不可用: {str(e)}")
                 logger.error(f"[CircuitBreaker] {task_id} 任务因熔断被拒绝")
+                _log_task_result(task_id=task_id, filename=filename, status="FAILED", user_id=task.user_id, error=f"服务暂时不可用: {str(e)}", file_size=len(file_content))
                 return
             except Exception as e:
                 update_task(task_id, status=TaskStatus.FAILED, error=f"推理失败: {str(e)}")
+                _log_task_result(task_id=task_id, filename=filename, status="FAILED", user_id=task.user_id, error=f"推理失败: {str(e)}", file_size=len(file_content))
                 return
 
             if inference_result['status'] == 'error':
                 update_task(task_id, status=TaskStatus.FAILED, error=f"推理失败: {inference_result['message']}")
+                _log_task_result(task_id=task_id, filename=filename, status="FAILED", user_id=task.user_id, error=f"推理失败: {inference_result['message']}", file_size=len(file_content))
                 return
             
             # ========== 校验层处理（在原始报告上执行）==========
@@ -300,16 +330,32 @@ async def process_contract_task(task_id: str, file_content: bytes, filename: str
             if validation_result.get('status') == 'error':
                 leak_msg = validation_result.get('warnings', ['校验失败'])
                 update_task(task_id, status=TaskStatus.FAILED, error=f"校验未通过: {'; '.join(leak_msg)}")
+                _log_task_result(task_id=task_id, filename=filename, status="FAILED", user_id=task.user_id, error=f"校验未通过: {'; '.join(leak_msg)}", file_size=len(file_content))
                 return
 
             # ========== 输出封装层处理（提取用户可见内容）==========
             update_task(task_id, progress=65)
-            # 先过滤内部推理步骤，只保留对用户有用的内容
-            filtered_report = output_layer._filter_internal_content(inference_result['raw_report'])
+            # Step 1: 去除 XML 标签（<FINAL_REPORT>等），保留全部5个章节的原始内容
+            raw_report = output_layer._filter_internal_content(inference_result['raw_report'])
             
-            # ========== SHA256滑动窗口输出泄露检测（在过滤后的内容上执行）==========
+            # ========== 生成最终输出（3模块提取 + Markdown格式化）==========
+            # Step 2: 提取用户可见的3个模块（排除"逻辑推理""自检"），格式化为前端输出
             update_task(task_id, progress=70)
-            leak_passed, leak_detail = check_output_leak(filtered_report)
+            output_result = output_layer.package_output(
+                raw_report,
+                validation_result,
+                input_result
+            )
+            frontend_output = output_layer.format_for_frontend(output_result)
+            
+            # ========== SHA256滑动窗口输出泄露检测（在最终用户可见内容上执行）==========
+            # 注意：此检测必须在 3 模块过滤之后执行。
+            # package_output 已排除"逻辑推理""自检"等内部章节，
+            # 最终用户可见内容只含"审查前提""风险评估""结论与行动建议"3个模块，
+            # 这些模块不应与系统提示词有任何重叠，因此误判率极低。
+            update_task(task_id, progress=75)
+            user_visible_report = frontend_output.get('result', '')
+            leak_passed, leak_detail = check_output_leak(user_visible_report)
             if not leak_passed:
                 logger.critical(f"[SECURITY] 输出泄露检测告警: task_id={task_id}, detail={leak_detail}")
                 # 记录安全事件（输出泄露不封禁账号，仅记录事件）
@@ -318,22 +364,30 @@ async def process_contract_task(task_id: str, file_content: bytes, filename: str
                     severity="warning",
                     source="output_guard",
                     detail=f"task_id={task_id}, reason={leak_detail}, "
-                           f"output_preview={filtered_report[:200]}",
+                           f"output_preview={user_visible_report[:200]}",
                     user_id=task.user_id,
                     ip=None  # 异步任务中可能没有IP
                 )
                 update_task(task_id, status=TaskStatus.FAILED,
                            error="无法生成报告，请稍后重试")
+                _log_task_result(task_id=task_id, filename=filename, status="FAILED", user_id=task.user_id, error="无法生成报告，请稍后重试", file_size=len(file_content))
                 return
             
-            # ========== 生成最终输出（使用过滤后的报告）==========
             update_task(task_id, progress=80)
-            output_result = output_layer.package_output(
-                filtered_report,  # 使用过滤后的报告
-                validation_result,
-                input_result
-            )
-            frontend_output = output_layer.format_for_frontend(output_result)
+            
+            # ========== 法条校验与修正 ==========
+            update_task(task_id, progress=85)
+            original_report = frontend_output.get('result', '')
+            corrected_report, legal_corrections = check_and_correct_legal_citations(original_report)
+            
+            # 更新修正后的报告
+            if corrected_report != original_report:
+                frontend_output['result'] = corrected_report
+                # 添加修正记录到metadata
+                if 'metadata' not in frontend_output:
+                    frontend_output['metadata'] = {}
+                frontend_output['metadata']['legal_corrections'] = legal_corrections
+                logger.info(f"[LEGAL_CHECK] task_id={task_id} 法条校验完成，修正记录: {len(legal_corrections)} 条")
             
             # ========== 仅成功后才扣费（批量审查时）==========
             remaining_bonus = None
@@ -393,9 +447,11 @@ async def process_contract_task(task_id: str, file_content: bytes, filename: str
                         summary=frontend_output.get('summary'),
                         remaining_bonus=remaining_bonus,
                         record_id=record_id)
+            _log_task_result(task_id=task_id, filename=filename, status="COMPLETED", user_id=task.user_id, record_id=record_id, file_size=len(file_content))
             
         except Exception as e:
             update_task(task_id, status=TaskStatus.FAILED, error=f"处理失败: {str(e)}")
+            _log_task_result(task_id=task_id, filename=filename, status="FAILED", user_id=task.user_id, error=f"处理失败: {str(e)}", file_size=len(file_content))
 
 @app.post("/api/review", response_model=ReviewResponse)
 async def review_contract(
@@ -543,9 +599,9 @@ async def review_contract(
         task_result = get_task(task.task_id)
         
         if task_result.status == TaskStatus.COMPLETED:
-            # ========== 仅成功后才扣费 ==========
-            used_bonus = use_user_bonus_credit(user_id)
-            remaining_bonus = get_user_bonus_credits(user_id)
+            # ========== 扣费已在 process_contract_task 中完成，此处不再重复扣费 ==========
+            # 获取剩余额度（由 process_contract_task 更新）
+            remaining_bonus = task_result.remaining_bonus
 
             # ========== 更新文件哈希缓存 ==========
             enable_duplicate_check = os.getenv("ENABLE_DUPLICATE_CHECK", "true").lower() == "true"
@@ -562,7 +618,6 @@ async def review_contract(
                 "validation": task_result.validation,
                 "summary": task_result.summary,
                 "record_id": task_result.record_id,
-                "used_bonus": used_bonus,
                 "remaining_bonus": remaining_bonus
             }
         else:
@@ -648,9 +703,9 @@ async def review_contract_confirm_duplicate(
         task_result = get_task(task.task_id)
         
         if task_result.status == TaskStatus.COMPLETED:
-            # ========== 仅成功后才扣费 ==========
-            used_bonus = use_user_bonus_credit(user_id)
-            remaining_bonus = get_user_bonus_credits(user_id)
+            # ========== 扣费已在 process_contract_task 中完成，此处不再重复扣费 ==========
+            # 获取剩余额度（由 process_contract_task 更新）
+            remaining_bonus = task_result.remaining_bonus
 
             # ========== 更新文件哈希缓存 ==========
             enable_duplicate_check = os.getenv("ENABLE_DUPLICATE_CHECK", "true").lower() == "true"
@@ -667,7 +722,6 @@ async def review_contract_confirm_duplicate(
                 "validation": task_result.validation,
                 "summary": task_result.summary,
                 "record_id": task_result.record_id,
-                "used_bonus": used_bonus,
                 "remaining_bonus": remaining_bonus
             }
         else:

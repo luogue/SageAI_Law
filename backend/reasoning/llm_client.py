@@ -61,8 +61,8 @@ MODEL_DEFINITIONS = {
     },
 }
 
-# 默认模型优先级：火山方舟(豆包) -> 千问 -> DeepSeek
-DEFAULT_PRIORITY = ["doubao", "qwen", "deepseek"]
+# 默认模型优先级：千问(Qwen) -> 火山方舟(豆包) -> DeepSeek（千问优先）
+DEFAULT_PRIORITY = ["qwen", "doubao", "deepseek"]
 
 # 从环境变量读取自定义优先级（可选）
 # 格式: LLM_PRIORITY=qwen,doubao,deepseek （逗号分隔）

@@ -65,8 +65,13 @@ ARK_ENDPOINT_ID = os.getenv("ARK_ENDPOINT_ID", "")
 # DeepSeek - 备选模型
 DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY", "")
 
-# 模型优先级（可选，逗号分隔，默认: doubao,qwen,deepseek）
+# 模型优先级（可选，逗号分隔，默认: doubao,qwen,deepseek）- 火山优先
 LLM_PRIORITY = os.getenv("LLM_PRIORITY", "doubao,qwen,deepseek")
 
 # 备用模型列表（兼容旧配置）
 ALTERNATIVE_MODELS = os.getenv("ALTERNATIVE_MODELS", "")
+
+# ========== 法条校验配置 ==========
+ENABLE_LEGAL_CHECK = os.getenv("ENABLE_LEGAL_CHECK", "true").lower() == "true"
+PKULAW_API_KEY = os.getenv("PKULAW_API_KEY", "")
+PKULAW_API_URL = os.getenv("PKULAW_API_URL", "https://api.pkulaw.com")

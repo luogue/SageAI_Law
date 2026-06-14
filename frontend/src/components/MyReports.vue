@@ -74,7 +74,7 @@
     <FeedbackModal
       :show="showFeedbackModal"
       :report-id="currentReportForFeedback?.id || ''"
-      :contract-text="currentReportForFeedback?.report_markdown || ''"
+      :expected-file-hash="currentReportForFeedback?.metadata?.file_hash || ''"
       @close="closeFeedbackModal"
       @success="handleFeedbackSuccess"
     />

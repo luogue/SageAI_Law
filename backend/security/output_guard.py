@@ -10,53 +10,90 @@ logger = logging.getLogger(__name__)
 
 ENABLE_OUTPUT_GUARD = os.getenv("ENABLE_OUTPUT_GUARD", "true").lower() == "true"
 SLIDING_WINDOW_SIZE = int(os.getenv("SLIDING_WINDOW_SIZE", "50"))  # 滑动窗口大小（字符）
-LEAK_CONFIRM_THRESHOLD = int(os.getenv("LEAK_CONFIRM_THRESHOLD", "100"))  # 连续匹配累计长度阈值
+LEAK_CONFIRM_THRESHOLD = int(os.getenv("LEAK_CONFIRM_THRESHOLD", "500"))  # 连续匹配累计长度阈值
 
 # 白名单标题列表 - 这些是合法的报告结构标题，不应被判定为泄露
-# 由于安全检测在输出过滤之后执行，白名单只需包含用户可见的内容
+# 注意：安全检测现在在 3 模块过滤后执行，最终用户可见内容只包含：
+#   1. 审查前提 / 2. 风险评估 / 3. 结论与行动建议
+# 因此白名单只需关注这 3 个模块中可能出现的合法标题。
 WHITELISTED_HEADERS = [
-    # 前置步骤（过滤后可能保留，会被重命名为"审查基准"）
+    # ========== 用户可见的 3 大模块标题 ==========
+    # 模块1：审查前提（来自"前置步骤：关键前提确认"）
     "前置步骤：关键前提确认",
-    "审查基准",
+    "审查前提",
+    "关键前提确认",
     
-    # 用户可见的主要内容
+    # 模块2：风险评估（来自"风险评估与商业可行性评估"）
+    "风险评估",
     "风险评估与商业可行性评估",
-    "风险/问题概率评估",
     "商业可行性评估",
+    "风险/问题概率评估",
     
-    # 结论部分
-    "5. 结论与行动建议",
+    # 模块3：结论与行动建议
     "结论与行动建议",
     "审查结论与行动建议",
     "应该怎么做",
     "为什么",
-    "应该怎么做？",
-    "为什么是这样？",
     
-    # 风险评估表格相关
+    # ========== 风险评估内部字段 ==========
     "风险点",
     "发生概率",
     "影响程度",
     "综合风险等级",
     "优先级",
+    "修改建议",
+    "法律依据",
+    "替代风控措施",
     
-    # 用户额外要求部分
+    # ========== 用户额外要求部分 ==========
     "二、对用户额外要求",
     "二、对用户额外要求的专项回应",
     "用户额外要求",
     
-    # 报告基础信息
+    # ========== 报告结构元素 ==========
     "合同审查报告",
     "合同基本信息概述",
     "核心风险分级清单",
     "关键风险评估表格",
     
-    # 声明部分
+    # ========== 声明部分 ==========
     "声明",
     "本分析报告由AI生成",
     "仅供参考",
-    "不构成正式法律意见"
+    "不构成正式法律意见",
+    
+    # ========== 法律关系性质（可能在审查前提中出现）==========
+    "劳动关系",
+    "劳务关系",
+    "承揽关系",
+    "委托关系",
+    
+    # ========== 信息来源类型（可能出现在风险评估中）==========
+    "事实推断",
+    "模型补充",
+    
+    # ========== 规范性质 ==========
+    "强制性",
+    "推荐性",
+    
+    # ========== 法律适用版本 ==========
+    "行为时有效",
+    "现行有效",
+    
+    # ========== Markdown 格式化后的章节标题 ==========
+    "1. 审查前提",
+    "2. 风险评估",
+    "3. 结论与行动建议",
 ]
+
+
+# 需要进行泄露检测的章节标题
+# 注意：目前泄露检测在 3 模块过滤之后执行，最终用户可见内容
+# 只含"审查前提""风险评估""结论与行动建议"。
+# 这些模块是系统提示词明确要求输出的合法报告内容，
+# 不是内部推理指令，因此不存在需要排除的"内部章节"。
+# DETECT_SECTIONS 保持为空，仅依赖"完整系统提示词完全一致"的极端检测。
+DETECT_SECTIONS = []
 
 
 class OutputGuard:
@@ -106,6 +143,52 @@ class OutputGuard:
             f"完整哈希={self._system_prompt_hash[:16]}..."
         )
 
+    def _extract_detect_sections(self, output: str) -> str:
+        """
+        提取需要进行泄露检测的章节内容
+
+        新版提示词输出顺序：前置步骤 → 逻辑推理 → 风险评估 → 自检 → 结论
+        但 DETECT_SECTIONS 当前为空，因此此方法总是返回空字符串，跳过检测。
+        
+        当需要启用特定章节检测时，将章节标题添加到 DETECT_SECTIONS 即可。
+
+        Args:
+            output: 完整的输出文本
+
+        Returns:
+            str: 需要检测的章节内容拼接
+        """
+        sections_to_check = []
+
+        # 定义章节边界标记（新版提示词的5个输出章节）
+        section_boundaries = [
+            "1. 前置步骤：关键前提确认",
+            "2. 逻辑推理",
+            "3. 风险评估与商业可行性评估",
+            "4. 自检",
+            "5. 结论与行动建议"
+        ]
+
+        for target_section in DETECT_SECTIONS:
+            # 找到目标章节的起始位置
+            start_idx = output.find(target_section)
+            if start_idx == -1:
+                continue
+
+            # 找到下一个章节的起始位置作为结束边界
+            end_idx = len(output)
+            for boundary in section_boundaries:
+                if boundary != target_section:
+                    boundary_idx = output.find(boundary, start_idx + len(target_section))
+                    if boundary_idx != -1 and boundary_idx < end_idx:
+                        end_idx = boundary_idx
+
+            # 提取该章节内容
+            section_content = output[start_idx:end_idx]
+            sections_to_check.append(section_content)
+
+        return "\n".join(sections_to_check)
+
     def _is_whitelisted_fragment(self, fragment: str) -> bool:
         """
         判断片段是否属于白名单中的标题内容
@@ -139,8 +222,15 @@ class OutputGuard:
         """
         检查模型输出是否包含系统提示词泄露
 
+        检测策略（按优先级）：
+        1. 完整哈希匹配：输出与整个系统提示词完全一致 → 拦截
+        2. DETECT_SECTIONS 滑动窗口匹配（当前为空，跳过）
+
+        注意：调用方（main.py）已先通过 package_output 完成 3 模块过滤，
+        排除了"逻辑推理""自检"等内部章节，传入的 output 只包含用户可见内容。
+
         Args:
-            output: 模型生成的输出文本
+            output: 最终用户可见的报告文本（已过滤）
 
         Returns:
             Tuple[bool, str]: (是否通过检查, 检测详情)
@@ -164,18 +254,28 @@ class OutputGuard:
             self._record_event("full_hash_match", output[:200])
             return False, "full_hash_match"
 
-        # ========== 检查b: 滑动窗口片段匹配 ==========
-        output_len = len(output)
+        # ========== 只提取需要检测的章节内容 ==========
+        detect_content = self._extract_detect_sections(output)
+        
+        if not detect_content or not detect_content.strip():
+            # 如果没有找到需要检测的章节，跳过检测
+            logger.debug("[OUTPUT_GUARD] 未找到需要检测的章节内容，跳过检测")
+            return True, ""
 
-        if output_len < SLIDING_WINDOW_SIZE:
-            # 输出太短，无法形成有效窗口，跳过
+        logger.debug(f"[OUTPUT_GUARD] 提取检测章节内容长度: {len(detect_content)} 字符")
+
+        # ========== 检查b: 滑动窗口片段匹配（仅对指定章节）==========
+        content_len = len(detect_content)
+
+        if content_len < SLIDING_WINDOW_SIZE:
+            # 内容太短，无法形成有效窗口，跳过
             return True, ""
 
         matched_positions = []  # 记录匹配位置
         whitelisted_matches = 0  # 记录白名单匹配数量
 
-        for i in range(output_len - SLIDING_WINDOW_SIZE + 1):
-            fragment = output[i:i + SLIDING_WINDOW_SIZE]
+        for i in range(content_len - SLIDING_WINDOW_SIZE + 1):
+            fragment = detect_content[i:i + SLIDING_WINDOW_SIZE]
             
             # 跳过白名单中的标题内容
             if self._is_whitelisted_fragment(fragment):
@@ -200,6 +300,7 @@ class OutputGuard:
         if total_consecutive_length >= LEAK_CONFIRM_THRESHOLD:
             logger.critical(
                 f"[SECURITY_ALERT] 检测到系统提示词片段泄露！"
+                f"检测章节: {DETECT_SECTIONS}, "
                 f"匹配位置数={len(matched_positions)}, "
                 f"连续匹配累计长度={total_consecutive_length}, "
                 f"阈值={LEAK_CONFIRM_THRESHOLD}, "
@@ -207,9 +308,10 @@ class OutputGuard:
             )
             self._record_event(
                 "fragment_hash_match",
+                f"sections={DETECT_SECTIONS}, "
                 f"matched_positions={len(matched_positions)}, "
                 f"consecutive_length={total_consecutive_length}",
-                output[:200]
+                detect_content[:200]
             )
             return False, f"fragment_match: {total_consecutive_length} chars"
 
@@ -217,6 +319,7 @@ class OutputGuard:
         if matched_positions:
             logger.warning(
                 f"[OUTPUT_GUARD] 检测到少量片段匹配: "
+                f"检测章节: {DETECT_SECTIONS}, "
                 f"匹配数={len(matched_positions)}, 累计长度={total_consecutive_length}, "
                 f"未达到阈值={LEAK_CONFIRM_THRESHOLD}, "
                 f"已过滤白名单匹配={whitelisted_matches}"

@@ -72,7 +72,6 @@ class ValidationLayer:
         r"jailbreak",
         r"DAFG",
         r"MENG",
-        r"[角色设定]",
         r"\[角色设定\]",
         r"<role>",
         r"</role>",
