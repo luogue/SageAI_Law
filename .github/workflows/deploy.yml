@@ -11,6 +11,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Create deployment tarball
+        run: tar --exclude='.env' --exclude='node_modules' --exclude='.git' --exclude='__pycache__' --exclude='*.pyc' -czf deploy.tar.gz .
+
+      - name: Upload tarball to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "deploy.tar.gz"
+          target: "/opt/sageai/"
+
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -19,6 +31,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /opt/sageai
-            git pull origin main
+            tar -xzf deploy.tar.gz --overwrite
             docker-compose down
             docker-compose up -d --build
+            rm deploy.tar.gz
