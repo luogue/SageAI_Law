@@ -1,381 +1,296 @@
 <template>
-  <div class="user-list-page">
-    <!-- 筛选栏 -->
-    <div class="filter-bar">
-      <div class="filter-item">
-        <span class="filter-label">手机号搜索：</span>
-        <el-input
-          v-model="filterMobile"
-          placeholder="输入手机号搜索"
-          style="width: 250px"
-          @keyup.enter="handleFilter"
-        />
-      </div>
-      <div class="filter-item">
-        <span class="filter-label">状态筛选：</span>
-        <el-select
-          v-model="filterStatus"
-          placeholder="全部状态"
-          clearable
-          style="width: 150px"
-          @change="handleFilter"
-        >
-          <el-option label="正常" value="normal" />
-          <el-option label="封禁" value="blocked" />
-        </el-select>
-      </div>
-      <div class="filter-item">
-        <el-button type="primary" @click="handleRefresh">
-          <i class="el-icon-refresh"></i> 刷新
-        </el-button>
-      </div>
+  <div class="user-list-container">
+    <div class="page-header">
+      <h2>用户管理</h2>
+      <el-button type="primary" @click="showCreateDialog = true">
+        <el-icon><Plus /></el-icon>
+        创建用户
+      </el-button>
     </div>
 
-    <!-- 表格 -->
-    <el-card shadow="never">
-      <el-table
-        v-loading="loading"
-        :data="users"
-        border
-        stripe
-        style="width: 100%"
-        empty-text="暂无用户数据"
-      >
-        <el-table-column prop="id" label="用户ID" width="80" align="center" />
-        <el-table-column prop="mobile" label="手机号" width="130" />
-        <el-table-column prop="bonus_credits" label="剩余免费审查次数" width="140" align="center" />
-        <el-table-column prop="status" label="账号状态" width="100" align="center">
+    <!-- 筛选栏 -->
+    <el-card class="filter-card" shadow="never">
+      <el-form :inline="true" :model="filters" size="default">
+        <el-form-item label="手机号">
+          <el-input v-model="filters.mobile" placeholder="搜索手机号" clearable />
+        </el-form-item>
+        <el-form-item label="状态">
+          <el-select v-model="filters.status" placeholder="全部" clearable style="width: 120px;">
+            <el-option label="审核中" value="pending" />
+            <el-option label="正常" value="normal" />
+            <el-option label="封禁" value="blocked" />
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="handleSearch">搜索</el-button>
+          <el-button @click="handleReset">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
+
+    <!-- 用户列表 -->
+    <el-card class="list-card" shadow="never">
+      <el-table :data="users" v-loading="loading" stripe style="width: 100%">
+        <el-table-column prop="id" label="ID" width="60" />
+        <el-table-column prop="mobile" label="手机号" width="140" />
+        <el-table-column prop="bonus_credits" label="剩余额度" width="100" />
+        <el-table-column label="状态" width="100">
           <template #default="{ row }">
-            <el-tag :type="row.status === 'normal' ? 'success' : 'danger'" size="small">
-              {{ row.status === 'normal' ? '正常' : '封禁' }}
-            </el-tag>
+            <el-tag v-if="row.status === 'normal'" type="success">正常</el-tag>
+            <el-tag v-else-if="row.status === 'pending'" type="warning">审核中</el-tag>
+            <el-tag v-else-if="row.status === 'blocked'" type="danger">封禁</el-tag>
           </template>
         </el-table-column>
         <el-table-column prop="created_at" label="注册时间" width="170">
           <template #default="{ row }">
-            {{ formatTime(row.created_at) }}
+            {{ formatDate(row.created_at) }}
           </template>
         </el-table-column>
-        <el-table-column prop="last_active_at" label="最后活跃时间" width="170">
+        <el-table-column label="操作" min-width="260" fixed="right">
           <template #default="{ row }">
-            {{ row.last_active_at ? formatTime(row.last_active_at) : '-' }}
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="280" align="center" fixed="right">
-          <template #default="{ row }">
+            <el-button size="small" @click="viewDetail(row)" :icon="View">详情</el-button>
+            <el-button
+              v-if="row.status === 'pending'"
+              size="small"
+              type="success"
+              @click="handleApprove(row)"
+              :loading="approvingId === row.id"
+            >
+              审核通过
+            </el-button>
             <el-button
               v-if="row.status === 'normal'"
-              type="danger"
-              text
               size="small"
-              @click="handleBan(row)"
+              type="warning"
+              @click="showBanDialog(row)"
             >
-              <i class="el-icon-ban"></i> 封禁
+              封禁
             </el-button>
             <el-button
-              v-else
-              type="success"
-              text
+              v-if="row.status === 'blocked'"
               size="small"
+              type="primary"
               @click="handleUnban(row)"
             >
-              <i class="el-icon-check"></i> 解封
-            </el-button>
-            <el-button type="primary" text size="small" @click="handleAddCredits(row)">
-              <i class="el-icon-plus"></i> 增加额度
-            </el-button>
-            <el-button type="warning" text size="small" @click="handleReduceCredits(row)">
-              <i class="el-icon-minus"></i> 减少额度
-            </el-button>
-            <el-button type="info" text size="small" @click="handleViewDetail(row)">
-              <i class="el-icon-user"></i> 详情
+              解封
             </el-button>
           </template>
         </el-table-column>
       </el-table>
 
       <!-- 分页 -->
-      <div class="pagination-wrapper">
+      <div class="pagination">
         <el-pagination
-          v-model:current-page="currentPage"
-          v-model:page-size="pageSize"
-          :page-sizes="[10, 20, 50, 100]"
-          :total="total"
-          layout="total, sizes, prev, pager, next, jumper"
-          @size-change="handleFilter"
-          @current-change="handleFilter"
+          v-model:current-page="pagination.page"
+          :page-size="pagination.size"
+          :total="pagination.total"
+          layout="total, prev, pager, next"
+          @current-change="loadUsers"
         />
       </div>
     </el-card>
 
-    <!-- 封禁确认弹窗 -->
-    <el-dialog
-      v-model="banVisible"
-      title="封禁用户"
-      width="400px"
-      :close-on-click-modal="false"
-    >
-      <p>确定要封禁用户 {{ banUserInfo.mobile }} 吗？</p>
-      <el-form-item label="封禁理由">
-        <el-input v-model="banReason" type="textarea" placeholder="请输入封禁理由" />
-      </el-form-item>
+    <!-- 创建用户对话框 -->
+    <el-dialog v-model="showCreateDialog" title="创建新用户" width="460px" :close-on-click-modal="false">
+      <el-form ref="createFormRef" :model="createForm" :rules="createRules" label-width="80px">
+        <el-form-item label="手机号" prop="mobile">
+          <el-input v-model="createForm.mobile" placeholder="请输入手机号" maxlength="11" />
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input v-model="createForm.password" type="password" placeholder="请输入密码" show-password />
+        </el-form-item>
+        <el-form-item label="赠送额度" prop="bonusCredits">
+          <el-input-number v-model="createForm.bonusCredits" :min="0" :max="100" />
+        </el-form-item>
+      </el-form>
       <template #footer>
-        <el-button @click="banVisible = false">取消</el-button>
-        <el-button type="danger" @click="confirmBan">确定封禁</el-button>
+        <el-button @click="showCreateDialog = false">取消</el-button>
+        <el-button type="primary" @click="handleCreate" :loading="creating">确认创建</el-button>
       </template>
     </el-dialog>
 
-    <!-- 解封确认弹窗 -->
-    <el-dialog
-      v-model="unbanVisible"
-      title="解封用户"
-      width="400px"
-      :close-on-click-modal="false"
-    >
-      <p>确定要解封用户 {{ unbanUserInfo.mobile }} 吗？</p>
-      <el-form-item label="解封理由">
-        <el-input v-model="unbanReason" type="textarea" placeholder="请输入解封理由" />
-      </el-form-item>
+    <!-- 封禁对话框 -->
+    <el-dialog v-model="showBanDialogVisible" title="封禁用户" width="400px">
+      <el-form label-width="80px">
+        <el-form-item label="封禁原因">
+          <el-input v-model="banReason" type="textarea" :rows="2" placeholder="可选" />
+        </el-form-item>
+      </el-form>
       <template #footer>
-        <el-button @click="unbanVisible = false">取消</el-button>
-        <el-button type="primary" @click="confirmUnban">确定解封</el-button>
-      </template>
-    </el-dialog>
-
-    <!-- 增加额度弹窗 -->
-    <el-dialog
-      v-model="addCreditsVisible"
-      title="增加额度"
-      width="400px"
-      :close-on-click-modal="false"
-    >
-      <p>当前剩余额度：{{ addCreditsUserInfo.bonus_credits }} 次</p>
-      <el-form-item label="增加数量">
-        <el-input-number v-model="addCreditsAmount" :min="1" :max="100" />
-      </el-form-item>
-      <el-form-item label="操作理由">
-        <el-input v-model="addCreditsReason" placeholder="请输入操作理由（可选）" />
-      </el-form-item>
-      <template #footer>
-        <el-button @click="addCreditsVisible = false">取消</el-button>
-        <el-button type="primary" @click="confirmAddCredits">确定增加</el-button>
-      </template>
-    </el-dialog>
-
-    <!-- 减少额度弹窗 -->
-    <el-dialog
-      v-model="reduceCreditsVisible"
-      title="减少额度"
-      width="400px"
-      :close-on-click-modal="false"
-    >
-      <p>当前剩余额度：{{ reduceCreditsUserInfo.bonus_credits }} 次</p>
-      <el-form-item label="减少数量">
-        <el-input-number v-model="reduceCreditsAmount" :min="1" :max="reduceCreditsUserInfo.bonus_credits || 1" />
-      </el-form-item>
-      <el-form-item label="操作理由">
-        <el-input v-model="reduceCreditsReason" placeholder="请输入操作理由（可选）" />
-      </el-form-item>
-      <template #footer>
-        <el-button @click="reduceCreditsVisible = false">取消</el-button>
-        <el-button type="warning" @click="confirmReduceCredits">确定减少</el-button>
+        <el-button @click="showBanDialogVisible = false">取消</el-button>
+        <el-button type="danger" @click="handleBan">确认封禁</el-button>
       </template>
     </el-dialog>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
-import {
-  getUsers,
-  banUser,
-  unbanUser,
-  addUserCredits,
-  reduceUserCredits
-} from '../../api/admin'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { Plus, View } from '@element-plus/icons-vue'
+import { getUsers, createUser, approveUser, banUser, unbanUser } from '@/api/admin'
 
 const router = useRouter()
 
-// 筛选条件
-const filterMobile = ref('')
-const filterStatus = ref('')
-const currentPage = ref(1)
-const pageSize = ref(20)
-const total = ref(0)
+// 筛选
+const filters = reactive({
+  mobile: '',
+  status: ''
+})
+
+// 列表
 const users = ref([])
 const loading = ref(false)
+const pagination = reactive({
+  page: 1,
+  size: 20,
+  total: 0
+})
 
-// 弹窗状态
-const banVisible = ref(false)
-const unbanVisible = ref(false)
-const addCreditsVisible = ref(false)
-const reduceCreditsVisible = ref(false)
-
-// 弹窗数据
-const banUserInfo = ref({ id: 0, mobile: '' })
-const banReason = ref('')
-const unbanUserInfo = ref({ id: 0, mobile: '' })
-const unbanReason = ref('')
-const addCreditsUserInfo = ref({ id: 0, mobile: '', bonus_credits: 0 })
-const addCreditsAmount = ref(1)
-const addCreditsReason = ref('')
-const reduceCreditsUserInfo = ref({ id: 0, mobile: '', bonus_credits: 0 })
-const reduceCreditsAmount = ref(1)
-const reduceCreditsReason = ref('')
-
-function formatTime(isoStr) {
-  if (!isoStr) return '-'
-  try {
-    const d = new Date(isoStr)
-    const pad = n => String(n).padStart(2, '0')
-    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`
-  } catch {
-    return isoStr
-  }
+// 创建用户
+const showCreateDialog = ref(false)
+const creating = ref(false)
+const createFormRef = ref(null)
+const createForm = reactive({
+  mobile: '',
+  password: '',
+  bonusCredits: 3
+})
+const createRules = {
+  mobile: [
+    { required: true, message: '请输入手机号', trigger: 'blur' },
+    { pattern: /^1\d{10}$/, message: '手机号格式不正确', trigger: 'blur' }
+  ],
+  password: [
+    { required: true, message: '请输入密码', trigger: 'blur' },
+    { min: 6, message: '密码至少6位', trigger: 'blur' }
+  ]
 }
 
+// 封禁
+const showBanDialogVisible = ref(false)
+const banTarget = ref(null)
+const banReason = ref('')
+
+// 审核中
+const approvingId = ref(null)
+
+// 加载用户列表
 async function loadUsers() {
   loading.value = true
   try {
-    const params = {
-      page: currentPage.value,
-      size: pageSize.value
-    }
-    if (filterMobile.value) params.mobile = filterMobile.value
-    if (filterStatus.value) params.status = filterStatus.value
-    
-    const res = await getUsers(params)
-    if (res.success) {
-      users.value = res.data || []
-      total.value = res.total || 0
-    } else {
-      ElMessage.error(res.detail || '获取用户列表失败')
-    }
-  } catch (e) {
-    console.error('加载用户列表失败:', e)
-    ElMessage.error('加载失败，请检查网络或管理员Token')
+    const data = await getUsers({
+      page: pagination.page,
+      size: pagination.size,
+      mobile: filters.mobile || undefined,
+      status: filters.status || undefined
+    })
+    users.value = data.users || []
+    pagination.total = data.total || 0
+  } catch (err) {
+    ElMessage.error(err.message || '加载失败')
   } finally {
     loading.value = false
   }
 }
 
-function handleFilter() {
-  currentPage.value = 1
+function handleSearch() {
+  pagination.page = 1
   loadUsers()
 }
 
-function handleRefresh() {
-  filterMobile.value = ''
-  filterStatus.value = ''
-  handleFilter()
+function handleReset() {
+  filters.mobile = ''
+  filters.status = ''
+  pagination.page = 1
+  loadUsers()
 }
 
-function handleBan(row) {
-  banUserInfo.value = { id: row.id, mobile: row.mobile }
+// 创建用户
+async function handleCreate() {
+  const valid = await createFormRef.value?.validate().catch(() => false)
+  if (!valid) return
+
+  creating.value = true
+  try {
+    await createUser({
+      mobile: createForm.mobile,
+      password: createForm.password,
+      bonusCredits: createForm.bonusCredits
+    })
+    ElMessage.success('用户创建成功')
+    showCreateDialog.value = false
+    createForm.mobile = ''
+    createForm.password = ''
+    createForm.bonusCredits = 3
+    loadUsers()
+  } catch (err) {
+    ElMessage.error(err.message || '创建失败')
+  } finally {
+    creating.value = false
+  }
+}
+
+// 审核通过
+async function handleApprove(user) {
+  try {
+    await ElMessageBox.confirm(`确认审核通过用户 ${user.mobile}？`, '审核确认', {
+      type: 'info'
+    })
+  } catch {
+    return
+  }
+
+  approvingId.value = user.id
+  try {
+    await approveUser(user.id)
+    ElMessage.success('审核通过')
+    loadUsers()
+  } catch (err) {
+    ElMessage.error(err.message || '操作失败')
+  } finally {
+    approvingId.value = null
+  }
+}
+
+// 封禁
+function showBanDialog(user) {
+  banTarget.value = user
   banReason.value = ''
-  banVisible.value = true
+  showBanDialogVisible.value = true
 }
 
-function handleUnban(row) {
-  unbanUserInfo.value = { id: row.id, mobile: row.mobile }
-  unbanReason.value = ''
-  unbanVisible.value = true
-}
-
-function handleAddCredits(row) {
-  addCreditsUserInfo.value = { id: row.id, mobile: row.mobile, bonus_credits: row.bonus_credits }
-  addCreditsAmount.value = 1
-  addCreditsReason.value = ''
-  addCreditsVisible.value = true
-}
-
-function handleReduceCredits(row) {
-  reduceCreditsUserInfo.value = { id: row.id, mobile: row.mobile, bonus_credits: row.bonus_credits }
-  reduceCreditsAmount.value = 1
-  reduceCreditsReason.value = ''
-  reduceCreditsVisible.value = true
-}
-
-function handleViewDetail(row) {
-  router.push(`/admin/users/${row.id}`)
-}
-
-async function confirmBan() {
-  loading.value = true
+async function handleBan() {
   try {
-    const res = await banUser(banUserInfo.value.id, banReason.value)
-    if (res.success) {
-      ElMessage.success('封禁成功')
-      banVisible.value = false
-      loadUsers()
-    } else {
-      ElMessage.error(res.detail || '封禁失败')
-    }
-  } catch (e) {
-    console.error('封禁失败:', e)
-    ElMessage.error('封禁失败')
-  } finally {
-    loading.value = false
+    await banUser(banTarget.value.id, banReason.value)
+    ElMessage.success('已封禁')
+    showBanDialogVisible.value = false
+    loadUsers()
+  } catch (err) {
+    ElMessage.error(err.message || '封禁失败')
   }
 }
 
-async function confirmUnban() {
-  loading.value = true
+// 解封
+async function handleUnban(user) {
   try {
-    const res = await unbanUser(unbanUserInfo.value.id, unbanReason.value)
-    if (res.success) {
-      ElMessage.success('解封成功')
-      unbanVisible.value = false
-      loadUsers()
-    } else {
-      ElMessage.error(res.detail || '解封失败')
-    }
-  } catch (e) {
-    console.error('解封失败:', e)
-    ElMessage.error('解封失败')
-  } finally {
-    loading.value = false
+    await unbanUser(user.id)
+    ElMessage.success('已解封')
+    loadUsers()
+  } catch (err) {
+    ElMessage.error(err.message || '解封失败')
   }
 }
 
-async function confirmAddCredits() {
-  loading.value = true
-  try {
-    const res = await addUserCredits(addCreditsUserInfo.value.id, addCreditsAmount.value, addCreditsReason.value)
-    if (res.success) {
-      ElMessage.success(`成功增加 ${addCreditsAmount.value} 次免费审查额度`)
-      addCreditsVisible.value = false
-      loadUsers()
-    } else {
-      ElMessage.error(res.detail || '增加额度失败')
-    }
-  } catch (e) {
-    console.error('增加额度失败:', e)
-    ElMessage.error('增加额度失败')
-  } finally {
-    loading.value = false
-  }
+// 查看详情
+function viewDetail(user) {
+  router.push(`/admin/users/${user.id}`)
 }
 
-async function confirmReduceCredits() {
-  loading.value = true
-  try {
-    const res = await reduceUserCredits(reduceCreditsUserInfo.value.id, reduceCreditsAmount.value, reduceCreditsReason.value)
-    if (res.success) {
-      ElMessage.success(`成功减少 ${reduceCreditsAmount.value} 次免费审查额度`)
-      reduceCreditsVisible.value = false
-      loadUsers()
-    } else {
-      ElMessage.error(res.detail || '减少额度失败')
-    }
-  } catch (e) {
-    console.error('减少额度失败:', e)
-    ElMessage.error('减少额度失败')
-  } finally {
-    loading.value = false
-  }
+function formatDate(dateStr) {
+  if (!dateStr) return '-'
+  return new Date(dateStr).toLocaleString('zh-CN')
 }
 
 onMounted(() => {
@@ -384,33 +299,29 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.user-list-page {
-  padding: 0;
+.user-list-container {
+  padding: 20px;
 }
 
-.filter-bar {
+.page-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 16px;
   margin-bottom: 16px;
-  flex-wrap: wrap;
 }
 
-.filter-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.page-header h2 {
+  margin: 0;
+  font-size: 20px;
 }
 
-.filter-label {
-  font-size: 14px;
-  color: #606266;
-  white-space: nowrap;
+.filter-card {
+  margin-bottom: 16px;
 }
 
-.pagination-wrapper {
+.pagination {
+  margin-top: 16px;
   display: flex;
   justify-content: flex-end;
-  margin-top: 16px;
 }
 </style>

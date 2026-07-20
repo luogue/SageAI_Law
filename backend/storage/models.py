@@ -15,7 +15,7 @@ class User(Base):
     bonus_credits = Column(Integer, default=0, nullable=False)  # 免费赠送的审查额度
     free_review_quota = Column(Integer, default=0, nullable=False)  # 免费审查额度（历史字段）
     invited_by = Column(Integer, ForeignKey("user.id"))  # 邀请人ID
-    status = Column(String(20), default="normal", nullable=False)  # 账号状态：normal/blocked
+    status = Column(String(20), default="pending", nullable=False)  # 账号状态：pending/normal/blocked
     last_active_at = Column(DateTime(timezone=True))  # 最后活跃时间
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 

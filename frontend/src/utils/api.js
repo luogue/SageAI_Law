@@ -50,24 +50,7 @@ async function handleResponse(response) {
   return data
 }
 
-// 认证接口
-export async function register(phone, smsCode, password, confirmPassword, inviterId = null) {
-  const body = { phone, sms_code: smsCode, password, confirm_password: confirmPassword }
-  if (inviterId) {
-    body.inviter_id = inviterId
-  }
-  const response = await fetch(`${AUTH_URL}/register`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  })
-  const data = await response.json()
-  if (!data.success) {
-    throw new Error(data.detail || '注册失败')
-  }
-  return data
-}
-
+// 认证接口（注册已关闭，仅管理员可创建用户）
 export async function login(phone, password) {
   const response = await fetch(`${AUTH_URL}/login`, {
     method: 'POST',
@@ -77,19 +60,6 @@ export async function login(phone, password) {
   const data = await response.json()
   if (!response.ok || !data.access_token) {
     throw new Error(data.detail || '登录失败')
-  }
-  return data
-}
-
-export async function sendSmsCode(phone, captchaToken) {
-  const response = await fetch(`${AUTH_URL}/send-code`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ phone, captcha_token: captchaToken })
-  })
-  const data = await response.json()
-  if (!data.success) {
-    throw new Error(data.detail || '发送验证码失败')
   }
   return data
 }

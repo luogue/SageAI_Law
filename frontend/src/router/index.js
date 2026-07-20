@@ -10,7 +10,7 @@ function requireAuth(to, from, next) {
   }
 }
 
-// 路由守卫：已登录用户访问登录/注册页自动跳转首页
+// 路由守卫：已登录用户访问登录页自动跳转首页
 function redirectIfLoggedIn(to, from, next) {
   const token = localStorage.getItem('token')
   if (token) {
@@ -35,12 +35,6 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue'),
-    beforeEnter: redirectIfLoggedIn
-  },
-  {
-    path: '/register',
-    name: 'Register',
-    component: () => import('../views/Register.vue'),
     beforeEnter: redirectIfLoggedIn
   },
   {

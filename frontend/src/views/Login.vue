@@ -1,14 +1,5 @@
 <template>
   <div class="login-container">
-    <!-- 新手大礼包 -->
-    <div class="newbie-gift">
-      <div class="gift-icon">🎁</div>
-      <div class="gift-content">
-        <span class="gift-title">新手大礼包</span>
-        <span class="gift-desc">新用户注册即送3次免费审查额度，无使用期限</span>
-      </div>
-    </div>
-
     <div class="login-card">
       <div class="logo-section">
         <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -61,8 +52,7 @@
       
       <!-- 底部链接 -->
       <div class="footer-links">
-        <span>还没有账号？</span>
-        <a href="#" @click.prevent="router.push('/register')">立即注册</a>
+        <span>新用户请由管理员创建账号</span>
         <span class="divider">|</span>
         <a href="#" @click="handleShowPrivacy">隐私政策</a>
         <span class="divider">|</span>

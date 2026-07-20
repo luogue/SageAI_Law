@@ -871,6 +871,39 @@ def update_user_status(user_id: int, status: str) -> bool:
     return True
 
 
+def approve_user(user_id: int) -> bool:
+    """审核通过用户（pending -> normal）"""
+    db = next(get_db())
+    user = db.query(User).filter(User.id == user_id).first()
+    
+    if not user or user.status != "pending":
+        return False
+    
+    user.status = "normal"
+    db.commit()
+    return True
+
+
+def create_user_by_admin(mobile: str, password_hash: str, country_code: str = "+86", bonus_credits: int = 3) -> User:
+    """管理员手动创建用户，默认状态为normal（已审核）"""
+    db = next(get_db())
+    user = User(
+        country_code=country_code,
+        mobile=mobile,
+        password_hash=password_hash,
+        status="normal",
+        bonus_credits=bonus_credits
+    )
+    db.add(user)
+    try:
+        db.commit()
+        db.refresh(user)
+        return user
+    except IntegrityError:
+        db.rollback()
+        raise ValueError("该手机号已存在")
+
+
 def add_user_credits(user_id: int, amount: int) -> int:
     """增加用户额度，返回更新后的额度"""
     db = next(get_db())

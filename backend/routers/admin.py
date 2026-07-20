@@ -1185,6 +1185,79 @@ async def unban_user(
         return {"success": False, "detail": str(e)}
 
 
+@router.post("/users/create", summary="管理员创建用户")
+async def create_user(
+    mobile: str,
+    password: str,
+    country_code: str = "+86",
+    bonus_credits: int = 3,
+    token: str = Depends(get_admin_token)
+) -> Dict[str, Any]:
+    """管理员手动创建用户账号（默认状态为normal已审核）"""
+    from storage.crud import create_user_by_admin, create_admin_log
+    from auth.utils import hash_password
+    
+    try:
+        if not mobile or not password:
+            return {"success": False, "detail": "手机号和密码不能为空"}
+        
+        user = create_user_by_admin(
+            mobile=mobile,
+            password_hash=hash_password(password),
+            country_code=country_code,
+            bonus_credits=bonus_credits
+        )
+        
+        create_admin_log(
+            admin_user=ADMIN_USERNAME,
+            action="create_user",
+            target_type="user_id",
+            target_value=str(user.id),
+            detail=f"创建用户 {mobile}，赠送 {bonus_credits} 次额度"
+        )
+        
+        logger.info(f"管理员创建用户: {mobile} (ID: {user.id})")
+        return {
+            "success": True,
+            "detail": f"用户创建成功",
+            "user_id": user.id,
+            "mobile": _mask_phone(user.mobile)
+        }
+    except ValueError as e:
+        return {"success": False, "detail": str(e)}
+    except Exception as e:
+        logger.error(f"创建用户失败: {e}")
+        return {"success": False, "detail": str(e)}
+
+
+@router.post("/users/{user_id}/approve", summary="审核通过用户")
+async def approve_user(
+    user_id: int,
+    token: str = Depends(get_admin_token)
+) -> Dict[str, Any]:
+    """审核通过待审核用户（pending -> normal）"""
+    from storage.crud import approve_user, create_admin_log
+    
+    try:
+        success = approve_user(user_id)
+        if not success:
+            return {"success": False, "detail": "用户不存在或不是待审核状态"}
+        
+        create_admin_log(
+            admin_user=ADMIN_USERNAME,
+            action="approve_user",
+            target_type="user_id",
+            target_value=str(user_id),
+            detail="管理员审核通过"
+        )
+        
+        logger.info(f"用户 {user_id} 审核通过")
+        return {"success": True, "detail": "已审核通过"}
+    except Exception as e:
+        logger.error(f"审核用户失败: {e}")
+        return {"success": False, "detail": str(e)}
+
+
 @router.post("/users/{user_id}/add-credits", summary="增加额度")
 async def add_credits(
     user_id: int,

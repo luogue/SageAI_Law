@@ -176,6 +176,17 @@ export async function unbanUser(userId, reason = '') {
   })
 }
 
+// 创建用户
+export async function createUser({ mobile, password, countryCode = '+86', bonusCredits = 3 }) {
+  const params = new URLSearchParams({ mobile, password, country_code: countryCode, bonus_credits: bonusCredits })
+  return adminRequest(`/users/create?${params}`, { method: 'POST' })
+}
+
+// 审核通过用户
+export async function approveUser(userId) {
+  return adminRequest(`/users/${userId}/approve`, { method: 'POST' })
+}
+
 export async function addUserCredits(userId, amount, reason = '') {
   const params = new URLSearchParams({ amount })
   if (reason) params.append('reason', reason)

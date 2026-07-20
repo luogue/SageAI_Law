@@ -24,16 +24,6 @@
             <button class="item-btn" @click="handleFeedback">立即参与</button>
           </div>
           
-          <!-- 邀请有礼 -->
-          <div class="supply-item">
-            <div class="item-icon invite">✓</div>
-            <div class="item-content">
-              <h3>邀请有礼</h3>
-              <p>邀请好友注册，好友首次成功审查合同后，您和好友各得3次额度</p>
-            </div>
-            <button class="item-btn" @click="handleInvite">分享邀请</button>
-          </div>
-          
           <!-- 新品尝鲜 -->
           <div class="supply-item">
             <div class="item-icon taste">✓</div>
@@ -80,104 +70,6 @@ const handleFeedback = () => {
   // 跳转到我的报告页面
   router.push('/reports')
   emit('close')
-}
-
-const handleInvite = async () => {
-  // 从localStorage获取用户ID
-  const userId = localStorage.getItem('user_id')
-  if (!userId) {
-    ElMessage.warning('请先登录')
-    return
-  }
-  
-  // 生成邀请链接（使用当前访问的域名，兼容各种部署环境）
-  const baseUrl = window.location.origin
-  const inviteLink = `${baseUrl}/register?inviter_id=${userId}`
-  
-  // 复制到剪贴板的三重兜底方案：
-  // 1. Clipboard API（现代浏览器 + HTTPS）
-  // 2. execCommand（旧浏览器 / HTTP 环境）
-  // 3. 直接展示链接让用户手动复制
-  let copied = false
-  
-  // 方案1：Clipboard API
-  if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
-    try {
-      await navigator.clipboard.writeText(inviteLink)
-      copied = true
-    } catch (e) {
-      console.warn('Clipboard API 写入失败，尝试 fallback:', e.message)
-    }
-  }
-  
-  // 方案2：execCommand 兜底（适用于 HTTP 环境）
-  if (!copied) {
-    try {
-      const textarea = document.createElement('textarea')
-      textarea.value = inviteLink
-      textarea.style.position = 'fixed'
-      textarea.style.left = '-9999px'
-      textarea.style.top = '-9999px'
-      // 确保 textarea 可读可写，避免 iOS 等平台的限制
-      textarea.setAttribute('readonly', '')
-      document.body.appendChild(textarea)
-      textarea.focus()
-      textarea.select()
-      // iOS 需要特殊处理 selection range
-      if (navigator.userAgent.match(/ipad|iphone/i)) {
-        textarea.setSelectionRange(0, inviteLink.length)
-      }
-      const successful = document.execCommand('copy')
-      document.body.removeChild(textarea)
-      if (successful) {
-        copied = true
-      }
-    } catch (err) {
-      console.warn('execCommand 兜底方案也失败:', err.message)
-    }
-  }
-  
-  if (copied) {
-    ElMessage.success('邀请链接已复制到剪贴板！')
-  } else {
-    // 方案3：无法自动复制时，直接展示链接供用户手动复制
-    console.error('所有剪贴板方案均失败，展示链接供手动复制')
-    ElMessage({
-      message: `邀请链接: ${inviteLink}\n（已为您选中，可直接复制）`,
-      type: 'info',
-      duration: 5000,
-      showClose: true
-    })
-    // 尝试选中文本便于用户 Ctrl+C
-    try {
-      const tempDiv = document.createElement('div')
-      tempDiv.textContent = inviteLink
-      tempDiv.style.position = 'fixed'
-      tempDiv.style.left = '0'
-      tempDiv.style.right = '0'
-      tempDiv.style.bottom = '60px'
-      tempDiv.style.padding = '12px 20px'
-      tempDiv.style.background = '#323232'
-      tempDiv.style.color = '#fff'
-      tempDiv.style.fontSize = '13px'
-      tempDiv.style.textAlign = 'center'
-      tempDiv.style.zIndex = '10000'
-      tempDiv.style.cursor = 'pointer'
-      tempDiv.style.wordBreak = 'break-all'
-      tempDiv.title = '点击复制'
-      tempDiv.addEventListener('click', () => {
-        navigator.clipboard?.writeText(inviteLink)
-        ElMessage.success('已复制！')
-        document.body.removeChild(tempDiv)
-      })
-      document.body.appendChild(tempDiv)
-      setTimeout(() => {
-        if (tempDiv.parentNode) {
-          document.body.removeChild(tempDiv)
-        }
-      }, 8000)
-    } catch (_) { /* 忽略 */ }
-  }
 }
 
 const handleTaste = () => {
