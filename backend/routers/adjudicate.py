@@ -1,0 +1,76 @@
+"""押金裁判 API 路由 - 独立于合同审查主流程"""
+import logging
+from fastapi import APIRouter, Request
+from pydantic import BaseModel, Field
+from typing import Optional, List, Any, Dict
+
+from adjudicate.engine import adjudicate_deposit
+
+logger = logging.getLogger(__name__)
+
+router = APIRouter(prefix="/adjudicate", tags=["adjudicate_deposit"])
+
+
+class FactsInput(BaseModel):
+    """裁判输入事实对象"""
+    contract_valid: Optional[bool] = Field(True, description="合同是否有效")
+    contract_end_date: Optional[str] = Field(None, description="合同终止日 (YYYY-MM-DD)")
+    contract_clauses: Optional[List[str]] = Field(None, description="合同条款列表")
+    contract: Optional[Dict[str, Any]] = Field(None, description="合同详细字段")
+    
+    has_third_party: bool = Field(False, description="是否有第三人侵权")
+    is_early_termination: bool = Field(False, description="是否提前退租")
+    has_damage: bool = Field(False, description="是否确有损坏")
+    
+    damage_reason: Optional[str] = Field(None, description="损坏原因: natural_wear/tenant_fault")
+    damage_item: Optional[str] = Field(None, description="损坏物类型: decoration 为装修加装物")
+    damage_claimed_by: Optional[str] = Field(None, description="主张赔偿方: landlord/tenant")
+    evidence_can_prove_cause: bool = Field(True, description="证据能否证明损坏原因")
+    
+    notified_at_check_in: bool = Field(False, description="入住时是否已告知瑕疵")
+    landlord_remained_silent: bool = Field(False, description="房东知悉后是否保持沉默")
+    landlord_know_date: Optional[str] = Field(None, description="房东知道解除事由的日期")
+    
+    agreed_deduction: float = Field(0.0, description="合同约定的扣款金额")
+    repair_quote: float = Field(0.0, description="维修报价")
+    vacancy_days: int = Field(0, description="空置天数")
+    daily_rent: float = Field(0.0, description="日租金")
+    tenant_has_repair_claim: bool = Field(False, description="租客是否有维修费用反诉")
+
+
+class AdjudicateResult(BaseModel):
+    """裁判结果"""
+    success: bool = True
+    result: str = Field(..., description="判决结果文本")
+    triggered_patches: List[str] = Field(default_factory=list, description="触发的补丁清单")
+    path: List[str] = Field(default_factory=list, description="裁判决策路径")
+
+
+@router.post("/deposit", response_model=AdjudicateResult, summary="押金纠纷裁判")
+async def adjudicate_deposit_endpoint(facts: FactsInput, request: Request):
+    """
+    租赁押金纠纷裁判接口
+    
+    输入租赁押金纠纷的各项事实参数，返回裁判结果及触发的法律补丁清单。
+    完全独立于合同文本审查主流程。
+    """
+    logger.info("收到押金裁判请求")
+    
+    # 构建事实字典，过滤 None 值
+    facts_dict = facts.model_dump(exclude_none=True)
+    
+    try:
+        output = adjudicate_deposit(facts_dict)
+        return AdjudicateResult(
+            success=True,
+            result=output["result"],
+            triggered_patches=output["triggered_patches"],
+            path=output.get("path", []),
+        )
+    except Exception as e:
+        logger.exception("裁判引擎异常")
+        return AdjudicateResult(
+            success=False,
+            result=f"裁判引擎错误: {str(e)}",
+            triggered_patches=[],
+        )

@@ -45,7 +45,7 @@ from storage.crud import (
     get_user_bonus_credits, use_user_bonus_credit,
     complete_invite_reward
 )
-from routers import feedback, user, admin, records
+from routers import feedback, user, admin, records, adjudicate
 from security.middleware import SecurityMiddleware, ENABLE_SENSITIVE_FILTER, ADMIN_TOKEN
 from security import get_sensitive_filter, structured_logger
 from security.rate_limiter import get_rate_limiter
@@ -152,6 +152,7 @@ app.include_router(feedback.router, prefix="/api")
 app.include_router(user.router)
 app.include_router(admin.router)
 app.include_router(records.router)
+app.include_router(adjudicate.router, prefix="/api")
 
 # 初始化四层模块
 input_layer = InputLayer()

@@ -28,6 +28,14 @@
             我的报告
           </router-link>
           <span class="divider">|</span>
+          <router-link 
+            to="/adjudicate" 
+            class="nav-link-item nav-link-special"
+            :class="{ active: isActive('/adjudicate') }"
+          >
+            押金裁判
+          </router-link>
+          <span class="divider">|</span>
           <a href="#" class="nav-link-item" @click.prevent="showPrivacy">隐私政策</a>
           <span class="divider">|</span>
           <a href="#" class="nav-link-item" @click.prevent="showTerms">用户协议</a>
@@ -200,6 +208,15 @@ const handleFeedbackSuccess = () => {
   color: #4080FF;
   font-weight: 500;
   background: #f0f7ff;
+}
+
+.nav-link-special {
+  color: #e6a23c;
+  font-weight: 600;
+}
+.nav-link-special:hover {
+  color: #e6a23c;
+  background: #fdf6ec;
 }
 
 .nav-links .divider {

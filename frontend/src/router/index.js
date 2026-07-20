@@ -58,6 +58,11 @@ const routes = [
         path: 'report/:id',
         name: 'ReportDetail',
         component: () => import('../components/ResultPage.vue')
+      },
+      {
+        path: 'adjudicate',
+        name: 'AdjudicateDeposit',
+        component: () => import('../views/AdjudicateDeposit.vue')
       }
     ]
   },
