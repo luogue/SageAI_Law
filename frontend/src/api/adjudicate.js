@@ -30,3 +30,23 @@ export async function adjudicateDeposit(facts) {
   }
   return data
 }
+
+export async function adjudicateDepositV2(caseText, contractType = 'house') {
+  const response = await fetch(`${BASE}/api/adjudicate/deposit-v2`, {
+    method: 'POST',
+    headers: getAuthHeaders(),
+    body: JSON.stringify({ case_text: caseText, contract_type: contractType })
+  })
+
+  if (response.status === 401) {
+    localStorage.removeItem('token')
+    window.location.href = '/login'
+    throw new Error('登录已过期')
+  }
+
+  const data = await response.json()
+  if (!data.success) {
+    throw new Error(data.result || '裁判请求失败')
+  }
+  return data
+}

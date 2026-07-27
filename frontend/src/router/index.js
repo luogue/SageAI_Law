@@ -63,6 +63,11 @@ const routes = [
         path: 'adjudicate',
         name: 'AdjudicateDeposit',
         component: () => import('../views/AdjudicateDeposit.vue')
+      },
+      {
+        path: 'adjudicate-v2',
+        name: 'AdjudicateDepositV2',
+        component: () => import('../views/AdjudicateDepositV2.vue')
       }
     ]
   },

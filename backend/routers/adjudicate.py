@@ -5,6 +5,7 @@ from pydantic import BaseModel, Field
 from typing import Optional, List, Any, Dict
 
 from adjudicate.engine import adjudicate_deposit
+from adjudicate.engine_v2 import adjudicate_deposit_v2
 
 logger = logging.getLogger(__name__)
 
@@ -46,6 +47,24 @@ class AdjudicateResult(BaseModel):
     path: List[str] = Field(default_factory=list, description="裁判决策路径")
 
 
+class NaturalLanguageFactsInput(BaseModel):
+    """第二版裁判引擎：自然语言案件事实输入"""
+    case_text: str = Field(..., min_length=1, description="自然语言描述的租房押金纠纷案件事实")
+    contract_type: str = Field("house", description="租赁类型: house/vehicle/equipment")
+
+
+class AdjudicateV2Result(BaseModel):
+    """第二版裁判引擎输出"""
+    success: bool = True
+    result: str
+    major_premise: str
+    minor_premise: str
+    conclusion: str
+    triggered_patches: List[str] = Field(default_factory=list)
+    path: List[str] = Field(default_factory=list)
+    facts: Dict[str, Any] = Field(default_factory=dict)
+
+
 @router.post("/deposit", response_model=AdjudicateResult, summary="押金纠纷裁判")
 async def adjudicate_deposit_endpoint(facts: FactsInput, request: Request):
     """
@@ -73,4 +92,31 @@ async def adjudicate_deposit_endpoint(facts: FactsInput, request: Request):
             success=False,
             result=f"裁判引擎错误: {str(e)}",
             triggered_patches=[],
+        )
+
+
+@router.post("/deposit-v2", response_model=AdjudicateV2Result, summary="租房押金纠纷裁判引擎第二版")
+async def adjudicate_deposit_v2_endpoint(payload: NaturalLanguageFactsInput, request: Request):
+    """
+    第二版租房押金纠纷裁判引擎。
+
+    输入自然语言案件事实，接口内部完成事实要素抽取、前置拦截、主决策树运行，并输出三段式裁判结论。
+    该接口独立于合同审查主流程和旧版结构化押金裁判接口。
+    """
+    logger.info("收到押金裁判第二版请求")
+
+    try:
+        output = adjudicate_deposit_v2(payload.case_text, contract_type=payload.contract_type)
+        return AdjudicateV2Result(**output)
+    except Exception as e:
+        logger.exception("押金裁判第二版引擎异常")
+        return AdjudicateV2Result(
+            success=False,
+            result=f"裁判引擎错误: {str(e)}",
+            major_premise="",
+            minor_premise="",
+            conclusion=f"裁判引擎错误: {str(e)}",
+            triggered_patches=[],
+            path=[],
+            facts={},
         )

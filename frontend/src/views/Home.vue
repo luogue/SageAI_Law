@@ -36,6 +36,14 @@
             押金裁判
           </router-link>
           <span class="divider">|</span>
+          <router-link
+            to="/adjudicate-v2"
+            class="nav-link-item nav-link-v2"
+            :class="{ active: isActive('/adjudicate-v2') }"
+          >
+            租赁裁判第二版
+          </router-link>
+          <span class="divider">|</span>
           <a href="#" class="nav-link-item" @click.prevent="showPrivacy">隐私政策</a>
           <span class="divider">|</span>
           <a href="#" class="nav-link-item" @click.prevent="showTerms">用户协议</a>
@@ -217,6 +225,16 @@ const handleFeedbackSuccess = () => {
 .nav-link-special:hover {
   color: #e6a23c;
   background: #fdf6ec;
+}
+
+.nav-link-v2 {
+  color: #1f6feb;
+  font-weight: 600;
+}
+
+.nav-link-v2:hover {
+  color: #1f6feb;
+  background: #eef6ff;
 }
 
 .nav-links .divider {
