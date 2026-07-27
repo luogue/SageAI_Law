@@ -6,6 +6,14 @@ from typing import Optional, List, Any, Dict
 
 from adjudicate.engine import adjudicate_deposit
 from adjudicate.engine_v2 import adjudicate_deposit_v2
+from adjudicate.agency_engine import adjudicate_agency
+from adjudicate.loan_engine import adjudicate_loan
+from adjudicate.property_engine import adjudicate_property_management
+from adjudicate.sale_engine import adjudicate_sale
+from adjudicate.safekeeping_engine import adjudicate_safekeeping
+from adjudicate.service_engine import adjudicate_service
+from adjudicate.transport_engine import adjudicate_transportation
+from adjudicate.work_contract_engine import adjudicate_work_contract
 
 logger = logging.getLogger(__name__)
 
@@ -49,8 +57,8 @@ class AdjudicateResult(BaseModel):
 
 class NaturalLanguageFactsInput(BaseModel):
     """第二版裁判引擎：自然语言案件事实输入"""
-    case_text: str = Field(..., min_length=1, description="自然语言描述的租房押金纠纷案件事实")
-    contract_type: str = Field("house", description="租赁类型: house/vehicle/equipment")
+    case_text: str = Field(..., min_length=1, description="自然语言描述的合同纠纷案件事实")
+    contract_type: str = Field("house", description="合同类型: house/vehicle/equipment/property_management/transportation/work_contract/deposit/sale/agency/loan/service")
 
 
 class AdjudicateV2Result(BaseModel):
@@ -95,21 +103,38 @@ async def adjudicate_deposit_endpoint(facts: FactsInput, request: Request):
         )
 
 
-@router.post("/deposit-v2", response_model=AdjudicateV2Result, summary="租房押金纠纷裁判引擎第二版")
+@router.post("/deposit-v2", response_model=AdjudicateV2Result, summary="合同纠纷裁判引擎第二版")
 async def adjudicate_deposit_v2_endpoint(payload: NaturalLanguageFactsInput, request: Request):
     """
-    第二版租房押金纠纷裁判引擎。
+    第二版合同纠纷裁判引擎。
 
-    输入自然语言案件事实，接口内部完成事实要素抽取、前置拦截、主决策树运行，并输出三段式裁判结论。
+    输入自然语言案件事实，接口内部按合同类型完成事实要素抽取、前置拦截、主决策树运行，并输出三段式裁判结论。
     该接口独立于合同审查主流程和旧版结构化押金裁判接口。
     """
-    logger.info("收到押金裁判第二版请求")
+    logger.info("收到合同裁判第二版请求")
 
     try:
-        output = adjudicate_deposit_v2(payload.case_text, contract_type=payload.contract_type)
+        if payload.contract_type in {"property_management", "property", "物业", "物业服务"}:
+            output = adjudicate_property_management(payload.case_text)
+        elif payload.contract_type in {"transportation", "transport", "freight", "运输", "货运", "物流"}:
+            output = adjudicate_transportation(payload.case_text)
+        elif payload.contract_type in {"work_contract", "contracting", "work", "承揽", "承揽合同", "加工", "定作", "修理"}:
+            output = adjudicate_work_contract(payload.case_text)
+        elif payload.contract_type in {"deposit", "safekeeping", "custody", "bailment", "deposit_contract", "保管", "保管合同", "寄存"}:
+            output = adjudicate_safekeeping(payload.case_text)
+        elif payload.contract_type in {"sale", "sales", "purchase", "purchase_sale", "goods_sale", "买卖", "买卖合同", "货物买卖"}:
+            output = adjudicate_sale(payload.case_text)
+        elif payload.contract_type in {"agency", "entrustment", "mandate", "commission", "agent", "委托", "委托合同", "代理"}:
+            output = adjudicate_agency(payload.case_text)
+        elif payload.contract_type in {"loan", "borrow", "lending", "credit", "借款", "借贷", "借款合同", "民间借贷", "金融借款"}:
+            output = adjudicate_loan(payload.case_text)
+        elif payload.contract_type in {"service", "services", "consumer_service", "training", "fitness", "服务", "服务合同", "培训", "健身", "美容"}:
+            output = adjudicate_service(payload.case_text)
+        else:
+            output = adjudicate_deposit_v2(payload.case_text, contract_type=payload.contract_type)
         return AdjudicateV2Result(**output)
     except Exception as e:
-        logger.exception("押金裁判第二版引擎异常")
+        logger.exception("合同裁判第二版引擎异常")
         return AdjudicateV2Result(
             success=False,
             result=f"裁判引擎错误: {str(e)}",
