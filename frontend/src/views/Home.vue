@@ -20,6 +20,14 @@
             上传审查
           </router-link>
           <span class="divider">|</span>
+          <router-link
+            to="/contract-review-v2"
+            class="nav-link-item nav-link-review-v2"
+            :class="{ active: isActive('/contract-review-v2') }"
+          >
+            合同审查第二版
+          </router-link>
+          <span class="divider">|</span>
           <router-link 
             to="/reports" 
             class="nav-link-item" 
@@ -235,6 +243,16 @@ const handleFeedbackSuccess = () => {
 .nav-link-v2:hover {
   color: #1f6feb;
   background: #eef6ff;
+}
+
+.nav-link-review-v2 {
+  color: #12805c;
+  font-weight: 600;
+}
+
+.nav-link-review-v2:hover {
+  color: #12805c;
+  background: #eefbf5;
 }
 
 .nav-links .divider {

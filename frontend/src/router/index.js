@@ -55,6 +55,11 @@ const routes = [
         component: () => import('../components/MyReports.vue')
       },
       {
+        path: 'contract-review-v2',
+        name: 'ContractReviewV2',
+        component: () => import('../views/ContractReviewV2.vue')
+      },
+      {
         path: 'report/:id',
         name: 'ReportDetail',
         component: () => import('../components/ResultPage.vue')
@@ -70,6 +75,11 @@ const routes = [
         component: () => import('../views/AdjudicateDepositV2.vue')
       }
     ]
+  },
+  {
+    path: '/contract-review-v2',
+    name: 'ContractReviewV2Standalone',
+    component: () => import('../views/ContractReviewV2.vue')
   },
   // ========== 后台管理路由 ==========
   {

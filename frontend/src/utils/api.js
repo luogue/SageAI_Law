@@ -55,7 +55,7 @@ export async function login(phone, password) {
   const response = await fetch(`${AUTH_URL}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ phone, password })
+    body: JSON.stringify({ phone, password, captcha_token: 'verified' })
   })
   const data = await response.json()
   if (!response.ok || !data.access_token) {
@@ -115,6 +115,78 @@ export async function batchReviewContracts(files, additionalInstructions) {
   })
 
   return handleResponse(response)
+}
+
+// 合同审查第二版：清单式文件审查
+export async function reviewContractV2File(file, contractType = 'house_lease', includeLowRisk = true, useLlm = true) {
+  const formData = new FormData()
+  formData.append('file', file)
+  formData.append('contract_type', contractType)
+  formData.append('include_low_risk', includeLowRisk ? 'true' : 'false')
+  formData.append('use_llm', useLlm ? 'true' : 'false')
+
+  const response = await fetch(`${BASE_URL}/review-v2/file`, {
+    method: 'POST',
+    headers: { ...getAuthHeaders() },
+    body: formData
+  })
+
+  return handleResponse(response)
+}
+
+// 合同审查第二版：大模型语义复核状态
+export async function getReviewV2LlmStatus() {
+  const response = await fetch(`${BASE_URL}/review-v2/llm-status`, {
+    method: 'GET',
+    headers: { ...getAuthHeaders() }
+  })
+
+  return handleResponse(response)
+}
+
+async function exportReviewV2Report(report, format) {
+  const response = await fetch(`${BASE_URL}/review-v2/export-${format}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...getAuthHeaders()
+    },
+    body: JSON.stringify(report)
+  })
+
+  if (response.status === 401) {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user_id')
+    window.location.href = '/login'
+    throw new Error('登录已过期，请重新登录')
+  }
+
+  if (!response.ok) {
+    let message = `${format.toUpperCase()}导出失败`
+    try {
+      const data = await response.json()
+      message = data.detail?.message || data.detail || message
+    } catch (error) {
+      // 非 JSON 错误响应时保留默认提示
+    }
+    throw new Error(message)
+  }
+
+  const blob = await response.blob()
+  if (!blob || blob.size === 0) {
+    throw new Error(`${format.toUpperCase()}导出结果为空`)
+  }
+  return blob
+}
+
+// 合同审查第二版：导出 PDF 报告
+export async function exportReviewV2Pdf(report) {
+  return exportReviewV2Report(report, 'pdf')
+}
+
+// 合同审查第二版：导出 Word 报告
+export async function exportReviewV2Docx(report) {
+  return exportReviewV2Report(report, 'docx')
 }
 
 export async function getTaskStatus(taskId) {

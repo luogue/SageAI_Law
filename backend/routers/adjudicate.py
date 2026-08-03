@@ -7,12 +7,21 @@ from typing import Optional, List, Any, Dict
 from adjudicate.engine import adjudicate_deposit
 from adjudicate.engine_v2 import adjudicate_deposit_v2
 from adjudicate.agency_engine import adjudicate_agency
+from adjudicate.brokerage_engine import adjudicate_brokerage
+from adjudicate.commission_agency_engine import adjudicate_commission_agency
+from adjudicate.construction_engine import adjudicate_construction
+from adjudicate.finance_lease_engine import adjudicate_finance_lease
+from adjudicate.gift_engine import adjudicate_gift
+from adjudicate.guarantee_engine import adjudicate_guarantee
 from adjudicate.loan_engine import adjudicate_loan
 from adjudicate.property_engine import adjudicate_property_management
 from adjudicate.sale_engine import adjudicate_sale
 from adjudicate.safekeeping_engine import adjudicate_safekeeping
 from adjudicate.service_engine import adjudicate_service
+from adjudicate.technology_engine import adjudicate_technology
 from adjudicate.transport_engine import adjudicate_transportation
+from adjudicate.utility_supply_engine import adjudicate_utility_supply
+from adjudicate.warehouse_engine import adjudicate_warehouse
 from adjudicate.work_contract_engine import adjudicate_work_contract
 
 logger = logging.getLogger(__name__)
@@ -58,7 +67,7 @@ class AdjudicateResult(BaseModel):
 class NaturalLanguageFactsInput(BaseModel):
     """第二版裁判引擎：自然语言案件事实输入"""
     case_text: str = Field(..., min_length=1, description="自然语言描述的合同纠纷案件事实")
-    contract_type: str = Field("house", description="合同类型: house/vehicle/equipment/property_management/transportation/work_contract/deposit/sale/agency/loan/service")
+    contract_type: str = Field("house", description="合同类型: house/vehicle/equipment/property_management/transportation/work_contract/deposit/sale/agency/loan/service/guarantee/finance_lease/warehouse/construction/technology/commission_agency/utility_supply/gift/brokerage")
 
 
 class AdjudicateV2Result(BaseModel):
@@ -124,12 +133,30 @@ async def adjudicate_deposit_v2_endpoint(payload: NaturalLanguageFactsInput, req
             output = adjudicate_safekeeping(payload.case_text)
         elif payload.contract_type in {"sale", "sales", "purchase", "purchase_sale", "goods_sale", "买卖", "买卖合同", "货物买卖"}:
             output = adjudicate_sale(payload.case_text)
-        elif payload.contract_type in {"agency", "entrustment", "mandate", "commission", "agent", "委托", "委托合同", "代理"}:
+        elif payload.contract_type in {"commission_agency", "commission", "commission_contract", "commission_agency_contract", "行纪", "行纪合同"}:
+            output = adjudicate_commission_agency(payload.case_text)
+        elif payload.contract_type in {"brokerage", "broker", "intermediary", "intermediary_contract", "brokerage_contract", "中介", "中介合同", "居间", "居间合同"}:
+            output = adjudicate_brokerage(payload.case_text)
+        elif payload.contract_type in {"agency", "entrustment", "mandate", "agent", "委托", "委托合同", "代理"}:
             output = adjudicate_agency(payload.case_text)
         elif payload.contract_type in {"loan", "borrow", "lending", "credit", "借款", "借贷", "借款合同", "民间借贷", "金融借款"}:
             output = adjudicate_loan(payload.case_text)
         elif payload.contract_type in {"service", "services", "consumer_service", "training", "fitness", "服务", "服务合同", "培训", "健身", "美容"}:
             output = adjudicate_service(payload.case_text)
+        elif payload.contract_type in {"guarantee", "surety", "suretyship", "担保", "保证", "保证合同", "担保合同"}:
+            output = adjudicate_guarantee(payload.case_text)
+        elif payload.contract_type in {"finance_lease", "financial_lease", "leasing", "融资租赁", "融资租赁合同", "售后回租"}:
+            output = adjudicate_finance_lease(payload.case_text)
+        elif payload.contract_type in {"warehouse", "storage", "warehousing", "warehouse_contract", "仓储", "仓储合同"}:
+            output = adjudicate_warehouse(payload.case_text)
+        elif payload.contract_type in {"construction", "construction_contract", "building", "工程", "建设工程", "建设工程合同", "施工合同"}:
+            output = adjudicate_construction(payload.case_text)
+        elif payload.contract_type in {"technology", "tech", "technology_contract", "技术", "技术合同", "技术开发", "技术转让", "技术许可", "技术咨询", "技术服务"}:
+            output = adjudicate_technology(payload.case_text)
+        elif payload.contract_type in {"utility_supply", "utility", "utilities", "power_supply", "water_supply", "gas_supply", "heat_supply", "供用", "供用电", "供用水", "供用气", "供用热力", "供水供电"}:
+            output = adjudicate_utility_supply(payload.case_text)
+        elif payload.contract_type in {"gift", "donation", "gift_contract", "赠与", "赠与合同", "捐赠"}:
+            output = adjudicate_gift(payload.case_text)
         else:
             output = adjudicate_deposit_v2(payload.case_text, contract_type=payload.contract_type)
         return AdjudicateV2Result(**output)
