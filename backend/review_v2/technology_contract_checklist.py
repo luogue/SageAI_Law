@@ -12,6 +12,42 @@ from typing import Tuple
 from review_v2.house_lease_checklist import ReviewCheckpoint
 
 
+def _technology_applicable_if(item_id: str, node_id: str) -> str:
+    if node_id == "technology_contract_type_classification":
+        return "仅在合同未能明确识别为技术开发、技术转让、技术许可、技术咨询或技术服务之一时适用。"
+    if node_id == "fraud_contract_existing_technology":
+        return "仅在技术开发合同涉及现有技术、冒充研发、重复收费或欺诈风险时适用。"
+    if node_id == "research_organization_authorization":
+        return "仅在课题组、实验室、研究中心等科研组织或内部机构参与签约时适用。"
+    if item_id.startswith("TC-04"):
+        return "仅适用于委托开发合同或未能区分委托/合作的技术开发合同。"
+    if item_id.startswith("TC-05"):
+        if node_id == "technical_secret_result_rights":
+            return "适用于委托开发或合作开发中产生技术秘密成果的情形。"
+        if node_id == "cooperation_breach_and_exit":
+            return "适用于技术开发合同中涉及研发资料交接、项目退出、协作违约或通用违约后果的情形。"
+        return "仅适用于合作开发合同或未能区分委托/合作的技术开发合同。"
+    if item_id.startswith("TC-06"):
+        return "仅适用于技术转让合同。"
+    if item_id.startswith("TC-07"):
+        return "仅适用于技术许可合同。"
+    if item_id.startswith("TC-08"):
+        return "仅适用于技术咨询合同。"
+    if item_id.startswith("TC-09"):
+        return "仅适用于技术服务合同。"
+    if item_id.startswith("TC-10"):
+        return "主要适用于技术开发、技术转让、技术许可等可能产生后续改进成果的合同。"
+    if item_id.startswith("TC-11"):
+        return "适用于涉及技术秘密、源代码、数据、图纸、样品或其他保密资料的技术合同。"
+    if item_id.startswith("TC-12"):
+        return "适用于涉及技术成果交付、实施、转让、许可、咨询或服务并可能发生第三方权利主张的技术合同。"
+    if node_id == "technology_import_export_control":
+        return "仅在合同涉及技术进口、技术出口、跨境许可、跨境交付或数据出境时适用。"
+    if item_id.startswith("TC-13"):
+        return "适用于需要以附件固定技术资料、权属证明、验收测试文件的技术合同。"
+    return "技术合同均适用。"
+
+
 def _required(
     item_id: str,
     node_id: str,
@@ -34,6 +70,7 @@ def _required(
         suggested_clause=suggested_clause,
         legal_basis=legal_basis,
         legal_consequence_if_missing=risk_point,
+        applicable_if=_technology_applicable_if(item_id, node_id),
         semantic_question=f"合同是否已明确约定“{title}”，并能覆盖技术合同裁判树中对应的核心风险？",
         evidence_scope="正式合同条款及附件",
         pass_criteria=f"正式合同条款或附件中存在与“{title}”相关的明确、可执行约定，且技术名称、交付物、权利范围、期限、费用、成果归属或附件已填写完整。",
@@ -63,6 +100,7 @@ def _forbidden(
         suggested_clause=suggested_clause,
         legal_basis=legal_basis,
         legal_consequence_if_missing=risk_point,
+        applicable_if=_technology_applicable_if(item_id, node_id),
         semantic_question=f"合同中是否存在“{title}”类可能导致合同无效、权利瑕疵或责任失控的风险表述？",
         evidence_scope="正式合同条款及附件",
         pass_criteria=f"正式合同条款及附件中未发现“{title}”类风险表述。",

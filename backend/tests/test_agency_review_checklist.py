@@ -1,7 +1,7 @@
 """Structural tests for the agency-contract review checklist."""
 
 from review_v2.agency_contract_checklist import get_agency_checklist
-from review_v2.engine import review_contract_v2
+from review_v2.engine import COVERAGE_NOT_APPLICABLE, ISSUE_NOT_APPLICABLE, review_contract_v2
 from review_v2.house_lease_checklist import ReviewCheckpoint
 
 
@@ -105,4 +105,45 @@ def test_review_v2_can_load_agency_checklist():
     assert output["contract_type_name"] == "委托合同"
     assert output["all_items_count"] == 42
     assert len(output["items"]) == 42
-    assert output["summary"]["高"] + output["summary"]["中"] + output["summary"]["低"] == 42
+    assert (
+        output["summary"]["高"] + output["summary"]["中"] + output["summary"]["低"]
+        == 42 - output["coverage_summary"].get(COVERAGE_NOT_APPLICABLE, 0)
+    )
+
+
+def test_agency_special_scenario_points_are_not_applicable_when_absent():
+    output = review_contract_v2(
+        "委托人委托受托人代办公司登记事项。受托人应按委托人指示处理事务、定期报告进展并移交取得的文件和财产。本合同不涉及转委托、隐名委托、自己代理或双方代理。",
+        "agency",
+        use_llm=False,
+    )
+    by_id = {item["item_id"]: item for item in output["items"]}
+
+    for item_id in (
+        "A-08-01",
+        "A-08-02",
+        "A-08-03",
+        "A-09-01",
+        "A-09-02",
+        "A-09-03",
+        "A-10-01",
+        "A-10-02",
+        "A-10-03",
+        "A-11-01",
+        "A-11-02",
+        "A-11-03",
+    ):
+        assert by_id[item_id]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+        assert by_id[item_id]["issue_type"] == ISSUE_NOT_APPLICABLE
+        assert by_id[item_id]["risk_level"] == COVERAGE_NOT_APPLICABLE
+
+
+def test_agency_generic_notice_does_not_cover_arbitrary_termination():
+    output = review_contract_v2(
+        "委托人委托受托人代办工商登记。双方确认联系地址用于一般通知。受托人应按指示处理事务并报告结果。",
+        "agency",
+        use_llm=False,
+    )
+    by_id = {item["item_id"]: item for item in output["items"]}
+
+    assert by_id["A-12-01"]["coverage_status"] == "缺失"

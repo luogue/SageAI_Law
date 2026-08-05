@@ -6,9 +6,11 @@ from pathlib import Path
 import pytest
 from docx import Document
 
-from review_v2.clause_parser import SECTION_FORMAL, SECTION_SPECIAL_NOTICE, SECTION_USAGE, parse_contract_clauses
+from review_v2.clause_parser import ParsedClause, SECTION_FORMAL, SECTION_SPECIAL_NOTICE, SECTION_USAGE, parse_contract_clauses
 from review_v2.engine import review_contract_v2
+from review_v2.house_lease_checklist import HOUSE_LEASE_REVIEW_CHECKLIST
 from review_v2.house_lease_checklist import get_house_lease_checklist
+from review_v2.llm_semantic_reviewer import _judgment_from_model_result
 from review_v2.llm_semantic_reviewer import get_llm_review_status
 from routers.review_v2 import ReviewV2PdfInput, _build_docx, _build_pdf
 
@@ -138,6 +140,21 @@ def test_review_v2_marks_covered_item_low_risk():
     assert item["status"] == "已覆盖"
     assert item["judge_source"] == "rule_fallback"
     assert "《民法典》第734条" in item["legal_basis_index"]
+
+
+def test_indefinite_lease_missing_reason_explains_article_734_and_suggested_risk():
+    output = review_contract_v2(
+        "租赁期限为一年，租期届满后乙方应当交还房屋。",
+        "house_lease",
+        use_llm=False,
+    )
+
+    item = next(item for item in output["items"] if item["item_id"] == "HL-013")
+    assert item["risk_level"] == "中"
+    assert item["coverage_status"] == "缺失"
+    assert "《民法典》第734条" in item["reasoning_summary"]
+    assert "不定期" in item["reasoning_summary"]
+    assert "建议性补充条款" in item["reasoning_summary"]
 
 
 def test_review_v2_rejects_unsupported_type_without_crashing():
@@ -312,6 +329,61 @@ def test_expropriation_demolition_requires_direct_clause_not_generic_termination
     assert item["evidence_clauses"] == []
 
 
+def test_llm_selected_surface_keyword_evidence_is_downgraded_to_missing():
+    by_id = {checkpoint.item_id: checkpoint for checkpoint in HOUSE_LEASE_REVIEW_CHECKLIST}
+    cases = [
+        ("HL-005", "第十五条 提前解除。乙方提前退租的，应提前30日书面通知甲方。"),
+        ("HL-023", "第七条 费用。水费、电费、燃气费、物业管理费由乙方承担。"),
+        ("HL-024", "第五条 押金。合同终止时，乙方结清费用后，甲方无息返还押金。"),
+    ]
+
+    for item_id, text in cases:
+        clause = ParsedClause(
+            clause_id=f"{item_id}-C1",
+            location="测试条款",
+            title=text[:20],
+            text=text,
+            section_type=SECTION_FORMAL,
+            level=1,
+        )
+        judgment = _judgment_from_model_result(
+            by_id[item_id],
+            [clause],
+            [],
+            {
+                "coverage_status": "部分覆盖",
+                "risk_level": by_id[item_id].risk_level,
+                "reasoning_summary": "模型认为表面关键词可部分覆盖。",
+                "evidence_clause_ids": [clause.clause_id],
+                "confidence": "high",
+                "needs_human_review": False,
+            },
+        )
+
+        assert judgment.coverage_status == "缺失"
+        assert judgment.issue_type == "完全缺失"
+        assert judgment.evidence_clauses == []
+        assert judgment.evidence_location == ""
+        assert judgment.reasoning_summary == "未在正式合同条款中找到能覆盖该审查点的有效约定。"
+
+
+def test_substantive_notice_and_expropriation_clauses_remain_valid_evidence():
+    output = review_contract_v2(
+        "第十八条 通知、送达。双方保证在本合同中记载的联系电话、联系地址、电子邮箱等信息均真实有效，"
+        "作为本合同履行以及争议解决时的有效联系方式和送达地址。任何一方变更联系电话、联系地址、电子邮箱的，"
+        "应当书面通知对方；未及时通知的，对方按照本合同约定的联系方式和送达地址进行送达的，视为有效送达。\n"
+        "第十六条 合同解除。该房屋被依法征收征用的，本合同解除，双方按实际使用期间结算费用。",
+        "house_lease",
+        use_llm=False,
+    )
+    by_id = {item["item_id"]: item for item in output["items"]}
+
+    assert by_id["HL-005"]["coverage_status"] == "通过"
+    assert by_id["HL-005"]["evidence_clauses"]
+    assert by_id["HL-024"]["coverage_status"] == "通过"
+    assert by_id["HL-024"]["evidence_clauses"]
+
+
 def test_term_expiry_settlement_prefers_deposit_evidence_over_breach_clause():
     output = review_contract_v2(
         "第五条 押金。合同终止时，乙方结清各项费用后，甲方无息返还押金。\n"
@@ -341,9 +413,28 @@ def test_blank_early_surrender_and_penalty_terms_are_not_passed():
     assert early["coverage_status"] == "部分覆盖"
     assert early["issue_type"] == "模板空白"
     assert early["risk_level"] == "中"
+    assert "违约金比例" in early["risk_point_description"]
+    assert "实际损失" in early["risk_point_description"]
+    assert "模板空白" in early["reasoning_summary"]
+    assert "调减" in early["reasoning_summary"]
     assert deduction["coverage_status"] == "部分覆盖"
     assert deduction["issue_type"] == "模板空白"
     assert deduction["risk_level"] == "高"
+
+
+def test_termination_notice_distinguishes_early_surrender_notice():
+    output = review_contract_v2(
+        "第十五条 提前解除。乙方提前退租的，应提前30日书面通知甲方，并按实际使用期间结算费用。",
+        "house_lease",
+        use_llm=False,
+    )
+
+    item = next(item for item in output["items"] if item["item_id"] == "HL-019")
+    assert item["risk_level"] == "中"
+    assert item["coverage_status"] == "部分覆盖"
+    assert "提前退租的书面通知" in item["reasoning_summary"]
+    assert "解除通知的送达方式" in item["reasoning_summary"]
+    assert "前者启动解除程序，后者使解除行为生效" in item["reasoning_summary"]
 
 
 def test_loss_based_penalty_adjustment_can_pass_when_complete():

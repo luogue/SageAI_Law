@@ -1,6 +1,6 @@
 """Structural tests for the safekeeping-contract review checklist."""
 
-from review_v2.engine import review_contract_v2
+from review_v2.engine import COVERAGE_NOT_APPLICABLE, ISSUE_NOT_APPLICABLE, review_contract_v2
 from review_v2.house_lease_checklist import ReviewCheckpoint
 from review_v2.safekeeping_contract_checklist import get_safekeeping_checklist
 
@@ -99,4 +99,23 @@ def test_review_v2_can_load_safekeeping_contract_checklist():
     assert output["contract_type_name"] == "保管合同"
     assert output["all_items_count"] == 48
     assert len(output["items"]) == 48
-    assert output["summary"]["高"] + output["summary"]["中"] + output["summary"]["低"] == 48
+    assert (
+        output["summary"]["高"] + output["summary"]["中"] + output["summary"]["低"]
+        == 48 - output["coverage_summary"].get(COVERAGE_NOT_APPLICABLE, 0)
+    )
+
+
+def test_safekeeping_special_scenario_points_are_not_applicable_when_absent():
+    output = review_contract_v2(
+        "寄存人将普通设备一台交由保管人保管。保管期间为三十日，保管费为1000元。保管人应妥善保管，不得使用保管物，期满返还原物。",
+        "deposit",
+        use_llm=False,
+    )
+    by_id = {item["item_id"]: item for item in output["items"]}
+
+    for item_id in ("D-06-02", "D-06-03", "D-10-01", "D-10-02", "D-10-03", "D-10-04"):
+        assert by_id[item_id]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+        assert by_id[item_id]["issue_type"] == ISSUE_NOT_APPLICABLE
+        assert by_id[item_id]["risk_level"] == COVERAGE_NOT_APPLICABLE
+
+    assert output["summary"]["高"] + output["summary"]["中"] + output["summary"]["低"] == 48 - 6

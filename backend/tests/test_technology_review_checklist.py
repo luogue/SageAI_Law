@@ -1,6 +1,10 @@
 """Structural tests for the technology-contract review checklist."""
 
-from review_v2.engine import review_contract_v2
+from pathlib import Path
+
+from docx import Document
+
+from review_v2.engine import COVERAGE_NOT_APPLICABLE, review_contract_v2
 from review_v2.house_lease_checklist import ReviewCheckpoint
 from review_v2.technology_contract_checklist import get_technology_checklist
 
@@ -31,6 +35,7 @@ def test_technology_review_checklist_fields_are_complete():
         assert checkpoint.suggested_clause
         assert checkpoint.legal_basis
         assert checkpoint.legal_consequence_if_missing
+        assert checkpoint.applicable_if
         assert checkpoint.semantic_question
         assert checkpoint.evidence_scope
         assert checkpoint.pass_criteria
@@ -118,4 +123,98 @@ def test_review_v2_can_load_technology_checklist():
     assert output["contract_type_name"] == "技术合同"
     assert output["all_items_count"] == 52
     assert len(output["items"]) == 52
-    assert output["summary"]["高"] + output["summary"]["中"] + output["summary"]["低"] == 52
+    assert (
+        output["summary"]["高"]
+        + output["summary"]["中"]
+        + output["summary"]["低"]
+        + output["coverage_summary"].get(COVERAGE_NOT_APPLICABLE, 0)
+        == 52
+    )
+
+
+def test_technology_entrusted_development_filters_unrelated_subtypes():
+    output = review_contract_v2(
+        """
+        技术委托开发合同
+        第一条 合同性质
+        委托人委托研究开发人研究开发智能合同审查系统的新技术成果。
+        第二条 研发任务
+        研究开发人应完成需求分析、算法设计、测试报告和技术资料交付。
+        第三条 研发经费
+        委托人按阶段支付研发经费。
+        第四条 验收
+        双方按技术指标和测试报告组织验收。
+        第五条 保密
+        双方对技术秘密、源代码和数据承担保密义务。
+        """,
+        "technology",
+        use_llm=False,
+    )
+
+    by_id = {item["item_id"]: item for item in output["items"]}
+    expected_not_applicable = {
+        "TC-01-02",
+        "TC-02-03",
+        "TC-02-04",
+        "TC-05-01",
+        "TC-05-02",
+        "TC-06-01",
+        "TC-06-02",
+        "TC-06-03",
+        "TC-06-04",
+        "TC-07-01",
+        "TC-07-02",
+        "TC-07-03",
+        "TC-07-04",
+        "TC-08-01",
+        "TC-08-02",
+        "TC-08-03",
+        "TC-08-04",
+        "TC-09-01",
+        "TC-09-02",
+        "TC-09-03",
+        "TC-09-04",
+        "TC-13-04",
+    }
+
+    for item_id in expected_not_applicable:
+        assert by_id[item_id]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+        assert by_id[item_id]["risk_level"] == COVERAGE_NOT_APPLICABLE
+
+    assert by_id["TC-05-03"]["risk_level"] == "中"
+    assert by_id["TC-05-04"]["risk_level"] == "中"
+    assert by_id["TC-05-04"]["coverage_status"] != COVERAGE_NOT_APPLICABLE
+
+    counted_items = [
+        item
+        for item in output["items"]
+        if item["coverage_status"] != COVERAGE_NOT_APPLICABLE
+    ]
+    assert output["summary"]["高"] + output["summary"]["中"] + output["summary"]["低"] == len(counted_items)
+
+    high_risk_open_items = [
+        item
+        for item in counted_items
+        if item["risk_level"] == "高" and item["coverage_status"] != "通过"
+    ]
+    assert len(high_risk_open_items) <= 12
+
+
+def test_technology_fixture_entrusted_development_filters_cooperative_points():
+    source = Path(__file__).resolve().parents[2] / "test_data"
+    files = list(source.glob("*.docx"))
+    fixture = next((path for path in files if path.name.startswith("测试合同4")), None)
+    assert fixture is not None
+
+    text = "\n".join(paragraph.text for paragraph in Document(str(fixture)).paragraphs if paragraph.text.strip())
+    output = review_contract_v2(text, "technology", use_llm=False)
+    by_id = {item["item_id"]: item for item in output["items"]}
+
+    assert by_id["TC-05-01"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+    assert by_id["TC-05-02"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+    assert by_id["TC-05-03"]["risk_level"] == "中"
+    assert by_id["TC-05-03"]["coverage_status"] == "部分覆盖"
+    assert by_id["TC-05-03"]["issue_type"] == "模板空白"
+    assert by_id["TC-05-04"]["risk_level"] == "中"
+    assert by_id["TC-05-04"]["coverage_status"] == "部分覆盖"
+    assert output["summary"]["高"] <= 12

@@ -74,6 +74,14 @@ def test_sale_review_checklist_covers_required_special_rules():
     assert "第640条" in by_node["sale_trial_risk"].legal_basis
 
 
+def test_sale_review_risk_level_adjustments_for_intent_and_delivery_method():
+    checklist = get_sale_checklist()
+    by_id = {checkpoint.item_id: checkpoint for checkpoint in checklist}
+
+    assert by_id["S-01-02"].risk_level == "中"
+    assert by_id["S-03-03"].risk_level == "中"
+
+
 def test_sale_review_checklist_has_template_blank_criteria():
     checklist = get_sale_checklist()
 
@@ -158,3 +166,46 @@ def test_sale_review_applies_special_points_when_trigger_keywords_exist():
 
     for item_id in triggered_ids:
         assert by_id[item_id]["coverage_status"] != COVERAGE_NOT_APPLICABLE
+
+
+def test_sale_delivery_method_transport_only_is_partial_template_blank():
+    output = review_contract_v2(
+        "第三条 运输方式：由甲方负责运输。",
+        "sale",
+        use_llm=False,
+    )
+    item = next(item for item in output["items"] if item["item_id"] == "S-03-03")
+
+    assert item["risk_level"] == "中"
+    assert item["coverage_status"] == "部分覆盖"
+    assert item["issue_type"] == "模板空白"
+    assert any("运输方式" in clause["text"] for clause in item["evidence_clauses"])
+    assert "签收" in item["reasoning_summary"]
+
+
+def test_sale_delivery_method_with_signoff_terms_passes():
+    output = review_contract_v2(
+        "第三条 运输方式：由甲方负责运输。买受人或授权收货人在送货单、签收单或物流回执上签字即视为完成交付。",
+        "sale",
+        use_llm=False,
+    )
+    item = next(item for item in output["items"] if item["item_id"] == "S-03-03")
+
+    assert item["coverage_status"] == "通过"
+    assert item["risk_level"] == "低"
+    assert item["issue_type"] == "通过"
+
+
+def test_sale_quality_objection_with_replace_and_reship_is_partial():
+    output = review_contract_v2(
+        "第7.1条 买受人发现质量问题应在10日内提出，甲方应及时更换补发。",
+        "sale",
+        use_llm=False,
+    )
+    item = next(item for item in output["items"] if item["item_id"] == "S-06-03")
+
+    assert item["risk_level"] == "中"
+    assert item["coverage_status"] == "部分覆盖"
+    assert item["issue_type"] == "条款缺陷"
+    assert any("更换补发" in clause["text"] for clause in item["evidence_clauses"])
+    assert "修理" in item["reasoning_summary"]

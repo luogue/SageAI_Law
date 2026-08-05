@@ -1,7 +1,11 @@
 """Structural tests for the construction-contract review checklist."""
 
+from pathlib import Path
+
+from docx import Document
+
 from review_v2.construction_contract_checklist import get_construction_checklist
-from review_v2.engine import review_contract_v2
+from review_v2.engine import COVERAGE_NOT_APPLICABLE, review_contract_v2
 from review_v2.house_lease_checklist import ReviewCheckpoint
 
 
@@ -35,6 +39,7 @@ def test_construction_review_checklist_fields_are_complete():
         assert checkpoint.evidence_scope
         assert checkpoint.pass_criteria
         assert checkpoint.partial_criteria
+        assert checkpoint.applicable_if
 
 
 def test_construction_review_checklist_has_risk_levels_and_forbidden_items():
@@ -134,4 +139,35 @@ def test_review_v2_can_load_construction_checklist():
     assert output["contract_type_name"] == "建设工程合同"
     assert output["all_items_count"] == 52
     assert len(output["items"]) == 52
-    assert output["summary"]["高"] + output["summary"]["中"] + output["summary"]["低"] == 52
+    assert (
+        output["summary"]["高"]
+        + output["summary"]["中"]
+        + output["summary"]["低"]
+        + output["coverage_summary"].get(COVERAGE_NOT_APPLICABLE, 0)
+        == 52
+    )
+
+
+def test_construction_fixture_corrections_for_subcontract_and_tender_points():
+    fixtures_dir = Path(__file__).resolve().parents[2] / "test_data"
+    fixture = next(path for path in fixtures_dir.glob("*.docx") if path.name.startswith("测试合同8"))
+    document = Document(fixture)
+    contract_text = "\n".join(paragraph.text for paragraph in document.paragraphs if paragraph.text.strip())
+
+    output = review_contract_v2(contract_text, "construction", use_llm=False)
+    by_id = {item["item_id"]: item for item in output["items"]}
+
+    assert by_id["CE-05-01"]["risk_level"] == "低"
+    assert by_id["CE-05-01"]["coverage_status"] == "通过"
+    assert by_id["CE-05-03"]["risk_level"] == "低"
+    assert by_id["CE-05-03"]["coverage_status"] == "通过"
+
+    assert by_id["CE-01-01"]["risk_level"] == "中"
+    assert by_id["CE-01-01"]["coverage_status"] == "部分覆盖"
+    assert by_id["CE-01-01"]["issue_type"] == "模板空白"
+
+    assert by_id["CE-03-02"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+
+    assert by_id["CE-03-04"]["risk_level"] == "中"
+    assert by_id["CE-03-04"]["coverage_status"] == "部分覆盖"
+    assert by_id["CE-03-04"]["issue_type"] == "模板空白"

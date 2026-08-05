@@ -1,11 +1,13 @@
 """输入层：负责接收原始输入，提取关键事实"""
 import re
 import io
+import zipfile
 from typing import Dict, Optional
 
 class InputLayer:
-    ALLOWED_EXTENSIONS = ('.docx', '.txt', '.pdf')
+    ALLOWED_EXTENSIONS = ('.doc', '.docx', '.txt', '.pdf')
     MIN_TEXT_LENGTH = 100
+    OLE_MAGIC = b'\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1'
     
     def __init__(self):
         pass
@@ -27,14 +29,14 @@ class InputLayer:
             if filename.endswith('.txt'):
                 return self._extract_from_txt_content(file_content)
 
-            elif filename.endswith('.docx'):
+            elif filename.endswith(('.doc', '.docx')):
                 return self._extract_from_docx_content(file_content)
 
             elif filename.endswith('.pdf'):
                 return self._extract_from_pdf_content(file_content)
 
             else:
-                raise ValueError("不支持的文件格式，请上传.docx/.txt/.pdf文件")
+                raise ValueError("不支持的文件格式，请上传.doc/.docx/.txt/.pdf文件")
 
         except ValueError as e:
             raise ValueError(f"{str(e)}")
@@ -54,6 +56,10 @@ class InputLayer:
 
     def _extract_from_docx_content(self, content: bytes) -> str:
         """从DOCX文件内容提取文本"""
+        if content.startswith(self.OLE_MAGIC):
+            return self._extract_from_ole_word_content(content)
+        if not zipfile.is_zipfile(io.BytesIO(content)):
+            raise ValueError("DOCX文件解析失败：文件不是标准Word文档。请确认文件未损坏，或将老版.doc文件另存为.docx后再上传")
         try:
             from docx import Document
             document = Document(io.BytesIO(content))
@@ -65,6 +71,35 @@ class InputLayer:
             raise ValueError("缺少python-docx依赖，请安装：pip install python-docx")
         except Exception as e:
             raise ValueError(f"DOCX文件解析失败：{str(e)}")
+
+    def _extract_from_ole_word_content(self, content: bytes) -> str:
+        """Best-effort extraction for legacy .doc files renamed as .docx."""
+        candidates = []
+        for encoding in ("utf-16le", "gb18030"):
+            decoded = content.decode(encoding, errors="ignore")
+            chunks = re.findall(
+                r"[\u4e00-\u9fffA-Za-z0-9，。；：、（）()《》“”‘’【】\[\]！？,.!?;:/\\\-—_#*☑□ \t\r\n]{8,}",
+                decoded,
+            )
+            cleaned_chunks = []
+            for chunk in chunks:
+                line = re.sub(r"[ \t\r\n]+", " ", chunk).strip()
+                line = line.replace("**", "")
+                if not line:
+                    continue
+                chinese_count = len(re.findall(r"[\u4e00-\u9fff]", line))
+                if chinese_count >= 4 or ("合同" in line and len(line) >= 8):
+                    cleaned_chunks.append(line)
+            text = "\n".join(dict.fromkeys(cleaned_chunks))
+            if len(text) > len("\n".join(candidates)):
+                candidates = cleaned_chunks
+
+        extracted = "\n".join(dict.fromkeys(candidates)).strip()
+        if len(extracted) < self.MIN_TEXT_LENGTH:
+            raise ValueError(
+                "检测到老版Word .doc/OLE文件，但当前环境无法完整解析。请用Word打开后另存为标准.docx再上传"
+            )
+        return extracted
 
     def _extract_from_pdf_content(self, content: bytes) -> str:
         """从PDF文件内容提取文本"""

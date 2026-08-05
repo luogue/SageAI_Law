@@ -1,6 +1,10 @@
 """Structural tests for the guarantee-contract review checklist."""
 
-from review_v2.engine import review_contract_v2
+from pathlib import Path
+
+from docx import Document
+
+from review_v2.engine import COVERAGE_NOT_APPLICABLE, review_contract_v2
 from review_v2.guarantee_contract_checklist import get_guarantee_checklist
 from review_v2.house_lease_checklist import ReviewCheckpoint
 
@@ -31,6 +35,7 @@ def test_guarantee_review_checklist_fields_are_complete():
         assert checkpoint.suggested_clause
         assert checkpoint.legal_basis
         assert checkpoint.legal_consequence_if_missing
+        assert checkpoint.applicable_if
         assert checkpoint.semantic_question
         assert checkpoint.evidence_scope
         assert checkpoint.pass_criteria
@@ -118,4 +123,32 @@ def test_review_v2_can_load_guarantee_checklist():
     assert output["contract_type_name"] == "保证合同"
     assert output["all_items_count"] == 48
     assert len(output["items"]) == 48
-    assert output["summary"]["高"] + output["summary"]["中"] + output["summary"]["低"] == 48
+    assert (
+        output["summary"]["高"]
+        + output["summary"]["中"]
+        + output["summary"]["低"]
+        + output["coverage_summary"].get(COVERAGE_NOT_APPLICABLE, 0)
+        == 48
+    )
+
+
+def test_guarantee_simple_fixture_filters_special_guarantee_points():
+    source = Path(__file__).resolve().parents[2] / "test_data"
+    files = list(source.glob("*.docx"))
+    fixture = next((path for path in files if path.name.startswith("测试合同6")), None)
+    assert fixture is not None
+
+    text = "\n".join(paragraph.text for paragraph in Document(str(fixture)).paragraphs if paragraph.text.strip())
+    output = review_contract_v2(text, "guarantee", use_llm=False)
+    by_id = {item["item_id"]: item for item in output["items"]}
+
+    assert by_id["GUA-12-02"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+    assert by_id["GUA-12-02"]["risk_level"] == COVERAGE_NOT_APPLICABLE
+    assert by_id["GUA-12-03"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+    assert by_id["GUA-12-03"]["risk_level"] == COVERAGE_NOT_APPLICABLE
+    assert by_id["GUA-10-02"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+    assert by_id["GUA-10-02"]["risk_level"] == COVERAGE_NOT_APPLICABLE
+    assert by_id["GUA-10-03"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+    assert by_id["GUA-10-03"]["risk_level"] == COVERAGE_NOT_APPLICABLE
+    assert output["summary"]["高"] == 10
+    assert output["coverage_summary"].get(COVERAGE_NOT_APPLICABLE, 0) == 4

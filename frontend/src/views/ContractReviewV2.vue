@@ -62,13 +62,13 @@
           <input
             ref="fileInput"
             type="file"
-            accept=".docx,.pdf"
+            accept=".doc,.docx,.pdf"
             hidden
             @change="handleFileChange"
           />
           <el-icon class="upload-icon"><UploadFilled /></el-icon>
           <div class="upload-title">{{ selectedFile ? selectedFile.name : '上传合同文件' }}</div>
-          <div class="upload-hint">支持 .docx / .pdf，系统按审查清单逐项检查</div>
+          <div class="upload-hint">支持 .doc / .docx / .pdf，系统按审查清单逐项检查</div>
         </div>
 
         <div class="action-row">
@@ -393,8 +393,8 @@ function handleDrop(event) {
 function setFile(file) {
   if (!file) return
   const lowerName = file.name.toLowerCase()
-  if (!lowerName.endsWith('.docx') && !lowerName.endsWith('.pdf')) {
-    ElMessage.error('请上传 .docx 或 .pdf 文件')
+  if (!lowerName.endsWith('.doc') && !lowerName.endsWith('.docx') && !lowerName.endsWith('.pdf')) {
+    ElMessage.error('请上传 .doc、.docx 或 .pdf 文件')
     return
   }
   if (file.size > 10 * 1024 * 1024) {

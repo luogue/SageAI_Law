@@ -537,8 +537,8 @@ async def review_v2_file(
     """接收 Word/PDF 合同文件，抽取文本后运行清单式审查。"""
 
     filename = file.filename or ""
-    if not filename.lower().endswith((".docx", ".pdf")):
-        raise HTTPException(status_code=400, detail="审查第二版当前支持 .docx 和 .pdf 文件")
+    if not filename.lower().endswith((".doc", ".docx", ".pdf")):
+        raise HTTPException(status_code=400, detail="审查第二版当前支持 .doc、.docx 和 .pdf 文件")
 
     try:
         contract_text = input_layer.extract_text_from_file(file)

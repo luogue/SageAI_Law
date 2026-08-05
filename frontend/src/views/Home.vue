@@ -68,21 +68,29 @@
               <span>获取更多</span>
             </button>
           </div>
-          <div class="user-mobile" v-if="maskedMobile">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4.5a3.5 3.5 0 0 0-3.5 3.5v0.5H10v-0.5A3.5 3.5 0 0 0 6.5 21H2v-7a6 6 0 0 1 6-6h2z"/>
-              <circle cx="12" cy="10" r="3"/>
-            </svg>
-            <span class="mobile-text">{{ maskedMobile }}</span>
+          <div class="user-menu" v-if="accountDisplay" ref="userMenuRef">
+            <button
+              class="user-menu-trigger"
+              type="button"
+              :aria-expanded="showUserMenu"
+              aria-haspopup="menu"
+              @click.stop="toggleUserMenu"
+            >
+              <span class="user-chip">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4.5a3.5 3.5 0 0 0-3.5 3.5v0.5H10v-0.5A3.5 3.5 0 0 0 6.5 21H2v-7a6 6 0 0 1 6-6h2z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+                <span class="mobile-text">{{ accountDisplay }}</span>
+              </span>
+              <span class="user-menu-more" aria-hidden="true">⋮</span>
+            </button>
+            <div v-show="showUserMenu" class="user-menu-dropdown" role="menu" @click.stop>
+              <button class="user-menu-item danger" type="button" role="menuitem" @click="handleLogout">
+                退出登录
+              </button>
+            </div>
           </div>
-          <button class="logout-btn-small" @click="handleLogout" title="退出登录">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-              <polyline points="16 17 21 12 16 7"/>
-              <line x1="21" y1="12" x2="9" y2="12"/>
-            </svg>
-            <span>退出</span>
-          </button>
         </div>
       </div>
     </header>
@@ -125,7 +133,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import PrivacyPolicy from '../components/PrivacyPolicy.vue'
 import TermsOfService from '../components/TermsOfService.vue'
@@ -141,6 +149,8 @@ const showTermsModal = ref(false)
 const showCreditSupplyModal = ref(false)
 const showFeedbackModal = ref(false)
 const bonusCredits = ref(0)
+const showUserMenu = ref(false)
+const userMenuRef = ref(null)
 
 // 需要缓存的组件名称列表（对应 router.meta.keepAlive 标记的组件）
 const cachedComponents = ref(['UploadPage'])
@@ -151,8 +161,22 @@ const maskedMobile = computed(() => {
   return mobile.substring(0, 3) + '****' + mobile.substring(7)
 })
 
+const accountDisplay = computed(() => {
+  return maskedMobile.value
+    || localStorage.getItem('admin_username')
+    || localStorage.getItem('username')
+    || 'admin'
+})
+
 onMounted(() => {
   fetchBonusCredits()
+  document.addEventListener('click', handleDocumentClick)
+  document.addEventListener('keydown', handleDocumentKeydown)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleDocumentClick)
+  document.removeEventListener('keydown', handleDocumentKeydown)
 })
 
 const fetchBonusCredits = async () => {
@@ -174,11 +198,32 @@ const isActive = (path) => {
 }
 
 const handleLogout = () => {
+  showUserMenu.value = false
   localStorage.removeItem('token')
   localStorage.removeItem('user_id')
   localStorage.removeItem('user_mobile')
+  localStorage.removeItem('admin_token')
+  localStorage.removeItem('admin_username')
+  localStorage.removeItem('username')
   bonusCredits.value = 0
   router.push('/login')
+}
+
+const toggleUserMenu = () => {
+  showUserMenu.value = !showUserMenu.value
+}
+
+const handleDocumentClick = (event) => {
+  if (!showUserMenu.value) return
+  if (userMenuRef.value && !userMenuRef.value.contains(event.target)) {
+    showUserMenu.value = false
+  }
+}
+
+const handleDocumentKeydown = (event) => {
+  if (event.key === 'Escape') {
+    showUserMenu.value = false
+  }
 }
 
 const showPrivacy = () => {
@@ -332,6 +377,101 @@ const handleFeedbackSuccess = () => {
   background: rgba(255, 255, 255, 0.3);
 }
 
+.user-menu {
+  position: relative;
+  margin-left: 12px;
+  z-index: 30;
+}
+
+.user-menu-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 4px 6px 4px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  color: #334155;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.user-menu-trigger:hover,
+.user-menu-trigger[aria-expanded="true"] {
+  border-color: #c7d2fe;
+  background: #f8fbff;
+  box-shadow: 0 6px 18px rgba(64, 128, 255, 0.14);
+}
+
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.user-menu-more {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  color: #64748b;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.user-menu-trigger:hover .user-menu-more,
+.user-menu-trigger[aria-expanded="true"] .user-menu-more {
+  background: #eef4ff;
+  color: #4080FF;
+}
+
+.user-menu-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 4px);
+  min-width: 112px;
+  padding: 6px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.16);
+}
+
+.user-menu-dropdown::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -8px;
+  height: 8px;
+}
+
+.user-menu-item {
+  width: 100%;
+  min-height: 34px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #334155;
+  text-align: left;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.user-menu-item:hover {
+  background: #f5f7fa;
+}
+
+.user-menu-item.danger {
+  color: #d93025;
+}
+
 .user-mobile {
   display: flex;
   align-items: center;
@@ -350,6 +490,7 @@ const handleFeedbackSuccess = () => {
 }
 
 .logout-btn-small {
+  display: none;
   background: none;
   border: none;
   color: #999;

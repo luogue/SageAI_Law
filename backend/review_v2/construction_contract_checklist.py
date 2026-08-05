@@ -21,6 +21,7 @@ def _required(
     risk_point: str,
     suggested_clause: str,
     legal_basis: str,
+    applicable_if: str = "始终适用",
 ) -> ReviewCheckpoint:
     return ReviewCheckpoint(
         item_id=item_id,
@@ -38,6 +39,7 @@ def _required(
         evidence_scope="正式合同条款及附件",
         pass_criteria=f"正式合同条款或附件中存在与“{title}”相关的明确、可执行约定，且工程名称、主体、金额、期限、证照、清单或附件已填写完整。",
         partial_criteria=f"正式合同条款或附件中已有与“{title}”相关安排，但存在空白、未勾选、金额期限不完整、证照编号缺失、附件未列明或责任边界不清。",
+        applicable_if=applicable_if,
     )
 
 
@@ -50,6 +52,7 @@ def _forbidden(
     risk_point: str,
     suggested_clause: str,
     legal_basis: str,
+    applicable_if: str = "始终适用",
 ) -> ReviewCheckpoint:
     return ReviewCheckpoint(
         item_id=item_id,
@@ -67,6 +70,7 @@ def _forbidden(
         evidence_scope="正式合同条款及附件",
         pass_criteria=f"正式合同条款及附件中未发现“{title}”类风险表述。",
         partial_criteria=f"正式合同条款或附件中存在接近“{title}”的表述，需要人工复核其是否违反建设工程强制性规定，或是否有审批、授权、招投标和资质材料支持。",
+        applicable_if=applicable_if,
     )
 
 
@@ -85,7 +89,7 @@ CONSTRUCTION_REVIEW_CHECKLIST: Tuple[ReviewCheckpoint, ...] = (
 
     # ===== CE-03 招投标程序 =====
     _required("CE-03-01", "mandatory_tender_review", "依法必须招标审查", "高", ("招标", "投标", "必须招标", "公开招标", "邀请招标"), "未审查项目是否属于依法必须招标，若必须招标而未招标，可能导致合同效力风险。", "双方确认本工程__（属于/不属于）依法必须招标项目；属于必须招标的，应依法完成招投标程序并以中标通知书及备案合同作为签约依据。", "建设工程司法解释（一）第1条；《招标投标法》"),
-    _required("CE-03-02", "valid_bid_award_document", "中标文件有效性", "高", ("中标通知书", "招标文件", "投标文件", "评标", "备案合同"), "未列明中标通知书、招标文件和投标文件效力，可能影响合同依据和实质性内容认定。", "中标通知书、招标文件、投标文件、澄清文件和依法备案的中标合同为本合同组成部分；文件冲突时按本合同约定的顺序解释。", "《招标投标法》第46条；建设工程司法解释（一）第2条"),
+    _required("CE-03-02", "valid_bid_award_document", "中标文件有效性", "高", ("中标通知书", "招标文件", "投标文件", "评标", "备案合同"), "未列明中标通知书、招标文件和投标文件效力，可能影响合同依据和实质性内容认定。", "中标通知书、招标文件、投标文件、澄清文件和依法备案的中标合同为本合同组成部分；文件冲突时按本合同约定的顺序解释。", "《招标投标法》第46条；建设工程司法解释（一）第2条", applicable_if="仅在合同正文表明项目涉及招标、投标、中标通知书、招标文件、投标文件、评标或备案中标合同时适用；简化版非招投标模板不适用。"),
     _forbidden("CE-03-03", "tender_illegal_invalid", "招投标违法或中标无效", "高", ("未招标", "规避招标", "串通投标", "中标无效", "虚假招标"), "合同存在规避招标、串通投标或中标无效安排，可能导致合同无效和行政责任。", "建议改为：双方不得规避依法必须进行的招投标程序，不得串通投标、虚假招标或签订背离招投标文件实质内容的合同。", "建设工程司法解释（一）第1条；《招标投标法》"),
     _required("CE-03-04", "bid_contract_consistency", "中标合同一致性", "高", ("中标合同", "实质性内容", "工程范围", "工期", "工程价款", "质量标准"), "未要求正式合同与中标合同保持一致，可能形成黑白合同和结算依据争议。", "本合同的工程范围、建设工期、工程质量、工程价款等实质性内容应与中标合同一致；确需变更的，应依法履行审批、备案或书面确认程序。", "建设工程司法解释（一）第2条"),
 

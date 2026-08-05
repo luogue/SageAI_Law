@@ -32,17 +32,32 @@ class ParsedClause:
 
 
 ARTICLE_RE = re.compile(r"^第[一二三四五六七八九十百零〇\d]+条[\s　]*(.*)$")
+CHINESE_HEADING_RE = re.compile(r"^[一二三四五六七八九十百零〇]+、\s*(.*)$")
 SUBCLAUSE_RE = re.compile(r"^（[一二三四五六七八九十]+）")
 NUMBERED_RE = re.compile(r"^\d+[\.．、]")
 APPENDIX_RE = re.compile(r"^(附件|附表)[一二三四五六七八九十\d]*")
+PARTY_RE = re.compile(r"^(甲方|乙方)[（(].*")
 
 
 def _clean_lines(contract_text: str) -> List[str]:
     lines = []
     for raw_line in (contract_text or "").splitlines():
-        line = raw_line.strip()
-        if line:
-            lines.append(line)
+        normalized = raw_line.strip()
+        if not normalized:
+            continue
+        normalized = re.sub(r"\s+(?=第[一二三四五六七八九十百零〇\d]+条)", "\n", normalized)
+        normalized = re.sub(r"(?<!^)(?=第[一二三四五六七八九十百零〇\d]+条)", "\n", normalized)
+        normalized = re.sub(r"\s+#+\s*(?=[一二三四五六七八九十百零〇]+、|附件|补充条款|甲方[（(]|乙方[（(])", "\n", normalized)
+        normalized = re.sub(r"(?<!^)(?<![一二三四五六七八九十百零〇附件])(?=[一二三四五六七八九十百零〇]+、)", "\n", normalized)
+        normalized = re.sub(r"(?<!^)(?=（[一二三四五六七八九十]+）)", "\n", normalized)
+        normalized = re.sub(r"(?<!^)(?<!\d)(?=\d+[\.．、](?!\d))", "\n", normalized)
+        normalized = re.sub(r"(?<!^)(?=本合同双方当事人[:：])", "\n", normalized)
+        normalized = re.sub(r"(?<!^)(?=出租方[（(])", "\n", normalized)
+        normalized = re.sub(r"(?<!^)(?=承租方[（(])", "\n", normalized)
+        for line in normalized.splitlines():
+            line = re.sub(r"^#+\s*", "", line.strip())
+            if line:
+                lines.append(line)
     return lines
 
 
@@ -138,6 +153,8 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
             continue
 
         article_match = ARTICLE_RE.match(line)
+        chinese_heading_match = CHINESE_HEADING_RE.match(line)
+        party_match = PARTY_RE.match(line)
         if APPENDIX_RE.match(line):
             flush()
             seen_structural_marker = True
@@ -148,12 +165,33 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
             current_level = 1
             current_lines = [line]
             continue
+        if party_match and current_section in {SECTION_FORMAL, SECTION_APPENDIX}:
+            flush()
+            seen_structural_marker = True
+            current_location = line[:40]
+            current_title = line[:40]
+            current_level = 1
+            current_section = SECTION_FORMAL
+            formal_started = True
+            current_lines = [line]
+            continue
         if article_match:
             flush()
             seen_structural_marker = True
             article_location = line.split(maxsplit=1)[0]
             current_location = line
             current_title = article_match.group(1).strip() or line
+            current_level = 1
+            current_section = SECTION_FORMAL
+            formal_started = True
+            current_lines = [line]
+            continue
+        if chinese_heading_match and current_section in {SECTION_FORMAL, SECTION_APPENDIX}:
+            flush()
+            seen_structural_marker = True
+            article_location = line.split("、", 1)[0] + "、"
+            current_location = line
+            current_title = chinese_heading_match.group(1).strip() or line
             current_level = 1
             current_section = SECTION_FORMAL
             formal_started = True

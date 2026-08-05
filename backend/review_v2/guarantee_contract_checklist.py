@@ -12,6 +12,16 @@ from typing import Tuple
 from review_v2.house_lease_checklist import ReviewCheckpoint
 
 
+def _guarantee_applicable_if(node_id: str) -> str:
+    if node_id in {"guarantee_share_agreed", "joint_guarantor_internal_recourse"}:
+        return "仅在合同明确存在两个或两个以上保证人、共同保证人、共同担保或连带共同保证安排时适用。"
+    if node_id == "maximum_guarantee_period":
+        return "仅在合同明确涉及最高额保证、最高额担保、最高债权额或债权确定期间时适用。"
+    if node_id == "post_period_signature_new_guarantee":
+        return "仅在合同涉及保证期间届满后催收通知签字、重新保证或继续承担保证责任等特殊情形时适用。"
+    return "始终适用"
+
+
 def _required(
     item_id: str,
     node_id: str,
@@ -38,6 +48,7 @@ def _required(
         suggested_clause=suggested_clause,
         legal_basis=legal_basis,
         legal_consequence_if_missing=legal_consequence_if_missing or risk_point,
+        applicable_if=_guarantee_applicable_if(node_id),
         semantic_question=semantic_question or f"合同是否已明确约定“{title}”，并能覆盖保证合同裁判树中对应的核心风险？",
         evidence_scope="正式合同条款及附件",
         pass_criteria=pass_criteria or f"正式合同条款或附件中存在与“{title}”相关的明确、可执行约定，且关键主体、主债权、保证方式、保证期间、保证范围或授权文件已填写完整。",
@@ -71,6 +82,7 @@ def _forbidden(
         suggested_clause=suggested_clause,
         legal_basis=legal_basis,
         legal_consequence_if_missing=legal_consequence_if_missing or risk_point,
+        applicable_if=_guarantee_applicable_if(node_id),
         semantic_question=semantic_question or f"合同中是否存在“{title}”类可能导致保证责任落空、保证合同无效或责任边界失控的风险表述？",
         evidence_scope="正式合同条款及附件",
         pass_criteria=pass_criteria or f"正式合同条款及附件中未发现“{title}”类风险表述。",

@@ -1,6 +1,6 @@
 """Structural tests for the work-contract review checklist."""
 
-from review_v2.engine import review_contract_v2
+from review_v2.engine import COVERAGE_NOT_APPLICABLE, ISSUE_NOT_APPLICABLE, review_contract_v2
 from review_v2.house_lease_checklist import ReviewCheckpoint
 from review_v2.work_contract_checklist import get_work_contract_checklist
 
@@ -102,4 +102,33 @@ def test_review_v2_can_load_work_contract_checklist():
     assert output["contract_type_name"] == "承揽合同"
     assert output["all_items_count"] == 44
     assert len(output["items"]) == 44
-    assert output["summary"]["高"] + output["summary"]["中"] + output["summary"]["低"] == 44
+    assert (
+        output["summary"]["高"] + output["summary"]["中"] + output["summary"]["低"]
+        == 44 - output["coverage_summary"].get(COVERAGE_NOT_APPLICABLE, 0)
+    )
+
+
+def test_work_special_scenario_points_are_not_applicable_when_absent():
+    output = review_contract_v2(
+        "定作人委托承揽人加工一批非标零件。承揽人以自己的设备、技术和劳力完成主要工作，质量标准和验收期限由双方另行确认。合同未涉及转包、分包或凭样品制作。",
+        "work_contract",
+        use_llm=False,
+    )
+    by_id = {item["item_id"]: item for item in output["items"]}
+
+    for item_id in ("W-03-02", "W-03-03", "W-03-04", "W-11-02"):
+        assert by_id[item_id]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+        assert by_id[item_id]["issue_type"] == ISSUE_NOT_APPLICABLE
+        assert by_id[item_id]["risk_level"] == COVERAGE_NOT_APPLICABLE
+
+
+def test_work_generic_notice_does_not_cover_assistance_urge_or_termination_notice():
+    output = review_contract_v2(
+        "承揽人应按照定作人要求完成定制展柜。双方联系地址用于一般通知。质量不合格的，承揽人应修理、重作或赔偿损失。",
+        "work_contract",
+        use_llm=False,
+    )
+    by_id = {item["item_id"]: item for item in output["items"]}
+
+    assert by_id["W-04-03"]["coverage_status"] == "缺失"
+    assert by_id["W-09-04"]["coverage_status"] == "缺失"

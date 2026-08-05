@@ -29,11 +29,16 @@ from review_v2.semantic_reviewer import (
     _has_concrete_advance_notice,
     _has_complete_term_expiry_settlement,
     _has_expropriation_terms,
+    _has_early_surrender_notice,
     _has_loss_based_adjustment,
     _has_notice_delivery_terms,
+    _has_sale_delivery_complete_terms,
+    _has_sale_delivery_transport_framework,
+    _has_termination_notice_delivery,
     _has_third_party_defect_terms,
     has_blank_value,
     has_specific_deposit_return_deadline,
+    evidence_substantively_matches,
     judge_checkpoint,
     recall_candidate_clauses,
 )
@@ -239,6 +244,8 @@ def _has_specialized_pass_evidence(checkpoint: ReviewCheckpoint, clauses: Sequen
         return _has_expropriation_terms(joined)
     if checkpoint.node_id == "limitation_and_notice":
         return _has_notice_delivery_terms(joined)
+    if checkpoint.node_id == "termination_notice":
+        return _has_termination_notice_delivery(joined)
     if checkpoint.node_id == "third_party_defect":
         has_handling = any(term in joined for term in ("协助维修", "报修", "追偿", "保全证据", "租金调整", "减租", "责任方"))
         return _has_third_party_defect_terms(joined) and has_handling
@@ -263,6 +270,8 @@ def _has_specialized_pass_evidence(checkpoint: ReviewCheckpoint, clauses: Sequen
         return has_early_surrender and has_notice and has_settlement_or_loss_basis
     if checkpoint.node_id == "excessive_deduction":
         return _has_loss_based_adjustment(joined)
+    if checkpoint.node_id == "sale_delivery_method":
+        return _has_sale_delivery_complete_terms(joined)
 
     requirements = SPECIALIZED_PASS_REQUIREMENTS.get(checkpoint.node_id)
     if not requirements:
@@ -279,6 +288,8 @@ def _specialized_requirement_hint(checkpoint: ReviewCheckpoint) -> str:
         return "；并且必须具体写明水费、电费、燃气费、物业费、网络费等费用的承担或结清方式，不能只写“各项费用”"
     if checkpoint.node_id == "limitation_and_notice":
         return "；并且必须直接约定送达地址、通讯方式、催告留痕或联系方式变更后果，不能用提前解除通知条款替代"
+    if checkpoint.node_id == "termination_notice":
+        return "；并且必须区分提前退租通知和解除通知送达：提前退租通知用于启动解除程序，解除通知送达用于使解除行为生效；完整通过必须写明解除通知的送达方式、送达地址和通知到达后的生效时间"
     if checkpoint.node_id == "indefinite_lease":
         return "；并且必须直接约定期满后继续使用、出租人继续收租或未异议、双方未续签时转为不定期租赁及提前通知期限，不能用一般期满搬离交房条款替代"
     if checkpoint.node_id == "unauthorized_sublease":
@@ -299,6 +310,8 @@ def _specialized_requirement_hint(checkpoint: ReviewCheckpoint) -> str:
         return "；并且必须直接约定提前退租或提前解除、具体提前通知期限，以及按实际使用期间、未结费用或实际损失结算，不能把空白的提前通知天数或违约金标准视为通过"
     if checkpoint.node_id == "excessive_deduction":
         return "；并且必须直接约定扣款、违约金或赔偿以实际损失为基础，且明显过高时可调减或调整，不能把空白违约金标准视为通过"
+    if checkpoint.node_id == "sale_delivery_method":
+        return "；已有运输方式只能部分覆盖，完整通过必须同时写明交付或运输方式，以及签收单、送货单、物流回执、授权收货人等签收手续，不能仅凭“由甲方负责运输”判为通过"
 
     requirements = SPECIALIZED_PASS_REQUIREMENTS.get(checkpoint.node_id)
     if not requirements:
@@ -516,9 +529,44 @@ def _judgment_from_model_result(
     if coverage_status == COVERAGE_PASS and not _has_specialized_pass_evidence(checkpoint, selected_clauses):
         coverage_status = COVERAGE_PARTIAL
         confidence = "low"
+        if checkpoint.node_id == "sale_delivery_method" and _has_sale_delivery_transport_framework("\n".join(clause.text for clause in selected_clauses)):
+            reasoning_summary = (
+                "合同已约定运输方式，但未写明签收手续、授权收货人或送货单、签收单、物流回执等交付凭证，"
+                "属于模板框架已写但关键手续未补全。"
+            )
+        elif checkpoint.node_id == "termination_notice" and _has_early_surrender_notice("\n".join(clause.text for clause in selected_clauses)):
+            reasoning_summary = (
+                "合同约定了提前退租的书面通知，但未约定解除通知的送达方式、送达地址和生效时间。"
+                "二者法律功能不同，前者启动解除程序，后者使解除行为生效。"
+            )
+        else:
+            reasoning_summary = (
+                f"候选条款仅包含一般性表述，未直接覆盖“{checkpoint.title}”的核心事实和处理安排，"
+                "不能视为完整通过。建议人工复核。"
+            )
+
+    if coverage_status in {COVERAGE_PASS, COVERAGE_PARTIAL} and not evidence_substantively_matches(checkpoint, selected_clauses):
+        coverage_status = COVERAGE_MISSING
+        confidence = "low"
+        selected_clauses = []
+        reasoning_summary = "未在正式合同条款中找到能覆盖该审查点的有效约定。"
+
+    selected_text = "\n".join(clause.text for clause in selected_clauses)
+    if checkpoint.node_id == "indefinite_lease" and coverage_status == COVERAGE_MISSING:
         reasoning_summary = (
-            f"候选条款仅包含一般性表述，未直接覆盖“{checkpoint.title}”的核心事实和处理安排，"
-            "不能视为完整通过。建议人工复核。"
+            "根据《民法典》第734条，租赁期满后双方未续签合同但继续履行租约的，原合同继续有效，"
+            "租赁期限转为不定期；出租人解除合同需提前合理期限通知。对简化版居住租赁合同而言，"
+            "该条款属于建议性补充条款，并非必须条款。"
+        )
+    if checkpoint.node_id == "termination_notice" and coverage_status == COVERAGE_PARTIAL and _has_early_surrender_notice(selected_text) and not _has_termination_notice_delivery(selected_text):
+        reasoning_summary = (
+            "合同约定了提前退租的书面通知，但未约定解除通知的送达方式、送达地址和生效时间。"
+            "二者法律功能不同，前者启动解除程序，后者使解除行为生效。"
+        )
+    if checkpoint.node_id == "early_surrender" and coverage_status == COVERAGE_PARTIAL and any(has_blank_value(clause.text) for clause in selected_clauses):
+        reasoning_summary = (
+            "提前退租条款已被召回，但通知期限或违约金比例存在模板空白；违约金还应与实际损失、"
+            "合理空置损失或未结费用挂钩，避免固定高额约定被调减。"
         )
 
     if model_result["needs_human_review"] and "建议人工复核" not in reasoning_summary:
@@ -533,7 +581,14 @@ def _judgment_from_model_result(
         evidence_location=_locations(selected_clauses),
         reasoning_summary=reasoning_summary,
         matched_terms=list(terms),
-        issue_type=_issue_type_for(coverage_status, selected_clauses),
+        issue_type=(
+            ISSUE_TEMPLATE_BLANK
+            if checkpoint.node_id == "sale_delivery_method"
+            and coverage_status == COVERAGE_PARTIAL
+            and _has_sale_delivery_transport_framework("\n".join(clause.text for clause in selected_clauses))
+            and not _has_sale_delivery_complete_terms("\n".join(clause.text for clause in selected_clauses))
+            else _issue_type_for(coverage_status, selected_clauses)
+        ),
         judge_source="llm",
         llm_confidence=confidence,
         llm_raw_reason=model_result["reasoning_summary"],
