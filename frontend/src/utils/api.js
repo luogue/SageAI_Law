@@ -117,15 +117,19 @@ export async function batchReviewContracts(files, additionalInstructions) {
   return handleResponse(response)
 }
 
+// review-v2 路由前缀（不在 /api 下，直接挂载在根路径）
+const REVIEW_V2_BASE = isAbsoluteBase ? API_BASE.replace(/\/$/, '') : ''
+
 // 合同审查第二版：清单式文件审查
-export async function reviewContractV2File(file, contractType = 'house_lease', includeLowRisk = true, useLlm = true) {
+export async function reviewContractV2File(file, contractType = 'house_lease', includeLowRisk = true, useLlm = true, profile = {}) {
   const formData = new FormData()
   formData.append('file', file)
   formData.append('contract_type', contractType)
   formData.append('include_low_risk', includeLowRisk ? 'true' : 'false')
   formData.append('use_llm', useLlm ? 'true' : 'false')
+  formData.append('profile_json', JSON.stringify(profile))
 
-  const response = await fetch(`${BASE_URL}/review-v2/file`, {
+  const response = await fetch(`${REVIEW_V2_BASE}/review-v2/file`, {
     method: 'POST',
     headers: { ...getAuthHeaders() },
     body: formData
@@ -134,9 +138,66 @@ export async function reviewContractV2File(file, contractType = 'house_lease', i
   return handleResponse(response)
 }
 
+// 合同审查第二版：诉讼策略分析
+export async function reviewV2LitigationAnalysis(contractText, contractType = 'house_lease', profile = {}) {
+  const response = await fetch(`${REVIEW_V2_BASE}/review-v2/litigation-analysis`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...getAuthHeaders()
+    },
+    body: JSON.stringify({
+      contract_text: contractText,
+      contract_type: contractType,
+      include_low_risk: true,
+      use_llm: true,
+      profile: profile
+    })
+  })
+  return handleResponse(response)
+}
+
+// 合同审查第二版：商业谈判分析
+export async function reviewV2NegotiationAnalysis(contractText, contractType = 'house_lease', profile = {}) {
+  const response = await fetch(`${REVIEW_V2_BASE}/review-v2/negotiation-analysis`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...getAuthHeaders()
+    },
+    body: JSON.stringify({
+      contract_text: contractText,
+      contract_type: contractType,
+      include_low_risk: true,
+      use_llm: true,
+      profile: profile
+    })
+  })
+  return handleResponse(response)
+}
+
+// 合同审查第二版：跨地域裁判预判
+export async function reviewV2JurisdictionPrediction(contractText, contractType = 'house_lease', profile = {}) {
+  const response = await fetch(`${REVIEW_V2_BASE}/review-v2/jurisdiction-prediction`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...getAuthHeaders()
+    },
+    body: JSON.stringify({
+      contract_text: contractText,
+      contract_type: contractType,
+      include_low_risk: true,
+      use_llm: true,
+      profile: profile
+    })
+  })
+  return handleResponse(response)
+}
+
 // 合同审查第二版：大模型语义复核状态
 export async function getReviewV2LlmStatus() {
-  const response = await fetch(`${BASE_URL}/review-v2/llm-status`, {
+  const response = await fetch(`${REVIEW_V2_BASE}/review-v2/llm-status`, {
     method: 'GET',
     headers: { ...getAuthHeaders() }
   })
@@ -145,7 +206,7 @@ export async function getReviewV2LlmStatus() {
 }
 
 async function exportReviewV2Report(report, format) {
-  const response = await fetch(`${BASE_URL}/review-v2/export-${format}`, {
+  const response = await fetch(`${REVIEW_V2_BASE}/review-v2/export-${format}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -109,3 +109,40 @@ def test_review_v2_can_load_service_checklist():
     assert output["all_items_count"] == 48
     assert len(output["items"]) == 48
     assert output["summary"]["高"] + output["summary"]["中"] + output["summary"]["低"] == 48
+
+
+def test_service_contract_template_blanks_are_medium_and_qualification_guard_is_missing():
+    text = """
+    培训服务合同
+    甲方为培训机构，乙方为学员。甲方向乙方提供英语培训课程服务。
+    第一条 服务内容：课程名称为英语能力提升课，课时共计48课时，教师为甲方安排的老师，课程价格为12000元，部分班级和排课信息以课程表为准。
+    第二条 服务时间地点：上课时间为每周六上午，上课地点为甲方培训中心，具体排课可提前预约调整。
+    第三条 费用与退费：乙方一次性支付课程费12000元。乙方申请退费的，甲方按实际课时结算，未消耗课时对应费用予以退款。
+    第四条 解除与通知：乙方解除或申请退费的，应向甲方提交书面通知或退费申请；双方按剩余课时和实际提供服务结算。
+    """
+
+    output = review_contract_v2(text, "service", use_llm=False)
+    by_id = {item["item_id"]: item for item in output["items"]}
+
+    medium_items = (
+        "SVC-01-02",
+        "SVC-01-03",
+        "SVC-01-04",
+        "SVC-03-01",
+        "SVC-03-03",
+        "SVC-04-02",
+        "SVC-06-01",
+        "SVC-06-02",
+        "SVC-11-02",
+    )
+    for item_id in medium_items:
+        assert by_id[item_id]["risk_level"] == "中"
+
+    assert by_id["SVC-03-01"]["coverage_status"] == "部分覆盖"
+    assert by_id["SVC-03-01"]["issue_type"] == "模板空白"
+    assert by_id["SVC-02-04"]["risk_level"] == "中"
+    assert by_id["SVC-02-04"]["coverage_status"] == "缺失"
+    assert by_id["SVC-02-04"]["issue_type"] == "完全缺失"
+    assert by_id["SVC-02-04"]["evidence_clauses"] == []
+    assert output["summary"]["高"] <= 12
+    assert output["summary"]["中"] >= 8

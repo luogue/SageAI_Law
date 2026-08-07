@@ -153,7 +153,7 @@ app.include_router(user.router)
 app.include_router(admin.router)
 app.include_router(records.router)
 app.include_router(adjudicate.router, prefix="/api")
-app.include_router(review_v2.router, prefix="/api")
+app.include_router(review_v2.router)
 
 # 初始化四层模块
 input_layer = InputLayer()

@@ -209,3 +209,31 @@ def test_sale_quality_objection_with_replace_and_reship_is_partial():
     assert item["issue_type"] == "条款缺陷"
     assert any("更换补发" in clause["text"] for clause in item["evidence_clauses"])
     assert "修理" in item["reasoning_summary"]
+
+
+def test_sale_cement_contract_practical_risk_level_corrections():
+    output = review_contract_v2(
+        "本合同标的物为普通硅酸盐水泥，数量100吨。"
+        "水泥到货后买受人当场验收，质量问题应在10日内提出，出卖人及时更换补发。"
+        "质保期为验收合格后三个月。",
+        "sale",
+        use_llm=False,
+    )
+    by_id = {item["item_id"]: item for item in output["items"]}
+
+    assert by_id["S-01-03"]["risk_level"] == "中"
+    assert by_id["S-01-03"]["coverage_status"] == "缺失"
+    assert by_id["S-01-03"]["issue_type"] == "完全缺失"
+
+    assert by_id["S-07-02"]["risk_level"] == "中"
+    assert by_id["S-07-02"]["coverage_status"] == "缺失"
+    assert by_id["S-07-02"]["issue_type"] == "完全缺失"
+
+    assert by_id["S-07-03"]["risk_level"] == "中"
+    assert by_id["S-07-03"]["coverage_status"] == "缺失"
+    assert by_id["S-07-03"]["issue_type"] == "完全缺失"
+
+    assert by_id["S-12-02"]["risk_level"] == "中"
+    assert by_id["S-12-02"]["coverage_status"] == "缺失"
+    assert by_id["S-12-02"]["issue_type"] == "完全缺失"
+    assert not by_id["S-12-02"]["evidence_clauses"]

@@ -32,6 +32,7 @@ from auth.routes import get_current_user
 from layers.input_layer import InputLayer
 from review_v2.engine import COVERAGE_NOT_APPLICABLE, ISSUE_NOT_APPLICABLE, REPORT_FORMAT_NOTICE, review_contract_v2
 from review_v2.llm_semantic_reviewer import get_llm_review_status
+from review_v2.user_profile import UserRiskProfile
 from review_v2.semantic_reviewer import (
     COVERAGE_MISSING,
     COVERAGE_PARTIAL,
@@ -55,6 +56,7 @@ class ReviewV2Input(BaseModel):
     contract_type: str = Field("house_lease", description="合同类型，当前支持 house_lease、sale、gift、deposit、work_contract、transportation、agency、loan、service、guarantee、finance_lease、warehouse、construction、technology、commission_agency、utility_supply、brokerage")
     include_low_risk: bool = Field(True, description="是否返回低风险/已覆盖检查点")
     use_llm: bool = Field(True, description="是否启用大模型语义复核")
+    profile: Dict[str, str] = Field(default_factory=dict, description="用户风险画像：{user_identity, contract_scenario, risk_appetite, bargaining_position}")
 
 
 class ReviewV2Result(BaseModel):
@@ -511,6 +513,112 @@ async def review_v2_llm_status(
     return get_llm_review_status()
 
 
+@router.post("/litigation-analysis", summary="合同审查第二版：诉讼策略分析")
+async def review_v2_litigation_analysis(
+    payload: ReviewV2Input,
+    current_user: dict = Depends(get_current_user),
+):
+    """仅对已标记高/中风险的条款执行诉讼策略分析（证据缺口+法院裁量+成本收益）。"""
+
+    from review_v2.litigation_analyzer import analyze_litigation_strategy, format_litigation_markdown
+
+    profile = UserRiskProfile.from_dict(payload.profile) if payload.profile else UserRiskProfile.default()
+
+    # 先运行审查获取 items
+    review_result = review_contract_v2(
+        payload.contract_text,
+        payload.contract_type,
+        include_low_risk=payload.include_low_risk,
+        use_llm=payload.use_llm,
+        profile=profile,
+    )
+
+    if not review_result.get("success"):
+        return {"success": False, "message": review_result.get("message", "审查失败"), "items": [], "summary": {}}
+
+    report = analyze_litigation_strategy(review_result["items"], profile)
+    return {
+        "success": True,
+        "disclaimer": report.disclaimer,
+        "items": [item.to_public_dict() for item in report.items],
+        "summary": report.summary,
+        "result": format_litigation_markdown(report),
+        "profile": profile.to_dict(),
+    }
+
+
+@router.post("/negotiation-analysis", summary="合同审查第二版：商业谈判分析")
+async def review_v2_negotiation_analysis(
+    payload: ReviewV2Input,
+    current_user: dict = Depends(get_current_user),
+):
+    """对已标记高/中风险的条款生成谈判筹码转换方案（谈判属性+对方意图+替代方案+交换筹码+话术）。"""
+
+    from review_v2.negotiation_analyzer import analyze_negotiation_strategy, format_negotiation_markdown
+
+    profile = UserRiskProfile.from_dict(payload.profile) if payload.profile else UserRiskProfile.default()
+
+    review_result = review_contract_v2(
+        payload.contract_text,
+        payload.contract_type,
+        include_low_risk=payload.include_low_risk,
+        use_llm=payload.use_llm,
+        profile=profile,
+    )
+
+    if not review_result.get("success"):
+        return {"success": False, "message": review_result.get("message", "审查失败"), "items": [], "overall_strategy": ""}
+
+    report = analyze_negotiation_strategy(review_result["items"], profile)
+    return {
+        "success": True,
+        "disclaimer": report.disclaimer,
+        "items": [item.to_public_dict() for item in report.items],
+        "must_fight": report.must_fight,
+        "core_negotiate": report.core_negotiate,
+        "flexible": report.flexible,
+        "concession_order": report.concession_order,
+        "overall_strategy": report.overall_strategy,
+        "result": format_negotiation_markdown(report),
+        "profile": profile.to_dict(),
+    }
+
+
+@router.post("/jurisdiction-prediction", summary="合同审查第二版：跨地域裁判预判")
+async def review_v2_jurisdiction_prediction(
+    payload: ReviewV2Input,
+    current_user: dict = Depends(get_current_user),
+):
+    """结合用户所在地法院的司法实践，对高/中风险条款进行地域裁判预判。"""
+
+    from review_v2.jurisdiction_analyzer import analyze_jurisdiction_prediction, format_jurisdiction_markdown
+
+    profile = UserRiskProfile.from_dict(payload.profile) if payload.profile else UserRiskProfile.default()
+
+    review_result = review_contract_v2(
+        payload.contract_text,
+        payload.contract_type,
+        include_low_risk=payload.include_low_risk,
+        use_llm=payload.use_llm,
+        profile=profile,
+    )
+
+    if not review_result.get("success"):
+        return {"success": False, "message": review_result.get("message", "审查失败"), "items": [], "environment_assessment": ""}
+
+    report = analyze_jurisdiction_prediction(review_result["items"], profile, payload.contract_text)
+    return {
+        "success": True,
+        "disclaimer": report.disclaimer,
+        "jurisdiction": report.jurisdiction,
+        "items": [item.to_public_dict() for item in report.items],
+        "environment_assessment": report.environment_assessment,
+        "jurisdiction_strategy_summary": report.jurisdiction_strategy_summary,
+        "result": format_jurisdiction_markdown(report),
+        "profile": profile.to_dict(),
+    }
+
+
 @router.post("/checklist", response_model=ReviewV2Result, summary="合同审查第二版：清单式审查")
 async def review_v2_checklist(
     payload: ReviewV2Input,
@@ -518,11 +626,14 @@ async def review_v2_checklist(
 ):
     """按文本运行独立审查引擎，供调试和后续批量迁移使用。"""
 
+    profile = UserRiskProfile.from_dict(payload.profile) if payload.profile else UserRiskProfile.default()
+
     return review_contract_v2(
         payload.contract_text,
         payload.contract_type,
         include_low_risk=payload.include_low_risk,
         use_llm=payload.use_llm,
+        profile=profile,
     )
 
 
@@ -532,6 +643,7 @@ async def review_v2_file(
     contract_type: str = Form("house_lease"),
     include_low_risk: bool = Form(True),
     use_llm: bool = Form(True),
+    profile_json: str = Form("{}"),
     current_user: dict = Depends(get_current_user),
 ):
     """接收 Word/PDF 合同文件，抽取文本后运行清单式审查。"""
@@ -539,6 +651,13 @@ async def review_v2_file(
     filename = file.filename or ""
     if not filename.lower().endswith((".doc", ".docx", ".pdf")):
         raise HTTPException(status_code=400, detail="审查第二版当前支持 .doc、.docx 和 .pdf 文件")
+
+    import json as _json
+    try:
+        profile_dict = _json.loads(profile_json) if profile_json else {}
+    except _json.JSONDecodeError:
+        profile_dict = {}
+    profile = UserRiskProfile.from_dict(profile_dict)
 
     try:
         contract_text = input_layer.extract_text_from_file(file)
@@ -550,6 +669,7 @@ async def review_v2_file(
         contract_type,
         include_low_risk=include_low_risk,
         use_llm=use_llm,
+        profile=profile,
     )
     result["filename"] = filename
     result["extracted_text_length"] = len(contract_text)

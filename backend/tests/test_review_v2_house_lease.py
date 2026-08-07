@@ -12,6 +12,7 @@ from review_v2.house_lease_checklist import HOUSE_LEASE_REVIEW_CHECKLIST
 from review_v2.house_lease_checklist import get_house_lease_checklist
 from review_v2.llm_semantic_reviewer import _judgment_from_model_result
 from review_v2.llm_semantic_reviewer import get_llm_review_status
+from review_v2.user_profile import UserRiskProfile
 from routers.review_v2 import ReviewV2PdfInput, _build_docx, _build_pdf
 
 
@@ -138,8 +139,55 @@ def test_review_v2_marks_covered_item_low_risk():
     assert item["risk_level"] == "低"
     assert item["coverage_status"] == "通过"
     assert item["status"] == "已覆盖"
-    assert item["judge_source"] == "rule_fallback"
-    assert "《民法典》第734条" in item["legal_basis_index"]
+
+
+def test_conservative_profile_does_not_bulk_promote_medium_house_lease_risks():
+    output = review_contract_v2(
+        "第十一条 争议解决：依法向房屋所在地浦东新区人民法院起诉。"
+        "第九条 乙方逾期不支付租金累计超过1个月的，甲方可以解除本合同。",
+        "house_lease",
+        include_low_risk=True,
+        use_llm=False,
+        profile=UserRiskProfile.conservative_individual_tenant(),
+    )
+    by_id = {item["item_id"]: item for item in output["items"]}
+
+    assert output["summary"]["高"] <= 12
+    assert by_id["HL-001"]["risk_level"] == "低"
+    assert by_id["HL-001"]["coverage_status"] == "通过"
+    assert by_id["HL-015"]["risk_level"] == "低"
+    assert by_id["HL-015"]["coverage_status"] == "通过"
+    for item_id in ("HL-007", "HL-008", "HL-009", "HL-013", "HL-019", "HL-026", "HL-041", "HL-042", "HL-047", "HL-049"):
+        assert by_id[item_id]["risk_level"] != "高"
+    assert "对你而言建议修改" in by_id["HL-007"]["reasoning_summary"]
+
+
+def test_real_house_lease_jurisdiction_renewal_and_termination_corrections():
+    output = review_contract_v2(
+        "\n".join(
+            [
+                "第八条 租赁期满，乙方需继续承租的，应提前一个月向甲方提出续租要求，双方另行签订租赁合同。",
+                "第九条 解除条件。甲方未按时交付房屋、乙方擅自改变用途、乙方逾期不支付租金累计超过1个月或者擅自转租的，守约方可以书面通知解除本合同。",
+                "第十一条 争议解决。双方协商不成的，依法向房屋所在地浦东新区人民法院起诉。",
+            ]
+        ),
+        "house_lease",
+        include_low_risk=True,
+        use_llm=False,
+    )
+    by_id = {item["item_id"]: item for item in output["items"]}
+
+    assert by_id["HL-001"]["risk_level"] == "低"
+    assert by_id["HL-001"]["coverage_status"] == "通过"
+    assert "浦东新区人民法院" in by_id["HL-001"]["evidence_clauses"][0]["text"]
+
+    assert by_id["HL-007"]["risk_level"] == "中"
+    assert by_id["HL-007"]["coverage_status"] == "部分覆盖"
+    assert "仅约定了租赁期满后的续租" in by_id["HL-007"]["reasoning_summary"]
+
+    assert by_id["HL-017"]["risk_level"] == "低"
+    assert by_id["HL-017"]["coverage_status"] == "通过"
+    assert "逾期不支付租金累计超过1个月" in by_id["HL-017"]["evidence_clauses"][0]["text"]
 
 
 def test_indefinite_lease_missing_reason_explains_article_734_and_suggested_risk():

@@ -43,6 +43,18 @@ export default defineConfig(({ mode }) => ({
       '/api': {
         target: 'http://localhost:8016',
         changeOrigin: true
+      },
+      '/auth': {
+        target: 'http://localhost:8016',
+        changeOrigin: true
+      },
+      '/user': {
+        target: 'http://localhost:8016',
+        changeOrigin: true
+      },
+      '/review-v2': {
+        target: 'http://localhost:8016',
+        changeOrigin: true
       }
     }
   }

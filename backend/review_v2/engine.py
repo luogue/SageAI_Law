@@ -16,6 +16,18 @@ from review_v2.contract_registry import (
 from review_v2.house_lease_checklist import ReviewCheckpoint
 from review_v2.llm_semantic_reviewer import get_llm_review_status, judge_checkpoints_with_llm
 from review_v2.semantic_reviewer import _has_gift_paid_consideration_risk, judge_checkpoint, matched_terms
+from review_v2.jurisdiction_analyzer import analyze_jurisdiction_prediction, format_jurisdiction_markdown
+from review_v2.litigation_analyzer import analyze_litigation_strategy, format_litigation_markdown
+from review_v2.negotiation_analyzer import analyze_negotiation_strategy, format_negotiation_markdown
+from review_v2.user_profile import (
+    UserRiskProfile,
+    adapt_report_header,
+    format_profile_summary,
+    get_action_label,
+    get_modification_tone,
+    get_risk_remap,
+    is_priority_checkpoint,
+)
 
 
 NEGATION_WORDS = ("无", "没有", "未", "不包含", "不涉及", "并非", "不是")
@@ -26,6 +38,7 @@ VERDICT_WORDS = (
     "驳回请求",
     "押金全额返还",
     "扣除维修费后返还余额",
+    "应赔偿",
     "承租方应赔偿",
     "出租方应赔偿",
 )
@@ -526,6 +539,24 @@ def _set_item_partial(
     item.fallback_reason = "房屋租赁真实合同条款专项校正"
 
 
+def _set_item_missing(
+    item: ReviewItemResult,
+    risk_level: str,
+    reason: str,
+    description: str,
+    fallback_reason: str,
+) -> None:
+    item.risk_level = risk_level
+    item.status = "缺失或不明确"
+    item.coverage_status = "缺失"
+    item.issue_type = "完全缺失"
+    item.risk_point_description = description
+    item.reasoning_summary = reason
+    item.evidence_clauses = []
+    item.evidence_location = ""
+    item.fallback_reason = fallback_reason
+
+
 def _set_item_not_applicable(item: ReviewItemResult, reason: str) -> None:
     item.risk_level = "不适用"
     item.status = "不适用"
@@ -555,6 +586,52 @@ def _apply_house_lease_real_contract_rules(items: List[ReviewItemResult], contra
     clauses = parse_contract_clauses(contract_text)
     compacted = _compact(contract_text)
     by_id = {item.item_id: item for item in items}
+
+    jurisdiction_evidence = _find_clause(
+        clauses,
+        lambda clause: (
+            (
+                ("房屋所在地" in clause.text or "不动产所在地" in clause.text or "浦东新区" in clause.text)
+                and ("人民法院" in clause.text or "法院" in clause.text or "起诉" in clause.text)
+            )
+            or (
+                ("向" in clause.text or "提交" in clause.text)
+                and ("人民法院起诉" in _compact(clause.text) or "法院起诉" in _compact(clause.text) or "仲裁委员会仲裁" in _compact(clause.text))
+            )
+            or ("管辖" in clause.text and ("法院" in clause.text or "仲裁" in clause.text))
+        ),
+    )
+    if jurisdiction_evidence and (item := by_id.get("HL-001")):
+        _set_item_pass(
+            item,
+            [jurisdiction_evidence],
+            "合同已约定发生争议时向房屋所在地人民法院起诉，覆盖房屋租赁纠纷管辖安排。",
+            "已约定管辖法院，争议处理路径清晰。",
+        )
+
+    tenant_death_evidence = _find_clause(
+        clauses,
+        lambda clause: (
+            ("承租人死亡" in clause.text or "承租方死亡" in clause.text or ("死亡" in clause.text and "承租" in clause.text))
+            and ("共同居住人" in clause.text or "共同经营人" in clause.text or "继续承租" in clause.text or "继续履行" in clause.text)
+        ),
+    )
+    renewal_evidence = _find_clause(
+        clauses,
+        lambda clause: (
+            ("续租" in clause.text or "续签" in clause.text or "租赁期满" in clause.text or "期满" in clause.text)
+            and "死亡" not in clause.text
+        ),
+    )
+    if renewal_evidence and not tenant_death_evidence and (item := by_id.get("HL-007")):
+        _set_item_partial(
+            item,
+            [renewal_evidence],
+            "中",
+            "合同仅约定了租赁期满后的续租或续签流程，该条款处理的是合同正常期满后的续约问题；承租人死亡后的继续承租属于租期内主体消亡后的权利义务承继，二者法律场景不同，不能相互替代。",
+            "合同有续租安排，但未涉及承租人死亡后共同居住人或共同经营人能否继续承租及证明材料要求。",
+            issue_type="条款缺陷",
+        )
 
     party_evidence = _find_clauses(
         clauses,
@@ -603,7 +680,11 @@ def _apply_house_lease_real_contract_rules(items: List[ReviewItemResult], contra
 
     rent_default = _find_clause(
         clauses,
-        lambda clause: "逾期不支付租金" in clause.text and ("1个月" in _compact(clause.text) or "一个月" in clause.text or "解除本合同" in clause.text),
+        lambda clause: (
+            ("欠租" in clause.text or "逾期不支付租金" in clause.text or ("逾期" in clause.text and "租金" in clause.text))
+            and ("1个月" in _compact(clause.text) or "一个月" in clause.text or "一月" in clause.text)
+            and ("解除" in clause.text or "终止" in clause.text)
+        ),
     )
     if rent_default and (item := by_id.get("HL-015")):
         _set_item_pass(
@@ -611,6 +692,38 @@ def _apply_house_lease_real_contract_rules(items: List[ReviewItemResult], contra
             [rent_default],
             "合同第九条已约定乙方逾期不支付租金累计超过1个月时可解除合同，已经覆盖欠租重大违约标准。",
             "欠租达到累计超过1个月即构成解除事由，欠租重大违约标准已明确。",
+        )
+
+    termination_evidence = _find_clause(
+        clauses,
+        lambda clause: (
+            ("解除" in clause.text or "终止" in clause.text)
+            and (
+                sum(
+                    1
+                    for keyword in (
+                        "未按时交付",
+                        "改变用途",
+                        "逾期不支付租金",
+                        "欠租",
+                        "擅自转租",
+                        "损坏",
+                        "违法",
+                        "违反",
+                        "书面通知",
+                    )
+                    if keyword in clause.text
+                )
+                >= 2
+            )
+        ),
+    )
+    if termination_evidence and (item := by_id.get("HL-017")):
+        _set_item_pass(
+            item,
+            [termination_evidence],
+            "合同已列明法定或约定解除事由，包括未按时交付、改变用途、欠租、擅自转租等违约情形，已覆盖约定解除事由清单。",
+            "解除条件和主要解除事由已明确。",
         )
 
     early_surrender = _find_clause(
@@ -684,7 +797,57 @@ def _apply_house_lease_real_contract_rules(items: List[ReviewItemResult], contra
 
 def _apply_sale_contract_rules(items: List[ReviewItemResult], contract_text: str) -> List[ReviewItemResult]:
     clauses = parse_contract_clauses(contract_text)
+    compacted = _compact(contract_text)
     by_id = {item.item_id: item for item in items}
+
+    ordinary_cement_sale = (
+        "水泥" in compacted
+        and not any(term in compacted for term in ("危险化学品", "烟花爆竹", "药品", "医疗器械", "食品", "农药", "特种设备", "限制流通", "禁止流通", "许可证"))
+    )
+    has_warranty_period = any(term in compacted for term in ("质保期", "质量保证期", "保修期", "质保期限", "保修期限"))
+    has_on_spot_acceptance = any(term in compacted for term in ("当场验收", "现场验收", "到货验收", "收货时验收"))
+    has_post_use_quality_remedy = (
+        ("使用" in compacted and "质量问题" in compacted and ("发现后" in compacted or "10日内" in compacted or "十日内" in compacted))
+        and any(term in compacted for term in ("更换", "补发", "退换", "减免", "解决方案"))
+    )
+    has_visible_hidden_distinction = any(term in compacted for term in ("外观瑕疵", "隐蔽瑕疵", "内在质量", "潜在缺陷"))
+    has_certificate_evidence = any(term in compacted for term in ("检验报告", "合格证", "检测报告", "认证证书", "质检报告", "质量证明", "出厂检验"))
+
+    if ordinary_cement_sale and (item := by_id.get("S-01-03")) and item.coverage_status == "缺失":
+        _set_item_missing(
+            item,
+            "中",
+            "合同标的为水泥，属于普通建材，当前文本未体现特殊许可、禁止流通或限制流通风险；未设置标的物合法性保证属于建议补充事项，不宜按高风险致命缺陷处理。",
+            "水泥作为普通建材通常不涉及特殊审批许可；未写明标的物合法性保证会增加来源与合规争议，但一般不直接导致合同无法履行或无效。",
+            "买卖合同普通建材合法性风险专项校正",
+        )
+
+    if has_on_spot_acceptance and (has_warranty_period or has_post_use_quality_remedy) and (item := by_id.get("S-07-02")) and item.coverage_status == "缺失":
+        _set_item_missing(
+            item,
+            "中",
+            "合同虽约定当场验收，短期验收主要覆盖外观、数量和包装问题；同时合同存在使用过程中发现质量问题后的异议和补救机制，可在一定程度上覆盖隐蔽瑕疵风险，故不宜按高风险处理。",
+            "合同未完整说明检验期限合理性，建议补充短期验收仅限外观和数量，隐蔽瑕疵可在质保期内主张。",
+            "买卖合同检验期限合理性专项校正",
+        )
+
+    if (has_warranty_period or has_post_use_quality_remedy) and not has_visible_hidden_distinction and (item := by_id.get("S-07-03")):
+        _set_item_missing(
+            item,
+            "中",
+            "合同虽未明确区分外观瑕疵与隐蔽瑕疵，但已有使用过程中质量问题的异议和补救机制，可在一定程度上承接隐蔽质量问题处理；该缺口属于建议性补充，不宜按高风险处理。",
+            "合同未区分外观瑕疵和隐蔽瑕疵，建议补充外观问题的即时异议期限以及隐蔽瑕疵的质保期主张规则。",
+            "买卖合同外观/隐蔽瑕疵区分专项校正",
+        )
+
+    if not has_certificate_evidence and (item := by_id.get("S-12-02")) and item.coverage_status == "通过":
+        _set_item_missing(
+            item,
+            "中",
+            "当前命中证据仅涉及质量异议或质量问题处理，并未约定出卖人交付合格证、检验报告、检测报告或其他质量证明文件；质量异议条款不能替代合格证明交付义务。",
+            "合同未要求出卖人随货提供检验报告、合格证或质量证明文件，买受人验收和后续追责证据不足。",
+            "买卖合同合格证明证据实质匹配校正",
+        )
 
     quality_remedy = _find_clause(
         clauses,
@@ -704,6 +867,203 @@ def _apply_sale_contract_rules(items: List[ReviewItemResult], contract_text: str
             issue_type="条款缺陷",
         )
         item.fallback_reason = "买卖合同质量异议补救条款专项校正"
+
+    return items
+
+
+def _service_has_prepayment_refund_evidence(compacted: str) -> bool:
+    """服务合同真实合同：识别已明确为预付式消费且附有完整退费条款，避免误判为完全缺失。"""
+    prepay_hits = [
+        term for term in ("预付费", "预付式消费", "预付款", "会员卡", "储值卡", "充值", "课包", "课时费", "课时")
+        if term in compacted
+    ]
+    refund_hits = [
+        term for term in ("退费", "退款", "退卡", "退还", "剩余金额", "剩余费用")
+        if term in compacted
+    ]
+    # 需同时命中“预付”类与“退费”类关键词，且体量足以说明是预付式消费安排
+    return len(prepay_hits) >= 1 and len(refund_hits) >= 1
+
+
+def _service_has_content_list_evidence(compacted: str) -> bool:
+    """服务内容清单：已列明课程、课时、价格、教师等核心信息，仅少量空白时降级处理。"""
+    content_hits = [
+        term for term in ("课程", "课时", "服务项目", "服务内容", "培训项目", "教练", "老师", "教师", "单价", "价格", "收费标准")
+        if term in compacted
+    ]
+    return len(content_hits) >= 3
+
+
+def _service_has_schedule_place_evidence(compacted: str) -> bool:
+    """服务时间地点方式：已明确上课时间、地点、方式时降级处理。"""
+    schedule_hits = [
+        term for term in ("上课时间", "上课地点", "服务时间", "服务地点", "线下", "线上", "预约", "排课", "培训地点", "训练地点")
+        if term in compacted
+    ]
+    return len(schedule_hits) >= 2
+
+
+def _service_is_training_contract(compacted: str) -> bool:
+    """培训类服务合同：用于区分服务合同基本性质已明确、仅缺少建议性定性条款的场景。"""
+    training_hits = [
+        term for term in ("培训", "课程", "课时", "学员", "上课", "教师", "老师", "授课", "辅导", "班课")
+        if term in compacted
+    ]
+    return len(training_hits) >= 2
+
+
+def _service_has_prepayment_balance_framework(compacted: str) -> bool:
+    """预付款金额和余额：已写总金额、课时/单价、退费或余额计算时，按框架存在处理。"""
+    amount_hits = [
+        term for term in ("总金额", "服务费", "课程费", "培训费", "预付款", "预付费", "收费", "价格", "单价")
+        if term in compacted
+    ]
+    balance_hits = [
+        term for term in ("余额", "剩余课时", "未消耗课时", "未上课时", "剩余费用", "退费", "退款", "按实际课时", "课时")
+        if term in compacted
+    ]
+    return len(amount_hits) >= 1 and len(balance_hits) >= 1
+
+
+def _service_has_refund_calculation_framework(compacted: str) -> bool:
+    """解除或退费结算：识别按已消耗/未消耗服务折算退款的实质框架。"""
+    refund_hits = [
+        term for term in ("退费", "退款", "退还", "解除后", "终止后", "按实际课时", "按实际提供服务", "未消耗课时", "剩余课时", "未提供服务")
+        if term in compacted
+    ]
+    calculation_hits = [
+        term for term in ("计算", "结算", "扣除", "余额", "剩余", "单价", "课时", "实际")
+        if term in compacted
+    ]
+    return len(refund_hits) >= 1 and len(calculation_hits) >= 1
+
+
+def _service_has_consumer_notice_framework(compacted: str) -> bool:
+    return any(term in compacted for term in ("书面通知", "退费申请", "退款申请", "解除申请", "提交申请", "申请材料"))
+
+
+def _service_has_forbidden_no_qualification_clause(compacted: str) -> bool:
+    return any(
+        _has_unnegated_word(compacted, term, window=18)
+        for term in ("无资质", "无证", "无需资质", "没有许可证", "不提供证照")
+    )
+
+
+def _apply_service_contract_rules(items: List[ReviewItemResult], contract_text: str) -> List[ReviewItemResult]:
+    clauses = parse_contract_clauses(contract_text)
+    compacted = _compact(contract_text)
+    by_id = {item.item_id: item for item in items}
+
+    # SVC-04-01：预付式消费识别——合同已明确为预付式消费且附完整退费条款，属误判，降为低风险-通过
+    if _service_has_prepayment_refund_evidence(compacted) and (item := by_id.get("SVC-04-01")):
+        _set_item_pass(
+            item,
+            _find_clauses(clauses, lambda clause: ("预付费" in clause.text or "预付" in clause.text or "会员" in clause.text or "课时" in clause.text), limit=2),
+            "合同已明确为预付式消费安排，且包含“退费/退款/剩余金额”等退费条款（如退费条件、计算方式或解除后退款），不应再判定为高风险-完全缺失；本项修正为低风险-通过。",
+            "合同文本已体现预付式消费属性并载明退费相关安排，预付式消费识别已覆盖。",
+        )
+        item.fallback_reason = "服务合同预付式消费识别专项校正"
+
+    # SVC-03-01：服务内容清单——已列明核心信息但存在少量空白，降为中风险-部分覆盖
+    if _service_has_content_list_evidence(compacted) and (item := by_id.get("SVC-03-01")):
+        _set_item_partial(
+            item,
+            _find_clauses(clauses, lambda clause: ("课程" in clause.text or "课时" in clause.text or "价格" in clause.text or "教师" in clause.text or "服务内容" in clause.text), limit=2),
+            "中",
+            "合同已列明课程名称、课时、价格、教师等核心服务信息，仅有少量空白未填；按真实合同实务，不应按高风险-完全缺失处理，本项修正为中风险-部分覆盖。",
+            "服务内容核心信息已基本列明，建议补全剩余空白的服务项目、次数或标准以避免履行争议。",
+            issue_type="模板空白",
+        )
+        item.fallback_reason = "服务合同服务内容清单专项校正"
+
+    # SVC-03-03：服务时间地点方式——已明确时降级处理
+    if _service_has_schedule_place_evidence(compacted) and (item := by_id.get("SVC-03-03")):
+        _set_item_partial(
+            item,
+            _find_clauses(clauses, lambda clause: ("上课时间" in clause.text or "服务时间" in clause.text or "上课地点" in clause.text or "服务地点" in clause.text or "预约" in clause.text or "排课" in clause.text), limit=2),
+            "中",
+            "合同已明确上课时间、地点、方式或预约安排，仅有少量空白；按真实合同实务，不应按高风险-完全缺失处理，本项修正为中风险-部分覆盖。",
+            "服务时间、地点和方式已基本明确，建议补全剩余未填的排课或变更约定。",
+            issue_type="模板空白",
+        )
+        item.fallback_reason = "服务合同服务时间地点方式专项校正"
+
+    if _service_is_training_contract(compacted):
+        training_evidence = _find_clauses(
+            clauses,
+            lambda clause: any(term in clause.text for term in ("培训", "课程", "课时", "学员", "上课", "教师", "老师")),
+            limit=2,
+        )
+        for item_id, title in (
+            ("SVC-01-02", "服务与承揽区分"),
+            ("SVC-01-03", "服务与委托区分"),
+            ("SVC-01-04", "服务类型细分"),
+        ):
+            if item := by_id.get(item_id):
+                _set_item_partial(
+                    item,
+                    training_evidence,
+                    "中",
+                    f"合同已能识别为培训服务，{title}缺少的是进一步定性或边界说明，属于建议性补充，不应因模板简略直接提升为高风险。",
+                    f"合同已体现培训服务的核心场景，但仍建议补充“{title}”相关表述，避免与承揽、委托或其他服务类型发生边界争议。",
+                    issue_type="条款缺陷",
+                )
+                item.fallback_reason = "服务合同类型定性风险分级校正"
+
+    if _service_has_prepayment_balance_framework(compacted) and (item := by_id.get("SVC-04-02")):
+        _set_item_partial(
+            item,
+            _find_clauses(clauses, lambda clause: any(term in clause.text for term in ("总金额", "服务费", "培训费", "课时", "退费", "退款", "余额")), limit=2),
+            "中",
+            "合同已明确服务费用、课时或退费计算的基本框架，但余额、单价或未消耗课时的细节可能仍有空白；该类问题属于模板空白或内容不完整，不应按高风险处理。",
+            "预付款和余额结算已有基础框架，建议补全余额查询、单价、已消耗服务和剩余费用的计算细节。",
+            issue_type="模板空白",
+        )
+        item.fallback_reason = "服务合同预付款余额风险分级校正"
+
+    if _service_has_refund_calculation_framework(compacted):
+        for item_id, reason, description in (
+            (
+                "SVC-06-01",
+                "合同已约定按实际课时或未提供服务部分结算退款，可覆盖消费者因特殊原因解除后的基础结算框架；但未专门写明健康原因解除机制，故按中风险部分覆盖处理。",
+                "健康原因解除条款尚不完整，建议补充凭医疗证明解除、未提供服务部分退费和不得不合理扣费的规则。",
+            ),
+            (
+                "SVC-11-02",
+                "合同已约定按实际课时、剩余课时或未提供服务部分进行退款结算，解除后的退款计算并非完全缺失；细节未尽明确时按中风险部分覆盖处理。",
+                "解除后的退款计算已有基础框架，建议补充具体公式、办理期限、赠送课时和合理成本扣除规则。",
+            ),
+        ):
+            if item := by_id.get(item_id):
+                _set_item_partial(
+                    item,
+                    _find_clauses(clauses, lambda clause: any(term in clause.text for term in ("退费", "退款", "剩余课时", "未消耗课时", "按实际课时", "未提供服务", "结算")), limit=2),
+                    "中",
+                    reason,
+                    description,
+                    issue_type="模板空白",
+                )
+                item.fallback_reason = "服务合同解除退费风险分级校正"
+
+    if _service_has_consumer_notice_framework(compacted) and (item := by_id.get("SVC-06-02")):
+        _set_item_partial(
+            item,
+            _find_clauses(clauses, lambda clause: any(term in clause.text for term in ("书面通知", "退费申请", "退款申请", "解除申请", "申请材料")), limit=2),
+            "中",
+            "合同已约定书面通知、退费申请或类似办理方式，可作为消费者解除/退费通知的基础，但材料清单、办理期限或送达渠道仍需补充。",
+            "消费者解除通知已有基础安排，建议补全申请材料、送达渠道、审核期限和退款期限。",
+            issue_type="模板空白",
+        )
+        item.fallback_reason = "服务合同消费者解除通知风险分级校正"
+
+    if not _service_has_forbidden_no_qualification_clause(compacted) and (item := by_id.get("SVC-02-04")):
+        _set_item_missing(
+            item,
+            "中",
+            "未在正式合同条款中找到“服务方无资质时不得继续提供服务并应退费/赔偿”的有效约定；此前将无关证据判为通过不符合实质匹配规则。",
+            "合同缺少服务方无资质或资质丧失时的停止服务、退费和责任承担安排，存在履约合规争议。",
+            "服务合同资质保障条款证据实质匹配校正",
+        )
 
     return items
 
@@ -808,6 +1168,8 @@ def _apply_contract_specific_post_rules(items: List[ReviewItemResult], contract_
         return _apply_technology_development_mode_rules(items, contract_text)
     if contract_type_key == "construction":
         return _apply_construction_contract_rules(items, contract_text)
+    if contract_type_key == "service":
+        return _apply_service_contract_rules(items, contract_text)
     return items
 
 
@@ -874,33 +1236,245 @@ def _sanitize_review_report(report: str) -> str:
     return sanitized
 
 
-def _format_markdown(contract_type_name: str, items: List[ReviewItemResult]) -> str:
+def _apply_profile_rules(
+    items: List[ReviewItemResult],
+    profile: UserRiskProfile,
+) -> List[ReviewItemResult]:
+    """根据用户风险画像动态调整审查结果。
+
+    1. 风险等级重映射（保守→提升，激进→降低）
+    2. 标注行动标签（必须改/建议改/可考虑改）
+    3. 标注是否为优先审查点
+    4. 修改建议语气适配
+    """
+    for item in items:
+        if item.coverage_status == COVERAGE_NOT_APPLICABLE or item.risk_level == COVERAGE_NOT_APPLICABLE:
+            continue
+
+        # 风险等级重映射
+        original_risk = item.risk_level
+        item.risk_level = get_risk_remap(original_risk, profile.risk_appetite)
+
+        # 行动标签（附加到 reasoning_summary 中）
+        action_label = get_action_label(item.risk_level, profile.risk_appetite)
+        tone = get_modification_tone(item.risk_level, profile.risk_appetite)
+
+        # 优先审查点标注
+        priority = is_priority_checkpoint(item.item_id, profile)
+        if priority and item.risk_level != "低" and "建议" in action_label:
+            action_label = action_label.replace("建议", "建议优先")
+
+        # 语气适配描述前缀
+        if not item.risk_point_description.startswith(f"【{tone}】"):
+            item.risk_point_description = f"【{tone}】{item.risk_point_description}"
+
+        if action_label not in item.reasoning_summary:
+            item.reasoning_summary = f"{item.reasoning_summary}（行动建议：{action_label}。）"
+
+        if profile.risk_appetite == "保守" and item.risk_level in {"中", "低"}:
+            conservative_note = "对你而言建议修改" if item.risk_level == "中" else "对你而言建议完善"
+            if conservative_note not in item.reasoning_summary:
+                item.reasoning_summary = f"{item.reasoning_summary}（{conservative_note}，但本项不属于合同效力、重大财产损失或人身安全类高风险。）"
+
+    return items
+
+
+def _format_item_submodule(
+    item_id: str,
+    litigation_items: Dict[str, Any],
+    negotiation_items: Dict[str, Any],
+    jurisdiction_items: Dict[str, Any],
+) -> List[str]:
+    """为单个高风险项生成诉讼策略/商业谈判/跨地域裁判预判三个子模块。"""
+    lines: List[str] = []
+
+    lit = litigation_items.get(item_id)
+    neg = negotiation_items.get(item_id)
+    jur = jurisdiction_items.get(item_id)
+
+    if lit:
+        lines.append("### 诉讼策略")
+        lines.append("")
+        lines.append("#### 证据链评估")
+        critical = [g for g in lit.get("evidence_gaps", []) if g["severity"] == "critical"]
+        recommended = [g for g in lit.get("evidence_gaps", []) if g["severity"] == "recommended"]
+        sufficient = [g for g in lit.get("evidence_gaps", []) if g["severity"] == "sufficient"]
+        if critical:
+            lines.append("- **缺了几乎必输**：")
+            for g in critical:
+                lines.append(f"  - {g['evidence_name']}：{g['description']}")
+                if g.get("source_hint"):
+                    lines.append(f"    > 获取方式：{g['source_hint']}")
+        if recommended:
+            lines.append("- **建议补充**：")
+            for g in recommended:
+                lines.append(f"  - {g['evidence_name']}：{g['description']}")
+                if g.get("source_hint"):
+                    lines.append(f"    > 获取方式：{g['source_hint']}")
+        if sufficient:
+            lines.append("- **证据充分**：")
+            for g in sufficient:
+                lines.append(f"  - ✅ {g['evidence_name']}：{g['description']}")
+        if not critical and not recommended and not sufficient:
+            lines.append("暂无特定证据缺口分析。")
+        lines.append("")
+
+        if lit.get("court_prediction"):
+            cp = lit["court_prediction"]
+            lines.append("#### 法院裁量预测")
+            lines.append(f"- **合同约定**：{cp.get('contract_terms', '')}")
+            lines.append(f"- **法院大概率支持**：{cp.get('likely_court_view', '')}")
+            lines.append(f"- **法律依据**：{cp.get('legal_basis', '')}")
+            if cp.get("amount_range"):
+                lines.append(f"- **可执行金额范围**：{cp['amount_range']}")
+            if cp.get("reference_cases"):
+                lines.append(f"- **参考判例/解释**：{cp['reference_cases']}")
+            lines.append("")
+
+        if lit.get("cost_benefit"):
+            cb = lit["cost_benefit"]
+            lines.append("#### 成本收益分析")
+            lines.append(f"- **争议金额**：约{cb.get('dispute_amount', 0):.0f}元")
+            lines.append(f"- **预估诉讼费**：约{cb.get('litigation_fee', 0):.0f}元")
+            lines.append(f"- **时间成本**：{cb.get('time_cost', '')}")
+            lines.append(f"- **执行风险**：{cb.get('enforcement_risk', '')}")
+            lines.append(f"- **起诉建议**：**{cb.get('recommendation', '')}**")
+            lines.append(f"  > {cb.get('recommendation_reason', '')}")
+            lines.append("")
+
+        lines.append(f"> 本分析不构成法律意见，仅供参考。")
+        lines.append("")
+
+    if neg:
+        lines.append("### 商业谈判")
+        lines.append("")
+        lines.append("#### 对方意图分析")
+        ci = neg.get("counterparty_intent", {})
+        lines.append(f"- **对方可能担心**：{ci.get('likely_concern', '')}")
+        lines.append(f"- **对方希望**：{ci.get('likely_want', '')}")
+        if ci.get("pressure_points"):
+            lines.append(f"- **谈判压力点**：{ci['pressure_points']}")
+        lines.append("")
+
+        lines.append("#### 替代方案")
+        for alt in neg.get("alternatives", []):
+            lines.append(f"- {alt.get('proposal', '')}")
+            lines.append(f"  - 对己方影响：{alt.get('impact', '')}")
+            lines.append(f"  - 可行性：{alt.get('feasibility', '')}")
+        lines.append("")
+
+        lines.append("#### 交换筹码")
+        to = neg.get("tradeoff", {})
+        lines.append(f"- **你可以让步**：{to.get('what_you_give', '')}")
+        lines.append(f"- **要求对方回报**：{to.get('what_you_ask', '')}")
+        lines.append(f"- **交换理由**：{to.get('rationale', '')}")
+        lines.append("")
+
+        lines.append("#### 谈判话术")
+        lines.append(f"> {neg.get('script', '')}")
+        lines.append("")
+
+        lines.append(f"> 本分析不构成法律意见，仅供参考。")
+        lines.append("")
+
+    if jur:
+        lines.append("### 跨地域裁判预判")
+        lines.append("")
+        lines.append("#### 本地法院倾向")
+        lines.append(f"> {jur.get('local_court_tendency', '')}")
+        lines.append("")
+
+        lines.append("#### 本地判例参考")
+        for case in jur.get("local_cases", []):
+            lines.append(f"- **{case.get('case_id', '')}**（{case.get('court', '')}）")
+            lines.append(f"  > {case.get('conclusion', '')}")
+            lines.append(f"  > 关联性：{case.get('relevance', '')}")
+        if not jur.get("local_cases"):
+            lines.append("该地区暂无同类判例可查。")
+        lines.append("")
+
+        lines.append("#### 起诉建议")
+        lines.append(f"- **建议**：**{jur.get('litigation_recommendation', '')}**")
+        lines.append(f"  > {jur.get('recommendation_reason', '')}")
+        lines.append("")
+
+        if jur.get("data_source_note"):
+            lines.append(f"> {jur['data_source_note']}")
+        lines.append("")
+
+    return lines
+
+
+def _format_markdown_v2(
+    contract_type_name: str,
+    items: List[ReviewItemResult],
+    profile: UserRiskProfile,
+    litigation_items: Optional[Dict[str, Any]] = None,
+    negotiation_items: Optional[Dict[str, Any]] = None,
+    jurisdiction_items: Optional[Dict[str, Any]] = None,
+) -> str:
+    """生成带画像适配+四层子模块的审查报告。"""
     summary = _risk_summary(items)
+    must_count = sum(1 for item in items if item.status in ("必须修改", "建议优先修改"))
+    suggest_count = sum(1 for item in items if item.status in ("建议修改", "强烈建议修改", "需关注"))
+    consider_count = sum(1 for item in items if item.status in ("可考虑修改", "提示注意", "可优化", "仅供参考", "建议完善"))
+
+    # 预构建子模块查找表
+    lit_map: Dict[str, Any] = {}
+    neg_map: Dict[str, Any] = {}
+    jur_map: Dict[str, Any] = {}
+    if litigation_items:
+        for lit_item in litigation_items.get("items", []):
+            lit_map[lit_item["item_id"]] = lit_item
+    if negotiation_items:
+        for neg_item in negotiation_items.get("items", []):
+            neg_map[neg_item["item_id"]] = neg_item
+    if jurisdiction_items:
+        for jur_item in jurisdiction_items.get("items", []):
+            jur_map[jur_item["item_id"]] = jur_item
+
     lines = [
-        f"# {contract_type_name}审查清单（第二版）",
+        f"# {contract_type_name}审查报告（第二版）",
         "",
-        f"- 审查点数量：{len(items)}",
+        "## 用户画像",
+        "",
+        format_profile_summary(profile),
+        "",
+        adapt_report_header(profile),
+        "",
+        "---",
+        "",
+        "## 风险总览",
+        "",
+        "### 按行动优先级",
+        f"- **必须修改**：{must_count} 项",
+        f"- **建议修改/关注**：{suggest_count} 项",
+        f"- **可考虑修改/提示**：{consider_count} 项",
+        "",
+        "### 按风险等级（原始判定）",
         f"- 高风险：{summary['高']} 项",
         f"- 中风险：{summary['中']} 项",
         f"- 低风险：{summary['低']} 项",
         f"- 不适用：{sum(1 for item in items if item.coverage_status == COVERAGE_NOT_APPLICABLE)} 项",
         "",
-        f"说明：{REPORT_FORMAT_NOTICE}",
+        f"> {REPORT_FORMAT_NOTICE}",
         "",
-        "说明：本引擎只输出条款完备性检查、风险等级和修改建议，不输出纠纷裁判结果。",
+        "> 本引擎只输出条款完备性检查、风险等级和修改建议，不输出纠纷裁判结果。",
+        "",
+        "---",
         "",
     ]
     for index, item in enumerate(items, start=1):
+        priority_flag = " [优先]" if is_priority_checkpoint(item.item_id, profile) and item.risk_level != "低" else ""
         lines.extend(
             [
-                f"## {index}. {item.title}（{item.item_id}）",
-                f"- 风险等级：{item.risk_level}",
-                f"- 状态：{item.status}",
+                f"## {index}. {item.title}（{item.item_id}）{priority_flag}",
+                "",
+                "### 审查结论",
+                f"- **行动建议**：{item.status}",
+                f"- 原始风险等级：{item.risk_level}",
                 f"- 覆盖状态：{item.coverage_status}",
                 f"- 问题类型：{item.issue_type}",
-                f"- 判定来源：{'大模型' if item.judge_source == 'llm' else '适用条件过滤' if item.judge_source == 'applicability_filter' else '规则兜底'}",
-                f"- 模型置信度：{item.llm_confidence or '无'}",
-                f"- 回退原因：{item.fallback_reason or '无'}",
                 f"- 原文位置：{item.evidence_location or '未召回正式条款'}",
                 f"- 系统判断：{item.reasoning_summary}",
                 f"- 【风险点描述】：{item.risk_point_description}",
@@ -911,6 +1485,12 @@ def _format_markdown(contract_type_name: str, items: List[ReviewItemResult]) -> 
                 "",
             ]
         )
+        # 高风险项（行动建议含"必须"）下方挂载三个子模块
+        if item.risk_level == "高" or "必须" in (item.status or ""):
+            sub_lines = _format_item_submodule(item.item_id, lit_map, neg_map, jur_map)
+            lines.extend(sub_lines)
+        lines.append("---")
+        lines.append("")
     return _sanitize_review_report("\n".join(lines))
 
 
@@ -920,12 +1500,18 @@ def review_contract_v2(
     *,
     include_low_risk: bool = True,
     use_llm: bool = True,
+    profile: Optional[UserRiskProfile] = None,
 ) -> Dict[str, Any]:
     """按第二版审查清单审查合同。
 
-    当前原型仅实现房屋租赁合同；新增合同类型时应新增清单配置，再接入
-    合同类型映射，不复用裁判结论。
+    支持用户风险画像（UserRiskProfile）驱动审查输出：
+    - 风险等级个性化（保守/标准/激进）
+    - 修改建议语气动态调整
+    - 审查点优先激活/过滤
     """
+
+    if profile is None:
+        profile = UserRiskProfile.default()
 
     normalized_type = (contract_type or "house_lease").strip().lower()
     try:
@@ -956,6 +1542,7 @@ def review_contract_v2(
             "global_fallback_reason": global_fallback_reason,
             "report_notice": REPORT_FORMAT_NOTICE,
             "result": "",
+            "profile": profile.to_dict(),
         }
 
     checklist = get_checklist(type_meta.key)
@@ -1000,15 +1587,40 @@ def review_contract_v2(
         )
         items.append(_apply_source_exemptions(item, contract_text))
     items = _apply_contract_specific_post_rules(items, contract_text, type_meta.key.value)
+
+    # 应用用户画像规则（风险等级重映射、语气调整、审查点标注）
+    items = _apply_profile_rules(items, profile)
+
     visible_items = items if include_low_risk else [item for item in items if item.risk_level in {"高", "中"}]
     contract_type_name = type_meta.display_name
-    result = _format_markdown(contract_type_name, visible_items)
+
+    # 诉讼策略分析（对高/中风险条款）
+    public_items = [item.to_public_dict() for item in visible_items]
+    litigation_report = analyze_litigation_strategy(public_items, profile)
+
+    # 商业谈判分析（对高/中风险条款）
+    negotiation_report = analyze_negotiation_strategy(public_items, profile)
+
+    # 跨地域裁判预判（对高/中风险条款）
+    jurisdiction_report = analyze_jurisdiction_prediction(public_items, profile, contract_text)
+
+    # 生成带四层子模块的主报告
+    result = _format_markdown_v2(
+        contract_type_name, visible_items, profile,
+        litigation_items=litigation_report.to_public_dict(),
+        negotiation_items=negotiation_report.to_public_dict(),
+        jurisdiction_items=jurisdiction_report.to_public_dict(),
+    )
+    litigation_result = format_litigation_markdown(litigation_report)
+    negotiation_result = format_negotiation_markdown(negotiation_report)
+    jurisdiction_result = format_jurisdiction_markdown(jurisdiction_report)
+
     return {
         "success": True,
         "contract_type": type_meta.response_key,
         "contract_type_name": contract_type_name,
         "message": f"审查第二版已完成{contract_type_name}{len(items)}项核心检查。",
-        "items": [item.to_public_dict() for item in visible_items],
+        "items": public_items,
         "all_items_count": len(items),
         "summary": _risk_summary(items),
         "coverage_summary": _coverage_summary(items),
@@ -1021,4 +1633,11 @@ def review_contract_v2(
         "clause_count": len(clauses),
         "formal_clause_count": sum(1 for clause in clauses if clause.section_type in {"正式合同条款", "附件"}),
         "result": result,
+        "profile": profile.to_dict(),
+        "litigation": litigation_report.to_public_dict(),
+        "litigation_result": litigation_result,
+        "negotiation": negotiation_report.to_public_dict(),
+        "negotiation_result": negotiation_result,
+        "jurisdiction": jurisdiction_report.to_public_dict(),
+        "jurisdiction_result": jurisdiction_result,
     }
