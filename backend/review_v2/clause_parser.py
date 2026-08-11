@@ -8,8 +8,10 @@ instruction, special notice, or appendix.
 from __future__ import annotations
 
 import re
-from dataclasses import asdict, dataclass
-from typing import Dict, List
+from dataclasses import asdict, dataclass, field
+from typing import Any, Dict, List
+
+from review_v2.template_parser import parse_option_groups
 
 
 SECTION_USAGE = "使用说明"
@@ -26,9 +28,56 @@ class ParsedClause:
     text: str
     section_type: str
     level: int
+    raw_text: str = ""
+    normalized_text: str = ""
+    option_groups: List[Dict[str, Any]] = field(default_factory=list)
+    source: str = "body"
 
     def to_public_dict(self) -> Dict[str, str | int]:
         return asdict(self)
+
+
+def _clause_source(section_type: str, text: str = "") -> str:
+    if section_type == SECTION_APPENDIX:
+        return "appendix"
+    if section_type == SECTION_USAGE:
+        return "usage"
+    if section_type == SECTION_SPECIAL_NOTICE:
+        return "special_notice"
+    compacted = re.sub(r"\s+", "", text or "")
+    if re.search(r"(甲方|乙方|出租方|承租方).{0,16}(签字|签名|盖章)", compacted):
+        return "signature"
+    if text.startswith(("甲方（", "乙方（", "甲方(", "乙方(", "出租方", "承租方")):
+        return "party_info"
+    return "body"
+
+
+def _normalize_clause_text(text: str) -> str:
+    return re.sub(r"\s+", "", text or "")
+
+
+def _make_clause(
+    *,
+    clause_id: str,
+    location: str,
+    title: str,
+    text: str,
+    section_type: str,
+    level: int,
+) -> ParsedClause:
+    normalized = _normalize_clause_text(text)
+    return ParsedClause(
+        clause_id=clause_id,
+        location=location,
+        title=title,
+        text=text,
+        section_type=section_type,
+        level=level,
+        raw_text=text,
+        normalized_text=normalized,
+        option_groups=[group.to_public_dict() for group in parse_option_groups(text)],
+        source=_clause_source(section_type, text),
+    )
 
 
 ARTICLE_RE = re.compile(r"^第[一二三四五六七八九十百零〇\d]+条[\s　]*(.*)$")
@@ -37,11 +86,68 @@ SUBCLAUSE_RE = re.compile(r"^（[一二三四五六七八九十]+）")
 NUMBERED_RE = re.compile(r"^\d+[\.．、]")
 APPENDIX_RE = re.compile(r"^(附件|附表)[一二三四五六七八九十\d]*")
 PARTY_RE = re.compile(r"^(甲方|乙方)[（(].*")
+NON_CONTRACT_META_MARKERS = (
+    "测试重点",
+    "测试说明",
+    "审查要求",
+    "用户提问",
+    "修正动作",
+    "验证标准",
+    "应被判定为",
+    "应被识别为",
+    "当前状态",
+    "问题发现",
+    "任务目标",
+)
+
+
+def _is_non_contract_meta_line(line: str) -> bool:
+    compacted = re.sub(r"\s+", "", line)
+    return any(marker in compacted for marker in NON_CONTRACT_META_MARKERS)
+
+
+def _is_signature_boundary_line(line: str) -> bool:
+    compacted = re.sub(r"\s+", "", line)
+    if "（以下无正文）" in compacted or "(以下无正文)" in compacted:
+        return True
+    if compacted in {"签字", "签名", "盖章", "签字盖章", "签名盖章"}:
+        return True
+    if re.match(r"^(甲方|乙方|出卖人|买受人|法定代表人|委托代理人|授权代表).{0,8}(签字|签名|盖章)[:：]?$", compacted):
+        return True
+    if re.match(r"^(签署日期|签订日期|日期)[:：]?[年月日\d_\-/.]*$", compacted):
+        return True
+    return False
+
+
+def strip_non_contract_tail(contract_text: str) -> str:
+    """Remove test notes or analysis text appended outside the contract body."""
+    kept: List[str] = []
+    in_signature_tail = False
+
+    for raw_line in (contract_text or "").splitlines():
+        line = raw_line.strip()
+        if not line:
+            if not in_signature_tail:
+                kept.append(raw_line)
+            continue
+        if _is_non_contract_meta_line(line):
+            break
+        if in_signature_tail:
+            if APPENDIX_RE.match(line):
+                in_signature_tail = False
+                kept.append(raw_line)
+            continue
+        if _is_signature_boundary_line(line):
+            in_signature_tail = True
+            continue
+        kept.append(raw_line)
+
+    return "\n".join(kept).strip()
 
 
 def _clean_lines(contract_text: str) -> List[str]:
     lines = []
-    for raw_line in (contract_text or "").splitlines():
+    for raw_line in strip_non_contract_tail(contract_text).splitlines():
         normalized = raw_line.strip()
         if not normalized:
             continue
@@ -80,7 +186,7 @@ def _fallback_unstructured_clauses(lines: List[str]) -> List[ParsedClause]:
         raw_segments.extend(parts or [line])
 
     return [
-        ParsedClause(
+        _make_clause(
             clause_id=f"C{index + 1:04d}",
             location=f"第{index + 1}段",
             title=segment[:40],
@@ -121,7 +227,7 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
             current_lines = []
             return
         clauses.append(
-            ParsedClause(
+            _make_clause(
                 clause_id=f"C{len(clauses) + 1:04d}",
                 location=current_location,
                 title=current_title,

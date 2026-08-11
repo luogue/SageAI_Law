@@ -36,7 +36,7 @@
               v-model="useLlmReview"
               :disabled="llmStatusLoaded && !llmStatus?.available"
               active-text="启用大模型复核"
-              inactive-text="仅用规则兜底"
+              inactive-text="仅用合同原文审查"
             />
             <div
               v-if="llmStatusLoaded"
@@ -152,7 +152,10 @@
                   v-for="option in riskFilterOptions"
                   :key="option"
                   :label="option"
-                />
+                  :value="option"
+                >
+                  {{ priorityFilterLabel(option) }}
+                </el-radio-button>
               </el-radio-group>
               <el-select v-model="coverageFilter" class="coverage-filter" size="small">
                 <el-option
@@ -229,28 +232,27 @@
             <!-- 分级行动建议 -->
             <div class="summary-card must">
               <span>必须修改</span>
-              <strong>{{ actionStats.must }}</strong>
+              <strong>{{ report.risk_finding_summary?.重大风险 || actionStats.must }}</strong>
             </div>
             <div class="summary-card suggest">
               <span>建议修改</span>
-              <strong>{{ actionStats.suggest }}</strong>
+              <strong>{{ report.risk_finding_summary?.中等风险 || actionStats.suggest }}</strong>
             </div>
             <div class="summary-card consider">
               <span>可考虑改</span>
-              <strong>{{ actionStats.consider }}</strong>
+              <strong>{{ report.risk_finding_summary?.低风险 || actionStats.consider }}</strong>
             </div>
-            <!-- 原始风险等级 -->
             <div class="summary-card high">
-              <span>高风险</span>
-              <strong>{{ report.summary?.高 || 0 }}</strong>
+              <span>已覆盖</span>
+              <strong>{{ report.coverage_summary?.通过 || 0 }}</strong>
             </div>
             <div class="summary-card medium">
-              <span>中风险</span>
-              <strong>{{ report.summary?.中 || 0 }}</strong>
+              <span>部分覆盖</span>
+              <strong>{{ report.coverage_summary?.部分覆盖 || 0 }}</strong>
             </div>
             <div class="summary-card low">
-              <span>低风险</span>
-              <strong>{{ report.summary?.低 || 0 }}</strong>
+              <span>缺失</span>
+              <strong>{{ report.coverage_summary?.缺失 || 0 }}</strong>
             </div>
             <div class="summary-card na">
               <span>不适用</span>
@@ -266,6 +268,20 @@
             {{ report.global_fallback_reason }}
           </div>
 
+          <section class="core-risk-panel">
+            <div class="section-title">核心风险摘要</div>
+            <div v-if="coreRiskItems.length" class="core-risk-list">
+              <div v-for="item in coreRiskItems" :key="item.finding_id || item.item_id" class="core-risk-row">
+                <el-tag :type="riskTagType(item.severity || item.risk_level)" effect="dark">{{ riskLabel(item.severity || item.risk_level) }}</el-tag>
+                <div>
+                  <strong>{{ item.title }}</strong>
+                  <p>{{ userFacingText(item.recommendation || item.risk_point_description) }}</p>
+                </div>
+              </div>
+            </div>
+            <div v-else class="empty-core-risk">未发现需要优先处理的高风险或重大经济后果事项。</div>
+          </section>
+
           <div class="review-list">
             <article v-for="item in filteredItems" :key="item.item_id" class="review-item">
               <header class="item-header">
@@ -275,20 +291,17 @@
                     {{ item.status }} · {{ item.coverage_status }} · {{ item.issue_type || '未分类' }} · {{ judgeSourceLabel(item.judge_source) }}
                   </div>
                 </div>
-                <el-tag :type="riskTagType(item.risk_level)" effect="dark">{{ riskLabel(item.risk_level) }}</el-tag>
+                <el-tag :type="coverageTagType(item.coverage_status)" effect="dark">{{ item.coverage_status }}</el-tag>
               </header>
 
               <dl class="item-body">
-                <dt>判定来源</dt>
+                <dt>证据来源</dt>
                 <dd>
                   {{ judgeSourceLabel(item.judge_source) }}
                   <span v-if="item.llm_confidence"> · 置信度 {{ confidenceLabel(item.llm_confidence) }}</span>
-                  <span v-if="visibleFallbackReason(item)" class="fallback-reason">
-                    · {{ item.fallback_reason }}
-                  </span>
                 </dd>
                 <dt>系统判断</dt>
-                <dd>{{ item.reasoning_summary }}</dd>
+                <dd>{{ userFacingText(item.reasoning_summary) }}</dd>
                 <dt>问题类型</dt>
                 <dd>{{ item.issue_type || '未分类' }}</dd>
                 <dt>原文位置</dt>
@@ -308,13 +321,31 @@
                   <span v-else class="no-evidence">无正式条款证据</span>
                 </dd>
                 <dt>【风险点描述】</dt>
-                <dd>{{ item.risk_point_description }}</dd>
-                <dt>【缺失的法律后果】</dt>
-                <dd>{{ item.legal_consequence_if_missing }}</dd>
-                <dt>【建议条款示例】</dt>
-                <dd>{{ item.suggested_clause_example }}</dd>
-                <dt>【法律依据索引】</dt>
+                <dd>{{ userFacingText(item.risk_point_description) }}</dd>
+                <dt>【{{ legalConsequenceLabel(item) }}】</dt>
+                <dd>{{ userFacingText(legalConsequenceText(item)) }}</dd>
+                <template v-if="suggestedClauseLabel(item)">
+                  <dt>【{{ suggestedClauseLabel(item) }}】</dt>
+                  <dd>{{ item.suggested_clause_example }}</dd>
+                </template>
+                <dt>【法律依据】</dt>
                 <dd>{{ item.legal_basis_index }}</dd>
+                <template v-if="item.reasoning">
+                  <dt>【推理过程】</dt>
+                  <dd>
+                    <pre class="reasoning-chain">{{ item.reasoning }}</pre>
+                  </dd>
+                </template>
+                <template v-if="item.citation && Object.keys(item.citation).length">
+                  <dt>【证据定位】</dt>
+                  <dd>
+                    <ul class="citation-list">
+                      <li><strong>条款编号：</strong>{{ item.citation.clause_number || '未召回正式条款' }}</li>
+                      <li><strong>原文片段：</strong>{{ item.citation.original_excerpt || '无正式条款证据' }}</li>
+                      <li><strong>位置描述：</strong>{{ item.citation.position_description || '合同正式条款及附件中未定位到可验证条款' }}</li>
+                    </ul>
+                  </dd>
+                </template>
               </dl>
 
               <div class="review-controls">
@@ -362,9 +393,9 @@
                 <header class="item-header">
                   <div>
                     <div class="item-title">{{ item.item_id }} · {{ item.title }}</div>
-                    <div class="item-status">风险等级：{{ item.risk_level }}</div>
+                    <div class="item-status">审查重要度：{{ importanceLabel(item.review_importance) }} · 行动优先级：{{ priorityLabel(item.action_priority || item.review_priority) }}</div>
                   </div>
-                  <el-tag :type="riskTagType(item.risk_level)" effect="dark">{{ item.risk_level }}</el-tag>
+                  <el-tag :type="coverageTagType(item.coverage_status)" effect="dark">{{ item.coverage_status || '未标注' }}</el-tag>
                 </header>
 
                 <!-- 证据缺口 -->
@@ -485,7 +516,7 @@
                 <header class="item-header">
                   <div>
                     <div class="item-title">{{ item.item_id }} · {{ item.title }}</div>
-                    <div class="item-status">风险等级：{{ item.risk_level }}</div>
+                    <div class="item-status">审查重要度：{{ importanceLabel(item.review_importance) }} · 行动优先级：{{ priorityLabel(item.action_priority || item.review_priority) }}</div>
                   </div>
                   <el-tag :type="negotiationPriorityTag(item.negotiation_priority)" effect="dark">
                     {{ item.negotiation_priority }}
@@ -569,9 +600,9 @@
                 <header class="item-header">
                   <div>
                     <div class="item-title">{{ item.item_id }} · {{ item.title }}</div>
-                    <div class="item-status">风险等级：{{ item.risk_level }}</div>
+                    <div class="item-status">审查重要度：{{ importanceLabel(item.review_importance) }} · 行动优先级：{{ priorityLabel(item.action_priority || item.review_priority) }}</div>
                   </div>
-                  <el-tag :type="riskTagType(item.risk_level)" effect="dark">{{ item.risk_level }}</el-tag>
+                  <el-tag :type="coverageTagType(item.coverage_status)" effect="dark">{{ item.coverage_status || '未标注' }}</el-tag>
                 </header>
 
                 <dl class="item-body">
@@ -673,13 +704,13 @@ const contractTypeOptions = [
   { label: '物业服务合同（待导入清单）', value: 'property_management', disabled: true }
 ]
 
-const riskFilterOptions = ['全部', '高', '中', '低']
+const riskFilterOptions = ['全部', 'A_CORE', 'B_PRACTICAL', 'C_OPTIMIZATION', 'NONE', 'NOT_APPLICABLE']
 const coverageFilterOptions = ['全部', '通过', '部分覆盖', '缺失', '风险条款', '不适用']
 const issueTypeFilterOptions = ['全部', '通过', '模板空白', '条款缺陷', '完全缺失', '风险条款', '不适用']
 const judgeSourceFilterOptions = [
-  { label: '全部判定来源', value: '全部' },
-  { label: '大模型判定', value: 'llm' },
-  { label: '规则兜底', value: 'rule_fallback' },
+  { label: '全部证据来源', value: '全部' },
+  { label: '语义复核', value: 'llm' },
+  { label: '合同原文/结构化事实', value: 'rule_fallback' },
   { label: '适用条件过滤', value: 'applicability_filter' }
 ]
 
@@ -768,7 +799,7 @@ function setProfilePreset(preset) {
 const filteredItems = computed(() => {
   if (!report.value?.items) return []
   return report.value.items.filter(item => {
-    const riskMatched = riskFilter.value === '全部' || item.risk_level === riskFilter.value
+    const riskMatched = riskFilter.value === '全部' || (item.action_priority || item.review_priority) === riskFilter.value
     const coverageMatched = coverageFilter.value === '全部' || item.coverage_status === coverageFilter.value
     const issueMatched = issueTypeFilter.value === '全部' || item.issue_type === issueTypeFilter.value
     const sourceMatched = judgeSourceFilter.value === '全部' || item.judge_source === judgeSourceFilter.value
@@ -776,23 +807,43 @@ const filteredItems = computed(() => {
   })
 })
 
+const coreRiskItems = computed(() => {
+  if (report.value?.risk_findings?.length) {
+    return report.value.risk_findings.slice(0, 10)
+  }
+  if (!report.value?.items) return []
+  const items = report.value.items.filter(item =>
+    item.risk_level === '高' ||
+    item.needs_manual_review ||
+    ['high', 'critical'].includes(item.economic_impact) ||
+    (item.risk_level === '中' && ['A_CORE', 'B_PRACTICAL', 'A', 'B'].includes(item.action_priority || item.review_priority))
+  )
+  return items
+    .sort((a, b) => {
+      const rank = item => item.risk_level === '高' ? 0 : ['high', 'critical'].includes(item.economic_impact) ? 1 : 2
+      return rank(a) - rank(b) || String(a.item_id).localeCompare(String(b.item_id))
+    })
+    .slice(0, 10)
+})
+
 // 分级行动统计（必须改/建议改/可考虑改）
 const actionStats = computed(() => {
-  if (!report.value?.items) return { must: 0, suggest: 0, consider: 0 }
-  let must = 0, suggest = 0, consider = 0
+  if (!report.value?.items) return { must: 0, suggest: 0, consider: 0, covered: 0 }
+  let must = 0, suggest = 0, consider = 0, covered = 0
   for (const item of report.value.items) {
-    const s = item.status || ''
-    if (s.includes('必须') || s.includes('优先修改')) must++
+    const s = item.action_suggestion || item.status || ''
+    if (s.includes('无需修改') || item.coverage_status === '通过') covered++
+    else if (s.includes('必须') || s.includes('优先修改')) must++
     else if (s.includes('建议') || s.includes('需关注')) suggest++
-    else consider++
+    else if (item.coverage_status !== '不适用') consider++
   }
-  return { must, suggest, consider }
+  return { must, suggest, consider, covered }
 })
 
 function judgeSourceLabel(source) {
-  if (source === 'llm') return '大模型判定'
+  if (source === 'llm') return '语义复核'
   if (source === 'applicability_filter') return '适用条件过滤'
-  return '规则兜底'
+  return '合同原文/结构化事实'
 }
 
 function confidenceLabel(confidence) {
@@ -800,10 +851,78 @@ function confidenceLabel(confidence) {
   return labels[confidence] || confidence
 }
 
-function visibleFallbackReason(item) {
-  if (!item?.fallback_reason) return ''
-  if (report.value?.global_fallback_reason === item.fallback_reason) return ''
-  return item.fallback_reason
+function priorityLabel(priority) {
+  const labels = {
+    A_CORE: '优先处理',
+    B_PRACTICAL: '建议处理',
+    C_OPTIMIZATION: '可选优化',
+    NONE: '无需处理',
+    NOT_APPLICABLE: '不适用',
+    'N/A': '不适用'
+  }
+  return labels[priority] || priority || '未标注'
+}
+
+function importanceLabel(importance) {
+  const labels = {
+    CORE: '核心审查项',
+    IMPORTANT: '重要审查项',
+    NORMAL: '一般审查项'
+  }
+  return labels[importance] || '一般审查项'
+}
+
+function priorityFilterLabel(priority) {
+  return priority === '全部' ? '全部优先级' : priorityLabel(priority)
+}
+
+function userFacingText(value) {
+  let text = String(value || '')
+  const replacements = [
+    ['统一事实图谱提取', '根据合同原文可确认'],
+    ['统一事实图谱识别', '根据合同原文可识别'],
+    ['统一事实图谱显示', '根据合同原文显示'],
+    ['统一事实图谱', '合同事实'],
+    ['Fact Graph', '合同事实'],
+    ['Scenario Engine', '金额测算'],
+    ['Final Quality Gate', '最终校验'],
+    ['Cross Review Consistency Verifier', '一致性校验'],
+    ['rule_fallback', '自动审查'],
+    ['LLM', '语义复核'],
+    ['建议人工复核', '建议重点核对'],
+    ['需要人工复核', '需要重点核对'],
+  ]
+  for (const [from, to] of replacements) {
+    text = text.split(from).join(to)
+  }
+  return text
+}
+
+function legalConsequenceLabel(item) {
+  if (item.coverage_status === '不适用') return '适用说明'
+  if (item.coverage_status === '通过' && item.related_risks?.length) return '关联风险'
+  if (item.coverage_status === '通过') return '残余风险'
+  return '缺失的法律后果'
+}
+
+function legalConsequenceText(item) {
+  if (item.coverage_status === '不适用') {
+    return item.applicability?.reason || '本项不适用于当前合同。'
+  }
+  if (item.coverage_status === '通过') {
+    if (item.related_risks?.length) {
+      return `关联风险 ${item.related_risks.join('、')}：同一条款或事实仍存在需要处理的经济或法律风险。`
+    }
+    return '无明显残余风险'
+  }
+  return item.legal_consequence_if_missing
+}
+
+function suggestedClauseLabel(item) {
+  if (['不适用', '通过'].includes(item.coverage_status)) return ''
+  if (item.coverage_status === '部分覆盖') return '建议补充'
+  if (item.coverage_status === '风险条款') return '建议修改原条款'
+  return '建议新增'
 }
 
 async function loadLlmStatus() {
@@ -817,7 +936,7 @@ async function loadLlmStatus() {
     llmStatus.value = {
       available: false,
       configured_models: [],
-      message: '无法读取大模型状态，本次默认仅用规则兜底。'
+      message: '无法读取大模型状态，本次默认仅用合同原文审查。'
     }
     useLlmReview.value = false
   } finally {
@@ -898,13 +1017,25 @@ function buildExportPayload() {
   return {
     filename: report.value.filename || '合同审查报告',
     contract_type_name: report.value.contract_type_name,
+    result: report.value.result,
     summary: report.value.summary,
+    risk_finding_summary: report.value.risk_finding_summary,
     coverage_summary: report.value.coverage_summary,
     issue_type_summary: report.value.issue_type_summary,
     judge_source_summary: report.value.judge_source_summary,
     llm_status: report.value.llm_status,
     global_fallback_reason: report.value.global_fallback_reason,
     report_notice: report.value.report_notice,
+    review_results_4_0: report.value.review_results_4_0,
+    risk_findings: report.value.risk_findings,
+    recommendations: report.value.recommendations,
+    contract_context: report.value.contract_context,
+    overall_assessment: report.value.overall_assessment,
+    benchmark_metrics: report.value.benchmark_metrics,
+    release_quality_gate: report.value.release_quality_gate,
+    quality4_gate: report.value.quality4_gate,
+    architecture_status: report.value.architecture_status,
+    system_metadata: report.value.system_metadata,
     items: report.value.items
   }
 }
@@ -952,13 +1083,29 @@ function resetAll() {
 }
 
 function riskTagType(level) {
-  if (level === '不适用') return 'info'
-  if (level === '高') return 'danger'
-  if (level === '中') return 'warning'
+  if (['不适用', 'NONE', 'none'].includes(level)) return 'info'
+  if (['高', 'HIGH', 'CRITICAL'].includes(level)) return 'danger'
+  if (['中', 'MEDIUM'].includes(level)) return 'warning'
   return 'success'
 }
 
+function coverageTagType(status) {
+  if (status === '通过') return 'success'
+  if (status === '不适用') return 'info'
+  if (status === '部分覆盖') return 'warning'
+  return 'danger'
+}
+
 function riskLabel(level) {
+  const labels = {
+    NONE: '无风险',
+    LOW: '低风险',
+    MEDIUM: '中风险',
+    HIGH: '高风险',
+    CRITICAL: '重大风险',
+    none: '无风险',
+  }
+  if (labels[level]) return labels[level]
   return level === '不适用' ? '不适用' : `${level}风险`
 }
 </script>
@@ -1213,6 +1360,48 @@ function riskLabel(level) {
 }
 
 .summary-card.consider strong { color: #16a34a; }
+
+.core-risk-panel {
+  margin: 0 0 22px;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 12px;
+}
+
+.core-risk-list {
+  display: grid;
+  gap: 10px;
+}
+
+.core-risk-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #eef2f7;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.core-risk-row p {
+  margin: 4px 0 0;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.empty-core-risk {
+  color: #64748b;
+  font-size: 14px;
+}
 
 /* 用户风险画像面板 */
 .profile-panel {
@@ -1757,6 +1946,30 @@ function riskLabel(level) {
 
 .no-evidence {
   color: #94a3b8;
+}
+
+.reasoning-chain {
+  margin: 0;
+  border: 1px solid #e8edf5;
+  border-radius: 6px;
+  background: #f8fafc;
+  color: #334155;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.8;
+  padding: 10px 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.citation-list {
+  margin: 0;
+  padding-left: 18px;
+  color: #334155;
+}
+
+.citation-list li + li {
+  margin-top: 4px;
 }
 
 .review-controls {

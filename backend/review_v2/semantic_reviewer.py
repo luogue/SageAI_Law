@@ -269,6 +269,77 @@ def _has_any(text: str, terms: Sequence[str]) -> bool:
     return any(term in (text or "") for term in terms)
 
 
+def classify_evidence_type(text: str) -> str:
+    source = text or ""
+    has_party_label = _has_any(source, ("出租人", "承租人", "甲方", "乙方"))
+    has_identity_field = _has_any(source, ("证件号", "身份证", "统一社会信用代码", "联系地址", "联系电话", "住所", "通讯地址"))
+    if has_party_label and has_identity_field:
+        return "party_identity"
+    if _has_any(source, ("抵押", "抵押权", "查封", "权利负担", "权属负担", "处分限制")):
+        return "mortgage"
+    if _has_any(source, ("产权", "产证", "权利人", "所有权", "出租权", "不动产权证", "房地产权证")):
+        return "ownership"
+    if _has_any(source, ("欠租", "拖欠租金", "逾期不支付租金", "逾期支付租金", "未按时支付租金")):
+        return "rent_default"
+    if _has_any(source, ("不可抗力", "自然灾害", "疫情", "政府行为", "不能预见", "不能避免")):
+        return "force_majeure"
+    if _has_any(source, ("安全", "危房", "危险房屋", "人身损害", "紧急搬离", "消防", "燃气")):
+        return "safety"
+    if _has_any(source, ("违约金", "赔偿金", "滞纳金", "日万分之", "倍")):
+        return "penalty"
+    if _has_any(source, ("押金", "保证金")):
+        return "deposit"
+    if _has_any(source, ("提前退租", "提前解除", "解除", "终止", "解除合同", "终止合同")):
+        return "termination"
+    if _has_any(source, ("月租金", "租金", "收款账户", "付款账户", "支付日期", "支付方式", "付租")):
+        return "rent"
+    if _has_any(source, ("付款", "支付", "收款", "账户", "费用", "结清")):
+        return "payment"
+    if _has_any(source, ("维修", "修缮", "自然老化", "自然损耗", "正常磨损")):
+        return "repair"
+    if _has_any(source, ("漏水", "裂缝", "霉斑", "损坏", "瑕疵", "缺陷", "附属设施", "家具家电", "装修清单", "现状")):
+        return "physical_defect"
+    if _has_any(source, ("交接", "交还", "返还房屋", "验收", "签收", "交割单", "钥匙", "清单")):
+        return "handover"
+    if _has_any(source, ("转租", "次承租", "转借")):
+        return "sublease"
+    if _has_any(source, ("法院", "仲裁", "管辖", "起诉", "争议解决")):
+        return "jurisdiction"
+    return "unknown"
+
+
+_CHECKPOINT_SEMANTIC_TARGETS = {
+    "move_in_defect_notice": {
+        "target": "physical_condition_defect_disclosure",
+        "allowed": {"physical_defect", "handover", "repair"},
+        "excluded": {"mortgage", "mortgage_disclosure", "payment", "rent", "deposit", "jurisdiction", "ownership", "sublease", "party_identity"},
+    },
+    "third_party_tort": {
+        "target": "third_party_tort_allocation",
+        "allowed": {"physical_defect", "repair"},
+        "excluded": {"payment", "rent", "deposit", "mortgage", "mortgage_disclosure", "jurisdiction"},
+    },
+    "limitation_and_notice": {
+        "target": "notice_delivery_and_demand_trace",
+        "allowed": {"jurisdiction", "termination"},
+        "excluded": {"payment", "rent", "deposit", "physical_defect", "mortgage", "mortgage_disclosure"},
+    },
+}
+
+
+def evidence_semantically_entails(checkpoint: ReviewCheckpoint, clauses: Sequence[ParsedClause]) -> tuple[bool, str, str]:
+    joined = "\n".join(clause.text for clause in clauses)
+    evidence_type = classify_evidence_type(joined)
+    rule = _CHECKPOINT_SEMANTIC_TARGETS.get(checkpoint.node_id)
+    if not rule:
+        return True, evidence_type, ""
+    if evidence_type in rule["excluded"]:
+        return False, evidence_type, f"证据类型 {evidence_type} 与目标概念 {rule['target']} 不一致。"
+    if evidence_type in rule["allowed"]:
+        return True, evidence_type, f"证据类型 {evidence_type} 可支撑目标概念 {rule['target']}。"
+    return False, evidence_type, f"证据类型 {evidence_type} 不能直接推出目标概念 {rule['target']}。"
+
+
 def _has_safekeeping_fee_nature(text: str) -> bool:
     source = text or ""
     return _has_any(source, ("有偿保管", "无偿保管", "免费保管", "保管费", "费用")) and _has_any(
@@ -631,6 +702,9 @@ def evidence_substantively_matches(checkpoint: ReviewCheckpoint, clauses: Sequen
 
     if not clauses:
         return False
+    entails, _, _ = evidence_semantically_entails(checkpoint, clauses)
+    if not entails:
+        return False
     joined = "\n".join(clause.text for clause in clauses)
     if checkpoint.node_id == "limitation_and_notice":
         return _has_notice_delivery_terms(joined) and not all(_is_only_advance_notice(clause.text) for clause in clauses)
@@ -673,7 +747,7 @@ def judge_checkpoint(checkpoint: ReviewCheckpoint, clauses: Sequence[ParsedClaus
                 risk_point_description=checkpoint.risk_point_present,
                 evidence_clauses=evidence,
                 evidence_location=evidence_location,
-                reasoning_summary="正式合同条款中出现了该审查点列明的明显不利或过宽表述，需要人工复核并修改。",
+                reasoning_summary="正式合同条款中出现了该审查点列明的明显不利或过宽表述，需要重点核对并修改。",
                 matched_terms=terms,
                 issue_type=ISSUE_RISKY,
             )

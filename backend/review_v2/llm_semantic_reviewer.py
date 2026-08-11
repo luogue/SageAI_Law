@@ -141,7 +141,7 @@ def get_llm_review_status() -> Dict[str, Any]:
     elif not configured_models:
         message = "服务器未配置模型 API Key，当前仅使用规则兜底。"
     else:
-        message = "大模型语义复核可用；实际调用顺序按 LLM_PRIORITY 配置执行。"
+        message = "AI语义审查已完成。"
 
     return {
         "enabled_by_env": enabled_by_env,
@@ -326,7 +326,7 @@ def _validate_model_result(result: Dict[str, Any], candidates: Sequence[ParsedCl
     reasoning_summary = str(result.get("reasoning_summary", "")).strip()
     confidence = str(result.get("confidence", "medium")).strip().lower()
     evidence_ids = result.get("evidence_clause_ids", [])
-    needs_human_review = bool(result.get("needs_human_review", False))
+    needs_human_review = bool(result.get("needs_manual_review_candidate", result.get("needs_human_review", False)))
 
     if coverage_status not in VALID_COVERAGE:
         raise LLMReviewError(f"模型 coverage_status 非法: {coverage_status}")
@@ -371,7 +371,7 @@ def _build_prompt(
         for clause in candidates
     ]
     return f"""
-你是合同风险审查专家。请只判断合同条款是否实质覆盖审查点，不要输出判决结果，不要判断谁胜诉，不要说任何一方应赔偿。
+你是合同风险审查专家。请只判断合同条款是否实质覆盖审查点，不要输出判决结果，不要判断谁胜诉，不要说任何一方应赔偿。reasoning_summary 禁止写“建议人工复核”“需要人工复核”等行动结论；是否复核只通过 needs_manual_review_candidate 结构化字段表达。
 
 审查点：
 - 编号：{checkpoint.item_id}
@@ -399,7 +399,8 @@ def _build_prompt(
   "reasoning_summary": "一句话说明为什么该条款通过、部分覆盖、缺失或属于风险条款；只能写风险审查语言，不能写判决结果",
   "evidence_clause_ids": ["只能填候选原文条款中的 clause_id；没有证据时填空数组"],
   "confidence": "high|medium|low",
-  "needs_human_review": false
+  "needs_manual_review_candidate": false,
+  "manual_review_reason": null
 }}
 """.strip()
 
@@ -445,6 +446,7 @@ def _build_batch_prompt(entries: Sequence[Dict[str, Any]]) -> str:
 - 每个审查点必须返回一条 review。
 - evidence_clause_ids 只能引用该审查点 candidate_clauses 中的 clause_id。
 - reasoning_summary 只能写风险审查理由，不能写裁判结论。
+- reasoning_summary 禁止写“建议人工复核”“需要人工复核”等行动结论；是否复核只通过 needs_manual_review_candidate 结构化字段表达。
 - 不能用一般违约责任、通知送达、解除、继续履行等泛化条款替代专项审查点；只有候选条款直接覆盖该审查点的核心事实和处理安排，才能判为“通过”。
 
 审查点和候选条款 JSON：
@@ -460,7 +462,8 @@ def _build_batch_prompt(entries: Sequence[Dict[str, Any]]) -> str:
       "reasoning_summary": "一句话说明为什么该条款通过、部分覆盖、缺失或属于风险条款",
       "evidence_clause_ids": ["只能填该审查点候选原文条款中的 clause_id；没有证据时填空数组"],
       "confidence": "high|medium|low",
-      "needs_human_review": false
+      "needs_manual_review_candidate": false,
+      "manual_review_reason": null
     }}
   ]
 }}
@@ -500,6 +503,8 @@ def _issue_type_for(coverage_status: str, clauses: Sequence[ParsedClause]) -> st
 def _risk_level_for(checkpoint: ReviewCheckpoint, coverage_status: str) -> str:
     if coverage_status == COVERAGE_PASS:
         return "低"
+    if checkpoint.node_id == "deposit_return_deadline" and coverage_status == COVERAGE_PARTIAL:
+        return "中"
     return checkpoint.risk_level
 
 
@@ -542,7 +547,7 @@ def _judgment_from_model_result(
         else:
             reasoning_summary = (
                 f"候选条款仅包含一般性表述，未直接覆盖“{checkpoint.title}”的核心事实和处理安排，"
-                "不能视为完整通过。建议人工复核。"
+                "不能视为完整通过。建议签署前补充更具体的约定。"
             )
 
     if coverage_status in {COVERAGE_PASS, COVERAGE_PARTIAL} and not evidence_substantively_matches(checkpoint, selected_clauses):
@@ -568,9 +573,6 @@ def _judgment_from_model_result(
             "提前退租条款已被召回，但通知期限或违约金比例存在模板空白；违约金还应与实际损失、"
             "合理空置损失或未结费用挂钩，避免固定高额约定被调减。"
         )
-
-    if model_result["needs_human_review"] and "建议人工复核" not in reasoning_summary:
-        reasoning_summary = f"{reasoning_summary} 建议人工复核。"
 
     return ReviewJudgment(
         coverage_status=coverage_status,

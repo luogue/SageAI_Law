@@ -10,6 +10,11 @@ ENABLE_INJECTION_DETECTION = os.getenv("ENABLE_INJECTION_DETECTION", "true").low
 ENABLE_OUTPUT_VALIDATION = os.getenv("ENABLE_OUTPUT_VALIDATION", "false").lower() == "true"
 
 
+def _env_enabled(name: str, default: bool) -> bool:
+    fallback = "true" if default else "false"
+    return os.getenv(name, fallback).lower() == "true"
+
+
 class ValidationLayer:
     REQUIRED_SECTIONS = [
         "前置步骤",
@@ -133,7 +138,7 @@ class ValidationLayer:
 
         返回: (是否通过, 错误消息, 匹配到的攻击模式列表)
         """
-        if not ENABLE_INJECTION_DETECTION:
+        if not _env_enabled("ENABLE_INJECTION_DETECTION", ENABLE_INJECTION_DETECTION):
             return True, "", []
 
         if not extra_requirements or not extra_requirements.strip():
@@ -158,7 +163,7 @@ class ValidationLayer:
 
         返回: (是否通过, 错误消息, 匹配到的泄露片段列表)
         """
-        if not ENABLE_OUTPUT_VALIDATION:
+        if not _env_enabled("ENABLE_OUTPUT_VALIDATION", ENABLE_OUTPUT_VALIDATION):
             return True, "", []
 
         if not output_text:
@@ -184,7 +189,7 @@ class ValidationLayer:
 
         返回: (是否可疑, 匹配到的拒绝句式列表)
         """
-        if not ENABLE_OUTPUT_VALIDATION:
+        if not _env_enabled("ENABLE_OUTPUT_VALIDATION", ENABLE_OUTPUT_VALIDATION):
             return False, []
 
         if not output_text:
@@ -208,7 +213,7 @@ class ValidationLayer:
 
         返回: (是否异常, 警告消息)
         """
-        if not ENABLE_OUTPUT_VALIDATION:
+        if not _env_enabled("ENABLE_OUTPUT_VALIDATION", ENABLE_OUTPUT_VALIDATION):
             return False, ""
 
         if confidence_score is None:

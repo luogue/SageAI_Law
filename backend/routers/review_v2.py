@@ -8,6 +8,7 @@ from __future__ import annotations
 import html
 import io
 import os
+import re
 from datetime import datetime
 from typing import Any, Dict, List
 from urllib.parse import quote
@@ -63,10 +64,12 @@ class ReviewV2Result(BaseModel):
     success: bool
     contract_type: str
     contract_type_name: str
+    contract_review_trace_id: str = ""
     message: str
     items: List[Dict[str, Any]] = Field(default_factory=list)
     all_items_count: int = 0
     summary: Dict[str, int] = Field(default_factory=dict)
+    risk_finding_summary: Dict[str, int] = Field(default_factory=dict)
     coverage_summary: Dict[str, int] = Field(default_factory=dict)
     issue_type_summary: Dict[str, int] = Field(default_factory=dict)
     judge_source_summary: Dict[str, int] = Field(default_factory=dict)
@@ -79,18 +82,49 @@ class ReviewV2Result(BaseModel):
     extracted_text_length: int = 0
     clause_count: int = 0
     formal_clause_count: int = 0
+    contract_facts: Dict[str, Any] = Field(default_factory=dict)
+    quality_gate: Dict[str, Any] = Field(default_factory=dict)
+    review_results_4_0: List[Dict[str, Any]] = Field(default_factory=list)
+    risk_findings: List[Dict[str, Any]] = Field(default_factory=list)
+    recommendations: List[Dict[str, Any]] = Field(default_factory=list)
+    contract_context: Dict[str, Any] = Field(default_factory=dict)
+    overall_assessment: Dict[str, Any] = Field(default_factory=dict)
+    legal_reference_issues: List[Dict[str, Any]] = Field(default_factory=list)
+    legal_citation_claims: List[Dict[str, Any]] = Field(default_factory=list)
+    legal_authority_validation: Dict[str, Any] = Field(default_factory=dict)
+    benchmark_metrics: Dict[str, Any] = Field(default_factory=dict)
+    release_quality_gate: Dict[str, Any] = Field(default_factory=dict)
+    quality4_gate: Dict[str, Any] = Field(default_factory=dict)
+    architecture_status: List[Dict[str, Any]] = Field(default_factory=list)
+    system_metadata: Dict[str, Any] = Field(default_factory=dict)
+    observability: Dict[str, Any] = Field(default_factory=dict)
+    profile: Dict[str, Any] = Field(default_factory=dict)
+    litigation: Dict[str, Any] = Field(default_factory=dict)
+    litigation_result: str = ""
+    negotiation: Dict[str, Any] = Field(default_factory=dict)
+    negotiation_result: str = ""
+    jurisdiction: Dict[str, Any] = Field(default_factory=dict)
+    jurisdiction_result: str = ""
 
 
 class ReviewV2PdfInput(BaseModel):
     filename: str = "合同审查报告"
     contract_type_name: str = "房屋租赁合同"
+    result: str = ""
     summary: Dict[str, int] = Field(default_factory=dict)
+    risk_finding_summary: Dict[str, int] = Field(default_factory=dict)
     coverage_summary: Dict[str, int] = Field(default_factory=dict)
     issue_type_summary: Dict[str, int] = Field(default_factory=dict)
     judge_source_summary: Dict[str, int] = Field(default_factory=dict)
     llm_status: Dict[str, Any] = Field(default_factory=dict)
     global_fallback_reason: str = ""
     report_notice: str = ""
+    risk_findings: List[Dict[str, Any]] = Field(default_factory=list)
+    recommendations: List[Dict[str, Any]] = Field(default_factory=list)
+    overall_assessment: Dict[str, Any] = Field(default_factory=dict)
+    benchmark_metrics: Dict[str, Any] = Field(default_factory=dict)
+    release_quality_gate: Dict[str, Any] = Field(default_factory=dict)
+    system_metadata: Dict[str, Any] = Field(default_factory=dict)
     items: List[Dict[str, Any]] = Field(default_factory=list)
 
 
@@ -152,11 +186,90 @@ def _item_issue_type(item: Dict[str, Any]) -> str:
 
 
 def _item_legal_consequence(item: Dict[str, Any]) -> str:
+    if item.get("coverage_status") == COVERAGE_NOT_APPLICABLE:
+        applicability = item.get("applicability") if isinstance(item.get("applicability"), dict) else {}
+        return str(applicability.get("reason") or "本项不适用于当前合同。")
+    if item.get("coverage_status") == COVERAGE_PASS:
+        related = item.get("related_risks") or []
+        if related:
+            return f"关联风险 {', '.join(map(str, related))}：同一条款或事实仍存在需要处理的经济或法律风险。"
+        return "无明显残余风险"
     return (
         str(item.get("legal_consequence_if_missing") or "").strip()
         or str(item.get("risk_point_description") or "").strip()
         or "未补全该审查点会增加合同履行和争议处理的不确定性，建议签署前补充明确约定。"
     )
+
+
+def _item_legal_label(item: Dict[str, Any]) -> str:
+    if item.get("coverage_status") == COVERAGE_NOT_APPLICABLE:
+        return "适用说明"
+    if item.get("coverage_status") == COVERAGE_PASS:
+        if item.get("related_risks"):
+            return "关联风险"
+        return "残余风险"
+    return "缺失的法律后果"
+
+
+def _item_suggested_label(item: Dict[str, Any]) -> str:
+    coverage = item.get("coverage_status")
+    if coverage in {COVERAGE_NOT_APPLICABLE, COVERAGE_PASS}:
+        return ""
+    if coverage == COVERAGE_PARTIAL:
+        return "建议补充"
+    if coverage == COVERAGE_RISKY:
+        return "建议修改原条款"
+    return "建议新增"
+
+
+def _item_citation(item: Dict[str, Any]) -> Dict[str, str]:
+    citation = item.get("citation") if isinstance(item.get("citation"), dict) else {}
+    return {
+        "clause_number": str(citation.get("clause_number") or "未召回正式条款"),
+        "original_excerpt": str(citation.get("original_excerpt") or "无正式条款证据"),
+        "position_description": str(citation.get("position_description") or "合同正式条款及附件中未定位到可验证条款"),
+    }
+
+
+def _user_facing_text(value: Any) -> str:
+    text = str(value or "")
+    replacements = {
+        "统一事实图谱提取": "根据合同原文可确认",
+        "统一事实图谱识别": "根据合同原文可识别",
+        "统一事实图谱显示": "根据合同原文显示",
+        "统一事实图谱": "合同事实",
+        "Fact Graph": "合同事实",
+        "Scenario Engine": "金额测算",
+        "Final Quality Gate": "最终校验",
+        "Cross Review Consistency Verifier": "一致性校验",
+        "rule_fallback": "自动审查",
+        "LLM": "语义复核",
+        "建议人工复核": "建议重点核对",
+        "需要人工复核": "需要重点核对",
+    }
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+    return text
+
+
+def _priority_label(priority: str) -> str:
+    return {
+        "A_CORE": "优先处理",
+        "B_PRACTICAL": "建议处理",
+        "C_OPTIMIZATION": "可选优化",
+        "N/A": "不适用",
+    }.get(priority or "", priority or "未标注")
+
+
+def _finding_title_map(payload: "ReviewV2PdfInput") -> Dict[str, str]:
+    return {finding.get("finding_id", ""): finding.get("title", "关联风险") for finding in (payload.risk_findings or [])}
+
+
+def _related_risk_titles(item: Dict[str, Any], title_map: Dict[str, str]) -> str:
+    ids = item.get("related_risks") or []
+    if not ids:
+        return "无"
+    return "、".join(title_map.get(risk_id, "关联风险") for risk_id in ids)
 
 
 def _issue_type_summary_from_items(items: List[Dict[str, Any]]) -> Dict[str, int]:
@@ -174,7 +287,87 @@ def _issue_type_summary_from_items(items: List[Dict[str, Any]]) -> Dict[str, int
     return summary
 
 
+def _production_markdown_or_raise(payload: ReviewV2PdfInput) -> str:
+    markdown = (payload.result or "").strip()
+    if not markdown:
+        raise ValueError("正式导出必须使用生产 Markdown result，禁止由导出器重建业务报告。")
+    for gate_name in ("release_quality_gate", "quality4_gate"):
+        gate = getattr(payload, gate_name, {}) or {}
+        status = gate.get("status")
+        if status and status != "REPORT_READY":
+            raise ValueError(f"{gate_name}={status}，正式报告未通过发布前质量门，禁止导出。")
+    return markdown
+
+
+def _markdown_blocks(markdown: str) -> List[Dict[str, str]]:
+    blocks: List[Dict[str, str]] = []
+    for raw_line in markdown.splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        if line == "---":
+            blocks.append({"type": "separator", "text": ""})
+            continue
+        heading = re.match(r"^(#{1,6})\s+(.+)$", line)
+        if heading:
+            blocks.append({"type": f"h{len(heading.group(1))}", "text": heading.group(2)})
+            continue
+        if line.startswith("- "):
+            blocks.append({"type": "bullet", "text": line[2:]})
+            continue
+        if line.startswith("> "):
+            blocks.append({"type": "quote", "text": line[2:]})
+            continue
+        blocks.append({"type": "paragraph", "text": line})
+    return blocks
+
+
+def _strip_markdown_inline(text: str) -> str:
+    cleaned = re.sub(r"\*\*(.*?)\*\*", r"\1", text or "")
+    cleaned = re.sub(r"`([^`]*)`", r"\1", cleaned)
+    return cleaned.strip()
+
+
 def _build_pdf(payload: ReviewV2PdfInput) -> bytes:
+    markdown = _production_markdown_or_raise(payload)
+    font_name = _register_cjk_font()
+    buffer = io.BytesIO()
+    doc = SimpleDocTemplate(
+        buffer,
+        pagesize=A4,
+        rightMargin=1.6 * cm,
+        leftMargin=1.6 * cm,
+        topMargin=1.6 * cm,
+        bottomMargin=1.6 * cm,
+    )
+    styles = getSampleStyleSheet()
+    base = ParagraphStyle("SageBase", parent=styles["Normal"], fontName=font_name, fontSize=9, leading=14, alignment=TA_LEFT)
+    title = ParagraphStyle("SageTitle", parent=base, fontSize=18, leading=24, spaceAfter=12)
+    heading = ParagraphStyle("SageHeading", parent=base, fontSize=12, leading=18, spaceBefore=10, spaceAfter=6)
+    subheading = ParagraphStyle("SageSubHeading", parent=base, fontSize=10, leading=15, spaceBefore=6, spaceAfter=4)
+    quote = ParagraphStyle("SageQuote", parent=base, textColor=colors.HexColor("#4b5563"), leftIndent=10, leading=14)
+    story = []
+    for block in _markdown_blocks(markdown):
+        text = _p(_strip_markdown_inline(block["text"]))
+        if block["type"] == "separator":
+            story.append(Spacer(1, 6))
+        elif block["type"] == "h1":
+            story.append(Paragraph(text, title))
+        elif block["type"] in {"h2", "h3"}:
+            story.append(Paragraph(text, heading))
+        elif block["type"].startswith("h"):
+            story.append(Paragraph(text, subheading))
+        elif block["type"] == "bullet":
+            story.append(Paragraph(f"• {text}", base))
+        elif block["type"] == "quote":
+            story.append(Paragraph(text, quote))
+        else:
+            story.append(Paragraph(text, base))
+    doc.build(story)
+    return buffer.getvalue()
+
+
+def _build_debug_pdf(payload: ReviewV2PdfInput) -> bytes:
     font_name = _register_cjk_font()
     buffer = io.BytesIO()
     doc = SimpleDocTemplate(
@@ -212,17 +405,44 @@ def _build_pdf(payload: ReviewV2PdfInput) -> bytes:
     )
 
     summary = payload.summary or {}
+    risk_finding_summary = payload.risk_finding_summary or {}
     coverage_summary = payload.coverage_summary or {}
     issue_type_summary = _issue_type_summary_from_items(payload.items)
     judge_source_summary = payload.judge_source_summary or {}
+    finding_titles = _finding_title_map(payload)
     story = [
         Paragraph("合同审查报告（第二版）", title),
         Paragraph(f"合同类型：{_p(payload.contract_type_name)}", base),
         Paragraph(f"文件名称：{_p(payload.filename)}", base),
+        Paragraph(f"总体可签署性：{_p((payload.overall_assessment or {}).get('signability') or '未记录')}", base),
         Paragraph(f"模型状态：{_p((payload.llm_status or {}).get('message') or '未记录')}", base),
         Paragraph(f"报告提示：{_p(payload.report_notice or REPORT_FORMAT_NOTICE)}", base),
         Paragraph(f"全局回退原因：{_p(payload.global_fallback_reason or '无')}", base),
         Paragraph(f"导出时间：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", base),
+        Spacer(1, 10),
+        Table(
+            [
+                ["重大风险", "中等风险", "低风险", "人工复核"],
+                [
+                    str(risk_finding_summary.get("重大风险", 0)),
+                    str(risk_finding_summary.get("中等风险", 0)),
+                    str(risk_finding_summary.get("低风险", 0)),
+                    str(risk_finding_summary.get("人工复核", 0)),
+                ],
+            ],
+            colWidths=[4 * cm, 4 * cm, 4 * cm, 4 * cm],
+            style=TableStyle(
+                [
+                    ("FONTNAME", (0, 0), (-1, -1), font_name),
+                    ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#f3f6fb")),
+                    ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#d8dee9")),
+                    ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+                    ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+                    ("TOPPADDING", (0, 0), (-1, -1), 8),
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+                ]
+            ),
+        ),
         Spacer(1, 10),
         Table(
             [
@@ -284,35 +504,6 @@ def _build_pdf(payload: ReviewV2PdfInput) -> bytes:
             ]
         )
 
-    if judge_source_summary:
-        story.extend(
-            [
-                Paragraph("判定来源统计", heading),
-                Table(
-                    [
-                        ["大模型判定", "规则兜底"],
-                        [
-                            str(judge_source_summary.get("llm", 0)),
-                            str(judge_source_summary.get("rule_fallback", 0)),
-                        ],
-                    ],
-                    colWidths=[8 * cm, 8 * cm],
-                    style=TableStyle(
-                        [
-                            ("FONTNAME", (0, 0), (-1, -1), font_name),
-                            ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#f3f6fb")),
-                            ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#d8dee9")),
-                            ("ALIGN", (0, 0), (-1, -1), "CENTER"),
-                            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-                            ("TOPPADDING", (0, 0), (-1, -1), 8),
-                            ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
-                        ]
-                    ),
-                ),
-                Spacer(1, 12),
-            ]
-        )
-
     if issue_type_summary:
         story.extend(
             [
@@ -349,27 +540,30 @@ def _build_pdf(payload: ReviewV2PdfInput) -> bytes:
     for index, item in enumerate(payload.items, start=1):
         issue_type = _item_issue_type(item)
         legal_consequence = _item_legal_consequence(item)
+        legal_label = _item_legal_label(item)
+        suggested_label = _item_suggested_label(item)
+        citation = _item_citation(item)
+        reasoning = str(item.get("reasoning") or "").strip()
         story.extend(
             [
                 Paragraph(f"{index}. {_p(item.get('title'))}（{_p(item.get('item_id'))}）", heading),
                 Paragraph(
-                    f"风险等级：{_p(item.get('risk_level'))}　"
                     f"覆盖状态：{_p(item.get('coverage_status'))}　"
+                    f"审查优先级：{_p(_priority_label(item.get('review_priority') or 'N/A'))}　"
+                    f"关联风险发现：{_p(_related_risk_titles(item, finding_titles))}　"
                     f"问题类型：{_p(issue_type)}　"
                     f"复核状态：{_p(item.get('review_status') or '待处理')}",
                     base,
                 ),
                 Paragraph(
-                    f"判定来源：{_p('大模型' if item.get('judge_source') == 'llm' else '规则兜底')}　"
+                    f"证据来源：{_p('语义复核' if item.get('judge_source') == 'llm' else '合同原文/结构化事实')}　"
                     f"模型置信度：{_p(item.get('llm_confidence') or '无')}",
                     base,
                 ),
-                Paragraph(f"回退原因：{_p(item.get('fallback_reason') or '无')}", base),
                 Paragraph(f"原文位置：{_p(item.get('evidence_location') or '未召回正式条款')}", base),
-                Paragraph(f"系统判断：{_p(item.get('reasoning_summary'))}", base),
-                Paragraph(f"【风险点描述】：{_p(item.get('risk_point_description'))}", base),
-                Paragraph(f"【缺失的法律后果】：{_p(legal_consequence)}", base),
-                Paragraph(f"【建议条款示例】：{_p(item.get('suggested_clause_example'))}", base),
+                Paragraph(f"系统判断：{_p(_user_facing_text(item.get('reasoning_summary')))}", base),
+                Paragraph(f"【风险点描述】：{_p(_user_facing_text(item.get('risk_point_description')))}", base),
+                Paragraph(f"【{_p(legal_label)}】：{_p(_user_facing_text(legal_consequence))}", base),
                 Paragraph(f"【法律依据索引】：{_p(item.get('legal_basis_index'))}", base),
                 Paragraph("命中原文：", base),
                 *[
@@ -379,10 +573,24 @@ def _build_pdf(payload: ReviewV2PdfInput) -> bytes:
                     )
                     for evidence in (item.get("evidence_clauses") or [])[:3]
                 ],
+                *(
+                    [
+                        Paragraph("【推理过程】", heading),
+                        *[Paragraph(_p(line), base) for line in reasoning.splitlines()[1:] if line.strip()],
+                        Paragraph("【证据定位】", heading),
+                        Paragraph(f"条款编号：{_p(citation['clause_number'])}", base),
+                        Paragraph(f"原文片段：{_p(citation['original_excerpt'])}", base),
+                        Paragraph(f"位置描述：{_p(citation['position_description'])}", base),
+                    ]
+                    if reasoning
+                    else []
+                ),
                 Paragraph(f"人工备注：{_p(item.get('reviewer_note'))}", base),
                 Spacer(1, 8),
             ]
         )
+        if suggested_label:
+            story.insert(-1, Paragraph(f"【{_p(suggested_label)}】：{_p(item.get('suggested_clause_example'))}", base))
 
     doc.build(story)
     return buffer.getvalue()
@@ -415,8 +623,9 @@ def _add_docx_table(doc: DocxDocument, headers: List[str], values: List[Any]) ->
         table.cell(1, index).text = str(values[index])
 
 
-def _build_docx(payload: ReviewV2PdfInput) -> bytes:
+def _build_debug_docx(payload: ReviewV2PdfInput) -> bytes:
     doc = DocxDocument()
+    finding_titles = _finding_title_map(payload)
     normal = doc.styles["Normal"]
     normal.font.name = "Microsoft YaHei"
     normal.font.size = Pt(10)
@@ -426,19 +635,26 @@ def _build_docx(payload: ReviewV2PdfInput) -> bytes:
 
     _add_docx_line(doc, "合同类型：", payload.contract_type_name)
     _add_docx_line(doc, "文件名称：", payload.filename)
+    _add_docx_line(doc, "总体可签署性：", (payload.overall_assessment or {}).get("signability") or "未记录")
     _add_docx_line(doc, "模型状态：", (payload.llm_status or {}).get("message") or "未记录")
     _add_docx_line(doc, "报告提示：", payload.report_notice or REPORT_FORMAT_NOTICE)
     _add_docx_line(doc, "全局回退原因：", payload.global_fallback_reason or "无")
     _add_docx_line(doc, "导出时间：", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
     summary = payload.summary or {}
+    risk_finding_summary = payload.risk_finding_summary or {}
     coverage_summary = payload.coverage_summary or {}
+    doc.add_heading("风险发现统计", level=2)
     _add_docx_table(
         doc,
-        ["高风险", "中风险", "低风险", "不适用", "审查项总数"],
-        [summary.get("高", 0), summary.get("中", 0), summary.get("低", 0), coverage_summary.get(COVERAGE_NOT_APPLICABLE, 0), len(payload.items)],
+        ["重大风险", "中等风险", "低风险", "人工复核"],
+        [
+            risk_finding_summary.get("重大风险", 0),
+            risk_finding_summary.get("中等风险", 0),
+            risk_finding_summary.get("低风险", 0),
+            risk_finding_summary.get("人工复核", 0),
+        ],
     )
-
     if coverage_summary:
         doc.add_heading("覆盖状态统计", level=2)
         _add_docx_table(
@@ -473,21 +689,26 @@ def _build_docx(payload: ReviewV2PdfInput) -> bytes:
         doc.add_heading(f"{index}. {item.get('title')}（{item.get('item_id')}）", level=2)
         issue_type = _item_issue_type(item)
         legal_consequence = _item_legal_consequence(item)
-        source = "大模型判定" if item.get("judge_source") == "llm" else "规则兜底"
+        legal_label = _item_legal_label(item)
+        suggested_label = _item_suggested_label(item)
+        citation = _item_citation(item)
+        reasoning = str(item.get("reasoning") or "").strip()
+        source = "语义复核" if item.get("judge_source") == "llm" else "合同原文/结构化事实"
 
         _add_docx_line(
             doc,
             "基本信息：",
-            f"风险等级：{item.get('risk_level') or ''}；覆盖状态：{item.get('coverage_status') or ''}；"
+            f"覆盖状态：{item.get('coverage_status') or ''}；审查优先级：{_priority_label(item.get('review_priority') or 'N/A')}；"
+            f"关联风险发现：{_related_risk_titles(item, finding_titles)}；"
             f"问题类型：{issue_type}；复核状态：{item.get('review_status') or '待处理'}",
         )
-        _add_docx_line(doc, "判定来源：", f"{source}；模型置信度：{item.get('llm_confidence') or '无'}")
-        _add_docx_line(doc, "回退原因：", item.get("fallback_reason") or "无")
+        _add_docx_line(doc, "证据来源：", f"{source}；模型置信度：{item.get('llm_confidence') or '无'}")
         _add_docx_line(doc, "原文位置：", item.get("evidence_location") or "未召回正式条款")
-        _add_docx_line(doc, "系统判断：", item.get("reasoning_summary") or "")
-        _add_docx_line(doc, "【风险点描述】：", item.get("risk_point_description") or "")
-        _add_docx_line(doc, "【缺失的法律后果】：", legal_consequence)
-        _add_docx_line(doc, "【建议条款示例】：", item.get("suggested_clause_example") or "")
+        _add_docx_line(doc, "系统判断：", _user_facing_text(item.get("reasoning_summary")))
+        _add_docx_line(doc, "【风险点描述】：", _user_facing_text(item.get("risk_point_description")))
+        _add_docx_line(doc, f"【{legal_label}】：", _user_facing_text(legal_consequence))
+        if suggested_label:
+            _add_docx_line(doc, f"【{suggested_label}】：", item.get("suggested_clause_example") or "")
         _add_docx_line(doc, "【法律依据索引】：", item.get("legal_basis_index") or "")
 
         evidences = item.get("evidence_clauses") or []
@@ -497,8 +718,52 @@ def _build_docx(payload: ReviewV2PdfInput) -> bytes:
                 _add_docx_line(doc, "", f"{evidence.get('location') or ''}：{evidence.get('text') or ''}", bold_label=False)
         else:
             _add_docx_line(doc, "", "无正式条款证据", bold_label=False)
+
+        if reasoning:
+            _add_docx_line(doc, "【推理过程】：")
+            for line in reasoning.splitlines()[1:]:
+                if line.strip():
+                    _add_docx_line(doc, "", line, bold_label=False)
+            _add_docx_line(doc, "【证据定位】：")
+            _add_docx_line(doc, "- 条款编号：", citation["clause_number"])
+            _add_docx_line(doc, "- 原文片段：", citation["original_excerpt"])
+            _add_docx_line(doc, "- 位置描述：", citation["position_description"])
         _add_docx_line(doc, "人工备注：", item.get("reviewer_note") or "")
 
+    buffer = io.BytesIO()
+    doc.save(buffer)
+    return buffer.getvalue()
+
+
+def _build_docx(payload: ReviewV2PdfInput) -> bytes:
+    markdown = _production_markdown_or_raise(payload)
+    doc = DocxDocument()
+    normal = doc.styles["Normal"]
+    normal.font.name = "Microsoft YaHei"
+    normal.font.size = Pt(10)
+    for block in _markdown_blocks(markdown):
+        text = _strip_markdown_inline(block["text"])
+        if block["type"] == "separator":
+            doc.add_paragraph("")
+            continue
+        if block["type"] == "h1":
+            paragraph = doc.add_heading(text, level=1)
+            paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            continue
+        if block["type"] == "h2":
+            doc.add_heading(text, level=2)
+            continue
+        if block["type"] == "h3":
+            doc.add_heading(text, level=3)
+            continue
+        if block["type"].startswith("h"):
+            doc.add_heading(text, level=4)
+            continue
+        paragraph = doc.add_paragraph()
+        if block["type"] == "bullet":
+            paragraph.style = "List Bullet"
+        run = paragraph.add_run(text)
+        _set_docx_run_font(run)
     buffer = io.BytesIO()
     doc.save(buffer)
     return buffer.getvalue()
@@ -683,7 +948,10 @@ async def review_v2_export_pdf(
 ):
     """将当前结构化审查报告导出为 PDF。"""
 
-    content = _build_pdf(payload)
+    try:
+        content = _build_pdf(payload)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
     base_name = (payload.filename or "合同审查报告").rsplit(".", 1)[0]
     download_name = f"{base_name}_审查第二版报告.pdf"
     encoded_name = quote(download_name)
@@ -701,7 +969,10 @@ async def review_v2_export_docx(
 ):
     """将当前结构化审查报告导出为 Word 文档。"""
 
-    content = _build_docx(payload)
+    try:
+        content = _build_docx(payload)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
     base_name = (payload.filename or "合同审查报告").rsplit(".", 1)[0]
     download_name = f"{base_name}_审查第二版报告.docx"
     encoded_name = quote(download_name)

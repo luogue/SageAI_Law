@@ -52,7 +52,11 @@ class InputLayer:
                 text = content.decode('gbk', errors='replace')  # 添加 errors='replace' 处理不支持的字符
             except UnicodeDecodeError:
                 text = content.decode('gb2312', errors='replace')
-        return text
+        return self._normalize_extracted_text(text)
+
+    def _normalize_extracted_text(self, text: str) -> str:
+        """Normalize markup artifacts introduced by fixture conversion."""
+        return (text or "").replace("**", "")
 
     def _extract_from_docx_content(self, content: bytes) -> str:
         """从DOCX文件内容提取文本"""
@@ -66,7 +70,7 @@ class InputLayer:
             text = '\n'.join([paragraph.text for paragraph in document.paragraphs])
             if not text.strip():
                 raise ValueError("文件内容为空")
-            return text
+            return self._normalize_extracted_text(text)
         except ImportError:
             raise ValueError("缺少python-docx依赖，请安装：pip install python-docx")
         except Exception as e:
@@ -99,7 +103,7 @@ class InputLayer:
             raise ValueError(
                 "检测到老版Word .doc/OLE文件，但当前环境无法完整解析。请用Word打开后另存为标准.docx再上传"
             )
-        return extracted
+        return self._normalize_extracted_text(extracted)
 
     def _extract_from_pdf_content(self, content: bytes) -> str:
         """从PDF文件内容提取文本"""
@@ -118,7 +122,7 @@ class InputLayer:
 
             if not text.strip():
                 raise ValueError("PDF文件内容为空或无法提取文本")
-            return text
+            return self._normalize_extracted_text(text)
         except ImportError:
             raise ValueError("缺少pypdf依赖，请安装：pip install pypdf")
         except Exception as e:

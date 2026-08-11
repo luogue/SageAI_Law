@@ -169,6 +169,14 @@ def add_to_blacklist(blacklist_type: str, value: str, reason: str = "") -> bool:
     """添加到黑名单"""
     db = next(get_db())
     try:
+        existing = db.query(Blacklist).filter(
+            Blacklist.blacklist_type == blacklist_type,
+            Blacklist.value == value
+        ).first()
+        if existing:
+            existing.reason = reason or existing.reason
+            db.commit()
+            return True
         item = Blacklist(blacklist_type=blacklist_type, value=value, reason=reason)
         db.add(item)
         db.commit()

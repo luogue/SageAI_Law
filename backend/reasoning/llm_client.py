@@ -37,7 +37,8 @@ MODEL_DEFINITIONS = {
         "provider": "dashscope",
         "api_key_env": "DASHSCOPE_API_KEY",
         "url": "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
-        "model": os.getenv("QWEN_MODEL", "qwen-max"),
+        "model_env": "QWEN_MODEL",
+        "default_model": "qwen-max",
         "max_tokens": 8192,  # qwen-max 最大输出 8192 tokens
         "temperature": 0.1,
     },
@@ -46,7 +47,8 @@ MODEL_DEFINITIONS = {
         "provider": "ark",
         "api_key_env": "ARK_API_KEY",
         "url": "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
-        "model": os.getenv("ARK_ENDPOINT_ID", "doubao-pro-32k"),
+        "model_env": "ARK_ENDPOINT_ID",
+        "default_model": "doubao-pro-32k",
         "max_tokens": 16384,  # 豆包 doubao-pro-32k 最大输出 16384 tokens
         "temperature": 0.1,
     },
@@ -55,7 +57,8 @@ MODEL_DEFINITIONS = {
         "provider": "deepseek",
         "api_key_env": "DEEPSEEK_API_KEY",
         "url": "https://api.deepseek.com/v1/chat/completions",
-        "model": "deepseek-chat",
+        "model_env": "DEEPSEEK_MODEL",
+        "default_model": "deepseek-chat",
         "max_tokens": 8192,  # deepseek-chat 最大输出 8192 tokens
         "temperature": 0.1,
     },
@@ -149,9 +152,34 @@ def _get_error_category(response_or_error) -> str:
     return f"未知错误: {str(response_or_error)[:100]}"
 
 
+def _current_llm_priority() -> List[str]:
+    """运行时读取模型优先级，避免 main.py 在 load_dotenv 前导入本模块导致配置锁死。"""
+    priority_env = os.getenv("LLM_PRIORITY", "").strip()
+    if not priority_env:
+        return DEFAULT_PRIORITY
+
+    priority = []
+    for item in priority_env.split(","):
+        model_id = item.strip().lower()
+        if not model_id:
+            continue
+        if model_id not in MODEL_DEFINITIONS:
+            logger.warning(f"[LLM] 未知的模型标识: '{model_id}'，将忽略。可用: {list(MODEL_DEFINITIONS.keys())}")
+            continue
+        priority.append(model_id)
+    return priority or DEFAULT_PRIORITY
+
+
 def _get_model_config(model_id: str) -> Optional[Dict]:
     """获取模型配置"""
-    return MODEL_DEFINITIONS.get(model_id)
+    config = MODEL_DEFINITIONS.get(model_id)
+    if not config:
+        return None
+    resolved = dict(config)
+    model_env = resolved.get("model_env")
+    default_model = resolved.get("default_model")
+    resolved["model"] = os.getenv(model_env, default_model).strip() if model_env else default_model
+    return resolved
 
 
 def _has_api_key(model_config: Dict) -> bool:
@@ -166,7 +194,7 @@ def _build_available_models() -> List[Tuple[str, Dict]]:
     返回: [(model_id, model_config), ...]
     """
     available = []
-    for model_id in LLM_PRIORITY:
+    for model_id in _current_llm_priority():
         config = _get_model_config(model_id)
         if config is None:
             continue

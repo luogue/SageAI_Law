@@ -11,6 +11,7 @@ import logging
 import asyncio
 from dotenv import load_dotenv
 import json
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +31,45 @@ def _log_task_result(task_id: str, filename: str, status: str, user_id: Optional
     error_str = f", error={error}" if error else ""
     record_str = f", record_id={record_id}" if record_id else ""
     task_result_logger.info(f"task_id={task_id}, filename={filename}, file_size={file_size}, user_id={user_id}, status={status}{error_str}{record_str}")
+
+
+def _build_legacy_llm_unavailable_report(filename: str, contract_text: str, additional_instructions: str = "") -> str:
+    """旧版纯 LLM 审查的模型不可用降级报告。
+
+    旧版合同审查依赖大模型直接生成完整报告。模型不可用时不能伪造审查结论，
+    但也不应把已成功读取的合同标记为处理失败。
+    """
+    text_length = len(contract_text or "")
+    requirements = (additional_instructions or "").strip() or "无"
+    preview = re.sub(r"\s+", " ", contract_text or "").strip()[:220]
+    if not preview:
+        preview = "未提取到可展示的合同预览。"
+
+    return f"""# 合同审查报告（降级模式）
+
+## 1. 审查前提
+
+- 文件名称：{filename}
+- 合同文本提取状态：已成功读取，文本长度约 {text_length} 字。
+- 额外审查要求：{requirements}
+- 当前处理状态：大模型服务暂时不可用，旧版合同审查无法完成完整风险分析。
+
+## 2. 风险评估
+
+本次未生成正式风险清单。旧版合同审查依赖大模型对合同全文进行综合分析，当前模型调用失败时，系统不会伪造风险结论，也不会输出未经模型审查的正式建议。
+
+合同文本预览：
+
+> {preview}
+
+## 3. 结论与行动建议
+
+1. 本次任务已降级完成，不计为正式审查结果。
+2. 建议稍后重试旧版审查，或改用“合同审查第二版”进行清单式审查。
+3. 本次降级结果不扣减免费额度。
+
+声明：本报告仅说明系统处理状态，不构成合同风险审查意见或法律意见。
+"""
 
 from layers.input_layer import InputLayer
 from layers.inference_layer import InferenceLayer
@@ -75,6 +115,8 @@ def filter_metadata_for_frontend(metadata: Optional[dict]) -> Optional[dict]:
         'file_hash',      # 用于MD5重复检测
         'timestamp',      # 审查时间
         'model_version',  # 模型版本
+        'degraded',       # 是否为降级结果
+        'fallback_reason', # 降级原因（面向用户的安全提示）
     }
     
     # 只保留白名单中的字段
@@ -300,11 +342,46 @@ async def process_contract_task(task_id: str, file_content: bytes, filename: str
                     "raw_report": raw_report
                 }
             except AllModelsFailedError as e:
-                # 所有模型均失败，返回兜底消息并标记任务失败
-                logger.warning(f"[Fallback] {task_id} 所有模型不可用，返回兜底消息")
-                update_task(task_id, status=TaskStatus.FAILED, error=e.fallback_message)
-                logger.error(f"[ALL_MODELS_FAILED] {task_id} 所有模型调用失败，任务标记为失败")
-                _log_task_result(task_id=task_id, filename=filename, status="FAILED", user_id=task.user_id, error=e.fallback_message, file_size=len(file_content))
+                # 旧版合同审查是纯 LLM 流程。模型不可用时生成状态型降级报告，
+                # 不伪造审查结论、不扣额度，也不把任务标记为失败。
+                logger.warning(f"[Fallback] {task_id} 所有模型不可用，生成旧版审查降级报告")
+                fallback_report = _build_legacy_llm_unavailable_report(
+                    filename,
+                    input_result.get('contract_text', ''),
+                    additional_instructions,
+                )
+                remaining_bonus = get_user_bonus_credits(task.user_id) if task.user_id else None
+                update_task(
+                    task_id,
+                    status=TaskStatus.COMPLETED,
+                    progress=100,
+                    result=fallback_report,
+                    metadata={
+                        "degraded": True,
+                        "fallback_reason": e.fallback_message,
+                        "model_version": "legacy-llm-unavailable-fallback",
+                    },
+                    validation={
+                        "status": "fallback",
+                        "warnings": ["大模型服务暂时不可用，本次未生成正式风险审查报告。"],
+                    },
+                    summary={
+                        "mode": "fallback",
+                        "high_risk": 0,
+                        "medium_risk": 0,
+                        "low_risk": 0,
+                    },
+                    remaining_bonus=remaining_bonus,
+                    record_id=None,
+                )
+                _log_task_result(
+                    task_id=task_id,
+                    filename=filename,
+                    status="COMPLETED_FALLBACK",
+                    user_id=task.user_id,
+                    error=e.fallback_message,
+                    file_size=len(file_content),
+                )
                 return
             except CircuitBreakerOpenError as e:
                 # 熔断器打开，返回503

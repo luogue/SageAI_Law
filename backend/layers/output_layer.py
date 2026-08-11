@@ -4,6 +4,7 @@ import time
 import io
 import re
 import logging
+import html
 from typing import Dict, Optional, Tuple
 
 logger = logging.getLogger(__name__)
@@ -218,12 +219,66 @@ class OutputLayer:
 
     def generate_html_preview(self, report_markdown: str) -> str:
         """生成HTML预览版本"""
-        import markdown
-        html_content = markdown.markdown(
-            report_markdown,
-            extensions=['tables', 'fenced_code', 'codehilite']
-        )
-        return html_content
+        try:
+            import markdown
+            return markdown.markdown(
+                report_markdown,
+                extensions=['tables', 'fenced_code', 'codehilite']
+            )
+        except ImportError:
+            logger.warning("markdown package is not installed; using built-in HTML preview fallback")
+            return self._generate_basic_html_preview(report_markdown)
+
+    def _generate_basic_html_preview(self, report_markdown: str) -> str:
+        """Generate a safe minimal HTML preview without optional markdown dependency."""
+        html_lines = []
+        in_list = False
+
+        for raw_line in report_markdown.splitlines():
+            line = raw_line.strip()
+
+            if not line:
+                if in_list:
+                    html_lines.append("</ul>")
+                    in_list = False
+                continue
+
+            if line.startswith("- ") or line.startswith("* "):
+                if not in_list:
+                    html_lines.append("<ul>")
+                    in_list = True
+                html_lines.append(f"<li>{self._format_inline_html(line[2:])}</li>")
+                continue
+
+            if in_list:
+                html_lines.append("</ul>")
+                in_list = False
+
+            if line.startswith("# "):
+                html_lines.append(f"<h1>{self._format_inline_html(line[2:])}</h1>")
+            elif line.startswith("## "):
+                html_lines.append(f"<h2>{self._format_inline_html(line[3:])}</h2>")
+            elif line.startswith("### "):
+                html_lines.append(f"<h3>{self._format_inline_html(line[4:])}</h3>")
+            elif line.startswith("#### "):
+                html_lines.append(f"<h4>{self._format_inline_html(line[5:])}</h4>")
+            elif line.startswith("|"):
+                html_lines.append(f"<pre>{html.escape(line)}</pre>")
+            elif line.startswith("---"):
+                html_lines.append("<hr>")
+            else:
+                html_lines.append(f"<p>{self._format_inline_html(line)}</p>")
+
+        if in_list:
+            html_lines.append("</ul>")
+
+        return "\n".join(html_lines)
+
+    def _format_inline_html(self, text: str) -> str:
+        escaped = html.escape(text)
+        escaped = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", escaped)
+        escaped = re.sub(r"\*([^*]+)\*", r"<em>\1</em>", escaped)
+        return escaped
 
     def package_output(self, raw_report: str, validation_result: Dict, input_data: Dict = None) -> Dict:
         """
