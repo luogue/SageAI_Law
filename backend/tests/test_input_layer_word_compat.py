@@ -90,7 +90,7 @@ def test_real_production_report_contract_review(monkeypatch, tmp_path):
     assessment = output["overall_assessment"]
 
     assert output["contract_review_trace_id"].startswith("CR-")
-    assert output["observability"]["production_call_graph"][0].endswith("ContractReviewV2.vue:submitReview")
+    assert output["observability"]["production_call_graph"][0].endswith("ContractReviewV2.vue:runReview")
     assert any(row["final_output"] == "Markdown" for row in output["observability"]["final_output_ownership_matrix"])
     assert output["observability"]["legal_freshness_trace"]["called"] is True
     assert by_id["HL-015"]["review_trace_id"].startswith(output["contract_review_trace_id"])

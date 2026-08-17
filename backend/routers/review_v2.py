@@ -83,6 +83,7 @@ class ReviewV2Result(BaseModel):
     clause_count: int = 0
     formal_clause_count: int = 0
     contract_facts: Dict[str, Any] = Field(default_factory=dict)
+    document_integrity: Dict[str, Any] = Field(default_factory=dict)
     quality_gate: Dict[str, Any] = Field(default_factory=dict)
     review_results_4_0: List[Dict[str, Any]] = Field(default_factory=list)
     risk_findings: List[Dict[str, Any]] = Field(default_factory=list)
@@ -124,6 +125,7 @@ class ReviewV2PdfInput(BaseModel):
     overall_assessment: Dict[str, Any] = Field(default_factory=dict)
     benchmark_metrics: Dict[str, Any] = Field(default_factory=dict)
     release_quality_gate: Dict[str, Any] = Field(default_factory=dict)
+    quality4_gate: Dict[str, Any] = Field(default_factory=dict)
     system_metadata: Dict[str, Any] = Field(default_factory=dict)
     items: List[Dict[str, Any]] = Field(default_factory=list)
 
@@ -188,17 +190,31 @@ def _item_issue_type(item: Dict[str, Any]) -> str:
 def _item_legal_consequence(item: Dict[str, Any]) -> str:
     if item.get("coverage_status") == COVERAGE_NOT_APPLICABLE:
         applicability = item.get("applicability") if isinstance(item.get("applicability"), dict) else {}
-        return str(applicability.get("reason") or "本项不适用于当前合同。")
+        return str(applicability.get("user_reason") or applicability.get("reason") or "本项不适用于当前合同。")
     if item.get("coverage_status") == COVERAGE_PASS:
         related = item.get("related_risks") or []
         if related:
             return f"关联风险 {', '.join(map(str, related))}：同一条款或事实仍存在需要处理的经济或法律风险。"
         return "无明显残余风险"
+    narrative = item.get("narrative_state") if isinstance(item.get("narrative_state"), dict) else {}
     return (
+        str(narrative.get("consequence") or "").strip()
+        if item.get("coverage_status") == COVERAGE_PARTIAL else ""
+    ) or (
         str(item.get("legal_consequence_if_missing") or "").strip()
         or str(item.get("risk_point_description") or "").strip()
         or "未补全该审查点会增加合同履行和争议处理的不确定性，建议签署前补充明确约定。"
     )
+
+
+def _item_production_narrative(item: Dict[str, Any], field: str, fallback: str = "") -> str:
+    narrative = item.get("narrative_state") if isinstance(item.get("narrative_state"), dict) else {}
+    if item.get("coverage_status") == COVERAGE_PARTIAL and narrative.get(field):
+        return str(narrative[field])
+    if item.get("coverage_status") == COVERAGE_NOT_APPLICABLE:
+        applicability = item.get("applicability") if isinstance(item.get("applicability"), dict) else {}
+        return str(applicability.get("user_reason") or applicability.get("reason") or fallback)
+    return str(fallback or "")
 
 
 def _item_legal_label(item: Dict[str, Any]) -> str:
@@ -291,11 +307,6 @@ def _production_markdown_or_raise(payload: ReviewV2PdfInput) -> str:
     markdown = (payload.result or "").strip()
     if not markdown:
         raise ValueError("正式导出必须使用生产 Markdown result，禁止由导出器重建业务报告。")
-    for gate_name in ("release_quality_gate", "quality4_gate"):
-        gate = getattr(payload, gate_name, {}) or {}
-        status = gate.get("status")
-        if status and status != "REPORT_READY":
-            raise ValueError(f"{gate_name}={status}，正式报告未通过发布前质量门，禁止导出。")
     return markdown
 
 
@@ -561,8 +572,8 @@ def _build_debug_pdf(payload: ReviewV2PdfInput) -> bytes:
                     base,
                 ),
                 Paragraph(f"原文位置：{_p(item.get('evidence_location') or '未召回正式条款')}", base),
-                Paragraph(f"系统判断：{_p(_user_facing_text(item.get('reasoning_summary')))}", base),
-                Paragraph(f"【风险点描述】：{_p(_user_facing_text(item.get('risk_point_description')))}", base),
+                Paragraph(f"系统判断：{_p(_user_facing_text(_item_production_narrative(item, 'judgment', item.get('reasoning_summary'))))}", base),
+                Paragraph(f"【风险点描述】：{_p(_user_facing_text(_item_production_narrative(item, 'issue', item.get('risk_point_description'))))}", base),
                 Paragraph(f"【{_p(legal_label)}】：{_p(_user_facing_text(legal_consequence))}", base),
                 Paragraph(f"【法律依据索引】：{_p(item.get('legal_basis_index'))}", base),
                 Paragraph("命中原文：", base),
@@ -590,7 +601,8 @@ def _build_debug_pdf(payload: ReviewV2PdfInput) -> bytes:
             ]
         )
         if suggested_label:
-            story.insert(-1, Paragraph(f"【{_p(suggested_label)}】：{_p(item.get('suggested_clause_example'))}", base))
+            suggested_value = _item_production_narrative(item, "recommendation", item.get("suggested_clause_example"))
+            story.insert(-1, Paragraph(f"【{_p(suggested_label)}】：{_p(suggested_value)}", base))
 
     doc.build(story)
     return buffer.getvalue()
@@ -704,11 +716,11 @@ def _build_debug_docx(payload: ReviewV2PdfInput) -> bytes:
         )
         _add_docx_line(doc, "证据来源：", f"{source}；模型置信度：{item.get('llm_confidence') or '无'}")
         _add_docx_line(doc, "原文位置：", item.get("evidence_location") or "未召回正式条款")
-        _add_docx_line(doc, "系统判断：", _user_facing_text(item.get("reasoning_summary")))
-        _add_docx_line(doc, "【风险点描述】：", _user_facing_text(item.get("risk_point_description")))
+        _add_docx_line(doc, "系统判断：", _user_facing_text(_item_production_narrative(item, "judgment", item.get("reasoning_summary"))))
+        _add_docx_line(doc, "【风险点描述】：", _user_facing_text(_item_production_narrative(item, "issue", item.get("risk_point_description"))))
         _add_docx_line(doc, f"【{legal_label}】：", _user_facing_text(legal_consequence))
         if suggested_label:
-            _add_docx_line(doc, f"【{suggested_label}】：", item.get("suggested_clause_example") or "")
+            _add_docx_line(doc, f"【{suggested_label}】：", _item_production_narrative(item, "recommendation", item.get("suggested_clause_example")))
         _add_docx_line(doc, "【法律依据索引】：", item.get("legal_basis_index") or "")
 
         evidences = item.get("evidence_clauses") or []

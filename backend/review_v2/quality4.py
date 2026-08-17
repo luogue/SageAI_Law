@@ -7,9 +7,13 @@ one risky rewrite.
 
 from __future__ import annotations
 
+import re
 from dataclasses import asdict, dataclass, field
 from datetime import date
 from typing import Any, Dict, Iterable, List, Optional
+
+from review_v2.domain_packs import get_domain_pack
+from review_v2.domain_resolution import DomainResolution
 
 
 COVERAGE_PASS = "PASS"
@@ -89,9 +93,37 @@ ZH_TO_COVERAGE = {
 @dataclass(frozen=True)
 class ContractContext:
     contract_type: str
+    contract_family: str = ""
+    transaction_nature: str = ""
+    contract_subtype: str = ""
+    user_role: str = "neutral"
+    counterparty_role: str = "neutral"
+    transaction_purpose: str = ""
+    usage_scenario: str = ""
+    subject_matter: str = ""
+    asset_usage: str = ""
+    consideration_type: str = ""
+    ownership_transfer: bool = False
+    possession_transfer: bool = False
+    product_category: str = ""
+    transaction_structure: str = "OTHER"
+    fixed_quantity: Optional[bool] = None
+    dynamic_quantity: Optional[bool] = None
+    master_agreement_exists: Optional[bool] = None
+    order_driven_performance: Optional[bool] = None
+    recurring_delivery: Optional[bool] = None
+    recurring_settlement: Optional[bool] = None
+    minimum_purchase_commitment: Optional[bool] = None
+    forecast_exists: Optional[bool] = None
+    forecast_binding: Optional[bool] = None
+    price_adjustment_mechanism: str = ""
+    term_based_relationship: Optional[bool] = None
     contract_value: Optional[float] = None
+    currency: str = "CNY"
     duration: Optional[str] = None
     payment_frequency: Optional[str] = None
+    payment_structure: str = ""
+    delivery_structure: str = ""
     prepaid_amount: Optional[float] = None
     deposit: Optional[float] = None
     parties: Dict[str, Any] = field(default_factory=dict)
@@ -102,6 +134,7 @@ class ContractContext:
     jurisdiction: str = "CN"
     special_assets: List[str] = field(default_factory=list)
     special_facts: List[str] = field(default_factory=list)
+    domain_attributes: Dict[str, Any] = field(default_factory=dict)
 
     def to_public_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -241,6 +274,32 @@ LEGAL_AUTHORITY_KB: Dict[tuple[str, str], LegalAuthority] = {
 }
 
 
+def _civil_code_authority(article: str, authority_id: str, text: str) -> LegalAuthority:
+    return LegalAuthority(
+        authority_id=authority_id, jurisdiction="CN", law_name="中华人民共和国民法典",
+        article=article, paragraph="", text=text, authority_level="法律",
+        effective_from="2021-01-01", effective_to=None, status="CURRENT", replacement=None,
+        source="National Laws and Regulations Database / Civil Code",
+        last_verified_at="2026-08-14",
+    )
+
+
+LEGAL_AUTHORITY_KB.update({
+    ("中华人民共和国民法典", "第582条"): _civil_code_authority("第582条", "CN-CC-582", "履行不符合约定时，受损害方可以根据标的性质和损失大小合理选择修理、重作、更换、退货、减少价款或者报酬等违约责任。"),
+    ("中华人民共和国民法典", "第584条"): _civil_code_authority("第584条", "CN-CC-584", "违约损失赔偿包括合同履行后可以获得的利益，但不得超过违约方订立合同时预见到或者应当预见到的损失。"),
+    ("中华人民共和国民法典", "第589条"): _civil_code_authority("第589条", "CN-CC-589", "债权人无正当理由拒绝受领的，债务人可以请求赔偿增加的费用；受领迟延期间债务人无须支付利息。"),
+    ("中华人民共和国民法典", "第591条"): _civil_code_authority("第591条", "CN-CC-591", "违约后对方应采取适当措施防止损失扩大；未采取措施导致扩大的，不得就扩大部分请求赔偿。"),
+    ("中华人民共和国民法典", "第604条"): _civil_code_authority("第604条", "CN-CC-604", "标的物毁损、灭失风险原则上在交付前由出卖人承担，交付后由买受人承担，但另有约定或法定例外除外。"),
+    ("中华人民共和国民法典", "第605条"): _civil_code_authority("第605条", "CN-CC-605", "因买受人原因致使标的物未按约定期限交付的，买受人自违反约定时起承担标的物毁损、灭失风险。"),
+    ("中华人民共和国民法典", "第607条"): _civil_code_authority("第607条", "CN-CC-607", "出卖人按约将标的物运送至买受人指定地点并交付承运人的，风险依法律规定的交付节点转移。"),
+    ("中华人民共和国民法典", "第617条"): _civil_code_authority("第617条", "CN-CC-617", "出卖人交付的标的物不符合质量要求的，买受人可以依法请求承担违约责任。"),
+    ("中华人民共和国民法典", "第620条"): _civil_code_authority("第620条", "CN-CC-620", "买受人收到标的物时应在约定检验期限内检验；没有约定检验期限的，应及时检验。"),
+    ("中华人民共和国民法典", "第621条"): _civil_code_authority("第621条", "CN-CC-621", "当事人约定检验期限的，买受人应在期限内通知数量或质量不符合约定；未约定期限的，应在合理期限内通知。"),
+    ("中华人民共和国民法典", "第563条"): _civil_code_authority("第563条", "CN-CC-563", "符合法定情形时，当事人可以依法解除合同。"),
+    ("中华人民共和国民法典", "第565条"): _civil_code_authority("第565条", "CN-CC-565", "依法主张解除合同的，应当通知对方，合同自通知到达对方时解除。"),
+})
+
+
 def normalize_law_name(law_name: str) -> str:
     name = (law_name or "").strip().replace("《", "").replace("》", "")
     aliases = {
@@ -261,6 +320,17 @@ DEFAULT_LAW_RULES = {
     "deposit_return_timing": "PARTIAL_DEFAULT",
     "deposit_offset_order": "PARTIAL_DEFAULT",
     "property_damage_deposit_evidence": "PARTIAL_DEFAULT",
+    "sale_risk_transfer_delivery": "PARTIAL_DEFAULT",
+    "sale_risk_carrier_delivery": "PARTIAL_DEFAULT",
+    "sale_risk_buyer_delay_acceptance": "PARTIAL_DEFAULT",
+    "sale_inspection_period": "PARTIAL_DEFAULT",
+    "sale_quality_liability": "PARTIAL_DEFAULT",
+    "sale_third_party_rights": "PARTIAL_DEFAULT",
+    "sale_title_warranty": "PARTIAL_DEFAULT",
+    "sale_delay_performance": "PARTIAL_DEFAULT",
+    "sale_breach_damages": "PARTIAL_DEFAULT",
+    "sale_termination": "PARTIAL_DEFAULT",
+    "common_force_majeure": "PARTIAL_DEFAULT",
 }
 
 
@@ -311,11 +381,46 @@ def aggregation_key(review: Any) -> str:
     return f"{category}|{','.join(facts)}|{','.join(clause_ids)}|{consequence[:30]}"
 
 
-def build_contract_context(contract_type: str, facts: Optional[Dict[str, Any]], profile: Optional[Any] = None) -> ContractContext:
+def _infer_contract_value(text: str) -> Optional[float]:
+    amounts: List[float] = []
+    for match in re.finditer(r"(?:(?:总价|合同价款|合同金额|价款|货款).{0,12})?(\d+(?:,\d{3})*(?:\.\d+)?)\s*(?:元|人民币)", text or ""):
+        amount = _safe_amount(match.group(1))
+        if amount is not None:
+            amounts.append(amount)
+    return max(amounts) if amounts else None
+
+
+def _infer_sale_subject(text: str) -> str:
+    if any(term in text for term in ("水泥", "硅酸盐")):
+        return "cement"
+    if any(term in text for term in ("货物", "产品", "设备", "材料")):
+        return "goods"
+    return ""
+
+
+def _role_pair(perspective: str, contract_type: str) -> tuple[str, str]:
+    if contract_type in {"sale"}:
+        if perspective == "seller":
+            return "seller", "buyer"
+        return "buyer", "seller"
+    if contract_type in {"house_lease", "lease"}:
+        if perspective == "landlord":
+            return "landlord", "tenant"
+        return "tenant", "landlord"
+    return perspective or "neutral", "neutral"
+
+
+def build_contract_context(
+    contract_type: str,
+    facts: Optional[Dict[str, Any]],
+    profile: Optional[Any] = None,
+    contract_text: str = "",
+    domain_resolution: Optional[DomainResolution] = None,
+) -> ContractContext:
     facts = facts or {}
-    rent = facts.get("rent") or {}
-    deposit = facts.get("deposit") or {}
-    payment_frequency = rent.get("payment_cycle")
+    normalized_type = "house_lease" if contract_type in {"house_lease", "lease"} else contract_type
+    domain_pack = get_domain_pack(normalized_type)
+    defaults = domain_pack.context_defaults
     perspective = "neutral"
     bargaining = "unknown"
     if profile is not None:
@@ -329,14 +434,120 @@ def build_contract_context(contract_type: str, facts: Optional[Dict[str, Any]], 
         elif "卖" in identity or "出卖" in identity:
             perspective = "seller"
         bargaining = getattr(profile, "bargaining_position", "") or "unknown"
+    user_role, counterparty_role = _role_pair(perspective, normalized_type)
+
+    if normalized_type == "sale":
+        resolution = domain_resolution
+        framework = facts.get("framework_supply") or {}
+        def framework_exists(name: str) -> Optional[bool]:
+            value = framework.get(name) or {}
+            return value.get("exists") if isinstance(value, dict) else None
+        def framework_value(name: str) -> Any:
+            value = framework.get(name) or {}
+            return value.get("value") if isinstance(value, dict) else None
+        selected_pack = (resolution.selected_domain_packs[-1] if resolution and resolution.selected_domain_packs else "sale")
+        resolved_defaults: Dict[str, Any] = {}
+        for pack_id in (resolution.selected_domain_packs if resolution else ["sale"]):
+            resolved_defaults.update(get_domain_pack(pack_id).context_defaults)
+        return ContractContext(
+            contract_type=contract_type,
+            contract_family=resolution.contract_family if resolution else "SALE",
+            transaction_nature=resolution.transaction_nature if resolution else "OWNERSHIP_TRANSFER",
+            contract_subtype=resolution.contract_subtype if resolution else defaults.get("contract_subtype", "GENERAL_GOODS_SALE"),
+            user_role=user_role,
+            counterparty_role=counterparty_role,
+            transaction_purpose=resolution.transaction_purpose if resolution else defaults.get("transaction_purpose", "goods_sale"),
+            usage_scenario=resolved_defaults.get("usage_scenario", resolution.contract_subtype if resolution else "GENERAL_GOODS_SALE"),
+            subject_matter=resolution.subject_matter if resolution else _infer_sale_subject(contract_text),
+            asset_usage=resolution.asset_usage if resolution else "GENERAL",
+            consideration_type=resolution.consideration_type if resolution else "PURCHASE_PRICE",
+            ownership_transfer=resolution.ownership_transfer if resolution else True,
+            possession_transfer=resolution.possession_transfer if resolution else True,
+            product_category=resolution.product_category if resolution else "GENERAL_GOODS",
+            transaction_structure=resolution.transaction_structure if resolution else "SINGLE_TRANSACTION",
+            fixed_quantity=False if framework_exists("dynamic_quantity") else None,
+            dynamic_quantity=framework_exists("dynamic_quantity"),
+            master_agreement_exists=framework_exists("master_agreement"),
+            order_driven_performance=framework_exists("order_mechanism"),
+            recurring_delivery=framework_exists("recurring_delivery"),
+            recurring_settlement=framework_exists("periodic_settlement"),
+            minimum_purchase_commitment=framework_value("minimum_purchase_commitment"),
+            forecast_exists=framework_exists("demand_forecast"),
+            forecast_binding=framework_value("forecast_binding"),
+            price_adjustment_mechanism=framework_value("price_mechanism") or "",
+            term_based_relationship=framework_exists("master_agreement"),
+            contract_value=_infer_contract_value(contract_text),
+            payment_structure=resolved_defaults.get("payment_structure", defaults.get("payment_structure", "goods_price_payment")),
+            delivery_structure=resolved_defaults.get("delivery_structure", defaults.get("delivery_structure", "goods_delivery")),
+            parties={k: v for k, v in (facts.get("parties") or {}).items() if v},
+            bargaining_power=bargaining,
+            user_perspective=perspective,
+            domain_attributes={
+                "domain_pack": domain_pack.version if resolution and resolution.subject_matter != "REAL_ESTATE" else get_domain_pack(selected_pack).version,
+                "selected_domain_packs": resolution.selected_domain_packs if resolution else ["shared", "sale/common", "sale/goods/general"],
+                "classification_evidence": [asdict(row) for row in resolution.evidence] if resolution else [],
+                "primary_subject": resolution.primary_subject if resolution else "GOODS",
+                "accessory_subjects": resolution.accessory_subjects if resolution else [],
+                "domain_resolution": resolution.to_public_dict() if resolution else {},
+                "framework_supply": framework,
+                "context_resolver": "isolated_sale_context",
+                "lease_fields_used": False,
+                "default_law_nodes": domain_pack.default_law_nodes,
+                "economic_ratio_keys": domain_pack.economic_ratio_keys,
+            },
+        )
+
+    if normalized_type in {"house_lease", "lease"}:
+        rent = facts.get("rent") or {}
+        deposit = facts.get("deposit") or {}
+        payment_frequency = rent.get("payment_cycle")
+        return ContractContext(
+            contract_type=contract_type,
+            contract_family=domain_resolution.contract_family if domain_resolution else "LEASE",
+            transaction_nature=domain_resolution.transaction_nature if domain_resolution else "USE_RIGHT_GRANT",
+            contract_subtype=defaults.get("contract_subtype", "RESIDENTIAL_LEASE"),
+            user_role=user_role,
+            counterparty_role=counterparty_role,
+            transaction_purpose=defaults.get("transaction_purpose", "residential_lease"),
+            usage_scenario=defaults.get("usage_scenario", "residential_living"),
+            subject_matter=domain_resolution.subject_matter if domain_resolution else "REAL_ESTATE",
+            asset_usage=domain_resolution.asset_usage if domain_resolution else "RESIDENTIAL",
+            consideration_type=domain_resolution.consideration_type if domain_resolution else "RENT",
+            ownership_transfer=False,
+            possession_transfer=True,
+            transaction_structure=domain_resolution.transaction_structure if domain_resolution else "SINGLE_TRANSACTION",
+            contract_value=_safe_amount(rent.get("monthly_amount")),
+            duration=(facts.get("lease_term") or {}).get("text"),
+            payment_frequency=payment_frequency,
+            payment_structure=defaults.get("payment_structure", "rent_payment"),
+            deposit=_safe_amount(deposit.get("amount")),
+            parties={k: v for k, v in (facts.get("parties") or {}).items() if v},
+            bargaining_power=bargaining,
+            user_perspective=perspective,
+            domain_attributes={
+                "domain_pack": domain_pack.version,
+                "context_resolver": "isolated_house_lease_context",
+                "lease_fields_used": True,
+            },
+        )
+
     return ContractContext(
         contract_type=contract_type,
-        duration=(facts.get("lease_term") or {}).get("text"),
-        payment_frequency=payment_frequency,
-        deposit=_safe_amount(deposit.get("amount")),
+        contract_subtype=defaults.get("contract_subtype", "GENERAL_CONTRACT"),
+        user_role=user_role,
+        counterparty_role=counterparty_role,
+        transaction_purpose=defaults.get("transaction_purpose", "general_contract"),
+        usage_scenario=defaults.get("usage_scenario", "general_contract"),
+        payment_structure=defaults.get("payment_structure", ""),
+        delivery_structure=defaults.get("delivery_structure", ""),
         parties={k: v for k, v in (facts.get("parties") or {}).items() if v},
         bargaining_power=bargaining,
         user_perspective=perspective,
+        domain_attributes={
+            "domain_pack": domain_pack.version,
+            "context_resolver": "isolated_generic_context",
+            "lease_fields_used": False,
+        },
     )
 
 
@@ -394,15 +605,70 @@ def validate_citation_entailment(
     if status == "OUTDATED_REFERENCE":
         support_type = "BACKGROUND_ONLY"
         confidence = "medium"
+    elif article == "第620条" and any(term in prop for term in ("出卖人提供", "卖方提供", "供方提供", "合格证明", "合格证", "检验报告")):
+        support_type = "NOT_SUPPORT"
+        confidence = "high"
+    elif article == "第620条" and ("买受人" in prop or claim_type == "STATUTORY_DEFAULT") and any(
+        term in prop for term in ("检验", "及时检查", "验收")
+    ):
+        support_type = "DIRECT_SUPPORT"
+        confidence = "high"
+    elif article == "第620条":
+        support_type = "CONTEXT_ONLY"
+        confidence = "medium"
+    elif article == "第621条" and ("买受人" in prop or claim_type == "STATUTORY_DEFAULT") and any(
+        term in prop for term in ("通知", "检验期限", "合理期限", "质量不符合", "数量不符合")
+    ):
+        support_type = "DIRECT_SUPPORT"
+        confidence = "high"
+    elif article == "第621条":
+        support_type = "CONTEXT_ONLY"
+        confidence = "medium"
+    elif article == "第584条" and any(term in prop for term in ("可得利益", "预期利益", "可预见", "损失赔偿")):
+        support_type = "DIRECT_SUPPORT"
+        confidence = "high"
+    elif article == "第584条":
+        support_type = "CONTEXT_ONLY"
+        confidence = "medium"
+    elif article == "第605条" and any(term in prop for term in ("迟延受领", "未收取货物", "未按约定期限交付")):
+        support_type = "DIRECT_SUPPORT" if "风险" in prop else "PARTIAL_SUPPORT"
+        confidence = "high" if support_type == "DIRECT_SUPPORT" else "medium"
+    elif article == "第605条":
+        support_type = "CONTEXT_ONLY"
+        confidence = "medium"
+    elif article == "第589条" and any(term in prop for term in ("拒绝受领", "拒收", "迟延受领")):
+        support_type = "DIRECT_SUPPORT" if any(term in prop for term in ("费用", "利息", "赔偿")) else "PARTIAL_SUPPORT"
+        confidence = "high" if support_type == "DIRECT_SUPPORT" else "medium"
+    elif article == "第589条":
+        support_type = "CONTEXT_ONLY"
+        confidence = "medium"
+    elif article == "第591条" and any(term in prop for term in ("防止损失扩大", "减损", "扩大部分")):
+        support_type = "DIRECT_SUPPORT"
+        confidence = "high"
+    elif article == "第604条" and any(term in prop for term in ("毁损", "灭失", "风险", "交付前", "交付后")):
+        support_type = "DIRECT_SUPPORT"
+        confidence = "high"
+    elif article == "第607条" and any(term in prop for term in ("承运人", "运输", "风险转移")):
+        support_type = "DIRECT_SUPPORT"
+        confidence = "high"
+    elif article in {"第582条", "第617条"} and any(term in prop for term in ("质量不符合", "违约责任", "修理", "更换", "退货", "减少价款")):
+        support_type = "DIRECT_SUPPORT"
+        confidence = "high"
+    elif article in {"第582条", "第617条"}:
+        support_type = "CONTEXT_ONLY"
+        confidence = "medium"
     elif article == "第188条" and any(term in prop for term in ("通知", "送达", "催告", "留痕")):
         support_type = "BACKGROUND_ONLY"
         confidence = "high"
     elif article == "第565条" and any(term in prop for term in ("解除通知", "通知到达", "解除")):
         support_type = "DIRECT_SUPPORT"
         confidence = "high"
-    elif article == "第585条" and any(term in prop for term in ("违约金", "损失", "调减", "调整")):
+    elif article == "第585条" and any(term in prop for term in ("违约金", "约定赔偿额", "调减违约金", "调整违约金")):
         support_type = "DIRECT_SUPPORT"
         confidence = "high"
+    elif article == "第585条":
+        support_type = "UNCERTAIN"
+        confidence = "low"
     elif article == "第734条" and any(term in prop for term in ("期满", "继续使用", "继续居住", "继续收租", "不定期租赁")):
         support_type = "DIRECT_SUPPORT"
         confidence = "high"
@@ -427,6 +693,14 @@ def validate_citation_entailment(
     elif not article:
         support_type = "UNCERTAIN"
         confidence = "low"
+
+    if not authority:
+        if article == "第188条" and any(term in prop for term in ("通知", "送达", "催告", "留痕")):
+            support_type = "BACKGROUND_ONLY"
+            confidence = "medium"
+        else:
+            support_type = "UNCERTAIN"
+            confidence = "low"
 
     support_scope = authority.get("text", "") if support_type in {"DIRECT_SUPPORT", "PARTIAL_SUPPORT"} else ""
     authority_link = {

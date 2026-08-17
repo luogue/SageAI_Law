@@ -98,7 +98,7 @@ def test_review_v2_returns_fixed_review_format_without_verdict_language():
     assert "llm_status" in output
     assert "global_fallback_reason" in output
     assert "【风险点描述】" in output["result"]
-    assert any(label in output["result"] for label in ("【建议新增】", "【建议补充】", "【建议修改原条款】"))
+    assert "【正式建议】" in output["result"]
     assert "【法律依据】" in output["result"]
     assert "本报告基于完整合同模板逐项审查" in output["result"]
     assert output["report_notice"].startswith("本报告基于完整合同模板逐项审查")
@@ -214,9 +214,10 @@ def test_real_house_lease_jurisdiction_renewal_and_termination_corrections():
     assert by_id["HL-001"]["coverage_status"] == "通过"
     assert "浦东新区人民法院" in by_id["HL-001"]["evidence_clauses"][0]["text"]
 
-    assert by_id["HL-007"]["risk_level"] == "中"
-    assert by_id["HL-007"]["coverage_status"] == "部分覆盖"
-    assert "仅约定了租赁期满后的续租" in by_id["HL-007"]["reasoning_summary"]
+    assert by_id["HL-007"]["risk_level"] == "低"
+    assert by_id["HL-007"]["coverage_status"] == "缺失"
+    assert by_id["HL-007"]["decision_trace"]["default_law_status"] == "CLEAR_DEFAULT"
+    assert by_id["HL-007"]["action_priority"] == "C_OPTIMIZATION"
 
     assert by_id["HL-017"]["risk_level"] == "低"
     assert by_id["HL-017"]["coverage_status"] == "通过"
@@ -1228,6 +1229,21 @@ def test_review_v2_exports_pdf_and_docx_bytes(tmp_path):
     assert "出租人与承租人身份信息" in full_text
 
 
+def test_review_v2_exports_blocked_report_with_quality_warning():
+    payload = ReviewV2PdfInput(
+        filename="blocked-review.docx",
+        result="# Contract review\n\nQuality gate warning is preserved in the report metadata.",
+        release_quality_gate={
+            "status": "BLOCKED",
+            "failures": [{"root_cause": "Independent validation needs attention."}],
+        },
+        quality4_gate={"status": "BLOCKED"},
+    )
+
+    assert _build_pdf(payload).startswith(b"%PDF")
+    assert _build_docx(payload).startswith(b"PK")
+
+
 def test_formula_parser_supports_capped_and_min_max_formulas():
     capped = parse_penalty_formula("乙方逾期付款的，应按未付款的10%支付违约金，最高不超过5000元。")
     ranged = parse_penalty_formula("乙方违约的，违约金最低1000元，最高5000元。")
@@ -1350,7 +1366,8 @@ def test_quality_phase_two_separates_coverage_risk_priority_and_findings():
     assert output["benchmark_metrics"]["sample_status"] == "INSUFFICIENT SAMPLE SIZE"
     assert output["benchmark_metrics"]["confidence_calibration_error"] is None
     assert output["release_quality_gate"]["status"] == "REPORT_READY"
-    assert output["system_metadata"]["system_version"] == "contract-review-quality-5.2"
+    assert output["system_metadata"]["system_version"] == "contract-review-quality-6.4"
+    assert output["system_metadata"]["cross_type_generalization_stage"] == "CONVERGED"
     assert output["system_metadata"]["ontology_version"]
     assert output["observability"]["total_latency_ms"] >= 0
 

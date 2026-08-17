@@ -11,6 +11,10 @@ from typing import Literal, Tuple
 
 
 CheckKind = Literal["required", "forbidden"]
+ReviewPolarity = Literal[
+    "POSITIVE_REQUIREMENT", "NEGATIVE_CLAUSE_CHECK", "PROHIBITED_CONDITION_CHECK",
+    "TRIGGERED_RULE_CHECK", "NEUTRAL_ASSESSMENT",
+]
 RiskLevel = Literal["高", "中", "低"]
 Terms = Tuple[str, ...]
 
@@ -33,6 +37,15 @@ class ReviewCheckpoint:
     pass_criteria: str
     partial_criteria: str
     applicable_if: str = "始终适用"
+    allowed_families: Terms = ()
+    allowed_subject_matters: Terms = ()
+    allowed_subtypes: Terms = ()
+    prohibited_subject_matters: Terms = ()
+    domain_owner: str = "contract/common"
+    material_group: str = "GENERAL"
+    applicability_triggers: Terms = ()
+    claim_requirements: Terms = ()
+    polarity: ReviewPolarity = "POSITIVE_REQUIREMENT"
 
 
 def _required(
@@ -66,6 +79,7 @@ def _required(
         evidence_scope=evidence_scope,
         pass_criteria=pass_criteria or f"正式合同条款或附件中存在与“{title}”相关的明确、可执行约定，且关键金额、期限、主体或选择项已填写完整。",
         partial_criteria=partial_criteria or f"正式合同条款或附件中已有与“{title}”相关的安排，但存在空白、未勾选、金额期限不完整或责任边界不清。",
+        polarity="POSITIVE_REQUIREMENT",
     )
 
 
@@ -100,6 +114,7 @@ def _forbidden(
         evidence_scope=evidence_scope,
         pass_criteria=pass_criteria or f"正式合同条款及附件中未发现“{title}”类风险表述。",
         partial_criteria=partial_criteria or f"正式合同条款及附件中存在接近“{title}”的表述，需要人工复核其是否公平、具体、可证明。",
+        polarity="NEGATIVE_CLAUSE_CHECK",
     )
 
 

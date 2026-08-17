@@ -7,10 +7,19 @@ model-backed reviewer can be introduced later without changing API consumers.
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass
-from typing import List, Sequence
+import time
+from dataclasses import asdict, dataclass, field
+from typing import Any, Dict, List, Sequence
 
-from review_v2.clause_parser import ParsedClause, formal_evidence_clauses
+from review_v2.clause_parser import (
+    BLOCK_ANNEX,
+    BLOCK_OPERATIVE,
+    BLOCK_PARTY_INFORMATION,
+    BLOCK_SIGNATURE,
+    ParsedClause,
+    formal_evidence_clauses,
+)
+from review_v2.contract_facts import ContractFactGraph, extract_contract_fact_graph, fact_requirements_for_node
 from review_v2.house_lease_checklist import ReviewCheckpoint
 
 
@@ -67,6 +76,27 @@ class ReviewJudgment:
     llm_confidence: str = ""
     llm_raw_reason: str = ""
     fallback_reason: str = ""
+
+
+@dataclass(frozen=True)
+class RetrievalTrace:
+    review_id: str
+    fact_requirements: List[str]
+    fact_clause_ids: List[str]
+    structural_clause_ids: List[str]
+    lexical_clause_ids: List[str]
+    semantic_clause_ids: List[str]
+    graph_clause_ids: List[str]
+    candidate_clause_ids: List[str]
+    selected_clause_ids: List[str]
+    lexical_queries: List[str]
+    structural_queries: List[str]
+    semantic_queries: List[str]
+    candidate_count: int
+    latency_ms: float = 0.0
+
+    def to_public_dict(self) -> Dict[str, Any]:
+        return asdict(self)
 
 
 def compact(text: str) -> str:
@@ -481,7 +511,155 @@ _STRICT_EVIDENCE_NODE_IDS = {
 }
 
 
+_RETRIEVAL_ALIASES: Dict[str, Sequence[str]] = {
+    "common_effective_clause": ("本合同自", "起生效", "有效期至", "签订日期", "订立"),
+    "common_jurisdiction": ("争议", "仲裁委员会", "仲裁地点", "人民法院"),
+    "sale_validity_party_capacity": ("购货单位", "供货单位", "法定代表人", "委托代理人", "统一社会信用代码", "开户银行", "账号", "地址", "电话"),
+    "sale_subject_name_spec": ("产品名称", "型号", "规格", "品牌"),
+    "sale_subject_quantity_unit": ("产品总数量", "计量单位", "实际签收数量", "数量"),
+    "sale_subject_quality_standard": ("产品质量", "质量标准", "国家标准", "行业标准", "企业标准", "GB/"),
+    "sale_delivery_time": ("完成全部产品交付", "完成全部供货", "分两批交货", "第一批", "第二批", "日前"),
+    "sale_delivery_place": ("交货地点", "交付地点", "指定仓库", "收货地址"),
+    "sale_delivery_method": ("运输方式", "负责采用", "送货至", "实际签收", "送货单"),
+    "sale_price_amount_currency": ("总价款", "合同总价", "单价", "人民币", "元/"),
+    "sale_payment_schedule": ("预付款", "尾款", "付款", "支付货款", "%"),
+    "sale_payment_method_account": ("银行转账", "开户银行", "账号", "收款账户"),
+    "sale_quality_standard_basis": ("产品质量", "质量标准", "国家标准", "行业标准", "企业标准", "GB/"),
+    "sale_warranty_period": ("质量保证期", "质保期", "保修", "工作日内响应", "维修或更换"),
+    "sale_quality_remedy": ("质量异议", "提出异议", "书面异议", "包换", "包修", "退货", "维修", "更换"),
+    "sale_inspection_period": ("验收时间", "收到后", "日内", "抽样检验", "抽检比例"),
+    "sale_deemed_acceptance": ("未通知", "未提出异议", "视为产品符合", "视为验收合格"),
+    "sale_breach_liability_general": ("甲方的违约责任", "乙方的违约责任", "不能交货", "逾期付款", "逾期交货", "违约金", "包换", "包修"),
+    "sale_expectation_loss": ("可得的利益", "可得利益", "预期利益", "应当预见", "可预见", "赔偿范围"),
+}
+
+
+def _retrieval_terms(checkpoint: ReviewCheckpoint) -> List[str]:
+    aliases = list(_RETRIEVAL_ALIASES.get(checkpoint.node_id, ()))
+    return list(dict.fromkeys([*checkpoint.terms, *_title_terms(checkpoint.title), *aliases]))
+
+
+def retrieve_evidence_candidates(
+    checkpoint: ReviewCheckpoint,
+    clauses: Sequence[ParsedClause],
+    *,
+    fact_graph: ContractFactGraph | None = None,
+    max_candidates: int = 12,
+) -> tuple[List[ParsedClause], List[str], RetrievalTrace]:
+    started = time.perf_counter()
+    allowed_block_types = {BLOCK_OPERATIVE, BLOCK_ANNEX, BLOCK_PARTY_INFORMATION}
+    if checkpoint.node_id in {"common_effective_clause", "sale_validity_party_capacity"}:
+        allowed_block_types.add(BLOCK_SIGNATURE)
+    evidence_pool = [
+        clause for clause in formal_evidence_clauses(list(clauses))
+        if clause.block_type in allowed_block_types
+    ]
+    by_id = {clause.clause_id: clause for clause in evidence_pool}
+    index_by_id = {clause.clause_id: index for index, clause in enumerate(evidence_pool)}
+    facts = fact_graph or extract_contract_fact_graph(evidence_pool)
+    fact_requirements = fact_requirements_for_node(checkpoint.node_id)
+    retrieval_terms = _retrieval_terms(checkpoint)
+    title_terms = _title_terms(checkpoint.title)
+
+    fact_ids = facts.source_clause_ids(fact_requirements)
+    lexical_scores: Dict[str, float] = {}
+    structural_scores: Dict[str, float] = {}
+    semantic_scores: Dict[str, float] = {}
+    matched: List[str] = []
+    for clause in evidence_pool:
+        text = compact(clause.text)
+        lexical_hits = [term for term in retrieval_terms if term and term in text and has_unnegated_word(text, term)]
+        if lexical_hits:
+            lexical_scores[clause.clause_id] = float(len(lexical_hits) * 4)
+            matched.extend(lexical_hits)
+        structural_hits = [term for term in retrieval_terms if term and term in compact(f"{clause.heading}{clause.location}{clause.section_path}")]
+        if structural_hits:
+            structural_scores[clause.clause_id] = float(len(structural_hits) * 3)
+        semantic_hits = [term for term in title_terms if term and term in text]
+        if semantic_hits:
+            semantic_scores[clause.clause_id] = float(len(semantic_hits) * 2)
+
+    # Forbidden reviews detect an explicitly present bad clause. Broad structural
+    # or fact expansion would turn a nearby benign clause into a false positive.
+    if checkpoint.kind == "forbidden":
+        selected_ids = set(lexical_scores)
+        fact_ids = []
+        structural_scores = {}
+        semantic_scores = {}
+    else:
+        selected_ids = set(fact_ids) | set(lexical_scores) | set(structural_scores) | set(semantic_scores)
+
+    graph_ids: List[str] = []
+    for clause_id in list(selected_ids):
+        index = index_by_id.get(clause_id)
+        if index is None:
+            continue
+        clause = evidence_pool[index]
+        related_numbers = set(clause.cross_references)
+        for neighbor_index in (index - 1, index + 1):
+            if 0 <= neighbor_index < len(evidence_pool):
+                neighbor = evidence_pool[neighbor_index]
+                same_section = bool(set(clause.section_path) & set(neighbor.section_path))
+                referenced = bool(related_numbers & set(neighbor.cross_references))
+                if same_section or referenced:
+                    graph_ids.append(neighbor.clause_id)
+    if checkpoint.kind != "forbidden":
+        selected_ids.update(graph_ids)
+
+    def score(clause: ParsedClause) -> tuple[float, int]:
+        block_priority = {
+            BLOCK_OPERATIVE: 3.0,
+            BLOCK_ANNEX: 2.0,
+            BLOCK_PARTY_INFORMATION: 1.5,
+            BLOCK_SIGNATURE: 1.0,
+        }.get(clause.block_type, 0.0)
+        value = (
+            (20.0 if clause.clause_id in fact_ids else 0.0)
+            + lexical_scores.get(clause.clause_id, 0.0)
+            + structural_scores.get(clause.clause_id, 0.0)
+            + semantic_scores.get(clause.clause_id, 0.0)
+            + (1.0 if clause.clause_id in graph_ids else 0.0)
+            + block_priority
+        )
+        return (-value, index_by_id[clause.clause_id])
+
+    candidates = sorted((by_id[clause_id] for clause_id in selected_ids if clause_id in by_id), key=score)[:max_candidates]
+    trace = RetrievalTrace(
+        review_id=checkpoint.item_id,
+        fact_requirements=fact_requirements,
+        fact_clause_ids=[clause_id for clause_id in fact_ids if clause_id in by_id],
+        structural_clause_ids=list(structural_scores),
+        lexical_clause_ids=list(lexical_scores),
+        semantic_clause_ids=list(semantic_scores),
+        graph_clause_ids=list(dict.fromkeys(graph_ids)),
+        candidate_clause_ids=[clause.clause_id for clause in candidates],
+        selected_clause_ids=[clause.clause_id for clause in candidates],
+        lexical_queries=retrieval_terms,
+        structural_queries=retrieval_terms,
+        semantic_queries=[checkpoint.semantic_question, checkpoint.title],
+        candidate_count=len(candidates),
+        latency_ms=round((time.perf_counter() - started) * 1000, 3),
+    )
+    return candidates, list(dict.fromkeys(matched)), trace
+
+
 def recall_candidate_clauses(
+    checkpoint: ReviewCheckpoint,
+    clauses: Sequence[ParsedClause],
+    *,
+    max_candidates: int = 4,
+) -> tuple[List[ParsedClause], List[str]]:
+    if checkpoint.node_id not in _RETRIEVAL_ALIASES and not fact_requirements_for_node(checkpoint.node_id):
+        return _legacy_recall_candidate_clauses(checkpoint, clauses, max_candidates=max_candidates)
+    candidates, terms, _ = retrieve_evidence_candidates(
+        checkpoint,
+        clauses,
+        max_candidates=max_candidates,
+    )
+    return candidates, terms
+
+
+def _legacy_recall_candidate_clauses(
     checkpoint: ReviewCheckpoint,
     clauses: Sequence[ParsedClause],
     *,
@@ -491,7 +669,6 @@ def recall_candidate_clauses(
     scored: List[tuple[int, int, ParsedClause, List[str]]] = []
     all_matched_terms: List[str] = []
     title_terms = _title_terms(checkpoint.title)
-
     for index, clause in enumerate(evidence_pool):
         terms = matched_terms(clause.text, checkpoint.terms)
         title_hits = matched_terms(clause.text, title_terms)
@@ -503,30 +680,22 @@ def recall_candidate_clauses(
                 score += 4
             elif not any(term in clause.text for term in ("抵扣", "扣除", "扣款")):
                 score = 0
-        if checkpoint.node_id in ("use_restriction",) and "用途" in clause.text:
+        if checkpoint.node_id == "use_restriction" and "用途" in clause.text:
             score += 2
         if checkpoint.node_id == "third_party_tort":
             has_third_party = any(term in clause.text for term in ("第三方", "第三人", "邻居", "楼上", "路人"))
             has_property_cause = "物业" in clause.text and any(term in clause.text for term in ("原因", "造成", "损坏", "侵权", "责任"))
             if not (has_third_party or has_property_cause):
                 score = 0
-        if checkpoint.node_id == "limitation_and_notice":
-            if not _has_notice_delivery_terms(clause.text) or _is_only_advance_notice(clause.text):
-                score = 0
-        if checkpoint.node_id == "third_party_defect":
-            if _is_fee_only_clause(clause.text) or not _has_third_party_defect_terms(clause.text):
-                score = 0
-        if checkpoint.node_id == "expropriation_demolition":
-            if not _has_expropriation_terms(clause.text):
-                score = 0
+        if checkpoint.node_id == "limitation_and_notice" and (not _has_notice_delivery_terms(clause.text) or _is_only_advance_notice(clause.text)):
+            score = 0
+        if checkpoint.node_id == "third_party_defect" and (_is_fee_only_clause(clause.text) or not _has_third_party_defect_terms(clause.text)):
+            score = 0
+        if checkpoint.node_id == "expropriation_demolition" and not _has_expropriation_terms(clause.text):
+            score = 0
         if checkpoint.node_id == "term_expiry_settlement":
-            if _has_term_expiry_settlement_terms(clause.text):
-                score += 6
-            else:
-                score = 0
-        if checkpoint.node_id == "unauthorized_sublease" and not any(
-            term in clause.text for term in ("转租", "转借", "交由他人", "他人长期使用", "次承租")
-        ):
+            score = score + 6 if _has_term_expiry_settlement_terms(clause.text) else 0
+        if checkpoint.node_id == "unauthorized_sublease" and not any(term in clause.text for term in ("转租", "转借", "交由他人", "他人长期使用", "次承租")):
             score = 0
         if checkpoint.node_id in ("pre_delivery_defect", "handover_evidence") and "交割单" in clause.text:
             score += 2
@@ -535,11 +704,8 @@ def recall_candidate_clauses(
         if score:
             all_matched_terms.extend(terms or title_hits)
             scored.append((score, index, clause, terms or title_hits))
-
     scored.sort(key=lambda item: (-item[0], item[1]))
-    candidates = [item[2] for item in scored[:max_candidates]]
-    unique_terms = list(dict.fromkeys(all_matched_terms))
-    return candidates, unique_terms
+    return [item[2] for item in scored[:max_candidates]], list(dict.fromkeys(all_matched_terms))
 
 
 def _public_evidence(clauses: Sequence[ParsedClause]) -> List[dict]:
@@ -555,6 +721,7 @@ def _public_evidence(clauses: Sequence[ParsedClause]) -> List[dict]:
                 "title": clause.title,
                 "text": text,
                 "section_type": clause.section_type,
+                "block_type": clause.block_type,
             }
         )
     return result

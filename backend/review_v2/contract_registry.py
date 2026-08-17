@@ -9,7 +9,7 @@ Usage:
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from enum import Enum
 from typing import Dict, Tuple
 
@@ -18,12 +18,14 @@ from review_v2.brokerage_contract_checklist import BROKERAGE_REVIEW_CHECKLIST
 from review_v2.commission_agency_contract_checklist import COMMISSION_AGENCY_REVIEW_CHECKLIST
 from review_v2.construction_contract_checklist import CONSTRUCTION_REVIEW_CHECKLIST
 from review_v2.finance_lease_contract_checklist import FINANCE_LEASE_REVIEW_CHECKLIST
+from review_v2.framework_supply_checklist import FRAMEWORK_SUPPLY_REVIEW_CHECKLIST
 from review_v2.gift_contract_checklist import GIFT_REVIEW_CHECKLIST
 from review_v2.guarantee_contract_checklist import GUARANTEE_REVIEW_CHECKLIST
 from review_v2.house_lease_checklist import HOUSE_LEASE_REVIEW_CHECKLIST, ReviewCheckpoint
 from review_v2.loan_contract_checklist import LOAN_REVIEW_CHECKLIST
 from review_v2.safekeeping_contract_checklist import SAFEKEEPING_REVIEW_CHECKLIST
 from review_v2.sale_contract_checklist import SALE_REVIEW_CHECKLIST
+from review_v2.real_estate_sale_checklist import REAL_ESTATE_SALE_REVIEW_CHECKLIST
 from review_v2.service_contract_checklist import SERVICE_REVIEW_CHECKLIST
 from review_v2.technology_contract_checklist import TECHNOLOGY_REVIEW_CHECKLIST
 from review_v2.transportation_contract_checklist import TRANSPORTATION_REVIEW_CHECKLIST
@@ -241,6 +243,61 @@ def get_checklist(contract_type: str | ContractType) -> Tuple[ReviewCheckpoint, 
         return CONTRACT_CHECKLISTS[resolved.value]
     except KeyError as exc:
         raise UnsupportedContractTypeError(f"合同类型 {resolved.value} 尚未配置审查清单") from exc
+
+
+SALE_COMMON_NODE_IDS = {
+    "common_effective_clause", "common_dispute_resolution", "common_jurisdiction",
+    "sale_validity_party_capacity", "sale_validity_true_intent", "sale_validity_mandatory_law",
+    "sale_price_amount_currency", "sale_payment_schedule", "sale_payment_method_account",
+    "sale_breach_liability_general", "sale_termination", "common_force_majeure",
+}
+
+
+def _owned_sale_checklist() -> Tuple[ReviewCheckpoint, ...]:
+    rows = []
+    for checkpoint in SALE_REVIEW_CHECKLIST:
+        owner = "sale/common" if checkpoint.node_id in SALE_COMMON_NODE_IDS else "sale/goods"
+        rows.append(replace(
+            checkpoint,
+            allowed_families=("SALE",),
+            allowed_subject_matters=("GOODS", "EQUIPMENT", "UNCERTAIN") if owner == "sale/goods" else (),
+            prohibited_subject_matters=("REAL_ESTATE",) if owner == "sale/goods" else (),
+            domain_owner=owner,
+            material_group="COMMON" if owner == "sale/common" else "GOODS",
+        ))
+    return tuple(rows)
+
+
+def get_checklist_for_resolution(contract_type: str | ContractType, resolution: object) -> Tuple[ReviewCheckpoint, ...]:
+    resolved = contract_type if isinstance(contract_type, ContractType) else resolve_contract_type(contract_type)
+    if resolved is not ContractType.SALE:
+        return get_checklist(resolved)
+    owned = _owned_sale_checklist()
+    subject = getattr(resolution, "subject_matter", "UNCERTAIN")
+    if subject == "REAL_ESTATE":
+        return tuple(row for row in owned if row.domain_owner == "sale/common") + REAL_ESTATE_SALE_REVIEW_CHECKLIST
+    rows = tuple(
+        row for row in owned
+        if not row.allowed_subject_matters or subject in row.allowed_subject_matters
+    )
+    if getattr(resolution, "transaction_structure", "") == "FRAMEWORK_SUPPLY":
+        rows += FRAMEWORK_SUPPLY_REVIEW_CHECKLIST
+    return rows
+
+
+def review_registry_debug(contract_type: str | ContractType, resolution: object) -> Dict[str, object]:
+    rows = get_checklist_for_resolution(contract_type, resolution)
+    return {
+        "resolved_subject_matter": getattr(resolution, "subject_matter", ""),
+        "transaction_structure": getattr(resolution, "transaction_structure", ""),
+        "loaded_review_count": len(rows),
+        "loaded_review_ids": [row.item_id for row in rows],
+        "domain_owners": sorted({row.domain_owner for row in rows}),
+        "prohibited_reviews": [
+            row.item_id for row in rows
+            if getattr(resolution, "subject_matter", "") in row.prohibited_subject_matters
+        ],
+    }
 
 
 def validate_checklist_integrity(checklist: Tuple[ReviewCheckpoint, ...], *, checklist_key: str = "") -> Tuple[str, ...]:

@@ -152,15 +152,22 @@ def run_blind_benchmark(
     output_root: str | Path = "output/blind_benchmark",
     *,
     system_version: str = "",
+    domain: str = "",
+    candidate_manifest_path: str | Path = "output/candidate_manifest.json",
     review_fn: Callable[[str, str], Dict[str, Any]] = review_contract_v2,
 ) -> Dict[str, Any]:
     benchmark_root = Path(benchmark_root)
     output_root = Path(output_root)
     contracts_dir = benchmark_root / "contracts"
     gold_dir = benchmark_root / "gold_private"
+    candidate_manifest_path = Path(candidate_manifest_path)
+    candidate_manifest = _read_json(candidate_manifest_path) if candidate_manifest_path.exists() else {}
+    candidate_hash = str(candidate_manifest.get("candidate_hash") or "")
+    contracts = [_load_contract(path) for path in _contract_files(contracts_dir)]
+    if contracts and not candidate_hash:
+        raise RuntimeError("A frozen candidate_manifest.json is required before running a blind contract.")
     run_id = datetime.now().strftime("blind-%Y%m%d-%H%M%S")
     predictions_dir = output_root / "predictions" / run_id
-    contracts = [_load_contract(path) for path in _contract_files(contracts_dir)]
 
     predictions: List[Dict[str, Any]] = []
     for contract in contracts:
@@ -178,7 +185,19 @@ def run_blind_benchmark(
             },
             "output": output,
         }
+        contract_hash = hashlib.sha256(contract.get("text", "").encode("utf-8")).hexdigest()
+        report_hash = hashlib.sha256(str(output.get("result") or "").encode("utf-8")).hexdigest()
+        structured_result_hash = _stable_hash(prediction["prediction_artifact"])
         prediction["prediction_hash"] = _stable_hash(prediction["prediction_artifact"])
+        prediction["prediction_lock"] = {
+            "blind_id": contract["contract_id"],
+            "contract_hash": contract_hash,
+            "candidate_hash": candidate_hash,
+            "generated_at": prediction["created_at"],
+            "report_hash": report_hash,
+            "structured_result_hash": structured_result_hash,
+            "locked": True,
+        }
         predictions.append(prediction)
         _write_json(predictions_dir / f"{contract['contract_id']}.json", prediction)
         _write_json(output_root / "predictions" / f"{contract['contract_id']}.json", prediction)
@@ -188,6 +207,9 @@ def run_blind_benchmark(
         "created_at": datetime.now().isoformat(),
         "prediction_count": len(predictions),
         "prediction_hashes": {prediction["contract_id"]: prediction["prediction_hash"] for prediction in predictions},
+        "candidate_hash": candidate_hash,
+        "locks": {prediction["contract_id"]: prediction["prediction_lock"] for prediction in predictions},
+        "locked": bool(predictions),
         "gold_loaded_during_prediction": False,
     }
     _write_json(output_root / "prediction_lock.json", lock)
@@ -218,6 +240,7 @@ def run_blind_benchmark(
         "release_gate_status": result.get("release_gate_status"),
         "created_at": datetime.now().isoformat(),
         "system_version": system_version,
+        "domain": domain,
         "dataset_version": benchmark_root.name,
         "contract_types": sorted({contract.get("contract_type", "unknown") for contract in contracts}),
         "complexity_distribution": {
@@ -241,11 +264,19 @@ def main() -> None:
     parser.add_argument("--output-root", default="output/blind_benchmark")
     parser.add_argument("--dataset", default=None, help="Alias for --benchmark-root.")
     parser.add_argument("--output", default=None, help="Alias for --output-root.")
+    parser.add_argument("--domain", default="")
     parser.add_argument("--system-version", default="")
+    parser.add_argument("--candidate-manifest", default="output/candidate_manifest.json")
     args = parser.parse_args()
     benchmark_root = args.dataset or args.benchmark_root
     output_root = args.output or args.output_root
-    result = run_blind_benchmark(benchmark_root, output_root, system_version=args.system_version)
+    result = run_blind_benchmark(
+        benchmark_root,
+        output_root,
+        system_version=args.system_version,
+        domain=args.domain,
+        candidate_manifest_path=args.candidate_manifest,
+    )
     print(json.dumps(result["summary"], ensure_ascii=False, indent=2))
 
 

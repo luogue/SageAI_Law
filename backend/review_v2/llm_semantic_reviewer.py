@@ -100,7 +100,7 @@ def llm_review_enabled() -> bool:
 
 def _max_candidates() -> int:
     try:
-        return max(1, min(8, int(os.getenv("REVIEW_V2_LLM_MAX_CANDIDATES", "4"))))
+        return max(1, min(12, int(os.getenv("REVIEW_V2_LLM_MAX_CANDIDATES", "4"))))
     except ValueError:
         return 4
 
@@ -426,6 +426,7 @@ def _build_batch_prompt(entries: Sequence[Dict[str, Any]]) -> str:
                         "clause_id": clause.clause_id,
                         "location": clause.location,
                         "section_type": clause.section_type,
+                        "block_type": clause.block_type,
                         "text": _safe_text(clause.text),
                     }
                     for clause in candidates

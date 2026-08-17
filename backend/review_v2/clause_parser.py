@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import asdict, dataclass, field
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from review_v2.template_parser import parse_option_groups
 
@@ -18,6 +18,29 @@ SECTION_USAGE = "使用说明"
 SECTION_SPECIAL_NOTICE = "特别提示"
 SECTION_FORMAL = "正式合同条款"
 SECTION_APPENDIX = "附件"
+SECTION_COMMENTARY = "说明评论"
+SECTION_HISTORICAL_NOTE = "历史说明"
+
+BLOCK_OPERATIVE = "OPERATIVE_CLAUSE"
+BLOCK_PARTY_INFORMATION = "PARTY_INFORMATION"
+BLOCK_SIGNATURE = "SIGNATURE_BLOCK"
+BLOCK_TEMPLATE_GUIDANCE = "TEMPLATE_GUIDANCE"
+BLOCK_TEMPLATE_INSTRUCTION = BLOCK_TEMPLATE_GUIDANCE
+BLOCK_COMMENTARY = "COMMENTARY"
+BLOCK_HISTORICAL_NOTE = "HISTORICAL_NOTE"
+BLOCK_ANNEX = "ANNEX"
+
+
+class DocumentBlockType(str):
+    """Canonical block type with compatibility for the pre-6.4 template name."""
+
+    def __eq__(self, other: object) -> bool:
+        if str(self) == BLOCK_TEMPLATE_GUIDANCE and other == "TEMPLATE_INSTRUCTION":
+            return True
+        return str.__eq__(self, other)
+
+    def __hash__(self) -> int:
+        return str.__hash__(self)
 
 
 @dataclass(frozen=True)
@@ -32,8 +55,36 @@ class ParsedClause:
     normalized_text: str = ""
     option_groups: List[Dict[str, Any]] = field(default_factory=list)
     source: str = "body"
+    section_path: List[str] = field(default_factory=list)
+    heading: str = ""
+    clause_number: str = ""
+    paragraph_index: int = 0
+    block_type: str = BLOCK_OPERATIVE
+    parties: List[str] = field(default_factory=list)
+    dates: List[str] = field(default_factory=list)
+    amounts: List[str] = field(default_factory=list)
+    percentages: List[str] = field(default_factory=list)
+    durations: List[str] = field(default_factory=list)
+    cross_references: List[str] = field(default_factory=list)
 
     def to_public_dict(self) -> Dict[str, str | int]:
+        return asdict(self)
+
+
+@dataclass(frozen=True)
+class DocumentIntegrity:
+    source_length: int
+    normalized_length: int
+    paragraph_count: int
+    clause_count: int
+    heading_count: int
+    first_clause: str
+    last_clause: str
+    parsed_character_ratio: float
+    skipped_ranges: List[Dict[str, int]] = field(default_factory=list)
+    truncated: bool = False
+
+    def to_public_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
 
@@ -52,6 +103,22 @@ def _clause_source(section_type: str, text: str = "") -> str:
     return "body"
 
 
+def _block_type(section_type: str, source: str) -> str:
+    if section_type in {SECTION_USAGE, SECTION_SPECIAL_NOTICE}:
+        return DocumentBlockType(BLOCK_TEMPLATE_GUIDANCE)
+    if section_type == SECTION_COMMENTARY:
+        return BLOCK_COMMENTARY
+    if section_type == SECTION_HISTORICAL_NOTE:
+        return BLOCK_HISTORICAL_NOTE
+    if section_type == SECTION_APPENDIX:
+        return BLOCK_ANNEX
+    if source == "signature":
+        return BLOCK_SIGNATURE
+    if source == "party_info":
+        return BLOCK_PARTY_INFORMATION
+    return BLOCK_OPERATIVE
+
+
 def _normalize_clause_text(text: str) -> str:
     return re.sub(r"\s+", "", text or "")
 
@@ -64,8 +131,12 @@ def _make_clause(
     text: str,
     section_type: str,
     level: int,
+    paragraph_index: int = 0,
 ) -> ParsedClause:
     normalized = _normalize_clause_text(text)
+    source = _clause_source(section_type, text)
+    first_line = text.splitlines()[0] if text else ""
+    article = ARTICLE_RE.match(first_line)
     return ParsedClause(
         clause_id=clause_id,
         location=location,
@@ -76,7 +147,18 @@ def _make_clause(
         raw_text=text,
         normalized_text=normalized,
         option_groups=[group.to_public_dict() for group in parse_option_groups(text)],
-        source=_clause_source(section_type, text),
+        source=source,
+        section_path=[value for value in (section_type, location) if value],
+        heading=title,
+        clause_number=article.group(0).split(maxsplit=1)[0] if article else "",
+        paragraph_index=paragraph_index,
+        block_type=_block_type(section_type, source),
+        parties=list(dict.fromkeys(re.findall(r"甲方|乙方|出卖人|买受人|买方|卖方|供货单位|购货单位", text))),
+        dates=re.findall(r"(?:20\d{2})[年/.-]\d{1,2}[月/.-]\d{1,2}日?", text),
+        amounts=re.findall(r"(?:人民币)?\s*[\d,]+(?:\.\d+)?\s*元", text),
+        percentages=re.findall(r"(?:\d+(?:\.\d+)?\s*[%％]|百分之[一二三四五六七八九十百]+|万分之[一二三四五六七八九十百]+)", text),
+        durations=re.findall(r"(?:\d+|[一二三四五六七八九十]+)\s*(?:个)?\s*(?:工作日|日|天|个月|月|年)", text),
+        cross_references=re.findall(r"第[一二三四五六七八九十百零〇\d]+条", text),
     )
 
 
@@ -170,12 +252,17 @@ def _clean_lines(contract_text: str) -> List[str]:
 def _section_type_for_line(line: str, current: str, formal_started: bool) -> str:
     if APPENDIX_RE.match(line):
         return SECTION_APPENDIX
-    if formal_started:
-        return current if current == SECTION_APPENDIX else SECTION_FORMAL
-    if line == "使用说明":
+    compacted = re.sub(r"[：:\s]", "", line)
+    if compacted in {"使用说明", "填写说明"}:
         return SECTION_USAGE
-    if line == "特别提示":
+    if compacted in {"特别提示", "范本附注"}:
         return SECTION_SPECIAL_NOTICE
+    if compacted in {"编制说明", "条文说明", "注释", "评论"}:
+        return SECTION_COMMENTARY
+    if compacted in {"历史沿革", "修订记录", "历史说明"}:
+        return SECTION_HISTORICAL_NOTE
+    if formal_started:
+        return current if current in {SECTION_APPENDIX, SECTION_USAGE, SECTION_SPECIAL_NOTICE, SECTION_COMMENTARY, SECTION_HISTORICAL_NOTE} else SECTION_FORMAL
     return current
 
 
@@ -234,11 +321,20 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
                 text=text,
                 section_type=current_section,
                 level=current_level,
+                paragraph_index=len(clauses),
             )
         )
         current_lines = []
 
     for line in lines:
+        if re.sub(r"\s+", "", line).startswith(("订立合同双方", "合同双方当事人", "甲乙双方经")):
+            formal_started = True
+            if current_section != SECTION_FORMAL:
+                flush()
+            current_section = SECTION_FORMAL
+            current_location = "合同主体"
+            current_title = "合同主体"
+            current_level = 1
         if line.startswith("甲方（出租人）") or line.startswith("甲方(出租人)"):
             formal_started = True
             if current_section != SECTION_FORMAL:
@@ -326,11 +422,37 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
 
     flush()
 
-    if not seen_structural_marker and len(clauses) <= 2:
+    if (
+        not seen_structural_marker
+        and len(clauses) <= 2
+        and all(clause.section_type == SECTION_FORMAL for clause in clauses)
+    ):
         return _fallback_unstructured_clauses(lines)
 
     return clauses
 
 
 def formal_evidence_clauses(clauses: List[ParsedClause]) -> List[ParsedClause]:
-    return [clause for clause in clauses if clause.section_type in {SECTION_FORMAL, SECTION_APPENDIX}]
+    allowed = {BLOCK_OPERATIVE, BLOCK_ANNEX, BLOCK_PARTY_INFORMATION, BLOCK_SIGNATURE}
+    return [clause for clause in clauses if clause.block_type in allowed]
+
+
+def document_integrity(contract_text: str, clauses: Optional[List[ParsedClause]] = None) -> DocumentIntegrity:
+    source = contract_text or ""
+    parsed = clauses if clauses is not None else parse_contract_clauses(source)
+    normalized_source = _normalize_clause_text(strip_non_contract_tail(source))
+    normalized_parsed = "".join(clause.normalized_text for clause in parsed)
+    ratio = min(1.0, len(normalized_parsed) / len(normalized_source)) if normalized_source else 1.0
+    skipped = [] if ratio >= 0.95 else [{"start": len(normalized_parsed), "end": len(normalized_source)}]
+    return DocumentIntegrity(
+        source_length=len(source),
+        normalized_length=len(normalized_source),
+        paragraph_count=len([line for line in source.splitlines() if line.strip()]),
+        clause_count=len(parsed),
+        heading_count=sum(1 for clause in parsed if clause.level <= 1),
+        first_clause=parsed[0].clause_id if parsed else "",
+        last_clause=parsed[-1].clause_id if parsed else "",
+        parsed_character_ratio=round(ratio, 4),
+        skipped_ranges=skipped,
+        truncated=bool(skipped),
+    )

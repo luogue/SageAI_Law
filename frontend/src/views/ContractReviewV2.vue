@@ -227,6 +227,14 @@
           <div class="format-notice">
             {{ report.report_notice || '本报告基于完整合同模板逐项审查，部分缺失项可能因合同格式简略所致，建议结合合同实际用途判断优先级。' }}
           </div>
+          <el-alert
+            v-if="exportGateMessage"
+            class="export-gate-alert"
+            type="warning"
+            :closable="false"
+            show-icon
+            :title="exportGateMessage"
+          />
 
           <div class="summary-grid">
             <!-- 分级行动建议 -->
@@ -674,7 +682,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import { ArrowDown, DocumentChecked, Download, InfoFilled, RefreshLeft, Search, UploadFilled, User, WarningFilled } from '@element-plus/icons-vue'
 import { exportReviewV2Docx, exportReviewV2Pdf, getReviewV2LlmStatus, reviewContractV2File } from '../utils/api'
@@ -732,6 +740,23 @@ const judgeSourceFilter = ref('全部')
 const stepActive = ref(0)
 const reportViewMode = ref('checklist')  // 'checklist' | 'litigation' | 'negotiation'
 
+function gateFailureText(gateName, gate) {
+  const status = gate?.status
+  if (!status || status === 'REPORT_READY') return ''
+  const firstFailure = gate?.failures?.[0]
+  const reason = firstFailure?.root_cause || firstFailure?.failure_stage || '请重新执行审查，使用最新通过质量门的报告后再导出。'
+  return `${gateName}=${status}，${reason}`
+}
+
+const exportGateMessage = computed(() => {
+  if (!report.value) return ''
+  return (
+    gateFailureText('release_quality_gate', report.value.release_quality_gate) ||
+    gateFailureText('quality4_gate', report.value.quality4_gate) ||
+    ''
+  )
+})
+
 // 谈判标签样式
 function negotiationPriorityTag(priority) {
   if (priority === '必争项') return 'danger'
@@ -761,10 +786,21 @@ const bargainingPosition = ref('均衡方')
 const jurisdiction = ref('北京')
 
 const identityOptions = ['个人租客/买方', '小微企业（≤50人）', '中型企业（50-500人）', '大型企业/投资者']
-const scenarioOptions = ['居住用途', '商业经营', '投资/转租']
+const scenarioOptions = computed(() => contractType.value === 'sale'
+  ? ['商品买卖', '商业经营']
+  : ['居住用途', '商业经营', '投资/转租'])
 const appetiteOptions = ['保守', '标准', '激进']
 const positionOptions = ['强势方', '均衡方', '弱势方']
 const jurisdictionOptions = ['北京', '上海', '广州', '深圳', '杭州', '成都', '武汉', '南京', '重庆', '天津', '西安', '长沙']
+
+watch(contractType, (value) => {
+  report.value = null
+  if (value === 'sale' && ['居住用途', '投资/转租'].includes(contractScenario.value)) {
+    contractScenario.value = '商品买卖'
+  } else if (value === 'house_lease' && contractScenario.value === '商品买卖') {
+    contractScenario.value = '居住用途'
+  }
+})
 
 function buildProfile() {
   return {
@@ -780,7 +816,7 @@ function buildProfile() {
 function setProfilePreset(preset) {
   if (preset === 'conservative_individual') {
     userIdentity.value = '个人租客/买方'
-    contractScenario.value = '居住用途'
+    contractScenario.value = contractType.value === 'sale' ? '商品买卖' : '居住用途'
     riskAppetite.value = '保守'
     bargainingPosition.value = '弱势方'
   } else if (preset === 'aggressive_investor') {
@@ -790,7 +826,7 @@ function setProfilePreset(preset) {
     bargainingPosition.value = '强势方'
   } else if (preset === 'standard') {
     userIdentity.value = '个人租客/买方'
-    contractScenario.value = '居住用途'
+    contractScenario.value = contractType.value === 'sale' ? '商品买卖' : '居住用途'
     riskAppetite.value = '标准'
     bargainingPosition.value = '均衡方'
   }
@@ -1281,6 +1317,10 @@ function riskLabel(level) {
   color: #475569;
   font-size: 13px;
   line-height: 1.6;
+}
+
+.export-gate-alert {
+  margin-top: 12px;
 }
 
 .summary-grid {

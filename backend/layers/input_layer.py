@@ -66,8 +66,22 @@ class InputLayer:
             raise ValueError("DOCX文件解析失败：文件不是标准Word文档。请确认文件未损坏，或将老版.doc文件另存为.docx后再上传")
         try:
             from docx import Document
+            from docx.table import Table
+            from docx.text.paragraph import Paragraph
             document = Document(io.BytesIO(content))
-            text = '\n'.join([paragraph.text for paragraph in document.paragraphs])
+            blocks = []
+            for child in document.element.body.iterchildren():
+                if child.tag.endswith("}p"):
+                    value = Paragraph(child, document).text.strip()
+                    if value:
+                        blocks.append(value)
+                elif child.tag.endswith("}tbl"):
+                    table = Table(child, document)
+                    for row in table.rows:
+                        cells = [re.sub(r"\s+", " ", cell.text).strip() for cell in row.cells]
+                        if any(cells):
+                            blocks.append(" | ".join(cells))
+            text = '\n'.join(blocks)
             if not text.strip():
                 raise ValueError("文件内容为空")
             return self._normalize_extracted_text(text)

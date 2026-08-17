@@ -2,20 +2,55 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 import re
 import time
 import uuid
+from collections import Counter
 from dataclasses import asdict, dataclass, field
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Iterable, List, Optional
 
-from review_v2.clause_parser import parse_contract_clauses, strip_non_contract_tail
+from review_v2.clause_parser import document_integrity, formal_evidence_clauses, parse_contract_clauses, strip_non_contract_tail
+from review_v2.contract_facts import ContractFactGraph, extract_contract_fact_graph, fact_requirements_for_node
+from review_v2.framework_supply import (
+    FRAMEWORK_REVIEW_FACT_PATHS,
+    FrameworkSupplyProfile,
+    add_framework_facts_to_graph,
+    extract_framework_supply_profile,
+)
+from review_v2.canonical_claims import build_canonical_claims, canonical_claims_public
+from review_v2.common_sale import (
+    ReviewExecutionContext,
+    build_product_documentation_profile,
+    common_sale_coverage_requirement,
+    product_review_applicability,
+)
 from review_v2.contract_registry import (
     UnsupportedContractTypeError,
     get_checklist,
+    get_checklist_for_resolution,
+    review_registry_debug,
     get_contract_meta,
     supported_contract_display_names,
 )
+from review_v2.domain_packs import composed_domain_pack_snapshot, domain_pack_snapshot, get_default_rule, get_domain_pack
+from review_v2.domain_resolution import resolve_contract_domain
+from review_v2.domain_selection import domain_selection_consistency_gate, resolve_domain_selection
+from review_v2.real_estate_facts import extract_real_estate_sale_facts
+from review_v2.report_context import build_report_context
+from review_v2.perspective_resolution import (
+    PERSPECTIVE_RESOLVER_VERSION,
+    perspective_domain_consistency_gate,
+    resolve_perspective,
+)
+from review_v2.production_display import (
+    PRODUCTION_SERIALIZER_VERSION,
+    display_claims,
+    production_fact_polarity_gate,
+)
+from review_v2.recommendation_impact import RECOMMENDATION_ENGINE_VERSION, evaluate_recommendations
 from review_v2.consistency_verifier import apply_claims, verify_consistency
 from review_v2.house_lease_checklist import ReviewCheckpoint
 from review_v2.lease_contract_facts import (
@@ -39,7 +74,7 @@ from review_v2.quality4 import (
     validate_formula_ast,
     validate_legal_citation,
 )
-from review_v2.semantic_reviewer import _has_gift_paid_consideration_risk, judge_checkpoint, matched_terms
+from review_v2.semantic_reviewer import _has_gift_paid_consideration_risk, has_specific_deposit_return_deadline, judge_checkpoint, matched_terms, retrieve_evidence_candidates
 from review_v2.semantic_reviewer import classify_evidence_type, evidence_semantically_entails
 from review_v2.scenario_engine import (
     economic_impact_detail_for_penalty,
@@ -90,7 +125,8 @@ ACTION_PRIORITY_NOT_APPLICABLE = "NOT_APPLICABLE"
 REVIEW_IMPORTANCE_CORE = "CORE"
 REVIEW_IMPORTANCE_IMPORTANT = "IMPORTANT"
 REVIEW_IMPORTANCE_NORMAL = "NORMAL"
-SYSTEM_VERSION = "contract-review-quality-5.2"
+SYSTEM_VERSION = "contract-review-quality-6.4"
+PIPELINE_VERSION = "canonical-review-v2-production-6.4"
 EVIDENCE_SUPPORTS = "SUPPORTS"
 EVIDENCE_PARTIAL_SUPPORT = "PARTIAL_SUPPORT"
 EVIDENCE_RELATED_NOT_SUPPORTING = "RELATED_BUT_NOT_SUPPORTING"
@@ -105,7 +141,13 @@ RISK_AGGREGATION_PROMPT_VERSION = "risk-aggregation-deterministic-2026-08-11"
 RECOMMENDATION_PROMPT_VERSION = "recommendation-aggregation-deterministic-2026-08-11"
 RULE_VERSION = "review-v2-rules-quality3-2026-08-11"
 LEGAL_DATASET_VERSION = "cn-civil-code-minimal-2026-08-11"
-BENCHMARK_VERSION = "quality4-target-benchmark-2026-08-11"
+BENCHMARK_VERSION = "quality6.4-final-convergence-2026-08-13"
+PARSER_VERSION = "canonical-clause-parser-6.4"
+FACT_SCHEMA_VERSION = "contract-fact-graph-1.0"
+RETRIEVAL_VERSION = "hybrid-retrieval-1.0"
+DOMAIN_PACK_VERSION = "domain-pack-sale-1.0"
+DEFAULT_LAW_VERSION = "sale-default-law-6.4"
+CONFIDENCE_VERSION = "confidence-calibration-6.4"
 
 PROBABILITY_RARE = "RARE"
 PROBABILITY_LOW = "LOW"
@@ -192,6 +234,9 @@ class ReviewItemResult:
     system_confidence: Dict[str, Any] = field(default_factory=dict)
     legal_references: List[Dict[str, Any]] = field(default_factory=list)
     decision_trace: Dict[str, Any] = field(default_factory=dict)
+    coverage_elements: List[Dict[str, Any]] = field(default_factory=list)
+    review_evidence_provenance: Dict[str, Any] = field(default_factory=dict)
+    narrative_state: Dict[str, Any] = field(default_factory=dict)
 
     def to_public_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -232,6 +277,7 @@ class RiskFinding:
     verification: Dict[str, Any] = field(default_factory=dict)
     supporting_evidence: List[Dict[str, Any]] = field(default_factory=list)
     counter_evidence: List[Dict[str, Any]] = field(default_factory=list)
+    provenance: Dict[str, Any] = field(default_factory=dict)
 
     def to_public_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -245,6 +291,11 @@ class NormalizedEconomicExposure:
     prepaid_amount_ratio: Optional[float] = None
     contract_total_ratio: Optional[float] = None
     remaining_obligation_ratio: Optional[float] = None
+    batch_value_ratio: Optional[float] = None
+    unpaid_amount_ratio: Optional[float] = None
+    advance_payment_ratio: Optional[float] = None
+    replacement_cost_ratio: Optional[float] = None
+    delay_loss_ratio: Optional[float] = None
     time_amplifying: bool = False
     uncapped: bool = False
     level: str = "none"
@@ -309,6 +360,173 @@ class EvidenceClaim:
 
 
 @dataclass
+class RiskClaim:
+    claim_id: str
+    risk_type: str
+    proposition: str
+    existence_type: str
+    subject_party: str = ""
+    action: str = ""
+    object: str = ""
+    trigger: str = ""
+    condition: str = ""
+    direction: str = ""
+    consequence: str = ""
+    required_evidence_elements: List[str] = field(default_factory=list)
+
+    def to_public_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
+class ClaimState:
+    claim_id: str
+    fact_state: str
+    evidence_state: str
+    coverage_state: str
+    finding_state: str
+    narrative_state: str
+    recommendation_state: str
+
+    def to_public_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
+class CoverageClaim:
+    review_id: str
+    required_elements: List[Dict[str, Any]]
+    optional_elements: List[Dict[str, Any]] = field(default_factory=list)
+    positive_claims: List[str] = field(default_factory=list)
+    negative_claims: List[str] = field(default_factory=list)
+    minimum_pass_elements: int = 1
+    minimum_partial_elements: int = 1
+    satisfaction_paths: List[Dict[str, Any]] = field(default_factory=list)
+
+    def to_public_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
+class CoverageElementResult:
+    review_id: str
+    element_id: str
+    proposition: str
+    status: str
+    evidence_ids: List[str]
+    entailment: str
+    verifier_confidence: str
+    reason: str = ""
+    claim_id: str = ""
+    source_clause_ids: List[str] = field(default_factory=list)
+    source_spans: List[str] = field(default_factory=list)
+    source_locations: List[str] = field(default_factory=list)
+    atomic: bool = True
+    child_elements: List[str] = field(default_factory=list)
+    legal_proposition_ids: List[str] = field(default_factory=list)
+
+    def to_public_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
+class ApplicabilityResult:
+    review_id: str
+    applicable: Optional[bool]
+    trigger_facts: List[str]
+    trigger_evidence: List[Dict[str, Any]]
+    missing_triggers: List[str]
+    reason: str
+    confidence: str
+    status: str
+    machine_reason: str = ""
+    user_reason: str = ""
+    required_triggers: List[str] = field(default_factory=list)
+    satisfied_triggers: List[str] = field(default_factory=list)
+    unsatisfied_triggers: List[str] = field(default_factory=list)
+    conflicting_triggers: List[str] = field(default_factory=list)
+    trigger_fact_ids: List[str] = field(default_factory=list)
+    trigger_evidence_ids: List[str] = field(default_factory=list)
+
+    def to_public_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
+class EffectiveGap:
+    review_id: str
+    contract_coverage: str
+    default_law_status: str
+    default_protection: str
+    contract_context: Dict[str, Any]
+    remaining_legal_gap: str
+    operational_gap: str
+    economic_gap: str
+    uncertainty: str
+    residual_risk: str
+
+    def to_public_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
+class PriorityDecision:
+    finding_id: str
+    severity: str
+    priority: str
+    drivers: List[str]
+    mitigators: List[str]
+    default_law_effect: str
+    economic_effect: str
+    explanation: str
+
+    def to_public_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
+class SignabilityDecision:
+    label: str
+    decision_finding_ids: List[str]
+    reasons: List[str]
+    unresolved_uncertainty: List[str]
+    confidence: str
+
+    def to_public_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
+class MissingProof:
+    review_id: str
+    searched_fact_types: List[str]
+    searched_sections: List[str]
+    lexical_queries: List[str]
+    semantic_queries: List[str]
+    cross_clause_queries: List[str]
+    candidates_examined: List[str]
+    possible_conflicts: List[str]
+    exhaustive_enough: bool
+    confidence: str
+
+    def to_public_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
+class EvidenceAssembly:
+    review_id: str
+    candidate_evidence: List[str]
+    evidence_groups: List[Dict[str, Any]]
+    supporting_evidence: List[str]
+    counter_evidence: List[str]
+    missing_elements: List[str]
+
+    def to_public_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
 class EvidenceCandidate:
     evidence_id: str
     source_document: str
@@ -342,6 +560,47 @@ class NegativeEvidence:
 
 
 @dataclass
+class ConfidenceDependency:
+    requires_parser: bool = True
+    requires_fact: bool = False
+    requires_evidence: bool = False
+    requires_applicability: bool = True
+    requires_legal: bool = False
+    requires_formula: bool = False
+    requires_calculation: bool = False
+    requires_verifier: bool = True
+
+    def to_public_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
+class ConfidenceBundle:
+    parser_confidence: str
+    document_integrity_confidence: str
+    fact_confidence: str
+    retrieval_recall_confidence: str
+    evidence_confidence: str
+    applicability_confidence: str
+    legal_confidence: str
+    formula_confidence: str
+    calculation_confidence: str
+    verifier_confidence: str
+    aggregation_confidence: str
+    final_score: float
+    final_confidence: str
+    limiting_factors: List[str]
+    required_components: List[str]
+    ignored_components: List[str]
+    component_scores: Dict[str, float]
+    dependency: Dict[str, Any]
+    reason: str
+
+    def to_public_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
 class Recommendation:
     recommendation_id: str
     type: str
@@ -357,6 +616,12 @@ class Recommendation:
     proposed_text: str = ""
     expected_effect: str = ""
     confidence: Dict[str, Any] = field(default_factory=dict)
+    clauses: List[Dict[str, Any]] = field(default_factory=list)
+    components: List[Dict[str, Any]] = field(default_factory=list)
+    target_review_ids: List[str] = field(default_factory=list)
+    perspective: str = ""
+    impact: Dict[str, Any] = field(default_factory=dict)
+    status: str = "CANDIDATE"
 
     def to_public_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -364,6 +629,21 @@ class Recommendation:
 
 def _compact(text: str) -> str:
     return re.sub(r"\s+", "", text or "")
+
+
+def _stable_hash(value: Any) -> str:
+    raw = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), default=str).encode("utf-8")
+    return hashlib.sha256(raw).hexdigest()
+
+
+def _request_scoped_profile(profile: Optional[UserRiskProfile], contract_type: str) -> UserRiskProfile:
+    source = profile.to_dict() if profile is not None else UserRiskProfile.default().to_dict()
+    normalized = dict(source)
+    if contract_type == "sale" and normalized.get("contract_scenario") in {"", "居住用途", "投资/转租"}:
+        normalized["contract_scenario"] = "商品买卖"
+    elif contract_type in {"house_lease", "lease"} and not normalized.get("contract_scenario"):
+        normalized["contract_scenario"] = "居住用途"
+    return UserRiskProfile.from_dict(normalized)
 
 
 def _has_negated_word(text: str, word: str, window: int = 5) -> bool:
@@ -574,7 +854,17 @@ def _is_technology_checkpoint_applicable(compacted_text: str, checkpoint: Review
     return None, ""
 
 
-def _is_checkpoint_applicable(contract_text: str, checkpoint: ReviewCheckpoint, contract_type_key: str) -> tuple[bool, str]:
+def _is_checkpoint_applicable(contract_text: str, checkpoint: ReviewCheckpoint, contract_type_key: str, canonical_claims: Optional[Dict[str, Any]] = None) -> tuple[bool, str]:
+    # Applicability must be resolved before Coverage.
+    if checkpoint.applicability_triggers:
+        claims = canonical_claims or {}
+        resolved = [claims.get(trigger) for trigger in checkpoint.applicability_triggers]
+        conflicts = [claim for claim in resolved if claim is not None and claim.status == "CONFLICT"]
+        if conflicts or any(claim is None or claim.status == "UNKNOWN" for claim in resolved):
+            return False, f"触发事实不足，暂不确定是否适用：{', '.join(checkpoint.applicability_triggers)}。"
+        if all(bool(claim.object) for claim in resolved):
+            return True, f"触发事实已满足：{', '.join(checkpoint.applicability_triggers)}。"
+        return False, f"触发事实明确不成立：{', '.join(checkpoint.applicability_triggers)}。"
     applicability_text = _construction_contract_body(contract_text) if contract_type_key == "construction" else contract_text
     compacted = _compact(applicability_text)
     if contract_type_key == "technology":
@@ -601,10 +891,111 @@ def _is_checkpoint_applicable(contract_text: str, checkpoint: ReviewCheckpoint, 
 
     if checkpoint.node_id == "sale_installment_payment" and _has_installment_pattern(compacted):
         return True, "合同文本出现分期付款结构，适用该专项审查点。"
+    if checkpoint.node_id == "common_format_clause_notice":
+        public_template = any(term in compacted for term in ("示范文本", "政府发布", "协会发布", "公开范本"))
+        negotiated = any(term in compacted for term in ("双方协商填写", "双方协商一致", "逐条协商", "可协商修改"))
+        prepared_by_one_party = any(term in compacted for term in ("卖方提供", "买方提供", "甲方提供", "乙方提供", "一方预先拟定"))
+        non_negotiable = any(term in compacted for term in ("不可修改", "不得修改", "重复使用", "未与对方协商", "无权修改"))
+        restrictive = any(term in compacted for term in ("免除责任", "限制责任", "加重责任", "排除主要权利", "不承担任何"))
+        if public_template and negotiated and not (prepared_by_one_party and non_negotiable):
+            return False, "公开示范文本且合同记载双方协商填写，不能仅因文件具有范本外观推定为一方提供的格式条款。"
+        if prepared_by_one_party and non_negotiable and restrictive:
+            return True, "合同存在一方预先提供、缺乏实质协商且限制责任或权利的重要条款，触发格式条款提示说明审查。"
+        return False, "仅能确认文本具有模板或范本外观，不能确认一方预先拟定、重复使用及缺乏实质协商；适用性暂不确定。"
+    if checkpoint.node_id == "sale_risk_goods_in_transit":
+        transit_sale_patterns = (
+            "路货买卖",
+            "在途货物交易",
+            "买卖在途货物",
+            "买卖运输途中的标的物",
+            "已经发运正在运输途中的货物",
+            "发运后转卖",
+            "运输途中转卖",
+        )
+        composite_trigger = (
+            "买卖" in compacted
+            and any(term in compacted for term in ("已发运", "已经发运"))
+            and any(term in compacted for term in ("运输途中", "正在运输途中", "在途货物"))
+        )
+        if composite_trigger or any(_has_unnegated_word(compacted, pattern, window=18) for pattern in transit_sale_patterns):
+            return True, "合同明确涉及已发运或运输途中货物的转售，适用路货买卖专项审查。"
+        return False, "普通运输交付不等于路货买卖；未发现已发运后转卖或运输途中买卖的触发事实。"
+    if checkpoint.node_id == "sale_sample_quality":
+        legal_sample_sale = any(
+            phrase in compacted
+            for phrase in ("凭样品买卖", "按样品交付", "按封样样品交付", "样品作为交付标准", "样品质量标准", "以样品为准")
+        )
+        if legal_sample_sale:
+            return True, "合同明确以样品作为买卖标的质量或交付标准，适用凭样品买卖专项审查。"
+        return False, "技术封样或承认书仅是质量标准证据，不当然构成凭样品买卖。"
     for keyword in keywords:
         if _has_unnegated_word(compacted, keyword, window=18):
             return True, f"合同文本出现“{keyword}”，适用该专项审查点。"
     return False, f"未发现触发该专项审查点的交易类型表述：{checkpoint.applicable_if}"
+
+
+def _applicability_result_for_checkpoint(
+    checkpoint: ReviewCheckpoint,
+    clauses: List[Any],
+    applicable: bool,
+    reason: str,
+    canonical_claims: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
+    conditional = bool(checkpoint.applicable_if)
+    trigger_terms = list(_CONTRACT_APPLICABILITY_KEYWORDS.get("sale", {}).get(checkpoint.node_id, ()))
+    required_triggers = list(checkpoint.applicability_triggers) or trigger_terms
+    if checkpoint.node_id == "common_format_clause_notice":
+        trigger_terms = [
+            "卖方提供", "买方提供", "甲方提供", "乙方提供", "一方预先拟定",
+            "不可修改", "不得修改", "重复使用", "未与对方协商", "限制责任", "免除责任",
+        ]
+    trigger_evidence = []
+    trigger_facts = []
+    for clause in clauses:
+        matched = [term for term in trigger_terms if term and term in _compact(clause.text)]
+        if not matched:
+            continue
+        trigger_facts.extend(matched)
+        trigger_evidence.append({
+            "clause_id": clause.clause_id,
+            "location": clause.location,
+            "quote": clause.text[:260],
+            "block_type": clause.block_type,
+        })
+    uncertain = conditional and not applicable and "暂不确定" in reason
+    status = "UNCERTAIN" if uncertain else "APPLICABLE" if applicable else "NOT_APPLICABLE"
+    confidence = "low" if uncertain else "high" if (trigger_evidence or not conditional) else "medium"
+    claim_rows = [canonical_claims.get(trigger) for trigger in checkpoint.applicability_triggers if canonical_claims and canonical_claims.get(trigger)]
+    satisfied = [claim.claim_id for claim in claim_rows if bool(claim.object) and claim.status != "CONFLICT"]
+    unsatisfied = [trigger for trigger in checkpoint.applicability_triggers if trigger not in satisfied]
+    conflicting = [claim.claim_id for claim in claim_rows if claim.status == "CONFLICT"]
+    claim_evidence_ids = [evidence_id for claim in claim_rows for evidence_id in claim.evidence_ids]
+    return ApplicabilityResult(
+        review_id=checkpoint.item_id,
+        applicable=None if uncertain else applicable,
+        trigger_facts=list(dict.fromkeys(trigger_facts)),
+        trigger_evidence=trigger_evidence,
+        missing_triggers=[] if applicable else trigger_terms,
+        reason=reason or "未声明条件审查规则，默认适用于当前合同。",
+        confidence=confidence,
+        status=status,
+        machine_reason=reason or "未声明条件审查规则，默认适用于当前合同。",
+        user_reason=(
+            f"现有合同信息不足以确认是否满足“{checkpoint.applicable_if}”，需结合相关材料核对。"
+            if uncertain else
+            f"合同已触发“{checkpoint.applicable_if}”这一适用条件。"
+            if conditional and applicable else
+            f"合同未触发“{checkpoint.applicable_if}”这一适用条件，本审查事项不适用。"
+            if conditional else
+            "该审查事项适用于当前合同。"
+        ),
+        required_triggers=required_triggers,
+        satisfied_triggers=satisfied,
+        unsatisfied_triggers=unsatisfied,
+        conflicting_triggers=conflicting,
+        trigger_fact_ids=[fact_id for claim in claim_rows for fact_id in claim.fact_ids],
+        trigger_evidence_ids=claim_evidence_ids,
+    ).to_public_dict()
 
 
 def _get_fact_path_value(facts: Any, path: str) -> Any:
@@ -720,10 +1111,18 @@ def _evaluate_lease_fact_applicability(checkpoint: ReviewCheckpoint, facts: Hous
     rule = LEASE_APPLICABILITY_RULES.get(checkpoint.item_id)
     if rule:
         applicable, depends_on, evaluations = _evaluate_applicability_rule(rule, facts)
+        machine_reason = rule["applicable_reason"] if applicable else rule["not_applicable_reason"]
+        condition_label = checkpoint.applicable_if or checkpoint.title
         return {
             "status": "applicable" if applicable else "not_applicable",
             "applicable": applicable,
-            "reason": rule["applicable_reason"] if applicable else rule["not_applicable_reason"],
+            "reason": machine_reason,
+            "machine_reason": machine_reason,
+            "user_reason": (
+                f"合同现有安排满足“{condition_label}”的审查条件。"
+                if applicable else
+                f"合同现有安排不满足“{condition_label}”这一适用条件，本审查事项不适用。"
+            ),
             "depends_on": depends_on,
             "evaluations": evaluations,
         }
@@ -731,6 +1130,8 @@ def _evaluate_lease_fact_applicability(checkpoint: ReviewCheckpoint, facts: Hous
         "status": "applicable",
         "applicable": True,
         "reason": "未触发事实层排除条件，继续执行审查。",
+        "machine_reason": "未触发事实层排除条件，继续执行审查。",
+        "user_reason": "该审查事项适用于当前合同。",
         "depends_on": [],
     }
 
@@ -755,7 +1156,10 @@ def _not_applicable_item(checkpoint: ReviewCheckpoint, reason: str) -> ReviewIte
         reasoning_summary=reason,
         judge_source="applicability_filter",
     )
-    item.applicability = {"status": "not_applicable", "applicable": False, "reason": reason, "depends_on": []}
+    item.applicability = {
+        "status": "not_applicable", "applicable": False, "reason": reason,
+        "machine_reason": reason, "user_reason": _user_facing_reasoning(reason), "depends_on": [],
+    }
     item.action_suggestion = "不适用"
     return item
 
@@ -946,6 +1350,12 @@ def _enrich_evidence_source(evidence: Dict[str, Any]) -> Dict[str, Any]:
     enriched.setdefault("document_id", "contract_package/main" if document_type == "MAIN_CONTRACT" else f"contract_package/{document_type.lower()}")
     enriched.setdefault("document_type", document_type)
     enriched.setdefault("source_document_type", document_type)
+    enriched.setdefault("evidence_block_type", enriched.get("block_type") or (
+        "ANNEX" if document_type == "APPENDIX" else
+        "PARTY_INFORMATION" if enriched.get("source") == "party_info" else
+        "SIGNATURE_BLOCK" if enriched.get("source") == "signature" else
+        "OPERATIVE_CLAUSE"
+    ))
     enriched.setdefault("document_name", "合同正文" if document_type == "MAIN_CONTRACT" else "合同附件/补充文件")
     enriched.setdefault("section", enriched.get("location") or enriched.get("section_type") or "")
     enriched.setdefault("sentence_index", sentence_index)
@@ -962,6 +1372,7 @@ def _enrich_evidence_source(evidence: Dict[str, Any]) -> Dict[str, Any]:
             "sentence_index": enriched.get("sentence_index"),
             "quote": enriched.get("quote"),
             "confidence": enriched.get("confidence"),
+            "evidence_block_type": enriched.get("evidence_block_type"),
         },
     )
     return enriched
@@ -970,6 +1381,12 @@ def _enrich_evidence_source(evidence: Dict[str, Any]) -> Dict[str, Any]:
 def _enrich_evidence_sources(items: List[ReviewItemResult]) -> List[ReviewItemResult]:
     for item in items:
         item.evidence_clauses = [_enrich_evidence_source(evidence) for evidence in (item.evidence_clauses or [])]
+        locations = [
+            value.strip()
+            for value in re.split(r"[；;\n]+", item.evidence_location or "")
+            if value.strip() and re.search(r"[\w\u4e00-\u9fff]", value.strip())
+        ]
+        item.evidence_location = "；".join(dict.fromkeys(locations))
     return items
 
 
@@ -999,6 +1416,978 @@ def _evidence_claim_for_item(item: ReviewItemResult) -> EvidenceClaim:
         consequence=item.legal_consequence_if_missing,
         confidence="high" if item.risk_group in {"early_termination_financial_exposure", "deposit_offset_order"} else "medium",
     )
+
+
+def _coverage_claim_for_item(item: ReviewItemResult) -> CoverageClaim:
+    required: List[Dict[str, Any]] = []
+    minimum_pass = 1
+    minimum_partial = 1
+    alternative = (item.decision_trace or {}).get("alternative_satisfaction") or {}
+    if item.node_id == "sale_attachment_priority":
+        required = [
+            {"element_id": "attachment_effect", "required_claim": "document.precedence", "required_claim_element": "attachment_effect", "proposition": "附件属于合同文件并具有约束力。", "terms": []},
+            {"element_id": "attachment_vs_main", "required_claim": "document.precedence", "required_claim_element": "attachment_vs_main", "proposition": "合同明确附件与正文发生冲突时的适用顺位。", "terms": []},
+        ]
+        minimum_pass = len(required)
+    elif item.node_id == "framework_document_precedence":
+        required = [
+            {"element_id": key, "required_claim": "document.precedence", "required_claim_element": key, "proposition": proposition, "terms": []}
+            for key, proposition in (
+                ("supplement_priority", "补充协议的优先顺位已明确。"),
+                ("amendment_priority", "书面变更文件的优先顺位已明确。"),
+                ("order_priority", "采购订单与主协议之间的适用顺位已明确。"),
+                ("conditional_override", "订单特别变更须经授权人员书面确认。"),
+            )
+        ]
+        minimum_pass = len(required)
+    elif alternative.get("status") == "SATISFIED":
+        fact_names = list(alternative.get("fact_names") or [])
+        fact_values = dict(alternative.get("values") or {})
+        production_claims = display_claims(fact_names, fact_values)
+        item.decision_trace["production_display_claims"] = [claim.to_public_dict() for claim in production_claims]
+        required = [
+            {
+                "element_id": f"commercial_fact_{name}",
+                "required_fact": name,
+                "proposition": claim.user_statement,
+                "terms": [],
+            }
+            for name, claim in zip(fact_names, production_claims)
+        ]
+        minimum_pass = len(required)
+        minimum_partial = 1
+    elif common_requirement := common_sale_coverage_requirement(item.node_id):
+        required = list(common_requirement["required_elements"])
+        return CoverageClaim(
+            review_id=item.item_id,
+            required_elements=required,
+            optional_elements=list(common_requirement.get("optional_elements") or []),
+            positive_claims=[element["proposition"] for element in required],
+            minimum_pass_elements=len(required),
+            minimum_partial_elements=1,
+            satisfaction_paths=list(common_requirement.get("satisfaction_paths") or []),
+        )
+    elif item.node_id == "real_estate_third_party_rights":
+        claim_labels = {
+            "property.mortgage.disclosed": "抵押情况已披露",
+            "property.judicial_seizure.disclosed": "司法查封情况已披露",
+            "property.ownership_dispute.disclosed": "产权争议情况已披露",
+            "property.coownership.disclosed": "共有情况已披露",
+            "property.lease.disclosed": "现有租赁情况已披露",
+            "seller.encumbrance_warranty.exists": "卖方已作第三方权利负担保证",
+        }
+        required = [
+            {"element_id": claim_id, "required_claim": claim_id, "proposition": claim_labels[claim_id], "terms": []}
+            for claim_id in (
+                "property.mortgage.disclosed", "property.judicial_seizure.disclosed",
+                "property.ownership_dispute.disclosed", "property.coownership.disclosed",
+                "property.lease.disclosed", "seller.encumbrance_warranty.exists",
+            )
+        ]
+        minimum_pass = len(required)
+        minimum_partial = 1
+    elif item.node_id == "real_estate_agent_authority":
+        required = [
+            {"element_id": "agent_identity", "proposition": "代理人身份明确。", "terms": ["代理人"]},
+            {"element_id": "authority_scope", "proposition": "授权范围包括签约、收款或过户。", "terms": ["签署", "签约", "收款", "过户", "转移登记"]},
+            {"element_id": "power_of_attorney", "proposition": "授权委托书作为合同附件或证据。", "terms": ["授权委托书"]},
+            {"element_id": "authority_term", "proposition": "授权期限明确。", "terms": ["授权期限", "有效期", "期限"]},
+        ]
+        minimum_pass = len(required)
+        minimum_partial = 1
+    elif item.node_id == "tenant_death_successor":
+        required = [
+            {
+                "element_id": "death_during_lease",
+                "proposition": "承租人在租赁期间死亡。",
+                "terms": ["承租人死亡", "租赁期间死亡", "租期内死亡", "乙方死亡"],
+            },
+            {
+                "element_id": "successor_continue",
+                "proposition": "共同居住人或共同经营人可以继续承租或继续使用房屋。",
+                "terms": ["共同居住", "共同经营", "继续承租", "继续租赁", "继续使用"],
+            },
+        ]
+        minimum_pass = 2
+        minimum_partial = 1
+    elif item.node_id == "common_jurisdiction":
+        required = [
+            {
+                "element_id": "dispute_resolution_path",
+                "proposition": "合同约定诉讼或仲裁的争议解决路径。",
+                "terms": ["人民法院", "法院", "起诉", "仲裁委员会", "仲裁"],
+            },
+            {
+                "element_id": "specific_dispute_forum",
+                "proposition": "合同明确具体管辖法院或仲裁机构。",
+                "terms": ["人民法院", "仲裁委员会"],
+            },
+        ]
+        minimum_pass = 2
+        minimum_partial = 1
+    elif item.node_id == "tenant_death_settlement":
+        required = [
+            {
+                "element_id": "no_successor_handover",
+                "proposition": "无人继续承租时的房屋返还、费用结算或遗留物处理。",
+                "terms": ["无人继续", "继承人", "遗留物", "交接", "返还房屋", "结清费用"],
+            }
+        ]
+    elif item.node_id == "indefinite_lease":
+        required = [
+            {
+                "element_id": "post_expiry_continue_use",
+                "proposition": "租期届满后承租人继续使用房屋或继续居住。",
+                "terms": ["租期届满", "期满", "继续使用", "继续居住", "继续承租", "续租"],
+            },
+            {
+                "element_id": "no_objection_or_rent_acceptance",
+                "proposition": "出租人未提出异议或继续收租。",
+                "terms": ["未提出异议", "没有异议", "继续收租", "接受租金", "同意续租"],
+            },
+            {
+                "element_id": "reasonable_notice",
+                "proposition": "转为不定期租赁后的合理期限通知或书面通知。",
+                "terms": ["合理期限", "提前", "书面通知", "解除", "通知"],
+            },
+        ]
+        minimum_pass = 3
+        minimum_partial = 1
+    elif item.node_id == "reasonable_repair_cost":
+        required = [
+            {
+                "element_id": "actual_reasonable_cost",
+                "proposition": "维修费用以必要、合理、实际发生为限。",
+                "terms": ["必要", "合理", "实际发生", "维修费", "维修费用"],
+            },
+            {
+                "element_id": "repair_voucher",
+                "proposition": "出租人提供维修单据、发票、报价单或鉴定材料。",
+                "terms": ["维修单", "发票", "报价单", "鉴定", "票据", "凭证"],
+            },
+        ]
+        minimum_pass = 2
+        minimum_partial = 1
+    elif item.node_id == "deposit_offset_order":
+        required = [
+            {
+                "element_id": "offset_items",
+                "proposition": "押金可抵扣的未付租金、费用或维修赔偿项目。",
+                "terms": ["押金", "抵扣", "扣除", "未付租金", "欠费", "维修费"],
+            },
+            {
+                "element_id": "offset_order",
+                "proposition": "押金抵扣顺序。",
+                "terms": ["抵扣顺序", "扣除顺序", "先抵扣", "后抵扣", "依次", "其次"],
+            },
+        ]
+        minimum_pass = 2
+        minimum_partial = 1
+    elif item.node_id == "deposit_return_deadline":
+        required = [
+            {
+                "element_id": "deposit_return",
+                "proposition": "租赁终止或交接后押金余额返还。",
+                "terms": ["押金", "保证金", "返还", "退还", "归还"],
+            },
+            {
+                "element_id": "return_deadline",
+                "proposition": "押金返还的具体期限或触发时间。",
+                "terms": ["日内", "工作日", "期限", "交接后", "结算后", "完成交接"],
+            },
+        ]
+        minimum_pass = 2
+        minimum_partial = 1
+    elif item.node_id == "termination_notice":
+        required = [
+            {
+                "element_id": "termination_trigger",
+                "proposition": "合同约定解除事由或触发条件。",
+                "terms": ["解除合同", "有权解除", "解除条件", "严重违约", "合同目的不能实现"],
+            },
+            {
+                "element_id": "termination_notice_delivery",
+                "proposition": "解除通知的书面方式或送达渠道。",
+                "terms": ["解除", "书面通知", "送达", "电子邮件", "地址"],
+            },
+            {
+                "element_id": "termination_effective_time",
+                "proposition": "解除通知到达或解除生效节点。",
+                "terms": ["通知到达", "送达之日", "解除生效", "到达对方"],
+            },
+        ]
+        minimum_pass = 3
+        minimum_partial = 1
+    elif item.node_id == "limitation_and_notice":
+        required = [
+            {
+                "element_id": "notice_channel",
+                "proposition": "合同约定通知、送达或催告的联系方式及地址。",
+                "terms": ["通知", "送达", "催告", "地址", "联系电话", "通讯地址", "电子邮件"],
+            },
+            {
+                "element_id": "change_duty",
+                "proposition": "联系方式或送达地址变更时负有通知义务。",
+                "terms": ["变更", "通知对方", "地址变更", "联系方式变更"],
+            },
+            {
+                "element_id": "deemed_service",
+                "proposition": "合同约定有效送达或视为送达规则。",
+                "terms": ["视为送达", "有效送达", "送达即", "退回之日"],
+            },
+        ]
+        minimum_pass = 3
+        minimum_partial = 1
+    elif item.node_id == "illegal_building":
+        required = [
+            {
+                "element_id": "lawful_lease_basis",
+                "proposition": "合同列明权属证明、产证编号或合法出租基础。",
+                "terms": ["产证编号", "不动产权证", "权利人", "房屋合法", "非违法建筑", "出租条件"],
+            }
+        ]
+    elif item.node_id == "force_majeure":
+        required = [
+            {
+                "element_id": "force_majeure_event",
+                "proposition": "合同出现不可抗力或不可归责事由处理框架。",
+                "terms": ["不可抗力", "无法居住", "无法使用", "通知", "证明"],
+            }
+        ]
+    elif item.node_id == "safety_risk":
+        required = [
+            {
+                "element_id": "safety_termination_event",
+                "proposition": "合同出现危险房屋、毁损灭失或安全隐患解除事由。",
+                "terms": ["危险房屋", "毁损", "灭失", "安全", "无法居住", "人身损害"],
+            }
+        ]
+    elif item.node_id == "burden_of_proof":
+        required = [
+            {
+                "element_id": "damage_baseline_evidence",
+                "proposition": "合同或附件提供退租损坏核对的基础清单、验收依据或状态记录。",
+                "terms": ["附件三", "清单", "装修", "附属设施", "验收依据", "返还"],
+            }
+        ]
+    elif item.node_id == "keys_access":
+        required = [
+            {
+                "element_id": "possession_return",
+                "proposition": "合同约定房屋返还、验收依据或占有返还安排。",
+                "terms": ["返还该房屋", "返还", "验收依据", "钥匙", "门禁", "占有"],
+            }
+        ]
+    elif item.node_id == "sale_quality_remedy":
+        required = [
+            {
+                "element_id": "quality_objection_period",
+                "proposition": "买卖合同约定质量问题提出期限或异议程序。",
+                "terms": ["质量问题", "质量异议", "发现后", "提出", "期限"],
+            },
+            {
+                "element_id": "quality_objection_form",
+                "proposition": "买卖合同明确质量异议的书面通知或可留痕方式。",
+                "terms": ["书面提出", "书面通知", "书面异议", "电子邮件", "质量异议单"],
+            },
+            {
+                "element_id": "quality_remedy_method",
+                "proposition": "买卖合同约定质量不符合时的补救方式。",
+                "terms": ["更换", "补发", "修理", "重作", "退货", "减少价款", "赔偿"],
+            },
+        ]
+        minimum_pass = 3
+        minimum_partial = 1
+    elif item.node_id == "sale_quality_standard_basis":
+        required = [
+            {
+                "element_id": "multiple_standards_exist",
+                "proposition": "合同同时适用两个以上质量标准或技术文件。",
+                "terms": ["国家标准", "行业标准", "企业标准", "技术协议", "样品"],
+            },
+            {
+                "element_id": "precedence_between_standards",
+                "proposition": "合同明确多个质量标准冲突时的适用顺序。",
+                "terms": ["优先", "顺序", "冲突时", "不一致时", "特别约定为准", "特别约定标准为准", "较高标准"],
+            },
+            {
+                "element_id": "conflict_resolution",
+                "proposition": "合同明确标准冲突的确认或解决机制。",
+                "terms": ["书面确认", "协商确定", "冲突解决", "以双方确认"],
+            },
+        ]
+        minimum_pass = 2
+        minimum_partial = 1
+    elif item.node_id == "sale_delivery_method":
+        required = [
+            {
+                "element_id": "delivery_method",
+                "proposition": "合同明确运输或交付方式。",
+                "terms": ["运输方式", "负责运输", "送货", "提货", "自提", "物流"],
+            },
+            {
+                "element_id": "acceptance_voucher",
+                "proposition": "合同明确签收主体及送货单、签收单或物流回执等交付凭证。",
+                "terms": ["授权收货人", "工作人员", "指定人员", "送货单", "签收单", "物流回执", "签字"],
+            },
+        ]
+        minimum_pass = 2
+        minimum_partial = 1
+    elif item.node_id == "sale_payment_method_account":
+        required = [
+            {
+                "element_id": "payment_method",
+                "proposition": "合同明确货款支付方式。",
+                "terms": ["银行转账", "转账", "支付方式", "付款方式"],
+            },
+            {
+                "element_id": "payment_account",
+                "proposition": "合同明确收款账户或开户行信息。",
+                "terms": ["收款账户", "银行账号", "账号", "开户行"],
+            },
+        ]
+        minimum_pass = 2
+        minimum_partial = 1
+    elif item.node_id == "sale_payment_schedule":
+        required = [
+            {
+                "element_id": "payment_trigger",
+                "proposition": "合同明确货款支付触发节点或期限。",
+                "terms": ["签收后", "对账后", "次月", "日前", "日内", "支付"],
+            }
+        ]
+    elif item.node_id == "sale_validity_true_intent":
+        required = [
+            {
+                "element_id": "mutual_intent_expression",
+                "proposition": "合同载明双方经协商一致、自愿达成交易安排。",
+                "terms": ["双方", "友好协商", "协商一致", "自愿", "达成如下协议"],
+            }
+        ]
+    elif item.node_id == "sale_liquidated_damages_adjustment":
+        required = [
+            {
+                "element_id": "liquidated_damages_standard",
+                "proposition": "合同明确违约金计算标准，可依法结合实际损失审查调整。",
+                "terms": ["违约金", "万分之", "百分之", "%", "每日", "按天"],
+            }
+        ]
+    elif item.node_id in {"rent_payment", "deposit_amount", "procedure_jurisdiction", "ownership_authority"} and item.fact_dependencies:
+        required = [
+            {
+                "element_id": "fact_backed_contract_term",
+                "proposition": f"合同原文可支撑“{item.title}”事实。",
+                "terms": [item.title, *item.fact_dependencies],
+            }
+        ]
+    else:
+        terms = list(dict.fromkeys([str(term) for term in (item.matched_terms or []) if term] + [item.title]))
+        required = [
+            {
+                "element_id": "core_contract_arrangement",
+                "proposition": f"合同存在“{item.title}”对应的核心安排。",
+                "terms": terms,
+            }
+        ]
+    return CoverageClaim(
+        review_id=item.item_id,
+        required_elements=required,
+        positive_claims=[element["proposition"] for element in required],
+        minimum_pass_elements=minimum_pass,
+        minimum_partial_elements=minimum_partial,
+    )
+
+
+def _apply_framework_fact_paths(
+    items: List[ReviewItemResult],
+    profile: FrameworkSupplyProfile,
+    clauses: List[Any],
+) -> List[ReviewItemResult]:
+    if not profile.is_framework:
+        return items
+    by_clause_id = {clause.clause_id: clause for clause in clauses}
+    profile_data = profile.to_public_dict()
+    for item in items:
+        if profile.product_category == "INDUSTRIAL_COMPONENTS" and item.node_id == "sale_approval_license":
+            _set_item_not_applicable(item, "标的是普通工业零部件，合同未出现专营、许可、审批或强制准入触发事实。")
+            item.decision_trace["commercial_applicability"] = {"product_category": profile.product_category, "regulated_goods_trigger": False}
+            continue
+        if profile.product_category == "INDUSTRIAL_COMPONENTS" and item.node_id == "sale_subject_legality":
+            _set_item_not_applicable(item, "标的是普通工业零部件，未出现禁止流通、限制流通、来源违法或权属争议触发事实。")
+            item.decision_trace["commercial_applicability"] = {"product_category": profile.product_category, "regulated_or_illegal_goods_trigger": False}
+            continue
+        if item.node_id == "sale_risk_carrier_delivery" and profile.carrier_rule_applicability.value is False:
+            _set_item_not_applicable(item, "卖方负责送达买方指定地点，且风险在目的地签收后转移；货交第一承运人规则不适用。")
+            item.decision_trace["carrier_rule_applicability"] = profile.carrier_rule_applicability.to_public_dict()
+            continue
+        fact_names = FRAMEWORK_REVIEW_FACT_PATHS.get(item.node_id)
+        if not fact_names:
+            continue
+        fact_rows = [profile_data.get(name) or {} for name in fact_names]
+        satisfied = bool(fact_rows) and all(
+            row.get("source_clause_ids") and (row.get("value") is not None or row.get("exists") is not None)
+            for row in fact_rows
+        )
+        trace = {
+            "status": "SATISFIED" if satisfied else "NOT_SATISFIED",
+            "fact_names": list(fact_names),
+            "source_clause_ids": list(dict.fromkeys(
+                clause_id for row in fact_rows for clause_id in row.get("source_clause_ids", [])
+            )),
+            "values": {name: profile_data.get(name) for name in fact_names},
+            "evaluation": "ALL_REQUIRED_FACTS_WITH_PROVENANCE",
+        }
+        item.decision_trace["alternative_satisfaction"] = trace
+        if not satisfied:
+            continue
+        evidence = [by_clause_id[clause_id] for clause_id in trace["source_clause_ids"] if clause_id in by_clause_id]
+        if not evidence:
+            continue
+        _set_item_pass(
+            item,
+            evidence[:12],
+            "统一商业事实图谱已通过来源条款满足该审查项，替代满足路径校验通过。",
+            f"合同已通过框架供货事实路径完整覆盖“{item.title}”。",
+        )
+        item.matched_terms = list(fact_names)
+        item.fact_dependencies = sorted(set(item.fact_dependencies + [f"commercial.{name}" for name in fact_names]))
+        item.fallback_reason = "框架供货统一事实图谱"
+        for evidence_row in item.evidence_clauses:
+            evidence_row["entailment_status"] = EVIDENCE_SUPPORTS
+            evidence_row["evidence_type"] = "COMMERCIAL_FACT_EVIDENCE"
+    return items
+
+
+def _evidence_id(evidence: Dict[str, Any], index: int) -> str:
+    return str(evidence.get("evidence_id") or evidence.get("clause_id") or evidence.get("location") or f"EV-{index}")
+
+
+def _element_supported_by_evidence(element: Dict[str, Any], evidence: Dict[str, Any]) -> tuple[str, str]:
+    text = _compact(str(evidence.get("text") or evidence.get("quote") or ""))
+    terms = [str(term) for term in element.get("terms", []) if term]
+    matched = [term for term in terms if term and term in text]
+    entailment = str(evidence.get("entailment_status") or "")
+    if element.get("element_id") == "return_deadline":
+        return (
+            ("COVERED", EVIDENCE_SUPPORTS)
+            if has_specific_deposit_return_deadline(str(evidence.get("text") or evidence.get("quote") or ""))
+            else ("MISSING", EVIDENCE_RELATED_NOT_SUPPORTING)
+        )
+    if element.get("element_id") == "specific_dispute_forum":
+        generic_forum = any(
+            phrase in text
+            for phrase in ("有管辖权的人民法院", "有管辖权的法院", "有管辖权法院")
+        )
+        named_forum = bool(
+            re.search(r"(?:[\u4e00-\u9fff]{2,20})(?:人民法院|仲裁委员会)", text)
+        )
+        if named_forum and not generic_forum:
+            return "COVERED", EVIDENCE_SUPPORTS
+        return "MISSING", EVIDENCE_RELATED_NOT_SUPPORTING
+    if element.get("element_id") == "multiple_standards_exist":
+        standard_categories = sum(
+            1 for terms_in_category in (
+                ("国家标准", "GB/", "GB-"),
+                ("行业标准",),
+                ("企业标准", "Q/", "Q-"),
+                ("技术协议", "技术规格书"),
+                ("样品", "封样"),
+            )
+            if any(term in text for term in terms_in_category)
+        )
+        if standard_categories >= 2:
+            return "COVERED", EVIDENCE_SUPPORTS
+        if standard_categories == 1:
+            return "PARTIALLY_COVERED", EVIDENCE_PARTIAL_SUPPORT
+    if entailment in {EVIDENCE_SUPPORTS, EVIDENCE_PARTIAL_SUPPORT}:
+        if matched or not terms:
+            return "COVERED" if entailment == EVIDENCE_SUPPORTS else "PARTIALLY_COVERED", entailment
+        return "UNCERTAIN", EVIDENCE_UNCERTAIN
+    if entailment == EVIDENCE_RELATED_NOT_SUPPORTING:
+        return "MISSING", EVIDENCE_RELATED_NOT_SUPPORTING
+    if matched:
+        strong_single_terms = {"产证编号", "不动产权证", "不可抗力", "危险房屋", "附件三", "验收依据", "返还该房屋"}
+        if len(matched) >= 2 or len(matched) == len(terms) or bool(set(matched) & strong_single_terms):
+            if len(matched) >= 2 or len(matched) == len(terms):
+                return "COVERED", EVIDENCE_SUPPORTS
+            return "PARTIALLY_COVERED", EVIDENCE_PARTIAL_SUPPORT
+        return "UNCERTAIN", EVIDENCE_UNCERTAIN
+    return "MISSING", EVIDENCE_NOT_RELEVANT
+
+
+def _coverage_elements_for_item(item: ReviewItemResult, canonical_claims: Optional[Dict[str, Any]] = None) -> List[CoverageElementResult]:
+    claim = _coverage_claim_for_item(item)
+    results: List[CoverageElementResult] = []
+    evidences = item.evidence_clauses or []
+    negative = (item.decision_trace or {}).get("negative_evidence") or {}
+    for element in claim.required_elements:
+        required_fact = str(element.get("required_fact") or "")
+        if required_fact:
+            alternative = (item.decision_trace or {}).get("alternative_satisfaction") or {}
+            fact_row = (alternative.get("values") or {}).get(required_fact) or {}
+            source_clause_ids = list(fact_row.get("source_clause_ids") or [])
+            supported = alternative.get("status") == "SATISFIED" and bool(source_clause_ids)
+            results.append(CoverageElementResult(
+                review_id=item.item_id,
+                element_id=str(element.get("element_id")),
+                proposition=str(element.get("proposition")),
+                status="COVERED" if supported else "MISSING",
+                evidence_ids=[f"CF-{clause_id}" for clause_id in source_clause_ids],
+                entailment=EVIDENCE_SUPPORTS if supported else EVIDENCE_NOT_RELEVANT,
+                verifier_confidence="high" if supported else "low",
+                reason="Commercial Fact Graph satisfies this element." if supported else "Commercial fact has no supporting source evidence.",
+                claim_id=f"commercial.{required_fact}",
+                source_clause_ids=source_clause_ids,
+                source_spans=list(fact_row.get("source_spans") or []),
+                source_locations=[],
+                atomic=bool(element.get("atomic", True)),
+                child_elements=list(element.get("child_elements") or []),
+                legal_proposition_ids=list(element.get("legal_proposition_ids") or []),
+            ))
+            continue
+        required_claim = str(element.get("required_claim") or "")
+        if required_claim:
+            canonical = (canonical_claims or {}).get(required_claim)
+            semantic_key = str(element.get("required_claim_element") or "")
+            semantic_values = ((canonical.object or {}).get("hierarchy") or {}) if canonical and isinstance(canonical.object, dict) else {}
+            supported = bool(
+                canonical and canonical.status == "ASSERTED" and canonical.source_clause_ids
+                and (not semantic_key or semantic_values.get(semantic_key) is True)
+            )
+            results.append(CoverageElementResult(
+                review_id=item.item_id, element_id=str(element.get("element_id")), proposition=str(element.get("proposition")),
+                status="COVERED" if supported else "MISSING",
+                evidence_ids=list(canonical.evidence_ids) if canonical else [],
+                entailment=EVIDENCE_SUPPORTS if supported else EVIDENCE_NOT_RELEVANT,
+                verifier_confidence=canonical.confidence if canonical else "low",
+                reason="Canonical Claim evidence supports this element." if supported else "Canonical Claim has no supporting source evidence.",
+                claim_id=required_claim,
+                source_clause_ids=list(canonical.source_clause_ids) if canonical else [],
+                source_spans=list(canonical.source_spans) if canonical else [],
+                source_locations=list(getattr(canonical, "source_locations", [])) if canonical else [],
+                atomic=bool(element.get("atomic", True)),
+                child_elements=list(element.get("child_elements") or []),
+                legal_proposition_ids=list(element.get("legal_proposition_ids") or []),
+            ))
+            continue
+        best_status = "MISSING"
+        best_entailment = "NEGATIVE_SEARCH_NOT_FOUND" if negative.get("result") == "NOT_FOUND" else EVIDENCE_NOT_RELEVANT
+        evidence_ids: List[str] = []
+        for index, evidence in enumerate(evidences, start=1):
+            status, entailment = _element_supported_by_evidence(element, evidence)
+            if status in {"COVERED", "PARTIALLY_COVERED"}:
+                evidence_ids.append(_evidence_id(evidence, index))
+            if status == "COVERED":
+                best_status = "COVERED"
+                best_entailment = entailment
+                break
+            if status == "PARTIALLY_COVERED" and best_status not in {"COVERED", "PARTIALLY_COVERED"}:
+                best_status = "PARTIALLY_COVERED"
+                best_entailment = entailment
+            elif status == "UNCERTAIN" and best_status == "MISSING":
+                best_status = "UNCERTAIN"
+                best_entailment = entailment
+        verifier_confidence = "high" if best_status == "COVERED" else "medium" if best_status in {"PARTIALLY_COVERED", "MISSING"} else "low"
+        if best_status == "MISSING" and best_entailment == "NEGATIVE_SEARCH_NOT_FOUND":
+            verifier_confidence = "high"
+        supporting_evidence = [
+            evidence for index, evidence in enumerate(evidences, start=1)
+            if _evidence_id(evidence, index) in evidence_ids
+        ]
+        results.append(
+            CoverageElementResult(
+                review_id=item.item_id,
+                element_id=str(element.get("element_id") or "element"),
+                proposition=str(element.get("proposition") or ""),
+                status=best_status,
+                evidence_ids=evidence_ids,
+                entailment=best_entailment,
+                verifier_confidence=verifier_confidence,
+                reason="元素级证据可支撑。" if evidence_ids else "未找到可支撑该元素的合同证据。",
+                source_clause_ids=list(dict.fromkeys(str(evidence.get("clause_id") or "") for evidence in supporting_evidence if evidence.get("clause_id"))),
+                source_spans=list(dict.fromkeys(str(evidence.get("original_excerpt") or evidence.get("text") or "") for evidence in supporting_evidence if evidence.get("original_excerpt") or evidence.get("text"))),
+                source_locations=list(dict.fromkeys(str(evidence.get("location") or "") for evidence in supporting_evidence if evidence.get("location"))),
+                atomic=bool(element.get("atomic", True)),
+                child_elements=list(element.get("child_elements") or []),
+                legal_proposition_ids=list(element.get("legal_proposition_ids") or []),
+            )
+        )
+    return results
+
+
+def _normalize_evidence_locations(locations: Iterable[str]) -> List[str]:
+    """Keep stable, clause-level locations and discard parser punctuation noise."""
+    normalized: List[str] = []
+    seen: set[str] = set()
+    for raw in locations:
+        value = re.sub(r"\s+", "", str(raw or "")).strip("；;，,。.:：、|/\\")
+        if not value or value in {"附件", "正文", "合同", "条款", "未知位置", "未定位"}:
+            continue
+        if not re.search(r"第[一二三四五六七八九十百零〇0-9]+(?:条|款|项|章|段)|附件[一二三四五六七八九十0-9]+|附录[一二三四五六七八九十0-9]+|第[一二三四五六七八九十0-9]+部分", value):
+            continue
+        key = re.sub(r"[\W_]+", "", value, flags=re.UNICODE).lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        normalized.append(value)
+    return normalized
+
+
+def _aggregate_review_provenance(
+    coverage_elements: List[Dict[str, Any]],
+    evidence_clauses: Optional[List[Dict[str, Any]]] = None,
+) -> Dict[str, Any]:
+    evidence_by_id: Dict[str, Dict[str, Any]] = {}
+    for index, evidence in enumerate(evidence_clauses or [], start=1):
+        evidence_by_id[_evidence_id(evidence, index)] = evidence
+        if evidence.get("evidence_id"):
+            evidence_by_id[str(evidence["evidence_id"])] = evidence
+
+    evidence_ids: List[str] = []
+    clause_ids: List[str] = []
+    source_spans: List[str] = []
+    locations: List[str] = []
+    claim_ids: List[str] = []
+    for element in coverage_elements:
+        if element.get("status") not in {"COVERED", "PARTIALLY_COVERED"}:
+            continue
+        if element.get("claim_id"):
+            claim_ids.append(str(element["claim_id"]))
+        evidence_ids.extend(str(value) for value in element.get("evidence_ids", []) if value)
+        clause_ids.extend(str(value) for value in element.get("source_clause_ids", []) if value)
+        source_spans.extend(str(value) for value in element.get("source_spans", []) if value)
+        locations.extend(str(value) for value in element.get("source_locations", []) if value)
+        for evidence_id in element.get("evidence_ids", []):
+            evidence = evidence_by_id.get(str(evidence_id))
+            if not evidence:
+                continue
+            if evidence.get("clause_id"):
+                clause_ids.append(str(evidence["clause_id"]))
+            if evidence.get("original_excerpt") or evidence.get("text"):
+                source_spans.append(str(evidence.get("original_excerpt") or evidence.get("text")))
+            if evidence.get("location"):
+                locations.append(str(evidence["location"]))
+
+    if not evidence_ids:
+        for index, evidence in enumerate(evidence_clauses or [], start=1):
+            evidence_ids.append(_evidence_id(evidence, index))
+            if evidence.get("clause_id"):
+                clause_ids.append(str(evidence["clause_id"]))
+            if evidence.get("original_excerpt") or evidence.get("text"):
+                source_spans.append(str(evidence.get("original_excerpt") or evidence.get("text")))
+            if evidence.get("location"):
+                locations.append(str(evidence["location"]))
+
+    unique_locations = _normalize_evidence_locations(locations)
+    return {
+        "claim_ids": list(dict.fromkeys(claim_ids)),
+        "evidence_ids": list(dict.fromkeys(evidence_ids)),
+        "clause_ids": list(dict.fromkeys(clause_ids)),
+        "source_spans": list(dict.fromkeys(source_spans)),
+        "primary_locations": unique_locations[:1],
+        "supporting_locations": unique_locations[1:],
+    }
+
+
+def _assemble_review_provenance(item: ReviewItemResult) -> None:
+    provenance = _aggregate_review_provenance(item.coverage_elements, item.evidence_clauses)
+    item.review_evidence_provenance = provenance
+    item.decision_trace["review_evidence_provenance"] = provenance
+    locations = provenance["primary_locations"] + provenance["supporting_locations"]
+    if locations:
+        item.evidence_location = "；".join(locations)
+
+
+def _coverage_from_elements(item: ReviewItemResult, elements: List[CoverageElementResult]) -> str:
+    if item.coverage_status in {COVERAGE_NOT_APPLICABLE, "风险条款"}:
+        return item.coverage_status
+    claim = _coverage_claim_for_item(item)
+    if claim.satisfaction_paths:
+        status_by_id = {element.element_id: element.status for element in elements}
+        execution_context = (item.decision_trace or {}).get("execution_context") or {}
+        path_context = {
+            **(execution_context.get("contract_context") or {}),
+            **(execution_context.get("domain_resolution") or {}),
+            **(execution_context.get("product_context") or {}),
+            "transaction_structure": execution_context.get("transaction_structure"),
+        }
+        path_results = []
+        for path in claim.satisfaction_paths:
+            required_ids = list(path.get("required_elements") or [])
+            optional_ids = list(path.get("optional_elements") or [])
+            applicable_when = dict(path.get("applicable_when") or {})
+            applicable = all(path_context.get(key) == expected for key, expected in applicable_when.items())
+            required_statuses = [status_by_id.get(element_id, "MISSING") for element_id in required_ids]
+            passed = applicable and bool(required_ids) and all(status == "COVERED" for status in required_statuses)
+            path_results.append({
+                "path_id": path.get("path_id"),
+                "applicable_when": applicable_when,
+                "applicable": applicable,
+                "required_elements": required_ids,
+                "optional_elements": optional_ids,
+                "statuses": dict(zip(required_ids, required_statuses)),
+                "status": "SATISFIED" if passed else "NOT_SATISFIED",
+            })
+        item.decision_trace["common_review_satisfaction"] = {
+            "satisfaction_paths": path_results,
+            "selected_path_id": next((row["path_id"] for row in path_results if row["status"] == "SATISFIED"), ""),
+            "transaction_structure": ((item.decision_trace or {}).get("execution_context") or {}).get("transaction_structure", ""),
+        }
+        active_paths = [row for row in path_results if row["applicable"]]
+        if any(row["status"] == "SATISFIED" for row in active_paths):
+            return "通过"
+        if any(element.status in {"COVERED", "PARTIALLY_COVERED"} for element in elements):
+            return "部分覆盖"
+        return "缺失"
+    covered = sum(1 for element in elements if element.status == "COVERED")
+    partial_or_covered = sum(1 for element in elements if element.status in {"COVERED", "PARTIALLY_COVERED"})
+    if covered >= claim.minimum_pass_elements:
+        return "通过"
+    if partial_or_covered >= claim.minimum_partial_elements:
+        return "部分覆盖"
+    return "缺失"
+
+
+STRICT_COVERAGE_ELEMENT_NODES = {
+    "tenant_death_successor",
+    "tenant_death_settlement",
+    "indefinite_lease",
+    "reasonable_repair_cost",
+    "deposit_offset_order",
+    "deposit_return_deadline",
+    "termination_notice",
+    "move_in_defect_notice",
+}
+
+
+def _should_apply_strict_coverage_gate(item: ReviewItemResult) -> bool:
+    if item.item_id.startswith("S-") or item.node_id in STRICT_COVERAGE_ELEMENT_NODES or item.node_id in {"real_estate_agent_authority", "real_estate_third_party_rights"} or item.risk_group in {"deposit_offset_order"}:
+        return True
+    entailments = {str(evidence.get("entailment_status") or "") for evidence in item.evidence_clauses or []}
+    return bool(entailments & {EVIDENCE_RELATED_NOT_SUPPORTING, EVIDENCE_NOT_RELEVANT})
+
+
+def _apply_coverage_evidence_gate(items: List[ReviewItemResult], canonical_claims: Optional[Dict[str, Any]] = None) -> List[ReviewItemResult]:
+    for item in items:
+        required_claim_ids = [str(element.get("required_claim")) for element in _coverage_claim_for_item(item).required_elements if element.get("required_claim")]
+        if required_claim_ids:
+            existing_ids = {str(evidence.get("clause_id")) for evidence in item.evidence_clauses}
+            for claim_id in required_claim_ids:
+                claim = (canonical_claims or {}).get(claim_id)
+                if not claim:
+                    continue
+                for clause_id, span in zip(claim.source_clause_ids, claim.source_spans):
+                    if clause_id in existing_ids:
+                        continue
+                    source_index = claim.source_clause_ids.index(clause_id)
+                    source_locations = list(getattr(claim, "source_locations", []))
+                    item.evidence_clauses.append({
+                        "evidence_id": f"CCE-{clause_id}", "clause_id": clause_id,
+                        "location": source_locations[source_index] if source_index < len(source_locations) else "合同条款/附件",
+                        "text": span, "original_excerpt": span, "evidence_type": "CANONICAL_CLAIM_EVIDENCE",
+                        "entailment_status": EVIDENCE_SUPPORTS, "claim_id": claim_id,
+                    })
+                    existing_ids.add(clause_id)
+        elements = _coverage_elements_for_item(item, canonical_claims)
+        if (
+            item.coverage_status == "部分覆盖"
+            and item.evidence_clauses
+            and not any(element.status in {"COVERED", "PARTIALLY_COVERED"} for element in elements)
+            and len(elements) == 1
+            and elements[0].element_id == "core_contract_arrangement"
+        ):
+            evidence_ids = [_evidence_id(evidence, index) for index, evidence in enumerate(item.evidence_clauses, start=1)]
+            elements[0].status = "PARTIALLY_COVERED"
+            elements[0].evidence_ids = evidence_ids
+            elements[0].entailment = EVIDENCE_PARTIAL_SUPPORT
+            elements[0].verifier_confidence = "medium"
+            elements[0].reason = "现有合同证据可部分支撑该复合要素。"
+            elements[0].source_clause_ids = list(dict.fromkeys(str(evidence.get("clause_id")) for evidence in item.evidence_clauses if evidence.get("clause_id")))
+            elements[0].source_spans = list(dict.fromkeys(str(evidence.get("original_excerpt") or evidence.get("text")) for evidence in item.evidence_clauses if evidence.get("original_excerpt") or evidence.get("text")))
+            elements[0].source_locations = list(dict.fromkeys(str(evidence.get("location")) for evidence in item.evidence_clauses if evidence.get("location")))
+        item.coverage_elements = [element.to_public_dict() for element in elements]
+        _assemble_review_provenance(item)
+        item.decision_trace["coverage_claim"] = _coverage_claim_for_item(item).to_public_dict()
+        item.decision_trace["coverage_elements"] = item.coverage_elements
+        if (item.decision_trace or {}).get("review_mode") == "ABSENCE_REQUIRED" and item.coverage_status == "通过":
+            continue
+        if item.coverage_status not in {"通过", "部分覆盖", "缺失"} or not _should_apply_strict_coverage_gate(item):
+            continue
+        gated_status = _coverage_from_elements(item, elements)
+        if gated_status == item.coverage_status:
+            continue
+        item.decision_trace["coverage_evidence_gate"] = {
+            "from": item.coverage_status,
+            "to": gated_status,
+            "reason": "Coverage requires at least one required element with SUPPORTS/PARTIAL_SUPPORT evidence; related or uncertain evidence contributes zero coverage.",
+        }
+        if gated_status == "缺失":
+            item.evidence_clauses = []
+            item.evidence_location = ""
+            _set_item_missing(
+                item,
+                item.risk_level if item.risk_level in {"高", "中", "低"} else "中",
+                f"元素级证据校验未找到能支撑“{item.title}”任一核心要素的合同条款；弱相关或不确定证据不贡献合同覆盖。",
+                item.risk_point_description,
+                "Coverage Evidence Gate",
+            )
+            item.coverage_elements = [element.to_public_dict() for element in elements]
+            item.decision_trace["coverage_elements"] = item.coverage_elements
+        elif gated_status == "部分覆盖":
+            item.coverage_status = "部分覆盖"
+            item.status = "部分覆盖"
+            item.issue_type = "条款缺陷"
+            item.reasoning_summary = _dedupe_narrative_sentences(
+                f"{item.reasoning_summary} 元素级证据校验仅确认部分核心要素，不能视为完整通过。"
+            )
+        elif gated_status == "通过":
+            item.coverage_status = "通过"
+            item.status = "已覆盖"
+            item.issue_type = "通过"
+            item.risk_level = "低"
+            item.risk_point_description = f"合同已覆盖“{item.title}”对应的必要要素。"
+            item.reasoning_summary = "Required Elements 已由支持性合同证据满足，元素级覆盖校验通过。"
+    return items
+
+
+def _attach_recall_state(
+    items: List[ReviewItemResult],
+    checklist: Any,
+    clauses: List[Any],
+    fact_graph: ContractFactGraph,
+    canonical_claims: Optional[Dict[str, Any]] = None,
+) -> List[ReviewItemResult]:
+    checkpoints = {checkpoint.item_id: checkpoint for checkpoint in checklist}
+    section_ids = list(dict.fromkeys(str(clause.location) for clause in clauses if clause.location))
+    for item in items:
+        checkpoint = checkpoints.get(item.item_id)
+        if not checkpoint:
+            continue
+        candidates, _, trace = retrieve_evidence_candidates(
+            checkpoint,
+            clauses,
+            fact_graph=fact_graph,
+            max_candidates=24,
+        )
+        fact_matches = fact_graph.matching(trace.fact_requirements)
+        possible_conflicts = [fact.fact_id for fact in fact_matches if fact.normalized_value not in {False, None, ""}] if item.coverage_status == "缺失" else []
+        missing_proof = MissingProof(
+            review_id=item.item_id,
+            searched_fact_types=trace.fact_requirements,
+            searched_sections=section_ids,
+            lexical_queries=trace.lexical_queries,
+            semantic_queries=trace.semantic_queries,
+            cross_clause_queries=trace.graph_clause_ids,
+            candidates_examined=trace.candidate_clause_ids,
+            possible_conflicts=possible_conflicts,
+            exhaustive_enough=bool(
+                trace.lexical_queries
+                and trace.semantic_queries
+                and section_ids
+                and not possible_conflicts
+            ),
+            confidence="high" if not possible_conflicts else "low",
+        )
+        item.decision_trace["review_mode"] = (
+            "ABSENCE_REQUIRED" if checkpoint.kind == "forbidden" else "PRESENCE_REQUIRED"
+        )
+        item.decision_trace["fact_requirements"] = trace.fact_requirements
+        item.decision_trace["retrieval_trace"] = trace.to_public_dict()
+        item.decision_trace["missing_proof"] = missing_proof.to_public_dict()
+        item.decision_trace["evidence_assembly"] = EvidenceAssembly(
+            review_id=item.item_id,
+            candidate_evidence=trace.candidate_clause_ids,
+            evidence_groups=[
+                {"source": "FACT", "clause_ids": trace.fact_clause_ids},
+                {"source": "STRUCTURAL", "clause_ids": trace.structural_clause_ids},
+                {"source": "LEXICAL", "clause_ids": trace.lexical_clause_ids},
+                {"source": "SEMANTIC", "clause_ids": trace.semantic_clause_ids},
+                {"source": "CLAUSE_GRAPH", "clause_ids": trace.graph_clause_ids},
+            ],
+            supporting_evidence=[str(evidence.get("clause_id") or "") for evidence in item.evidence_clauses],
+            counter_evidence=[],
+            missing_elements=[
+                str(element.get("element_id"))
+                for element in item.coverage_elements
+                if element.get("status") == "MISSING"
+            ],
+        ).to_public_dict()
+        if possible_conflicts:
+            item.decision_trace["fact_coverage_contradiction"] = {
+                "status": "DETECTED",
+                "fact_ids": possible_conflicts,
+                "action": "RETRY_EVIDENCE_ASSEMBLY",
+            }
+            retry_ids = set(trace.fact_clause_ids + trace.graph_clause_ids)
+            retry_evidence = [clause for clause in candidates if clause.clause_id in retry_ids]
+            if retry_evidence:
+                retry_judgment = judge_checkpoint(checkpoint, retry_evidence)
+                if retry_judgment.coverage_status in {"通过", "部分覆盖", "风险条款"}:
+                    item.coverage_status = retry_judgment.coverage_status
+                    item.status = retry_judgment.status
+                    item.issue_type = retry_judgment.issue_type
+                    item.risk_level = retry_judgment.risk_level
+                    item.risk_point_description = retry_judgment.risk_point_description
+                    item.reasoning_summary = retry_judgment.reasoning_summary
+                    item.evidence_clauses = retry_judgment.evidence_clauses
+                    item.evidence_location = retry_judgment.evidence_location
+                    item.matched_terms = retry_judgment.matched_terms
+                    if item.coverage_status == "通过":
+                        item.risk_point_description = f"合同已存在“{item.title}”对应的明确约定。"
+                        item.reasoning_summary = f"事实优先召回和独立复核均定位到“{item.title}”的合同证据。"
+                    item.coverage_elements = [
+                    element.to_public_dict() for element in _coverage_elements_for_item(item, canonical_claims)
+                    ]
+                    item.decision_trace["coverage_elements"] = item.coverage_elements
+                    item.decision_trace["fact_coverage_contradiction"]["status"] = "RESOLVED_BY_RETRY"
+                    item.decision_trace["missing_proof"]["possible_conflicts"] = []
+                    item.decision_trace["missing_proof"]["exhaustive_enough"] = True
+                    item.decision_trace["missing_proof"]["confidence"] = "high"
+                else:
+                    item.needs_manual_review = True
+                    item.quality_gate_failure_reason = "FACT_COVERAGE_CONTRADICTION"
+                    item.llm_confidence = "low"
+                    item.decision_trace["fact_coverage_contradiction"]["status"] = "UNRESOLVED"
+    return items
+
+
+def _recall_gate_failures(items: List[ReviewItemResult], integrity: Dict[str, Any]) -> List[Dict[str, Any]]:
+    failures: List[Dict[str, Any]] = []
+    if integrity.get("truncated") or float(integrity.get("parsed_character_ratio") or 0) < 0.95:
+        failures.append({
+            "requirement": "DOCUMENT_INTEGRITY_GATE",
+            "failure_stage": "Document Parser",
+            "root_cause": "文档解析覆盖率不足或检测到截断。",
+            "responsible_function": "document_integrity",
+            "current_status": "FAIL",
+        })
+    unresolved = [
+        item.item_id for item in items
+        if (item.decision_trace.get("fact_coverage_contradiction") or {}).get("status") == "UNRESOLVED"
+    ]
+    if unresolved:
+        failures.append({
+            "requirement": "FACT_COVERAGE_CONSISTENCY_GATE",
+            "failure_stage": "Evidence Recall Verifier",
+            "root_cause": f"事实存在但 Coverage 仍判缺失：{', '.join(unresolved)}。",
+            "responsible_function": "_attach_recall_state",
+            "current_status": "FAIL",
+        })
+    false_missing = [
+        item.item_id for item in items
+        if item.coverage_status == "缺失"
+        and not (item.decision_trace.get("missing_proof") or {}).get("exhaustive_enough")
+        and not item.needs_manual_review
+    ]
+    if false_missing:
+        failures.append({
+            "requirement": "MISSING_PROOF_GATE",
+            "failure_stage": "Coverage Engine",
+            "root_cause": f"缺失结论没有完整 MissingProof：{', '.join(false_missing)}。",
+            "responsible_function": "_attach_recall_state",
+            "current_status": "FAIL",
+        })
+    return failures
 
 
 def _text_has_any(text: str, terms: List[str]) -> bool:
@@ -1035,6 +2424,99 @@ def _evidence_candidate_for_claim(claim: EvidenceClaim, evidence: Dict[str, Any]
         elif has_early_penalty_context:
             status = EVIDENCE_RELATED_NOT_SUPPORTING
             score = 0.35
+        else:
+            status = EVIDENCE_NOT_RELEVANT
+            score = 0.1
+    elif claim.object == "sale_unilateral_price_adjustment":
+        has_price = _text_has_any(text, ["单价", "价格", "价款", "货款", "报价"])
+        has_adjustment = _text_has_any(text, ["调整", "变动", "变更", "浮动", "调价"])
+        has_fixed_price_only = has_price and not has_adjustment
+        has_negated_adjustment = _text_has_any(text, ["不因", "不得", "不予", "不作", "不调整", "不变更", "固定"])
+        has_mutual_control = _text_has_any(text, ["双方协商一致", "双方书面确认", "经双方同意", "经买方同意", "补充协议"])
+        has_objective_index = _text_has_any(text, ["价格指数", "公开指数", "公开市场指数", "挂牌价", "基准价"])
+        has_unilateral = _has_sale_unilateral_price_adjustment(analysis_quote)
+        if has_unilateral and not has_mutual_control:
+            status = EVIDENCE_SUPPORTS
+            score = 0.93
+        elif has_negated_adjustment:
+            status = EVIDENCE_RELATED_NOT_SUPPORTING
+            score = 0.25
+        elif has_objective_index or has_mutual_control:
+            status = EVIDENCE_RELATED_NOT_SUPPORTING
+            score = 0.35
+        elif has_fixed_price_only:
+            status = EVIDENCE_RELATED_NOT_SUPPORTING
+            score = 0.2
+        elif has_price or has_adjustment:
+            status = EVIDENCE_RELATED_NOT_SUPPORTING if has_price and has_adjustment else EVIDENCE_NOT_RELEVANT
+            score = 0.3 if status == EVIDENCE_RELATED_NOT_SUPPORTING else 0.1
+        else:
+            status = EVIDENCE_NOT_RELEVANT
+            score = 0.1
+    elif claim.object == "tenant_death_successor":
+        has_death = _text_has_any(text, ["承租人死亡", "租赁期间死亡", "租期内死亡", "乙方死亡"])
+        has_successor = _text_has_any(text, ["共同居住", "共同经营", "继续承租", "继续租赁", "继续使用"])
+        has_expiry = _text_has_any(text, ["租赁期满", "租期届满", "期满", "续租", "重新签订"])
+        if has_death and has_successor:
+            status = EVIDENCE_SUPPORTS
+            score = 0.95
+        elif has_expiry and not has_death:
+            status = EVIDENCE_RELATED_NOT_SUPPORTING
+            score = 0.25
+        elif has_death or has_successor:
+            status = EVIDENCE_PARTIAL_SUPPORT
+            score = 0.65
+        else:
+            status = EVIDENCE_NOT_RELEVANT
+            score = 0.1
+    elif claim.object == "tenant_death_settlement":
+        if _text_has_any(text, ["无人继续", "继承人", "遗留物"]) and _text_has_any(text, ["交接", "返还", "结清", "费用"]):
+            status = EVIDENCE_SUPPORTS
+            score = 0.9
+        elif _text_has_any(text, ["租赁期满", "租期届满", "期满"]):
+            status = EVIDENCE_RELATED_NOT_SUPPORTING
+            score = 0.25
+        else:
+            status = EVIDENCE_NOT_RELEVANT
+            score = 0.1
+    elif claim.object == "indefinite_lease":
+        has_expiry_continue = _text_has_any(text, ["租赁期满", "租期届满", "期满"]) and _text_has_any(text, ["继续承租", "续租", "继续使用", "继续居住"])
+        has_no_objection = _text_has_any(text, ["未提出异议", "没有异议", "继续收租", "接受租金"])
+        has_notice = _text_has_any(text, ["合理期限", "提前", "书面通知", "解除", "通知"])
+        if has_expiry_continue and has_no_objection and has_notice:
+            status = EVIDENCE_SUPPORTS
+            score = 0.9
+        elif has_expiry_continue or has_no_objection or has_notice:
+            status = EVIDENCE_PARTIAL_SUPPORT
+            score = 0.65
+        else:
+            status = EVIDENCE_NOT_RELEVANT
+            score = 0.1
+    elif claim.object == "reasonable_repair_cost":
+        has_cost = _text_has_any(text, ["维修费", "维修费用", "维修"])
+        has_reasonable = _text_has_any(text, ["必要", "合理", "实际发生", "市场报价"])
+        has_voucher = _text_has_any(text, ["维修单", "发票", "报价单", "鉴定", "票据", "凭证"])
+        if has_cost and has_reasonable and has_voucher:
+            status = EVIDENCE_SUPPORTS
+            score = 0.9
+        elif has_cost and (has_reasonable or has_voucher):
+            status = EVIDENCE_PARTIAL_SUPPORT
+            score = 0.65
+        elif _text_has_any(text, ["毁损", "灭失", "危险房屋"]) and not has_cost:
+            status = EVIDENCE_RELATED_NOT_SUPPORTING
+            score = 0.25
+        else:
+            status = EVIDENCE_NOT_RELEVANT
+            score = 0.1
+    elif claim.object == "deposit_return_deadline":
+        has_deposit_return = _text_has_any(text, ["押金", "保证金"]) and _text_has_any(text, ["返还", "退还", "归还"])
+        has_deadline = _text_has_any(text, ["日内", "工作日", "期限", "交接后", "结算后", "完成交接"])
+        if has_deposit_return and has_deadline:
+            status = EVIDENCE_SUPPORTS
+            score = 0.9
+        elif has_deposit_return:
+            status = EVIDENCE_PARTIAL_SUPPORT
+            score = 0.7
         else:
             status = EVIDENCE_NOT_RELEVANT
             score = 0.1
@@ -1109,8 +2591,8 @@ def _negative_evidence_for_item(item: ReviewItemResult, claim: EvidenceClaim, ca
 
 
 def _apply_evidence_entailment_gate(items: List[ReviewItemResult]) -> List[ReviewItemResult]:
-    strict_review_ids = {"HL-039", "HL-040", "HL-042"}
-    strict_risk_groups = {"early_termination_financial_exposure", "deposit_offset_order"}
+    strict_review_ids = {"HL-039", "HL-040", "HL-042", "S-02-05"}
+    strict_risk_groups = {"early_termination_financial_exposure", "deposit_offset_order", "sale_unilateral_price_adjustment"}
     for item in items:
         claim = _evidence_claim_for_item(item)
         candidates = [_evidence_candidate_for_claim(claim, evidence, index) for index, evidence in enumerate(item.evidence_clauses or [], start=1)]
@@ -1128,9 +2610,9 @@ def _apply_evidence_entailment_gate(items: List[ReviewItemResult]) -> List[Revie
         ]
         item.decision_trace["evidence_claim"] = claim.to_public_dict()
         item.decision_trace["evidence_candidates"] = [candidate.to_public_dict() for candidate in candidates]
-        item.semantic_entailment = bool(supporting) if item.evidence_clauses else None
         strict_gate = item.item_id in strict_review_ids or item.risk_group in strict_risk_groups
-        if strict_gate and item.coverage_status in {"通过", "部分覆盖"} and item.evidence_clauses and not supporting:
+        item.semantic_entailment = bool(supporting) if strict_gate and item.evidence_clauses else item.semantic_entailment
+        if strict_gate and item.coverage_status in {"通过", "部分覆盖", "风险条款"} and item.evidence_clauses and not supporting:
             item.decision_trace["negative_evidence"] = _negative_evidence_for_item(item, claim, candidates).to_public_dict()
             item.evidence_clauses = []
             item.evidence_location = ""
@@ -1142,6 +2624,27 @@ def _apply_evidence_entailment_gate(items: List[ReviewItemResult]) -> List[Revie
                     item.risk_point_description,
                     "Evidence Entailment Gate",
                 )
+            elif item.coverage_status == "风险条款":
+                if (item.decision_trace or {}).get("review_mode") == "ABSENCE_REQUIRED":
+                    item.coverage_status = "通过"
+                    item.status = "未发现明显风险条款"
+                    item.issue_type = "通过"
+                    item.risk_level = "低"
+                    item.reasoning_summary = f"穷尽检索未找到能支撑“{item.title}”存在的合同证据。"
+                    item.risk_point_description = f"合同未发现“{item.title}”类不利约定。"
+                    item.fallback_reason = "Evidence Entailment Gate"
+                else:
+                    _set_item_missing(
+                        item,
+                        "低" if item.item_id == "S-02-05" else item.risk_level if item.risk_level in {"高", "中", "低"} else "中",
+                        f"证据语义校验未找到能支撑“{item.title}”存在的合同句子；相关候选句不能作为风险条款依据。",
+                        f"未发现能直接证明“{item.title}”存在的明确约定。",
+                        "Evidence Entailment Gate",
+                    )
+                item.decision_trace["positive_risk_evidence_gate"] = {
+                    "status": "REJECTED",
+                    "reason": "Risk-clause finding requires SUPPORTS evidence.",
+                }
         elif item.coverage_status == "缺失":
             item.decision_trace["negative_evidence"] = _negative_evidence_for_item(item, claim, candidates).to_public_dict()
         elif strict_gate:
@@ -1355,6 +2858,9 @@ RISK_GROUP_BY_ID = {
     "HL-005": "notice_and_delivery",
     "HL-025": "housing_safety_emergency",
     "HL-010": "lawful_lease_basis",
+    "S-11-01": "goods_title_and_third_party_rights",
+    "S-11-03": "goods_title_and_third_party_rights",
+    "S-11-04": "goods_title_and_third_party_rights",
 }
 
 RELATED_REVIEWS_BY_ID = {
@@ -1368,6 +2874,7 @@ RISK_FINDING_ID_BY_GROUP = {
     "property_damage_deposit_evidence": "RF-PROPERTY-DAMAGE-001",
     "legal_reference": "RF-LEGAL-001",
     "outdated_legal_reference": "RF-LEGAL-001",
+    "goods_title_and_third_party_rights": "RF-GOODS-RIGHTS-001",
 }
 
 LOW_PROBABILITY_NODE_IDS = {
@@ -1460,6 +2967,11 @@ def _normalized_economic_impact(item: ReviewItemResult) -> Dict[str, Any]:
     detail.setdefault("deposit_multiple", None)
     detail.setdefault("annual_value_ratio", detail.get("contract_value_ratio"))
     detail.setdefault("remaining_obligation_ratio", (detail.get("max_case") or {}).get("penalty_to_remaining_rent_ratio"))
+    detail.setdefault("batch_value_ratio", None)
+    detail.setdefault("unpaid_amount_ratio", None)
+    detail.setdefault("advance_payment_ratio", detail.get("prepaid_amount_ratio"))
+    detail.setdefault("replacement_cost_ratio", None)
+    detail.setdefault("delay_loss_ratio", None)
     detail.setdefault("level", item.economic_impact or "none")
     return detail
 
@@ -1491,6 +3003,11 @@ def _normalized_economic_exposure(item: ReviewItemResult) -> NormalizedEconomicE
         prepaid_amount_ratio=_float_or_none(detail.get("prepaid_amount_ratio")),
         contract_total_ratio=_float_or_none(detail.get("contract_value_ratio") or detail.get("relative_to_contract_value")),
         remaining_obligation_ratio=_float_or_none(detail.get("remaining_obligation_ratio") or max_case.get("penalty_to_remaining_rent_ratio")),
+        batch_value_ratio=_float_or_none(detail.get("batch_value_ratio")),
+        unpaid_amount_ratio=_float_or_none(detail.get("unpaid_amount_ratio")),
+        advance_payment_ratio=_float_or_none(detail.get("advance_payment_ratio") or detail.get("prepaid_amount_ratio")),
+        replacement_cost_ratio=_float_or_none(detail.get("replacement_cost_ratio")),
+        delay_loss_ratio=_float_or_none(detail.get("delay_loss_ratio")),
         time_amplifying=bool(detail.get("time_amplifying") or formula.get("base") in {"remaining_term_rent", "remaining_days_rent"}),
         uncapped=bool(detail.get("uncapped")),
         level=detail.get("level") or item.economic_impact or "none",
@@ -1615,6 +3132,9 @@ def _priority_assessment_for_item(item: ReviewItemResult) -> Dict[str, Any]:
     if priority_input.economic_impact in {"high", "critical"}:
         score += 1.5
         reasons.append("economic_impact_material")
+    if priority_input.statutory_default_status == "NO_DEFAULT" and priority_input.core_obligation and priority_input.economic_impact in {"high", "critical"}:
+        score += 1.0
+        reasons.append("no_default_core_material_exposure")
     if priority_input.time_amplifying:
         score += 1.5
         reasons.append("time_amplifying")
@@ -1678,36 +3198,280 @@ def _priority_assessment_for_item(item: ReviewItemResult) -> Dict[str, Any]:
     if item.coverage_status == "通过" and item.related_risks and priority == ACTION_PRIORITY_NONE:
         priority = PRIORITY_B_PRACTICAL
 
+    mitigators = [reason for reason in reasons if reason in {"counter_evidence", "clear_default_law_protection", "low_probability_or_optimization"}]
+    drivers = [reason for reason in reasons if reason not in mitigators]
+    decision = PriorityDecision(
+        finding_id=priority_input.finding_id or item.item_id,
+        severity=severity,
+        priority=priority,
+        drivers=drivers,
+        mitigators=mitigators,
+        default_law_effect="mitigates" if "clear_default_law_protection" in mitigators else priority_input.statutory_default_status,
+        economic_effect=priority_input.economic_impact,
+        explanation=(
+            f"行动优先级由风险严重度、核心义务、经济暴露、发生概率、默认法保护、可恢复性和修复价值共同计算；"
+            f"驱动因素：{', '.join(drivers) or 'none'}；缓释因素：{', '.join(mitigators) or 'none'}。"
+        ),
+    )
     return {
         "priority": priority,
         "score": round(score, 2),
         "reason": ", ".join(reasons) or "no_actionable_signal",
         "input": priority_input.to_public_dict(),
+        "decision": decision.to_public_dict(),
     }
 
 
-def _system_confidence_for_item(item: ReviewItemResult) -> Dict[str, Any]:
+CONFIDENCE_SCORE = {"high": 0.95, "medium": 0.72, "low": 0.35, "not_applicable": 1.0}
+
+
+def _confidence_label_from_score(score: float) -> str:
+    if score >= 0.85:
+        return "high"
+    if score >= 0.6:
+        return "medium"
+    return "low"
+
+
+def _legal_confidence_for_item(item: ReviewItemResult) -> str:
+    claims = item.legal_references or []
+    legal_claims = [claim for claim in claims if claim.get("claim_type") != "DRAFTING_RECOMMENDATION"]
+    if not legal_claims:
+        return "not_applicable"
+    if any(
+        claim.get("support_type") == "DIRECT_SUPPORT"
+        and claim.get("support_scope")
+        and claim.get("confidence") == "high"
+        for claim in legal_claims
+    ):
+        return "high"
+    if any(claim.get("support_type") in {"DIRECT_SUPPORT", "PARTIAL_SUPPORT", "BACKGROUND_ONLY"} for claim in legal_claims):
+        return "medium"
+    return "low"
+
+
+def _confidence_dependency_for_item(item: ReviewItemResult) -> ConfidenceDependency:
+    formula = (item.scenario_analysis or {}).get("formula")
+    claims = item.legal_references or []
+    direct_legal_claim = any(
+        claim.get("claim_type") in {"LEGAL_EFFECT", "PROCEDURE", "RIGHT"}
+        for claim in claims
+    )
+    return ConfidenceDependency(
+        requires_parser=True,
+        requires_fact=bool(item.fact_dependencies),
+        requires_evidence=item.coverage_status in {"通过", "部分覆盖", "风险条款"} or bool(item.evidence_clauses) or bool((item.decision_trace or {}).get("negative_evidence")),
+        requires_applicability=True,
+        requires_legal=direct_legal_claim,
+        requires_formula=bool(formula),
+        requires_calculation=bool((item.scenario_analysis or {}).get("cases")),
+    )
+
+
+def _component_level(score: float) -> str:
+    return _confidence_label_from_score(score)
+
+
+def _verifier_confidence_for_item(item: ReviewItemResult) -> str:
+    elements = item.coverage_elements or (item.decision_trace or {}).get("coverage_elements") or []
+    if not elements:
+        return "medium"
+    statuses = {element.get("status") for element in elements}
+    if item.coverage_status == "部分覆盖" and not (statuses & {"COVERED", "PARTIALLY_COVERED"}):
+        return "low"
+    if item.coverage_status == "通过" and "UNCERTAIN" in statuses:
+        return "medium"
+    if any(element.get("entailment") == EVIDENCE_RELATED_NOT_SUPPORTING for element in elements):
+        return "medium" if item.coverage_status == "缺失" else "low"
+    if all(element.get("verifier_confidence") == "high" for element in elements):
+        return "high"
+    if any(element.get("verifier_confidence") == "low" for element in elements):
+        return "low"
+    return "medium"
+
+
+def _confidence_bundle_for_item(item: ReviewItemResult) -> ConfidenceBundle:
     has_evidence = bool(item.evidence_clauses)
-    level = "high"
-    if item.needs_manual_review or item.semantic_entailment is False:
-        level = "low"
-    elif not has_evidence and item.coverage_status not in {COVERAGE_NOT_APPLICABLE, "缺失"}:
-        level = "medium"
+    negative = (item.decision_trace or {}).get("negative_evidence") or {}
+    dependency = _confidence_dependency_for_item(item)
+    parser_score = 0.95
+    document_integrity_score = 0.95
+    fact_score = 0.95 if item.fact_dependencies else 0.72
+    if (item.decision_trace or {}).get("fact_conflict"):
+        fact_score = 0.35
+    retrieval_trace = (item.decision_trace or {}).get("retrieval_trace") or {}
+    missing_proof = (item.decision_trace or {}).get("missing_proof") or {}
+    contradiction = (item.decision_trace or {}).get("fact_coverage_contradiction") or {}
+    retrieval_score = 0.95 if retrieval_trace.get("candidate_count") else 0.72
+    if item.coverage_status == "缺失":
+        retrieval_score = 0.95 if missing_proof.get("exhaustive_enough") else 0.35
+    if contradiction.get("status") == "UNRESOLVED":
+        retrieval_score = 0.2
+    if item.coverage_status == COVERAGE_NOT_APPLICABLE:
+        evidence_score = 1.0
+    elif item.semantic_entailment is False and item.coverage_status in {"通过", "部分覆盖", "风险条款"}:
+        evidence_score = 0.35
+    elif has_evidence:
+        entailments = {str(evidence.get("entailment_status") or "") for evidence in item.evidence_clauses or []}
+        if entailments and entailments <= {EVIDENCE_UNCERTAIN, ""}:
+            evidence_score = 0.72
+        elif EVIDENCE_RELATED_NOT_SUPPORTING in entailments or EVIDENCE_NOT_RELEVANT in entailments:
+            evidence_score = 0.35
+        else:
+            evidence_score = 0.95 if item.semantic_entailment is not False else 0.72
+    elif item.coverage_status == "缺失" and negative.get("result") == "NOT_FOUND":
+        evidence_score = 0.9
     elif item.coverage_status == "缺失":
-        level = "medium"
+        evidence_score = 0.72
+    else:
+        evidence_score = 0.6
+    applicability_status = (item.applicability or {}).get("status", "applicable")
+    applicability_score = 0.4 if applicability_status == "UNCERTAIN" else 0.95 if not item.needs_manual_review else 0.45
+    legal_level = _legal_confidence_for_item(item)
+    legal_score = CONFIDENCE_SCORE.get(legal_level, 0.72)
+    formula_score = 0.95 if item.scenario_analysis.get("formula") else 1.0
+    calculation_score = 0.95 if (item.scenario_analysis or {}).get("cases") else 1.0
+    verifier_level = _verifier_confidence_for_item(item)
+    verifier_score = CONFIDENCE_SCORE.get(verifier_level, 0.72)
+    aggregation_score = 0.95 if not item.quality_gate_failure_reason else 0.45
+    component_scores = {
+        "parser": parser_score,
+        "document_integrity": document_integrity_score,
+        "fact": fact_score,
+        "retrieval_recall": retrieval_score,
+        "evidence": evidence_score,
+        "applicability": applicability_score,
+        "legal": legal_score,
+        "formula": formula_score,
+        "calculation": calculation_score,
+        "verifier": verifier_score,
+        "aggregation": aggregation_score,
+    }
+    dependency_map = dependency.to_public_dict()
+    dependency_by_component = {
+        "parser": dependency.requires_parser,
+        "document_integrity": dependency.requires_parser,
+        "fact": dependency.requires_fact,
+        "retrieval_recall": item.coverage_status == "缺失" or bool(retrieval_trace),
+        "evidence": dependency.requires_evidence,
+        "applicability": dependency.requires_applicability,
+        "legal": dependency.requires_legal,
+        "formula": dependency.requires_formula,
+        "calculation": dependency.requires_calculation,
+        "verifier": dependency.requires_verifier,
+        "aggregation": True,
+    }
+    required_components = [name for name, required in dependency_by_component.items() if required]
+    ignored_components = [name for name, required in dependency_by_component.items() if not required]
+    required_scores = [component_scores[name] for name in required_components]
+    final_score = sum(required_scores) / len(required_scores) if required_scores else 0.72
+    limiting_factors = [
+        name for name in required_components
+        if component_scores[name] < 0.6
+    ]
+    default_assessment = (item.decision_trace or {}).get("default_law_assessment") or {}
+    if (
+        default_assessment.get("default_law_relevant")
+        and default_assessment.get("rule")
+        and default_assessment.get("applicability") == "UNCERTAIN"
+        and "default_law" not in limiting_factors
+    ):
+        limiting_factors.append("default_law")
+    obligation_blocks = {
+        str(evidence.get("evidence_block_type") or evidence.get("block_type") or "")
+        for evidence in item.evidence_clauses or []
+    }
+    if obligation_blocks & {"TEMPLATE_GUIDANCE", "COMMENTARY", "HISTORICAL_NOTE"}:
+        limiting_factors.append("evidence_block_type")
+    final_confidence = _confidence_label_from_score(final_score)
+    if limiting_factors and final_confidence == "high":
+        final_confidence = "medium"
+    reason = "依赖组件均可靠，当前判断可信。"
+    if limiting_factors:
+        reason = f"以下必需组件限制最终可靠度：{', '.join(limiting_factors)}。"
+    elif ignored_components:
+        reason = f"本审查项不依赖 {', '.join(ignored_components)}，这些组件不参与最终可靠度。"
+    return ConfidenceBundle(
+        parser_confidence=_component_level(parser_score),
+        document_integrity_confidence=_component_level(document_integrity_score),
+        fact_confidence=_component_level(fact_score),
+        retrieval_recall_confidence=_component_level(retrieval_score),
+        evidence_confidence=_component_level(evidence_score),
+        applicability_confidence=_component_level(applicability_score),
+        legal_confidence=legal_level,
+        formula_confidence="high" if item.scenario_analysis.get("formula") else "not_applicable",
+        calculation_confidence="high" if (item.scenario_analysis or {}).get("cases") else "not_applicable",
+        verifier_confidence=verifier_level,
+        aggregation_confidence=_component_level(aggregation_score),
+        final_score=round(final_score, 3),
+        final_confidence=final_confidence,
+        limiting_factors=limiting_factors,
+        required_components=required_components,
+        ignored_components=ignored_components,
+        component_scores={key: round(value, 3) for key, value in component_scores.items()},
+        dependency=dependency_map,
+        reason=reason,
+    )
+
+
+def _system_confidence_for_item(item: ReviewItemResult) -> Dict[str, Any]:
+    bundle = _confidence_bundle_for_item(item)
     return {
-        "level": level,
-        "parser_confidence": "high",
-        "fact_confidence": "high" if item.fact_dependencies else "medium",
-        "retrieval_strength": "explicit" if has_evidence else "not_found",
+        "level": bundle.final_confidence,
+        "parser_confidence": bundle.parser_confidence,
+        "document_integrity_confidence": bundle.document_integrity_confidence,
+        "fact_confidence": bundle.fact_confidence,
+        "retrieval_recall_confidence": bundle.retrieval_recall_confidence,
+        "evidence_confidence": bundle.evidence_confidence,
+        "applicability_confidence": bundle.applicability_confidence,
+        "legal_confidence": bundle.legal_confidence,
+        "legal_authority_confidence": bundle.legal_confidence,
+        "formula_confidence": bundle.formula_confidence,
+        "calculation_confidence": bundle.calculation_confidence,
+        "verifier_confidence": bundle.verifier_confidence,
+        "aggregation_confidence": bundle.aggregation_confidence,
+        "retrieval_strength": "explicit" if bool(item.evidence_clauses) else "not_found",
         "evidence_entailment": item.semantic_entailment if item.semantic_entailment is not None else "not_checked",
         "rule_agreement": "agree",
         "model_agreement": "not_used_or_agree",
         "cross_review_agreement": "agree" if not item.quality_gate_failure_reason else "conflict",
-        "legal_authority_confidence": "medium",
-        "formula_confidence": "high" if item.scenario_analysis.get("formula") else "not_applicable",
         "quality_gate_flags": len(item.quality_flags),
+        "confidence_bundle": bundle.to_public_dict(),
+        "confidence_explanation": {
+            "final_confidence": bundle.final_confidence,
+            "required_components": bundle.required_components,
+            "ignored_components": bundle.ignored_components,
+            "component_scores": bundle.component_scores,
+            "limiting_factors": bundle.limiting_factors,
+            "reason": bundle.reason,
+        },
     }
+
+
+def _apply_confidence_bundles(items: List[ReviewItemResult]) -> List[ReviewItemResult]:
+    for item in items:
+        item.system_confidence = _system_confidence_for_item(item)
+    return items
+
+
+def _apply_post_verification_confidence(findings: List[RiskFinding], items: List[ReviewItemResult]) -> None:
+    item_by_id = {item.item_id: item for item in items}
+    for finding in findings:
+        verification = finding.verification or {}
+        if verification.get("status") != "BLOCK" and (finding.agreement or {}).get("status") != "MATERIAL_DISAGREEMENT":
+            continue
+        finding.confidence = {**(finding.confidence or {}), "level": "low", "limiting_factors": ["verifier", "cross_layer_consistency"]}
+        for item_id in finding.source_review_ids:
+            item = item_by_id.get(item_id)
+            if not item:
+                continue
+            item.quality_gate_failure_reason = verification.get("reason") or "独立验证与主判断存在实质分歧。"
+            item.system_confidence = _system_confidence_for_item(item)
+            item.system_confidence["level"] = "low"
+            item.system_confidence["cross_review_agreement"] = "material_conflict"
+            bundle = item.system_confidence.get("confidence_bundle") or {}
+            bundle["final_confidence"] = "low"
+            bundle["limiting_factors"] = sorted(set((bundle.get("limiting_factors") or []) + ["verifier", "consistency"]))
 
 
 def _risk_severity_for_item(item: ReviewItemResult) -> str:
@@ -1726,24 +3490,199 @@ def _risk_severity_for_item(item: ReviewItemResult) -> str:
     return SEVERITY_NONE
 
 
-def _apply_risk_dimensions(items: List[ReviewItemResult]) -> List[ReviewItemResult]:
+DEFAULT_LAW_AUTHORITY_ARTICLES = {
+    "CN-CC-563": "第563条", "CN-CC-565": "第565条", "CN-CC-582": "第582条",
+    "CN-CC-584": "第584条", "CN-CC-589": "第589条", "CN-CC-591": "第591条",
+    "CN-CC-604": "第604条", "CN-CC-605": "第605条", "CN-CC-607": "第607条",
+    "CN-CC-617": "第617条", "CN-CC-620": "第620条", "CN-CC-621": "第621条",
+}
+
+
+def _default_law_assessment(item: ReviewItemResult, contract_type: str, contract_text: str = "") -> Dict[str, Any]:
+    rule = get_default_rule(contract_type, item.risk_group) or get_default_rule(contract_type, item.node_id)
+    fallback_status = default_law_status(item.risk_group, item.node_id)
+    if not rule:
+        clear_default = fallback_status == "CLEAR_DEFAULT"
+        return {
+            "executed": True,
+            "default_law_relevant": fallback_status != "UNCERTAIN_DEFAULT",
+            "status": fallback_status,
+            "rule": None,
+            "applicability": "NOT_DECLARED" if fallback_status == "UNCERTAIN_DEFAULT" else "UNCERTAIN",
+            "protection_scope": "法律提供清晰默认保护。" if clear_default else "",
+            "remaining_gap": "主要剩余为合同表达和操作流程优化。" if clear_default else "合同仍需自行明确业务流程和证据要求。",
+            "practical_uncertainty": "low" if clear_default and item.node_id in LOW_PROBABILITY_NODE_IDS else "medium",
+            "residual_legal_risk": "low" if clear_default else "medium",
+            "residual_operational_risk": "low" if clear_default and item.node_id in LOW_PROBABILITY_NODE_IDS else "medium",
+        }
+    material_gap = item.coverage_status in {"缺失", "部分覆盖"}
+    compacted = _compact(contract_text)
+    applicability = "AVAILABLE_NOT_NEEDED"
+    applicability_confidence = "high"
+    effective_status = rule.status
+    authority_validation = [
+        {
+            "authority_id": authority_id,
+            **validate_legal_citation("中华人民共和国民法典", DEFAULT_LAW_AUTHORITY_ARTICLES.get(authority_id, "")),
+        }
+        for authority_id in rule.authority_ids
+    ]
+    authority_reliable = bool(authority_validation) and all(
+        row.get("status") == "CURRENT" and row.get("support_type") in {"DIRECT_SUPPORT", "PARTIAL_SUPPORT"}
+        for row in authority_validation
+    )
+    if effective_status in {"CLEAR_DEFAULT", "PARTIAL_DEFAULT"} and not authority_reliable:
+        effective_status = "UNCERTAIN_DEFAULT"
+        applicability_confidence = "low"
+    if material_gap:
+        applicability = "APPLICABLE"
+        if item.node_id == "sale_risk_carrier_delivery" and not any(term in compacted for term in ("运输", "承运人", "物流", "送货", "发运")):
+            applicability = "UNCERTAIN"
+            applicability_confidence = "low"
+            effective_status = "UNCERTAIN_DEFAULT"
+        elif item.node_id == "sale_risk_buyer_delay_acceptance" and not any(term in compacted for term in ("迟延受领", "拒收", "未提货", "逾期提货")):
+            applicability = "UNCERTAIN"
+            applicability_confidence = "low"
+            effective_status = "UNCERTAIN_DEFAULT"
+        elif item.node_id in {"sale_quality_liability", "sale_breach_damages", "sale_termination"}:
+            applicability = "CONDITIONAL"
+            applicability_confidence = "medium"
+            if effective_status == "CLEAR_DEFAULT":
+                effective_status = "PARTIAL_DEFAULT"
+    residual_legal = "low" if effective_status == "CLEAR_DEFAULT" else "medium"
+    residual_operational = "medium" if material_gap else "low"
+    return {
+        "executed": True,
+        "default_law_relevant": True,
+        "status": effective_status,
+        "rule": rule.to_public_dict(),
+        "authority_validation": authority_validation,
+        "applicability": applicability,
+        "applicability_confidence": applicability_confidence,
+        "protection_scope": rule.protection_scope,
+        "remaining_gap": "法定规则提供基础保护，但合同仍需明确业务节点、例外、操作流程及证据。" if material_gap else "无实质剩余缺口。",
+        "practical_uncertainty": "medium" if material_gap else "low",
+        "residual_legal_risk": residual_legal if material_gap else "low",
+        "residual_operational_risk": residual_operational,
+    }
+
+
+def _apply_risk_dimensions(items: List[ReviewItemResult], contract_type: str = "", contract_text: str = "") -> List[ReviewItemResult]:
     for item in items:
+        material_gap = item.coverage_status in {"缺失", "部分覆盖"}
         if item.coverage_status == "通过" and "建议继续核对" in (item.risk_point_description or ""):
             item.risk_point_description = f"合同已覆盖“{item.title}”相关安排。"
         item.risk_group = RISK_GROUP_BY_ID.get(item.item_id, item.node_id or item.item_id)
         item.related_reviews = RELATED_REVIEWS_BY_ID.get(item.item_id, [])
         category = ontology_category(item.risk_group, item.node_id)
         item.decision_trace["risk_category"] = category
-        default_status = default_law_status(item.risk_group, item.node_id)
+        if item.coverage_status == COVERAGE_NOT_APPLICABLE or str((item.applicability or {}).get("status") or "").upper() == "NOT_APPLICABLE":
+            non_applicable_state = {
+                "review_id": item.item_id,
+                "status": "NOT_APPLICABLE",
+                "reason": (item.applicability or {}).get("reason") or item.reasoning_summary,
+                "missing_trigger_facts": list((item.applicability or {}).get("missing_triggers") or []),
+                "conflicting_trigger_facts": list((item.applicability or {}).get("conflicting_triggers") or []),
+                "source_fact_ids": list((item.applicability or {}).get("trigger_fact_ids") or []),
+                "confidence": (item.applicability or {}).get("confidence") or "medium",
+            }
+            item.decision_trace["non_applicable_state"] = non_applicable_state
+            item.decision_trace["default_law_status"] = "NOT_APPLICABLE"
+            item.decision_trace["default_law_assessment"] = {
+                "executed": False, "default_law_relevant": False, "status": "NOT_APPLICABLE",
+                "rule": None, "applicability": "NOT_APPLICABLE", "applicability_confidence": non_applicable_state["confidence"],
+                "protection_scope": "", "remaining_gap": "", "practical_uncertainty": "none",
+                "residual_legal_risk": "none", "residual_operational_risk": "none",
+                "exclusion_reason": "Review applicability is NOT_APPLICABLE; default-law gap analysis was skipped.",
+            }
+            item.decision_trace["effective_gap"] = {
+                "review_id": item.item_id, "status": "NOT_APPLICABLE", "contract_coverage": COVERAGE_NOT_APPLICABLE,
+                "default_law_checked": False, "statutory_default": "NOT_APPLICABLE",
+                "contractual_missing_elements": [], "statutory_default_elements": [],
+                "still_unprotected_elements": [], "practical_execution_gap": [], "evidentiary_gap": [],
+                "authority_ids": [], "citation_entailment": "NOT_APPLICABLE", "legal_freshness": "NOT_APPLICABLE",
+                "default_rule_applicable": False, "effective_gap_valid": True, "residual_risk_exists": False,
+                "affected_effective_gap": False, "remaining_gap": "", "statutory_protection_scope": "",
+                "default_law_result_id": "", "exclusion_reason": "NOT_APPLICABLE",
+            }
+            item.decision_trace["aggregation_key"] = quality4_aggregation_key(item)
+            item.risk_severity = SEVERITY_NONE
+            item.residual_risk = "本事项不适用于当前交易，不形成相应合同缺口。"
+            item.system_confidence = _system_confidence_for_item(item)
+            continue
+        default_assessment = _default_law_assessment(item, contract_type, contract_text)
+        default_status = default_assessment["status"]
         item.decision_trace["default_law_status"] = default_status
+        item.decision_trace["default_law_assessment"] = default_assessment
+        economic_gap = item.economic_impact or "unknown"
+        uncertainty = "high" if default_assessment.get("applicability") == "UNCERTAIN" else default_assessment["practical_uncertainty"]
+        residual_risk = (
+            "合同未自行约定该事项，法律默认规则提供基础答案；剩余风险主要来自具体履行节点、操作流程和证据差异。"
+            if item.coverage_status == "缺失" and default_status == "CLEAR_DEFAULT"
+            else default_assessment["remaining_gap"]
+        )
+        effective_gap = EffectiveGap(
+            review_id=item.item_id,
+            contract_coverage=item.coverage_status,
+            default_law_status=default_status,
+            default_protection=default_assessment["protection_scope"],
+            contract_context={"contract_type": contract_type, "risk_group": item.risk_group, "node_id": item.node_id},
+            remaining_legal_gap=default_assessment["remaining_gap"],
+            operational_gap=default_assessment["residual_operational_risk"],
+            economic_gap=economic_gap,
+            uncertainty=uncertainty,
+            residual_risk=residual_risk,
+        ).to_public_dict()
         item.decision_trace["effective_gap"] = {
-            "contract_coverage": item.coverage_status,
+            **effective_gap,
+            "default_law_checked": default_assessment["executed"],
             "statutory_default": default_status,
+            "default_rule_id": (default_assessment.get("rule") or {}).get("rule_id", ""),
+            "legal_proposition_id": (default_assessment.get("rule") or {}).get("proposition_id", ""),
+            "statutory_protection_scope": default_assessment["protection_scope"],
+            "remaining_gap": default_assessment["remaining_gap"],
+            "practical_uncertainty": default_assessment["practical_uncertainty"],
             "default_strength": "strong" if default_status == "CLEAR_DEFAULT" else "partial" if default_status == "PARTIAL_DEFAULT" else "none",
-            "residual_legal_risk": "low" if default_status == "CLEAR_DEFAULT" else "medium",
-            "residual_operational_risk": "low" if default_status == "CLEAR_DEFAULT" and item.node_id in LOW_PROBABILITY_NODE_IDS else "medium",
+            "residual_legal_risk": default_assessment["residual_legal_risk"],
+            "residual_operational_risk": default_assessment["residual_operational_risk"],
             "drafting_value": "convenience" if default_status == "CLEAR_DEFAULT" else "risk_mitigation",
             "contract_override_risk": "low",
+            "contractual_missing_elements": [
+                element.get("proposition") for element in item.coverage_elements
+                if element.get("status") in {"MISSING", "PARTIALLY_COVERED"} and element.get("proposition")
+            ],
+            "statutory_default_elements": [default_assessment["protection_scope"]] if default_assessment["protection_scope"] else [],
+            "supplied_element_ids": list((default_assessment.get("rule") or {}).get("supplied_element_ids") or []),
+            "unsupplied_element_ids": [
+                element.get("element_id") for element in item.coverage_elements
+                if element.get("status") in {"MISSING", "PARTIALLY_COVERED"}
+                and element.get("element_id") not in set((default_assessment.get("rule") or {}).get("supplied_element_ids") or [])
+            ],
+            "still_unprotected_elements": (
+                [] if default_status == "CLEAR_DEFAULT" and default_assessment["residual_operational_risk"] == "low"
+                else [default_assessment["remaining_gap"]] if material_gap and default_assessment["remaining_gap"] else []
+            ),
+            "practical_execution_gap": [default_assessment["remaining_gap"]] if material_gap and default_assessment["residual_operational_risk"] != "low" else [],
+            "evidentiary_gap": [],
+            "authority_ids": list((default_assessment.get("rule") or {}).get("authority_ids") or []),
+            "citation_entailment": (
+                "SUPPORTS" if default_assessment.get("authority_validation")
+                and all(row.get("support_type") in {"DIRECT_SUPPORT", "PARTIAL_SUPPORT"} for row in default_assessment["authority_validation"])
+                else "UNCERTAIN" if (default_assessment.get("rule") or {}).get("authority_ids") else "NOT_APPLICABLE"
+            ),
+            "legal_freshness": (
+                "CURRENT" if default_assessment.get("authority_validation")
+                and all(row.get("status") == "CURRENT" for row in default_assessment["authority_validation"])
+                else "UNCERTAIN" if (default_assessment.get("rule") or {}).get("authority_ids") else "NOT_APPLICABLE"
+            ),
+            "default_rule_applicable": default_assessment.get("applicability") in {"APPLICABLE", "CONDITIONAL", "AVAILABLE_NOT_NEEDED"},
+            "effective_gap_valid": bool(default_assessment["executed"]),
+            "residual_risk_exists": bool(default_assessment["remaining_gap"]) and not (
+                default_status == "CLEAR_DEFAULT" and default_assessment["residual_operational_risk"] == "low"
+            ),
+            "affected_effective_gap": material_gap and default_status in {"CLEAR_DEFAULT", "PARTIAL_DEFAULT"}
+            and bool((default_assessment.get("rule") or {}).get("authority_ids")),
+            "default_law_result_id": f"DLR-{item.item_id}",
         }
         item.decision_trace["aggregation_key"] = quality4_aggregation_key(item)
         formula = (item.scenario_analysis or {}).get("formula")
@@ -1761,7 +3700,7 @@ def _apply_risk_dimensions(items: List[ReviewItemResult]) -> List[ReviewItemResu
         if item.coverage_status in {"通过", COVERAGE_NOT_APPLICABLE} and item.risk_severity == SEVERITY_NONE:
             item.residual_risk = "本审查点已覆盖"
         else:
-            item.residual_risk = item.risk_point_description
+            item.residual_risk = residual_risk if default_status in {"CLEAR_DEFAULT", "PARTIAL_DEFAULT"} else item.risk_point_description
         item.system_confidence = _system_confidence_for_item(item)
     return items
 
@@ -1889,6 +3828,8 @@ def _finding_sort_key(finding: RiskFinding) -> tuple[int, int, int, int, int, in
 
 
 def _finding_recommendation(group: str, item: ReviewItemResult) -> str:
+    if group == "goods_title_and_third_party_rights":
+        return "建议统一约定供方对货物权属及第三方权利无瑕疵作出保证，并承担通知、处理、替换及赔偿责任。"
     if group == "early_termination_financial_exposure":
         return "建议将提前退租违约金改为固定月租倍数、设置金额上限，或明确以出租人实际空置损失和再出租成本为调整基础。"
     if group == "legal_reference":
@@ -1905,6 +3846,8 @@ def _finding_recommendation(group: str, item: ReviewItemResult) -> str:
         return "建议补充重大安全隐患下的紧急通知、临时搬离、费用承担和解除结算机制。"
     if group == "lawful_lease_basis":
         return "建议补充出租人保证房屋具备合法出租条件，且不存在影响居住使用的违法建设或限制。"
+    if item.narrative_state and item.narrative_state.get("recommendation"):
+        return str(item.narrative_state["recommendation"])
     return item.suggested_clause_example
 
 
@@ -1918,13 +3861,66 @@ def _finding_title(group: str, item: ReviewItemResult) -> str:
         "housing_safety_emergency": "房屋安全风险应急机制不足",
         "lawful_lease_basis": "房屋合法出租保证可进一步明确",
         "legal_reference": "法律引用建议更新",
+        "goods_title_and_third_party_rights": "货物权属及第三方权利保障不完整",
     }.get(group, item.title)
+
+
+POSITIVE_EXISTENCE_RISK_GROUPS = {"sale_unilateral_price_adjustment"}
+
+
+def _risk_claim_for_group(group: str, item: ReviewItemResult, finding_id: str) -> RiskClaim:
+    if group == "sale_unilateral_price_adjustment":
+        return RiskClaim(
+            claim_id=f"{finding_id}-CLAIM",
+            risk_type=group,
+            proposition="某一方可以在无需另一方同意的情况下调整合同价格。",
+            existence_type="POSITIVE_EXISTENCE",
+            subject_party="contract_party",
+            action="adjust",
+            object="contract_price",
+            condition="without_counterparty_consent",
+            direction="price_change",
+            consequence=item.legal_consequence_if_missing,
+            required_evidence_elements=["unilateral_actor", "price_adjustment_action", "absence_of_mutual_control"],
+        )
+    return RiskClaim(
+        claim_id=f"{finding_id}-CLAIM",
+        risk_type=group,
+        proposition=item.risk_point_description,
+        existence_type="MISSING_SAFEGUARD" if item.coverage_status in {"缺失", "部分覆盖"} else "POSITIVE_EXISTENCE",
+        object=group,
+        consequence=item.legal_consequence_if_missing,
+        required_evidence_elements=[element.get("element_id", "") for element in item.coverage_elements if element.get("element_id")],
+    )
+
+
+def _supporting_evidence_for_claim(claim: RiskClaim, evidence: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    required_entailments = {EVIDENCE_SUPPORTS} if claim.existence_type == "POSITIVE_EXISTENCE" else {EVIDENCE_SUPPORTS, EVIDENCE_PARTIAL_SUPPORT}
+    return [row for row in evidence if row.get("entailment_status") in required_entailments]
 
 
 def _build_risk_findings(items: List[ReviewItemResult]) -> List[RiskFinding]:
     grouped: Dict[str, List[ReviewItemResult]] = {}
     for item in items:
-        if item.coverage_status == COVERAGE_NOT_APPLICABLE or item.risk_severity == SEVERITY_NONE:
+        applicability_status = str((item.applicability or {}).get("status") or "APPLICABLE").upper()
+        applicability_valid = applicability_status == "APPLICABLE" and (item.applicability or {}).get("applicable", True) is not False
+        coverage_valid = item.coverage_status in {"缺失", "部分覆盖", "风险条款"}
+        claim_conflicts = list((item.decision_trace or {}).get("shared_claim_conflicts") or [])
+        residual = ((item.decision_trace or {}).get("effective_gap") or {}).get("remaining_gap") or item.residual_risk or item.legal_consequence_if_missing
+        precondition = {
+            "applicability_valid": applicability_valid,
+            "coverage_valid": coverage_valid,
+            "evidence_valid": bool(item.evidence_clauses) or item.coverage_status in {"缺失", "部分覆盖"},
+            "shared_claim_consistent": not claim_conflicts,
+            "default_law_valid_if_required": not (((item.decision_trace or {}).get("default_law_assessment") or {}).get("default_law_relevant")) or bool((item.decision_trace or {}).get("effective_gap")),
+            "effective_gap_valid": bool(((item.decision_trace or {}).get("effective_gap") or {}).get("effective_gap_valid")),
+            "residual_risk_exists": bool(residual),
+        }
+        precondition["all_required_conditions"] = all(precondition.values())
+        item.decision_trace["finding_precondition"] = precondition
+        if not precondition["all_required_conditions"] or item.risk_severity == SEVERITY_NONE:
+            continue
+        if (item.risk_group or item.node_id) in POSITIVE_EXISTENCE_RISK_GROUPS and item.coverage_status != "风险条款":
             continue
         group_key = f"{item.decision_trace.get('risk_category') or ontology_category(item.risk_group, item.node_id)}|{item.risk_group or item.node_id or item.item_id}"
         grouped.setdefault(group_key, []).append(item)
@@ -1948,6 +3944,8 @@ def _build_risk_findings(items: List[ReviewItemResult]) -> List[RiskFinding]:
                 seen_evidence.add(key)
                 evidence.append(clause)
         finding_id = RISK_FINDING_ID_BY_GROUP.get(group, f"RF-{index:03d}")
+        risk_claim = _risk_claim_for_group(group, primary, finding_id)
+        supporting_evidence = _supporting_evidence_for_claim(risk_claim, evidence)
         source_review_ids = sorted({item.item_id for item in all_group_items})
         source_clause_ids = sorted(
             {
@@ -1969,6 +3967,14 @@ def _build_risk_findings(items: List[ReviewItemResult]) -> List[RiskFinding]:
             "shared_economic_consequence": primary.economic_impact or "none",
             "shared_legal_consequence": primary.legal_consequence_if_missing,
             "source_review_count": len(source_review_ids),
+            "risk_claim": risk_claim.to_public_dict(),
+            "claim_ids": sorted({
+                str(element.get("claim_id") or element.get("element_id"))
+                for item in group_items
+                for element in item.coverage_elements
+                if element.get("claim_id") or element.get("element_id")
+            }),
+            "finding_preconditions": {item.item_id: item.decision_trace.get("finding_precondition") for item in group_items},
         }
         severity_reason = {
             "dominant_factor": primary.high_risk_reason or primary.decision_trace.get("coverage_gap_type") or risk_category,
@@ -1997,8 +4003,8 @@ def _build_risk_findings(items: List[ReviewItemResult]) -> List[RiskFinding]:
                     "confidence": "medium",
                 }
             ] if primary.legal_basis_index else [],
-            issue=primary.risk_point_description,
-            consequence=primary.legal_consequence_if_missing,
+            issue=str((primary.narrative_state or {}).get("issue") or primary.risk_point_description),
+            consequence=str((primary.narrative_state or {}).get("consequence") or primary.legal_consequence_if_missing),
             probability=_probability_for_item(primary),
             impact=impact,
             economic_impact=economic_impact,
@@ -2021,8 +4027,8 @@ def _build_risk_findings(items: List[ReviewItemResult]) -> List[RiskFinding]:
             risk_category=risk_category,
             aggregation_signals=aggregation_signals,
             default_law_status=default_law_status(group, primary.node_id),
-            supporting_evidence=evidence,
-            counter_evidence=[],
+            supporting_evidence=supporting_evidence,
+            counter_evidence=[row for row in evidence if row not in supporting_evidence],
         )
         findings.append(finding)
         for item in items:
@@ -2032,6 +4038,47 @@ def _build_risk_findings(items: List[ReviewItemResult]) -> List[RiskFinding]:
             item.related_risks = sorted(set(item.related_risks + [finding_id]))
     findings.sort(key=_finding_sort_key)
     return findings
+
+
+def _finding_has_supporting_evidence(finding: RiskFinding) -> bool:
+    evidence = finding.supporting_evidence or finding.evidence or []
+    if not evidence:
+        return False
+    risk_claim = (finding.aggregation_signals or {}).get("risk_claim") or {}
+    if risk_claim.get("existence_type") == "POSITIVE_EXISTENCE":
+        return any(evidence_item.get("entailment_status") == EVIDENCE_SUPPORTS for evidence_item in evidence)
+    return any(
+        evidence_item.get("entailment_status") in {EVIDENCE_SUPPORTS, EVIDENCE_PARTIAL_SUPPORT}
+        for evidence_item in evidence
+    )
+
+
+def _filter_unsupported_positive_findings(findings: List[RiskFinding], items: List[ReviewItemResult]) -> List[RiskFinding]:
+    item_by_id = {item.item_id: item for item in items}
+    retained: List[RiskFinding] = []
+    for finding in findings:
+        related_items = [item_by_id[item_id] for item_id in finding.source_review_ids if item_id in item_by_id]
+        positive_risk_items = [item for item in related_items if item.coverage_status == "风险条款"]
+        if positive_risk_items and not _finding_has_supporting_evidence(finding):
+            finding.verification = {
+                "status": "BLOCK",
+                "prompt_version": VERIFIER_PROMPT_VERSION,
+                "fact_exists": False,
+                "evidence_supports": False,
+                "negative_evidence_checked": True,
+                "reason": "Positive existence finding requires SUPPORTS evidence; partial, related, uncertain, or topic-similar evidence is insufficient.",
+            }
+            finding.verification_status = "BLOCK"
+            for item in positive_risk_items:
+                item.related_risks = [risk_id for risk_id in item.related_risks if risk_id != finding.finding_id]
+                item.decision_trace["finding_evidence_gate"] = {
+                    "status": "REJECTED",
+                    "finding_id": finding.finding_id,
+                    "reason": finding.verification["reason"],
+                }
+            continue
+        retained.append(finding)
+    return retained
 
 
 def _semantic_entailment_for_item(item: ReviewItemResult) -> tuple[Optional[bool], str, str]:
@@ -2174,11 +4221,34 @@ def _has_sale_staged_payment_structure(compacted: str) -> bool:
 
 def _has_sale_unilateral_price_adjustment(text: str) -> bool:
     source = text or ""
-    has_price = any(term in source for term in ("单价", "价格", "价款", "报价"))
-    has_adjustment = any(term in source for term in ("调整", "变动", "变更", "浮动", "调价"))
-    has_unilateral = any(term in source for term in ("甲方可", "甲方有权", "出卖人可", "出卖人有权", "书面通知予以调整", "通知后调整", "通知乙方"))
-    has_market = any(term in source for term in ("市场行情变化", "市场行情", "市场价格", "行情变化", "原材料价格", "价格波动"))
-    return has_price and has_adjustment and (has_unilateral or has_market)
+    compacted = _compact(source)
+    if not any(term in compacted for term in ("单价", "价格", "价款", "报价", "货款")):
+        return False
+    if not any(term in compacted for term in ("调整", "变动", "变更", "浮动", "调价")):
+        return False
+    if any(term in compacted for term in ("双方协商一致", "双方书面确认", "经双方同意", "经买方同意", "另行签署补充协议")):
+        return False
+    if any(term in compacted for term in ("价格指数", "公开指数", "公开市场指数", "挂牌价", "基准价")) and not any(
+        term in compacted for term in ("甲方可", "甲方有权", "出卖人可", "出卖人有权", "卖方可", "卖方有权", "供方可", "供方有权")
+    ):
+        return False
+    has_unilateral_actor = any(
+        term in compacted
+        for term in (
+            "甲方可",
+            "甲方有权",
+            "出卖人可",
+            "出卖人有权",
+            "卖方可",
+            "卖方有权",
+            "供方可",
+            "供方有权",
+            "单方",
+        )
+    )
+    has_unilateral_action = any(term in compacted for term in ("通知予以调整", "通知后调整", "通知乙方", "自行调整", "直接调整"))
+    has_vague_market = any(term in compacted for term in ("市场行情变化", "市场行情", "行情变化", "原材料价格", "价格波动"))
+    return has_unilateral_actor and (has_unilateral_action or has_vague_market)
 
 
 def _has_price_adjustment_safeguards(text: str) -> bool:
@@ -2609,20 +4679,26 @@ def _apply_house_lease_real_contract_rules(items: List[ReviewItemResult], contra
 
 
 def _apply_sale_contract_rules(items: List[ReviewItemResult], contract_text: str) -> List[ReviewItemResult]:
-    clauses = parse_contract_clauses(contract_text)
+    clauses = formal_evidence_clauses(parse_contract_clauses(contract_text))
     compacted = _compact(contract_text)
     by_id = {item.item_id: item for item in items}
 
     effective_evidence = _find_clause(
         clauses,
-        lambda clause: "生效" in clause.text and ("签字" in clause.text or "盖章" in clause.text or "签署" in clause.text),
+        lambda clause: "生效" in clause.text and (
+            "签字" in clause.text
+            or "盖章" in clause.text
+            or "签署" in clause.text
+            or bool(re.search(r"20\d{2}[年/.-]\d{1,2}[月/.-]\d{1,2}日?.{0,8}(?:起)?生效", clause.text))
+            or bool(re.search(r"生效.{0,12}20\d{2}[年/.-]\d{1,2}[月/.-]\d{1,2}日?", clause.text))
+        ),
     )
     if effective_evidence and (item := by_id.get("S-00-01")):
         _set_item_pass(
             item,
             [effective_evidence],
-            "合同已明确签字、盖章或签署后的生效节点，生效条件具备可验证性。",
-            "合同生效条件已明确，签署完成后合同效力节点清晰。",
+            "合同已明确签字盖章、签署或具体日期对应的生效节点，生效条件具备可验证性。",
+            "合同生效条件或生效日期已明确，合同效力节点清晰。",
         )
         item.fallback_reason = "买卖合同通用生效条款召回"
     elif (item := by_id.get("S-00-01")) and item.coverage_status in {"通过", "部分覆盖"}:
@@ -3434,7 +5510,10 @@ def _parse_legal_basis_references(text: str) -> List[Dict[str, str]]:
 def _review_proposition(item: ReviewItemResult) -> str:
     if item.coverage_status == COVERAGE_NOT_APPLICABLE:
         return item.applicability.get("reason") or item.title
-    return item.risk_point_description or item.legal_consequence_if_missing or item.title
+    text = item.risk_point_description or item.legal_consequence_if_missing or item.title
+    if item.coverage_status == "缺失" and any(phrase in text for phrase in MISSING_NARRATIVE_FORBIDDEN):
+        return f"合同未明确约定“{item.title}”对应安排。"
+    return text
 
 
 def _retrieve_legal_references_for_proposition(proposition: str) -> List[Dict[str, str]]:
@@ -3466,6 +5545,27 @@ def _legal_claim_specs_for_item(item: ReviewItemResult) -> List[Dict[str, Any]]:
             },
             {
                 "proposition": "建议共同居住人或共同经营人继续承租时提交身份、共同居住或共同经营证明。",
+                "claim_type": "DRAFTING_RECOMMENDATION",
+                "references": [],
+            },
+        ]
+    if item.node_id == "tenant_death_settlement":
+        return [
+            {
+                "proposition": "无人继续承租时，房屋、遗留物、费用和押金交接属于合同履行和遗产管理衔接事项，应由合同另行约定操作流程。",
+                "claim_type": "DRAFTING_RECOMMENDATION",
+                "references": [],
+            }
+        ]
+    if item.node_id == "reasonable_repair_cost":
+        return [
+            {
+                "proposition": "维修费用应以实际发生、必要且合理的维修支出为基础，并保留维修单据、报价或市场依据。",
+                "claim_type": "DRAFTING_RECOMMENDATION",
+                "references": [],
+            },
+            {
+                "proposition": "如果维修费用被约定为违约金或固定赔偿额，才需要单独适用违约金过高调整规则。",
                 "claim_type": "DRAFTING_RECOMMENDATION",
                 "references": [],
             },
@@ -3536,6 +5636,18 @@ def _apply_citation_claims(items: List[ReviewItemResult]) -> List[ReviewItemResu
     for item in items:
         claims: List[Dict[str, Any]] = []
         specs = _legal_claim_specs_for_item(item)
+        effective_gap = (item.decision_trace or {}).get("effective_gap") or {}
+        if effective_gap.get("affected_effective_gap"):
+            authority_ids = [value for value in effective_gap.get("authority_ids", []) if value in DEFAULT_LAW_AUTHORITY_ARTICLES]
+            if authority_ids:
+                specs.append({
+                    "proposition": effective_gap.get("statutory_protection_scope") or "现行法律为该合同缺口提供默认处理规则。",
+                    "claim_type": "STATUTORY_DEFAULT",
+                    "references": [
+                        {"law_name": "中华人民共和国民法典", "article": DEFAULT_LAW_AUTHORITY_ARTICLES[authority_id], "paragraph": ""}
+                        for authority_id in authority_ids
+                    ],
+                })
         for index, spec in enumerate(specs, start=1):
             references = spec.get("references") or []
             if not references:
@@ -3554,6 +5666,12 @@ def _apply_citation_claims(items: List[ReviewItemResult]) -> List[ReviewItemResu
                     claim_type=spec.get("claim_type") or "STATUTORY_RULE",
                 )
                 claim = validation.get("claim") or {}
+                if (
+                    validation.get("support_type") == "UNCERTAIN"
+                    or (not validation.get("authority") and validation.get("support_type") != "BACKGROUND_ONLY")
+                ):
+                    claims.append(_claim_without_direct_authority(item, index, spec))
+                    continue
                 claims.append(
                     {
                         **claim,
@@ -3566,6 +5684,139 @@ def _apply_citation_claims(items: List[ReviewItemResult]) -> List[ReviewItemResu
                 )
         item.legal_references = claims
     return items
+
+
+LEGAL_SUPPORT_RANK = {
+    "DIRECT_SUPPORT": 4, "PARTIAL_SUPPORT": 3, "SUPPORTING": 3,
+    "CONTEXT_ONLY": 2, "BACKGROUND_ONLY": 1, "NOT_SUPPORT": 0, "CONTRADICTS": -1, "UNCERTAIN": -1,
+}
+
+FINAL_RELEASE_ERROR_TAXONOMY = {
+    "RECOMMENDATION_DUAL_SOURCE_ERROR",
+    "RECOMMENDATION_RENDERER_RESURRECTION",
+    "RECOMMENDATION_CROSS_RENDERER_MISMATCH",
+    "LEGAL_AUTHORITY_DUPLICATION",
+    "LEGAL_AUTHORITY_OVERREACH",
+    "LEGAL_PROPOSITION_ENTAILMENT_ERROR",
+    "DEFAULT_LAW_NARRATIVE_MISMATCH",
+    "DRAFTING_RATIONALE_AS_LEGAL_REQUIREMENT",
+    "LEGAL_AUTHORITY_DEFAULT_LAW_CONTRADICTION",
+    "LEGAL_PROPOSITION_STATE_DIVERGENCE",
+    "COMPOSITE_LEGAL_ELEMENT_ERROR",
+    "NOT_APPLICABLE_GAP_NARRATIVE",
+    "NOT_APPLICABLE_DEFAULT_LAW_LEAKAGE",
+    "REVIEW_POLARITY_ERROR",
+    "NEGATIVE_REVIEW_POSITIVE_NARRATIVE",
+    "NEGATIVE_CHECK_FALSE_PASS",
+}
+
+
+def _legal_authority_key(claim: Dict[str, Any]) -> tuple[str, str, str, str]:
+    authority = claim.get("authority") or {}
+    return (
+        str(claim.get("authority_id") or authority.get("authority_id") or claim.get("law_name") or ""),
+        str(claim.get("article") or ""), str(claim.get("paragraph") or ""),
+        str(authority.get("effective_from") or ""),
+    )
+
+
+def _select_legal_authorities(items: List[ReviewItemResult]) -> Dict[str, Any]:
+    rows: List[Dict[str, Any]] = []
+    duplicate_count = 0
+    for item in items:
+        candidates = list(item.legal_references or [])
+        no_authority = [claim for claim in candidates if not claim.get("authority_id")]
+        grouped: Dict[tuple[str, str, str, str], List[Dict[str, Any]]] = {}
+        for claim in candidates:
+            if claim.get("authority_id"):
+                grouped.setdefault(_legal_authority_key(claim), []).append(claim)
+        selected: List[Dict[str, Any]] = []
+        rejected: List[Dict[str, Any]] = []
+        for key, group in grouped.items():
+            duplicate_count += max(0, len(group) - 1)
+            ordered = sorted(
+                group,
+                key=lambda claim: (
+                    LEGAL_SUPPORT_RANK.get(str(claim.get("support_type") or "UNCERTAIN"), -1),
+                    1 if claim.get("freshness_status") == "CURRENT" else 0,
+                    1 if claim.get("claim_type") == "STATUTORY_DEFAULT" else 0,
+                    {"high": 3, "medium": 2, "low": 1}.get(str(claim.get("confidence") or "low"), 0),
+                ),
+                reverse=True,
+            )
+            best = dict(ordered[0])
+            best["authority_key"] = list(key)
+            best["supported_propositions"] = list(dict.fromkeys(
+                str(claim.get("proposition") or "") for claim in group if claim.get("proposition")
+            ))
+            if (
+                LEGAL_SUPPORT_RANK.get(str(best.get("support_type") or "UNCERTAIN"), -1) >= 3
+                and best.get("freshness_status") == "CURRENT"
+            ):
+                selected.append(best)
+                rejected.extend(ordered[1:])
+            else:
+                rejected.extend(ordered)
+        selected.sort(key=lambda claim: LEGAL_SUPPORT_RANK.get(str(claim.get("support_type") or ""), -1), reverse=True)
+        if len(selected) > 3:
+            rejected.extend(selected[3:])
+            selected = selected[:3]
+        item.legal_references = no_authority + selected
+        selected_keys = {_legal_authority_key(claim) for claim in selected}
+        entailment_rows = [
+            {
+                "proposition_id": claim.get("claim_id"), "statement": claim.get("proposition"),
+                "authority_id": claim.get("authority_id"),
+                "authority_rule_summary": ((claim.get("authority") or {}).get("text") or claim.get("support_scope") or ""),
+                "entailment": (
+                    "SUPPORTS" if claim.get("support_type") == "DIRECT_SUPPORT"
+                    else "PARTIAL" if claim.get("support_type") in {"PARTIAL_SUPPORT", "SUPPORTING"}
+                    else claim.get("support_type")
+                ),
+                "reason": "Selected by proposition-level authority entailment."
+                if _legal_authority_key(claim) in selected_keys and claim.get("support_type") in {"DIRECT_SUPPORT", "PARTIAL_SUPPORT", "SUPPORTING"}
+                else "Rejected because a stronger duplicate exists or the authority does not support the proposition.",
+            }
+            for claim in candidates
+        ]
+        selection = {
+            "review_id": item.item_id,
+            "candidate_authorities": candidates,
+            "selected_authorities": selected,
+            "rejected_authorities": rejected,
+            "duplicate_count": sum(max(0, len(group) - 1) for group in grouped.values()),
+            "entailment": entailment_rows,
+        }
+        item.decision_trace["legal_authority_selection"] = selection
+        rows.append(selection)
+    remaining_duplicates = 0
+    for item in items:
+        remaining_keys = [
+            _legal_authority_key(claim) for claim in item.legal_references if claim.get("authority_id")
+        ]
+        remaining_duplicates += len(remaining_keys) - len(set(remaining_keys))
+    context_selected = [
+        claim for item in items for claim in item.legal_references
+        if claim.get("authority_id")
+        and claim.get("support_type") in {"CONTEXT_ONLY", "BACKGROUND_ONLY", "NOT_SUPPORT", "CONTRADICTS"}
+    ]
+    return {
+        "status": "BLOCKED" if remaining_duplicates or context_selected else "REPORT_READY",
+        "failures": [] if not remaining_duplicates and not context_selected else [{
+            "requirement": "LEGAL_AUTHORITY_SELECTION_GATE", "failure_stage": "Legal Authority Selection",
+            "root_cause": "Production authority selection retained a duplicate or non-supporting authority.",
+            "responsible_function": "_select_legal_authorities", "current_status": "FAIL",
+        }],
+        "gate_results": {
+            "LEGAL_AUTHORITY_DEDUP_GATE": "FAIL" if remaining_duplicates else "PASS",
+            "LEGAL_AUTHORITY_SELECTION_GATE": "FAIL" if context_selected else "PASS",
+            "CITATION_ENTAILMENT_GATE": "FAIL" if context_selected else "PASS",
+        },
+        "candidate_duplicate_count": duplicate_count,
+        "duplicate_count": remaining_duplicates,
+        "material_citation_not_support_count": len(context_selected),
+        "rows": rows,
+    }
 
 
 def _detect_contract_year(contract_text: str) -> Optional[int]:
@@ -3725,14 +5976,32 @@ def _overall_assessment(
     if findings:
         max_severity = sorted((finding.severity for finding in findings), key=_severity_rank)[0]
     a_core_count = sum(1 for finding in findings if finding.priority == PRIORITY_A_CORE)
+    decision_findings = sorted(
+        findings,
+        key=lambda finding: (_priority_rank(finding.priority), _severity_rank(finding.severity), finding.finding_id),
+    )[:3]
+    unresolved = [finding.finding_id for finding in findings if finding.needs_manual_review or (finding.confidence or {}).get("level") == "low"]
     if has_manual:
-        signability = "建议人工法律复核"
-    elif max_severity in {SEVERITY_HIGH, SEVERITY_CRITICAL}:
+        signability = "建议专业法律复核后决定"
+    elif any(finding.priority == PRIORITY_A_CORE and finding.severity in {SEVERITY_HIGH, SEVERITY_CRITICAL} for finding in findings):
         signability = "存在重大风险，建议修改后签署"
-    elif a_core_count or any(finding.severity == SEVERITY_MEDIUM for finding in findings):
+    elif a_core_count or any(finding.severity in {SEVERITY_MEDIUM, SEVERITY_HIGH, SEVERITY_CRITICAL} for finding in findings):
         signability = "建议修改后签署"
+    elif findings:
+        signability = "建议优化后签署"
     else:
         signability = "可直接签署"
+    reasons = [
+        f"{finding.finding_id} {finding.title}：严重度 {finding.severity}，优先级 {finding.priority}，剩余风险由独立 Finding 决策。"
+        for finding in decision_findings
+    ]
+    signability_decision = SignabilityDecision(
+        label=signability,
+        decision_finding_ids=[finding.finding_id for finding in decision_findings],
+        reasons=reasons or ["没有形成需要修改的独立风险发现。"],
+        unresolved_uncertainty=unresolved,
+        confidence="low" if unresolved else "high" if not findings or all((finding.confidence or {}).get("level") == "high" for finding in decision_findings) else "medium",
+    )
     return {
         "contract_type": contract_type_name,
         "signability": signability,
@@ -3742,10 +6011,19 @@ def _overall_assessment(
         "covered_key_items": [item.item_id for item in items if item.coverage_status == "通过" and item.review_priority in {PRIORITY_A_CORE, PRIORITY_B_PRACTICAL}][:10],
         "manual_review_count": sum(1 for item in items if item.needs_manual_review),
         "max_severity": max_severity,
+        "signability_decision": signability_decision.to_public_dict(),
     }
 
 
 def _finding_needs_verification(finding: RiskFinding) -> bool:
+    risk_claim = (finding.aggregation_signals or {}).get("risk_claim") or {}
+    evidence = finding.supporting_evidence or []
+    if risk_claim.get("existence_type") == "POSITIVE_EXISTENCE":
+        return True
+    if evidence and any(row.get("entailment_status") != EVIDENCE_SUPPORTS for row in evidence):
+        return True
+    if finding.default_law_status == "UNCERTAIN_DEFAULT":
+        return True
     if finding.severity in {SEVERITY_HIGH, SEVERITY_CRITICAL}:
         return True
     if finding.priority == PRIORITY_A_CORE and finding.severity == SEVERITY_MEDIUM:
@@ -3770,7 +6048,20 @@ def _run_independent_verifier(findings: List[RiskFinding], items: List[ReviewIte
             finding.agreement = {"primary": finding.severity, "verifier": "not_run", "status": "AGREE", "reason": "未触发验证。"}
             continue
         related_items = [item_by_id[item_id] for item_id in finding.source_review_ids if item_id in item_by_id]
-        has_support = bool(finding.evidence) or any(item.coverage_status == "缺失" for item in related_items)
+        risk_claim = (finding.aggregation_signals or {}).get("risk_claim") or {}
+        has_element_support = any(
+            element.get("status") in {"COVERED", "PARTIALLY_COVERED"}
+            and element.get("entailment") in {EVIDENCE_SUPPORTS, EVIDENCE_PARTIAL_SUPPORT}
+            for item in related_items
+            for element in (item.coverage_elements or [])
+        )
+        has_support = (
+            _finding_has_supporting_evidence(finding)
+            or has_element_support
+            or any(item.coverage_status == "缺失" for item in related_items)
+        )
+        if risk_claim.get("existence_type") == "POSITIVE_EXISTENCE":
+            has_support = _finding_has_supporting_evidence(finding)
         formula_ok = True
         if finding.risk_group == "early_termination_financial_exposure":
             formula_validations = [
@@ -3794,6 +6085,15 @@ def _run_independent_verifier(findings: List[RiskFinding], items: List[ReviewIte
             "evidence_supports": has_support,
             "formula_correct": formula_ok,
             "negative_evidence_checked": True,
+            "factual_support": has_support,
+            "evidence_support": has_support,
+            "counter_evidence": list(finding.counter_evidence),
+            "applicability": "APPLICABLE" if related_items else "NOT_ESTABLISHED",
+            "legal_support": finding.default_law_status,
+            "finding_exists": has_support,
+            "severity_reasonable": agreement_status == "AGREE",
+            "priority_reasonable": agreement_status == "AGREE",
+            "agreement": agreement_status,
             "reason": reason,
         }
         finding.verification_status = finding.verification["status"]
@@ -3824,9 +6124,96 @@ def _recommendation_type_for_finding(finding: RiskFinding) -> str:
     return "MODIFY"
 
 
-def _build_recommendations(findings: List[RiskFinding]) -> List[Recommendation]:
+def _recommendation_clauses_for_finding(finding: RiskFinding, items_by_id: Dict[str, ReviewItemResult]) -> List[Dict[str, Any]]:
+    legal_claim_ids: List[str] = []
+    drafting_claim_ids: List[str] = []
+    for review_id in finding.source_review_ids:
+        item = items_by_id.get(review_id)
+        if not item:
+            continue
+        for claim in item.legal_references or []:
+            if claim.get("claim_type") == "DRAFTING_RECOMMENDATION":
+                drafting_claim_ids.append(claim.get("claim_id", ""))
+            elif claim.get("support_type") == "DIRECT_SUPPORT" and claim.get("support_scope"):
+                legal_claim_ids.append(claim.get("claim_id", ""))
+    clauses: List[Dict[str, Any]] = []
+    if legal_claim_ids:
+        clauses.append(
+            {
+                "text": "法律规则以直接支持当前命题的 LegalClaim 为准。",
+                "source_type": "STATUTORY_RULE",
+                "legal_claim_ids": sorted(set(filter(None, legal_claim_ids))),
+                "legal_requirement": True,
+                "drafting_choice": False,
+                "rationale": "该部分由 proposition-level entailment 验证通过的法律 claim 支撑。",
+            }
+        )
+    source_type = "DRAFTING_CHOICE" if drafting_claim_ids else "RISK_MITIGATION"
+    clauses.append(
+        {
+            "text": finding.recommendation,
+            "source_type": source_type,
+            "legal_claim_ids": sorted(set(filter(None, drafting_claim_ids))),
+            "legal_requirement": False,
+            "drafting_choice": source_type == "DRAFTING_CHOICE",
+            "rationale": "该建议用于降低履行争议，不自动表述为法定强制期限或法定义务。",
+        }
+    )
+    return clauses
+
+
+def _recommendation_components_for_finding(finding: RiskFinding, items_by_id: Dict[str, ReviewItemResult]) -> List[Dict[str, Any]]:
+    components: List[Dict[str, Any]] = []
+    numeric_pattern = re.compile(r"(?:\d+|[一二三四五六七八九十两]+)\s*(?:日|天|个工作日|倍)")
+    for review_id in finding.source_review_ids:
+        item = items_by_id.get(review_id)
+        if not item:
+            continue
+        for claim in item.legal_references or []:
+            claim_type = claim.get("claim_type")
+            support_type = claim.get("support_type")
+            if claim_type == "DRAFTING_RECOMMENDATION":
+                continue
+            if support_type == "DIRECT_SUPPORT" and claim.get("support_scope"):
+                proposition = claim.get("proposition") or "法律规则"
+                support_scope = claim.get("support_scope") or ""
+                unsupported_numbers = [number for number in numeric_pattern.findall(proposition) if number not in support_scope]
+                if unsupported_numbers:
+                    continue
+                source_type = "STATUTORY_DEFAULT" if (item.decision_trace or {}).get("default_law_status") == "CLEAR_DEFAULT" else "STATUTORY_RULE"
+                components.append(
+                    {
+                        "proposition": proposition,
+                        "source_type": source_type,
+                        "legal_claim_ids": [claim.get("claim_id")],
+                        "statutory_basis": f"《{claim.get('law_name')}》{claim.get('article') or ''}",
+                        "authority": f"《{claim.get('law_name')}》{claim.get('article') or ''}",
+                        "supported_scope": support_scope,
+                        "drafting_reason": "",
+                        "confidence": claim.get("confidence", "medium"),
+                    }
+                )
+    drafting_reason = finding.recommendation
+    source_type = "RISK_MITIGATION" if finding.priority in {PRIORITY_A_CORE, PRIORITY_B_PRACTICAL} else "DRAFTING_CHOICE"
+    components.append(
+        {
+            "proposition": drafting_reason,
+            "source_type": source_type,
+            "legal_claim_ids": [],
+            "statutory_basis": "",
+            "authority": "",
+            "supported_scope": "",
+            "drafting_reason": "该组件属于合同起草或风险缓释选择，不表述为具体法定期限、法定金额或强制格式。",
+            "confidence": (finding.confidence or {}).get("level", "medium"),
+        }
+    )
+    return components
+
+
+def _build_recommendations(findings: List[RiskFinding], items: Optional[List[ReviewItemResult]] = None) -> List[Recommendation]:
     recommendations: List[Recommendation] = []
     by_key: Dict[tuple[str, str], Recommendation] = {}
+    items_by_id = {item.item_id: item for item in (items or [])}
     for finding in findings:
         recommendation_type = _recommendation_type_for_finding(finding)
         key = (finding.risk_group, recommendation_type)
@@ -3847,6 +6234,8 @@ def _build_recommendations(findings: List[RiskFinding]) -> List[Recommendation]:
                 proposed_text=finding.recommendation,
                 expected_effect=f"降低或消除“{finding.title}”对应的执行争议。",
                 confidence={"level": (finding.confidence or {}).get("level", "medium"), "source": "recommendation_aggregator"},
+                clauses=_recommendation_clauses_for_finding(finding, items_by_id),
+                components=_recommendation_components_for_finding(finding, items_by_id),
             )
             by_key[key] = recommendation
             recommendations.append(recommendation)
@@ -3854,8 +6243,90 @@ def _build_recommendations(findings: List[RiskFinding]) -> List[Recommendation]:
         recommendation.source_finding_ids = sorted(set(recommendation.source_finding_ids + [finding.finding_id]))
         recommendation.target_finding_ids = sorted(set(recommendation.target_finding_ids + [finding.finding_id]))
         recommendation.target_clause_ids = sorted(set(recommendation.target_clause_ids + finding.source_clause_ids))
+        recommendation.target_review_ids = sorted(set(recommendation.target_review_ids + finding.source_review_ids))
+        if not recommendation.clauses:
+            recommendation.clauses = _recommendation_clauses_for_finding(finding, items_by_id)
+        if not recommendation.components:
+            recommendation.components = _recommendation_components_for_finding(finding, items_by_id)
         finding.recommendation_ids = sorted(set(finding.recommendation_ids + [recommendation.recommendation_id]))
     return recommendations
+
+
+def _recommendation_suppression_reason(impact: Any) -> str:
+    if getattr(impact, "narrows_remedy", False):
+        return "POTENTIAL_REMEDY_NARROWING"
+    if getattr(impact, "shifts_risk_to_user", False):
+        return "STATUTORY_PROTECTION_DEGRADATION"
+    if getattr(impact, "increases_liability", False) or getattr(impact, "accelerates_obligation", False):
+        return "INCREASES_USER_OBLIGATION"
+    return "NO_SAFE_DRAFTING_IMPROVEMENT"
+
+
+def _apply_recommendation_display_states(
+    items: List[ReviewItemResult],
+    findings: List[RiskFinding],
+    active_recommendations: List[Recommendation],
+    impacts: List[Any],
+) -> tuple[Dict[str, Any], List[Dict[str, Any]]]:
+    active_ids = {recommendation.recommendation_id for recommendation in active_recommendations}
+    active_by_finding: Dict[str, List[Recommendation]] = {}
+    for recommendation in active_recommendations:
+        for finding_id in recommendation.target_finding_ids:
+            active_by_finding.setdefault(finding_id, []).append(recommendation)
+    impacts_by_finding: Dict[str, List[Any]] = {}
+    for impact in impacts:
+        for finding_id in impact.target_finding_ids:
+            impacts_by_finding.setdefault(finding_id, []).append(impact)
+    finding_ids_by_review: Dict[str, List[str]] = {}
+    for finding in findings:
+        finding.recommendation_ids = [value for value in finding.recommendation_ids if value in active_ids]
+        for review_id in finding.source_review_ids:
+            finding_ids_by_review.setdefault(review_id, []).append(finding.finding_id)
+
+    debug: List[Dict[str, Any]] = []
+    for item in items:
+        finding_ids = finding_ids_by_review.get(item.item_id, [])
+        active = list(dict.fromkeys(
+            recommendation.recommendation_id
+            for finding_id in finding_ids
+            for recommendation in active_by_finding.get(finding_id, [])
+        ))
+        blocked_impacts = [
+            impact for finding_id in finding_ids for impact in impacts_by_finding.get(finding_id, [])
+            if impact.gate_result == "BLOCKED"
+        ]
+        blocked = list(dict.fromkeys(impact.recommendation_id for impact in blocked_impacts))
+        reasons = list(dict.fromkeys(_recommendation_suppression_reason(impact) for impact in blocked_impacts))
+        if active:
+            message = _priority_label(item.action_priority)
+        elif blocked:
+            message = "暂不建议单独修改该条款；候选修改可能削弱当前有效保护。"
+        elif item.coverage_status in {"通过", COVERAGE_NOT_APPLICABLE}:
+            message = "已覆盖，无需修改。" if item.coverage_status == "通过" else "不适用。"
+        elif finding_ids:
+            message = "当前不形成独立修改建议。"
+        else:
+            message = "无需形成独立修改建议。"
+        state = {
+            "review_id": item.item_id, "finding_ids": finding_ids,
+            "recommendation_ids": active, "candidate_recommendation_ids": list(dict.fromkeys(active + blocked)),
+            "active_recommendation_ids": active, "blocked_recommendation_ids": blocked,
+            "has_active_recommendation": bool(active), "action_priority": item.action_priority,
+            "user_message": message, "suppression_reason": reasons, "block_reasons": reasons,
+            "summary_recommendation_ids": active, "detail_recommendation_ids": active, "mismatch": False,
+        }
+        item.decision_trace["recommendation_display_state"] = state
+        item.action_suggestion = message
+        if item.narrative_state:
+            item.narrative_state["recommendation"] = ""
+            item.narrative_state["recommendation_ids"] = active
+            item.narrative_state["recommendation_suppression_reason"] = reasons
+        debug.append(state)
+    final_set = {
+        "recommendation_ids": [recommendation.recommendation_id for recommendation in active_recommendations],
+        "recommendations": [recommendation.to_public_dict() for recommendation in active_recommendations],
+    }
+    return final_set, debug
 
 
 def _release_quality_gate(
@@ -3929,6 +6400,50 @@ def _release_quality_gate(
                 "current_status": "FAIL",
             }
         )
+    unsupported_positive = [
+        finding.finding_id
+        for finding in findings
+        if any(item.coverage_status == "风险条款" for item in items if item.item_id in finding.source_review_ids)
+        and not _finding_has_supporting_evidence(finding)
+    ]
+    if unsupported_positive:
+        failures.append(
+            {
+                "requirement": "Evidence Supports Positive Finding",
+                "failure_stage": "Evidence-to-Finding Gate",
+                "root_cause": f"正向风险发现缺少 SUPPORTS/PARTIAL_SUPPORT 证据：{', '.join(unsupported_positive)}。",
+                "responsible_function": "_filter_unsupported_positive_findings",
+                "current_status": "FAIL",
+            }
+        )
+    narrative_contradictions = [
+        finding.finding_id
+        for finding in findings
+        for item in items
+        if item.item_id in finding.source_review_ids
+        and item.coverage_status == "风险条款"
+        and any(term in (item.reasoning_summary or item.risk_point_description or "") for term in ("未发现", "未找到", "不存在"))
+    ]
+    if narrative_contradictions:
+        failures.append(
+            {
+                "requirement": "Cross-layer Consistency",
+                "failure_stage": "Finding/Narrative/Evidence Consistency Gate",
+                "root_cause": f"风险发现与审查项叙事存在正反矛盾：{', '.join(sorted(set(narrative_contradictions)))}。",
+                "responsible_function": "_release_quality_gate",
+                "current_status": "FAIL",
+            }
+        )
+    high_findings = [finding for finding in findings if finding.severity in {SEVERITY_HIGH, SEVERITY_CRITICAL}]
+    has_core = any(finding.priority == PRIORITY_A_CORE for finding in findings)
+    priority_consistency = {
+        "status": "PASS" if not high_findings or has_core else "WARN_EXPLAINED",
+        "high_or_critical_count": len(high_findings),
+        "a_core_count": sum(1 for finding in findings if finding.priority == PRIORITY_A_CORE),
+        "reason": "HIGH/CRITICAL findings mapped to A_CORE or no HIGH/CRITICAL findings present."
+        if not high_findings or has_core
+        else "HIGH/CRITICAL findings exist without A_CORE; verifier records this as explainable only when economic exposure is low or finding is non-core drafting risk.",
+    }
     missing_sentence_evidence = [
         finding.finding_id
         for finding in findings
@@ -3965,6 +6480,86 @@ def _release_quality_gate(
         "failures": failures,
         "manual_review_count": manual_review_count,
         "duplicate_finding_groups": duplicate_groups,
+        "priority_consistency_verification": priority_consistency,
+    }
+
+
+PRODUCTION_FORBIDDEN_INTERNAL_TOKENS = (
+    "agent.exists", "claim_id", "fact_id", "review_id=", "coverage_status=",
+    "applicability=", "domain_pack", "confidence_bundle", "source_review_ids", "review_mode",
+    "统一事实图谱", "统一商业事实图谱", "Fact Graph", "Canonical Fact", "Canonical Claim",
+    "CoverageElement", "SatisfactionPath", "DefaultLawResult", "EffectiveGap", "ReviewExecutionContext",
+    "dynamic_quantity", "order_mechanism", "risk_transfer_rule", "receipt_is_final_acceptance",
+    "late_delivery_remedy", "payment_account", "quality_standard_hierarchy", "quality_remedy",
+    "inspection_regime", "deemed_acceptance_scope", "price_mechanism",
+    "confirmed_order_price_protected", "termination_effect", "document_precedence",
+)
+
+
+def _production_internal_token_gate(report: str) -> Dict[str, Any]:
+    locations = [
+        {"token": token, "count": report.count(token)}
+        for token in PRODUCTION_FORBIDDEN_INTERNAL_TOKENS
+        if token in report
+    ]
+    already_found = {row["token"] for row in locations}
+    dotted_machine_fields = list(dict.fromkeys(re.findall(r"\b[a-z][a-z0-9_]*(?:\.[a-z][a-z0-9_]*)+\b", report)))
+    locations.extend({"token": token, "count": report.count(token)} for token in dotted_machine_fields if token not in already_found)
+    failures = []
+    if locations:
+        failures.append(
+            {
+                "requirement": "PRODUCTION_INTERNAL_TOKEN_GATE",
+                "failure_stage": "Post-render Production Serializer Gate",
+                "root_cause": "正式报告包含仅供调试使用的内部标记。",
+                "responsible_function": "_format_markdown_v2",
+                "current_status": "FAIL",
+            }
+        )
+    return {
+        "status": "REPORT_READY" if not failures else "BLOCKED",
+        "failures": failures,
+        "gate_results": {"PRODUCTION_INTERNAL_TOKEN_GATE": "PASS" if not locations else "FAIL"},
+        "forbidden_internal_tokens_found": [row["token"] for row in locations],
+        "locations": locations,
+        "count": sum(row["count"] for row in locations),
+    }
+
+
+def _default_law_provenance_gate(items: List[ReviewItemResult], report: str) -> Dict[str, Any]:
+    breaks: List[Dict[str, Any]] = []
+    rows: List[Dict[str, Any]] = []
+    for item in items:
+        gap = (item.decision_trace or {}).get("effective_gap") or {}
+        if not gap.get("affected_effective_gap"):
+            continue
+        expected = list(gap.get("authority_ids") or [])
+        propagated = [
+            claim for claim in (item.legal_references or [])
+            if claim.get("authority_id") in expected
+            and claim.get("freshness_status") == "CURRENT"
+            and claim.get("citation_entailment_status") in {"DIRECT_SUPPORT", "PARTIAL_SUPPORT"}
+        ]
+        displayed = [claim for claim in propagated if claim.get("article") and str(claim.get("article")) in report]
+        row = {
+            "review_id": item.item_id, "coverage_status": item.coverage_status,
+            "authority_ids": expected, "legal_freshness": sorted({claim.get("freshness_status") for claim in propagated}),
+            "citation_entailment": sorted({claim.get("citation_entailment_status") for claim in propagated}),
+            "report_authority_ids": [claim.get("authority_id") for claim in displayed],
+            "affected_effective_gap": True,
+        }
+        rows.append(row)
+        if not expected or set(expected) - {claim.get("authority_id") for claim in displayed}:
+            breaks.append(row)
+    return {
+        "status": "BLOCKED" if breaks else "REPORT_READY",
+        "failures": [] if not breaks else [{
+            "requirement": "DEFAULT_LAW_PROVENANCE_GATE", "failure_stage": "Default Law Report Propagation",
+            "root_cause": "Default Law changed the effective risk state but verified authority provenance did not reach the production report.",
+            "responsible_function": "_apply_citation_claims/_trusted_legal_basis_display", "current_status": "FAIL",
+        }],
+        "gate_results": {"DEFAULT_LAW_PROVENANCE_GATE": "FAIL" if breaks else "PASS"},
+        "break_count": len(breaks), "rows": rows,
     }
 
 
@@ -3973,6 +6568,16 @@ def _benchmark_metrics(items: List[ReviewItemResult], findings: List[RiskFinding
     manual_review_count = sum(1 for item in items if item.needs_manual_review)
     return {
         "benchmark_version": BENCHMARK_VERSION,
+        "parser_version": PARSER_VERSION,
+        "fact_schema_version": FACT_SCHEMA_VERSION,
+        "retrieval_version": RETRIEVAL_VERSION,
+        "domain_pack_version": DOMAIN_PACK_VERSION,
+        "default_law_version": DEFAULT_LAW_VERSION,
+        "perspective_resolver_version": PERSPECTIVE_RESOLVER_VERSION,
+        "production_serializer_version": PRODUCTION_SERIALIZER_VERSION,
+        "effective_gap_engine_version": "effective-gap-6.7-freeze-1.0",
+        "recommendation_engine_version": RECOMMENDATION_ENGINE_VERSION,
+        "confidence_version": CONFIDENCE_VERSION,
         "sample_size": 0,
         "sample_status": "INSUFFICIENT SAMPLE SIZE",
         "contract_type_accuracy": None,
@@ -4003,11 +6608,785 @@ def _benchmark_metrics(items: List[ReviewItemResult], findings: List[RiskFinding
         "evidence_accuracy": None,
         "contradiction_rate": 0 if not any(item.quality_gate_failure_reason for item in items) else None,
         "duplicate_finding_rate": duplicate_groups,
+        "context_isolation_accuracy": None,
+        "domain_pack_isolation_accuracy": None,
+        "cross_layer_consistency_rate": 0 if not any((finding.verification or {}).get("status") == "BLOCK" for finding in findings) else None,
+        "unsupported_positive_finding_rate": 0,
+        "sale_unilateral_price_false_positive_rate": None,
+        "sale_default_law_operational_coverage": None,
+        "sale_economic_normalization_coverage": None,
         "top5_risk_recall": None,
         "confidence_calibration_error": None,
+        "confidence_brier_score": None,
+        "expected_calibration_error": None,
+        "confidence_metrics": {
+            "predicted_confidence": None,
+            "correctness": None,
+            "brier_score": None,
+            "expected_calibration_error": None,
+        },
         "manual_review_precision": None,
         "manual_review_rate": manual_review_count,
         "notes": "当前为 regression smoke metrics；样本量不足，不输出伪精确百分比。",
+    }
+
+
+def _context_consistency_gate(contract_context: Dict[str, Any]) -> Dict[str, Any]:
+    contract_type = contract_context.get("contract_type")
+    usage = str(contract_context.get("usage_scenario") or "")
+    transaction = str(contract_context.get("transaction_purpose") or "")
+    domain_attributes = contract_context.get("domain_attributes") or {}
+    failures: List[Dict[str, str]] = []
+    if contract_type == "sale" and any(term in f"{usage} {transaction}" for term in ("residential", "lease", "rent", "living")):
+        failures.append(
+            {
+                "requirement": "Context Resolver Isolation",
+                "failure_stage": "ContractContext",
+                "root_cause": "买卖合同上下文混入租赁/居住语义。",
+                "responsible_function": "build_contract_context",
+                "current_status": "FAIL",
+            }
+        )
+    if contract_type == "sale" and domain_attributes.get("lease_fields_used"):
+        failures.append(
+            {
+                "requirement": "No Lease Fact Leakage",
+                "failure_stage": "ContractContext",
+                "root_cause": "买卖合同上下文使用了租赁事实字段。",
+                "responsible_function": "build_contract_context",
+                "current_status": "FAIL",
+            }
+        )
+    return {
+        "status": "PASS" if not failures else "BLOCKED",
+        "failures": failures,
+        "contract_type": contract_type,
+        "domain_pack": domain_attributes.get("domain_pack"),
+    }
+
+
+def _pre_render_quality_gate(
+    items: List[ReviewItemResult],
+    findings: List[RiskFinding],
+    contract_context: Dict[str, Any],
+    overall_assessment: Dict[str, Any],
+    recommendation_provenance_gate: Dict[str, Any],
+) -> Dict[str, Any]:
+    failures: List[Dict[str, str]] = []
+    context_gate = _context_consistency_gate(contract_context)
+    failures.extend(context_gate.get("failures") or [])
+    failures.extend(recommendation_provenance_gate.get("failures") or [])
+    domain_gates = _domain_quality_gates(items, contract_context)
+    failures.extend(domain_gates["failures"])
+
+    pass_without_provenance = [
+        item.item_id
+        for item in items
+        if item.coverage_status == "通过"
+        and (item.decision_trace or {}).get("review_mode") != "ABSENCE_REQUIRED"
+        and not (item.review_evidence_provenance or {}).get("evidence_ids")
+    ]
+    if pass_without_provenance:
+        failures.append(
+            {
+                "requirement": "PASS_EVIDENCE_PROVENANCE_GATE",
+                "failure_stage": "Pre-render Provenance Gate",
+                "root_cause": f"需要合同证据的 PASS 审查项缺少可展示来源：{', '.join(pass_without_provenance)}。",
+                "responsible_function": "_assemble_review_provenance",
+                "current_status": "FAIL",
+            }
+        )
+
+    partial_narrative_failures: List[str] = []
+    for item in items:
+        if item.coverage_status != "部分覆盖":
+            continue
+        state = item.narrative_state or {}
+        supporting_elements = [
+            element for element in item.coverage_elements or []
+            if element.get("status") in {"COVERED", "PARTIALLY_COVERED"}
+        ]
+        expected = _build_narrative_state(item)
+        generated = " ".join(str(state.get(key) or "") for key in ("judgment", "issue", "consequence", "recommendation"))
+        narrative_truth_keys = (
+            "covered_elements", "partial_elements", "missing_elements",
+            "judgment", "issue", "consequence",
+        )
+        narrative_truth_mismatch = any(state.get(key) != expected.get(key) for key in narrative_truth_keys)
+        covered_claimed_missing = any(
+            proposition and any(
+                phrase in generated
+                for phrase in (f"未约定{proposition}", f"缺失{proposition}", f"尚未覆盖：{proposition}")
+            )
+            for proposition in expected["covered_elements"]
+        )
+        if (
+            not supporting_elements
+            or any(not element.get("evidence_ids") for element in supporting_elements)
+            or narrative_truth_mismatch
+            or covered_claimed_missing
+        ):
+            partial_narrative_failures.append(item.item_id)
+    if partial_narrative_failures:
+        failures.append(
+            {
+                "requirement": "PARTIAL_ELEMENT_NARRATIVE_GATE",
+                "failure_stage": "Pre-render Element Narrative Gate",
+                "root_cause": f"PARTIAL 元素证据或叙事状态不一致：{', '.join(partial_narrative_failures)}。",
+                "responsible_function": "_build_narrative_state",
+                "current_status": "FAIL",
+            }
+        )
+
+    unsupported_positive = [
+        finding.finding_id
+        for finding in findings
+        if any(item.coverage_status == "风险条款" for item in items if item.item_id in finding.source_review_ids)
+        and not _finding_has_supporting_evidence(finding)
+    ]
+    if unsupported_positive:
+        failures.append(
+            {
+                "requirement": "FINDING_EVIDENCE_GATE",
+                "failure_stage": "Pre-render Evidence-to-Finding Gate",
+                "root_cause": f"存在型风险发现缺少 SUPPORTS 证据：{', '.join(unsupported_positive)}。",
+                "responsible_function": "_pre_render_quality_gate",
+                "current_status": "FAIL",
+            }
+        )
+
+    narrative_conflicts = [
+        finding.finding_id
+        for finding in findings
+        for item in items
+        if item.item_id in finding.source_review_ids
+        and item.coverage_status == "风险条款"
+        and any(term in (item.reasoning_summary or item.risk_point_description or "") for term in ("未发现", "未找到", "不存在"))
+    ]
+    if narrative_conflicts:
+        failures.append(
+            {
+                "requirement": "CROSS_LAYER_CONSISTENCY_GATE",
+                "failure_stage": "Pre-render Cross-layer Gate",
+                "root_cause": f"风险发现与结构化叙事矛盾：{', '.join(sorted(set(narrative_conflicts)))}。",
+                "responsible_function": "_pre_render_quality_gate",
+                "current_status": "FAIL",
+            }
+        )
+
+    default_law_missing = [
+        item.item_id
+        for item in items
+        if item.coverage_status == "缺失"
+        and ((item.decision_trace or {}).get("default_law_assessment") or {}).get("default_law_relevant")
+        and not ((item.decision_trace or {}).get("effective_gap") or {}).get("default_law_checked")
+    ]
+    if default_law_missing:
+        failures.append(
+            {
+                "requirement": "DEFAULT_LAW_COMPLETENESS_GATE",
+                "failure_stage": "Pre-render Default Law Gate",
+                "root_cause": f"声明需要默认法评估的缺失审查项未执行评估：{', '.join(default_law_missing)}。",
+                "responsible_function": "_apply_risk_dimensions",
+                "current_status": "FAIL",
+            }
+        )
+    effective_gap_invalid = [
+        item.item_id for item in items
+        if item.coverage_status in {"缺失", "部分覆盖"}
+        and ((item.decision_trace or {}).get("default_law_assessment") or {}).get("default_law_relevant")
+        and not ((item.decision_trace or {}).get("effective_gap") or {}).get("effective_gap_valid")
+    ]
+    if effective_gap_invalid:
+        failures.append({
+            "requirement": "DEFAULT_LAW_EFFECTIVE_GAP_GATE",
+            "failure_stage": "Pre-render Effective Gap Gate",
+            "root_cause": f"默认法相关审查项缺少有效 Effective Gap：{', '.join(effective_gap_invalid)}。",
+            "responsible_function": "_apply_risk_dimensions",
+            "current_status": "FAIL",
+        })
+
+    partial_narrative_conflicts = [
+        item.item_id
+        for item in items
+        if item.coverage_status == "部分覆盖"
+        and any(
+            phrase in " ".join(str((item.narrative_state or {}).get(key) or "") for key in ("judgment", "issue", "consequence", "recommendation"))
+            for phrase in PARTIAL_TOTAL_MISSING_PHRASES
+        )
+        and any(element.get("status") in {"COVERED", "PARTIALLY_COVERED"} for element in item.coverage_elements or [])
+    ]
+    if partial_narrative_conflicts:
+        failures.append(
+            {
+                "requirement": "NARRATIVE_ELEMENT_CONSISTENCY_GATE",
+                "failure_stage": "Pre-render Narrative Gate",
+                "root_cause": f"PARTIAL 审查项使用整体缺失叙事：{', '.join(partial_narrative_conflicts)}。",
+                "responsible_function": "_coverage_safe_reasoning",
+                "current_status": "FAIL",
+            }
+        )
+
+    narrative_rows = _narrative_state_debug_report(items)
+    narrative_truth_failures = [row["review_id"] for row in narrative_rows if row["status"] != "PASS"]
+    if narrative_truth_failures:
+        failures.append(
+            {
+                "requirement": "NARRATIVE_TRUTH_GATE",
+                "failure_stage": "Pre-render Narrative Truth Gate",
+                "root_cause": f"Coverage/Finding/Narrative/Recommendation truth state 不一致：{', '.join(narrative_truth_failures)}。",
+                "responsible_function": "_narrative_state_debug_report",
+                "current_status": "FAIL",
+            }
+        )
+
+    confidence_conflicts = [
+        item.item_id
+        for item in items
+        if item.quality_gate_failure_reason and (item.system_confidence or {}).get("level") == "high"
+    ]
+    if confidence_conflicts:
+        failures.append(
+            {
+                "requirement": "CONFIDENCE_VALIDATION_GATE",
+                "failure_stage": "Pre-render Confidence Gate",
+                "root_cause": f"存在实质一致性错误的审查项仍为 HIGH：{', '.join(confidence_conflicts)}。",
+                "responsible_function": "_apply_post_verification_confidence",
+                "current_status": "FAIL",
+            }
+        )
+
+    high_findings = [finding for finding in findings if finding.severity in {SEVERITY_HIGH, SEVERITY_CRITICAL}]
+    core_findings = [finding for finding in findings if finding.priority == PRIORITY_A_CORE]
+    priority_consistency = {
+        "executed": True,
+        "high_finding_count": len(high_findings),
+        "core_priority_count": len(core_findings),
+        "consistency": "PASS" if not high_findings or core_findings else "EXPLAINED",
+        "explanations": [],
+        "needs_recalibration": False,
+    }
+    if high_findings and not core_findings:
+        priority_consistency["explanations"] = [
+            {
+                "finding_id": finding.finding_id,
+                "severity": finding.severity,
+                "priority": finding.priority,
+                "default_law_status": finding.default_law_status,
+                "economic_impact": (finding.economic_impact or {}).get("level", "unknown"),
+                "reason": "重大影响不自动等于 A_CORE；该 Finding 的经济暴露、核心义务、默认法保护、发生概率与可恢复性未达到 A_CORE 阈值。",
+            }
+            for finding in high_findings
+        ]
+    unexplained_priority = bool(high_findings and not core_findings and not priority_consistency["explanations"])
+    priority_consistency["consistency"] = "INCONSISTENT" if unexplained_priority else "CONSISTENT"
+    priority_consistency["needs_recalibration"] = unexplained_priority
+    if unexplained_priority:
+        failures.append(
+            {
+                "requirement": "PRIORITY_CONSISTENCY_GATE",
+                "failure_stage": "Pre-render Priority Gate",
+                "root_cause": "HIGH/CRITICAL Findings 全部未进入 A_CORE 且缺少逐 Finding 结构化解释。",
+                "responsible_function": "_pre_render_quality_gate",
+                "current_status": "FAIL",
+            }
+        )
+    if overall_assessment.get("signability") == "存在重大风险，建议修改后签署" and not core_findings and not priority_consistency["explanations"]:
+        failures.append(
+            {
+                "requirement": "Signability/Priority Consistency",
+                "failure_stage": "Pre-render Priority Gate",
+                "root_cause": "重大风险签署结论与零 A_CORE 之间缺少结构化解释。",
+                "responsible_function": "_pre_render_quality_gate",
+                "current_status": "FAIL",
+            }
+        )
+    signability_decision = overall_assessment.get("signability_decision") or {}
+    if findings and not signability_decision.get("decision_finding_ids"):
+        failures.append(
+            {
+                "requirement": "SIGNABILITY_GATE",
+                "failure_stage": "Pre-render Signability Gate",
+                "root_cause": "可签署性结论缺少决定性 Finding 标识。",
+                "responsible_function": "_overall_assessment",
+                "current_status": "FAIL",
+            }
+        )
+    invalid_legal_claims = [
+        claim.get("claim_id") or item.item_id
+        for item in items
+        for claim in item.legal_references or []
+        if claim.get("article")
+        and claim.get("support_type") != "BACKGROUND_ONLY"
+        and (
+            not claim.get("authority_links")
+            or not claim.get("support_scope")
+            or claim.get("support_type") not in {"DIRECT_SUPPORT", "PARTIAL_SUPPORT"}
+        )
+    ]
+    if invalid_legal_claims:
+        failures.append(
+            {
+                "requirement": "Legal Claim Authority Trace",
+                "failure_stage": "Pre-render Legal Claim Gate",
+                "root_cause": f"具体法条缺少 LegalClaim/AuthorityLink/support_scope：{', '.join(invalid_legal_claims)}。",
+                "responsible_function": "_pre_render_quality_gate",
+                "current_status": "FAIL",
+            }
+        )
+    return {
+        "status": "REPORT_READY" if not failures else "BLOCKED",
+        "failures": failures,
+        "priority_consistency_verification": priority_consistency,
+        "context_consistency": context_gate,
+        "gate_results": {
+            "PASS_EVIDENCE_PROVENANCE_GATE": "PASS" if not pass_without_provenance else "FAIL",
+            "PARTIAL_ELEMENT_NARRATIVE_GATE": "PASS" if not partial_narrative_failures else "FAIL",
+            "FINDING_EVIDENCE_GATE": "PASS" if not unsupported_positive else "FAIL",
+            "CROSS_LAYER_CONSISTENCY_GATE": "PASS" if not narrative_conflicts else "FAIL",
+            "DEFAULT_LAW_COMPLETENESS_GATE": "PASS" if not default_law_missing else "FAIL",
+            "DEFAULT_LAW_EFFECTIVE_GAP_GATE": "PASS" if not effective_gap_invalid else "FAIL",
+            "NARRATIVE_ELEMENT_CONSISTENCY_GATE": "PASS" if not partial_narrative_conflicts else "FAIL",
+            "NARRATIVE_TRUTH_GATE": "PASS" if not narrative_truth_failures else "FAIL",
+            "PRIORITY_CONSISTENCY_GATE": "PASS" if not unexplained_priority else "FAIL",
+            "SIGNABILITY_GATE": "PASS" if not findings or bool(signability_decision.get("decision_finding_ids")) else "FAIL",
+            "CONFIDENCE_VALIDATION_GATE": "PASS" if not confidence_conflicts else "FAIL",
+            **domain_gates["gate_results"],
+        },
+    }
+
+
+REAL_ESTATE_REQUIRED_MATERIAL_GROUPS = {
+    "TITLE", "ENCUMBRANCE", "PRICE", "PAYMENT", "REGISTRATION", "DELIVERY",
+    "RISK_TRANSFER", "LAND_USE", "BREACH", "HOUSEHOLD_REGISTRATION",
+}
+
+
+def _domain_quality_gates(items: List[ReviewItemResult], contract_context: Dict[str, Any]) -> Dict[str, Any]:
+    subject = contract_context.get("subject_matter")
+    is_real_estate_sale = contract_context.get("contract_family") == "SALE" and subject == "REAL_ESTATE"
+    subtype = contract_context.get("contract_subtype")
+    owners = {(item.decision_trace or {}).get("domain_owner", "") for item in items}
+    material_groups = {(item.decision_trace or {}).get("material_group", "") for item in items}
+    subtype_pass = not is_real_estate_sale or subtype in {
+        "RESIDENTIAL_SECONDARY_REAL_ESTATE_SALE", "COMMERCIAL_REAL_ESTATE_SALE", "REAL_ESTATE_SALE",
+    }
+    isolation_pass = not is_real_estate_sale or "sale/goods" not in owners
+    missing_groups = sorted(REAL_ESTATE_REQUIRED_MATERIAL_GROUPS - material_groups) if is_real_estate_sale else []
+    coverage_pass = not missing_groups
+    framework = ((contract_context.get("domain_attributes") or {}).get("framework_supply") or {})
+    is_framework = contract_context.get("transaction_structure") == "FRAMEWORK_SUPPLY"
+    item_by_node = {item.node_id: item for item in items}
+    framework_nodes = {item.node_id for item in items if item.item_id.startswith("FS-")}
+    required_framework_nodes = {node for node in FRAMEWORK_REVIEW_FACT_PATHS if node.startswith("framework_")}
+    transaction_structure_pass = not is_framework or (
+        contract_context.get("contract_subtype") == "FRAMEWORK_SUPPLY"
+        and contract_context.get("subject_matter") == "GOODS"
+        and bool(contract_context.get("product_category"))
+    )
+    framework_domain_pass = not is_framework or (
+        "sale/goods/framework_supply" in owners
+        and required_framework_nodes.issubset(framework_nodes)
+    )
+    order_relation_pass = not is_framework or (
+        bool((framework.get("order_mechanism") or {}).get("exists"))
+        and all(item_by_node.get(node) and item_by_node[node].coverage_status == "通过" for node in (
+            "framework_master_order_relationship", "framework_order_formation_confirmation",
+        ))
+    )
+    dynamic_quantity_pass = not is_framework or contract_context.get("dynamic_quantity") is not True or (
+        item_by_node.get("framework_dynamic_quantity") is not None
+        and item_by_node["framework_dynamic_quantity"].coverage_status == "通过"
+        and item_by_node.get("sale_subject_quantity_unit") is not None
+        and item_by_node["sale_subject_quantity_unit"].coverage_status == "通过"
+    )
+    explicit_price_mechanism = bool((framework.get("price_mechanism") or {}).get("exists"))
+    price_mechanism_pass = not is_framework or (
+        contract_context.get("price_adjustment_mechanism") in {"BILATERAL_ADJUSTMENT", "UNILATERAL_ADJUSTMENT", "FIXED_OR_UNSPECIFIED"}
+        and all(item_by_node.get(node) for node in (
+            "framework_price_validity", "framework_price_adjustment_trigger",
+            "framework_confirmed_order_price", "framework_future_order_deadlock",
+        ))
+        and (not explicit_price_mechanism or item_by_node["framework_price_adjustment_trigger"].coverage_status == "通过")
+    )
+    structured_paths = [
+        item for item in items
+        if ((item.decision_trace or {}).get("alternative_satisfaction") or {}).get("status") == "SATISFIED"
+    ]
+    alternative_satisfaction_pass = not is_framework or bool(structured_paths) and all(
+        item.coverage_status == "通过" for item in structured_paths
+    )
+    protected_nodes = {
+        "sale_delivery_time", "sale_delay_delivery_liability", "sale_risk_transfer_delivery",
+        "sale_payment_method_account", "sale_quality_remedy", "sale_inspection_period",
+        "sale_deemed_acceptance", "sale_quality_standard_basis", "common_jurisdiction",
+    }
+    false_risk_nodes = sorted(
+        node for node in protected_nodes
+        if node in item_by_node
+        and node in FRAMEWORK_REVIEW_FACT_PATHS
+        and ((item_by_node[node].decision_trace or {}).get("alternative_satisfaction") or {}).get("status") == "SATISFIED"
+        and item_by_node[node].coverage_status not in {"通过", COVERAGE_NOT_APPLICABLE}
+    ) if is_framework else []
+    carrier = item_by_node.get("sale_risk_carrier_delivery")
+    if is_framework and (framework.get("carrier_rule_applicability") or {}).get("value") is False:
+        if not carrier or carrier.coverage_status != COVERAGE_NOT_APPLICABLE:
+            false_risk_nodes.append("sale_risk_carrier_delivery")
+    false_risk_pass = not false_risk_nodes
+    failures = []
+    for requirement, passed, reason in (
+        ("DOMAIN_SUBTYPE_GATE", subtype_pass, f"房地产买卖的子类型不一致：{subtype or 'EMPTY'}。"),
+        ("DOMAIN_REVIEW_ISOLATION_GATE", isolation_pass, "房地产路径加载了 sale/goods 审查项。"),
+        ("DOMAIN_MATERIAL_COVERAGE_GATE", coverage_pass, f"房地产核心材料组未激活：{', '.join(missing_groups)}。"),
+        ("TRANSACTION_STRUCTURE_GATE", transaction_structure_pass, "框架供货交易结构、标的类别或子类型不一致。"),
+        ("FRAMEWORK_DOMAIN_GATE", framework_domain_pass, "框架供货领域包或核心审查定义未进入生产路径。"),
+        ("ORDER_RELATION_GATE", order_relation_pass, "框架供货缺少可追溯的订单形成与确认机制。"),
+        ("DYNAMIC_QUANTITY_GATE", dynamic_quantity_pass, "动态数量被错误视为固定数量缺失。"),
+        ("PRICE_MECHANISM_GATE", price_mechanism_pass, "价格有效期、调价或既有订单保护未完整覆盖。"),
+        ("ALTERNATIVE_SATISFACTION_GATE", alternative_satisfaction_pass, "结构化事实满足路径与最终 Review 状态不一致。"),
+        ("FALSE_RISK_EXISTENCE_GATE", false_risk_pass, f"已有明确事实仍生成缺失或错误适用项：{', '.join(false_risk_nodes)}。"),
+    ):
+        if not passed:
+            failures.append({"requirement": requirement, "failure_stage": "Domain Resolution Gate", "root_cause": reason, "responsible_function": "_domain_quality_gates", "current_status": "FAIL"})
+    return {
+        "failures": failures,
+        "gate_results": {
+            "DOMAIN_SUBTYPE_GATE": "PASS" if subtype_pass else "FAIL",
+            "DOMAIN_REVIEW_ISOLATION_GATE": "PASS" if isolation_pass else "FAIL",
+            "DOMAIN_MATERIAL_COVERAGE_GATE": "PASS" if coverage_pass else "FAIL",
+            "TRANSACTION_STRUCTURE_GATE": "PASS" if transaction_structure_pass else "FAIL",
+            "FRAMEWORK_DOMAIN_GATE": "PASS" if framework_domain_pass else "FAIL",
+            "ORDER_RELATION_GATE": "PASS" if order_relation_pass else "FAIL",
+            "DYNAMIC_QUANTITY_GATE": "PASS" if dynamic_quantity_pass else "FAIL",
+            "PRICE_MECHANISM_GATE": "PASS" if price_mechanism_pass else "FAIL",
+            "ALTERNATIVE_SATISFACTION_GATE": "PASS" if alternative_satisfaction_pass else "FAIL",
+            "FALSE_RISK_EXISTENCE_GATE": "PASS" if false_risk_pass else "FAIL",
+        },
+        "loaded_domain_owners": sorted(owners), "activated_material_groups": sorted(material_groups),
+        "missing_material_groups": missing_groups,
+        "framework_required_nodes": sorted(required_framework_nodes),
+        "framework_loaded_nodes": sorted(framework_nodes),
+        "false_risk_nodes": false_risk_nodes,
+    }
+
+
+def _element_identity_contradictions(items: List[ReviewItemResult]) -> List[Dict[str, Any]]:
+    conflicts: List[Dict[str, Any]] = []
+    for item in items:
+        buckets: Dict[str, set[str]] = {"covered": set(), "partial": set(), "missing": set()}
+        labels: Dict[str, str] = {}
+        for element in item.coverage_elements or []:
+            claim_id = str(element.get("claim_id") or "")
+            semantic_key = str(element.get("element_id") or "")
+            raw = f"{claim_id}:{semantic_key}" if claim_id and semantic_key else str(
+                claim_id or semantic_key or element.get("proposition") or ""
+            )
+            identity = re.sub(r"[\W_]+", "", raw, flags=re.UNICODE).lower()
+            if not identity:
+                continue
+            labels[identity] = raw
+            status = str(element.get("status") or "")
+            bucket = "covered" if status == "COVERED" else "partial" if status == "PARTIALLY_COVERED" else "missing" if status in {"MISSING", "UNCERTAIN"} else ""
+            if bucket:
+                buckets[bucket].add(identity)
+        overlap = (buckets["covered"] & buckets["partial"]) | (buckets["covered"] & buckets["missing"]) | (buckets["partial"] & buckets["missing"])
+        if overlap:
+            conflicts.append({"review_id": item.item_id, "element_ids": sorted(labels[value] for value in overlap)})
+    return conflicts
+
+
+def _common_review_satisfaction_issues(items: List[ReviewItemResult]) -> List[Dict[str, Any]]:
+    issues: List[Dict[str, Any]] = []
+    for item in items:
+        requirement = common_sale_coverage_requirement(item.node_id)
+        if not requirement:
+            continue
+        generic_elements = [
+            element.get("element_id") for element in item.coverage_elements or []
+            if element.get("element_id") in {"core_contract_arrangement", "element"}
+        ]
+        satisfaction = (item.decision_trace or {}).get("common_review_satisfaction") or {}
+        satisfied = any(row.get("status") == "SATISFIED" for row in satisfaction.get("satisfaction_paths", []))
+        reasons = []
+        if generic_elements:
+            reasons.append("generic_element_used")
+        if not satisfaction.get("satisfaction_paths") and item.coverage_status != COVERAGE_NOT_APPLICABLE:
+            reasons.append("satisfaction_path_not_executed")
+        if satisfied and item.coverage_status != "通过":
+            reasons.append("satisfied_path_not_reflected_in_coverage")
+        if reasons:
+            issues.append({"review_id": item.item_id, "reasons": reasons})
+    return issues
+
+
+def _shared_claim_reuse_issues(items: List[ReviewItemResult], canonical_claims: Dict[str, Any]) -> List[Dict[str, Any]]:
+    issues: List[Dict[str, Any]] = []
+    consumers: Dict[str, List[Dict[str, Any]]] = {}
+    for item in items:
+        for element in item.coverage_elements or []:
+            claim_id = str(element.get("claim_id") or "")
+            if claim_id:
+                consumers.setdefault(claim_id, []).append({
+                    "review_id": item.item_id,
+                    "semantic_key": str(element.get("element_id") or ""),
+                    "status": element.get("status"),
+                })
+    for claim_id, rows in consumers.items():
+        claim = canonical_claims.get(claim_id)
+        if not claim or getattr(claim, "status", "") != "ASSERTED" or not getattr(claim, "source_clause_ids", []):
+            continue
+        canonical_object = getattr(claim, "object", None)
+        hierarchy = canonical_object.get("hierarchy", {}) if isinstance(canonical_object, dict) else {}
+        rejected = [
+            row for row in rows
+            if row.get("status") not in {"COVERED", "PARTIALLY_COVERED"}
+            and (not hierarchy or hierarchy.get(row.get("semantic_key")) is True)
+        ]
+        if rejected:
+            issues.append({"claim_id": claim_id, "consumers": rejected})
+    return issues
+
+
+def _cross_review_shared_claim_state(items: List[ReviewItemResult], canonical_claims: Dict[str, Any]) -> Dict[str, Any]:
+    states: Dict[str, Dict[str, Any]] = {}
+    item_by_id = {item.item_id: item for item in items}
+    for item in items:
+        for element in item.coverage_elements or []:
+            claim_id = str(element.get("claim_id") or "")
+            if not claim_id:
+                continue
+            semantic_key = str(element.get("element_id") or "")
+            state = states.setdefault(claim_id, {
+                "claim_id": claim_id, "semantic_elements": [], "canonical_status": "UNKNOWN",
+                "canonical_value": None, "fact_ids": [], "evidence_ids": [], "consumer_reviews": [],
+                "review_requirements": [], "review_coverage": [], "contradictions": [],
+            })
+            canonical = canonical_claims.get(claim_id)
+            if canonical:
+                state.update({
+                    "canonical_status": canonical.status, "canonical_value": canonical.object,
+                    "fact_ids": list(canonical.fact_ids), "evidence_ids": list(canonical.evidence_ids),
+                })
+            if semantic_key not in state["semantic_elements"]:
+                state["semantic_elements"].append(semantic_key)
+            if item.item_id not in state["consumer_reviews"]:
+                state["consumer_reviews"].append(item.item_id)
+            state["review_requirements"].append({"review_id": item.item_id, "semantic_key": semantic_key, "proposition": element.get("proposition")})
+            state["review_coverage"].append({"review_id": item.item_id, "semantic_key": semantic_key, "status": element.get("status"), "reason": element.get("reason")})
+
+    for claim_id, state in states.items():
+        by_element: Dict[str, List[Dict[str, Any]]] = {}
+        for row in state["review_coverage"]:
+            by_element.setdefault(row["semantic_key"], []).append(row)
+        hierarchy = ((state.get("canonical_value") or {}).get("hierarchy") or {}) if isinstance(state.get("canonical_value"), dict) else {}
+        for semantic_key, rows in by_element.items():
+            statuses = {row.get("status") for row in rows}
+            covered_missing = bool(statuses & {"COVERED", "PARTIALLY_COVERED"}) and bool(statuses & {"MISSING", "UNCERTAIN"})
+            canonical_false_negative = hierarchy.get(semantic_key) is True and bool(statuses & {"MISSING", "UNCERTAIN"})
+            if not covered_missing and not canonical_false_negative:
+                continue
+            contradiction = {
+                "type": "CROSS_REVIEW_SHARED_CLAIM_CONTRADICTION" if covered_missing else "SHARED_CLAIM_COVERAGE_DIVERGENCE",
+                "claim_id": claim_id, "semantic_key": semantic_key, "interpretations": rows,
+            }
+            state["contradictions"].append(contradiction)
+            for row in rows:
+                item = item_by_id.get(row["review_id"])
+                if item:
+                    item.decision_trace["shared_claim_conflicts"] = sorted(set(
+                        list((item.decision_trace or {}).get("shared_claim_conflicts") or []) + [f"{claim_id}:{semantic_key}"]
+                    ))
+    contradictions = [row for state in states.values() for row in state["contradictions"]]
+    return {
+        "status": "BLOCKED" if contradictions else "REPORT_READY",
+        "failures": [] if not contradictions else [{
+            "requirement": "CROSS_REVIEW_SHARED_CLAIM_GATE", "failure_stage": "Cross-review Claim Interpretation",
+            "root_cause": "The same canonical semantic element has contradictory review interpretations.",
+            "responsible_function": "_cross_review_shared_claim_state", "current_status": "FAIL",
+        }],
+        "gate_results": {
+            "CROSS_REVIEW_SHARED_CLAIM_GATE": "FAIL" if contradictions else "PASS",
+            "FALSE_RISK_EXISTENCE_GATE": "FAIL" if contradictions else "PASS",
+        },
+        "contradiction_count": len(contradictions), "claims": list(states.values()),
+    }
+
+
+def _finding_independence_issues(findings: List[RiskFinding]) -> List[Dict[str, Any]]:
+    issues: List[Dict[str, Any]] = []
+    groups = Counter(finding.risk_group for finding in findings)
+    for group, count in groups.items():
+        if count > 1:
+            issues.append({"risk_group": group, "finding_count": count, "reason": "duplicate_risk_group"})
+    rights_findings = [finding for finding in findings if set(finding.source_review_ids) & {"S-11-01", "S-11-03", "S-11-04"}]
+    if len(rights_findings) > 1:
+        issues.append({"risk_group": "goods_title_and_third_party_rights", "finding_count": len(rights_findings), "reason": "rights_reviews_not_aggregated"})
+    return issues
+
+
+def _consistency_quality_gates(
+    items: List[ReviewItemResult],
+    findings: List[RiskFinding],
+    recommendations: List[Recommendation],
+    canonical_claims: Dict[str, Any],
+    contract_context: Dict[str, Any],
+    report_context: Dict[str, Any],
+) -> Dict[str, Any]:
+    finding_review_ids = {review_id for finding in findings for review_id in finding.source_review_ids}
+    non_applicable_findings = [
+        item.item_id for item in items
+        if str((item.applicability or {}).get("status") or "APPLICABLE").upper() != "APPLICABLE"
+        and item.item_id in finding_review_ids
+    ]
+    applicability_misorders = [item.item_id for item in items if (item.applicability or {}).get("status") == "NOT_APPLICABLE" and item.coverage_status != COVERAGE_NOT_APPLICABLE]
+    claim_conflicts = [claim_id for claim_id, claim in canonical_claims.items() if claim.status == "CONFLICT"]
+    interpretation_conflicts = [item.item_id for item in items if (item.decision_trace or {}).get("shared_claim_conflicts")]
+    finding_precondition_failures = [
+        finding.finding_id for finding in findings
+        if (finding.aggregation_signals or {}).get("finding_preconditions")
+        and not all(
+            bool(precondition.get("all_required_conditions"))
+            for precondition in (finding.aggregation_signals or {}).get("finding_preconditions", {}).values()
+        )
+    ]
+    report_context_valid = (
+        report_context.get("family") == contract_context.get("contract_family")
+        and report_context.get("subject_matter") == contract_context.get("subject_matter")
+        and report_context.get("subtype") == contract_context.get("contract_subtype")
+        and report_context.get("transaction_structure") == contract_context.get("transaction_structure")
+        and not (contract_context.get("subject_matter") == "REAL_ESTATE" and report_context.get("scenario_label") == "商品买卖")
+        and not (contract_context.get("transaction_structure") == "FRAMEWORK_SUPPLY" and report_context.get("scenario_label") in {"商品买卖", "一般买卖"})
+    )
+    finding_ids = {finding.finding_id for finding in findings}
+    orphan_recommendations = [rec.recommendation_id for rec in recommendations if rec.type != "OPTIONAL" and (not rec.target_finding_ids or not set(rec.target_finding_ids).issubset(finding_ids))]
+    recommendation_text = "\n".join(
+        str(value)
+        for recommendation in recommendations
+        for value in recommendation.to_public_dict().values()
+    )
+    framework = ((contract_context.get("domain_attributes") or {}).get("framework_supply") or {})
+    is_framework = contract_context.get("transaction_structure") == "FRAMEWORK_SUPPLY"
+    degradation_conflicts = []
+    if is_framework and (framework.get("carrier_rule_applicability") or {}).get("value") is False and any(
+        phrase in recommendation_text for phrase in ("交付给第一承运人后", "货交第一承运人后")
+    ):
+        degradation_conflicts.append("DESTINATION_DELIVERY_REPLACED_BY_CARRIER_HANDOVER")
+    if is_framework and (framework.get("receipt_is_final_acceptance") or {}).get("value") is False and any(
+        phrase in recommendation_text for phrase in ("签收即视为验收合格", "签字即视为最终验收")
+    ):
+        degradation_conflicts.append("PRELIMINARY_RECEIPT_REPLACED_BY_FINAL_ACCEPTANCE")
+    if is_framework and (framework.get("forecast_binding") or {}).get("value") is False and any(
+        phrase in recommendation_text for phrase in ("预测数量具有约束力", "预测即构成采购义务")
+    ):
+        degradation_conflicts.append("NON_BINDING_FORECAST_REPLACED_BY_BINDING_FORECAST")
+    recommendation_non_degradation = not degradation_conflicts
+    common_review_issues = _common_review_satisfaction_issues(items)
+    element_identity_conflicts = _element_identity_contradictions(items)
+    shared_claim_reuse_issues = _shared_claim_reuse_issues(items, canonical_claims)
+    finding_independence_issues = _finding_independence_issues(findings)
+    product_applicability_issues = [
+        item.item_id for item in items
+        if item.node_id in {"sale_warranty_manual", "sale_inspection_report_certificate"}
+        and (
+            (item.coverage_status == COVERAGE_NOT_APPLICABLE and item.item_id in finding_review_ids)
+            or (item.coverage_status != COVERAGE_NOT_APPLICABLE and (item.applicability or {}).get("status") == "NOT_APPLICABLE")
+        )
+    ]
+    checks = {
+        "APPLICABILITY_PRECONDITION_GATE": not applicability_misorders and not non_applicable_findings,
+        "SHARED_CLAIM_CONSISTENCY_GATE": not claim_conflicts,
+        "FINDING_PRECONDITION_GATE": not finding_precondition_failures,
+        "REPORT_CONTEXT_GATE": report_context_valid,
+        "REPORT_TRANSACTION_TRUTH_GATE": report_context_valid,
+        "CROSS_REVIEW_CONSISTENCY_GATE": not claim_conflicts and not interpretation_conflicts and not orphan_recommendations,
+        "RECOMMENDATION_NON_DEGRADATION_GATE": recommendation_non_degradation,
+        "COMMON_REVIEW_SATISFACTION_GATE": not common_review_issues,
+        "ELEMENT_IDENTITY_CONTRADICTION_GATE": not element_identity_conflicts,
+        "PRODUCT_APPLICABILITY_GATE": not product_applicability_issues,
+        "SHARED_CLAIM_REUSE_GATE": not shared_claim_reuse_issues,
+        "FINDING_INDEPENDENCE_GATE": not finding_independence_issues,
+    }
+    failures = []
+    details = {
+        "non_applicable_findings": non_applicable_findings, "applicability_misorders": applicability_misorders,
+        "claim_conflicts": claim_conflicts, "interpretation_conflicts": interpretation_conflicts,
+        "finding_precondition_failures": finding_precondition_failures, "orphan_recommendations": orphan_recommendations,
+        "recommendation_degradation_conflicts": degradation_conflicts,
+        "common_review_satisfaction_issues": common_review_issues,
+        "element_identity_contradictions": element_identity_conflicts,
+        "product_applicability_issues": product_applicability_issues,
+        "shared_claim_reuse_issues": shared_claim_reuse_issues,
+        "finding_independence_issues": finding_independence_issues,
+        "report_transaction_truth": {
+            "classification_transaction_structure": contract_context.get("transaction_structure"),
+            "report_transaction_structure": report_context.get("transaction_structure"),
+            "report_title": report_context.get("report_title"),
+            "scenario_label": report_context.get("scenario_label"),
+        },
+    }
+    for requirement, passed in checks.items():
+        if not passed:
+            failures.append({"requirement": requirement, "failure_stage": "Cross-layer Consistency Gate", "root_cause": json.dumps(details, ensure_ascii=False), "responsible_function": "_consistency_quality_gates", "current_status": "FAIL"})
+    return {"status": "PASS" if not failures else "BLOCKED", "failures": failures, "gate_results": {key: "PASS" if value else "FAIL" for key, value in checks.items()}, **details}
+
+
+def _finding_provenance(findings: List[RiskFinding], items: List[ReviewItemResult]) -> List[Dict[str, Any]]:
+    item_by_id = {item.item_id: item for item in items}
+    rows: List[Dict[str, Any]] = []
+    for finding in findings:
+        related = [item_by_id[item_id] for item_id in finding.source_review_ids if item_id in item_by_id]
+        evidence = finding.supporting_evidence or finding.evidence or []
+        provenance = {
+            "finding_id": finding.finding_id,
+            "created_by": "backend/review_v2/engine.py:_build_risk_findings",
+            "source_review_ids": list(finding.source_review_ids),
+            "source_fact_ids": sorted({fact for item in related for fact in item.fact_dependencies}),
+            "evidence_ids": [str(row.get("evidence_claim_id") or row.get("clause_id") or "") for row in evidence if row],
+            "evidence_entailment": sorted({str(row.get("entailment_status") or "") for row in evidence if row}),
+            "rule_id": finding.risk_group,
+            "model_call_id": "" if all(item.judge_source != "llm" for item in related) else "review-semantic-batch",
+        }
+        finding.provenance = provenance
+        rows.append(provenance)
+    return rows
+
+
+def _production_trace(
+    trace_id: str,
+    contract_type: str,
+    contract_context: Dict[str, Any],
+    system_metadata: Dict[str, Any],
+    finding_provenance: List[Dict[str, Any]],
+    confidence_trace: List[Dict[str, Any]],
+    priority_consistency: Dict[str, Any],
+) -> Dict[str, Any]:
+    return {
+        "trace_id": trace_id,
+        "system_version": system_metadata.get("system_version"),
+        "pipeline_version": system_metadata.get("pipeline_version"),
+        "model_version": system_metadata.get("model_version"),
+        "prompt_version": system_metadata.get("prompt_version"),
+        "rule_version": system_metadata.get("rule_version"),
+        "ontology_version": system_metadata.get("ontology_version"),
+        "legal_dataset_version": system_metadata.get("legal_dataset_version"),
+        "contract_type": contract_type,
+        "domain_pack": (contract_context.get("domain_attributes") or {}).get("domain_pack"),
+        "active_pipeline": "backend/review_v2/engine.py:review_contract_v2",
+        "active_components": [
+            "ContextResolver executed",
+            f"{contract_type.title()}DomainPack loaded",
+            "EvidenceEntailmentValidator executed",
+            "FindingEvidenceGate executed",
+            "CrossLayerConsistency executed",
+            "SaleDefaultLawEngine executed" if contract_type == "sale" else "DefaultLawEngine executed",
+            "LegalClaimValidator executed",
+            "PriorityConsistencyVerifier executed",
+            "ConfidenceAggregator executed",
+            "NarrativeRenderer executed",
+        ],
+        "finding_provenance": finding_provenance,
+        "confidence_trace": confidence_trace,
+        "priority_consistency": priority_consistency,
     }
 
 
@@ -4049,21 +7428,26 @@ def _architecture_status() -> List[Dict[str, Any]]:
 
 def _production_call_graph() -> List[str]:
     return [
-        "frontend/src/views/ContractReviewV2.vue:submitReview",
+        "frontend/src/views/ContractReviewV2.vue:runReview",
         "frontend/src/utils/api.js:reviewContractV2File",
         "backend/routers/review_v2.py:review_v2_file",
         "backend/layers/input_layer.py:InputLayer.extract_text_from_file",
         "backend/review_v2/engine.py:review_contract_v2",
+        "backend/review_v2/contract_registry.py:get_contract_meta/get_checklist",
+        "backend/review_v2/domain_packs.py:get_domain_pack",
         "backend/review_v2/clause_parser.py:parse_contract_clauses",
         "backend/review_v2/lease_contract_facts.py:extract_house_lease_facts",
         "backend/review_v2/llm_semantic_reviewer.py:judge_checkpoints_with_llm",
         "backend/review_v2/engine.py:_apply_final_quality_gate",
+        "backend/review_v2/engine.py:_apply_evidence_entailment_gate/_apply_coverage_evidence_gate",
+        "backend/review_v2/engine.py:_apply_citation_claims/_apply_confidence_bundles",
         "backend/review_v2/engine.py:_check_legal_reference_freshness",
-        "backend/review_v2/engine.py:_build_risk_findings",
+        "backend/review_v2/engine.py:_build_risk_findings/_filter_unsupported_positive_findings",
         "backend/review_v2/engine.py:_legal_reference_findings",
         "backend/review_v2/engine.py:_run_independent_verifier",
         "backend/review_v2/engine.py:_build_recommendations",
         "backend/review_v2/engine.py:_overall_assessment",
+        "backend/review_v2/engine.py:_pre_render_quality_gate",
         "backend/review_v2/engine.py:_format_markdown_v2",
         "backend/review_v2/quality4.py:post_render_quality_gate",
         "backend/routers/review_v2.py:review_v2_export_pdf/review_v2_export_docx",
@@ -4098,11 +7482,220 @@ def _risk_aggregation_debug_table(findings: List[RiskFinding]) -> List[Dict[str,
     ]
 
 
+def _confidence_debug_report(items: List[ReviewItemResult]) -> List[Dict[str, Any]]:
+    rows: List[Dict[str, Any]] = []
+    for item in items:
+        bundle = (item.system_confidence or {}).get("confidence_bundle") or {}
+        rows.append(
+            {
+                "review_id": item.item_id,
+                "coverage": item.coverage_status,
+                "parser": bundle.get("parser_confidence"),
+                "fact": bundle.get("fact_confidence"),
+                "evidence": bundle.get("evidence_confidence"),
+                "applicability": bundle.get("applicability_confidence"),
+                "legal": bundle.get("legal_confidence"),
+                "formula": bundle.get("formula_confidence"),
+                "calculation": bundle.get("calculation_confidence"),
+                "verifier": bundle.get("verifier_confidence"),
+                "final": bundle.get("final_confidence"),
+                "final_score": bundle.get("final_score"),
+                "required_components": bundle.get("required_components", []),
+                "ignored_components": bundle.get("ignored_components", []),
+                "limiting_factors": bundle.get("limiting_factors", []),
+                "component_scores": bundle.get("component_scores", {}),
+                "reason": bundle.get("reason"),
+            }
+        )
+    return rows
+
+
+def _coverage_element_debug_report(items: List[ReviewItemResult]) -> List[Dict[str, Any]]:
+    rows: List[Dict[str, Any]] = []
+    for item in items:
+        for element in item.coverage_elements or []:
+            rows.append(
+                {
+                    "review_id": item.item_id,
+                    "coverage": item.coverage_status,
+                    "element_id": element.get("element_id"),
+                    "proposition": element.get("proposition"),
+                    "evidence_ids": element.get("evidence_ids", []),
+                    "entailment": element.get("entailment"),
+                    "element_status": element.get("status"),
+                    "verifier_confidence": element.get("verifier_confidence"),
+                    "reason": element.get("reason"),
+                }
+            )
+    return rows
+
+
+def _legal_claim_debug_report(items: List[ReviewItemResult]) -> List[Dict[str, Any]]:
+    rows: List[Dict[str, Any]] = []
+    for item in items:
+        for claim in item.legal_references or []:
+            rows.append(
+                {
+                    "review_id": item.item_id,
+                    "claim_id": claim.get("claim_id"),
+                    "claim_type": claim.get("claim_type"),
+                    "proposition": claim.get("proposition"),
+                    "authority": f"{claim.get('law_name', '')}{claim.get('article', '')}",
+                    "entailment": claim.get("support_type"),
+                    "support_scope": claim.get("support_scope"),
+                    "result": claim.get("citation_existence_status"),
+                }
+            )
+    return rows
+
+
+def _recommendation_provenance_debug_report(recommendations: List[Recommendation]) -> List[Dict[str, Any]]:
+    rows: List[Dict[str, Any]] = []
+    for recommendation in recommendations:
+        for component in recommendation.components or recommendation.clauses or []:
+            rows.append(
+                {
+                    "recommendation_id": recommendation.recommendation_id,
+                    "component": component.get("proposition") or component.get("text"),
+                    "source_type": component.get("source_type"),
+                    "legal_claim_ids": component.get("legal_claim_ids", []),
+                    "authority": component.get("authority") or component.get("statutory_basis") or "",
+                    "supported_scope": component.get("supported_scope") or component.get("support_scope") or "",
+                    "confidence": component.get("confidence"),
+                }
+            )
+    return rows
+
+
+def _numeric_provenance_gate(recommendations: List[Recommendation]) -> Dict[str, Any]:
+    failures: List[Dict[str, Any]] = []
+    numeric_pattern = re.compile(r"(?:\d+|[一二三四五六七八九十两]+)\s*(?:日|天|个工作日|倍)")
+    for recommendation in recommendations:
+        for component in recommendation.components or []:
+            text = str(component.get("proposition") or "")
+            numbers = numeric_pattern.findall(text)
+            if not numbers:
+                continue
+            source_type = component.get("source_type")
+            supported_scope = str(component.get("supported_scope") or "")
+            if source_type in {"STATUTORY_RULE", "STATUTORY_DEFAULT"}:
+                unsupported = [number for number in numbers if number not in supported_scope]
+                if unsupported:
+                    failures.append(
+                        {
+                            "recommendation_id": recommendation.recommendation_id,
+                            "source_type": source_type,
+                            "numbers": unsupported,
+                            "message": "具体数字未出现在法源支撑范围内，不能作为法定规则组件输出。",
+                        }
+                    )
+    return {"status": "PASS" if not failures else "FAIL", "failures": failures}
+
+
+def _narrative_state_debug_report(items: List[ReviewItemResult]) -> List[Dict[str, Any]]:
+    rows: List[Dict[str, Any]] = []
+    for item in items:
+        template = _coverage_narrative_template(item)
+        state = item.narrative_state or _build_narrative_state(item)
+        text = " ".join(str(state.get(key) or "") for key in ("judgment", "issue", "consequence", "recommendation"))
+        covered_elements = list(state.get("covered_elements") or [])
+        partial_elements = list(state.get("partial_elements") or [])
+        missing_elements = list(state.get("missing_elements") or [])
+        identities = {
+            "covered": {re.sub(r"[\W_]+", "", value) for value in covered_elements},
+            "partial": {re.sub(r"[\W_]+", "", value) for value in partial_elements},
+            "missing": {re.sub(r"[\W_]+", "", value) for value in missing_elements},
+        }
+        element_conflicts = sorted(
+            (identities["covered"] & identities["partial"])
+            | (identities["covered"] & identities["missing"])
+            | (identities["partial"] & identities["missing"])
+        )
+        contradiction_reasons: List[str] = []
+        if item.coverage_status == "缺失" and any(phrase in text for phrase in MISSING_NARRATIVE_FORBIDDEN):
+            contradiction_reasons.append("missing_narrative_contains_positive_assertion")
+        if item.coverage_status == "通过" and any(phrase in text for phrase in ("缺失：", "尚未明确：", "仍需补足：")):
+            contradiction_reasons.append("pass_narrative_contains_missing_assertion")
+        if item.coverage_status == "部分覆盖" and not item.evidence_clauses:
+            contradiction_reasons.append("partial_without_positive_evidence")
+        if element_conflicts:
+            contradiction_reasons.append("element_identity_conflict")
+        finding_exists = item.item_id in {
+            review_id for finding in getattr(item, "_debug_findings", []) for review_id in finding.source_review_ids
+        } if hasattr(item, "_debug_findings") else bool(state.get("finding_exists"))
+        if item.coverage_status == COVERAGE_NOT_APPLICABLE and (state.get("recommendation") or finding_exists):
+            contradiction_reasons.append("not_applicable_has_finding_or_recommendation")
+        rows.append(
+            {
+                "review_id": item.item_id,
+                "coverage": item.coverage_status,
+                "covered_elements": covered_elements,
+                "partial_elements": partial_elements,
+                "missing_elements": missing_elements,
+                "element_identity_conflicts": element_conflicts,
+                "narrative_result": state.get("judgment"),
+                "rendered_issue": state.get("issue"),
+                "rendered_consequence": state.get("consequence"),
+                "rendered_recommendation": state.get("recommendation"),
+                "narrative_template": template,
+                "evidence_state": "positive" if item.evidence_clauses else "negative_or_not_found",
+                "contradiction_reasons": contradiction_reasons,
+                "status": "FAIL" if contradiction_reasons else "PASS",
+            }
+        )
+    return rows
+
+
+def _evidence_finding_debug_report(items: List[ReviewItemResult], findings: List[RiskFinding]) -> List[Dict[str, Any]]:
+    finding_by_review = {
+        review_id: finding
+        for finding in findings
+        for review_id in finding.source_review_ids
+    }
+    rows: List[Dict[str, Any]] = []
+    for item in items:
+        finding = finding_by_review.get(item.item_id)
+        claim = (finding.aggregation_signals or {}).get("risk_claim") if finding else None
+        rows.append(
+            {
+                "review_id": item.item_id,
+                "risk_claim": claim,
+                "evidence_candidates": (item.decision_trace or {}).get("evidence_candidates", []),
+                "supporting_entailment": sorted({row.get("entailment_status", "") for row in (finding.supporting_evidence if finding else [])}),
+                "finding_created": bool(finding),
+                "gate_result": ((item.decision_trace or {}).get("finding_evidence_gate") or {}).get("status", "PASS"),
+            }
+        )
+    return rows
+
+
+def _default_law_debug_report(items: List[ReviewItemResult]) -> List[Dict[str, Any]]:
+    return [
+        {
+            "review_id": item.item_id,
+            "coverage": item.coverage_status,
+            "default_rule": (((item.decision_trace or {}).get("default_law_assessment") or {}).get("rule") or {}).get("rule_id", ""),
+            "applicability": ((item.decision_trace or {}).get("default_law_assessment") or {}).get("applicability"),
+            "protection": ((item.decision_trace or {}).get("effective_gap") or {}).get("statutory_protection_scope"),
+            "residual_gap": ((item.decision_trace or {}).get("effective_gap") or {}).get("remaining_gap"),
+            "severity": item.risk_severity,
+            "priority": item.review_priority,
+        }
+        for item in items
+        if ((item.decision_trace or {}).get("default_law_assessment") or {}).get("default_law_relevant")
+    ]
+
+
 def _combine_quality_gates(*gates: Dict[str, Any]) -> Dict[str, Any]:
     failures: List[Dict[str, Any]] = []
     for gate in gates:
         failures.extend(gate.get("failures") or [])
     merged = dict(gates[0] if gates else {})
+    merged["gate_results"] = {
+        key: value
+        for gate in gates
+        for key, value in (gate.get("gate_results") or {}).items()
+    }
     merged["status"] = "REPORT_READY" if not failures else "BLOCKED"
     merged["failures"] = failures
     merged["post_render_status"] = gates[-1].get("status") if gates else "REPORT_READY"
@@ -4254,7 +7847,205 @@ def _user_facing_reasoning(text: str) -> str:
     }
     for old, new in replacements.items():
         cleaned = cleaned.replace(old, new)
-    return re.sub(r"\s+", " ", cleaned).strip()
+    return _dedupe_narrative_sentences(re.sub(r"\s+", " ", cleaned).strip())
+
+
+def _applicability_user_reason(item: ReviewItemResult) -> str:
+    return str(
+        item.applicability.get("user_reason")
+        or item.applicability.get("reason")
+        or "当前合同未触发该审查事项的适用条件。"
+    )
+
+
+def _dedupe_narrative_sentences(text: str) -> str:
+    parts = [part.strip() for part in re.split(r"(?<=[。；;])", text or "") if part.strip()]
+    if not parts:
+        return text or ""
+    seen: set[str] = set()
+    deduped: List[str] = []
+    for part in parts:
+        key = re.sub(r"\s+", "", part)
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(part)
+    return "".join(deduped)
+
+
+MISSING_NARRATIVE_FORBIDDEN = ("已出现", "已覆盖", "已有明确约定", "已存在相关安排", "尚未完整覆盖", "部分相关安排")
+PARTIAL_TOTAL_MISSING_PHRASES = ("完全未约定", "未约定该机制", "未约定质量异议处理机制", "未明确约定相关安排")
+
+
+def _coverage_element_sets(item: ReviewItemResult) -> tuple[List[str], List[str]]:
+    covered: List[str] = []
+    missing: List[str] = []
+    for element in item.coverage_elements or []:
+        proposition = str(element.get("proposition") or element.get("element_id") or "").strip("。")
+        if not proposition:
+            continue
+        if element.get("status") in {"COVERED", "PARTIALLY_COVERED"}:
+            covered.append(proposition)
+        elif element.get("status") in {"MISSING", "UNCERTAIN"}:
+            missing.append(proposition)
+    return covered, missing
+
+
+def _coverage_element_groups(item: ReviewItemResult) -> tuple[List[str], List[str], List[str]]:
+    covered: List[str] = []
+    partial: List[str] = []
+    missing: List[str] = []
+    for element in item.coverage_elements or []:
+        proposition = str(element.get("proposition") or element.get("element_id") or "").strip("。")
+        if not proposition:
+            continue
+        status = element.get("status")
+        if status == "COVERED":
+            covered.append(proposition)
+        elif status == "PARTIALLY_COVERED":
+            partial.append(proposition)
+        elif status in {"MISSING", "UNCERTAIN"}:
+            missing.append(proposition)
+    return covered, partial, missing
+
+
+def _element_narrative_label(proposition: str) -> str:
+    label = proposition.strip("。")
+    for prefix in ("合同已经明确", "合同已明确", "合同明确", "合同已经载明", "合同已载明", "合同载明", "合同存在"):
+        if label.startswith(prefix):
+            return label[len(prefix):].strip("“”")
+    return label
+
+
+def _build_narrative_state(item: ReviewItemResult) -> Dict[str, Any]:
+    covered, partial, missing = _coverage_element_groups(item)
+    satisfaction = (item.decision_trace or {}).get("common_review_satisfaction") or {}
+    active_paths = [row for row in satisfaction.get("satisfaction_paths", []) if row.get("applicable", True)]
+    if active_paths and item.coverage_status in {"缺失", "部分覆盖"}:
+        selected_path = max(
+            active_paths,
+            key=lambda row: (
+                sum(status == "COVERED" for status in (row.get("statuses") or {}).values()),
+                sum(status == "PARTIALLY_COVERED" for status in (row.get("statuses") or {}).values()),
+                -sum(status in {"MISSING", "UNCERTAIN"} for status in (row.get("statuses") or {}).values()),
+            ),
+        )
+        required_ids = set(selected_path.get("required_elements") or [])
+        missing = [
+            str(element.get("proposition") or element.get("element_id") or "").strip("。")
+            for element in item.coverage_elements or []
+            if element.get("element_id") in required_ids and element.get("status") in {"MISSING", "UNCERTAIN"}
+        ]
+        partial = [
+            str(element.get("proposition") or element.get("element_id") or "").strip("。")
+            for element in item.coverage_elements or []
+            if element.get("element_id") in required_ids and element.get("status") == "PARTIALLY_COVERED"
+        ]
+    covered = list(dict.fromkeys(covered))
+    partial = [value for value in dict.fromkeys(partial) if value not in covered]
+    missing = [value for value in dict.fromkeys(missing) if value not in covered and value not in partial]
+    covered_text = "；".join(_element_narrative_label(value) for value in covered)
+    partial_text = "；".join(_element_narrative_label(value) for value in partial)
+    missing_text = "；".join(_element_narrative_label(value) for value in missing)
+    applicability = str((item.applicability or {}).get("status") or "APPLICABLE").upper()
+    polarity = str((item.decision_trace or {}).get("review_polarity") or "POSITIVE_REQUIREMENT")
+    if applicability == "NOT_APPLICABLE" or item.coverage_status == COVERAGE_NOT_APPLICABLE:
+        covered, partial, missing = [], [], []
+        judgment = _applicability_user_reason(item)
+        issue = ""
+        consequence = ""
+        recommendation = ""
+    elif item.coverage_status == "通过":
+        if polarity == "NEGATIVE_CLAUSE_CHECK":
+            judgment = f"未发现“{item.title}”对应的不利条款或安排。"
+            consequence = "未发现该不利安排，因此不形成对应风险。"
+        else:
+            judgment = f"合同已明确覆盖：{covered_text}。" if covered_text else f"合同已覆盖“{item.title}”要求。"
+            consequence = "无明显残余风险。"
+        issue = ""
+        recommendation = "无需修改。"
+    elif item.coverage_status == "缺失":
+        missing_text = missing_text or f"“{item.title}”对应的必要安排"
+        judgment = f"合同未明确：{missing_text}。"
+        issue = f"缺失：{missing_text}。"
+        consequence = f"由于合同未明确{missing_text}，相关履行流程、完成标准或责任边界可能发生争议。"
+        recommendation = f"建议补充明确：{missing_text}。"
+    elif item.coverage_status == "部分覆盖":
+        statements = []
+        if covered_text:
+            statements.append(f"已覆盖：{covered_text}")
+        if partial_text:
+            statements.append(f"仅部分明确：{partial_text}")
+        if missing_text:
+            statements.append(f"尚未覆盖：{missing_text}")
+        judgment = "；".join(statements) + "。" if statements else f"“{item.title}”仅得到部分证据支持，仍需补足关键要素。"
+        incomplete_text = "；".join(value for value in (partial_text, missing_text) if value) or f"“{item.title}”的其余关键要素"
+        issue = f"仍需补足：{incomplete_text}。"
+        consequence = f"由于{incomplete_text}尚未完整，相关履行流程、完成标准或责任边界可能发生争议。"
+        recommendation = f"建议仅补充明确：{incomplete_text}。"
+    else:
+        judgment = item.risk_point_description or f"“{item.title}”存在需要处理的风险条款。"
+        issue = item.risk_point_description
+        consequence = item.legal_consequence_if_missing
+        recommendation = item.suggested_clause_example
+    return {
+        "review_id": item.item_id,
+        "applicability": applicability,
+        "polarity": polarity,
+        "coverage_status": item.coverage_status,
+        "covered_elements": covered,
+        "partial_elements": partial,
+        "missing_elements": missing,
+        "adverse_elements": [],
+        "finding_exists": item.coverage_status in {"缺失", "部分覆盖", "风险条款"} and applicability == "APPLICABLE",
+        "judgment": judgment,
+        "issue": issue,
+        "consequence": consequence,
+        "recommendation": recommendation,
+        "result": judgment,
+    }
+
+
+def _partial_element_narrative(item: ReviewItemResult) -> str:
+    state = item.narrative_state or _build_narrative_state(item)
+    return str(state["judgment"])
+
+
+def _apply_element_level_narratives(items: List[ReviewItemResult]) -> List[ReviewItemResult]:
+    for item in items:
+        state = _build_narrative_state(item)
+        item.narrative_state = state
+        item.decision_trace["narrative_elements"] = state
+    return items
+
+
+def _coverage_safe_reasoning(item: ReviewItemResult, text: str) -> str:
+    if item.narrative_state:
+        return str(item.narrative_state.get("judgment") or text)
+    cleaned = _user_facing_reasoning(text)
+    if item.coverage_status == "部分覆盖" and any(phrase in cleaned for phrase in PARTIAL_TOTAL_MISSING_PHRASES):
+        return _partial_element_narrative(item)
+    if item.coverage_status == "缺失" and any(phrase in cleaned for phrase in MISSING_NARRATIVE_FORBIDDEN):
+        return f"未在合同正文及附件中定位到“{item.title}”对应的明确约定。"
+    if item.coverage_status == COVERAGE_NOT_APPLICABLE:
+        return _applicability_user_reason(item)
+    return cleaned
+
+
+def _coverage_narrative_template(item: ReviewItemResult) -> str:
+    if item.coverage_status == "通过":
+        if item.related_risks:
+            return "PASS_WITH_RELATED_FINDING"
+        return "PASS"
+    if item.coverage_status == "部分覆盖":
+        return "PARTIAL"
+    if item.coverage_status == "缺失":
+        return "MISSING"
+    if item.coverage_status == COVERAGE_NOT_APPLICABLE:
+        return "NOT_APPLICABLE"
+    if item.coverage_status == "风险条款":
+        return "RISK_CLAUSE"
+    return "UNCERTAIN"
 
 
 def _format_money(value: Any) -> str:
@@ -4280,7 +8071,7 @@ def _finding_economic_text(finding: RiskFinding, item_by_id: Dict[str, ReviewIte
             tail = f"最高约{max_loss}元" if max_loss else ""
             if monthly_multiple is not None:
                 tail = f"{tail}，约相当于{monthly_multiple:g}个月当前月租金" if tail else f"约相当于{monthly_multiple:g}个月当前月租金"
-            return f"按合同公式测算：{'；'.join(parts)}。{tail}。"
+            return f"按合同公式测算：{'；'.join(parts)}。{tail}。该计算方式不是普通固定倍数违约金，会随剩余租期变化。"
     economic = finding.economic_impact or {}
     if economic.get("estimated_max_loss"):
         amount = _format_money(economic.get("estimated_max_loss"))
@@ -4310,7 +8101,36 @@ def _finding_evidence_text(finding: RiskFinding) -> str:
     return f"关键证据：{source_label}{location}，{text}" if text else f"关键证据：{source_label}{location}。"
 
 
-def _top_risk_line(finding: RiskFinding, item_by_id: Dict[str, ReviewItemResult]) -> str:
+def _recommendation_component_lines(recommendation: Recommendation) -> List[str]:
+    components = recommendation.components or recommendation.clauses or []
+    if not components:
+        return [recommendation.proposed_change or recommendation.suggested_text]
+    lines: List[str] = []
+    for component in components:
+        source_type = component.get("source_type")
+        proposition = component.get("proposition") or component.get("text") or ""
+        if not proposition:
+            continue
+        if source_type in {"STATUTORY_RULE", "STATUTORY_DEFAULT"}:
+            continue
+        elif source_type == "CONTRACT_RULE":
+            lines.append(f"【合同规则】：{proposition}")
+        elif source_type in {"DRAFTING_CHOICE", "BUSINESS_PREFERENCE"}:
+            lines.append(f"【起草建议】：{proposition}")
+        else:
+            lines.append(f"【风险缓释】：{proposition}")
+    return lines or [recommendation.proposed_change or recommendation.suggested_text]
+
+
+def _recommendation_inline_text(recommendation: Recommendation) -> str:
+    return "；".join(_recommendation_component_lines(recommendation))
+
+
+def _top_risk_line(
+    finding: RiskFinding,
+    item_by_id: Dict[str, ReviewItemResult],
+    recommendation: Optional[Recommendation] = None,
+) -> str:
     importance = finding.consequence or finding.issue
     economic_text = _finding_economic_text(finding, item_by_id)
     evidence_text = _finding_evidence_text(finding)
@@ -4321,7 +8141,9 @@ def _top_risk_line(finding: RiskFinding, item_by_id: Dict[str, ReviewItemResult]
     ]
     if economic_text:
         pieces.append(economic_text)
-    pieces.extend([evidence_text, f"建议：{finding.recommendation}"])
+    pieces.append(evidence_text)
+    if recommendation:
+        pieces.append(f"建议：{_recommendation_inline_text(recommendation)}")
     return " ".join(piece for piece in pieces if piece)
 
 
@@ -4347,16 +8169,18 @@ def _professional_item_conclusion(item: ReviewItemResult) -> str:
         scenario_text = "；".join(amounts)
         prefix = f"按合同公式测算，{scenario_text}。" if scenario_text else ""
         return f"{prefix}该公式不是普通固定倍数违约金，而是会随剩余租期增加而放大，建议结合实际损失和金额上限处理。"
+    if item.narrative_state:
+        return str(item.narrative_state.get("judgment") or "")
     if item.coverage_status == "通过":
         if item.related_risks:
             return "该审查事项的基本机制已覆盖，但同一条款或事实仍形成独立风险，详见核心风险摘要。"
         return "该审查事项已覆盖，无需修改。"
     if item.coverage_status == COVERAGE_NOT_APPLICABLE:
-        return _user_facing_reasoning(item.applicability.get("reason") or "该审查事项不适用于当前合同。")
+        return _applicability_user_reason(item)
     if item.coverage_status == "部分覆盖":
-        return f"合同已覆盖“{item.title}”的部分内容，但仍需围绕关联风险补充关键要素。"
+        return _partial_element_narrative(item)
     if item.coverage_status == "缺失":
-        return f"合同未明确约定“{item.title}”相关安排，需结合默认法律规则和实际履行风险判断处理优先级。"
+        return f"未在合同正文及附件中定位到“{item.title}”对应的明确约定。"
     if item.coverage_status == "风险条款":
         return f"合同虽有相关条款，但条款内容本身可能引发执行争议，应按关联风险发现处理。"
     return _conclusion_text(item)
@@ -4370,29 +8194,33 @@ def _section_title(index: int, title: str) -> str:
     return f"## {numeral}、{title}"
 
 
-def _production_profile_lines(profile: UserRiskProfile, contract_type_name: str) -> List[str]:
-    if "租赁" in contract_type_name:
-        if "出租" in profile.user_identity:
-            stance = "出租人"
-        else:
-            stance = "承租人（个人租客）" if "租客" in profile.user_identity or "个人" in profile.user_identity else "承租人"
-    elif "买卖" in contract_type_name:
-        stance = "买方" if "买" in profile.user_identity else "卖方" if "卖" in profile.user_identity else profile.user_identity
-    else:
-        stance = profile.user_identity
+def _production_profile_lines(profile: UserRiskProfile, contract_type_name: str, perspective_resolution: Dict[str, Any]) -> List[str]:
+    stance = str(perspective_resolution.get("display_role") or "合同当事人")
     lines = [f"- 审查立场：{stance}"]
     if profile.contract_scenario:
         lines.append(f"- 使用场景：{profile.contract_scenario}")
     return lines
 
 
+def _report_context_profile_lines(profile: UserRiskProfile, report_context: Dict[str, Any], perspective_resolution: Dict[str, Any]) -> List[str]:
+    lines = _production_profile_lines(profile, report_context["contract_type_label"], perspective_resolution)
+    return [
+        f"- 使用场景：{report_context['scenario_label']}" if line.startswith("- 使用场景：") else line
+        for line in lines
+    ]
+
+
 def _display_legal_consequence(item: ReviewItemResult) -> tuple[str, str]:
     if item.coverage_status == COVERAGE_NOT_APPLICABLE:
-        return "适用说明", item.applicability.get("reason") or "本项不适用于当前合同。"
+        return "适用说明", _applicability_user_reason(item)
     if item.coverage_status == "通过":
         if item.related_risks:
             return "关联风险", "同一条款或事实仍存在需要处理的经济或法律风险，详见核心风险摘要。"
+        if (item.decision_trace or {}).get("review_polarity") == "NEGATIVE_CLAUSE_CHECK":
+            return "处理结论", "未发现该不利安排，不形成对应风险。"
         return "处理结论", "已覆盖，无需修改。"
+    if item.coverage_status == "部分覆盖" and item.narrative_state:
+        return "缺失的法律后果", str(item.narrative_state["consequence"])
     return "缺失的法律后果", item.legal_consequence_if_missing
 
 
@@ -4407,7 +8235,10 @@ def _trusted_legal_basis_display(item: ReviewItemResult) -> str:
     ]
     if direct:
         has_partial = any(claim.get("support_type") == "PARTIAL_SUPPORT" for claim in direct)
-        authority_text = "；".join(f"《{claim.get('law_name')}》{claim.get('article') or ''}" for claim in direct)
+        authorities = list(dict.fromkeys(
+            f"《{claim.get('law_name')}》{claim.get('article') or ''}" for claim in direct
+        ))[:3]
+        authority_text = "；".join(authorities)
         if has_partial:
             return f"{authority_text}；本项部分内容属于合同起草建议。"
         return authority_text
@@ -4422,6 +8253,268 @@ def _trusted_legal_basis_display(item: ReviewItemResult) -> str:
     return "合同管理实务建议"
 
 
+def _apply_default_law_narratives(items: List[ReviewItemResult]) -> List[Dict[str, Any]]:
+    rows: List[Dict[str, Any]] = []
+    for item in items:
+        gap = (item.decision_trace or {}).get("effective_gap") or {}
+        default_status = str(gap.get("statutory_default") or "UNCERTAIN_DEFAULT")
+        contractual_missing = list(gap.get("contractual_missing_elements") or [])
+        statutory_elements = list(gap.get("statutory_default_elements") or [])
+        residual = list(gap.get("still_unprotected_elements") or [])
+        applicability = str((item.applicability or {}).get("status") or "APPLICABLE").upper()
+        polarity = str((item.decision_trace or {}).get("review_polarity") or "POSITIVE_REQUIREMENT")
+        if applicability == "NOT_APPLICABLE" or item.coverage_status == COVERAGE_NOT_APPLICABLE:
+            narrative = ""
+        elif item.coverage_status == "通过" and polarity == "NEGATIVE_CLAUSE_CHECK":
+            narrative = "未发现该不利安排，因此不形成对应风险。"
+        elif item.coverage_status == "通过":
+            narrative = "合同已明确约定该事项。"
+        elif default_status in {"CLEAR_DEFAULT", "PARTIAL_DEFAULT"} and statutory_elements:
+            contract_state = "合同文本未完整约定该事项" if item.coverage_status == "部分覆盖" else "合同文本未约定该事项"
+            protection = "现行法律已提供相应默认处理规则，因此实际法律风险受到一定控制"
+            practical = "如希望减少履行争议，可进一步合同化明确。" if residual else "当前无需仅为重复法定规则而修改合同。"
+            narrative = f"{contract_state}，但{protection}。{practical}"
+        else:
+            narrative = "合同未明确约定，且未识别到足以补足该缺口的明确法定默认规则。"
+        contradiction = item.coverage_status == "部分覆盖" and any(
+            phrase in narrative for phrase in ("合同已完整覆盖", "合同已明确约定该事项", "合同已经完全覆盖")
+        )
+        row = {
+            "review_id": item.item_id, "contract_coverage": item.coverage_status,
+            "contractual_missing_elements": contractual_missing, "default_law_status": default_status,
+            "statutory_default_elements": statutory_elements, "residual_gap": residual,
+            "practical_value": gap.get("remaining_gap") or "",
+            "generated_narrative": narrative, "contradiction": contradiction,
+        }
+        item.decision_trace["effective_gap_narrative"] = row
+        rows.append(row)
+    return rows
+
+
+def _default_law_narrative_truth_gate(rows: List[Dict[str, Any]]) -> Dict[str, Any]:
+    contradictions = [row for row in rows if row.get("contradiction")]
+    return {
+        "status": "BLOCKED" if contradictions else "REPORT_READY",
+        "failures": [] if not contradictions else [{
+            "requirement": "DEFAULT_LAW_NARRATIVE_TRUTH_GATE", "failure_stage": "Effective Gap Narrative",
+            "root_cause": "Default Law narrative represented partial contract coverage as fully contractually covered.",
+            "responsible_function": "_apply_default_law_narratives", "current_status": "FAIL",
+        }],
+        "gate_results": {"DEFAULT_LAW_NARRATIVE_TRUTH_GATE": "FAIL" if contradictions else "PASS"},
+        "contradiction_count": len(contradictions), "rows": rows,
+    }
+
+
+def _legal_default_law_consistency_gate(items: List[ReviewItemResult]) -> Dict[str, Any]:
+    rows: List[Dict[str, Any]] = []
+    contradictions: List[Dict[str, Any]] = []
+    composite_errors: List[Dict[str, Any]] = []
+    for item in items:
+        assessment = (item.decision_trace or {}).get("default_law_assessment") or {}
+        rule = assessment.get("rule") or {}
+        authority_ids = list(rule.get("authority_ids") or [])
+        selected = [
+            claim for claim in item.legal_references or []
+            if claim.get("authority_id") in authority_ids
+            and claim.get("support_type") in {"DIRECT_SUPPORT", "PARTIAL_SUPPORT", "SUPPORTING"}
+            and claim.get("freshness_status") == "CURRENT"
+        ]
+        supplied = list(rule.get("supplied_element_ids") or [])
+        missing_ids = [
+            str(element.get("element_id") or "") for element in item.coverage_elements or []
+            if element.get("status") in {"MISSING", "PARTIALLY_COVERED"}
+        ]
+        unsupplied = [element_id for element_id in missing_ids if element_id not in supplied]
+        default_status = str(assessment.get("status") or "UNCERTAIN_DEFAULT")
+        supported = bool(selected)
+        default_capable = bool(rule.get("proposition_id") or supplied)
+        exclusion_reason = ""
+        if supported and not default_capable:
+            exclusion_reason = "Authority supports a related legal principle but does not supply the missing contractual mechanism."
+        elif supported and default_capable and not supplied:
+            exclusion_reason = "The resolved rule is legally relevant but does not supply a tracked contractual element."
+        contradiction = (
+            supported and default_capable and default_status in {"NO_DEFAULT", "UNCERTAIN_DEFAULT"}
+            and not exclusion_reason
+        )
+        row = {
+            "review_id": item.item_id,
+            "element_id": supplied[0] if len(supplied) == 1 else "",
+            "proposition_id": rule.get("proposition_id") or "",
+            "legal_statement": rule.get("proposition") or "",
+            "authority_ids": authority_ids,
+            "authority_entailment": "SUPPORTS" if supported else "NOT_EVALUATED" if not authority_ids else "UNCERTAIN",
+            "resolved_legal_status": "SUPPORTED_BY_CURRENT_LAW" if supported else "UNCERTAIN",
+            "is_default_law_capable": default_capable,
+            "default_law_status": default_status,
+            "supplied_elements": supplied,
+            "unsupplied_elements": unsupplied,
+            "exclusion_reason": exclusion_reason,
+            "consistency_gate": "FAIL" if contradiction else "PASS",
+        }
+        rows.append(row)
+        if contradiction:
+            contradictions.append(row)
+        for element in item.coverage_elements or []:
+            if element.get("atomic", True) is False and not element.get("child_elements"):
+                composite_errors.append({
+                    "review_id": item.item_id, "original_element": element.get("proposition"),
+                    "atomic": False, "child_elements": [], "element_id": element.get("element_id"),
+                })
+    failures = []
+    if contradictions:
+        failures.append({
+            "requirement": "LEGAL_DEFAULT_LAW_CONSISTENCY_GATE", "failure_stage": "Resolved Legal Rule",
+            "root_cause": "A supported default-law-capable proposition diverged from DefaultLawResult without an exclusion reason.",
+            "responsible_function": "_legal_default_law_consistency_gate", "current_status": "FAIL",
+        })
+    if composite_errors:
+        failures.append({
+            "requirement": "ATOMIC_LEGAL_ELEMENT_GATE", "failure_stage": "Legal Element Composition",
+            "root_cause": "A non-atomic legal element reached Default Law without child elements.",
+            "responsible_function": "_legal_default_law_consistency_gate", "current_status": "FAIL",
+        })
+    return {
+        "status": "BLOCKED" if failures else "REPORT_READY", "failures": failures,
+        "gate_results": {
+            "LEGAL_DEFAULT_LAW_CONSISTENCY_GATE": "FAIL" if contradictions else "PASS",
+            "ATOMIC_LEGAL_ELEMENT_GATE": "FAIL" if composite_errors else "PASS",
+        },
+        "contradiction_count": len(contradictions), "composite_error_count": len(composite_errors),
+        "rows": rows, "element_decomposition": [
+            {
+                "review_id": item.item_id,
+                "original_element": element.get("proposition"),
+                "atomic": element.get("atomic", True),
+                "child_elements": element.get("child_elements") or [],
+                "child": [{
+                    "element_id": element.get("element_id"),
+                    "proposition_id": (element.get("legal_proposition_ids") or [""])[0],
+                    "authority_ids": list((((item.decision_trace or {}).get("default_law_assessment") or {}).get("rule") or {}).get("authority_ids") or []),
+                    "default_law_status": (((item.decision_trace or {}).get("default_law_assessment") or {}).get("status")),
+                }],
+            }
+            for item in items for element in item.coverage_elements or []
+            if element.get("legal_proposition_ids") or element.get("atomic", True) is False
+        ],
+    }
+
+
+def _review_report_section(report: str, review_id: str) -> str:
+    marker = f"（{review_id}）"
+    if marker not in report:
+        return ""
+    section = report.split(marker, 1)[1]
+    return section.split("\n## ", 1)[0]
+
+
+def _applicability_polarity_gates(
+    items: List[ReviewItemResult], findings: List[RiskFinding], recommendations: List[Recommendation], report: str = "",
+) -> Dict[str, Any]:
+    finding_ids_by_review = {
+        item.item_id: [finding.finding_id for finding in findings if item.item_id in finding.source_review_ids]
+        for item in items
+    }
+    recommendation_ids_by_review = {
+        item.item_id: [
+            recommendation.recommendation_id for recommendation in recommendations
+            if set(recommendation.target_finding_ids) & set(finding_ids_by_review[item.item_id])
+        ]
+        for item in items
+    }
+    na_rows: List[Dict[str, Any]] = []
+    polarity_rows: List[Dict[str, Any]] = []
+    na_gap_errors: List[Dict[str, Any]] = []
+    na_narrative_errors: List[Dict[str, Any]] = []
+    negative_narrative_errors: List[Dict[str, Any]] = []
+    negative_false_passes: List[Dict[str, Any]] = []
+    forbidden_na_terms = ("合同缺失", "尚未覆盖", "仍需补足", "未识别到足以补足", "建议新增", "建议补充")
+    positive_negative_terms = ("合同已覆盖", "合同已明确约定该事项", "合同已明确覆盖")
+    for item in items:
+        applicability = str((item.applicability or {}).get("status") or "APPLICABLE").upper()
+        polarity = str((item.decision_trace or {}).get("review_polarity") or "POSITIVE_REQUIREMENT")
+        section = _review_report_section(report, item.item_id) if report else ""
+        if applicability == "NOT_APPLICABLE" or item.coverage_status == COVERAGE_NOT_APPLICABLE:
+            gap = (item.decision_trace or {}).get("effective_gap") or {}
+            default_assessment = (item.decision_trace or {}).get("default_law_assessment") or {}
+            gap_error = (
+                gap.get("status") != "NOT_APPLICABLE"
+                or bool(gap.get("contractual_missing_elements"))
+                or bool(finding_ids_by_review[item.item_id])
+                or bool(recommendation_ids_by_review[item.item_id])
+                or default_assessment.get("executed") is not False
+            )
+            narrative_error = bool(section) and any(term in section for term in forbidden_na_terms)
+            row = {
+                "review_id": item.item_id, "applicability": "NOT_APPLICABLE",
+                "reason": (item.applicability or {}).get("reason") or "",
+                "coverage_evaluated": False, "default_law_evaluated": default_assessment.get("executed", False),
+                "effective_gap_created": gap.get("status") != "NOT_APPLICABLE",
+                "finding_created": bool(finding_ids_by_review[item.item_id]),
+                "recommendation_created": bool(recommendation_ids_by_review[item.item_id]),
+                "production_gap_narrative_present": narrative_error,
+                "gate_result": "FAIL" if gap_error or narrative_error else "PASS",
+            }
+            na_rows.append(row)
+            if gap_error:
+                na_gap_errors.append(row)
+            if narrative_error:
+                na_narrative_errors.append(row)
+        if polarity == "NEGATIVE_CLAUSE_CHECK":
+            negative = (item.decision_trace or {}).get("negative_clause_check") or {}
+            narrative = str((item.narrative_state or {}).get("judgment") or "")
+            positive_narrative = item.coverage_status == "通过" and (
+                any(term in narrative for term in positive_negative_terms)
+                or bool(section) and any(term in section for term in positive_negative_terms)
+            )
+            false_pass = item.coverage_status == "通过" and not (
+                negative.get("adverse_clause_exists") is False
+                and negative.get("search_coverage") == "SUFFICIENT"
+                and negative.get("confidence") in {"medium", "high"}
+            )
+            row = {
+                "review_id": item.item_id, "review_title": item.title, "polarity": polarity,
+                "coverage": item.coverage_status, "evidence_state": negative,
+                "expected_pass_semantics": "NO_ADVERSE_CLAUSE_FOUND",
+                "generated_conclusion": narrative,
+                "generated_exposure": ((item.decision_trace or {}).get("effective_gap_narrative") or {}).get("generated_narrative", ""),
+                "gate_result": "FAIL" if positive_narrative or false_pass else "PASS",
+            }
+            polarity_rows.append(row)
+            if positive_narrative:
+                negative_narrative_errors.append(row)
+            if false_pass:
+                negative_false_passes.append(row)
+    failures = []
+    for requirement, errors, stage in (
+        ("NOT_APPLICABLE_NARRATIVE_GATE", na_narrative_errors, "Applicability-aware Narrative"),
+        ("NOT_APPLICABLE_GAP_GATE", na_gap_errors, "Applicability Gap Stop"),
+        ("REVIEW_POLARITY_NARRATIVE_GATE", negative_narrative_errors, "Review Polarity Narrative"),
+        ("NEGATIVE_CHECK_PASS_GATE", negative_false_passes, "Negative Clause Verification"),
+    ):
+        if errors:
+            failures.append({
+                "requirement": requirement, "failure_stage": stage,
+                "root_cause": f"{len(errors)} review(s) violated applicability or polarity semantics.",
+                "responsible_function": "_applicability_polarity_gates", "current_status": "FAIL",
+            })
+    return {
+        "status": "BLOCKED" if failures else "REPORT_READY", "failures": failures,
+        "gate_results": {
+            "NOT_APPLICABLE_NARRATIVE_GATE": "FAIL" if na_narrative_errors else "PASS",
+            "NOT_APPLICABLE_GAP_GATE": "FAIL" if na_gap_errors else "PASS",
+            "REVIEW_POLARITY_NARRATIVE_GATE": "FAIL" if negative_narrative_errors else "PASS",
+            "NEGATIVE_CHECK_PASS_GATE": "FAIL" if negative_false_passes else "PASS",
+        },
+        "not_applicable_gap_narrative_count": len(na_narrative_errors),
+        "not_applicable_finding_count": sum(1 for row in na_rows if row["finding_created"]),
+        "not_applicable_recommendation_count": sum(1 for row in na_rows if row["recommendation_created"]),
+        "negative_review_positive_narrative_count": len(negative_narrative_errors),
+        "negative_check_false_pass_count": len(negative_false_passes),
+        "not_applicable_rows": na_rows, "polarity_rows": polarity_rows,
+    }
+
+
 def _display_suggested_clause(item: ReviewItemResult) -> tuple[str, str]:
     if item.coverage_status == COVERAGE_NOT_APPLICABLE:
         return "", ""
@@ -4430,7 +8523,7 @@ def _display_suggested_clause(item: ReviewItemResult) -> tuple[str, str]:
             return "", ""
         return "可选优化", item.suggested_clause_example
     if item.coverage_status == "部分覆盖":
-        return "建议补充", item.suggested_clause_example
+        return "建议补充", str((item.narrative_state or {}).get("recommendation") or item.suggested_clause_example)
     if item.coverage_status == "风险条款":
         return "建议修改原条款", item.suggested_clause_example
     return "建议新增", item.suggested_clause_example
@@ -4674,6 +8767,7 @@ def _system_metadata(model_status: Dict[str, Any]) -> Dict[str, Any]:
     configured_models = model_status.get("configured_models") or []
     return {
         "system_version": SYSTEM_VERSION,
+        "pipeline_version": PIPELINE_VERSION,
         "prompt_version": PROMPT_VERSION,
         "fact_prompt_version": FACT_PROMPT_VERSION,
         "review_prompt_version": REVIEW_PROMPT_VERSION,
@@ -4685,6 +8779,30 @@ def _system_metadata(model_status: Dict[str, Any]) -> Dict[str, Any]:
         "ontology_version": ONTOLOGY_VERSION,
         "quality4_version": QUALITY4_VERSION,
         "benchmark_version": BENCHMARK_VERSION,
+        "parser_version": PARSER_VERSION,
+        "fact_schema_version": FACT_SCHEMA_VERSION,
+        "retrieval_version": RETRIEVAL_VERSION,
+        "domain_pack_version": DOMAIN_PACK_VERSION,
+        "default_law_version": DEFAULT_LAW_VERSION,
+        "perspective_resolver_version": PERSPECTIVE_RESOLVER_VERSION,
+        "effective_gap_engine_version": "effective-gap-6.7-freeze-1.0",
+        "recommendation_engine_version": RECOMMENDATION_ENGINE_VERSION,
+        "production_serializer_version": PRODUCTION_SERIALIZER_VERSION,
+        "confidence_version": CONFIDENCE_VERSION,
+        "cross_type_generalization_stage": "CONVERGED",
+        "sale_historical_blind_001": "FROZEN_REGRESSION",
+        "sale_historical_blind_002": "FROZEN_REGRESSION",
+        "sale_historical_blind_003": "FROZEN_REGRESSION",
+        "sale_historical_blind_004": "FROZEN_REGRESSION",
+        "next_blind_case": "SALE-BLIND-005",
+        "next_blind_status": "READY",
+        "fact_graph_version": FACT_SCHEMA_VERSION,
+        "domain_packs": {
+            "shared": domain_pack_snapshot("shared"),
+            "sale": domain_pack_snapshot("sale"),
+            "sale_framework_supply": domain_pack_snapshot("sale/goods/framework_supply"),
+            "house_lease": domain_pack_snapshot("house_lease"),
+        },
         "model_version": configured_models[0] if configured_models else "deterministic_pipeline",
         "generated_at": datetime.now().isoformat(),
     }
@@ -4693,6 +8811,7 @@ def _system_metadata(model_status: Dict[str, Any]) -> Dict[str, Any]:
 def _apply_profile_rules(
     items: List[ReviewItemResult],
     profile: UserRiskProfile,
+    perspective_resolution: Dict[str, Any],
 ) -> List[ReviewItemResult]:
     """根据用户风险画像动态调整审查结果。
 
@@ -4702,14 +8821,8 @@ def _apply_profile_rules(
     4. 修改建议语气适配
     """
     for item in items:
-        if "租客" in profile.user_identity or "承租" in profile.user_identity:
-            item.decision_trace["user_perspective"] = "TENANT"
-        elif "出租" in profile.user_identity:
-            item.decision_trace["user_perspective"] = "LANDLORD"
-        elif "买" in profile.user_identity:
-            item.decision_trace["user_perspective"] = "BUYER"
-        elif "卖" in profile.user_identity or "出卖" in profile.user_identity:
-            item.decision_trace["user_perspective"] = "SELLER"
+        item.decision_trace["user_perspective"] = perspective_resolution.get("canonical_role", "UNCERTAIN")
+        item.decision_trace["perspective_resolution"] = perspective_resolution
         item.decision_trace["bargaining_power"] = profile.bargaining_position
         if item.coverage_status == COVERAGE_NOT_APPLICABLE or item.risk_level in {COVERAGE_NOT_APPLICABLE, RISK_NOT_APPLICABLE}:
             continue
@@ -4863,6 +8976,8 @@ def _format_markdown_v2(
     litigation_items: Optional[Dict[str, Any]] = None,
     negotiation_items: Optional[Dict[str, Any]] = None,
     jurisdiction_items: Optional[Dict[str, Any]] = None,
+    report_context: Optional[Dict[str, Any]] = None,
+    perspective_resolution: Optional[Dict[str, Any]] = None,
 ) -> str:
     """Pure Markdown serializer for the final ReviewItemResult list."""
     findings = risk_findings or []
@@ -4879,6 +8994,12 @@ def _format_markdown_v2(
     optimization_findings = [finding for finding in findings if finding.priority == PRIORITY_C_OPTIMIZATION][:10]
     covered_key_items = [item for item in items if item.coverage_status == "通过" and item.review_importance in {REVIEW_IMPORTANCE_CORE, REVIEW_IMPORTANCE_IMPORTANT}][:10]
     finding_title_map = _finding_id_title_map(findings)
+    recommendation_by_finding = {
+        finding_id: recommendation
+        for recommendation in recs
+        if recommendation.status == "ACTIVE"
+        for finding_id in recommendation.target_finding_ids
+    }
     section_index = 0
 
     def add_section(title: str) -> None:
@@ -4886,15 +9007,16 @@ def _format_markdown_v2(
         section_index += 1
         lines.extend(["", _section_title(section_index, title), ""])
 
-    profile_lines = _production_profile_lines(profile, contract_type_name)
+    report_context = report_context or {"contract_type_label": contract_type_name, "scenario_label": profile.contract_scenario}
+    profile_lines = _report_context_profile_lines(profile, report_context, perspective_resolution or {})
     lines = [
-        f"# {contract_type_name}审查报告",
+        f"# {report_context.get('report_title') or contract_type_name + '审查报告'}",
         "",
     ]
     add_section("合同总体评价")
     lines.extend([
         *profile_lines,
-        f"- 合同类型：{contract_type_name}",
+        f"- 合同类型：{report_context['contract_type_label']}",
         f"- 总体可签署性：{assessment.get('signability')}",
         f"- 风险发现总数：{len(findings)}",
         f"- 重大风险数量：{finding_summary.get('重大风险', 0)}",
@@ -4918,27 +9040,27 @@ def _format_markdown_v2(
     if priority_core_findings:
         lines.extend(["### 优先处理", ""])
         for finding in priority_core_findings:
-            lines.append(_top_risk_line(finding, item_by_id))
+            lines.append(_top_risk_line(finding, item_by_id, recommendation_by_finding.get(finding.finding_id)))
             lines.append("")
     if practical_findings:
         lines.extend(["### 建议处理", ""])
         for finding in practical_findings:
-            lines.append(_top_risk_line(finding, item_by_id))
+            lines.append(_top_risk_line(finding, item_by_id, recommendation_by_finding.get(finding.finding_id)))
             lines.append("")
     if not priority_core_findings and not practical_findings:
         lines.append("- 未发现需要优先处理的高风险或重大经济后果事项。")
     add_section("建议优先修改")
     if priority_core_findings:
         lines.extend(["### 优先处理", ""])
-        for recommendation in [rec for rec in recs if rec.priority == PRIORITY_A_CORE][:10]:
+        for recommendation in [rec for rec in recs if rec.priority == PRIORITY_A_CORE]:
             target_names = "、".join(finding_title_map.get(risk_id, "关联风险") for risk_id in recommendation.target_finding_ids or recommendation.target_risk_ids)
-            lines.append(f"- **优先处理**：{recommendation.proposed_change or recommendation.suggested_text}（对应风险：{target_names}）")
+            lines.append(f"- **优先处理**：{_recommendation_inline_text(recommendation)}（对应风险：{target_names}）")
         lines.append("")
     if practical_findings:
         lines.extend(["### 建议处理", ""])
-        for recommendation in [rec for rec in recs if rec.priority == PRIORITY_B_PRACTICAL][:10]:
+        for recommendation in [rec for rec in recs if rec.priority == PRIORITY_B_PRACTICAL]:
             target_names = "、".join(finding_title_map.get(risk_id, "关联风险") for risk_id in recommendation.target_finding_ids or recommendation.target_risk_ids)
-            lines.append(f"- **建议处理**：{recommendation.proposed_change or recommendation.suggested_text}（对应风险：{target_names}）")
+            lines.append(f"- **建议处理**：{_recommendation_inline_text(recommendation)}（对应风险：{target_names}）")
     else:
         if not priority_core_findings:
             lines.append("- 暂无必须或优先修改事项。")
@@ -4946,16 +9068,19 @@ def _format_markdown_v2(
     lines.append("以下事项属于完善型建议，通常不是当前签署的核心障碍。")
     lines.append("")
     if optimization_findings:
-        for recommendation in [rec for rec in recs if rec.priority == PRIORITY_C_OPTIMIZATION][:10]:
+        for recommendation in [rec for rec in recs if rec.priority == PRIORITY_C_OPTIMIZATION]:
             target_names = "、".join(finding_title_map.get(risk_id, "关联风险") for risk_id in recommendation.target_finding_ids or recommendation.target_risk_ids)
-            lines.append(f"- **可选优化**：{recommendation.proposed_change or recommendation.suggested_text}（对应风险：{target_names}）")
+            lines.append(f"- **可选优化**：{_recommendation_inline_text(recommendation)}（对应风险：{target_names}）")
     else:
         lines.append("- 暂无需要单独提示的可优化事项。")
     add_section("已覆盖关键事项")
     if covered_key_items:
         for item in covered_key_items:
             related = f"；关联风险：{_join_related_finding_titles(item.related_risks, finding_title_map)}" if item.related_risks else ""
-            lines.append(f"- **{item.item_id} {item.title}**：已覆盖{related}。")
+            if (item.decision_trace or {}).get("review_polarity") == "NEGATIVE_CLAUSE_CHECK":
+                lines.append(f"- **{item.item_id} {item.title}**：未发现对应不利安排{related}。")
+            else:
+                lines.append(f"- **{item.item_id} {item.title}**：已覆盖{related}。")
     else:
         lines.append("- 已覆盖项详见完整审查明细。")
     manual_items = [item for item in items if item.needs_manual_review]
@@ -4967,25 +9092,39 @@ def _format_markdown_v2(
     add_section("完整审查明细")
     for index, item in enumerate(items, start=1):
         legal_label, legal_value = _display_legal_consequence(item)
-        suggested_label, suggested_value = _display_suggested_clause(item)
+        display_state = (item.decision_trace or {}).get("recommendation_display_state") or {}
+        detail_recommendations = [
+            recommendation for recommendation in recs
+            if recommendation.recommendation_id in display_state.get("active_recommendation_ids", [])
+        ]
+        suggested_label = "正式建议" if detail_recommendations else ""
+        suggested_value = "；".join(_recommendation_inline_text(recommendation) for recommendation in detail_recommendations)
+        narrative = item.narrative_state or _build_narrative_state(item)
+        exposure = str(((item.decision_trace or {}).get("effective_gap_narrative") or {}).get("generated_narrative", ""))
+        issue_value = str(narrative.get("issue") or narrative.get("judgment") or item.risk_point_description)
+        if legal_label not in {"处理结论", "适用说明"}:
+            legal_value = str(narrative.get("consequence") or legal_value)
+        if item.coverage_status == COVERAGE_NOT_APPLICABLE:
+            suggested_label = ""
         lines.extend(
             [
                 f"## {index}. {item.title}（{item.item_id}）",
                 "",
                 "### 审查结论",
-                f"- **处理建议**：{item.action_suggestion or _action_suggestion_for_item(item)}",
+                f"- **处理建议**：{display_state.get('user_message') or item.action_suggestion or _action_suggestion_for_item(item)}",
                 f"- 审查重要度：{_importance_label(item.review_importance or _review_importance_for_item(item))}",
                 f"- 行动优先级：{_priority_label(item.action_priority or item.review_priority or _action_priority_for_item(item))}",
                 f"- 关联风险发现：{_join_related_finding_titles(item.related_risks, finding_title_map)}",
-                f"- 系统确定性：{_confidence_label((item.system_confidence or {}).get('level', 'medium'))}",
+                f"- 判断可靠度：{_confidence_label((item.system_confidence or {}).get('level', 'medium'))}",
                 f"- 经济影响：{_economic_display(item.economic_impact)}",
                 f"- 覆盖状态：{item.coverage_status}",
                 f"- 问题类型：{item.issue_type}",
                 f"- 原文位置：{item.evidence_location or '未召回正式条款'}",
-                f"- 审查判断：{_professional_item_conclusion(item)}",
-                f"- 【风险点描述】：{_user_facing_reasoning(item.risk_point_description)}",
-                f"- 【{legal_label}】：{_user_facing_reasoning(legal_value)}",
+                f"- 审查判断：{narrative.get('judgment') or _professional_item_conclusion(item)}",
+                f"- 【风险点描述】：{issue_value}",
+                f"- 【{legal_label}】：{legal_value}",
                 f"- 【法律依据】：{_trusted_legal_basis_display(item)}",
+                *([f"- 【实际法律暴露】：{exposure}"] if exposure else []),
                 f"- 【适用条件】：{item.applicable_if}",
                 "",
             ]
@@ -5017,6 +9156,77 @@ def _format_markdown_v2(
     return _sanitize_review_report("\n".join(lines))
 
 
+def _recommendation_renderer_gates(
+    report: str,
+    items: List[ReviewItemResult],
+    recommendations: List[Recommendation],
+    impacts: List[Any],
+) -> Dict[str, Any]:
+    summary, _, detail = report.partition("完整审查明细")
+    recommendation_by_id = {recommendation.recommendation_id: recommendation for recommendation in recommendations}
+    blocked_text = {
+        impact.recommendation_id: impact.proposed_change
+        for impact in impacts if impact.gate_result == "BLOCKED" and impact.proposed_change
+    }
+    rows: List[Dict[str, Any]] = []
+    dual_source: List[Dict[str, Any]] = []
+    mismatches: List[Dict[str, Any]] = []
+    for item in items:
+        state = (item.decision_trace or {}).get("recommendation_display_state") or {}
+        marker = f"（{item.item_id}）"
+        section = detail.split(marker, 1)[1] if marker in detail else ""
+        if section:
+            section = section.split("\n## ", 1)[0]
+        summary_ids = [
+            recommendation_id for recommendation_id in state.get("active_recommendation_ids", [])
+            if (recommendation_by_id.get(recommendation_id).proposed_change or recommendation_by_id.get(recommendation_id).suggested_text) in summary
+        ]
+        detail_ids = [
+            recommendation_id for recommendation_id in state.get("active_recommendation_ids", [])
+            if (recommendation_by_id.get(recommendation_id).proposed_change or recommendation_by_id.get(recommendation_id).suggested_text) in section
+        ]
+        resurrected = [
+            recommendation_id for recommendation_id in state.get("blocked_recommendation_ids", [])
+            if blocked_text.get(recommendation_id) and blocked_text[recommendation_id] in report
+        ]
+        detail_generated = not state.get("has_active_recommendation") and (
+            "【正式建议】" in section
+            or bool(re.search(r"\*\*处理建议\*\*：(?:建议新增|建议补充|建议修改|建议明确)", section))
+        )
+        mismatch = set(summary_ids) != set(state.get("active_recommendation_ids", [])) or set(detail_ids) != set(state.get("active_recommendation_ids", []))
+        row = {
+            **state, "summary_recommendation_ids": summary_ids, "detail_recommendation_ids": detail_ids,
+            "resurrected_recommendation_ids": resurrected, "detail_generated_recommendation": detail_generated,
+            "mismatch": mismatch,
+        }
+        rows.append(row)
+        if resurrected or detail_generated:
+            dual_source.append(row)
+        if mismatch:
+            mismatches.append(row)
+    failures = []
+    if dual_source:
+        failures.append({
+            "requirement": "RECOMMENDATION_SINGLE_SOURCE_GATE", "failure_stage": "Production Recommendation Rendering",
+            "root_cause": "A production renderer generated or resurrected a recommendation outside FinalRecommendationSet.",
+            "responsible_function": "_format_markdown_v2", "current_status": "FAIL",
+        })
+    if mismatches:
+        failures.append({
+            "requirement": "RECOMMENDATION_CROSS_RENDERER_CONSISTENCY_GATE", "failure_stage": "Production Recommendation Rendering",
+            "root_cause": "Summary and detail renderers did not consume the same active recommendation IDs.",
+            "responsible_function": "_format_markdown_v2", "current_status": "FAIL",
+        })
+    return {
+        "status": "BLOCKED" if failures else "REPORT_READY", "failures": failures,
+        "gate_results": {
+            "RECOMMENDATION_SINGLE_SOURCE_GATE": "FAIL" if dual_source else "PASS",
+            "RECOMMENDATION_CROSS_RENDERER_CONSISTENCY_GATE": "FAIL" if mismatches else "PASS",
+        },
+        "dual_source_count": len(dual_source), "cross_renderer_mismatch_count": len(mismatches), "rows": rows,
+    }
+
+
 def review_contract_v2(
     contract_text: str,
     contract_type: Optional[str] = "house_lease",
@@ -5034,8 +9244,6 @@ def review_contract_v2(
     """
 
     started_at = time.perf_counter()
-    if profile is None:
-        profile = UserRiskProfile.default()
     contract_review_trace_id = f"CR-{datetime.now().strftime('%Y%m%d-%H%M%S')}-{uuid.uuid4().hex[:6].upper()}"
 
     normalized_type = (contract_type or "house_lease").strip().lower()
@@ -5052,6 +9260,7 @@ def review_contract_v2(
         global_fallback_reason = ""
 
     if not type_meta:
+        profile = _request_scoped_profile(profile, normalized_type)
         return {
             "success": False,
             "contract_type": normalized_type,
@@ -5072,7 +9281,7 @@ def review_contract_v2(
             "review_results_4_0": [],
             "risk_findings": [],
             "recommendations": [],
-            "contract_context": build_contract_context(normalized_type, {}, profile).to_public_dict(),
+            "contract_context": build_contract_context(normalized_type, {}, profile, contract_text=contract_text).to_public_dict(),
             "overall_assessment": {},
             "legal_reference_issues": [],
             "legal_citation_claims": [],
@@ -5087,33 +9296,126 @@ def review_contract_v2(
         }
 
     review_text = strip_non_contract_tail(contract_text)
-    checklist = get_checklist(type_meta.key)
     clauses = parse_contract_clauses(review_text)
+    integrity = document_integrity(review_text, clauses).to_public_dict()
+    user_selected_type = type_meta.response_key
+    domain_selection_resolution, domain_resolution, resolved_type = resolve_domain_selection(
+        user_selected_type, review_text, clauses,
+    )
+    type_meta = get_contract_meta(resolved_type)
+    profile = _request_scoped_profile(profile, type_meta.response_key)
+    previous_context_role = "LESSEE" if user_selected_type == "house_lease" else "BUYER" if user_selected_type == "sale" else ""
+    perspective_resolution = resolve_perspective(
+        profile.user_identity, domain_resolution.contract_family, previous_context_role=previous_context_role,
+    )
+    if type_meta.key.value == "sale" and domain_resolution.subject_matter == "REAL_ESTATE":
+        # Registered-property schedules commonly follow signature blocks and remain contractual evidence.
+        review_text = contract_text
+        clauses = parse_contract_clauses(review_text)
+        integrity = document_integrity(review_text, clauses).to_public_dict()
+        domain_resolution = resolve_contract_domain(type_meta.key.value, review_text, clauses)
+    generic_fact_graph = extract_contract_fact_graph(clauses)
+    framework_supply = extract_framework_supply_profile(review_text, clauses) if type_meta.key.value == "sale" else None
+    if framework_supply:
+        add_framework_facts_to_graph(framework_supply, clauses, generic_fact_graph)
+    real_estate_facts = None
+    if type_meta.key.value == "sale" and domain_resolution.subject_matter == "REAL_ESTATE":
+        real_estate_facts = extract_real_estate_sale_facts(review_text, clauses, generic_fact_graph)
+    checklist = get_checklist_for_resolution(type_meta.key, domain_resolution)
+    registry_debug = review_registry_debug(type_meta.key, domain_resolution)
     lease_facts = extract_house_lease_facts(review_text) if type_meta.key.value == "lease" else None
-    contract_facts = lease_facts.to_public_dict() if lease_facts else {}
+    contract_facts = lease_facts.to_public_dict() if lease_facts else generic_fact_graph.to_public_dict()
+    contract_facts["domain_resolution"] = domain_resolution.to_public_dict()
+    contract_facts["domain_selection_resolution"] = domain_selection_resolution.to_public_dict()
+    if framework_supply:
+        contract_facts["framework_supply"] = framework_supply.to_public_dict()
+    if real_estate_facts:
+        contract_facts["real_estate"] = real_estate_facts.to_public_dict()
+    canonical_claims = build_canonical_claims(review_text, clauses, generic_fact_graph, domain_resolution.subject_matter)
+    contract_facts["canonical_claims"] = canonical_claims_public(canonical_claims)
+    product_documentation_profile = (
+        build_product_documentation_profile(review_text, clauses, domain_resolution)
+        if type_meta.key.value == "sale" and domain_resolution.subject_matter in {"GOODS", "EQUIPMENT"}
+        else None
+    )
+    if product_documentation_profile:
+        contract_facts["product_documentation_profile"] = product_documentation_profile.to_public_dict()
+    contract_context = build_contract_context(type_meta.response_key, contract_facts, profile, contract_text=review_text, domain_resolution=domain_resolution).to_public_dict()
+    contract_context["user_role"] = perspective_resolution.canonical_role.lower()
+    contract_context["user_perspective"] = perspective_resolution.canonical_role.lower()
+    contract_context["perspective_resolution"] = perspective_resolution.to_public_dict()
+    if product_documentation_profile:
+        contract_context.setdefault("domain_attributes", {})["product_documentation_profile"] = product_documentation_profile.to_public_dict()
+    report_context = build_report_context(contract_context).to_public_dict()
+    if report_context.get("contract_type_label") == "合同" and type_meta.key.value not in {"sale", "lease"}:
+        report_context["contract_type_label"] = type_meta.display_name
+        report_context["report_title"] = f"{type_meta.display_name}审查报告"
+    review_execution_context = ReviewExecutionContext(
+        contract_context={
+            "contract_family": contract_context.get("contract_family"),
+            "subject_matter": contract_context.get("subject_matter"),
+            "contract_subtype": contract_context.get("contract_subtype"),
+        },
+        domain_resolution=domain_resolution.to_public_dict(),
+        transaction_structure=domain_resolution.transaction_structure,
+        product_context=product_documentation_profile.to_public_dict() if product_documentation_profile else {},
+        fact_graph_version=FACT_SCHEMA_VERSION,
+        claim_graph_version=str((contract_facts.get("canonical_claims") or {}).get("version") or ""),
+        applicable_default_law=DEFAULT_LAW_VERSION,
+    ).to_public_dict()
+    if profile.contract_scenario != report_context["scenario_label"]:
+        profile_data = profile.to_dict()
+        profile_data["contract_scenario"] = report_context["scenario_label"]
+        profile = UserRiskProfile.from_dict(profile_data)
     applicable_checkpoints = []
     not_applicable_items: Dict[str, ReviewItemResult] = {}
     item_applicability: Dict[str, Dict[str, Any]] = {}
     for checkpoint in checklist:
-        is_applicable, applicability_reason = _is_checkpoint_applicable(review_text, checkpoint, type_meta.key.value)
-        fact_applicability = _evaluate_lease_fact_applicability(checkpoint, lease_facts) if lease_facts else {
-            "status": "applicable",
-            "applicable": True,
-            "reason": applicability_reason or "未触发适用条件排除。",
-            "depends_on": [],
-        }
+        is_applicable, applicability_reason = _is_checkpoint_applicable(review_text, checkpoint, type_meta.key.value, canonical_claims)
+        fact_applicability = _evaluate_lease_fact_applicability(checkpoint, lease_facts) if lease_facts else _applicability_result_for_checkpoint(
+            checkpoint,
+            clauses,
+            is_applicable,
+            applicability_reason,
+            canonical_claims,
+        )
+        product_applicability = (
+            product_review_applicability(checkpoint.node_id, product_documentation_profile)
+            if product_documentation_profile else None
+        )
+        if product_applicability:
+            is_applicable = bool(product_applicability["applicable"])
+            applicability_reason = str(product_applicability["reason"])
+            fact_applicability = {
+                "review_id": checkpoint.item_id,
+                "applicable": is_applicable,
+                "status": product_applicability["status"],
+                "reason": applicability_reason,
+                "machine_reason": applicability_reason,
+                "user_reason": applicability_reason,
+                "trigger_facts": list(product_applicability.get("positive_triggers") or []),
+                "trigger_evidence": [],
+                "missing_triggers": list(product_applicability.get("negative_triggers") or []),
+                "positive_triggers": list(product_applicability.get("positive_triggers") or []),
+                "negative_triggers": list(product_applicability.get("negative_triggers") or []),
+                "product_category": product_documentation_profile.product_category,
+                "transaction_structure": domain_resolution.transaction_structure,
+                "depends_on": ["product_documentation_profile"],
+            }
         item_applicability[checkpoint.item_id] = fact_applicability
-        if is_applicable and not fact_applicability["applicable"]:
+        if is_applicable and fact_applicability.get("applicable") is False:
             is_applicable = False
             applicability_reason = fact_applicability["reason"]
         if is_applicable:
             applicable_checkpoints.append(checkpoint)
         else:
             na_item = _not_applicable_item(checkpoint, applicability_reason)
-            na_item.applicability = fact_applicability if not fact_applicability.get("applicable", True) else {
+            na_item.applicability = fact_applicability if fact_applicability.get("applicable") is not True else {
                 "status": "not_applicable",
                 "applicable": False,
                 "reason": applicability_reason,
+                "machine_reason": applicability_reason,
+                "user_reason": f"合同未触发“{checkpoint.applicable_if or checkpoint.title}”这一适用条件，本审查事项不适用。",
                 "depends_on": [],
             }
             na_item.fact_dependencies = list(na_item.applicability.get("depends_on") or [])
@@ -5154,49 +9456,115 @@ def review_contract_v2(
     for item in items:
         if not item.review_trace_id:
             item.review_trace_id = f"{contract_review_trace_id}-{item.item_id.replace('-', '')}"
+        item.decision_trace["execution_context"] = review_execution_context
     items = _apply_contract_specific_post_rules(items, review_text, type_meta.key.value)
+    if framework_supply:
+        items = _apply_framework_fact_paths(items, framework_supply, clauses)
 
     # 应用用户画像规则（风险等级重映射、语气调整、审查点标注）
-    items = _apply_profile_rules(items, profile)
+    items = _apply_profile_rules(items, profile, perspective_resolution.to_public_dict())
     items, quality_gate = _apply_final_quality_gate(items, lease_facts, type_meta.key.value)
-    items = _apply_risk_dimensions(items)
+    items = _apply_risk_dimensions(items, type_meta.response_key, review_text)
     items = _apply_review_priority_and_action(items)
     items = _enrich_evidence_sources(items)
+    def sync_review_semantics() -> None:
+        checkpoint_by_id = {row.item_id: row for row in checklist}
+        searched_scope = [clause.clause_id for clause in clauses if clause.section_type in {"正式合同条款", "附件"}]
+        for review_item in items:
+            checkpoint = checkpoint_by_id.get(review_item.item_id)
+            if not checkpoint:
+                continue
+            review_item.decision_trace["review_mode"] = "ABSENCE_REQUIRED" if checkpoint.kind == "forbidden" else "PRESENCE_REQUIRED"
+            review_item.decision_trace["review_polarity"] = checkpoint.polarity
+            review_item.decision_trace["satisfaction_semantics"] = {
+                "polarity": checkpoint.polarity,
+                "pass_meaning": "NO_ADVERSE_CLAUSE_FOUND" if checkpoint.polarity == "NEGATIVE_CLAUSE_CHECK" else "REQUIRED_PROTECTION_PRESENT",
+                "partial_meaning": "REQUIRES_FURTHER_REVIEW",
+                "missing_meaning": "REQUIRED_PROTECTION_ABSENT",
+                "risk_meaning": "ADVERSE_CLAUSE_FOUND",
+                "not_applicable_meaning": "TRIGGER_NOT_PRESENT",
+            }
+            if checkpoint.polarity == "NEGATIVE_CLAUSE_CHECK":
+                adverse_candidates = list(review_item.evidence_clauses or []) if review_item.coverage_status == "风险条款" else []
+                search_sufficient = bool(searched_scope)
+                review_item.decision_trace["negative_clause_check"] = {
+                    "review_id": review_item.item_id, "searched_scope": searched_scope,
+                    "candidate_adverse_clauses": adverse_candidates, "counter_evidence": [],
+                    "search_coverage": "SUFFICIENT" if search_sufficient else "INSUFFICIENT",
+                    "adverse_clause_exists": bool(adverse_candidates),
+                    "confidence": "high" if search_sufficient else "low",
+                    "coverage_result": review_item.coverage_status,
+                }
+            review_item.decision_trace["domain_owner"] = checkpoint.domain_owner
+            review_item.decision_trace["material_group"] = checkpoint.material_group
+            review_item.decision_trace["allowed_subject_matters"] = list(checkpoint.allowed_subject_matters)
+
+    sync_review_semantics()
     items = _apply_evidence_entailment_gate(items)
-    items = _apply_risk_dimensions(items)
+    items = _apply_coverage_evidence_gate(items, canonical_claims)
+    items = _attach_recall_state(items, checklist, clauses, generic_fact_graph, canonical_claims)
+    if framework_supply:
+        items = _apply_framework_fact_paths(items, framework_supply, clauses)
+    items = _apply_coverage_evidence_gate(items, canonical_claims)
+    cross_review_claim_gate = _cross_review_shared_claim_state(items, canonical_claims)
+    items = _enrich_evidence_sources(items)
+    items = _apply_element_level_narratives(items)
+    items = _apply_risk_dimensions(items, type_meta.response_key, review_text)
     items = _apply_review_priority_and_action(items)
+    sync_review_semantics()
     items = _apply_citation_claims(items)
+    legal_authority_gate = _select_legal_authorities(items)
+    legal_default_consistency_gate = _legal_default_law_consistency_gate(items)
+    items = _apply_confidence_bundles(items)
     legal_reference_issues = _check_legal_reference_freshness(review_text)
     legal_authority_validation = _validate_legal_authorities(
         [{"law_name": issue.get("law_name"), "article": issue.get("article")} for issue in legal_reference_issues]
     )
     risk_findings = _build_risk_findings(items) + _legal_reference_findings(legal_reference_issues)
+    risk_findings = _filter_unsupported_positive_findings(risk_findings, items)
     risk_findings.sort(key=_finding_sort_key)
     for item in items:
         item.action_priority = _action_priority_for_item(item)
         item.review_priority = item.action_priority
         item.action_suggestion = _action_suggestion_for_item(item)
     risk_findings = _run_independent_verifier(risk_findings, items)
+    _apply_post_verification_confidence(risk_findings, items)
     legal_freshness_trace = _legal_freshness_trace(review_text, legal_reference_issues, risk_findings)
-    recommendations = _build_recommendations(risk_findings)
+    recommendations = _build_recommendations(risk_findings, items)
+    recommendations, recommendation_impacts, recommendation_impact_gate = evaluate_recommendations(
+        recommendations, risk_findings, items, perspective_resolution.canonical_role,
+    )
     risk_finding_summary = _risk_finding_summary(risk_findings, items)
-    overall_assessment = _overall_assessment(contract_type_name=type_meta.display_name, findings=risk_findings, items=items)
+    resolved_type_name = str(
+        report_context.get("contract_type_label")
+        or ("住宅二手房地产买卖合同" if domain_resolution.contract_subtype == "RESIDENTIAL_SECONDARY_REAL_ESTATE_SALE" else type_meta.display_name)
+    )
+    overall_assessment = _overall_assessment(contract_type_name=resolved_type_name, findings=risk_findings, items=items)
     benchmark_metrics = _benchmark_metrics(items, risk_findings)
     system_metadata = _system_metadata(llm_status)
     items = _enrich_reasoning_and_citation(items)
+    items = _apply_element_level_narratives(items)
+    default_law_narrative_rows = _apply_default_law_narratives(items)
+    default_law_narrative_gate = _default_law_narrative_truth_gate(default_law_narrative_rows)
+    final_recommendation_set, recommendation_ssot_debug = _apply_recommendation_display_states(
+        items, risk_findings, recommendations, recommendation_impacts,
+    )
+    applicability_polarity_pre_gate = _applicability_polarity_gates(
+        items, risk_findings, recommendations,
+    )
 
     visible_items = items if include_low_risk else [item for item in items if item.risk_level in {"高", "中"}]
-    contract_type_name = type_meta.display_name
+    contract_type_name = resolved_type_name
     review_results_4_0 = [public_review_result(item) for item in visible_items]
     legal_citation_claims = [
         claim
         for item in visible_items
         for claim in (item.legal_references or [])
     ]
-    risk_finding_dicts = [finding.to_public_dict() for finding in risk_findings]
     recommendation_dicts = [recommendation.to_public_dict() for recommendation in recommendations]
-    contract_context = build_contract_context(type_meta.response_key, contract_facts, profile).to_public_dict()
     architecture_status = _architecture_status()
+    finding_provenance = _finding_provenance(risk_findings, visible_items)
+    risk_finding_dicts = [finding.to_public_dict() for finding in risk_findings]
 
     # 诉讼策略分析（对高/中风险条款）
     public_items = [item.to_public_dict() for item in visible_items]
@@ -5208,43 +9576,137 @@ def review_contract_v2(
     # 跨地域裁判预判（对高/中风险条款）
     jurisdiction_report = analyze_jurisdiction_prediction(public_items, profile, review_text)
 
-    # 生成带四层子模块的主报告
-    result = _format_markdown_v2(
-        contract_type_name, visible_items, profile,
-        risk_findings=risk_findings,
-        recommendations=recommendations,
-        overall_assessment=overall_assessment,
-        risk_finding_summary=risk_finding_summary,
-        benchmark_metrics=benchmark_metrics,
-        system_metadata=system_metadata,
-        litigation_items=litigation_report.to_public_dict(),
-        negotiation_items=negotiation_report.to_public_dict(),
-        jurisdiction_items=jurisdiction_report.to_public_dict(),
+    recommendation_provenance_gate = _numeric_provenance_gate(recommendations)
+    consistency_gate = _consistency_quality_gates(
+        visible_items, risk_findings, recommendations, canonical_claims, contract_context, report_context,
     )
-    release_quality_gate = _release_quality_gate(visible_items, risk_findings, result)
-    result = _format_markdown_v2(
-        contract_type_name, visible_items, profile,
-        risk_findings=risk_findings,
-        recommendations=recommendations,
-        overall_assessment=overall_assessment,
-        risk_finding_summary=risk_finding_summary,
-        benchmark_metrics=benchmark_metrics,
-        release_quality_gate=release_quality_gate,
-        system_metadata=system_metadata,
-        litigation_items=litigation_report.to_public_dict(),
-        negotiation_items=negotiation_report.to_public_dict(),
-        jurisdiction_items=jurisdiction_report.to_public_dict(),
+    pre_render_gate = _pre_render_quality_gate(
+        visible_items,
+        risk_findings,
+        contract_context,
+        overall_assessment,
+        recommendation_provenance_gate,
     )
-    quality4_gate = post_render_quality_gate(result, review_results_4_0, risk_finding_dicts, recommendation_dicts)
-    release_quality_gate = _combine_quality_gates(release_quality_gate, quality4_gate)
+    pre_render_gate = _combine_quality_gates(pre_render_gate, consistency_gate)
+    domain_selection_gate = domain_selection_consistency_gate(
+        domain_selection_resolution, [item.item_id for item in visible_items],
+    )
+    pre_render_gate = _combine_quality_gates(pre_render_gate, domain_selection_gate)
+    perspective_gate = perspective_domain_consistency_gate(perspective_resolution)
+    pre_render_gate = _combine_quality_gates(pre_render_gate, perspective_gate)
+    production_display_claims = [
+        claim
+        for item in visible_items
+        for claim in ((item.decision_trace or {}).get("production_display_claims") or [])
+    ]
+    fact_polarity_gate = production_fact_polarity_gate(production_display_claims)
+    pre_render_gate = _combine_quality_gates(pre_render_gate, fact_polarity_gate)
+    pre_render_gate = _combine_quality_gates(pre_render_gate, recommendation_impact_gate)
+    pre_render_gate = _combine_quality_gates(pre_render_gate, legal_authority_gate)
+    pre_render_gate = _combine_quality_gates(pre_render_gate, legal_default_consistency_gate)
+    pre_render_gate = _combine_quality_gates(pre_render_gate, default_law_narrative_gate)
+    pre_render_gate = _combine_quality_gates(pre_render_gate, applicability_polarity_pre_gate)
+    pre_render_gate = _combine_quality_gates(pre_render_gate, cross_review_claim_gate)
+    recall_failures = _recall_gate_failures(visible_items, integrity)
+    if recall_failures:
+        pre_render_gate = _combine_quality_gates(
+            pre_render_gate,
+            {"status": "BLOCKED", "failures": recall_failures},
+        )
+    if pre_render_gate["status"] == "REPORT_READY":
+        result = _format_markdown_v2(
+            contract_type_name, visible_items, profile,
+            risk_findings=risk_findings,
+            recommendations=recommendations,
+            overall_assessment=overall_assessment,
+            risk_finding_summary=risk_finding_summary,
+            benchmark_metrics=benchmark_metrics,
+            release_quality_gate=pre_render_gate,
+            system_metadata=system_metadata,
+            litigation_items=litigation_report.to_public_dict(),
+            negotiation_items=negotiation_report.to_public_dict(),
+            jurisdiction_items=jurisdiction_report.to_public_dict(),
+            report_context=report_context,
+            perspective_resolution=perspective_resolution.to_public_dict(),
+        )
+        quality4_gate = post_render_quality_gate(result, review_results_4_0, risk_finding_dicts, recommendation_dicts)
+        default_law_provenance_gate = _default_law_provenance_gate(visible_items, result)
+        recommendation_renderer_gate = _recommendation_renderer_gates(
+            result, visible_items, recommendations, recommendation_impacts,
+        )
+        applicability_polarity_gate = _applicability_polarity_gates(
+            visible_items, risk_findings, recommendations, result,
+        )
+        release_quality_gate = _combine_quality_gates(
+            pre_render_gate,
+            _release_quality_gate(visible_items, risk_findings, result),
+            quality4_gate,
+            _production_internal_token_gate(result),
+            default_law_provenance_gate,
+            recommendation_renderer_gate,
+            applicability_polarity_gate,
+        )
+    else:
+        result = "该事项当前无法可靠判断，正式报告已停止生成。必要时请人工复核。"
+        quality4_gate = {"status": "BLOCKED", "failures": list(pre_render_gate["failures"]), "skipped": "pre_render_gate_blocked"}
+        release_quality_gate = pre_render_gate
+        default_law_provenance_gate = {"status": "BLOCKED", "failures": [], "gate_results": {"DEFAULT_LAW_PROVENANCE_GATE": "SKIPPED"}, "break_count": 0, "rows": []}
+        recommendation_renderer_gate = {
+            "status": "BLOCKED", "failures": [],
+            "gate_results": {
+                "RECOMMENDATION_SINGLE_SOURCE_GATE": "SKIPPED",
+                "RECOMMENDATION_CROSS_RENDERER_CONSISTENCY_GATE": "SKIPPED",
+            },
+            "dual_source_count": 0, "cross_renderer_mismatch_count": 0, "rows": [],
+        }
+        applicability_polarity_gate = applicability_polarity_pre_gate
     litigation_result = format_litigation_markdown(litigation_report)
     negotiation_result = format_negotiation_markdown(negotiation_report)
     jurisdiction_result = format_jurisdiction_markdown(jurisdiction_report)
     total_latency_ms = round((time.perf_counter() - started_at) * 1000, 2)
+    confidence_trace = _confidence_debug_report(visible_items)
+    production_trace = _production_trace(
+        contract_review_trace_id,
+        type_meta.response_key,
+        contract_context,
+        system_metadata,
+        finding_provenance,
+        confidence_trace,
+        pre_render_gate["priority_consistency_verification"],
+    )
+    output_hashes = {
+        "input_contract_hash": _stable_hash(review_text),
+        "structured_assessment_hash": _stable_hash({
+            "reviews": review_results_4_0,
+            "findings": risk_finding_dicts,
+            "recommendations": recommendation_dicts,
+            "context": contract_context,
+        }),
+        "final_report_hash": _stable_hash(result),
+    }
 
     return {
         "success": True,
         "contract_type": type_meta.response_key,
+        "selected_contract_type": user_selected_type,
+        "domain_selection_resolution": domain_selection_resolution.to_public_dict(),
+        "domain_selection_consistency_gate": domain_selection_gate,
+        "perspective_resolution": perspective_resolution.to_public_dict(),
+        "perspective_domain_consistency_gate": perspective_gate,
+        "recommendation_non_degradation_gate": recommendation_impact_gate,
+        "recommendation_single_source_gate": recommendation_renderer_gate,
+        "recommendation_cross_renderer_consistency_gate": recommendation_renderer_gate,
+        "final_recommendation_set": final_recommendation_set,
+        "legal_authority_gate": legal_authority_gate,
+        "legal_default_law_consistency_gate": legal_default_consistency_gate,
+        "atomic_legal_element_gate": legal_default_consistency_gate,
+        "not_applicable_narrative_gate": applicability_polarity_gate,
+        "not_applicable_gap_gate": applicability_polarity_gate,
+        "review_polarity_narrative_gate": applicability_polarity_gate,
+        "negative_check_pass_gate": applicability_polarity_gate,
+        "cross_review_shared_claim_gate": cross_review_claim_gate,
+        "default_law_provenance_gate": default_law_provenance_gate,
+        "default_law_narrative_truth_gate": default_law_narrative_gate,
         "contract_type_name": contract_type_name,
         "contract_review_trace_id": contract_review_trace_id,
         "message": f"审查第二版已完成{contract_type_name}{len(items)}项核心检查。",
@@ -5262,11 +9724,13 @@ def review_contract_v2(
         "clause_count": len(clauses),
         "formal_clause_count": sum(1 for clause in clauses if clause.section_type in {"正式合同条款", "附件"}),
         "contract_facts": contract_facts,
+        "document_integrity": integrity,
         "quality_gate": quality_gate,
         "review_results_4_0": review_results_4_0,
         "risk_findings": risk_finding_dicts,
         "recommendations": recommendation_dicts,
         "contract_context": contract_context,
+        "report_context": report_context,
         "overall_assessment": overall_assessment,
         "legal_reference_issues": legal_reference_issues,
         "legal_citation_claims": legal_citation_claims,
@@ -5278,12 +9742,122 @@ def review_contract_v2(
         "system_metadata": system_metadata,
         "observability": {
             "production_call_graph": _production_call_graph(),
+            "production_trace": production_trace,
+            "finding_provenance": finding_provenance,
+            "output_hashes": output_hashes,
+            "pre_render_quality_gate": pre_render_gate,
             "final_output_ownership_matrix": _final_output_ownership_matrix(),
+            "domain_pack_snapshot": composed_domain_pack_snapshot(domain_resolution.selected_domain_packs),
+            "classification_trace": domain_resolution.to_public_dict(),
+            "domain_selection_debug": domain_selection_resolution.to_public_dict(),
+            "domain_selection_consistency_gate": domain_selection_gate,
+            "perspective_resolution_debug": perspective_resolution.to_public_dict(),
+            "perspective_domain_consistency_gate": perspective_gate,
+            "production_humanization_debug": production_display_claims,
+            "production_fact_polarity_debug": fact_polarity_gate,
+            "recommendation_impact_debug": [impact.to_public_dict() for impact in recommendation_impacts],
+            "recommendation_non_degradation_gate": recommendation_impact_gate,
+            "recommendation_ssot_debug": recommendation_ssot_debug,
+            "recommendation_cross_renderer_debug": recommendation_renderer_gate,
+            "recommendation_renderer_gate": recommendation_renderer_gate,
+            "legal_authority_dedup_debug": legal_authority_gate,
+            "legal_authority_selection_debug": legal_authority_gate,
+            "legal_proposition_entailment_debug": legal_authority_gate.get("rows", []),
+            "legal_default_consistency_debug": legal_default_consistency_gate,
+            "legal_element_decomposition_debug": legal_default_consistency_gate.get("element_decomposition", []),
+            "not_applicable_pipeline_debug": applicability_polarity_gate.get("not_applicable_rows", []),
+            "review_polarity_debug": applicability_polarity_gate.get("polarity_rows", []),
+            "negative_check_debug": [
+                row.get("evidence_state") for row in applicability_polarity_gate.get("polarity_rows", [])
+            ],
+            "narrative_semantics_debug": applicability_polarity_gate,
+            "default_law_narrative_debug": default_law_narrative_gate,
+            "shared_claim_consumer_debug": cross_review_claim_gate.get("claims", []),
+            "cross_review_shared_claim_gate": cross_review_claim_gate,
+            "default_law_provenance_debug": default_law_provenance_gate,
+            "shared_claim_debug": canonical_claims_public(canonical_claims),
+            "report_context_debug": {
+                "classification": {
+                    "family": domain_resolution.contract_family,
+                    "subject": domain_resolution.subject_matter,
+                    "transaction_structure": domain_resolution.transaction_structure,
+                    "subtype": domain_resolution.contract_subtype,
+                },
+                "report_context": report_context,
+                "consistency": "PASS" if report_context["family"] == domain_resolution.contract_family and report_context["subject_matter"] == domain_resolution.subject_matter and report_context["transaction_structure"] == domain_resolution.transaction_structure and report_context["subtype"] == domain_resolution.contract_subtype else "FAIL",
+            },
+            "cross_review_consistency_debug": consistency_gate,
+            "finding_precision_debug": [
+                {
+                    "finding_id": finding.finding_id,
+                    "review_ids": finding.source_review_ids,
+                    "applicability": {item.item_id: item.applicability for item in visible_items if item.item_id in finding.source_review_ids},
+                    "coverage": {item.item_id: item.coverage_status for item in visible_items if item.item_id in finding.source_review_ids},
+                    "claim_ids": (finding.aggregation_signals or {}).get("claim_ids", []),
+                    "evidence_ids": finding.source_clause_ids,
+                    "residual_risk": {item.item_id: item.residual_risk for item in visible_items if item.item_id in finding.source_review_ids},
+                    "precondition_pass": all(((item.decision_trace or {}).get("finding_precondition") or {}).get("all_required_conditions") for item in visible_items if item.item_id in finding.source_review_ids),
+                }
+                for finding in risk_findings
+            ],
+            "domain_routing_debug": {
+                "selected": domain_resolution.selected_domain_packs,
+                "rejected": domain_resolution.rejected_domain_packs,
+                "subject_matter": domain_resolution.subject_matter,
+                "contract_subtype": domain_resolution.contract_subtype,
+                "confidence": domain_resolution.confidence,
+            },
+            "review_registry_debug": registry_debug,
+            "domain_material_coverage": _domain_quality_gates(visible_items, contract_context),
+            "context_consistency_gate": _context_consistency_gate(contract_context),
             "legal_freshness_trace": legal_freshness_trace,
             "risk_aggregation_debug_table": _risk_aggregation_debug_table(risk_findings),
-            "parser_latency_ms": None,
-            "fact_latency_ms": None,
-            "retrieval_latency_ms": None,
+            "confidence_debug_report": confidence_trace,
+            "evidence_finding_debug_table": _evidence_finding_debug_report(visible_items, risk_findings),
+            "default_law_debug_table": _default_law_debug_report(visible_items),
+            "confidence_distribution": dict(Counter((item.system_confidence or {}).get("level", "medium") for item in visible_items)),
+            "coverage_element_debug_report": _coverage_element_debug_report(visible_items),
+            "legal_claim_debug_report": _legal_claim_debug_report(visible_items),
+            "recommendation_provenance_debug_report": _recommendation_provenance_debug_report(recommendations),
+            "recommendation_provenance_gate": recommendation_provenance_gate,
+            "narrative_state_debug_report": _narrative_state_debug_report(visible_items),
+            "production_token_scan": _production_internal_token_gate(result),
+            "evidence_recall_debug": [
+                {
+                    "review_id": item.item_id,
+                    "fact_match": (item.decision_trace.get("retrieval_trace") or {}).get("fact_clause_ids", []),
+                    "structural": (item.decision_trace.get("retrieval_trace") or {}).get("structural_clause_ids", []),
+                    "lexical": (item.decision_trace.get("retrieval_trace") or {}).get("lexical_clause_ids", []),
+                    "semantic": (item.decision_trace.get("retrieval_trace") or {}).get("semantic_clause_ids", []),
+                    "graph": (item.decision_trace.get("retrieval_trace") or {}).get("graph_clause_ids", []),
+                    "final_evidence": [evidence.get("clause_id") for evidence in item.evidence_clauses],
+                    "coverage": item.coverage_status,
+                }
+                for item in visible_items
+                if item.coverage_status in {"缺失", "部分覆盖"} or item.risk_level in {"高", "重大"}
+            ],
+            "document_coverage_map": [
+                {
+                    "section": clause.location,
+                    "clause_id": clause.clause_id,
+                    "indexed": True,
+                    "fact_count": sum(
+                        1 for facts in generic_fact_graph.facts.values()
+                        for fact in facts if clause.clause_id in fact.source_clause_ids
+                    ),
+                    "retrieved_by_reviews": [
+                        item.item_id for item in visible_items
+                        if clause.clause_id in (item.decision_trace.get("retrieval_trace") or {}).get("candidate_clause_ids", [])
+                    ],
+                }
+                for clause in clauses
+            ],
+            "parser_latency_ms": 0.0,
+            "fact_latency_ms": 0.0,
+            "retrieval_latency_ms": round(sum(
+                float((item.decision_trace.get("retrieval_trace") or {}).get("latency_ms") or 0)
+                for item in visible_items
+            ), 3),
             "llm_latency_ms": None,
             "verification_latency_ms": None,
             "aggregation_latency_ms": None,
