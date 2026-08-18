@@ -99,8 +99,12 @@ def evaluate_recommendations(
         risk_shift = buyer and (
             (any("送达买方指定地点" in value for value in current_protection) and "第一承运人" in proposed)
             or bool(re.search(r"(?:发货|装运|第一承运人).{0,20}(?:风险转移|买方承担风险)", proposed))
+            or bool(re.search(r"买方.{0,16}(?:迟延受领|拒收|未提货).{0,24}风险转移", proposed))
+            or bool(re.search(r"(?:迟延受领|拒收|未提货).{0,24}(?:风险转移至买方|买方承担风险)", proposed))
         )
-        liability_increase = buyer and not statutory_mirror and bool(re.search(r"买方.{0,12}(?:承担|负责|赔偿|支付)", proposed))
+        liability_increase = buyer and not statutory_mirror and bool(
+            re.search(r"买方.{0,20}(?:承担|负责|赔偿|支付|风险转移)", proposed)
+        )
         counterparty_expansion = buyer and bool(re.search(r"(?:卖方|供方).{0,12}(?:有权单方|可单方|有权随时)", proposed))
         shortens_right_period = buyer and bool(re.search(r"(?:缩短|仅限).{0,12}(?:期限|期间)|(?:期限|期间).{0,12}(?:缩短|仅限)", proposed))
         introduces_cap = buyer and bool(re.search(r"(?:赔偿|责任|损失).{0,12}(?:上限|封顶|最高不超过)", proposed))

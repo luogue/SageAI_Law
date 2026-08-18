@@ -1290,7 +1290,8 @@ def test_markdown_report_groups_core_risks_and_hides_pass_suggestion_noise():
 
     assert "## 二、核心风险摘要" in markdown
     assert "## 六、完整审查明细" in markdown
-    assert "【处理结论】：已覆盖，无需修改。" in markdown
+    assert "覆盖状态：通过" in markdown
+    assert "已覆盖，无需修改" in markdown
     assert "【残余风险】：无明显残余风险" not in markdown
     assert "## 30. 无提前退租条款时的协商机制（HL-030）" in markdown
     hl030_section = markdown.split("## 30. 无提前退租条款时的协商机制（HL-030）", 1)[1].split("---", 1)[0]

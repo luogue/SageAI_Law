@@ -115,4 +115,5 @@ def test_hl042_not_merged_with_early_termination_and_missing_evidence_is_negativ
     report = output["result"]
     assert "原文片段：无正式条款证据" not in report
     assert "依据来源：合同文件" not in report
-    assert "未在合同正文及附件中定位到对应安排" in report
+    assert "合同正文及附件中未找到对应约定。" in report
+    assert "未在合同正文及附件中定位到对应安排" not in report

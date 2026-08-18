@@ -122,6 +122,28 @@ PRIORITY_B_PRACTICAL = "B_PRACTICAL"
 PRIORITY_C_OPTIMIZATION = "C_OPTIMIZATION"
 ACTION_PRIORITY_NONE = "NONE"
 ACTION_PRIORITY_NOT_APPLICABLE = "NOT_APPLICABLE"
+INSUFFICIENT_CONTEXT = "INSUFFICIENT_CONTEXT"
+CLIENT_EFFECT_FAVORABLE = "FAVORABLE"
+CLIENT_EFFECT_NEUTRAL = "NEUTRAL"
+CLIENT_EFFECT_ADVERSE = "ADVERSE"
+CLIENT_EFFECT_UNCERTAIN = "UNCERTAIN"
+LEGAL_DEFAULT_NONE = "NONE"
+LEGAL_DEFAULT_PARTIAL = "PARTIAL"
+LEGAL_DEFAULT_SUFFICIENT = "SUFFICIENT"
+DISPOSITION_MUST_CHANGE = "MUST_CHANGE"
+DISPOSITION_SHOULD_CHANGE = "SHOULD_CHANGE"
+DISPOSITION_OPTIONAL_IMPROVEMENT = "OPTIONAL_IMPROVEMENT"
+DISPOSITION_KEEP_CURRENT = "KEEP_CURRENT"
+DISPOSITION_DO_NOT_ADD = "DO_NOT_ADD"
+DISPOSITION_MANUAL_REVIEW = "MANUAL_REVIEW"
+RECOMMENDATION_OWNER_RISK = "RISK"
+RECOMMENDATION_OWNER_REVIEW = "REVIEW"
+RECOMMENDATION_OWNER_NONE = "NONE"
+SIGNABLE = "SIGNABLE"
+SIGNABLE_WITH_OPTIONAL_IMPROVEMENTS = "SIGNABLE_WITH_OPTIONAL_IMPROVEMENTS"
+SIGN_AFTER_MODIFICATION = "SIGN_AFTER_MODIFICATION"
+PROFESSIONAL_REVIEW_RECOMMENDED = "PROFESSIONAL_REVIEW_RECOMMENDED"
+NOT_RECOMMENDED_TO_SIGN = "NOT_RECOMMENDED_TO_SIGN"
 REVIEW_IMPORTANCE_CORE = "CORE"
 REVIEW_IMPORTANCE_IMPORTANT = "IMPORTANT"
 REVIEW_IMPORTANCE_NORMAL = "NORMAL"
@@ -486,10 +508,13 @@ class PriorityDecision:
 
 @dataclass
 class SignabilityDecision:
+    level: str
     label: str
     decision_finding_ids: List[str]
     reasons: List[str]
     unresolved_uncertainty: List[str]
+    manual_review_item_ids: List[str]
+    blocking_manual_review_item_ids: List[str]
     confidence: str
 
     def to_public_dict(self) -> Dict[str, Any]:
@@ -622,6 +647,50 @@ class Recommendation:
     perspective: str = ""
     impact: Dict[str, Any] = field(default_factory=dict)
     status: str = "CANDIDATE"
+
+    def to_public_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
+class ClientInterestDecision:
+    risk_id: str
+    review_ids: List[str]
+    client_party: str
+    effect_on_client: str
+    legal_default_protection: str
+    recommendation_disposition: str
+    decision_reason: str
+    source_recommendation_ids: List[str] = field(default_factory=list)
+    blocked_recommendation_ids: List[str] = field(default_factory=list)
+    authority_ids: List[str] = field(default_factory=list)
+    impact_summary: Dict[str, Any] = field(default_factory=dict)
+
+    def to_public_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass
+class FinalDisposition:
+    risk_id: str
+    risk_title: str
+    review_ids: List[str]
+    severity: str
+    client_effect: str
+    legal_default_protection: str
+    actionability: str
+    final_action: str
+    final_reason: str
+    recommendation: str
+    recommendation_owner: str
+    formal_recommendation: Optional[str]
+    include_in_top_risk: bool
+    include_in_priority_changes: bool
+    include_in_optional_improvements: bool
+    review_instruction: str = ""
+    source_recommendation_ids: List[str] = field(default_factory=list)
+    blocked_recommendation_ids: List[str] = field(default_factory=list)
+    authority_ids: List[str] = field(default_factory=list)
 
     def to_public_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -1161,6 +1230,47 @@ def _not_applicable_item(checkpoint: ReviewCheckpoint, reason: str) -> ReviewIte
         "machine_reason": reason, "user_reason": _user_facing_reasoning(reason), "depends_on": [],
     }
     item.action_suggestion = "不适用"
+    return item
+
+
+def _insufficient_context_item(checkpoint: ReviewCheckpoint, reason: str) -> ReviewItemResult:
+    user_reason = "现有合同材料不足以确认该事项是否适用，建议结合相关交易背景或补充材料核对。"
+    item = ReviewItemResult(
+        item_id=checkpoint.item_id,
+        node_id=checkpoint.node_id,
+        title=checkpoint.title,
+        risk_level="中",
+        status="需人工复核",
+        risk_point_description=user_reason,
+        suggested_clause_example="",
+        legal_basis_index=checkpoint.legal_basis,
+        legal_consequence_if_missing=user_reason,
+        applicable_if=checkpoint.applicable_if,
+        matched_terms=[],
+        coverage_status=INSUFFICIENT_CONTEXT,
+        issue_type="人工复核",
+        evidence_clauses=[],
+        evidence_location="",
+        reasoning_summary=user_reason,
+        judge_source="applicability_filter",
+        needs_manual_review=True,
+        quality_gate_failure_reason=user_reason,
+    )
+    item.applicability = {
+        "status": INSUFFICIENT_CONTEXT,
+        "applicable": None,
+        "reason": reason or user_reason,
+        "machine_reason": reason or user_reason,
+        "user_reason": user_reason,
+        "depends_on": [],
+    }
+    item.action_priority = DISPOSITION_MANUAL_REVIEW
+    item.review_priority = DISPOSITION_MANUAL_REVIEW
+    item.action_suggestion = "建议人工复核"
+    item.decision_trace["insufficient_context"] = {
+        "reason": reason or user_reason,
+        "review_instruction": user_reason,
+    }
     return item
 
 
@@ -3195,9 +3305,6 @@ def _priority_assessment_for_item(item: ReviewItemResult) -> Dict[str, Any]:
     else:
         priority = ACTION_PRIORITY_NONE
 
-    if item.coverage_status == "通过" and item.related_risks and priority == ACTION_PRIORITY_NONE:
-        priority = PRIORITY_B_PRACTICAL
-
     mitigators = [reason for reason in reasons if reason in {"counter_evidence", "clear_default_law_protection", "low_probability_or_optimization"}]
     drivers = [reason for reason in reasons if reason not in mitigators]
     decision = PriorityDecision(
@@ -3745,6 +3852,17 @@ def _recommendation_heading(priority: str) -> str:
     }.get(priority or "", "建议处理")
 
 
+def _final_action_label(action: str) -> str:
+    return {
+        DISPOSITION_MUST_CHANGE: "优先处理",
+        DISPOSITION_SHOULD_CHANGE: "建议处理",
+        DISPOSITION_OPTIONAL_IMPROVEMENT: "可选优化",
+        DISPOSITION_KEEP_CURRENT: "建议保持现状",
+        DISPOSITION_DO_NOT_ADD: "不建议新增",
+        DISPOSITION_MANUAL_REVIEW: "人工复核",
+    }.get(action or "", action or "未标注")
+
+
 def _finding_public_label(finding: RiskFinding) -> str:
     return finding.title or finding.risk_group
 
@@ -4145,12 +4263,12 @@ def _review_priority_for_item(item: ReviewItemResult) -> str:
 
 
 def _action_suggestion_for_item(item: ReviewItemResult) -> str:
+    if item.coverage_status == INSUFFICIENT_CONTEXT or item.needs_manual_review:
+        return "建议人工复核"
     if item.coverage_status == COVERAGE_NOT_APPLICABLE:
         return "不适用"
     severity = item.risk_severity or _risk_severity_for_item(item)
     if item.coverage_status == "通过":
-        if item.related_risks or severity != SEVERITY_NONE:
-            return "机制已覆盖；关联风险需单独处理"
         return "已覆盖，无需修改"
     priority = item.action_priority or item.review_priority or _action_priority_for_item(item)
     return _recommendation_heading(priority)
@@ -5966,50 +6084,143 @@ def _legal_freshness_trace(
     }
 
 
-def _overall_assessment(
-    contract_type_name: str,
+def _manual_review_materiality_for_item(item: Any) -> str:
+    text = " ".join(
+        str(value or "")
+        for value in (
+            getattr(item, "item_id", ""),
+            getattr(item, "node_id", ""),
+            getattr(item, "title", ""),
+            getattr(item, "risk_point_description", ""),
+            getattr(item, "legal_consequence_if_missing", ""),
+            getattr(item, "quality_gate_failure_reason", ""),
+        )
+    )
+    if any(term in text for term in ("合同效力", "主体资格", "授权", "签字", "代理权限", "真实性", "人身安全", "监管合规")):
+        return "HIGH"
+    if any(term in text for term in ("重大金额", "重大违约", "核心付款", "核心交付", "重大知识产权", "关键附件", "主要权利义务")):
+        return "HIGH"
+    if getattr(item, "review_importance", "") == REVIEW_IMPORTANCE_CORE or getattr(item, "risk_level", "") == "高":
+        return "MEDIUM"
+    return "LOW"
+
+
+def _manual_review_records(items: List[ReviewItemResult]) -> List[Dict[str, Any]]:
+    records: List[Dict[str, Any]] = []
+    for item in items:
+        if not item.needs_manual_review and item.coverage_status != INSUFFICIENT_CONTEXT:
+            continue
+        materiality = _manual_review_materiality_for_item(item)
+        record = {
+            "item_id": item.item_id,
+            "title": item.title,
+            "reason": item.quality_gate_failure_reason or _applicability_user_reason(item),
+            "materiality": materiality,
+            "coverage_status": item.coverage_status,
+            "blocking_signability": materiality == "HIGH",
+        }
+        item.decision_trace["manual_review_materiality"] = materiality
+        item.decision_trace["manual_review_record"] = record
+        records.append(record)
+    return records
+
+
+def _signability_label(level: str) -> str:
+    return {
+        SIGNABLE: "可以签署",
+        SIGNABLE_WITH_OPTIONAL_IMPROVEMENTS: "可以签署，可进一步优化",
+        SIGN_AFTER_MODIFICATION: "建议修改后签署",
+        PROFESSIONAL_REVIEW_RECOMMENDED: "建议专业法律复核后决定",
+        NOT_RECOMMENDED_TO_SIGN: "当前不建议签署",
+    }.get(level, "建议专业法律复核后决定")
+
+
+def _build_signability_decision(
     findings: List[RiskFinding],
-    items: List[ReviewItemResult],
-) -> Dict[str, Any]:
-    has_manual = any(item.needs_manual_review for item in items)
-    max_severity = SEVERITY_NONE
-    if findings:
-        max_severity = sorted((finding.severity for finding in findings), key=_severity_rank)[0]
-    a_core_count = sum(1 for finding in findings if finding.priority == PRIORITY_A_CORE)
+    dispositions: List[FinalDisposition],
+    manual_review_records: List[Dict[str, Any]],
+) -> SignabilityDecision:
     decision_findings = sorted(
         findings,
         key=lambda finding: (_priority_rank(finding.priority), _severity_rank(finding.severity), finding.finding_id),
     )[:3]
-    unresolved = [finding.finding_id for finding in findings if finding.needs_manual_review or (finding.confidence or {}).get("level") == "low"]
-    if has_manual:
-        signability = "建议专业法律复核后决定"
-    elif any(finding.priority == PRIORITY_A_CORE and finding.severity in {SEVERITY_HIGH, SEVERITY_CRITICAL} for finding in findings):
-        signability = "存在重大风险，建议修改后签署"
-    elif a_core_count or any(finding.severity in {SEVERITY_MEDIUM, SEVERITY_HIGH, SEVERITY_CRITICAL} for finding in findings):
-        signability = "建议修改后签署"
-    elif findings:
-        signability = "建议优化后签署"
+    high_unresolved = [
+        finding.finding_id for finding in findings
+        if finding.severity in {SEVERITY_HIGH, SEVERITY_CRITICAL}
+        and (finding.needs_manual_review or (finding.confidence or {}).get("level") == "low")
+    ]
+    material_manual = [row["item_id"] for row in manual_review_records if row.get("blocking_signability")]
+    must_change = [row for row in dispositions if row.final_action == DISPOSITION_MUST_CHANGE]
+    should_change = [row for row in dispositions if row.final_action == DISPOSITION_SHOULD_CHANGE]
+    optional = [row for row in dispositions if row.final_action == DISPOSITION_OPTIONAL_IMPROVEMENT]
+    severe_core = [
+        finding.finding_id for finding in findings
+        if finding.priority == PRIORITY_A_CORE and finding.severity in {SEVERITY_HIGH, SEVERITY_CRITICAL}
+    ]
+    not_signable = [
+        finding.finding_id for finding in findings
+        if finding.severity == SEVERITY_CRITICAL
+        and any(term in " ".join([finding.risk_group, finding.title]) for term in ("contract_validity", "personal_safety", "主体", "效力", "人身安全"))
+    ]
+    if not_signable:
+        level = NOT_RECOMMENDED_TO_SIGN
+    elif material_manual or high_unresolved:
+        level = PROFESSIONAL_REVIEW_RECOMMENDED
+    elif must_change or should_change or severe_core:
+        level = SIGN_AFTER_MODIFICATION
+    elif optional:
+        level = SIGNABLE_WITH_OPTIONAL_IMPROVEMENTS
     else:
-        signability = "可直接签署"
+        level = SIGNABLE
     reasons = [
         f"{finding.finding_id} {finding.title}：严重度 {finding.severity}，优先级 {finding.priority}，剩余风险由独立 Finding 决策。"
         for finding in decision_findings
     ]
-    signability_decision = SignabilityDecision(
-        label=signability,
+    if manual_review_records and not material_manual:
+        reasons.append("存在人工复核事项，但其重要度不足以单独阻断总体签署性判断。")
+    if material_manual:
+        reasons.append("存在高重要度人工复核事项，需专业法律复核后再决定是否签署。")
+    if high_unresolved:
+        reasons.append("存在高严重度且判断可靠度不足的未解决风险。")
+    unresolved = list(dict.fromkeys(high_unresolved + material_manual))
+    return SignabilityDecision(
+        level=level,
+        label=_signability_label(level),
         decision_finding_ids=[finding.finding_id for finding in decision_findings],
         reasons=reasons or ["没有形成需要修改的独立风险发现。"],
         unresolved_uncertainty=unresolved,
+        manual_review_item_ids=[row["item_id"] for row in manual_review_records],
+        blocking_manual_review_item_ids=material_manual,
         confidence="low" if unresolved else "high" if not findings or all((finding.confidence or {}).get("level") == "high" for finding in decision_findings) else "medium",
+    )
+
+
+def _overall_assessment(
+    contract_type_name: str,
+    findings: List[RiskFinding],
+    items: List[ReviewItemResult],
+    final_dispositions: Optional[List[FinalDisposition]] = None,
+    manual_reviews: Optional[List[Dict[str, Any]]] = None,
+) -> Dict[str, Any]:
+    max_severity = SEVERITY_NONE
+    if findings:
+        max_severity = sorted((finding.severity for finding in findings), key=_severity_rank)[0]
+    dispositions = final_dispositions or _build_final_dispositions(findings, [], [])
+    manual_review_records = manual_reviews if manual_reviews is not None else _manual_review_records(items)
+    signability_decision = _build_signability_decision(
+        findings=findings,
+        dispositions=dispositions,
+        manual_review_records=manual_review_records,
     )
     return {
         "contract_type": contract_type_name,
-        "signability": signability,
+        "signability": signability_decision.label,
         "core_risk_count": len([finding for finding in findings if finding.priority == PRIORITY_A_CORE]),
         "priority_modify_count": len([finding for finding in findings if finding.priority in {PRIORITY_A_CORE, PRIORITY_B_PRACTICAL}]),
         "optional_count": len([finding for finding in findings if finding.priority == PRIORITY_C_OPTIMIZATION]),
         "covered_key_items": [item.item_id for item in items if item.coverage_status == "通过" and item.review_priority in {PRIORITY_A_CORE, PRIORITY_B_PRACTICAL}][:10],
-        "manual_review_count": sum(1 for item in items if item.needs_manual_review),
+        "manual_review_count": len(manual_review_records),
+        "manual_review_items": manual_review_records,
         "max_severity": max_severity,
         "signability_decision": signability_decision.to_public_dict(),
     }
@@ -6297,7 +6508,9 @@ def _apply_recommendation_display_states(
         ]
         blocked = list(dict.fromkeys(impact.recommendation_id for impact in blocked_impacts))
         reasons = list(dict.fromkeys(_recommendation_suppression_reason(impact) for impact in blocked_impacts))
-        if active:
+        if item.coverage_status == INSUFFICIENT_CONTEXT or item.needs_manual_review:
+            message = "建议人工复核。"
+        elif active:
             message = _priority_label(item.action_priority)
         elif blocked:
             message = "暂不建议单独修改该条款；候选修改可能削弱当前有效保护。"
@@ -6327,6 +6540,345 @@ def _apply_recommendation_display_states(
         "recommendations": [recommendation.to_public_dict() for recommendation in active_recommendations],
     }
     return final_set, debug
+
+
+def _legal_default_protection_for_items(items: List[ReviewItemResult]) -> str:
+    strengths: List[str] = []
+    statuses: List[str] = []
+    for item in items:
+        gap = (item.decision_trace or {}).get("effective_gap") or {}
+        assessment = (item.decision_trace or {}).get("default_law_assessment") or {}
+        statuses.append(str(gap.get("statutory_default") or assessment.get("status") or ""))
+        strengths.append(str(gap.get("default_strength") or assessment.get("protection_strength") or ""))
+    joined = " ".join(statuses + strengths).upper()
+    if any(token in joined for token in ("CLEAR_DEFAULT", "SUFFICIENT", "STRONG")):
+        return LEGAL_DEFAULT_SUFFICIENT
+    if any(token in joined for token in ("PARTIAL_DEFAULT", "PARTIAL", "DEFAULT")):
+        return LEGAL_DEFAULT_PARTIAL
+    return LEGAL_DEFAULT_NONE
+
+
+def _final_action_for_priority(priority: str) -> str:
+    if priority == PRIORITY_A_CORE:
+        return DISPOSITION_MUST_CHANGE
+    if priority == PRIORITY_B_PRACTICAL:
+        return DISPOSITION_SHOULD_CHANGE
+    if priority == PRIORITY_C_OPTIMIZATION:
+        return DISPOSITION_OPTIONAL_IMPROVEMENT
+    return DISPOSITION_KEEP_CURRENT
+
+
+def _client_interest_gate(
+    findings: List[RiskFinding],
+    recommendations: List[Recommendation],
+    recommendation_impacts: List[Any],
+    items: List[ReviewItemResult],
+    client_party: str,
+) -> tuple[List[ClientInterestDecision], Dict[str, Any]]:
+    items_by_id = {item.item_id: item for item in items}
+    recommendations_by_finding: Dict[str, List[Recommendation]] = {}
+    for recommendation in recommendations:
+        if recommendation.status != "ACTIVE":
+            continue
+        for finding_id in recommendation.target_finding_ids:
+            recommendations_by_finding.setdefault(finding_id, []).append(recommendation)
+    impacts_by_finding: Dict[str, List[Any]] = {}
+    for impact in recommendation_impacts:
+        for finding_id in impact.target_finding_ids:
+            impacts_by_finding.setdefault(finding_id, []).append(impact)
+
+    decisions: List[ClientInterestDecision] = []
+    for finding in findings:
+        source_items = [items_by_id[item_id] for item_id in finding.source_review_ids if item_id in items_by_id]
+        source_semantics = " ".join(
+            [finding.risk_group, finding.title]
+            + [item.node_id for item in source_items]
+            + [item.title for item in source_items]
+        )
+        active_recs = recommendations_by_finding.get(finding.finding_id, [])
+        impacts = impacts_by_finding.get(finding.finding_id, [])
+        blocked = [impact for impact in impacts if impact.gate_result == "BLOCKED"]
+        legal_default = _legal_default_protection_for_items(source_items)
+        authority_ids = list(dict.fromkeys(
+            authority_id
+            for item in source_items
+            for authority_id in (((item.decision_trace or {}).get("effective_gap") or {}).get("authority_ids") or [])
+            if authority_id
+        ))
+        if finding.needs_manual_review:
+            effect = CLIENT_EFFECT_UNCERTAIN
+            disposition = DISPOSITION_MANUAL_REVIEW
+            reason = "证据、事实或适用条件仍存在无法自动消解的不确定性，需人工复核后决定是否修改。"
+        elif active_recs:
+            weakens = any(getattr(impact, "weakens", False) for impact in impacts if impact.gate_result != "BLOCKED")
+            effect = CLIENT_EFFECT_UNCERTAIN if weakens else CLIENT_EFFECT_FAVORABLE
+            disposition = _final_action_for_priority(finding.priority)
+            reason = "候选修改未削弱当前审查立场下的既有合同或法定保护，可以进入最终修改建议。"
+        elif blocked:
+            effect = CLIENT_EFFECT_ADVERSE
+            disposition = DISPOSITION_KEEP_CURRENT if legal_default in {LEGAL_DEFAULT_PARTIAL, LEGAL_DEFAULT_SUFFICIENT} else DISPOSITION_DO_NOT_ADD
+            if any(term in source_semantics for term in ("delay_acceptance", "迟延受领", "拒收", "未提货")):
+                reason = (
+                    "合同未单独约定迟延受领后的风险承担，但法律已有默认规则。"
+                    "从买方立场看，主动将该规则写入合同可能使买方承担责任的时间点更加明确，因此当前没有必要主动增加该条款。"
+                )
+            elif any(term in source_semantics for term in ("expectation_loss", "lost_profit", "可得利益", "预期利益")):
+                reason = (
+                    "现行法律已经允许守约方依法主张可得利益损失。"
+                    "如果主动在合同中加入过窄的计算方式或限制条件，反而可能缩小买方现有救济范围，因此建议保持现状。"
+                )
+            else:
+                reason = "候选修改会增加当前客户义务、转移风险或缩小既有救济；因此不因模板完整性而建议补入合同。"
+                if legal_default in {LEGAL_DEFAULT_PARTIAL, LEGAL_DEFAULT_SUFFICIENT}:
+                    reason += " 当前法律已有相应默认规则，可先保持现状并避免写入限制性表述。"
+        elif legal_default == LEGAL_DEFAULT_SUFFICIENT and finding.priority == PRIORITY_C_OPTIMIZATION:
+            effect = CLIENT_EFFECT_NEUTRAL
+            disposition = DISPOSITION_KEEP_CURRENT
+            reason = "已识别到法律问题，但现行法律默认规则已提供较充分保护，单独修改的客户收益有限。"
+        elif legal_default in {LEGAL_DEFAULT_PARTIAL, LEGAL_DEFAULT_SUFFICIENT} and finding.priority == PRIORITY_C_OPTIMIZATION:
+            effect = CLIENT_EFFECT_NEUTRAL
+            disposition = DISPOSITION_KEEP_CURRENT
+            reason = "现行法律已有默认保护，当前仅作为已识别但暂不建议修改的事项。"
+        else:
+            effect = CLIENT_EFFECT_UNCERTAIN
+            disposition = _final_action_for_priority(finding.priority)
+            reason = "未发现会明显削弱当前客户利益的候选修改，但仍应结合交易谈判空间判断。"
+        decision = ClientInterestDecision(
+            risk_id=finding.finding_id,
+            review_ids=list(finding.source_review_ids),
+            client_party=client_party or "UNCERTAIN",
+            effect_on_client=effect,
+            legal_default_protection=legal_default,
+            recommendation_disposition=disposition,
+            decision_reason=reason,
+            source_recommendation_ids=[rec.recommendation_id for rec in active_recs],
+            blocked_recommendation_ids=list(dict.fromkeys(getattr(impact, "recommendation_id", "") for impact in blocked if getattr(impact, "recommendation_id", ""))),
+            authority_ids=authority_ids,
+            impact_summary={
+                "impact_count": len(impacts),
+                "blocked_count": len(blocked),
+                "net_effects": list(dict.fromkeys(getattr(impact, "net_effect", "") for impact in impacts if getattr(impact, "net_effect", ""))),
+            },
+        )
+        finding.agreement["client_interest_decision"] = decision.to_public_dict()
+        decisions.append(decision)
+
+    blocked_failures = [
+        decision for decision in decisions
+        if decision.recommendation_disposition == DISPOSITION_MANUAL_REVIEW
+        and decision.effect_on_client == CLIENT_EFFECT_UNCERTAIN
+    ]
+    gate = {
+        "status": "REPORT_READY",
+        "failures": [],
+        "gate_results": {"CLIENT_INTEREST_GATE": "PASS"},
+        "decisions": [decision.to_public_dict() for decision in decisions],
+        "manual_review_count": len(blocked_failures),
+        "adverse_recommendation_blocked_count": sum(1 for decision in decisions if decision.effect_on_client == CLIENT_EFFECT_ADVERSE),
+    }
+    return decisions, gate
+
+
+def _build_final_dispositions(
+    findings: List[RiskFinding],
+    recommendations: List[Recommendation],
+    client_decisions: List[ClientInterestDecision],
+) -> List[FinalDisposition]:
+    decision_by_risk = {decision.risk_id: decision for decision in client_decisions}
+    rec_by_id = {recommendation.recommendation_id: recommendation for recommendation in recommendations}
+    dispositions: List[FinalDisposition] = []
+    for finding in findings:
+        decision = decision_by_risk.get(finding.finding_id)
+        final_action = decision.recommendation_disposition if decision else _final_action_for_priority(finding.priority)
+        final_reason = decision.decision_reason if decision else "按风险优先级形成最终处理动作。"
+        if final_action == DISPOSITION_OPTIONAL_IMPROVEMENT and any(
+            term in " ".join([finding.risk_group, finding.title]).lower()
+            for term in ("ip", "intellectual", "知识产权", "侵权", "商标", "专利", "著作权")
+        ):
+            final_action = DISPOSITION_SHOULD_CHANGE
+            final_reason = "知识产权或侵权责任保障关系到第三方权利主张后的停用、替换和追偿基础，不作为单纯可选优化处理。"
+        active_rec_ids = list(decision.source_recommendation_ids if decision else finding.recommendation_ids)
+        active_text = "；".join(
+            _recommendation_inline_text(rec_by_id[rec_id])
+            for rec_id in active_rec_ids
+            if rec_id in rec_by_id
+        )
+        actionable = final_action in {DISPOSITION_MUST_CHANGE, DISPOSITION_SHOULD_CHANGE, DISPOSITION_OPTIONAL_IMPROVEMENT}
+        owner = (
+            RECOMMENDATION_OWNER_REVIEW
+            if actionable and len(finding.source_review_ids) == 1
+            else RECOMMENDATION_OWNER_RISK
+            if actionable
+            else RECOMMENDATION_OWNER_NONE
+        )
+        recommendation = active_text or (
+            "建议保持现状，不主动新增可能削弱客户利益的限制性条款。"
+            if final_action in {DISPOSITION_KEEP_CURRENT, DISPOSITION_DO_NOT_ADD}
+            else finding.recommendation
+        )
+        formal_recommendation = recommendation if owner == RECOMMENDATION_OWNER_REVIEW else None
+        review_instruction = (
+            "现有合同材料不足以确认该事项是否适用，建议结合相关交易背景或补充材料核对。"
+            if final_action == DISPOSITION_MANUAL_REVIEW else ""
+        )
+        dispositions.append(FinalDisposition(
+            risk_id=finding.finding_id,
+            risk_title=finding.title,
+            review_ids=list(finding.source_review_ids),
+            severity=finding.severity,
+            client_effect=decision.effect_on_client if decision else CLIENT_EFFECT_UNCERTAIN,
+            legal_default_protection=decision.legal_default_protection if decision else LEGAL_DEFAULT_NONE,
+            actionability="ACTIONABLE" if final_action in {DISPOSITION_MUST_CHANGE, DISPOSITION_SHOULD_CHANGE, DISPOSITION_OPTIONAL_IMPROVEMENT} else final_action,
+            final_action=final_action,
+            final_reason=final_reason,
+            recommendation=recommendation,
+            recommendation_owner=owner,
+            formal_recommendation=formal_recommendation,
+            include_in_top_risk=final_action in {DISPOSITION_MUST_CHANGE, DISPOSITION_SHOULD_CHANGE},
+            include_in_priority_changes=final_action in {DISPOSITION_MUST_CHANGE, DISPOSITION_SHOULD_CHANGE},
+            include_in_optional_improvements=final_action == DISPOSITION_OPTIONAL_IMPROVEMENT,
+            review_instruction=review_instruction,
+            source_recommendation_ids=active_rec_ids,
+            blocked_recommendation_ids=list(decision.blocked_recommendation_ids if decision else []),
+            authority_ids=list(decision.authority_ids if decision else []),
+        ))
+    return dispositions
+
+
+def _final_disposition_summary(dispositions: List[FinalDisposition]) -> Dict[str, int]:
+    counts = Counter(disposition.final_action for disposition in dispositions)
+    return {
+        "total": len(dispositions),
+        "must_change": counts.get(DISPOSITION_MUST_CHANGE, 0),
+        "should_change": counts.get(DISPOSITION_SHOULD_CHANGE, 0),
+        "optional_improvement": counts.get(DISPOSITION_OPTIONAL_IMPROVEMENT, 0),
+        "keep_current": counts.get(DISPOSITION_KEEP_CURRENT, 0),
+        "do_not_add": counts.get(DISPOSITION_DO_NOT_ADD, 0),
+        "manual_review": counts.get(DISPOSITION_MANUAL_REVIEW, 0),
+        "actionable": counts.get(DISPOSITION_MUST_CHANGE, 0) + counts.get(DISPOSITION_SHOULD_CHANGE, 0),
+        "protected_no_change": counts.get(DISPOSITION_KEEP_CURRENT, 0) + counts.get(DISPOSITION_DO_NOT_ADD, 0),
+    }
+
+
+def _apply_final_disposition_states(items: List[ReviewItemResult], dispositions: List[FinalDisposition]) -> None:
+    by_review: Dict[str, List[FinalDisposition]] = {}
+    for disposition in dispositions:
+        for review_id in disposition.review_ids:
+            by_review.setdefault(review_id, []).append(disposition)
+    priority = {
+        DISPOSITION_MUST_CHANGE: 0,
+        DISPOSITION_SHOULD_CHANGE: 1,
+        DISPOSITION_OPTIONAL_IMPROVEMENT: 2,
+        DISPOSITION_MANUAL_REVIEW: 3,
+        DISPOSITION_KEEP_CURRENT: 4,
+        DISPOSITION_DO_NOT_ADD: 5,
+    }
+    for item in items:
+        related = sorted(by_review.get(item.item_id, []), key=lambda row: (priority.get(row.final_action, 9), row.risk_id))
+        if not related:
+            continue
+        item.decision_trace["final_dispositions"] = [row.to_public_dict() for row in related]
+        active = [row for row in related if row.final_action in {DISPOSITION_MUST_CHANGE, DISPOSITION_SHOULD_CHANGE, DISPOSITION_OPTIONAL_IMPROVEMENT}]
+        protected = [row for row in related if row.final_action in {DISPOSITION_KEEP_CURRENT, DISPOSITION_DO_NOT_ADD}]
+        if item.coverage_status == "通过":
+            item.action_priority = ACTION_PRIORITY_NONE
+            item.review_priority = ACTION_PRIORITY_NONE
+            item.action_suggestion = "已覆盖，无需修改。"
+        elif active:
+            top = active[0]
+            item.action_priority = {
+                DISPOSITION_MUST_CHANGE: PRIORITY_A_CORE,
+                DISPOSITION_SHOULD_CHANGE: PRIORITY_B_PRACTICAL,
+                DISPOSITION_OPTIONAL_IMPROVEMENT: PRIORITY_C_OPTIMIZATION,
+            }.get(top.final_action, item.action_priority)
+            item.review_priority = item.action_priority
+            item.action_suggestion = _priority_label(item.action_priority)
+        elif protected:
+            item.action_priority = ACTION_PRIORITY_NONE
+            item.review_priority = ACTION_PRIORITY_NONE
+            item.action_suggestion = "已识别法律问题，但当前建议保持现状。"
+        state = item.decision_trace.get("recommendation_display_state") or {}
+        state.update({
+            "final_actions": [row.final_action for row in related],
+            "final_disposition_ids": [row.risk_id for row in related],
+            "final_disposition_titles": [row.risk_title for row in related if row.risk_title],
+            "final_recommendations": [row.recommendation for row in related if row.recommendation],
+            "formal_recommendations": [row.formal_recommendation for row in related if row.formal_recommendation],
+            "recommendation_owners": list(dict.fromkeys(row.recommendation_owner for row in related)),
+            "review_instructions": [row.review_instruction for row in related if row.review_instruction],
+            "user_message": item.action_suggestion,
+        })
+        item.decision_trace["recommendation_display_state"] = state
+
+
+def _final_disposition_invariant_gate(findings: List[RiskFinding], dispositions: List[FinalDisposition]) -> Dict[str, Any]:
+    severity_summary = {
+        "重大风险": sum(1 for finding in findings if finding.severity in {SEVERITY_HIGH, SEVERITY_CRITICAL}),
+        "中等风险": sum(1 for finding in findings if finding.severity == SEVERITY_MEDIUM),
+        "低风险": sum(1 for finding in findings if finding.severity == SEVERITY_LOW),
+    }
+    severity_total = sum(severity_summary.values())
+    disposition_summary = _final_disposition_summary(dispositions)
+    disposition_total = (
+        disposition_summary["must_change"]
+        + disposition_summary["should_change"]
+        + disposition_summary["optional_improvement"]
+        + disposition_summary["keep_current"]
+        + disposition_summary["do_not_add"]
+        + disposition_summary["manual_review"]
+    )
+    failures = []
+    if severity_total != len(findings):
+        failures.append({
+            "requirement": "RISK_STATISTICS_INVARIANT",
+            "failure_stage": "FinalDisposition",
+            "root_cause": "Severity subtotal does not equal RiskFinding total.",
+            "current_status": "FAIL",
+        })
+    if disposition_total != len(dispositions):
+        failures.append({
+            "requirement": "FINAL_DISPOSITION_INVARIANT",
+            "failure_stage": "FinalDisposition",
+            "root_cause": "Final action subtotal does not equal FinalDisposition total.",
+            "current_status": "FAIL",
+        })
+    illegal_formal = [
+        disposition.risk_id for disposition in dispositions
+        if (
+            disposition.final_action not in {DISPOSITION_MUST_CHANGE, DISPOSITION_SHOULD_CHANGE, DISPOSITION_OPTIONAL_IMPROVEMENT}
+            or disposition.recommendation_owner != RECOMMENDATION_OWNER_REVIEW
+        )
+        and disposition.formal_recommendation
+    ]
+    if illegal_formal:
+        failures.append({
+            "requirement": "FORMAL_RECOMMENDATION_FINAL_DISPOSITION_INVARIANT",
+            "failure_stage": "FinalDisposition",
+            "root_cause": f"Non-review-owned or non-actionable dispositions exposed formal recommendations: {', '.join(illegal_formal)}.",
+            "current_status": "FAIL",
+        })
+    risk_owned = [disposition.risk_id for disposition in dispositions if disposition.recommendation_owner == RECOMMENDATION_OWNER_RISK]
+    if len(risk_owned) != len(set(risk_owned)):
+        failures.append({
+            "requirement": "RECOMMENDATION_OWNERSHIP_INVARIANT",
+            "failure_stage": "FinalDisposition",
+            "root_cause": "A Risk-owned recommendation appears more than once for the same RiskEntity.",
+            "current_status": "FAIL",
+        })
+    return {
+        "status": "REPORT_READY" if not failures else "BLOCKED",
+        "failures": failures,
+        "gate_results": {
+            "RISK_STATISTICS_INVARIANT": "PASS" if severity_total == len(findings) else "FAIL",
+            "FINAL_DISPOSITION_INVARIANT": "PASS" if disposition_total == len(dispositions) else "FAIL",
+            "FORMAL_RECOMMENDATION_FINAL_DISPOSITION_INVARIANT": "PASS" if not illegal_formal else "FAIL",
+            "RECOMMENDATION_OWNERSHIP_INVARIANT": "PASS" if len(risk_owned) == len(set(risk_owned)) else "FAIL",
+        },
+        "risk_total": len(findings),
+        "severity_summary": severity_summary,
+        "final_disposition_total": len(dispositions),
+        "final_disposition_summary": disposition_summary,
+    }
 
 
 def _release_quality_gate(
@@ -7748,11 +8300,26 @@ def _first_sentence(text: str) -> str:
 def _first_citation(item: ReviewItemResult) -> Dict[str, str]:
     evidences = item.evidence_clauses or []
     if not evidences:
+        if item.coverage_status == INSUFFICIENT_CONTEXT:
+            status = "INSUFFICIENT_CONTEXT"
+            description = "现有合同材料不足以确认该事项是否适用，建议结合相关交易背景或补充材料核对。"
+        elif item.coverage_status == COVERAGE_NOT_APPLICABLE:
+            status = "NOT_APPLICABLE"
+            description = "当前合同未触发该审查事项的适用条件。"
+        elif (item.decision_trace or {}).get("review_polarity") == "NEGATIVE_CLAUSE_CHECK" and item.coverage_status == "通过":
+            status = "NO_ADVERSE_CLAUSE_FOUND"
+            description = "未发现该类不利约定。"
+        elif item.coverage_status == "通过":
+            status = "NO_CLAUSE_REQUIRED"
+            description = "本项不需要额外定位缺失条款。"
+        else:
+            status = "NO_SUPPORTING_CLAUSE"
+            description = "合同正文及附件中未找到对应约定。"
         return {
-            "evidence_status": "NOT_FOUND",
-            "clause_number": "未召回正式条款",
+            "evidence_status": status,
+            "clause_number": "无对应条款",
             "original_excerpt": "无正式条款证据",
-            "position_description": "未在合同正文及附件中定位到对应安排。",
+            "position_description": description,
         }
 
     evidence = evidences[0]
@@ -7769,7 +8336,7 @@ def _first_citation(item: ReviewItemResult) -> Dict[str, str]:
         "SIDE_LETTER": "往来函件",
     }.get(document_type, "其他文件")
     return {
-        "evidence_status": "FOUND",
+        "evidence_status": "FOUND_ADVERSE_CLAUSE" if item.coverage_status == "风险条款" else "FOUND_SUPPORTING_CLAUSE",
         "document_type": document_type,
         "source_document_type": document_type,
         "source_label": source_label,
@@ -7777,6 +8344,13 @@ def _first_citation(item: ReviewItemResult) -> Dict[str, str]:
         "original_excerpt": f"“{_excerpt(sentence or text)}”",
         "position_description": f"{source_label}，{position}",
     }
+
+
+def _evidence_position_display(item: ReviewItemResult) -> str:
+    if item.evidence_location:
+        return item.evidence_location
+    citation = item.citation or _first_citation(item)
+    return citation.get("position_description") or "合同正文及附件中未找到对应约定。"
 
 
 def _legal_rule_text(item: ReviewItemResult) -> str:
@@ -7851,6 +8425,8 @@ def _user_facing_reasoning(text: str) -> str:
 
 
 def _applicability_user_reason(item: ReviewItemResult) -> str:
+    if item.coverage_status == INSUFFICIENT_CONTEXT or str((item.applicability or {}).get("status") or "").upper() == INSUFFICIENT_CONTEXT:
+        return "现有合同材料不足以确认该事项是否适用，建议结合相关交易背景或补充材料核对。"
     return str(
         item.applicability.get("user_reason")
         or item.applicability.get("reason")
@@ -7911,10 +8487,33 @@ def _coverage_element_groups(item: ReviewItemResult) -> tuple[List[str], List[st
 
 def _element_narrative_label(proposition: str) -> str:
     label = proposition.strip("。")
-    for prefix in ("合同已经明确", "合同已明确", "合同明确", "合同已经载明", "合同已载明", "合同载明", "合同存在"):
+    for prefix in (
+        "合同已经明确约定", "合同已明确约定", "合同明确约定", "合同已经约定", "合同已约定",
+        "已明确约定", "已约定", "合同已经明确", "合同已明确", "合同明确",
+        "合同已经载明", "合同已载明", "合同载明", "合同存在",
+    ):
         if label.startswith(prefix):
             return label[len(prefix):].strip("“”")
     return label
+
+
+def _specific_gap_consequence(item: ReviewItemResult, gap_text: str) -> str:
+    text = " ".join([item.title, item.node_id, item.risk_group, item.risk_point_description, gap_text])
+    if any(term in text for term in ("知识产权", "侵权", "专利", "商标", "著作权")):
+        return "第三方提出侵权主张时，停用、下架、替换成本和对出卖人的追偿依据可能不够直接。"
+    if any(term in text for term in ("包装", "运输损坏", "装箱", "防护")):
+        return "运输损坏发生后，包装是否合格、损失原因和责任归属容易发生争议。"
+    if any(term in text for term in ("权利瑕疵", "第三方权利", "权利负担")):
+        return "第三方主张权利时，披露、排除妨碍、替换和赔偿路径不够直接。"
+    if any(term in text for term in ("迟延受领", "拒收", "未提货")):
+        return "买受人迟延受领后的费用、保管和风险分配主要依赖法定规则，写入合同前需确认是否会扩大当前客户责任。"
+    if any(term in text for term in ("可得利益", "预期利益")):
+        return "可得利益赔偿仍受违约因果关系、可预见性和证据证明约束；限制性写法可能缩小守约方救济。"
+    if any(term in text for term in ("交付", "验收", "签收")):
+        return "交付或验收节点不清时，风险转移、质量异议和付款条件容易被不同理解。"
+    if any(term in text for term in ("付款", "价款", "结算")):
+        return f"{gap_text}不清时，付款期限、逾期责任和对账依据容易产生争议。"
+    return f"{gap_text}不清时，责任边界不够明确。"
 
 
 def _build_narrative_state(item: ReviewItemResult) -> Dict[str, Any]:
@@ -7949,7 +8548,13 @@ def _build_narrative_state(item: ReviewItemResult) -> Dict[str, Any]:
     missing_text = "；".join(_element_narrative_label(value) for value in missing)
     applicability = str((item.applicability or {}).get("status") or "APPLICABLE").upper()
     polarity = str((item.decision_trace or {}).get("review_polarity") or "POSITIVE_REQUIREMENT")
-    if applicability == "NOT_APPLICABLE" or item.coverage_status == COVERAGE_NOT_APPLICABLE:
+    if item.coverage_status == INSUFFICIENT_CONTEXT:
+        covered, partial, missing = [], [], []
+        judgment = _applicability_user_reason(item)
+        issue = judgment
+        consequence = judgment
+        recommendation = ""
+    elif applicability == "NOT_APPLICABLE" or item.coverage_status == COVERAGE_NOT_APPLICABLE:
         covered, partial, missing = [], [], []
         judgment = _applicability_user_reason(item)
         issue = ""
@@ -7960,7 +8565,7 @@ def _build_narrative_state(item: ReviewItemResult) -> Dict[str, Any]:
             judgment = f"未发现“{item.title}”对应的不利条款或安排。"
             consequence = "未发现该不利安排，因此不形成对应风险。"
         else:
-            judgment = f"合同已明确覆盖：{covered_text}。" if covered_text else f"合同已覆盖“{item.title}”要求。"
+            judgment = f"合同已明确约定{covered_text}。" if covered_text else f"合同已覆盖{item.title}要求。"
             consequence = "无明显残余风险。"
         issue = ""
         recommendation = "无需修改。"
@@ -7968,7 +8573,7 @@ def _build_narrative_state(item: ReviewItemResult) -> Dict[str, Any]:
         missing_text = missing_text or f"“{item.title}”对应的必要安排"
         judgment = f"合同未明确：{missing_text}。"
         issue = f"缺失：{missing_text}。"
-        consequence = f"由于合同未明确{missing_text}，相关履行流程、完成标准或责任边界可能发生争议。"
+        consequence = _specific_gap_consequence(item, missing_text)
         recommendation = f"建议补充明确：{missing_text}。"
     elif item.coverage_status == "部分覆盖":
         statements = []
@@ -7981,7 +8586,7 @@ def _build_narrative_state(item: ReviewItemResult) -> Dict[str, Any]:
         judgment = "；".join(statements) + "。" if statements else f"“{item.title}”仅得到部分证据支持，仍需补足关键要素。"
         incomplete_text = "；".join(value for value in (partial_text, missing_text) if value) or f"“{item.title}”的其余关键要素"
         issue = f"仍需补足：{incomplete_text}。"
-        consequence = f"由于{incomplete_text}尚未完整，相关履行流程、完成标准或责任边界可能发生争议。"
+        consequence = _specific_gap_consequence(item, incomplete_text)
         recommendation = f"建议仅补充明确：{incomplete_text}。"
     else:
         judgment = item.risk_point_description or f"“{item.title}”存在需要处理的风险条款。"
@@ -8171,9 +8776,11 @@ def _professional_item_conclusion(item: ReviewItemResult) -> str:
         return f"{prefix}该公式不是普通固定倍数违约金，而是会随剩余租期增加而放大，建议结合实际损失和金额上限处理。"
     if item.narrative_state:
         return str(item.narrative_state.get("judgment") or "")
+    if item.coverage_status == INSUFFICIENT_CONTEXT:
+        return _applicability_user_reason(item)
     if item.coverage_status == "通过":
         if item.related_risks:
-            return "该审查事项的基本机制已覆盖，但同一条款或事实仍形成独立风险，详见核心风险摘要。"
+            return "该审查事项已覆盖；关联风险仅作为风险聚合链接，不改变本项无需修改的结论。"
         return "该审查事项已覆盖，无需修改。"
     if item.coverage_status == COVERAGE_NOT_APPLICABLE:
         return _applicability_user_reason(item)
@@ -8211,11 +8818,13 @@ def _report_context_profile_lines(profile: UserRiskProfile, report_context: Dict
 
 
 def _display_legal_consequence(item: ReviewItemResult) -> tuple[str, str]:
+    if item.coverage_status == INSUFFICIENT_CONTEXT:
+        return "适用说明", _applicability_user_reason(item)
     if item.coverage_status == COVERAGE_NOT_APPLICABLE:
         return "适用说明", _applicability_user_reason(item)
     if item.coverage_status == "通过":
         if item.related_risks:
-            return "关联风险", "同一条款或事实仍存在需要处理的经济或法律风险，详见核心风险摘要。"
+            return "处理结论", "本项已覆盖；关联风险仅用于聚合展示，不改变本项无需修改的结论。"
         if (item.decision_trace or {}).get("review_polarity") == "NEGATIVE_CLAUSE_CHECK":
             return "处理结论", "未发现该不利安排，不形成对应风险。"
         return "处理结论", "已覆盖，无需修改。"
@@ -8240,17 +8849,23 @@ def _trusted_legal_basis_display(item: ReviewItemResult) -> str:
         ))[:3]
         authority_text = "；".join(authorities)
         if has_partial:
-            return f"{authority_text}；本项部分内容属于合同起草建议。"
+            return authority_text
         return authority_text
-    background = [
+    return ""
+
+
+def _practice_basis_display(item: ReviewItemResult) -> str:
+    if item.coverage_status in {"通过", COVERAGE_NOT_APPLICABLE, INSUFFICIENT_CONTEXT}:
+        return ""
+    claims = item.legal_references or []
+    drafting = [
         claim for claim in claims
-        if claim.get("support_type") == "BACKGROUND_ONLY" and claim.get("law_name")
+        if claim.get("claim_type") == "DRAFTING_RECOMMENDATION"
+        or claim.get("support_type") == "BACKGROUND_ONLY"
     ]
-    if background:
-        return "相关法律规则参考：合同履行、通知送达及证据留存规则；本项主要为合同管理实务建议。"
-    if item.legal_basis_index:
-        return "合同管理实务建议；未匹配到足够直接的现行具体条文。"
-    return "合同管理实务建议"
+    if drafting:
+        return "本项属于合同管理、商业风险控制或起草完整性建议。"
+    return ""
 
 
 def _apply_default_law_narratives(items: List[ReviewItemResult]) -> List[Dict[str, Any]]:
@@ -8760,7 +9375,64 @@ def _apply_final_quality_gate(
 
 
 def _sanitize_review_report(report: str) -> str:
-    return report
+    cleaned = report
+    cleaned = cleaned.replace("”对应的核心安排", "对应安排")
+    cleaned = cleaned.replace("合同已明确覆盖：", "合同已明确约定")
+    cleaned = cleaned.replace("合同已明确约定合同已约定", "合同已约定")
+    cleaned = cleaned.replace("合同已明确约定已明确约定", "合同已明确约定")
+    cleaned = cleaned.replace("合同已明确约定合同已限定", "合同已限定")
+    cleaned = cleaned.replace("合同已明确约定合同未约定", "合同未约定")
+    cleaned = cleaned.replace("合同已明确约定合同设置了", "合同设置了")
+    cleaned = cleaned.replace("已明确约定合同已", "合同已")
+    cleaned = cleaned.replace("合同已约定合同", "合同")
+    cleaned = cleaned.replace("已经明确已经", "已经")
+    cleaned = re.sub(r"合同已明确约定合同(?=[\u4e00-\u9fff])", "合同", cleaned)
+    cleaned = cleaned.replace("建议建议", "建议")
+    cleaned = cleaned.replace("无无需", "无需")
+    cleaned = cleaned.replace("。。", "。")
+    cleaned = cleaned.replace("；；", "；")
+    cleaned = re.sub(r"已覆盖：已覆盖[:：]?", "已覆盖：", cleaned)
+    cleaned = re.sub(r"缺失：缺失[:：]?", "缺失：", cleaned)
+    cleaned = re.sub(r"：：+", "：", cleaned)
+    cleaned = re.sub(r"([^。！？\n]{4,80}[。！？])\1+", r"\1", cleaned)
+    return cleaned
+
+
+def _report_text_validation_gate(report: str) -> Dict[str, Any]:
+    patterns = {
+        "BROKEN_QUOTE_CORE_ARRANGEMENT": r"”对应的核心安排",
+        "DUPLICATE_COLON": r"：：+",
+        "DUPLICATE_COVERED": r"已覆盖：已覆盖",
+        "DUPLICATE_MISSING": r"缺失：缺失",
+        "DUPLICATE_CONTRACT_COVERED": r"合同已明确约定合同|已明确约定合同已|合同已约定合同|已经明确已经",
+        "DUPLICATE_SUGGEST": r"建议建议",
+        "DUPLICATE_NO_ACTION": r"无无需",
+        "DUPLICATE_PUNCTUATION": r"。。|；；",
+        "UNREPLACED_TEMPLATE": r"\{[a-zA-Z_][a-zA-Z0-9_]*\}|<[^>\n]+>",
+        "INTERNAL_ENUM_LEAK": r"\b(?:A_CORE|B_PRACTICAL|C_OPTIMIZATION|MUST_CHANGE|SHOULD_CHANGE|OPTIONAL_IMPROVEMENT|KEEP_CURRENT|DO_NOT_ADD|MANUAL_REVIEW|FOUND_SUPPORTING_CLAUSE|NO_SUPPORTING_CLAUSE)\b",
+        "LEGACY_PRACTICE_AS_LEGAL": r"法律依据】：合同管理实务建议|法律依据】：相关法律规则参考",
+        "PASS_PRACTICE_NOISE": r"当前未匹配到足够直接的现行具体条文",
+        "DUPLICATE_EVIDENCE_TEXT": r"合同正文及附件中未找到对应约定；未在合同正文及附件中定位到对应安排",
+        "NA_ALWAYS_APPLICABLE_CONTRADICTION": r"覆盖状态：不适用[\s\S]{0,240}【适用条件】：始终适用",
+        "LEGACY_NOT_FOUND": r"未召回正式条款",
+    }
+    failures: List[Dict[str, Any]] = []
+    for name, pattern in patterns.items():
+        matches = re.findall(pattern, report or "")
+        if matches:
+            failures.append({
+                "requirement": "REPORT_TEXT_VALIDATION",
+                "failure_stage": "Report Rendering",
+                "root_cause": name,
+                "count": len(matches),
+                "current_status": "FAIL",
+            })
+    return {
+        "status": "REPORT_READY" if not failures else "BLOCKED",
+        "failures": failures,
+        "gate_results": {"REPORT_TEXT_VALIDATION": "PASS" if not failures else "FAIL"},
+        "broken_template_text_count": sum(failure["count"] for failure in failures),
+    }
 
 
 def _system_metadata(model_status: Dict[str, Any]) -> Dict[str, Any]:
@@ -8978,20 +9650,26 @@ def _format_markdown_v2(
     jurisdiction_items: Optional[Dict[str, Any]] = None,
     report_context: Optional[Dict[str, Any]] = None,
     perspective_resolution: Optional[Dict[str, Any]] = None,
+    final_dispositions: Optional[List[FinalDisposition]] = None,
 ) -> str:
     """Pure Markdown serializer for the final ReviewItemResult list."""
     findings = risk_findings or []
     recs = recommendations or []
+    dispositions = final_dispositions or _build_final_dispositions(findings, recs, [])
+    manual_review_items = _manual_review_records(items)
     finding_summary = risk_finding_summary or _risk_finding_summary(findings, items)
-    assessment = overall_assessment or _overall_assessment(contract_type_name, findings, items)
-    must_count = sum(1 for finding in findings if finding.priority == PRIORITY_A_CORE)
-    suggest_count = sum(1 for finding in findings if finding.priority == PRIORITY_B_PRACTICAL)
-    consider_count = sum(1 for finding in findings if finding.priority == PRIORITY_C_OPTIMIZATION)
+    assessment = overall_assessment or _overall_assessment(contract_type_name, findings, items, dispositions, manual_review_items)
+    disposition_by_risk = {disposition.risk_id: disposition for disposition in dispositions}
+    disposition_summary = _final_disposition_summary(dispositions)
+    must_count = disposition_summary["must_change"]
+    suggest_count = disposition_summary["should_change"]
+    consider_count = disposition_summary["optional_improvement"]
     item_by_id = {item.item_id: item for item in items}
-    priority_core_findings = [finding for finding in findings if finding.priority == PRIORITY_A_CORE][:10]
-    practical_findings = [finding for finding in findings if finding.priority == PRIORITY_B_PRACTICAL][:10]
-    priority_findings = [finding for finding in findings if finding.priority in {PRIORITY_A_CORE, PRIORITY_B_PRACTICAL}][:10]
-    optimization_findings = [finding for finding in findings if finding.priority == PRIORITY_C_OPTIMIZATION][:10]
+    finding_by_id = {finding.finding_id: finding for finding in findings}
+    top_dispositions = [row for row in dispositions if row.include_in_top_risk][:10]
+    priority_dispositions = [row for row in dispositions if row.include_in_priority_changes][:10]
+    optimization_dispositions = [row for row in dispositions if row.include_in_optional_improvements][:10]
+    keep_current_dispositions = [row for row in dispositions if row.final_action in {DISPOSITION_KEEP_CURRENT, DISPOSITION_DO_NOT_ADD}][:10]
     covered_key_items = [item for item in items if item.coverage_status == "通过" and item.review_importance in {REVIEW_IMPORTANCE_CORE, REVIEW_IMPORTANCE_IMPORTANT}][:10]
     finding_title_map = _finding_id_title_map(findings)
     recommendation_by_finding = {
@@ -9022,10 +9700,12 @@ def _format_markdown_v2(
         f"- 重大风险数量：{finding_summary.get('重大风险', 0)}",
         f"- 中等风险数量：{finding_summary.get('中等风险', 0)}",
         f"- 低风险数量：{finding_summary.get('低风险', 0)}",
+        f"- 需要真正修改的风险数：{disposition_summary['actionable']}",
         f"- 优先处理风险：{must_count}",
         f"- 建议处理风险：{suggest_count}",
-        f"- 可选优化风险：{consider_count}",
-        f"- 人工复核项：{assessment.get('manual_review_count', 0)}",
+        f"- 可选优化数：{consider_count}",
+        f"- 已识别但建议保持现状数：{disposition_summary['protected_no_change']}",
+        f"- 人工复核项：{len(manual_review_items)}",
         "",
         "### 审查覆盖统计",
         f"- 已覆盖：{_coverage_summary(items).get('通过', 0)} 项",
@@ -9037,42 +9717,36 @@ def _format_markdown_v2(
         f"> {REPORT_FORMAT_NOTICE}",
     ])
     add_section("核心风险摘要")
-    if priority_core_findings:
-        lines.extend(["### 优先处理", ""])
-        for finding in priority_core_findings:
+    if top_dispositions:
+        for disposition in top_dispositions:
+            finding = finding_by_id.get(disposition.risk_id)
+            if not finding:
+                continue
             lines.append(_top_risk_line(finding, item_by_id, recommendation_by_finding.get(finding.finding_id)))
             lines.append("")
-    if practical_findings:
-        lines.extend(["### 建议处理", ""])
-        for finding in practical_findings:
-            lines.append(_top_risk_line(finding, item_by_id, recommendation_by_finding.get(finding.finding_id)))
-            lines.append("")
-    if not priority_core_findings and not practical_findings:
+    if not top_dispositions:
         lines.append("- 未发现需要优先处理的高风险或重大经济后果事项。")
     add_section("建议优先修改")
-    if priority_core_findings:
-        lines.extend(["### 优先处理", ""])
-        for recommendation in [rec for rec in recs if rec.priority == PRIORITY_A_CORE]:
-            target_names = "、".join(finding_title_map.get(risk_id, "关联风险") for risk_id in recommendation.target_finding_ids or recommendation.target_risk_ids)
-            lines.append(f"- **优先处理**：{_recommendation_inline_text(recommendation)}（对应风险：{target_names}）")
-        lines.append("")
-    if practical_findings:
-        lines.extend(["### 建议处理", ""])
-        for recommendation in [rec for rec in recs if rec.priority == PRIORITY_B_PRACTICAL]:
-            target_names = "、".join(finding_title_map.get(risk_id, "关联风险") for risk_id in recommendation.target_finding_ids or recommendation.target_risk_ids)
-            lines.append(f"- **建议处理**：{_recommendation_inline_text(recommendation)}（对应风险：{target_names}）")
+    if priority_dispositions:
+        for disposition in priority_dispositions:
+            target_name = finding_title_map.get(disposition.risk_id, disposition.risk_title)
+            lines.append(f"- **{_final_action_label(disposition.final_action)}**：{disposition.recommendation}（对应风险：{target_name}）")
     else:
-        if not priority_core_findings:
-            lines.append("- 暂无必须或优先修改事项。")
+        lines.append("- 暂无必须或优先修改事项。")
     add_section("可选优化事项")
     lines.append("以下事项属于完善型建议，通常不是当前签署的核心障碍。")
     lines.append("")
-    if optimization_findings:
-        for recommendation in [rec for rec in recs if rec.priority == PRIORITY_C_OPTIMIZATION]:
-            target_names = "、".join(finding_title_map.get(risk_id, "关联风险") for risk_id in recommendation.target_finding_ids or recommendation.target_risk_ids)
-            lines.append(f"- **可选优化**：{_recommendation_inline_text(recommendation)}（对应风险：{target_names}）")
+    if optimization_dispositions:
+        for disposition in optimization_dispositions:
+            target_name = finding_title_map.get(disposition.risk_id, disposition.risk_title)
+            lines.append(f"- **可选优化**：{disposition.recommendation}（对应风险：{target_name}）")
     else:
         lines.append("- 暂无需要单独提示的可优化事项。")
+    if keep_current_dispositions:
+        add_section("建议保持现状")
+        for disposition in keep_current_dispositions:
+            target_name = finding_title_map.get(disposition.risk_id, disposition.risk_title)
+            lines.append(f"- **{target_name}**：{disposition.final_reason}")
     add_section("已覆盖关键事项")
     if covered_key_items:
         for item in covered_key_items:
@@ -9083,60 +9757,88 @@ def _format_markdown_v2(
                 lines.append(f"- **{item.item_id} {item.title}**：已覆盖{related}。")
     else:
         lines.append("- 已覆盖项详见完整审查明细。")
-    manual_items = [item for item in items if item.needs_manual_review]
-    if manual_items:
+    if manual_review_items:
         add_section("人工复核事项")
-        for item in manual_items:
-            lines.append(f"- **{item.item_id} {item.title}**：{item.quality_gate_failure_reason or '证据或事实存在无法自动消解的不确定性。'}")
+        for row in manual_review_items:
+            lines.append(f"- **{row['item_id']} {row['title']}**：{row['reason']}（重要度：{row['materiality']}）")
     lines.extend(["", "---"])
     add_section("完整审查明细")
     for index, item in enumerate(items, start=1):
         legal_label, legal_value = _display_legal_consequence(item)
         display_state = (item.decision_trace or {}).get("recommendation_display_state") or {}
-        detail_recommendations = [
-            recommendation for recommendation in recs
-            if recommendation.recommendation_id in display_state.get("active_recommendation_ids", [])
-        ]
-        suggested_label = "正式建议" if detail_recommendations else ""
-        suggested_value = "；".join(_recommendation_inline_text(recommendation) for recommendation in detail_recommendations)
+        formal_recommendations = list(display_state.get("formal_recommendations") or [])
+        review_instructions = list(display_state.get("review_instructions") or [])
+        suggested_label = "正式建议" if formal_recommendations else "复核提示" if review_instructions else ""
+        suggested_value = "；".join(formal_recommendations or review_instructions)
         narrative = item.narrative_state or _build_narrative_state(item)
         exposure = str(((item.decision_trace or {}).get("effective_gap_narrative") or {}).get("generated_narrative", ""))
         issue_value = str(narrative.get("issue") or narrative.get("judgment") or item.risk_point_description)
+        legal_basis = _trusted_legal_basis_display(item)
+        practice_basis = _practice_basis_display(item)
         if legal_label not in {"处理结论", "适用说明"}:
             legal_value = str(narrative.get("consequence") or legal_value)
         if item.coverage_status == COVERAGE_NOT_APPLICABLE:
             suggested_label = ""
-        lines.extend(
-            [
-                f"## {index}. {item.title}（{item.item_id}）",
-                "",
-                "### 审查结论",
-                f"- **处理建议**：{display_state.get('user_message') or item.action_suggestion or _action_suggestion_for_item(item)}",
-                f"- 审查重要度：{_importance_label(item.review_importance or _review_importance_for_item(item))}",
+        lines.extend([f"## {index}. {item.title}（{item.item_id}）", "", "### 审查结论"])
+        base_lines = [
+            f"- **处理建议**：{display_state.get('user_message') or item.action_suggestion or _action_suggestion_for_item(item)}",
+            f"- 覆盖状态：{item.coverage_status}",
+        ]
+        if item.coverage_status == INSUFFICIENT_CONTEXT:
+            detail_lines = [
+                *base_lines,
+                f"- 审查判断：{_applicability_user_reason(item)}",
+                f"- 【适用条件】：{item.applicable_if}",
+            ]
+        elif item.coverage_status == COVERAGE_NOT_APPLICABLE:
+            detail_lines = [
+                *base_lines,
+                f"- 【适用说明】：{_applicability_user_reason(item)}",
+            ]
+        elif item.coverage_status == "通过":
+            detail_lines = [
+                *base_lines,
+                f"- 原文位置：{_evidence_position_display(item)}",
+                f"- 审查判断：{narrative.get('judgment') or _professional_item_conclusion(item)}",
+                *([f"- 关联风险发现：{_join_related_finding_titles(item.related_risks, finding_title_map)}"] if item.related_risks else []),
+                *([f"- 【法律依据】：{legal_basis}"] if legal_basis else []),
+            ]
+        elif any(action in {DISPOSITION_KEEP_CURRENT, DISPOSITION_DO_NOT_ADD} for action in display_state.get("final_actions", [])):
+            detail_lines = [
+                *base_lines,
+                f"- 发现的问题：{issue_value}",
+                f"- 【{legal_label}】：{legal_value}",
+                *([f"- 【法律依据】：{legal_basis}"] if legal_basis else []),
+                f"- 不建议修改原因：{'; '.join(row.get('final_reason', '') for row in (item.decision_trace.get('final_dispositions') or []) if row.get('final_action') in {DISPOSITION_KEEP_CURRENT, DISPOSITION_DO_NOT_ADD})}",
+            ]
+        else:
+            detail_lines = [
+                *base_lines,
                 f"- 行动优先级：{_priority_label(item.action_priority or item.review_priority or _action_priority_for_item(item))}",
                 f"- 关联风险发现：{_join_related_finding_titles(item.related_risks, finding_title_map)}",
                 f"- 判断可靠度：{_confidence_label((item.system_confidence or {}).get('level', 'medium'))}",
                 f"- 经济影响：{_economic_display(item.economic_impact)}",
-                f"- 覆盖状态：{item.coverage_status}",
                 f"- 问题类型：{item.issue_type}",
-                f"- 原文位置：{item.evidence_location or '未召回正式条款'}",
+                f"- 原文位置：{_evidence_position_display(item)}",
                 f"- 审查判断：{narrative.get('judgment') or _professional_item_conclusion(item)}",
                 f"- 【风险点描述】：{issue_value}",
                 f"- 【{legal_label}】：{legal_value}",
-                f"- 【法律依据】：{_trusted_legal_basis_display(item)}",
+                *([f"- 【法律依据】：{legal_basis}"] if legal_basis else []),
+                *([f"- 【实务建议】：{practice_basis}"] if practice_basis else []),
                 *([f"- 【实际法律暴露】：{exposure}"] if exposure else []),
                 f"- 【适用条件】：{item.applicable_if}",
-                "",
             ]
-        )
+        lines.extend([line for line in detail_lines if line and not line.endswith("：")])
+        lines.append("")
         if suggested_label and suggested_value:
             lines.extend([f"- 【{suggested_label}】：{suggested_value}", ""])
         if item.citation:
-            if item.citation.get("evidence_status") == "NOT_FOUND":
+            status = item.citation.get("evidence_status")
+            if status in {"NO_SUPPORTING_CLAUSE", "NO_ADVERSE_CLAUSE_FOUND", "NO_CLAUSE_REQUIRED", "NOT_APPLICABLE", "RETRIEVAL_FAILED", "INSUFFICIENT_CONTEXT"}:
                 lines.extend(
                     [
                         "【证据定位】",
-                        f"- {item.citation.get('position_description', '未在合同正文及附件中定位到对应安排。')}",
+                        f"- {item.citation.get('position_description', '合同正文及附件中未找到对应约定。')}",
                         "",
                     ]
                 )
@@ -9193,7 +9895,18 @@ def _recommendation_renderer_gates(
             "【正式建议】" in section
             or bool(re.search(r"\*\*处理建议\*\*：(?:建议新增|建议补充|建议修改|建议明确)", section))
         )
-        mismatch = set(summary_ids) != set(state.get("active_recommendation_ids", [])) or set(detail_ids) != set(state.get("active_recommendation_ids", []))
+        final_actions = set(state.get("final_actions") or [])
+        final_source_controls = bool(final_actions)
+        expected_active_ids = set(state.get("active_recommendation_ids", []))
+        if final_source_controls:
+            actionable_final = final_actions & {DISPOSITION_MUST_CHANGE, DISPOSITION_SHOULD_CHANGE, DISPOSITION_OPTIONAL_IMPROVEMENT}
+            final_text_rendered = (
+                any(text and text in report for text in state.get("final_recommendations", []))
+                or any(title and title in report for title in state.get("final_disposition_titles", []))
+            )
+            mismatch = bool(actionable_final and expected_active_ids and not (set(summary_ids) or set(detail_ids) or final_text_rendered))
+        else:
+            mismatch = set(summary_ids) != expected_active_ids or set(detail_ids) != expected_active_ids
         row = {
             **state, "summary_recommendation_ids": summary_ids, "detail_recommendation_ids": detail_ids,
             "resurrected_recommendation_ids": resurrected, "detail_generated_recommendation": detail_generated,
@@ -9408,6 +10121,16 @@ def review_contract_v2(
             applicability_reason = fact_applicability["reason"]
         if is_applicable:
             applicable_checkpoints.append(checkpoint)
+        elif str(fact_applicability.get("status") or "").upper() in {"UNCERTAIN", INSUFFICIENT_CONTEXT}:
+            unclear_item = _insufficient_context_item(checkpoint, applicability_reason)
+            unclear_item.applicability = {
+                **fact_applicability,
+                "status": INSUFFICIENT_CONTEXT,
+                "applicable": None,
+                "user_reason": "现有合同材料不足以确认该事项是否适用，建议结合相关交易背景或补充材料核对。",
+            }
+            unclear_item.fact_dependencies = list(unclear_item.applicability.get("depends_on") or [])
+            not_applicable_items[checkpoint.item_id] = unclear_item
         else:
             na_item = _not_applicable_item(checkpoint, applicability_reason)
             na_item.applicability = fact_applicability if fact_applicability.get("applicable") is not True else {
@@ -9534,12 +10257,26 @@ def review_contract_v2(
     recommendations, recommendation_impacts, recommendation_impact_gate = evaluate_recommendations(
         recommendations, risk_findings, items, perspective_resolution.canonical_role,
     )
+    client_interest_decisions, client_interest_gate = _client_interest_gate(
+        risk_findings, recommendations, recommendation_impacts, items, perspective_resolution.canonical_role,
+    )
+    final_dispositions = _build_final_dispositions(risk_findings, recommendations, client_interest_decisions)
+    _apply_final_disposition_states(items, final_dispositions)
+    final_disposition_summary = _final_disposition_summary(final_dispositions)
+    final_disposition_invariant_gate = _final_disposition_invariant_gate(risk_findings, final_dispositions)
+    manual_review_items = _manual_review_records(items)
     risk_finding_summary = _risk_finding_summary(risk_findings, items)
     resolved_type_name = str(
         report_context.get("contract_type_label")
         or ("住宅二手房地产买卖合同" if domain_resolution.contract_subtype == "RESIDENTIAL_SECONDARY_REAL_ESTATE_SALE" else type_meta.display_name)
     )
-    overall_assessment = _overall_assessment(contract_type_name=resolved_type_name, findings=risk_findings, items=items)
+    overall_assessment = _overall_assessment(
+        contract_type_name=resolved_type_name,
+        findings=risk_findings,
+        items=items,
+        final_dispositions=final_dispositions,
+        manual_reviews=manual_review_items,
+    )
     benchmark_metrics = _benchmark_metrics(items, risk_findings)
     system_metadata = _system_metadata(llm_status)
     items = _enrich_reasoning_and_citation(items)
@@ -9549,6 +10286,7 @@ def review_contract_v2(
     final_recommendation_set, recommendation_ssot_debug = _apply_recommendation_display_states(
         items, risk_findings, recommendations, recommendation_impacts,
     )
+    _apply_final_disposition_states(items, final_dispositions)
     applicability_polarity_pre_gate = _applicability_polarity_gates(
         items, risk_findings, recommendations,
     )
@@ -9565,6 +10303,7 @@ def review_contract_v2(
     architecture_status = _architecture_status()
     finding_provenance = _finding_provenance(risk_findings, visible_items)
     risk_finding_dicts = [finding.to_public_dict() for finding in risk_findings]
+    final_disposition_dicts = [disposition.to_public_dict() for disposition in final_dispositions]
 
     # 诉讼策略分析（对高/中风险条款）
     public_items = [item.to_public_dict() for item in visible_items]
@@ -9602,6 +10341,8 @@ def review_contract_v2(
     fact_polarity_gate = production_fact_polarity_gate(production_display_claims)
     pre_render_gate = _combine_quality_gates(pre_render_gate, fact_polarity_gate)
     pre_render_gate = _combine_quality_gates(pre_render_gate, recommendation_impact_gate)
+    pre_render_gate = _combine_quality_gates(pre_render_gate, client_interest_gate)
+    pre_render_gate = _combine_quality_gates(pre_render_gate, final_disposition_invariant_gate)
     pre_render_gate = _combine_quality_gates(pre_render_gate, legal_authority_gate)
     pre_render_gate = _combine_quality_gates(pre_render_gate, legal_default_consistency_gate)
     pre_render_gate = _combine_quality_gates(pre_render_gate, default_law_narrative_gate)
@@ -9628,12 +10369,14 @@ def review_contract_v2(
             jurisdiction_items=jurisdiction_report.to_public_dict(),
             report_context=report_context,
             perspective_resolution=perspective_resolution.to_public_dict(),
+            final_dispositions=final_dispositions,
         )
         quality4_gate = post_render_quality_gate(result, review_results_4_0, risk_finding_dicts, recommendation_dicts)
         default_law_provenance_gate = _default_law_provenance_gate(visible_items, result)
         recommendation_renderer_gate = _recommendation_renderer_gates(
             result, visible_items, recommendations, recommendation_impacts,
         )
+        report_text_validation_gate = _report_text_validation_gate(result)
         applicability_polarity_gate = _applicability_polarity_gates(
             visible_items, risk_findings, recommendations, result,
         )
@@ -9645,6 +10388,7 @@ def review_contract_v2(
             default_law_provenance_gate,
             recommendation_renderer_gate,
             applicability_polarity_gate,
+            report_text_validation_gate,
         )
     else:
         result = "该事项当前无法可靠判断，正式报告已停止生成。必要时请人工复核。"
@@ -9660,6 +10404,7 @@ def review_contract_v2(
             "dual_source_count": 0, "cross_renderer_mismatch_count": 0, "rows": [],
         }
         applicability_polarity_gate = applicability_polarity_pre_gate
+        report_text_validation_gate = {"status": "BLOCKED", "failures": [], "gate_results": {"REPORT_TEXT_VALIDATION": "SKIPPED"}, "broken_template_text_count": 0}
     litigation_result = format_litigation_markdown(litigation_report)
     negotiation_result = format_negotiation_markdown(negotiation_report)
     jurisdiction_result = format_jurisdiction_markdown(jurisdiction_report)
@@ -9680,6 +10425,7 @@ def review_contract_v2(
             "reviews": review_results_4_0,
             "findings": risk_finding_dicts,
             "recommendations": recommendation_dicts,
+            "final_dispositions": final_disposition_dicts,
             "context": contract_context,
         }),
         "final_report_hash": _stable_hash(result),
@@ -9694,6 +10440,8 @@ def review_contract_v2(
         "perspective_resolution": perspective_resolution.to_public_dict(),
         "perspective_domain_consistency_gate": perspective_gate,
         "recommendation_non_degradation_gate": recommendation_impact_gate,
+        "client_interest_gate": client_interest_gate,
+        "final_disposition_invariant_gate": final_disposition_invariant_gate,
         "recommendation_single_source_gate": recommendation_renderer_gate,
         "recommendation_cross_renderer_consistency_gate": recommendation_renderer_gate,
         "final_recommendation_set": final_recommendation_set,
@@ -9706,6 +10454,7 @@ def review_contract_v2(
         "negative_check_pass_gate": applicability_polarity_gate,
         "cross_review_shared_claim_gate": cross_review_claim_gate,
         "default_law_provenance_gate": default_law_provenance_gate,
+        "report_text_validation_gate": report_text_validation_gate,
         "default_law_narrative_truth_gate": default_law_narrative_gate,
         "contract_type_name": contract_type_name,
         "contract_review_trace_id": contract_review_trace_id,
@@ -9729,6 +10478,14 @@ def review_contract_v2(
         "review_results_4_0": review_results_4_0,
         "risk_findings": risk_finding_dicts,
         "recommendations": recommendation_dicts,
+        "client_interest_decisions": [decision.to_public_dict() for decision in client_interest_decisions],
+        "final_dispositions": final_disposition_dicts,
+        "final_disposition_summary": final_disposition_summary,
+        "manual_review_items": manual_review_items,
+        "manual_review_summary": {
+            "manual_review_count": len(manual_review_items),
+            "blocking_signability_count": sum(1 for row in manual_review_items if row.get("blocking_signability")),
+        },
         "contract_context": contract_context,
         "report_context": report_context,
         "overall_assessment": overall_assessment,
@@ -9757,6 +10514,10 @@ def review_contract_v2(
             "production_fact_polarity_debug": fact_polarity_gate,
             "recommendation_impact_debug": [impact.to_public_dict() for impact in recommendation_impacts],
             "recommendation_non_degradation_gate": recommendation_impact_gate,
+            "client_interest_debug": client_interest_gate,
+            "final_disposition_debug": final_disposition_dicts,
+            "manual_review_debug": manual_review_items,
+            "final_disposition_invariant_gate": final_disposition_invariant_gate,
             "recommendation_ssot_debug": recommendation_ssot_debug,
             "recommendation_cross_renderer_debug": recommendation_renderer_gate,
             "recommendation_renderer_gate": recommendation_renderer_gate,
@@ -9775,6 +10536,7 @@ def review_contract_v2(
             "shared_claim_consumer_debug": cross_review_claim_gate.get("claims", []),
             "cross_review_shared_claim_gate": cross_review_claim_gate,
             "default_law_provenance_debug": default_law_provenance_gate,
+            "report_text_validation_debug": report_text_validation_gate,
             "shared_claim_debug": canonical_claims_public(canonical_claims),
             "report_context_debug": {
                 "classification": {
