@@ -35,6 +35,31 @@ def test_service_review_checklist_fields_are_complete():
         assert checkpoint.evidence_scope
         assert checkpoint.pass_criteria
         assert checkpoint.partial_criteria
+        assert checkpoint.review_nature in {
+            "INTERNAL_CLASSIFICATION",
+            "CONTRACTUAL_REQUIREMENT",
+            "NEGATIVE_PROHIBITION",
+            "CONDITIONAL_REQUIREMENT",
+            "RISK_ASSESSMENT",
+        }
+        assert checkpoint.requirement_medium in {
+            "CONTRACT_TEXT",
+            "SIGNING_PROCESS",
+            "EXTERNAL_EVIDENCE",
+            "LEGAL_CHARACTERIZATION",
+            "OPERATIONAL_PROCESS",
+        }
+        assert checkpoint.legal_requirement_strength in {"MANDATORY", "DEFAULT_RULE", "RISK_CONTROL", "OPTIONAL"}
+        assert checkpoint.action_type in {
+            "CONTRACT_EDIT",
+            "FILL_TEMPLATE_FIELD",
+            "VERIFY_DOCUMENT",
+            "SIGNING_PROCESS",
+            "OPERATIONAL_CONTROL",
+            "KEEP_CURRENT",
+            "NO_ACTION",
+            "MANUAL_REVIEW",
+        }
 
 
 def test_service_review_checklist_has_risk_levels_and_forbidden_items():
@@ -108,7 +133,9 @@ def test_review_v2_can_load_service_checklist():
     assert output["contract_type_name"] == "服务合同"
     assert output["all_items_count"] == 48
     assert len(output["items"]) == 48
-    assert output["summary"]["高"] + output["summary"]["中"] + output["summary"]["低"] == 48
+    counted_risk_levels = output["summary"]["高"] + output["summary"]["中"] + output["summary"]["低"]
+    assert counted_risk_levels <= 48
+    assert counted_risk_levels + output["coverage_summary"].get("不适用", 0) == 48
 
 
 def test_service_contract_template_blanks_are_medium_and_qualification_guard_is_missing():
@@ -124,10 +151,14 @@ def test_service_contract_template_blanks_are_medium_and_qualification_guard_is_
     output = review_contract_v2(text, "service", use_llm=False)
     by_id = {item["item_id"]: item for item in output["items"]}
 
+    internal_classification_items = ("SVC-01-02", "SVC-01-03", "SVC-01-04")
+    for item_id in internal_classification_items:
+        assert by_id[item_id]["risk_level"] == "低"
+        assert by_id[item_id]["coverage_status"] == "通过"
+        assert by_id[item_id]["related_risks"] == []
+        assert by_id[item_id]["decision_trace"]["review_nature"] == "INTERNAL_CLASSIFICATION"
+
     medium_items = (
-        "SVC-01-02",
-        "SVC-01-03",
-        "SVC-01-04",
         "SVC-03-01",
         "SVC-03-03",
         "SVC-04-02",
@@ -140,9 +171,10 @@ def test_service_contract_template_blanks_are_medium_and_qualification_guard_is_
 
     assert by_id["SVC-03-01"]["coverage_status"] == "部分覆盖"
     assert by_id["SVC-03-01"]["issue_type"] == "模板空白"
-    assert by_id["SVC-02-04"]["risk_level"] == "中"
-    assert by_id["SVC-02-04"]["coverage_status"] == "缺失"
-    assert by_id["SVC-02-04"]["issue_type"] == "完全缺失"
+    assert by_id["SVC-02-04"]["risk_level"] == "低"
+    assert by_id["SVC-02-04"]["coverage_status"] == "通过"
+    assert by_id["SVC-02-04"]["issue_type"] == "通过"
+    assert by_id["SVC-02-04"]["decision_trace"]["review_polarity"] == "NEGATIVE_CLAUSE_CHECK"
     assert by_id["SVC-02-04"]["evidence_clauses"] == []
     assert output["summary"]["高"] <= 12
     assert output["summary"]["中"] >= 8

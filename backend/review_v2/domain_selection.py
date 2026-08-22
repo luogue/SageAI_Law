@@ -46,8 +46,18 @@ _SALE_SIGNALS: Tuple[Tuple[str, Tuple[str, ...], int], ...] = (
     ("sale_title", ("买卖合同", "供货合同", "采购合同", "框架采购"), 8),
     ("sale_parties", ("出卖人", "买受人", "供方", "需方", "供应商", "采购方"), 5),
     ("framework_structure", ("长期供货", "采购订单", "框架协议", "分批供货"), 5),
-    ("goods_identity", ("产品名称", "货物名称", "规格型号", "供货数量"), 3),
-    ("goods_performance", ("交货地点", "交货期限", "货款", "对账结算"), 2),
+    ("goods_identity", ("产品名称", "货物名称", "设备", "材料", "规格型号", "供货数量"), 4),
+    ("goods_purchase_obligation", ("购买", "采购", "销售", "供货"), 4),
+    ("goods_performance", ("交货地点", "交货期限", "交货", "货款", "支付货款", "验收合格", "对账结算"), 3),
+)
+
+_SERVICE_SIGNALS: Tuple[Tuple[str, Tuple[str, ...], int], ...] = (
+    ("service_obligation", ("提供服务", "服务内容", "服务范围", "委托乙方服务", "乙方提供"), 5),
+    ("service_fee", ("服务费", "服务费用", "咨询费", "技术服务费", "服务报酬"), 5),
+    ("service_scope", ("工作范围", "服务项目", "服务清单", "服务标准"), 3),
+    ("service_term", ("服务期限", "服务期间", "服务周期", "服务时间"), 2),
+    ("service_acceptance", ("服务成果", "成果验收", "验收标准", "验收期限"), 2),
+    ("service_title_hint", ("服务合同", "咨询服务", "技术服务"), 1),
 )
 
 
@@ -57,6 +67,8 @@ def _family_for_contract_type(contract_type: str) -> str:
         return "SALE"
     if value in {"lease", "house_lease", "房屋租赁合同"}:
         return "HOUSE_LEASE"
+    if value in {"service", "服务合同"}:
+        return "SERVICE"
     return value.upper()
 
 
@@ -85,18 +97,21 @@ def _collect_family_evidence(
 def _classify_document_family(text: str, clauses: Sequence[ParsedClause]) -> tuple[str, str, List[DomainSelectionEvidence], Dict[str, int]]:
     lease_score, lease_evidence = _collect_family_evidence(text, clauses, "HOUSE_LEASE", _LEASE_SIGNALS)
     sale_score, sale_evidence = _collect_family_evidence(text, clauses, "SALE", _SALE_SIGNALS)
-    scores = {"SALE": sale_score, "HOUSE_LEASE": lease_score}
-    winner = "SALE" if sale_score >= lease_score else "HOUSE_LEASE"
+    service_score, service_evidence = _collect_family_evidence(text, clauses, "SERVICE", _SERVICE_SIGNALS)
+    scores = {"SALE": sale_score, "HOUSE_LEASE": lease_score, "SERVICE": service_score}
+    winner = max(scores, key=lambda key: scores[key])
     winner_score = scores[winner]
-    margin = abs(sale_score - lease_score)
-    winner_evidence = sale_evidence if winner == "SALE" else lease_evidence
+    runner_up = max((score for key, score in scores.items() if key != winner), default=0)
+    margin = winner_score - runner_up
+    evidence_by_family = {"SALE": sale_evidence, "HOUSE_LEASE": lease_evidence, "SERVICE": service_evidence}
+    winner_evidence = evidence_by_family[winner]
     if winner_score >= 8 and margin >= 4 and len(winner_evidence) >= 2:
         confidence = "high"
     elif winner_score >= 5 and margin >= 2:
         confidence = "medium"
     else:
-        return "UNCERTAIN", "low", lease_evidence + sale_evidence, scores
-    return winner, confidence, lease_evidence + sale_evidence, scores
+        return "UNCERTAIN", "low", lease_evidence + sale_evidence + service_evidence, scores
+    return winner, confidence, lease_evidence + sale_evidence + service_evidence, scores
 
 
 def resolve_domain_selection(
@@ -108,8 +123,7 @@ def resolve_domain_selection(
     selected_family = _family_for_contract_type(selected_contract_type)
     document_family, confidence, evidence, scores = _classify_document_family(text, clauses)
 
-    # Cross-family correction is deliberately limited to the two supported families.
-    comparable = selected_family in {"SALE", "HOUSE_LEASE"}
+    comparable = selected_family in {"SALE", "HOUSE_LEASE", "SERVICE"}
     if document_family == "UNCERTAIN" or not comparable:
         routed_family = selected_family
         resolution = "USER_SELECTION_ACCEPTED"
@@ -131,11 +145,11 @@ def resolve_domain_selection(
         compatibility = "CONFLICT"
         rejected = document_family
 
-    routed_type = "sale" if routed_family == "SALE" else "house_lease" if routed_family == "HOUSE_LEASE" else selected_contract_type
-    document_type = "sale" if document_family == "SALE" else "house_lease" if document_family == "HOUSE_LEASE" else routed_type
+    routed_type = "sale" if routed_family == "SALE" else "house_lease" if routed_family == "HOUSE_LEASE" else "service" if routed_family == "SERVICE" else selected_contract_type
+    document_type = "sale" if document_family == "SALE" else "house_lease" if document_family == "HOUSE_LEASE" else "service" if document_family == "SERVICE" else routed_type
     document_domain = resolve_contract_domain(document_type, text, clauses)
     reasons = [
-        f"document family scores: SALE={scores['SALE']}, HOUSE_LEASE={scores['HOUSE_LEASE']}",
+        f"document family scores: SALE={scores['SALE']}, HOUSE_LEASE={scores['HOUSE_LEASE']}, SERVICE={scores['SERVICE']}",
         f"document family={document_family}, confidence={confidence}",
     ]
     if resolution == "DOCUMENT_OVERRIDE":
@@ -169,9 +183,11 @@ def domain_selection_consistency_gate(
 ) -> Dict[str, Any]:
     resolved = resolution.selected_domain
     if resolved == "SALE":
-        wrong_ids = [item_id for item_id in review_ids if item_id.startswith("HL-")]
+        wrong_ids = [item_id for item_id in review_ids if item_id.startswith(("HL-", "SVC-"))]
     elif resolved == "HOUSE_LEASE":
-        wrong_ids = [item_id for item_id in review_ids if item_id.startswith(("S-", "FS-", "RE-"))]
+        wrong_ids = [item_id for item_id in review_ids if item_id.startswith(("S-", "FS-", "RE-", "SVC-"))]
+    elif resolved == "SERVICE":
+        wrong_ids = [item_id for item_id in review_ids if item_id.startswith(("S-", "FS-", "RE-", "HL-"))]
     else:
         wrong_ids = []
     failures: List[Dict[str, str]] = []

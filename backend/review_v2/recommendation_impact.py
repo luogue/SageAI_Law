@@ -46,6 +46,13 @@ class RecommendationImpact:
     tradeoff_exists: bool
     net_effect: str
     confidence: str
+    legal_requirement_strength: str
+    effect_on_client: str
+    effect_on_counterparty: str
+    default_rule_available: bool
+    dispute_reduction_value: str
+    recommendation_disposition: str
+    decision_reason: str
     reason: str
     gate_result: str
 
@@ -87,6 +94,19 @@ def evaluate_recommendations(
         groups = {finding.risk_group for finding in target_findings}
         source_nodes = {str(getattr(item, "node_id", "") or "") for item in source_items}
         buyer = user_role == "BUYER"
+        service_provider = user_role == "SERVICE_PROVIDER"
+        strengths = {
+            str((getattr(item, "decision_trace", {}) or {}).get("legal_requirement_strength") or "RISK_CONTROL")
+            for item in source_items
+        }
+        strength_rank = {"MANDATORY": 0, "RISK_CONTROL": 1, "DEFAULT_RULE": 2, "OPTIONAL": 3}
+        legal_strength = min(strengths or {"RISK_CONTROL"}, key=lambda value: strength_rank.get(value, 9))
+        optional_only = bool(strengths) and strengths <= {"OPTIONAL", "DEFAULT_RULE"}
+        default_rule_available = legal_strength == "DEFAULT_RULE" or any(
+            str(((getattr(item, "decision_trace", {}) or {}).get("default_law_status") or "")).upper()
+            in {"CLEAR_DEFAULT", "PARTIAL_DEFAULT"}
+            for item in source_items
+        )
         remedy_context = any(
             any(token in value.lower() for token in ("damage", "loss", "remedy", "compensation", "expectation"))
             for value in groups | source_nodes
@@ -109,31 +129,58 @@ def evaluate_recommendations(
         shortens_right_period = buyer and bool(re.search(r"(?:缩短|仅限).{0,12}(?:期限|期间)|(?:期限|期间).{0,12}(?:缩短|仅限)", proposed))
         introduces_cap = buyer and bool(re.search(r"(?:赔偿|责任|损失).{0,12}(?:上限|封顶|最高不超过)", proposed))
         introduces_exclusion = buyer and bool(re.search(r"(?:排除|免责|不予赔偿|不得主张|视为放弃)", proposed))
-        weakens = remedy_limit or risk_shift or liability_increase or accelerates_obligation or counterparty_expansion or shortens_right_period
+        optional_consumer_benefit = service_provider and optional_only and bool(
+            re.search(r"(?:消费者|服务接受方|学员|用户).{0,18}(?:有权|可以|申请|解除|退费|退款|赔偿|补救)", proposed)
+            or re.search(r"(?:服务方|服务提供方|经营者).{0,18}(?:应|须|承担|退还|退款|退费|赔偿|补偿)", proposed)
+        )
+        dispute_reduction_value = "high" if legal_strength in {"MANDATORY", "RISK_CONTROL"} else "medium" if default_rule_available else "low"
+        weakens = remedy_limit or risk_shift or liability_increase or accelerates_obligation or counterparty_expansion or shortens_right_period or optional_consumer_benefit
         tradeoff = bool(re.search(r"(?:作为交换|相应换取|谈判取舍|在对方).{0,20}(?:同意|提供|承担)", proposed))
         blocked = weakens and not tradeoff
-        reason = (
-            "The proposed change narrows or shifts an existing contractual/statutory protection without an explicit negotiated return."
-            if blocked else "The proposed change does not silently reduce the reviewed party's current protection."
+        if blocked and optional_consumer_benefit:
+            reason = "The proposed service-provider change is only an optional consumer benefit and would expand the reviewed party's obligations without a mandatory or risk-control basis."
+        elif blocked:
+            reason = "The proposed change narrows or shifts an existing contractual/statutory protection without an explicit negotiated return."
+        elif service_provider and legal_strength == "MANDATORY":
+            reason = "The proposed service-provider change reflects a mandatory consumer-protection or format-clause obligation; client interest cannot filter it out."
+        elif service_provider and legal_strength == "RISK_CONTROL":
+            reason = "The proposed service-provider change clarifies notice, settlement, cure, evidence, or liability boundaries and reduces dispute cost without creating unbounded new liability."
+        elif service_provider and default_rule_available:
+            reason = "A default legal rule is available; the proposed wording is acceptable only to clarify process and preserve reasonable deductions or defenses."
+        else:
+            reason = "The proposed change does not silently reduce the reviewed party's current protection."
+        effect_on_client = "ADVERSE" if blocked else "FAVORABLE" if legal_strength in {"MANDATORY", "RISK_CONTROL"} else "NEUTRAL"
+        effect_on_counterparty = (
+            "EXPANDS_RIGHTS"
+            if optional_consumer_benefit or any(term in proposed for term in ("消费者", "服务接受方", "学员", "用户"))
+            else "NEUTRAL"
         )
+        recommendation_disposition = "BLOCK" if blocked else "ALLOW"
         impact = RecommendationImpact(
             recommendation_id=recommendation.recommendation_id,
             target_finding_ids=list(recommendation.target_finding_ids), user_role=user_role,
             current_protection=current_protection, proposed_change=proposed,
             current_rights=current_protection if buyer else [], current_obligations=[], current_risks=current_risks,
-            proposed_rights=[], proposed_obligations=[proposed] if liability_increase or accelerates_obligation else [],
+            proposed_rights=[], proposed_obligations=[proposed] if liability_increase or accelerates_obligation or optional_consumer_benefit else [],
             proposed_risks=[proposed] if weakens else [],
             current_effective_rights=current_protection if buyer else [], current_effective_obligations=[],
             proposed_effective_rights=current_protection if buyer and not weakens else [],
-            proposed_effective_obligations=[proposed] if liability_increase or accelerates_obligation else [],
+            proposed_effective_obligations=[proposed] if liability_increase or accelerates_obligation or optional_consumer_benefit else [],
             authority_ids=authority_ids, improves=not weakens, weakens=weakens,
             improves_protection=not weakens, weakens_protection=weakens, narrows_remedy=remedy_limit,
-            increases_liability=liability_increase, accelerates_obligation=accelerates_obligation,
+            increases_liability=liability_increase or optional_consumer_benefit, accelerates_obligation=accelerates_obligation,
             shifts_risk_to_user=risk_shift, expands_counterparty_rights=counterparty_expansion,
             introduces_new_limit=remedy_limit, shortens_user_right_period=shortens_right_period,
             introduces_cap=introduces_cap, introduces_exclusion=introduces_exclusion,
             potentially_weakens_protection=weakens, tradeoff=tradeoff, tradeoff_exists=tradeoff,
             net_effect="DEGRADES" if weakens else "IMPROVES_OR_NEUTRAL", confidence="high",
+            legal_requirement_strength=legal_strength,
+            effect_on_client=effect_on_client,
+            effect_on_counterparty=effect_on_counterparty,
+            default_rule_available=default_rule_available,
+            dispute_reduction_value=dispute_reduction_value,
+            recommendation_disposition=recommendation_disposition,
+            decision_reason=reason,
             reason=reason, gate_result="BLOCKED" if blocked else "PASS",
         )
         impacts.append(impact)

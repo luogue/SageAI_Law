@@ -53,14 +53,25 @@ REAL_ESTATE_SIGNALS: Tuple[Tuple[str, Tuple[str, ...], int], ...] = (
 )
 
 GOODS_SIGNALS: Tuple[Tuple[str, Tuple[str, ...], int], ...] = (
-    ("goods_identity", ("货物名称", "产品名称", "设备名称", "材料名称"), 3),
+    ("goods_identity", ("货物名称", "产品名称", "设备名称", "设备", "材料名称"), 3),
+    ("goods_purchase_obligation", ("购买", "采购", "销售", "供货"), 3),
     ("goods_quantity", ("计量单位", "供货数量", "产品数量", "规格型号"), 3),
-    ("goods_delivery", ("交货地点", "承运人", "物流运输", "分批交货"), 2),
-    ("goods_quality", ("质量标准", "检验标准", "质保期", "包装标准"), 2),
+    ("goods_delivery", ("交货地点", "交货", "承运人", "物流运输", "分批交货"), 2),
+    ("goods_quality", ("质量标准", "检验标准", "验收合格", "质保期", "包装标准"), 2),
+)
+
+SERVICE_SIGNALS: Tuple[Tuple[str, Tuple[str, ...], int], ...] = (
+    ("service_obligation", ("提供服务", "服务内容", "服务范围", "委托乙方服务", "乙方提供"), 4),
+    ("service_fee", ("服务费", "服务费用", "咨询费", "技术服务费", "按服务收费"), 4),
+    ("service_scope", ("工作范围", "服务项目", "服务清单", "服务标准"), 3),
+    ("service_term", ("服务期限", "服务期间", "服务周期", "服务时间"), 2),
+    ("service_acceptance", ("服务成果", "成果验收", "验收标准", "验收期限"), 2),
+    ("service_staff", ("服务人员", "项目人员", "驻场人员", "顾问团队"), 1),
+    ("service_title_hint", ("服务合同", "咨询服务", "技术服务"), 1),
 )
 
 
-def _collect(text: str, clauses: Sequence[ParsedClause], definitions) -> tuple[int, List[ClassificationEvidence]]:
+def _collect(text: str, clauses: Sequence[ParsedClause], definitions, target: str) -> tuple[int, List[ClassificationEvidence]]:
     rows: List[ClassificationEvidence] = []
     score = 0
     for signal_type, terms, weight in definitions:
@@ -68,7 +79,7 @@ def _collect(text: str, clauses: Sequence[ParsedClause], definitions) -> tuple[i
         if not hits:
             continue
         source_ids = [clause.clause_id for clause in clauses if any(term in clause.text for term in hits)][:8]
-        rows.append(ClassificationEvidence(signal_type, hits[0], "REAL_ESTATE" if definitions is REAL_ESTATE_SIGNALS else "GOODS", weight, source_ids))
+        rows.append(ClassificationEvidence(signal_type, hits[0], target, weight, source_ids))
         score += weight
     return score, rows
 
@@ -77,6 +88,35 @@ def resolve_contract_domain(contract_family: str, text: str, clauses: Sequence[P
     family = "SALE" if contract_family in {"sale", "SALE"} else contract_family.upper()
     if family != "SALE":
         is_lease = contract_family in {"lease", "house_lease"}
+        is_service = contract_family in {"service", "SERVICE"}
+        if is_service:
+            service_score, service_evidence = _collect(text, clauses, SERVICE_SIGNALS, "SERVICE")
+            confidence = "high" if service_score >= 8 and len(service_evidence) >= 2 else "medium" if service_score >= 5 else "low"
+            return DomainResolution(
+                contract_family="SERVICE",
+                subject_matter="SERVICE",
+                transaction_nature="SERVICE_PROVISION",
+                contract_subtype="GENERAL_SERVICE",
+                asset_usage="NOT_APPLICABLE",
+                consideration_type="SERVICE_FEE",
+                ownership_transfer=False,
+                possession_transfer=False,
+                transaction_structure="SERVICE" if confidence != "low" else "OTHER",
+                product_category="NOT_APPLICABLE",
+                transaction_purpose="service_provision" if confidence != "low" else "service_structure_pending",
+                jurisdiction="CN",
+                primary_subject="SERVICE",
+                accessory_subjects=[],
+                selected_domain_packs=["shared", "service"],
+                rejected_domain_packs=["sale/goods/general", "lease/residential"],
+                confidence=confidence,
+                evidence=service_evidence,
+                domain_attributes={
+                    "service_score": service_score,
+                    "distinct_service_signal_types": len(service_evidence),
+                    "classification_reason": "SERVICE requires service obligation plus payment/scope/term/acceptance evidence; title is only a weak hint.",
+                },
+            )
         return DomainResolution(
             contract_family=family,
             subject_matter="REAL_ESTATE" if is_lease else "GENERAL",
@@ -96,8 +136,8 @@ def resolve_contract_domain(contract_family: str, text: str, clauses: Sequence[P
             rejected_domain_packs=[], confidence="high" if is_lease else "medium",
         )
 
-    re_score, re_evidence = _collect(text, clauses, REAL_ESTATE_SIGNALS)
-    goods_score, goods_evidence = _collect(text, clauses, GOODS_SIGNALS)
+    re_score, re_evidence = _collect(text, clauses, REAL_ESTATE_SIGNALS, "REAL_ESTATE")
+    goods_score, goods_evidence = _collect(text, clauses, GOODS_SIGNALS, "GOODS")
     if re_score >= 7 and len(re_evidence) >= 2:
         residential = any(term in text for term in ("住宅", "居住", "个人住房"))
         commercial = any(term in text for term in ("商铺", "商业用房", "办公用房")) and not residential

@@ -103,6 +103,15 @@ DISPLAY_LABEL_REGISTRY: Tuple[DomainDisplayLabel, ...] = (
         usage_scenario_label="住宅租赁",
         contract_type_label="房屋租赁合同",
     ),
+    DomainDisplayLabel(
+        family="SERVICE",
+        subject_matter="SERVICE",
+        transaction_structure="SERVICE",
+        subtype="GENERAL_SERVICE",
+        report_title="服务合同审查报告",
+        usage_scenario_label="一般服务合同",
+        contract_type_label="服务合同",
+    ),
 )
 
 
@@ -132,6 +141,8 @@ def _resolve_display_label(
         return DISPLAY_LABEL_REGISTRY[5]
     if family in {"LEASE", "HOUSE_LEASE"}:
         return DISPLAY_LABEL_REGISTRY[6]
+    if family == "SERVICE" or transaction_structure == "SERVICE":
+        return DISPLAY_LABEL_REGISTRY[7]
     return DomainDisplayLabel(
         family=family,
         subject_matter=subject,

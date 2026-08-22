@@ -121,6 +121,49 @@ REVIEW_FACT_REQUIREMENTS: Dict[str, List[str]] = {
     "real_estate_risk_transfer": ["real_estate.delivery.risk_transfer"],
     "real_estate_household_registration": ["real_estate.household"],
     "real_estate_maintenance_fund": ["real_estate.maintenance_fund"],
+    "service_content_standard": [
+        "service.course_name",
+        "service.project_id",
+        "service.total_sessions",
+        "service.session_duration",
+        "service.location",
+        "service.delivery_mode",
+    ],
+    "service_schedule_and_place": [
+        "service.schedule",
+        "service.start_date",
+        "service.end_date",
+        "service.location",
+        "service.delivery_mode",
+    ],
+    "prepaid_amount_and_balance": [
+        "payment.total_fee",
+        "payment.amount_paid",
+        "payment.unit_price",
+        "payment.remaining_balance",
+        "payment.material_fee",
+    ],
+    "prepaid_partly_provided_refund": [
+        "payment.unit_price",
+        "payment.total_sessions",
+        "payment.remaining_balance",
+        "payment.refund_formula",
+        "payment.material_fee",
+    ],
+    "termination_refund_calculation": [
+        "payment.unit_price",
+        "payment.total_sessions",
+        "payment.remaining_balance",
+        "payment.refund_formula",
+        "payment.material_fee",
+    ],
+    "fee_standard_attachment": [
+        "payment.total_fee",
+        "payment.session_fee_total",
+        "payment.unit_price",
+        "payment.material_fee",
+        "payment.fee_schedule",
+    ],
 }
 
 
@@ -144,6 +187,14 @@ def _add_matches(graph: ContractFactGraph, clause: ParsedClause, fact_type: str,
     for match in re.finditer(pattern, clause.text, re.IGNORECASE):
         value = match.group(group).strip()
         graph.add(fact_type, value, clause, normalize(value) if normalize else value)
+
+
+def _add_first_match(graph: ContractFactGraph, clause: ParsedClause, fact_type: str, pattern: str, group: int = 1, normalize=None) -> None:
+    match = re.search(pattern, clause.text, re.IGNORECASE)
+    if not match:
+        return
+    value = match.group(group).strip()
+    graph.add(fact_type, value, clause, normalize(value) if normalize else value)
 
 
 def extract_contract_fact_graph(clauses: List[ParsedClause]) -> ContractFactGraph:
@@ -302,5 +353,41 @@ def extract_contract_fact_graph(clauses: List[ParsedClause]) -> ContractFactGrap
             graph.add("contract.effective_condition", compacted[:400], clause)
         if "中华人民共和国合同法" in text:
             graph.add("legal.legacy_reference", "中华人民共和国合同法", clause)
+
+        if any(term in text for term in ("培训", "课程", "课时", "上课", "服务费", "培训费", "课时费")):
+            _add_matches(graph, clause, "service.course_name", r"(?:课程名称|服务名称|培训项目)[：:]\s*([^，。；;\n]+)")
+            _add_first_match(graph, clause, "service.project_id", r"(?:班级编号|班号|项目编号|服务项目编号)[：:]\s*([A-Za-z0-9][A-Za-z0-9_.\-]{2,40})")
+            total_sessions = re.search(r"(?:总课时|课时总数|合计课时|课程共)\s*[：:]?\s*(\d+(?:\.\d+)?)\s*(?:节|课时|次)", text)
+            if total_sessions:
+                graph.add("service.total_sessions", total_sessions.group(1), clause, _number(total_sessions.group(1)))
+                graph.add("payment.total_sessions", total_sessions.group(1), clause, _number(total_sessions.group(1)))
+            session_match = re.search(r"(?:每次|单次|每节)[^。；;\n]{0,20}?(?:\d+(?:\.\d+)?\s*(?:节|课时|小时|分钟))[^。；;\n]{0,24}?(?:\d+(?:\.\d+)?\s*分钟)?", text)
+            if session_match:
+                graph.add("service.session_duration", session_match.group(0).strip(), clause)
+            _add_first_match(graph, clause, "service.schedule", r"(?:上课时间|服务时间|排课时间)[：:]\s*([^。；;\n]+)")
+            _add_first_match(graph, clause, "service.start_date", r"(?:开课日期|服务开始日期|开始日期)[：:为\s]*(20\d{2}[年/.-]\d{1,2}[月/.-]\d{1,2}日?)", normalize=_date)
+            _add_first_match(graph, clause, "service.end_date", r"(?:预计结课日期|结课日期|服务结束日期|结束日期)[：:为\s]*(20\d{2}[年/.-]\d{1,2}[月/.-]\d{1,2}日?)", normalize=_date)
+            _add_first_match(graph, clause, "service.location", r"(?:培训地点|上课地点|服务地点)[：:]\s*([^。；;\n]+)")
+            if any(term in text for term in ("线上", "线下", "面授", "远程", "到店", "预约")):
+                graph.add("service.delivery_mode", compacted[:240], clause)
+
+            for match in re.finditer(r"(?:培训费用合计|费用合计|培训费合计|服务费合计|培训费用总额|服务费总额|预付款金额|总金额)[^\d]{0,12}([\d,]+(?:\.\d+)?)\s*元", text):
+                graph.add("payment.total_fee", match.group(1), clause, _number(match.group(1)))
+            for match in re.finditer(r"(?:课时费|课程费)[^\d]{0,12}([\d,]+(?:\.\d+)?)\s*元", text):
+                graph.add("payment.session_fee_total", match.group(1), clause, _number(match.group(1)))
+            for match in re.finditer(r"([\d,]+(?:\.\d+)?)\s*元\s*/\s*(?:节|课时|次|小时)", text):
+                graph.add("payment.unit_price", match.group(1), clause, _number(match.group(1)))
+            for match in re.finditer(r"[×xX*]\s*(\d+(?:\.\d+)?)\s*(?:节|课时|次|小时)", text):
+                graph.add("payment.total_sessions", match.group(1), clause, _number(match.group(1)))
+            for match in re.finditer(r"(?:资料费|教材费|材料费)[^\d]{0,12}([\d,]+(?:\.\d+)?)\s*元", text):
+                graph.add("payment.material_fee", match.group(1), clause, _number(match.group(1)))
+            for match in re.finditer(r"(?:已付|已支付|支付|付款)[^\d]{0,16}([\d,]+(?:\.\d+)?)\s*元", text):
+                graph.add("payment.amount_paid", match.group(1), clause, _number(match.group(1)))
+            if any(term in text for term in ("余额", "剩余课时", "未消耗课时", "剩余费用", "未提供服务")):
+                graph.add("payment.remaining_balance", compacted[:300], clause)
+            if any(term in text for term in ("退费", "退款", "按实际课时", "实际消耗课时", "未消耗课时", "未提供服务")):
+                graph.add("payment.refund_formula", compacted[:400], clause)
+            if any(term in text for term in ("收费标准", "费用明细", "价目表", "课时费", "资料费", "教材费")):
+                graph.add("payment.fee_schedule", compacted[:400], clause)
 
     return graph

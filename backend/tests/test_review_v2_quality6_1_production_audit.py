@@ -146,7 +146,9 @@ def test_contract_context_is_fresh_across_request_order():
     assert first_sale["contract_context"]["usage_scenario"] == "GENERAL_GOODS_SALE"
     assert first_sale["contract_context"]["domain_attributes"]["lease_fields_used"] is False
     assert first_lease["contract_context"]["usage_scenario"] == "residential_living"
-    assert service["contract_context"]["usage_scenario"] == "general_contract"
+    assert service["contract_context"]["usage_scenario"] == "GENERAL_SERVICE"
+    assert service["contract_context"]["transaction_structure"] == "SERVICE"
+    assert service["contract_context"]["domain_attributes"]["lease_fields_used"] is False
     assert len({output["contract_review_trace_id"] for output in outputs}) == len(outputs)
 
 

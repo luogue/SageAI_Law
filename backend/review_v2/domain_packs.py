@@ -196,6 +196,18 @@ HOUSE_LEASE_DOMAIN_PACK = DomainPack(
     },
 )
 
+SERVICE_DOMAIN_PACK = DomainPack(
+    contract_type="service",
+    version="domain-pack-service-1.0",
+    context_defaults={
+        "contract_subtype": "GENERAL_SERVICE",
+        "transaction_purpose": "service_provision",
+        "usage_scenario": "GENERAL_SERVICE",
+        "payment_structure": "service_fee_payment",
+        "delivery_structure": "service_performance",
+    },
+)
+
 
 SALE_COMMON_DOMAIN_PACK = DomainPack(
     contract_type="sale", version="domain-pack-sale-common-1.0", pack_id="sale/common",
@@ -251,6 +263,7 @@ DOMAIN_PACKS: Dict[str, DomainPack] = {
     "sale": SALE_DOMAIN_PACK,
     "house_lease": HOUSE_LEASE_DOMAIN_PACK,
     "lease": HOUSE_LEASE_DOMAIN_PACK,
+    "service": SERVICE_DOMAIN_PACK,
     "sale/common": SALE_COMMON_DOMAIN_PACK,
     "sale/goods/general": SALE_GOODS_GENERAL_DOMAIN_PACK,
     "sale/goods/equipment": SALE_GOODS_EQUIPMENT_DOMAIN_PACK,

@@ -46,6 +46,10 @@ class ReviewCheckpoint:
     applicability_triggers: Terms = ()
     claim_requirements: Terms = ()
     polarity: ReviewPolarity = "POSITIVE_REQUIREMENT"
+    review_nature: str = "CONTRACTUAL_REQUIREMENT"
+    requirement_medium: str = "CONTRACT_TEXT"
+    legal_requirement_strength: str = "RISK_CONTROL"
+    action_type: str = "CONTRACT_EDIT"
 
 
 def _required(

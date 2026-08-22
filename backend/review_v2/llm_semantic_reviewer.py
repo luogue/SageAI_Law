@@ -14,6 +14,7 @@ from dataclasses import replace
 from typing import Any, Dict, List, Sequence
 
 from review_v2.clause_parser import ParsedClause
+from review_v2.contract_facts import ContractFactGraph
 from review_v2.house_lease_checklist import ReviewCheckpoint
 from review_v2.semantic_reviewer import (
     COVERAGE_MISSING,
@@ -604,8 +605,9 @@ def judge_checkpoint_with_llm(
     clauses: Sequence[ParsedClause],
     *,
     use_llm: bool = True,
+    fact_graph: ContractFactGraph | None = None,
 ) -> ReviewJudgment:
-    rule_judgment = judge_checkpoint(checkpoint, clauses)
+    rule_judgment = judge_checkpoint(checkpoint, clauses, fact_graph=fact_graph)
     if not use_llm:
         return _fallback(rule_judgment, "本次审查未启用大模型语义复核，使用规则判定")
     if not llm_review_enabled():
@@ -613,7 +615,7 @@ def judge_checkpoint_with_llm(
     if not _has_configured_model():
         return _fallback(rule_judgment, "未配置可用模型 API Key，使用规则判定")
 
-    candidates, terms = recall_candidate_clauses(checkpoint, clauses, max_candidates=_max_candidates())
+    candidates, terms = recall_candidate_clauses(checkpoint, clauses, fact_graph=fact_graph, max_candidates=_max_candidates())
     if not candidates:
         return _fallback(rule_judgment, "未召回候选正式条款，使用规则判定")
 
@@ -634,12 +636,13 @@ def judge_checkpoints_with_llm(
     clauses: Sequence[ParsedClause],
     *,
     use_llm: bool = True,
+    fact_graph: ContractFactGraph | None = None,
 ) -> Dict[str, ReviewJudgment]:
     rule_entries: List[Dict[str, Any]] = []
     results: Dict[str, ReviewJudgment] = {}
 
     for checkpoint in checkpoints:
-        rule_judgment = judge_checkpoint(checkpoint, clauses)
+        rule_judgment = judge_checkpoint(checkpoint, clauses, fact_graph=fact_graph)
         if not use_llm:
             results[checkpoint.item_id] = _fallback(rule_judgment, "本次审查未启用大模型语义复核，使用规则判定")
             continue
@@ -650,7 +653,7 @@ def judge_checkpoints_with_llm(
             results[checkpoint.item_id] = _fallback(rule_judgment, "未配置可用模型 API Key，使用规则判定")
             continue
 
-        candidates, terms = recall_candidate_clauses(checkpoint, clauses, max_candidates=_max_candidates())
+        candidates, terms = recall_candidate_clauses(checkpoint, clauses, fact_graph=fact_graph, max_candidates=_max_candidates())
         if not candidates:
             results[checkpoint.item_id] = _fallback(rule_judgment, "未召回候选正式条款，使用规则判定")
             continue

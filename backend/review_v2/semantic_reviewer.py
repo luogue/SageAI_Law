@@ -647,6 +647,7 @@ def recall_candidate_clauses(
     checkpoint: ReviewCheckpoint,
     clauses: Sequence[ParsedClause],
     *,
+    fact_graph: ContractFactGraph | None = None,
     max_candidates: int = 4,
 ) -> tuple[List[ParsedClause], List[str]]:
     if checkpoint.node_id not in _RETRIEVAL_ALIASES and not fact_requirements_for_node(checkpoint.node_id):
@@ -654,6 +655,7 @@ def recall_candidate_clauses(
     candidates, terms, _ = retrieve_evidence_candidates(
         checkpoint,
         clauses,
+        fact_graph=fact_graph,
         max_candidates=max_candidates,
     )
     return candidates, terms
@@ -888,8 +890,13 @@ def evidence_substantively_matches(checkpoint: ReviewCheckpoint, clauses: Sequen
     return True
 
 
-def judge_checkpoint(checkpoint: ReviewCheckpoint, clauses: Sequence[ParsedClause]) -> ReviewJudgment:
-    candidates, terms = recall_candidate_clauses(checkpoint, clauses)
+def judge_checkpoint(
+    checkpoint: ReviewCheckpoint,
+    clauses: Sequence[ParsedClause],
+    *,
+    fact_graph: ContractFactGraph | None = None,
+) -> ReviewJudgment:
+    candidates, terms = recall_candidate_clauses(checkpoint, clauses, fact_graph=fact_graph)
     evidence = _public_evidence(candidates)
     evidence_location = _locations(candidates)
 
