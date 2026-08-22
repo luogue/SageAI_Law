@@ -16,6 +16,29 @@ from review_v2.clause_parser import ParsedClause
 FACT_GRAPH_VERSION = "contract-fact-graph-1.0"
 
 
+CANONICAL_FACT_ALIASES: Dict[str, str] = {
+    "course_name": "service.course_name",
+    "training_course_name": "service.course_name",
+    "service_name": "service.course_name",
+    "class_id": "service.project_id",
+    "class_number": "service.project_id",
+    "project_id": "service.project_id",
+    "training_project_id": "service.project_id",
+    "total_lessons": "service.total_sessions",
+    "total_classes": "service.total_sessions",
+    "service_count": "service.total_sessions",
+    "training_fee": "payment.total_fee",
+    "service_fee": "payment.total_fee",
+    "prepaid_total": "payment.total_fee",
+    "contract_total_fee": "payment.total_fee",
+}
+
+
+def canonical_fact_key(fact_type: str) -> str:
+    key = str(fact_type or "").strip()
+    return CANONICAL_FACT_ALIASES.get(key, key)
+
+
 @dataclass(frozen=True)
 class ContractFact:
     fact_id: str
@@ -24,6 +47,7 @@ class ContractFact:
     normalized_value: Any
     source_clause_ids: List[str]
     source_spans: List[str]
+    source_locations: List[str]
     confidence: str = "high"
 
     def to_public_dict(self) -> Dict[str, Any]:
@@ -34,10 +58,15 @@ class ContractFact:
 class ContractFactGraph:
     version: str = FACT_GRAPH_VERSION
     facts: Dict[str, List[ContractFact]] = field(default_factory=dict)
+    snapshot_id: str = ""
+    frozen: bool = False
 
     def add(self, fact_type: str, value: Any, clause: ParsedClause, normalized_value: Any = None) -> None:
+        if self.frozen:
+            raise RuntimeError("ContractFactRegistry snapshot is immutable after freeze().")
         if value in (None, "", []):
             return
+        fact_type = canonical_fact_key(fact_type)
         normalized = value if normalized_value is None else normalized_value
         existing = self.facts.setdefault(fact_type, [])
         identity = (str(normalized), clause.clause_id)
@@ -51,12 +80,18 @@ class ContractFactGraph:
                 normalized_value=normalized,
                 source_clause_ids=[clause.clause_id],
                 source_spans=[clause.text],
+                source_locations=[clause.location],
             )
         )
+
+    def freeze(self, snapshot_id: str) -> None:
+        self.snapshot_id = snapshot_id
+        self.frozen = True
 
     def matching(self, requirements: Iterable[str]) -> List[ContractFact]:
         result: List[ContractFact] = []
         for requirement in requirements:
+            requirement = canonical_fact_key(requirement)
             for fact_type, facts in self.facts.items():
                 if fact_type == requirement or fact_type.startswith(requirement + ".") or requirement.startswith(fact_type + "."):
                     result.extend(facts)
@@ -68,6 +103,8 @@ class ContractFactGraph:
     def to_public_dict(self) -> Dict[str, Any]:
         return {
             "version": self.version,
+            "snapshot_id": self.snapshot_id,
+            "frozen": self.frozen,
             "facts": {
                 fact_type: [fact.to_public_dict() for fact in facts]
                 for fact_type, facts in self.facts.items()
@@ -357,7 +394,10 @@ def extract_contract_fact_graph(clauses: List[ParsedClause]) -> ContractFactGrap
         if any(term in text for term in ("培训", "课程", "课时", "上课", "服务费", "培训费", "课时费")):
             _add_matches(graph, clause, "service.course_name", r"(?:课程名称|服务名称|培训项目)[：:]\s*([^，。；;\n]+)")
             _add_first_match(graph, clause, "service.project_id", r"(?:班级编号|班号|项目编号|服务项目编号)[：:]\s*([A-Za-z0-9][A-Za-z0-9_.\-]{2,40})")
-            total_sessions = re.search(r"(?:总课时|课时总数|合计课时|课程共)\s*[：:]?\s*(\d+(?:\.\d+)?)\s*(?:节|课时|次)", text)
+            total_sessions = re.search(
+                r"(?:总课时(?:数)?(?:（节）|\(节\))?|课时总数|合计课时|课程共)\s*[：:]?\s*(\d+(?:\.\d+)?)\s*(?:节|课时|次)",
+                text,
+            )
             if total_sessions:
                 graph.add("service.total_sessions", total_sessions.group(1), clause, _number(total_sessions.group(1)))
                 graph.add("payment.total_sessions", total_sessions.group(1), clause, _number(total_sessions.group(1)))
@@ -371,7 +411,10 @@ def extract_contract_fact_graph(clauses: List[ParsedClause]) -> ContractFactGrap
             if any(term in text for term in ("线上", "线下", "面授", "远程", "到店", "预约")):
                 graph.add("service.delivery_mode", compacted[:240], clause)
 
-            for match in re.finditer(r"(?:培训费用合计|费用合计|培训费合计|服务费合计|培训费用总额|服务费总额|预付款金额|总金额)[^\d]{0,12}([\d,]+(?:\.\d+)?)\s*元", text):
+            for match in re.finditer(
+                r"(?:培训费用合计|费用合计|培训费合计|服务费合计|培训费用总额|服务费总额|预付款金额|总金额)[^。；;\n]{0,40}?([\d,]+(?:\.\d+)?)\s*元",
+                text,
+            ):
                 graph.add("payment.total_fee", match.group(1), clause, _number(match.group(1)))
             for match in re.finditer(r"(?:课时费|课程费)[^\d]{0,12}([\d,]+(?:\.\d+)?)\s*元", text):
                 graph.add("payment.session_fee_total", match.group(1), clause, _number(match.group(1)))

@@ -6,7 +6,9 @@ from pathlib import Path
 from types import SimpleNamespace
 
 from review_v2.recommendation_impact import evaluate_recommendations
-from review_v2.engine import ReviewItemResult, _combine_quality_gates, _coverage_elements_for_item, review_contract_v2
+from review_v2.clause_parser import parse_contract_clauses
+from review_v2.contract_facts import ContractFactGraph, canonical_fact_key, extract_contract_fact_graph
+from review_v2.engine import ReviewItemResult, _combine_quality_gates, _contract_fact_registry_gate, _coverage_elements_for_item, review_contract_v2
 from routers.review_v2 import review_v2_file
 
 
@@ -327,6 +329,105 @@ def test_registry_found_fact_is_not_overridden_by_empty_legacy_evidence():
 
     assert by_element["service_name"].status == "COVERED"
     assert by_element["service_name"].claim_id == "service.course_name"
+
+
+def test_service_fact_aliases_normalize_to_canonical_keys_and_snapshot_freezes():
+    assert canonical_fact_key("total_lessons") == "service.total_sessions"
+    assert canonical_fact_key("total_classes") == "service.total_sessions"
+    assert canonical_fact_key("service_count") == "service.total_sessions"
+    assert canonical_fact_key("training_fee") == "payment.total_fee"
+    assert canonical_fact_key("service_fee") == "payment.total_fee"
+
+    clause = parse_contract_clauses("服务合同。总课时：20节。培训费用合计：4000元。")[0]
+    graph = ContractFactGraph()
+    graph.add("total_lessons", "20", clause, 20.0)
+    graph.add("training_fee", "4000", clause, 4000.0)
+    assert "service.total_sessions" in graph.facts
+    assert "payment.total_fee" in graph.facts
+    graph.freeze("CFR-TEST")
+    try:
+        graph.add("service_count", "21", clause, 21.0)
+    except RuntimeError as exc:
+        assert "immutable" in str(exc)
+    else:
+        raise AssertionError("Frozen ContractFactRegistry accepted a mutation")
+
+
+def test_cross_review_fact_conflict_and_snapshot_mismatch_are_blocking():
+    gate = _contract_fact_registry_gate({
+        "registry_snapshot_consistency": "FAIL",
+        "facts": [],
+        "cross_review_fact_conflicts": [{
+            "canonical_fact_key": "service.total_sessions",
+            "statuses": ["FOUND", "MISSING"],
+        }],
+        "fact_truth_override_violations": [],
+        "fact_consumer_mapping_missing": [],
+    })
+
+    assert gate["status"] == "BLOCKED"
+    assert {row["requirement"] for row in gate["failures"]} == {
+        "REGISTRY_SNAPSHOT_MISMATCH",
+        "CROSS_REVIEW_FACT_CONFLICT",
+    }
+
+
+def test_real_service_contract_registry_and_evidence_ownership_use_production_entry():
+    path = next((ROOT / "test_data").glob("3*.docx"))
+    result = _review_file(path, "service")
+    by_id = _items_by_id(result)
+    fact_rows = {
+        row["canonical_fact_key"]: row
+        for row in result["observability"]["contract_fact_flow_audit"]["facts"]
+    }
+    findings = {row["risk_group"]: row for row in result["risk_findings"]}
+
+    assert result["release_quality_gate"]["status"] == "REPORT_READY"
+    assert fact_rows["service.total_sessions"]["registry_status"] == "FOUND"
+    assert fact_rows["service.total_sessions"]["registry_value"] == "60"
+    assert fact_rows["payment.total_fee"]["registry_status"] == "FOUND"
+    assert fact_rows["payment.total_fee"]["normalized_value"] == 12600.0
+    assert result["observability"]["contract_fact_flow_audit"]["registry_build_count"] == 1
+    assert result["observability"]["contract_fact_flow_audit"]["registry_frozen"] is True
+    assert result["observability"]["contract_fact_flow_audit"]["cross_review_fact_conflicts"] == []
+    assert result["observability"]["contract_fact_flow_audit"]["fact_truth_override_violations"] == []
+    assert result["observability"]["risk_evidence_ownership_audit"]["risk_evidence_mismatches"] == []
+
+    assert by_id["SVC-03-01"]["coverage_elements"][2]["fact_status"] == "FOUND"
+    assert any(row.get("location") == "第一条（一）" for row in by_id["SVC-03-01"]["evidence_clauses"])
+    assert any(row.get("location") == "第二条（一）" for row in by_id["SVC-04-02"]["evidence_clauses"])
+
+    scope_evidence = findings["service_scope_delivery_standard"]["evidence"]
+    fee_evidence = findings["service_fee_balance_transparency"]["evidence"]
+    assert any(row.get("location") == "第一条（一）" for row in scope_evidence)
+    assert any(row.get("location") == "第二条（一）" for row in fee_evidence)
+    assert all(row.get("supporting_element_ids") for row in scope_evidence + fee_evidence)
+    assert all(row.get("supporting_review_ids") for row in scope_evidence + fee_evidence)
+
+
+def test_service_fact_mutations_change_all_registry_consumers_together():
+    base = (
+        "培训服务合同。课程名称：数学培训。总课时数（节）：60节。"
+        "培训费用合计：（小写）12,600元。200元/节。培训资料费：600元。"
+    )
+    without_sessions = base.replace("总课时数（节）：60节。", "")
+    without_total_fee = base.replace("培训费用合计：（小写）12,600元。", "")
+
+    def consumer_states(text: str, fact_key: str) -> set[str]:
+        result = review_contract_v2(text, "service", use_llm=False)
+        rows = {
+            row["canonical_fact_key"]: row
+            for row in result["observability"]["contract_fact_flow_audit"]["facts"]
+        }
+        return {
+            str(row["received_fact_status"])
+            for row in rows[fact_key]["consumers"]
+        }
+
+    assert consumer_states(base, "service.total_sessions") == {"FOUND"}
+    assert consumer_states(without_sessions, "service.total_sessions") == {"MISSING"}
+    assert consumer_states(base, "payment.total_fee") == {"FOUND"}
+    assert consumer_states(without_total_fee, "payment.total_fee") == {"MISSING"}
 
 
 def test_registry_conflicting_fact_blocks_report_instead_of_selecting_one_value():

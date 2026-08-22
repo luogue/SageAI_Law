@@ -13,7 +13,7 @@ from datetime import datetime
 from typing import Any, Dict, Iterable, List, Optional
 
 from review_v2.clause_parser import ParsedClause, document_integrity, formal_evidence_clauses, parse_contract_clauses, strip_non_contract_tail
-from review_v2.contract_facts import ContractFactGraph, extract_contract_fact_graph, fact_requirements_for_node
+from review_v2.contract_facts import ContractFactGraph, canonical_fact_key, extract_contract_fact_graph, fact_requirements_for_node
 from review_v2.framework_supply import (
     FRAMEWORK_REVIEW_FACT_PATHS,
     FrameworkSupplyProfile,
@@ -275,6 +275,9 @@ class ReviewItemResult:
     coverage_elements: List[Dict[str, Any]] = field(default_factory=list)
     review_evidence_provenance: Dict[str, Any] = field(default_factory=dict)
     narrative_state: Dict[str, Any] = field(default_factory=dict)
+    review_evidence_supports_element_ids: List[str] = field(default_factory=list)
+    review_evidence_relevance_score: float = 0.0
+    review_evidence_selection_reason: str = ""
 
     def to_public_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -462,6 +465,12 @@ class CoverageElementResult:
     atomic: bool = True
     child_elements: List[str] = field(default_factory=list)
     legal_proposition_ids: List[str] = field(default_factory=list)
+    required_fact_key: str = ""
+    fact_status: str = ""
+    fact_value: Any = None
+    fact_evidence_refs: List[str] = field(default_factory=list)
+    requirement_status: str = ""
+    requirement_reason: str = ""
 
     def to_public_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -2505,6 +2514,24 @@ def _coverage_elements_for_item(item: ReviewItemResult, canonical_claims: Option
                 legal_proposition_ids=list(element.get("legal_proposition_ids") or []),
             )
         )
+    element_requirements = {
+        str(element.get("element_id") or ""): canonical_fact_key(str(element.get("required_fact") or ""))
+        for element in claim.required_elements
+    }
+    registry_facts = ((item.decision_trace or {}).get("contract_fact_registry_consumption") or {}).get("facts") or {}
+    for result in results:
+        required_fact = element_requirements.get(result.element_id, "")
+        result.required_fact_key = required_fact
+        if required_fact:
+            registry_row = registry_facts.get(required_fact) or {}
+            result.fact_status = str(registry_row.get("status") or _element_truth_status(result.status))
+            result.fact_value = registry_row.get("value")
+            result.fact_evidence_refs = list(registry_row.get("fact_ids") or result.evidence_ids)
+        else:
+            result.fact_status = _element_truth_status(result.status)
+            result.fact_evidence_refs = list(result.evidence_ids)
+        result.requirement_status = "SATISFIED" if result.status == "COVERED" else "PARTIAL" if result.status == "PARTIALLY_COVERED" else "UNCERTAIN" if result.status == "UNCERTAIN" else "NOT_SATISFIED"
+        result.requirement_reason = result.reason
     return results
 
 
@@ -2774,6 +2801,88 @@ def _apply_coverage_evidence_gate(items: List[ReviewItemResult], canonical_claim
             item.decision_trace["element_evidence_truth"] = _element_truth_records(elements)
             item.narrative_state = _build_narrative_state(item)
             item.decision_trace["narrative_elements"] = item.narrative_state
+    return items
+
+
+def _apply_review_evidence_ownership(items: List[ReviewItemResult]) -> List[ReviewItemResult]:
+    """Promote evidence that directly supports the review's resolved element truth."""
+    for item in items:
+        registry_bound = any(
+            element.get("required_fact_key")
+            for element in item.coverage_elements or []
+        )
+        if not registry_bound:
+            supported_ids: set[str] = set()
+            for evidence in item.evidence_clauses or []:
+                clause_id = str(evidence.get("clause_id") or "")
+                linked = [
+                    str(element.get("element_id") or "")
+                    for element in item.coverage_elements or []
+                    if clause_id and clause_id in {str(value) for value in element.get("source_clause_ids") or []}
+                ]
+                if linked:
+                    evidence["supporting_element_ids"] = list(dict.fromkeys(linked))
+                    evidence["canonical_fact_keys"] = []
+                    evidence["relevance_score"] = 1.0
+                    evidence["selection_reason"] = "Existing evidence directly supports resolved ReviewElementTruth."
+                    supported_ids.update(linked)
+            item.review_evidence_supports_element_ids = sorted(supported_ids)
+            item.review_evidence_relevance_score = 1.0 if supported_ids else 0.0
+            item.review_evidence_selection_reason = "Existing non-Registry evidence order was preserved and ownership metadata was attached in place."
+            item.decision_trace["review_evidence_ownership"] = {
+                "review_evidence_supports_element_ids": list(item.review_evidence_supports_element_ids),
+                "review_evidence_relevance_score": item.review_evidence_relevance_score,
+                "review_evidence_selection_reason": item.review_evidence_selection_reason,
+            }
+            continue
+        selected: List[Dict[str, Any]] = []
+        by_clause: Dict[str, Dict[str, Any]] = {}
+        for element in item.coverage_elements or []:
+            if element.get("status") not in {"COVERED", "PARTIALLY_COVERED"}:
+                continue
+            element_id = str(element.get("element_id") or "")
+            fact_key = canonical_fact_key(str(element.get("required_fact_key") or element.get("claim_id") or ""))
+            clause_ids = list(element.get("source_clause_ids") or [])
+            spans = list(element.get("source_spans") or [])
+            locations = list(element.get("source_locations") or [])
+            for index, span in enumerate(spans):
+                clause_id = str(clause_ids[index] if index < len(clause_ids) else (clause_ids[0] if clause_ids else ""))
+                location = str(locations[index] if index < len(locations) else (locations[0] if locations else ""))
+                key = clause_id or f"SPAN-{hashlib.sha256(str(span).encode('utf-8')).hexdigest()[:10]}"
+                row = by_clause.setdefault(key, {
+                    "evidence_id": f"RE-{item.item_id}-{len(by_clause) + 1:03d}",
+                    "clause_id": clause_id,
+                    "location": location,
+                    "text": str(span),
+                    "original_excerpt": str(span),
+                    "evidence_type": "REGISTRY_FACT_EVIDENCE" if fact_key else "ELEMENT_DIRECT_EVIDENCE",
+                    "entailment_status": EVIDENCE_SUPPORTS if element.get("status") == "COVERED" else EVIDENCE_PARTIAL_SUPPORT,
+                    "supporting_element_ids": [],
+                    "canonical_fact_keys": [],
+                    "relevance_score": 1.0,
+                    "selection_reason": "Direct source evidence for resolved ReviewElementTruth.",
+                })
+                if element_id and element_id not in row["supporting_element_ids"]:
+                    row["supporting_element_ids"].append(element_id)
+                if fact_key and "." in fact_key and fact_key not in row["canonical_fact_keys"]:
+                    row["canonical_fact_keys"].append(fact_key)
+        selected.extend(by_clause.values())
+        if selected:
+            selected.sort(key=lambda row: (-len(row.get("supporting_element_ids") or []), str(row.get("location") or "")))
+            item.evidence_clauses = selected
+            item.evidence_location = "；".join(dict.fromkeys(str(row.get("location") or "") for row in selected if row.get("location")))
+            item.review_evidence_supports_element_ids = sorted({element_id for row in selected for element_id in row.get("supporting_element_ids") or []})
+            item.review_evidence_relevance_score = round(sum(float(row.get("relevance_score") or 0.0) for row in selected) / len(selected), 3)
+            item.review_evidence_selection_reason = "Registry/element direct evidence was selected before legacy retrieval evidence."
+        else:
+            item.review_evidence_supports_element_ids = []
+            item.review_evidence_relevance_score = 0.0
+            item.review_evidence_selection_reason = "No positive element evidence; absence or manual-review evidence remains unchanged."
+        item.decision_trace["review_evidence_ownership"] = {
+            "review_evidence_supports_element_ids": list(item.review_evidence_supports_element_ids),
+            "review_evidence_relevance_score": item.review_evidence_relevance_score,
+            "review_evidence_selection_reason": item.review_evidence_selection_reason,
+        }
     return items
 
 
@@ -3307,6 +3416,7 @@ def _fact_registry_snapshot_id(fact_graph: ContractFactGraph) -> str:
 
 
 def _contract_fact_lookup(fact_graph: ContractFactGraph, fact_key: str) -> Dict[str, Any]:
+    fact_key = canonical_fact_key(fact_key)
     facts = list(fact_graph.facts.get(fact_key, []))
     if not facts:
         return {
@@ -3319,6 +3429,8 @@ def _contract_fact_lookup(fact_graph: ContractFactGraph, fact_key: str) -> Dict[
             "source_spans": [],
             "source_locations": [],
             "confidence": "low",
+            "extraction_source": "CONTRACT_FACT_REGISTRY",
+            "derived_from": [],
         }
     normalized_values = {
         json.dumps(fact.normalized_value, ensure_ascii=False, sort_keys=True, default=str)
@@ -3335,15 +3447,17 @@ def _contract_fact_lookup(fact_graph: ContractFactGraph, fact_key: str) -> Dict[
         "fact_ids": [fact.fact_id for fact in facts],
         "source_clause_ids": list(dict.fromkeys(clause_id for fact in facts for clause_id in fact.source_clause_ids)),
         "source_spans": list(dict.fromkeys(span for fact in facts for span in fact.source_spans)),
-        "source_locations": [],
+        "source_locations": list(dict.fromkeys(location for fact in facts for location in fact.source_locations if location)),
         "confidence": "high" if status == "FOUND" else "low",
+        "extraction_source": "CONTRACT_FACT_REGISTRY",
+        "derived_from": [],
     }
 
 
 def _required_fact_keys_for_item(item: ReviewItemResult) -> List[str]:
     claim = _coverage_claim_for_item(item)
     element_keys = [
-        str(element.get("required_fact") or "")
+        canonical_fact_key(str(element.get("required_fact") or ""))
         for element in claim.required_elements
         if element.get("required_fact")
     ]
@@ -3356,7 +3470,7 @@ def _attach_contract_fact_registry_snapshot(
     snapshot_id: str,
 ) -> None:
     for item in items:
-        keys = _required_fact_keys_for_item(item)
+        keys = [canonical_fact_key(key) for key in _required_fact_keys_for_item(item)]
         facts = {key: _contract_fact_lookup(fact_graph, key) for key in keys}
         item.decision_trace["fact_registry_snapshot_id"] = snapshot_id
         item.decision_trace["contract_fact_registry_consumption"] = {
@@ -3373,10 +3487,12 @@ def _attach_contract_fact_registry_snapshot(
 def _contract_fact_flow_audit(items: List[ReviewItemResult], fact_graph: ContractFactGraph, snapshot_id: str) -> Dict[str, Any]:
     by_key: Dict[str, Dict[str, Any]] = {}
     conflicts: List[Dict[str, Any]] = []
+    override_violations: List[Dict[str, Any]] = []
+    mapping_missing: List[Dict[str, Any]] = []
     for item in items:
         claim = _coverage_claim_for_item(item)
         element_fact_keys = {
-            str(element.get("element_id")): str(element.get("required_fact"))
+            str(element.get("element_id")): canonical_fact_key(str(element.get("required_fact")))
             for element in claim.required_elements
             if element.get("required_fact")
         }
@@ -3386,61 +3502,122 @@ def _contract_fact_flow_audit(items: List[ReviewItemResult], fact_graph: Contrac
             if element.get("element_id")
         }
         consumption = (item.decision_trace or {}).get("contract_fact_registry_consumption") or {}
-        for fact_key in _required_fact_keys_for_item(item):
+        for element_id, fact_key in element_fact_keys.items():
             registry_row = ((consumption.get("facts") or {}).get(fact_key)) or _contract_fact_lookup(fact_graph, fact_key)
             row = by_key.setdefault(
                 fact_key,
                 {
                     "canonical_fact_key": fact_key,
+                    "registry_snapshot_id": snapshot_id,
                     "registry_status": registry_row.get("status"),
                     "registry_value": registry_row.get("value"),
+                    "normalized_value": registry_row.get("normalized_value"),
+                    "confidence": registry_row.get("confidence"),
+                    "extraction_source": registry_row.get("extraction_source"),
+                    "evidence_ids": registry_row.get("fact_ids"),
+                    "evidence_text": registry_row.get("source_spans"),
                     "registry_evidence": registry_row.get("source_spans"),
+                    "source_locations": registry_row.get("source_locations"),
+                    "source_clause_ids": registry_row.get("source_clause_ids"),
                     "registry_source_location": registry_row.get("source_clause_ids"),
+                    "derived_from": registry_row.get("derived_from"),
                     "consumer_review_ids": [],
                     "consumers": [],
                 },
             )
             if item.item_id not in row["consumer_review_ids"]:
                 row["consumer_review_ids"].append(item.item_id)
-            matching_elements = [
-                element_id for element_id, key in element_fact_keys.items()
-                if key == fact_key
-            ]
-            if not matching_elements:
-                row["consumers"].append({
-                    "review_id": item.item_id,
-                    "element_id": "",
-                    "required_fact_key": fact_key,
-                    "received_fact_status": registry_row.get("status"),
-                    "received_fact_value": registry_row.get("value"),
-                    "final_element_status": "",
-                    "override_source": "",
-                    "override_reason": "",
-                })
-                continue
-            for element_id in matching_elements:
-                final_status = str((elements_by_id.get(element_id) or {}).get("status") or "MISSING")
-                consumer = {
+            final_element = elements_by_id.get(element_id)
+            if not final_element:
+                missing = {
                     "review_id": item.item_id,
                     "element_id": element_id,
                     "required_fact_key": fact_key,
-                    "received_fact_status": registry_row.get("status"),
-                    "received_fact_value": registry_row.get("value"),
-                    "final_element_status": final_status,
-                    "override_source": "REGISTRY" if registry_row.get("status") in {"FOUND", "CONFLICTING"} else "REGISTRY_MISS",
-                    "override_reason": "",
+                    "violation": "FACT_CONSUMER_MAPPING_MISSING",
+                    "registry_snapshot_id": snapshot_id,
                 }
-                row["consumers"].append(consumer)
-                if registry_row.get("status") == "FOUND" and final_status in {"MISSING", "UNCERTAIN"}:
-                    violation = {
-                        **consumer,
-                        "violation": "FACT_TRUTH_OVERRIDE_VIOLATION",
-                        "registry_snapshot_id": snapshot_id,
-                    }
-                    conflicts.append(violation)
-                    item.needs_manual_review = True
-                    item.quality_gate_failure_reason = "FACT_TRUTH_OVERRIDE_VIOLATION"
-                    item.decision_trace.setdefault("contract_fact_registry_violations", []).append(violation)
+                mapping_missing.append(missing)
+                item.decision_trace.setdefault("contract_fact_registry_violations", []).append(missing)
+                continue
+            raw_status = str(final_element.get("status") or "MISSING")
+            final_fact_status = str(final_element.get("fact_status") or _element_truth_status(raw_status))
+            consumer = {
+                "review_id": item.item_id,
+                "element_id": element_id,
+                "required_fact_key": fact_key,
+                "registry_lookup_key": fact_key,
+                "registry_lookup_result": registry_row.get("status"),
+                "received_fact_status": registry_row.get("status"),
+                "received_fact_value": registry_row.get("value"),
+                "fact_source": "REGISTRY" if registry_row.get("status") in {"FOUND", "CONFLICTING"} else "LEGACY_FALLBACK",
+                "final_element_fact_status": final_fact_status,
+                "requirement_status": final_element.get("requirement_status"),
+                "override_source": "REGISTRY" if registry_row.get("status") in {"FOUND", "CONFLICTING"} else "LEGACY_FALLBACK",
+                "override_reason": final_element.get("requirement_reason") or final_element.get("reason") or "",
+                "snapshot_id": str(consumption.get("snapshot_id") or ""),
+            }
+            row["consumers"].append(consumer)
+            if registry_row.get("status") == "FOUND" and final_fact_status != "FOUND":
+                violation = {
+                    **consumer,
+                    "violation": "FACT_TRUTH_OVERRIDE_VIOLATION",
+                    "registry_snapshot_id": snapshot_id,
+                }
+                override_violations.append(violation)
+                item.needs_manual_review = True
+                item.quality_gate_failure_reason = "FACT_TRUTH_OVERRIDE_VIOLATION"
+                item.decision_trace.setdefault("contract_fact_registry_violations", []).append(violation)
+        element_fact_set = set(element_fact_keys.values())
+        for fact_key in [canonical_fact_key(key) for key in _required_fact_keys_for_item(item) if canonical_fact_key(key) not in element_fact_set]:
+            registry_row = ((consumption.get("facts") or {}).get(fact_key)) or _contract_fact_lookup(fact_graph, fact_key)
+            row = by_key.setdefault(
+                fact_key,
+                {
+                    "canonical_fact_key": fact_key,
+                    "registry_snapshot_id": snapshot_id,
+                    "registry_status": registry_row.get("status"),
+                    "registry_value": registry_row.get("value"),
+                    "normalized_value": registry_row.get("normalized_value"),
+                    "confidence": registry_row.get("confidence"),
+                    "extraction_source": registry_row.get("extraction_source"),
+                    "evidence_ids": registry_row.get("fact_ids"),
+                    "evidence_text": registry_row.get("source_spans"),
+                    "registry_evidence": registry_row.get("source_spans"),
+                    "source_locations": registry_row.get("source_locations"),
+                    "source_clause_ids": registry_row.get("source_clause_ids"),
+                    "registry_source_location": registry_row.get("source_clause_ids"),
+                    "derived_from": registry_row.get("derived_from"),
+                    "consumer_review_ids": [],
+                    "consumers": [],
+                },
+            )
+            if item.item_id not in row["consumer_review_ids"]:
+                row["consumer_review_ids"].append(item.item_id)
+            row["consumers"].append({
+                "review_id": item.item_id,
+                "element_id": "",
+                "required_fact_key": fact_key,
+                "registry_lookup_key": fact_key,
+                "registry_lookup_result": registry_row.get("status"),
+                "received_fact_status": registry_row.get("status"),
+                "received_fact_value": registry_row.get("value"),
+                "fact_source": "REGISTRY" if registry_row.get("status") in {"FOUND", "CONFLICTING"} else "REGISTRY_MISS",
+                "final_element_fact_status": "",
+                "requirement_status": "RETRIEVAL_ONLY",
+                "override_source": "",
+                "override_reason": "Canonical fact supports retrieval but is not itself the legal requirement.",
+                "snapshot_id": str(consumption.get("snapshot_id") or ""),
+            })
+    for fact_key, row in by_key.items():
+        statuses = {str(consumer.get("final_element_fact_status") or "") for consumer in row["consumers"]}
+        if "FOUND" in statuses and statuses & {"MISSING", "UNCERTAIN", "CONFLICTING"}:
+            conflicts.append({
+                "canonical_fact_key": fact_key,
+                "violation": "CROSS_REVIEW_FACT_CONFLICT",
+                "statuses": sorted(statuses),
+                "consumers": list(row["consumers"]),
+                "registry_snapshot_id": snapshot_id,
+            })
     snapshot_ids = {
         str((item.decision_trace or {}).get("fact_registry_snapshot_id") or "")
         for item in items
@@ -3449,6 +3626,8 @@ def _contract_fact_flow_audit(items: List[ReviewItemResult], fact_graph: Contrac
     return {
         "registry_snapshot_id": snapshot_id,
         "registry_created": True,
+        "registry_build_count": 1,
+        "registry_frozen": bool(fact_graph.frozen),
         "registry_fact_count": sum(len(facts) for facts in fact_graph.facts.values()),
         "registry_snapshot_consistency": "PASS" if snapshot_ids == {snapshot_id} or not snapshot_ids else "FAIL",
         "snapshot_ids_seen": sorted(snapshot_ids),
@@ -3456,7 +3635,11 @@ def _contract_fact_flow_audit(items: List[ReviewItemResult], fact_graph: Contrac
         "fact_consumers": {key: row["consumer_review_ids"] for key, row in by_key.items()},
         "cross_review_fact_conflicts": conflicts,
         "cross_review_fact_conflict_count": len(conflicts),
-        "registry_legacy_override_count": len(conflicts),
+        "fact_truth_override_violations": override_violations,
+        "fact_truth_override_violation_count": len(override_violations),
+        "fact_consumer_mapping_missing": mapping_missing,
+        "fact_consumer_mapping_missing_count": len(mapping_missing),
+        "registry_legacy_override_count": len(override_violations),
     }
 
 
@@ -3468,7 +3651,7 @@ def _contract_fact_registry_gate(fact_flow_audit: Dict[str, Any]) -> Dict[str, A
     ]
     if fact_flow_audit.get("registry_snapshot_consistency") != "PASS":
         failures.append({
-            "requirement": "FACT_REGISTRY_SNAPSHOT_CONSISTENCY",
+            "requirement": "REGISTRY_SNAPSHOT_MISMATCH",
             "failure_stage": "Review Evaluation",
             "root_cause": "Review items did not consume the same ContractFactRegistry snapshot.",
             "responsible_function": "_attach_contract_fact_registry_snapshot",
@@ -3491,6 +3674,24 @@ def _contract_fact_registry_gate(fact_flow_audit: Dict[str, Any]) -> Dict[str, A
             "responsible_function": "_contract_fact_flow_audit",
             "current_status": "FAIL",
         })
+    override_violations = list(fact_flow_audit.get("fact_truth_override_violations") or [])
+    if override_violations:
+        failures.append({
+            "requirement": "FACT_TRUTH_OVERRIDE_VIOLATION",
+            "failure_stage": "Review Post-processing",
+            "root_cause": f"Review post-processing overrode Registry fact truth: {len(override_violations)}.",
+            "responsible_function": "_contract_fact_flow_audit",
+            "current_status": "FAIL",
+        })
+    mapping_missing = list(fact_flow_audit.get("fact_consumer_mapping_missing") or [])
+    if mapping_missing:
+        failures.append({
+            "requirement": "FACT_CONSUMER_MAPPING_MISSING",
+            "failure_stage": "Review Fact Mapping",
+            "root_cause": f"Required canonical facts were not bound to Review elements: {len(mapping_missing)}.",
+            "responsible_function": "_coverage_claim_for_item",
+            "current_status": "FAIL",
+        })
     return {
         "status": "REPORT_READY" if not failures else "BLOCKED",
         "failures": failures,
@@ -3498,10 +3699,14 @@ def _contract_fact_registry_gate(fact_flow_audit: Dict[str, Any]) -> Dict[str, A
             "FACT_REGISTRY_SNAPSHOT_CONSISTENCY": "PASS" if fact_flow_audit.get("registry_snapshot_consistency") == "PASS" else "FAIL",
             "FACT_REGISTRY_CONFLICTING_FACT": "PASS" if not conflicting_facts else "FAIL",
             "CROSS_REVIEW_FACT_CONFLICT": "PASS" if not conflicts else "FAIL",
+            "FACT_TRUTH_OVERRIDE_VIOLATION": "PASS" if not override_violations else "FAIL",
+            "FACT_CONSUMER_MAPPING_MISSING": "PASS" if not mapping_missing else "FAIL",
         },
         "rows": fact_flow_audit.get("facts") or [],
         "cross_review_fact_conflict_count": len(conflicts),
         "conflicting_fact_count": len(conflicting_facts),
+        "fact_truth_override_violation_count": len(override_violations),
+        "fact_consumer_mapping_missing_count": len(mapping_missing),
     }
 
 
@@ -4907,6 +5112,55 @@ def _supporting_evidence_for_claim(claim: RiskClaim, evidence: List[Dict[str, An
     return [row for row in evidence if row.get("entailment_status") in required_entailments]
 
 
+def _select_risk_evidence(
+    finding_id: str,
+    group_items: List[ReviewItemResult],
+) -> List[Dict[str, Any]]:
+    selected: Dict[tuple[str, str], Dict[str, Any]] = {}
+    for item in group_items:
+        missing_ids = {
+            str(element.get("element_id") or "")
+            for element in item.coverage_elements or []
+            if element.get("status") in {"MISSING", "UNCERTAIN"}
+        }
+        for evidence in item.evidence_clauses or []:
+            supporting_ids = [str(value) for value in evidence.get("supporting_element_ids") or [] if value]
+            if not supporting_ids:
+                continue
+            clause_id = str(evidence.get("clause_id") or "")
+            text_value = str(evidence.get("original_excerpt") or evidence.get("text") or "")
+            key = (clause_id, text_value)
+            row = selected.setdefault(key, {
+                **evidence,
+                "risk_id": finding_id,
+                "supporting_review_id": item.item_id,
+                "supporting_review_ids": [],
+                "supporting_element_ids": [],
+                "canonical_fact_keys": [],
+                "evidence_ref": str(evidence.get("evidence_id") or clause_id),
+                "relevance_reason": "Evidence directly supports resolved ReviewElementTruth used by this risk.",
+            })
+            for review_id in [item.item_id]:
+                if review_id not in row["supporting_review_ids"]:
+                    row["supporting_review_ids"].append(review_id)
+            for element_id in supporting_ids:
+                if element_id not in row["supporting_element_ids"]:
+                    row["supporting_element_ids"].append(element_id)
+            for fact_key in evidence.get("canonical_fact_keys") or []:
+                canonical = canonical_fact_key(str(fact_key))
+                if canonical and canonical not in row["canonical_fact_keys"]:
+                    row["canonical_fact_keys"].append(canonical)
+            if missing_ids:
+                row["related_missing_element_ids"] = sorted(missing_ids)
+    rows = list(selected.values())
+    rows.sort(key=lambda row: (
+        -len(row.get("supporting_element_ids") or []),
+        -len(row.get("canonical_fact_keys") or []),
+        str(row.get("location") or ""),
+    ))
+    return rows[:6]
+
+
 def _build_risk_findings(items: List[ReviewItemResult]) -> List[RiskFinding]:
     grouped: Dict[str, List[ReviewItemResult]] = {}
     def can_attach_to_finding(item: ReviewItemResult) -> bool:
@@ -4957,27 +5211,12 @@ def _build_risk_findings(items: List[ReviewItemResult]) -> List[RiskFinding]:
             if f"{item.decision_trace.get('risk_category') or ontology_category(_risk_aggregation_group(item), item.node_id)}|{_risk_aggregation_group(item)}" == group_key
             and can_attach_to_finding(item)
         ]
-        evidence: List[Dict[str, Any]] = []
-        seen_evidence = set()
-        for item in group_items:
-            for clause in item.evidence_clauses[:2]:
-                key = (clause.get("clause_id"), clause.get("location"), clause.get("text"))
-                if key in seen_evidence:
-                    continue
-                seen_evidence.add(key)
-                evidence.append(clause)
         finding_id = RISK_FINDING_ID_BY_GROUP.get(group, f"RF-{index:03d}")
+        evidence = _select_risk_evidence(finding_id, all_group_items)
         risk_claim = _risk_claim_for_group(group, primary, finding_id)
         supporting_evidence = _supporting_evidence_for_claim(risk_claim, evidence)
         source_review_ids = sorted({item.item_id for item in all_group_items})
-        source_clause_ids = sorted(
-            {
-                str(clause.get("clause_id"))
-                for item in group_items
-                for clause in item.evidence_clauses
-                if clause.get("clause_id")
-            }
-        )
+        source_clause_ids = sorted({str(clause.get("clause_id")) for clause in evidence if clause.get("clause_id")})
         economic_impact = _normalized_economic_impact(primary)
         impact = _impact_for_item(primary)
         risk_category = primary.decision_trace.get("risk_category") or ontology_category(group, primary.node_id)
@@ -5105,6 +5344,67 @@ def _filter_unsupported_positive_findings(findings: List[RiskFinding], items: Li
             continue
         retained.append(finding)
     return retained
+
+
+def _risk_evidence_ownership_audit(findings: List[RiskFinding]) -> Dict[str, Any]:
+    rows: List[Dict[str, Any]] = []
+    mismatches: List[Dict[str, Any]] = []
+    for finding in findings:
+        if not finding.source_review_ids:
+            continue
+        for evidence in finding.evidence or []:
+            supporting_elements = list(evidence.get("supporting_element_ids") or [])
+            supporting_reviews = list(evidence.get("supporting_review_ids") or [])
+            if evidence.get("supporting_review_id") and evidence.get("supporting_review_id") not in supporting_reviews:
+                supporting_reviews.append(str(evidence.get("supporting_review_id")))
+            reasons: List[str] = []
+            if not supporting_elements:
+                reasons.append("Evidence is not linked to any supporting Review element.")
+            if not supporting_reviews or not set(supporting_reviews) & set(finding.source_review_ids):
+                reasons.append("Evidence is not owned by a supporting Review for this risk.")
+            if not evidence.get("relevance_reason"):
+                reasons.append("Evidence has no risk-theme relevance reason.")
+            row = {
+                "risk_id": finding.finding_id,
+                "risk_group": finding.risk_group,
+                "supporting_review_ids": supporting_reviews,
+                "supporting_element_ids": supporting_elements,
+                "canonical_fact_keys": list(evidence.get("canonical_fact_keys") or []),
+                "evidence_ref": evidence.get("evidence_ref") or evidence.get("evidence_id") or evidence.get("clause_id"),
+                "location": evidence.get("location"),
+                "relevance_reason": evidence.get("relevance_reason"),
+                "status": "FAIL" if reasons else "PASS",
+                "reasons": reasons,
+            }
+            rows.append(row)
+            if reasons:
+                mismatches.append({**row, "violation": "RISK_EVIDENCE_MISMATCH"})
+    return {
+        "status": "PASS" if not mismatches else "FAIL",
+        "rows": rows,
+        "risk_evidence_mismatches": mismatches,
+        "risk_evidence_mismatch_count": len(mismatches),
+    }
+
+
+def _risk_evidence_ownership_gate(audit: Dict[str, Any]) -> Dict[str, Any]:
+    mismatches = list(audit.get("risk_evidence_mismatches") or [])
+    failures = []
+    if mismatches:
+        failures.append({
+            "requirement": "RISK_EVIDENCE_MISMATCH",
+            "failure_stage": "Risk Evidence Selection",
+            "root_cause": f"Risk evidence is not directly owned by supporting elements: {len(mismatches)}.",
+            "responsible_function": "_select_risk_evidence",
+            "current_status": "FAIL",
+        })
+    return {
+        "status": "REPORT_READY" if not failures else "BLOCKED",
+        "failures": failures,
+        "gate_results": {"RISK_EVIDENCE_MISMATCH": "PASS" if not failures else "FAIL"},
+        "risk_evidence_mismatch_count": len(mismatches),
+        "rows": list(audit.get("rows") or []),
+    }
 
 
 def _semantic_entailment_for_item(item: ReviewItemResult) -> tuple[Optional[bool], str, str]:
@@ -11137,6 +11437,7 @@ def review_contract_v2(
     if type_meta.key.value == "sale" and domain_resolution.subject_matter == "REAL_ESTATE":
         real_estate_facts = extract_real_estate_sale_facts(review_text, clauses, generic_fact_graph)
     fact_registry_snapshot_id = _fact_registry_snapshot_id(generic_fact_graph)
+    generic_fact_graph.freeze(fact_registry_snapshot_id)
     checklist = get_checklist_for_resolution(type_meta.key, domain_resolution)
     registry_debug = review_registry_debug(type_meta.key, domain_resolution)
     lease_facts = extract_house_lease_facts(review_text) if type_meta.key.value == "lease" else None
@@ -11318,6 +11619,7 @@ def review_contract_v2(
     if framework_supply:
         items = _apply_framework_fact_paths(items, framework_supply, clauses)
     items = _apply_coverage_evidence_gate(items, canonical_claims)
+    items = _apply_review_evidence_ownership(items)
     cross_review_claim_gate = _cross_review_shared_claim_state(items, canonical_claims)
     items = _enrich_evidence_sources(items)
     items = _apply_element_level_narratives(items)
@@ -11334,6 +11636,8 @@ def review_contract_v2(
     )
     risk_findings = _build_risk_findings(items) + _legal_reference_findings(legal_reference_issues)
     risk_findings = _filter_unsupported_positive_findings(risk_findings, items)
+    risk_evidence_audit = _risk_evidence_ownership_audit(risk_findings)
+    risk_evidence_gate = _risk_evidence_ownership_gate(risk_evidence_audit)
     risk_findings.sort(key=_finding_sort_key)
     for item in items:
         item.action_priority = _action_priority_for_item(item)
@@ -11418,6 +11722,7 @@ def review_contract_v2(
         recommendation_provenance_gate,
     )
     pre_render_gate = _combine_quality_gates(pre_render_gate, contract_fact_registry_gate)
+    pre_render_gate = _combine_quality_gates(pre_render_gate, risk_evidence_gate)
     pre_render_gate = _combine_quality_gates(pre_render_gate, consistency_gate)
     domain_selection_gate = domain_selection_consistency_gate(
         domain_selection_resolution, [item.item_id for item in visible_items],
@@ -11545,6 +11850,7 @@ def review_contract_v2(
         "review_polarity_narrative_gate": applicability_polarity_gate,
         "negative_check_pass_gate": applicability_polarity_gate,
         "contract_fact_registry_gate": contract_fact_registry_gate,
+        "risk_evidence_ownership_gate": risk_evidence_gate,
         "cross_review_shared_claim_gate": cross_review_claim_gate,
         "default_law_provenance_gate": default_law_provenance_gate,
         "report_text_validation_gate": report_text_validation_gate,
@@ -11595,6 +11901,8 @@ def review_contract_v2(
             "production_trace": production_trace,
             "contract_fact_flow_audit": fact_flow_audit,
             "contract_fact_registry_gate": contract_fact_registry_gate,
+            "risk_evidence_ownership_audit": risk_evidence_audit,
+            "risk_evidence_ownership_gate": risk_evidence_gate,
             "finding_provenance": finding_provenance,
             "output_hashes": output_hashes,
             "pre_render_quality_gate": pre_render_gate,
