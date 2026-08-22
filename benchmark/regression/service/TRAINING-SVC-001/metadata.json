@@ -1,0 +1,16 @@
+{
+  "dataset": "regression",
+  "case_id": "TRAINING-SVC-001",
+  "source": "test_data/3、服务合同.docx",
+  "entry": "routers.review_v2.review_v2_file",
+  "gold_usage": "assertions_only",
+  "prediction_from_gold": false,
+  "status": "FROZEN_REGRESSION",
+  "frozen_version": "service-report-final-closure",
+  "freeze_policy": "Do not change core classification, fact, review, risk, client-interest, disposition, or recommendation truth logic for this case unless a cross-contract defect is first demonstrated.",
+  "protected_core_files": [
+    "backend/review_v2/engine.py",
+    "backend/review_v2/service_contract_checklist.py"
+  ],
+  "next_validation_target": "B2B technical service or software development contract"
+}

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import io
+import json
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -9,7 +10,17 @@ from review_v2.recommendation_impact import evaluate_recommendations
 from review_v2.clause_parser import parse_contract_clauses
 from review_v2.contract_facts import ContractFactGraph, canonical_fact_key, extract_contract_fact_graph
 from layers.input_layer import InputLayer
-from review_v2.engine import ReviewItemResult, _combine_quality_gates, _contract_fact_registry_gate, _coverage_elements_for_item, _recommendation_truth_binding_gate, review_contract_v2
+from review_v2.engine import (
+    ReviewItemResult,
+    _combine_quality_gates,
+    _contract_fact_registry_gate,
+    _coverage_elements_for_item,
+    _recommendation_truth_binding_gate,
+    _report_disposition_projection_gate,
+    _report_text_validation_gate,
+    _review_evidence_element_gate,
+    review_contract_v2,
+)
 from routers.review_v2 import review_v2_file
 
 
@@ -525,6 +536,139 @@ def test_high_service_risks_have_complete_non_must_change_audit():
     assert all(row["final_action"] == "SHOULD_CHANGE" for row in rows)
     assert all(row["downgrade_reason"] for row in rows)
     assert all("MUST_CHANGE" in row["downgrade_reason"] for row in rows)
+
+
+def test_optional_report_projection_uses_one_visible_collection():
+    dispositions = [
+        SimpleNamespace(
+            final_action="OPTIONAL_IMPROVEMENT",
+            report_visibility="VISIBLE",
+            formal_recommendation=f"建议明确第{index}项。",
+            include_in_priority_changes=False,
+            review_ids=[f"SVC-{index}"],
+        )
+        for index in range(1, 5)
+    ]
+    report = "\n".join([
+        "## 一、建议优先修改",
+        "- 暂无必须或优先修改事项。",
+        "## 二、可选优化事项",
+        *[f"- **可选优化**：建议明确第{index}项。" for index in range(1, 5)],
+    ])
+
+    gate = _report_disposition_projection_gate(report, dispositions)
+
+    assert gate["status"] == "REPORT_READY"
+    assert gate["optional_improvement_count"] == 4
+    assert gate["optional_section_item_count"] == 4
+    assert gate["hidden_optional_item_count"] == 0
+
+
+def test_suppressed_optional_cannot_remain_hidden_and_counted():
+    disposition = SimpleNamespace(
+        final_action="OPTIONAL_IMPROVEMENT",
+        report_visibility="VISIBLE",
+        formal_recommendation=None,
+        include_in_priority_changes=False,
+        review_ids=["SVC-X"],
+    )
+    report = "## 一、可选优化事项\n- 暂无需要单独提示的可优化事项。"
+
+    gate = _report_disposition_projection_gate(report, [disposition])
+
+    assert gate["status"] == "BLOCKED"
+    assert gate["hidden_optional_item_count"] == 1
+
+
+def test_placeholder_recommendation_text_is_blocked():
+    gate = _report_text_validation_gate(
+        "建议补充明确：可验证的“消费者配合义务”实质条款内容"
+    )
+
+    assert gate["status"] == "BLOCKED"
+    assert any(row["root_cause"] == "RECOMMENDATION_PLACEHOLDER_TEXT" for row in gate["failures"])
+
+
+def test_service_notice_method_uses_direct_written_notice_evidence():
+    result = _review_file(next((ROOT / "test_data").glob("3*.docx")), "service")
+    item = _items_by_id(result)["SVC-06-02"]
+    notice = next(element for element in item["coverage_elements"] if element["element_id"] == "notice_channel")
+
+    assert result["review_evidence_element_gate"]["status"] == "REPORT_READY"
+    assert item["citation"]["clause_number"] == "第四条（七）"
+    assert "及时书面通知" in item["citation"]["original_excerpt"]
+    assert notice["evidence_refs"] == ["C0034"]
+    assert item["evidence_clauses"][0]["support_type"] == "DIRECT"
+    assert item["evidence_clauses"][0]["supporting_element_ids"] == ["notice_channel"]
+    trigger = next(row for row in item["evidence_clauses"] if row["clause_id"] == "C0036")
+    assert trigger["support_type"] == "CONTEXTUAL"
+    assert trigger["supporting_element_ids"] == []
+
+
+def test_review_evidence_element_mismatch_blocks_quality_gate():
+    item = ReviewItemResult(
+        item_id="SVC-X",
+        node_id="notice_test",
+        title="通知方式",
+        risk_level="中",
+        status="已覆盖",
+        risk_point_description="",
+        suggested_clause_example="",
+        legal_basis_index="",
+        legal_consequence_if_missing="",
+        applicable_if="始终适用",
+        matched_terms=[],
+        coverage_status="通过",
+        issue_type="通过",
+        evidence_clauses=[{
+            "evidence_id": "E-TRIGGER",
+            "clause_id": "C-TRIGGER",
+            "support_type": "CONTEXTUAL",
+            "supporting_element_ids": [],
+        }],
+        evidence_location="",
+        reasoning_summary="",
+        coverage_elements=[{
+            "element_id": "notice_method",
+            "status": "COVERED",
+            "source_clause_ids": ["C-NOTICE"],
+            "evidence_refs": ["C-NOTICE"],
+        }],
+    )
+
+    gate = _review_evidence_element_gate([item])
+
+    assert gate["status"] == "BLOCKED"
+    assert gate["gate_results"]["REVIEW_EVIDENCE_ELEMENT_MISMATCH"] == "FAIL"
+    assert gate["mismatch_count"] >= 1
+
+
+def test_frozen_training_service_benchmark_uses_production_entry():
+    benchmark = ROOT / "benchmark" / "regression" / "service" / "TRAINING-SVC-001"
+    metadata = json.loads((benchmark / "metadata.json").read_text(encoding="utf-8"))
+    gold = json.loads((benchmark / "gold.json").read_text(encoding="utf-8"))
+    result = _review_file(ROOT / metadata["source"], "service")
+    items = _items_by_id(result)
+    dispositions = {row["risk_id"]: row for row in result["final_dispositions"]}
+    projection = result["report_disposition_projection_gate"]
+    notice = items[gold["notice_evidence"]["review_id"]]
+
+    assert metadata["status"] == "FROZEN_REGRESSION"
+    assert result["release_quality_gate"]["status"] == gold["release_quality_gate"]
+    assert projection["optional_improvement_count"] == gold["optional_improvement_count"]
+    assert projection["optional_section_item_count"] == gold["optional_section_item_count"]
+    assert projection["hidden_optional_item_count"] == gold["hidden_optional_item_count"]
+    assert result["report_text_validation_gate"]["broken_template_text_count"] == gold["placeholder_recommendation_count"]
+    assert result["review_evidence_element_gate"]["mismatch_count"] == gold["review_evidence_mismatch_count"]
+    assert len(result["observability"]["recommendation_diff_audit"]["recommendation_covered_element_leakage"]) == gold["recommendation_covered_element_leakage_count"]
+    assert len(result["observability"]["high_risk_disposition_audit"]) == gold["high_risk_count"]
+    assert {item_id: items[item_id]["coverage_status"] for item_id in gold["review_statuses"]} == gold["review_statuses"]
+    assert notice["citation"]["clause_number"] == gold["notice_evidence"]["clause_location"]
+    assert gold["notice_evidence"]["required_text"] in notice["citation"]["original_excerpt"]
+    assert {
+        risk_id: dispositions[risk_id]["final_action"]
+        for risk_id in gold["suppressed_optional_actions"]
+    } == gold["suppressed_optional_actions"]
 
 
 def test_registry_conflicting_fact_blocks_report_instead_of_selecting_one_value():

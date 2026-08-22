@@ -729,6 +729,8 @@ class FinalDisposition:
     final_missing_element_ids: List[str] = field(default_factory=list)
     excluded_missing_element_ids: List[str] = field(default_factory=list)
     excluded_reasons: Dict[str, str] = field(default_factory=dict)
+    report_visibility: str = "VISIBLE"
+    suppression_reason: str = ""
 
     def to_public_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -2829,7 +2831,10 @@ def _apply_review_evidence_ownership(items: List[ReviewItemResult]) -> List[Revi
                 linked = [
                     str(element.get("element_id") or "")
                     for element in item.coverage_elements or []
-                    if clause_id and clause_id in {str(value) for value in element.get("source_clause_ids") or []}
+                    if clause_id and clause_id in {
+                        str(value)
+                        for value in list(element.get("source_clause_ids") or []) + list(element.get("evidence_ids") or [])
+                    }
                 ]
                 if linked:
                     evidence["supporting_element_ids"] = list(dict.fromkeys(linked))
@@ -2837,6 +2842,28 @@ def _apply_review_evidence_ownership(items: List[ReviewItemResult]) -> List[Revi
                     evidence["relevance_score"] = 1.0
                     evidence["selection_reason"] = "Existing evidence directly supports resolved ReviewElementTruth."
                     supported_ids.update(linked)
+                else:
+                    evidence["supporting_element_ids"] = []
+                    evidence["canonical_fact_keys"] = []
+                    evidence["relevance_score"] = min(float(evidence.get("semantic_score") or 0.0), 0.5)
+                    evidence["selection_reason"] = "Contextual retrieval evidence does not directly support a resolved ReviewElementTruth."
+                evidence["review_id"] = item.item_id
+                evidence["element_ids"] = list(evidence["supporting_element_ids"])
+                evidence["support_type"] = "DIRECT" if linked else "CONTEXTUAL"
+            item.evidence_clauses.sort(key=lambda row: (
+                0 if row.get("support_type") == "DIRECT" else 1,
+                -len(row.get("supporting_element_ids") or []),
+                -float(row.get("relevance_score") or 0.0),
+                str(row.get("location") or ""),
+            ))
+            for element in item.coverage_elements or []:
+                evidence_refs = list(element.get("source_clause_ids") or element.get("evidence_ids") or [])
+                element["evidence_refs"] = evidence_refs
+                element["evidence_selection_reason"] = (
+                    "Direct evidence selected by exact source-clause ownership for this element."
+                    if element.get("status") in {"COVERED", "PARTIALLY_COVERED"} and evidence_refs
+                    else "No direct supporting evidence was selected for this element."
+                )
             item.review_evidence_supports_element_ids = sorted(supported_ids)
             item.review_evidence_relevance_score = 1.0 if supported_ids else 0.0
             item.review_evidence_selection_reason = "Existing non-Registry evidence order was preserved and ownership metadata was attached in place."
@@ -2872,9 +2899,14 @@ def _apply_review_evidence_ownership(items: List[ReviewItemResult]) -> List[Revi
                     "canonical_fact_keys": [],
                     "relevance_score": 1.0,
                     "selection_reason": "Direct source evidence for resolved ReviewElementTruth.",
+                    "review_id": item.item_id,
+                    "element_ids": [],
+                    "support_type": "DIRECT",
                 })
                 if element_id and element_id not in row["supporting_element_ids"]:
                     row["supporting_element_ids"].append(element_id)
+                if element_id and element_id not in row["element_ids"]:
+                    row["element_ids"].append(element_id)
                 if fact_key and "." in fact_key and fact_key not in row["canonical_fact_keys"]:
                     row["canonical_fact_keys"].append(fact_key)
         selected.extend(by_clause.values())
@@ -2889,12 +2921,84 @@ def _apply_review_evidence_ownership(items: List[ReviewItemResult]) -> List[Revi
             item.review_evidence_supports_element_ids = []
             item.review_evidence_relevance_score = 0.0
             item.review_evidence_selection_reason = "No positive element evidence; absence or manual-review evidence remains unchanged."
+        for element in item.coverage_elements or []:
+            evidence_refs = list(element.get("source_clause_ids") or element.get("evidence_ids") or [])
+            element["evidence_refs"] = evidence_refs
+            element["evidence_selection_reason"] = (
+                "Direct Registry/element evidence selected by exact source-clause ownership."
+                if element.get("status") in {"COVERED", "PARTIALLY_COVERED"} and evidence_refs
+                else "No direct supporting evidence was selected for this element."
+            )
         item.decision_trace["review_evidence_ownership"] = {
             "review_evidence_supports_element_ids": list(item.review_evidence_supports_element_ids),
             "review_evidence_relevance_score": item.review_evidence_relevance_score,
             "review_evidence_selection_reason": item.review_evidence_selection_reason,
         }
     return items
+
+
+def _review_evidence_element_gate(items: List[ReviewItemResult]) -> Dict[str, Any]:
+    mismatches: List[Dict[str, Any]] = []
+    rows: List[Dict[str, Any]] = []
+    for item in items:
+        covered_elements = [
+            element for element in item.coverage_elements or []
+            if element.get("status") in {"COVERED", "PARTIALLY_COVERED"}
+        ]
+        covered_ids = {str(element.get("element_id") or "") for element in covered_elements if element.get("element_id")}
+        evidence_rows = list(item.evidence_clauses or [])
+        direct_rows = [row for row in evidence_rows if row.get("support_type") == "DIRECT"]
+        for element in covered_elements:
+            element_id = str(element.get("element_id") or "")
+            source_clause_ids = {str(value) for value in element.get("source_clause_ids") or [] if value}
+            supporting = [
+                row for row in direct_rows
+                if element_id in {str(value) for value in row.get("supporting_element_ids") or row.get("element_ids") or []}
+                and (
+                    not source_clause_ids
+                    or str(row.get("clause_id") or "") in source_clause_ids
+                )
+            ]
+            row = {
+                "review_id": item.item_id,
+                "element_id": element_id,
+                "status": element.get("status"),
+                "evidence_refs": [str(value) for value in element.get("evidence_refs") or element.get("evidence_ids") or []],
+                "direct_evidence_refs": [str(evidence.get("clause_id") or evidence.get("evidence_id") or "") for evidence in supporting],
+                "selection_reason": str(element.get("evidence_selection_reason") or ""),
+            }
+            rows.append(row)
+            if not supporting:
+                mismatches.append({
+                    **row,
+                    "reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership.",
+                })
+        if covered_ids and evidence_rows:
+            primary_ids = {
+                str(value) for value in evidence_rows[0].get("supporting_element_ids") or evidence_rows[0].get("element_ids") or []
+            }
+            if evidence_rows[0].get("support_type") != "DIRECT" or not (primary_ids & covered_ids):
+                mismatches.append({
+                    "review_id": item.item_id,
+                    "element_id": "PRIMARY_EVIDENCE",
+                    "evidence_refs": [str(evidence_rows[0].get("clause_id") or evidence_rows[0].get("evidence_id") or "")],
+                    "reason": "The primary report evidence does not directly support any covered element in this Review.",
+                })
+    failures = [{
+        "requirement": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+        "failure_stage": "Review Evidence Projection",
+        "root_cause": f"Review evidence is not exactly bound to covered elements: {len(mismatches)} mismatch(es).",
+        "current_status": "FAIL",
+        "mismatches": mismatches,
+    }] if mismatches else []
+    return {
+        "status": "REPORT_READY" if not failures else "BLOCKED",
+        "failures": failures,
+        "gate_results": {"REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS" if not failures else "FAIL"},
+        "mismatch_count": len(mismatches),
+        "mismatches": mismatches,
+        "rows": rows,
+    }
 
 
 def _attach_recall_state(
@@ -8097,6 +8201,7 @@ RECOMMENDATION_ELEMENT_ACTIONS: Dict[str, str] = {
 
 RECOMMENDATION_PLACEHOLDER_TERMS = (
     "对应安排",
+    "相关事项",
     "实质条款内容",
     "具体未明要素",
     "其余关键要素",
@@ -8221,6 +8326,21 @@ def _bind_recommendations_to_final_dispositions(
             disposition.formal_recommendation = None
             disposition.include_in_priority_changes = False
             disposition.include_in_optional_improvements = False
+            disposition.report_visibility = "VISIBLE"
+            disposition.suppression_reason = (
+                "现有结构化结果没有可追溯到具体缺失要素的正式修改依据。"
+            )
+            finding = finding_by_id.get(disposition.risk_id)
+            service_domain = bool(finding and finding.source_review_ids) and all(
+                str(review_id).startswith("SVC-") for review_id in finding.source_review_ids
+            )
+            if disposition.final_action == DISPOSITION_OPTIONAL_IMPROVEMENT and service_domain:
+                disposition.final_action = DISPOSITION_KEEP_CURRENT
+                disposition.actionability = DISPOSITION_KEEP_CURRENT
+                disposition.final_reason = (
+                    "现有结构化结果仅包含复合事项标题，未形成可追溯到具体缺失要素的修改依据，"
+                    "因此不计入正式可选优化并保持现状。"
+                )
     return retained
 
 
@@ -8345,13 +8465,34 @@ def _high_risk_disposition_audit(
     return rows
 
 
+def _visible_optional_dispositions(dispositions: List[FinalDisposition]) -> List[FinalDisposition]:
+    return [
+        disposition for disposition in dispositions
+        if disposition.final_action == DISPOSITION_OPTIONAL_IMPROVEMENT
+        and disposition.report_visibility == "VISIBLE"
+        and bool(
+            getattr(disposition, "formal_recommendation", None)
+            or (
+                getattr(disposition, "recommendation_owner", "") == RECOMMENDATION_OWNER_RISK
+                and getattr(disposition, "recommendation", "")
+            )
+        )
+    ]
+
+
+def _is_service_disposition_scope(dispositions: List[FinalDisposition]) -> bool:
+    review_ids = [review_id for row in dispositions for review_id in row.review_ids]
+    return bool(review_ids) and all(str(review_id).startswith("SVC-") for review_id in review_ids)
+
+
 def _final_disposition_summary(dispositions: List[FinalDisposition]) -> Dict[str, int]:
     counts = Counter(disposition.final_action for disposition in dispositions)
+    visible_optional = _visible_optional_dispositions(dispositions)
     return {
         "total": len(dispositions),
         "must_change": counts.get(DISPOSITION_MUST_CHANGE, 0),
         "should_change": counts.get(DISPOSITION_SHOULD_CHANGE, 0),
-        "optional_improvement": counts.get(DISPOSITION_OPTIONAL_IMPROVEMENT, 0),
+        "optional_improvement": len(visible_optional) if _is_service_disposition_scope(dispositions) else counts.get(DISPOSITION_OPTIONAL_IMPROVEMENT, 0),
         "keep_current": counts.get(DISPOSITION_KEEP_CURRENT, 0),
         "do_not_add": counts.get(DISPOSITION_DO_NOT_ADD, 0),
         "manual_review": counts.get(DISPOSITION_MANUAL_REVIEW, 0),
@@ -8428,6 +8569,11 @@ def _final_disposition_invariant_gate(findings: List[RiskFinding], dispositions:
         + disposition_summary["manual_review"]
     )
     failures = []
+    hidden_optional = [
+        disposition.risk_id for disposition in dispositions
+        if disposition.final_action == DISPOSITION_OPTIONAL_IMPROVEMENT
+        and disposition not in _visible_optional_dispositions(dispositions)
+    ] if _is_service_disposition_scope(dispositions) else []
     if severity_total != len(findings):
         failures.append({
             "requirement": "RISK_STATISTICS_INVARIANT",
@@ -8440,6 +8586,13 @@ def _final_disposition_invariant_gate(findings: List[RiskFinding], dispositions:
             "requirement": "FINAL_DISPOSITION_INVARIANT",
             "failure_stage": "FinalDisposition",
             "root_cause": "Final action subtotal does not equal FinalDisposition total.",
+            "current_status": "FAIL",
+        })
+    if hidden_optional:
+        failures.append({
+            "requirement": "OPTIONAL_IMPROVEMENT_VISIBILITY_INVARIANT",
+            "failure_stage": "FinalDisposition Report Projection",
+            "root_cause": f"Optional dispositions cannot be counted without a visible formal recommendation: {', '.join(hidden_optional)}.",
             "current_status": "FAIL",
         })
     illegal_formal = [
@@ -8487,11 +8640,14 @@ def _final_disposition_invariant_gate(findings: List[RiskFinding], dispositions:
             "FORMAL_RECOMMENDATION_FINAL_DISPOSITION_INVARIANT": "PASS" if not illegal_formal else "FAIL",
             "RECOMMENDATION_OWNERSHIP_INVARIANT": "PASS" if len(risk_owned) == len(set(risk_owned)) else "FAIL",
             "HIGH_NON_MUST_CHANGE_REASON_INVARIANT": "PASS" if not high_non_must_without_reason else "FAIL",
+            "OPTIONAL_IMPROVEMENT_VISIBILITY_INVARIANT": "PASS" if not hidden_optional else "FAIL",
         },
         "risk_total": len(findings),
         "severity_summary": severity_summary,
         "final_disposition_total": len(dispositions),
         "final_disposition_summary": disposition_summary,
+        "visible_optional_disposition_ids": [row.risk_id for row in _visible_optional_dispositions(dispositions)],
+        "hidden_optional_disposition_ids": hidden_optional,
     }
 
 
@@ -11125,8 +11281,17 @@ def _apply_final_quality_gate(
 
 def _sanitize_review_report(report: str) -> str:
     cleaned = report
-    cleaned = re.sub(r"可验证的“([^”]+)”(?:对应的核心安排|实质条款内容)", r"“\1”相关事项", cleaned)
-    cleaned = cleaned.replace("”对应的核心安排", "”相关事项")
+    cleaned = re.sub(
+        r"合同存在可验证的“([^”]+)”(?:对应的核心安排|实质条款内容)",
+        r"现有结构化结果尚未形成可追溯到具体缺失要素的“\1”修改依据",
+        cleaned,
+    )
+    cleaned = re.sub(
+        r"可验证的“([^”]+)”(?:对应的核心安排|实质条款内容)",
+        r"可追溯到具体缺失要素的“\1”修改依据",
+        cleaned,
+    )
+    cleaned = cleaned.replace("”对应的核心安排", "”具体修改依据")
     cleaned = cleaned.replace("对应的具体未明要素", "尚无法从现有材料确定的具体内容")
     cleaned = cleaned.replace("具体未明要素", "尚无法从现有材料确定的具体内容")
     cleaned = cleaned.replace("其余关键要素", "尚无法从现有材料确定的具体内容")
@@ -11168,7 +11333,7 @@ def _report_text_validation_gate(report: str) -> Dict[str, Any]:
         "DUPLICATE_EVIDENCE_TEXT": r"合同正文及附件中未找到对应约定；未在合同正文及附件中定位到对应安排",
         "NA_ALWAYS_APPLICABLE_CONTRADICTION": r"覆盖状态：不适用[\s\S]{0,240}【适用条件】：始终适用",
         "LEGACY_NOT_FOUND": r"未召回正式条款",
-        "RECOMMENDATION_PLACEHOLDER_TEXT": r"对应安排|实质条款内容|具体未明要素|其余关键要素|可验证的“[^”]+”实质条款内容",
+        "RECOMMENDATION_PLACEHOLDER_TEXT": r"对应安排|实质条款内容|具体未明要素|其余关键要素|可验证的“[^”]+”实质条款内容|“[^”]+”相关事项|建议[^\n。；]{0,80}相关事项",
     }
     failures: List[Dict[str, Any]] = []
     for name, pattern in patterns.items():
@@ -11186,6 +11351,65 @@ def _report_text_validation_gate(report: str) -> Dict[str, Any]:
         "failures": failures,
         "gate_results": {"REPORT_TEXT_VALIDATION": "PASS" if not failures else "FAIL"},
         "broken_template_text_count": sum(failure["count"] for failure in failures),
+    }
+
+
+def _report_disposition_projection_gate(
+    report: str,
+    dispositions: List[FinalDisposition],
+) -> Dict[str, Any]:
+    if not _is_service_disposition_scope(dispositions):
+        return {
+            "status": "REPORT_READY",
+            "failures": [],
+            "gate_results": {"REPORT_DISPOSITION_PROJECTION_INVARIANT": "NOT_APPLICABLE"},
+            "optional_improvement_count": _final_disposition_summary(dispositions)["optional_improvement"],
+            "optional_section_item_count": 0,
+            "hidden_optional_item_count": 0,
+            "mismatches": [],
+        }
+
+    def section_item_count(title: str) -> int:
+        marker = f"、{title}"
+        if marker not in report:
+            return 0
+        section = report.split(marker, 1)[1].split("\n## ", 1)[0]
+        return sum(1 for line in section.splitlines() if line.startswith("- **"))
+
+    expected_optional = len(_visible_optional_dispositions(dispositions))
+    actual_optional = section_item_count("可选优化事项")
+    expected_priority = sum(1 for row in dispositions if row.include_in_priority_changes)
+    actual_priority = section_item_count("建议优先修改")
+    expected_keep = sum(1 for row in dispositions if row.final_action in {DISPOSITION_KEEP_CURRENT, DISPOSITION_DO_NOT_ADD})
+    actual_keep = section_item_count("建议保持现状")
+    hidden_optional_count = sum(
+        1 for row in dispositions
+        if row.final_action == DISPOSITION_OPTIONAL_IMPROVEMENT
+        and row not in _visible_optional_dispositions(dispositions)
+    )
+    mismatches = [
+        {"section": "optional_improvement", "expected": expected_optional, "actual": actual_optional},
+        {"section": "priority_changes", "expected": expected_priority, "actual": actual_priority},
+        {"section": "keep_current", "expected": expected_keep, "actual": actual_keep},
+    ]
+    mismatches = [row for row in mismatches if row["expected"] != row["actual"]]
+    if hidden_optional_count:
+        mismatches.append({"section": "hidden_optional", "expected": 0, "actual": hidden_optional_count})
+    failures = [{
+        "requirement": "REPORT_DISPOSITION_PROJECTION_INVARIANT",
+        "failure_stage": "Report Projection",
+        "root_cause": "FinalDisposition counts do not match visible report section items.",
+        "current_status": "FAIL",
+        "mismatches": mismatches,
+    }] if mismatches else []
+    return {
+        "status": "REPORT_READY" if not failures else "BLOCKED",
+        "failures": failures,
+        "gate_results": {"REPORT_DISPOSITION_PROJECTION_INVARIANT": "PASS" if not failures else "FAIL"},
+        "optional_improvement_count": expected_optional,
+        "optional_section_item_count": actual_optional,
+        "hidden_optional_item_count": hidden_optional_count,
+        "mismatches": mismatches,
     }
 
 
@@ -11421,9 +11645,13 @@ def _format_markdown_v2(
     item_by_id = {item.item_id: item for item in items}
     finding_by_id = {finding.finding_id: finding for finding in findings}
     top_dispositions = [row for row in dispositions if row.include_in_top_risk][:10]
-    priority_dispositions = [row for row in dispositions if row.include_in_priority_changes][:10]
-    optimization_dispositions = [row for row in dispositions if row.include_in_optional_improvements][:10]
-    keep_current_dispositions = [row for row in dispositions if row.final_action in {DISPOSITION_KEEP_CURRENT, DISPOSITION_DO_NOT_ADD}][:10]
+    priority_dispositions = [row for row in dispositions if row.include_in_priority_changes]
+    optimization_dispositions = (
+        _visible_optional_dispositions(dispositions)
+        if _is_service_disposition_scope(dispositions)
+        else [row for row in dispositions if row.include_in_optional_improvements][:10]
+    )
+    keep_current_dispositions = [row for row in dispositions if row.final_action in {DISPOSITION_KEEP_CURRENT, DISPOSITION_DO_NOT_ADD}]
     covered_key_items = [item for item in items if item.coverage_status == "通过" and item.review_importance in {REVIEW_IMPORTANCE_CORE, REVIEW_IMPORTANCE_IMPORTANT}][:10]
     finding_title_map = _finding_id_title_map(findings)
     recommendation_by_finding = {
@@ -11558,9 +11786,14 @@ def _format_markdown_v2(
                 *([f"- 【法律依据】：{legal_basis}"] if legal_basis else []),
             ]
         elif any(action in {DISPOSITION_KEEP_CURRENT, DISPOSITION_DO_NOT_ADD} for action in display_state.get("final_actions", [])):
+            suppression_reasons = [
+                row.get("suppression_reason", "")
+                for row in (item.decision_trace.get("final_dispositions") or [])
+                if row.get("suppression_reason")
+            ]
             detail_lines = [
                 *base_lines,
-                f"- 发现的问题：{issue_value}",
+                f"- 发现的问题：{'; '.join(suppression_reasons) if suppression_reasons else issue_value}",
                 f"- 【{legal_label}】：{legal_value}",
                 *([f"- 【法律依据】：{legal_basis}"] if legal_basis else []),
                 f"- 不建议修改原因：{'; '.join(row.get('final_reason', '') for row in (item.decision_trace.get('final_dispositions') or []) if row.get('final_action') in {DISPOSITION_KEEP_CURRENT, DISPOSITION_DO_NOT_ADD})}",
@@ -11972,6 +12205,7 @@ def review_contract_v2(
         items = _apply_framework_fact_paths(items, framework_supply, clauses)
     items = _apply_coverage_evidence_gate(items, canonical_claims)
     items = _apply_review_evidence_ownership(items)
+    review_evidence_element_gate = _review_evidence_element_gate(items)
     cross_review_claim_gate = _cross_review_shared_claim_state(items, canonical_claims)
     items = _enrich_evidence_sources(items)
     items = _apply_element_level_narratives(items)
@@ -12095,6 +12329,7 @@ def review_contract_v2(
     )
     pre_render_gate = _combine_quality_gates(pre_render_gate, contract_fact_registry_gate)
     pre_render_gate = _combine_quality_gates(pre_render_gate, risk_evidence_gate)
+    pre_render_gate = _combine_quality_gates(pre_render_gate, review_evidence_element_gate)
     pre_render_gate = _combine_quality_gates(pre_render_gate, consistency_gate)
     domain_selection_gate = domain_selection_consistency_gate(
         domain_selection_resolution, [item.item_id for item in visible_items],
@@ -12147,6 +12382,7 @@ def review_contract_v2(
             result, visible_items, recommendations, recommendation_impacts,
         )
         report_text_validation_gate = _report_text_validation_gate(result)
+        report_disposition_projection_gate = _report_disposition_projection_gate(result, final_dispositions)
         applicability_polarity_gate = _applicability_polarity_gates(
             visible_items, risk_findings, recommendations, result,
         )
@@ -12159,6 +12395,7 @@ def review_contract_v2(
             recommendation_renderer_gate,
             applicability_polarity_gate,
             report_text_validation_gate,
+            report_disposition_projection_gate,
         )
     else:
         result = "该事项当前无法可靠判断，正式报告已停止生成。必要时请人工复核。"
@@ -12175,6 +12412,7 @@ def review_contract_v2(
         }
         applicability_polarity_gate = applicability_polarity_pre_gate
         report_text_validation_gate = {"status": "BLOCKED", "failures": [], "gate_results": {"REPORT_TEXT_VALIDATION": "SKIPPED"}, "broken_template_text_count": 0}
+        report_disposition_projection_gate = {"status": "BLOCKED", "failures": [], "gate_results": {"REPORT_DISPOSITION_PROJECTION_INVARIANT": "SKIPPED"}, "mismatches": []}
     litigation_result = format_litigation_markdown(litigation_report)
     negotiation_result = format_negotiation_markdown(negotiation_report)
     jurisdiction_result = format_jurisdiction_markdown(jurisdiction_report)
@@ -12225,9 +12463,11 @@ def review_contract_v2(
         "negative_check_pass_gate": applicability_polarity_gate,
         "contract_fact_registry_gate": contract_fact_registry_gate,
         "risk_evidence_ownership_gate": risk_evidence_gate,
+        "review_evidence_element_gate": review_evidence_element_gate,
         "cross_review_shared_claim_gate": cross_review_claim_gate,
         "default_law_provenance_gate": default_law_provenance_gate,
         "report_text_validation_gate": report_text_validation_gate,
+        "report_disposition_projection_gate": report_disposition_projection_gate,
         "default_law_narrative_truth_gate": default_law_narrative_gate,
         "contract_type_name": contract_type_name,
         "contract_review_trace_id": contract_review_trace_id,
@@ -12277,6 +12517,8 @@ def review_contract_v2(
             "contract_fact_registry_gate": contract_fact_registry_gate,
             "risk_evidence_ownership_audit": risk_evidence_audit,
             "risk_evidence_ownership_gate": risk_evidence_gate,
+            "review_evidence_element_gate": review_evidence_element_gate,
+            "review_evidence_support_mapping": review_evidence_element_gate.get("rows", []),
             "finding_provenance": finding_provenance,
             "output_hashes": output_hashes,
             "pre_render_quality_gate": pre_render_gate,
@@ -12317,6 +12559,7 @@ def review_contract_v2(
             "cross_review_shared_claim_gate": cross_review_claim_gate,
             "default_law_provenance_debug": default_law_provenance_gate,
             "report_text_validation_debug": report_text_validation_gate,
+            "report_disposition_projection_gate": report_disposition_projection_gate,
             "shared_claim_debug": canonical_claims_public(canonical_claims),
             "report_context_debug": {
                 "classification": {
