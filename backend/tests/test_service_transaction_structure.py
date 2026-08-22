@@ -8,7 +8,8 @@ from types import SimpleNamespace
 from review_v2.recommendation_impact import evaluate_recommendations
 from review_v2.clause_parser import parse_contract_clauses
 from review_v2.contract_facts import ContractFactGraph, canonical_fact_key, extract_contract_fact_graph
-from review_v2.engine import ReviewItemResult, _combine_quality_gates, _contract_fact_registry_gate, _coverage_elements_for_item, review_contract_v2
+from layers.input_layer import InputLayer
+from review_v2.engine import ReviewItemResult, _combine_quality_gates, _contract_fact_registry_gate, _coverage_elements_for_item, _recommendation_truth_binding_gate, review_contract_v2
 from routers.review_v2 import review_v2_file
 
 
@@ -428,6 +429,102 @@ def test_service_fact_mutations_change_all_registry_consumers_together():
     assert consumer_states(without_sessions, "service.total_sessions") == {"MISSING"}
     assert consumer_states(base, "payment.total_fee") == {"FOUND"}
     assert consumer_states(without_total_fee, "payment.total_fee") == {"MISSING"}
+
+
+def test_real_service_recommendations_bind_only_to_final_missing_elements():
+    result = _review_file(next((ROOT / "test_data").glob("3*.docx")), "service")
+    recommendations = {
+        risk_id: recommendation
+        for recommendation in result["recommendations"]
+        for risk_id in recommendation["source_finding_ids"]
+    }
+    dispositions = {row["risk_id"]: row for row in result["final_dispositions"]}
+    audit = result["observability"]["recommendation_diff_audit"]
+    by_title = {row["risk_title"]: row for row in audit["rows"]}
+
+    assert result["release_quality_gate"]["status"] == "REPORT_READY"
+    assert result["recommendation_truth_binding_gate"]["status"] == "REPORT_READY"
+    assert audit["recommendation_covered_element_leakage"] == []
+    assert audit["recommendation_element_leakage"] == []
+    assert audit["unmapped_recommendation_fragments"] == []
+    assert audit["placeholder_recommendation_text"] == []
+
+    scope = by_title["培训服务范围和交付标准不完整"]
+    assert "delivery_method" in scope["covered_element_ids"]
+    assert "delivery_method" not in scope["recommendation_fragment_element_ids"]
+    assert "service_location" not in scope["recommendation_fragment_element_ids"]
+
+    fee = by_title["收费项目、预付款余额和退费计价口径不够清晰"]
+    assert fee["recommendation_fragment_element_ids"] == ["non_tuition_fee_handling", "paid_amount"]
+    assert {"total_fee", "unit_price", "balance_calculation"} <= set(fee["covered_element_ids"])
+
+    refund = by_title["消费者解除与退款结算机制不完整"]
+    assert refund["recommendation_fragment_element_ids"] == ["reasonable_cost_deduction", "refund_deadline"]
+    assert {"notice_channel", "provided_service_value", "remaining_service_value"} <= set(refund["covered_element_ids"])
+
+    for risk_id, recommendation in recommendations.items():
+        final_ids = set(dispositions[risk_id]["final_missing_element_ids"])
+        assert set(recommendation["recommendation_input_elements"]) <= final_ids
+        assert all(fragment["source_element_ids"] for fragment in recommendation["fragments"])
+        assert all(set(fragment["source_element_ids"]) <= final_ids for fragment in recommendation["fragments"])
+
+    forbidden = ("对应安排", "实质条款内容", "具体未明要素", "其余关键要素")
+    assert not any(term in result["result"] for term in forbidden)
+
+
+def test_service_recommendation_unit_price_mutation_is_element_driven():
+    path = next((ROOT / "test_data").glob("3*.docx"))
+    text = InputLayer()._extract_from_docx_content(path.read_bytes())
+    base = review_contract_v2(text, "service", use_llm=False)
+    without_unit_price = review_contract_v2(
+        text.replace("200元/节", "单价另行约定"),
+        "service",
+        use_llm=False,
+    )
+
+    def fee_inputs(result: dict) -> set[str]:
+        finding = next(row for row in result["risk_findings"] if row["risk_group"] == "service_fee_balance_transparency")
+        recommendation = next(row for row in result["recommendations"] if finding["finding_id"] in row["source_finding_ids"])
+        return set(recommendation["recommendation_input_elements"])
+
+    assert "unit_price" not in fee_inputs(base)
+    assert "unit_price" in fee_inputs(without_unit_price)
+
+
+def test_service_delivery_and_refund_notice_covered_elements_do_not_reenter_recommendations():
+    result = _review_file(next((ROOT / "test_data").glob("3*.docx")), "service")
+    rows = {row["risk_title"]: row for row in result["observability"]["recommendation_diff_audit"]["rows"]}
+
+    assert "delivery_method" in rows["培训服务范围和交付标准不完整"]["covered_element_ids"]
+    assert "delivery_method" not in rows["培训服务范围和交付标准不完整"]["recommendation_fragment_element_ids"]
+    assert "notice_channel" in rows["消费者解除与退款结算机制不完整"]["covered_element_ids"]
+    assert "notice_channel" not in rows["消费者解除与退款结算机制不完整"]["recommendation_fragment_element_ids"]
+
+
+def test_unmapped_recommendation_fragment_blocks_quality_gate():
+    gate = _recommendation_truth_binding_gate({
+        "rows": [],
+        "unmapped_recommendation_fragments": [{"recommendation_fragment_id": "REC-X-FRAG-01"}],
+        "recommendation_element_leakage": [],
+        "recommendation_covered_element_leakage": [],
+        "placeholder_recommendation_text": [],
+        "final_disposition_mismatches": [],
+    })
+
+    assert gate["status"] == "BLOCKED"
+    assert gate["failures"][0]["requirement"] == "RECOMMENDATION_SOURCE_UNMAPPED"
+
+
+def test_high_service_risks_have_complete_non_must_change_audit():
+    result = _review_file(next((ROOT / "test_data").glob("3*.docx")), "service")
+    rows = result["observability"]["high_risk_disposition_audit"]
+
+    assert len(rows) == 2
+    assert all(row["severity"] == "HIGH" for row in rows)
+    assert all(row["severity_reason"] and row["materiality_factors"] for row in rows)
+    assert all(row["final_action"] == "SHOULD_CHANGE" for row in rows)
+    assert all(row["downgrade_reason"] for row in rows)
+    assert all("MUST_CHANGE" in row["downgrade_reason"] for row in rows)
 
 
 def test_registry_conflicting_fact_blocks_report_instead_of_selecting_one_value():

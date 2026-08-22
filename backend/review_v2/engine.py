@@ -319,6 +319,9 @@ class RiskFinding:
     supporting_evidence: List[Dict[str, Any]] = field(default_factory=list)
     counter_evidence: List[Dict[str, Any]] = field(default_factory=list)
     provenance: Dict[str, Any] = field(default_factory=dict)
+    covered_element_ids: List[str] = field(default_factory=list)
+    missing_element_ids: List[str] = field(default_factory=list)
+    final_missing_elements: List[Dict[str, Any]] = field(default_factory=list)
 
     def to_public_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -672,6 +675,10 @@ class Recommendation:
     perspective: str = ""
     impact: Dict[str, Any] = field(default_factory=dict)
     status: str = "CANDIDATE"
+    recommendation_input_elements: List[str] = field(default_factory=list)
+    fragments: List[Dict[str, Any]] = field(default_factory=list)
+    excluded_element_ids: List[str] = field(default_factory=list)
+    excluded_reasons: Dict[str, str] = field(default_factory=dict)
 
     def to_public_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -718,6 +725,10 @@ class FinalDisposition:
     authority_ids: List[str] = field(default_factory=list)
     severity_action_alignment: str = ""
     downgrade_reason: str = ""
+    final_missing_elements: List[Dict[str, Any]] = field(default_factory=list)
+    final_missing_element_ids: List[str] = field(default_factory=list)
+    excluded_missing_element_ids: List[str] = field(default_factory=list)
+    excluded_reasons: Dict[str, str] = field(default_factory=dict)
 
     def to_public_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -5161,6 +5172,52 @@ def _select_risk_evidence(
     return rows[:6]
 
 
+def _risk_element_truth(
+    primary: ReviewItemResult,
+    supporting_items: List[ReviewItemResult],
+) -> tuple[List[str], List[str], List[Dict[str, Any]]]:
+    covered = sorted({
+        str(element.get("element_id") or "")
+        for item in supporting_items
+        for element in item.coverage_elements or []
+        if element.get("element_id") and element.get("status") in {"COVERED", "PARTIALLY_COVERED"}
+    })
+    missing_rows: List[Dict[str, Any]] = []
+    formula_item = next(
+        (
+            item for item in supporting_items
+            if ((item.scenario_analysis or {}).get("formula") or {}).get("type")
+        ),
+        primary,
+    )
+    formula = (formula_item.scenario_analysis or {}).get("formula") or {}
+    for element in primary.coverage_elements or []:
+        if not element.get("element_id") or element.get("status") not in {"MISSING", "UNCERTAIN"}:
+            continue
+        element_id = str(element.get("element_id") or "")
+        proposition = str(element.get("proposition") or "")
+        if element_id == "core_contract_arrangement" and formula.get("type"):
+            element_id = f"{formula_item.node_id}.formula_control"
+            proposition = "违约责任计算公式、金额上限及其与可证明实际损失之间的关系明确。"
+        missing_rows.append({
+            "element_id": element_id,
+            "proposition": proposition,
+            "source_review_id": primary.item_id,
+            "status": str(element.get("status") or "MISSING"),
+            "required_fact_key": str(element.get("required_fact_key") or ""),
+        })
+    if not missing_rows and formula.get("type"):
+        missing_rows.append({
+            "element_id": f"{formula_item.node_id}.formula_control",
+            "proposition": "违约责任计算公式、金额上限及其与可证明实际损失之间的关系明确。",
+            "source_review_id": formula_item.item_id,
+            "status": "MISSING",
+            "required_fact_key": "",
+        })
+    missing_ids = [row["element_id"] for row in missing_rows]
+    return covered, missing_ids, missing_rows
+
+
 def _build_risk_findings(items: List[ReviewItemResult]) -> List[RiskFinding]:
     grouped: Dict[str, List[ReviewItemResult]] = {}
     def can_attach_to_finding(item: ReviewItemResult) -> bool:
@@ -5213,6 +5270,7 @@ def _build_risk_findings(items: List[ReviewItemResult]) -> List[RiskFinding]:
         ]
         finding_id = RISK_FINDING_ID_BY_GROUP.get(group, f"RF-{index:03d}")
         evidence = _select_risk_evidence(finding_id, all_group_items)
+        covered_element_ids, missing_element_ids, final_missing_elements = _risk_element_truth(primary, all_group_items)
         risk_claim = _risk_claim_for_group(group, primary, finding_id)
         supporting_evidence = _supporting_evidence_for_claim(risk_claim, evidence)
         source_review_ids = sorted({item.item_id for item in all_group_items})
@@ -5291,6 +5349,9 @@ def _build_risk_findings(items: List[ReviewItemResult]) -> List[RiskFinding]:
             default_law_status=default_law_status(group, primary.node_id),
             supporting_evidence=supporting_evidence,
             counter_evidence=[row for row in evidence if row not in supporting_evidence],
+            covered_element_ids=covered_element_ids,
+            missing_element_ids=missing_element_ids,
+            final_missing_elements=final_missing_elements,
         )
         findings.append(finding)
         for item in items:
@@ -7967,9 +8028,23 @@ def _build_final_dispositions(
             else "HIGH_DOWNGRADED_WITH_REASON" if finding.severity in {SEVERITY_HIGH, SEVERITY_CRITICAL}
             else "ALIGNED"
         )
-        downgrade_reason = (
-            final_reason if finding.severity in {SEVERITY_HIGH, SEVERITY_CRITICAL} and final_action != DISPOSITION_MUST_CHANGE else ""
-        )
+        downgrade_reason = ""
+        if finding.severity in {SEVERITY_HIGH, SEVERITY_CRITICAL} and final_action != DISPOSITION_MUST_CHANGE:
+            impact = (finding.severity_reason or {}).get("impact") or {}
+            materiality = ", ".join(
+                key for key, value in impact.items()
+                if str(value).upper() in {"HIGH", "CRITICAL"}
+            ) or "contract performance"
+            protection = (
+                "合同已有部分要素和证据保护"
+                if finding.covered_element_ids
+                else "未发现导致合同当然无效或立即不可签署的事实"
+            )
+            downgrade_reason = (
+                f"HIGH 反映 {materiality} 维度的重大履行或争议风险；但{protection}，"
+                "当前缺口可通过平衡补充条款修复，且候选修改未削弱客户既有保护，因此列为 SHOULD_CHANGE，"
+                "尚不构成必须阻止签署的 MUST_CHANGE。"
+            )
         dispositions.append(FinalDisposition(
             risk_id=finding.finding_id,
             risk_title=finding.title,
@@ -7992,8 +8067,282 @@ def _build_final_dispositions(
             authority_ids=list(decision.authority_ids if decision else []),
             severity_action_alignment=severity_action_alignment,
             downgrade_reason=downgrade_reason,
+            final_missing_elements=list(finding.final_missing_elements),
+            final_missing_element_ids=[str(row.get("element_id") or "") for row in finding.final_missing_elements if row.get("element_id")],
         ))
     return dispositions
+
+
+RECOMMENDATION_ELEMENT_ACTIONS: Dict[str, str] = {
+    "breach_trigger": "明确服务未提供、停止提供或质量不符合约定时的处理触发条件",
+    "cure_first": "优先约定补正、补课、延期、替代或重新提供",
+    "refund_after_failed_cure": "补救后仍不能达到约定标准时，按未履行部分结算退费",
+    "actual_loss_liability": "涉及赔偿时，以依法能够证明的实际损失为限",
+    "course_content_standard": "补充课程内容或教学服务标准，且不得承诺学习效果或保过结果",
+    "hour_completion_standard": "明确课时完成和签到确认标准",
+    "teacher_requirement": "明确师资安排和服务人员要求",
+    "makeup_or_reschedule_standard": "明确调课、停课、缺课和补课规则",
+    "nonconformity_handling": "明确服务未达到约定标准后的补正和重新履行机制",
+    "paid_amount": "明确实际已支付金额、分期金额或付款节点",
+    "unit_price": "明确课时或服务单价及其计算口径",
+    "non_tuition_fee_handling": "明确资料费、教材费等非课时费用在退费时是否退还、可扣除条件及计算依据",
+    "reasonable_cost_deduction": "明确可依法扣除的合理成本及资料费、教材费等不可退费用范围、计算依据和证明要求",
+    "refund_deadline": "明确退款审核、结算及支付完成期限",
+    "attendance_record": "明确签到和课时消耗记录的保存方式",
+    "service_confirmation": "明确服务完成确认和沟通记录的保存方式",
+    "refund_record": "明确退费审核、结算和支付记录的保存方式",
+    "notice_and_proof": "明确不可抗力发生后的通知和证明义务",
+    "service_adjustment_options": "明确延期、转为线上、替代服务或结算等调整方案",
+}
+
+RECOMMENDATION_PLACEHOLDER_TERMS = (
+    "对应安排",
+    "实质条款内容",
+    "具体未明要素",
+    "其余关键要素",
+)
+
+
+def _recommendation_action_for_element(element: Dict[str, Any]) -> tuple[str, str]:
+    element_id = str(element.get("element_id") or "")
+    if element_id == "core_contract_arrangement":
+        return "", "Element is composite and has no concrete, source-backed drafting action."
+    mapped = RECOMMENDATION_ELEMENT_ACTIONS.get(element_id)
+    if mapped:
+        return mapped, ""
+    proposition = str(element.get("proposition") or "").strip("。；; ")
+    if not proposition or any(term in proposition for term in RECOMMENDATION_PLACEHOLDER_TERMS):
+        return "", "Element proposition is not specific enough for a formal recommendation."
+    proposition = re.sub(r"(?:是否)?明确$", "", proposition).strip("。；; ")
+    return f"明确{proposition}", ""
+
+
+def _bind_recommendations_to_final_dispositions(
+    recommendations: List[Recommendation],
+    findings: List[RiskFinding],
+    dispositions: List[FinalDisposition],
+) -> List[Recommendation]:
+    finding_by_id = {finding.finding_id: finding for finding in findings}
+    disposition_by_risk = {row.risk_id: row for row in dispositions}
+    actionable = {DISPOSITION_MUST_CHANGE, DISPOSITION_SHOULD_CHANGE, DISPOSITION_OPTIONAL_IMPROVEMENT}
+    retained: List[Recommendation] = []
+    for recommendation in recommendations:
+        statutory_clauses = [
+            dict(row) for row in recommendation.clauses
+            if row.get("source_type") in {"STATUTORY_RULE", "STATUTORY_DEFAULT"}
+        ]
+        statutory_components = [
+            dict(row) for row in recommendation.components
+            if row.get("source_type") in {"STATUTORY_RULE", "STATUTORY_DEFAULT"}
+        ]
+        fragments: List[Dict[str, Any]] = []
+        input_ids: List[str] = []
+        excluded: Dict[str, str] = {}
+        active_risk_ids: List[str] = []
+        for risk_id in recommendation.source_finding_ids:
+            disposition = disposition_by_risk.get(risk_id)
+            finding = finding_by_id.get(risk_id)
+            if not disposition or not finding or disposition.final_action not in actionable:
+                continue
+            active_risk_ids.append(risk_id)
+            for element in disposition.final_missing_elements:
+                element_id = str(element.get("element_id") or "")
+                if not element_id or element_id in input_ids:
+                    continue
+                input_ids.append(element_id)
+                text_value, excluded_reason = _recommendation_action_for_element(element)
+                if excluded_reason:
+                    excluded[element_id] = excluded_reason
+                    continue
+                fragments.append({
+                    "recommendation_fragment_id": f"{recommendation.recommendation_id}-FRAG-{len(fragments) + 1:02d}",
+                    "text": text_value,
+                    "source_element_ids": [element_id],
+                    "source_review_ids": [str(element.get("source_review_id") or "")],
+                    "source_risk_id": risk_id,
+                    "action_type": disposition.final_action,
+                    "detail_type": "IMPLEMENTATION_DETAIL",
+                })
+        for risk_id in active_risk_ids:
+            disposition = disposition_by_risk[risk_id]
+            disposition.excluded_missing_element_ids = sorted(set(disposition.excluded_missing_element_ids) | set(excluded))
+            disposition.excluded_reasons.update(excluded)
+        recommendation.recommendation_input_elements = input_ids
+        recommendation.fragments = fragments
+        recommendation.excluded_element_ids = sorted(excluded)
+        recommendation.excluded_reasons = excluded
+        recommendation.source_finding_ids = sorted(set(active_risk_ids))
+        recommendation.target_finding_ids = sorted(set(active_risk_ids))
+        recommendation.target_risk_ids = sorted(set(active_risk_ids))
+        if not fragments:
+            recommendation.status = "SUPPRESSED_NO_SOURCE_ELEMENT"
+            continue
+        final_text = "建议" + "；".join(fragment["text"] for fragment in fragments) + "。"
+        recommendation.suggested_text = final_text
+        recommendation.proposed_change = final_text
+        recommendation.proposed_text = final_text
+        recommendation.clauses = statutory_clauses + [{
+            "text": fragment["text"],
+            "source_type": "RISK_MITIGATION",
+            "source_element_ids": list(fragment["source_element_ids"]),
+            "legal_claim_ids": [],
+            "legal_requirement": False,
+            "drafting_choice": True,
+            "rationale": "该动作仅处理 FinalDisposition 确认的真实缺失元素。",
+        } for fragment in fragments]
+        recommendation.components = statutory_components + [{
+            "proposition": fragment["text"],
+            "source_type": "RISK_MITIGATION",
+            "source_element_ids": list(fragment["source_element_ids"]),
+            "statutory_basis": "",
+            "authority": "",
+            "supported_scope": "",
+            "drafting_reason": "由 FinalDisposition.final_missing_elements 生成。",
+            "confidence": (recommendation.confidence or {}).get("level", "medium"),
+        } for fragment in fragments]
+        recommendation.status = "FINAL_TRUTH_BOUND"
+        retained.append(recommendation)
+
+    recs_by_risk: Dict[str, List[Recommendation]] = {}
+    for recommendation in retained:
+        for risk_id in recommendation.source_finding_ids:
+            recs_by_risk.setdefault(risk_id, []).append(recommendation)
+    for finding in findings:
+        finding.recommendation_ids = [rec.recommendation_id for rec in recs_by_risk.get(finding.finding_id, [])]
+    for disposition in dispositions:
+        bound = recs_by_risk.get(disposition.risk_id, [])
+        disposition.source_recommendation_ids = [rec.recommendation_id for rec in bound]
+        bound_text = "；".join(rec.suggested_text for rec in bound)
+        if disposition.final_action in actionable and bound_text:
+            disposition.recommendation = bound_text
+            disposition.formal_recommendation = bound_text if disposition.recommendation_owner == RECOMMENDATION_OWNER_REVIEW else None
+        elif not bound_text:
+            disposition.recommendation = ""
+            disposition.formal_recommendation = None
+            disposition.include_in_priority_changes = False
+            disposition.include_in_optional_improvements = False
+    return retained
+
+
+def _recommendation_truth_binding_audit(
+    recommendations: List[Recommendation],
+    findings: List[RiskFinding],
+    dispositions: List[FinalDisposition],
+) -> Dict[str, Any]:
+    finding_by_id = {finding.finding_id: finding for finding in findings}
+    recs_by_risk: Dict[str, List[Recommendation]] = {}
+    for recommendation in recommendations:
+        for risk_id in recommendation.source_finding_ids:
+            recs_by_risk.setdefault(risk_id, []).append(recommendation)
+    rows: List[Dict[str, Any]] = []
+    unmapped: List[Dict[str, Any]] = []
+    leakage: List[Dict[str, Any]] = []
+    covered_reintroduced: List[Dict[str, Any]] = []
+    placeholders: List[Dict[str, Any]] = []
+    disposition_mismatches: List[Dict[str, Any]] = []
+    no_action = {DISPOSITION_KEEP_CURRENT, DISPOSITION_DO_NOT_ADD, "NO_ACTION", "PASS", COVERAGE_NOT_APPLICABLE}
+    for disposition in dispositions:
+        finding = finding_by_id.get(disposition.risk_id)
+        if not finding:
+            continue
+        final_ids = set(disposition.final_missing_element_ids)
+        covered_ids = set(finding.covered_element_ids)
+        risk_recs = recs_by_risk.get(disposition.risk_id, [])
+        fragments = [fragment for rec in risk_recs for fragment in rec.fragments]
+        fragment_ids = {str(element_id) for fragment in fragments for element_id in fragment.get("source_element_ids") or []}
+        for fragment in fragments:
+            source_ids = set(fragment.get("source_element_ids") or [])
+            if not source_ids:
+                unmapped.append({"risk_id": disposition.risk_id, "fragment": fragment})
+            if not source_ids <= final_ids:
+                leakage.append({"risk_id": disposition.risk_id, "fragment": fragment, "outside_final_missing": sorted(source_ids - final_ids)})
+            if source_ids & covered_ids:
+                covered_reintroduced.append({"risk_id": disposition.risk_id, "fragment": fragment, "covered_element_ids": sorted(source_ids & covered_ids)})
+            if any(term in str(fragment.get("text") or "") for term in RECOMMENDATION_PLACEHOLDER_TERMS):
+                placeholders.append({"risk_id": disposition.risk_id, "fragment": fragment})
+        if disposition.final_action in no_action and risk_recs:
+            disposition_mismatches.append({"risk_id": disposition.risk_id, "final_action": disposition.final_action, "recommendation_ids": [rec.recommendation_id for rec in risk_recs]})
+        excluded = sorted(final_ids - fragment_ids)
+        excluded_reasons = {
+            element_id: reason
+            for rec in risk_recs
+            for element_id, reason in rec.excluded_reasons.items()
+        }
+        excluded_reasons.update(disposition.excluded_reasons)
+        rows.append({
+            "risk_id": finding.finding_id,
+            "risk_title": finding.title,
+            "covered_element_ids": sorted(covered_ids),
+            "missing_element_ids": list(finding.missing_element_ids),
+            "final_missing_element_ids": sorted(final_ids),
+            "recommendation_input_element_ids": sorted({element_id for rec in risk_recs for element_id in rec.recommendation_input_elements}),
+            "recommendation_fragment_element_ids": sorted(fragment_ids),
+            "leaked_covered_element_ids": sorted(fragment_ids & covered_ids),
+            "unmapped_recommendation_fragments": [fragment for fragment in fragments if not fragment.get("source_element_ids")],
+            "excluded_missing_element_ids": sorted(set(excluded) | set(disposition.excluded_missing_element_ids)),
+            "excluded_reasons": excluded_reasons,
+        })
+    return {
+        "status": "PASS" if not (unmapped or leakage or covered_reintroduced or placeholders or disposition_mismatches) else "FAIL",
+        "rows": rows,
+        "unmapped_recommendation_fragments": unmapped,
+        "recommendation_element_leakage": leakage,
+        "recommendation_covered_element_leakage": covered_reintroduced,
+        "placeholder_recommendation_text": placeholders,
+        "final_disposition_mismatches": disposition_mismatches,
+    }
+
+
+def _recommendation_truth_binding_gate(audit: Dict[str, Any]) -> Dict[str, Any]:
+    checks = {
+        "RECOMMENDATION_SOURCE_UNMAPPED": audit.get("unmapped_recommendation_fragments") or [],
+        "RECOMMENDATION_ELEMENT_LEAKAGE": audit.get("recommendation_element_leakage") or [],
+        "RECOMMENDATION_COVERED_ELEMENT_REINTRODUCED": audit.get("recommendation_covered_element_leakage") or [],
+        "RECOMMENDATION_PLACEHOLDER_TEXT": audit.get("placeholder_recommendation_text") or [],
+        "RECOMMENDATION_FINAL_DISPOSITION_MISMATCH": audit.get("final_disposition_mismatches") or [],
+    }
+    failures = [{
+        "requirement": code,
+        "failure_stage": "Recommendation Truth Binding",
+        "root_cause": f"{code} detected {len(rows)} recommendation truth violations.",
+        "responsible_function": "_recommendation_truth_binding_audit",
+        "current_status": "FAIL",
+    } for code, rows in checks.items() if rows]
+    return {
+        "status": "REPORT_READY" if not failures else "BLOCKED",
+        "failures": failures,
+        "gate_results": {code: "PASS" if not rows else "FAIL" for code, rows in checks.items()},
+        "rows": list(audit.get("rows") or []),
+    }
+
+
+def _high_risk_disposition_audit(
+    findings: List[RiskFinding],
+    dispositions: List[FinalDisposition],
+) -> List[Dict[str, Any]]:
+    finding_by_id = {finding.finding_id: finding for finding in findings}
+    rows: List[Dict[str, Any]] = []
+    for disposition in dispositions:
+        if disposition.severity not in {SEVERITY_HIGH, SEVERITY_CRITICAL}:
+            continue
+        finding = finding_by_id.get(disposition.risk_id)
+        reason = (finding.severity_reason or {}) if finding else {}
+        rows.append({
+            "risk_id": disposition.risk_id,
+            "risk_title": disposition.risk_title,
+            "severity": disposition.severity,
+            "severity_reason": reason,
+            "materiality_factors": reason.get("impact") or {},
+            "existing_protection": {
+                "covered_element_ids": list(finding.covered_element_ids if finding else []),
+                "legal_default_protection": disposition.legal_default_protection,
+            },
+            "client_interest_effect": disposition.client_effect,
+            "final_action": disposition.final_action,
+            "action_reason": disposition.final_reason,
+            "downgrade_reason": disposition.downgrade_reason,
+        })
+    return rows
 
 
 def _final_disposition_summary(dispositions: List[FinalDisposition]) -> Dict[str, int]:
@@ -10776,9 +11125,11 @@ def _apply_final_quality_gate(
 
 def _sanitize_review_report(report: str) -> str:
     cleaned = report
-    cleaned = cleaned.replace("”对应的核心安排", "”实质条款内容")
-    cleaned = cleaned.replace("对应的具体未明要素", "现有信息不足以确定具体缺失字段")
-    cleaned = cleaned.replace("其余关键要素", "现有信息不足以确定具体缺失字段")
+    cleaned = re.sub(r"可验证的“([^”]+)”(?:对应的核心安排|实质条款内容)", r"“\1”相关事项", cleaned)
+    cleaned = cleaned.replace("”对应的核心安排", "”相关事项")
+    cleaned = cleaned.replace("对应的具体未明要素", "尚无法从现有材料确定的具体内容")
+    cleaned = cleaned.replace("具体未明要素", "尚无法从现有材料确定的具体内容")
+    cleaned = cleaned.replace("其余关键要素", "尚无法从现有材料确定的具体内容")
     cleaned = cleaned.replace("合同已明确覆盖：", "合同已明确约定")
     cleaned = cleaned.replace("合同已明确约定合同已约定", "合同已约定")
     cleaned = cleaned.replace("合同已明确约定已明确约定", "合同已明确约定")
@@ -10817,6 +11168,7 @@ def _report_text_validation_gate(report: str) -> Dict[str, Any]:
         "DUPLICATE_EVIDENCE_TEXT": r"合同正文及附件中未找到对应约定；未在合同正文及附件中定位到对应安排",
         "NA_ALWAYS_APPLICABLE_CONTRADICTION": r"覆盖状态：不适用[\s\S]{0,240}【适用条件】：始终适用",
         "LEGACY_NOT_FOUND": r"未召回正式条款",
+        "RECOMMENDATION_PLACEHOLDER_TEXT": r"对应安排|实质条款内容|具体未明要素|其余关键要素|可验证的“[^”]+”实质条款内容",
     }
     failures: List[Dict[str, Any]] = []
     for name, pattern in patterns.items():
@@ -11653,7 +12005,27 @@ def review_contract_v2(
     client_interest_decisions, client_interest_gate = _client_interest_gate(
         risk_findings, recommendations, recommendation_impacts, items, perspective_resolution.canonical_role,
     )
+    candidate_recommendation_impacts = list(recommendation_impacts)
     final_dispositions = _build_final_dispositions(risk_findings, recommendations, client_interest_decisions)
+    recommendations = _bind_recommendations_to_final_dispositions(
+        recommendations, risk_findings, final_dispositions,
+    )
+    recommendations, recommendation_impacts, recommendation_impact_gate = evaluate_recommendations(
+        recommendations, risk_findings, items, perspective_resolution.canonical_role,
+    )
+    recommendations = _bind_recommendations_to_final_dispositions(
+        recommendations, risk_findings, final_dispositions,
+    )
+    final_impact_ids = {impact.recommendation_id for impact in recommendation_impacts}
+    recommendation_display_impacts = list(recommendation_impacts) + [
+        impact for impact in candidate_recommendation_impacts
+        if impact.gate_result == "BLOCKED" and impact.recommendation_id not in final_impact_ids
+    ]
+    recommendation_truth_audit = _recommendation_truth_binding_audit(
+        recommendations, risk_findings, final_dispositions,
+    )
+    recommendation_truth_gate = _recommendation_truth_binding_gate(recommendation_truth_audit)
+    high_risk_disposition_audit = _high_risk_disposition_audit(risk_findings, final_dispositions)
     _apply_final_disposition_states(items, final_dispositions)
     final_disposition_summary = _final_disposition_summary(final_dispositions)
     final_disposition_invariant_gate = _final_disposition_invariant_gate(risk_findings, final_dispositions)
@@ -11677,7 +12049,7 @@ def review_contract_v2(
     default_law_narrative_rows = _apply_default_law_narratives(items)
     default_law_narrative_gate = _default_law_narrative_truth_gate(default_law_narrative_rows)
     final_recommendation_set, recommendation_ssot_debug = _apply_recommendation_display_states(
-        items, risk_findings, recommendations, recommendation_impacts,
+        items, risk_findings, recommendations, recommendation_display_impacts,
     )
     _apply_final_disposition_states(items, final_dispositions)
     applicability_polarity_pre_gate = _applicability_polarity_gates(
@@ -11738,6 +12110,7 @@ def review_contract_v2(
     fact_polarity_gate = production_fact_polarity_gate(production_display_claims)
     pre_render_gate = _combine_quality_gates(pre_render_gate, fact_polarity_gate)
     pre_render_gate = _combine_quality_gates(pre_render_gate, recommendation_impact_gate)
+    pre_render_gate = _combine_quality_gates(pre_render_gate, recommendation_truth_gate)
     pre_render_gate = _combine_quality_gates(pre_render_gate, client_interest_gate)
     pre_render_gate = _combine_quality_gates(pre_render_gate, final_disposition_invariant_gate)
     pre_render_gate = _combine_quality_gates(pre_render_gate, legal_authority_gate)
@@ -11837,6 +12210,7 @@ def review_contract_v2(
         "perspective_resolution": perspective_resolution.to_public_dict(),
         "perspective_domain_consistency_gate": perspective_gate,
         "recommendation_non_degradation_gate": recommendation_impact_gate,
+        "recommendation_truth_binding_gate": recommendation_truth_gate,
         "client_interest_gate": client_interest_gate,
         "final_disposition_invariant_gate": final_disposition_invariant_gate,
         "recommendation_single_source_gate": recommendation_renderer_gate,
@@ -11915,8 +12289,11 @@ def review_contract_v2(
             "perspective_domain_consistency_gate": perspective_gate,
             "production_humanization_debug": production_display_claims,
             "production_fact_polarity_debug": fact_polarity_gate,
-            "recommendation_impact_debug": [impact.to_public_dict() for impact in recommendation_impacts],
+            "recommendation_impact_debug": [impact.to_public_dict() for impact in recommendation_display_impacts],
             "recommendation_non_degradation_gate": recommendation_impact_gate,
+            "recommendation_diff_audit": recommendation_truth_audit,
+            "recommendation_truth_binding_gate": recommendation_truth_gate,
+            "high_risk_disposition_audit": high_risk_disposition_audit,
             "client_interest_debug": client_interest_gate,
             "final_disposition_debug": final_disposition_dicts,
             "manual_review_debug": manual_review_items,
