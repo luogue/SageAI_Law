@@ -112,6 +112,51 @@ DISPLAY_LABEL_REGISTRY: Tuple[DomainDisplayLabel, ...] = (
         usage_scenario_label="一般服务合同",
         contract_type_label="服务合同",
     ),
+    DomainDisplayLabel(
+        family="TECHNOLOGY",
+        subject_matter="TECHNICAL_SERVICE",
+        transaction_structure="B2B_TECHNICAL_SERVICE",
+        subtype="TECHNICAL_SERVICE",
+        report_title="技术服务合同审查报告",
+        usage_scenario_label="技术服务",
+        contract_type_label="技术服务合同",
+    ),
+    DomainDisplayLabel(
+        family="TECHNOLOGY",
+        subject_matter="PATENT_RIGHT",
+        transaction_structure="B2B_PATENT_RIGHT_TRANSFER",
+        subtype="TECHNOLOGY_TRANSFER",
+        report_title="专利权转让合同审查报告",
+        usage_scenario_label="专利权转让",
+        contract_type_label="技术合同—技术转让合同—专利权转让合同",
+    ),
+    DomainDisplayLabel(
+        family="TECHNOLOGY",
+        subject_matter="PATENT_LICENSE",
+        transaction_structure="B2B_PATENT_LICENSE_WITH_COMMISSIONED_DEVELOPMENT",
+        subtype="TECHNOLOGY_LICENSE",
+        report_title="专利实施许可合同审查报告",
+        usage_scenario_label="专利实施许可（含委托开发模块）",
+        contract_type_label="技术合同—技术许可合同—专利实施许可（含委托开发模块）",
+    ),
+    DomainDisplayLabel(
+        family="TECHNOLOGY",
+        subject_matter="PATENT_LICENSE",
+        transaction_structure="B2B_PATENT_LICENSE",
+        subtype="TECHNOLOGY_LICENSE",
+        report_title="专利实施许可合同审查报告",
+        usage_scenario_label="专利实施许可",
+        contract_type_label="技术合同—技术许可合同—专利实施许可",
+    ),
+    DomainDisplayLabel(
+        family="TECHNOLOGY",
+        subject_matter="TECHNOLOGY",
+        transaction_structure="B2B_COOPERATIVE_DEVELOPMENT",
+        subtype="COOPERATIVE_DEVELOPMENT",
+        report_title="合作开发合同审查报告",
+        usage_scenario_label="合作开发",
+        contract_type_label="技术合同—技术开发合同—合作开发合同",
+    ),
 )
 
 
@@ -160,6 +205,26 @@ def build_report_context(contract_context: Dict[str, Any]) -> ReportContext:
     family = str(contract_context.get("contract_family") or contract_context.get("contract_type") or "").upper()
     transaction_structure = str(contract_context.get("transaction_structure") or "SINGLE_TRANSACTION")
     label = _resolve_display_label(family, subject, transaction_structure, subtype)
+    if family == "TECHNOLOGY" and subtype == "TECHNICAL_SERVICE" and str(contract_context.get("usage_scenario") or "").startswith("UNIVERSITY_RESEARCH_DATA"):
+        label = DomainDisplayLabel(
+            family=family,
+            subject_matter=subject,
+            transaction_structure=transaction_structure,
+            subtype=subtype,
+            report_title="技术服务合同审查报告",
+            usage_scenario_label="高校科研数据治理技术服务",
+            contract_type_label="技术服务合同",
+        )
+    if family == "TECHNOLOGY" and subtype == "TECHNOLOGY_TRANSFER" and str(contract_context.get("usage_scenario") or "").startswith("UNIVERSITY_TECH_ACHIEVEMENT"):
+        label = DomainDisplayLabel(
+            family=family,
+            subject_matter=subject,
+            transaction_structure=transaction_structure,
+            subtype=subtype,
+            report_title="专利权转让合同审查报告",
+            usage_scenario_label="高校科技成果向企业协议转让",
+            contract_type_label="技术合同—技术转让合同—专利权转让合同",
+        )
     user_role = str(contract_context.get("user_role") or contract_context.get("user_perspective") or "neutral")
     return ReportContext(
         family=family,

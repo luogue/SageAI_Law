@@ -14,6 +14,7 @@ from typing import Any, Dict, Iterable, List, Optional
 
 from review_v2.domain_packs import get_domain_pack
 from review_v2.domain_resolution import DomainResolution
+from review_v2.technology_service_analysis import classify_technology_transaction
 
 
 COVERAGE_PASS = "PASS"
@@ -566,6 +567,58 @@ def build_contract_context(
             },
         )
 
+    if normalized_type == "technology":
+        classification = classify_technology_transaction(contract_text)
+        patent_transfer = classification.get("tertiary_subtype") == "PATENT_RIGHT_TRANSFER"
+        patent_license = classification.get("tertiary_subtype") == "PATENT_LICENSE"
+        technology_pack = get_domain_pack("technology/transfer/patent_right" if patent_transfer else "technology")
+        special_assets = []
+        if classification["involves_personal_information"]:
+            special_assets.append("PERSONAL_INFORMATION")
+        if classification["involves_background_ip"]:
+            special_assets.append("BACKGROUND_INTELLECTUAL_PROPERTY")
+        if classification["involves_software_or_data"]:
+            special_assets.append("SOFTWARE_ALGORITHM_DATA_PROCESSING")
+        return ContractContext(
+            contract_type=contract_type,
+            contract_family="TECHNOLOGY",
+            transaction_nature="SERVICE_PROVISION" if classification["is_technical_service"] else "INTELLECTUAL_PROPERTY_TRANSFER" if patent_transfer else "INTELLECTUAL_PROPERTY_LICENSE" if patent_license else "TECHNOLOGY_TRANSACTION",
+            contract_subtype=classification["subtype"],
+            user_role=user_role,
+            counterparty_role=counterparty_role,
+            transaction_purpose="technical_service" if classification["is_technical_service"] else "patent_right_acquisition" if patent_transfer else "patent_licensing" if patent_license else "technology_transaction",
+            usage_scenario=classification["scenario"],
+            subject_matter="TECHNICAL_SERVICE" if classification["is_technical_service"] else "PATENT_RIGHT" if patent_transfer else "PATENT_LICENSE" if patent_license else "TECHNOLOGY",
+            asset_usage="BUSINESS_RESEARCH_DATA" if "UNIVERSITY" in classification["scenario"] else "BUSINESS",
+            consideration_type="SERVICE_FEE" if classification["is_technical_service"] else "TRANSFER_PRICE" if patent_transfer else "LICENSE_FEE" if patent_license else "TECHNOLOGY_PRICE",
+            ownership_transfer=patent_transfer,
+            possession_transfer=False,
+            transaction_structure=classification["transaction_structure"],
+            business_or_consumer="B2B",
+            bargaining_power=bargaining,
+            user_perspective=perspective,
+            special_assets=special_assets,
+            special_facts=[classification["scenario"]],
+            payment_structure="service_fee_payment" if classification["is_technical_service"] else "patent_transfer_installments" if patent_transfer else "technology_payment",
+            delivery_structure="technical_service_deliverables" if classification["is_technical_service"] else "patent_documents_and_registration" if patent_transfer else "technology_delivery",
+            domain_attributes={
+                "domain_pack": technology_pack.version,
+                "selected_domain_packs": ["shared", "technology/common", "technology/transfer/patent_right"] if patent_transfer else ["shared", "technology/common"],
+                "default_law_nodes": technology_pack.default_law_nodes,
+                "economic_ratio_keys": technology_pack.economic_ratio_keys,
+                "classification": classification,
+                "primary_category": classification.get("primary_category"),
+                "tertiary_subtype": classification.get("tertiary_subtype"),
+                "excluded_subtypes": classification.get("excluded_subtypes", []),
+                "secondary_modules": classification.get("secondary_modules", []),
+                "ancillary_obligations": classification.get("ancillary_obligations", []),
+                "factual_triggers": classification.get("factual_triggers", []),
+                "license_mode": classification.get("license_mode", ""),
+                "context_resolver": "technology_transaction_context",
+                "lease_fields_used": False,
+            },
+        )
+
     return ContractContext(
         contract_type=contract_type,
         contract_family=domain_resolution.contract_family if domain_resolution else normalized_type.upper(),
@@ -914,7 +967,9 @@ def post_render_quality_gate(
                 "fix_owner": "Report Serializer",
             }
         )
-    required_sections = ["合同总体评价", "核心风险摘要", "建议优先修改", "可选优化事项", "已覆盖关键事项", "完整审查明细"]
+    required_sections = ["合同总体评价", "核心风险摘要", "可选优化事项", "已覆盖关键事项", "完整审查明细"]
+    if "建议优先修改" not in report and "建议修改事项" not in report:
+        required_sections.append("建议优先修改或建议修改事项")
     missing_sections = [section for section in required_sections if section not in (report or "")]
     if missing_sections:
         failures.append(

@@ -95,6 +95,8 @@ class ReviewV2Result(BaseModel):
     legal_authority_validation: Dict[str, Any] = Field(default_factory=dict)
     benchmark_metrics: Dict[str, Any] = Field(default_factory=dict)
     release_quality_gate: Dict[str, Any] = Field(default_factory=dict)
+    fatal_report_generation_gate: Dict[str, Any] = Field(default_factory=dict)
+    report_generation_decision: Dict[str, Any] = Field(default_factory=dict)
     quality4_gate: Dict[str, Any] = Field(default_factory=dict)
     architecture_status: List[Dict[str, Any]] = Field(default_factory=list)
     system_metadata: Dict[str, Any] = Field(default_factory=dict)

@@ -13,6 +13,14 @@ from review_v2.house_lease_checklist import ReviewCheckpoint
 
 
 def _technology_applicable_if(item_id: str, node_id: str) -> str:
+    if item_id in {"TC-03-01", "TC-03-02", "TC-03-03"}:
+        return "仅在合同涉及自然人个人成果、员工成果归属、职务或非职务成果、离职人员成果、完成人署名或奖励安排时适用。"
+    if item_id == "TC-12-01":
+        return "仅适用于技术转让或许可中受让人、被许可人按约实施现有专利或技术秘密的场景。"
+    if item_id == "TC-12-03":
+        return "仅适用于技术秘密转让或许可被确认无效后的善意实施场景。"
+    if item_id == "TC-12-04":
+        return "适用于合同约定违约金、退款、继续履行、损害赔偿、责任累计或责任上限等责任结构的场景。"
     if node_id == "technology_contract_type_classification":
         return "仅在合同未能明确识别为技术开发、技术转让、技术许可、技术咨询或技术服务之一时适用。"
     if node_id == "fraud_contract_existing_technology":

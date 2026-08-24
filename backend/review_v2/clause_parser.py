@@ -18,6 +18,8 @@ SECTION_USAGE = "使用说明"
 SECTION_SPECIAL_NOTICE = "特别提示"
 SECTION_FORMAL = "正式合同条款"
 SECTION_APPENDIX = "附件"
+SECTION_SIGNATURE = "签署页"
+SECTION_REGISTRATION_AUTHORITY = "登记机构填写区"
 SECTION_COMMENTARY = "说明评论"
 SECTION_HISTORICAL_NOTE = "历史说明"
 
@@ -29,6 +31,7 @@ BLOCK_TEMPLATE_INSTRUCTION = BLOCK_TEMPLATE_GUIDANCE
 BLOCK_COMMENTARY = "COMMENTARY"
 BLOCK_HISTORICAL_NOTE = "HISTORICAL_NOTE"
 BLOCK_ANNEX = "ANNEX"
+BLOCK_REGISTRATION_AUTHORITY = "REGISTRATION_AUTHORITY_SECTION"
 
 
 class DocumentBlockType(str):
@@ -66,6 +69,17 @@ class ParsedClause:
     percentages: List[str] = field(default_factory=list)
     durations: List[str] = field(default_factory=list)
     cross_references: List[str] = field(default_factory=list)
+    node_id: str = ""
+    document_id: str = "contract_package/main"
+    heading_path: List[str] = field(default_factory=list)
+    article_number: str = ""
+    section_number: str = ""
+    item_number: str = ""
+    sentence_index: int = 1
+    start_offset: int = -1
+    end_offset: int = -1
+    source_type: str = "BODY"
+    party_obligation: bool = True
 
     def to_public_dict(self) -> Dict[str, str | int]:
         return asdict(self)
@@ -91,6 +105,10 @@ class DocumentIntegrity:
 def _clause_source(section_type: str, text: str = "") -> str:
     if section_type == SECTION_APPENDIX:
         return "appendix"
+    if section_type == SECTION_REGISTRATION_AUTHORITY:
+        return "registration_authority"
+    if section_type == SECTION_SIGNATURE:
+        return "signature"
     if section_type == SECTION_USAGE:
         return "usage"
     if section_type == SECTION_SPECIAL_NOTICE:
@@ -112,7 +130,9 @@ def _block_type(section_type: str, source: str) -> str:
         return BLOCK_HISTORICAL_NOTE
     if section_type == SECTION_APPENDIX:
         return BLOCK_ANNEX
-    if source == "signature":
+    if section_type == SECTION_REGISTRATION_AUTHORITY:
+        return BLOCK_REGISTRATION_AUTHORITY
+    if section_type == SECTION_SIGNATURE or source == "signature":
         return BLOCK_SIGNATURE
     if source == "party_info":
         return BLOCK_PARTY_INFORMATION
@@ -132,11 +152,16 @@ def _make_clause(
     section_type: str,
     level: int,
     paragraph_index: int = 0,
+    heading_path: Optional[List[str]] = None,
 ) -> ParsedClause:
     normalized = _normalize_clause_text(text)
     source = _clause_source(section_type, text)
     first_line = text.splitlines()[0] if text else ""
     article = ARTICLE_RE.match(first_line)
+    location_article = re.match(r"^(第[一二三四五六七八九十百零〇\d]+条)", location or "")
+    location_section = re.search(r"(第?（[一二三四五六七八九十百零〇\d]+）款?|（[一二三四五六七八九十百零〇\d]+）)", location or "")
+    location_item = re.search(r"第([一二三四五六七八九十百零〇\d]+)项", location or "")
+    article_number = location_article.group(1) if location_article else (article.group(0).split(maxsplit=1)[0] if article else "")
     return ParsedClause(
         clause_id=clause_id,
         location=location,
@@ -159,6 +184,20 @@ def _make_clause(
         percentages=re.findall(r"(?:\d+(?:\.\d+)?\s*[%％]|百分之[一二三四五六七八九十百]+|万分之[一二三四五六七八九十百]+)", text),
         durations=re.findall(r"(?:\d+|[一二三四五六七八九十]+)\s*(?:个)?\s*(?:工作日|日|天|个月|月|年)", text),
         cross_references=re.findall(r"第[一二三四五六七八九十百零〇\d]+条", text),
+        node_id=clause_id,
+        document_id="contract_package/appendix" if section_type == SECTION_APPENDIX else "contract_package/main",
+        heading_path=list(heading_path or [value for value in (location,) if value]),
+        article_number=article_number,
+        section_number=location_section.group(0) if location_section else "",
+        item_number=location_item.group(1) if location_item else "",
+        sentence_index=1,
+        source_type=(
+            "APPENDIX" if section_type == SECTION_APPENDIX
+            else "REGISTRATION_AUTHORITY_SECTION" if section_type == SECTION_REGISTRATION_AUTHORITY
+            else "SIGNATURE_PAGE" if section_type == SECTION_SIGNATURE or source == "signature"
+            else "BODY"
+        ),
+        party_obligation=section_type != SECTION_REGISTRATION_AUTHORITY,
     )
 
 
@@ -166,7 +205,7 @@ ARTICLE_RE = re.compile(r"^第[一二三四五六七八九十百零〇\d]+条[\s
 CHINESE_HEADING_RE = re.compile(r"^[一二三四五六七八九十百零〇]+、\s*(.*)$")
 SUBCLAUSE_RE = re.compile(r"^（[一二三四五六七八九十]+）")
 NUMBERED_RE = re.compile(r"^\d+[\.．、]")
-APPENDIX_RE = re.compile(r"^(附件|附表)[一二三四五六七八九十\d]*")
+APPENDIX_RE = re.compile(r"^(附件|附表)[一二三四五六七八九十\d]*?(?=\s|[:：]|$)")
 PARTY_RE = re.compile(r"^(甲方|乙方)[（(].*")
 NON_CONTRACT_META_MARKERS = (
     "测试重点",
@@ -185,7 +224,8 @@ NON_CONTRACT_META_MARKERS = (
 
 def _is_non_contract_meta_line(line: str) -> bool:
     compacted = re.sub(r"\s+", "", line)
-    return any(marker in compacted for marker in NON_CONTRACT_META_MARKERS)
+    normalized = compacted.lstrip("#*- ")
+    return any(normalized.startswith(marker) for marker in NON_CONTRACT_META_MARKERS)
 
 
 def _is_signature_boundary_line(line: str) -> bool:
@@ -196,7 +236,9 @@ def _is_signature_boundary_line(line: str) -> bool:
         return True
     if re.match(r"^(甲方|乙方|出卖人|买受人|法定代表人|委托代理人|授权代表).{0,8}(签字|签名|盖章)[:：]?$", compacted):
         return True
-    if re.match(r"^(签署日期|签订日期|日期)[:：]?[年月日\d_\-/.]*$", compacted):
+    if compacted == "签署页":
+        return True
+    if re.match(r"^(签署日期|签订日期|签订时间|日期)[:：]?[年月日\d_\-/.]*$", compacted):
         return True
     return False
 
@@ -204,24 +246,14 @@ def _is_signature_boundary_line(line: str) -> bool:
 def strip_non_contract_tail(contract_text: str) -> str:
     """Remove test notes or analysis text appended outside the contract body."""
     kept: List[str] = []
-    in_signature_tail = False
 
     for raw_line in (contract_text or "").splitlines():
         line = raw_line.strip()
         if not line:
-            if not in_signature_tail:
-                kept.append(raw_line)
+            kept.append(raw_line)
             continue
         if _is_non_contract_meta_line(line):
             break
-        if in_signature_tail:
-            if APPENDIX_RE.match(line):
-                in_signature_tail = False
-                kept.append(raw_line)
-            continue
-        if _is_signature_boundary_line(line):
-            in_signature_tail = True
-            continue
         kept.append(raw_line)
 
     return "\n".join(kept).strip()
@@ -233,26 +265,35 @@ def _clean_lines(contract_text: str) -> List[str]:
         normalized = raw_line.strip()
         if not normalized:
             continue
+        normalized = re.sub(
+            r"\*\*(?=(?:第[一二三四五六七八九十百零〇\d]+条|[一二三四五六七八九十百零〇]+、|附件|补充条款))",
+            "\n",
+            normalized,
+        )
         normalized = re.sub(r"\s+(?=第[一二三四五六七八九十百零〇\d]+条)", "\n", normalized)
-        normalized = re.sub(r"(?<!^)(?=第[一二三四五六七八九十百零〇\d]+条)", "\n", normalized)
+        normalized = re.sub(r"(?<=[。；;])\s*(?=第[一二三四五六七八九十百零〇\d]+条)", "\n", normalized)
         normalized = re.sub(r"\s+#+\s*(?=[一二三四五六七八九十百零〇]+、|附件|补充条款|甲方[（(]|乙方[（(])", "\n", normalized)
-        normalized = re.sub(r"(?<!^)(?<![一二三四五六七八九十百零〇附件])(?=[一二三四五六七八九十百零〇]+、)", "\n", normalized)
-        normalized = re.sub(r"(?<!^)(?=（[一二三四五六七八九十]+）)", "\n", normalized)
+        normalized = re.sub(r"(?<=[。；;])\s*(?=[一二三四五六七八九十百零〇]+、)", "\n", normalized)
+        normalized = re.sub(r"(?<=[。；;])\s*(?=（[一二三四五六七八九十]+）)", "\n", normalized)
         normalized = re.sub(r"(?<!^)(?<!\d)(?=\d+[\.．、](?!\d))", "\n", normalized)
         normalized = re.sub(r"(?<!^)(?=本合同双方当事人[:：])", "\n", normalized)
         normalized = re.sub(r"(?<!^)(?=出租方[（(])", "\n", normalized)
         normalized = re.sub(r"(?<!^)(?=承租方[（(])", "\n", normalized)
         for line in normalized.splitlines():
-            line = re.sub(r"^#+\s*", "", line.strip())
+            line = re.sub(r"^(?:#+|\*\*)\s*", "", line.strip()).rstrip("*").strip()
             if line:
                 lines.append(line)
     return lines
 
 
 def _section_type_for_line(line: str, current: str, formal_started: bool) -> str:
+    if "以下内容由技术合同登记机构填写" in re.sub(r"\s+", "", line):
+        return SECTION_REGISTRATION_AUTHORITY
     if APPENDIX_RE.match(line):
         return SECTION_APPENDIX
     compacted = re.sub(r"[：:\s]", "", line)
+    if compacted == "签署页":
+        return SECTION_SIGNATURE
     if compacted in {"使用说明", "填写说明"}:
         return SECTION_USAGE
     if compacted in {"特别提示", "范本附注"}:
@@ -262,7 +303,7 @@ def _section_type_for_line(line: str, current: str, formal_started: bool) -> str
     if compacted in {"历史沿革", "修订记录", "历史说明"}:
         return SECTION_HISTORICAL_NOTE
     if formal_started:
-        return current if current in {SECTION_APPENDIX, SECTION_USAGE, SECTION_SPECIAL_NOTICE, SECTION_COMMENTARY, SECTION_HISTORICAL_NOTE} else SECTION_FORMAL
+        return current if current in {SECTION_APPENDIX, SECTION_SIGNATURE, SECTION_REGISTRATION_AUTHORITY, SECTION_USAGE, SECTION_SPECIAL_NOTICE, SECTION_COMMENTARY, SECTION_HISTORICAL_NOTE} else SECTION_FORMAL
     return current
 
 
@@ -304,11 +345,13 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
     current_section = SECTION_USAGE if "使用说明" in lines[:6] else SECTION_FORMAL
     current_level = 0
     article_location = ""
+    article_heading = ""
+    current_heading_path = ["全文"]
     formal_started = current_section == SECTION_FORMAL
     seen_structural_marker = False
 
     def flush() -> None:
-        nonlocal current_lines, current_location, current_title, current_section, current_level
+        nonlocal current_lines, current_location, current_title, current_section, current_level, current_heading_path
         text = "\n".join(current_lines).strip()
         if not text:
             current_lines = []
@@ -322,6 +365,7 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
                 section_type=current_section,
                 level=current_level,
                 paragraph_index=len(clauses),
+                heading_path=current_heading_path,
             )
         )
         current_lines = []
@@ -351,6 +395,7 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
             current_location = next_section
             current_title = line
             current_level = 0
+            current_heading_path = [line]
             current_lines = [line]
             continue
 
@@ -365,6 +410,8 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
             current_location = line
             current_title = line
             current_level = 1
+            article_heading = line
+            current_heading_path = [line]
             current_lines = [line]
             continue
         if party_match and current_section in {SECTION_FORMAL, SECTION_APPENDIX}:
@@ -384,6 +431,8 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
             current_location = line
             current_title = article_match.group(1).strip() or line
             current_level = 1
+            article_heading = line
+            current_heading_path = [line]
             current_section = SECTION_FORMAL
             formal_started = True
             current_lines = [line]
@@ -395,6 +444,8 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
             current_location = line
             current_title = chinese_heading_match.group(1).strip() or line
             current_level = 1
+            article_heading = line
+            current_heading_path = [line]
             current_section = SECTION_FORMAL
             formal_started = True
             current_lines = [line]
@@ -406,6 +457,7 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
             current_location = f"{article_location}{marker}" if article_location else marker
             current_title = line[:40]
             current_level = 2
+            current_heading_path = [value for value in (article_heading, line) if value]
             current_lines = [line]
             continue
         if NUMBERED_RE.match(line) and current_section in {SECTION_FORMAL, SECTION_APPENDIX}:
@@ -415,6 +467,7 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
             current_location = f"{article_location}第{marker}项" if article_location else f"第{marker}项"
             current_title = line[:40]
             current_level = 3
+            current_heading_path = [value for value in (article_heading, line) if value]
             current_lines = [line]
             continue
 

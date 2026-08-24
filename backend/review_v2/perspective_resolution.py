@@ -6,13 +6,17 @@ from dataclasses import asdict, dataclass
 from typing import Any, Dict, List
 
 
-PERSPECTIVE_RESOLVER_VERSION = "perspective-resolver-6.7-freeze-1.0"
+PERSPECTIVE_RESOLVER_VERSION = "perspective-resolver-6.7-freeze-1.1"
 
 ROLE_COMPATIBILITY = {
     "SALE": ("BUYER", "SELLER"),
     "HOUSE_LEASE": ("LESSOR", "LESSEE"),
     "LEASE": ("LESSOR", "LESSEE"),
     "SERVICE": ("SERVICE_PROVIDER", "SERVICE_RECIPIENT"),
+    "TECHNOLOGY": (
+        "PATENT_TRANSFEREE", "PATENT_TRANSFEROR", "PATENT_LICENSEE", "PATENT_LICENSOR",
+        "SERVICE_PROVIDER", "SERVICE_RECIPIENT", "COOPERATIVE_DEVELOPER",
+    ),
 }
 
 DISPLAY_ROLES = {
@@ -22,6 +26,11 @@ DISPLAY_ROLES = {
     "LESSEE": "承租人",
     "SERVICE_PROVIDER": "服务提供方",
     "SERVICE_RECIPIENT": "服务接受方",
+    "PATENT_TRANSFEREE": "甲方 / 专利权受让方",
+    "PATENT_TRANSFEROR": "乙方 / 专利权让与方",
+    "PATENT_LICENSEE": "被许可方 / 付款方",
+    "PATENT_LICENSOR": "许可方",
+    "COOPERATIVE_DEVELOPER": "合作开发方",
     "EMPLOYER": "发包人",
     "CONTRACTOR": "承包人",
     "OTHER": "合同当事人",
@@ -56,6 +65,11 @@ def _candidate_roles(identity: str) -> List[str]:
         (("LESSOR", "LANDLORD", "房东", "出租人"), "LESSOR"),
         (("SERVICE_PROVIDER", "服务提供方"), "SERVICE_PROVIDER"),
         (("SERVICE_RECIPIENT", "服务接受方"), "SERVICE_RECIPIENT"),
+        (("PATENT_TRANSFEREE", "专利权受让方", "受让方"), "PATENT_TRANSFEREE"),
+        (("PATENT_TRANSFEROR", "专利权让与方", "让与方", "让与人"), "PATENT_TRANSFEROR"),
+        (("PATENT_LICENSEE", "被许可方"), "PATENT_LICENSEE"),
+        (("PATENT_LICENSOR", "许可方"), "PATENT_LICENSOR"),
+        (("COOPERATIVE_DEVELOPER", "合作开发方"), "COOPERATIVE_DEVELOPER"),
     )
     for terms, role in mapping:
         if any(term in value for term in terms):

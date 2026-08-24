@@ -43,10 +43,13 @@ class OptionGroup:
     type: str
     options: List[TemplateOption]
     raw_text: str
+    group_type: str = "GENERAL"
+    mutually_exclusive: bool = False
 
     def to_public_dict(self) -> Dict[str, Any]:
         data = asdict(self)
         data["options"] = [option.to_public_dict() for option in self.options]
+        data["selected_count"] = sum(option.selected and not option.blank for option in self.options)
         return data
 
 
@@ -136,14 +139,28 @@ def parse_template_options(text: str) -> List[TemplateOption]:
 
 def parse_option_groups(text: str) -> List[OptionGroup]:
     options = parse_template_options(text)
+    compact = re.sub(r"\s+", "", text or "")
+    if not options and "仲裁委员会仲裁" in compact and re.search(r"人民法院.{0,12}(?:诉讼|管辖)", compact):
+        arbitration = re.search(r"提交([^。；\n]{2,40}仲裁委员会)仲裁", text or "")
+        litigation = re.search(r"向([^。；\n]{2,50}人民法院)(?:提起诉讼|诉讼)", text or "")
+        options = [
+            TemplateOption(
+                label=match.group(0).strip("；;。 \n"), selected=True, blank=False,
+                raw_text=match.group(0), priority=_option_priority(True, False, False),
+            )
+            for match in (arbitration, litigation) if match
+        ]
     if not options:
         return []
+    dispute_group = any("仲裁" in option.label for option in options) and any("人民法院" in option.label for option in options)
     return [
         OptionGroup(
             group_id="OG0001",
             type="choice_group",
             options=options,
             raw_text=text or "",
+            group_type="DISPUTE_RESOLUTION" if dispute_group else "GENERAL",
+            mutually_exclusive=dispute_group,
         )
     ]
 

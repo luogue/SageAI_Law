@@ -208,6 +208,58 @@ SERVICE_DOMAIN_PACK = DomainPack(
     },
 )
 
+TECHNOLOGY_DOMAIN_PACK = DomainPack(
+    contract_type="technology",
+    version="domain-pack-technology-1.0",
+    pack_id="technology/common",
+    parent_pack_ids=["shared"],
+    subject_matter="TECHNOLOGY",
+    context_defaults={
+        "contract_subtype": "GENERAL_TECHNOLOGY",
+        "transaction_purpose": "technology_transaction",
+        "usage_scenario": "GENERAL_TECHNOLOGY",
+        "payment_structure": "technology_payment",
+        "delivery_structure": "technology_delivery",
+    },
+)
+
+PATENT_RIGHT_TRANSFER_DOMAIN_PACK = DomainPack(
+    contract_type="technology",
+    version="domain-pack-patent-right-transfer-1.0",
+    pack_id="technology/transfer/patent_right",
+    parent_pack_ids=["shared", "technology/common"],
+    subject_matter="PATENT_RIGHT",
+    context_defaults={
+        "contract_subtype": "TECHNOLOGY_TRANSFER",
+        "transaction_purpose": "patent_right_acquisition",
+        "usage_scenario": "PATENT_RIGHT_TRANSFER",
+        "payment_structure": "patent_transfer_installments",
+        "delivery_structure": "patent_documents_and_registration",
+    },
+    default_law_nodes={
+        "transfer_registration_or_recordal": "CLEAR_DEFAULT",
+        "transfer_right_warranty": "CLEAR_DEFAULT",
+        "license_infringement_responsibility": "CLEAR_DEFAULT",
+        "patent_invalidity_allocation": "PARTIAL_DEFAULT",
+        "existing_license_succession": "PARTIAL_DEFAULT",
+    },
+    default_law_rules={
+        "license_infringement_responsibility": DefaultRule(
+            rule_id="TECH-DEFAULT-INFRINGEMENT-ALLOCATION",
+            domain="technology/transfer/patent_right",
+            proposition="受让人按照约定实施专利侵害他人合法权益的，原则上由让与人承担责任。",
+            applicability_conditions=["专利权转让", "受让人按约实施", "第三方权利主张"],
+            authority_ids=["PRC-CIVIL-CODE-874"],
+            protection_scope="提供按约实施时的基础责任分配，不覆盖受让人超范围实施或擅自变更造成的侵权。",
+            exceptions=["受让人超范围实施", "当事人依法另有有效约定"],
+            overrideable=True,
+            confidence="high",
+            status="CLEAR_DEFAULT",
+        ),
+    },
+    economic_ratio_keys=[*SHARED_DOMAIN_PACK.economic_ratio_keys, "prepayment_ratio", "transfer_price_ratio"],
+)
+
 
 SALE_COMMON_DOMAIN_PACK = DomainPack(
     contract_type="sale", version="domain-pack-sale-common-1.0", pack_id="sale/common",
@@ -264,6 +316,9 @@ DOMAIN_PACKS: Dict[str, DomainPack] = {
     "house_lease": HOUSE_LEASE_DOMAIN_PACK,
     "lease": HOUSE_LEASE_DOMAIN_PACK,
     "service": SERVICE_DOMAIN_PACK,
+    "technology": TECHNOLOGY_DOMAIN_PACK,
+    "technology/common": TECHNOLOGY_DOMAIN_PACK,
+    "technology/transfer/patent_right": PATENT_RIGHT_TRANSFER_DOMAIN_PACK,
     "sale/common": SALE_COMMON_DOMAIN_PACK,
     "sale/goods/general": SALE_GOODS_GENERAL_DOMAIN_PACK,
     "sale/goods/equipment": SALE_GOODS_EQUIPMENT_DOMAIN_PACK,
