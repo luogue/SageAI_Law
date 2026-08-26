@@ -157,6 +157,15 @@ DISPLAY_LABEL_REGISTRY: Tuple[DomainDisplayLabel, ...] = (
         usage_scenario_label="合作开发",
         contract_type_label="技术合同—技术开发合同—合作开发合同",
     ),
+    DomainDisplayLabel(
+        family="TECHNOLOGY",
+        subject_matter="TECHNOLOGY",
+        transaction_structure="B2B_ENTRUSTED_DEVELOPMENT",
+        subtype="ENTRUSTED_DEVELOPMENT",
+        report_title="委托开发合同审查报告",
+        usage_scenario_label="委托开发",
+        contract_type_label="技术合同—技术开发合同—委托开发合同",
+    ),
 )
 
 

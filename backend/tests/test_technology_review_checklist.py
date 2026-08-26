@@ -153,7 +153,6 @@ def test_technology_entrusted_development_filters_unrelated_subtypes():
 
     by_id = {item["item_id"]: item for item in output["items"]}
     expected_not_applicable = {
-        "TC-01-02",
         "TC-02-03",
         "TC-02-04",
         "TC-05-01",
@@ -180,6 +179,7 @@ def test_technology_entrusted_development_filters_unrelated_subtypes():
     for item_id in expected_not_applicable:
         assert by_id[item_id]["coverage_status"] == COVERAGE_NOT_APPLICABLE
         assert by_id[item_id]["risk_level"] == COVERAGE_NOT_APPLICABLE
+    assert by_id["TC-01-02"]["coverage_status"] == "通过"
 
     assert by_id["TC-05-03"]["risk_level"] == "中"
     assert by_id["TC-05-04"]["risk_level"] == "中"

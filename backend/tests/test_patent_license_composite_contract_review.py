@@ -176,7 +176,13 @@ def test_final_evidence_matches_each_adverse_proposition(composite_review: dict)
 
     audit = composite_review["report_integrity_gate"]["evidence_proposition_audit"]
     assert audit["status"] == "PASS"
-    assert audit["checked_risk_count"] == 9
+    assert audit["checked_risk_count"] == 10
+    dispute_audit = next(
+        row for row in audit["rows"]
+        if row["risk_group"] == "dispute_resolution_choice_conflict"
+    )
+    assert dispute_audit["status"] == "PASS"
+    assert len(dispute_audit["direct_contract_evidence_ids"]) >= 2
     assert all(row["direct_evidence_ids"] for row in audit["rows"])
 
 
@@ -213,6 +219,6 @@ def test_pass_evidence_is_bound_to_coverage_propositions(composite_review: dict)
 
     audit = composite_review["report_integrity_gate"]["pass_evidence_proposition_audit"]
     assert audit["status"] == "PASS"
-    assert audit["checked_pass_count"] == 20
+    assert audit["checked_pass_count"] == 21
     assert not audit["failures"]
     assert composite_review["report_integrity_gate"]["gate_results"]["PASS_EVIDENCE_PROPOSITION_MATCH_GATE"] == "PASS"

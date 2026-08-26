@@ -785,7 +785,9 @@ const riskAppetite = ref('标准')
 const bargainingPosition = ref('均衡方')
 const jurisdiction = ref('北京')
 
-const identityOptions = ['个人租客/买方', '小微企业（≤50人）', '中型企业（50-500人）', '大型企业/投资者']
+const identityOptions = computed(() => contractType.value === 'technology'
+  ? ['甲方', '乙方']
+  : ['个人租客/买方', '小微企业（≤50人）', '中型企业（50-500人）', '大型企业/投资者'])
 const scenarioOptions = computed(() => contractType.value === 'sale'
   ? ['商品买卖', '商业经营']
   : ['居住用途', '商业经营', '投资/转租'])
@@ -795,6 +797,11 @@ const jurisdictionOptions = ['北京', '上海', '广州', '深圳', '杭州', '
 
 watch(contractType, (value) => {
   report.value = null
+  if (value === 'technology' && !['甲方', '乙方'].includes(userIdentity.value)) {
+    userIdentity.value = '甲方'
+  } else if (value !== 'technology' && ['甲方', '乙方'].includes(userIdentity.value)) {
+    userIdentity.value = '个人租客/买方'
+  }
   if (value === 'sale' && ['居住用途', '投资/转租'].includes(contractScenario.value)) {
     contractScenario.value = '商品买卖'
   } else if (value === 'house_lease' && contractScenario.value === '商品买卖') {

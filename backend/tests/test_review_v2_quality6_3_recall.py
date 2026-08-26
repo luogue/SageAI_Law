@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from layers.input_layer import InputLayer
-from review_v2.clause_parser import document_integrity, parse_contract_clauses
+from review_v2.clause_parser import document_integrity, parse_contract_clauses, strip_non_contract_tail
 from review_v2.contract_facts import extract_contract_fact_graph
 from review_v2.engine import review_contract_v2
 
@@ -164,6 +164,32 @@ def test_document_integrity_and_template_block_separation():
     assert integrity.parsed_character_ratio >= 0.99
     assert any(clause.block_type == "TEMPLATE_INSTRUCTION" for clause in clauses)
     assert any(clause.block_type == "OPERATIVE_CLAUSE" and "2026年9月20日" in clause.text for clause in clauses)
+
+
+def test_contract_status_field_does_not_truncate_contract_body():
+    text = """专利权转让合同
+当前状态：已取得授权
+转让方将完整专利权转让给受让方。
+专利权转让登记完成后，专利权转移至受让方。
+"""
+
+    stripped = strip_non_contract_tail(text)
+
+    assert "当前状态：已取得授权" in stripped
+    assert "专利权转移至受让方" in stripped
+
+
+def test_standalone_test_note_heading_still_starts_non_contract_tail():
+    text = """专利权转让合同
+转让方将完整专利权转让给受让方。
+测试说明：
+以下内容不是合同正文。
+"""
+
+    stripped = strip_non_contract_tail(text)
+
+    assert "转让方将完整专利权转让给受让方" in stripped
+    assert "以下内容不是合同正文" not in stripped
 
 
 def test_generic_fact_normalization_and_source_trace():

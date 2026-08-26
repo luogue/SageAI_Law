@@ -1,4 +1,5 @@
 from copy import deepcopy
+import json
 from pathlib import Path
 
 from docx import Document
@@ -75,6 +76,36 @@ def test_patent_transfer_has_single_three_level_classification_and_transferee_ro
     assert output["contract_context"]["counterparty_role"] == "patent_transferor"
     assert output["report_context"]["contract_type_label"] == "技术合同—技术转让合同—专利权转让合同"
     assert output["report_context"]["scenario_label"] == "高校科技成果向企业协议转让"
+
+
+def test_patent_transfer_golden_matrix_semantic_invariants():
+    output = _patent_review()
+    manifest = json.loads(
+        (ROOT / "backend" / "tests" / "fixtures" / "technical_contracts" / "patent_transfer.golden.json")
+        .read_text(encoding="utf-8")
+    )
+    classification = output["deterministic_analysis"]["technology_classification"]
+    by_id = {row["item_id"]: row for row in output["items"]}
+    applicable = {review_id for review_id, row in by_id.items() if row["coverage_status"] != COVERAGE_NOT_APPLICABLE}
+    not_applicable = {review_id for review_id, row in by_id.items() if row["coverage_status"] == COVERAGE_NOT_APPLICABLE}
+
+    assert manifest["sample_id"] == "TECH_TRANSFER_PATENT_GOLDEN_001"
+    assert classification["primary_contract_type"] == manifest["primary_contract_type"]
+    assert classification["primary_subtype"] == manifest["primary_subtype"]
+    assert classification["tertiary_subtype"] == manifest["contract_subtype"]
+    assert output["perspective_resolution"]["canonical_role"] == manifest["review_position"]
+    assert output["coverage_summary"] == manifest["coverage_summary"]
+    assert applicable == set(manifest["expected_applicable_rules"])
+    assert not_applicable == set(manifest["expected_not_applicable_rules"])
+    assert {row["risk_group"] for row in output["risk_findings"]} == set(manifest["expected_risk_groups"])
+    assert len(output["risk_findings"]) == manifest["risk_count"]
+    assert len(output["recommendations"]) == manifest["recommendation_count"]
+    assert all(row["party_effect"] == "ADVERSE" for row in output["risk_findings"])
+    assert all((row.get("risk_direction") or {}).get("direction") == "UNFAVORABLE" for row in output["risk_findings"])
+    assert all(by_id[review_id]["coverage_status"] == COVERAGE_NOT_APPLICABLE for review_id in ("TC-07-01", "TC-07-02", "TC-07-03", "TC-07-04"))
+    assert "适用于专利权转让中受让方按约实施受让专利" in by_id["TC-12-01"]["applicable_if"]
+    assert "影响受让方行使和实施受让专利权" in by_id["TC-12-02"]["legal_consequence_if_missing"]
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
 
 
 def test_review_context_isolation_between_technical_service_and_patent_transfer():
@@ -573,11 +604,11 @@ def test_patent_gold_confidentiality_liability_uses_a_complete_two_clause_eviden
     assert technical_material["evidence_location"] == "第五条技术资料及权利文件"
     assert not any("TC-13-01" in row["source_review_ids"] for row in output["risk_findings"])
     assert output["coverage_summary"] == {
-        "通过": 16,
+            "通过": 17,
         "部分覆盖": 1,
         "缺失": 2,
         "风险条款": 8,
-        COVERAGE_NOT_APPLICABLE: 30,
+            COVERAGE_NOT_APPLICABLE: 29,
     }
     assert "现有信息不足以确定具体缺失字段" not in output["result"]
 

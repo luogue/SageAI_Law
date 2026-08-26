@@ -63,6 +63,7 @@ class ReviewV2Input(BaseModel):
 class ReviewV2Result(BaseModel):
     success: bool
     contract_type: str
+    selected_contract_type: str = ""
     contract_type_name: str
     contract_review_trace_id: str = ""
     message: str
@@ -88,7 +89,12 @@ class ReviewV2Result(BaseModel):
     review_results_4_0: List[Dict[str, Any]] = Field(default_factory=list)
     risk_findings: List[Dict[str, Any]] = Field(default_factory=list)
     recommendations: List[Dict[str, Any]] = Field(default_factory=list)
+    final_dispositions: List[Dict[str, Any]] = Field(default_factory=list)
+    manual_review_items: List[Dict[str, Any]] = Field(default_factory=list)
+    manual_review_summary: Dict[str, Any] = Field(default_factory=dict)
     contract_context: Dict[str, Any] = Field(default_factory=dict)
+    report_context: Dict[str, Any] = Field(default_factory=dict)
+    perspective_resolution: Dict[str, Any] = Field(default_factory=dict)
     overall_assessment: Dict[str, Any] = Field(default_factory=dict)
     legal_reference_issues: List[Dict[str, Any]] = Field(default_factory=list)
     legal_citation_claims: List[Dict[str, Any]] = Field(default_factory=list)

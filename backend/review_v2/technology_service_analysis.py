@@ -29,7 +29,11 @@ def _iso(match: re.Match[str]) -> str:
 
 
 def classify_technology_transaction(text: str) -> Dict[str, Any]:
-    compact = re.sub(r"\s+", "", text or "")
+    source_text = text or ""
+    compact = re.sub(r"\s+", "", source_text)
+    source_lines = [line.strip() for line in source_text.splitlines() if line.strip()]
+    document_title = source_lines[0] if source_lines else ""
+    title_compact = re.sub(r"\s+", "", document_title)
     service_signals = (
         "技术服务合同",
         "解决特定技术问题",
@@ -62,13 +66,60 @@ def classify_technology_transaction(text: str) -> Dict[str, Any]:
             scores[subtype_name] += weight
             evidence[subtype_name].append(reason)
 
-    add("TECHNOLOGY_TRANSFER", 12, "title:patent_right_transfer", bool(re.search(r"技术转让[（(]?专利权[）)]?合同|专利权转让合同", heading)))
+    patent_transfer_title = (
+        "合同" in title_compact
+        and any(term in title_compact for term in ("专利权转让", "技术转让（专利权）", "技术转让(专利权)"))
+    )
+    technology_transfer_title = "合同" in title_compact and "技术转让" in title_compact
+    patent_license_title = (
+        "合同" in title_compact
+        and any(term in title_compact for term in ("专利实施许可", "技术许可（专利实施）", "技术许可(专利实施)"))
+    )
+    technology_license_title = "合同" in title_compact and "技术许可" in title_compact
+    consulting_title = "合同" in title_compact and "技术咨询" in title_compact
+    service_title = "合同" in title_compact and "技术服务" in title_compact
+
+    patent_license_grant = bool(re.search(
+        r"(?:许可人|卖方).{0,60}(?:许可|授予).{0,80}(?:被许可人|买方).{0,80}(?:实施|使用).{0,30}专利"
+        r"|(?:许可|授予).{0,50}(?:专利实施许可|实施其所拥有的.{0,40}专利)",
+        compact,
+    ))
+    license_consideration = any(term in compact for term in (
+        "专利许可费", "实施许可使用费", "许可使用费", "许可费总额", "许可使用费总额",
+    ))
+    license_scope = any(term in compact for term in (
+        "排他许可", "独占许可", "普通许可", "许可范围", "许可期限", "许可地域", "再许可",
+    ))
+    patent_ownership_transfer = bool(re.search(
+        r"(?:转让|让与).{0,30}(?:专利权|专利申请权)|(?:专利权|专利申请权).{0,30}(?:转让|让与|转移至|归受让方所有)",
+        compact,
+    ))
+    transfer_registration = bool(re.search(
+        r"(?:专利权.{0,30}(?:转让登记|变更登记|登记至受让方|登记转移)|(?:申请人|专利申请权).{0,30}(?:变更登记|变更))",
+        compact,
+    ))
+    transfer_consideration = any(term in compact for term in (
+        "专利权转让价款", "专利权转让总价", "专利权转让费", "技术转让价款", "转让总价",
+    ))
+    granted_patent_asset = (
+        "专利权" in compact
+        and any(term in compact for term in ("已取得授权", "当前专利权人", "授权日", "授权公告号"))
+    )
+    patent_application_asset = any(term in compact for term in (
+        "专利申请权", "尚未授权", "当前申请人", "专利申请人",
+    ))
+    if patent_application_asset and "转让价款" in compact:
+        transfer_consideration = True
+
+    add("TECHNOLOGY_TRANSFER", 12, "title:patent_right_transfer", patent_transfer_title)
+    add("TECHNOLOGY_TRANSFER", 8, "title:technology_transfer", technology_transfer_title and not patent_transfer_title)
     add("TECHNOLOGY_TRANSFER", 8, "roles:transferee_transferor", "受让方" in compact and ("让与方" in compact or "让与人" in compact))
     add("TECHNOLOGY_TRANSFER", 6, "effect:registration_transfers_patent_right", bool(re.search(r"专利权.{0,18}登记.{0,12}(?:转移|转让)", compact)))
     add("TECHNOLOGY_TRANSFER", 5, "consideration:transfer_price", "专利权转让价款" in compact)
     add("TECHNOLOGY_TRANSFER", 3, "transfer_terms", any(signal in compact for signal in transfer_signals))
+    add("TECHNOLOGY_TRANSFER", 10, "core_obligation:patent_ownership_transfer", patent_ownership_transfer and (transfer_registration or transfer_consideration))
 
-    add("TECHNICAL_SERVICE", 12, "title:technical_service", "技术服务合同" in heading)
+    add("TECHNICAL_SERVICE", 12, "title:technical_service", service_title)
     add("TECHNICAL_SERVICE", 6, "service_obligation", any(signal in compact for signal in service_signals[1:]))
     # Titles are supporting signals only. Development mode is resolved primarily
     # from who funds and performs the research and who owns its outcome/risk.
@@ -113,9 +164,8 @@ def classify_technology_transaction(text: str) -> Dict[str, Any]:
     add("ENTRUSTED_DEVELOPMENT", 6, "asymmetric_development_funding", one_party_funds and not (party_a_invests and party_b_invests))
     add("ENTRUSTED_DEVELOPMENT", 6, "asymmetric_research_performance", one_party_develops and not (party_a_develops and party_b_develops))
     add("ENTRUSTED_DEVELOPMENT", 2, "entrusted_wording", any(signal in compact for signal in entrusted_signals))
-    patent_license_title = bool(re.search(r"专利实施许可(?:（[^）]{0,40}）|\([^)]{0,40}\))?合同", heading))
     add("TECHNOLOGY_LICENSE", 16, "title:patent_license", patent_license_title)
-    add("TECHNOLOGY_LICENSE", 12, "title:technology_license", "技术许可合同" in heading)
+    add("TECHNOLOGY_LICENSE", 12, "title:technology_license", technology_license_title and not patent_license_title)
     add(
         "TECHNOLOGY_LICENSE",
         6,
@@ -124,14 +174,28 @@ def classify_technology_transaction(text: str) -> Dict[str, Any]:
         and "被许可方" in compact
         and any(term in compact for term in ("许可方式", "许可范围", "许可期限", "授予", "专利许可费")),
     )
-    add("TECHNICAL_CONSULTING", 12, "title:technical_consulting", "技术咨询合同" in heading)
+    add("TECHNOLOGY_LICENSE", 12, "core_obligation:patent_license_grant", patent_license_grant and (license_consideration or license_scope))
+    add("TECHNICAL_CONSULTING", 12, "title:technical_consulting", consulting_title)
     add("TECHNICAL_CONSULTING", 5, "consulting_obligation", any(signal in compact for signal in consulting_signals))
 
+    explicit_title_subtype = (
+        "TECHNOLOGY_TRANSFER" if technology_transfer_title or patent_transfer_title
+        else "TECHNOLOGY_LICENSE" if technology_license_title or patent_license_title
+        else "TECHNICAL_CONSULTING" if consulting_title
+        else "TECHNICAL_SERVICE" if service_title
+        else "COOPERATIVE_DEVELOPMENT" if "合作开发" in title_compact
+        else "ENTRUSTED_DEVELOPMENT" if "委托开发" in title_compact
+        else ""
+    )
     ranked = sorted(scores, key=lambda key: scores[key], reverse=True)
-    subtype = ranked[0] if scores[ranked[0]] >= 6 else "GENERAL_TECHNOLOGY"
+    subtype = explicit_title_subtype or (ranked[0] if scores[ranked[0]] >= 6 else "GENERAL_TECHNOLOGY")
     tertiary_subtype = (
-        "PATENT_RIGHT_TRANSFER"
-        if subtype == "TECHNOLOGY_TRANSFER" and "专利权" in compact
+        "MIXED_PATENT_RIGHT_AND_APPLICATION_TRANSFER"
+        if subtype == "TECHNOLOGY_TRANSFER" and granted_patent_asset and patent_application_asset
+        else "PATENT_APPLICATION_RIGHT_TRANSFER"
+        if subtype == "TECHNOLOGY_TRANSFER" and patent_application_asset
+        else "PATENT_RIGHT_TRANSFER"
+        if subtype == "TECHNOLOGY_TRANSFER" and (granted_patent_asset or "专利权" in compact)
         else "PATENT_LICENSE"
         if subtype == "TECHNOLOGY_LICENSE" and "专利" in compact
         else ""
@@ -186,6 +250,18 @@ def classify_technology_transaction(text: str) -> Dict[str, Any]:
     for obligation, terms in ancillary_terms.items():
         if any(term in compact for term in terms):
             ancillary_obligations.append(obligation)
+    if subtype != "TECHNICAL_SERVICE" and any(term in compact for term in (
+        "技术服务内容", "现场技术交底", "技术答疑", "调试指导",
+    )):
+        ancillary_obligations.append("TECHNICAL_SERVICE")
+    ancillary_obligations = list(dict.fromkeys(ancillary_obligations))
+
+    transitional_arrangements: List[str] = []
+    if subtype == "TECHNOLOGY_TRANSFER" and (
+        any(term in compact for term in ("过渡期许可", "过渡期实施许可"))
+        or bool(re.search(r"(?:合同生效|签署).{0,50}(?:转让登记完成|专利权转移).{0,50}(?:普通实施许可|实施许可)", compact))
+    ):
+        transitional_arrangements.append("TEMPORARY_PATENT_LICENSE")
 
     factual_triggers: List[str] = []
     fact_terms = {
@@ -209,6 +285,49 @@ def classify_technology_transaction(text: str) -> Dict[str, Any]:
     )
     excluded_subtypes = [key for key in scores if key not in active_transaction_types]
 
+    primary_contract_type = {
+        ("TECHNOLOGY_TRANSFER", "PATENT_RIGHT_TRANSFER"): "technology_transfer_patent",
+        ("TECHNOLOGY_TRANSFER", "PATENT_APPLICATION_RIGHT_TRANSFER"): "technology_transfer_patent_application_right",
+        ("TECHNOLOGY_TRANSFER", "MIXED_PATENT_RIGHT_AND_APPLICATION_TRANSFER"): "technology_transfer_mixed_patent_assets",
+        ("TECHNOLOGY_TRANSFER", ""): "technology_transfer_technical_secret" if "技术秘密" in compact else "technology_transfer",
+        ("TECHNOLOGY_LICENSE", "PATENT_LICENSE"): "technology_license_patent",
+        ("TECHNOLOGY_LICENSE", ""): "technology_license_technical_secret" if "技术秘密" in compact else "technology_license",
+        ("ENTRUSTED_DEVELOPMENT", ""): "commissioned_development",
+        ("COOPERATIVE_DEVELOPMENT", ""): "cooperative_development",
+        ("TECHNICAL_CONSULTING", ""): "technology_consulting",
+        ("TECHNICAL_SERVICE", ""): "technology_service",
+    }.get((subtype, tertiary_subtype), "general_technology")
+    secondary_contract_types = [
+        "commissioned_development" if module == "COMMISSIONED_DEVELOPMENT"
+        else "cooperative_development" if module == "COOPERATIVE_DEVELOPMENT"
+        else module.lower()
+        for module in secondary_modules
+    ]
+
+    title_transaction_type = explicit_title_subtype
+    operative_transaction_type = (
+        "TECHNOLOGY_TRANSFER" if patent_ownership_transfer and (transfer_registration or transfer_consideration)
+        else "TECHNOLOGY_LICENSE" if patent_license_grant and (license_consideration or license_scope)
+        else ""
+    )
+    contract_type_conflict = bool(
+        title_transaction_type
+        and operative_transaction_type
+        and title_transaction_type != operative_transaction_type
+    )
+
+    def snippets(terms: tuple[str, ...], limit: int = 4) -> List[str]:
+        return [line[:240] for line in source_lines if any(term in line for term in terms)][:limit]
+
+    classification_evidence_details = {
+        "contract_title": document_title,
+        "subject_matter": snippets(("专利名称", "项目名称", "合同标的", "许可实施的专利权", "转让的专利权")),
+        "core_performance_obligations": snippets(("许可买方实施", "授予本专利实施许可", "转让给受让方", "转移至受让方", "共同研究开发", "委托研究开发", "解决特定技术问题")),
+        "rights_transfer_method": snippets(("排他许可", "独占许可", "普通许可", "专利权转让", "转让登记", "变更登记")),
+        "consideration_nature": snippets(("许可使用费", "实施许可使用费", "专利权转让价款", "技术服务费用", "研发费用", "咨询报酬")),
+        "key_clauses": snippets(("许可范围", "许可期限", "专利权登记", "权利瑕疵", "开发成果", "咨询报告", "技术服务内容"), 8),
+    }
+
     personal_information_terms = ("姓名", "工号", "电话号码", "电子邮箱", "身份证", "人脸", "操作日志")
     business_data_context = any(term in compact for term in (
         "数据可能包括", "测试数据", "数据源", "业务数据", "科研数据", "数据处理", "数据治理",
@@ -227,6 +346,10 @@ def classify_technology_transaction(text: str) -> Dict[str, Any]:
         if subtype == "TECHNICAL_SERVICE"
         else "B2B_PATENT_RIGHT_TRANSFER"
         if tertiary_subtype == "PATENT_RIGHT_TRANSFER"
+        else "B2B_PATENT_APPLICATION_RIGHT_TRANSFER"
+        if tertiary_subtype == "PATENT_APPLICATION_RIGHT_TRANSFER"
+        else "B2B_MIXED_PATENT_TRANSFER"
+        if tertiary_subtype == "MIXED_PATENT_RIGHT_AND_APPLICATION_TRANSFER"
         else "B2B_COOPERATIVE_DEVELOPMENT"
         if subtype == "COOPERATIVE_DEVELOPMENT"
         else "B2B_ENTRUSTED_DEVELOPMENT"
@@ -259,6 +382,10 @@ def classify_technology_transaction(text: str) -> Dict[str, Any]:
         if subtype == "TECHNICAL_SERVICE"
         else "专利权转让"
         if tertiary_subtype == "PATENT_RIGHT_TRANSFER"
+        else "专利申请权转让"
+        if tertiary_subtype == "PATENT_APPLICATION_RIGHT_TRANSFER"
+        else "专利权及专利申请权转让"
+        if tertiary_subtype == "MIXED_PATENT_RIGHT_AND_APPLICATION_TRANSFER"
         else "合作开发"
         if subtype == "COOPERATIVE_DEVELOPMENT"
         else "委托开发"
@@ -274,6 +401,27 @@ def classify_technology_transaction(text: str) -> Dict[str, Any]:
         "classification_score": scores.get(subtype, 0),
         "evidence_node_ids": evidence.get(subtype, []),
         "classification_evidence": cooperative_development_evidence if subtype == "COOPERATIVE_DEVELOPMENT" else commissioned_development_evidence if subtype == "ENTRUSTED_DEVELOPMENT" else evidence.get(subtype, []),
+        "classification_evidence_details": classification_evidence_details,
+        "primary_contract_type": primary_contract_type,
+        "secondary_contract_types": secondary_contract_types,
+        "primary_transaction": {
+            "type": "technology_transfer" if subtype == "TECHNOLOGY_TRANSFER" else primary_contract_type,
+            "subtype": tertiary_subtype.lower() if tertiary_subtype else subtype.lower(),
+        },
+        "secondary_transactions": list(secondary_contract_types),
+        "active_transaction_types": sorted(active_transaction_types),
+        "title_transaction_type": title_transaction_type,
+        "operative_transaction_type": operative_transaction_type,
+        "contract_type_conflict": {
+            "exists": contract_type_conflict,
+            "title_transaction_type": title_transaction_type,
+            "operative_transaction_type": operative_transaction_type,
+            "resolution": "PRIMARY_TITLE_WITH_CONFLICT_FINDING" if contract_type_conflict else "NO_CONFLICT",
+            "reason": (
+                "合同标题与核心权利处分条款指向不同交易性质，应单独提示合同性质冲突，但不得同时激活两套规则。"
+                if contract_type_conflict else "合同标题与核心给付义务不存在实质类型冲突。"
+            ),
+        },
         "excluded_subtypes": excluded_subtypes,
         "candidate_scores": scores,
         "subtype": subtype,
@@ -286,6 +434,7 @@ def classify_technology_transaction(text: str) -> Dict[str, Any]:
         "secondary_modules": secondary_modules,
         "transaction_module_evidence": module_evidence,
         "ancillary_obligations": ancillary_obligations,
+        "transitional_arrangements": transitional_arrangements,
         "factual_triggers": factual_triggers,
         "license_mode": "EXCLUSIVE" if "排他实施许可" in compact else "SOLE" if "独占实施许可" in compact else "NON_EXCLUSIVE" if "普通实施许可" in compact else "",
         "referenced_contracts": [{"reference_type": "EXISTING_PATENT_LICENSE", "is_current_transaction": False}] if subtype == "TECHNOLOGY_TRANSFER" and any(term in compact for term in ("原专利实施许可合同", "普通实施许可")) else [],
@@ -293,7 +442,16 @@ def classify_technology_transaction(text: str) -> Dict[str, Any]:
             business_data_context and sum(term in compact for term in personal_information_terms) >= 2
         ) or personal_information_explicit,
         "involves_background_ip": any(term in compact for term in ("已有", "既有", "通用算法库", "规则引擎", "内部技术工具", "背景知识产权")),
-        "involves_software_or_data": any(term in compact for term in ("脚本", "算法", "软件", "源代码", "数据处理", "数据治理")),
+        "involves_software_or_data": (
+            any(term in compact for term in (
+                "软件系统", "软件交付", "软件著作权", "源代码", "开源软件", "开源组件",
+                "程序脚本", "验证脚本", "算法库", "代码仓库",
+            ))
+            or (
+                any(term in compact for term in ("数据处理", "数据治理"))
+                and any(term in compact for term in ("数据交付", "委托处理", "数据接口", "数据集", "业务数据", "科研数据"))
+            )
+        ),
     }
 
 

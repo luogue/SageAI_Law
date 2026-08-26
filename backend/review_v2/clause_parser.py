@@ -8,7 +8,7 @@ instruction, special notice, or appendix.
 from __future__ import annotations
 
 import re
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, replace
 from typing import Any, Dict, List, Optional
 
 from review_v2.template_parser import parse_option_groups
@@ -225,7 +225,20 @@ NON_CONTRACT_META_MARKERS = (
 def _is_non_contract_meta_line(line: str) -> bool:
     compacted = re.sub(r"\s+", "", line)
     normalized = compacted.lstrip("#*- ")
-    return any(normalized.startswith(marker) for marker in NON_CONTRACT_META_MARKERS)
+    # These markers identify appended test/review notes only when they are
+    # standalone headings.  Contract fields can legitimately start with the
+    # same words (for example, "当前状态：已取得授权").
+    heading = normalized.rstrip(":：")
+    if heading in NON_CONTRACT_META_MARKERS:
+        return True
+    # Test-note headings commonly qualify the marker (for example,
+    # "测试重点关注项"). Keep legitimate contract status fields strict because
+    # "当前状态：已取得授权" carries substantive patent classification facts.
+    return any(
+        heading.startswith(marker)
+        for marker in NON_CONTRACT_META_MARKERS
+        if marker != "当前状态"
+    )
 
 
 def _is_signature_boundary_line(line: str) -> bool:
@@ -324,6 +337,28 @@ def _fallback_unstructured_clauses(lines: List[str]) -> List[ParsedClause]:
         )
         for index, segment in enumerate(raw_segments)
     ]
+
+
+def _attach_source_offsets(contract_text: str, clauses: List[ParsedClause]) -> List[ParsedClause]:
+    """Attach absolute offsets into the original extracted contract text."""
+    source = contract_text or ""
+    cursor = 0
+    traced: List[ParsedClause] = []
+    for clause in clauses:
+        raw = clause.raw_text or clause.text
+        start = source.find(raw, cursor)
+        end = start + len(raw) if start >= 0 else -1
+        if start < 0:
+            lines = [line for line in raw.splitlines() if line]
+            first = source.find(lines[0], cursor) if lines else -1
+            last = source.find(lines[-1], first + len(lines[0])) if first >= 0 and len(lines) > 1 else first
+            if first >= 0 and last >= 0:
+                start = first
+                end = last + len(lines[-1])
+        traced.append(replace(clause, start_offset=start, end_offset=end))
+        if end >= 0:
+            cursor = end
+    return traced
 
 
 def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
@@ -480,9 +515,9 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
         and len(clauses) <= 2
         and all(clause.section_type == SECTION_FORMAL for clause in clauses)
     ):
-        return _fallback_unstructured_clauses(lines)
+        return _attach_source_offsets(contract_text, _fallback_unstructured_clauses(lines))
 
-    return clauses
+    return _attach_source_offsets(contract_text, clauses)
 
 
 def formal_evidence_clauses(clauses: List[ParsedClause]) -> List[ParsedClause]:

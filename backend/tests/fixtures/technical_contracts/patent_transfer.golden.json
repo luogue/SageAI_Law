@@ -1,0 +1,43 @@
+{
+  "sample_status": "GOLDEN_REGRESSION_SAMPLE",
+  "sample_id": "TECH_TRANSFER_PATENT_GOLDEN_001",
+  "fixture": "test_data/9、技术转让.docx",
+  "primary_contract_type": "technology_transfer_patent",
+  "primary_subtype": "TECHNOLOGY_TRANSFER",
+  "contract_subtype": "PATENT_RIGHT_TRANSFER",
+  "review_position": "PATENT_TRANSFEREE",
+  "coverage_summary": {
+    "通过": 17,
+    "不适用": 29,
+    "风险条款": 8,
+    "缺失": 2,
+    "部分覆盖": 1
+  },
+  "risk_count": 11,
+  "recommendation_count": 11,
+  "expected_applicable_rules": [
+    "TC-01-01", "TC-01-02", "TC-01-03", "TC-02-01", "TC-02-02", "TC-03-04",
+    "TC-06-01", "TC-06-02", "TC-06-03", "TC-06-04",
+    "TC-10-01", "TC-10-02", "TC-10-03", "TC-10-04",
+    "TC-11-01", "TC-11-02", "TC-11-03", "TC-11-04",
+    "TC-12-01", "TC-12-02", "TC-12-04", "TC-13-01", "TC-13-02",
+    "PTR-01", "PTR-02", "PTR-06", "PTR-07", "PTR-08"
+  ],
+  "expected_not_applicable_rules": [
+    "TC-01-04", "TC-02-03", "TC-02-04", "TC-03-01", "TC-03-02", "TC-03-03",
+    "TC-04-01", "TC-04-02", "TC-04-03", "TC-04-04",
+    "TC-05-01", "TC-05-02", "TC-05-03", "TC-05-04",
+    "TC-07-01", "TC-07-02", "TC-07-03", "TC-07-04",
+    "TC-08-01", "TC-08-02", "TC-08-03", "TC-08-04",
+    "TC-09-01", "TC-09-02", "TC-09-03", "TC-09-04",
+    "TC-12-03", "TC-13-03", "TC-13-04"
+  ],
+  "expected_risk_groups": [
+    "patent_pledge_prepayment", "asymmetric_breach_liability",
+    "patent_invalidity_broad_disclaimer", "transferor_retained_use_conflict",
+    "transferee_infringement_liability_shift", "existing_license_value_burden",
+    "registration_completion_continuing_obligations_conflict",
+    "dispute_resolution_choice_conflict", "third_party_claim_defense",
+    "confidentiality_breach_liability", "confidential_material_return_destroy"
+  ]
+}
