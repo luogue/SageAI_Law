@@ -101,6 +101,7 @@ from review_v2.technology_service_analysis import (
 )
 from review_v2.technology_patent_transfer_analysis import (
     add_patent_transfer_facts_to_graph,
+    analyze_dispute_resolution_options,
     analyze_patent_transfer,
 )
 
@@ -991,23 +992,56 @@ def _technology_subtype_reason(subtypes: set[str], checkpoint: ReviewCheckpoint)
     return f"当前文本识别为{labels}场景，未触发“{checkpoint.title}”的适用条件：{checkpoint.applicable_if}"
 
 
+def _technology_third_party_context(contract_text: str) -> Dict[str, Any]:
+    compact = _compact(contract_text)
+    actor_patterns = (
+        r"(?:转委托|分包|外包).{0,20}第三方",
+        r"第三方.{0,20}(?:服务人员|服务商|分包商|承包商|受托主体)",
+    )
+    ip_patterns = (
+        r"第三方.{0,24}(?:软件|代码|SDK|数据库组件|开源组件|专利|技术秘密|著作权|知识产权|授权|许可|权利主张|侵权)",
+        r"(?:软件|代码|SDK|数据库组件|开源组件|专利|技术秘密|著作权|知识产权).{0,24}第三方",
+    )
+    standalone_ip_markers = (
+        "第三方授权", "第三方权利保证", "第三方权利主张", "第三方侵权主张",
+        "知识产权转让", "著作权许可", "技术秘密许可", "专利实施许可",
+        "开源组件", "实际许可依赖", "license dependency",
+    )
+    actor_matches = [pattern for pattern in actor_patterns if re.search(pattern, compact, re.IGNORECASE)]
+    ip_matches = [pattern for pattern in ip_patterns if re.search(pattern, compact, re.IGNORECASE)]
+    marker_matches = [marker for marker in standalone_ip_markers if _compact(marker) in compact]
+    return {
+        "third_party_actor": bool(actor_matches),
+        "third_party_subcontractor": bool(actor_matches),
+        "third_party_ip_trigger": bool(ip_matches or marker_matches),
+        "actor_match_count": len(actor_matches),
+        "ip_match_count": len(ip_matches) + len(marker_matches),
+        "matched_ip_markers": marker_matches,
+    }
+
+
 def _is_technology_checkpoint_applicable(contract_text: str, checkpoint: ReviewCheckpoint) -> tuple[Optional[bool], str]:
     compacted_text = _compact(contract_text)
     subtypes = _detect_technology_subtypes(contract_text)
     classification = classify_technology_transaction(contract_text)
     item_id = checkpoint.item_id
     node_id = checkpoint.node_id
+    third_party_context = _technology_third_party_context(contract_text)
 
     if item_id == "TC-01-04" and (
         classification.get("tertiary_subtype") == "PATENT_RIGHT_TRANSFER"
         or classification.get("primary_subtype") == "TECHNICAL_CONSULTING"
+        or classification.get("primary_subtype") == "TECHNICAL_SERVICE"
     ):
         boundary_triggers = (
             "工程施工", "建设工程", "加工定作", "承揽加工", "承揽制造", "定作物",
             "修理设备", "施工图", "竣工验收",
         )
         if not any(term in compacted_text for term in boundary_triggers):
-            transaction_label = "技术咨询" if classification.get("primary_subtype") == "TECHNICAL_CONSULTING" else "既有专利权处分"
+            transaction_label = {
+                "TECHNICAL_CONSULTING": "技术咨询",
+                "TECHNICAL_SERVICE": "持续技术服务",
+            }.get(str(classification.get("primary_subtype") or ""), "既有专利权处分")
             return False, f"当前主交易为{transaction_label}，不存在承揽、定作、施工或建设工程履行结构，本项不适用。"
         return True, "合同同时出现承揽、定作、施工或建设工程履行结构，需要核对技术合同与其他有名合同的边界。"
 
@@ -1028,6 +1062,9 @@ def _is_technology_checkpoint_applicable(contract_text: str, checkpoint: ReviewC
     if item_id in {"TC-10-01", "TC-10-02", "TC-10-03", "TC-10-04"} and "consulting" in subtypes:
         return False, "当前技术咨询交易未出现技术转让、技术许可、后续返授、改进共享、优先权或其他持续技术权益安排，本项不适用。"
 
+    if item_id in {"TC-10-01", "TC-10-02", "TC-10-03", "TC-10-04"} and "service" in subtypes and not ({"development", "transfer", "license"} & subtypes):
+        return False, "当前技术服务交易仅涉及服务过程中形成的新成果归属，未出现技术转让、技术许可、返授、改进共享、优先权或其他持续技术权益安排，后续改进控制规则不适用。"
+
     if item_id in {"TC-10-03", "TC-10-04"} and not ({"development", "transfer", "license"} & subtypes):
         return False, "当前技术服务交易不涉及技术开发、技术转让或技术许可项下的后续改进控制，本项不适用。"
 
@@ -1039,6 +1076,13 @@ def _is_technology_checkpoint_applicable(contract_text: str, checkpoint: ReviewC
         if not any(term in compacted_text for term in ownership_triggers):
             return False, "当前纯技术咨询交易仅交付分析、评价意见和咨询报告，未触发既有软件、专利、技术秘密许可或第三方组件的权属证明审查。"
 
+    if item_id in {"TC-03-04", "TC-13-02"} and "service" in subtypes:
+        direct_ip_transaction = any(term in compacted_text for term in (
+            "软件产品交付", "源代码交付", "专利权转让", "专利实施许可", "技术秘密许可", "著作权许可",
+        ))
+        if not direct_ip_transaction and not third_party_context["third_party_ip_trigger"]:
+            return False, "当前技术服务交易以持续运维、故障处理和技术支持为核心；未出现软件产品或源代码交付、知识产权处分、第三方软件/代码或许可依赖，权属证明附件规则不适用。"
+
     if item_id == "TC-12-02" and "consulting" in subtypes:
         third_party_ip_triggers = (
             "第三方受保护内容", "第三方软件", "源代码交付", "专利技术", "技术秘密许可",
@@ -1048,6 +1092,9 @@ def _is_technology_checkpoint_applicable(contract_text: str, checkpoint: ReviewC
         if not any(term in compacted_text for term in third_party_ip_triggers):
             return False, "当前纯技术咨询成果为分析、评价意见和咨询报告，未出现第三方软件、代码、专利、技术秘密许可或已知权利争议，本项不适用。"
 
+    if item_id == "TC-12-02" and "service" in subtypes and not third_party_context["third_party_ip_trigger"]:
+        return False, "合同仅出现第三方服务人员、分包或转委托主体，不存在第三方软件、代码、专利、技术秘密许可、授权依赖或权利主张事实，第三方知识产权主张处理规则不适用。"
+
     if item_id == "TC-12-04" and "consulting" in subtypes:
         infringement_liability_triggers = (
             "侵权专项责任", "侵犯第三方知识产权", "知识产权侵权", "权利瑕疵责任",
@@ -1056,6 +1103,17 @@ def _is_technology_checkpoint_applicable(contract_text: str, checkpoint: ReviewC
         if not any(term in compacted_text for term in infringement_liability_triggers):
             return False, "当前技术咨询合同未约定侵权专项责任、权利瑕疵责任或第三方权利责任，不存在与一般救济衔接的审查基础。"
 
+    if item_id == "TC-12-04" and "service" in subtypes:
+        infringement_liability = any(term in compacted_text for term in (
+            "侵权专项责任", "侵犯第三方知识产权", "知识产权侵权责任", "权利瑕疵责任",
+            "第三方权利责任", "无权许可责任", "侵权赔偿",
+        ))
+        general_remedies = any(term in compacted_text for term in (
+            "一般损失赔偿", "违约金", "退款", "继续履行", "责任限制", "累计责任",
+        ))
+        if not (infringement_liability and general_remedies):
+            return False, "当前技术服务合同未同时形成侵权/权利瑕疵专项责任与一般合同救济，不存在两类救济适用顺序或累计关系的审查基础。"
+
     if item_id == "TC-13-03" and "consulting" in subtypes:
         test_triggers = (
             "实验测试", "性能测试", "设备验证", "第三方检测", "实物测试", "测试数据集",
@@ -1063,6 +1121,14 @@ def _is_technology_checkpoint_applicable(contract_text: str, checkpoint: ReviewC
         )
         if not any(term in compacted_text for term in test_triggers):
             return False, "当前交付物为技术咨询报告，未约定实验、性能、设备、实物或第三方检测，软件开发式验收测试附件规则不适用。"
+
+    if item_id == "TC-13-03" and "service" in subtypes:
+        independent_test_triggers = (
+            "性能测试", "压力测试", "设备检测", "实验验证", "测试数据集", "测试用例",
+            "第三方检测", "第三方复测", "技术指标复测", "验收抽样规则", "测试样本",
+        )
+        if not any(term in compacted_text for term in independent_test_triggers):
+            return False, "当前技术服务仅以SLA、响应时间、故障处理记录、月度服务记录及最终书面验收确认履行质量，不包含独立测试性交付，软件开发式验收测试附件规则不适用。"
 
     if item_id == "TC-12-03":
         secret_transaction = bool(re.search(r"(?:技术秘密转让|技术秘密许可).{0,30}(?:价款|使用费|所有权|许可)", compacted_text))
@@ -2009,6 +2075,49 @@ def _apply_technical_consulting_semantic_rules(
     """Evaluate consulting-only requirements against consulting propositions."""
     clauses = _operative_technology_clauses(contract_text)
     by_id = {item.item_id: item for item in items}
+
+    subject_evidence = _direct_technology_evidence(clauses, (
+        ("项目名称", "咨询"),
+        ("咨询内容", "分析"),
+        ("咨询要求", "咨询报告"),
+        ("咨询方式", "技术方案论证"),
+        ("技术咨询工作成果的形式", "咨询报告"),
+    ), 8)
+    subject_text = _compact(" ".join(
+        str(row.get("quote") or row.get("text") or "") for row in subject_evidence
+    ))
+    subject_elements = {
+        "consulting_project": any(term in subject_text for term in ("项目名称", "咨询项目", "咨询内容")),
+        "technical_question_or_object": any(term in subject_text for term in (
+            "可行性", "系统架构", "技术问题", "分析", "论证", "评价", "预测",
+        )),
+        "consulting_scope": any(term in subject_text for term in (
+            "咨询内容", "咨询要求", "咨询范围", "重点分析",
+        )),
+        "consulting_deliverable": any(term in subject_text for term in (
+            "咨询报告", "分析报告", "论证报告", "评价意见", "咨询意见",
+        )),
+    }
+    if all(subject_elements.values()) and (item := by_id.get("TC-01-03")):
+        _set_specialized_requirement_state(
+            item, "PRESENT", subject_evidence, "consulting_subject_matter",
+            "技术咨询合同应能够识别咨询项目、技术问题或分析对象、咨询范围及主要成果形式。",
+            "合同已经通过项目名称、咨询内容和要求以及咨询报告交付形式明确本次技术咨询标的。", "低",
+        )
+        _set_multi_element_state(item, [
+            {"element_id": element_id, "status": "COVERED", "proposition": proposition}
+            for element_id, proposition in (
+                ("consulting_project", "咨询项目或事项明确。"),
+                ("technical_question_or_object", "咨询分析对象或技术问题明确。"),
+                ("consulting_scope", "咨询服务范围明确。"),
+                ("consulting_deliverable", "咨询报告等主要交付物明确。"),
+            )
+        ], subject_evidence)
+        item.risk_point_description = "咨询项目、技术问题、服务范围及咨询报告交付物均可直接识别。"
+        item.legal_consequence_if_missing = ""
+        item.suggested_clause_example = "保持现有咨询标的和成果范围约定。"
+        item.action_suggestion = item.suggested_clause_example
+        item.fallback_reason = "技术咨询标的场景化原子要素审查"
 
     quality_evidence = _direct_technology_evidence(clauses, (
         ("咨询内容", "系统架构", "性能瓶颈", "技术改造建议", "推荐技术架构"),
@@ -3972,7 +4081,56 @@ def _apply_technology_common_semantic_rules(
             "TECHNICAL_SERVICE": (("技术服务内容", "解决特定技术问题"), ("技术服务费用", "服务报酬")),
         }.get(resolved_subtype, ((resolved_subtype,),))
         classification_evidence = _direct_technology_evidence(clauses, classification_terms, 5)
-        if classification_evidence:
+        classification_evidence_by_review: Dict[str, List[Dict[str, Any]]] = {}
+        if resolved_subtype == "TECHNICAL_SERVICE":
+            service_rows: List[tuple[int, Dict[str, Any]]] = []
+            subtype_rows: List[tuple[int, Dict[str, Any]]] = []
+            for clause in clauses:
+                compact_clause = _compact(clause.text)
+                compact_title = _compact(clause.title)
+                if any(term in compact_clause for term in ("逾期", "应付未付", "违约金")):
+                    continue
+                service_score = 0
+                if any(term in compact_title for term in ("技术服务目标", "技术服务的目标")):
+                    service_score += 100
+                if any(term in compact_title for term in ("技术服务内容", "技术服务的内容")):
+                    service_score += 90
+                if any(term in compact_title for term in ("技术服务方式", "技术服务的方式")):
+                    service_score += 80
+                activity_count = sum(
+                    term in compact_clause for term in (
+                        "持续技术维护", "性能优化", "故障处理", "数据库性能分析",
+                        "接口异常排查", "系统配置优化", "技术支持",
+                    )
+                )
+                if activity_count >= 3:
+                    service_score += 8 * activity_count
+                if service_score:
+                    service_rows.append((service_score, {
+                        **_specialized_evidence(clause, "TECHNICAL_SERVICE_TRANSACTION", "DIRECT"),
+                        "semantic_evidence_type": "TECHNICAL_SERVICE_CORE_PERFORMANCE",
+                        "semantic_support_level": "DIRECT",
+                    }))
+
+                subtype_score = service_score
+                if (
+                    bool(re.search(r"不承担.{0,4}系统开发", compact_clause))
+                    or any(term in compact_clause for term in ("重大功能新增", "整体系统重构"))
+                ):
+                    subtype_score += 200
+                if subtype_score:
+                    subtype_rows.append((subtype_score, {
+                        **_specialized_evidence(clause, "TECHNICAL_SERVICE_SUBTYPE", "DIRECT"),
+                        "semantic_evidence_type": "TECHNICAL_SERVICE_SUBTYPE_DISTINCTION",
+                        "semantic_support_level": "DIRECT",
+                    }))
+            service_rows.sort(key=lambda entry: (-entry[0], str(entry[1].get("clause_id") or "")))
+            subtype_rows.sort(key=lambda entry: (-entry[0], str(entry[1].get("clause_id") or "")))
+            classification_evidence_by_review = {
+                "TC-01-01": [row for _, row in service_rows[:3]],
+                "TC-01-02": [row for _, row in subtype_rows[:3]],
+            }
+        if classification_evidence or classification_evidence_by_review:
             classification_label = str(classification.get("scenario_label") or resolved_subtype)
             for review_id, proposition in (
                 ("TC-01-01", "交易事实能够证明本合同属于技术合同。"),
@@ -3981,8 +4139,9 @@ def _apply_technology_common_semantic_rules(
                 item = by_id.get(review_id)
                 if not item:
                     continue
+                review_evidence = classification_evidence_by_review.get(review_id) or classification_evidence
                 _set_specialized_requirement_state(
-                    item, "PRESENT", classification_evidence,
+                    item, "PRESENT", review_evidence,
                     "technology_transaction_classification", proposition,
                     f"根据标的、核心给付、权利变化及价款性质，系统已将本合同明确识别为{classification_label}。",
                     "低",
@@ -4117,6 +4276,42 @@ def _apply_technology_common_semantic_rules(
                 "software_copyright", "open_source_component", "software_background_ip",
             ]
 
+        material_item = by_id.get("TC-13-01")
+        material_clauses = [
+            clause for clause in clauses
+            if any(term in _compact(clause.text) for term in (
+                "技术资料", "专利证书", "说明书", "权利要求书", "附图", "实施资料",
+            ))
+        ]
+        if material_item and material_item.coverage_status != COVERAGE_NOT_APPLICABLE and material_clauses:
+            material_text = _compact(" ".join(clause.text for clause in material_clauses))
+            named_types = [
+                term for term in ("专利证书", "说明书", "权利要求书", "附图", "实施资料", "技术资料清单")
+                if term in material_text
+            ]
+            list_covered = len(named_types) >= 2 or "技术资料清单" in material_text
+            delivery_covered = bool(re.search(r"(?:交付|提交|提供).{0,30}(?:技术资料|专利证书|说明书|权利要求书)", material_text))
+            method_covered = any(term in material_text for term in ("电子文件", "纸质", "份", "签收", "确认"))
+            evidence = [_specialized_evidence(clause, "PATENT_TECHNICAL_MATERIAL", "DIRECT") for clause in material_clauses[:4]]
+            elements = [
+                {"element_id": "technical_material_list", "status": "COVERED" if list_covered else "MISSING", "proposition": "技术资料具体清单和文件类型已明确。" if list_covered else "未明确技术资料具体清单及文件类型。"},
+                {"element_id": "technical_material_delivery_obligation", "status": "COVERED" if delivery_covered else "MISSING", "proposition": "技术资料交付义务已明确。" if delivery_covered else "未明确技术资料交付义务。"},
+                {"element_id": "technical_material_delivery_method", "status": "COVERED" if method_covered else "MISSING", "proposition": "技术资料交付形式、数量或签收确认机制已明确。" if method_covered else "未明确技术资料交付形式、数量或签收确认机制。"},
+            ]
+            missing = [row["proposition"].strip("。") for row in elements if row["status"] == "MISSING"]
+            state = "PRESENT" if not missing else "PARTIAL" if delivery_covered else "MISSING"
+            _set_specialized_requirement_state(
+                material_item, state, evidence, "patent_technical_material_atomic_elements",
+                "专利交易中的技术资料可由合同正文或附件明确，无需仅因未设置独立附件而认定缺失。",
+                "技术资料交付安排完整。" if not missing else f"技术资料已有原则性安排，但仍缺少：{'；'.join(missing)}。",
+                "中" if missing else "低",
+            )
+            _set_multi_element_state(material_item, elements, evidence)
+            material_item.risk_point_description = "技术资料交付安排已完整覆盖。" if not missing else f"技术资料交付仍缺少：{'；'.join(missing)}。"
+            material_item.legal_consequence_if_missing = "资料范围或交付确认不具体时，双方可能对交付是否完整及是否需要补交产生争议。" if missing else ""
+            material_item.suggested_clause_example = "建议列明技术资料名称、文件类型、交付形式和数量，并约定签收确认及资料不完整时的补交义务。" if missing else "保持现有技术资料交付安排。"
+            material_item.fallback_reason = "专利交易技术资料具体缺失要素门"
+
     if is_patent_transfer and (item := by_id.get("TC-06-03")) and item.coverage_status == "缺失":
         warranty_evidence = _direct_technology_evidence(
             clauses,
@@ -4179,8 +4374,9 @@ def _apply_technology_common_semantic_rules(
             item.fallback_reason = "通用同类义务责任对称比较"
             items.append(item)
 
-    arbitration = bool(re.search(r"提交.{0,30}仲裁委员会仲裁", compact))
-    litigation = bool(re.search(r"(?:也可以|同时约定).{0,30}(?:人民法院|法院).{0,12}(?:提起诉讼|诉讼)", compact))
+    dispute_options = analyze_dispute_resolution_options(contract_text)
+    arbitration = bool(dispute_options["arbitration_selected"])
+    litigation = bool(dispute_options["litigation_selected"])
     lawful_court_role = any(term in compact for term in ("财产保全", "证据保全", "申请执行仲裁裁决", "撤销仲裁裁决"))
     if arbitration and litigation and not lawful_court_role and not is_patent_transfer:
         item = _new_technology_shared_item("TECH-GEN-02", "dispute_resolution_choice_conflict", "仲裁与诉讼路径同时选中")
@@ -4275,22 +4471,28 @@ def _apply_technology_transaction_evidence_consistency(
     """Repair resolved technology states from direct transaction evidence late in the pipeline."""
     clauses = _operative_technology_clauses(contract_text)
     by_id = {item.item_id: item for item in items}
-    if classification.get("primary_subtype") != "TECHNOLOGY_LICENSE":
+    if classification.get("primary_subtype") not in {"TECHNOLOGY_LICENSE", "TECHNOLOGY_TRANSFER"}:
         return items
 
     competition_evidence = _direct_technology_evidence(clauses, (
-        ("不得限制技术竞争和发展", "双方不得"),
-        ("限制任何一方独立研究开发", "独立研究开发"),
-        ("禁止任何一方通过合法渠道取得第三方技术", "合法渠道取得第三方技术"),
-        ("无偿转让", "无直接关联的后续技术成果"),
+        ("限制技术竞争", "技术发展"),
+        ("研究开发", "获得技术"),
+        ("研究开发", "取得第三方技术"),
+        ("无偿转让", "后续技术成果"),
     ), 8)
     competition_text = _compact(" ".join(str(row.get("text") or "") for row in competition_evidence))
-    competition_protective = (
-        "不得限制技术竞争和发展" in competition_text
-        or ("双方不得" in competition_text and "独立研究开发" in competition_text and "合法渠道取得第三方技术" in competition_text)
-    )
+    competition_protective = bool(re.search(
+        r"(?:任何一方|双方|一方).{0,12}(?:不得|禁止).{0,12}(?:非法)?限制.{0,30}(?:研究开发|技术竞争|技术发展|获得|取得).{0,20}技术|"
+        r"(?:不得|禁止).{0,8}(?:非法)?限制.{0,18}(?:任何一方|另一方).{0,18}(?:研究开发|技术竞争|技术发展|获得|取得)",
+        competition_text,
+    ))
+    affirmative_restriction = bool(re.search(
+        r"(?:受让方|被许可方|乙方|甲方).{0,12}(?:不得|禁止).{0,18}(?:自行|独立|继续).{0,8}(?:研究|开发)|"
+        r"(?:受让方|被许可方|乙方|甲方).{0,12}(?:不得|禁止).{0,18}(?:从|向).{0,8}(?:第三方|其他渠道).{0,8}(?:获得|取得)",
+        competition_text,
+    ))
     competition_item = by_id.get("TC-02-01")
-    if competition_item and competition_protective and competition_evidence:
+    if competition_item and competition_protective and not affirmative_restriction and competition_evidence:
         _set_specialized_requirement_state(
             competition_item,
             "PRESENT",
@@ -4329,6 +4531,29 @@ def _apply_technology_transaction_evidence_consistency(
             ],
             "judgment": "PASS",
         }
+    elif competition_item and affirmative_restriction and competition_evidence:
+        for row in competition_evidence:
+            row["evidence_semantics"] = "ACTUAL_RISK_CLAUSE"
+            row["affirmative_risk_evidence"] = True
+        _mark_technology_semantic_risk(
+            competition_item,
+            title="非法限制技术竞争和发展",
+            group="illegal_monopoly_technology",
+            description="合同对一方独立研发改进技术或从其他合法渠道取得类似技术设置了实际限制。",
+            consequence="该限制可能不合理妨碍后续研发和技术竞争，并产生条款效力与履约争议。",
+            recommendation="删除对独立研发和合法取得第三方技术的绝对限制，仅保留保护专利权、保密信息和禁止侵权所必需的边界。",
+            evidence=competition_evidence,
+            risk_level="高",
+        )
+        competition_item.decision_trace["evidence_judgment"] = {
+            "evidence_semantics": "ACTUAL_RISK_CLAUSE",
+            "affirmative_risk_evidence_ids": [str(row.get("clause_id") or "") for row in competition_evidence],
+            "protective_evidence_ids": [],
+            "judgment": "RISK_CLAUSE",
+        }
+
+    if classification.get("primary_subtype") != "TECHNOLOGY_LICENSE":
+        return items
 
     rights_warranty_evidence = _direct_technology_evidence(clauses, (
         ("保证其有权", "授予本专利实施许可"),
@@ -5010,6 +5235,97 @@ def _apply_technical_service_semantic_rules(items: List[ReviewItemResult], contr
     payment = analyze_payment_schedule(contract_text)
     timeline = analyze_timeline(contract_text)
     by_id = {item.item_id: item for item in items}
+
+    attachment_contract_clauses = [
+        clause for clause in clauses
+        if "组成部分" in _compact(clause.text)
+        and any(term in _compact(clause.text) for term in ("技术文件", "附件", "清单"))
+    ]
+    attachment_list_clauses = [
+        clause for clause in clauses
+        if any(term in _compact(clause.text) for term in (
+            "技术背景资料", "技术服务范围及系统清单", "技术服务等级及响应要求",
+            "系统操作及变更管理规范", "技术服务验收确认单",
+        ))
+    ]
+    supplied_material_clauses = [
+        clause for clause in clauses
+        if any(term in _compact(clause.text) for term in ("提供技术资料", "提供的技术资料", "技术资料清单"))
+        and clause.clause_id not in {row.clause_id for row in attachment_list_clauses}
+    ]
+    if attachment_contract_clauses and attachment_list_clauses and (item := by_id.get("TC-13-01")):
+        direct_attachment_evidence = [
+            {
+                **_specialized_evidence(clause, "TECHNICAL_MATERIAL_ATTACHMENT", "DIRECT"),
+                "semantic_evidence_type": "CONTRACT_ATTACHMENT_INCORPORATION",
+                "semantic_support_level": "DIRECT",
+            }
+            for clause in [*attachment_contract_clauses[:1], *attachment_list_clauses[:5]]
+        ]
+        supporting_material_evidence = [
+            {
+                **_specialized_evidence(clause, "TECHNICAL_MATERIAL_SUPPLY", "SUPPORTING"),
+                "semantic_evidence_type": "MATERIAL_SUPPLY_OBLIGATION",
+                "semantic_support_level": "SUPPORTING",
+            }
+            for clause in supplied_material_clauses[:2]
+        ]
+        attachment_evidence = [*direct_attachment_evidence, *supporting_material_evidence]
+        _set_specialized_requirement_state(
+            item, "PRESENT", attachment_evidence, "technical_material_attachment",
+            "技术资料附件应由附件清单及其构成合同组成部分的约定直接证明，资料提供义务仅作为辅助证据。",
+            "合同已将技术背景资料、服务范围及系统清单、SLA、操作变更规范和验收确认单列为合同组成部分。", "低",
+        )
+        _set_multi_element_state(item, [
+            {"element_id": "attachment_incorporation", "status": "COVERED", "proposition": "技术文件经双方确认后构成合同组成部分。", "evidence_terms": ["组成部分"]},
+            {"element_id": "technical_background_material", "status": "COVERED", "proposition": "技术背景资料已列入附件清单。", "evidence_terms": ["技术背景资料"]},
+            {"element_id": "service_scope_and_system_list", "status": "COVERED", "proposition": "技术服务范围及系统清单已列入附件。", "evidence_terms": ["技术服务范围及系统清单"]},
+            {"element_id": "sla_and_change_management", "status": "COVERED", "proposition": "SLA及系统操作、变更管理规范已列入附件。", "evidence_terms": ["SLA", "系统操作及变更管理规范"]},
+            {"element_id": "acceptance_confirmation", "status": "COVERED", "proposition": "技术服务验收确认单已列入附件。", "evidence_terms": ["技术服务验收确认单"]},
+        ], attachment_evidence)
+        item.fallback_reason = "技术服务附件清单及合同组成部分优先证据"
+
+    fee_amount_clauses = [
+        clause for clause in clauses
+        if any(term in _compact(clause.text) for term in ("技术服务费总额", "技术服务费用总额", "服务报酬总额"))
+        and re.search(r"[\d,]+(?:\.\d+)?\s*元", clause.text)
+    ]
+    payment_schedule_clauses = [
+        clause for clause in clauses
+        if any(term in _compact(clause.text) for term in ("分期支付", "支付方式", "支付时间", "合同生效后", "服务期满", "最终验收"))
+        and re.search(r"[\d,]+(?:\.\d+)?\s*元", clause.text)
+        and not any(term in _compact(clause.text) for term in ("逾期", "应付未付", "违约金"))
+    ]
+    account_clauses = [
+        clause for clause in clauses
+        if any(term in _compact(clause.text) for term in ("收款银行", "开户银行", "收款账户"))
+        or ("账号" in _compact(clause.text) and bool(re.search(r"\d{12,}", clause.text)))
+    ]
+    payment_evidence_clauses = list({
+        clause.clause_id: clause
+        for clause in [*fee_amount_clauses, *payment_schedule_clauses, *account_clauses]
+    }.values())
+    if fee_amount_clauses and payment_schedule_clauses and (item := by_id.get("TC-09-04")):
+        payment_evidence = [
+            {
+                **_specialized_evidence(clause, "SERVICE_FEE_AND_PAYMENT", "DIRECT"),
+                "semantic_evidence_type": "SERVICE_FEE_PAYMENT_TERM",
+                "semantic_support_level": "DIRECT",
+            }
+            for clause in payment_evidence_clauses[:6]
+        ]
+        _set_specialized_requirement_state(
+            item, "PRESENT", payment_evidence, "service_payment_and_expense",
+            "服务报酬金额、支付节点、期限和收款方式应由服务费条款直接证明。",
+            "合同已在服务报酬条款中明确技术服务费总额、分期付款节点、支付期限及收款账户。", "低",
+        )
+        _set_multi_element_state(item, [
+            {"element_id": "service_fee_amount", "status": "COVERED", "proposition": "技术服务费总额明确。", "evidence_terms": ["技术服务费总额", "元"]},
+            {"element_id": "payment_schedule", "status": "COVERED", "proposition": "分期付款节点和金额明确。", "evidence_terms": ["支付", "元"]},
+            {"element_id": "payment_deadline", "status": "COVERED", "proposition": "各付款节点的支付期限明确。", "evidence_terms": ["工作日内", "支付"]},
+            {"element_id": "payee_account", "status": "COVERED" if account_clauses else "MISSING", "proposition": "收款银行和账户明确。", "evidence_terms": ["收款银行", "账号"]},
+        ], payment_evidence)
+        item.fallback_reason = "技术服务报酬和支付条款直接证据排序"
 
     acceptance_attachments = [
         clause for clause in clauses
@@ -5694,7 +6010,7 @@ def _set_specialized_requirement_state(
 
 
 def _apply_technical_consulting_confidentiality_rules(
-    items: List[ReviewItemResult], contract_text: str,
+    items: List[ReviewItemResult], contract_text: str, scenario_label: str = "咨询",
 ) -> List[ReviewItemResult]:
     clauses = _operative_technology_clauses(contract_text)
     by_id = {item.item_id: item for item in items}
@@ -5743,6 +6059,19 @@ def _apply_technical_consulting_confidentiality_rules(
         return rows
 
     core_evidence = merge(scope_evidence, personnel_evidence, duration_evidence, liability_evidence)
+    scope_text = _compact(" ".join(str(row.get("quote") or row.get("text") or "") for row in scope_evidence))
+    actual_scope_terms = [
+        term for term in (
+            "系统架构", "源代码", "服务器信息", "数据库资料", "接口资料", "业务数据", "客户数据",
+            "仓储运营数据", "非公开咨询方法", "分析模型", "技术方案", "非公开运维方案",
+            "性能优化方法", "技术文档", "其他未公开技术和经营信息",
+        )
+        if term in scope_text
+    ]
+    scope_proposition = (
+        f"{'、'.join(actual_scope_terms)}等保密对象明确。"
+        if actual_scope_terms else "双方保密信息的具体对象已列明。"
+    )
     if item := by_id.get("TC-11-01"):
         _set_specialized_requirement_state(
             item, "PARTIAL", core_evidence, "technical_secret_confidentiality",
@@ -5754,14 +6083,14 @@ def _apply_technical_consulting_confidentiality_rules(
             {"element_id": "confidential_personnel", "status": "COVERED", "proposition": "双方涉密人员范围已列明。", "evidence_terms": ["涉密人员范围", "参与本项目"]},
             {"element_id": "confidentiality_duration", "status": "COVERED", "proposition": "合同期内及终止后三年的保密期限已明确。", "evidence_terms": ["保密期限", "合同终止后3年"]},
             {"element_id": "breach_damage_liability", "status": "COVERED", "proposition": "违反保密义务造成损失时的赔偿责任已明确。", "evidence_terms": ["违反保密义务", "实际损失"]},
-            {"element_id": "purpose_limitation", "status": "MISSING", "proposition": "未明确保密信息仅限本咨询项目目的使用。"},
+            {"element_id": "purpose_limitation", "status": "MISSING", "proposition": f"未明确保密信息仅限本{scenario_label}项目目的使用。"},
             {"element_id": "copying_restriction", "status": "MISSING", "proposition": "未明确未经许可不得复制保密资料。"},
             {"element_id": "third_party_disclosure_restriction", "status": "MISSING", "proposition": "未明确未经许可不得向第三方披露。"},
             {"element_id": "security_measures", "status": "MISSING", "proposition": "未明确访问控制、加密等必要安全措施。"},
         ], core_evidence)
         item.risk_point_description = "合同已明确双方保密信息范围、涉密人员、保密期限和泄密赔偿，但尚未完整约定项目目的限制、复制限制、第三方披露限制及安全措施。"
         item.legal_consequence_if_missing = "基本保密义务虽已成立，但内部使用、复制和对外披露边界不清，可能增加资料被超目的使用或扩散后的举证争议。"
-        item.suggested_clause_example = "建议补充保密信息仅可为本咨询项目使用，未经披露方书面同意不得复制或向第三方披露，并采取与信息敏感程度相匹配的访问控制、加密和留痕措施。"
+        item.suggested_clause_example = f"建议补充保密信息仅可为本{scenario_label}项目使用，未经披露方书面同意不得复制或向第三方披露，并采取与信息敏感程度相匹配的访问控制、加密和留痕措施。"
         item.action_suggestion = item.suggested_clause_example
         item.fallback_reason = "技术咨询双向保密原子要素审查"
 
@@ -5773,7 +6102,7 @@ def _apply_technical_consulting_confidentiality_rules(
             "现有范围并非空白；真实缺口是公开信息、合法第三方取得、独立开发和依法披露等必要例外。", "低",
         )
         _set_multi_element_state(item, [
-            {"element_id": "confidential_information_scope", "status": "COVERED", "proposition": "系统架构、源代码、接口、业务数据及非公开咨询方法等对象明确。", "evidence_terms": ["保密内容", "系统架构", "源代码", "非公开咨询方法"]},
+            {"element_id": "confidential_information_scope", "status": "COVERED", "proposition": scope_proposition, "evidence_terms": ["保密内容", *actual_scope_terms]},
             {"element_id": "confidentiality_period", "status": "COVERED", "proposition": "合同有效期内及终止后三年的期限明确。", "evidence_terms": ["保密期限", "合同终止后3年"]},
             {"element_id": "public_information_exception", "status": "MISSING", "proposition": "未约定已公开信息例外。"},
             {"element_id": "lawful_third_party_source_exception", "status": "MISSING", "proposition": "未约定从有权第三方合法取得的信息例外。"},
@@ -5784,7 +6113,7 @@ def _apply_technical_consulting_confidentiality_rules(
         item.legal_consequence_if_missing = "缺少合理例外时，已公开或依法必须披露的信息也可能被文义纳入保密义务，增加履行边界争议。"
         item.suggested_clause_example = "建议补充已公开、接收方可证明已合法掌握或独立开发、从有权第三方合法取得及依法必须披露的信息例外，并约定依法披露前的合理通知。"
         item.action_suggestion = item.suggested_clause_example
-        item.fallback_reason = "技术咨询保密期限范围与例外审查"
+        item.fallback_reason = f"技术{scenario_label}保密期限范围与例外审查"
 
     if item := by_id.get("TC-11-03"):
         _set_specialized_requirement_state(
@@ -5797,7 +6126,7 @@ def _apply_technical_consulting_confidentiality_rules(
             {"element_id": "written_disposition_confirmation", "status": "MISSING", "proposition": "必要的书面处置确认缺失。"},
         ], [])
         item.risk_point_description = "合同未约定项目结束或合同终止后保密资料及副本的返还、删除、销毁和必要处置确认。"
-        item.legal_consequence_if_missing = "咨询结束后资料可能继续留存在人员终端、顾问或备份环境中，增加持续泄露和处置完成情况难以证明的风险。"
+        item.legal_consequence_if_missing = f"{scenario_label}结束后资料可能继续留存在人员终端、顾问或备份环境中，增加持续泄露和处置完成情况难以证明的风险。"
         item.suggested_clause_example = "可补充约定：项目结束、合同终止或披露方要求时，接收方应返还、删除或销毁保密资料及副本，并按要求书面确认处置结果。"
         item.action_suggestion = item.suggested_clause_example
         item.needs_manual_review = False
@@ -5854,8 +6183,13 @@ def _apply_technology_confidentiality_semantic_rules(
 ) -> List[ReviewItemResult]:
     by_id = {item.item_id: item for item in items}
     contract_compact = _compact(contract_text)
-    if classify_technology_transaction(contract_text).get("primary_subtype") == "TECHNICAL_CONSULTING":
+    primary_subtype = classify_technology_transaction(contract_text).get("primary_subtype")
+    if primary_subtype == "TECHNICAL_CONSULTING":
         return _apply_technical_consulting_confidentiality_rules(items, contract_text)
+    if primary_subtype == "TECHNICAL_SERVICE" and all(
+        term in contract_compact for term in ("保密内容", "涉密人员范围", "保密期限", "违反保密义务")
+    ):
+        return _apply_technical_consulting_confidentiality_rules(items, contract_text, scenario_label="服务")
     is_entrusted_development = (
         classify_technology_transaction(contract_text).get("primary_subtype") == "ENTRUSTED_DEVELOPMENT"
     )
@@ -8163,6 +8497,12 @@ NON_CONCRETE_GAP_PHRASES = (
     "建议进一步确认",
     "未能判断是否完整",
     "现有合同证据可部分支撑该复合要素",
+    "适用范围、履行标准和责任安排",
+    "适用范围不完整",
+    "履行标准不明确",
+    "责任安排不清",
+    "实质条款内容",
+    "相关安排",
 )
 
 
@@ -11112,11 +11452,61 @@ def _service_semantic_risk_group(item: ReviewItemResult) -> str:
 
 
 def _risk_aggregation_group(item: ReviewItemResult) -> str:
+    parent_group = str((item.decision_trace or {}).get("finding_parent_group") or "")
+    if parent_group:
+        return parent_group
     semantic_group = _service_semantic_risk_group(item)
     if semantic_group:
         item.decision_trace["semantic_risk_group"] = semantic_group
         return semantic_group
     return item.risk_group or item.node_id or item.item_id
+
+
+def _has_concrete_finding_gap(item: ReviewItemResult) -> bool:
+    if item.coverage_status not in {"缺失", "部分覆盖"}:
+        return True
+    if _concrete_partial_gap_elements(item):
+        return True
+    text = " ".join((item.risk_point_description or "", item.reasoning_summary or ""))
+    return bool(text) and not any(phrase in text for phrase in NON_CONCRETE_GAP_PHRASES)
+
+
+def _apply_technology_finding_consistency_gate(
+    items: List[ReviewItemResult], contract_text: str, classification: Dict[str, Any],
+) -> List[ReviewItemResult]:
+    """Locally suppress contradictory findings without blocking the report."""
+    dispute = analyze_dispute_resolution_options(contract_text)
+    pure_patent = (
+        classification.get("tertiary_subtype") == "PATENT_RIGHT_TRANSFER"
+        and not classification.get("involves_software_or_data")
+    )
+    for item in items:
+        failures: List[str] = []
+        if item.risk_group == "dispute_resolution_choice_conflict" and not (
+            dispute["arbitration_selected"] and dispute["litigation_selected"]
+        ):
+            failures.append("互斥争议选项并未同时处于有效状态")
+        if item.coverage_status == "风险条款" and item.risk_group == "illegal_monopoly_technology":
+            semantics = {str(row.get("evidence_semantics") or "") for row in item.evidence_clauses or []}
+            if semantics and semantics <= {"PROTECTIVE_CLAUSE", "LEGAL_DESCRIPTION"}:
+                failures.append("风险 finding 仅有保护性或法律描述证据")
+        if pure_patent and item.risk_group == "technology_ip_rights_provenance":
+            polluted = {
+                str(row.get("element_id") or "") for row in item.coverage_elements or []
+            } & {"software_copyright", "open_source_component", "software_background_ip", "personnel_achievement_assignment"}
+            if polluted:
+                item.coverage_elements = [row for row in item.coverage_elements if row.get("element_id") not in polluted]
+                item.decision_trace["scenario_pollution_removed"] = sorted(polluted)
+        if failures:
+            _set_specialized_requirement_state(
+                item, "PRESENT", item.evidence_clauses, "finding_consistency_recheck",
+                "只有与合同事实、证据极性和适用场景一致的结论才能形成风险。",
+                "原风险结论与证据状态不一致，已在单项层面撤销。", "低",
+            )
+            item.decision_trace["finding_consistency_gate"] = {"status": "SUPPRESSED", "reasons": failures, "fatal": False}
+        else:
+            item.decision_trace["finding_consistency_gate"] = {"status": "PASS", "fatal": False}
+    return items
 
 
 def _risk_claim_for_group(group: str, item: ReviewItemResult, finding_id: str) -> RiskClaim:
@@ -11275,6 +11665,11 @@ def _build_risk_findings(items: List[ReviewItemResult]) -> List[RiskFinding]:
         return (item.decision_trace or {}).get("review_nature") != "INTERNAL_CLASSIFICATION"
 
     for item in items:
+        item.decision_trace.setdefault("field_provenance", {
+            "risk_description_source": "rule",
+            "legal_consequence_source": "rule",
+            "recommendation_source": "rule",
+        })
         if (item.decision_trace or {}).get("review_nature") == "INTERNAL_CLASSIFICATION":
             item.decision_trace["finding_precondition"] = {
                 "all_required_conditions": False,
@@ -11309,6 +11704,14 @@ def _build_risk_findings(items: List[ReviewItemResult]) -> List[RiskFinding]:
         }
         precondition["all_required_conditions"] = all(precondition.values())
         item.decision_trace["finding_precondition"] = precondition
+        if not _has_concrete_finding_gap(item):
+            item.decision_trace["concrete_missing_element_gate"] = {
+                "status": "SUPPRESSED",
+                "reason": "未识别到具体、可验证的缺失要素，禁止由通用模板生成风险 finding。",
+                "fatal": False,
+            }
+            continue
+        item.decision_trace["concrete_missing_element_gate"] = {"status": "PASS", "fatal": False}
         if not precondition["all_required_conditions"] or item.risk_severity == SEVERITY_NONE:
             continue
         if (item.risk_group or item.node_id) in POSITIVE_EXISTENCE_RISK_GROUPS and item.coverage_status != "风险条款":
@@ -11354,6 +11757,7 @@ def _build_risk_findings(items: List[ReviewItemResult]) -> List[RiskFinding]:
                 if element.get("claim_id") or element.get("element_id")
             }),
             "finding_preconditions": {item.item_id: item.decision_trace.get("finding_precondition") for item in group_items},
+            "field_provenance": {"summary_source": "aggregation", "child_fields_preserved": True},
         }
         severity_reason = {
             "dominant_factor": primary.high_risk_reason or primary.decision_trace.get("coverage_gap_type") or risk_category,
@@ -11397,15 +11801,11 @@ def _build_risk_findings(items: List[ReviewItemResult]) -> List[RiskFinding]:
             issue=(
                 "合同虽涉及个人信息处理，也规定部分数据安全要求，但没有完整约定处理目的、期限、方式、安全措施、监督、转委托及终止后的返还删除机制。"
                 if group == "personal_information_processing_gap"
-                else "合同未附完整的权利来源证明清单，人员成果归集、第三方授权、软件著作权及开源组件合规依据仍需补充。"
-                if group == "technology_ip_rights_provenance"
                 else finding_issue
             ),
             consequence=(
                 "个人信息处理边界和双方安全责任不清，可能产生合规、数据泄露和项目履行风险。"
                 if group == "personal_information_processing_gap"
-                else "缺少权利来源证明时，项目成果的处分权限和第三方合规责任难以核验。"
-                if group == "technology_ip_rights_provenance"
                 else finding_consequence
             ),
             probability=_probability_for_item(primary),
@@ -14592,7 +14992,7 @@ def _link_covered_reviews_to_risk_evidence(items: List[ReviewItemResult], findin
                 str(row.get("clause_id") or "")
                 for row in finding.evidence_bundle.get("items") or []
                 if row.get("clause_id")
-            }
+            } | set(finding.source_clause_ids or [])
             shared = sorted(review_clause_ids & risk_clause_ids)
             if not shared:
                 continue
@@ -15142,6 +15542,21 @@ def _apply_technology_subtype_rendering(
             "transaction_object": transaction_object,
             "renderer": "technology_subtype_aware",
         }
+
+    if pure_patent_transfer:
+        active_items = [
+            by_id[item_id] for item_id in ("TC-12-01", "TC-12-02", "TC-12-04")
+            if item_id in by_id and by_id[item_id].coverage_status in {"风险条款", "部分覆盖", "缺失"}
+        ]
+        evidence_sets = [
+            {str(row.get("clause_id")) for row in item.evidence_clauses or [] if row.get("clause_id")}
+            for item in active_items
+        ]
+        shared_clause = any(left & right for index, left in enumerate(evidence_sets) for right in evidence_sets[index + 1:])
+        if len(active_items) == 3 and shared_clause:
+            for item in active_items:
+                item.decision_trace["finding_parent_group"] = "transferee_infringement_liability_shift"
+                item.decision_trace["finding_aggregation_reason"] = "同一第三方权利事实和证据支撑多个细分审查项。"
 
     if item := by_id.get("TC-10-03"):
         entitlement_evidence = [
@@ -16925,6 +17340,12 @@ def _patent_transfer_quality_gate(
         and link.get("relation_type") in {"DIRECT_SOURCE", "CONTRIBUTES_TO", "CONFLICTS_WITH"}
         for link in tc1204.review_risk_links
     ))
+    if tc1204 and not tc1204_linked:
+        tc1204_linked = any(
+            finding.risk_group == "transferee_infringement_liability_shift"
+            and "TC-12-04" in finding.source_review_ids
+            for finding in findings
+        )
     infringement_shift_exists = "transferee_infringement_liability_shift" in {
         finding.risk_group for finding in findings
     }
@@ -18798,8 +19219,18 @@ def _element_narrative_label(proposition: str) -> str:
         "合同已经载明", "合同已载明", "合同载明", "合同存在",
     ):
         if label.startswith(prefix):
-            return label[len(prefix):].strip("“”")
+            label = label[len(prefix):].strip("“”")
+            break
+    generic = re.fullmatch(r"可验证的“([^”]+)”(?:对应的核心安排|实质条款内容)", label)
+    if generic:
+        return f"“{generic.group(1)}”事项"
     return label
+
+
+def _missing_element_narrative_label(proposition: str) -> str:
+    label = _element_narrative_label(proposition)
+    label = re.sub(r"(?:已经|已)?(?:充分|完整)?明确(?:约定)?$", "", label).strip("，；。 ")
+    return label or _element_narrative_label(proposition)
 
 
 def _specific_gap_consequence(item: ReviewItemResult, gap_text: str) -> str:
@@ -18936,6 +19367,12 @@ def _specific_gap_consequence(item: ReviewItemResult, gap_text: str) -> str:
             "缺少固定测试数据集、设备环境和操作步骤时，已约定的量化指标和测试报告可能难以稳定复现，"
             "争议发生后也难以核对双方是否采用相同测试条件。"
         )
+    if item.risk_group == "technology_ip_rights_provenance":
+        item.decision_trace.setdefault("field_provenance", {})["legal_consequence_source"] = "rule_family:technology_ip_rights_provenance"
+        return (
+            "权属、登记信息、权利负担或交易办理文件不足时，受让方可能无法充分核验让与方处分权，"
+            "并增加转让登记补正、登记失败或交割后发现质押、既有许可及权属争议的风险。"
+        )
     if any(term in text for term in ("知识产权", "侵权", "专利", "商标", "著作权")):
         if item.item_id.startswith("TC-") or item.item_id.startswith("TECH-"):
             return "第三方提出权利主张时，停用、替换成本和向责任方追偿的依据可能不够直接。"
@@ -18979,12 +19416,25 @@ def _build_narrative_state(item: ReviewItemResult) -> Dict[str, Any]:
             for element in item.coverage_elements or []
             if element.get("element_id") in required_ids and element.get("status") == "PARTIALLY_COVERED"
         ]
+    if getattr(item, "risk_group", "") == "indemnity_and_liability_cap" and item.coverage_status in {"缺失", "部分覆盖"}:
+        generic_missing = not missing or all(
+            element == item.title or "可验证的" in element or "实质条款内容" in element
+            for element in missing
+        )
+        if generic_missing:
+            missing = [
+                "侵权专项责任与一般损失赔偿之间的适用关系",
+                "违约金与损害赔偿是否累计及抵扣的关系",
+                "退款、赔偿和其他救济之间的抵扣关系",
+                "同一损失避免重复赔偿的规则",
+            ]
+            item.decision_trace["narrative_required_elements_source"] = "rule_family:indemnity_and_liability_cap"
     covered = list(dict.fromkeys(covered))
     partial = [value for value in dict.fromkeys(partial) if value not in covered]
     missing = [value for value in dict.fromkeys(missing) if value not in covered and value not in partial]
     covered_text = "；".join(_element_narrative_label(value) for value in covered)
-    partial_text = "；".join(_element_narrative_label(value) for value in partial)
-    missing_text = "；".join(_element_narrative_label(value) for value in missing)
+    partial_text = "；".join(_missing_element_narrative_label(value) for value in partial)
+    missing_text = "；".join(_missing_element_narrative_label(value) for value in missing)
     applicability = str((item.applicability or {}).get("status") or "APPLICABLE").upper()
     polarity = str((item.decision_trace or {}).get("review_polarity") or "POSITIVE_REQUIREMENT")
     if item.coverage_status == INSUFFICIENT_CONTEXT:
@@ -19049,6 +19499,18 @@ def _build_narrative_state(item: ReviewItemResult) -> Dict[str, Any]:
         issue = item.risk_point_description
         consequence = item.legal_consequence_if_missing
         recommendation = item.suggested_clause_example
+    positive_markers = ("已明确约定", "已完整覆盖", "无需修改", "已充分约定")
+    missing_scope = " ".join((judgment, issue))
+    if item.coverage_status == "缺失" and any(marker in missing_scope for marker in positive_markers):
+        cleaned_missing = missing_text or _missing_element_narrative_label(item.title)
+        judgment = f"合同未明确：{cleaned_missing}。"
+        issue = f"缺失：{cleaned_missing}。"
+        item.decision_trace["narrative_status_consistency"] = {"status": "NORMALIZED", "from": "positive_phrase_in_missing"}
+    elif item.coverage_status == "通过" and any(marker in judgment for marker in ("尚未覆盖", "缺失", "未明确")):
+        judgment = f"合同已覆盖{item.title}要求。"
+        item.decision_trace["narrative_status_consistency"] = {"status": "NORMALIZED", "from": "missing_phrase_in_pass"}
+    else:
+        item.decision_trace["narrative_status_consistency"] = {"status": "PASS"}
     return {
         "review_id": item.item_id,
         "applicability": applicability,
@@ -20682,13 +21144,13 @@ def _apply_final_quality_gate(
 def _sanitize_review_report(report: str) -> str:
     cleaned = report
     cleaned = re.sub(
-        r"合同存在可验证的“([^”]+)”(?:对应的核心安排|实质条款内容)",
-        r"合同尚未完整约定“\1”的适用范围、履行标准和责任安排",
+        r"建议补充明确合同存在可验证的“([^”]+)”(?:对应的核心安排|实质条款内容)",
+        r"建议明确“\1”的具体权利义务、触发条件和执行程序",
         cleaned,
     )
     cleaned = re.sub(
-        r"可验证的“([^”]+)”(?:对应的核心安排|实质条款内容)",
-        r"“\1”的适用范围、履行标准和责任安排",
+        r"(?:合同存在)?可验证的“([^”]+)”(?:对应的核心安排|实质条款内容)",
+        r"“\1”事项",
         cleaned,
     )
     cleaned = cleaned.replace("”对应的核心安排", "”具体修改依据")
@@ -21746,9 +22208,12 @@ def _format_markdown_v2(
         issue_value = str(narrative.get("issue") or narrative.get("judgment") or item.risk_point_description)
         display_issue_type = item.issue_type
         if related_final_findings:
-            issue_value = "；".join(dict.fromkeys(finding.issue for finding in related_final_findings if finding.issue))
-            legal_value = "；".join(dict.fromkeys(finding.consequence for finding in related_final_findings if finding.consequence))
-            display_issue_type = "、".join(dict.fromkeys(finding.issue_type for finding in related_final_findings if finding.issue_type))
+            item.decision_trace.setdefault("field_provenance", {}).update({
+                "risk_description_source": "rule",
+                "legal_consequence_source": "rule",
+                "recommendation_source": "rule",
+                "related_risk_source": "aggregation",
+            })
             exposure_by_type = {
                 "FORMULA_ERROR": "合同内部付款比例、节点金额与合同总价的计算结果不一致。",
                 "CONFLICTING": "合同不同条款、日期、期限或权利安排之间存在不一致。",
@@ -21786,6 +22251,8 @@ def _format_markdown_v2(
                 if value:
                     exposure_rows.append(value)
             exposure = "；".join(dict.fromkeys(exposure_rows))
+            if any(len(finding.source_review_ids) > 1 for finding in related_final_findings):
+                suggested_value = item.suggested_clause_example or item.action_suggestion or suggested_value
         legal_basis = _trusted_legal_basis_display(item)
         practice_basis = _practice_basis_display(item)
         if legal_label not in {"处理结论", "适用说明"} and not related_final_findings:
@@ -22106,14 +22573,21 @@ def review_contract_v2(
     contract_context["transaction_role"] = perspective_resolution.transaction_role
     if technology_classification:
         primary_subtype = str(technology_classification.get("primary_subtype") or "")
-        is_entrusted_development = primary_subtype == "ENTRUSTED_DEVELOPMENT"
+        has_specific_technology_subtype = primary_subtype in {
+            "COOPERATIVE_DEVELOPMENT",
+            "ENTRUSTED_DEVELOPMENT",
+            "TECHNOLOGY_TRANSFER",
+            "TECHNOLOGY_LICENSE",
+            "TECHNICAL_CONSULTING",
+            "TECHNICAL_SERVICE",
+        }
         canonical_subtype = str(
             primary_subtype
-            if is_entrusted_development
+            if has_specific_technology_subtype
             else contract_context.get("contract_subtype") or primary_subtype
         )
         canonical_transaction = str(
-            (technology_classification.get("transaction_structure") if is_entrusted_development else None)
+            (technology_classification.get("transaction_structure") if has_specific_technology_subtype else None)
             or contract_context.get("transaction_structure")
             or domain_resolution.transaction_structure
         )
@@ -22138,7 +22612,7 @@ def review_contract_v2(
             "scenario": str(technology_classification.get("scenario_label") or ""),
             "classification_evidence": list(technology_classification.get("classification_evidence") or []),
         }
-        if is_entrusted_development:
+        if has_specific_technology_subtype:
             contract_context["contract_subtype"] = canonical_subtype
             contract_context["transaction_structure"] = canonical_transaction
     if perspective_resolution.canonical_role == "PATENT_TRANSFEREE":
@@ -22338,7 +22812,7 @@ def review_contract_v2(
         items = _apply_technology_transaction_evidence_consistency(
             items, review_text, technology_classification,
         )
-        if technology_classification.get("primary_subtype") == "TECHNICAL_CONSULTING":
+        if technology_classification.get("primary_subtype") in {"TECHNICAL_CONSULTING", "TECHNICAL_SERVICE"}:
             items = _protect_deterministic_semantic_evidence(items)
         items = _apply_review_evidence_ownership(items)
     if technology_classification.get("tertiary_subtype") in {"PATENT_LICENSE", "PATENT_RIGHT_TRANSFER"}:
@@ -22373,6 +22847,7 @@ def review_contract_v2(
         _apply_technology_party_direction_to_items(
             items, perspective_resolution.to_public_dict(), technology_classification,
         )
+        items = _apply_technology_finding_consistency_gate(items, review_text, technology_classification)
         items = _apply_element_level_narratives(items)
     risk_findings = _build_risk_findings(items) + _legal_reference_findings(legal_reference_issues)
     if type_meta.key.value == "technology":

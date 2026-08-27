@@ -132,7 +132,12 @@ def test_every_final_risk_has_bundle_and_missing_risk_has_absence_evidence():
 def test_covered_reviews_that_contribute_to_risk_are_not_keep():
     output = _review()
     items = {row["item_id"]: row for row in output["items"]}
-    for review_id in ("TC-10-01", "TC-10-02", "TC-11-03"):
+    for review_id in ("TC-10-01", "TC-10-02"):
+        item = items[review_id]
+        assert item["coverage_status"] == "不适用"
+        assert not item["related_risks"]
+
+    for review_id in ("TC-11-03",):
         item = items[review_id]
         assert item["coverage_status"] == "通过"
         assert item["related_risks"]

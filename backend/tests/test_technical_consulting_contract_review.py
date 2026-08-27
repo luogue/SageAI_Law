@@ -200,3 +200,34 @@ def test_consulting_party_b_role_is_not_development_role():
     )
     assert output["perspective_resolution"]["display_role"] == "乙方 / 受托方"
     assert output["report_context"]["perspective"] == "technical_consultant"
+
+
+def test_consulting_subtype_is_inferred_from_transaction_substance_without_explicit_title():
+    title_neutral_contract = CONSULTING_CONTRACT.replace("技术咨询合同", "智能仓储项目协议", 1)
+    output = review_contract_v2(
+        title_neutral_contract,
+        "technology",
+        use_llm=False,
+        profile=UserRiskProfile(user_identity="甲方/委托方"),
+    )
+    classification = output["deterministic_analysis"]["technology_classification"]
+    by_id = _items(output)
+
+    assert classification["primary_subtype"] == "TECHNICAL_CONSULTING"
+    assert classification["primary_contract_type"] == "technology_consulting"
+    assert "title:technical_consulting" not in classification["classification_evidence"]
+    assert {
+        "core_obligation:analysis_evaluation_advice",
+        "deliverable:consulting_report_or_opinion",
+        "consideration:consulting_fee",
+    }.issubset(set(classification["classification_evidence"]))
+    assert output["contract_context"]["contract_subtype"] == "TECHNICAL_CONSULTING"
+    assert output["report_context"]["contract_type_label"] == "技术合同—技术咨询合同"
+    assert all(by_id[f"TC-08-0{index}"]["coverage_status"] != "不适用" for index in range(1, 6))
+    assert by_id["TC-01-03"]["coverage_status"] == "通过"
+    assert by_id["TC-01-04"]["coverage_status"] == "不适用"
+    assert all(by_id[f"TC-10-0{index}"]["coverage_status"] == "不适用" for index in range(1, 5))
+    assert by_id["TC-11-01"]["coverage_status"] != "缺失"
+    assert by_id["TC-11-02"]["coverage_status"] != "缺失"
+    for item_id in ("TC-03-04", "TC-12-02", "TC-12-04", "TC-13-02"):
+        assert by_id[item_id]["coverage_status"] == "不适用"

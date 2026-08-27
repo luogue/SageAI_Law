@@ -152,6 +152,12 @@ def resolve_perspective(
             else "TECHNICAL_CONSULTANT" if party_side == "PARTY_B"
             else "CONSULTING_CLIENT"
         )
+    if not accepted and family == "TECHNOLOGY" and subtype in {"TECHNICAL_SERVICE", "TECHNOLOGY_SERVICE"}:
+        accepted = (
+            "SERVICE_RECIPIENT" if party_side == "PARTY_A"
+            else "SERVICE_PROVIDER" if party_side == "PARTY_B"
+            else "SERVICE_PROVIDER"
+        )
     if not accepted:
         accepted = compatible[0] if compatible else "OTHER"
     rejected = [role for role in candidates if role != accepted]
@@ -170,6 +176,9 @@ def resolve_perspective(
         display_role = f"{review_party_label} / {DISPLAY_ROLES[accepted]}"
     elif accepted in {"CONSULTING_CLIENT", "TECHNICAL_CONSULTANT"} and review_party_label:
         display_role = f"{review_party_label} / {DISPLAY_ROLES[accepted]}"
+    elif accepted in {"SERVICE_RECIPIENT", "SERVICE_PROVIDER"} and review_party_label:
+        service_label = "委托方" if accepted == "SERVICE_RECIPIENT" else "服务提供方"
+        display_role = f"{review_party_label} / {service_label}"
     return PerspectiveResolution(
         requested_role=requested_role,
         previous_context_role=previous_context_role,

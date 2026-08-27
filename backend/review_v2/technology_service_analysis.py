@@ -177,6 +177,31 @@ def classify_technology_transaction(text: str) -> Dict[str, Any]:
     add("TECHNOLOGY_LICENSE", 12, "core_obligation:patent_license_grant", patent_license_grant and (license_consideration or license_scope))
     add("TECHNICAL_CONSULTING", 12, "title:technical_consulting", consulting_title)
     add("TECHNICAL_CONSULTING", 5, "consulting_obligation", any(signal in compact for signal in consulting_signals))
+    consulting_analysis_terms = (
+        "可行性分析", "可行性论证", "技术分析", "技术论证", "分析评价",
+        "技术评价", "技术预测", "架构评估", "技术风险分析", "提出技术建议",
+    )
+    consulting_deliverable = bool(re.search(
+        r"(?:提交|出具|形成|提供).{0,24}(?:技术)?(?:咨询|分析|论证|评价|可行性).{0,12}(?:报告|意见|建议|方案)",
+        compact,
+    )) or any(term in compact for term in ("技术咨询报告", "咨询报告验收", "书面咨询报告"))
+    consulting_parties = (
+        "委托方" in compact
+        and any(term in compact for term in ("咨询方", "受托方"))
+        and any(term in compact for term in ("技术咨询", "咨询事项", "咨询项目", "咨询报告"))
+    )
+    consulting_analysis = sum(term in compact for term in consulting_analysis_terms) >= 2
+    consulting_consideration = any(term in compact for term in (
+        "技术咨询报酬", "咨询报酬", "咨询费用", "咨询服务费",
+    ))
+    implementation_disclaimer = any(term in compact for term in (
+        "不承担软件开发", "不承担技术实施", "不承担成果制造", "仅提供咨询意见",
+    ))
+    add("TECHNICAL_CONSULTING", 4, "roles:consulting_client_and_consultant", consulting_parties)
+    add("TECHNICAL_CONSULTING", 5, "core_obligation:analysis_evaluation_advice", consulting_analysis)
+    add("TECHNICAL_CONSULTING", 5, "deliverable:consulting_report_or_opinion", consulting_deliverable)
+    add("TECHNICAL_CONSULTING", 3, "consideration:consulting_fee", consulting_consideration)
+    add("TECHNICAL_CONSULTING", 2, "boundary:no_direct_implementation", implementation_disclaimer)
 
     explicit_title_subtype = (
         "TECHNOLOGY_TRANSFER" if technology_transfer_title or patent_transfer_title
@@ -322,10 +347,10 @@ def classify_technology_transaction(text: str) -> Dict[str, Any]:
     classification_evidence_details = {
         "contract_title": document_title,
         "subject_matter": snippets(("专利名称", "项目名称", "合同标的", "许可实施的专利权", "转让的专利权")),
-        "core_performance_obligations": snippets(("许可买方实施", "授予本专利实施许可", "转让给受让方", "转移至受让方", "共同研究开发", "委托研究开发", "解决特定技术问题")),
+        "core_performance_obligations": snippets(("许可买方实施", "授予本专利实施许可", "转让给受让方", "转移至受让方", "共同研究开发", "委托研究开发", "解决特定技术问题", "可行性分析", "技术论证", "分析评价", "技术咨询报告")),
         "rights_transfer_method": snippets(("排他许可", "独占许可", "普通许可", "专利权转让", "转让登记", "变更登记")),
         "consideration_nature": snippets(("许可使用费", "实施许可使用费", "专利权转让价款", "技术服务费用", "研发费用", "咨询报酬")),
-        "key_clauses": snippets(("许可范围", "许可期限", "专利权登记", "权利瑕疵", "开发成果", "咨询报告", "技术服务内容"), 8),
+        "key_clauses": snippets(("许可范围", "许可期限", "专利权登记", "权利瑕疵", "开发成果", "咨询报告", "咨询内容", "咨询要求", "技术服务内容"), 8),
     }
 
     personal_information_terms = ("姓名", "工号", "电话号码", "电子邮箱", "身份证", "人脸", "操作日志")

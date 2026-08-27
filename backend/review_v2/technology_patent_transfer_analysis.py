@@ -35,6 +35,40 @@ def _first_match(text: str, patterns: tuple[str, ...], group: int = 1) -> str:
     return ""
 
 
+def analyze_dispute_resolution_options(text: str) -> Dict[str, Any]:
+    """Resolve mutually exclusive dispute options from their operative polarity."""
+    fragments = [row.strip() for row in re.split(r"[\n。；;]", text or "") if row.strip()]
+    inactive = re.compile(r"(?:不适用|不选择|未选择|不采用|已删除|删除|未勾选|否|[×✕])")
+
+    def option_state(keyword: str, operative: re.Pattern[str]) -> tuple[bool, List[str], List[str]]:
+        active_rows: List[str] = []
+        inactive_rows: List[str] = []
+        for row in fragments:
+            if keyword not in row:
+                continue
+            compact_row = _compact(row)
+            if inactive.search(compact_row) or re.search(rf"(?:□|○)\s*[^。；]*{keyword}", row):
+                inactive_rows.append(row)
+            elif operative.search(compact_row):
+                active_rows.append(row)
+        return bool(active_rows), active_rows, inactive_rows
+
+    arbitration, arbitration_evidence, arbitration_inactive = option_state(
+        "仲裁", re.compile(r"(?:提交|申请|争议由|争议应由).{0,30}仲裁(?:委员会)?(?:仲裁)?"),
+    )
+    litigation, litigation_evidence, litigation_inactive = option_state(
+        "法院", re.compile(r"(?:向|由).{0,20}(?:人民法院|法院).{0,15}(?:提起诉讼|诉讼|管辖)"),
+    )
+    return {
+        "arbitration_selected": arbitration,
+        "litigation_selected": litigation,
+        "arbitration_evidence": arbitration_evidence,
+        "litigation_evidence": litigation_evidence,
+        "arbitration_inactive_evidence": arbitration_inactive,
+        "litigation_inactive_evidence": litigation_inactive,
+    }
+
+
 @dataclass(frozen=True)
 class PatentAsset:
     sequence_no: str
@@ -242,10 +276,7 @@ def analyze_patent_transfer(text: str) -> Dict[str, Any]:
             "research_use_reserved": bool(re.search(r"(?:教学|科学研究|科研)", compact)),
             "paid_service_reserved": bool(re.search(r"(?:对外|有偿).{0,8}(?:技术服务|服务)", compact)),
         },
-        "dispute_resolution": {
-            "arbitration_selected": bool(re.search(r"提交.{0,20}仲裁委员会仲裁", compact)),
-            "litigation_selected": bool(re.search(r"(?:人民法院|法院).{0,8}(?:诉讼|管辖)", compact)),
-        },
+        "dispute_resolution": analyze_dispute_resolution_options(text),
         "breach_liability": {
             "transferee_daily_penalty": bool(re.search(r"(?:受让方|甲方).{0,24}(?:逾期付款|未按.{0,12}付款).{0,30}(?:每日|每逾期一日)", compact)),
             "transferee_additional_penalty": bool(re.search(r"(?:受让方|甲方).{0,18}逾期付款.{0,60}(?:另行|另付|额外).{0,10}违约金", compact)),

@@ -119,7 +119,7 @@ DISPLAY_LABEL_REGISTRY: Tuple[DomainDisplayLabel, ...] = (
         subtype="TECHNICAL_SERVICE",
         report_title="技术服务合同审查报告",
         usage_scenario_label="技术服务",
-        contract_type_label="技术服务合同",
+        contract_type_label="技术合同—技术服务合同",
     ),
     DomainDisplayLabel(
         family="TECHNOLOGY",
