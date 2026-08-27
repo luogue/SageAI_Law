@@ -21,8 +21,8 @@ class _UploadFile:
         self.file = io.BytesIO(content)
 
 
-def _fixture_text() -> str:
-    document = Document(FIXTURE)
+def _document_text(path: Path) -> str:
+    document = Document(path)
     blocks = [paragraph.text for paragraph in document.paragraphs if paragraph.text.strip()]
     for table in document.tables:
         blocks.extend(
@@ -30,6 +30,10 @@ def _fixture_text() -> str:
             for row in table.rows
         )
     return "\n".join(blocks)
+
+
+def _fixture_text() -> str:
+    return _document_text(FIXTURE)
 
 
 @pytest.fixture(scope="module")
@@ -236,6 +240,241 @@ def test_manual_review_and_insufficient_context_states_are_explained(party_a_rev
         assert item["quality_gate_failure_reason"]
 
 
+def test_entrusted_semantic_coverage_and_conditional_applicability(party_a_review):
+    items = _by_id(party_a_review)
+    patent = items["TC-04-03"]
+    patent_elements = {row["element_id"]: row for row in patent["coverage_elements"]}
+
+    assert patent["decision_trace"]["open_ended_enumeration"] == {
+        "detected": True,
+        "scope": "OPEN",
+        "semantic_result": "SEMANTICALLY_COVERED",
+        "applies_to": ["patent_application_right_ownership", "patent_right_after_grant"],
+    }
+    assert patent_elements["patent_application_right_ownership"]["status"] == "COVERED"
+    assert patent_elements["patent_application_right_ownership"]["reason"] == "SEMANTICALLY_COVERED"
+    assert patent_elements["document_signature_cooperation"]["status"] == "MISSING"
+    assert "专利申请权归属及申请协助义务未专项明确" not in patent["risk_point_description"]
+
+    secret = items["TC-05-03"]
+    assert secret["applicability"]["status"] == "CONDITIONALLY_APPLICABLE"
+    assert secret["applicability"]["applicable"] is True
+    assert secret["needs_manual_review"] is False
+    assert secret["coverage_status"] == "部分覆盖"
+    secret_elements = {row["element_id"]: row for row in secret["coverage_elements"]}
+    assert secret_elements["technical_secret_result_ownership"]["status"] == "COVERED"
+    assert secret_elements["source_algorithm_document_delivery"]["status"] == "COVERED"
+    assert secret_elements["developer_copy_retention"]["status"] == "MISSING"
+
+    improvement = items["TC-10-03"]
+    assert improvement["applicability"]["status"] == "NOT_APPLICABLE"
+    assert improvement["coverage_status"] == "不适用"
+    assert improvement["needs_manual_review"] is False
+
+
+def test_confidentiality_liability_reuses_semantically_valid_evidence(party_a_review):
+    item = _by_id(party_a_review)["TC-11-04"]
+    evidence_by_role = {
+        row.get("evidence_role"): str(row.get("quote") or row.get("text") or "")
+        for row in item["evidence_clauses"]
+    }
+
+    assert item["applicability"]["status"] == "APPLICABLE"
+    assert item["coverage_status"] == "部分覆盖"
+    assert item["needs_manual_review"] is False
+    assert "无法自公开渠道" in evidence_by_role["CONFIDENTIALITY_OBLIGATION"]
+    assert "不得向任何第三方泄露" in evidence_by_role["CONFIDENTIALITY_OBLIGATION"]
+    assert "其他违反本合同" in evidence_by_role["GENERAL_BREACH_LIABILITY"]
+    assert "技术支持服务的对象" not in " ".join(evidence_by_role.values())
+
+
+def test_general_breach_catch_all_propagates_only_damage_remedies(party_a_review):
+    item = _by_id(party_a_review)["TC-11-04"]
+    elements = {row["element_id"]: row["status"] for row in item["coverage_elements"]}
+    propagation = item["decision_trace"]["general_breach_semantic_propagation"]
+    finding = next(
+        row for row in party_a_review["risk_findings"]
+        if row["risk_group"] == "confidentiality_breach_liability"
+    )
+
+    assert propagation["classification"] == "GENERAL_BREACH_CATCH_ALL"
+    assert all(elements[element_id] == "COVERED" for element_id in (
+        "confidentiality_obligation", "breach_damage_liability", "direct_loss",
+        "lost_profit", "attorney_fee", "litigation_cost",
+    ))
+    assert all(elements[element_id] == "MISSING" for element_id in (
+        "stop_disclosure", "stop_use", "mitigation_obligation",
+        "return_or_destroy", "disposition_confirmation",
+    ))
+    assert elements["specific_confidentiality_penalty"] == "NOT_APPLICABLE"
+    assert "一般违约责任需明确延伸" not in item["risk_point_description"]
+    assert "损失赔偿" in item["risk_point_description"]
+    assert all(term in finding["recommendation"] for term in ("停止使用", "防止继续扩散", "删除"))
+    assert "无需重复创设同一赔偿义务" in finding["recommendation"]
+    assert "专项违约金" not in " ".join((
+        item["risk_point_description"],
+        finding["issue"],
+        finding["recommendation"],
+    ))
+
+
+def test_secret_copy_retention_uses_matching_legal_consequence(party_a_review):
+    item = _by_id(party_a_review)["TC-05-03"]
+    consequence = item["narrative_state"]["consequence"]
+
+    assert item["decision_trace"]["legal_consequence_mapping"]["semantic_domain"] == "SECRET_COPY_RETENTION"
+    assert all(term in consequence for term in ("源代码", "副本", "未经授权", "披露", "删除"))
+    assert all(term not in consequence for term in ("付款期限", "验收节点", "质量异议", "价格"))
+    assert party_a_review["report_semantic_consistency_gate"]["gate_results"][
+        "FINDING_CONSEQUENCE_CONSISTENCY_GATE"
+    ] == "PASS"
+
+
+def test_improvement_notification_rendering_respects_development_subtype(party_a_review):
+    commissioned = _by_id(party_a_review)["TC-10-03"]
+    commissioned_rendering = commissioned["decision_trace"]["subtype_rendering"]
+    commissioned_consequence = commissioned["narrative_state"]["consequence"]
+
+    assert commissioned_rendering["primary_subtype"] == "ENTRUSTED_DEVELOPMENT"
+    assert commissioned_rendering["has_follow_on_entitlement"] is False
+    assert commissioned["coverage_status"] == "不适用"
+    assert commissioned["applicability"]["status"] == "NOT_APPLICABLE"
+    assert commissioned_consequence == ""
+
+    cooperative_fixture = next((ROOT / "test_data").glob("11*.docx"))
+    cooperative_review = review_contract_v2(
+        _document_text(cooperative_fixture),
+        "technology",
+        use_llm=False,
+        profile=UserRiskProfile(user_identity="甲方"),
+    )
+    cooperative = _by_id(cooperative_review)["TC-10-03"]
+    cooperative_rendering = cooperative["decision_trace"]["subtype_rendering"]
+    cooperative_consequence = cooperative["narrative_state"]["consequence"]
+
+    assert cooperative_rendering["primary_subtype"] == "COOPERATIVE_DEVELOPMENT"
+    assert cooperative_rendering["has_follow_on_entitlement"] is True
+    assert "合作开发成果" in cooperative_consequence
+    assert "共同权利" in cooperative_consequence
+
+
+def test_entrusted_improvement_boundary_requires_affirmative_restriction():
+    text = _fixture_text() + "\n乙方不得继续开展后续改进；形成的改进成果必须无偿转让给甲方。"
+    review = review_contract_v2(
+        text,
+        "technology",
+        use_llm=False,
+        profile=UserRiskProfile(user_identity="甲方"),
+    )
+    item = _by_id(review)["TC-10-04"]
+
+    assert review["contract_context"]["canonical_classification"]["contract_subtype"] == "ENTRUSTED_DEVELOPMENT"
+    assert item["applicability"]["status"] == "APPLICABLE"
+    assert item["coverage_status"] == "风险条款"
+    assert item["risk_group"] == "improvement_no_unlawful_restriction"
+    assert item["decision_trace"]["entrusted_improvement_applicability"]["matched_clause_ids"]
+
+
+def test_commissioning_party_liability_direction_excludes_favorable_no_cap_gap(party_a_review):
+    item = _by_id(party_a_review)["TC-12-04"]
+    elements = {row["element_id"]: row for row in item["coverage_elements"]}
+    direction = item["risk_direction"]
+
+    assert item["coverage_status"] == "部分覆盖"
+    assert elements["developer_liability_cap"]["status"] == "NOT_APPLICABLE"
+    assert elements["developer_liability_cap"]["direction"] == "FAVORABLE"
+    assert elements["developer_liability_cap"]["risk_relevant"] is False
+    assert elements["special_general_liability_coordination"]["direction"] == "UNFAVORABLE"
+    assert elements["special_general_liability_coordination"]["risk_relevant"] is True
+    assert direction["favorable_missing_elements"] == []
+    assert direction["favorable_existing_conditions"] == ["developer_liability_cap"]
+    assert direction["unfavorable_missing_elements"] == ["special_general_liability_coordination"]
+    assert item["title"] == "侵权责任与一般救济衔接"
+    assert all(term in item["narrative_state"]["consequence"] for term in ("适用顺序", "累计关系", "重复计算"))
+    assert all(term not in item["narrative_state"]["consequence"] for term in ("缺少责任上限", "责任总额难以预估"))
+    assert "无需主动为开发方新增责任上限" in item["suggested_clause_example"]
+    finding = next(
+        row for row in party_a_review["risk_findings"]
+        if row["risk_group"] == "indemnity_and_liability_cap"
+    )
+    assert "无需主动为开发方新增责任上限" in finding["recommendation"]
+
+
+def test_entrusted_partial_findings_have_positive_and_absence_evidence(party_a_review):
+    findings = {row["risk_group"]: row for row in party_a_review["risk_findings"]}
+    for group in (
+        "entrusted_patent_application_right",
+        "development_failure_risk",
+        "technical_secret_result_rights",
+        "cooperation_breach_and_exit",
+        "confidentiality_breach_liability",
+        "indemnity_and_liability_cap",
+    ):
+        evidence = findings[group]["evidence_bundle"]["items"]
+        assert any(row["source_type"] != "SEARCH_AUDIT" for row in evidence)
+        assert any(row["source_type"] == "SEARCH_AUDIT" for row in evidence)
+
+    indemnity_absence = next(
+        row for row in findings["indemnity_and_liability_cap"]["evidence_bundle"]["items"]
+        if row["source_type"] == "SEARCH_AUDIT"
+    )
+    assert "适用和累计衔接" in indemnity_absence["quoted_text"]
+    assert "责任总额上限" not in indemnity_absence["quoted_text"]
+
+
+def test_commissioned_development_golden_manifest(party_a_review):
+    manifest_path = Path(__file__).parent / "fixtures" / "technical_contracts" / "commissioned_development.golden.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    items = _by_id(party_a_review)
+    classification = party_a_review["contract_context"]["canonical_classification"]
+
+    assert manifest["sample_id"] == "TECH_DEV_COMMISSIONED_GOLDEN_001"
+    assert manifest["sample_status"] == "GOLDEN_CANDIDATE"
+    assert party_a_review["technology_transaction_consistency_gate"]["primary_contract_type"] == manifest["primary_contract_type"]
+    assert classification["contract_family"] == manifest["contract_family"]
+    assert classification["contract_category"] == manifest["contract_category"]
+    assert classification["contract_subtype"] == manifest["contract_subtype"]
+    assert party_a_review["perspective_resolution"]["canonical_role"] == manifest["review_position"]
+    assert all(items[review_id]["coverage_status"] == status for review_id, status in manifest["key_statuses"].items())
+    assert all(
+        items[review_id]["applicability"]["status"] == "CONDITIONALLY_APPLICABLE"
+        for review_id in manifest["conditional_applicability"]
+    )
+    assert all(items[review_id]["coverage_status"] == "不适用" for review_id in manifest["not_applicable"])
+    provenance = next(
+        row for row in party_a_review["risk_findings"]
+        if row["risk_group"] == "technology_ip_rights_provenance"
+    )
+    assert provenance["source_review_ids"] == manifest["canonical_risk_sources"]["technology_ip_rights_provenance"]
+
+    confidentiality = items[manifest["confidentiality_catch_all"]["review_id"]]
+    confidentiality_elements = {row["element_id"]: row["status"] for row in confidentiality["coverage_elements"]}
+    assert confidentiality["decision_trace"]["general_breach_semantic_propagation"]["classification"] == manifest[
+        "confidentiality_catch_all"
+    ]["classification"]
+    assert all(
+        confidentiality_elements[element_id] == "COVERED"
+        for element_id in manifest["confidentiality_catch_all"]["covered_elements"]
+    )
+    assert all(
+        confidentiality_elements[element_id] == "MISSING"
+        for element_id in manifest["confidentiality_catch_all"]["missing_specific_remedies"]
+    )
+
+    for review_id, semantic_domain in manifest["legal_consequence_domains"].items():
+        assert items[review_id]["decision_trace"]["legal_consequence_mapping"]["semantic_domain"] == semantic_domain
+
+    improvement = items[manifest["improvement_notification"]["review_id"]]
+    rendering = improvement["decision_trace"]["subtype_rendering"]
+    assert rendering["primary_subtype"] == manifest["improvement_notification"]["primary_subtype"]
+    assert rendering["has_follow_on_entitlement"] is manifest["improvement_notification"]["has_follow_on_entitlement"]
+    assert improvement["coverage_status"] == manifest["improvement_notification"]["coverage_status"]
+    assert all(
+        term not in improvement["narrative_state"]["consequence"]
+        for term in manifest["improvement_notification"]["forbidden_default_terms"]
+    )
+
+
 def test_production_file_api_renders_entrusted_development_snapshot():
     engine_output = asyncio.run(
         review_v2_file(
@@ -290,7 +529,6 @@ def test_production_file_api_renders_entrusted_development_snapshot():
         str(row.get("quote") or row.get("text") or "")
         for row in confidentiality["evidence_clauses"]
     )
-
     assert "建议明确未明确" not in markdown
     assert "建议明确未约定" not in markdown
     assert "建议明确未专项明确" not in markdown
@@ -302,3 +540,38 @@ def test_production_file_api_renders_entrusted_development_snapshot():
     assert ownership["正式建议"]["current_producer"].endswith("FinalDisposition.recommendation")
     assert ownership["缺失的法律后果"]["current_producer"].startswith("RiskFinding.consequence")
     assert output["manual_review_summary"]["manual_review_count"] == 0
+
+
+def test_explicit_review_role_is_not_overridden_by_generic_subtype_identity():
+    engine_output = asyncio.run(
+        review_v2_file(
+            file=_UploadFile(FIXTURE.name, FIXTURE.read_bytes()),
+            contract_type="technology",
+            include_low_risk=True,
+            use_llm=False,
+            profile_json=json.dumps(
+                {
+                    "review_role": "甲方 / 委托方",
+                    "user_identity": "委托开发合同当事人",
+                },
+                ensure_ascii=False,
+            ),
+            current_user={"id": 1},
+        )
+    )
+    output = ReviewV2Result.model_validate(engine_output).model_dump()
+    items = _by_id(output)
+
+    assert output["profile"]["user_identity"] == "甲方 / 委托方"
+    assert output["perspective_resolution"]["canonical_role"] == "COMMISSIONING_PARTY"
+    assert output["perspective_resolution"]["display_role"] == "甲方 / 委托方"
+    assert output["contract_context"]["review_party_identity"] == "PARTY_A"
+    assert "审查立场：甲方 / 委托方" in output["result"]
+    assert "审查立场：委托开发合同当事人" not in output["result"]
+    assert len(output["risk_findings"]) == 10
+    assert engine_output["final_disposition_summary"]["actionable"] == 8
+    assert engine_output["final_disposition_summary"]["optional_improvement"] == 2
+    assert output["coverage_summary"]["不适用"] == 32
+    assert all(items[review_id]["coverage_status"] == "不适用" for review_id in (
+        "TC-10-01", "TC-10-02", "TC-10-03", "TC-10-04",
+    ))

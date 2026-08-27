@@ -9,11 +9,11 @@ from review_v2.house_lease_checklist import ReviewCheckpoint
 from review_v2.technology_contract_checklist import get_technology_checklist
 
 
-def test_technology_review_checklist_has_52_points_and_13_modules():
+def test_technology_review_checklist_has_53_points_and_13_modules():
     checklist = get_technology_checklist()
     module_ids = {checkpoint.item_id.rsplit("-", 1)[0] for checkpoint in checklist}
 
-    assert len(checklist) == 52
+    assert len(checklist) == 53
     assert checklist[0].item_id == "TC-01-01"
     assert checklist[-1].item_id == "TC-13-04"
     assert module_ids == {f"TC-{index:02d}" for index in range(1, 14)}
@@ -121,14 +121,14 @@ def test_review_v2_can_load_technology_checklist():
     assert output["success"] is True
     assert output["contract_type"] == "technology"
     assert output["contract_type_name"] == "技术合同"
-    assert output["all_items_count"] == 52
-    assert len(output["items"]) == 52
+    assert output["all_items_count"] == 53
+    assert len(output["items"]) == 53
     assert (
         output["summary"]["高"]
         + output["summary"]["中"]
         + output["summary"]["低"]
         + output["coverage_summary"].get(COVERAGE_NOT_APPLICABLE, 0)
-        == 52
+        == 53
     )
 
 
@@ -169,6 +169,7 @@ def test_technology_entrusted_development_filters_unrelated_subtypes():
         "TC-08-02",
         "TC-08-03",
         "TC-08-04",
+        "TC-08-05",
         "TC-09-01",
         "TC-09-02",
         "TC-09-03",

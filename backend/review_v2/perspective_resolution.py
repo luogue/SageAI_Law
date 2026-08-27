@@ -16,6 +16,7 @@ ROLE_COMPATIBILITY = {
     "TECHNOLOGY": (
         "PATENT_TRANSFEREE", "PATENT_TRANSFEROR", "PATENT_LICENSEE", "PATENT_LICENSOR",
         "SERVICE_PROVIDER", "SERVICE_RECIPIENT", "COOPERATIVE_DEVELOPER",
+        "CONSULTING_CLIENT", "TECHNICAL_CONSULTANT",
     ),
 }
 
@@ -34,6 +35,8 @@ DISPLAY_ROLES = {
     "COMMISSIONING_PARTY": "委托方",
     "DEVELOPMENT_CONTRACTOR": "开发方",
     "ENTRUSTED_DEVELOPMENT_PARTY": "委托开发合同当事人",
+    "CONSULTING_CLIENT": "委托方",
+    "TECHNICAL_CONSULTANT": "受托方",
     "EMPLOYER": "发包人",
     "CONTRACTOR": "承包人",
     "OTHER": "合同当事人",
@@ -78,6 +81,8 @@ def _candidate_roles(identity: str) -> List[str]:
         (("PATENT_LICENSEE", "被许可方"), "PATENT_LICENSEE"),
         (("PATENT_LICENSOR", "许可方"), "PATENT_LICENSOR"),
         (("COOPERATIVE_DEVELOPER", "合作开发方"), "COOPERATIVE_DEVELOPER"),
+        (("CONSULTING_CLIENT", "技术咨询委托方", "咨询委托方"), "CONSULTING_CLIENT"),
+        (("TECHNICAL_CONSULTANT", "技术咨询受托方", "咨询受托方"), "TECHNICAL_CONSULTANT"),
         (("COMMISSIONING_PARTY", "委托方", "委托人"), "COMMISSIONING_PARTY"),
         (("DEVELOPMENT_CONTRACTOR", "开发方", "研究开发方", "研究开发人"), "DEVELOPMENT_CONTRACTOR"),
     )
@@ -99,6 +104,8 @@ def _technology_subtype_roles(contract_subtype: str) -> tuple[str, ...]:
         return ("PATENT_LICENSEE", "PATENT_LICENSOR")
     if subtype in {"TECHNICAL_SERVICE", "TECHNOLOGY_SERVICE"}:
         return ("SERVICE_PROVIDER", "SERVICE_RECIPIENT")
+    if subtype == "TECHNICAL_CONSULTING":
+        return ("CONSULTING_CLIENT", "TECHNICAL_CONSULTANT")
     return ROLE_COMPATIBILITY["TECHNOLOGY"]
 
 
@@ -139,6 +146,12 @@ def resolve_perspective(
             else "DEVELOPMENT_CONTRACTOR" if party_side == "PARTY_B"
             else "ENTRUSTED_DEVELOPMENT_PARTY"
         )
+    if not accepted and family == "TECHNOLOGY" and subtype == "TECHNICAL_CONSULTING":
+        accepted = (
+            "CONSULTING_CLIENT" if party_side == "PARTY_A"
+            else "TECHNICAL_CONSULTANT" if party_side == "PARTY_B"
+            else "CONSULTING_CLIENT"
+        )
     if not accepted:
         accepted = compatible[0] if compatible else "OTHER"
     rejected = [role for role in candidates if role != accepted]
@@ -154,6 +167,8 @@ def resolve_perspective(
     if accepted == "COOPERATIVE_DEVELOPER" and party_side in {"PARTY_A", "PARTY_B"}:
         display_role = f"{review_party_label} / 合作开发方"
     elif accepted in {"COMMISSIONING_PARTY", "DEVELOPMENT_CONTRACTOR"} and review_party_label:
+        display_role = f"{review_party_label} / {DISPLAY_ROLES[accepted]}"
+    elif accepted in {"CONSULTING_CLIENT", "TECHNICAL_CONSULTANT"} and review_party_label:
         display_role = f"{review_party_label} / {DISPLAY_ROLES[accepted]}"
     return PerspectiveResolution(
         requested_role=requested_role,

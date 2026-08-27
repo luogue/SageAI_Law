@@ -984,7 +984,12 @@ def post_render_quality_gate(
         finding for finding in findings
         if finding.get("risk_group") in {"legal_reference", "outdated_legal_reference"}
     ]
-    if not legal_reference_findings and "合同法" in (report or ""):
+    contract_law_lines = [line for line in (report or "").splitlines() if "合同法" in line]
+    unqualified_contract_law_lines = [
+        line for line in contract_law_lines
+        if not all(marker in line for marker in ("签署时法律依据", "现行对应规则", "民法典"))
+    ]
+    if not legal_reference_findings and unqualified_contract_law_lines:
         failures.append(
             {
                 "requirement": "Legal Freshness Finding",

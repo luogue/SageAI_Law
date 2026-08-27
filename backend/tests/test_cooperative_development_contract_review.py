@@ -12,10 +12,18 @@ from review_v2.user_profile import UserRiskProfile
 
 ROOT = Path(__file__).resolve().parents[2]
 FIXTURE = ROOT / "test_data" / "11、合作.docx"
+MINIMAL_FIXTURE = ROOT / "test_data" / "15 合作开发.docx"
 
 
 def _fixture_text() -> str:
     document = Document(str(FIXTURE))
+    paragraphs = [paragraph.text for paragraph in document.paragraphs if paragraph.text.strip()]
+    tables = ["\t".join(cell.text for cell in row.cells) for table in document.tables for row in table.rows]
+    return "\n".join(paragraphs + tables)
+
+
+def _document_text(path: Path) -> str:
+    document = Document(str(path))
     paragraphs = [paragraph.text for paragraph in document.paragraphs if paragraph.text.strip()]
     tables = ["\t".join(cell.text for cell in row.cells) for table in document.tables for row in table.rows]
     return "\n".join(paragraphs + tables)
@@ -234,6 +242,7 @@ def test_non_fatal_quality_gate_does_not_stop_report_generation():
     assert output["release_quality_gate"]["status"] == "BLOCKED"
     assert output["report_generation_decision"]["status"] == "GENERATED_WITH_QUALITY_WARNINGS"
     assert output["report_generation_decision"]["report_generated"] is True
+    assert output["system_metadata"]["technology_cooperative_development"] == "FROZEN_REGRESSION"
     assert output["fatal_report_generation_gate"]["status"] == "PASS"
     assert output["result"].startswith("# ")
     assert "正式报告已停止生成" not in output["result"]
@@ -301,14 +310,8 @@ def test_cooperative_rules_use_operational_facts_and_direct_evidence(cooperative
     assert notification["system_confidence"]["level"] == "high"
     assert "双方未约定" in str(notification["evidence_clauses"][0].get("text") or "")
     improvement_boundary = by_id["TC-10-04"]
-    assert improvement_boundary["coverage_status"] == "部分覆盖"
-    assert {row["element_id"] for row in improvement_boundary["coverage_elements"]} == {
-        "derived_and_independent_result_boundary",
-        "joint_result_disposition_boundary",
-        "post_exit_continued_use",
-    }
-    assert "退出后继续使用" in improvement_boundary["risk_point_description"]
-    assert "适用范围、履行标准和责任安排不清" not in improvement_boundary["risk_point_description"]
+    assert improvement_boundary["coverage_status"] == "不适用"
+    assert improvement_boundary["related_risks"] == []
 
     confidentiality = by_id["TC-11-04"]
     assert confidentiality["coverage_status"] == "部分覆盖"
@@ -340,7 +343,9 @@ def test_cooperative_rules_use_operational_facts_and_direct_evidence(cooperative
 
     infringement = by_id["TC-12-04"]
     assert infringement["coverage_status"] == "部分覆盖"
-    assert all("第九条" in str(row.get("location") or "") for row in infringement["evidence_clauses"])
+    infringement_locations = {str(row.get("location") or "") for row in infringement["evidence_clauses"]}
+    assert any("第九条" in location for location in infringement_locations)
+    assert any("第十五条" in location for location in infringement_locations)
 
     assert by_id["TC-13-02"]["coverage_status"] == "部分覆盖"
     assert by_id["TC-13-03"]["coverage_status"] == "部分覆盖"
@@ -419,7 +424,13 @@ def test_final_evidence_covers_each_cooperative_risk_proposition(cooperative_rev
 
     liability_cap = findings["indemnity_and_liability_cap"]["evidence_bundle"]["items"]
     assert any("商业使用受到限制" in row["quoted_text"] and "全部责任" in row["quoted_text"] for row in liability_cap)
-    assert any(row["source_type"] == "SEARCH_AUDIT" and "责任总额上限" in row["quoted_text"] for row in liability_cap)
+    assert any(
+        row["source_type"] == "SEARCH_AUDIT"
+        and "适用顺序" in row["quoted_text"]
+        and "重复赔偿" in row["quoted_text"]
+        for row in liability_cap
+    )
+    assert all("责任总额上限" not in row["quoted_text"] for row in liability_cap)
 
     provenance = findings["technology_ip_rights_provenance"]["evidence_bundle"]["items"]
     provenance_text = "\n".join(row["quoted_text"] for row in provenance)
@@ -461,7 +472,7 @@ def test_cross_rule_and_partial_narratives_are_semantically_consistent(cooperati
 
     notification = by_id["TC-10-03"]
     notification_consequence = notification["narrative_state"]["consequence"]
-    assert all(term in notification_consequence for term in ("改进成果", "合作核心技术", "共有", "许可"))
+    assert all(term in notification_consequence for term in ("改进成果", "合作开发成果", "共同权利", "通知"))
     assert all(term not in notification_consequence for term in ("验收节点", "质量异议", "付款条件", "风险转移"))
 
     confidentiality = by_id["TC-11-04"]["narrative_state"]["consequence"]
@@ -480,3 +491,181 @@ def test_cross_rule_and_partial_narratives_are_semantically_consistent(cooperati
     assert gate["non_fatal"] is True
     assert gate["report_blocked"] is False
     assert gate["warning_count"] == 0
+
+
+def test_minimal_cooperative_development_rules_and_report_are_consistent():
+    output = review_contract_v2(
+        _document_text(MINIMAL_FIXTURE),
+        "technology",
+        use_llm=False,
+        profile=UserRiskProfile(user_identity="甲方/合作开发方"),
+    )
+    by_id = {row["item_id"]: row for row in output["items"]}
+
+    assert output["report_context"]["contract_type_label"] == "技术合同—技术开发合同—合作开发合同"
+    assert output["perspective_resolution"]["display_role"] == "甲方 / 合作开发方"
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+    assert output["report_generation_decision"]["report_generated"] is True
+    assert len(output["risk_findings"]) == 13
+    assert output["summary"] == {"高": 0, "中": 10, "低": 8}
+    assert sum(finding["severity"] == "HIGH" for finding in output["risk_findings"]) == 0
+    assert sum(finding["severity"] == "MEDIUM" for finding in output["risk_findings"]) == 8
+    assert sum(finding["severity"] == "LOW" for finding in output["risk_findings"]) == 5
+    assert output["final_disposition_summary"]["actionable"] == 10
+    assert output["final_disposition_summary"]["optional_improvement"] == 3
+    assert output["manual_review_summary"]["manual_review_count"] == 0
+
+    assert by_id["TC-01-03"]["coverage_status"] == "通过"
+    subject_evidence = " ".join(str(row.get("text") or "") for row in by_id["TC-01-03"]["evidence_clauses"])
+    assert "星云智能企业数据分析平台 V2.0" in subject_evidence
+
+    assert {review_id: by_id[review_id]["coverage_status"] for review_id in (
+        "TC-05-01", "TC-05-02", "TC-05-04",
+    )} == {"TC-05-01": "部分覆盖", "TC-05-02": "部分覆盖", "TC-05-04": "部分覆盖"}
+    assert by_id["TC-05-02"]["risk_level"] == "低"
+    assert "《合同法》第340条" in by_id["TC-05-02"]["legal_basis_index"]
+    assert "《民法典》第860条" in by_id["TC-05-02"]["legal_basis_index"]
+    assert all(term not in by_id["TC-05-02"]["legal_consequence_if_missing"] for term in ("第三方权利主张", "停用", "替换"))
+    secret_result = by_id["TC-05-03"]
+    assert secret_result["coverage_status"] == "部分覆盖"
+    assert secret_result["risk_level"] == "中"
+    assert secret_result["decision_trace"]["severity_trigger"]["core_value_exposure"] is False
+    assert {row["element_id"]: row["status"] for row in secret_result["coverage_elements"]} == {
+        "joint_source_code_ownership": "COVERED",
+        "basic_confidentiality_protection": "COVERED",
+        "statutory_default_use_and_transfer": "COVERED",
+        "authorized_internal_users": "MISSING",
+        "independent_use_right": "MISSING",
+        "external_license_transfer_disclosure": "MISSING",
+        "external_revenue_allocation": "MISSING",
+        "post_termination_use_boundary": "MISSING",
+        "material_copy_retention_and_disposal": "MISSING",
+    }
+    assert "《合同法》第341条" in secret_result["legal_basis_index"]
+    assert "《民法典》第861条" in secret_result["legal_basis_index"]
+    assert "最高人民法院" in secret_result["legal_basis_index"]
+    assert "第20条" in secret_result["legal_basis_index"]
+    assert "默认规则" in secret_result["risk_point_description"]
+    assert "权利并非完全无法确定" in secret_result["legal_consequence_if_missing"]
+    assert "主动明确或改变法定默认安排" in secret_result["suggested_clause_example"]
+    secret_section = output["result"].split("（TC-05-03）", 1)[1].split("\n---", 1)[0]
+    assert "合作结束后，如未明确各合作方" in secret_section
+    assert all(term not in secret_section for term in (
+        "项目结束后如未明确开发方", "开发方可留存", "委托方", "受托方", "委托开发方",
+    ))
+    assert "适用范围、履行标准和责任安排" not in " ".join((
+        secret_result["risk_point_description"], secret_result["legal_consequence_if_missing"],
+        secret_result["suggested_clause_example"],
+    ))
+    exit_elements = {row["element_id"]: row["status"] for row in by_id["TC-05-04"]["coverage_elements"]}
+    assert exit_elements["agreed_and_objective_termination"] == "COVERED"
+    assert all(exit_elements[element_id] == "MISSING" for element_id in (
+        "delay_and_nonperformance_liability", "unilateral_early_exit", "source_and_material_handover",
+        "unfinished_result_ownership", "cost_settlement", "continued_development_right",
+    ))
+    assert by_id["TC-05-04"]["needs_manual_review"] is False
+    assert all(term not in output["result"] for term in ("委托方", "受托方", "委托开发方"))
+
+    assert all(by_id[review_id]["coverage_status"] == "不适用" for review_id in (
+        "TC-10-01", "TC-10-02", "TC-10-03", "TC-10-04",
+    ))
+    assert all(
+        not set(finding["source_review_ids"]) & {"TC-10-01", "TC-10-02", "TC-10-03", "TC-10-04"}
+        for finding in output["risk_findings"]
+    )
+
+    assert {review_id: by_id[review_id]["coverage_status"] for review_id in (
+        "TC-11-01", "TC-11-02", "TC-11-04",
+    )} == {"TC-11-01": "部分覆盖", "TC-11-02": "部分覆盖", "TC-11-04": "部分覆盖"}
+    confidentiality_clause_ids = [
+        {str(row.get("clause_id") or "") for row in by_id[review_id]["evidence_clauses"] if row.get("clause_id")}
+        for review_id in ("TC-11-01", "TC-11-02", "TC-11-04")
+    ]
+    assert set.intersection(*confidentiality_clause_ids)
+    confidentiality_quotes = {
+        review_id: " ".join(
+            str(row.get("quote") or row.get("original_excerpt") or row.get("text") or "")
+            for row in by_id[review_id]["evidence_clauses"]
+        )
+        for review_id in ("TC-11-01", "TC-11-02", "TC-11-04")
+    }
+    assert all("禁止合作方泄露本协议所涉及的相关商业秘密" in quote for quote in confidentiality_quotes.values())
+    assert all("私自以团体名义进行业务活动" not in quote for quote in confidentiality_quotes.values())
+    assert "如合作人违反上述各条，应按实际损失赔偿" in confidentiality_quotes["TC-11-04"]
+    confidentiality_elements = {row["element_id"]: row["status"] for row in by_id["TC-11-04"]["coverage_elements"]}
+    assert confidentiality_elements["confidentiality_obligation"] == "COVERED"
+    assert confidentiality_elements["breach_damage_liability"] == "COVERED"
+    assert all(confidentiality_elements[element_id] == "MISSING" for element_id in (
+        "stop_disclosure", "stop_use", "mitigation_obligation", "return_or_destroy", "disposition_confirmation",
+    ))
+
+    claim_response = by_id["TC-12-02"]
+    assert claim_response["coverage_status"] == "部分覆盖"
+    assert claim_response["risk_level"] == "中"
+    assert claim_response["decision_trace"]["severity_trigger"]["major_ip_exposure"] is False
+    assert {row["element_id"]: row["status"] for row in claim_response["coverage_elements"]} == {
+        "infringement_responsibility": "COVERED",
+        "claim_notice": "MISSING",
+        "defense_control": "MISSING",
+        "lawyer_selection": "MISSING",
+        "settlement_authority": "MISSING",
+        "defense_cost_allocation": "MISSING",
+        "continuity_remedies": "MISSING",
+        "cooperation_mechanism": "MISSING",
+    }
+    claim_evidence = " ".join(
+        str(row.get("quote") or row.get("original_excerpt") or row.get("text") or "")
+        for row in claim_response["evidence_clauses"]
+    )
+    assert "不得有侵犯他人知识产权的行为" in claim_evidence
+    assert "承担全部侵权责任" in claim_evidence
+
+    infringement = by_id["TC-12-04"]
+    assert infringement["title"] == "侵权责任与一般救济衔接"
+    assert infringement["coverage_status"] == "部分覆盖"
+    infringement_text = " ".join((
+        infringement["risk_point_description"], infringement["legal_consequence_if_missing"],
+        str(infringement["decision_trace"].get("specialized_search_audit") or ""),
+    ))
+    assert "重复赔偿" in infringement_text
+    assert "责任总额上限" not in infringement_text
+    infringement_elements = {row["element_id"]: row["status"] for row in infringement["coverage_elements"]}
+    assert infringement_elements["infringement_specific_liability"] == "COVERED"
+    assert infringement_elements["general_loss_compensation"] == "COVERED"
+    assert infringement_elements["contractual_penalty"] == "NOT_APPLICABLE"
+    assert infringement_elements["refund_remedy"] == "NOT_APPLICABLE"
+    assert infringement_elements["continued_performance_remedy"] == "NOT_APPLICABLE"
+    asserted_remedies = " ".join((
+        infringement["reasoning_summary"], infringement["risk_point_description"],
+        infringement["legal_consequence_if_missing"],
+    ))
+    assert "部分一般损失赔偿机制" in asserted_remedies
+    assert "已有一般损失赔偿、违约金、退款或继续履行" not in asserted_remedies
+    infringement_section = output["result"].split("（TC-12-04）", 1)[1].split("\n---", 1)[0]
+    assert "合同中已经存在的一般损失赔偿" in infringement_section
+    assert "依法或其他合同条款可能适用的其他救济" in infringement_section
+    assert all(term not in infringement_section for term in (
+        "侵权专项责任与一般损失赔偿、违约金、退款和继续履行等救济",
+        "合同已约定退款", "合同已约定继续履行", "合同已约定专项违约金", "责任上限",
+    ))
+    assert all(term not in output["result"] for term in (
+        "委托方", "受托方", "委托开发方", "未明确开发方", "开发方可留存",
+    ))
+
+    documentation = by_id["TC-13-01"]
+    assert documentation["coverage_status"] == "缺失"
+    assert {row["element_id"] for row in documentation["coverage_elements"]} == {
+        "requirements_specification", "module_and_work_allocation", "interface_documentation",
+        "source_code_version_list", "deployment_and_operation_documentation", "test_materials",
+        "research_records", "stage_result_list",
+    }
+    assert all(row["status"] == "MISSING" for row in documentation["coverage_elements"])
+    assert "需求规格" in documentation["suggested_clause_example"]
+    assert "阶段成果清单" in documentation["suggested_clause_example"]
+    assert "适用范围、履行标准和责任安排" not in " ".join((
+        documentation["risk_point_description"], documentation["legal_consequence_if_missing"],
+        documentation["suggested_clause_example"],
+    ))
+
+    forbidden_fallback = "适用范围、履行标准和责任安排"
+    assert all(forbidden_fallback not in str(finding) for finding in output["risk_findings"])

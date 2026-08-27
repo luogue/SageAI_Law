@@ -608,7 +608,7 @@ def test_patent_gold_confidentiality_liability_uses_a_complete_two_clause_eviden
         "部分覆盖": 1,
         "缺失": 2,
         "风险条款": 8,
-            COVERAGE_NOT_APPLICABLE: 29,
+            COVERAGE_NOT_APPLICABLE: 30,
     }
     assert "现有信息不足以确定具体缺失字段" not in output["result"]
 

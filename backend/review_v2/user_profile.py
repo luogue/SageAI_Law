@@ -70,8 +70,12 @@ class UserRiskProfile:
 
     @classmethod
     def from_dict(cls, d: Dict[str, str]) -> UserRiskProfile:
+        # An explicit task review role is authoritative.  Some callers also carry
+        # a generic user_identity inferred from the contract subtype; it must not
+        # overwrite the party perspective selected for the review.
+        user_identity = d.get("review_role") or d.get("user_identity") or "个人租客/买方"
         return cls(
-            user_identity=d.get("user_identity", "个人租客/买方"),
+            user_identity=user_identity,
             contract_scenario=d.get("contract_scenario", "居住用途"),
             risk_appetite=d.get("risk_appetite", "标准"),
             bargaining_position=d.get("bargaining_position", "均衡方"),

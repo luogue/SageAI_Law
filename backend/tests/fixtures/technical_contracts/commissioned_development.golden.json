@@ -1,0 +1,89 @@
+{
+  "sample_status": "GOLDEN_CANDIDATE",
+  "sample_id": "TECH_DEV_COMMISSIONED_GOLDEN_001",
+  "fixture": "test_data/12、委托开发.docx",
+  "primary_contract_type": "commissioned_development",
+  "contract_family": "TECHNOLOGY",
+  "contract_category": "TECHNOLOGY_DEVELOPMENT",
+  "contract_subtype": "ENTRUSTED_DEVELOPMENT",
+  "review_position": "COMMISSIONING_PARTY",
+  "key_statuses": {
+    "TC-04-01": "通过",
+    "TC-04-02": "通过",
+    "TC-04-03": "部分覆盖",
+    "TC-04-04": "部分覆盖",
+    "TC-05-03": "部分覆盖",
+    "TC-05-04": "部分覆盖",
+    "TC-11-02": "通过",
+    "TC-11-04": "部分覆盖",
+    "TC-12-02": "部分覆盖",
+    "TC-12-04": "部分覆盖",
+    "TC-13-01": "通过",
+    "TC-13-03": "部分覆盖"
+  },
+  "conditional_applicability": [
+    "TC-05-03"
+  ],
+  "not_applicable": [
+    "TC-05-01",
+    "TC-05-02",
+    "TC-06-01",
+    "TC-07-01",
+    "TC-09-01",
+    "TC-10-01",
+    "TC-10-02",
+    "TC-10-03",
+    "TC-10-04"
+  ],
+  "canonical_risk_sources": {
+    "technology_ip_rights_provenance": [
+      "TC-03-04",
+      "TC-13-02"
+    ]
+  },
+  "expected_party_direction": {
+    "review_id": "TC-12-04",
+    "review_position_code": "COMMISSIONING_PARTY",
+    "favorable_missing_element": "developer_liability_cap",
+    "unfavorable_missing_element": "special_general_liability_coordination"
+  },
+  "semantic_coverage": {
+    "review_id": "TC-04-03",
+    "open_ended_enumeration": true,
+    "semantically_covered_element": "patent_application_right_ownership",
+    "missing_procedure_element": "document_signature_cooperation"
+  },
+  "confidentiality_catch_all": {
+    "review_id": "TC-11-04",
+    "classification": "GENERAL_BREACH_CATCH_ALL",
+    "covered_elements": [
+      "confidentiality_obligation",
+      "breach_damage_liability",
+      "direct_loss",
+      "lost_profit",
+      "attorney_fee",
+      "litigation_cost"
+    ],
+    "missing_specific_remedies": [
+      "stop_disclosure",
+      "stop_use",
+      "mitigation_obligation",
+      "return_or_destroy",
+      "disposition_confirmation"
+    ]
+  },
+  "legal_consequence_domains": {
+    "TC-05-03": "SECRET_COPY_RETENTION"
+  },
+  "improvement_notification": {
+    "review_id": "TC-10-03",
+    "primary_subtype": "ENTRUSTED_DEVELOPMENT",
+    "has_follow_on_entitlement": false,
+    "coverage_status": "不适用",
+    "forbidden_default_terms": [
+      "合作核心技术",
+      "主张共有",
+      "收益分配等合同权利"
+    ]
+  }
+}

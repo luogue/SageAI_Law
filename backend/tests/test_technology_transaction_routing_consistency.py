@@ -395,7 +395,7 @@ def test_patent_license_direction_and_provenance_golden_sample():
     assert output["technology_transaction_consistency_gate"]["primary_contract_type"] == "technology_license_patent"
     assert output["perspective_resolution"]["canonical_role"] == "PATENT_LICENSEE"
     assert output["perspective_resolution"]["display_role"] == "被许可方 / 付款方"
-    assert output["coverage_summary"] == {"通过": 18, "不适用": 28, "缺失": 2, "部分覆盖": 4}
+    assert output["coverage_summary"] == {"通过": 18, "不适用": 29, "缺失": 2, "部分覆盖": 4}
     assert len(output["risk_findings"]) == 6
     assert len(output["recommendations"]) == 6
     assert output["release_quality_gate"]["status"] == "REPORT_READY"
@@ -490,7 +490,7 @@ def test_patent_license_direction_and_provenance_golden_sample():
     assert period_field["is_filled"] is True
     assert "双方员工" in scope_field["field_value"]
     assert "5年" in period_field["field_value"]
-    confidentiality_report = output["result"].split("## 44. 泄密责任（TC-11-04）", 1)[1].split("\n---", 1)[0]
+    confidentiality_report = output["result"].split("## 45. 泄密责任（TC-11-04）", 1)[1].split("\n---", 1)[0]
     assert "保密义务适用于：双方员工" in confidentiality_report
     assert "保密期限：自技术秘密披露之日起5年" in confidentiality_report
     assert '原文片段："保密义务适用于： 保密期限："' not in confidentiality_report

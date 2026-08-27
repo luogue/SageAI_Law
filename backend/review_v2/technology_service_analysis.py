@@ -354,6 +354,8 @@ def classify_technology_transaction(text: str) -> Dict[str, Any]:
         if subtype == "COOPERATIVE_DEVELOPMENT"
         else "B2B_ENTRUSTED_DEVELOPMENT"
         if subtype == "ENTRUSTED_DEVELOPMENT"
+        else "B2B_TECHNICAL_CONSULTING"
+        if subtype == "TECHNICAL_CONSULTING"
         else "B2B_TECHNOLOGY"
     )
     scenario = (
@@ -367,6 +369,8 @@ def classify_technology_transaction(text: str) -> Dict[str, Any]:
         if tertiary_subtype == "PATENT_RIGHT_TRANSFER" and university_data and "协议定价" in compact
         else "TECHNICAL_SERVICE"
         if subtype == "TECHNICAL_SERVICE"
+        else "TECHNICAL_CONSULTING"
+        if subtype == "TECHNICAL_CONSULTING"
         else subtype
     )
     scenario_label = (
@@ -380,6 +384,8 @@ def classify_technology_transaction(text: str) -> Dict[str, Any]:
         if tertiary_subtype == "PATENT_RIGHT_TRANSFER" and university_data and "协议定价" in compact
         else "技术服务"
         if subtype == "TECHNICAL_SERVICE"
+        else "技术咨询"
+        if subtype == "TECHNICAL_CONSULTING"
         else "专利权转让"
         if tertiary_subtype == "PATENT_RIGHT_TRANSFER"
         else "专利申请权转让"

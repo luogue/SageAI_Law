@@ -123,6 +123,15 @@ DISPLAY_LABEL_REGISTRY: Tuple[DomainDisplayLabel, ...] = (
     ),
     DomainDisplayLabel(
         family="TECHNOLOGY",
+        subject_matter="TECHNOLOGY",
+        transaction_structure="B2B_TECHNICAL_CONSULTING",
+        subtype="TECHNICAL_CONSULTING",
+        report_title="技术咨询合同审查报告",
+        usage_scenario_label="技术咨询",
+        contract_type_label="技术合同—技术咨询合同",
+    ),
+    DomainDisplayLabel(
+        family="TECHNOLOGY",
         subject_matter="PATENT_RIGHT",
         transaction_structure="B2B_PATENT_RIGHT_TRANSFER",
         subtype="TECHNOLOGY_TRANSFER",
