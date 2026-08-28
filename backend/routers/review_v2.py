@@ -6,7 +6,10 @@
 from __future__ import annotations
 
 import html
+import hashlib
+import inspect
 import io
+import logging
 import os
 import re
 from datetime import datetime
@@ -31,7 +34,13 @@ from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, Tabl
 
 from auth.routes import get_current_user
 from layers.input_layer import InputLayer
-from review_v2.engine import COVERAGE_NOT_APPLICABLE, ISSUE_NOT_APPLICABLE, REPORT_FORMAT_NOTICE, review_contract_v2
+from review_v2.engine import (
+    COVERAGE_NOT_APPLICABLE,
+    ISSUE_NOT_APPLICABLE,
+    REPORT_FORMAT_NOTICE,
+    TECHNICAL_CONSULTING_EVIDENCE_IMPLEMENTATION,
+    review_contract_v2,
+)
 from review_v2.llm_semantic_reviewer import get_llm_review_status
 from review_v2.user_profile import UserRiskProfile
 from review_v2.semantic_reviewer import (
@@ -50,6 +59,7 @@ from review_v2.semantic_reviewer import (
 
 router = APIRouter(prefix="/review-v2", tags=["contract_review_v2"])
 input_layer = InputLayer()
+logger = logging.getLogger(__name__)
 
 
 class ReviewV2Input(BaseModel):
@@ -107,6 +117,7 @@ class ReviewV2Result(BaseModel):
     architecture_status: List[Dict[str, Any]] = Field(default_factory=list)
     system_metadata: Dict[str, Any] = Field(default_factory=dict)
     observability: Dict[str, Any] = Field(default_factory=dict)
+    production_path_trace: Dict[str, Any] = Field(default_factory=dict)
     profile: Dict[str, Any] = Field(default_factory=dict)
     litigation: Dict[str, Any] = Field(default_factory=dict)
     litigation_result: str = ""
@@ -958,6 +969,35 @@ async def review_v2_file(
     )
     result["filename"] = filename
     result["extracted_text_length"] = len(contract_text)
+    result["production_path_trace"] = {
+        "entrypoint": "routers.review_v2.review_v2_file",
+        "entrypoint_file": inspect.getsourcefile(review_v2_file) or __file__,
+        "entrypoint_line": review_v2_file.__code__.co_firstlineno,
+        "engine_function": "review_v2.engine.review_contract_v2",
+        "engine_file": inspect.getsourcefile(review_contract_v2) or "",
+        "engine_line": review_contract_v2.__code__.co_firstlineno,
+        "process_id": os.getpid(),
+        "evidence_implementation": TECHNICAL_CONSULTING_EVIDENCE_IMPLEMENTATION,
+        "document_hash": hashlib.sha256(contract_text.encode("utf-8")).hexdigest(),
+        "cache": {"status": "MISS", "reason": "review-v2/file has no rule, evidence, or report result cache"},
+        "input_visibility": {
+            "normalized_text_length": len(contract_text),
+            "confidentiality_terms_present": any(term in contract_text for term in (
+                "保密", "商业秘密", "技术秘密", "不得泄露", "不得披露", "持续有效",
+            )),
+        },
+    }
+    logger.warning(
+        "[TRACE_REVIEW_V2] pid=%s entry=%s:%s engine=%s:%s evidence_impl=%s doc_hash=%s confidentiality=%s",
+        os.getpid(),
+        result["production_path_trace"]["entrypoint_file"],
+        result["production_path_trace"]["entrypoint_line"],
+        result["production_path_trace"]["engine_file"],
+        result["production_path_trace"]["engine_line"],
+        TECHNICAL_CONSULTING_EVIDENCE_IMPLEMENTATION,
+        result["production_path_trace"]["document_hash"],
+        result["production_path_trace"]["input_visibility"]["confidentiality_terms_present"],
+    )
     return result
 
 
