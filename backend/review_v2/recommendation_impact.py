@@ -99,6 +99,20 @@ def evaluate_recommendations(
             str((getattr(item, "decision_trace", {}) or {}).get("legal_requirement_strength") or "RISK_CONTROL")
             for item in source_items
         }
+        direction_checks = [
+            (getattr(item, "decision_trace", {}) or {}).get("recommendation_direction_check") or {}
+            for item in source_items
+        ]
+        direction_checks = [check for check in direction_checks if check.get("executed")]
+        direction_allows = bool(direction_checks) and all(
+            check.get("expands_current_party_liability") is False
+            and str(check.get("result") or "").startswith("ALLOW_")
+            for check in direction_checks
+        )
+        direction_blocks = any(
+            check.get("expands_current_party_liability") is True
+            for check in direction_checks
+        )
         strength_rank = {"MANDATORY": 0, "RISK_CONTROL": 1, "DEFAULT_RULE": 2, "OPTIONAL": 3}
         legal_strength = min(strengths or {"RISK_CONTROL"}, key=lambda value: strength_rank.get(value, 9))
         optional_only = bool(strengths) and strengths <= {"OPTIONAL", "DEFAULT_RULE"}
@@ -129,18 +143,20 @@ def evaluate_recommendations(
         shortens_right_period = buyer and bool(re.search(r"(?:缩短|仅限).{0,12}(?:期限|期间)|(?:期限|期间).{0,12}(?:缩短|仅限)", proposed))
         introduces_cap = buyer and bool(re.search(r"(?:赔偿|责任|损失).{0,12}(?:上限|封顶|最高不超过)", proposed))
         introduces_exclusion = buyer and bool(re.search(r"(?:排除|免责|不予赔偿|不得主张|视为放弃)", proposed))
-        optional_consumer_benefit = service_provider and optional_only and bool(
+        optional_consumer_benefit = service_provider and optional_only and not direction_allows and bool(
             re.search(r"(?:消费者|服务接受方|学员|用户).{0,18}(?:有权|可以|申请|解除|退费|退款|赔偿|补救)", proposed)
             or re.search(r"(?:服务方|服务提供方|经营者).{0,18}(?:应|须|承担|退还|退款|退费|赔偿|补偿)", proposed)
         )
         dispute_reduction_value = "high" if legal_strength in {"MANDATORY", "RISK_CONTROL"} else "medium" if default_rule_available else "low"
-        weakens = remedy_limit or risk_shift or liability_increase or accelerates_obligation or counterparty_expansion or shortens_right_period or optional_consumer_benefit
+        weakens = direction_blocks or remedy_limit or risk_shift or liability_increase or accelerates_obligation or counterparty_expansion or shortens_right_period or optional_consumer_benefit
         tradeoff = bool(re.search(r"(?:作为交换|相应换取|谈判取舍|在对方).{0,20}(?:同意|提供|承担)", proposed))
         blocked = weakens and not tradeoff
         if blocked and optional_consumer_benefit:
             reason = "The proposed service-provider change is only an optional consumer benefit and would expand the reviewed party's obligations without a mandatory or risk-control basis."
         elif blocked:
             reason = "The proposed change narrows or shifts an existing contractual/statutory protection without an explicit negotiated return."
+        elif direction_allows:
+            reason = "The structured party-direction check confirms that the proposal improves procedure control without expanding the reviewed party's liability."
         elif service_provider and legal_strength == "MANDATORY":
             reason = "The proposed service-provider change reflects a mandatory consumer-protection or format-clause obligation; client interest cannot filter it out."
         elif service_provider and legal_strength == "RISK_CONTROL":

@@ -19,7 +19,9 @@
     "TC-12-02": "部分覆盖",
     "TC-12-04": "部分覆盖",
     "TC-13-01": "通过",
-    "TC-13-03": "部分覆盖"
+    "TC-13-03": "部分覆盖",
+    "TC-03-04": "不适用",
+    "TC-13-02": "不适用"
   },
   "conditional_applicability": [
     "TC-05-03"
@@ -35,12 +37,10 @@
     "TC-10-03",
     "TC-10-04"
   ],
-  "canonical_risk_sources": {
-    "technology_ip_rights_provenance": [
-      "TC-03-04",
-      "TC-13-02"
-    ]
-  },
+  "suppressed_risk_groups": [
+    "technology_ip_rights_provenance",
+    "personal_information_processing_gap"
+  ],
   "expected_party_direction": {
     "review_id": "TC-12-04",
     "review_position_code": "COMMISSIONING_PARTY",

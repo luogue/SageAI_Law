@@ -96,7 +96,7 @@ def test_applicability_display_uses_the_resolved_decision_reason():
         assert "自然人" in reason or "员工" in reason
         assert "技术合同均适用" not in reason
     assert "受让人或被许可人" in items["TC-12-01"]["applicability"]["user_reason"]
-    assert "技术秘密转让或许可" in items["TC-12-03"]["applicability"]["user_reason"]
+    assert "技术秘密丧失秘密性后的使用与费用处理" in items["TC-12-03"]["applicability"]["user_reason"]
     assert "第三方权利主张" not in items["TC-12-04"]["applicable_if"]
 
 
@@ -104,12 +104,13 @@ def test_report_explains_summary_truncation_and_uses_non_placeholder_partial_tex
     output = _review()
     report = output["result"]
     view = output["report_view_model"]
-    assert view["summary_total_count"] == 13
+    # Ordinary technical-service IP warranties no longer create a transfer-style
+    # title-document finding, so the user-facing summary contains 12 real risks.
+    assert view["summary_total_count"] == 12
     assert view["summary_displayed_count"] == 10
-    assert view["summary_remaining_count"] == 3
+    assert view["summary_remaining_count"] == 2
     assert view["summary_is_truncated"] is True
-    assert "以下展示优先级最高的10项，其余3项见完整风险明细" in report
-    assert "建议修改事项" in report
-    assert "建议优先修改" not in report
+    assert "以下展示优先级最高的10项，其余2项见完整风险明细" in report
+    assert "建议优先修改" in report
     assert "仍需补足：\u201c个人信息委托处理条款缺失\u201d所需的保护机制" not in report
     assert "没有完整约定处理目的、期限、方式、安全措施、监督、转委托及终止后的返还删除机制" in report

@@ -213,7 +213,7 @@
               <span>用户画像</span>
             </div>
             <div class="profile-summary-tags">
-              <el-tag size="small" type="info">{{ report.profile.user_identity }}</el-tag>
+              <el-tag size="small" type="info">{{ report.contract_type === 'technology' ? (report.perspective_resolution?.display_role || report.profile.user_identity) : report.profile.user_identity }}</el-tag>
               <el-tag size="small" type="info">{{ report.profile.contract_scenario }}</el-tag>
               <el-tag size="small" :type="report.profile.risk_appetite === '保守' ? 'danger' : report.profile.risk_appetite === '激进' ? 'success' : 'warning'">
                 {{ report.profile.risk_appetite }}
@@ -224,8 +224,8 @@
             </div>
           </div>
 
-          <div class="format-notice">
-            {{ report.report_notice || '本报告基于完整合同模板逐项审查，部分缺失项可能因合同格式简略所致，建议结合合同实际用途判断优先级。' }}
+          <div v-if="report.report_notice" class="format-notice">
+            {{ report.report_notice }}
           </div>
           <el-alert
             v-if="exportGateMessage"
@@ -851,6 +851,9 @@ const filteredItems = computed(() => {
 })
 
 const coreRiskItems = computed(() => {
+  if (report.value?.risk_themes?.length) {
+    return report.value.risk_themes.slice(0, 10)
+  }
   if (report.value?.risk_findings?.length) {
     return report.value.risk_findings.slice(0, 10)
   }
@@ -1071,6 +1074,10 @@ function buildExportPayload() {
     report_notice: report.value.report_notice,
     review_results_4_0: report.value.review_results_4_0,
     risk_findings: report.value.risk_findings,
+    risk_themes: report.value.risk_themes,
+    risk_theme_count: report.value.risk_theme_count,
+    finding_count: report.value.finding_count,
+    risk_theme_summary: report.value.risk_theme_summary,
     recommendations: report.value.recommendations,
     contract_context: report.value.contract_context,
     overall_assessment: report.value.overall_assessment,

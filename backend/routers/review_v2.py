@@ -36,10 +36,18 @@ from auth.routes import get_current_user
 from layers.input_layer import InputLayer
 from review_v2.engine import (
     COVERAGE_NOT_APPLICABLE,
+    EVALUATOR_VERSION,
     ISSUE_NOT_APPLICABLE,
+    PIPELINE_VERSION,
     REPORT_FORMAT_NOTICE,
+    RULE_VERSION,
     TECHNICAL_CONSULTING_EVIDENCE_IMPLEMENTATION,
     review_contract_v2,
+)
+from review_v2.contract_registry import get_checklist_for_resolution
+from review_v2.technology_service_analysis import (
+    TECHNOLOGY_CLASSIFIER_VERSION,
+    classify_technology_transaction,
 )
 from review_v2.llm_semantic_reviewer import get_llm_review_status
 from review_v2.user_profile import UserRiskProfile
@@ -60,6 +68,24 @@ from review_v2.semantic_reviewer import (
 router = APIRouter(prefix="/review-v2", tags=["contract_review_v2"])
 input_layer = InputLayer()
 logger = logging.getLogger(__name__)
+
+
+def _runtime_source_identity(target: Any) -> Dict[str, Any]:
+    path = inspect.getsourcefile(target) or ""
+    payload = b""
+    mtime = None
+    if path and os.path.exists(path):
+        with open(path, "rb") as source_file:
+            payload = source_file.read()
+        mtime = os.path.getmtime(path)
+    return {
+        "module": getattr(target, "__module__", ""),
+        "function": getattr(target, "__qualname__", getattr(target, "__name__", "")),
+        "file": path,
+        "first_line": getattr(getattr(target, "__code__", None), "co_firstlineno", None),
+        "mtime": mtime,
+        "sha256": hashlib.sha256(payload).hexdigest() if payload else "",
+    }
 
 
 class ReviewV2Input(BaseModel):
@@ -94,6 +120,7 @@ class ReviewV2Result(BaseModel):
     clause_count: int = 0
     formal_clause_count: int = 0
     contract_facts: Dict[str, Any] = Field(default_factory=dict)
+    deterministic_analysis: Dict[str, Any] = Field(default_factory=dict)
     document_integrity: Dict[str, Any] = Field(default_factory=dict)
     quality_gate: Dict[str, Any] = Field(default_factory=dict)
     review_results_4_0: List[Dict[str, Any]] = Field(default_factory=list)
@@ -111,6 +138,9 @@ class ReviewV2Result(BaseModel):
     legal_authority_validation: Dict[str, Any] = Field(default_factory=dict)
     benchmark_metrics: Dict[str, Any] = Field(default_factory=dict)
     release_quality_gate: Dict[str, Any] = Field(default_factory=dict)
+    terminology_consistency_gate: Dict[str, Any] = Field(default_factory=dict)
+    formal_recommendation_validation: Dict[str, Any] = Field(default_factory=dict)
+    technology_transaction_consistency_gate: Dict[str, Any] = Field(default_factory=dict)
     fatal_report_generation_gate: Dict[str, Any] = Field(default_factory=dict)
     report_generation_decision: Dict[str, Any] = Field(default_factory=dict)
     quality4_gate: Dict[str, Any] = Field(default_factory=dict)
@@ -967,6 +997,14 @@ async def review_v2_file(
         use_llm=use_llm,
         profile=profile,
     )
+    actual_pipeline = str((result.get("system_metadata") or {}).get("pipeline_version") or "")
+    if actual_pipeline != PIPELINE_VERSION:
+        logger.critical(
+            "[PIPELINE_ASSERTION_FAILED] expected=%s actual=%s entrypoint=review_v2_file",
+            PIPELINE_VERSION,
+            actual_pipeline,
+        )
+        raise HTTPException(status_code=500, detail="技术合同审查未进入 canonical review-v2 pipeline")
     result["filename"] = filename
     result["extracted_text_length"] = len(contract_text)
     result["production_path_trace"] = {
@@ -978,6 +1016,17 @@ async def review_v2_file(
         "engine_line": review_contract_v2.__code__.co_firstlineno,
         "process_id": os.getpid(),
         "evidence_implementation": TECHNICAL_CONSULTING_EVIDENCE_IMPLEMENTATION,
+        "pipeline_id": PIPELINE_VERSION,
+        "engine_version": (result.get("system_metadata") or {}).get("system_version"),
+        "classifier_version": TECHNOLOGY_CLASSIFIER_VERSION,
+        "evaluator_version": EVALUATOR_VERSION,
+        "ruleset_version": RULE_VERSION,
+        "runtime_sources": {
+            "entrypoint": _runtime_source_identity(review_v2_file),
+            "engine": _runtime_source_identity(review_contract_v2),
+            "classifier": _runtime_source_identity(classify_technology_transaction),
+            "registry": _runtime_source_identity(get_checklist_for_resolution),
+        },
         "document_hash": hashlib.sha256(contract_text.encode("utf-8")).hexdigest(),
         "cache": {"status": "MISS", "reason": "review-v2/file has no rule, evidence, or report result cache"},
         "input_visibility": {
@@ -986,14 +1035,53 @@ async def review_v2_file(
                 "保密", "商业秘密", "技术秘密", "不得泄露", "不得披露", "持续有效",
             )),
         },
+        "classification_lifecycle": ((result.get("observability") or {}).get("classification_lifecycle") or {}),
+        "classification_runtime": ((result.get("observability") or {}).get("classification_runtime") or {}),
+        "registry_runtime": ((result.get("observability") or {}).get("review_registry_debug") or {}),
+        "payment_risk_lifecycle": ((result.get("observability") or {}).get("payment_risk_lifecycle") or {}),
     }
+    payment_events = result["production_path_trace"]["payment_risk_lifecycle"].get("events") or []
+    for event in payment_events:
+        fact_clause_ids = [row.get("clause_id") for row in event.get("source_clauses") or []]
+        logger.warning(
+            "%s review_id=%s filename=%s candidate_id=%s source_rule=%s source_clause_ids=%s "
+            "scenario=%s applicability=%s status=%s filter_reason=%s invocations=%s arithmetic_status=%s "
+            "percentage_total=%s amount_total=%s merged=%s finding_id=%s final_present=%s rendered=%s",
+            event.get("event"),
+            result.get("contract_review_trace_id"),
+            filename,
+            event.get("candidate_id", ""),
+            event.get("source_rule", ""),
+            event.get("source_clause_ids") or fact_clause_ids,
+            event.get("scenario", ""),
+            event.get("applicability", {}),
+            event.get("status", ""),
+            event.get("filter_reason") or event.get("reason", ""),
+            event.get("invocation_count", ""),
+            (event.get("output") or {}).get("status", ""),
+            event.get("structured_percentages") or (event.get("output") or {}).get("percentage_total", ""),
+            event.get("structured_amounts") or (event.get("output") or {}).get("amount_total", ""),
+            event.get("merged", ""),
+            event.get("finding_id", ""),
+            event.get("present", ""),
+            event.get("rendered", ""),
+        )
     logger.warning(
-        "[TRACE_REVIEW_V2] pid=%s entry=%s:%s engine=%s:%s evidence_impl=%s doc_hash=%s confidentiality=%s",
+        "[TRACE_REVIEW_V2] pid=%s pipeline=%s classifier=%s evaluator=%s ruleset=%s "
+        "entry=%s:%s engine=%s:%s subtype=%s classifier_executions=%s registry_id=%s "
+        "evidence_impl=%s doc_hash=%s confidentiality=%s",
         os.getpid(),
+        PIPELINE_VERSION,
+        TECHNOLOGY_CLASSIFIER_VERSION,
+        EVALUATOR_VERSION,
+        RULE_VERSION,
         result["production_path_trace"]["entrypoint_file"],
         result["production_path_trace"]["entrypoint_line"],
         result["production_path_trace"]["engine_file"],
         result["production_path_trace"]["engine_line"],
+        ((result["production_path_trace"].get("classification_lifecycle") or {}).get("renderer") or {}).get("contract_subtype"),
+        (result["production_path_trace"].get("classification_runtime") or {}).get("actual_execution_count"),
+        (result["production_path_trace"].get("registry_runtime") or {}).get("registry_object_id"),
         TECHNICAL_CONSULTING_EVIDENCE_IMPLEMENTATION,
         result["production_path_trace"]["document_hash"],
         result["production_path_trace"]["input_visibility"]["confidentiality_terms_present"],

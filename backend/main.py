@@ -97,6 +97,7 @@ from security.output_guard import init_output_guard, get_output_guard, check_out
 from security.security_events import record_security_event
 from utils.security import ban_user_for_injection
 from layers.legal_check_layer import init_legal_check_layer, check_and_correct_legal_citations
+from review_v2.technology_service_analysis import classify_technology_transaction
 
 load_dotenv()
 
@@ -122,6 +123,22 @@ def filter_metadata_for_frontend(metadata: Optional[dict]) -> Optional[dict]:
     # 只保留白名单中的字段
     filtered = {key: value for key, value in metadata.items() if key in allowed_fields}
     return filtered if filtered else None
+
+
+def _legacy_technical_pipeline_guard(contract_text: str) -> Optional[Dict[str, Any]]:
+    """Prevent a confidently classified technical contract from entering legacy review."""
+    classification = classify_technology_transaction(contract_text)
+    subtype = str(classification.get("primary_subtype") or "")
+    confidence = str(classification.get("confidence") or "low")
+    if subtype == "GENERAL_TECHNOLOGY" or confidence != "high":
+        return None
+    return {
+        "error_code": "CANONICAL_TECHNICAL_PIPELINE_REQUIRED",
+        "message": "检测到技术合同，请使用“合同审查第二版”生成报告，避免进入旧版 LLM 审查流程。",
+        "canonical_endpoint": "/review-v2/file",
+        "detected_subtype": subtype,
+        "classification_confidence": confidence,
+    }
 
 app = FastAPI(title="AI合同审查系统", version="5.0.0", description="基于四层架构的合同审查系统，支持批量处理、多领域推理、用户认证和安全合规")
 
@@ -639,6 +656,15 @@ async def review_contract(
             elif err_code == "NOT_CONTRACT":
                 record_violation(ip=client_ip, user_id=user_id, violation_type="not_contract", reason=content_error.get("message"))
             raise HTTPException(status_code=422, detail=content_error)
+
+        technical_pipeline_error = _legacy_technical_pipeline_guard(contract_text)
+        if technical_pipeline_error:
+            logger.warning(
+                "[LEGACY_PIPELINE_BLOCKED] endpoint=/api/review subtype=%s canonical=%s",
+                technical_pipeline_error["detected_subtype"],
+                technical_pipeline_error["canonical_endpoint"],
+            )
+            raise HTTPException(status_code=409, detail=technical_pipeline_error)
         
         # ========== 前置防护4.5：重复上传检测 ==========
         from storage.crud import calculate_file_hash, get_file_hash_cache
@@ -755,6 +781,15 @@ async def review_contract_confirm_duplicate(
             elif err_code == "NOT_CONTRACT":
                 record_violation(ip=client_ip, user_id=user_id, violation_type="not_contract", reason=content_error.get("message"))
             raise HTTPException(status_code=422, detail=content_error)
+
+        technical_pipeline_error = _legacy_technical_pipeline_guard(contract_text)
+        if technical_pipeline_error:
+            logger.warning(
+                "[LEGACY_PIPELINE_BLOCKED] endpoint=/api/contract/review/confirm-duplicate subtype=%s canonical=%s",
+                technical_pipeline_error["detected_subtype"],
+                technical_pipeline_error["canonical_endpoint"],
+            )
+            raise HTTPException(status_code=409, detail=technical_pipeline_error)
         
         # ========== 前置防护5：敏感词检查 ==========
         ok, msg = check_sensitive_content(contract_text, additional_instructions)
@@ -941,6 +976,17 @@ async def batch_review_contract(
             elif err_code == "NOT_CONTRACT":
                 record_violation(ip=client_ip, user_id=user_id, violation_type="not_contract", reason=content_error.get("message"))
             rejected_files.append(content_error)
+            continue
+
+        technical_pipeline_error = _legacy_technical_pipeline_guard(contract_text)
+        if technical_pipeline_error:
+            logger.warning(
+                "[LEGACY_PIPELINE_BLOCKED] endpoint=/api/batch/review filename=%s subtype=%s canonical=%s",
+                file.filename,
+                technical_pipeline_error["detected_subtype"],
+                technical_pipeline_error["canonical_endpoint"],
+            )
+            rejected_files.append({**technical_pipeline_error, "filename": file.filename, "status_code": 409})
             continue
         
         # ========== 前置防护5：敏感词检查 ==========

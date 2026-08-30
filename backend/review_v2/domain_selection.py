@@ -138,8 +138,9 @@ def _collect_family_evidence(
 def _technology_family_evidence(
     text: str,
     clauses: Sequence[ParsedClause],
+    technology_classification: Dict[str, Any] | None = None,
 ) -> tuple[int, List[DomainSelectionEvidence], Dict[str, Any]]:
-    classification = classify_technology_transaction(text)
+    classification = technology_classification or classify_technology_transaction(text)
     subtype = str(classification.get("primary_subtype") or "")
     confidence = str(classification.get("confidence") or "low")
     raw_score = int(classification.get("classification_score") or 0)
@@ -153,7 +154,12 @@ def _technology_family_evidence(
         term in clause.text
         for term in ("委托", "开发", "研发", "源代码", "API", "专利", "许可", "技术服务", "技术咨询")
     )][:12]
-    score = max(6, raw_score)
+    primary_model = dict(classification.get("primary_transaction_model") or {})
+    model_type = str(primary_model.get("type") or "")
+    model_score = int(((primary_model.get("family_scores") or {}).get("TECHNOLOGY") or 0))
+    if model_type == "GOODS_SALE":
+        return 0, [], classification
+    score = max(6, raw_score, model_score)
     evidence = [DomainSelectionEvidence(
         signal_type=f"technology_{subtype.lower()}",
         signal="、".join(reasons[:8]) or subtype,
@@ -167,11 +173,16 @@ def _technology_family_evidence(
 def _classify_document_family(
     text: str,
     clauses: Sequence[ParsedClause],
+    technology_classification: Dict[str, Any] | None = None,
 ) -> tuple[str, str, List[DomainSelectionEvidence], Dict[str, int], Dict[str, Any]]:
     lease_score, lease_evidence = _collect_family_evidence(text, clauses, "HOUSE_LEASE", _LEASE_SIGNALS)
     sale_score, sale_evidence = _collect_family_evidence(text, clauses, "SALE", _SALE_SIGNALS)
     service_score, service_evidence = _collect_family_evidence(text, clauses, "SERVICE", _SERVICE_SIGNALS)
-    technology_score, technology_evidence, technology_classification = _technology_family_evidence(text, clauses)
+    technology_score, technology_evidence, technology_classification = _technology_family_evidence(
+        text,
+        clauses,
+        technology_classification,
+    )
     scores = {
         "SALE": sale_score,
         "HOUSE_LEASE": lease_score,
@@ -204,10 +215,15 @@ def resolve_domain_selection(
     selected_contract_type: str,
     text: str,
     clauses: Sequence[ParsedClause],
+    technology_classification: Dict[str, Any] | None = None,
 ) -> tuple[DomainSelectionResolution, DomainResolution, str]:
     """Return the public resolution, detailed document domain, and routed registry type."""
     selected_family = _family_for_contract_type(selected_contract_type)
-    document_family, confidence, evidence, scores, technology_classification = _classify_document_family(text, clauses)
+    document_family, confidence, evidence, scores, technology_classification = _classify_document_family(
+        text,
+        clauses,
+        technology_classification,
+    )
 
     comparable = selected_family in {"SALE", "HOUSE_LEASE", "SERVICE", "TECHNOLOGY"}
     if document_family == "UNCERTAIN" or not comparable:
@@ -234,12 +250,18 @@ def resolve_domain_selection(
     family_types = {"SALE": "sale", "HOUSE_LEASE": "house_lease", "SERVICE": "service", "TECHNOLOGY": "technology"}
     routed_type = family_types.get(routed_family, selected_contract_type)
     document_type = family_types.get(document_family, routed_type)
-    document_domain = resolve_contract_domain(document_type, text, clauses)
+    document_domain = resolve_contract_domain(
+        document_type,
+        text,
+        clauses,
+        technology_classification=technology_classification if document_type == "technology" else None,
+    )
     reasons = [
         "document family scores: " + ", ".join(f"{family}={score}" for family, score in scores.items()),
         f"document family={document_family}, confidence={confidence}",
     ]
     primary_transaction = dict(technology_classification.get("primary_transaction") or {}) if document_family == "TECHNOLOGY" else {"type": document_type}
+    primary_transaction_model = dict(technology_classification.get("primary_transaction_model") or {})
     ancillary_obligations = list(technology_classification.get("ancillary_obligations") or []) if document_family == "TECHNOLOGY" else []
     post_delivery_obligations = [
         obligation for obligation in ancillary_obligations
@@ -248,6 +270,7 @@ def resolve_domain_selection(
     consumer_context = consumer_service_context(text, technology_classification)
     classification_context = {
         "primary_transaction": primary_transaction,
+        "primary_transaction_model": primary_transaction_model,
         "secondary_transactions": list(technology_classification.get("secondary_transactions") or []),
         "ancillary_obligations": ancillary_obligations,
         "post_delivery_obligations": post_delivery_obligations,
@@ -257,7 +280,7 @@ def resolve_domain_selection(
         "primary_transaction_reason": (
             "New technical result creation and development-performance facts control; training/support are ancillary obligations."
             if document_family == "TECHNOLOGY" and str(technology_classification.get("primary_contract_type") or "") in {"commissioned_development", "cooperative_development"}
-            else "The highest-confidence family evidence controls before Review Registry loading."
+            else "Operative rights change, primary obligations, consideration and economic independence control before Review Registry loading."
         ),
     }
     if resolution == "DOCUMENT_OVERRIDE":
@@ -272,6 +295,7 @@ def resolve_domain_selection(
     public_document["classification_scores"] = scores
     public_document["primary_contract_type"] = technology_classification.get("primary_contract_type") if document_family == "TECHNOLOGY" else document_type
     public_document["primary_subtype"] = technology_classification.get("primary_subtype") if document_family == "TECHNOLOGY" else document_domain.contract_subtype
+    public_document["primary_transaction_model"] = primary_transaction_model
     resolution_result = DomainSelectionResolution(
         selected_contract_type=selected_contract_type,
         document_domain=public_document,
@@ -284,7 +308,12 @@ def resolve_domain_selection(
         classification_evidence=evidence,
         classification_context=classification_context,
     )
-    routed_domain = resolve_contract_domain(routed_type, text, clauses)
+    routed_domain = resolve_contract_domain(
+        routed_type,
+        text,
+        clauses,
+        technology_classification=technology_classification if routed_type == "technology" else None,
+    )
     return resolution_result, routed_domain, routed_type
 
 
@@ -301,7 +330,11 @@ def domain_selection_consistency_gate(
     elif resolved == "SERVICE":
         wrong_ids = [item_id for item_id in review_ids if item_id.startswith(("S-", "FS-", "RE-", "HL-"))]
     elif resolved == "TECHNOLOGY":
-        wrong_ids = [item_id for item_id in review_ids if item_id.startswith(("S-", "FS-", "RE-", "HL-", "SVC-"))]
+        mixed_sale_license = str(
+            ((resolution.classification_context.get("primary_transaction_model") or {}).get("type") or "")
+        ) == "MIXED_SALE_TECHNOLOGY_LICENSE"
+        forbidden_prefixes = ("FS-", "RE-", "HL-", "SVC-") if mixed_sale_license else ("S-", "FS-", "RE-", "HL-", "SVC-")
+        wrong_ids = [item_id for item_id in review_ids if item_id.startswith(forbidden_prefixes)]
     else:
         wrong_ids = []
     failures: List[Dict[str, str]] = []

@@ -55,7 +55,7 @@ export async function login(phone, password) {
   const response = await fetch(`${AUTH_URL}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ phone, password, captcha_token: 'verified' })
+    body: JSON.stringify({ phone, password })
   })
   const data = await response.json()
   if (!response.ok || !data.access_token) {

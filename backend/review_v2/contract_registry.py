@@ -270,6 +270,9 @@ def _owned_sale_checklist() -> Tuple[ReviewCheckpoint, ...]:
 
 def get_checklist_for_resolution(contract_type: str | ContractType, resolution: object) -> Tuple[ReviewCheckpoint, ...]:
     resolved = contract_type if isinstance(contract_type, ContractType) else resolve_contract_type(contract_type)
+    if resolved is ContractType.TECHNOLOGY and getattr(resolution, "transaction_structure", "") == "MIXED_SALE_TECHNOLOGY_LICENSE":
+        sale_rows = tuple(replace(row, allowed_families=("TECHNOLOGY", "SALE")) for row in _owned_sale_checklist())
+        return TECHNOLOGY_REVIEW_CHECKLIST + sale_rows
     if resolved is not ContractType.SALE:
         return get_checklist(resolved)
     owned = _owned_sale_checklist()
@@ -287,7 +290,12 @@ def get_checklist_for_resolution(contract_type: str | ContractType, resolution: 
 
 def review_registry_debug(contract_type: str | ContractType, resolution: object) -> Dict[str, object]:
     rows = get_checklist_for_resolution(contract_type, resolution)
+    traced_ids = {"TC-01-03", "TC-08-01", "TC-08-02", "TC-08-03", "TC-08-04", "TC-08-05", "TC-10-01", "TC-11-01", "TC-11-02", "TC-11-03", "TC-11-04", "TC-13-01"}
     return {
+        "registry_module": __name__,
+        "registry_file": __file__,
+        "registry_type": type(rows).__name__,
+        "registry_object_id": id(rows),
         "resolved_subject_matter": getattr(resolution, "subject_matter", ""),
         "transaction_structure": getattr(resolution, "transaction_structure", ""),
         "loaded_review_count": len(rows),
@@ -297,6 +305,16 @@ def review_registry_debug(contract_type: str | ContractType, resolution: object)
             row.item_id for row in rows
             if getattr(resolution, "subject_matter", "") in row.prohibited_subject_matters
         ],
+        "review_bindings": {
+            row.item_id: {
+                "checkpoint_type": f"{type(row).__module__}.{type(row).__name__}",
+                "node_id": row.node_id,
+                "applicability_evaluator": "review_v2.engine._is_checkpoint_applicable",
+                "coverage_evaluator": "review_v2.engine._judge_checkpoints_with_registry",
+                "post_rule_evaluator": "review_v2.engine._apply_contract_specific_post_rules",
+            }
+            for row in rows if row.item_id in traced_ids
+        },
     }
 
 

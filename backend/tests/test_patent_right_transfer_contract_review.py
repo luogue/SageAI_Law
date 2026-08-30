@@ -20,11 +20,13 @@ from review_v2.engine import (
     review_contract_v2,
 )
 from review_v2.technology_service_analysis import classify_technology_transaction
+from review_v2.technology_patent_transfer_analysis import analyze_patent_transfer
 from review_v2.user_profile import UserRiskProfile
 
 
 ROOT = Path(__file__).resolve().parents[2]
 PATENT_FIXTURE = ROOT / "test_data" / "9、技术转让.docx"
+CURRENT_PATENT_TRANSFER_FIXTURE = ROOT / "test_data" / "21 技术转让（专利权）.docx"
 SERVICE_FIXTURE = ROOT / "test_data" / "8、技术服务.docx"
 
 
@@ -55,6 +57,18 @@ def _service_review() -> dict:
         profile=UserRiskProfile(
             user_identity="乙方/技术服务提供方",
             contract_scenario="高校科研数据治理技术服务",
+        ),
+    )
+
+
+def _current_patent_transfer_review() -> dict:
+    return review_contract_v2(
+        _fixture_text(CURRENT_PATENT_TRANSFER_FIXTURE),
+        "technology",
+        use_llm=False,
+        profile=UserRiskProfile(
+            user_identity="甲方/专利权受让方",
+            contract_scenario="专利权转让",
         ),
     )
 
@@ -635,3 +649,192 @@ def test_patent_gold_optional_recommendations_and_report_language_close_cleanly(
     forbidden = ("服务提供方", "技术服务提供方", "乙方受托人", "技术提供方")
     duplicates = ("明确明确", "建议建议", "应应", "合同合同")
     assert all(token not in output["result"] for token in forbidden + duplicates)
+
+
+def test_current_patent_transfer_registration_feasibility_blocker_is_core_risk():
+    output = _current_patent_transfer_review()
+    classification = output["deterministic_analysis"]["technology_classification"]
+    facts = output["deterministic_analysis"]["patent_transfer"]["patent_pledge"]
+    by_id = {row["item_id"]: row for row in output["items"]}
+    by_group = {row["risk_group"]: row for row in output["risk_findings"]}
+
+    assert classification["primary_subtype"] == "TECHNOLOGY_TRANSFER"
+    assert classification["tertiary_subtype"] == "PATENT_RIGHT_TRANSFER"
+    assert facts == {
+        **facts,
+        "exists": True,
+        "pledgee_consent_required": True,
+        "pledgee_consent_obtained": False,
+        "pledge_released": False,
+        "registration_feasibility_blocked": True,
+    }
+    registration = by_id["TC-06-04"]
+    assert registration["coverage_status"] == "部分覆盖"
+    assert registration["risk_level"] == "高"
+    element_status = {row["element_id"]: row["status"] for row in registration["coverage_elements"]}
+    assert element_status["registration_procedure"] == "COVERED"
+    assert element_status["pledgee_consent_obtained"] == "MISSING"
+    assert element_status["pledge_released"] == "MISSING"
+    finding = by_group["registration_feasibility_blocker"]
+    assert finding["severity"] == "HIGH"
+    assert finding["priority"] == "A_CORE"
+    assert "质权人书面同意" in finding["recommendation"]
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+
+
+def test_current_patent_transfer_ancillary_service_materials_and_domestic_scope_are_fact_driven():
+    output = _current_patent_transfer_review()
+    classification = output["deterministic_analysis"]["technology_classification"]
+    by_id = {row["item_id"]: row for row in output["items"]}
+
+    assert set(classification["sub_transactions"]) >= {
+        "technical_service", "acceptance", "technical_material_delivery",
+    }
+    assert by_id["TC-09-01"]["coverage_status"] == "通过"
+    assert by_id["TC-09-02"]["coverage_status"] == "通过"
+    acceptance_status = {
+        row["element_id"]: row["status"] for row in by_id["TC-09-02"]["coverage_elements"]
+    }
+    assert acceptance_status == {
+        "objective_acceptance_standard": "COVERED",
+        "remedy_deadline": "COVERED",
+        "reinspection_procedure": "COVERED",
+        "reinspection_count": "COVERED",
+        "final_failure_remedy": "COVERED",
+        "refund_remedy": "COVERED",
+        "damage_remedy": "COVERED",
+    }
+    assert by_id["TC-09-03"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+    assert by_id["TC-09-04"]["coverage_status"] == "通过"
+    assert "包含在主交易价款中" in by_id["TC-09-04"]["reasoning_summary"]
+    assert all(by_id[item_id]["coverage_status"] == COVERAGE_NOT_APPLICABLE for item_id in (
+        "TC-10-01", "TC-10-02", "TC-10-03", "TC-10-04",
+    ))
+    assert by_id["TC-13-04"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+    assert "中国境内技术转让" in by_id["TC-13-04"]["reasoning_summary"]
+    assert "技术进出口、技术转让场景" not in output["result"]
+
+    proof_elements = {row["element_id"]: row["status"] for row in by_id["TC-03-04"]["coverage_elements"]}
+    assert proof_elements["transaction_registration_documents"] == "COVERED"
+    material_elements = {row["element_id"]: row["status"] for row in by_id["TC-13-01"]["coverage_elements"]}
+    assert material_elements == {
+        "technical_material_scope": "COVERED",
+        "major_document_types": "COVERED",
+        "delivery_obligation": "COVERED",
+        "delivery_method": "COVERED",
+        "delivery_quantity": "COVERED",
+        "receipt_confirmation": "COVERED",
+        "closed_attachment_schedule": "COVERED",
+        "file_version": "COVERED",
+        "file_identifier": "MISSING",
+    }
+    assert by_id["TC-13-01"]["risk_level"] == "低"
+    assert "最终交付文件编号" in by_id["TC-13-01"]["suggested_clause_example"]
+
+    registration_finding = next(
+        row for row in output["risk_findings"] if row["risk_group"] == "registration_feasibility_blocker"
+    )
+    assert "专利权转让登记无法办理或被要求补正" in registration_finding["consequence"]
+    assert "停用" not in registration_finding["consequence"]
+    assert "替换成本" not in registration_finding["consequence"]
+    assert "第三方" not in registration_finding["consequence"]
+    assert "停用、替换成本" not in output["result"]
+
+
+def test_patent_pledge_consent_or_release_controls_registration_feasibility_generically():
+    blocked = analyze_patent_transfer(
+        "标的专利存在专利权质押。截至签署日尚未取得质权人同意转让的书面文件。"
+        "转让方应解除质押或取得质权人书面同意。"
+    )["patent_pledge"]
+    cleared = analyze_patent_transfer(
+        "标的专利存在专利权质押。质押登记已注销，已经取得质权人同意转让的书面文件。"
+    )["patent_pledge"]
+    assert blocked["registration_feasibility_blocked"] is True
+    assert cleared["pledgee_consent_obtained"] is True
+    assert cleared["pledge_released"] is True
+    assert cleared["registration_feasibility_blocked"] is False
+
+
+def test_patent_transfer_review_context_does_not_leak_improvement_recommendations_between_contracts():
+    contract_a = """
+    专利权转让合同。乙方将标的专利权完整转让给甲方，专利权自转让登记完成时转移。
+    转让价款为人民币100万元。任一方形成后续改进成果时，另一方在同等条件下享有优先许可权，具体条件另行协商。
+    """
+    first = review_contract_v2(contract_a, "technology", use_llm=False)
+    second = _current_patent_transfer_review()
+    second_by_id = {row["item_id"]: row for row in second["items"]}
+
+    assert first["deterministic_analysis"]["technology_classification"]["tertiary_subtype"] == "PATENT_RIGHT_TRANSFER"
+    assert "优先许可" in contract_a
+    assert all(second_by_id[item_id]["coverage_status"] == COVERAGE_NOT_APPLICABLE for item_id in (
+        "TC-10-01", "TC-10-02", "TC-10-03", "TC-10-04",
+    ))
+    assert "现有优先许可" not in second["result"]
+    assert "另行协商机制基础上" not in second["result"]
+
+
+def test_report_missing_notice_is_conditionally_rendered_from_existing_coverage_summary():
+    current = _current_patent_transfer_review()
+    with_missing = _patent_review()
+
+    assert current["coverage_summary"].get("缺失", 0) == 0
+    assert current["report_notice"] == ""
+    assert "部分缺失项可能因合同格式简略所致" not in current["result"]
+
+    assert with_missing["coverage_summary"].get("缺失", 0) > 0
+    assert with_missing["report_notice"].startswith("本报告基于完整合同模板逐项审查")
+    assert "部分缺失项可能因合同格式简略所致" in with_missing["result"]
+
+
+def test_third_party_claim_advanced_only_gaps_are_optional_optimization():
+    contract = """
+    专利权转让合同。让与方将专利号CN100000001、名称为测试方法的发明专利权完整转让给受让方，
+    双方应办理专利权转让登记，专利权自登记完成时转移。转让价款人民币100万元。
+    如第三方对受让方实施受让专利提出权利主张，受让方应在收到主张后5个工作日内书面通知让与方。
+    让与方应参与处理、提供专利权属和技术来源文件，并承担因权利瑕疵产生的第三方侵权责任。
+    发生重大权利瑕疵时，受让方有权解除合同，让与方返还全部价款并赔偿损失。
+    """
+    output = review_contract_v2(contract, "technology", use_llm=False)
+    item = next(row for row in output["items"] if row["item_id"] == "TC-12-02")
+    finding = next(row for row in output["risk_findings"] if "TC-12-02" in row["source_review_ids"])
+    tiers = item["decision_trace"]["third_party_claim_element_tiers"]
+    element_status = {row["element_id"]: row["status"] for row in item["coverage_elements"]}
+
+    assert tiers["necessary_protection_gaps"] == []
+    assert set(tiers["advanced_transaction_optimization_gaps"]) == {
+        "defense_control", "lawyer_selection", "settlement_authority", "defense_cost_allocation",
+        "replacement_or_workaround", "rights_cure",
+    }
+    assert tiers["advanced_only_gap"] is True
+    assert all(element_status[element_id] == "COVERED" for element_id in (
+        "claim_trigger", "notice_requirement", "notice_deadline", "transferor_participation",
+        "document_assistance", "damages_allocation", "refund_or_termination_remedy",
+    ))
+    assert all(element_status[element_id] == "MISSING" for element_id in (
+        "defense_control", "lawyer_selection", "settlement_authority", "defense_cost_allocation",
+        "replacement_or_workaround", "rights_cure",
+    ))
+    assert item["risk_level"] == "低"
+    assert finding["severity"] == "LOW"
+    assert finding["priority"] == "C_OPTIMIZATION"
+    assert "完全未约定第三方权利责任" not in finding["issue"]
+    assert "现有证据不足以确认" not in finding["issue"]
+    assert "通知" not in finding["consequence"] or "已经" in finding["consequence"]
+    assert "合同已具备基本保护机制" in output["result"]
+    assert "剩余事项主要属于争议处理程序的进一步完善" in output["result"]
+
+
+def test_third_party_claim_missing_basic_protection_still_recalled():
+    contract = """
+    专利权转让合同。让与方将专利号CN100000002、名称为测试装置的发明专利权完整转让给受让方，
+    双方应办理专利权转让登记，专利权自登记完成时转移。转让价款人民币100万元。
+    """
+    output = review_contract_v2(contract, "technology", use_llm=False)
+    item = next(row for row in output["items"] if row["item_id"] == "TC-12-02")
+    findings = [row for row in output["risk_findings"] if "TC-12-02" in row["source_review_ids"]]
+
+    assert item["coverage_status"] == "缺失"
+    assert item["risk_level"] in {"中", "高"}
+    assert findings
+    assert findings[0]["severity"] in {"MEDIUM", "HIGH"}
+    assert findings[0]["priority"] != "C_OPTIMIZATION"

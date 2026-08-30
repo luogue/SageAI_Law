@@ -84,8 +84,56 @@ def _collect(text: str, clauses: Sequence[ParsedClause], definitions, target: st
     return score, rows
 
 
-def resolve_contract_domain(contract_family: str, text: str, clauses: Sequence[ParsedClause]) -> DomainResolution:
+def resolve_contract_domain(
+    contract_family: str,
+    text: str,
+    clauses: Sequence[ParsedClause],
+    technology_classification: Dict[str, Any] | None = None,
+) -> DomainResolution:
     family = "SALE" if contract_family in {"sale", "SALE"} else contract_family.upper()
+    if family == "TECHNOLOGY":
+        if technology_classification is None:
+            from review_v2.technology_service_analysis import classify_technology_transaction
+            technology_classification = classify_technology_transaction(text)
+        subtype = str(technology_classification.get("primary_subtype") or "GENERAL_TECHNOLOGY")
+        tertiary = str(technology_classification.get("tertiary_subtype") or "")
+        structure = str(technology_classification.get("transaction_structure") or "B2B_TECHNOLOGY")
+        subject = (
+            "PATENT_RIGHT" if tertiary in {"PATENT_RIGHT_TRANSFER", "PATENT_APPLICATION_RIGHT_TRANSFER", "MIXED_PATENT_RIGHT_AND_APPLICATION_TRANSFER"}
+            else "PATENT_LICENSE" if tertiary == "PATENT_LICENSE"
+            else "TECHNOLOGY" if tertiary == "TECHNICAL_SECRET_LICENSE"
+            else "TECHNICAL_SERVICE" if subtype == "TECHNICAL_SERVICE"
+            else "TECHNOLOGY"
+        )
+        confidence = str(technology_classification.get("confidence") or "low")
+        mixed_sale_license = structure == "MIXED_SALE_TECHNOLOGY_LICENSE"
+        return DomainResolution(
+            contract_family="TECHNOLOGY",
+            subject_matter=subject,
+            transaction_nature="TECHNOLOGY_TRANSACTION",
+            contract_subtype=subtype,
+            asset_usage="NOT_APPLICABLE",
+            consideration_type="TECHNOLOGY_FEE",
+            ownership_transfer=subtype == "TECHNOLOGY_TRANSFER",
+            possession_transfer=False,
+            transaction_structure=structure,
+            product_category="NOT_APPLICABLE",
+            transaction_purpose=str(technology_classification.get("primary_contract_type") or "technology_transaction"),
+            jurisdiction="CN",
+            primary_subject=subject,
+            accessory_subjects=list(technology_classification.get("secondary_contract_types") or []),
+            selected_domain_packs=["shared", "technology", "sale/common", "sale/goods/general"] if mixed_sale_license else ["shared", "technology"],
+            rejected_domain_packs=[],
+            confidence=confidence,
+            domain_attributes={
+                "classification_source": "review_v2.technology_service_analysis.classify_technology_transaction",
+                "classification_score": int(technology_classification.get("classification_score") or 0),
+                "tertiary_subtype": tertiary,
+                "scenario": str(technology_classification.get("scenario") or ""),
+                "scenario_label": str(technology_classification.get("scenario_label") or ""),
+                "primary_transaction_model": dict(technology_classification.get("primary_transaction_model") or {}),
+            },
+        )
     if family != "SALE":
         is_lease = contract_family in {"lease", "house_lease"}
         is_service = contract_family in {"service", "SERVICE"}

@@ -95,6 +95,10 @@ class PatentPledgeFact:
     release_deadline: str = ""
     release_after_first_payment: bool = False
     registration_blocked_until_release: bool = False
+    pledgee_consent_required: bool = False
+    pledgee_consent_obtained: bool = False
+    pledge_released: bool = False
+    registration_feasibility_blocked: bool = False
 
     def to_public_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -175,6 +179,27 @@ def extract_patent_assets(text: str) -> List[PatentAsset]:
 def extract_patent_pledge(text: str) -> PatentPledgeFact:
     compact = _compact(text)
     exists = bool(re.search(r"专利.{0,35}(?:已经|已|存在).{0,12}(?:质押|专利权质押)", compact))
+    consent_required = exists and bool(re.search(
+        r"(?:质权人.{0,12}(?:同意|书面同意)|(?:取得|办理).{0,16}质权人.{0,8}(?:同意|书面同意))",
+        compact,
+    ))
+    consent_not_obtained = bool(re.search(
+        r"(?:尚未|未|没有|未能)取得.{0,24}质权人.{0,8}(?:同意|书面文件)|"
+        r"质权人.{0,12}(?:同意|书面文件).{0,8}(?:尚未|未)取得",
+        compact,
+    ))
+    consent_obtained = not consent_not_obtained and bool(re.search(
+        r"(?:已取得|已经取得).{0,24}质权人.{0,8}(?:同意|书面文件)|"
+        r"质权人.{0,12}(?:已|已经)(?:书面)?同意",
+        compact,
+    ))
+    release_negated = bool(re.search(r"(?:尚未|未|没有|未能)(?:办理|完成)?(?:质押注销|解除质押)|(?:质押|质押登记).{0,10}(?:尚未|未)(?:注销|解除)", compact))
+    released = not release_negated and bool(re.search(
+        r"(?:质押|质押登记)(?:已|已经)(?:办理|完成)?(?:注销|解除)|"
+        r"(?:已|已经)(?:办理|完成)?(?:质押注销|解除质押)",
+        compact,
+    ))
+    feasibility_blocked = bool(exists and consent_required and not consent_obtained and not released)
     return PatentPledgeFact(
         exists=exists,
         pledged_patent=_first_match(compact, (r"(第[一二三四五六七八九十\d]+项[^，。；]{0,12}专利).{0,30}质押",)),
@@ -183,7 +208,14 @@ def extract_patent_pledge(text: str) -> PatentPledgeFact:
         release_required=exists and any(term in compact for term in ("质押注销", "解除质押")),
         release_deadline=_first_match(compact, (r"收到.{0,18}(?:第一期|首期).{0,12}(?:价款|款项)后([^，。；]{0,16}(?:工作日|日))",)),
         release_after_first_payment=bool(re.search(r"收到.{0,18}(?:第一期|首期).{0,12}(?:价款|款项).{0,25}(?:解除|完成).{0,8}质押", compact)),
-        registration_blocked_until_release=bool(re.search(r"(?:登记申请|提交.{0,8}登记).{0,80}质押.{0,12}(?:注销|解除)", compact)),
+        registration_blocked_until_release=bool(
+            re.search(r"(?:登记申请|提交.{0,8}登记).{0,80}质押.{0,12}(?:注销|解除)", compact)
+            or feasibility_blocked
+        ),
+        pledgee_consent_required=consent_required,
+        pledgee_consent_obtained=consent_obtained,
+        pledge_released=released,
+        registration_feasibility_blocked=feasibility_blocked,
     )
 
 
@@ -304,6 +336,10 @@ def add_patent_transfer_facts_to_graph(analysis: Dict[str, Any], clauses: List[A
         ("patent.pledge.pledgee", (analysis.get("patent_pledge") or {}).get("pledgee"), ("质权人",)),
         ("patent.pledge.registration_no", (analysis.get("patent_pledge") or {}).get("registration_no"), ("质押登记编号", "质押登记号")),
         ("patent.pledge.release_after_first_payment", (analysis.get("patent_pledge") or {}).get("release_after_first_payment"), ("第一期", "质押注销", "解除质押")),
+        ("patent.pledge.pledgee_consent_required", (analysis.get("patent_pledge") or {}).get("pledgee_consent_required"), ("质权人同意", "书面同意")),
+        ("patent.pledge.pledgee_consent_obtained", (analysis.get("patent_pledge") or {}).get("pledgee_consent_obtained"), ("已取得质权人同意", "质权人已书面同意")),
+        ("patent.pledge.released", (analysis.get("patent_pledge") or {}).get("pledge_released"), ("质押已解除", "质押登记已注销")),
+        ("patent.registration.feasibility_blocked", (analysis.get("patent_pledge") or {}).get("registration_feasibility_blocked"), ("尚未取得质权人", "解除质押或取得质权人")),
         ("patent.existing_license.exists", (analysis.get("existing_license") or {}).get("exists"), ("普通实施许可", "原专利实施许可合同")),
         ("patent.existing_license.type", (analysis.get("existing_license") or {}).get("license_type"), ("普通实施许可", "排他实施许可", "独占实施许可")),
         ("patent.existing_license.licensee", (analysis.get("existing_license") or {}).get("licensee"), ("许可给", "被许可人")),

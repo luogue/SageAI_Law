@@ -96,7 +96,8 @@ def test_technology_review_checklist_covers_required_special_rules():
     assert "第885条" in by_node["service_new_result_ownership"].legal_basis
     assert "第875条" in by_node["followup_improvement_ownership"].legal_basis
     assert "第877条" in by_node["technology_import_export_control"].legal_basis
-    assert "第12条" in by_node["good_faith_secret_use_after_invalid"].legal_basis
+    assert "第501条" in by_node["good_faith_secret_use_after_invalid"].legal_basis
+    assert "商业秘密保护规则" in by_node["good_faith_secret_use_after_invalid"].legal_basis
 
 
 def test_technology_review_checklist_has_template_blank_criteria():

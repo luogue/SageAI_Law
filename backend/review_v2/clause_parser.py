@@ -204,7 +204,7 @@ def _make_clause(
 ARTICLE_RE = re.compile(r"^第[一二三四五六七八九十百零〇\d]+条[\s　]*(.*)$")
 CHINESE_HEADING_RE = re.compile(r"^[一二三四五六七八九十百零〇]+、\s*(.*)$")
 SUBCLAUSE_RE = re.compile(r"^（[一二三四五六七八九十]+）")
-NUMBERED_RE = re.compile(r"^\d+[\.．、]")
+NUMBERED_RE = re.compile(r"^(?P<number>\d+(?:\.\d+)*)(?:[\.．、])")
 APPENDIX_RE = re.compile(r"^(附件|附表)[一二三四五六七八九十\d]*?(?=\s|[:：]|$)")
 PARTY_RE = re.compile(r"^(甲方|乙方)[（(].*")
 NON_CONTRACT_META_MARKERS = (
@@ -288,7 +288,10 @@ def _clean_lines(contract_text: str) -> List[str]:
         normalized = re.sub(r"\s+#+\s*(?=[一二三四五六七八九十百零〇]+、|附件|补充条款|甲方[（(]|乙方[（(])", "\n", normalized)
         normalized = re.sub(r"(?<=[。；;])\s*(?=[一二三四五六七八九十百零〇]+、)", "\n", normalized)
         normalized = re.sub(r"(?<=[。；;])\s*(?=（[一二三四五六七八九十]+）)", "\n", normalized)
-        normalized = re.sub(r"(?<!^)(?<!\d)(?=\d+[\.．、](?!\d))", "\n", normalized)
+        # Do not split inside hierarchical numbers such as ``5.5.``.  The old
+        # expression inserted a newline between the two fives and collapsed
+        # the source path to the ambiguous display label ``第5项``.
+        normalized = re.sub(r"(?<!^)(?<![\d.．])(?=\d+(?:\.\d+)*[\.．、](?!\d))", "\n", normalized)
         normalized = re.sub(r"(?<!^)(?=本合同双方当事人[:：])", "\n", normalized)
         normalized = re.sub(r"(?<!^)(?=出租方[（(])", "\n", normalized)
         normalized = re.sub(r"(?<!^)(?=承租方[（(])", "\n", normalized)
@@ -498,7 +501,7 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
         if NUMBERED_RE.match(line) and current_section in {SECTION_FORMAL, SECTION_APPENDIX}:
             flush()
             seen_structural_marker = True
-            marker = NUMBERED_RE.match(line).group(0).rstrip(".．、")
+            marker = NUMBERED_RE.match(line).group("number")
             current_location = f"{article_location}第{marker}项" if article_location else f"第{marker}项"
             current_title = line[:40]
             current_level = 3

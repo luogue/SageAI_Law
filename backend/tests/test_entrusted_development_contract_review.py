@@ -6,7 +6,13 @@ from pathlib import Path
 import pytest
 from docx import Document
 
-from review_v2.engine import _normalize_missing_element_for_recommendation, review_contract_v2
+from review_v2.engine import (
+    COVERAGE_NOT_APPLICABLE,
+    _normalize_missing_element_for_recommendation,
+    _technology_ip_proof_context,
+    review_contract_v2,
+)
+from review_v2.technology_service_analysis import analyze_technology_relationship_risks
 from review_v2.user_profile import UserRiskProfile
 from routers.review_v2 import ReviewV2Result, review_v2_file
 
@@ -309,7 +315,7 @@ def test_general_breach_catch_all_propagates_only_damage_remedies(party_a_review
     assert elements["specific_confidentiality_penalty"] == "NOT_APPLICABLE"
     assert "一般违约责任需明确延伸" not in item["risk_point_description"]
     assert "损失赔偿" in item["risk_point_description"]
-    assert all(term in finding["recommendation"] for term in ("停止使用", "防止继续扩散", "删除"))
+    assert all(term in finding["recommendation"] for term in ("停止使用", "防止继续扩散", "通知受影响方"))
     assert "无需重复创设同一赔偿义务" in finding["recommendation"]
     assert "专项违约金" not in " ".join((
         item["risk_point_description"],
@@ -441,11 +447,10 @@ def test_commissioned_development_golden_manifest(party_a_review):
         for review_id in manifest["conditional_applicability"]
     )
     assert all(items[review_id]["coverage_status"] == "不适用" for review_id in manifest["not_applicable"])
-    provenance = next(
-        row for row in party_a_review["risk_findings"]
-        if row["risk_group"] == "technology_ip_rights_provenance"
+    assert not any(
+        row["risk_group"] in manifest["suppressed_risk_groups"]
+        for row in party_a_review["risk_findings"]
     )
-    assert provenance["source_review_ids"] == manifest["canonical_risk_sources"]["technology_ip_rights_provenance"]
 
     confidentiality = items[manifest["confidentiality_catch_all"]["review_id"]]
     confidentiality_elements = {row["element_id"]: row["status"] for row in confidentiality["coverage_elements"]}
@@ -568,10 +573,87 @@ def test_explicit_review_role_is_not_overridden_by_generic_subtype_identity():
     assert output["contract_context"]["review_party_identity"] == "PARTY_A"
     assert "审查立场：甲方 / 委托方" in output["result"]
     assert "审查立场：委托开发合同当事人" not in output["result"]
-    assert len(output["risk_findings"]) == 10
+    assert len(output["risk_findings"]) == 11
     assert engine_output["final_disposition_summary"]["actionable"] == 8
-    assert engine_output["final_disposition_summary"]["optional_improvement"] == 2
-    assert output["coverage_summary"]["不适用"] == 32
+    assert engine_output["final_disposition_summary"]["optional_improvement"] == 3
+    assert output["coverage_summary"]["不适用"] == 34
     assert all(items[review_id]["coverage_status"] == "不适用" for review_id in (
         "TC-10-01", "TC-10-02", "TC-10-03", "TC-10-04",
     ))
+
+
+def test_future_development_warranty_does_not_trigger_existing_ip_proof_attachments():
+    text = """
+    软件委托开发合同。甲方委托乙方开发新的业务系统。
+    开发成果和源代码交付甲方，乙方保证开发成果不侵犯第三方知识产权。
+    """
+    output = review_contract_v2(
+        text,
+        "technology",
+        use_llm=False,
+        profile=UserRiskProfile(user_identity="甲方", contract_scenario="委托开发"),
+    )
+    items = _by_id(output)
+    assert _technology_ip_proof_context(text)["proof_asset_transaction"] is False
+    assert items["TC-03-04"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+    assert items["TC-13-02"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+    assert "技术合同均适用" not in str(items["TC-03-04"]["applicability"])
+    assert not any(row["risk_group"] == "technology_ip_rights_provenance" for row in output["risk_findings"])
+
+
+def test_existing_patent_transfer_still_triggers_ip_proof_review():
+    text = """
+    专利权转让合同。让与方将其现有发明专利权转让给受让方。
+    标的专利名称为测试专利，专利号为CN123456，双方应共同办理专利权转让登记。
+    """
+    output = review_contract_v2(
+        text,
+        "technology",
+        use_llm=False,
+        profile=UserRiskProfile(user_identity="受让方", contract_scenario="专利权转让"),
+    )
+    items = _by_id(output)
+    assert _technology_ip_proof_context(text)["existing_ip_asset_transaction"] is True
+    assert items["TC-03-04"]["coverage_status"] != COVERAGE_NOT_APPLICABLE
+    assert items["TC-13-02"]["coverage_status"] != COVERAGE_NOT_APPLICABLE
+
+
+def test_shared_personal_information_trigger_requires_business_processing_fact():
+    generic = analyze_technology_relationship_risks(
+        "软件委托开发涉及业务数据、数据库、接口、用户模块和账号系统。"
+    )
+    explicit = analyze_technology_relationship_risks(
+        "乙方受托处理客户姓名、手机号和联系地址，用于完成软件委托开发。"
+    )
+    contact_only = analyze_technology_relationship_risks(
+        "项目联系人张三，手机号13800000000；双方通过指定电子邮箱提供项目文档。"
+    )
+    feature_only = analyze_technology_relationship_risks(
+        "系统需处理的数据包括员工姓名、手机号、企业邮箱、系统账号、操作日志和消费者收货地址；"
+        "软件部署在甲方本地，乙方不接触真实生产数据。"
+    )
+    production_access = analyze_technology_relationship_risks(
+        "系统处理客户姓名和手机号；乙方负责生产环境运维并可访问生产数据库。"
+    )
+    assert generic["personal_information_processing_gap"]["present"] is False
+    assert contact_only["personal_information_processing_gap"]["present"] is False
+    assert feature_only["personal_information_processing_gap"]["present"] is False
+    assert feature_only["personal_information_processing_gap"]["analysis"]["trigger_strength"] == "WEAK"
+    assert explicit["personal_information_processing_gap"]["present"] is True
+    assert production_access["personal_information_processing_gap"]["present"] is True
+    assert production_access["personal_information_processing_gap"]["analysis"]["trigger_strength"] == "STRONG"
+    assert {"姓名", "手机号", "联系地址"} <= set(
+        explicit["personal_information_processing_gap"]["analysis"]["matched_categories"]
+    )
+
+
+def test_current_commissioning_party_liability_overlap_is_an_enforceability_risk(party_a_review):
+    item = _by_id(party_a_review)["GEN-LIAB-01"]
+    trace = item["decision_trace"]
+    cluster = trace["risk_recall_layer"]["analysis"]["selected_cluster"]
+    assert cluster["liable_party"] == "乙方"
+    assert cluster["beneficiary_party"] == "甲方"
+    assert trace["party_interest_check"]["result"] == "ENFORCEABILITY_UNCERTAINTY"
+    assert trace["risk_to_current_party"]["multiple_remedies_are_adverse"] is False
+    assert "执行确定性" in item["legal_consequence_if_missing"] or "实际可执行" in item["legal_consequence_if_missing"]
+    assert "最大限度保留甲方" in item["suggested_clause_example"]

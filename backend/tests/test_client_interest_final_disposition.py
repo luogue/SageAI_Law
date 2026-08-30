@@ -4,9 +4,15 @@ import re
 from types import SimpleNamespace
 
 from review_v2.engine import (
+    DISPOSITION_MUST_CHANGE,
+    DISPOSITION_OPTIONAL_IMPROVEMENT,
     DISPOSITION_SHOULD_CHANGE,
+    NOT_RECOMMENDED_TO_SIGN,
     PROFESSIONAL_REVIEW_RECOMMENDED,
+    SIGNABLE,
     SIGN_AFTER_MODIFICATION,
+    SIGNABLE_WITH_OPTIONAL_IMPROVEMENTS,
+    SIGNABLE_WITH_RECOMMENDED_IMPROVEMENTS,
     _build_signability_decision,
     review_contract_v2,
 )
@@ -202,6 +208,87 @@ def test_high_materiality_manual_review_escalates_signability():
     assert decision.level == PROFESSIONAL_REVIEW_RECOMMENDED
     assert decision.label == "建议专业法律复核后决定"
     assert decision.blocking_manual_review_item_ids == ["AUTH-01"]
+
+
+def _signability_finding(*, severity: str, priority: str = "B_PRACTICAL", title: str = "合同风险"):
+    return SimpleNamespace(
+        finding_id=f"RF-{severity}-{priority}",
+        priority=priority,
+        severity=severity,
+        needs_manual_review=False,
+        confidence={"level": "high"},
+        risk_group="contract_term_risk",
+        title=title,
+    )
+
+
+def test_low_risk_should_change_is_recommended_improvement_not_signing_blocker():
+    finding = _signability_finding(severity="LOW")
+    decision = _build_signability_decision(
+        findings=[finding],
+        dispositions=[SimpleNamespace(final_action=DISPOSITION_SHOULD_CHANGE)],
+        manual_review_records=[],
+    )
+
+    assert decision.level == SIGNABLE_WITH_RECOMMENDED_IMPROVEMENTS
+    assert decision.label == "可以签署，建议进一步完善"
+
+
+def test_optional_only_contract_remains_signable_with_optional_improvements():
+    finding = _signability_finding(severity="LOW", priority="C_OPTIMIZATION")
+    decision = _build_signability_decision(
+        findings=[finding],
+        dispositions=[SimpleNamespace(final_action=DISPOSITION_OPTIONAL_IMPROVEMENT)],
+        manual_review_records=[],
+    )
+
+    assert decision.level == SIGNABLE_WITH_OPTIONAL_IMPROVEMENTS
+    assert decision.label == "可以签署，可进一步优化"
+
+
+def test_medium_risk_or_must_change_still_requires_modification_before_signing():
+    medium = _signability_finding(severity="MEDIUM")
+    medium_decision = _build_signability_decision(
+        findings=[medium],
+        dispositions=[SimpleNamespace(final_action=DISPOSITION_SHOULD_CHANGE)],
+        manual_review_records=[],
+    )
+    low_must = _signability_finding(severity="LOW")
+    must_decision = _build_signability_decision(
+        findings=[low_must],
+        dispositions=[SimpleNamespace(final_action=DISPOSITION_MUST_CHANGE)],
+        manual_review_records=[],
+    )
+
+    assert medium_decision.level == SIGN_AFTER_MODIFICATION
+    assert must_decision.level == SIGN_AFTER_MODIFICATION
+
+
+def test_critical_validity_obstacle_remains_not_recommended_to_sign():
+    finding = _signability_finding(
+        severity="CRITICAL",
+        priority="A_CORE",
+        title="合同效力存在重大障碍",
+    )
+    decision = _build_signability_decision(
+        findings=[finding],
+        dispositions=[SimpleNamespace(final_action=DISPOSITION_MUST_CHANGE)],
+        manual_review_records=[],
+    )
+
+    assert decision.level == NOT_RECOMMENDED_TO_SIGN
+    assert decision.label == "当前不建议签署"
+
+
+def test_no_risk_contract_remains_signable():
+    decision = _build_signability_decision(
+        findings=[],
+        dispositions=[],
+        manual_review_records=[],
+    )
+
+    assert decision.level == SIGNABLE
+    assert decision.label == "可以签署"
 
 
 def test_not_applicable_report_has_no_always_applicable_contradiction():

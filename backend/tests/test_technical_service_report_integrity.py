@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 
 from docx import Document
 
@@ -183,6 +184,6 @@ def test_quality_gate_blocks_issue_type_partial_and_applicability_conflicts():
 def test_quality_gate_blocks_undisclosed_summary_truncation():
     output = _review()
     items, findings, recommendations, dispositions = _integrity_inputs(output)
-    report = output["result"].replace("以下展示优先级最高的10项，其余3项见完整风险明细。", "")
+    report = re.sub(r"> 以下展示优先级最高的\d+项，其余\d+项见完整风险明细。", "", output["result"])
     gate = _report_integrity_gate(items, findings, recommendations, dispositions, report)
     assert any(row["requirement"] == "SUMMARY_TRUNCATION_DISCLOSURE_GATE" for row in gate["failures"])

@@ -23,13 +23,9 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 # 常量配置
 MAX_LOGIN_ATTEMPTS = 5  # 最大登录失败次数
 LOGIN_LOCK_DURATION = 15 * 60  # 登录锁定时长（秒）
-CAPTCHA_THRESHOLD = 3  # 登录失败几次后需要验证码
-
-
 class LoginRequest(BaseModel):
     phone: str
     password: str
-    captcha_token: Optional[str] = None
 
 
 class TokenResponse(BaseModel):
@@ -92,21 +88,6 @@ def clear_login_failure(phone: str, client_ip: str):
     redis_client.delete(f"login:fail:ip:{client_ip}")
 
 
-def check_need_captcha(phone: str, client_ip: str) -> bool:
-    """检查是否需要验证码（登录失败3次后需要）"""
-    phone_fail_key = f"login:fail:phone:{phone}"
-    phone_fail_count = redis_client.get(phone_fail_key)
-    if phone_fail_count and int(phone_fail_count) >= CAPTCHA_THRESHOLD:
-        return True
-    
-    ip_fail_key = f"login:fail:ip:{client_ip}"
-    ip_fail_count = redis_client.get(ip_fail_key)
-    if ip_fail_count and int(ip_fail_count) >= CAPTCHA_THRESHOLD:
-        return True
-    
-    return False
-
-
 @router.post("/login")
 async def login(request: LoginRequest, req: Request) -> Dict[str, Any]:
     """登录接口 - 仅支持手机号+密码登录，pending用户需管理员审核后方可登录"""
@@ -122,11 +103,6 @@ async def login(request: LoginRequest, req: Request) -> Dict[str, Any]:
     if lock_msg:
         return {"success": False, "code": 4002, "detail": lock_msg}
     
-    # 检查是否需要验证码
-    need_captcha = check_need_captcha(request.phone, client_ip)
-    if need_captcha and not request.captcha_token:
-        return {"success": False, "code": 4004, "detail": "请先完成图形验证码验证"}
-    
     # 解析手机号，分离区号和手机号
     country_code, mobile = parse_phone_number(request.phone)
     
@@ -139,12 +115,10 @@ async def login(request: LoginRequest, req: Request) -> Dict[str, Any]:
     
     if not user:
         record_login_failure(request.phone, client_ip)
-        new_fail_count = int(redis_client.get(f"login:fail:phone:{request.phone}") or 0)
         return {
             "success": False, 
             "code": 4003, 
-            "detail": "手机号或密码错误",
-            "need_captcha": new_fail_count >= CAPTCHA_THRESHOLD
+            "detail": "手机号或密码错误"
         }
     
     # 检查用户状态：pending 需等待管理员审核
@@ -166,12 +140,10 @@ async def login(request: LoginRequest, req: Request) -> Dict[str, Any]:
     # 验证密码
     if not verify_password(request.password, user.password_hash):
         record_login_failure(request.phone, client_ip)
-        new_fail_count = int(redis_client.get(f"login:fail:phone:{request.phone}") or 0)
         return {
             "success": False, 
             "code": 4003, 
-            "detail": "手机号或密码错误",
-            "need_captcha": new_fail_count >= CAPTCHA_THRESHOLD
+            "detail": "手机号或密码错误"
         }
     
     # 清除失败记录

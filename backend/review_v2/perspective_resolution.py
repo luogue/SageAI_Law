@@ -2,11 +2,12 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import asdict, dataclass
 from typing import Any, Dict, List
 
 
-PERSPECTIVE_RESOLVER_VERSION = "perspective-resolver-6.7-freeze-1.2"
+PERSPECTIVE_RESOLVER_VERSION = "perspective-resolver-6.7-freeze-1.3"
 
 ROLE_COMPATIBILITY = {
     "SALE": ("BUYER", "SELLER"),
@@ -57,6 +58,10 @@ class PerspectiveResolution:
     transaction_role: str
     canonical_role: str
     display_role: str
+    transaction_type: str
+    review_party: str
+    legal_role: str
+    contract_display_role: str
     candidate_roles: List[str]
     rejected_roles: List[str]
     confidence: str
@@ -100,13 +105,44 @@ def _technology_subtype_roles(contract_subtype: str) -> tuple[str, ...]:
         return ("COMMISSIONING_PARTY", "DEVELOPMENT_CONTRACTOR", "ENTRUSTED_DEVELOPMENT_PARTY")
     if subtype == "PATENT_RIGHT_TRANSFER":
         return ("PATENT_TRANSFEREE", "PATENT_TRANSFEROR")
-    if subtype in {"PATENT_LICENSE", "TECHNOLOGY_LICENSE"}:
+    if subtype in {"PATENT_LICENSE", "TECHNOLOGY_LICENSE", "TECHNICAL_SECRET_LICENSE"}:
         return ("PATENT_LICENSEE", "PATENT_LICENSOR")
     if subtype in {"TECHNICAL_SERVICE", "TECHNOLOGY_SERVICE"}:
         return ("SERVICE_PROVIDER", "SERVICE_RECIPIENT")
     if subtype == "TECHNICAL_CONSULTING":
         return ("CONSULTING_CLIENT", "TECHNICAL_CONSULTANT")
     return ROLE_COMPATIBILITY["TECHNOLOGY"]
+
+
+def _legal_role(canonical_role: str) -> str:
+    return {
+        "PATENT_LICENSEE": "LICENSEE",
+        "PATENT_LICENSOR": "LICENSOR",
+        "PATENT_TRANSFEREE": "TRANSFEREE",
+        "PATENT_TRANSFEROR": "TRANSFEROR",
+    }.get(canonical_role, canonical_role)
+
+
+def _transaction_type(contract_family: str, contract_subtype: str) -> str:
+    subtype = (contract_subtype or "").upper()
+    if subtype in {"PATENT_LICENSE", "TECHNOLOGY_LICENSE", "TECHNICAL_SECRET_LICENSE"}:
+        return "TECHNOLOGY_LICENSE"
+    if subtype in {"PATENT_RIGHT_TRANSFER", "TECHNOLOGY_TRANSFER", "TECHNICAL_SECRET_TRANSFER"}:
+        return "TECHNOLOGY_TRANSFER"
+    return subtype or (contract_family or "OTHER").upper()
+
+
+def _license_contract_display_role(requested_role: str, canonical_role: str) -> str:
+    value = requested_role or ""
+    if canonical_role == "PATENT_LICENSEE":
+        if "受让方" in value and "被许可方" not in value:
+            return "受让方（被许可方）"
+        return "被许可方"
+    if canonical_role == "PATENT_LICENSOR":
+        if "出让方" in value and "许可方" not in value:
+            return "出让方（许可方）"
+        return "许可方"
+    return DISPLAY_ROLES.get(canonical_role, DISPLAY_ROLES["OTHER"])
 
 
 def _requested_party_side(requested_role: str) -> str:
@@ -116,6 +152,62 @@ def _requested_party_side(requested_role: str) -> str:
     if "乙方" in value or "PARTY_B" in value:
         return "PARTY_B"
     return "UNKNOWN"
+
+
+def _contract_defined_role(contract_text: str, party_side: str, contract_subtype: str) -> tuple[str, str]:
+    """Resolve the legal role from an explicit Party A/B definition.
+
+    Party letters are drafting labels, not stable transaction roles.  This
+    resolver intentionally reads only the short role label next to the party
+    definition (for example ``甲方（服务提供方）``); it does not infer a role
+    from which party happens to perform an obligation elsewhere in the text.
+    """
+    party = "甲方" if party_side == "PARTY_A" else "乙方" if party_side == "PARTY_B" else ""
+    if not party or not contract_text:
+        return "", ""
+    labels = [
+        re.sub(r"\s+", "", match.group("label"))
+        for match in re.finditer(
+            rf"{party}\s*[（(]\s*(?P<label>[^）)\n：:]{{1,24}})\s*[）)]",
+            contract_text,
+        )
+    ]
+    if not labels:
+        return "", ""
+    label = labels[0]
+    subtype = (contract_subtype or "").upper()
+    mappings: tuple[tuple[tuple[str, ...], str], ...]
+    if subtype in {"TECHNICAL_SERVICE", "TECHNOLOGY_SERVICE"}:
+        mappings = (
+            (("服务提供方", "技术服务提供方", "服务方"), "SERVICE_PROVIDER"),
+            (("服务接受方", "服务接收方", "客户", "委托方"), "SERVICE_RECIPIENT"),
+        )
+    elif subtype == "TECHNICAL_CONSULTING":
+        mappings = (
+            (("咨询方", "技术咨询方", "受托方"), "TECHNICAL_CONSULTANT"),
+            (("委托方", "咨询委托方"), "CONSULTING_CLIENT"),
+        )
+    elif subtype == "ENTRUSTED_DEVELOPMENT":
+        mappings = (
+            (("开发方", "研究开发方", "研究开发人"), "DEVELOPMENT_CONTRACTOR"),
+            (("委托方", "委托人"), "COMMISSIONING_PARTY"),
+        )
+    elif subtype in {"PATENT_LICENSE", "TECHNOLOGY_LICENSE", "TECHNICAL_SECRET_LICENSE"}:
+        mappings = (
+            (("许可方", "出让方"), "PATENT_LICENSOR"),
+            (("被许可方", "受让方"), "PATENT_LICENSEE"),
+        )
+    elif subtype in {"PATENT_RIGHT_TRANSFER", "TECHNOLOGY_TRANSFER", "TECHNICAL_SECRET_TRANSFER"}:
+        mappings = (
+            (("转让方", "让与方", "让与人"), "PATENT_TRANSFEROR"),
+            (("受让方", "受让人"), "PATENT_TRANSFEREE"),
+        )
+    else:
+        mappings = tuple()
+    for aliases, role in mappings:
+        if any(alias in label for alias in aliases):
+            return role, label
+    return "", label
 
 
 def _compatible_roles(contract_family: str, contract_subtype: str) -> tuple[str, ...]:
@@ -130,14 +222,29 @@ def resolve_perspective(
     contract_family: str,
     previous_context_role: str = "",
     contract_subtype: str = "",
+    contract_text: str = "",
 ) -> PerspectiveResolution:
     family = (contract_family or "").upper()
     subtype = (contract_subtype or "").upper()
     compatible = _compatible_roles(family, subtype)
     candidates = _candidate_roles(requested_role)
     party_side = _requested_party_side(requested_role)
+    contract_defined_role, contract_defined_label = _contract_defined_role(
+        contract_text, party_side, subtype,
+    )
+    if family == "TECHNOLOGY" and subtype in {"PATENT_LICENSE", "TECHNOLOGY_LICENSE", "TECHNICAL_SECRET_LICENSE"}:
+        # “受让方/出让方”是部分许可合同沿用的原始称谓，不代表专利权发生转移。
+        # 在许可交易中先映射为许可法律角色，再保留原称谓用于展示。
+        requested_value = requested_role or ""
+        if "受让方" in requested_value and "专利权受让方" not in requested_value:
+            candidates = ["PATENT_LICENSEE", *candidates]
+        if "出让方" in requested_value and "专利权让与方" not in requested_value:
+            candidates = ["PATENT_LICENSOR", *candidates]
+        candidates = list(dict.fromkeys(candidates))
     previous = (_candidate_roles(previous_context_role) or [previous_context_role.upper() if previous_context_role else ""])[0]
-    accepted = next((role for role in candidates if role in compatible), "")
+    accepted = contract_defined_role if contract_defined_role in compatible else next(
+        (role for role in candidates if role in compatible), ""
+    )
     if not accepted and family == "TECHNOLOGY" and subtype == "COOPERATIVE_DEVELOPMENT":
         accepted = "COOPERATIVE_DEVELOPER"
     if not accepted and family == "TECHNOLOGY" and subtype == "ENTRUSTED_DEVELOPMENT":
@@ -165,6 +272,10 @@ def resolve_perspective(
         rejected.append(previous)
     confidence = "high" if accepted in compatible else "low"
     reasons = [f"Resolved {family}/{subtype or 'GENERAL'} permits roles: {', '.join(compatible)}."]
+    if contract_defined_role:
+        reasons.append(
+            f"Explicit {party_side} contract definition '{contract_defined_label}' resolved to {contract_defined_role}."
+        )
     if rejected:
         reasons.append(f"Rejected incompatible carried roles: {', '.join(rejected)}.")
     reasons.append("Party identity is retained separately from the canonical transaction role.")
@@ -177,8 +288,14 @@ def resolve_perspective(
     elif accepted in {"CONSULTING_CLIENT", "TECHNICAL_CONSULTANT"} and review_party_label:
         display_role = f"{review_party_label} / {DISPLAY_ROLES[accepted]}"
     elif accepted in {"SERVICE_RECIPIENT", "SERVICE_PROVIDER"} and review_party_label:
-        service_label = "委托方" if accepted == "SERVICE_RECIPIENT" else "服务提供方"
+        service_label = DISPLAY_ROLES[accepted]
         display_role = f"{review_party_label} / {service_label}"
+    contract_display_role = DISPLAY_ROLES.get(accepted, DISPLAY_ROLES["OTHER"])
+    if accepted in {"PATENT_LICENSEE", "PATENT_LICENSOR"} and subtype in {
+        "PATENT_LICENSE", "TECHNOLOGY_LICENSE", "TECHNICAL_SECRET_LICENSE",
+    }:
+        contract_display_role = _license_contract_display_role(requested_role, accepted)
+        display_role = f"{review_party_label} / {contract_display_role}" if review_party_label else contract_display_role
     return PerspectiveResolution(
         requested_role=requested_role,
         previous_context_role=previous_context_role,
@@ -191,6 +308,10 @@ def resolve_perspective(
         transaction_role=accepted,
         canonical_role=accepted,
         display_role=display_role,
+        transaction_type=_transaction_type(family, subtype),
+        review_party=party_side,
+        legal_role=_legal_role(accepted),
+        contract_display_role=contract_display_role,
         candidate_roles=candidates,
         rejected_roles=rejected,
         confidence=confidence,

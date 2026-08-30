@@ -117,18 +117,20 @@ def test_generic_fallback_without_concrete_gap_cannot_create_finding():
     assert item.decision_trace["concrete_missing_element_gate"]["status"] == "SUPPRESSED"
 
 
-def test_complete_material_list_in_body_passes_without_separate_attachment():
+def test_material_list_in_body_preserves_types_and_reports_only_remaining_delivery_metadata():
     output = _review("乙方应以电子文件方式向甲方交付专利证书、说明书、权利要求书及实施技术资料清单，甲方签收确认。")
     item = next(row for row in output["items"] if row["item_id"] == "TC-13-01")
-    assert item["coverage_status"] == "通过"
-    assert not any("TC-13-01" in row["source_review_ids"] for row in output["risk_findings"])
+    assert item["coverage_status"] == "部分覆盖"
+    assert "主要技术资料文件类型" not in item["risk_point_description"]
+    assert "版本号或文件编号" in item["risk_point_description"]
+    assert "交付数量" in item["risk_point_description"]
 
 
 def test_vague_material_obligation_reports_specific_missing_elements():
     output = _review("乙方应提供相关技术资料。")
     item = next(row for row in output["items"] if row["item_id"] == "TC-13-01")
     assert item["coverage_status"] == "部分覆盖"
-    assert "未明确技术资料具体清单及文件类型" in item["risk_point_description"]
+    assert "未列举主要技术资料文件类型" in item["risk_point_description"]
     assert "适用范围、履行标准和责任安排" not in item["risk_point_description"]
 
 

@@ -79,8 +79,11 @@ def test_same_evidence_span_supports_multiple_claims_without_duplicate_rendering
     assert sum(row["quoted_text"] == combined["quoted_text"] for row in liability["items"]) == 1
 
     privacy = findings["personal_information_processing_gap"]["evidence_bundle"]
-    assert len(privacy["items"]) == 1
-    assert len(privacy["items"][0]["supports_claim_ids"]) == 2
+    body = next(row for row in privacy["items"] if row["source_type"] == "BODY")
+    absence = next(row for row in privacy["items"] if row["source_type"] == "SEARCH_AUDIT")
+    assert len(privacy["items"]) == 2
+    assert len(body["supports_claim_ids"]) == 2
+    assert absence["supports_claim_ids"] == ["personal_information_processing_gap:absence_search"]
 
     termination = findings["technical_unilateral_termination_change"]["evidence_bundle"]
     shared = next(row for row in termination["items"] if "提前5个工作日" in row["quoted_text"])

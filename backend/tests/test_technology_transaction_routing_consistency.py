@@ -79,10 +79,11 @@ def test_pure_patent_transaction_uses_fact_driven_proof_requirements():
     output = review_contract_v2(PATENT_LICENSE_TEXT, "technology", use_llm=False)
     by_id = {row["item_id"]: row for row in output["items"]}
     expected_elements = {
-        "patent_identity_and_registration",
+        "patent_identity_in_contract",
+        "patent_certificate_or_register_attachment",
+        "licensor_authority_and_upstream_authorization",
         "patent_legal_status_and_annual_fee",
-        "encumbrance_license_and_dispute_disclosure",
-        "transaction_registration_documents",
+        "license_encumbrance_and_conflict_disclosure",
     }
 
     for review_id in ("TC-03-04", "TC-13-02"):
@@ -315,8 +316,7 @@ def test_new_patent_transfer_generalization_sample_routes_without_frozen_risks()
         "transferor_claim_participation": "COVERED",
         "liability_allocation_exists": "PARTIALLY_COVERED",
         "liability_allocation_determinability": "MISSING",
-        "defense_control": "MISSING",
-        "replacement_or_workaround": "MISSING",
+        "transferee_fault_boundary": "MISSING",
     }
     assert "尚未覆盖：受让方按约实施时的第三方侵权责任承担已明确" not in output["result"]
     assert "建议明确受让方按约实施时的第三方侵权责任承担已" not in output["result"]
@@ -394,10 +394,14 @@ def test_patent_license_direction_and_provenance_golden_sample():
 
     assert output["technology_transaction_consistency_gate"]["primary_contract_type"] == "technology_license_patent"
     assert output["perspective_resolution"]["canonical_role"] == "PATENT_LICENSEE"
-    assert output["perspective_resolution"]["display_role"] == "被许可方 / 付款方"
-    assert output["coverage_summary"] == {"通过": 18, "不适用": 29, "缺失": 2, "部分覆盖": 4}
-    assert len(output["risk_findings"]) == 6
-    assert len(output["recommendations"]) == 6
+    assert output["perspective_resolution"]["display_role"] == "被许可方"
+    # The patent licence remains the main transaction, while fact-proven
+    # technical-service and technical-secret modules are additive.
+    # TC-09-03 is not activated merely because technical service exists; the
+    # contract must separately show a service-generated independent result.
+    assert output["coverage_summary"] == {"通过": 17, "不适用": 25, "缺失": 2, "部分覆盖": 9}
+    assert len(output["risk_findings"]) == 10
+    assert len(output["recommendations"]) == 10
     assert output["release_quality_gate"]["status"] == "REPORT_READY"
     assert output["report_generation_decision"]["report_generated"] is True
     assert manifest["sample_status"] == "GOLDEN_REGRESSION_SAMPLE"
@@ -422,7 +426,7 @@ def test_patent_license_direction_and_provenance_golden_sample():
     direction_snapshot = manifest["expected_party_direction"]
     assert liability["risk_direction"]["review_position_code"] == "PATENT_LICENSEE"
     assert liability["risk_direction"]["direction"] == "UNFAVORABLE"
-    assert liability_elements["licensor_liability_cap"]["status"] == "MISSING"
+    assert liability_elements["licensor_liability_cap"]["status"] == "NOT_APPLICABLE"
     assert liability_elements["licensor_liability_cap"]["direction"] == "FAVORABLE"
     assert liability_elements["licensor_liability_cap"]["risk_relevant"] is False
     assert liability_elements["licensee_liability_cap"]["direction"] == "UNFAVORABLE"
