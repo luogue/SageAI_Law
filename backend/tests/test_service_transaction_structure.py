@@ -91,7 +91,7 @@ def test_service_title_does_not_override_sale_substance():
 
 
 def test_real_service_contract_file_uses_service_scenario_and_reviews():
-    path = next((ROOT / "test_data").glob("3*.docx"))
+    path = ROOT / "test_data" / "3、服务合同.docx"
     result = _review_file(path, "service")
 
     assert result["release_quality_gate"]["status"] == "REPORT_READY"
@@ -104,7 +104,7 @@ def test_real_service_contract_file_uses_service_scenario_and_reviews():
 
 
 def test_real_service_contract_review_semantics_are_not_template_completeness_noise():
-    path = next((ROOT / "test_data").glob("3*.docx"))
+    path = ROOT / "test_data" / "3、服务合同.docx"
     result = _review_file(path, "service")
     by_id = _items_by_id(result)
 
@@ -137,7 +137,7 @@ def test_real_service_contract_review_semantics_are_not_template_completeness_no
 
 
 def test_real_service_contract_round3_aggregates_risks_and_keeps_element_gaps_specific():
-    path = next((ROOT / "test_data").glob("3*.docx"))
+    path = ROOT / "test_data" / "3、服务合同.docx"
     result = _review_file(path, "service")
     by_id = _items_by_id(result)
     findings_by_group = {finding["risk_group"]: finding for finding in result["risk_findings"]}
@@ -184,7 +184,7 @@ def test_real_service_contract_round3_aggregates_risks_and_keeps_element_gaps_sp
 
 
 def test_real_service_contract_round4_preserves_semantic_element_truth():
-    path = next((ROOT / "test_data").glob("3*.docx"))
+    path = ROOT / "test_data" / "3、服务合同.docx"
     result = _review_file(path, "service")
     by_id = _items_by_id(result)
 
@@ -385,7 +385,7 @@ def test_cross_review_fact_conflict_and_snapshot_mismatch_are_blocking():
 
 
 def test_real_service_contract_registry_and_evidence_ownership_use_production_entry():
-    path = next((ROOT / "test_data").glob("3*.docx"))
+    path = ROOT / "test_data" / "3、服务合同.docx"
     result = _review_file(path, "service")
     by_id = _items_by_id(result)
     fact_rows = {
@@ -443,7 +443,7 @@ def test_service_fact_mutations_change_all_registry_consumers_together():
 
 
 def test_real_service_recommendations_bind_only_to_final_missing_elements():
-    result = _review_file(next((ROOT / "test_data").glob("3*.docx")), "service")
+    result = _review_file(ROOT / "test_data" / "3、服务合同.docx", "service")
     recommendations = {
         risk_id: recommendation
         for recommendation in result["recommendations"]
@@ -484,7 +484,7 @@ def test_real_service_recommendations_bind_only_to_final_missing_elements():
 
 
 def test_service_recommendation_unit_price_mutation_is_element_driven():
-    path = next((ROOT / "test_data").glob("3*.docx"))
+    path = ROOT / "test_data" / "3、服务合同.docx"
     text = InputLayer()._extract_from_docx_content(path.read_bytes())
     base = review_contract_v2(text, "service", use_llm=False)
     without_unit_price = review_contract_v2(
@@ -503,7 +503,7 @@ def test_service_recommendation_unit_price_mutation_is_element_driven():
 
 
 def test_service_delivery_and_refund_notice_covered_elements_do_not_reenter_recommendations():
-    result = _review_file(next((ROOT / "test_data").glob("3*.docx")), "service")
+    result = _review_file(ROOT / "test_data" / "3、服务合同.docx", "service")
     rows = {row["risk_title"]: row for row in result["observability"]["recommendation_diff_audit"]["rows"]}
 
     assert "delivery_method" in rows["培训服务范围和交付标准不完整"]["covered_element_ids"]
@@ -527,7 +527,7 @@ def test_unmapped_recommendation_fragment_blocks_quality_gate():
 
 
 def test_high_service_risks_have_complete_non_must_change_audit():
-    result = _review_file(next((ROOT / "test_data").glob("3*.docx")), "service")
+    result = _review_file(ROOT / "test_data" / "3、服务合同.docx", "service")
     rows = result["observability"]["high_risk_disposition_audit"]
 
     assert len(rows) == 2
@@ -590,7 +590,7 @@ def test_placeholder_recommendation_text_is_blocked():
 
 
 def test_service_notice_method_uses_direct_written_notice_evidence():
-    result = _review_file(next((ROOT / "test_data").glob("3*.docx")), "service")
+    result = _review_file(ROOT / "test_data" / "3、服务合同.docx", "service")
     item = _items_by_id(result)["SVC-06-02"]
     notice = next(element for element in item["coverage_elements"] if element["element_id"] == "notice_channel")
 

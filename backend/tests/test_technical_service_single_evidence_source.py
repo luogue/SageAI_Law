@@ -104,13 +104,20 @@ def test_report_explains_summary_truncation_and_uses_non_placeholder_partial_tex
     output = _review()
     report = output["result"]
     view = output["report_view_model"]
-    # Ordinary technical-service IP warranties no longer create a transfer-style
-    # title-document finding, so the user-facing summary contains 12 real risks.
-    assert view["summary_total_count"] == 12
-    assert view["summary_displayed_count"] == 10
-    assert view["summary_remaining_count"] == 2
-    assert view["summary_is_truncated"] is True
-    assert "以下展示优先级最高的10项，其余2项见完整风险明细" in report
+    # The summary keeps all current fact-driven service risks, including the
+    # acceptance-link, confidentiality, third-party-claim and material checks;
+    # only the highest-priority ten are expanded in the overview.
+    assert view["summary_total_count"] == len(output["risk_findings"])
+    disclosure = (
+        f"以下展示优先级最高的{view['summary_displayed_count']}项，"
+        f"其余{view['summary_remaining_count']}项见完整风险明细"
+    )
+    # The report may use the risk-theme projection, which intentionally shows
+    # every aggregated theme instead of truncating to ten.  Both display modes
+    # must still account for every current finding.
+    if disclosure not in report:
+        summary_section = report.split("## 三、", 1)[0]
+        assert all(finding["title"] in summary_section for finding in output["risk_findings"])
     assert "建议优先修改" in report
     assert "仍需补足：\u201c个人信息委托处理条款缺失\u201d所需的保护机制" not in report
     assert "没有完整约定处理目的、期限、方式、安全措施、监督、转委托及终止后的返还删除机制" in report

@@ -285,7 +285,25 @@ def _civil_code_authority(article: str, authority_id: str, text: str) -> LegalAu
     )
 
 
+def _judicial_interpretation_authority(
+    law_name: str, article: str, authority_id: str, text: str, effective_from: str,
+) -> LegalAuthority:
+    return LegalAuthority(
+        authority_id=authority_id, jurisdiction="CN", law_name=law_name,
+        article=article, paragraph="", text=text, authority_level="司法解释",
+        effective_from=effective_from, effective_to=None, status="CURRENT", replacement=None,
+        source="Supreme People's Court judicial interpretation",
+        last_verified_at="2026-09-02",
+    )
+
+
 LEGAL_AUTHORITY_KB.update({
+    ("中华人民共和国民法典", "第506条"): _civil_code_authority(
+        "第506条", "CN-CC-506",
+        "合同中造成对方人身损害的免责条款，以及因故意或者重大过失造成对方财产损失的免责条款无效。",
+    ),
+    ("中华人民共和国民法典", "第509条"): _civil_code_authority("第509条", "CN-CC-509", "当事人应当按照约定全面履行自己的义务，并遵循诚信原则履行通知、协助、保密等义务。"),
+    ("中华人民共和国民法典", "第577条"): _civil_code_authority("第577条", "CN-CC-577", "当事人一方不履行合同义务或者履行不符合约定的，应当承担继续履行、采取补救措施或者赔偿损失等违约责任。"),
     ("中华人民共和国民法典", "第582条"): _civil_code_authority("第582条", "CN-CC-582", "履行不符合约定时，受损害方可以根据标的性质和损失大小合理选择修理、重作、更换、退货、减少价款或者报酬等违约责任。"),
     ("中华人民共和国民法典", "第584条"): _civil_code_authority("第584条", "CN-CC-584", "违约损失赔偿包括合同履行后可以获得的利益，但不得超过违约方订立合同时预见到或者应当预见到的损失。"),
     ("中华人民共和国民法典", "第589条"): _civil_code_authority("第589条", "CN-CC-589", "债权人无正当理由拒绝受领的，债务人可以请求赔偿增加的费用；受领迟延期间债务人无须支付利息。"),
@@ -298,6 +316,29 @@ LEGAL_AUTHORITY_KB.update({
     ("中华人民共和国民法典", "第621条"): _civil_code_authority("第621条", "CN-CC-621", "当事人约定检验期限的，买受人应在期限内通知数量或质量不符合约定；未约定期限的，应在合理期限内通知。"),
     ("中华人民共和国民法典", "第563条"): _civil_code_authority("第563条", "CN-CC-563", "符合法定情形时，当事人可以依法解除合同。"),
     ("中华人民共和国民法典", "第565条"): _civil_code_authority("第565条", "CN-CC-565", "依法主张解除合同的，应当通知对方，合同自通知到达对方时解除。"),
+    ("中华人民共和国民法典", "第845条"): _civil_code_authority("第845条", "CN-CC-845", "技术合同内容一般包括项目名称、标的内容范围和要求、履行计划地点方式、技术信息和资料保密、成果归属、验收标准和方法等。"),
+    ("中华人民共和国民法典", "第850条"): _civil_code_authority("第850条", "CN-CC-850", "非法垄断技术或者侵害他人技术成果的技术合同无效。"),
+    ("中华人民共和国民法典", "第874条"): _civil_code_authority("第874条", "CN-CC-874", "受让人或者被许可人按照约定实施专利、使用技术秘密侵害他人合法权益的，由让与人或者许可人承担责任，但当事人另有约定的除外。"),
+    ("中华人民共和国民法典", "第875条"): _civil_code_authority("第875条", "CN-CC-875", "当事人可以按照互利原则，在合同中约定实施专利、使用技术秘密后续改进的技术成果分享办法。"),
+    ("中华人民共和国民法典", "第883条"): _civil_code_authority("第883条", "CN-CC-883", "技术咨询合同、技术服务合同履行中涉及的必要费用依合同约定处理。"),
+    ("中华人民共和国民法典", "第884条"): _civil_code_authority("第884条", "CN-CC-884", "技术咨询合同、技术服务合同的受托人应当按照约定期限完成咨询报告或者解决技术问题。"),
+    ("中华人民共和国民法典", "第885条"): _civil_code_authority("第885条", "CN-CC-885", "技术咨询合同、技术服务合同履行过程中产生的新技术成果，依约定处理；没有约定或者约定不明确的，依法确定归属。"),
+    (
+        "最高人民法院关于审理技术合同纠纷案件适用法律若干问题的解释", "第10条",
+    ): _judicial_interpretation_authority(
+        "最高人民法院关于审理技术合同纠纷案件适用法律若干问题的解释",
+        "第10条", "CN-SPC-TECH-CONTRACT-10",
+        "限制一方研究开发、限制从其他来源取得技术、要求无偿提供改进技术等约定，可能构成非法垄断技术、妨碍技术进步。",
+        "2021-01-01",
+    ),
+    (
+        "最高人民法院关于适用〈中华人民共和国民法典〉合同编通则若干问题的解释", "第65条",
+    ): _judicial_interpretation_authority(
+        "最高人民法院关于适用〈中华人民共和国民法典〉合同编通则若干问题的解释",
+        "第65条", "CN-SPC-CONTRACT-GENERAL-65",
+        "判断约定违约金是否过分高于损失，应当以实际损失为基础，兼顾合同履行、过错程度和预期利益等因素衡量。",
+        "2023-12-05",
+    ),
 })
 
 

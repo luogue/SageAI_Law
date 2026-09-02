@@ -6,6 +6,7 @@ from pathlib import Path
 
 from docx import Document
 
+from routers import review_v2 as review_router
 from routers.review_v2 import review_v2_file
 
 
@@ -42,6 +43,20 @@ def _review_bytes(content: bytes, contract_type: str, profile_json: str = "{}"):
 
 def _fixture(pattern: str) -> bytes:
     return next((ROOT / "test_data").glob(pattern)).read_bytes()
+
+
+def test_review_upload_runtime_source_guard_detects_stale_loaded_code(monkeypatch):
+    assert review_router._runtime_source_drift_status()["status"] == "CURRENT"
+
+    monkeypatch.setitem(
+        review_router._LOADED_DEPENDENCY_SOURCES["engine"],
+        "sha256",
+        "stale-loaded-engine-source",
+    )
+    status = review_router._runtime_source_drift_status()
+
+    assert status["status"] == "STALE_RUNTIME"
+    assert status["changed_dependencies"] == ["engine"]
 
 
 def test_sale_production_trace_and_legal_claim_scope():

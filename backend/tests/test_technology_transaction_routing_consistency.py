@@ -81,6 +81,7 @@ def test_pure_patent_transaction_uses_fact_driven_proof_requirements():
     expected_elements = {
         "patent_identity_in_contract",
         "patent_certificate_or_register_attachment",
+        "patent_proof_attachment_content_verification",
         "licensor_authority_and_upstream_authorization",
         "patent_legal_status_and_annual_fee",
         "license_encumbrance_and_conflict_disclosure",
@@ -331,7 +332,7 @@ def test_new_patent_transfer_generalization_sample_routes_without_frozen_risks()
     assert claim_states["defense_control"] == "MISSING"
     assert claim_response["decision_trace"]["semantic_evidence_lookup"]["reused_clause_ids"]
     assert by_id["TC-02-02"]["coverage_status"] == "通过"
-    assert by_id["TC-02-02"]["decision_trace"]["evidence_judgment"]["evidence_semantics"] == "PROTECTIVE_CLAUSE"
+    assert by_id["TC-02-02"]["decision_trace"]["evidence_judgment"]["evidence_semantics"] == "HYPOTHETICAL_CLAIM_OR_RISK_ALLOCATION"
     assert not by_id["TC-02-02"]["decision_trace"]["evidence_judgment"]["affirmative_risk_evidence_ids"]
     improvement_text = " ".join((
         by_id["TC-10-03"]["risk_point_description"],
@@ -399,9 +400,16 @@ def test_patent_license_direction_and_provenance_golden_sample():
     # technical-service and technical-secret modules are additive.
     # TC-09-03 is not activated merely because technical service exists; the
     # contract must separately show a service-generated independent result.
-    assert output["coverage_summary"] == {"通过": 17, "不适用": 25, "缺失": 2, "部分覆盖": 9}
-    assert len(output["risk_findings"]) == 10
-    assert len(output["recommendations"]) == 10
+    assert output["coverage_summary"] == {
+        "通过": 16,
+        "不适用": 25,
+        "缺失": 2,
+        "部分覆盖": 10,
+        "风险条款": 1,
+    }
+    assert by_id["TECH-SHARED-03"]["coverage_status"] == "风险条款"
+    assert len(output["risk_findings"]) == 12
+    assert len(output["recommendations"]) == 12
     assert output["release_quality_gate"]["status"] == "REPORT_READY"
     assert output["report_generation_decision"]["report_generated"] is True
     assert manifest["sample_status"] == "GOLDEN_REGRESSION_SAMPLE"
@@ -439,7 +447,7 @@ def test_patent_license_direction_and_provenance_golden_sample():
     assert "licensor_liability_cap" not in final_missing_ids
     assert "mutual_liability_cap" not in final_missing_ids
     assert "licensee_liability_cap" in final_missing_ids
-    assert "不得因此限制许可方" in finding["recommendation"]
+    assert "双方侵权责任范围及责任上限" in finding["recommendation"]
 
     claim_item = by_id["TC-12-02"]
     assert "持续实施许可专利" in claim_item["legal_consequence_if_missing"]

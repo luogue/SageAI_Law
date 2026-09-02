@@ -101,7 +101,7 @@ def resolve_contract_domain(
         subject = (
             "PATENT_RIGHT" if tertiary in {"PATENT_RIGHT_TRANSFER", "PATENT_APPLICATION_RIGHT_TRANSFER", "MIXED_PATENT_RIGHT_AND_APPLICATION_TRANSFER"}
             else "PATENT_LICENSE" if tertiary == "PATENT_LICENSE"
-            else "TECHNOLOGY" if tertiary == "TECHNICAL_SECRET_LICENSE"
+            else "TECHNICAL_SECRET" if tertiary in {"TECHNICAL_SECRET_LICENSE", "TECHNICAL_SECRET_TRANSFER"}
             else "TECHNICAL_SERVICE" if subtype == "TECHNICAL_SERVICE"
             else "TECHNOLOGY"
         )

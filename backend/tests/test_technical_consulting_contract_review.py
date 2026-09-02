@@ -1,4 +1,5 @@
 import io
+from pathlib import Path
 
 import pytest
 import main as legacy_main
@@ -11,6 +12,11 @@ from review_v2.engine import TECHNICAL_CONSULTING_EVIDENCE_IMPLEMENTATION
 from review_v2.engine import review_contract_v2
 from review_v2.clause_parser import parse_contract_clauses
 from review_v2.user_profile import UserRiskProfile
+from review_v2.technology_service_analysis import (
+    analyze_payment_schedule,
+    analyze_timeline,
+    analyze_technology_relationship_risks,
+)
 
 
 CONSULTING_CONTRACT = """
@@ -918,3 +924,100 @@ def test_production_file_endpoint_is_deterministic_across_fresh_no_cache_runs():
     second_items = {item["item_id"]: item for item in second["items"]}
     for item_id in ("TC-01-03", "TC-08-01", "TC-08-02", "TC-08-03", "TC-08-04", "TC-08-05", "TC-10-01", "TC-11-01", "TC-11-02", "TC-11-04", "TC-13-01"):
         assert first_items[item_id]["coverage_status"] == second_items[item_id]["coverage_status"]
+
+
+def test_consulting_eur_mixed_payment_bases_and_direction_are_deterministic():
+    text = """
+技术咨询合同
+合同总价为EUR 1,200,000。
+分项一的合同价为EUR 300,000；分项二的合同价为EUR 300,000；分项三的合同价为EUR 300,000；分项四的合同价为EUR 300,000。
+合同总价的20%，即EUR 240,000，支付给咨询方。
+分项一合同价的80%，即EUR 240,000，支付给咨询方。
+分项二合同价的80%，即EUR 240,000，支付给委托方。
+分项三合同价的80%，即EUR 240,000，支付给咨询方。
+分项四合同价的80%，即EUR 240,000，支付给咨询方。
+分项四合同价的20%，即EUR 60,000，支付给咨询方。
+"""
+    payment = analyze_payment_schedule(text)
+
+    assert payment["status"] == "INCONSISTENT"
+    assert payment["contract_total"] == 1_200_000
+    assert payment["amount_total"] == 1_260_000
+    assert payment["percentage_total"] == 105
+    assert payment["amount_delta"] == 60_000
+    assert payment["currency"] == "EUR"
+    assert payment["payment_fact_count"] == 6
+    assert payment["dominant_payee"] == "咨询方"
+    assert [row["payee"] for row in payment["payment_direction_outliers"]] == ["委托方"]
+    whole_contract_node = payment["nodes"][0]
+    assert whole_contract_node["payment_group_label"] in {"合同总价", "合同总价款"}
+
+
+def test_consulting_relative_duration_cap_and_weekly_penalty_are_shared_facts():
+    text = """
+技术咨询合同
+技术咨询服务自合同生效之日起8个月内完成。
+合同生效后9个月内提交分项四报告，10个月内提交最终报告，11个月内完成最终验收。
+咨询方因服务疏忽造成人身损害和财产损失的，应承担赔偿责任。
+咨询方对本合同的任何和所有责任都限定在合同总价之内。
+迟延第一至第四周每周支付合同总价2%，第五至第八周每周3%，第九周起每周5%。
+迟延交付违约金总额不得超过合同总价的30%。
+"""
+    timeline = analyze_timeline(text)
+    risks = analyze_technology_relationship_risks(text)
+
+    conflicts = [
+        row for row in timeline["conflicts"]
+        if row["type"] == "MILESTONE_AFTER_PERFORMANCE_DURATION"
+    ]
+    assert timeline["performance_duration_months"] == 8
+    assert {row["milestone_offset_months"] for row in conflicts} == {9, 10, 11}
+    assert risks["liability_cap_validity"]["present"] is True
+    assert risks["liability_cap_validity"]["analysis"]["personal_injury_within_broad_cap"] is True
+    penalty = risks["potential_excessive_liquidated_damages"]
+    assert penalty["present"] is True
+    weekly = penalty["analysis"]["weekly_penalties"]
+    assert sorted({rate for row in weekly for rate in row["rates_percent_per_week"]}) == [2, 3, 5]
+    assert max(row["max_rate_percent_per_week"] for row in weekly) == 5
+    assert penalty["analysis"]["cumulative_penalty_caps"][0]["cap_percent"] == 30
+
+
+def test_latest_consulting_docx_full_regression_has_no_subtype_or_evidence_regression():
+    path = Path(__file__).resolve().parents[2] / "test_data" / "33 技术咨询服务合同.docx"
+    document = Document(path)
+    text = "\n".join(paragraph.text for paragraph in document.paragraphs)
+    output = review_contract_v2(
+        text,
+        "technology",
+        use_llm=False,
+        profile=UserRiskProfile(user_identity="甲方/委托方"),
+    )
+    by_id = _items(output)
+    titles = {row["title"] for row in output["risk_findings"]}
+    report = output["result"]
+
+    assert output["deterministic_analysis"]["technology_classification"]["primary_subtype"] == "TECHNICAL_CONSULTING"
+    assert all(by_id[item_id]["coverage_status"] == "不适用" for item_id in (
+        "TC-09-01", "TC-09-02", "TC-09-03", "TC-09-04",
+    ))
+    assert by_id["TC-01-03"]["coverage_status"] == "通过"
+    assert by_id["TC-08-01"]["coverage_status"] == "通过"
+    assert "交付形式明确" in by_id["TC-08-01"]["narrative_state"]["judgment"]
+    assert "资料提供时间和方式明确" in by_id["TC-08-03"]["narrative_state"]["judgment"]
+    tc1104 = {row["element_id"]: row["status"] for row in by_id["TC-11-04"]["coverage_elements"]}
+    assert tc1104["termination_remedy"] == "COVERED"
+    assert "合同解除救济" in by_id["TC-11-04"]["risk_point_description"]
+    assert by_id["TC-13-04"]["coverage_status"] != "不适用"
+
+    assert {
+        "付款比例、节点金额与合同总价不一致",
+        "服务期限与交付验收节点冲突",
+        "依法不得限责情形仍适用责任上限的效力风险",
+        "违约金标准偏高及司法调减风险",
+        "技术进出口管制附件",
+    } <= titles
+    for marker in ("1,260,000", "105%", "60,000", "支付给委托方", "第9、10、11个月"):
+        assert marker in report
+    assert "第874条" not in report
+    assert "第884条" not in report
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"

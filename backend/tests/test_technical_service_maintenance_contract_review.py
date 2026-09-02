@@ -39,7 +39,7 @@ def maintenance_review() -> dict:
 
 def test_maintenance_contract_context_and_task_role_are_preserved(maintenance_review):
     assert maintenance_review["contract_context"]["contract_subtype"] == "TECHNICAL_SERVICE"
-    assert maintenance_review["perspective_resolution"]["display_role"] == "甲方 / 委托方"
+    assert maintenance_review["perspective_resolution"]["display_role"] == "甲方 / 服务接受方"
     assert maintenance_review["report_context"]["contract_type_label"] == "技术合同—技术服务合同"
     assert maintenance_review["release_quality_gate"]["status"] == "REPORT_READY"
 

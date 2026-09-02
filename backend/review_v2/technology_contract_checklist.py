@@ -13,6 +13,8 @@ from review_v2.house_lease_checklist import ReviewCheckpoint
 
 
 def _technology_applicable_if(item_id: str, node_id: str) -> str:
+    if item_id == "TC-01-04":
+        return "仅在合同出现加工、定作、设备制造或交付、安装、施工、建设工程等混合履约事实，需要区分技术合同与承揽、建设工程规则时适用。"
     if item_id in {"TC-03-01", "TC-03-02", "TC-03-03"}:
         return "仅在合同涉及自然人个人成果、员工成果归属、职务或非职务成果、离职人员成果、完成人署名或奖励安排时适用。"
     if item_id == "TC-12-01":
@@ -113,6 +115,7 @@ def _forbidden(
         evidence_scope="正式合同条款及附件",
         pass_criteria=f"正式合同条款及附件中未发现“{title}”类风险表述。",
         partial_criteria=f"正式合同条款或附件中存在接近“{title}”的表述，需要人工复核其是否限制技术竞争、侵害他人成果，或是否已取得合法授权。",
+        polarity="NEGATIVE_CLAUSE_CHECK",
     )
 
 

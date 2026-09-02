@@ -291,6 +291,9 @@ def resolve_perspective(
         service_label = DISPLAY_ROLES[accepted]
         display_role = f"{review_party_label} / {service_label}"
     contract_display_role = DISPLAY_ROLES.get(accepted, DISPLAY_ROLES["OTHER"])
+    if subtype == "TECHNICAL_SECRET_TRANSFER" and accepted in {"PATENT_TRANSFEREE", "PATENT_TRANSFEROR"}:
+        contract_display_role = "技术秘密受让方" if accepted == "PATENT_TRANSFEREE" else "技术秘密转让方"
+        display_role = f"{review_party_label} / {contract_display_role}" if review_party_label else contract_display_role
     if accepted in {"PATENT_LICENSEE", "PATENT_LICENSOR"} and subtype in {
         "PATENT_LICENSE", "TECHNOLOGY_LICENSE", "TECHNICAL_SECRET_LICENSE",
     }:

@@ -128,7 +128,7 @@ def test_real_loader_parser_pipeline_keeps_general_relationship_risks_for_consul
     assert events["[FINAL_RISK]"]["rendered"] is True
 
 
-def test_current_consulting_fixture_exposes_no_percentage_candidate_stage():
+def test_current_consulting_fixture_keeps_amount_only_node_without_false_formula_risk():
     payload = _review_file(SOURCE_CONSULTING_CONTRACT.read_bytes(), SOURCE_CONSULTING_CONTRACT.name)
     payment = payload["deterministic_analysis"]["payment_formula"]
     trace = payload["observability"]["payment_risk_lifecycle"]
@@ -136,7 +136,9 @@ def test_current_consulting_fixture_exposes_no_percentage_candidate_stage():
 
     assert payload["contract_context"]["contract_subtype"] == "TECHNICAL_CONSULTING"
     assert payment["status"] == "INSUFFICIENT_DATA"
-    assert payment["nodes"] == []
+    assert len(payment["nodes"]) == 1
+    assert payment["nodes"][0]["amount"] == 54000
+    assert payment["nodes"][0]["percentage"] is None
     assert trace["status"] == "NO_CANDIDATE"
     assert events["[CANDIDATE_CREATED]"]["created"] is False
     assert "arithmetic_status=INSUFFICIENT_DATA" in events["[CANDIDATE_CREATED]"]["reason"]

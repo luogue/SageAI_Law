@@ -88,6 +88,34 @@ def _runtime_source_identity(target: Any) -> Dict[str, Any]:
     }
 
 
+_LOADED_DEPENDENCY_SOURCES = {
+    "engine": _runtime_source_identity(review_contract_v2),
+    "classifier": _runtime_source_identity(classify_technology_transaction),
+    "registry": _runtime_source_identity(get_checklist_for_resolution),
+}
+
+
+def _runtime_source_drift_status() -> Dict[str, Any]:
+    """Fail closed when the running worker has older code than the workspace."""
+    targets = {
+        "engine": review_contract_v2,
+        "classifier": classify_technology_transaction,
+        "registry": get_checklist_for_resolution,
+    }
+    current = {name: _runtime_source_identity(target) for name, target in targets.items()}
+    changed = [
+        name for name, identity in current.items()
+        if str(identity.get("sha256") or "")
+        != str((_LOADED_DEPENDENCY_SOURCES.get(name) or {}).get("sha256") or "")
+    ]
+    return {
+        "status": "STALE_RUNTIME" if changed else "CURRENT",
+        "changed_dependencies": changed,
+        "loaded": _LOADED_DEPENDENCY_SOURCES,
+        "current": current,
+    }
+
+
 class ReviewV2Input(BaseModel):
     contract_text: str = Field(..., min_length=1, description="合同文本")
     contract_type: str = Field("house_lease", description="合同类型，当前支持 house_lease、sale、gift、deposit、work_contract、transportation、agency、loan、service、guarantee、finance_lease、warehouse、construction、technology、commission_agency、utility_supply、brokerage")
@@ -125,6 +153,12 @@ class ReviewV2Result(BaseModel):
     quality_gate: Dict[str, Any] = Field(default_factory=dict)
     review_results_4_0: List[Dict[str, Any]] = Field(default_factory=list)
     risk_findings: List[Dict[str, Any]] = Field(default_factory=list)
+    risk_themes: List[Dict[str, Any]] = Field(default_factory=list)
+    risk_theme_count: int = 0
+    aggregated_risk_count: int = 0
+    finding_count: int = 0
+    risk_theme_summary: Dict[str, int] = Field(default_factory=dict)
+    risk_theme_severity_summary: Dict[str, int] = Field(default_factory=dict)
     recommendations: List[Dict[str, Any]] = Field(default_factory=list)
     final_dispositions: List[Dict[str, Any]] = Field(default_factory=list)
     manual_review_items: List[Dict[str, Any]] = Field(default_factory=list)
@@ -974,6 +1008,18 @@ async def review_v2_file(
 ):
     """接收 Word/PDF 合同文件，抽取文本后运行清单式审查。"""
 
+    source_drift = _runtime_source_drift_status()
+    if source_drift["status"] != "CURRENT":
+        logger.critical(
+            "[STALE_REVIEW_RUNTIME] dependencies=%s process_id=%s",
+            source_drift["changed_dependencies"],
+            os.getpid(),
+        )
+        raise HTTPException(
+            status_code=503,
+            detail="审查后端已加载旧代码，请重启本地服务后重新审查。",
+        )
+
     filename = file.filename or ""
     if not filename.lower().endswith((".doc", ".docx", ".pdf")):
         raise HTTPException(status_code=400, detail="审查第二版当前支持 .doc、.docx 和 .pdf 文件")
@@ -1027,6 +1073,7 @@ async def review_v2_file(
             "classifier": _runtime_source_identity(classify_technology_transaction),
             "registry": _runtime_source_identity(get_checklist_for_resolution),
         },
+        "runtime_source_drift": source_drift,
         "document_hash": hashlib.sha256(contract_text.encode("utf-8")).hexdigest(),
         "cache": {"status": "MISS", "reason": "review-v2/file has no rule, evidence, or report result cache"},
         "input_visibility": {

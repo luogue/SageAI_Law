@@ -181,9 +181,10 @@ def test_quality_gate_blocks_issue_type_partial_and_applicability_conflicts():
     } <= requirements
 
 
-def test_quality_gate_blocks_undisclosed_summary_truncation():
+def test_quality_gate_allows_theme_projection_without_legacy_truncation_banner():
     output = _review()
     items, findings, recommendations, dispositions = _integrity_inputs(output)
+    assert "以下展示优先级最高的" not in output["result"]
     report = re.sub(r"> 以下展示优先级最高的\d+项，其余\d+项见完整风险明细。", "", output["result"])
     gate = _report_integrity_gate(items, findings, recommendations, dispositions, report)
-    assert any(row["requirement"] == "SUMMARY_TRUNCATION_DISCLOSURE_GATE" for row in gate["failures"])
+    assert not any(row["requirement"] == "SUMMARY_TRUNCATION_DISCLOSURE_GATE" for row in gate["failures"])

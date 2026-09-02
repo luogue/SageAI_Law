@@ -506,12 +506,15 @@ def test_minimal_cooperative_development_rules_and_report_are_consistent():
     assert output["perspective_resolution"]["display_role"] == "甲方 / 合作开发方"
     assert output["release_quality_gate"]["status"] == "REPORT_READY"
     assert output["report_generation_decision"]["report_generated"] is True
-    assert len(output["risk_findings"]) == 13
-    assert output["summary"] == {"高": 0, "中": 10, "低": 8}
+    # A hypothetical third-party infringement allocation is not affirmative
+    # evidence that the project has actually infringed another person's
+    # technical achievement; the former TC-02-02 false positive is excluded.
+    assert len(output["risk_findings"]) == 12
+    assert output["summary"] == {"高": 0, "中": 8, "低": 8}
     assert sum(finding["severity"] == "HIGH" for finding in output["risk_findings"]) == 0
     assert sum(finding["severity"] == "MEDIUM" for finding in output["risk_findings"]) == 8
-    assert sum(finding["severity"] == "LOW" for finding in output["risk_findings"]) == 5
-    assert output["final_disposition_summary"]["actionable"] == 10
+    assert sum(finding["severity"] == "LOW" for finding in output["risk_findings"]) == 4
+    assert output["final_disposition_summary"]["actionable"] == 9
     assert output["final_disposition_summary"]["optional_improvement"] == 3
     assert output["manual_review_summary"]["manual_review_count"] == 0
 
@@ -653,13 +656,19 @@ def test_minimal_cooperative_development_rules_and_report_are_consistent():
     ))
 
     documentation = by_id["TC-13-01"]
-    assert documentation["coverage_status"] == "缺失"
-    assert {row["element_id"] for row in documentation["coverage_elements"]} == {
-        "requirements_specification", "module_and_work_allocation", "interface_documentation",
+    assert documentation["coverage_status"] == "部分覆盖"
+    documentation_elements = {
+        row["element_id"]: row["status"] for row in documentation["coverage_elements"]
+    }
+    assert documentation_elements["body_development_scope"] == "COVERED"
+    assert documentation_elements["body_research_work_allocation"] == "COVERED"
+    assert all(documentation_elements[element_id] == "MISSING" for element_id in (
+        "requirements_specification", "detailed_module_schedule", "interface_documentation",
         "source_code_version_list", "deployment_and_operation_documentation", "test_materials",
         "research_records", "stage_result_list",
-    }
-    assert all(row["status"] == "MISSING" for row in documentation["coverage_elements"])
+    ))
+    assert "合同正文已经明确基础研发范围、主要开发模块和双方基本研发分工" in documentation["risk_point_description"]
+    assert "未明确研发分工" not in documentation["risk_point_description"]
     assert "需求规格" in documentation["suggested_clause_example"]
     assert "阶段成果清单" in documentation["suggested_clause_example"]
     assert "适用范围、履行标准和责任安排" not in " ".join((

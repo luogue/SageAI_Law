@@ -141,6 +141,15 @@ DISPLAY_LABEL_REGISTRY: Tuple[DomainDisplayLabel, ...] = (
     ),
     DomainDisplayLabel(
         family="TECHNOLOGY",
+        subject_matter="TECHNICAL_SECRET",
+        transaction_structure="B2B_TECHNICAL_SECRET_TRANSFER",
+        subtype="TECHNOLOGY_TRANSFER",
+        report_title="技术秘密转让合同审查报告",
+        usage_scenario_label="技术秘密转让",
+        contract_type_label="技术合同—技术转让合同—技术秘密转让合同",
+    ),
+    DomainDisplayLabel(
+        family="TECHNOLOGY",
         subject_matter="PATENT_LICENSE",
         transaction_structure="B2B_PATENT_LICENSE_WITH_COMMISSIONED_DEVELOPMENT",
         subtype="TECHNOLOGY_LICENSE",
@@ -156,6 +165,15 @@ DISPLAY_LABEL_REGISTRY: Tuple[DomainDisplayLabel, ...] = (
         report_title="专利实施许可合同审查报告",
         usage_scenario_label="专利实施许可",
         contract_type_label="技术合同—技术许可合同—专利实施许可",
+    ),
+    DomainDisplayLabel(
+        family="TECHNOLOGY",
+        subject_matter="TECHNICAL_SECRET",
+        transaction_structure="B2B_TECHNICAL_SECRET_LICENSE",
+        subtype="TECHNOLOGY_LICENSE",
+        report_title="技术秘密许可合同审查报告",
+        usage_scenario_label="技术秘密许可",
+        contract_type_label="技术合同—技术许可合同—技术秘密许可合同",
     ),
     DomainDisplayLabel(
         family="TECHNOLOGY",
@@ -249,6 +267,16 @@ def build_report_context(contract_context: Dict[str, Any]) -> ReportContext:
             subtype=subtype,
             report_title="技术服务合同审查报告",
             usage_scenario_label="高校科研数据治理技术服务",
+            contract_type_label="技术服务合同",
+        )
+    if family == "TECHNOLOGY" and subtype == "TECHNICAL_SERVICE" and str(contract_context.get("usage_scenario") or "") == "ENTERPRISE_INFORMATION_SYSTEM_PERFORMANCE_OPTIMIZATION_SERVICE":
+        label = DomainDisplayLabel(
+            family=family,
+            subject_matter=subject,
+            transaction_structure=transaction_structure,
+            subtype=subtype,
+            report_title="技术服务合同审查报告",
+            usage_scenario_label="ERP系统性能诊断与数据库优化技术服务",
             contract_type_label="技术服务合同",
         )
     if family == "TECHNOLOGY" and subtype == "TECHNOLOGY_TRANSFER" and str(contract_context.get("usage_scenario") or "").startswith("UNIVERSITY_TECH_ACHIEVEMENT"):
