@@ -95,6 +95,27 @@ def test_development_with_deployment_maintenance_training_keeps_primary_hierarch
     }
 
 
+def test_industrial_predictive_maintenance_with_training_routes_to_technical_service():
+    text = """
+    技术服务合同
+    委托人甲方委托受托人乙方利用专业技术知识，为工业生产设备提供预测性维护服务。
+    乙方负责设备运行数据分析与建模、故障诊断、状态监测系统部署、参数调试、技术优化和远程技术支持，
+    并提交部署程序、预测模型、操作手册和项目实施报告。乙方另对甲方技术人员提供系统使用培训。
+    甲方支付技术服务报酬，项目成果按照约定标准验收。本合同为企业间交易，不涉及消费者课程、课时或预付式消费。
+    """
+    resolution, _, routed_type = _resolve(text)
+
+    assert routed_type == "technology"
+    assert resolution.selected_domain == "TECHNOLOGY"
+    assert resolution.document_domain["primary_subtype"] == "TECHNICAL_SERVICE"
+    assert resolution.document_domain["transaction_structure"] == "B2B_TECHNICAL_SERVICE"
+    assert "TRAINING" in resolution.classification_context["ancillary_obligations"]
+    consumer = resolution.classification_context["consumer_service_context"]
+    assert consumer["is_consumer_transaction"] is False
+    assert consumer["is_training_primary_transaction"] is False
+    assert consumer["gate_status"] == "NOT_APPLICABLE"
+
+
 def test_real_commissioned_fixture_overrides_service_and_matches_classification_golden():
     manifest = json.loads(CLASSIFICATION_GOLDEN.read_text(encoding="utf-8"))
     result = review_contract_v2(

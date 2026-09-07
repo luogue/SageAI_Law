@@ -218,8 +218,11 @@ def test_technical_secret_proof_uses_partial_atomic_facts_not_principle_warranty
         assert elements["historical_disclosure_objects"]["status"] == "PARTIALLY_COVERED"
         assert elements["historical_disclosure_scope"]["status"] == "PARTIALLY_COVERED"
         assert elements["third_party_confidentiality_obligations"]["status"] == "MISSING"
-        assert elements["existing_license_and_use_arrangements"]["status"] == "PARTIALLY_COVERED"
-        assert elements["joint_holder_disclosure"]["status"] == "MISSING"
+        assert "existing_license_and_use_arrangements" not in elements
+        assert elements["existing_license_disclosure"]["status"] == "MISSING"
+        assert elements["test_use_arrangement"]["status"] == "COVERED"
+        assert elements["other_third_party_use_arrangement"]["status"] == "COVERED"
+        assert elements["joint_holder_disclosure"]["status"] == "CONDITION_UNRESOLVED"
         assert elements["current_secret_status"]["status"] == "MISSING"
         assert elements["existing_confidentiality_measures"]["status"] == "MISSING"
 

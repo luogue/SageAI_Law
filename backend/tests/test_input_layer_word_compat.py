@@ -17,8 +17,11 @@ class _UploadFile:
         self.file = io.BytesIO(content)
 
 
+HOUSE_LEASE_FIXTURE = Path(__file__).resolve().parents[2] / "test_data" / "1、租房合同.docx"
+
+
 def test_extracts_legacy_word_file_renamed_as_docx():
-    fixture = next((Path(__file__).resolve().parents[2] / "test_data").glob("1*.docx"))
+    fixture = HOUSE_LEASE_FIXTURE
     upload = _UploadFile(fixture.name, fixture.read_bytes())
 
     text = InputLayer().extract_text_from_file(upload)
@@ -32,7 +35,7 @@ def test_extracts_legacy_word_file_renamed_as_docx():
 
 
 def test_real_house_lease_review_uses_structured_clauses_and_practical_ratings():
-    fixture = next((Path(__file__).resolve().parents[2] / "test_data").glob("1*.docx"))
+    fixture = HOUSE_LEASE_FIXTURE
     upload = _UploadFile(fixture.name, fixture.read_bytes())
     text = InputLayer().extract_text_from_file(upload)
 
@@ -59,7 +62,7 @@ def test_real_house_lease_review_uses_structured_clauses_and_practical_ratings()
 
 
 def test_real_production_report_contract_review(monkeypatch, tmp_path):
-    fixture = next((Path(__file__).resolve().parents[2] / "test_data").glob("1*.docx"))
+    fixture = HOUSE_LEASE_FIXTURE
     upload = _UploadFile(fixture.name, fixture.read_bytes())
 
     import review_v2.engine as engine_module

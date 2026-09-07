@@ -139,11 +139,10 @@ def test_c_software_license_facts_enable_software_and_open_source_requirements()
 def test_d_party_interest_check_distinguishes_uncapped_and_low_capped_licensor_liability():
     uncapped = _review(_docx_text(GOLD), "甲方/被许可方")
     uncapped_item = next(row for row in uncapped["items"] if row["item_id"] == "TC-12-04")
-    uncapped_elements = {row["element_id"]: row for row in uncapped_item["coverage_elements"]}
 
-    assert uncapped_elements["licensor_liability_cap"]["direction"] == "FAVORABLE"
-    assert uncapped_elements["licensor_liability_cap"]["risk_relevant"] is False
-    assert uncapped_item["decision_trace"]["party_interest_check"]["cap_effect"] == "COUNTERPARTY_UNCAPPED_FAVORABLE"
+    assert uncapped_item["coverage_status"] == "不适用"
+    assert uncapped_item["evidence_clauses"] == []
+    assert "同一侵权损失" in uncapped_item["reasoning_summary"]
     assert "未限制许可方责任" not in uncapped["result"]
 
     low_cap = _review(
@@ -163,18 +162,27 @@ def test_d_party_interest_check_distinguishes_uncapped_and_low_capped_licensor_l
 def test_e_missing_special_liability_is_not_mechanically_major_when_protected():
     protected = _review(_docx_text(GOLD), "甲方/被许可方")
     protected_item = next(row for row in protected["items"] if row["item_id"] == "TC-07-03")
-    protected_finding = next(row for row in protected["risk_findings"] if "TC-07-03" in row["source_review_ids"])
 
     assert protected_item["coverage_status"] == "缺失"
-    assert protected_item["risk_level"] == "中"
-    assert protected_finding["severity"] in {"LOW", "MEDIUM"}
-    assert protected_finding["severity"] not in {"HIGH", "CRITICAL"}
+    assert protected_item["risk_level"] == "低"
+    assert protected_item["risk_severity"] == "LOW"
+    assert protected_item["risk_direction"]["gate_result"] == "SUPPRESS_LICENSEE_ADVERSE_RISK"
+    assert all("TC-07-03" not in row["source_review_ids"] for row in protected["risk_findings"])
     assert protected_item["decision_trace"]["severity_calibration"]["existing_protection"] == {
         "license_scope_clear": True,
         "sublicense_controlled": True,
         "general_remedy_fallback": True,
     }
-    assert protected_finding["severity_reason"]["major_severity_reason"] == ""
+    assert protected_item["decision_trace"]["severity_calibration"]["statutory_liability"]["authority"] == "《中华人民共和国民法典》第873条"
+    assert "不主动新增或扩大被许可方赔偿责任" in protected_item["suggested_clause_example"]
+
+    licensor = _review(_docx_text(GOLD), "乙方/许可方")
+    licensor_item = next(row for row in licensor["items"] if row["item_id"] == "TC-07-03")
+    licensor_finding = next(row for row in licensor["risk_findings"] if "TC-07-03" in row["source_review_ids"])
+    assert licensor_item["risk_level"] == "高"
+    assert licensor_item["risk_direction"]["gate_result"] == "ALLOW_LICENSOR_PROTECTION_RISK"
+    assert licensor_finding["severity"] == "HIGH"
+    assert "擅自再许可" in licensor_finding["recommendation"]
 
     exposed_items = [
         _item("TC-07-01", "缺失"),
@@ -192,8 +200,8 @@ def test_e_missing_special_liability_is_not_mechanically_major_when_protected():
         {"primary_subtype": "TECHNOLOGY_LICENSE"},
     )
     calibration = next(row for row in exposed_items if row.item_id == "TC-07-03").decision_trace["severity_calibration"]
-    assert calibration["major_severity_reason"]
-    assert calibration["result"] == "HIGH_ONLY_IF_INDEPENDENT_MAJOR_FACTORS"
+    assert calibration["major_severity_reason"] == ""
+    assert calibration["result"] == "LICENSEE_LOW_BOUNDARY_NOTICE"
 
 
 def test_f_formal_recommendations_are_actionable_and_not_risk_copies():

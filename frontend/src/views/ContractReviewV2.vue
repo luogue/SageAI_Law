@@ -237,18 +237,35 @@
           />
 
           <div class="summary-grid">
-            <!-- 分级行动建议 -->
+            <!-- 最终风险严重度：来自聚合后的 RiskFinding -->
+            <div class="summary-card high">
+              <span>重大风险</span>
+              <strong>{{ overviewStats.major }}</strong>
+            </div>
+            <div class="summary-card medium">
+              <span>中等风险</span>
+              <strong>{{ overviewStats.medium }}</strong>
+            </div>
+            <div class="summary-card low">
+              <span>低风险</span>
+              <strong>{{ overviewStats.low }}</strong>
+            </div>
+            <!-- 最终行动分级：来自 FinalDisposition，禁止由严重度反推 -->
             <div class="summary-card must">
-              <span>必须修改</span>
-              <strong>{{ report.risk_finding_summary?.重大风险 || actionStats.must }}</strong>
+              <span>优先处理</span>
+              <strong>{{ overviewStats.priority }}</strong>
             </div>
             <div class="summary-card suggest">
-              <span>建议修改</span>
-              <strong>{{ report.risk_finding_summary?.中等风险 || actionStats.suggest }}</strong>
+              <span>建议处理</span>
+              <strong>{{ overviewStats.recommended }}</strong>
             </div>
             <div class="summary-card consider">
-              <span>可考虑改</span>
-              <strong>{{ report.risk_finding_summary?.低风险 || actionStats.consider }}</strong>
+              <span>可选优化</span>
+              <strong>{{ overviewStats.optional }}</strong>
+            </div>
+            <div class="summary-card medium">
+              <span>人工复核</span>
+              <strong>{{ overviewStats.manual }}</strong>
             </div>
             <div class="summary-card high">
               <span>已覆盖</span>
@@ -288,6 +305,18 @@
               </div>
             </div>
             <div v-else class="empty-core-risk">未发现需要优先处理的高风险或重大经济后果事项。</div>
+          </section>
+
+          <section v-if="report.manual_review_items?.length" class="core-risk-panel">
+            <div class="section-title">待核验事项（不等同于合同缺失）</div>
+            <div class="core-risk-list">
+              <div v-for="review in report.manual_review_items" :key="review.item_id" class="core-risk-row">
+                <div>
+                  <strong>{{ (review.source_rules || [review.item_id]).join(' / ') }} · {{ review.title }}</strong>
+                  <p>{{ review.review_instruction || review.reason }}</p>
+                </div>
+              </div>
+            </div>
           </section>
 
           <div class="review-list">
@@ -872,18 +901,21 @@ const coreRiskItems = computed(() => {
     .slice(0, 10)
 })
 
-// 分级行动统计（必须改/建议改/可考虑改）
-const actionStats = computed(() => {
-  if (!report.value?.items) return { must: 0, suggest: 0, consider: 0, covered: 0 }
-  let must = 0, suggest = 0, consider = 0, covered = 0
-  for (const item of report.value.items) {
-    const s = item.action_suggestion || item.status || ''
-    if (s.includes('无需修改') || item.coverage_status === '通过') covered++
-    else if (s.includes('必须') || s.includes('优先修改')) must++
-    else if (s.includes('建议') || s.includes('需关注')) suggest++
-    else if (item.coverage_status !== '不适用') consider++
+// 总览只读取后端最终统一结果；兼容旧响应时也只读取最终 finding/disposition 统计，
+// 不再从单项建议文案猜测行动等级。
+const overviewStats = computed(() => {
+  const overview = report.value?.final_overview_summary || {}
+  const severity = report.value?.risk_finding_summary || {}
+  const actions = report.value?.final_disposition_summary || {}
+  return {
+    major: overview.major_risk ?? severity['重大风险'] ?? 0,
+    medium: overview.medium_risk ?? severity['中等风险'] ?? 0,
+    low: overview.low_risk ?? severity['低风险'] ?? 0,
+    priority: overview.priority_action ?? actions.must_change ?? 0,
+    recommended: overview.recommended_action ?? actions.should_change ?? 0,
+    optional: overview.optional_action ?? actions.optional_improvement ?? 0,
+    manual: overview.manual_review ?? actions.manual_review ?? report.value?.manual_review_summary?.manual_review_count ?? 0
   }
-  return { must, suggest, consider, covered }
 })
 
 function judgeSourceLabel(source) {
@@ -1026,6 +1058,10 @@ async function runReview() {
     return
   }
 
+  // A failed replacement upload must not leave the previous contract's report
+  // visible.  Clear request-scoped output before starting the next review so a
+  // blocked/incomplete input cannot look as though it produced the stale result.
+  report.value = null
   loading.value = true
   stepActive.value = 2
   try {
@@ -1052,6 +1088,7 @@ async function runReview() {
     judgeSourceFilter.value = '全部'
     ElMessage.success('审查报告已生成')
   } catch (error) {
+    report.value = null
     stepActive.value = 1
     ElMessage.error(error.message || '审查失败')
   } finally {

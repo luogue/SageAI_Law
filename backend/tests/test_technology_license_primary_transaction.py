@@ -83,11 +83,22 @@ def test_gold_routes_raw_docx_to_technology_license_not_sale(gold_review: dict):
     assert model["license_semantics"]["boundaries"]["territory"] is True
     assert model["sale_semantics"]["independent_economic_value"] is False
     assert model["secondary_transactions"] == ["ANCILLARY_FUTURE_GOODS_SUPPLY"]
+    assert gold_review["domain_selection_resolution"]["document_domain"]["contract_subtype"] == "TECHNOLOGY_LICENSE"
+    assert gold_review["domain_selection_consistency_gate"]["status"] == "REPORT_READY"
     assert not any(item_id.startswith("S-") for item_id in review_ids)
     assert all(
         next(item for item in gold_review["items"] if item["item_id"] == item_id)["coverage_status"] != "不适用"
         for item_id in ("TC-07-01", "TC-07-02", "TC-07-03", "TC-07-04", "TC-13-04")
     )
+
+    overview = gold_review["final_overview_summary"]
+    assert overview["major_risk"] == sum(
+        row["severity"] in {"HIGH", "CRITICAL"} for row in gold_review["risk_findings"]
+    )
+    assert overview["priority_action"] == sum(
+        row["final_action"] == "MUST_CHANGE" for row in gold_review["final_dispositions"]
+    )
+    assert gold_review["final_disposition_invariant_gate"]["status"] == "REPORT_READY"
 
 
 def test_gold_generic_calculations_and_relationship_risks_remain_active(gold_review: dict):

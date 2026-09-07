@@ -808,7 +808,7 @@ def test_third_party_claim_advanced_only_gaps_are_optional_optimization():
     assert tiers["advanced_only_gap"] is True
     assert all(element_status[element_id] == "COVERED" for element_id in (
         "claim_trigger", "notice_requirement", "notice_deadline", "transferor_participation",
-        "document_assistance", "damages_allocation", "refund_or_termination_remedy",
+        "document_assistance", "damages_allocation", "refund_remedy", "termination_remedy",
     ))
     assert all(element_status[element_id] == "MISSING" for element_id in (
         "defense_control", "lawyer_selection", "settlement_authority", "defense_cost_allocation",

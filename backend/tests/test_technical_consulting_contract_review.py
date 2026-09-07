@@ -501,7 +501,7 @@ def test_consulting_report_projects_seven_atomic_findings_into_three_themes():
     assert "风险主题数（聚合后）：3" in output["result"]
     assert "底层审查发现数：7" in output["result"]
     assert "建议处理风险：1" in output["result"]
-    assert "可选优化数：2" in output["result"]
+    assert "可选优化主题数（聚合后）：2" in output["result"]
     assert output["overall_assessment"]["signability"] == "可以签署，建议进一步完善"
     assert "总体可签署性：可以签署，建议进一步完善" in output["result"]
     tc0804_finding = next(
@@ -529,13 +529,17 @@ def test_missing_consulting_data_provision_is_low_risk_but_should_change():
     assert item["risk_severity"] == "LOW"
     assert item["action_priority"] == "B_PRACTICAL"
     assert item["risk_point_description"] == (
-        "合同未明确委托方向咨询方提供开展技术咨询所需资料、数据及相关信息的义务，"
-        "资料提供范围、期限以及真实性、完整性责任不够明确。"
+        "当前未完整明确委托方应提供的合理资料和协作范围，以及咨询方发现资料缺陷后的书面通知、"
+        "影响说明、因果关系证明和顺延、费用调整或免责仅限实际受影响范围的边界。"
     )
+    assert "真实性、完整性责任" not in finding["issue"]
     assert finding["recommendation"] == (
-        "建议明确委托方应提供的资料、数据或相关信息范围、提供期限及真实性、完整性要求，"
-        "并约定因迟延提供或资料存在缺陷而影响咨询工作的责任承担。"
+        "建议将委托方的资料提供和协作义务限定于开展咨询工作所合理必要的范围；"
+        "咨询方发现资料缺失、矛盾或不适用时，应及时书面通知并说明具体影响。"
+        "咨询方主张工期顺延、费用调整或免责的，应证明资料问题与受影响工作之间的因果关系，"
+        "且顺延、调整或免责仅限于实际受影响范围。"
     )
+    assert "建议明确委托方真实性、完整性及迟延责任" not in finding["recommendation"]
     disposition = next(
         row for row in output["final_dispositions"]
         if row["risk_id"] == finding["finding_id"]
@@ -550,7 +554,28 @@ def test_simple_consulting_data_provision_is_partial_not_missing():
         "第三条 甲方应向乙方提供开展咨询所需的技术资料和相关数据。"
     )
 
-    assert _items(output)["TC-08-03"]["coverage_status"] == "部分覆盖"
+    item = _items(output)["TC-08-03"]
+    finding = next(
+        row for row in output["risk_findings"]
+        if "TC-08-03" in row["source_review_ids"]
+    )
+    truthfulness = next(
+        row for row in item["coverage_elements"]
+        if row["element_id"] == "truthfulness_completeness"
+    )
+
+    assert item["coverage_status"] == "部分覆盖"
+    assert truthfulness["status"] == "MISSING"
+    assert truthfulness["risk_relevant"] is False
+    assert truthfulness["user_disposition"] == "KEEP_CURRENT"
+    assert all(
+        row.get("element_id") != "truthfulness_completeness"
+        for row in finding["final_missing_elements"]
+    )
+    assert "资料真实、完整或准确义务" not in finding["issue"]
+    assert "及时书面通知" in finding["recommendation"]
+    assert "因果关系" in finding["recommendation"]
+    assert "实际受影响范围" in finding["recommendation"]
 
 
 def test_complete_consulting_data_provision_is_pass():
@@ -691,6 +716,20 @@ def test_consulting_confidentiality_elements_bind_to_actual_clause_evidence():
         assert tc1101_elements[element_id]["evidence_ids"]
     assert tc1101_elements["purpose_limitation"]["status"] == "PARTIALLY_COVERED"
     assert tc1101_elements["purpose_limitation"]["evidence_ids"]
+    tc1101_finding = next(
+        finding for finding in output["risk_findings"]
+        if "TC-11-01" in finding["source_review_ids"]
+    )
+    assert "保密信息仅可用于本合同约定的项目目的" in tc1101_finding["issue"]
+    assert any(
+        row["element_id"] == "purpose_limitation"
+        for row in tc1101_finding["final_missing_elements"]
+    )
+    confidentiality_theme = next(
+        theme for theme in output["risk_themes"]
+        if theme["title"] == "保密机制不完整"
+    )
+    assert "项目目的使用" in confidentiality_theme["issue"]
 
     tc1102 = by_id["TC-11-02"]
     tc1102_elements = {row["element_id"]: row for row in tc1102["coverage_elements"]}
@@ -1018,6 +1057,34 @@ def test_latest_consulting_docx_full_regression_has_no_subtype_or_evidence_regre
     } <= titles
     for marker in ("1,260,000", "105%", "60,000", "支付给委托方", "第9、10、11个月"):
         assert marker in report
+    assert "延至第11个月" in report
+    assert "延至第10个月" not in report
+    assert "可选优化主题数（聚合后）：" in report
+    assert "- 可选优化数：" not in report
+
+    for item_id in ("GEN-LIAB-02", "GEN-LIAB-03"):
+        assert by_id[item_id]["economic_impact"] == "medium"
+        assert by_id[item_id]["economic_impact_detail"]["level"] == "medium"
+    findings_by_group = {row["risk_group"]: row for row in output["risk_findings"]}
+    assert findings_by_group["generic_liability_cap_validity"]["economic_impact"]["level"] == "medium"
+    liability_finding = findings_by_group["generic_liability_cap_validity"]
+    assert "造成对方人身损害" in liability_finding["consequence"]
+    assert "因故意或者重大过失造成对方财产损失" in liability_finding["consequence"]
+    assert "因过错造成的财产损失" not in report
+    assert "保留当前审查方依法追偿的权利" in liability_finding["recommendation"]
+    penalty_impact = findings_by_group["generic_potential_excessive_liquidated_damages"]["economic_impact"]
+    assert penalty_impact["level"] == "medium"
+    assert penalty_impact["amount_estimate"] == 360_000
+    assert "潜在可主张金额为EUR 360,000，占合同总价30%" in report
+    assert "该金额由相对方向当前审查方支付，不属于当前审查方的资金暴露" in report
+    assert "直接资金暴露为EUR 360,000" not in report
+    assert "保留当前审查方可主张的违约救济" in findings_by_group[
+        "generic_potential_excessive_liquidated_damages"
+    ]["recommendation"]
+
+    confidentiality = findings_by_group["technical_secret_confidentiality"]
+    assert "明确保密信息仅可用于本合同约定的项目目的" in confidentiality["recommendation"]
+    assert "补充明确未" not in confidentiality["recommendation"]
     assert "第874条" not in report
     assert "第884条" not in report
     assert output["release_quality_gate"]["status"] == "REPORT_READY"

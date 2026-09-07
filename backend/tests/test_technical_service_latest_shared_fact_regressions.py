@@ -431,7 +431,7 @@ def test_gross_negligence_liability_cap_triggers_validity_review_without_voiding
     assert "故意或者重大过失" in layers["legal_rule"]
     finding = next(row for row in _review()["risk_findings"] if "GEN-LIAB-02" in row["source_review_ids"])
     assert "不当然影响整份合同效力" in finding["consequence"]
-    assert "故意、重大过失" in finding["recommendation"]
+    assert "故意或者重大过失" in finding["recommendation"]
 
 
 def test_excessive_liquidated_damages_are_flagged_as_adjustment_risk_not_invalidity():

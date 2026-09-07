@@ -37,15 +37,36 @@ async function handleResponse(response) {
     window.location.href = '/login'
     throw new Error('登录已过期，请重新登录')
   }
-  const data = await response.json()
+
+  // Vite/nginx may return an empty or non-JSON response when the upstream API
+  // is unavailable.  Parsing it unconditionally hides the real failure behind
+  // "Unexpected end of JSON input".  Read once and validate the payload so all
+  // API callers receive an actionable error instead.
+  const responseText = await response.text()
+  let data = null
+  if (responseText.trim()) {
+    try {
+      data = JSON.parse(responseText)
+    } catch (error) {
+      const message = response.ok
+        ? '服务响应格式异常，请稍后重试'
+        : `服务请求失败（HTTP ${response.status}）`
+      throw new Error(message)
+    }
+  }
+
   if (!response.ok) {
     // 创建一个包含response信息的错误对象
-    const error = new Error(data.detail?.message || data.detail || '请求失败')
+    const error = new Error(data?.detail?.message || data?.detail || `服务请求失败（HTTP ${response.status}）`)
     error.response = {
       status: response.status,
-      data: data.detail || data
+      data: data?.detail || data
     }
     throw error
+  }
+
+  if (data === null && response.status !== 204) {
+    throw new Error('服务返回空响应，请稍后重试')
   }
   return data
 }
@@ -135,7 +156,26 @@ export async function reviewContractV2File(file, contractType = 'house_lease', i
     body: formData
   })
 
-  return handleResponse(response)
+  const result = await handleResponse(response)
+  if (import.meta.env.DEV) {
+    // Request-local provenance, not a guessed build version or cached report.
+    // No contract text or credentials are included in this diagnostic.
+    console.info('[review-v2 runtime]', JSON.stringify({
+      trace: result.production_path_trace,
+      release_quality_gate: result.release_quality_gate,
+      element_states: (result.items || []).map(item => ({
+        rule: item.item_id,
+        coverage: item.coverage_status,
+        elements: (item.coverage_elements || []).map(element => ({
+          id: element.element_id, status: element.status,
+          prerequisite: element.prerequisite_status
+        })),
+        searched_absent_elements: (item.decision_trace?.element_absence_searches || [])
+          .filter(search => search.result === 'NOT_FOUND').map(search => search.element_id)
+      }))
+    }))
+  }
+  return result
 }
 
 // 合同审查第二版：诉讼策略分析

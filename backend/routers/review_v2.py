@@ -45,9 +45,18 @@ from review_v2.engine import (
     review_contract_v2,
 )
 from review_v2.contract_registry import get_checklist_for_resolution
+from review_v2 import engine as review_engine_module
+from review_v2.element_resolution import conditional_element
+from review_v2.clause_parser import strip_non_contract_tail
+from review_v2.input_integrity import (
+    build_input_integrity_diagnostics,
+    input_integrity_user_message,
+    log_input_integrity,
+)
 from review_v2.technology_service_analysis import (
     TECHNOLOGY_CLASSIFIER_VERSION,
     classify_technology_transaction,
+    extract_claim_response_facts,
 )
 from review_v2.llm_semantic_reviewer import get_llm_review_status
 from review_v2.user_profile import UserRiskProfile
@@ -88,21 +97,27 @@ def _runtime_source_identity(target: Any) -> Dict[str, Any]:
     }
 
 
-_LOADED_DEPENDENCY_SOURCES = {
-    "engine": _runtime_source_identity(review_contract_v2),
-    "classifier": _runtime_source_identity(classify_technology_transaction),
-    "registry": _runtime_source_identity(get_checklist_for_resolution),
+_RUNTIME_SOURCE_TARGETS = {
+    "engine": review_contract_v2,
+    "classifier": classify_technology_transaction,
+    "registry": get_checklist_for_resolution,
+    "document_parser": InputLayer.extract_text_with_diagnostics,
+    "normalization": strip_non_contract_tail,
+    "conditional_elements": conditional_element,
+    "claim_evidence": extract_claim_response_facts,
+    "claim_projection": review_engine_module._apply_exact_claim_response,
+    "license_evaluation": review_engine_module._apply_technology_transaction_evidence_consistency,
+    "secret_proof_evaluation": review_engine_module._technical_secret_transfer_proof_results,
+    "element_search": review_engine_module._resolve_final_element_searches,
+    "recommendations": review_engine_module._finalize_element_recommendation_sources,
 }
+_LOADED_DEPENDENCY_SOURCES = {name: _runtime_source_identity(target)
+                              for name, target in _RUNTIME_SOURCE_TARGETS.items()}
 
 
 def _runtime_source_drift_status() -> Dict[str, Any]:
     """Fail closed when the running worker has older code than the workspace."""
-    targets = {
-        "engine": review_contract_v2,
-        "classifier": classify_technology_transaction,
-        "registry": get_checklist_for_resolution,
-    }
-    current = {name: _runtime_source_identity(target) for name, target in targets.items()}
+    current = {name: _runtime_source_identity(target) for name, target in _RUNTIME_SOURCE_TARGETS.items()}
     changed = [
         name for name, identity in current.items()
         if str(identity.get("sha256") or "")
@@ -135,6 +150,8 @@ class ReviewV2Result(BaseModel):
     all_items_count: int = 0
     summary: Dict[str, int] = Field(default_factory=dict)
     risk_finding_summary: Dict[str, int] = Field(default_factory=dict)
+    final_overview_summary: Dict[str, int] = Field(default_factory=dict)
+    final_disposition_summary: Dict[str, int] = Field(default_factory=dict)
     coverage_summary: Dict[str, int] = Field(default_factory=dict)
     issue_type_summary: Dict[str, int] = Field(default_factory=dict)
     judge_source_summary: Dict[str, int] = Field(default_factory=dict)
@@ -150,6 +167,7 @@ class ReviewV2Result(BaseModel):
     contract_facts: Dict[str, Any] = Field(default_factory=dict)
     deterministic_analysis: Dict[str, Any] = Field(default_factory=dict)
     document_integrity: Dict[str, Any] = Field(default_factory=dict)
+    input_integrity: Dict[str, Any] = Field(default_factory=dict)
     quality_gate: Dict[str, Any] = Field(default_factory=dict)
     review_results_4_0: List[Dict[str, Any]] = Field(default_factory=list)
     risk_findings: List[Dict[str, Any]] = Field(default_factory=list)
@@ -161,11 +179,14 @@ class ReviewV2Result(BaseModel):
     risk_theme_severity_summary: Dict[str, int] = Field(default_factory=dict)
     recommendations: List[Dict[str, Any]] = Field(default_factory=list)
     final_dispositions: List[Dict[str, Any]] = Field(default_factory=list)
+    final_disposition_invariant_gate: Dict[str, Any] = Field(default_factory=dict)
     manual_review_items: List[Dict[str, Any]] = Field(default_factory=list)
     manual_review_summary: Dict[str, Any] = Field(default_factory=dict)
     contract_context: Dict[str, Any] = Field(default_factory=dict)
     report_context: Dict[str, Any] = Field(default_factory=dict)
     perspective_resolution: Dict[str, Any] = Field(default_factory=dict)
+    domain_selection_resolution: Dict[str, Any] = Field(default_factory=dict)
+    domain_selection_consistency_gate: Dict[str, Any] = Field(default_factory=dict)
     overall_assessment: Dict[str, Any] = Field(default_factory=dict)
     legal_reference_issues: List[Dict[str, Any]] = Field(default_factory=list)
     legal_citation_claims: List[Dict[str, Any]] = Field(default_factory=list)
@@ -1032,9 +1053,36 @@ async def review_v2_file(
     profile = UserRiskProfile.from_dict(profile_dict)
 
     try:
-        contract_text = input_layer.extract_text_from_file(file)
+        contract_text, source_input_diagnostics = input_layer.extract_text_with_diagnostics(file)
     except Exception as exc:
         raise HTTPException(status_code=400, detail=f"合同文本读取失败：{exc}") from exc
+
+    normalized_text = strip_non_contract_tail(contract_text)
+    preflight_integrity = build_input_integrity_diagnostics(
+        extracted_text=contract_text,
+        normalized_text=normalized_text,
+        classifier_input=normalized_text,
+        clause_extraction_input=normalized_text,
+        rule_engine_input=normalized_text,
+        search_audit_input=normalized_text,
+        source_diagnostics=source_input_diagnostics,
+        downstream_used=False,
+    )
+    log_input_integrity(logger, preflight_integrity, filename=filename)
+    if preflight_integrity["status"] == "BLOCKED":
+        logger.error(
+            "[REVIEW_INPUT_BLOCKED] filename=%s failures=%s",
+            filename,
+            preflight_integrity.get("failures") or [],
+        )
+        raise HTTPException(
+            status_code=422,
+            detail={
+                "code": "CONTRACT_INPUT_INTEGRITY_FAILED",
+                "message": input_integrity_user_message(preflight_integrity),
+                "input_integrity": preflight_integrity,
+            },
+        )
 
     result = review_contract_v2(
         contract_text,
@@ -1042,6 +1090,13 @@ async def review_v2_file(
         include_low_risk=include_low_risk,
         use_llm=use_llm,
         profile=profile,
+        source_input_diagnostics=source_input_diagnostics,
+    )
+    log_input_integrity(
+        logger,
+        result.get("input_integrity") or preflight_integrity,
+        trace_id=str(result.get("contract_review_trace_id") or ""),
+        filename=filename,
     )
     actual_pipeline = str((result.get("system_metadata") or {}).get("pipeline_version") or "")
     if actual_pipeline != PIPELINE_VERSION:
@@ -1061,6 +1116,7 @@ async def review_v2_file(
         "engine_file": inspect.getsourcefile(review_contract_v2) or "",
         "engine_line": review_contract_v2.__code__.co_firstlineno,
         "process_id": os.getpid(),
+        "working_directory": os.getcwd(),
         "evidence_implementation": TECHNICAL_CONSULTING_EVIDENCE_IMPLEMENTATION,
         "pipeline_id": PIPELINE_VERSION,
         "engine_version": (result.get("system_metadata") or {}).get("system_version"),
@@ -1069,19 +1125,18 @@ async def review_v2_file(
         "ruleset_version": RULE_VERSION,
         "runtime_sources": {
             "entrypoint": _runtime_source_identity(review_v2_file),
-            "engine": _runtime_source_identity(review_contract_v2),
-            "classifier": _runtime_source_identity(classify_technology_transaction),
-            "registry": _runtime_source_identity(get_checklist_for_resolution),
+            **source_drift["current"],
         },
         "runtime_source_drift": source_drift,
         "document_hash": hashlib.sha256(contract_text.encode("utf-8")).hexdigest(),
         "cache": {"status": "MISS", "reason": "review-v2/file has no rule, evidence, or report result cache"},
         "input_visibility": {
-            "normalized_text_length": len(contract_text),
+            "normalized_text_length": len(normalized_text),
             "confidentiality_terms_present": any(term in contract_text for term in (
                 "保密", "商业秘密", "技术秘密", "不得泄露", "不得披露", "持续有效",
             )),
         },
+        "input_integrity": result.get("input_integrity") or preflight_integrity,
         "classification_lifecycle": ((result.get("observability") or {}).get("classification_lifecycle") or {}),
         "classification_runtime": ((result.get("observability") or {}).get("classification_runtime") or {}),
         "registry_runtime": ((result.get("observability") or {}).get("review_registry_debug") or {}),

@@ -373,6 +373,7 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
     """
 
     lines = _clean_lines(contract_text)
+    field_section_document = not any(ARTICLE_RE.match(line) for line in lines)
     if not lines:
         return []
 
@@ -438,6 +439,19 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
             continue
 
         article_match = ARTICLE_RE.match(line)
+        if field_section_document and re.fullmatch(r"【[^【】\n]{1,40}】", line):
+            flush()
+            seen_structural_marker = True
+            current_section = SECTION_FORMAL
+            formal_started = True
+            current_location = line
+            current_title = line[1:-1]
+            article_location = line
+            article_heading = line
+            current_heading_path = [line]
+            current_level = 1
+            current_lines = [line]
+            continue
         chinese_heading_match = CHINESE_HEADING_RE.match(line)
         party_match = PARTY_RE.match(line)
         if APPENDIX_RE.match(line):
@@ -478,13 +492,17 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
         if chinese_heading_match and current_section in {SECTION_FORMAL, SECTION_APPENDIX}:
             flush()
             seen_structural_marker = True
+            parent_section = current_section
             article_location = line.split("、", 1)[0] + "、"
             current_location = line
             current_title = chinese_heading_match.group(1).strip() or line
             current_level = 1
             article_heading = line
             current_heading_path = [line]
-            current_section = SECTION_FORMAL
+            # Numbered headings inside an annex remain annex content until an
+            # explicit section boundary starts.  Otherwise the annex title is
+            # detached from the schedule rows that follow it.
+            current_section = SECTION_APPENDIX if parent_section == SECTION_APPENDIX else SECTION_FORMAL
             formal_started = True
             current_lines = [line]
             continue

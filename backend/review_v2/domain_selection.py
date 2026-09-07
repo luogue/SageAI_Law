@@ -78,7 +78,11 @@ def consumer_service_context(text: str, technology_classification: Dict[str, Any
     compact = re.sub(r"\s+", "", text or "")
     technology = technology_classification or classify_technology_transaction(text)
     primary_type = str(technology.get("primary_contract_type") or "")
-    technology_development = primary_type in {"commissioned_development", "cooperative_development"}
+    technology_subtype = str(technology.get("primary_subtype") or "")
+    technology_primary = (
+        technology_subtype in _TECHNOLOGY_SUBTYPES
+        and primary_type not in {"", "general_technology"}
+    )
     training_signals = [term for term in ("培训", "课程", "课时", "授课", "学员", "上课") if term in compact]
     prepaid_signals = [term for term in ("预付费", "预付款", "会员卡", "储值", "充值", "课包", "剩余课时") if term in compact]
     consumer_signals = [term for term in ("消费者", "学员", "会员", "家长", "个人客户") if term in compact]
@@ -86,9 +90,27 @@ def consumer_service_context(text: str, technology_classification: Dict[str, Any
         term for term in ("培训费", "课程费", "课时费", "课程包", "培训项目", "服务费")
         if term in compact
     ]
-    is_training_primary = bool(training_signals and training_economic_signals and not technology_development)
-    is_prepaid_service = bool(prepaid_signals and (training_signals or "服务" in compact) and not technology_development)
-    is_consumer_transaction = bool(consumer_signals and (training_signals or "服务" in compact) and not technology_development)
+    consumer_training_structure = bool(
+        consumer_signals
+        or any(term in compact for term in ("课程", "课时", "授课", "上课", "培训中心"))
+    )
+    is_training_primary = bool(
+        training_signals
+        and training_economic_signals
+        and consumer_training_structure
+        and not technology_primary
+    )
+    is_prepaid_service = bool(
+        prepaid_signals
+        and consumer_training_structure
+        and (training_signals or "服务" in compact)
+        and not technology_primary
+    )
+    is_consumer_transaction = bool(
+        consumer_signals
+        and (training_signals or "服务" in compact)
+        and not technology_primary
+    )
     return {
         "is_consumer_transaction": is_consumer_transaction,
         "is_prepaid_service": is_prepaid_service,
@@ -144,7 +166,16 @@ def _technology_family_evidence(
     subtype = str(classification.get("primary_subtype") or "")
     confidence = str(classification.get("confidence") or "low")
     raw_score = int(classification.get("classification_score") or 0)
-    if subtype not in _TECHNOLOGY_SUBTYPES or confidence == "low":
+    primary_model = dict(classification.get("primary_transaction_model") or {})
+    model_type = str(primary_model.get("type") or "")
+    model_score = int(((primary_model.get("family_scores") or {}).get("TECHNOLOGY") or 0))
+    model_proves_technology = model_type in {
+        "TECHNOLOGY_LICENSE", "MIXED_SALE_TECHNOLOGY_LICENSE", "TECHNOLOGY_TRANSFER",
+    }
+    if (
+        subtype not in _TECHNOLOGY_SUBTYPES
+        or (confidence == "low" and not model_proves_technology)
+    ):
         return 0, [], classification
 
     reasons = [str(value) for value in classification.get("classification_evidence") or []]
@@ -154,9 +185,6 @@ def _technology_family_evidence(
         term in clause.text
         for term in ("委托", "开发", "研发", "源代码", "API", "专利", "许可", "技术服务", "技术咨询")
     )][:12]
-    primary_model = dict(classification.get("primary_transaction_model") or {})
-    model_type = str(primary_model.get("type") or "")
-    model_score = int(((primary_model.get("family_scores") or {}).get("TECHNOLOGY") or 0))
     if model_type == "GOODS_SALE":
         return 0, [], classification
     score = max(6, raw_score, model_score)

@@ -103,7 +103,7 @@ def _technology_subtype_roles(contract_subtype: str) -> tuple[str, ...]:
         return ("COOPERATIVE_DEVELOPER",)
     if subtype == "ENTRUSTED_DEVELOPMENT":
         return ("COMMISSIONING_PARTY", "DEVELOPMENT_CONTRACTOR", "ENTRUSTED_DEVELOPMENT_PARTY")
-    if subtype == "PATENT_RIGHT_TRANSFER":
+    if subtype in {"PATENT_RIGHT_TRANSFER", "PATENT_APPLICATION_RIGHT_TRANSFER"}:
         return ("PATENT_TRANSFEREE", "PATENT_TRANSFEROR")
     if subtype in {"PATENT_LICENSE", "TECHNOLOGY_LICENSE", "TECHNICAL_SECRET_LICENSE"}:
         return ("PATENT_LICENSEE", "PATENT_LICENSOR")
@@ -127,7 +127,7 @@ def _transaction_type(contract_family: str, contract_subtype: str) -> str:
     subtype = (contract_subtype or "").upper()
     if subtype in {"PATENT_LICENSE", "TECHNOLOGY_LICENSE", "TECHNICAL_SECRET_LICENSE"}:
         return "TECHNOLOGY_LICENSE"
-    if subtype in {"PATENT_RIGHT_TRANSFER", "TECHNOLOGY_TRANSFER", "TECHNICAL_SECRET_TRANSFER"}:
+    if subtype in {"PATENT_RIGHT_TRANSFER", "PATENT_APPLICATION_RIGHT_TRANSFER", "TECHNOLOGY_TRANSFER", "TECHNICAL_SECRET_TRANSFER"}:
         return "TECHNOLOGY_TRANSFER"
     return subtype or (contract_family or "OTHER").upper()
 
@@ -197,7 +197,7 @@ def _contract_defined_role(contract_text: str, party_side: str, contract_subtype
             (("许可方", "出让方"), "PATENT_LICENSOR"),
             (("被许可方", "受让方"), "PATENT_LICENSEE"),
         )
-    elif subtype in {"PATENT_RIGHT_TRANSFER", "TECHNOLOGY_TRANSFER", "TECHNICAL_SECRET_TRANSFER"}:
+    elif subtype in {"PATENT_RIGHT_TRANSFER", "PATENT_APPLICATION_RIGHT_TRANSFER", "TECHNOLOGY_TRANSFER", "TECHNICAL_SECRET_TRANSFER"}:
         mappings = (
             (("转让方", "让与方", "让与人"), "PATENT_TRANSFEROR"),
             (("受让方", "受让人"), "PATENT_TRANSFEREE"),
@@ -291,6 +291,9 @@ def resolve_perspective(
         service_label = DISPLAY_ROLES[accepted]
         display_role = f"{review_party_label} / {service_label}"
     contract_display_role = DISPLAY_ROLES.get(accepted, DISPLAY_ROLES["OTHER"])
+    if subtype == "PATENT_APPLICATION_RIGHT_TRANSFER" and accepted in {"PATENT_TRANSFEREE", "PATENT_TRANSFEROR"}:
+        contract_display_role = "专利申请权受让方" if accepted == "PATENT_TRANSFEREE" else "专利申请权让与方"
+        display_role = f"{review_party_label} / {contract_display_role}" if review_party_label else contract_display_role
     if subtype == "TECHNICAL_SECRET_TRANSFER" and accepted in {"PATENT_TRANSFEREE", "PATENT_TRANSFEROR"}:
         contract_display_role = "技术秘密受让方" if accepted == "PATENT_TRANSFEREE" else "技术秘密转让方"
         display_role = f"{review_party_label} / {contract_display_role}" if review_party_label else contract_display_role
