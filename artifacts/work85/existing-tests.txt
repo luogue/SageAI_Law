@@ -1,0 +1,91 @@
+......................F...............................FF................ [ 96%]
+...                                                                      [100%]
+================================== FAILURES ===================================
+________________ test_current_file_locations_and_applicability ________________
+
+    def test_current_file_locations_and_applicability():
+        result = review_contract_v2(document('56 承揽合同.docx'), 'work_contract', use_llm=False)
+        assert result['release_quality_gate']['status'] == 'REPORT_READY'
+        rows = {i['item_id']: i for i in result['items']}
+        assert rows['W-02-02']['coverage_status'] == '不适用'
+        assert rows['W-03-04']['coverage_status'] == '通过'
+        for row in result['items']:
+            if row['evidence_clauses']:
+                assert row['evidence_location'] == '；'.join(dict.fromkeys(e['location'] for e in row['evidence_clauses']))
+            if row['coverage_status'] == '不适用':
+                assert row['applicable_if'] != '始终适用'
+                assert row['applicability'].get('condition') != 'ALWAYS_APPLICABLE'
+                assert '始终适用' not in str(row['applicability'])
+            if row['coverage_status'] == '通过' and row['decision_trace']['review_mode'] == 'ABSENCE_REQUIRED':
+>               narrative = _judgment_text(ReviewItemResult(**row), {'clause_number': '无对应条款'})
+E               TypeError: ReviewItemResult.__init__() got an unexpected keyword argument 'presentation'
+
+backend\tests\test_work_remedy_semantics.py:71: TypeError
+___________ test_current_work_full_route_and_each_positive_element ____________
+
+work = {'success': True, 'contract_type': 'work_contract', 'selected_contract_type': 'sale', 'domain_selection_resolution': {...contract_subtype': 'GENERAL_CONTRACT', ...}, 'compatibility': 'CONFLICT', 'resolution': 'DOCUMENT_OVERRIDE', ...}, ...}
+
+    def test_current_work_full_route_and_each_positive_element(work):
+        assert work['contract_type'] == 'work_contract'
+        assert work['contract_type_name'] == '承揽合同'
+>       assert len(work['items']) == 44
+E       AssertionError: assert 45 == 44
+E        +  where 45 = len([{'item_id': 'W-01-01', 'node_id': 'work_contract_type_identification', 'title': '承揽合同性质', 'risk_level': '低', ...}, {'..., {'item_id': 'W-02-02', 'node_id': 'work_professional_license', 'title': '专业资质和执业资格', 'risk_level': 'none', ...}, ...])
+
+backend\tests\test_work_canonical_evidence.py:37: AssertionError
+_____ test_warranty_quantity_effective_date_and_shared_acceptance_sources _____
+
+work = {'success': True, 'contract_type': 'work_contract', 'selected_contract_type': 'sale', 'domain_selection_resolution': {...contract_subtype': 'GENERAL_CONTRACT', ...}, 'compatibility': 'CONFLICT', 'resolution': 'DOCUMENT_OVERRIDE', ...}, ...}
+
+    def test_warranty_quantity_effective_date_and_shared_acceptance_sources(work):
+        store = work['deterministic_analysis']['canonical_work_source_facts']['facts']
+        def selected(key): return [e for e in store if key in e['supported_elements']]
+        assert any('12个月' in e['quote'] and '第二条' in e['location'] for e in selected('goods_warranty_duration'))
+        assert any('5000套' in e['quote'] for e in selected('goods_subject_quantity'))
+        assert not any('18吨' in e['quote'] for e in selected('goods_subject_quantity'))
+        assert any('2026年9月8日' in e['quote'] for e in selected('contract_effective_condition'))
+        acceptance = selected('goods_inspection_deadline')
+        assert all(e['location'] == '第六条第3项' for e in acceptance)
+        item = next(i for i in work['items'] if i['item_id']=='W-07-03')
+>       assert any(e['evidence_id'] == acceptance[0]['evidence_id'] for e in item['evidence_clauses'])
+E       assert False
+E        +  where False = any(<generator object test_warranty_quantity_effective_date_and_shared_acceptance_sources.<locals>.<genexpr> at 0x000001841F039C40>)
+
+backend\tests\test_work_canonical_evidence.py:73: AssertionError
+============================== warnings summary ===============================
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\storage\database.py:41
+  F:\ai\Sage\backend\storage\database.py:41: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+backend\main.py:145
+  F:\ai\Sage\backend\main.py:145: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_work_remedy_semantics.py::test_current_file_locations_and_applicability
+FAILED backend/tests/test_work_canonical_evidence.py::test_current_work_full_route_and_each_positive_element
+FAILED backend/tests/test_work_canonical_evidence.py::test_warranty_quantity_effective_date_and_shared_acceptance_sources
+3 failed, 72 passed, 5 warnings in 38.43s

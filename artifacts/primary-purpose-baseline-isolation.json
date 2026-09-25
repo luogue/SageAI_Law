@@ -1,0 +1,168 @@
+[
+  {
+    "selected": "house_lease",
+    "mode": "updated",
+    "route": "sale",
+    "failures": [
+      {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "details": [
+          {
+            "risk_id": "RF-041",
+            "review_id": "FS-14",
+            "element_id": "supplement_priority",
+            "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+          },
+          {
+            "risk_id": "RF-041",
+            "review_id": "FS-14",
+            "element_id": "amendment_priority",
+            "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+          },
+          {
+            "risk_id": "RF-041",
+            "review_id": "FS-14",
+            "element_id": "order_priority",
+            "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+          },
+          {
+            "review_id": "FS-14",
+            "evidence_owner": "ELEMENT_SEARCH",
+            "element_id": "supplement_priority",
+            "reason": "INVALID_ABSENCE_SEARCH_TARGET",
+            "target_fields": [
+              "search_targets"
+            ],
+            "search_targets": []
+          },
+          {
+            "review_id": "FS-14",
+            "evidence_owner": "ELEMENT_SEARCH",
+            "element_id": "amendment_priority",
+            "reason": "INVALID_ABSENCE_SEARCH_TARGET",
+            "target_fields": [
+              "search_targets"
+            ],
+            "search_targets": []
+          },
+          {
+            "review_id": "FS-14",
+            "evidence_owner": "ELEMENT_SEARCH",
+            "element_id": "order_priority",
+            "reason": "INVALID_ABSENCE_SEARCH_TARGET",
+            "target_fields": [
+              "search_targets"
+            ],
+            "search_targets": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "selected": "house_lease",
+    "mode": "previous",
+    "route": "sale",
+    "failures": [
+      {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "details": [
+          {
+            "risk_id": "RF-041",
+            "review_id": "FS-14",
+            "element_id": "supplement_priority",
+            "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+          },
+          {
+            "risk_id": "RF-041",
+            "review_id": "FS-14",
+            "element_id": "amendment_priority",
+            "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+          },
+          {
+            "risk_id": "RF-041",
+            "review_id": "FS-14",
+            "element_id": "order_priority",
+            "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+          },
+          {
+            "review_id": "FS-14",
+            "evidence_owner": "ELEMENT_SEARCH",
+            "element_id": "supplement_priority",
+            "reason": "INVALID_ABSENCE_SEARCH_TARGET",
+            "target_fields": [
+              "search_targets"
+            ],
+            "search_targets": []
+          },
+          {
+            "review_id": "FS-14",
+            "evidence_owner": "ELEMENT_SEARCH",
+            "element_id": "amendment_priority",
+            "reason": "INVALID_ABSENCE_SEARCH_TARGET",
+            "target_fields": [
+              "search_targets"
+            ],
+            "search_targets": []
+          },
+          {
+            "review_id": "FS-14",
+            "evidence_owner": "ELEMENT_SEARCH",
+            "element_id": "order_priority",
+            "reason": "INVALID_ABSENCE_SEARCH_TARGET",
+            "target_fields": [
+              "search_targets"
+            ],
+            "search_targets": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "selected": "sale",
+    "mode": "updated",
+    "route": "house_lease",
+    "failures": [
+      {
+        "requirement": "Report Post-render Internal Term Gate",
+        "failure_stage": "Report Consistency",
+        "root_cause": "正式报告存在内部术语或PASS模板噪音：统一事实图谱, early_termination.。",
+        "fix_owner": "Report Serializer"
+      },
+      {
+        "requirement": "PRODUCTION_INTERNAL_TOKEN_GATE",
+        "failure_stage": "Post-render Production Serializer Gate",
+        "root_cause": "正式报告包含仅供调试使用的内部标记。",
+        "responsible_function": "_format_markdown_v2",
+        "current_status": "FAIL"
+      }
+    ]
+  },
+  {
+    "selected": "sale",
+    "mode": "previous",
+    "route": "house_lease",
+    "failures": [
+      {
+        "requirement": "Report Post-render Internal Term Gate",
+        "failure_stage": "Report Consistency",
+        "root_cause": "正式报告存在内部术语或PASS模板噪音：统一事实图谱, early_termination.。",
+        "fix_owner": "Report Serializer"
+      },
+      {
+        "requirement": "PRODUCTION_INTERNAL_TOKEN_GATE",
+        "failure_stage": "Post-render Production Serializer Gate",
+        "root_cause": "正式报告包含仅供调试使用的内部标记。",
+        "responsible_function": "_format_markdown_v2",
+        "current_status": "FAIL"
+      }
+    ]
+  }
+]

@@ -1,0 +1,3523 @@
+[
+  {
+    "rule_id": "EMP-07-01",
+    "element_id": "employment_insurance_2",
+    "review_id": "EMP-07-01",
+    "search_targets": [
+      "个人应缴部分及代扣代缴"
+    ],
+    "query_patterns": [
+      "(?:个人|劳动者|乙方).{0,15}(?:应缴|承担).{0,40}(?:代扣|代缴)|(?:代扣代缴).{0,45}(?:社会保险|社保).{0,15}个人缴费部分"
+    ],
+    "query_semantic_target": "个人应缴部分及代扣代缴",
+    "query_semantics": "POSITIVE_REQUIRED_FACT",
+    "search_mode": "SEMANTIC_REQUIREMENT",
+    "searched_clause_ids": [
+      "C0001",
+      "C0002",
+      "C0003",
+      "C0004",
+      "C0005",
+      "C0006",
+      "C0007",
+      "C0008",
+      "C0009",
+      "C0010",
+      "C0011",
+      "C0012",
+      "C0013",
+      "C0014",
+      "C0015",
+      "C0016",
+      "C0017",
+      "C0018",
+      "C0019",
+      "C0020",
+      "C0021"
+    ],
+    "search_corpus_chunks": [
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "text": "劳动合同\n合同编号：LD-2026-0909-07",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0002",
+        "location": "甲方（用人单位）：上海澄远数字科技有限公司",
+        "text": "甲方（用人单位）：上海澄远数字科技有限公司\n统一社会信用代码：91310115MA8X6R729Q\n住所：上海市浦东新区张江路688号创新大厦12层\n法定代表人：周明远\n联系电话：021-58762136",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0003",
+        "location": "乙方（劳动者）：陈昊",
+        "text": "乙方（劳动者）：陈昊\n身份证号码：310*4217\n户籍所在地：江苏省苏州市吴中区\n现居住地址：上海市浦东新区金科路1188弄16号702室\n联系电话：1385726\n根据《中华人民共和国劳动法》《中华人民共和国劳动合同法》等有关法律法规，甲乙双方在平等自愿、协商一致的基础上订立本合同，共同遵守。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "text": "第一条 合同期限\n本合同为固定期限劳动合同，合同期限自2026年9月15日起至2029年9月14日止，共三年。\n双方约定试用期自2026年9月15日起至2027年4月14日止。\n试用期内，如甲方认为乙方工作能力、工作态度、团队协作能力或岗位匹配度未达到甲方要求，甲方有权解除劳动合同。\n试用期满后，乙方继续工作的，视为通过试用期。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "text": "第二条 工作岗位及工作地点\n乙方同意担任甲方“高级软件开发工程师”岗位，主要负责企业智能化平台的软件研发、系统维护、技术支持以及甲方安排的其他相关工作。\n乙方主要工作地点为上海市。\n根据经营管理、客户项目、组织架构调整或者乙方工作表现，甲方可以结合实际经营需要调整乙方的岗位、职级、工作内容及工作地点，包括安排乙方至甲方关联公司、客户现场或者上海市以外地区工作，乙方应服从甲方合理安排。\n乙方无正当理由拒绝甲方岗位或工作地点调整的，甲方可以按照公司规章制度处理。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "text": "第三条 工作时间和休息休假\n乙方原则上实行标准工时制，每日工作8小时，每周工作5天。\n正常工作时间为工作日9:00至18:00，其中12:00至13:00为午休时间。\n因项目上线、系统故障处理、客户紧急需求等情况需要乙方延长工作时间的，乙方应积极配合。\n乙方月工资已经综合考虑岗位可能发生的延时工作、周末项目支持及其他临时性工作，因此一般情况下甲方不再另行支付加班工资。\n法定节假日确因工作需要安排乙方工作的，甲方可以根据实际情况安排调休或给予相应补偿。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "text": "第四条 劳动报酬\n乙方转正后的月度税前工资标准为人民币20,000元，具体组成如下：\n基本工资：人民币12,000元；\n岗位工资：人民币5,000元；\n绩效工资：人民币3,000元。\n试用期工资为转正工资标准的80%，即税前人民币16,000元/月。\n绩效工资根据乙方工作完成情况、部门考核结果、公司经营情况综合确定。甲方有权根据绩效考核结果决定绩效工资的实际发放比例。\n甲方原则上于每月10日前通过银行转账方式支付乙方上一个自然月的工资。如遇节假日、财务结算或者其他特殊情况，可以顺延。\n因经营情况、组织调整或者岗位变化，甲方可以根据薪酬管理制度对乙方的薪酬结构进行调整，但原则上应与乙方的岗位职责及工作表现相匹配。\n乙方对工资金额存在异议的，应在收到工资之日起5个工作日内提出；逾期未提出的，视为乙方确认工资计算及支付无误。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0008",
+        "location": "第五条 社会保险及福利",
+        "text": "第五条 社会保险及福利\n甲方依法为乙方办理社会保险及住房公积金。\n经乙方本人书面申请，如乙方因个人原因不希望在甲方所在地缴纳社会保险，双方可以协商由甲方按月向乙方支付社会保险补贴人民币2,000元，由乙方自行处理相关保险事项。\n甲方可以根据经营状况向乙方提供餐费补贴、交通补贴、通讯补贴、节日福利、年度体检等福利。上述福利属于甲方自主福利，不视为固定劳动报酬，甲方有权根据经营情况调整或取消。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0009",
+        "location": "第六条 劳动保护",
+        "text": "第六条 劳动保护\n甲方应向乙方提供符合国家规定的劳动条件和必要的工作设备。\n乙方应遵守甲方关于信息安全、数据安全、办公设备管理及安全生产的有关规定。\n因乙方故意或者重大过失造成甲方电脑、服务器、测试设备或者其他财产损失的，乙方应承担相应赔偿责任。甲方可以依法从乙方工资中扣除应赔偿金额。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0010",
+        "location": "第七条 规章制度",
+        "text": "第七条 规章制度\n乙方确认在签订本合同时已经阅读并理解甲方现行的《员工手册》《考勤管理制度》《绩效管理制度》《信息安全制度》等规章制度。\n甲方根据经营管理需要依法制定、修改或者完善规章制度后，通过公司内部系统、电子邮件、企业微信或者公告栏发布的，乙方均应遵守。\n乙方严重违反公司规章制度、严重失职、营私舞弊或者给甲方造成重大损害的，甲方可以依法解除劳动合同。\n连续旷工3个工作日，或者一个自然年度内累计旷工5个工作日的，视为严重违反甲方规章制度。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0011",
+        "location": "第八条 保密义务",
+        "text": "第八条 保密义务\n乙方在任职期间及离职后均应对因工作知悉的甲方商业秘密及其他保密信息承担保密义务。\n保密信息包括但不限于源代码、算法、模型、技术文档、客户名单、报价方案、供应商资料、经营数据、财务资料、账号密码及尚未公开的商业计划。\n未经甲方书面许可，乙方不得自行使用、复制、向第三方披露或者允许第三方使用前述信息。\n乙方违反保密义务的，应向甲方支付违约金人民币200,000元；如违约金不足以弥补甲方损失的，乙方还应赔偿差额部分。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0012",
+        "location": "第九条 知识产权",
+        "text": "第九条 知识产权\n乙方在履行职务过程中形成的软件程序、源代码、技术方案、产品设计、技术文档、发明创造及其他工作成果，其知识产权按照法律规定及双方约定归甲方享有。\n乙方利用甲方设备、资金、技术资料或者主要基于甲方业务需求，在劳动合同存续期间完成的相关技术成果，无论是否在正常工作时间内完成，均视为职务成果。\n未经甲方书面同意，乙方不得将相关工作成果用于甲方以外的任何项目。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0013",
+        "location": "第十条 竞业限制",
+        "text": "第十条 竞业限制\n乙方确认其岗位涉及甲方核心技术及商业秘密，因此属于竞业限制人员。\n劳动合同解除或者终止后两年内，未经甲方书面同意，乙方不得自行经营或者为其他单位从事与甲方相同或类似的人工智能、企业软件、数据平台及软件研发相关业务。\n竞业限制地域包括中华人民共和国境内。\n甲方是否要求乙方实际履行竞业限制义务，以乙方离职时甲方通知为准。\n如甲方要求乙方履行竞业限制义务，竞业限制期间的经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0014",
+        "location": "第十一条 培训及服务期",
+        "text": "第十一条 培训及服务期\n甲方可以根据岗位需要安排乙方参加专业培训、认证考试或者外部技术课程。\n如甲方为乙方支付单次人民币20,000元以上的专项培训费用，双方可以另行签订培训服务期协议。\n未签订专项培训服务期协议的，不当然产生服务期义务。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0015",
+        "location": "第十二条 劳动合同解除和终止",
+        "text": "第十二条 劳动合同解除和终止\n甲乙双方解除或者终止劳动合同，应按照国家法律法规办理。\n乙方提出解除劳动合同，应依法提前通知甲方，并按照甲方要求完成工作交接、账号移交、资料归还、代码提交、设备归还等手续。\n乙方未完成工作交接即离职，给甲方造成实际经济损失的，应承担相应赔偿责任。\n乙方未提前30日通知甲方自行离职的，应向甲方支付相当于一个月工资的违约金。\n乙方离职时应返还属于甲方的电脑、门禁卡、文件、资料、账号以及其他财物。\n乙方完成离职交接后，甲方按照规定办理劳动关系终止证明及相关手续。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0016",
+        "location": "第十三条 特别约定",
+        "text": "第十三条 特别约定\n乙方保证向甲方提供的学历、工作经历、资格证书及其他入职资料真实有效。\n如乙方提供虚假学历、虚假工作经历或者其他足以影响甲方录用决定的重要虚假信息，甲方有权依法处理。\n乙方因个人原因造成客户投诉、项目延期或者经济损失的，甲方可以根据责任程度在绩效考核中予以相应处理。\n乙方在职期间原则上不得从事与甲方存在竞争关系的兼职工作。其他兼职不得影响本职工作，并应事先向甲方报备。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0017",
+        "location": "第十四条 通知与送达",
+        "text": "第十四条 通知与送达\n本合同载明的通讯地址、联系电话及电子邮箱可以作为双方通知和文件送达地址。\n一方联系方式发生变化的，应及时通知另一方。\n甲方通过乙方提供的电子邮箱、手机短信、企业微信或者书面地址发送通知后，即视为已经完成送达。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0018",
+        "location": "第十五条 劳动争议处理",
+        "text": "第十五条 劳动争议处理\n因履行本合同发生争议的，双方应首先协商解决；协商不成的，可以依法向有管辖权的劳动人事争议仲裁委员会申请仲裁。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0019",
+        "location": "第十六条 其他",
+        "text": "第十六条 其他\n本合同未尽事宜按照国家及劳动合同履行地现行法律法规执行。\n本合同部分条款被认定无效的，不影响其他条款的效力。\n本合同一式两份，甲乙双方各执一份，自双方签字或者盖章之日起生效。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0020",
+        "location": "甲方（盖章）：上海澄远数字科技有限公司",
+        "text": "甲方（盖章）：上海澄远数字科技有限公司\n法定代表人或授权代表：周明远\n签订日期：2026年9月12日",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0021",
+        "location": "乙方（签字）：陈昊",
+        "text": "乙方（签字）：陈昊\n签订日期：2026年9月12日",
+        "section_type": "正式合同条款"
+      }
+    ],
+    "top_k_candidates": [
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "title": "全文",
+        "text": "劳动合同\n合同编号：LD-2026-0909-07",
+        "quote": "劳动合同\n合同编号：LD-2026-0909-07",
+        "original_excerpt": "劳动合同\n合同编号：LD-2026-0909-07",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "source_start": 0,
+        "source_end": 25,
+        "supports_element_ids": [
+          "employment_insurance_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0002",
+        "location": "甲方（用人单位）：上海澄远数字科技有限公司",
+        "title": "甲方（用人单位）：上海澄远数字科技有限公司",
+        "text": "甲方（用人单位）：上海澄远数字科技有限公司\n统一社会信用代码：91310115MA8X6R729Q\n住所：上海市浦东新区张江路688号创新大厦12层\n法定代表人：周明远\n联系电话：021-58762136",
+        "quote": "甲方（用人单位）：上海澄远数字科技有限公司\n统一社会信用代码：91310115MA8X6R729Q\n住所：上海市浦东新区张江路688号创新大厦12层\n法定代表人：周明远\n联系电话：021-58762136",
+        "original_excerpt": "甲方（用人单位）：上海澄远数字科技有限公司\n统一社会信用代码：91310115MA8X6R729Q\n住所：上海市浦东新区张江路688号创新大厦12层\n法定代表人：周明远\n联系电话：021-58762136",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "source_start": 0,
+        "source_end": 102,
+        "supports_element_ids": [
+          "employment_insurance_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0003",
+        "location": "乙方（劳动者）：陈昊",
+        "title": "乙方（劳动者）：陈昊",
+        "text": "乙方（劳动者）：陈昊\n身份证号码：310*4217\n户籍所在地：江苏省苏州市吴中区\n现居住地址：上海市浦东新区金科路1188弄16号702室\n联系电话：1385726\n根据《中华人民共和国劳动法》《中华人民共和国劳动合同法》等有关法律法规，甲乙双方在平等自愿、协商一致的基础上订立本合同，共同遵守。",
+        "quote": "乙方（劳动者）：陈昊\n身份证号码：310*4217\n户籍所在地：江苏省苏州市吴中区\n现居住地址：上海市浦东新区金科路1188弄16号702室\n联系电话：1385726\n根据《中华人民共和国劳动法》《中华人民共和国劳动合同法》等有关法律法规，甲乙双方在平等自愿、协商一致的基础上订立本合同，共同遵守。",
+        "original_excerpt": "乙方（劳动者）：陈昊\n身份证号码：310*4217\n户籍所在地：江苏省苏州市吴中区\n现居住地址：上海市浦东新区金科路1188弄16号702室\n联系电话：1385726\n根据《中华人民共和国劳动法》《中华人民共和国劳动合同法》等有关法律法规，甲乙双方在平等自愿、协商一致的基础上订立本合同，共同遵守。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "source_start": 0,
+        "source_end": 149,
+        "supports_element_ids": [
+          "employment_insurance_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "title": "合同期限",
+        "text": "第一条 合同期限\n本合同为固定期限劳动合同，合同期限自2026年9月15日起至2029年9月14日止，共三年。",
+        "quote": "第一条 合同期限\n本合同为固定期限劳动合同，合同期限自2026年9月15日起至2029年9月14日止，共三年。",
+        "original_excerpt": "第一条 合同期限\n本合同为固定期限劳动合同，合同期限自2026年9月15日起至2029年9月14日止，共三年。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第一条 合同期限"
+        ],
+        "source_start": 0,
+        "source_end": 55,
+        "supports_element_ids": [
+          "employment_insurance_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "title": "合同期限",
+        "text": "双方约定试用期自2026年9月15日起至2027年4月14日止。",
+        "quote": "双方约定试用期自2026年9月15日起至2027年4月14日止。",
+        "original_excerpt": "双方约定试用期自2026年9月15日起至2027年4月14日止。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第一条 合同期限"
+        ],
+        "source_start": 55,
+        "source_end": 88,
+        "supports_element_ids": [
+          "employment_insurance_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "title": "合同期限",
+        "text": "试用期内，如甲方认为乙方工作能力、工作态度、团队协作能力或岗位匹配度未达到甲方要求，甲方有权解除劳动合同。",
+        "quote": "试用期内，如甲方认为乙方工作能力、工作态度、团队协作能力或岗位匹配度未达到甲方要求，甲方有权解除劳动合同。",
+        "original_excerpt": "试用期内，如甲方认为乙方工作能力、工作态度、团队协作能力或岗位匹配度未达到甲方要求，甲方有权解除劳动合同。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第一条 合同期限"
+        ],
+        "source_start": 88,
+        "source_end": 142,
+        "supports_element_ids": [
+          "employment_insurance_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "title": "合同期限",
+        "text": "试用期满后，乙方继续工作的，视为通过试用期。",
+        "quote": "试用期满后，乙方继续工作的，视为通过试用期。",
+        "original_excerpt": "试用期满后，乙方继续工作的，视为通过试用期。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第一条 合同期限"
+        ],
+        "source_start": 142,
+        "source_end": 165,
+        "supports_element_ids": [
+          "employment_insurance_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "title": "工作岗位及工作地点",
+        "text": "第二条 工作岗位及工作地点\n乙方同意担任甲方“高级软件开发工程师”岗位，主要负责企业智能化平台的软件研发、系统维护、技术支持以及甲方安排的其他相关工作。",
+        "quote": "第二条 工作岗位及工作地点\n乙方同意担任甲方“高级软件开发工程师”岗位，主要负责企业智能化平台的软件研发、系统维护、技术支持以及甲方安排的其他相关工作。",
+        "original_excerpt": "第二条 工作岗位及工作地点\n乙方同意担任甲方“高级软件开发工程师”岗位，主要负责企业智能化平台的软件研发、系统维护、技术支持以及甲方安排的其他相关工作。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第二条 工作岗位及工作地点"
+        ],
+        "source_start": 0,
+        "source_end": 76,
+        "supports_element_ids": [
+          "employment_insurance_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "title": "工作岗位及工作地点",
+        "text": "乙方主要工作地点为上海市。",
+        "quote": "乙方主要工作地点为上海市。",
+        "original_excerpt": "乙方主要工作地点为上海市。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第二条 工作岗位及工作地点"
+        ],
+        "source_start": 76,
+        "source_end": 90,
+        "supports_element_ids": [
+          "employment_insurance_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "title": "工作岗位及工作地点",
+        "text": "根据经营管理、客户项目、组织架构调整或者乙方工作表现，甲方可以结合实际经营需要调整乙方的岗位、职级、工作内容及工作地点，包括安排乙方至甲方关联公司、客户现场或者上海市以外地区工作，乙方应服从甲方合理安排。",
+        "quote": "根据经营管理、客户项目、组织架构调整或者乙方工作表现，甲方可以结合实际经营需要调整乙方的岗位、职级、工作内容及工作地点，包括安排乙方至甲方关联公司、客户现场或者上海市以外地区工作，乙方应服从甲方合理安排。",
+        "original_excerpt": "根据经营管理、客户项目、组织架构调整或者乙方工作表现，甲方可以结合实际经营需要调整乙方的岗位、职级、工作内容及工作地点，包括安排乙方至甲方关联公司、客户现场或者上海市以外地区工作，乙方应服从甲方合理安排。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第二条 工作岗位及工作地点"
+        ],
+        "source_start": 90,
+        "source_end": 193,
+        "supports_element_ids": [
+          "employment_insurance_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "title": "工作岗位及工作地点",
+        "text": "乙方无正当理由拒绝甲方岗位或工作地点调整的，甲方可以按照公司规章制度处理。",
+        "quote": "乙方无正当理由拒绝甲方岗位或工作地点调整的，甲方可以按照公司规章制度处理。",
+        "original_excerpt": "乙方无正当理由拒绝甲方岗位或工作地点调整的，甲方可以按照公司规章制度处理。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第二条 工作岗位及工作地点"
+        ],
+        "source_start": 193,
+        "source_end": 231,
+        "supports_element_ids": [
+          "employment_insurance_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "第三条 工作时间和休息休假\n乙方原则上实行标准工时制，每日工作8小时，每周工作5天。",
+        "quote": "第三条 工作时间和休息休假\n乙方原则上实行标准工时制，每日工作8小时，每周工作5天。",
+        "original_excerpt": "第三条 工作时间和休息休假\n乙方原则上实行标准工时制，每日工作8小时，每周工作5天。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 0,
+        "source_end": 42,
+        "supports_element_ids": [
+          "employment_insurance_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "正常工作时间为工作日9:00至18:00，其中12:00至13:00为午休时间。",
+        "quote": "正常工作时间为工作日9:00至18:00，其中12:00至13:00为午休时间。",
+        "original_excerpt": "正常工作时间为工作日9:00至18:00，其中12:00至13:00为午休时间。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 42,
+        "source_end": 83,
+        "supports_element_ids": [
+          "employment_insurance_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "因项目上线、系统故障处理、客户紧急需求等情况需要乙方延长工作时间的，乙方应积极配合。",
+        "quote": "因项目上线、系统故障处理、客户紧急需求等情况需要乙方延长工作时间的，乙方应积极配合。",
+        "original_excerpt": "因项目上线、系统故障处理、客户紧急需求等情况需要乙方延长工作时间的，乙方应积极配合。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 83,
+        "source_end": 126,
+        "supports_element_ids": [
+          "employment_insurance_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "乙方月工资已经综合考虑岗位可能发生的延时工作、周末项目支持及其他临时性工作，因此一般情况下甲方不再另行支付加班工资。",
+        "quote": "乙方月工资已经综合考虑岗位可能发生的延时工作、周末项目支持及其他临时性工作，因此一般情况下甲方不再另行支付加班工资。",
+        "original_excerpt": "乙方月工资已经综合考虑岗位可能发生的延时工作、周末项目支持及其他临时性工作，因此一般情况下甲方不再另行支付加班工资。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 126,
+        "source_end": 185,
+        "supports_element_ids": [
+          "employment_insurance_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "法定节假日确因工作需要安排乙方工作的，甲方可以根据实际情况安排调休或给予相应补偿。",
+        "quote": "法定节假日确因工作需要安排乙方工作的，甲方可以根据实际情况安排调休或给予相应补偿。",
+        "original_excerpt": "法定节假日确因工作需要安排乙方工作的，甲方可以根据实际情况安排调休或给予相应补偿。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 185,
+        "source_end": 227,
+        "supports_element_ids": [
+          "employment_insurance_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "title": "劳动报酬",
+        "text": "第四条 劳动报酬\n乙方转正后的月度税前工资标准为人民币20,000元，具体组成如下：\n基本工资：人民币12,000元；\n岗位工资：人民币5,000元；\n绩效工资：人民币3,000元。",
+        "quote": "第四条 劳动报酬\n乙方转正后的月度税前工资标准为人民币20,000元，具体组成如下：\n基本工资：人民币12,000元；\n岗位工资：人民币5,000元；\n绩效工资：人民币3,000元。",
+        "original_excerpt": "第四条 劳动报酬\n乙方转正后的月度税前工资标准为人民币20,000元，具体组成如下：\n基本工资：人民币12,000元；\n岗位工资：人民币5,000元；\n绩效工资：人民币3,000元。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条 劳动报酬"
+        ],
+        "source_start": 0,
+        "source_end": 91,
+        "supports_element_ids": [
+          "employment_insurance_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "title": "劳动报酬",
+        "text": "试用期工资为转正工资标准的80%，即税前人民币16,000元/月。",
+        "quote": "试用期工资为转正工资标准的80%，即税前人民币16,000元/月。",
+        "original_excerpt": "试用期工资为转正工资标准的80%，即税前人民币16,000元/月。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条 劳动报酬"
+        ],
+        "source_start": 91,
+        "source_end": 125,
+        "supports_element_ids": [
+          "employment_insurance_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "title": "劳动报酬",
+        "text": "绩效工资根据乙方工作完成情况、部门考核结果、公司经营情况综合确定。",
+        "quote": "绩效工资根据乙方工作完成情况、部门考核结果、公司经营情况综合确定。",
+        "original_excerpt": "绩效工资根据乙方工作完成情况、部门考核结果、公司经营情况综合确定。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条 劳动报酬"
+        ],
+        "source_start": 125,
+        "source_end": 159,
+        "supports_element_ids": [
+          "employment_insurance_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "title": "劳动报酬",
+        "text": "甲方有权根据绩效考核结果决定绩效工资的实际发放比例。",
+        "quote": "甲方有权根据绩效考核结果决定绩效工资的实际发放比例。",
+        "original_excerpt": "甲方有权根据绩效考核结果决定绩效工资的实际发放比例。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条 劳动报酬"
+        ],
+        "source_start": 159,
+        "source_end": 185,
+        "supports_element_ids": [
+          "employment_insurance_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      }
+    ],
+    "candidate_count": 72,
+    "stage_results": {
+      "normalize": "CANONICAL_CANDIDATE",
+      "threshold": "NOT_FOUND"
+    },
+    "searched_document_hash": "490a09ad0f725b01506c423b3f8dba1b691ac279b49a27cc0ebb37a1ff19e63c",
+    "result": "NOT_FOUND",
+    "supporting_evidence": []
+  },
+  {
+    "rule_id": "EMP-08-01",
+    "element_id": "employment_safety_1",
+    "review_id": "EMP-08-01",
+    "search_targets": [
+      "劳动防护和安全培训"
+    ],
+    "query_patterns": [
+      "(?:提供|配备).{0,60}(?:劳动保护|劳动防护用品|防护用品)|安全(?:生产)?(?:教育和)?培训"
+    ],
+    "query_semantic_target": "劳动防护和安全培训",
+    "query_semantics": "POSITIVE_REQUIRED_FACT",
+    "search_mode": "SEMANTIC_REQUIREMENT",
+    "searched_clause_ids": [
+      "C0001",
+      "C0002",
+      "C0003",
+      "C0004",
+      "C0005",
+      "C0006",
+      "C0007",
+      "C0008",
+      "C0009",
+      "C0010",
+      "C0011",
+      "C0012",
+      "C0013",
+      "C0014",
+      "C0015",
+      "C0016",
+      "C0017",
+      "C0018",
+      "C0019",
+      "C0020",
+      "C0021"
+    ],
+    "search_corpus_chunks": [
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "text": "劳动合同\n合同编号：LD-2026-0909-07",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0002",
+        "location": "甲方（用人单位）：上海澄远数字科技有限公司",
+        "text": "甲方（用人单位）：上海澄远数字科技有限公司\n统一社会信用代码：91310115MA8X6R729Q\n住所：上海市浦东新区张江路688号创新大厦12层\n法定代表人：周明远\n联系电话：021-58762136",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0003",
+        "location": "乙方（劳动者）：陈昊",
+        "text": "乙方（劳动者）：陈昊\n身份证号码：310*4217\n户籍所在地：江苏省苏州市吴中区\n现居住地址：上海市浦东新区金科路1188弄16号702室\n联系电话：1385726\n根据《中华人民共和国劳动法》《中华人民共和国劳动合同法》等有关法律法规，甲乙双方在平等自愿、协商一致的基础上订立本合同，共同遵守。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "text": "第一条 合同期限\n本合同为固定期限劳动合同，合同期限自2026年9月15日起至2029年9月14日止，共三年。\n双方约定试用期自2026年9月15日起至2027年4月14日止。\n试用期内，如甲方认为乙方工作能力、工作态度、团队协作能力或岗位匹配度未达到甲方要求，甲方有权解除劳动合同。\n试用期满后，乙方继续工作的，视为通过试用期。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "text": "第二条 工作岗位及工作地点\n乙方同意担任甲方“高级软件开发工程师”岗位，主要负责企业智能化平台的软件研发、系统维护、技术支持以及甲方安排的其他相关工作。\n乙方主要工作地点为上海市。\n根据经营管理、客户项目、组织架构调整或者乙方工作表现，甲方可以结合实际经营需要调整乙方的岗位、职级、工作内容及工作地点，包括安排乙方至甲方关联公司、客户现场或者上海市以外地区工作，乙方应服从甲方合理安排。\n乙方无正当理由拒绝甲方岗位或工作地点调整的，甲方可以按照公司规章制度处理。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "text": "第三条 工作时间和休息休假\n乙方原则上实行标准工时制，每日工作8小时，每周工作5天。\n正常工作时间为工作日9:00至18:00，其中12:00至13:00为午休时间。\n因项目上线、系统故障处理、客户紧急需求等情况需要乙方延长工作时间的，乙方应积极配合。\n乙方月工资已经综合考虑岗位可能发生的延时工作、周末项目支持及其他临时性工作，因此一般情况下甲方不再另行支付加班工资。\n法定节假日确因工作需要安排乙方工作的，甲方可以根据实际情况安排调休或给予相应补偿。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "text": "第四条 劳动报酬\n乙方转正后的月度税前工资标准为人民币20,000元，具体组成如下：\n基本工资：人民币12,000元；\n岗位工资：人民币5,000元；\n绩效工资：人民币3,000元。\n试用期工资为转正工资标准的80%，即税前人民币16,000元/月。\n绩效工资根据乙方工作完成情况、部门考核结果、公司经营情况综合确定。甲方有权根据绩效考核结果决定绩效工资的实际发放比例。\n甲方原则上于每月10日前通过银行转账方式支付乙方上一个自然月的工资。如遇节假日、财务结算或者其他特殊情况，可以顺延。\n因经营情况、组织调整或者岗位变化，甲方可以根据薪酬管理制度对乙方的薪酬结构进行调整，但原则上应与乙方的岗位职责及工作表现相匹配。\n乙方对工资金额存在异议的，应在收到工资之日起5个工作日内提出；逾期未提出的，视为乙方确认工资计算及支付无误。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0008",
+        "location": "第五条 社会保险及福利",
+        "text": "第五条 社会保险及福利\n甲方依法为乙方办理社会保险及住房公积金。\n经乙方本人书面申请，如乙方因个人原因不希望在甲方所在地缴纳社会保险，双方可以协商由甲方按月向乙方支付社会保险补贴人民币2,000元，由乙方自行处理相关保险事项。\n甲方可以根据经营状况向乙方提供餐费补贴、交通补贴、通讯补贴、节日福利、年度体检等福利。上述福利属于甲方自主福利，不视为固定劳动报酬，甲方有权根据经营情况调整或取消。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0009",
+        "location": "第六条 劳动保护",
+        "text": "第六条 劳动保护\n甲方应向乙方提供符合国家规定的劳动条件和必要的工作设备。\n乙方应遵守甲方关于信息安全、数据安全、办公设备管理及安全生产的有关规定。\n因乙方故意或者重大过失造成甲方电脑、服务器、测试设备或者其他财产损失的，乙方应承担相应赔偿责任。甲方可以依法从乙方工资中扣除应赔偿金额。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0010",
+        "location": "第七条 规章制度",
+        "text": "第七条 规章制度\n乙方确认在签订本合同时已经阅读并理解甲方现行的《员工手册》《考勤管理制度》《绩效管理制度》《信息安全制度》等规章制度。\n甲方根据经营管理需要依法制定、修改或者完善规章制度后，通过公司内部系统、电子邮件、企业微信或者公告栏发布的，乙方均应遵守。\n乙方严重违反公司规章制度、严重失职、营私舞弊或者给甲方造成重大损害的，甲方可以依法解除劳动合同。\n连续旷工3个工作日，或者一个自然年度内累计旷工5个工作日的，视为严重违反甲方规章制度。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0011",
+        "location": "第八条 保密义务",
+        "text": "第八条 保密义务\n乙方在任职期间及离职后均应对因工作知悉的甲方商业秘密及其他保密信息承担保密义务。\n保密信息包括但不限于源代码、算法、模型、技术文档、客户名单、报价方案、供应商资料、经营数据、财务资料、账号密码及尚未公开的商业计划。\n未经甲方书面许可，乙方不得自行使用、复制、向第三方披露或者允许第三方使用前述信息。\n乙方违反保密义务的，应向甲方支付违约金人民币200,000元；如违约金不足以弥补甲方损失的，乙方还应赔偿差额部分。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0012",
+        "location": "第九条 知识产权",
+        "text": "第九条 知识产权\n乙方在履行职务过程中形成的软件程序、源代码、技术方案、产品设计、技术文档、发明创造及其他工作成果，其知识产权按照法律规定及双方约定归甲方享有。\n乙方利用甲方设备、资金、技术资料或者主要基于甲方业务需求，在劳动合同存续期间完成的相关技术成果，无论是否在正常工作时间内完成，均视为职务成果。\n未经甲方书面同意，乙方不得将相关工作成果用于甲方以外的任何项目。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0013",
+        "location": "第十条 竞业限制",
+        "text": "第十条 竞业限制\n乙方确认其岗位涉及甲方核心技术及商业秘密，因此属于竞业限制人员。\n劳动合同解除或者终止后两年内，未经甲方书面同意，乙方不得自行经营或者为其他单位从事与甲方相同或类似的人工智能、企业软件、数据平台及软件研发相关业务。\n竞业限制地域包括中华人民共和国境内。\n甲方是否要求乙方实际履行竞业限制义务，以乙方离职时甲方通知为准。\n如甲方要求乙方履行竞业限制义务，竞业限制期间的经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0014",
+        "location": "第十一条 培训及服务期",
+        "text": "第十一条 培训及服务期\n甲方可以根据岗位需要安排乙方参加专业培训、认证考试或者外部技术课程。\n如甲方为乙方支付单次人民币20,000元以上的专项培训费用，双方可以另行签订培训服务期协议。\n未签订专项培训服务期协议的，不当然产生服务期义务。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0015",
+        "location": "第十二条 劳动合同解除和终止",
+        "text": "第十二条 劳动合同解除和终止\n甲乙双方解除或者终止劳动合同，应按照国家法律法规办理。\n乙方提出解除劳动合同，应依法提前通知甲方，并按照甲方要求完成工作交接、账号移交、资料归还、代码提交、设备归还等手续。\n乙方未完成工作交接即离职，给甲方造成实际经济损失的，应承担相应赔偿责任。\n乙方未提前30日通知甲方自行离职的，应向甲方支付相当于一个月工资的违约金。\n乙方离职时应返还属于甲方的电脑、门禁卡、文件、资料、账号以及其他财物。\n乙方完成离职交接后，甲方按照规定办理劳动关系终止证明及相关手续。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0016",
+        "location": "第十三条 特别约定",
+        "text": "第十三条 特别约定\n乙方保证向甲方提供的学历、工作经历、资格证书及其他入职资料真实有效。\n如乙方提供虚假学历、虚假工作经历或者其他足以影响甲方录用决定的重要虚假信息，甲方有权依法处理。\n乙方因个人原因造成客户投诉、项目延期或者经济损失的，甲方可以根据责任程度在绩效考核中予以相应处理。\n乙方在职期间原则上不得从事与甲方存在竞争关系的兼职工作。其他兼职不得影响本职工作，并应事先向甲方报备。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0017",
+        "location": "第十四条 通知与送达",
+        "text": "第十四条 通知与送达\n本合同载明的通讯地址、联系电话及电子邮箱可以作为双方通知和文件送达地址。\n一方联系方式发生变化的，应及时通知另一方。\n甲方通过乙方提供的电子邮箱、手机短信、企业微信或者书面地址发送通知后，即视为已经完成送达。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0018",
+        "location": "第十五条 劳动争议处理",
+        "text": "第十五条 劳动争议处理\n因履行本合同发生争议的，双方应首先协商解决；协商不成的，可以依法向有管辖权的劳动人事争议仲裁委员会申请仲裁。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0019",
+        "location": "第十六条 其他",
+        "text": "第十六条 其他\n本合同未尽事宜按照国家及劳动合同履行地现行法律法规执行。\n本合同部分条款被认定无效的，不影响其他条款的效力。\n本合同一式两份，甲乙双方各执一份，自双方签字或者盖章之日起生效。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0020",
+        "location": "甲方（盖章）：上海澄远数字科技有限公司",
+        "text": "甲方（盖章）：上海澄远数字科技有限公司\n法定代表人或授权代表：周明远\n签订日期：2026年9月12日",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0021",
+        "location": "乙方（签字）：陈昊",
+        "text": "乙方（签字）：陈昊\n签订日期：2026年9月12日",
+        "section_type": "正式合同条款"
+      }
+    ],
+    "top_k_candidates": [
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "title": "全文",
+        "text": "劳动合同\n合同编号：LD-2026-0909-07",
+        "quote": "劳动合同\n合同编号：LD-2026-0909-07",
+        "original_excerpt": "劳动合同\n合同编号：LD-2026-0909-07",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "source_start": 0,
+        "source_end": 25,
+        "supports_element_ids": [
+          "employment_safety_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0002",
+        "location": "甲方（用人单位）：上海澄远数字科技有限公司",
+        "title": "甲方（用人单位）：上海澄远数字科技有限公司",
+        "text": "甲方（用人单位）：上海澄远数字科技有限公司\n统一社会信用代码：91310115MA8X6R729Q\n住所：上海市浦东新区张江路688号创新大厦12层\n法定代表人：周明远\n联系电话：021-58762136",
+        "quote": "甲方（用人单位）：上海澄远数字科技有限公司\n统一社会信用代码：91310115MA8X6R729Q\n住所：上海市浦东新区张江路688号创新大厦12层\n法定代表人：周明远\n联系电话：021-58762136",
+        "original_excerpt": "甲方（用人单位）：上海澄远数字科技有限公司\n统一社会信用代码：91310115MA8X6R729Q\n住所：上海市浦东新区张江路688号创新大厦12层\n法定代表人：周明远\n联系电话：021-58762136",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "source_start": 0,
+        "source_end": 102,
+        "supports_element_ids": [
+          "employment_safety_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0003",
+        "location": "乙方（劳动者）：陈昊",
+        "title": "乙方（劳动者）：陈昊",
+        "text": "乙方（劳动者）：陈昊\n身份证号码：310*4217\n户籍所在地：江苏省苏州市吴中区\n现居住地址：上海市浦东新区金科路1188弄16号702室\n联系电话：1385726\n根据《中华人民共和国劳动法》《中华人民共和国劳动合同法》等有关法律法规，甲乙双方在平等自愿、协商一致的基础上订立本合同，共同遵守。",
+        "quote": "乙方（劳动者）：陈昊\n身份证号码：310*4217\n户籍所在地：江苏省苏州市吴中区\n现居住地址：上海市浦东新区金科路1188弄16号702室\n联系电话：1385726\n根据《中华人民共和国劳动法》《中华人民共和国劳动合同法》等有关法律法规，甲乙双方在平等自愿、协商一致的基础上订立本合同，共同遵守。",
+        "original_excerpt": "乙方（劳动者）：陈昊\n身份证号码：310*4217\n户籍所在地：江苏省苏州市吴中区\n现居住地址：上海市浦东新区金科路1188弄16号702室\n联系电话：1385726\n根据《中华人民共和国劳动法》《中华人民共和国劳动合同法》等有关法律法规，甲乙双方在平等自愿、协商一致的基础上订立本合同，共同遵守。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "source_start": 0,
+        "source_end": 149,
+        "supports_element_ids": [
+          "employment_safety_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "title": "合同期限",
+        "text": "第一条 合同期限\n本合同为固定期限劳动合同，合同期限自2026年9月15日起至2029年9月14日止，共三年。",
+        "quote": "第一条 合同期限\n本合同为固定期限劳动合同，合同期限自2026年9月15日起至2029年9月14日止，共三年。",
+        "original_excerpt": "第一条 合同期限\n本合同为固定期限劳动合同，合同期限自2026年9月15日起至2029年9月14日止，共三年。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第一条 合同期限"
+        ],
+        "source_start": 0,
+        "source_end": 55,
+        "supports_element_ids": [
+          "employment_safety_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "title": "合同期限",
+        "text": "双方约定试用期自2026年9月15日起至2027年4月14日止。",
+        "quote": "双方约定试用期自2026年9月15日起至2027年4月14日止。",
+        "original_excerpt": "双方约定试用期自2026年9月15日起至2027年4月14日止。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第一条 合同期限"
+        ],
+        "source_start": 55,
+        "source_end": 88,
+        "supports_element_ids": [
+          "employment_safety_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "title": "合同期限",
+        "text": "试用期内，如甲方认为乙方工作能力、工作态度、团队协作能力或岗位匹配度未达到甲方要求，甲方有权解除劳动合同。",
+        "quote": "试用期内，如甲方认为乙方工作能力、工作态度、团队协作能力或岗位匹配度未达到甲方要求，甲方有权解除劳动合同。",
+        "original_excerpt": "试用期内，如甲方认为乙方工作能力、工作态度、团队协作能力或岗位匹配度未达到甲方要求，甲方有权解除劳动合同。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第一条 合同期限"
+        ],
+        "source_start": 88,
+        "source_end": 142,
+        "supports_element_ids": [
+          "employment_safety_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "title": "合同期限",
+        "text": "试用期满后，乙方继续工作的，视为通过试用期。",
+        "quote": "试用期满后，乙方继续工作的，视为通过试用期。",
+        "original_excerpt": "试用期满后，乙方继续工作的，视为通过试用期。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第一条 合同期限"
+        ],
+        "source_start": 142,
+        "source_end": 165,
+        "supports_element_ids": [
+          "employment_safety_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "title": "工作岗位及工作地点",
+        "text": "第二条 工作岗位及工作地点\n乙方同意担任甲方“高级软件开发工程师”岗位，主要负责企业智能化平台的软件研发、系统维护、技术支持以及甲方安排的其他相关工作。",
+        "quote": "第二条 工作岗位及工作地点\n乙方同意担任甲方“高级软件开发工程师”岗位，主要负责企业智能化平台的软件研发、系统维护、技术支持以及甲方安排的其他相关工作。",
+        "original_excerpt": "第二条 工作岗位及工作地点\n乙方同意担任甲方“高级软件开发工程师”岗位，主要负责企业智能化平台的软件研发、系统维护、技术支持以及甲方安排的其他相关工作。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第二条 工作岗位及工作地点"
+        ],
+        "source_start": 0,
+        "source_end": 76,
+        "supports_element_ids": [
+          "employment_safety_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "title": "工作岗位及工作地点",
+        "text": "乙方主要工作地点为上海市。",
+        "quote": "乙方主要工作地点为上海市。",
+        "original_excerpt": "乙方主要工作地点为上海市。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第二条 工作岗位及工作地点"
+        ],
+        "source_start": 76,
+        "source_end": 90,
+        "supports_element_ids": [
+          "employment_safety_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "title": "工作岗位及工作地点",
+        "text": "根据经营管理、客户项目、组织架构调整或者乙方工作表现，甲方可以结合实际经营需要调整乙方的岗位、职级、工作内容及工作地点，包括安排乙方至甲方关联公司、客户现场或者上海市以外地区工作，乙方应服从甲方合理安排。",
+        "quote": "根据经营管理、客户项目、组织架构调整或者乙方工作表现，甲方可以结合实际经营需要调整乙方的岗位、职级、工作内容及工作地点，包括安排乙方至甲方关联公司、客户现场或者上海市以外地区工作，乙方应服从甲方合理安排。",
+        "original_excerpt": "根据经营管理、客户项目、组织架构调整或者乙方工作表现，甲方可以结合实际经营需要调整乙方的岗位、职级、工作内容及工作地点，包括安排乙方至甲方关联公司、客户现场或者上海市以外地区工作，乙方应服从甲方合理安排。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第二条 工作岗位及工作地点"
+        ],
+        "source_start": 90,
+        "source_end": 193,
+        "supports_element_ids": [
+          "employment_safety_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "title": "工作岗位及工作地点",
+        "text": "乙方无正当理由拒绝甲方岗位或工作地点调整的，甲方可以按照公司规章制度处理。",
+        "quote": "乙方无正当理由拒绝甲方岗位或工作地点调整的，甲方可以按照公司规章制度处理。",
+        "original_excerpt": "乙方无正当理由拒绝甲方岗位或工作地点调整的，甲方可以按照公司规章制度处理。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第二条 工作岗位及工作地点"
+        ],
+        "source_start": 193,
+        "source_end": 231,
+        "supports_element_ids": [
+          "employment_safety_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "第三条 工作时间和休息休假\n乙方原则上实行标准工时制，每日工作8小时，每周工作5天。",
+        "quote": "第三条 工作时间和休息休假\n乙方原则上实行标准工时制，每日工作8小时，每周工作5天。",
+        "original_excerpt": "第三条 工作时间和休息休假\n乙方原则上实行标准工时制，每日工作8小时，每周工作5天。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 0,
+        "source_end": 42,
+        "supports_element_ids": [
+          "employment_safety_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "正常工作时间为工作日9:00至18:00，其中12:00至13:00为午休时间。",
+        "quote": "正常工作时间为工作日9:00至18:00，其中12:00至13:00为午休时间。",
+        "original_excerpt": "正常工作时间为工作日9:00至18:00，其中12:00至13:00为午休时间。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 42,
+        "source_end": 83,
+        "supports_element_ids": [
+          "employment_safety_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "因项目上线、系统故障处理、客户紧急需求等情况需要乙方延长工作时间的，乙方应积极配合。",
+        "quote": "因项目上线、系统故障处理、客户紧急需求等情况需要乙方延长工作时间的，乙方应积极配合。",
+        "original_excerpt": "因项目上线、系统故障处理、客户紧急需求等情况需要乙方延长工作时间的，乙方应积极配合。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 83,
+        "source_end": 126,
+        "supports_element_ids": [
+          "employment_safety_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "乙方月工资已经综合考虑岗位可能发生的延时工作、周末项目支持及其他临时性工作，因此一般情况下甲方不再另行支付加班工资。",
+        "quote": "乙方月工资已经综合考虑岗位可能发生的延时工作、周末项目支持及其他临时性工作，因此一般情况下甲方不再另行支付加班工资。",
+        "original_excerpt": "乙方月工资已经综合考虑岗位可能发生的延时工作、周末项目支持及其他临时性工作，因此一般情况下甲方不再另行支付加班工资。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 126,
+        "source_end": 185,
+        "supports_element_ids": [
+          "employment_safety_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "法定节假日确因工作需要安排乙方工作的，甲方可以根据实际情况安排调休或给予相应补偿。",
+        "quote": "法定节假日确因工作需要安排乙方工作的，甲方可以根据实际情况安排调休或给予相应补偿。",
+        "original_excerpt": "法定节假日确因工作需要安排乙方工作的，甲方可以根据实际情况安排调休或给予相应补偿。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 185,
+        "source_end": 227,
+        "supports_element_ids": [
+          "employment_safety_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "title": "劳动报酬",
+        "text": "第四条 劳动报酬\n乙方转正后的月度税前工资标准为人民币20,000元，具体组成如下：\n基本工资：人民币12,000元；\n岗位工资：人民币5,000元；\n绩效工资：人民币3,000元。",
+        "quote": "第四条 劳动报酬\n乙方转正后的月度税前工资标准为人民币20,000元，具体组成如下：\n基本工资：人民币12,000元；\n岗位工资：人民币5,000元；\n绩效工资：人民币3,000元。",
+        "original_excerpt": "第四条 劳动报酬\n乙方转正后的月度税前工资标准为人民币20,000元，具体组成如下：\n基本工资：人民币12,000元；\n岗位工资：人民币5,000元；\n绩效工资：人民币3,000元。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条 劳动报酬"
+        ],
+        "source_start": 0,
+        "source_end": 91,
+        "supports_element_ids": [
+          "employment_safety_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "title": "劳动报酬",
+        "text": "试用期工资为转正工资标准的80%，即税前人民币16,000元/月。",
+        "quote": "试用期工资为转正工资标准的80%，即税前人民币16,000元/月。",
+        "original_excerpt": "试用期工资为转正工资标准的80%，即税前人民币16,000元/月。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条 劳动报酬"
+        ],
+        "source_start": 91,
+        "source_end": 125,
+        "supports_element_ids": [
+          "employment_safety_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "title": "劳动报酬",
+        "text": "绩效工资根据乙方工作完成情况、部门考核结果、公司经营情况综合确定。",
+        "quote": "绩效工资根据乙方工作完成情况、部门考核结果、公司经营情况综合确定。",
+        "original_excerpt": "绩效工资根据乙方工作完成情况、部门考核结果、公司经营情况综合确定。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条 劳动报酬"
+        ],
+        "source_start": 125,
+        "source_end": 159,
+        "supports_element_ids": [
+          "employment_safety_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "title": "劳动报酬",
+        "text": "甲方有权根据绩效考核结果决定绩效工资的实际发放比例。",
+        "quote": "甲方有权根据绩效考核结果决定绩效工资的实际发放比例。",
+        "original_excerpt": "甲方有权根据绩效考核结果决定绩效工资的实际发放比例。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条 劳动报酬"
+        ],
+        "source_start": 159,
+        "source_end": 185,
+        "supports_element_ids": [
+          "employment_safety_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      }
+    ],
+    "candidate_count": 72,
+    "stage_results": {
+      "normalize": "CANONICAL_CANDIDATE",
+      "threshold": "NOT_FOUND"
+    },
+    "searched_document_hash": "490a09ad0f725b01506c423b3f8dba1b691ac279b49a27cc0ebb37a1ff19e63c",
+    "result": "NOT_FOUND",
+    "supporting_evidence": []
+  },
+  {
+    "rule_id": "EMP-11-01",
+    "element_id": "employment_compensation_1",
+    "review_id": "EMP-11-01",
+    "search_targets": [
+      "经济补偿依法处理、计算依据或正常结算安排"
+    ],
+    "query_patterns": [
+      "经济补偿.{0,60}(?:第46条|第47条|第四十六条|第四十七条|\\d+元|工作年限|月工资)|(?:甲方|用人单位)(?:应当|应|须)?依法(?:应当|应)?(?:向乙方|向劳动者)?支付经济补偿",
+      "依法(?:需要|应当|应)?[^。；\\n]{0,20}支付经济补偿[^。；\\n]{0,15}(?:甲方|用人单位)(?:按照|依照|按)法律规定支付",
+      "经济补偿[^。；\\n]{0,30}(?:办结|完成|办理完毕)工作交接(?:时|后当日)[^。；\\n]{0,8}(?:支付|结清)",
+      "经济补偿[^。；\\n]{0,30}工作交接(?:结束|完成|办结)后[^。；\\n]{0,8}支付"
+    ],
+    "query_semantic_target": "经济补偿依法处理、计算依据或正常结算安排",
+    "query_semantics": "POSITIVE_REQUIRED_FACT",
+    "search_mode": "SEMANTIC_REQUIREMENT",
+    "searched_clause_ids": [
+      "C0001",
+      "C0002",
+      "C0003",
+      "C0004",
+      "C0005",
+      "C0006",
+      "C0007",
+      "C0008",
+      "C0009",
+      "C0010",
+      "C0011",
+      "C0012",
+      "C0013",
+      "C0014",
+      "C0015",
+      "C0016",
+      "C0017",
+      "C0018",
+      "C0019",
+      "C0020",
+      "C0021"
+    ],
+    "search_corpus_chunks": [
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "text": "劳动合同\n合同编号：LD-2026-0909-07",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0002",
+        "location": "甲方（用人单位）：上海澄远数字科技有限公司",
+        "text": "甲方（用人单位）：上海澄远数字科技有限公司\n统一社会信用代码：91310115MA8X6R729Q\n住所：上海市浦东新区张江路688号创新大厦12层\n法定代表人：周明远\n联系电话：021-58762136",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0003",
+        "location": "乙方（劳动者）：陈昊",
+        "text": "乙方（劳动者）：陈昊\n身份证号码：310*4217\n户籍所在地：江苏省苏州市吴中区\n现居住地址：上海市浦东新区金科路1188弄16号702室\n联系电话：1385726\n根据《中华人民共和国劳动法》《中华人民共和国劳动合同法》等有关法律法规，甲乙双方在平等自愿、协商一致的基础上订立本合同，共同遵守。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "text": "第一条 合同期限\n本合同为固定期限劳动合同，合同期限自2026年9月15日起至2029年9月14日止，共三年。\n双方约定试用期自2026年9月15日起至2027年4月14日止。\n试用期内，如甲方认为乙方工作能力、工作态度、团队协作能力或岗位匹配度未达到甲方要求，甲方有权解除劳动合同。\n试用期满后，乙方继续工作的，视为通过试用期。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "text": "第二条 工作岗位及工作地点\n乙方同意担任甲方“高级软件开发工程师”岗位，主要负责企业智能化平台的软件研发、系统维护、技术支持以及甲方安排的其他相关工作。\n乙方主要工作地点为上海市。\n根据经营管理、客户项目、组织架构调整或者乙方工作表现，甲方可以结合实际经营需要调整乙方的岗位、职级、工作内容及工作地点，包括安排乙方至甲方关联公司、客户现场或者上海市以外地区工作，乙方应服从甲方合理安排。\n乙方无正当理由拒绝甲方岗位或工作地点调整的，甲方可以按照公司规章制度处理。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "text": "第三条 工作时间和休息休假\n乙方原则上实行标准工时制，每日工作8小时，每周工作5天。\n正常工作时间为工作日9:00至18:00，其中12:00至13:00为午休时间。\n因项目上线、系统故障处理、客户紧急需求等情况需要乙方延长工作时间的，乙方应积极配合。\n乙方月工资已经综合考虑岗位可能发生的延时工作、周末项目支持及其他临时性工作，因此一般情况下甲方不再另行支付加班工资。\n法定节假日确因工作需要安排乙方工作的，甲方可以根据实际情况安排调休或给予相应补偿。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "text": "第四条 劳动报酬\n乙方转正后的月度税前工资标准为人民币20,000元，具体组成如下：\n基本工资：人民币12,000元；\n岗位工资：人民币5,000元；\n绩效工资：人民币3,000元。\n试用期工资为转正工资标准的80%，即税前人民币16,000元/月。\n绩效工资根据乙方工作完成情况、部门考核结果、公司经营情况综合确定。甲方有权根据绩效考核结果决定绩效工资的实际发放比例。\n甲方原则上于每月10日前通过银行转账方式支付乙方上一个自然月的工资。如遇节假日、财务结算或者其他特殊情况，可以顺延。\n因经营情况、组织调整或者岗位变化，甲方可以根据薪酬管理制度对乙方的薪酬结构进行调整，但原则上应与乙方的岗位职责及工作表现相匹配。\n乙方对工资金额存在异议的，应在收到工资之日起5个工作日内提出；逾期未提出的，视为乙方确认工资计算及支付无误。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0008",
+        "location": "第五条 社会保险及福利",
+        "text": "第五条 社会保险及福利\n甲方依法为乙方办理社会保险及住房公积金。\n经乙方本人书面申请，如乙方因个人原因不希望在甲方所在地缴纳社会保险，双方可以协商由甲方按月向乙方支付社会保险补贴人民币2,000元，由乙方自行处理相关保险事项。\n甲方可以根据经营状况向乙方提供餐费补贴、交通补贴、通讯补贴、节日福利、年度体检等福利。上述福利属于甲方自主福利，不视为固定劳动报酬，甲方有权根据经营情况调整或取消。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0009",
+        "location": "第六条 劳动保护",
+        "text": "第六条 劳动保护\n甲方应向乙方提供符合国家规定的劳动条件和必要的工作设备。\n乙方应遵守甲方关于信息安全、数据安全、办公设备管理及安全生产的有关规定。\n因乙方故意或者重大过失造成甲方电脑、服务器、测试设备或者其他财产损失的，乙方应承担相应赔偿责任。甲方可以依法从乙方工资中扣除应赔偿金额。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0010",
+        "location": "第七条 规章制度",
+        "text": "第七条 规章制度\n乙方确认在签订本合同时已经阅读并理解甲方现行的《员工手册》《考勤管理制度》《绩效管理制度》《信息安全制度》等规章制度。\n甲方根据经营管理需要依法制定、修改或者完善规章制度后，通过公司内部系统、电子邮件、企业微信或者公告栏发布的，乙方均应遵守。\n乙方严重违反公司规章制度、严重失职、营私舞弊或者给甲方造成重大损害的，甲方可以依法解除劳动合同。\n连续旷工3个工作日，或者一个自然年度内累计旷工5个工作日的，视为严重违反甲方规章制度。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0011",
+        "location": "第八条 保密义务",
+        "text": "第八条 保密义务\n乙方在任职期间及离职后均应对因工作知悉的甲方商业秘密及其他保密信息承担保密义务。\n保密信息包括但不限于源代码、算法、模型、技术文档、客户名单、报价方案、供应商资料、经营数据、财务资料、账号密码及尚未公开的商业计划。\n未经甲方书面许可，乙方不得自行使用、复制、向第三方披露或者允许第三方使用前述信息。\n乙方违反保密义务的，应向甲方支付违约金人民币200,000元；如违约金不足以弥补甲方损失的，乙方还应赔偿差额部分。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0012",
+        "location": "第九条 知识产权",
+        "text": "第九条 知识产权\n乙方在履行职务过程中形成的软件程序、源代码、技术方案、产品设计、技术文档、发明创造及其他工作成果，其知识产权按照法律规定及双方约定归甲方享有。\n乙方利用甲方设备、资金、技术资料或者主要基于甲方业务需求，在劳动合同存续期间完成的相关技术成果，无论是否在正常工作时间内完成，均视为职务成果。\n未经甲方书面同意，乙方不得将相关工作成果用于甲方以外的任何项目。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0013",
+        "location": "第十条 竞业限制",
+        "text": "第十条 竞业限制\n乙方确认其岗位涉及甲方核心技术及商业秘密，因此属于竞业限制人员。\n劳动合同解除或者终止后两年内，未经甲方书面同意，乙方不得自行经营或者为其他单位从事与甲方相同或类似的人工智能、企业软件、数据平台及软件研发相关业务。\n竞业限制地域包括中华人民共和国境内。\n甲方是否要求乙方实际履行竞业限制义务，以乙方离职时甲方通知为准。\n如甲方要求乙方履行竞业限制义务，竞业限制期间的经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0014",
+        "location": "第十一条 培训及服务期",
+        "text": "第十一条 培训及服务期\n甲方可以根据岗位需要安排乙方参加专业培训、认证考试或者外部技术课程。\n如甲方为乙方支付单次人民币20,000元以上的专项培训费用，双方可以另行签订培训服务期协议。\n未签订专项培训服务期协议的，不当然产生服务期义务。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0015",
+        "location": "第十二条 劳动合同解除和终止",
+        "text": "第十二条 劳动合同解除和终止\n甲乙双方解除或者终止劳动合同，应按照国家法律法规办理。\n乙方提出解除劳动合同，应依法提前通知甲方，并按照甲方要求完成工作交接、账号移交、资料归还、代码提交、设备归还等手续。\n乙方未完成工作交接即离职，给甲方造成实际经济损失的，应承担相应赔偿责任。\n乙方未提前30日通知甲方自行离职的，应向甲方支付相当于一个月工资的违约金。\n乙方离职时应返还属于甲方的电脑、门禁卡、文件、资料、账号以及其他财物。\n乙方完成离职交接后，甲方按照规定办理劳动关系终止证明及相关手续。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0016",
+        "location": "第十三条 特别约定",
+        "text": "第十三条 特别约定\n乙方保证向甲方提供的学历、工作经历、资格证书及其他入职资料真实有效。\n如乙方提供虚假学历、虚假工作经历或者其他足以影响甲方录用决定的重要虚假信息，甲方有权依法处理。\n乙方因个人原因造成客户投诉、项目延期或者经济损失的，甲方可以根据责任程度在绩效考核中予以相应处理。\n乙方在职期间原则上不得从事与甲方存在竞争关系的兼职工作。其他兼职不得影响本职工作，并应事先向甲方报备。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0017",
+        "location": "第十四条 通知与送达",
+        "text": "第十四条 通知与送达\n本合同载明的通讯地址、联系电话及电子邮箱可以作为双方通知和文件送达地址。\n一方联系方式发生变化的，应及时通知另一方。\n甲方通过乙方提供的电子邮箱、手机短信、企业微信或者书面地址发送通知后，即视为已经完成送达。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0018",
+        "location": "第十五条 劳动争议处理",
+        "text": "第十五条 劳动争议处理\n因履行本合同发生争议的，双方应首先协商解决；协商不成的，可以依法向有管辖权的劳动人事争议仲裁委员会申请仲裁。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0019",
+        "location": "第十六条 其他",
+        "text": "第十六条 其他\n本合同未尽事宜按照国家及劳动合同履行地现行法律法规执行。\n本合同部分条款被认定无效的，不影响其他条款的效力。\n本合同一式两份，甲乙双方各执一份，自双方签字或者盖章之日起生效。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0020",
+        "location": "甲方（盖章）：上海澄远数字科技有限公司",
+        "text": "甲方（盖章）：上海澄远数字科技有限公司\n法定代表人或授权代表：周明远\n签订日期：2026年9月12日",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0021",
+        "location": "乙方（签字）：陈昊",
+        "text": "乙方（签字）：陈昊\n签订日期：2026年9月12日",
+        "section_type": "正式合同条款"
+      }
+    ],
+    "top_k_candidates": [
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "title": "全文",
+        "text": "劳动合同\n合同编号：LD-2026-0909-07",
+        "quote": "劳动合同\n合同编号：LD-2026-0909-07",
+        "original_excerpt": "劳动合同\n合同编号：LD-2026-0909-07",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "source_start": 0,
+        "source_end": 25,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0002",
+        "location": "甲方（用人单位）：上海澄远数字科技有限公司",
+        "title": "甲方（用人单位）：上海澄远数字科技有限公司",
+        "text": "甲方（用人单位）：上海澄远数字科技有限公司\n统一社会信用代码：91310115MA8X6R729Q\n住所：上海市浦东新区张江路688号创新大厦12层\n法定代表人：周明远\n联系电话：021-58762136",
+        "quote": "甲方（用人单位）：上海澄远数字科技有限公司\n统一社会信用代码：91310115MA8X6R729Q\n住所：上海市浦东新区张江路688号创新大厦12层\n法定代表人：周明远\n联系电话：021-58762136",
+        "original_excerpt": "甲方（用人单位）：上海澄远数字科技有限公司\n统一社会信用代码：91310115MA8X6R729Q\n住所：上海市浦东新区张江路688号创新大厦12层\n法定代表人：周明远\n联系电话：021-58762136",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "source_start": 0,
+        "source_end": 102,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0003",
+        "location": "乙方（劳动者）：陈昊",
+        "title": "乙方（劳动者）：陈昊",
+        "text": "乙方（劳动者）：陈昊\n身份证号码：310*4217\n户籍所在地：江苏省苏州市吴中区\n现居住地址：上海市浦东新区金科路1188弄16号702室\n联系电话：1385726\n根据《中华人民共和国劳动法》《中华人民共和国劳动合同法》等有关法律法规，甲乙双方在平等自愿、协商一致的基础上订立本合同，共同遵守。",
+        "quote": "乙方（劳动者）：陈昊\n身份证号码：310*4217\n户籍所在地：江苏省苏州市吴中区\n现居住地址：上海市浦东新区金科路1188弄16号702室\n联系电话：1385726\n根据《中华人民共和国劳动法》《中华人民共和国劳动合同法》等有关法律法规，甲乙双方在平等自愿、协商一致的基础上订立本合同，共同遵守。",
+        "original_excerpt": "乙方（劳动者）：陈昊\n身份证号码：310*4217\n户籍所在地：江苏省苏州市吴中区\n现居住地址：上海市浦东新区金科路1188弄16号702室\n联系电话：1385726\n根据《中华人民共和国劳动法》《中华人民共和国劳动合同法》等有关法律法规，甲乙双方在平等自愿、协商一致的基础上订立本合同，共同遵守。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "source_start": 0,
+        "source_end": 149,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "title": "合同期限",
+        "text": "第一条 合同期限\n本合同为固定期限劳动合同，合同期限自2026年9月15日起至2029年9月14日止，共三年。",
+        "quote": "第一条 合同期限\n本合同为固定期限劳动合同，合同期限自2026年9月15日起至2029年9月14日止，共三年。",
+        "original_excerpt": "第一条 合同期限\n本合同为固定期限劳动合同，合同期限自2026年9月15日起至2029年9月14日止，共三年。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第一条 合同期限"
+        ],
+        "source_start": 0,
+        "source_end": 55,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "title": "合同期限",
+        "text": "双方约定试用期自2026年9月15日起至2027年4月14日止。",
+        "quote": "双方约定试用期自2026年9月15日起至2027年4月14日止。",
+        "original_excerpt": "双方约定试用期自2026年9月15日起至2027年4月14日止。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第一条 合同期限"
+        ],
+        "source_start": 55,
+        "source_end": 88,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "title": "合同期限",
+        "text": "试用期内，如甲方认为乙方工作能力、工作态度、团队协作能力或岗位匹配度未达到甲方要求，甲方有权解除劳动合同。",
+        "quote": "试用期内，如甲方认为乙方工作能力、工作态度、团队协作能力或岗位匹配度未达到甲方要求，甲方有权解除劳动合同。",
+        "original_excerpt": "试用期内，如甲方认为乙方工作能力、工作态度、团队协作能力或岗位匹配度未达到甲方要求，甲方有权解除劳动合同。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第一条 合同期限"
+        ],
+        "source_start": 88,
+        "source_end": 142,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "title": "合同期限",
+        "text": "试用期满后，乙方继续工作的，视为通过试用期。",
+        "quote": "试用期满后，乙方继续工作的，视为通过试用期。",
+        "original_excerpt": "试用期满后，乙方继续工作的，视为通过试用期。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第一条 合同期限"
+        ],
+        "source_start": 142,
+        "source_end": 165,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "title": "工作岗位及工作地点",
+        "text": "第二条 工作岗位及工作地点\n乙方同意担任甲方“高级软件开发工程师”岗位，主要负责企业智能化平台的软件研发、系统维护、技术支持以及甲方安排的其他相关工作。",
+        "quote": "第二条 工作岗位及工作地点\n乙方同意担任甲方“高级软件开发工程师”岗位，主要负责企业智能化平台的软件研发、系统维护、技术支持以及甲方安排的其他相关工作。",
+        "original_excerpt": "第二条 工作岗位及工作地点\n乙方同意担任甲方“高级软件开发工程师”岗位，主要负责企业智能化平台的软件研发、系统维护、技术支持以及甲方安排的其他相关工作。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第二条 工作岗位及工作地点"
+        ],
+        "source_start": 0,
+        "source_end": 76,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "title": "工作岗位及工作地点",
+        "text": "乙方主要工作地点为上海市。",
+        "quote": "乙方主要工作地点为上海市。",
+        "original_excerpt": "乙方主要工作地点为上海市。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第二条 工作岗位及工作地点"
+        ],
+        "source_start": 76,
+        "source_end": 90,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "title": "工作岗位及工作地点",
+        "text": "根据经营管理、客户项目、组织架构调整或者乙方工作表现，甲方可以结合实际经营需要调整乙方的岗位、职级、工作内容及工作地点，包括安排乙方至甲方关联公司、客户现场或者上海市以外地区工作，乙方应服从甲方合理安排。",
+        "quote": "根据经营管理、客户项目、组织架构调整或者乙方工作表现，甲方可以结合实际经营需要调整乙方的岗位、职级、工作内容及工作地点，包括安排乙方至甲方关联公司、客户现场或者上海市以外地区工作，乙方应服从甲方合理安排。",
+        "original_excerpt": "根据经营管理、客户项目、组织架构调整或者乙方工作表现，甲方可以结合实际经营需要调整乙方的岗位、职级、工作内容及工作地点，包括安排乙方至甲方关联公司、客户现场或者上海市以外地区工作，乙方应服从甲方合理安排。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第二条 工作岗位及工作地点"
+        ],
+        "source_start": 90,
+        "source_end": 193,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "title": "工作岗位及工作地点",
+        "text": "乙方无正当理由拒绝甲方岗位或工作地点调整的，甲方可以按照公司规章制度处理。",
+        "quote": "乙方无正当理由拒绝甲方岗位或工作地点调整的，甲方可以按照公司规章制度处理。",
+        "original_excerpt": "乙方无正当理由拒绝甲方岗位或工作地点调整的，甲方可以按照公司规章制度处理。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第二条 工作岗位及工作地点"
+        ],
+        "source_start": 193,
+        "source_end": 231,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "第三条 工作时间和休息休假\n乙方原则上实行标准工时制，每日工作8小时，每周工作5天。",
+        "quote": "第三条 工作时间和休息休假\n乙方原则上实行标准工时制，每日工作8小时，每周工作5天。",
+        "original_excerpt": "第三条 工作时间和休息休假\n乙方原则上实行标准工时制，每日工作8小时，每周工作5天。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 0,
+        "source_end": 42,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "正常工作时间为工作日9:00至18:00，其中12:00至13:00为午休时间。",
+        "quote": "正常工作时间为工作日9:00至18:00，其中12:00至13:00为午休时间。",
+        "original_excerpt": "正常工作时间为工作日9:00至18:00，其中12:00至13:00为午休时间。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 42,
+        "source_end": 83,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "因项目上线、系统故障处理、客户紧急需求等情况需要乙方延长工作时间的，乙方应积极配合。",
+        "quote": "因项目上线、系统故障处理、客户紧急需求等情况需要乙方延长工作时间的，乙方应积极配合。",
+        "original_excerpt": "因项目上线、系统故障处理、客户紧急需求等情况需要乙方延长工作时间的，乙方应积极配合。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 83,
+        "source_end": 126,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "乙方月工资已经综合考虑岗位可能发生的延时工作、周末项目支持及其他临时性工作，因此一般情况下甲方不再另行支付加班工资。",
+        "quote": "乙方月工资已经综合考虑岗位可能发生的延时工作、周末项目支持及其他临时性工作，因此一般情况下甲方不再另行支付加班工资。",
+        "original_excerpt": "乙方月工资已经综合考虑岗位可能发生的延时工作、周末项目支持及其他临时性工作，因此一般情况下甲方不再另行支付加班工资。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 126,
+        "source_end": 185,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "法定节假日确因工作需要安排乙方工作的，甲方可以根据实际情况安排调休或给予相应补偿。",
+        "quote": "法定节假日确因工作需要安排乙方工作的，甲方可以根据实际情况安排调休或给予相应补偿。",
+        "original_excerpt": "法定节假日确因工作需要安排乙方工作的，甲方可以根据实际情况安排调休或给予相应补偿。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 185,
+        "source_end": 227,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "title": "劳动报酬",
+        "text": "第四条 劳动报酬\n乙方转正后的月度税前工资标准为人民币20,000元，具体组成如下：\n基本工资：人民币12,000元；\n岗位工资：人民币5,000元；\n绩效工资：人民币3,000元。",
+        "quote": "第四条 劳动报酬\n乙方转正后的月度税前工资标准为人民币20,000元，具体组成如下：\n基本工资：人民币12,000元；\n岗位工资：人民币5,000元；\n绩效工资：人民币3,000元。",
+        "original_excerpt": "第四条 劳动报酬\n乙方转正后的月度税前工资标准为人民币20,000元，具体组成如下：\n基本工资：人民币12,000元；\n岗位工资：人民币5,000元；\n绩效工资：人民币3,000元。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条 劳动报酬"
+        ],
+        "source_start": 0,
+        "source_end": 91,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "title": "劳动报酬",
+        "text": "试用期工资为转正工资标准的80%，即税前人民币16,000元/月。",
+        "quote": "试用期工资为转正工资标准的80%，即税前人民币16,000元/月。",
+        "original_excerpt": "试用期工资为转正工资标准的80%，即税前人民币16,000元/月。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条 劳动报酬"
+        ],
+        "source_start": 91,
+        "source_end": 125,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "title": "劳动报酬",
+        "text": "绩效工资根据乙方工作完成情况、部门考核结果、公司经营情况综合确定。",
+        "quote": "绩效工资根据乙方工作完成情况、部门考核结果、公司经营情况综合确定。",
+        "original_excerpt": "绩效工资根据乙方工作完成情况、部门考核结果、公司经营情况综合确定。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条 劳动报酬"
+        ],
+        "source_start": 125,
+        "source_end": 159,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "title": "劳动报酬",
+        "text": "甲方有权根据绩效考核结果决定绩效工资的实际发放比例。",
+        "quote": "甲方有权根据绩效考核结果决定绩效工资的实际发放比例。",
+        "original_excerpt": "甲方有权根据绩效考核结果决定绩效工资的实际发放比例。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条 劳动报酬"
+        ],
+        "source_start": 159,
+        "source_end": 185,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      }
+    ],
+    "candidate_count": 72,
+    "stage_results": {
+      "normalize": "CANONICAL_CANDIDATE",
+      "threshold": "NOT_FOUND"
+    },
+    "searched_document_hash": "490a09ad0f725b01506c423b3f8dba1b691ac279b49a27cc0ebb37a1ff19e63c",
+    "result": "NOT_FOUND",
+    "supporting_evidence": []
+  },
+  {
+    "rule_id": "EMP-11-01",
+    "element_id": "employment_compensation_2",
+    "review_id": "EMP-11-01",
+    "search_targets": [
+      "解除终止后工资及补偿结算期限"
+    ],
+    "query_patterns": [
+      "(?:解除|终止).{0,70}(?:\\d+日内|当日).{0,35}(?:支付|结清)|(?:补偿|工资).{0,40}\\d+日内.{0,20}(?:结清|支付)",
+      "经济补偿[^。；\\n]{0,30}(?:办结|完成|办理完毕)工作交接(?:时|后当日)[^。；\\n]{0,8}(?:支付|结清)",
+      "经济补偿[^。；\\n]{0,30}工作交接(?:结束|完成|办结)后[^。；\\n]{0,8}支付"
+    ],
+    "query_semantic_target": "解除终止后工资及补偿结算期限",
+    "query_semantics": "POSITIVE_REQUIRED_FACT",
+    "search_mode": "SEMANTIC_REQUIREMENT",
+    "searched_clause_ids": [
+      "C0001",
+      "C0002",
+      "C0003",
+      "C0004",
+      "C0005",
+      "C0006",
+      "C0007",
+      "C0008",
+      "C0009",
+      "C0010",
+      "C0011",
+      "C0012",
+      "C0013",
+      "C0014",
+      "C0015",
+      "C0016",
+      "C0017",
+      "C0018",
+      "C0019",
+      "C0020",
+      "C0021"
+    ],
+    "search_corpus_chunks": [
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "text": "劳动合同\n合同编号：LD-2026-0909-07",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0002",
+        "location": "甲方（用人单位）：上海澄远数字科技有限公司",
+        "text": "甲方（用人单位）：上海澄远数字科技有限公司\n统一社会信用代码：91310115MA8X6R729Q\n住所：上海市浦东新区张江路688号创新大厦12层\n法定代表人：周明远\n联系电话：021-58762136",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0003",
+        "location": "乙方（劳动者）：陈昊",
+        "text": "乙方（劳动者）：陈昊\n身份证号码：310*4217\n户籍所在地：江苏省苏州市吴中区\n现居住地址：上海市浦东新区金科路1188弄16号702室\n联系电话：1385726\n根据《中华人民共和国劳动法》《中华人民共和国劳动合同法》等有关法律法规，甲乙双方在平等自愿、协商一致的基础上订立本合同，共同遵守。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "text": "第一条 合同期限\n本合同为固定期限劳动合同，合同期限自2026年9月15日起至2029年9月14日止，共三年。\n双方约定试用期自2026年9月15日起至2027年4月14日止。\n试用期内，如甲方认为乙方工作能力、工作态度、团队协作能力或岗位匹配度未达到甲方要求，甲方有权解除劳动合同。\n试用期满后，乙方继续工作的，视为通过试用期。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "text": "第二条 工作岗位及工作地点\n乙方同意担任甲方“高级软件开发工程师”岗位，主要负责企业智能化平台的软件研发、系统维护、技术支持以及甲方安排的其他相关工作。\n乙方主要工作地点为上海市。\n根据经营管理、客户项目、组织架构调整或者乙方工作表现，甲方可以结合实际经营需要调整乙方的岗位、职级、工作内容及工作地点，包括安排乙方至甲方关联公司、客户现场或者上海市以外地区工作，乙方应服从甲方合理安排。\n乙方无正当理由拒绝甲方岗位或工作地点调整的，甲方可以按照公司规章制度处理。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "text": "第三条 工作时间和休息休假\n乙方原则上实行标准工时制，每日工作8小时，每周工作5天。\n正常工作时间为工作日9:00至18:00，其中12:00至13:00为午休时间。\n因项目上线、系统故障处理、客户紧急需求等情况需要乙方延长工作时间的，乙方应积极配合。\n乙方月工资已经综合考虑岗位可能发生的延时工作、周末项目支持及其他临时性工作，因此一般情况下甲方不再另行支付加班工资。\n法定节假日确因工作需要安排乙方工作的，甲方可以根据实际情况安排调休或给予相应补偿。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "text": "第四条 劳动报酬\n乙方转正后的月度税前工资标准为人民币20,000元，具体组成如下：\n基本工资：人民币12,000元；\n岗位工资：人民币5,000元；\n绩效工资：人民币3,000元。\n试用期工资为转正工资标准的80%，即税前人民币16,000元/月。\n绩效工资根据乙方工作完成情况、部门考核结果、公司经营情况综合确定。甲方有权根据绩效考核结果决定绩效工资的实际发放比例。\n甲方原则上于每月10日前通过银行转账方式支付乙方上一个自然月的工资。如遇节假日、财务结算或者其他特殊情况，可以顺延。\n因经营情况、组织调整或者岗位变化，甲方可以根据薪酬管理制度对乙方的薪酬结构进行调整，但原则上应与乙方的岗位职责及工作表现相匹配。\n乙方对工资金额存在异议的，应在收到工资之日起5个工作日内提出；逾期未提出的，视为乙方确认工资计算及支付无误。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0008",
+        "location": "第五条 社会保险及福利",
+        "text": "第五条 社会保险及福利\n甲方依法为乙方办理社会保险及住房公积金。\n经乙方本人书面申请，如乙方因个人原因不希望在甲方所在地缴纳社会保险，双方可以协商由甲方按月向乙方支付社会保险补贴人民币2,000元，由乙方自行处理相关保险事项。\n甲方可以根据经营状况向乙方提供餐费补贴、交通补贴、通讯补贴、节日福利、年度体检等福利。上述福利属于甲方自主福利，不视为固定劳动报酬，甲方有权根据经营情况调整或取消。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0009",
+        "location": "第六条 劳动保护",
+        "text": "第六条 劳动保护\n甲方应向乙方提供符合国家规定的劳动条件和必要的工作设备。\n乙方应遵守甲方关于信息安全、数据安全、办公设备管理及安全生产的有关规定。\n因乙方故意或者重大过失造成甲方电脑、服务器、测试设备或者其他财产损失的，乙方应承担相应赔偿责任。甲方可以依法从乙方工资中扣除应赔偿金额。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0010",
+        "location": "第七条 规章制度",
+        "text": "第七条 规章制度\n乙方确认在签订本合同时已经阅读并理解甲方现行的《员工手册》《考勤管理制度》《绩效管理制度》《信息安全制度》等规章制度。\n甲方根据经营管理需要依法制定、修改或者完善规章制度后，通过公司内部系统、电子邮件、企业微信或者公告栏发布的，乙方均应遵守。\n乙方严重违反公司规章制度、严重失职、营私舞弊或者给甲方造成重大损害的，甲方可以依法解除劳动合同。\n连续旷工3个工作日，或者一个自然年度内累计旷工5个工作日的，视为严重违反甲方规章制度。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0011",
+        "location": "第八条 保密义务",
+        "text": "第八条 保密义务\n乙方在任职期间及离职后均应对因工作知悉的甲方商业秘密及其他保密信息承担保密义务。\n保密信息包括但不限于源代码、算法、模型、技术文档、客户名单、报价方案、供应商资料、经营数据、财务资料、账号密码及尚未公开的商业计划。\n未经甲方书面许可，乙方不得自行使用、复制、向第三方披露或者允许第三方使用前述信息。\n乙方违反保密义务的，应向甲方支付违约金人民币200,000元；如违约金不足以弥补甲方损失的，乙方还应赔偿差额部分。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0012",
+        "location": "第九条 知识产权",
+        "text": "第九条 知识产权\n乙方在履行职务过程中形成的软件程序、源代码、技术方案、产品设计、技术文档、发明创造及其他工作成果，其知识产权按照法律规定及双方约定归甲方享有。\n乙方利用甲方设备、资金、技术资料或者主要基于甲方业务需求，在劳动合同存续期间完成的相关技术成果，无论是否在正常工作时间内完成，均视为职务成果。\n未经甲方书面同意，乙方不得将相关工作成果用于甲方以外的任何项目。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0013",
+        "location": "第十条 竞业限制",
+        "text": "第十条 竞业限制\n乙方确认其岗位涉及甲方核心技术及商业秘密，因此属于竞业限制人员。\n劳动合同解除或者终止后两年内，未经甲方书面同意，乙方不得自行经营或者为其他单位从事与甲方相同或类似的人工智能、企业软件、数据平台及软件研发相关业务。\n竞业限制地域包括中华人民共和国境内。\n甲方是否要求乙方实际履行竞业限制义务，以乙方离职时甲方通知为准。\n如甲方要求乙方履行竞业限制义务，竞业限制期间的经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0014",
+        "location": "第十一条 培训及服务期",
+        "text": "第十一条 培训及服务期\n甲方可以根据岗位需要安排乙方参加专业培训、认证考试或者外部技术课程。\n如甲方为乙方支付单次人民币20,000元以上的专项培训费用，双方可以另行签订培训服务期协议。\n未签订专项培训服务期协议的，不当然产生服务期义务。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0015",
+        "location": "第十二条 劳动合同解除和终止",
+        "text": "第十二条 劳动合同解除和终止\n甲乙双方解除或者终止劳动合同，应按照国家法律法规办理。\n乙方提出解除劳动合同，应依法提前通知甲方，并按照甲方要求完成工作交接、账号移交、资料归还、代码提交、设备归还等手续。\n乙方未完成工作交接即离职，给甲方造成实际经济损失的，应承担相应赔偿责任。\n乙方未提前30日通知甲方自行离职的，应向甲方支付相当于一个月工资的违约金。\n乙方离职时应返还属于甲方的电脑、门禁卡、文件、资料、账号以及其他财物。\n乙方完成离职交接后，甲方按照规定办理劳动关系终止证明及相关手续。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0016",
+        "location": "第十三条 特别约定",
+        "text": "第十三条 特别约定\n乙方保证向甲方提供的学历、工作经历、资格证书及其他入职资料真实有效。\n如乙方提供虚假学历、虚假工作经历或者其他足以影响甲方录用决定的重要虚假信息，甲方有权依法处理。\n乙方因个人原因造成客户投诉、项目延期或者经济损失的，甲方可以根据责任程度在绩效考核中予以相应处理。\n乙方在职期间原则上不得从事与甲方存在竞争关系的兼职工作。其他兼职不得影响本职工作，并应事先向甲方报备。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0017",
+        "location": "第十四条 通知与送达",
+        "text": "第十四条 通知与送达\n本合同载明的通讯地址、联系电话及电子邮箱可以作为双方通知和文件送达地址。\n一方联系方式发生变化的，应及时通知另一方。\n甲方通过乙方提供的电子邮箱、手机短信、企业微信或者书面地址发送通知后，即视为已经完成送达。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0018",
+        "location": "第十五条 劳动争议处理",
+        "text": "第十五条 劳动争议处理\n因履行本合同发生争议的，双方应首先协商解决；协商不成的，可以依法向有管辖权的劳动人事争议仲裁委员会申请仲裁。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0019",
+        "location": "第十六条 其他",
+        "text": "第十六条 其他\n本合同未尽事宜按照国家及劳动合同履行地现行法律法规执行。\n本合同部分条款被认定无效的，不影响其他条款的效力。\n本合同一式两份，甲乙双方各执一份，自双方签字或者盖章之日起生效。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0020",
+        "location": "甲方（盖章）：上海澄远数字科技有限公司",
+        "text": "甲方（盖章）：上海澄远数字科技有限公司\n法定代表人或授权代表：周明远\n签订日期：2026年9月12日",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0021",
+        "location": "乙方（签字）：陈昊",
+        "text": "乙方（签字）：陈昊\n签订日期：2026年9月12日",
+        "section_type": "正式合同条款"
+      }
+    ],
+    "top_k_candidates": [
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "title": "全文",
+        "text": "劳动合同\n合同编号：LD-2026-0909-07",
+        "quote": "劳动合同\n合同编号：LD-2026-0909-07",
+        "original_excerpt": "劳动合同\n合同编号：LD-2026-0909-07",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "source_start": 0,
+        "source_end": 25,
+        "supports_element_ids": [
+          "employment_compensation_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0002",
+        "location": "甲方（用人单位）：上海澄远数字科技有限公司",
+        "title": "甲方（用人单位）：上海澄远数字科技有限公司",
+        "text": "甲方（用人单位）：上海澄远数字科技有限公司\n统一社会信用代码：91310115MA8X6R729Q\n住所：上海市浦东新区张江路688号创新大厦12层\n法定代表人：周明远\n联系电话：021-58762136",
+        "quote": "甲方（用人单位）：上海澄远数字科技有限公司\n统一社会信用代码：91310115MA8X6R729Q\n住所：上海市浦东新区张江路688号创新大厦12层\n法定代表人：周明远\n联系电话：021-58762136",
+        "original_excerpt": "甲方（用人单位）：上海澄远数字科技有限公司\n统一社会信用代码：91310115MA8X6R729Q\n住所：上海市浦东新区张江路688号创新大厦12层\n法定代表人：周明远\n联系电话：021-58762136",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "source_start": 0,
+        "source_end": 102,
+        "supports_element_ids": [
+          "employment_compensation_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0003",
+        "location": "乙方（劳动者）：陈昊",
+        "title": "乙方（劳动者）：陈昊",
+        "text": "乙方（劳动者）：陈昊\n身份证号码：310*4217\n户籍所在地：江苏省苏州市吴中区\n现居住地址：上海市浦东新区金科路1188弄16号702室\n联系电话：1385726\n根据《中华人民共和国劳动法》《中华人民共和国劳动合同法》等有关法律法规，甲乙双方在平等自愿、协商一致的基础上订立本合同，共同遵守。",
+        "quote": "乙方（劳动者）：陈昊\n身份证号码：310*4217\n户籍所在地：江苏省苏州市吴中区\n现居住地址：上海市浦东新区金科路1188弄16号702室\n联系电话：1385726\n根据《中华人民共和国劳动法》《中华人民共和国劳动合同法》等有关法律法规，甲乙双方在平等自愿、协商一致的基础上订立本合同，共同遵守。",
+        "original_excerpt": "乙方（劳动者）：陈昊\n身份证号码：310*4217\n户籍所在地：江苏省苏州市吴中区\n现居住地址：上海市浦东新区金科路1188弄16号702室\n联系电话：1385726\n根据《中华人民共和国劳动法》《中华人民共和国劳动合同法》等有关法律法规，甲乙双方在平等自愿、协商一致的基础上订立本合同，共同遵守。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "source_start": 0,
+        "source_end": 149,
+        "supports_element_ids": [
+          "employment_compensation_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "title": "合同期限",
+        "text": "第一条 合同期限\n本合同为固定期限劳动合同，合同期限自2026年9月15日起至2029年9月14日止，共三年。",
+        "quote": "第一条 合同期限\n本合同为固定期限劳动合同，合同期限自2026年9月15日起至2029年9月14日止，共三年。",
+        "original_excerpt": "第一条 合同期限\n本合同为固定期限劳动合同，合同期限自2026年9月15日起至2029年9月14日止，共三年。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第一条 合同期限"
+        ],
+        "source_start": 0,
+        "source_end": 55,
+        "supports_element_ids": [
+          "employment_compensation_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "title": "合同期限",
+        "text": "双方约定试用期自2026年9月15日起至2027年4月14日止。",
+        "quote": "双方约定试用期自2026年9月15日起至2027年4月14日止。",
+        "original_excerpt": "双方约定试用期自2026年9月15日起至2027年4月14日止。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第一条 合同期限"
+        ],
+        "source_start": 55,
+        "source_end": 88,
+        "supports_element_ids": [
+          "employment_compensation_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "title": "合同期限",
+        "text": "试用期内，如甲方认为乙方工作能力、工作态度、团队协作能力或岗位匹配度未达到甲方要求，甲方有权解除劳动合同。",
+        "quote": "试用期内，如甲方认为乙方工作能力、工作态度、团队协作能力或岗位匹配度未达到甲方要求，甲方有权解除劳动合同。",
+        "original_excerpt": "试用期内，如甲方认为乙方工作能力、工作态度、团队协作能力或岗位匹配度未达到甲方要求，甲方有权解除劳动合同。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第一条 合同期限"
+        ],
+        "source_start": 88,
+        "source_end": 142,
+        "supports_element_ids": [
+          "employment_compensation_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "title": "合同期限",
+        "text": "试用期满后，乙方继续工作的，视为通过试用期。",
+        "quote": "试用期满后，乙方继续工作的，视为通过试用期。",
+        "original_excerpt": "试用期满后，乙方继续工作的，视为通过试用期。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第一条 合同期限"
+        ],
+        "source_start": 142,
+        "source_end": 165,
+        "supports_element_ids": [
+          "employment_compensation_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "title": "工作岗位及工作地点",
+        "text": "第二条 工作岗位及工作地点\n乙方同意担任甲方“高级软件开发工程师”岗位，主要负责企业智能化平台的软件研发、系统维护、技术支持以及甲方安排的其他相关工作。",
+        "quote": "第二条 工作岗位及工作地点\n乙方同意担任甲方“高级软件开发工程师”岗位，主要负责企业智能化平台的软件研发、系统维护、技术支持以及甲方安排的其他相关工作。",
+        "original_excerpt": "第二条 工作岗位及工作地点\n乙方同意担任甲方“高级软件开发工程师”岗位，主要负责企业智能化平台的软件研发、系统维护、技术支持以及甲方安排的其他相关工作。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第二条 工作岗位及工作地点"
+        ],
+        "source_start": 0,
+        "source_end": 76,
+        "supports_element_ids": [
+          "employment_compensation_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "title": "工作岗位及工作地点",
+        "text": "乙方主要工作地点为上海市。",
+        "quote": "乙方主要工作地点为上海市。",
+        "original_excerpt": "乙方主要工作地点为上海市。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第二条 工作岗位及工作地点"
+        ],
+        "source_start": 76,
+        "source_end": 90,
+        "supports_element_ids": [
+          "employment_compensation_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "title": "工作岗位及工作地点",
+        "text": "根据经营管理、客户项目、组织架构调整或者乙方工作表现，甲方可以结合实际经营需要调整乙方的岗位、职级、工作内容及工作地点，包括安排乙方至甲方关联公司、客户现场或者上海市以外地区工作，乙方应服从甲方合理安排。",
+        "quote": "根据经营管理、客户项目、组织架构调整或者乙方工作表现，甲方可以结合实际经营需要调整乙方的岗位、职级、工作内容及工作地点，包括安排乙方至甲方关联公司、客户现场或者上海市以外地区工作，乙方应服从甲方合理安排。",
+        "original_excerpt": "根据经营管理、客户项目、组织架构调整或者乙方工作表现，甲方可以结合实际经营需要调整乙方的岗位、职级、工作内容及工作地点，包括安排乙方至甲方关联公司、客户现场或者上海市以外地区工作，乙方应服从甲方合理安排。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第二条 工作岗位及工作地点"
+        ],
+        "source_start": 90,
+        "source_end": 193,
+        "supports_element_ids": [
+          "employment_compensation_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "title": "工作岗位及工作地点",
+        "text": "乙方无正当理由拒绝甲方岗位或工作地点调整的，甲方可以按照公司规章制度处理。",
+        "quote": "乙方无正当理由拒绝甲方岗位或工作地点调整的，甲方可以按照公司规章制度处理。",
+        "original_excerpt": "乙方无正当理由拒绝甲方岗位或工作地点调整的，甲方可以按照公司规章制度处理。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第二条 工作岗位及工作地点"
+        ],
+        "source_start": 193,
+        "source_end": 231,
+        "supports_element_ids": [
+          "employment_compensation_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "第三条 工作时间和休息休假\n乙方原则上实行标准工时制，每日工作8小时，每周工作5天。",
+        "quote": "第三条 工作时间和休息休假\n乙方原则上实行标准工时制，每日工作8小时，每周工作5天。",
+        "original_excerpt": "第三条 工作时间和休息休假\n乙方原则上实行标准工时制，每日工作8小时，每周工作5天。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 0,
+        "source_end": 42,
+        "supports_element_ids": [
+          "employment_compensation_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "正常工作时间为工作日9:00至18:00，其中12:00至13:00为午休时间。",
+        "quote": "正常工作时间为工作日9:00至18:00，其中12:00至13:00为午休时间。",
+        "original_excerpt": "正常工作时间为工作日9:00至18:00，其中12:00至13:00为午休时间。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 42,
+        "source_end": 83,
+        "supports_element_ids": [
+          "employment_compensation_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "因项目上线、系统故障处理、客户紧急需求等情况需要乙方延长工作时间的，乙方应积极配合。",
+        "quote": "因项目上线、系统故障处理、客户紧急需求等情况需要乙方延长工作时间的，乙方应积极配合。",
+        "original_excerpt": "因项目上线、系统故障处理、客户紧急需求等情况需要乙方延长工作时间的，乙方应积极配合。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 83,
+        "source_end": 126,
+        "supports_element_ids": [
+          "employment_compensation_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "乙方月工资已经综合考虑岗位可能发生的延时工作、周末项目支持及其他临时性工作，因此一般情况下甲方不再另行支付加班工资。",
+        "quote": "乙方月工资已经综合考虑岗位可能发生的延时工作、周末项目支持及其他临时性工作，因此一般情况下甲方不再另行支付加班工资。",
+        "original_excerpt": "乙方月工资已经综合考虑岗位可能发生的延时工作、周末项目支持及其他临时性工作，因此一般情况下甲方不再另行支付加班工资。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 126,
+        "source_end": 185,
+        "supports_element_ids": [
+          "employment_compensation_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "法定节假日确因工作需要安排乙方工作的，甲方可以根据实际情况安排调休或给予相应补偿。",
+        "quote": "法定节假日确因工作需要安排乙方工作的，甲方可以根据实际情况安排调休或给予相应补偿。",
+        "original_excerpt": "法定节假日确因工作需要安排乙方工作的，甲方可以根据实际情况安排调休或给予相应补偿。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 185,
+        "source_end": 227,
+        "supports_element_ids": [
+          "employment_compensation_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "title": "劳动报酬",
+        "text": "第四条 劳动报酬\n乙方转正后的月度税前工资标准为人民币20,000元，具体组成如下：\n基本工资：人民币12,000元；\n岗位工资：人民币5,000元；\n绩效工资：人民币3,000元。",
+        "quote": "第四条 劳动报酬\n乙方转正后的月度税前工资标准为人民币20,000元，具体组成如下：\n基本工资：人民币12,000元；\n岗位工资：人民币5,000元；\n绩效工资：人民币3,000元。",
+        "original_excerpt": "第四条 劳动报酬\n乙方转正后的月度税前工资标准为人民币20,000元，具体组成如下：\n基本工资：人民币12,000元；\n岗位工资：人民币5,000元；\n绩效工资：人民币3,000元。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条 劳动报酬"
+        ],
+        "source_start": 0,
+        "source_end": 91,
+        "supports_element_ids": [
+          "employment_compensation_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "title": "劳动报酬",
+        "text": "试用期工资为转正工资标准的80%，即税前人民币16,000元/月。",
+        "quote": "试用期工资为转正工资标准的80%，即税前人民币16,000元/月。",
+        "original_excerpt": "试用期工资为转正工资标准的80%，即税前人民币16,000元/月。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条 劳动报酬"
+        ],
+        "source_start": 91,
+        "source_end": 125,
+        "supports_element_ids": [
+          "employment_compensation_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "title": "劳动报酬",
+        "text": "绩效工资根据乙方工作完成情况、部门考核结果、公司经营情况综合确定。",
+        "quote": "绩效工资根据乙方工作完成情况、部门考核结果、公司经营情况综合确定。",
+        "original_excerpt": "绩效工资根据乙方工作完成情况、部门考核结果、公司经营情况综合确定。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条 劳动报酬"
+        ],
+        "source_start": 125,
+        "source_end": 159,
+        "supports_element_ids": [
+          "employment_compensation_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "title": "劳动报酬",
+        "text": "甲方有权根据绩效考核结果决定绩效工资的实际发放比例。",
+        "quote": "甲方有权根据绩效考核结果决定绩效工资的实际发放比例。",
+        "original_excerpt": "甲方有权根据绩效考核结果决定绩效工资的实际发放比例。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条 劳动报酬"
+        ],
+        "source_start": 159,
+        "source_end": 185,
+        "supports_element_ids": [
+          "employment_compensation_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      }
+    ],
+    "candidate_count": 72,
+    "stage_results": {
+      "normalize": "CANONICAL_CANDIDATE",
+      "threshold": "NOT_FOUND"
+    },
+    "searched_document_hash": "490a09ad0f725b01506c423b3f8dba1b691ac279b49a27cc0ebb37a1ff19e63c",
+    "result": "NOT_FOUND",
+    "supporting_evidence": []
+  },
+  {
+    "rule_id": "NC-02-01",
+    "element_id": "employment_noncompete_term_2",
+    "review_id": "NC-02-01",
+    "search_targets": [
+      "离职后按月经济补偿的金额或计算标准"
+    ],
+    "query_patterns": [
+      "(?:离职|解除|终止).{0,100}(?:每月|按月).{0,30}(?:补偿.{0,12}\\d+元|\\d+元.{0,12}补偿|补偿.{0,20}\\d+[%％])",
+      "经济补偿(?:金)?(?:为|：|:)[^。；\\n]{0,80}(?:每月|按月)\\s*(?:人民币)?\\s*[\\d,，]+(?:\\.\\d+)?\\s*元",
+      "(?:离职后|竞业限制期间)[^。；\\n]{0,40}(?:每月|按月)[^。；\\n]{0,20}(?:支付)?(?:经济)?补偿(?:金)?\\s*(?:为|：|:)?\\s*(?:人民币)?\\s*[\\d,，]+\\s*元"
+    ],
+    "query_semantic_target": "离职后按月经济补偿的金额或计算标准",
+    "query_semantics": "POSITIVE_REQUIRED_FACT",
+    "search_mode": "SEMANTIC_REQUIREMENT",
+    "searched_clause_ids": [
+      "C0001",
+      "C0002",
+      "C0003",
+      "C0004",
+      "C0005",
+      "C0006",
+      "C0007",
+      "C0008",
+      "C0009",
+      "C0010",
+      "C0011",
+      "C0012",
+      "C0013",
+      "C0014",
+      "C0015",
+      "C0016",
+      "C0017",
+      "C0018",
+      "C0019",
+      "C0020",
+      "C0021"
+    ],
+    "search_corpus_chunks": [
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "text": "劳动合同\n合同编号：LD-2026-0909-07",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0002",
+        "location": "甲方（用人单位）：上海澄远数字科技有限公司",
+        "text": "甲方（用人单位）：上海澄远数字科技有限公司\n统一社会信用代码：91310115MA8X6R729Q\n住所：上海市浦东新区张江路688号创新大厦12层\n法定代表人：周明远\n联系电话：021-58762136",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0003",
+        "location": "乙方（劳动者）：陈昊",
+        "text": "乙方（劳动者）：陈昊\n身份证号码：310*4217\n户籍所在地：江苏省苏州市吴中区\n现居住地址：上海市浦东新区金科路1188弄16号702室\n联系电话：1385726\n根据《中华人民共和国劳动法》《中华人民共和国劳动合同法》等有关法律法规，甲乙双方在平等自愿、协商一致的基础上订立本合同，共同遵守。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "text": "第一条 合同期限\n本合同为固定期限劳动合同，合同期限自2026年9月15日起至2029年9月14日止，共三年。\n双方约定试用期自2026年9月15日起至2027年4月14日止。\n试用期内，如甲方认为乙方工作能力、工作态度、团队协作能力或岗位匹配度未达到甲方要求，甲方有权解除劳动合同。\n试用期满后，乙方继续工作的，视为通过试用期。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "text": "第二条 工作岗位及工作地点\n乙方同意担任甲方“高级软件开发工程师”岗位，主要负责企业智能化平台的软件研发、系统维护、技术支持以及甲方安排的其他相关工作。\n乙方主要工作地点为上海市。\n根据经营管理、客户项目、组织架构调整或者乙方工作表现，甲方可以结合实际经营需要调整乙方的岗位、职级、工作内容及工作地点，包括安排乙方至甲方关联公司、客户现场或者上海市以外地区工作，乙方应服从甲方合理安排。\n乙方无正当理由拒绝甲方岗位或工作地点调整的，甲方可以按照公司规章制度处理。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "text": "第三条 工作时间和休息休假\n乙方原则上实行标准工时制，每日工作8小时，每周工作5天。\n正常工作时间为工作日9:00至18:00，其中12:00至13:00为午休时间。\n因项目上线、系统故障处理、客户紧急需求等情况需要乙方延长工作时间的，乙方应积极配合。\n乙方月工资已经综合考虑岗位可能发生的延时工作、周末项目支持及其他临时性工作，因此一般情况下甲方不再另行支付加班工资。\n法定节假日确因工作需要安排乙方工作的，甲方可以根据实际情况安排调休或给予相应补偿。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "text": "第四条 劳动报酬\n乙方转正后的月度税前工资标准为人民币20,000元，具体组成如下：\n基本工资：人民币12,000元；\n岗位工资：人民币5,000元；\n绩效工资：人民币3,000元。\n试用期工资为转正工资标准的80%，即税前人民币16,000元/月。\n绩效工资根据乙方工作完成情况、部门考核结果、公司经营情况综合确定。甲方有权根据绩效考核结果决定绩效工资的实际发放比例。\n甲方原则上于每月10日前通过银行转账方式支付乙方上一个自然月的工资。如遇节假日、财务结算或者其他特殊情况，可以顺延。\n因经营情况、组织调整或者岗位变化，甲方可以根据薪酬管理制度对乙方的薪酬结构进行调整，但原则上应与乙方的岗位职责及工作表现相匹配。\n乙方对工资金额存在异议的，应在收到工资之日起5个工作日内提出；逾期未提出的，视为乙方确认工资计算及支付无误。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0008",
+        "location": "第五条 社会保险及福利",
+        "text": "第五条 社会保险及福利\n甲方依法为乙方办理社会保险及住房公积金。\n经乙方本人书面申请，如乙方因个人原因不希望在甲方所在地缴纳社会保险，双方可以协商由甲方按月向乙方支付社会保险补贴人民币2,000元，由乙方自行处理相关保险事项。\n甲方可以根据经营状况向乙方提供餐费补贴、交通补贴、通讯补贴、节日福利、年度体检等福利。上述福利属于甲方自主福利，不视为固定劳动报酬，甲方有权根据经营情况调整或取消。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0009",
+        "location": "第六条 劳动保护",
+        "text": "第六条 劳动保护\n甲方应向乙方提供符合国家规定的劳动条件和必要的工作设备。\n乙方应遵守甲方关于信息安全、数据安全、办公设备管理及安全生产的有关规定。\n因乙方故意或者重大过失造成甲方电脑、服务器、测试设备或者其他财产损失的，乙方应承担相应赔偿责任。甲方可以依法从乙方工资中扣除应赔偿金额。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0010",
+        "location": "第七条 规章制度",
+        "text": "第七条 规章制度\n乙方确认在签订本合同时已经阅读并理解甲方现行的《员工手册》《考勤管理制度》《绩效管理制度》《信息安全制度》等规章制度。\n甲方根据经营管理需要依法制定、修改或者完善规章制度后，通过公司内部系统、电子邮件、企业微信或者公告栏发布的，乙方均应遵守。\n乙方严重违反公司规章制度、严重失职、营私舞弊或者给甲方造成重大损害的，甲方可以依法解除劳动合同。\n连续旷工3个工作日，或者一个自然年度内累计旷工5个工作日的，视为严重违反甲方规章制度。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0011",
+        "location": "第八条 保密义务",
+        "text": "第八条 保密义务\n乙方在任职期间及离职后均应对因工作知悉的甲方商业秘密及其他保密信息承担保密义务。\n保密信息包括但不限于源代码、算法、模型、技术文档、客户名单、报价方案、供应商资料、经营数据、财务资料、账号密码及尚未公开的商业计划。\n未经甲方书面许可，乙方不得自行使用、复制、向第三方披露或者允许第三方使用前述信息。\n乙方违反保密义务的，应向甲方支付违约金人民币200,000元；如违约金不足以弥补甲方损失的，乙方还应赔偿差额部分。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0012",
+        "location": "第九条 知识产权",
+        "text": "第九条 知识产权\n乙方在履行职务过程中形成的软件程序、源代码、技术方案、产品设计、技术文档、发明创造及其他工作成果，其知识产权按照法律规定及双方约定归甲方享有。\n乙方利用甲方设备、资金、技术资料或者主要基于甲方业务需求，在劳动合同存续期间完成的相关技术成果，无论是否在正常工作时间内完成，均视为职务成果。\n未经甲方书面同意，乙方不得将相关工作成果用于甲方以外的任何项目。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0013",
+        "location": "第十条 竞业限制",
+        "text": "第十条 竞业限制\n乙方确认其岗位涉及甲方核心技术及商业秘密，因此属于竞业限制人员。\n劳动合同解除或者终止后两年内，未经甲方书面同意，乙方不得自行经营或者为其他单位从事与甲方相同或类似的人工智能、企业软件、数据平台及软件研发相关业务。\n竞业限制地域包括中华人民共和国境内。\n甲方是否要求乙方实际履行竞业限制义务，以乙方离职时甲方通知为准。\n如甲方要求乙方履行竞业限制义务，竞业限制期间的经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0014",
+        "location": "第十一条 培训及服务期",
+        "text": "第十一条 培训及服务期\n甲方可以根据岗位需要安排乙方参加专业培训、认证考试或者外部技术课程。\n如甲方为乙方支付单次人民币20,000元以上的专项培训费用，双方可以另行签订培训服务期协议。\n未签订专项培训服务期协议的，不当然产生服务期义务。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0015",
+        "location": "第十二条 劳动合同解除和终止",
+        "text": "第十二条 劳动合同解除和终止\n甲乙双方解除或者终止劳动合同，应按照国家法律法规办理。\n乙方提出解除劳动合同，应依法提前通知甲方，并按照甲方要求完成工作交接、账号移交、资料归还、代码提交、设备归还等手续。\n乙方未完成工作交接即离职，给甲方造成实际经济损失的，应承担相应赔偿责任。\n乙方未提前30日通知甲方自行离职的，应向甲方支付相当于一个月工资的违约金。\n乙方离职时应返还属于甲方的电脑、门禁卡、文件、资料、账号以及其他财物。\n乙方完成离职交接后，甲方按照规定办理劳动关系终止证明及相关手续。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0016",
+        "location": "第十三条 特别约定",
+        "text": "第十三条 特别约定\n乙方保证向甲方提供的学历、工作经历、资格证书及其他入职资料真实有效。\n如乙方提供虚假学历、虚假工作经历或者其他足以影响甲方录用决定的重要虚假信息，甲方有权依法处理。\n乙方因个人原因造成客户投诉、项目延期或者经济损失的，甲方可以根据责任程度在绩效考核中予以相应处理。\n乙方在职期间原则上不得从事与甲方存在竞争关系的兼职工作。其他兼职不得影响本职工作，并应事先向甲方报备。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0017",
+        "location": "第十四条 通知与送达",
+        "text": "第十四条 通知与送达\n本合同载明的通讯地址、联系电话及电子邮箱可以作为双方通知和文件送达地址。\n一方联系方式发生变化的，应及时通知另一方。\n甲方通过乙方提供的电子邮箱、手机短信、企业微信或者书面地址发送通知后，即视为已经完成送达。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0018",
+        "location": "第十五条 劳动争议处理",
+        "text": "第十五条 劳动争议处理\n因履行本合同发生争议的，双方应首先协商解决；协商不成的，可以依法向有管辖权的劳动人事争议仲裁委员会申请仲裁。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0019",
+        "location": "第十六条 其他",
+        "text": "第十六条 其他\n本合同未尽事宜按照国家及劳动合同履行地现行法律法规执行。\n本合同部分条款被认定无效的，不影响其他条款的效力。\n本合同一式两份，甲乙双方各执一份，自双方签字或者盖章之日起生效。",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0020",
+        "location": "甲方（盖章）：上海澄远数字科技有限公司",
+        "text": "甲方（盖章）：上海澄远数字科技有限公司\n法定代表人或授权代表：周明远\n签订日期：2026年9月12日",
+        "section_type": "正式合同条款"
+      },
+      {
+        "clause_id": "C0021",
+        "location": "乙方（签字）：陈昊",
+        "text": "乙方（签字）：陈昊\n签订日期：2026年9月12日",
+        "section_type": "正式合同条款"
+      }
+    ],
+    "top_k_candidates": [
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "title": "全文",
+        "text": "劳动合同\n合同编号：LD-2026-0909-07",
+        "quote": "劳动合同\n合同编号：LD-2026-0909-07",
+        "original_excerpt": "劳动合同\n合同编号：LD-2026-0909-07",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "source_start": 0,
+        "source_end": 25,
+        "supports_element_ids": [
+          "employment_noncompete_term_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0002",
+        "location": "甲方（用人单位）：上海澄远数字科技有限公司",
+        "title": "甲方（用人单位）：上海澄远数字科技有限公司",
+        "text": "甲方（用人单位）：上海澄远数字科技有限公司\n统一社会信用代码：91310115MA8X6R729Q\n住所：上海市浦东新区张江路688号创新大厦12层\n法定代表人：周明远\n联系电话：021-58762136",
+        "quote": "甲方（用人单位）：上海澄远数字科技有限公司\n统一社会信用代码：91310115MA8X6R729Q\n住所：上海市浦东新区张江路688号创新大厦12层\n法定代表人：周明远\n联系电话：021-58762136",
+        "original_excerpt": "甲方（用人单位）：上海澄远数字科技有限公司\n统一社会信用代码：91310115MA8X6R729Q\n住所：上海市浦东新区张江路688号创新大厦12层\n法定代表人：周明远\n联系电话：021-58762136",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "source_start": 0,
+        "source_end": 102,
+        "supports_element_ids": [
+          "employment_noncompete_term_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0003",
+        "location": "乙方（劳动者）：陈昊",
+        "title": "乙方（劳动者）：陈昊",
+        "text": "乙方（劳动者）：陈昊\n身份证号码：310*4217\n户籍所在地：江苏省苏州市吴中区\n现居住地址：上海市浦东新区金科路1188弄16号702室\n联系电话：1385726\n根据《中华人民共和国劳动法》《中华人民共和国劳动合同法》等有关法律法规，甲乙双方在平等自愿、协商一致的基础上订立本合同，共同遵守。",
+        "quote": "乙方（劳动者）：陈昊\n身份证号码：310*4217\n户籍所在地：江苏省苏州市吴中区\n现居住地址：上海市浦东新区金科路1188弄16号702室\n联系电话：1385726\n根据《中华人民共和国劳动法》《中华人民共和国劳动合同法》等有关法律法规，甲乙双方在平等自愿、协商一致的基础上订立本合同，共同遵守。",
+        "original_excerpt": "乙方（劳动者）：陈昊\n身份证号码：310*4217\n户籍所在地：江苏省苏州市吴中区\n现居住地址：上海市浦东新区金科路1188弄16号702室\n联系电话：1385726\n根据《中华人民共和国劳动法》《中华人民共和国劳动合同法》等有关法律法规，甲乙双方在平等自愿、协商一致的基础上订立本合同，共同遵守。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "source_start": 0,
+        "source_end": 149,
+        "supports_element_ids": [
+          "employment_noncompete_term_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "title": "合同期限",
+        "text": "第一条 合同期限\n本合同为固定期限劳动合同，合同期限自2026年9月15日起至2029年9月14日止，共三年。",
+        "quote": "第一条 合同期限\n本合同为固定期限劳动合同，合同期限自2026年9月15日起至2029年9月14日止，共三年。",
+        "original_excerpt": "第一条 合同期限\n本合同为固定期限劳动合同，合同期限自2026年9月15日起至2029年9月14日止，共三年。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第一条 合同期限"
+        ],
+        "source_start": 0,
+        "source_end": 55,
+        "supports_element_ids": [
+          "employment_noncompete_term_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "title": "合同期限",
+        "text": "双方约定试用期自2026年9月15日起至2027年4月14日止。",
+        "quote": "双方约定试用期自2026年9月15日起至2027年4月14日止。",
+        "original_excerpt": "双方约定试用期自2026年9月15日起至2027年4月14日止。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第一条 合同期限"
+        ],
+        "source_start": 55,
+        "source_end": 88,
+        "supports_element_ids": [
+          "employment_noncompete_term_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "title": "合同期限",
+        "text": "试用期内，如甲方认为乙方工作能力、工作态度、团队协作能力或岗位匹配度未达到甲方要求，甲方有权解除劳动合同。",
+        "quote": "试用期内，如甲方认为乙方工作能力、工作态度、团队协作能力或岗位匹配度未达到甲方要求，甲方有权解除劳动合同。",
+        "original_excerpt": "试用期内，如甲方认为乙方工作能力、工作态度、团队协作能力或岗位匹配度未达到甲方要求，甲方有权解除劳动合同。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第一条 合同期限"
+        ],
+        "source_start": 88,
+        "source_end": 142,
+        "supports_element_ids": [
+          "employment_noncompete_term_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第一条 合同期限",
+        "title": "合同期限",
+        "text": "试用期满后，乙方继续工作的，视为通过试用期。",
+        "quote": "试用期满后，乙方继续工作的，视为通过试用期。",
+        "original_excerpt": "试用期满后，乙方继续工作的，视为通过试用期。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第一条 合同期限"
+        ],
+        "source_start": 142,
+        "source_end": 165,
+        "supports_element_ids": [
+          "employment_noncompete_term_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "title": "工作岗位及工作地点",
+        "text": "第二条 工作岗位及工作地点\n乙方同意担任甲方“高级软件开发工程师”岗位，主要负责企业智能化平台的软件研发、系统维护、技术支持以及甲方安排的其他相关工作。",
+        "quote": "第二条 工作岗位及工作地点\n乙方同意担任甲方“高级软件开发工程师”岗位，主要负责企业智能化平台的软件研发、系统维护、技术支持以及甲方安排的其他相关工作。",
+        "original_excerpt": "第二条 工作岗位及工作地点\n乙方同意担任甲方“高级软件开发工程师”岗位，主要负责企业智能化平台的软件研发、系统维护、技术支持以及甲方安排的其他相关工作。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第二条 工作岗位及工作地点"
+        ],
+        "source_start": 0,
+        "source_end": 76,
+        "supports_element_ids": [
+          "employment_noncompete_term_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "title": "工作岗位及工作地点",
+        "text": "乙方主要工作地点为上海市。",
+        "quote": "乙方主要工作地点为上海市。",
+        "original_excerpt": "乙方主要工作地点为上海市。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第二条 工作岗位及工作地点"
+        ],
+        "source_start": 76,
+        "source_end": 90,
+        "supports_element_ids": [
+          "employment_noncompete_term_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "title": "工作岗位及工作地点",
+        "text": "根据经营管理、客户项目、组织架构调整或者乙方工作表现，甲方可以结合实际经营需要调整乙方的岗位、职级、工作内容及工作地点，包括安排乙方至甲方关联公司、客户现场或者上海市以外地区工作，乙方应服从甲方合理安排。",
+        "quote": "根据经营管理、客户项目、组织架构调整或者乙方工作表现，甲方可以结合实际经营需要调整乙方的岗位、职级、工作内容及工作地点，包括安排乙方至甲方关联公司、客户现场或者上海市以外地区工作，乙方应服从甲方合理安排。",
+        "original_excerpt": "根据经营管理、客户项目、组织架构调整或者乙方工作表现，甲方可以结合实际经营需要调整乙方的岗位、职级、工作内容及工作地点，包括安排乙方至甲方关联公司、客户现场或者上海市以外地区工作，乙方应服从甲方合理安排。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第二条 工作岗位及工作地点"
+        ],
+        "source_start": 90,
+        "source_end": 193,
+        "supports_element_ids": [
+          "employment_noncompete_term_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第二条 工作岗位及工作地点",
+        "title": "工作岗位及工作地点",
+        "text": "乙方无正当理由拒绝甲方岗位或工作地点调整的，甲方可以按照公司规章制度处理。",
+        "quote": "乙方无正当理由拒绝甲方岗位或工作地点调整的，甲方可以按照公司规章制度处理。",
+        "original_excerpt": "乙方无正当理由拒绝甲方岗位或工作地点调整的，甲方可以按照公司规章制度处理。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第二条 工作岗位及工作地点"
+        ],
+        "source_start": 193,
+        "source_end": 231,
+        "supports_element_ids": [
+          "employment_noncompete_term_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "第三条 工作时间和休息休假\n乙方原则上实行标准工时制，每日工作8小时，每周工作5天。",
+        "quote": "第三条 工作时间和休息休假\n乙方原则上实行标准工时制，每日工作8小时，每周工作5天。",
+        "original_excerpt": "第三条 工作时间和休息休假\n乙方原则上实行标准工时制，每日工作8小时，每周工作5天。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 0,
+        "source_end": 42,
+        "supports_element_ids": [
+          "employment_noncompete_term_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "正常工作时间为工作日9:00至18:00，其中12:00至13:00为午休时间。",
+        "quote": "正常工作时间为工作日9:00至18:00，其中12:00至13:00为午休时间。",
+        "original_excerpt": "正常工作时间为工作日9:00至18:00，其中12:00至13:00为午休时间。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 42,
+        "source_end": 83,
+        "supports_element_ids": [
+          "employment_noncompete_term_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "因项目上线、系统故障处理、客户紧急需求等情况需要乙方延长工作时间的，乙方应积极配合。",
+        "quote": "因项目上线、系统故障处理、客户紧急需求等情况需要乙方延长工作时间的，乙方应积极配合。",
+        "original_excerpt": "因项目上线、系统故障处理、客户紧急需求等情况需要乙方延长工作时间的，乙方应积极配合。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 83,
+        "source_end": 126,
+        "supports_element_ids": [
+          "employment_noncompete_term_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "乙方月工资已经综合考虑岗位可能发生的延时工作、周末项目支持及其他临时性工作，因此一般情况下甲方不再另行支付加班工资。",
+        "quote": "乙方月工资已经综合考虑岗位可能发生的延时工作、周末项目支持及其他临时性工作，因此一般情况下甲方不再另行支付加班工资。",
+        "original_excerpt": "乙方月工资已经综合考虑岗位可能发生的延时工作、周末项目支持及其他临时性工作，因此一般情况下甲方不再另行支付加班工资。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 126,
+        "source_end": 185,
+        "supports_element_ids": [
+          "employment_noncompete_term_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第三条 工作时间和休息休假",
+        "title": "工作时间和休息休假",
+        "text": "法定节假日确因工作需要安排乙方工作的，甲方可以根据实际情况安排调休或给予相应补偿。",
+        "quote": "法定节假日确因工作需要安排乙方工作的，甲方可以根据实际情况安排调休或给予相应补偿。",
+        "original_excerpt": "法定节假日确因工作需要安排乙方工作的，甲方可以根据实际情况安排调休或给予相应补偿。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第三条 工作时间和休息休假"
+        ],
+        "source_start": 185,
+        "source_end": 227,
+        "supports_element_ids": [
+          "employment_noncompete_term_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "title": "劳动报酬",
+        "text": "第四条 劳动报酬\n乙方转正后的月度税前工资标准为人民币20,000元，具体组成如下：\n基本工资：人民币12,000元；\n岗位工资：人民币5,000元；\n绩效工资：人民币3,000元。",
+        "quote": "第四条 劳动报酬\n乙方转正后的月度税前工资标准为人民币20,000元，具体组成如下：\n基本工资：人民币12,000元；\n岗位工资：人民币5,000元；\n绩效工资：人民币3,000元。",
+        "original_excerpt": "第四条 劳动报酬\n乙方转正后的月度税前工资标准为人民币20,000元，具体组成如下：\n基本工资：人民币12,000元；\n岗位工资：人民币5,000元；\n绩效工资：人民币3,000元。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条 劳动报酬"
+        ],
+        "source_start": 0,
+        "source_end": 91,
+        "supports_element_ids": [
+          "employment_noncompete_term_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "title": "劳动报酬",
+        "text": "试用期工资为转正工资标准的80%，即税前人民币16,000元/月。",
+        "quote": "试用期工资为转正工资标准的80%，即税前人民币16,000元/月。",
+        "original_excerpt": "试用期工资为转正工资标准的80%，即税前人民币16,000元/月。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条 劳动报酬"
+        ],
+        "source_start": 91,
+        "source_end": 125,
+        "supports_element_ids": [
+          "employment_noncompete_term_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "title": "劳动报酬",
+        "text": "绩效工资根据乙方工作完成情况、部门考核结果、公司经营情况综合确定。",
+        "quote": "绩效工资根据乙方工作完成情况、部门考核结果、公司经营情况综合确定。",
+        "original_excerpt": "绩效工资根据乙方工作完成情况、部门考核结果、公司经营情况综合确定。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条 劳动报酬"
+        ],
+        "source_start": 125,
+        "source_end": 159,
+        "supports_element_ids": [
+          "employment_noncompete_term_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第四条 劳动报酬",
+        "title": "劳动报酬",
+        "text": "甲方有权根据绩效考核结果决定绩效工资的实际发放比例。",
+        "quote": "甲方有权根据绩效考核结果决定绩效工资的实际发放比例。",
+        "original_excerpt": "甲方有权根据绩效考核结果决定绩效工资的实际发放比例。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条 劳动报酬"
+        ],
+        "source_start": 159,
+        "source_end": 185,
+        "supports_element_ids": [
+          "employment_noncompete_term_2"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "accepted": false,
+        "score": 0.0,
+        "threshold": "ALL_REQUIRED_RELATIONS",
+        "relation_slots": [],
+        "matched_patterns": [],
+        "rejected_patterns": [],
+        "decision_function": "review_v2.lease_semantics.supports",
+        "result": "NOT_FOUND"
+      }
+    ],
+    "candidate_count": 72,
+    "stage_results": {
+      "normalize": "CANONICAL_CANDIDATE",
+      "threshold": "NOT_FOUND"
+    },
+    "searched_document_hash": "490a09ad0f725b01506c423b3f8dba1b691ac279b49a27cc0ebb37a1ff19e63c",
+    "result": "NOT_FOUND",
+    "supporting_evidence": []
+  },
+  {
+    "rule_id": "NC-03-01",
+    "element_id": "core_contract_arrangement",
+    "review_id": "NC-03-01",
+    "search_targets": [
+      "合同存在可验证的“竞业范围或补偿明显不当”实质条款内容"
+    ],
+    "query_patterns": [
+      "合同存在可验证的“竞业范围或补偿明显不当”实质条款内容"
+    ],
+    "query_semantics": "POSITIVE_REQUIRED_FACT",
+    "search_mode": "OBJECTIVE_LITERAL_TARGET",
+    "searched_clause_ids": [
+      "C0001",
+      "C0002",
+      "C0003",
+      "C0004",
+      "C0005",
+      "C0006",
+      "C0007",
+      "C0008",
+      "C0009",
+      "C0010",
+      "C0011",
+      "C0012",
+      "C0013",
+      "C0014",
+      "C0015",
+      "C0016",
+      "C0017",
+      "C0018",
+      "C0019",
+      "C0020",
+      "C0021"
+    ],
+    "searched_document_hash": "490a09ad0f725b01506c423b3f8dba1b691ac279b49a27cc0ebb37a1ff19e63c",
+    "result": "NOT_FOUND",
+    "supporting_evidence": []
+  }
+]

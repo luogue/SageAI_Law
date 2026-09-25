@@ -1,0 +1,283 @@
+{
+  "PRODUCTION_DB_STATUS": "HEALTHY",
+  "started": "2026-09-09T07:17:15.044906+00:00",
+  "host": {
+    "containers": {
+      "sageai-backend": {
+        "id": "2689c00511d963b1a51a262680d3a409dcdd0c3d3cb95cc22eba8bf1c1591c4b",
+        "image_id": "sha256:a1954471f1473036a7dda7a1250b169a8be6b4b3bf0415ce8956a7e362523332",
+        "started": "2026-08-28T04:06:31.509357448Z",
+        "status": "running",
+        "health": {
+          "Status": "healthy",
+          "FailingStreak": 0,
+          "Log": [
+            {
+              "Start": "2026-09-09T15:15:02.655642286+08:00",
+              "End": "2026-09-09T15:15:02.737788448+08:00",
+              "ExitCode": 0,
+              "Output": ""
+            },
+            {
+              "Start": "2026-09-09T15:15:32.738369411+08:00",
+              "End": "2026-09-09T15:15:32.819035636+08:00",
+              "ExitCode": 0,
+              "Output": ""
+            },
+            {
+              "Start": "2026-09-09T15:16:02.819951815+08:00",
+              "End": "2026-09-09T15:16:02.901426199+08:00",
+              "ExitCode": 0,
+              "Output": ""
+            },
+            {
+              "Start": "2026-09-09T15:16:32.901801361+08:00",
+              "End": "2026-09-09T15:16:32.983107168+08:00",
+              "ExitCode": 0,
+              "Output": ""
+            },
+            {
+              "Start": "2026-09-09T15:17:02.983965753+08:00",
+              "End": "2026-09-09T15:17:03.064545695+08:00",
+              "ExitCode": 0,
+              "Output": ""
+            }
+          ]
+        },
+        "mounts": [
+          {
+            "Type": "volume",
+            "Name": "sageai-db-data",
+            "Source": "/var/lib/docker/volumes/sageai-db-data/_data",
+            "Destination": "/app/data",
+            "Driver": "local",
+            "Mode": "rw",
+            "RW": true,
+            "Propagation": ""
+          },
+          {
+            "Type": "volume",
+            "Name": "sageai-log-data",
+            "Source": "/var/lib/docker/volumes/sageai-log-data/_data",
+            "Destination": "/app/logs",
+            "Driver": "local",
+            "Mode": "rw",
+            "RW": true,
+            "Propagation": ""
+          }
+        ],
+        "database_url": "sqlite:////app/data/app.db",
+        "labels": {
+          "com.docker.compose.config-hash": "b20fbca3a84fcd6d1aad5fb4710a1b9126186f4418b99ad657a68e9360d9e51d",
+          "com.docker.compose.container-number": "1",
+          "com.docker.compose.oneoff": "False",
+          "com.docker.compose.project": "sageai",
+          "com.docker.compose.project.config_files": "docker-compose.yml",
+          "com.docker.compose.project.working_dir": "/opt/sageai",
+          "com.docker.compose.service": "backend",
+          "com.docker.compose.version": "1.29.2"
+        }
+      },
+      "sageai-frontend": {
+        "id": "aab63e61cacde5fd02364aa245ba33afef5d2f19f5f8d12f5ca6678e50201628",
+        "image_id": "sha256:708d5f2b31a9cd7bab51251e61b8e8299ce5ab0a49e3ec0ac32c8a6d0580b844",
+        "started": "2026-08-28T04:06:41.516886851Z",
+        "status": "running",
+        "health": {
+          "Status": "unhealthy",
+          "FailingStreak": 34837,
+          "Log": [
+            {
+              "Start": "2026-09-09T15:14:57.74234296+08:00",
+              "End": "2026-09-09T15:14:57.790127326+08:00",
+              "ExitCode": 1,
+              "Output": "Connecting to localhost:80 ([::1]:80)\nwget: can't connect to remote host: Connection refused\n"
+            },
+            {
+              "Start": "2026-09-09T15:15:27.791003308+08:00",
+              "End": "2026-09-09T15:15:27.820439067+08:00",
+              "ExitCode": 1,
+              "Output": "Connecting to localhost:80 ([::1]:80)\nwget: can't connect to remote host: Connection refused\n"
+            },
+            {
+              "Start": "2026-09-09T15:15:57.821539765+08:00",
+              "End": "2026-09-09T15:15:57.851111713+08:00",
+              "ExitCode": 1,
+              "Output": "Connecting to localhost:80 ([::1]:80)\nwget: can't connect to remote host: Connection refused\n"
+            },
+            {
+              "Start": "2026-09-09T15:16:27.851598977+08:00",
+              "End": "2026-09-09T15:16:27.880880664+08:00",
+              "ExitCode": 1,
+              "Output": "Connecting to localhost:80 ([::1]:80)\nwget: can't connect to remote host: Connection refused\n"
+            },
+            {
+              "Start": "2026-09-09T15:16:57.881765589+08:00",
+              "End": "2026-09-09T15:16:57.911817181+08:00",
+              "ExitCode": 1,
+              "Output": "Connecting to localhost:80 ([::1]:80)\nwget: can't connect to remote host: Connection refused\n"
+            }
+          ]
+        },
+        "mounts": [],
+        "database_url": null,
+        "labels": {
+          "com.docker.compose.config-hash": "d2f970118c5bb79bf6f3d7f8d7b01a2e21990e49ba39b474a5b7570e69be6621",
+          "com.docker.compose.container-number": "1",
+          "com.docker.compose.oneoff": "False",
+          "com.docker.compose.project": "sageai",
+          "com.docker.compose.project.config_files": "docker-compose.yml",
+          "com.docker.compose.project.working_dir": "/opt/sageai",
+          "com.docker.compose.service": "frontend",
+          "com.docker.compose.version": "1.29.2"
+        }
+      },
+      "sageai-redis": {
+        "id": "6e6065d1ba02c5d6e577326bcebc6990113553783a3959e4e0e710d5eee9caad",
+        "image_id": "sha256:6ab0b6e7381779332f97b8ca76193e45b0756f38d4c0dcda72dbb3c32061ab99",
+        "started": "2026-08-28T04:06:31.54129847Z",
+        "status": "running",
+        "health": null,
+        "mounts": [
+          {
+            "Type": "volume",
+            "Name": "sageai-redis-data",
+            "Source": "/var/lib/docker/volumes/sageai-redis-data/_data",
+            "Destination": "/data",
+            "Driver": "local",
+            "Mode": "rw",
+            "RW": true,
+            "Propagation": ""
+          }
+        ],
+        "database_url": null,
+        "labels": {
+          "com.docker.compose.config-hash": "3f9c085d6be2470ac028cb960093cf2f8ef48690ccc9afa561654109e1a6fd08",
+          "com.docker.compose.container-number": "1",
+          "com.docker.compose.oneoff": "False",
+          "com.docker.compose.project": "sageai",
+          "com.docker.compose.project.config_files": "docker-compose.yml",
+          "com.docker.compose.project.working_dir": "/opt/sageai",
+          "com.docker.compose.service": "redis",
+          "com.docker.compose.version": "1.29.2"
+        }
+      }
+    },
+    "disk": {
+      "exit": 0,
+      "stdout": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/vda3        40G   14G   24G  37% /\n",
+      "stderr": ""
+    },
+    "git": {
+      "exit": 128,
+      "stdout": "HEAD\n",
+      "stderr": "fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\n"
+    },
+    "backend_http": {
+      "exit": 0,
+      "stdout": "200\n{\"status\":\"healthy\",\"timestamp\":\"2026-09-09T07:17:16.823703\",\"uptime\":\"running\",\"system\":{\"status\":\"ok\"}}\n",
+      "stderr": ""
+    },
+    "frontend_http": {
+      "exit": 0,
+      "stdout": "",
+      "stderr": "Connecting to 127.0.0.1 (127.0.0.1:80)\n  HTTP/1.1 200 OK\n  Server: nginx/1.31.1\n  Date: Wed, 09 Sep 2026 07:17:16 GMT\n  Content-Type: text/html\n  Content-Length: 542\n  Last-Modified: Sun, 14 Jun 2026 13:05:36 GMT\n  Connection: close\n  ETag: \"6a2ea720-21e\"\n  Expires: Wed, 09 Sep 2026 07:17:15 GMT\n  Cache-Control: no-cache\n  Cache-Control: no-cache, no-store, must-revalidate\n  Accept-Ranges: bytes\n  \nremote file exists\n"
+    },
+    "version": {
+      "exit": 0,
+      "stdout": "{\"version\": \"5.0.0\", \"main_sha256\": \"80c852df8241c0b8daec9e54b924fba90f5b050e5584d93472ee6a1418e604eb\"}\n",
+      "stderr": ""
+    }
+  },
+  "database_type": "SQLite",
+  "database_url": "sqlite:////app/data/app.db",
+  "host_path": "/var/lib/docker/volumes/sageai-db-data/_data/app.db",
+  "volume": "sageai-db-data",
+  "files": {
+    "app.db": {
+      "size": 4096,
+      "mtime": 1781142846,
+      "sha256": "352a9bb23c329c5a9bf235baf56917358b5b64b03f1a11d261fadae9c3cdb721"
+    },
+    "app.db-wal": {
+      "size": 1479112,
+      "mtime": 1785196509,
+      "sha256": "5ff5153940cc033be265312e4cc906a8b84d44cb776123828e038c3eb5e783af"
+    },
+    "app.db-shm": {
+      "size": 32768,
+      "mtime": 1787890000,
+      "sha256": "76aaa098d2cea96a2e3eeafbf751c14123b211274108cf7602b98cb1aaf69f9e"
+    }
+  },
+  "stable_acquisition": true,
+  "checks": {
+    "integrity_check": [
+      [
+        "ok"
+      ]
+    ],
+    "quick_check": [
+      [
+        "ok"
+      ]
+    ],
+    "foreign_key_check": []
+  },
+  "tables": {
+    "user": {
+      "count": 4,
+      "fully_readable": true
+    },
+    "blacklist": {
+      "count": 0,
+      "fully_readable": true
+    },
+    "intercept_logs": {
+      "count": 0,
+      "fully_readable": true
+    },
+    "record": {
+      "count": 2,
+      "fully_readable": true
+    },
+    "feedback": {
+      "count": 0,
+      "fully_readable": true
+    },
+    "bonus_log": {
+      "count": 0,
+      "fully_readable": true
+    },
+    "invite_rewards": {
+      "count": 0,
+      "fully_readable": true
+    },
+    "file_hash_cache": {
+      "count": 0,
+      "fully_readable": true
+    },
+    "task_record": {
+      "count": 11,
+      "fully_readable": true
+    },
+    "reward_logs": {
+      "count": 0,
+      "fully_readable": true
+    },
+    "admin_logs": {
+      "count": 1,
+      "fully_readable": true
+    },
+    "admins": {
+      "count": 1,
+      "fully_readable": true
+    },
+    "security_events": {
+      "count": 0,
+      "fully_readable": true
+    }
+  },
+  "missing_report_references": 0,
+  "finished": "2026-09-09T07:17:23.709497+00:00"
+}

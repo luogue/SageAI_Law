@@ -1,0 +1,115 @@
+..........................FF............................................ [ 97%]
+..                                                                       [100%]
+================================== FAILURES ===================================
+___ test_scoped_secret_contract_end_to_end[\u7532\u65b9/\u8bb8\u53ef\u65b9] ___
+
+party = '甲方/许可方'
+
+    @pytest.mark.parametrize('party', ['甲方/许可方', '乙方/被许可方'])
+    def test_scoped_secret_contract_end_to_end(party):
+        from review_v2.engine import review_contract_v2
+        from review_v2.user_profile import UserRiskProfile
+        text = Path(__file__).with_name('fixtures').joinpath('technical_secret_scoped_license.txt').read_text(encoding='utf-8')
+        # Alternate classification requests in the same process before review.
+        patent = '专利实施许可合同\n许可方授予被许可方专利实施许可，许可使用费人民币50万元。'
+        assert classify_technology_transaction(patent)['tertiary_subtype'] == 'PATENT_LICENSE'
+        report = review_contract_v2(text, 'technology', use_llm=False, profile=UserRiskProfile(user_identity=party))
+        assert classify_technology_transaction(text)['tertiary_subtype'] == 'TECHNICAL_SECRET_LICENSE'
+        assert report['release_quality_gate']['status'] == 'REPORT_READY'
+        items = {r['item_id']: r for r in report['items']}
+        def atoms(key):
+            return {r['element_id']: r for r in items[key]['coverage_elements']}
+        scope = atoms('TC-07-01')
+        for key in ['licensed_secret_subject', 'permitted_implementation_acts', 'license_territory', 'license_term', 'license_type']:
+            assert scope[key]['status'] == 'COVERED'
+        assert not any('patent' in key for key in scope)
+        assert atoms('TC-07-02')['main_license_fee_arrangement']['status'] == 'COVERED'
+        assert all('改进' not in (r.get('quote') or r.get('text') or '') for r in items['TC-07-02']['evidence_clauses'])
+        assert any('80万元' in (r.get('quote') or r.get('text') or '') for r in items['TC-07-02']['evidence_clauses'])
+        assert atoms('TC-11-02')['confidentiality_exceptions']['status'] == 'COVERED'
+        for key in ['stop_disclosure', 'stop_use', 'mitigation_obligation', 'incident_notification']:
+            assert atoms('TC-11-04')[key]['status'] == 'COVERED'
+        assert atoms('TC-12-03')['future_fee_after_secret_loss']['status'] == 'ADVERSE'
+        assert atoms('TC-12-03')['termination_after_secret_loss']['status'] == 'COVERED'
+        assert atoms('TC-12-03')['secret_loss_trigger']['status'] == 'COVERED'
+>       assert atoms('TC-12-03')['technical_secret_consideration']['status'] == 'COVERED'
+E       AssertionError: assert 'UNCERTAIN' == 'COVERED'
+E         
+E         - COVERED
+E         + UNCERTAIN
+
+backend\tests\test_license_source_scope_regressions.py:87: AssertionError
+_ test_scoped_secret_contract_end_to_end[\u4e59\u65b9/\u88ab\u8bb8\u53ef\u65b9] _
+
+party = '乙方/被许可方'
+
+    @pytest.mark.parametrize('party', ['甲方/许可方', '乙方/被许可方'])
+    def test_scoped_secret_contract_end_to_end(party):
+        from review_v2.engine import review_contract_v2
+        from review_v2.user_profile import UserRiskProfile
+        text = Path(__file__).with_name('fixtures').joinpath('technical_secret_scoped_license.txt').read_text(encoding='utf-8')
+        # Alternate classification requests in the same process before review.
+        patent = '专利实施许可合同\n许可方授予被许可方专利实施许可，许可使用费人民币50万元。'
+        assert classify_technology_transaction(patent)['tertiary_subtype'] == 'PATENT_LICENSE'
+        report = review_contract_v2(text, 'technology', use_llm=False, profile=UserRiskProfile(user_identity=party))
+        assert classify_technology_transaction(text)['tertiary_subtype'] == 'TECHNICAL_SECRET_LICENSE'
+        assert report['release_quality_gate']['status'] == 'REPORT_READY'
+        items = {r['item_id']: r for r in report['items']}
+        def atoms(key):
+            return {r['element_id']: r for r in items[key]['coverage_elements']}
+        scope = atoms('TC-07-01')
+        for key in ['licensed_secret_subject', 'permitted_implementation_acts', 'license_territory', 'license_term', 'license_type']:
+            assert scope[key]['status'] == 'COVERED'
+        assert not any('patent' in key for key in scope)
+        assert atoms('TC-07-02')['main_license_fee_arrangement']['status'] == 'COVERED'
+        assert all('改进' not in (r.get('quote') or r.get('text') or '') for r in items['TC-07-02']['evidence_clauses'])
+        assert any('80万元' in (r.get('quote') or r.get('text') or '') for r in items['TC-07-02']['evidence_clauses'])
+        assert atoms('TC-11-02')['confidentiality_exceptions']['status'] == 'COVERED'
+        for key in ['stop_disclosure', 'stop_use', 'mitigation_obligation', 'incident_notification']:
+            assert atoms('TC-11-04')[key]['status'] == 'COVERED'
+        assert atoms('TC-12-03')['future_fee_after_secret_loss']['status'] == 'ADVERSE'
+        assert atoms('TC-12-03')['termination_after_secret_loss']['status'] == 'COVERED'
+        assert atoms('TC-12-03')['secret_loss_trigger']['status'] == 'COVERED'
+>       assert atoms('TC-12-03')['technical_secret_consideration']['status'] == 'COVERED'
+E       AssertionError: assert 'UNCERTAIN' == 'COVERED'
+E         
+E         - COVERED
+E         + UNCERTAIN
+
+backend\tests\test_license_source_scope_regressions.py:87: AssertionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:159
+  F:\ai\Sage\backend\main.py:159: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_license_source_scope_regressions.py::test_scoped_secret_contract_end_to_end[\u7532\u65b9/\u8bb8\u53ef\u65b9]
+FAILED backend/tests/test_license_source_scope_regressions.py::test_scoped_secret_contract_end_to_end[\u4e59\u65b9/\u88ab\u8bb8\u53ef\u65b9]
+2 failed, 72 passed, 5 warnings in 39.15s

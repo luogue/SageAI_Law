@@ -1,0 +1,66 @@
+.................................................................F...... [ 44%]
+.................F...................................................... [ 88%]
+...................                                                      [100%]
+================================== FAILURES ===================================
+___________________ test_each_type_end_to_end[normal-labor] ___________________
+
+key = 'labor', variant = 'normal'
+
+    @pytest.mark.parametrize("key", PRIORITY_TYPES)
+    @pytest.mark.parametrize("variant", ("normal", "missing", "risky"))
+    def test_each_type_end_to_end(key, variant):
+        result = review(key, variant)
+        assert result["success"] is True
+        assert result["contract_type"] == key
+        assert result["contract_type_name"] == PRIORITY_TYPES[key].name
+        assert result["report_context"]["contract_type_label"] == PRIORITY_TYPES[key].name
+        assert result["result"].startswith("# " + PRIORITY_TYPES[key].name + "审查报告")
+        assert result["release_quality_gate"]["status"] == "REPORT_READY", result["release_quality_gate"]["failures"]
+        items = {row["node_id"]: row for row in result["items"]}
+        assert items[CRITICAL_NODES[key]]["coverage_status"] == ("缺失" if variant == "missing" else "通过")
+        if variant == "risky":
+            adverse = items[ADVERSE_CLAUSES[key][1]]
+            assert adverse["coverage_status"] == "风险条款"
+            assert adverse["risk_level"] == "高"
+            assert adverse["evidence_clauses"]
+        for item in items.values():
+            if item["node_id"] in PROFILES and item["coverage_status"] == "通过":
+                assert item["evidence_clauses"]
+>               assert all(e["status"] == "COVERED" for e in item["coverage_elements"])
+E               assert False
+E                +  where False = all(<generator object test_each_type_end_to_end.<locals>.<genexpr> at 0x000002C06CB4E730>)
+
+backend\tests\test_priority_contract_review.py:40: AssertionError
+___________________ test_each_type_end_to_end[risky-labor] ____________________
+
+key = 'labor', variant = 'risky'
+
+    @pytest.mark.parametrize("key", PRIORITY_TYPES)
+    @pytest.mark.parametrize("variant", ("normal", "missing", "risky"))
+    def test_each_type_end_to_end(key, variant):
+        result = review(key, variant)
+        assert result["success"] is True
+        assert result["contract_type"] == key
+        assert result["contract_type_name"] == PRIORITY_TYPES[key].name
+        assert result["report_context"]["contract_type_label"] == PRIORITY_TYPES[key].name
+        assert result["result"].startswith("# " + PRIORITY_TYPES[key].name + "审查报告")
+        assert result["release_quality_gate"]["status"] == "REPORT_READY", result["release_quality_gate"]["failures"]
+        items = {row["node_id"]: row for row in result["items"]}
+        assert items[CRITICAL_NODES[key]]["coverage_status"] == ("缺失" if variant == "missing" else "通过")
+        if variant == "risky":
+            adverse = items[ADVERSE_CLAUSES[key][1]]
+            assert adverse["coverage_status"] == "风险条款"
+            assert adverse["risk_level"] == "高"
+            assert adverse["evidence_clauses"]
+        for item in items.values():
+            if item["node_id"] in PROFILES and item["coverage_status"] == "通过":
+                assert item["evidence_clauses"]
+>               assert all(e["status"] == "COVERED" for e in item["coverage_elements"])
+E               assert False
+E                +  where False = all(<generator object test_each_type_end_to_end.<locals>.<genexpr> at 0x000002C0702C4740>)
+
+backend\tests\test_priority_contract_review.py:40: AssertionError
+=========================== short test summary info ===========================
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[normal-labor]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[risky-labor]
+2 failed, 161 passed, 5 warnings in 89.43s (0:01:29)

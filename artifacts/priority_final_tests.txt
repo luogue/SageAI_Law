@@ -1,0 +1,62 @@
+........................................................................ [ 34%]
+.............................................F....................F..... [ 68%]
+..............F...................................................       [100%]
+================================== FAILURES ===================================
+_ test_sale_review_boundary_payment_account_reasonable_penalty_and_common_layer _
+backend\tests\test_sale_review_checklist.py:282: in test_sale_review_boundary_payment_account_reasonable_penalty_and_common_layer
+    assert by_id["S-00-05"]["coverage_status"] == "通过"
+E   AssertionError: assert '缺失' == '通过'
+E     
+E     - 通过
+E     + 缺失
+___ test_construction_fixture_corrections_for_subcontract_and_tender_points ___
+backend\tests\test_construction_review_checklist.py:171: in test_construction_fixture_corrections_for_subcontract_and_tender_points
+    assert by_id["CE-01-03"]["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '缺失' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 缺失
+_____________ test_negated_phrase_does_not_pollute_later_matches ______________
+backend\tests\test_review_v2_house_lease.py:301: in test_negated_phrase_does_not_pollute_later_matches
+    assert use_restriction["coverage_status"] == "通过"
+E   AssertionError: assert '缺失' == '通过'
+E     
+E     - 通过
+E     + 缺失
+============================== warnings summary ===============================
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\storage\database.py:41
+  F:\ai\Sage\backend\storage\database.py:41: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+backend\main.py:145
+  F:\ai\Sage\backend\main.py:145: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_sale_review_checklist.py::test_sale_review_boundary_payment_account_reasonable_penalty_and_common_layer
+FAILED backend/tests/test_construction_review_checklist.py::test_construction_fixture_corrections_for_subcontract_and_tender_points
+FAILED backend/tests/test_review_v2_house_lease.py::test_negated_phrase_does_not_pollute_later_matches
+3 failed, 207 passed, 5 warnings in 113.79s (0:01:53)

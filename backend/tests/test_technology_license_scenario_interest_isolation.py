@@ -142,7 +142,7 @@ def test_d_party_interest_check_distinguishes_uncapped_and_low_capped_licensor_l
 
     assert uncapped_item["coverage_status"] == "不适用"
     assert uncapped_item["evidence_clauses"] == []
-    assert "同一侵权损失" in uncapped_item["reasoning_summary"]
+    assert all(term in uncapped_item["reasoning_summary"] for term in ("同一", "损失", "侵权", "一般救济"))
     assert "未限制许可方责任" not in uncapped["result"]
 
     low_cap = _review(

@@ -1,0 +1,101 @@
+{
+  "current": {
+    "domain_gate": {
+      "status": "REPORT_READY",
+      "gate": "DOMAIN_SELECTION_CONSISTENCY_GATE",
+      "gate_status": "PASS",
+      "wrong_domain_review_count": 0,
+      "wrong_domain_review_ids": [],
+      "failures": []
+    },
+    "failures": [
+      {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "details": [
+          {
+            "review_id": "S-03-02",
+            "reason": "SALE_DISPLAY_STATE_MISMATCH",
+            "field": "reasoning_summary"
+          },
+          {
+            "review_id": "S-03-02",
+            "reason": "SALE_DISPLAY_STATE_MISMATCH",
+            "field": "legal_consequence_if_missing"
+          }
+        ]
+      },
+      {
+        "requirement": "CONTRACT_TYPE_CHAIN_CONFLICT",
+        "current_status": "FAIL",
+        "root_cause": "请求、规范类型、规则清单和报告类型不一致",
+        "type_stages": {
+          "request": "lease",
+          "canonical": "sale",
+          "facts_pipeline": "sale",
+          "checklist": "sale",
+          "report": "sale"
+        },
+        "expected_type_stages": {
+          "canonical": "sale",
+          "facts_pipeline": "sale",
+          "checklist": "sale",
+          "report": "sale",
+          "request": "house_lease"
+        }
+      }
+    ]
+  },
+  "without_new_signal_filters": {
+    "domain_gate": {
+      "status": "REPORT_READY",
+      "gate": "DOMAIN_SELECTION_CONSISTENCY_GATE",
+      "gate_status": "PASS",
+      "wrong_domain_review_count": 0,
+      "wrong_domain_review_ids": [],
+      "failures": []
+    },
+    "failures": [
+      {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "details": [
+          {
+            "review_id": "S-03-02",
+            "reason": "SALE_DISPLAY_STATE_MISMATCH",
+            "field": "reasoning_summary"
+          },
+          {
+            "review_id": "S-03-02",
+            "reason": "SALE_DISPLAY_STATE_MISMATCH",
+            "field": "legal_consequence_if_missing"
+          }
+        ]
+      },
+      {
+        "requirement": "CONTRACT_TYPE_CHAIN_CONFLICT",
+        "current_status": "FAIL",
+        "root_cause": "请求、规范类型、规则清单和报告类型不一致",
+        "type_stages": {
+          "request": "lease",
+          "canonical": "sale",
+          "facts_pipeline": "sale",
+          "checklist": "sale",
+          "report": "sale"
+        },
+        "expected_type_stages": {
+          "canonical": "sale",
+          "facts_pipeline": "sale",
+          "checklist": "sale",
+          "report": "sale",
+          "request": "house_lease"
+        }
+      }
+    ]
+  },
+  "same_blockers": true
+}

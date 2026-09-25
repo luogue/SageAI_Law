@@ -1,0 +1,40 @@
+{
+  "fixture": "test_data/8、技术服务.docx",
+  "classification": {
+    "contract_family": "TECHNOLOGY",
+    "contract_subtype": "TECHNICAL_SERVICE",
+    "transaction_structure": "B2B_TECHNICAL_SERVICE",
+    "review_role": "service_provider"
+  },
+  "required_risk_groups": [
+    "technical_acceptance_payment_control",
+    "technical_background_ip_overtransfer",
+    "technical_uncapped_cumulative_liability",
+    "technical_unilateral_termination_change",
+    "personal_information_processing_gap",
+    "payment_formula_inconsistency"
+  ],
+  "required_secondary_risk_groups": [
+    "technical_timeline_conflict",
+    "legal_reference"
+  ],
+  "not_applicable_review_ids": [
+    "TC-03-01",
+    "TC-03-02",
+    "TC-03-03",
+    "TC-05-01",
+    "TC-05-02",
+    "TC-05-03",
+    "TC-05-04",
+    "TC-12-01"
+  ],
+  "required_attachment_review_ids": [
+    "TC-13-03"
+  ],
+  "forbidden_report_tokens": [
+    "出卖人",
+    "买受人",
+    "可追溯到具体缺失要素",
+    "未定位到单一明确条款"
+  ]
+}

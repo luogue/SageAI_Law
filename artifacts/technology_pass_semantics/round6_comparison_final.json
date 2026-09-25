@@ -1,0 +1,144 @@
+{
+  "baseline": {
+    "PASS": 803,
+    "FAIL": 270,
+    "SKIP": 0
+  },
+  "current": {
+    "PASS": 820,
+    "FAIL": 262,
+    "SKIP": 0
+  },
+  "recovered": [
+    "backend.tests.test_industrial_technical_service_routing_regression::test_b2b_industrial_service_uses_technical_service_route_and_roles",
+    "backend.tests.test_industrial_technical_service_routing_regression::test_explicit_service_follow_on_improvement_still_activates_tc10",
+    "backend.tests.test_industrial_technical_service_routing_regression::test_improvement_recommendation_does_not_invent_existing_mechanisms",
+    "backend.tests.test_industrial_technical_service_routing_regression::test_payment_and_timeline_are_bound_to_current_contract_facts",
+    "backend.tests.test_industrial_technical_service_routing_regression::test_service_current_project_outputs_do_not_activate_follow_on_improvement_rules",
+    "backend.tests.test_industrial_technical_service_routing_regression::test_third_party_component_fact_is_shared_by_claim_and_proof_reviews",
+    "backend.tests.test_patent_license_input_integrity_routing::test_complete_patent_license_uses_one_full_text_and_never_loads_sale_rules",
+    "backend.tests.test_technology_license_primary_transaction::test_gold_routes_raw_docx_to_technology_license_not_sale"
+  ],
+  "newly_failing": [],
+  "added": {
+    "backend.tests.test_resolved_fact_route_handoff::test_body_transaction_controls_dispatch_without_a_technology_title[sale]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_resolved_fact_route_handoff::test_body_transaction_controls_dispatch_without_a_technology_title[service]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_resolved_fact_route_handoff::test_goods_purchase_is_not_displaced_by_incidental_patent_words": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_resolved_fact_route_handoff::test_reclassification_gate_validates_resolved_execution_not_input_prior[None]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_resolved_fact_route_handoff::test_reclassification_gate_validates_resolved_execution_not_input_prior[checklist]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_resolved_fact_route_handoff::test_reclassification_gate_validates_resolved_execution_not_input_prior[facts_pipeline]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_resolved_fact_route_handoff::test_reclassification_gate_validates_resolved_execution_not_input_prior[report]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_resolved_fact_route_handoff::test_transaction_rights_outrank_generic_buyer_seller_goods_vocabulary[\\u8ba9\\u4e0e\\u4eba\\uff08\\u5356\\u65b9\\uff09\\u5411\\u53d7\\u8ba9\\u4eba\\uff08\\u4e70\\u65b9\\uff09\\u8f6c\\u8ba9\\u672c\\u9879\\u53d1\\u660e\\u521b\\u9020\\u7684\\u5168\\u90e8\\u4e13\\u5229\\u7533\\u8bf7\\u6743\\u3002\\u4e70\\u65b9\\u53d6\\u5f97\\u4e13\\u5229\\u7533\\u8bf7\\u6743\\uff0c\\u5356\\u65b9\\u914d\\u5408\\u529e\\u7406\\u6743\\u5229\\u8f6c\\u79fb\\u767b\\u8bb0\\u3002-\\u4e13\\u5229\\u7533\\u8bf7\\u6743\\u8f6c\\u8ba9\\u4ef7\\u6b3e\\u603b\\u989d\\u4e3a\\u4e00\\u767e\\u4e07\\u5143\\uff0c\\u4e70\\u65b9\\u5411\\u5356\\u65b9\\u652f\\u4ed8\\u8f6c\\u8ba9\\u4ef7\\u6b3e\\u3002\\u5356\\u65b9\\u5e94\\u4ea4\\u4ed8\\u6280\\u672f\\u8d44\\u6599\\u53ca\\u56fe\\u7eb8\\uff0c\\u4e70\\u65b9\\u7ec4\\u7ec7\\u9a8c\\u6536\\u3002]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_resolved_fact_route_handoff::test_transaction_rights_outrank_generic_buyer_seller_goods_vocabulary[\\u8bb8\\u53ef\\u65b9\\uff08\\u5356\\u65b9\\uff09\\u6388\\u4e88\\u88ab\\u8bb8\\u53ef\\u65b9\\uff08\\u4e70\\u65b9\\uff09\\u975e\\u72ec\\u5360\\u4e13\\u5229\\u5b9e\\u65bd\\u8bb8\\u53ef\\uff0c\\u4e70\\u65b9\\u6709\\u6743\\u4f7f\\u7528\\u8be5\\u4e13\\u5229\\u5236\\u9020\\u4ea7\\u54c1\\uff0c\\u4e0d\\u5f97\\u8f6c\\u8ba9\\u4e13\\u5229\\u6743\\u3002-\\u4e70\\u65b9\\u6309\\u5408\\u540c\\u4ea7\\u54c1\\u9500\\u552e\\u989d5%\\u5411\\u5356\\u65b9\\u652f\\u4ed8\\u8bb8\\u53ef\\u4f7f\\u7528\\u8d39\\uff0c\\u5356\\u65b9\\u5e94\\u4ea4\\u4ed8\\u6280\\u672f\\u8d44\\u6599\\u5e76\\u63d0\\u4f9b\\u6280\\u672f\\u6307\\u5bfc\\u3002]": {
+      "status": "PASS",
+      "message": ""
+    }
+  },
+  "removed": [],
+  "changes": {
+    "backend.tests.test_industrial_technical_service_routing_regression::test_b2b_industrial_service_uses_technical_service_route_and_roles": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert 'SERVICE' == 'TECHNOLOGY'\n  \n  - TECHNOLOGY\n  + SERVICE"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_industrial_technical_service_routing_regression::test_explicit_service_follow_on_improvement_still_activates_tc10": {
+      "before": {
+        "status": "FAIL",
+        "message": "KeyError: 'TC-10-01'"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_industrial_technical_service_routing_regression::test_improvement_recommendation_does_not_invent_existing_mechanisms": {
+      "before": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_industrial_technical_service_routing_regression::test_payment_and_timeline_are_bound_to_current_contract_facts": {
+      "before": {
+        "status": "FAIL",
+        "message": "KeyError: 'contract_total'"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_industrial_technical_service_routing_regression::test_service_current_project_outputs_do_not_activate_follow_on_improvement_rules": {
+      "before": {
+        "status": "FAIL",
+        "message": "KeyError: 'TC-10-01'"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_industrial_technical_service_routing_regression::test_third_party_component_fact_is_shared_by_claim_and_proof_reviews": {
+      "before": {
+        "status": "FAIL",
+        "message": "KeyError: 'TC-03-04'"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_patent_license_input_integrity_routing::test_complete_patent_license_uses_one_full_text_and_never_loads_sale_rules": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert 'sale' == 'technology'\n  \n  - technology\n  + sale"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_technology_license_primary_transaction::test_gold_routes_raw_docx_to_technology_license_not_sale": {
+      "before": {
+        "status": "FAIL",
+        "message": "KeyError: 'primary_transaction_model'"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    }
+  }
+}

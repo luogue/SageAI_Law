@@ -1,0 +1,2455 @@
+[
+  {
+    "file": "F:\\ai\\Sage\\test_data\\72 无抵押借款.docx",
+    "file_sha256": "6878e648ecd7c983c7103c54a67a43e901cd0ec820ff0ce5da60320c2ea64930",
+    "source_sha256": "e15a8bbc871a7f4e6a327794d545d35883885f52ac44f0809e51e46cc54b4735",
+    "source_characters": 1164,
+    "status": "BLOCKED",
+    "error": "FactExtractionError: FACT_VERIFICATION_REJECTED",
+    "diagnostics": [
+      {
+        "failed_stage": "UNIFIED_FACT_VALIDATION",
+        "fact_id": null,
+        "field": "checks",
+        "validation_rule": "FACT_VERIFICATION_REJECTED",
+        "model_raw_value": null,
+        "evidence": null,
+        "expected": null,
+        "actual": [
+          {
+            "fact_id": "CF-3f2563bcae035c694150c11a",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-d53befd6451ea5595ed5ba82",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-b2779f868f0e7c2bf9874e84",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-687271357dda926ce3bec40c",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-b7aad4e4ff460be75f3cc8c1",
+            "supported": false,
+            "reason": "取值不支持：C0006仅约定利率为年利率10.8%、按月计收、每月10日支付，未明确利息计算基数（如以借款本金为基数）。该条款不能证明存在利息计算基数的具体合同安排。"
+          },
+          {
+            "fact_id": "CF-98ee88d0a61cc3f30ba79c0e",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-504b098af01ccf7470a6cccb",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-1c12a9c69fd8e1d1fcb5039a",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-1da4e54b14afbc2a52ca99a0",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-a6c9824b6f183b9cd891d498",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-45f949c2fac8e7210f016779",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-c815ececc2d420333e582a3f",
+            "supported": true
+          }
+        ],
+        "disposition": "BLOCK"
+      }
+    ],
+    "attempts": [
+      {
+        "scope": [
+          "common.parties",
+          "common.signing_date",
+          "common.effective_date",
+          "common.effective_condition",
+          "common.term",
+          "common.amounts",
+          "common.liability",
+          "common.dispute_method",
+          "common.dispute_institution",
+          "loan.lender_kind",
+          "loan.borrower_kind",
+          "loan.guarantee"
+        ],
+        "rejected_candidates": [
+          {
+            "concept": "common.parties",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": {
+              "name": "张明远",
+              "role": "贷款人（甲方）",
+              "kind": "NATURAL"
+            },
+            "evidence": [
+              {
+                "clause_id": "C0001",
+                "quote": "贷款人（甲方）：张明远",
+                "section": "全文",
+                "source_start": 8,
+                "source_end": 19,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-2def8c753e8bbad2946078b3"
+          },
+          {
+            "concept": "common.parties",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": {
+              "name": "李浩然",
+              "role": "借款人（乙方）",
+              "kind": "NATURAL"
+            },
+            "evidence": [
+              {
+                "clause_id": "C0001",
+                "quote": "借款人（乙方）：李浩然",
+                "section": "全文",
+                "source_start": 90,
+                "source_end": 101,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-00d059b90747940014ba2520"
+          },
+          {
+            "concept": "common.signing_date",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": "2026-09-10",
+            "evidence": [
+              {
+                "clause_id": "C0020",
+                "quote": "签约时间：2026年9月10日",
+                "section": "第五条　其他约定",
+                "source_start": 1073,
+                "source_end": 1088,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-67d4a57db3214fc3ad1479fe"
+          },
+          {
+            "concept": "common.effective_date",
+            "state": "ABSENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "evidence": [],
+            "fact_id": "CF-eabdb93cba1fe28ea9295820"
+          },
+          {
+            "concept": "common.effective_condition",
+            "state": "ABSENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "evidence": [],
+            "fact_id": "CF-b4f5f948c093e2687be79655"
+          },
+          {
+            "concept": "common.term",
+            "state": "UNCERTAIN",
+            "confidence": 0.8,
+            "assertion": "EXPLICIT",
+            "evidence": [],
+            "fact_id": "CF-9fd6201a1c0620e2e9918017"
+          },
+          {
+            "concept": "common.amounts",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": {
+              "amount": "150000",
+              "currency": "CNY",
+              "role": "借款金额"
+            },
+            "evidence": [
+              {
+                "clause_id": "C0004",
+                "quote": "1.2 借款金额：人民币（大写）壹拾伍万元整（￥150,000.00元）。",
+                "section": "1.2",
+                "source_start": 301,
+                "source_end": 338,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-6c044d9bbcc065d2fd23c158"
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": "乙方违反本合同约定借款用途的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且乙方应按借款总额的20％向甲方支付违约金。",
+            "evidence": [
+              {
+                "clause_id": "C0009",
+                "quote": "2.1 乙方违反本合同约定借款用途的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且乙方应按借款总额的20％向甲方支付违约金。",
+                "section": "2.1",
+                "source_start": 479,
+                "source_end": 554,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-330f64df10a9e2a66d244618"
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": "乙方违反本合同其它相关条款时，若该条款对违约责任没有约定，则乙方应按借款总额的20％向甲方支付违约金。",
+            "evidence": [
+              {
+                "clause_id": "C0010",
+                "quote": "2.2 乙方违反本合同其它相关条款时，若该条款对违约责任没有约定，则乙方应按借款总额的20％向甲方支付违约金。",
+                "section": "2.2",
+                "source_start": 555,
+                "source_end": 610,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-c9518f71891dbc25bb88cfea"
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": "无论何种情形下，乙方按照合同约定支付的违约金不足以弥补甲方全部损失的，乙方应全额赔偿。",
+            "evidence": [
+              {
+                "clause_id": "C0011",
+                "quote": "2.3 无论何种情形下，乙方按照合同约定支付的违约金不足以弥补甲方全部损失的，乙方应全额赔偿。",
+                "section": "2.3",
+                "source_start": 611,
+                "source_end": 658,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-c8cb5c8da1f0b998479b3fe1"
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": "乙方未按合同约定按时偿还本金或利息的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且从逾期之日起乙方应每日按借款总额的0.5%向甲方支付违约金。",
+            "evidence": [
+              {
+                "clause_id": "C0012",
+                "quote": "2.4 乙方未按合同约定按时偿还本金或利息的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且从逾期之日起乙方应每日按借款总额的0.5%向甲方支付违约金。",
+                "section": "2.4",
+                "source_start": 659,
+                "source_end": 747,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-ee396c74c8fab592dc84bdaa"
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": "因乙方违约而产生的诉讼费、公证费、财产保全费、律师服务费等实现债权的各种费用以及可能产生的甲方代垫费用和其他费用均由乙方承担。",
+            "evidence": [
+              {
+                "clause_id": "C0013",
+                "quote": "2.5 因乙方违约而产生的诉讼费、公证费、财产保全费、律师服务费等实现债权的各种费用以及可能产生的甲方代垫费用和其他费用均由乙方承担。",
+                "section": "2.5",
+                "source_start": 748,
+                "source_end": 815,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-2391f1193d5aad9a7710ba43"
+          },
+          {
+            "concept": "common.dispute_method",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": "NEGOTIATION",
+            "evidence": [
+              {
+                "clause_id": "C0015",
+                "quote": "3.1 甲乙双方因履行本合同发生纠纷，应首先协商解决；协商不成，则向青岛市黄岛区人民法院提起诉讼。",
+                "section": "3.1",
+                "source_start": 825,
+                "source_end": 874,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-c9260fc5d9a81a97729eafc6"
+          },
+          {
+            "concept": "common.dispute_method",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": "LITIGATION",
+            "evidence": [
+              {
+                "clause_id": "C0015",
+                "quote": "3.1 甲乙双方因履行本合同发生纠纷，应首先协商解决；协商不成，则向青岛市黄岛区人民法院提起诉讼。",
+                "section": "3.1",
+                "source_start": 825,
+                "source_end": 874,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-1546c3ba77332abc9c754d1d"
+          },
+          {
+            "concept": "common.dispute_institution",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": "青岛市黄岛区人民法院",
+            "evidence": [
+              {
+                "clause_id": "C0015",
+                "quote": "3.1 甲乙双方因履行本合同发生纠纷，应首先协商解决；协商不成，则向青岛市黄岛区人民法院提起诉讼。",
+                "section": "3.1",
+                "source_start": 825,
+                "source_end": 874,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-20d6f5ccc9ca626367250742"
+          },
+          {
+            "concept": "loan.lender_kind",
+            "state": "PRESENT",
+            "confidence": 0.9,
+            "assertion": "INFERRED",
+            "normalized_value": "natural",
+            "evidence": [
+              {
+                "clause_id": "C0001",
+                "quote": "贷款人（甲方）：张明远\n住址：青岛市黄岛区测试路88号1号楼101室邮编：266500\n电话：13800000001身份证号：370211198806150017",
+                "section": "全文",
+                "source_start": 8,
+                "source_end": 89,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-892549c2d7435abaf90c409d"
+          },
+          {
+            "concept": "loan.borrower_kind",
+            "state": "PRESENT",
+            "confidence": 0.9,
+            "assertion": "INFERRED",
+            "normalized_value": "natural",
+            "evidence": [
+              {
+                "clause_id": "C0001",
+                "quote": "借款人（乙方）：李浩然\n住址：青岛市黄岛区示范路126号2号楼502室邮编：266500\n电话：13900000002身份证号：370211199203220025",
+                "section": "全文",
+                "source_start": 90,
+                "source_end": 172,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-c8cb00842e3e8f7234100cc5"
+          },
+          {
+            "concept": "loan.guarantee",
+            "state": "ABSENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "evidence": [],
+            "fact_id": "CF-0a91ce776090d68875f97f90"
+          }
+        ],
+        "verification": {
+          "reviewed_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011",
+            "C0012",
+            "C0013",
+            "C0014",
+            "C0015",
+            "C0016",
+            "C0017",
+            "C0018",
+            "C0019",
+            "C0020"
+          ],
+          "searched_concepts": [
+            "common.parties",
+            "common.signing_date",
+            "common.effective_date",
+            "common.effective_condition",
+            "common.term",
+            "common.amounts",
+            "common.liability",
+            "common.dispute_method",
+            "common.dispute_institution",
+            "loan.lender_kind",
+            "loan.borrower_kind",
+            "loan.guarantee"
+          ],
+          "checks": [
+            {
+              "fact_id": "CF-2def8c753e8bbad2946078b3",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-00d059b90747940014ba2520",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-67d4a57db3214fc3ad1479fe",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-eabdb93cba1fe28ea9295820",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-b4f5f948c093e2687be79655",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-9fd6201a1c0620e2e9918017",
+              "supported": false,
+              "reason": "状态不支持：合同C0005明确约定借款期限自2026年9月10日至2027年9月9日，属于明确的期限约定，应提取为PRESENT并给出期限值，而非UNCERTAIN且无证据。"
+            },
+            {
+              "fact_id": "CF-6c044d9bbcc065d2fd23c158",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-330f64df10a9e2a66d244618",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-c9518f71891dbc25bb88cfea",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-c8cb5c8da1f0b998479b3fe1",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-ee396c74c8fab592dc84bdaa",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-2391f1193d5aad9a7710ba43",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-c9260fc5d9a81a97729eafc6",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-1546c3ba77332abc9c754d1d",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-20d6f5ccc9ca626367250742",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-892549c2d7435abaf90c409d",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-c8cb00842e3e8f7234100cc5",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-0a91ce776090d68875f97f90",
+              "supported": true
+            }
+          ],
+          "audits": [
+            {
+              "concept": "common.parties",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0001载明贷款人（甲方）张明远、借款人（乙方）李浩然，C0020再次载明甲方张明远、乙方李浩然，全文无其他主体，已完整提取。"
+            },
+            {
+              "concept": "common.signing_date",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0020载明签约时间：2026年9月10日，为唯一实际填写的签署日期，已提取。"
+            },
+            {
+              "concept": "common.effective_date",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文无明确的合同生效日期条款，C0018仅约定份数与法律效力，未约定生效日期，ABSENT正确。"
+            },
+            {
+              "concept": "common.effective_condition",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文无合同生效条件的具体约定，ABSENT正确。"
+            },
+            {
+              "concept": "common.term",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": false,
+              "omitted_facts": [
+                {
+                  "fact": "借款期限：自2026年9月10日至2027年9月9日，期限为1年",
+                  "evidence": "C0005：1.3 借款期限：自2026年9月10日至2027年9月9日。"
+                }
+              ],
+              "reason": "C0005明确约定了借款期限，候选却以UNCERTAIN且无证据提交，遗漏了该期限事实，应修正为PRESENT并附C0005证据。"
+            },
+            {
+              "concept": "common.amounts",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0004载明借款金额人民币壹拾伍万元整（￥150,000.00元），为唯一合同金额，已提取。"
+            },
+            {
+              "concept": "common.liability",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0009、C0010、C0011、C0012、C0013分别约定了借款用途违约、其他违约、违约金不足弥补损失、逾期还款违约及实现债权费用承担，均已提取。"
+            },
+            {
+              "concept": "common.dispute_method",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0015约定先协商、协商不成向法院起诉，已提取NEGOTIATION和LITIGATION两种方式。"
+            },
+            {
+              "concept": "common.dispute_institution",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0015约定向青岛市黄岛区人民法院提起诉讼，已提取。"
+            },
+            {
+              "concept": "loan.lender_kind",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0001载明贷款人张明远附身份证号，为自然人，已提取natural。"
+            },
+            {
+              "concept": "loan.borrower_kind",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0001载明借款人李浩然附身份证号，为自然人，已提取natural。"
+            },
+            {
+              "concept": "loan.guarantee",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文无第三方保证人承诺承担保证责任的条款，C0007提及的保险费用仅为费用承担，不构成保证，ABSENT正确。"
+            }
+          ]
+        },
+        "diagnostics": [
+          {
+            "failed_stage": "UNIFIED_FACT_VALIDATION",
+            "fact_id": null,
+            "field": "checks",
+            "validation_rule": "FACT_VERIFICATION_REJECTED",
+            "model_raw_value": null,
+            "evidence": null,
+            "expected": null,
+            "actual": [
+              {
+                "fact_id": "CF-2def8c753e8bbad2946078b3",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-00d059b90747940014ba2520",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-67d4a57db3214fc3ad1479fe",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-eabdb93cba1fe28ea9295820",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-b4f5f948c093e2687be79655",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-9fd6201a1c0620e2e9918017",
+                "supported": false,
+                "reason": "状态不支持：合同C0005明确约定借款期限自2026年9月10日至2027年9月9日，属于明确的期限约定，应提取为PRESENT并给出期限值，而非UNCERTAIN且无证据。"
+              },
+              {
+                "fact_id": "CF-6c044d9bbcc065d2fd23c158",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-330f64df10a9e2a66d244618",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-c9518f71891dbc25bb88cfea",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-c8cb5c8da1f0b998479b3fe1",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-ee396c74c8fab592dc84bdaa",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-2391f1193d5aad9a7710ba43",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-c9260fc5d9a81a97729eafc6",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-1546c3ba77332abc9c754d1d",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-20d6f5ccc9ca626367250742",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-892549c2d7435abaf90c409d",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-c8cb00842e3e8f7234100cc5",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-0a91ce776090d68875f97f90",
+                "supported": true
+              }
+            ],
+            "disposition": "BLOCK"
+          }
+        ]
+      },
+      {
+        "scope": [
+          "loan.element.loan_lender_identity",
+          "loan.element.loan_receipt_document",
+          "loan.element.loan_disbursement_record",
+          "loan.element.loan_voucher_creditor",
+          "loan.element.loan_interest_base",
+          "loan.element.loan_interest_period",
+          "loan.element.loan_repayment_method",
+          "loan.element.loan_repayment_account",
+          "loan.element.loan_collection_records",
+          "loan.element.loan_maturity",
+          "loan.element.loan_agreed_rate",
+          "loan.element.loan_offset_order"
+        ],
+        "rejected_candidates": [
+          {
+            "concept": "loan.element.loan_lender_identity",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": true,
+            "evidence": [
+              {
+                "clause_id": "C0001",
+                "quote": "贷款人（甲方）：张明远\n住址：青岛市黄岛区测试路88号1号楼101室邮编：266500\n电话：13800000001身份证号：370211198806150017",
+                "section": "全文",
+                "source_start": 8,
+                "source_end": 89,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-3f2563bcae035c694150c11a"
+          },
+          {
+            "concept": "loan.element.loan_receipt_document",
+            "state": "ABSENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "evidence": [],
+            "fact_id": "CF-d53befd6451ea5595ed5ba82"
+          },
+          {
+            "concept": "loan.element.loan_disbursement_record",
+            "state": "ABSENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "evidence": [],
+            "fact_id": "CF-b2779f868f0e7c2bf9874e84"
+          },
+          {
+            "concept": "loan.element.loan_voucher_creditor",
+            "state": "ABSENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "evidence": [],
+            "fact_id": "CF-687271357dda926ce3bec40c"
+          },
+          {
+            "concept": "loan.element.loan_interest_base",
+            "state": "ABSENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "evidence": [],
+            "fact_id": "CF-fc4180675e8d99d2bd032315"
+          },
+          {
+            "concept": "loan.element.loan_interest_period",
+            "state": "ABSENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "evidence": [],
+            "fact_id": "CF-a956cdc0df590a1c3c3c2b3b"
+          },
+          {
+            "concept": "loan.element.loan_repayment_method",
+            "state": "ABSENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "evidence": [],
+            "fact_id": "CF-ae9a92b63639224f4f2c9099"
+          },
+          {
+            "concept": "loan.element.loan_repayment_account",
+            "state": "ABSENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "evidence": [],
+            "fact_id": "CF-1c12a9c69fd8e1d1fcb5039a"
+          },
+          {
+            "concept": "loan.element.loan_collection_records",
+            "state": "ABSENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "evidence": [],
+            "fact_id": "CF-1da4e54b14afbc2a52ca99a0"
+          },
+          {
+            "concept": "loan.element.loan_maturity",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": true,
+            "evidence": [
+              {
+                "clause_id": "C0005",
+                "quote": "1.3 借款期限：自2026年9月10日至2027年9月9日。",
+                "section": "1.3",
+                "source_start": 339,
+                "source_end": 370,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-a6c9824b6f183b9cd891d498"
+          },
+          {
+            "concept": "loan.element.loan_agreed_rate",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": true,
+            "evidence": [
+              {
+                "clause_id": "C0006",
+                "quote": "1.4 利息：利率为年利率10.8%，按月计收，每月10日（与借款发放日同一日）支付。",
+                "section": "1.4",
+                "source_start": 371,
+                "source_end": 414,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-45f949c2fac8e7210f016779"
+          },
+          {
+            "concept": "loan.element.loan_offset_order",
+            "state": "ABSENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "evidence": [],
+            "fact_id": "CF-c815ececc2d420333e582a3f"
+          }
+        ],
+        "verification": {
+          "reviewed_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011",
+            "C0012",
+            "C0013",
+            "C0014",
+            "C0015",
+            "C0016",
+            "C0017",
+            "C0018",
+            "C0019",
+            "C0020"
+          ],
+          "searched_concepts": [
+            "loan.element.loan_lender_identity",
+            "loan.element.loan_receipt_document",
+            "loan.element.loan_disbursement_record",
+            "loan.element.loan_voucher_creditor",
+            "loan.element.loan_interest_base",
+            "loan.element.loan_interest_period",
+            "loan.element.loan_repayment_method",
+            "loan.element.loan_repayment_account",
+            "loan.element.loan_collection_records",
+            "loan.element.loan_maturity",
+            "loan.element.loan_agreed_rate",
+            "loan.element.loan_offset_order"
+          ],
+          "checks": [
+            {
+              "fact_id": "CF-3f2563bcae035c694150c11a",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-d53befd6451ea5595ed5ba82",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-b2779f868f0e7c2bf9874e84",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-687271357dda926ce3bec40c",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-fc4180675e8d99d2bd032315",
+              "supported": false,
+              "reason": "取值不支持：C0006约定“利率为年利率10.8%，按月计收”，其中“按月计收”表明利息计算基数为借款本金（合同未另行约定其他基数），属于存在利息计算基数的具体合同安排，候选事实将loan.element.loan_interest_base标为ABSENT与文本不符。事实层修正要求：将state改为PRESENT，normalized_value改为true，并补充C0006作为证据。"
+            },
+            {
+              "fact_id": "CF-a956cdc0df590a1c3c3c2b3b",
+              "supported": false,
+              "reason": "取值不支持：C0005约定“借款期限：自2026年9月10日至2027年9月9日”，C0006约定“每月10日（与借款发放日同一日）支付”，二者结合可确定利息起止期间（自借款发放日起至借款到期日止，按月支付），属于存在利息起止期间的具体合同安排，候选事实将loan.element.loan_interest_period标为ABSENT与文本不符。事实层修正要求：将state改为PRESENT，normalized_value改为true，并补充C0005、C0006作为证据。"
+            },
+            {
+              "fact_id": "CF-ae9a92b63639224f4f2c9099",
+              "supported": false,
+              "reason": "取值不支持：C0006约定“每月10日（与借款发放日同一日）支付”，明确了按月支付的还款支付方式，属于存在还款支付方式的具体合同安排，候选事实将loan.element.loan_repayment_method标为ABSENT与文本不符。事实层修正要求：将state改为PRESENT，normalized_value改为true，并补充C0006作为证据。"
+            },
+            {
+              "fact_id": "CF-1c12a9c69fd8e1d1fcb5039a",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-1da4e54b14afbc2a52ca99a0",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-a6c9824b6f183b9cd891d498",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-45f949c2fac8e7210f016779",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-c815ececc2d420333e582a3f",
+              "supported": true
+            }
+          ],
+          "audits": [
+            {
+              "concept": "loan.element.loan_lender_identity",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0001载明“贷款人（甲方）：张明远”及身份证号、住址、电话，贷款人主体身份明确，可用于区分金融借款与民间借贷，候选事实PRESENT正确，无遗漏。"
+            },
+            {
+              "concept": "loan.element.loan_receipt_document",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文未出现借据、收据或欠条等实际债权凭证的约定，候选事实ABSENT正确，无遗漏。"
+            },
+            {
+              "concept": "loan.element.loan_disbursement_record",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文未约定实际放款或到账凭证及确认，候选事实ABSENT正确，无遗漏。"
+            },
+            {
+              "concept": "loan.element.loan_voucher_creditor",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文未约定债权凭证载明债权人身份，候选事实ABSENT正确，无遗漏。"
+            },
+            {
+              "concept": "loan.element.loan_interest_base",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": false,
+              "omitted_facts": [
+                {
+                  "fact": "利息计算基数",
+                  "evidence": "C0006：1.4 利息：利率为年利率10.8%，按月计收，每月10日（与借款发放日同一日）支付。"
+                }
+              ],
+              "reason": "C0006约定“利率为年利率10.8%，按月计收”，结合C0004借款金额150,000元，利息计算基数为借款本金，属于存在利息计算基数的具体合同安排，候选事实ABSENT遗漏该事实。"
+            },
+            {
+              "concept": "loan.element.loan_interest_period",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": false,
+              "omitted_facts": [
+                {
+                  "fact": "利息起止期间",
+                  "evidence": "C0005：1.3 借款期限：自2026年9月10日至2027年9月9日。C0006：1.4 利息：利率为年利率10.8%，按月计收，每月10日（与借款发放日同一日）支付。"
+                }
+              ],
+              "reason": "C0005约定借款期限自2026年9月10日至2027年9月9日，C0006约定按月计收利息，可确定利息起止期间为借款发放日至借款到期日，候选事实ABSENT遗漏该事实。"
+            },
+            {
+              "concept": "loan.element.loan_repayment_method",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": false,
+              "omitted_facts": [
+                {
+                  "fact": "还款支付方式",
+                  "evidence": "C0006：1.4 利息：利率为年利率10.8%，按月计收，每月10日（与借款发放日同一日）支付。"
+                }
+              ],
+              "reason": "C0006约定“每月10日（与借款发放日同一日）支付”，明确了按月支付的还款支付方式，候选事实ABSENT遗漏该事实。"
+            },
+            {
+              "concept": "loan.element.loan_repayment_account",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文未约定还款收款账户或指定机制，候选事实ABSENT正确，无遗漏。"
+            },
+            {
+              "concept": "loan.element.loan_collection_records",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文未约定催收或还款记录的保存安排，候选事实ABSENT正确，无遗漏。"
+            },
+            {
+              "concept": "loan.element.loan_maturity",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0005约定“借款期限：自2026年9月10日至2027年9月9日”，借款到期日明确，候选事实PRESENT正确，无遗漏。"
+            },
+            {
+              "concept": "loan.element.loan_agreed_rate",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0006约定“利率为年利率10.8%”，借期利率明确，候选事实PRESENT正确，无遗漏。"
+            },
+            {
+              "concept": "loan.element.loan_offset_order",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文未约定部分还款的抵充顺序，候选事实ABSENT正确，无遗漏。"
+            }
+          ]
+        },
+        "diagnostics": [
+          {
+            "failed_stage": "UNIFIED_FACT_VALIDATION",
+            "fact_id": null,
+            "field": "checks",
+            "validation_rule": "FACT_VERIFICATION_REJECTED",
+            "model_raw_value": null,
+            "evidence": null,
+            "expected": null,
+            "actual": [
+              {
+                "fact_id": "CF-3f2563bcae035c694150c11a",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-d53befd6451ea5595ed5ba82",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-b2779f868f0e7c2bf9874e84",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-687271357dda926ce3bec40c",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-fc4180675e8d99d2bd032315",
+                "supported": false,
+                "reason": "取值不支持：C0006约定“利率为年利率10.8%，按月计收”，其中“按月计收”表明利息计算基数为借款本金（合同未另行约定其他基数），属于存在利息计算基数的具体合同安排，候选事实将loan.element.loan_interest_base标为ABSENT与文本不符。事实层修正要求：将state改为PRESENT，normalized_value改为true，并补充C0006作为证据。"
+              },
+              {
+                "fact_id": "CF-a956cdc0df590a1c3c3c2b3b",
+                "supported": false,
+                "reason": "取值不支持：C0005约定“借款期限：自2026年9月10日至2027年9月9日”，C0006约定“每月10日（与借款发放日同一日）支付”，二者结合可确定利息起止期间（自借款发放日起至借款到期日止，按月支付），属于存在利息起止期间的具体合同安排，候选事实将loan.element.loan_interest_period标为ABSENT与文本不符。事实层修正要求：将state改为PRESENT，normalized_value改为true，并补充C0005、C0006作为证据。"
+              },
+              {
+                "fact_id": "CF-ae9a92b63639224f4f2c9099",
+                "supported": false,
+                "reason": "取值不支持：C0006约定“每月10日（与借款发放日同一日）支付”，明确了按月支付的还款支付方式，属于存在还款支付方式的具体合同安排，候选事实将loan.element.loan_repayment_method标为ABSENT与文本不符。事实层修正要求：将state改为PRESENT，normalized_value改为true，并补充C0006作为证据。"
+              },
+              {
+                "fact_id": "CF-1c12a9c69fd8e1d1fcb5039a",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-1da4e54b14afbc2a52ca99a0",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-a6c9824b6f183b9cd891d498",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-45f949c2fac8e7210f016779",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-c815ececc2d420333e582a3f",
+                "supported": true
+              }
+            ],
+            "disposition": "BLOCK"
+          }
+        ]
+      },
+      {
+        "scope": [
+          "loan.element.loan_lender_identity",
+          "loan.element.loan_receipt_document",
+          "loan.element.loan_disbursement_record",
+          "loan.element.loan_voucher_creditor",
+          "loan.element.loan_interest_base",
+          "loan.element.loan_interest_period",
+          "loan.element.loan_repayment_method",
+          "loan.element.loan_repayment_account",
+          "loan.element.loan_collection_records",
+          "loan.element.loan_maturity",
+          "loan.element.loan_agreed_rate",
+          "loan.element.loan_offset_order"
+        ],
+        "rejected_candidates": [
+          {
+            "concept": "loan.element.loan_lender_identity",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": true,
+            "evidence": [
+              {
+                "clause_id": "C0001",
+                "quote": "贷款人（甲方）：张明远\n住址：青岛市黄岛区测试路88号1号楼101室邮编：266500\n电话：13800000001身份证号：370211198806150017",
+                "section": "全文",
+                "source_start": 8,
+                "source_end": 89,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-3f2563bcae035c694150c11a"
+          },
+          {
+            "concept": "loan.element.loan_receipt_document",
+            "state": "ABSENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "evidence": [],
+            "fact_id": "CF-d53befd6451ea5595ed5ba82"
+          },
+          {
+            "concept": "loan.element.loan_disbursement_record",
+            "state": "ABSENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "evidence": [],
+            "fact_id": "CF-b2779f868f0e7c2bf9874e84"
+          },
+          {
+            "concept": "loan.element.loan_voucher_creditor",
+            "state": "ABSENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "evidence": [],
+            "fact_id": "CF-687271357dda926ce3bec40c"
+          },
+          {
+            "concept": "loan.element.loan_interest_base",
+            "state": "PRESENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "normalized_value": true,
+            "evidence": [
+              {
+                "clause_id": "C0006",
+                "quote": "1.4 利息：利率为年利率10.8%，按月计收，每月10日（与借款发放日同一日）支付。",
+                "section": "1.4",
+                "source_start": 371,
+                "source_end": 414,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-b7aad4e4ff460be75f3cc8c1"
+          },
+          {
+            "concept": "loan.element.loan_interest_period",
+            "state": "PRESENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "normalized_value": true,
+            "evidence": [
+              {
+                "clause_id": "C0005",
+                "quote": "1.3 借款期限：自2026年9月10日至2027年9月9日。",
+                "section": "1.3",
+                "source_start": 339,
+                "source_end": 370,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              },
+              {
+                "clause_id": "C0006",
+                "quote": "1.4 利息：利率为年利率10.8%，按月计收，每月10日（与借款发放日同一日）支付。",
+                "section": "1.4",
+                "source_start": 371,
+                "source_end": 414,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-98ee88d0a61cc3f30ba79c0e"
+          },
+          {
+            "concept": "loan.element.loan_repayment_method",
+            "state": "PRESENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "normalized_value": true,
+            "evidence": [
+              {
+                "clause_id": "C0006",
+                "quote": "1.4 利息：利率为年利率10.8%，按月计收，每月10日（与借款发放日同一日）支付。",
+                "section": "1.4",
+                "source_start": 371,
+                "source_end": 414,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-504b098af01ccf7470a6cccb"
+          },
+          {
+            "concept": "loan.element.loan_repayment_account",
+            "state": "ABSENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "evidence": [],
+            "fact_id": "CF-1c12a9c69fd8e1d1fcb5039a"
+          },
+          {
+            "concept": "loan.element.loan_collection_records",
+            "state": "ABSENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "evidence": [],
+            "fact_id": "CF-1da4e54b14afbc2a52ca99a0"
+          },
+          {
+            "concept": "loan.element.loan_maturity",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": true,
+            "evidence": [
+              {
+                "clause_id": "C0005",
+                "quote": "1.3 借款期限：自2026年9月10日至2027年9月9日。",
+                "section": "1.3",
+                "source_start": 339,
+                "source_end": 370,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-a6c9824b6f183b9cd891d498"
+          },
+          {
+            "concept": "loan.element.loan_agreed_rate",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": true,
+            "evidence": [
+              {
+                "clause_id": "C0006",
+                "quote": "1.4 利息：利率为年利率10.8%，按月计收，每月10日（与借款发放日同一日）支付。",
+                "section": "1.4",
+                "source_start": 371,
+                "source_end": 414,
+                "block_type": "OPERATIVE_CLAUSE",
+                "section_type": "正式合同条款"
+              }
+            ],
+            "fact_id": "CF-45f949c2fac8e7210f016779"
+          },
+          {
+            "concept": "loan.element.loan_offset_order",
+            "state": "ABSENT",
+            "confidence": 0.9,
+            "assertion": "EXPLICIT",
+            "evidence": [],
+            "fact_id": "CF-c815ececc2d420333e582a3f"
+          }
+        ],
+        "verification": {
+          "reviewed_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011",
+            "C0012",
+            "C0013",
+            "C0014",
+            "C0015",
+            "C0016",
+            "C0017",
+            "C0018",
+            "C0019",
+            "C0020"
+          ],
+          "searched_concepts": [
+            "loan.element.loan_lender_identity",
+            "loan.element.loan_receipt_document",
+            "loan.element.loan_disbursement_record",
+            "loan.element.loan_voucher_creditor",
+            "loan.element.loan_interest_base",
+            "loan.element.loan_interest_period",
+            "loan.element.loan_repayment_method",
+            "loan.element.loan_repayment_account",
+            "loan.element.loan_collection_records",
+            "loan.element.loan_maturity",
+            "loan.element.loan_agreed_rate",
+            "loan.element.loan_offset_order"
+          ],
+          "checks": [
+            {
+              "fact_id": "CF-3f2563bcae035c694150c11a",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-d53befd6451ea5595ed5ba82",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-b2779f868f0e7c2bf9874e84",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-687271357dda926ce3bec40c",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-b7aad4e4ff460be75f3cc8c1",
+              "supported": false,
+              "reason": "取值不支持：C0006仅约定利率为年利率10.8%、按月计收、每月10日支付，未明确利息计算基数（如以借款本金为基数）。该条款不能证明存在利息计算基数的具体合同安排。"
+            },
+            {
+              "fact_id": "CF-98ee88d0a61cc3f30ba79c0e",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-504b098af01ccf7470a6cccb",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-1c12a9c69fd8e1d1fcb5039a",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-1da4e54b14afbc2a52ca99a0",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-a6c9824b6f183b9cd891d498",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-45f949c2fac8e7210f016779",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-c815ececc2d420333e582a3f",
+              "supported": true
+            }
+          ],
+          "audits": [
+            {
+              "concept": "loan.element.loan_lender_identity",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0001明确载明贷款人（甲方）张明远及其住址、电话、身份证号，可识别贷款人主体身份，候选事实PRESENT正确。"
+            },
+            {
+              "concept": "loan.element.loan_receipt_document",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文未出现借据、收据或欠条等实际债权凭证的约定，候选ABSENT正确。"
+            },
+            {
+              "concept": "loan.element.loan_disbursement_record",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文未约定实际放款或到账凭证及确认，候选ABSENT正确。"
+            },
+            {
+              "concept": "loan.element.loan_voucher_creditor",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文未约定债权凭证载明债权人身份，候选ABSENT正确。"
+            },
+            {
+              "concept": "loan.element.loan_interest_base",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0006仅约定年利率10.8%、按月计收、每月10日支付，未明确利息计算基数；C0004借款金额不能等同于利息计算基数约定。候选PRESENT缺乏依据，应修正为ABSENT。"
+            },
+            {
+              "concept": "loan.element.loan_interest_period",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0005约定借款期限自2026年9月10日至2027年9月9日，C0006约定按月计收、每月10日支付，可确定利息起止期间，候选PRESENT正确。"
+            },
+            {
+              "concept": "loan.element.loan_repayment_method",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0006约定利息按月计收、每月10日支付，构成还款支付方式安排，候选PRESENT正确。"
+            },
+            {
+              "concept": "loan.element.loan_repayment_account",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文未约定还款收款账户或指定机制，候选ABSENT正确。"
+            },
+            {
+              "concept": "loan.element.loan_collection_records",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文未约定催收或还款记录的保存安排，候选ABSENT正确。"
+            },
+            {
+              "concept": "loan.element.loan_maturity",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0005约定借款期限自2026年9月10日至2027年9月9日，到期日明确，候选PRESENT正确。"
+            },
+            {
+              "concept": "loan.element.loan_agreed_rate",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0006明确约定年利率10.8%，属于明确的借期利率，候选PRESENT正确。"
+            },
+            {
+              "concept": "loan.element.loan_offset_order",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文未约定部分还款的抵充顺序，候选ABSENT正确。"
+            }
+          ]
+        },
+        "diagnostics": [
+          {
+            "failed_stage": "UNIFIED_FACT_VALIDATION",
+            "fact_id": null,
+            "field": "checks",
+            "validation_rule": "FACT_VERIFICATION_REJECTED",
+            "model_raw_value": null,
+            "evidence": null,
+            "expected": null,
+            "actual": [
+              {
+                "fact_id": "CF-3f2563bcae035c694150c11a",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-d53befd6451ea5595ed5ba82",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-b2779f868f0e7c2bf9874e84",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-687271357dda926ce3bec40c",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-b7aad4e4ff460be75f3cc8c1",
+                "supported": false,
+                "reason": "取值不支持：C0006仅约定利率为年利率10.8%、按月计收、每月10日支付，未明确利息计算基数（如以借款本金为基数）。该条款不能证明存在利息计算基数的具体合同安排。"
+              },
+              {
+                "fact_id": "CF-98ee88d0a61cc3f30ba79c0e",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-504b098af01ccf7470a6cccb",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-1c12a9c69fd8e1d1fcb5039a",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-1da4e54b14afbc2a52ca99a0",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-a6c9824b6f183b9cd891d498",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-45f949c2fac8e7210f016779",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-c815ececc2d420333e582a3f",
+                "supported": true
+              }
+            ],
+            "disposition": "BLOCK"
+          }
+        ]
+      }
+    ],
+    "calls": 26
+  },
+  {
+    "file": "F:\\ai\\Sage\\test_data\\98 借款合同.docx",
+    "file_sha256": "b0add44adf035d4025d62b511645cb2cc324eab094a3511a27c9cc7129c2b809",
+    "source_sha256": "53b70b7ac320a8fd97d6601625c3ee1cea32f196094c1d131a4b9b0a7f7962ba",
+    "source_characters": 2183,
+    "status": "BLOCKED",
+    "error": "FactExtractionError: FACT_VERIFICATION_REJECTED",
+    "diagnostics": [
+      {
+        "failed_stage": "UNIFIED_FACT_VALIDATION",
+        "fact_id": null,
+        "field": "checks",
+        "validation_rule": "FACT_VERIFICATION_REJECTED",
+        "model_raw_value": null,
+        "evidence": null,
+        "expected": null,
+        "actual": [
+          {
+            "fact_id": "CF-0c4059dc0c91cc816d6e3ea7",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-5570c43f1d48e798f5aa3fe6",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-2a106284bf35e3e36cbd00a5",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-35700ef3a93b460071a9b2d6",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-e0c10160ffece87565505e0e",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-748d5778e607b1d432bb8be5",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-2a6bfbea8ab25f0713acb9e6",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-dfa09982f5f89df7eaa75b02",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-b9bb947ebeb0f3921ba1d4c1",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-e47efcb938d4d841047bcc84",
+            "supported": false,
+            "reason": "取值不支持：C0019扣款顺序中明确列有“复利”，表明存在实际计收复利的安排，应认定为PRESENT而非ABSENT。"
+          },
+          {
+            "fact_id": "CF-05fca50a108488cdb8d51a36",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-af58b7e7fd317ad588532428",
+            "supported": false,
+            "reason": "取值不支持：C0010约定“贷款发放方式：一次性发放”“预计放款日期：2026年9月15日”“支付方式：全额受托支付”，C0011约定借款人贷款账户，C0015约定还款账户及自动扣收，C0012约定交易对象账户及支付金额，C0013约定贷款支付金额，C0019约定扣款顺序，已构成系统放款记录或支付凭证机制，应认定为PRESENT而非ABSENT。"
+          }
+        ],
+        "disposition": "BLOCK"
+      }
+    ],
+    "attempts": [],
+    "calls": 33
+  },
+  {
+    "file": "F:\\ai\\Sage\\test_data\\101 企业之间借款合同.docx",
+    "file_sha256": "24ee8a64dc775e20b1fe5ccf538298290e419e674b5b1737e00a5dd1057be973",
+    "source_sha256": "f9c21ad3b976d3d4d2a53ce19ce3887652c38e20c1e60836ce0d8fa4f16a5c77",
+    "source_characters": 3069,
+    "status": "PASS",
+    "gate": {
+      "status": "REPORT_READY",
+      "failures": [],
+      "gate_results": {
+        "VERIFIED_LOAN_FACT_PROVENANCE": "PASS",
+        "ALL_48_LOAN_CONSUMERS": "PASS"
+      }
+    },
+    "coverage": {
+      "通过": 21,
+      "待核验": 8,
+      "不适用": 19
+    },
+    "rules": 48,
+    "active_concepts": [
+      "common.amounts",
+      "common.dispute_institution",
+      "common.dispute_method",
+      "common.effective_condition",
+      "common.effective_date",
+      "common.liability",
+      "common.parties",
+      "common.signing_date",
+      "common.term",
+      "loan.bank_relending",
+      "loan.borrower_kind",
+      "loan.charges",
+      "loan.compound",
+      "loan.cost_combined_cap",
+      "loan.cost_components",
+      "loan.cost_cumulative",
+      "loan.cost_exclusive",
+      "loan.cost_replacement",
+      "loan.debt_instrument",
+      "loan.delivered_principal",
+      "loan.duration",
+      "loan.early_charge",
+      "loan.early_permission",
+      "loan.early_prohibited",
+      "loan.early_repayment",
+      "loan.element.loan_address_change_notice",
+      "loan.element.loan_agreed_rate",
+      "loan.element.loan_collection_channel",
+      "loan.element.loan_collection_records",
+      "loan.element.loan_delivery_formation",
+      "loan.element.loan_disbursement_record",
+      "loan.element.loan_early_accrued_settlement",
+      "loan.element.loan_early_application",
+      "loan.element.loan_early_channel",
+      "loan.element.loan_early_interest_period",
+      "loan.element.loan_enterprise_purpose",
+      "loan.element.loan_financial_rate_compliance",
+      "loan.element.loan_interest_base",
+      "loan.element.loan_interest_period",
+      "loan.element.loan_interruption_record",
+      "loan.element.loan_lender_identity",
+      "loan.element.loan_maturity",
+      "loan.element.loan_no_interest_default",
+      "loan.element.loan_offset_order",
+      "loan.element.loan_overdue_base",
+      "loan.element.loan_overdue_period",
+      "loan.element.loan_overdue_rate",
+      "loan.element.loan_receipt_document",
+      "loan.element.loan_repayment_account",
+      "loan.element.loan_repayment_method",
+      "loan.element.loan_repayment_receipt",
+      "loan.element.loan_service_address",
+      "loan.element.loan_voucher_creditor",
+      "loan.extension",
+      "loan.extension_excluded",
+      "loan.financing_fee",
+      "loan.funds_return",
+      "loan.guarantee",
+      "loan.household",
+      "loan.interest_formula",
+      "loan.joint_business",
+      "loan.known_illegal_use",
+      "loan.lender_kind",
+      "loan.limitation_risk",
+      "loan.maturity_date",
+      "loan.principal",
+      "loan.refinancing",
+      "loan.regular_rate",
+      "loan.regular_rate_period",
+      "loan.sale_security",
+      "loan.security",
+      "loan.spouse",
+      "loan.unlicensed_repeated_lending",
+      "loan.upfront_deduction",
+      "loan.voucher_mechanism"
+    ],
+    "calls": 25
+  }
+]

@@ -1,0 +1,332 @@
+{
+  "file": "F:\\ai\\Sage\\test_data\\98 借款合同.docx",
+  "file_sha256": "b0add44adf035d4025d62b511645cb2cc324eab094a3511a27c9cc7129c2b809",
+  "source_sha256": "53b70b7ac320a8fd97d6601625c3ee1cea32f196094c1d131a4b9b0a7f7962ba",
+  "source_characters": 2183,
+  "status": "BLOCKED",
+  "error": "FactExtractionError: INVALID_EVIDENCE_SPAN",
+  "diagnostics": [
+    {
+      "failed_stage": "UNIFIED_FACT_VALIDATION",
+      "fact_id": null,
+      "field": "evidence.span",
+      "validation_rule": "INVALID_EVIDENCE_SPAN",
+      "model_raw_value": null,
+      "evidence": null,
+      "expected": null,
+      "actual": {
+        "clause_id": "C0006",
+        "quote": "贷款年利率：4.20%",
+        "source_start": 468,
+        "source_end": 582
+      },
+      "disposition": "BLOCK"
+    }
+  ],
+  "attempts": [
+    {
+      "raw_extraction": {
+        "schema_version": "contract-facts-1.0",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021",
+          "C0022",
+          "C0023"
+        ],
+        "searched_concepts": [
+          "loan.debt_instrument",
+          "loan.charges"
+        ],
+        "observations": [
+          {
+            "concept": "loan.debt_instrument",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.charges",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": true,
+            "evidence": [
+              {
+                "clause_id": "C0006",
+                "quote": "贷款年利率：4.20%",
+                "source_start": 468,
+                "source_end": 582
+              },
+              {
+                "clause_id": "C0008",
+                "quote": "当期利息＝贷款正常本金余额×执行年利率÷360×计息天数",
+                "source_start": 590,
+                "source_end": 673
+              },
+              {
+                "clause_id": "C0009",
+                "quote": "逾期贷款罚息：在合同执行利率基础上加收50%",
+                "source_start": 674,
+                "source_end": 790
+              },
+              {
+                "clause_id": "C0009",
+                "quote": "未按约定用途使用贷款罚息：在合同执行利率基础上加收100%",
+                "source_start": 674,
+                "source_end": 790
+              },
+              {
+                "clause_id": "C0018",
+                "quote": "保费支付方式：按月缴纳",
+                "source_start": 1423,
+                "source_end": 1575
+              }
+            ]
+          }
+        ]
+      },
+      "verification": null,
+      "diagnostics": [
+        {
+          "failed_stage": "UNIFIED_FACT_VALIDATION",
+          "fact_id": null,
+          "field": "evidence.span",
+          "validation_rule": "INVALID_EVIDENCE_SPAN",
+          "model_raw_value": null,
+          "evidence": null,
+          "expected": null,
+          "actual": {
+            "clause_id": "C0006",
+            "quote": "贷款年利率：4.20%",
+            "source_start": 468,
+            "source_end": 582
+          },
+          "disposition": "BLOCK"
+        }
+      ]
+    },
+    {
+      "raw_extraction": {
+        "schema_version": "contract-facts-1.0",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021",
+          "C0022",
+          "C0023"
+        ],
+        "searched_concepts": [
+          "loan.debt_instrument",
+          "loan.charges"
+        ],
+        "observations": [
+          {
+            "concept": "loan.debt_instrument",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.charges",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": true,
+            "evidence": [
+              {
+                "clause_id": "C0006",
+                "quote": "贷款年利率：4.20%",
+                "source_start": 468,
+                "source_end": 582
+              },
+              {
+                "clause_id": "C0008",
+                "quote": "当期利息＝贷款正常本金余额×执行年利率÷360×计息天数",
+                "source_start": 590,
+                "source_end": 673
+              },
+              {
+                "clause_id": "C0009",
+                "quote": "逾期贷款罚息：在合同执行利率基础上加收50%",
+                "source_start": 674,
+                "source_end": 790
+              },
+              {
+                "clause_id": "C0009",
+                "quote": "未按约定用途使用贷款罚息：在合同执行利率基础上加收100%",
+                "source_start": 674,
+                "source_end": 790
+              },
+              {
+                "clause_id": "C0018",
+                "quote": "保费支付方式：按月缴纳",
+                "source_start": 1423,
+                "source_end": 1575
+              }
+            ]
+          }
+        ]
+      },
+      "verification": null,
+      "diagnostics": [
+        {
+          "failed_stage": "UNIFIED_FACT_VALIDATION",
+          "fact_id": null,
+          "field": "evidence.span",
+          "validation_rule": "INVALID_EVIDENCE_SPAN",
+          "model_raw_value": null,
+          "evidence": null,
+          "expected": null,
+          "actual": {
+            "clause_id": "C0006",
+            "quote": "贷款年利率：4.20%",
+            "source_start": 468,
+            "source_end": 582
+          },
+          "disposition": "BLOCK"
+        }
+      ]
+    },
+    {
+      "raw_extraction": {
+        "schema_version": "contract-facts-1.0",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021",
+          "C0022",
+          "C0023"
+        ],
+        "searched_concepts": [
+          "loan.debt_instrument",
+          "loan.charges"
+        ],
+        "observations": [
+          {
+            "concept": "loan.debt_instrument",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.charges",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": true,
+            "evidence": [
+              {
+                "clause_id": "C0006",
+                "quote": "贷款年利率：4.20%",
+                "source_start": 468,
+                "source_end": 582
+              },
+              {
+                "clause_id": "C0008",
+                "quote": "当期利息＝贷款正常本金余额×执行年利率÷360×计息天数",
+                "source_start": 590,
+                "source_end": 673
+              },
+              {
+                "clause_id": "C0009",
+                "quote": "逾期贷款罚息：在合同执行利率基础上加收50%",
+                "source_start": 674,
+                "source_end": 790
+              },
+              {
+                "clause_id": "C0009",
+                "quote": "未按约定用途使用贷款罚息：在合同执行利率基础上加收100%",
+                "source_start": 674,
+                "source_end": 790
+              },
+              {
+                "clause_id": "C0018",
+                "quote": "保费支付方式：按月缴纳",
+                "source_start": 1423,
+                "source_end": 1575
+              }
+            ]
+          }
+        ]
+      },
+      "verification": null,
+      "diagnostics": [
+        {
+          "failed_stage": "UNIFIED_FACT_VALIDATION",
+          "fact_id": null,
+          "field": "evidence.span",
+          "validation_rule": "INVALID_EVIDENCE_SPAN",
+          "model_raw_value": null,
+          "evidence": null,
+          "expected": null,
+          "actual": {
+            "clause_id": "C0006",
+            "quote": "贷款年利率：4.20%",
+            "source_start": 468,
+            "source_end": 582
+          },
+          "disposition": "BLOCK"
+        }
+      ]
+    }
+  ],
+  "calls": 11
+}

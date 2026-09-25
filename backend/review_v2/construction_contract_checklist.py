@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 from typing import Tuple
+from dataclasses import replace
 
 from review_v2.house_lease_checklist import ReviewCheckpoint
 
@@ -156,4 +157,22 @@ CONSTRUCTION_REVIEW_CHECKLIST: Tuple[ReviewCheckpoint, ...] = (
 
 
 def get_construction_checklist() -> Tuple[ReviewCheckpoint, ...]:
-    return CONSTRUCTION_REVIEW_CHECKLIST
+    from review_v2.construction_evidence import LEGAL_NODES, EXTERNAL_NODES
+    rows = []
+    for checkpoint in CONSTRUCTION_REVIEW_CHECKLIST:
+        updates = {"polarity": "NEGATIVE_CLAUSE_CHECK" if checkpoint.kind == "forbidden" else "POSITIVE_REQUIREMENT"}
+        if checkpoint.node_id in LEGAL_NODES:
+            updates.update(review_nature="LEGAL_REMINDER", requirement_medium="STATUTORY_RULE",
+                           legal_requirement_strength="STATUTORY_DEFAULT", action_type="LEGAL_REMINDER", risk_level="低")
+        elif checkpoint.node_id in EXTERNAL_NODES:
+            updates.update(review_nature="EXTERNAL_FACT_VERIFICATION", requirement_medium="EXTERNAL_EVIDENCE",
+                           action_type="VERIFY_FACTS")
+        if checkpoint.node_id == "tender_bid_permit_attachment":
+            updates.update(risk_point_missing="区分文件清单与许可事实：仅许可附件清单未列明属于可选优化；办理责任、开工条件缺失或直接许可异常证据应另行评价。",
+                           suggested_clause="可列明招投标及许可审批文件清单、提交时间和保管方式；实际许可与招投标有效性另行核验。")
+        if checkpoint.node_id == "valid_bid_award_document":
+            updates.update(title="中标文件纳入合同", semantic_question="合同是否将中标文件纳入合同文件并确定其合同内效力？实际中标有效性由外部事实规则核验。")
+        if checkpoint.node_id == "priority_no_waiver_worker_interest":
+            updates["risk_point_present"] = "合同存在限制或放弃工程价款优先受偿权的直接约定；是否损害建筑工人利益应另行核验，不能仅凭放弃表述认定该法律后果已发生。"
+        rows.append(replace(checkpoint, **updates))
+    return tuple(rows)

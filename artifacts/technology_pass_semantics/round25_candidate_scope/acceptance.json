@@ -1,0 +1,927 @@
+{
+  "current": {
+    "licensor": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round25_candidate_scope\\current_licensor\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术许可合同—专利实施许可",
+      "engine_hash_matches": true,
+      "process_id": 17548,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "462c58948ce68a3d2dcd045e7b53ab44362af0bc72169cf57e2cf1afe0a1612d",
+      "implementation_evidence": [
+        {
+          "clause_id": "C0006",
+          "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；",
+          "component_key": "implementation_acts"
+        },
+        {
+          "clause_id": "C0006",
+          "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；\n使用上述设备；",
+          "component_key": "implementation_acts"
+        },
+        {
+          "clause_id": "C0006",
+          "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；\n使用上述设备；\n销售、许诺销售由乙方制造的上述设备；",
+          "component_key": "implementation_acts"
+        },
+        {
+          "clause_id": "C0006",
+          "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；\n使用上述设备；\n销售、许诺销售由乙方制造的上述设备；\n为设备售后维修目的更换实施该专利技术的零部件。",
+          "component_key": "implementation_acts"
+        },
+        {
+          "clause_id": "C0006",
+          "quote": "乙方不得利用本许可生产与自动化装配设备无关的其他产品。",
+          "component_key": "implementation_acts"
+        }
+      ],
+      "related_state_changes": 0,
+      "rules": {
+        "TC-07-01": {
+          "coverage": "通过",
+          "elements": {
+            "licensed_patent_subject": "COVERED",
+            "permitted_implementation_acts": "COVERED",
+            "license_territory": "COVERED",
+            "license_term": "COVERED",
+            "license_type": "COVERED",
+            "transfer_or_sublicense_boundary": "COVERED"
+          },
+          "narrative": "合同已明确约定许可标的已有明确约定；实施方式已有明确约定；许可地域已有明确约定；许可期限已有明确约定；许可类型已有明确约定；许可权转让或再许可边界已有明确约定。",
+          "sources": {
+            "permitted_implementation_acts": [
+              {
+                "clause_id": "C0006",
+                "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；",
+                "component_key": "implementation_acts"
+              },
+              {
+                "clause_id": "C0006",
+                "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；\n使用上述设备；",
+                "component_key": "implementation_acts"
+              },
+              {
+                "clause_id": "C0006",
+                "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；\n使用上述设备；\n销售、许诺销售由乙方制造的上述设备；",
+                "component_key": "implementation_acts"
+              },
+              {
+                "clause_id": "C0006",
+                "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；\n使用上述设备；\n销售、许诺销售由乙方制造的上述设备；\n为设备售后维修目的更换实施该专利技术的零部件。",
+                "component_key": "implementation_acts"
+              },
+              {
+                "clause_id": "C0006",
+                "quote": "乙方不得利用本许可生产与自动化装配设备无关的其他产品。",
+                "component_key": "implementation_acts"
+              }
+            ],
+            "license_territory": [
+              {
+                "clause_id": "C0007",
+                "quote": "许可地域为中华人民共和国大陆地区。",
+                "component_key": "territory"
+              }
+            ]
+          }
+        },
+        "TC-07-03": {
+          "coverage": "通过",
+          "elements": {
+            "over_scope_breach_remedy": "COVERED",
+            "damage_compensation": "COVERED"
+          },
+          "narrative": "合同已明确约定超范围实施或未经授权再许可的违约救济已有约定；超范围违约损失赔偿。",
+          "sources": {
+            "damage_compensation": [
+              {
+                "clause_id": "C0017",
+                "quote": "因乙方故意超范围实施给甲方造成可证明实际损失的，乙方依法承担赔偿责任。",
+                "location": "第十四条 超范围实施"
+              }
+            ]
+          }
+        },
+        "TC-07-04": {
+          "coverage": "部分覆盖",
+          "elements": {
+            "on_demand_technical_service": "COVERED",
+            "technical_service_execution_details": "PARTIALLY_COVERED",
+            "patent_fee_and_validity_maintenance": "COVERED",
+            "patent_status_change_notice": "COVERED",
+            "patent_status_change_notice_deadline": "MISSING"
+          },
+          "narrative": "已有部分安排；仍需补足：实施协助请求的响应时限、实施协助的完成或交付标准、专利法律状态变化通知的具体期限。",
+          "sources": {
+            "on_demand_technical_service": [
+              {
+                "clause_id": "C0011",
+                "quote": "自资料交付日起六个月内，甲方提供累计不超过30小时的远程实施指导。"
+              }
+            ],
+            "patent_status_change_notice": [
+              {
+                "clause_id": "C0009",
+                "quote": "如甲方决定放弃专利权、不再缴纳年费或者获知涉案专利可能被无效、撤销、终止，应及时通知乙方。"
+              }
+            ]
+          }
+        },
+        "TC-11-02": {
+          "coverage": "通过",
+          "elements": {
+            "confidential_information_scope": "COVERED",
+            "confidentiality_period": "COVERED",
+            "confidentiality_exceptions": "COVERED"
+          },
+          "narrative": "合同已明确约定保密信息范围的具体对象和边界；保密义务的持续期间已有明确约定；公开信息例外；合法取得信息例外；独立开发信息例外；依法披露例外。",
+          "sources": {
+            "confidentiality_exceptions": [
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；"
+              },
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；\n非因接收方违反本合同而公开的信息；"
+              },
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；\n非因接收方违反本合同而公开的信息；\n接收方从合法第三方取得的信息；"
+              },
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；\n非因接收方违反本合同而公开的信息；\n接收方从合法第三方取得的信息；\n接收方能够证明系独立开发的信息；"
+              },
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；\n非因接收方违反本合同而公开的信息；\n接收方从合法第三方取得的信息；\n接收方能够证明系独立开发的信息；\n根据法律法规或者有权机关要求必须披露的信息。"
+              },
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；\n非因接收方违反本合同而公开的信息；\n接收方从合法第三方取得的信息；\n接收方能够证明系独立开发的信息；\n根据法律法规或者有权机关要求必须披露的信息。\n依法必须披露时，在法律允许范围内，接收方应事先通知另一方。"
+              }
+            ]
+          }
+        },
+        "TC-12-02": {
+          "coverage": "通过",
+          "elements": {
+            "claim_trigger": "COVERED",
+            "notification_requirement": "COVERED",
+            "notification_deadline": "COVERED",
+            "claim_handling": "COVERED",
+            "administrative_handling": "MISSING",
+            "litigation_handling": "MISSING",
+            "licensor_participation": "COVERED",
+            "liability_responsible_party": "COVERED",
+            "attorney_fee": "COVERED",
+            "litigation_cost": "COVERED",
+            "direct_damage": "COVERED",
+            "defense_cost_allocation": "COVERED",
+            "damages_allocation": "COVERED",
+            "damages_scope": "COVERED",
+            "settlement_non_prejudice": "COVERED",
+            "settlement_consultation": "MISSING",
+            "defense_control": "MISSING",
+            "lawyer_selection": "MISSING",
+            "settlement_authority": "MISSING",
+            "replacement_remedy": "MISSING",
+            "replacement_or_workaround": "MISSING",
+            "license_cure": "MISSING",
+            "refund_or_termination_remedy": "MISSING"
+          },
+          "narrative": "合同已覆盖本项核心要求，未发现需要独立修改的实质性缺口。",
+          "sources": {
+            "settlement_non_prejudice": [
+              {
+                "clause_id": "C0013",
+                "quote": "未经乙方书面同意，甲方不得以要求乙方承认侵权、停止全部生产或者向第三方承担额外付款义务为条件达成和解",
+                "location": "第十条 第三方权利主张",
+                "actor": ""
+              }
+            ]
+          }
+        }
+      }
+    },
+    "licensee": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round25_candidate_scope\\current_licensee\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术许可合同—专利实施许可",
+      "engine_hash_matches": true,
+      "process_id": 17548,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "462c58948ce68a3d2dcd045e7b53ab44362af0bc72169cf57e2cf1afe0a1612d",
+      "implementation_evidence": [
+        {
+          "clause_id": "C0006",
+          "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；",
+          "component_key": "implementation_acts"
+        },
+        {
+          "clause_id": "C0006",
+          "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；\n使用上述设备；",
+          "component_key": "implementation_acts"
+        },
+        {
+          "clause_id": "C0006",
+          "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；\n使用上述设备；\n销售、许诺销售由乙方制造的上述设备；",
+          "component_key": "implementation_acts"
+        },
+        {
+          "clause_id": "C0006",
+          "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；\n使用上述设备；\n销售、许诺销售由乙方制造的上述设备；\n为设备售后维修目的更换实施该专利技术的零部件。",
+          "component_key": "implementation_acts"
+        },
+        {
+          "clause_id": "C0006",
+          "quote": "乙方不得利用本许可生产与自动化装配设备无关的其他产品。",
+          "component_key": "implementation_acts"
+        }
+      ],
+      "related_state_changes": 0,
+      "rules": {
+        "TC-07-01": {
+          "coverage": "通过",
+          "elements": {
+            "licensed_patent_subject": "COVERED",
+            "permitted_implementation_acts": "COVERED",
+            "license_territory": "COVERED",
+            "license_term": "COVERED",
+            "license_type": "COVERED",
+            "transfer_or_sublicense_boundary": "COVERED"
+          },
+          "narrative": "合同已明确约定许可标的已有明确约定；实施方式已有明确约定；许可地域已有明确约定；许可期限已有明确约定；许可类型已有明确约定；许可权转让或再许可边界已有明确约定。",
+          "sources": {
+            "permitted_implementation_acts": [
+              {
+                "clause_id": "C0006",
+                "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；",
+                "component_key": "implementation_acts"
+              },
+              {
+                "clause_id": "C0006",
+                "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；\n使用上述设备；",
+                "component_key": "implementation_acts"
+              },
+              {
+                "clause_id": "C0006",
+                "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；\n使用上述设备；\n销售、许诺销售由乙方制造的上述设备；",
+                "component_key": "implementation_acts"
+              },
+              {
+                "clause_id": "C0006",
+                "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；\n使用上述设备；\n销售、许诺销售由乙方制造的上述设备；\n为设备售后维修目的更换实施该专利技术的零部件。",
+                "component_key": "implementation_acts"
+              },
+              {
+                "clause_id": "C0006",
+                "quote": "乙方不得利用本许可生产与自动化装配设备无关的其他产品。",
+                "component_key": "implementation_acts"
+              }
+            ],
+            "license_territory": [
+              {
+                "clause_id": "C0007",
+                "quote": "许可地域为中华人民共和国大陆地区。",
+                "component_key": "territory"
+              }
+            ]
+          }
+        },
+        "TC-07-03": {
+          "coverage": "通过",
+          "elements": {
+            "over_scope_breach_remedy": "COVERED",
+            "damage_compensation": "COVERED"
+          },
+          "narrative": "合同已明确约定超范围实施或未经授权再许可的违约救济已有约定；超范围违约损失赔偿。",
+          "sources": {
+            "damage_compensation": [
+              {
+                "clause_id": "C0017",
+                "quote": "因乙方故意超范围实施给甲方造成可证明实际损失的，乙方依法承担赔偿责任。",
+                "location": "第十四条 超范围实施"
+              }
+            ]
+          }
+        },
+        "TC-07-04": {
+          "coverage": "部分覆盖",
+          "elements": {
+            "on_demand_technical_service": "COVERED",
+            "technical_service_execution_details": "PARTIALLY_COVERED",
+            "patent_fee_and_validity_maintenance": "COVERED",
+            "patent_status_change_notice": "COVERED",
+            "patent_status_change_notice_deadline": "MISSING"
+          },
+          "narrative": "已有部分安排；仍需补足：实施协助请求的响应时限、实施协助的完成或交付标准、专利法律状态变化通知的具体期限。",
+          "sources": {
+            "on_demand_technical_service": [
+              {
+                "clause_id": "C0011",
+                "quote": "自资料交付日起六个月内，甲方提供累计不超过30小时的远程实施指导。"
+              }
+            ],
+            "patent_status_change_notice": [
+              {
+                "clause_id": "C0009",
+                "quote": "如甲方决定放弃专利权、不再缴纳年费或者获知涉案专利可能被无效、撤销、终止，应及时通知乙方。"
+              }
+            ]
+          }
+        },
+        "TC-11-02": {
+          "coverage": "通过",
+          "elements": {
+            "confidential_information_scope": "COVERED",
+            "confidentiality_period": "COVERED",
+            "confidentiality_exceptions": "COVERED"
+          },
+          "narrative": "合同已明确约定保密信息范围的具体对象和边界；保密义务的持续期间已有明确约定；公开信息例外；合法取得信息例外；独立开发信息例外；依法披露例外。",
+          "sources": {
+            "confidentiality_exceptions": [
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；"
+              },
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；\n非因接收方违反本合同而公开的信息；"
+              },
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；\n非因接收方违反本合同而公开的信息；\n接收方从合法第三方取得的信息；"
+              },
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；\n非因接收方违反本合同而公开的信息；\n接收方从合法第三方取得的信息；\n接收方能够证明系独立开发的信息；"
+              },
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；\n非因接收方违反本合同而公开的信息；\n接收方从合法第三方取得的信息；\n接收方能够证明系独立开发的信息；\n根据法律法规或者有权机关要求必须披露的信息。"
+              },
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；\n非因接收方违反本合同而公开的信息；\n接收方从合法第三方取得的信息；\n接收方能够证明系独立开发的信息；\n根据法律法规或者有权机关要求必须披露的信息。\n依法必须披露时，在法律允许范围内，接收方应事先通知另一方。"
+              }
+            ]
+          }
+        },
+        "TC-12-02": {
+          "coverage": "通过",
+          "elements": {
+            "claim_trigger": "COVERED",
+            "notification_requirement": "COVERED",
+            "notification_deadline": "COVERED",
+            "claim_handling": "COVERED",
+            "administrative_handling": "MISSING",
+            "litigation_handling": "MISSING",
+            "licensor_participation": "COVERED",
+            "liability_responsible_party": "COVERED",
+            "attorney_fee": "COVERED",
+            "litigation_cost": "COVERED",
+            "direct_damage": "COVERED",
+            "defense_cost_allocation": "COVERED",
+            "damages_allocation": "COVERED",
+            "damages_scope": "COVERED",
+            "settlement_non_prejudice": "COVERED",
+            "settlement_consultation": "MISSING",
+            "defense_control": "MISSING",
+            "lawyer_selection": "MISSING",
+            "settlement_authority": "MISSING",
+            "replacement_remedy": "MISSING",
+            "replacement_or_workaround": "MISSING",
+            "license_cure": "MISSING",
+            "refund_or_termination_remedy": "MISSING"
+          },
+          "narrative": "合同已覆盖本项核心要求，未发现需要独立修改的实质性缺口。",
+          "sources": {
+            "settlement_non_prejudice": [
+              {
+                "clause_id": "C0013",
+                "quote": "未经乙方书面同意，甲方不得以要求乙方承认侵权、停止全部生产或者向第三方承担额外付款义务为条件达成和解",
+                "location": "第十条 第三方权利主张",
+                "actor": ""
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "guards": {
+    "ancillary_live": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round25_accepted_ancillary_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术转让合同—技术秘密转让合同",
+      "engine_hash_matches": true,
+      "process_id": 17548,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "5bd9b68a914823713d04094f64412f5373fb703d67322f90ce7bd933ab576102",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "balanced_live": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round25_accepted_balanced_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术许可合同—技术秘密许可合同",
+      "engine_hash_matches": true,
+      "process_id": 17548,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "1c1a3dc299572bc1e7e569f656633a3f62bab9fe571d481b33d462764e24e319",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "consulting_live": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round25_accepted_consulting_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术咨询合同",
+      "engine_hash_matches": true,
+      "process_id": 17548,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "34bb6f1f350e2357fc9a92533e9c4693be262b061c142cb65344dcbd95173462",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "cooperative_live": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round25_accepted_cooperative_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术开发合同—合作开发合同",
+      "engine_hash_matches": true,
+      "process_id": 17548,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "2f488c35bc7a3a26524cfa9fc4fd5a919bac129e485ffbd46eeef2ecf9b5d2e4",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "cross_article_live": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round25_accepted_cross_article_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术许可合同—技术秘密许可合同",
+      "engine_hash_matches": true,
+      "process_id": 17548,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "73dc8704b30cf567f220f4120e08ba941fc8ae8b62852b5e12eb7adcda1b0fe7",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "entrusted": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round25_accepted_entrusted\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术开发合同—委托开发合同",
+      "engine_hash_matches": true,
+      "process_id": 17548,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "patent_closed": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round25_accepted_patent_closed\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术许可合同—专利实施许可",
+      "engine_hash_matches": true,
+      "process_id": 17548,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "402add450c711820a8d11cd171262892cd811b1886fa47f1404188b3c60f6634",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "patent_live": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round25_accepted_patent_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术许可合同—专利实施许可",
+      "engine_hash_matches": true,
+      "process_id": 17548,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "prior_patent": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round25_accepted_prior_patent\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术转让合同—专利权转让合同",
+      "engine_hash_matches": true,
+      "process_id": 17548,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "1f15166bc911c9abd84f8c9079eb0aea6c7063c6cb636dadf6cdcac92ac1100a",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "prior_secret_licensee": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round25_accepted_prior_secret_licensee\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术许可合同—技术秘密许可合同",
+      "engine_hash_matches": true,
+      "process_id": 17548,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "af05442fbe35953987939f548426ba060244e2b05a9c6e7562dcae17da4a589a",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "prior_secret_licensor": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round25_accepted_prior_secret_licensor\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术许可合同—技术秘密许可合同",
+      "engine_hash_matches": true,
+      "process_id": 17548,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "af05442fbe35953987939f548426ba060244e2b05a9c6e7562dcae17da4a589a",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "provider_live": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round25_accepted_provider_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术服务合同",
+      "engine_hash_matches": true,
+      "process_id": 17548,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "c9478c59aabbb2303a6c72334b733c2249ea95a1c4a604355b779822b8232588",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "recent_secret_licensee": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round25_accepted_recent_secret_licensee\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术许可合同—技术秘密许可合同",
+      "engine_hash_matches": true,
+      "process_id": 17548,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "76271bc52c2410f96ab091b9fe6a6f205afc29bea99f0cb131fad2e3ffbf3550",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "recent_secret_licensor": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round25_accepted_recent_secret_licensor\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术许可合同—技术秘密许可合同",
+      "engine_hash_matches": true,
+      "process_id": 17548,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "76271bc52c2410f96ab091b9fe6a6f205afc29bea99f0cb131fad2e3ffbf3550",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "transfer": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round25_accepted_transfer\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术转让合同—专利权转让合同",
+      "engine_hash_matches": true,
+      "process_id": 17548,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "ea237f4a0703c8c8b2f057b9824780ec1f3434c7d578de9a511b2aae0ae68c60",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    }
+  },
+  "payment": {
+    "nodes": [
+      {
+        "fact_id": "PAY-001-725fdbfbb4",
+        "source_document": "1207d47927c902e3623c352d02bdd2a6b524125e170b83f621387bf8ea9851e1",
+        "source_clause": "本合同生效后十个工作日内",
+        "source_location": "line 49",
+        "sequence": 1,
+        "stage": "initial",
+        "trigger": "本合同生效后十个工作日内",
+        "condition": "本合同生效后十个工作日内",
+        "percentage": null,
+        "amount": 400000,
+        "currency": "CNY",
+        "payment_type": "initial",
+        "is_deposit": true,
+        "is_stage_payment": false,
+        "is_final_payment": false,
+        "is_retention": false,
+        "raw_text": "本合同生效后十个工作日内支付40万元",
+        "start_offset": 883,
+        "end_offset": 901,
+        "context": "本合同生效后十个工作日内",
+        "retention_included": false,
+        "percentage_inferred": true,
+        "amount_inferred": false,
+        "payment_group_id": "contract_total",
+        "payment_group_label": "专利实施许可费总额",
+        "payment_base_amount": 1200000,
+        "payment_base_fact_offset": 854,
+        "effective_amount": 400000,
+        "effective_percentage": 33.333333333333336,
+        "payment_direction": {
+          "payer": "",
+          "payee": "",
+          "source_text": "本合同生效后十个工作日内支付40万元；"
+        }
+      },
+      {
+        "fact_id": "PAY-002-83521952d2",
+        "source_document": "1207d47927c902e3623c352d02bdd2a6b524125e170b83f621387bf8ea9851e1",
+        "source_clause": "甲方完成首轮技术说明后十个工作日内",
+        "source_location": "line 52",
+        "sequence": 2,
+        "stage": "initial",
+        "trigger": "甲方完成首轮技术说明后十个工作日内",
+        "condition": "甲方完成首轮技术说明后十个工作日内",
+        "percentage": null,
+        "amount": 400000,
+        "currency": "CNY",
+        "payment_type": "initial",
+        "is_deposit": true,
+        "is_stage_payment": false,
+        "is_final_payment": false,
+        "is_retention": false,
+        "raw_text": "甲方完成首轮技术说明后十个工作日内支付40万元",
+        "start_offset": 905,
+        "end_offset": 928,
+        "context": "甲方完成首轮技术说明后十个工作日内",
+        "retention_included": false,
+        "percentage_inferred": true,
+        "amount_inferred": false,
+        "payment_group_id": "contract_total",
+        "payment_group_label": "专利实施许可费总额",
+        "payment_base_amount": 1200000,
+        "payment_base_fact_offset": 854,
+        "effective_amount": 400000,
+        "effective_percentage": 33.333333333333336,
+        "payment_direction": {
+          "payer": "",
+          "payee": "",
+          "source_text": "甲方完成首轮技术说明后十个工作日内支付40万元；"
+        }
+      },
+      {
+        "fact_id": "PAY-003-7e6437be65",
+        "source_document": "1207d47927c902e3623c352d02bdd2a6b524125e170b83f621387bf8ea9851e1",
+        "source_clause": "乙方首台使用许可专利的设备完成生产后十个工作日内",
+        "source_location": "line 55",
+        "sequence": 3,
+        "stage": "milestone",
+        "trigger": "乙方首台使用许可专利的设备完成生产后十个工作日内",
+        "condition": "乙方首台使用许可专利的设备完成生产后十个工作日内",
+        "percentage": null,
+        "amount": 400000,
+        "currency": "CNY",
+        "payment_type": "milestone",
+        "is_deposit": false,
+        "is_stage_payment": true,
+        "is_final_payment": false,
+        "is_retention": false,
+        "raw_text": "乙方首台使用许可专利的设备完成生产后十个工作日内支付40万元",
+        "start_offset": 932,
+        "end_offset": 962,
+        "context": "乙方首台使用许可专利的设备完成生产后十个工作日内",
+        "retention_included": false,
+        "percentage_inferred": true,
+        "amount_inferred": false,
+        "payment_group_id": "contract_total",
+        "payment_group_label": "专利实施许可费总额",
+        "payment_base_amount": 1200000,
+        "payment_base_fact_offset": 854,
+        "effective_amount": 400000,
+        "effective_percentage": 33.333333333333336,
+        "payment_direction": {
+          "payer": "",
+          "payee": "",
+          "source_text": "乙方首台使用许可专利的设备完成生产后十个工作日内支付40万元。"
+        }
+      }
+    ],
+    "amount_total": 1200000,
+    "contract_total": 1200000,
+    "amount_delta": 0,
+    "percentage_total": 100,
+    "payment_groups": [
+      {
+        "group_id": "contract_total",
+        "label": "专利实施许可费总额",
+        "base_amount": 1200000,
+        "base_fact_offset": 854,
+        "node_fact_ids": [
+          "PAY-001-725fdbfbb4",
+          "PAY-002-83521952d2",
+          "PAY-003-7e6437be65"
+        ],
+        "percentages": [
+          33.333333333333336,
+          33.333333333333336,
+          33.333333333333336
+        ],
+        "amounts": [
+          400000,
+          400000,
+          400000
+        ],
+        "percentage_total": 100,
+        "amount_total": 1200000,
+        "amount_delta": 0,
+        "percentage_total_complete": true,
+        "percentage_total_inferred": true,
+        "amount_total_complete": true,
+        "node_mismatches": [],
+        "status": "CONSISTENT"
+      }
+    ]
+  },
+  "full": {
+    "total": 1546,
+    "passed": 1297,
+    "failed": 249,
+    "changes": {},
+    "newly_failing": [],
+    "added": {
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u5e94\\u5bf9\\u4f7f\\u7528\\u8bb8\\u53ef\\u6280\\u672f\\u751f\\u4ea7\\u8bbe\\u5907\\u8fc7\\u7a0b\\u4e2d\\u83b7\\u6089\\u7684\\u4fe1\\u606f\\u4fdd\\u5bc6\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_actual_permission_and_product_restrictions_survive[\\u4e59\\u65b9\\u4e0d\\u5f97\\u5229\\u7528\\u672c\\u8bb8\\u53ef\\u751f\\u4ea7\\u4e0e\\u81ea\\u52a8\\u5316\\u88c5\\u914d\\u8bbe\\u5907\\u65e0\\u5173\\u7684\\u5176\\u4ed6\\u4ea7\\u54c1\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u53cc\\u65b9\\u672a\\u7ea6\\u5b9a\\u4e59\\u65b9\\u53ef\\u4ee5\\u5236\\u9020\\u8bbe\\u5907\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_actual_permission_and_product_restrictions_survive[\\u7532\\u65b9\\u6388\\u6743\\u4e59\\u65b9\\u751f\\u4ea7\\u548c\\u9500\\u552e\\u8bb8\\u53ef\\u4ea7\\u54c1\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_public_predicate_scope_does_not_promote_event_or_object[\\u4e59\\u65b9\\u4e0d\\u5f97\\u62ab\\u9732\\u751f\\u4ea7\\u6280\\u672f\\u8d44\\u6599\\u3002-\\u751f\\u4ea7]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u4f7f\\u7528\\u4e13\\u5229\\u540e\\u652f\\u4ed8\\u8bb8\\u53ef\\u8d39\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u8bb8\\u53ef\\u671f\\u9650\\u5c4a\\u6ee1\\u540e\\uff0c\\u4e59\\u65b9\\u7ee7\\u7eed\\u4f7f\\u7528\\u76f8\\u5173\\u6280\\u672f\\u7684\\uff0c\\u5e94\\u4e0e\\u7532\\u65b9\\u53e6\\u884c\\u534f\\u5546\\u5e76\\u7b7e\\u8ba2\\u4e66\\u9762\\u534f\\u8bae\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u5e94\\u901a\\u77e5\\u7532\\u65b9\\u8bbe\\u5907\\u4f7f\\u7528\\u8bb8\\u53ef\\u4e13\\u5229\\u8fdb\\u884c\\u751f\\u4ea7\\u7684\\u60c5\\u51b5\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_actual_permission_and_product_restrictions_survive[\\u4e59\\u65b9\\u6709\\u6743\\u5728\\u4e2d\\u56fd\\u5927\\u9646\\u5236\\u9020\\u76f8\\u5173\\u8bbe\\u5907\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_public_predicate_scope_does_not_promote_event_or_object[\\u4fb5\\u6743\\u53d1\\u751f\\u540e\\u5e94\\u8d54\\u507f\\u635f\\u5931\\u3002-\\u4fb5\\u6743]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u5982\\u56e0\\u7532\\u65b9\\u65e0\\u6743\\u8bb8\\u53ef\\u76f8\\u5173\\u6280\\u672f\\u800c\\u5bfc\\u81f4\\u4e59\\u65b9\\u4e0d\\u80fd\\u6309\\u7167\\u672c\\u5408\\u540c\\u7ea6\\u5b9a\\u6b63\\u5e38\\u4f7f\\u7528\\u8bb8\\u53ef\\u6280\\u672f\\uff0c\\u7532\\u65b9\\u5e94\\u9000\\u8fd8\\u53d7\\u5f71\\u54cd\\u90e8\\u5206\\u5bf9\\u5e94\\u7684\\u8bb8\\u53ef\\u8d39\\u7528\\uff0c\\u5e76\\u8d54\\u507f\\u4e59\\u65b9\\u56e0\\u6b64\\u4ea7\\u751f\\u7684\\u76f4\\u63a5\\u7ecf\\u6d4e\\u635f\\u5931\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u5e94\\u8d54\\u507f\\u672a\\u7ecf\\u8bb8\\u53ef\\u751f\\u4ea7\\u8bbe\\u5907\\u6240\\u9020\\u6210\\u7684\\u635f\\u5931\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_list_permission_does_not_inherit_into_payment_condition": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u8ba4\\u53ef\\u8bbe\\u5907\\u751f\\u4ea7\\u5b8c\\u6210\\u540e\\u5e94\\u4ed8\\u6b3e\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u5e94\\u5bf9\\u4f7f\\u7528\\u8bb8\\u53ef\\u6280\\u672f\\u751f\\u4ea7\\u8bbe\\u5907\\u8fc7\\u7a0b\\u4e2d\\u83b7\\u6089\\u7684\\u4fe1\\u606f\\u4fdd\\u5bc6\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_separate_payment_duty_is_not_displayed_as_grant_evidence[True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_actual_permission_and_product_restrictions_survive[\\u88ab\\u8bb8\\u53ef\\u65b9\\u4ec5\\u53ef\\u5728\\u4e2d\\u534e\\u4eba\\u6c11\\u5171\\u548c\\u56fd\\u5927\\u9646\\u5730\\u533a\\uff0c\\u5c06\\u672c\\u9879\\u6280\\u672f\\u79d8\\u5bc6\\u7528\\u4e8eHV-R600\\u7cfb\\u5217\\u5de5\\u4e1a\\u89c6\\u89c9\\u673a\\u5668\\u4eba\\u63a7\\u5236\\u7cfb\\u7edf\\u7684\\u7814\\u53d1\\u3001\\u751f\\u4ea7\\u548c\\u9500\\u552e\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u4f7f\\u7528\\u8bb8\\u53ef\\u4e13\\u5229\\u751f\\u4ea7\\u8bbe\\u5907\\u540e\\u5e94\\u8fd4\\u8fd8\\u4fdd\\u8bc1\\u91d1\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_actual_permission_and_product_restrictions_survive[\\u7532\\u65b9\\u6388\\u4e88\\u4e59\\u65b9\\u5236\\u9020\\u3001\\u4f7f\\u7528\\u548c\\u9500\\u552e\\u8bbe\\u5907\\u7684\\u8bb8\\u53ef\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_actual_permission_and_product_restrictions_survive[\\u8bb8\\u53ef\\u671f\\u9650\\u4e94\\u5e74\\uff0c\\u8bb8\\u53ef\\u5730\\u57df\\u4e3a\\u4e2d\\u56fd\\u5883\\u5185\\uff0c\\u4ec5\\u9650\\u751f\\u4ea7\\u5408\\u540c\\u4ea7\\u54c1\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_actual_permission_and_product_restrictions_survive[\\u4e59\\u65b9\\u53ef\\u5236\\u9020\\u3001\\u4f7f\\u7528\\u3001\\u9500\\u552e\\u76f8\\u5173\\u8bbe\\u5907\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u8bbe\\u5907\\u751f\\u4ea7\\u5b8c\\u6210\\u540e\\u4ed8\\u6b3e\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_current_source_retains_all_four_acts_and_product_boundary": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u4f7f\\u7528\\u8bb8\\u53ef\\u4e13\\u5229\\u751f\\u4ea7\\u8bbe\\u5907\\u540e\\u5e94\\u8fd4\\u8fd8\\u4fdd\\u8bc1\\u91d1\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u8ba4\\u53ef\\u8bbe\\u5907\\u751f\\u4ea7\\u5b8c\\u6210\\u540e\\u5e94\\u4ed8\\u6b3e\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u5e94\\u8d54\\u507f\\u672a\\u7ecf\\u8bb8\\u53ef\\u751f\\u4ea7\\u8bbe\\u5907\\u6240\\u9020\\u6210\\u7684\\u635f\\u5931\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_actual_permission_and_product_restrictions_survive[\\u4e59\\u65b9\\u53ef\\u4ee5\\u5236\\u9020\\u3001\\u4f7f\\u7528\\u3001\\u9500\\u552e\\u76f8\\u5173\\u8bbe\\u5907\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_actual_permission_and_product_restrictions_survive[\\u4e59\\u65b9\\u6709\\u6743\\u5728\\u4e2d\\u56fd\\u5927\\u9646\\u5236\\u9020\\u76f8\\u5173\\u8bbe\\u5907\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u7532\\u65b9\\u5411\\u4e59\\u65b9\\u6388\\u4e88\\u4e0a\\u8ff0\\u4e13\\u5229\\u7684\\u666e\\u901a\\u5b9e\\u65bd\\u8bb8\\u53ef\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_public_predicate_scope_does_not_promote_event_or_object[\\u4e59\\u65b9\\u5e94\\u8d54\\u507f\\u8d85\\u8303\\u56f4\\u5b9e\\u65bd\\u9020\\u6210\\u7684\\u635f\\u5931\\u3002-\\u8d85\\u8303\\u56f4\\u5b9e\\u65bd]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_actual_permission_and_product_restrictions_survive[\\u4e59\\u65b9\\u652f\\u4ed8\\u9996\\u671f\\u6b3e\\u540e\\uff0c\\u53ef\\u4ee5\\u5236\\u9020\\u3001\\u4f7f\\u7528\\u8bbe\\u5907\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u56e0\\u7532\\u65b9\\u65e0\\u6743\\u8bb8\\u53ef\\u6216\\u8005\\u7532\\u65b9\\u660e\\u77e5\\u6d89\\u6848\\u4e13\\u5229\\u5b9e\\u65bd\\u5fc5\\u7136\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u5728\\u5148\\u6743\\u5229\\u800c\\u672a\\u62ab\\u9732\\uff0c\\u5bfc\\u81f4\\u4e59\\u65b9\\u627f\\u62c5\\u8d54\\u507f\\u8d23\\u4efb\\u7684\\uff0c\\u7531\\u7532\\u65b9\\u627f\\u62c5\\u4e59\\u65b9\\u56e0\\u6b64\\u4ea7\\u751f\\u7684\\u5408\\u7406\\u76f4\\u63a5\\u635f\\u5931\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u8bb8\\u53ef\\u671f\\u9650\\u5c4a\\u6ee1\\u540e\\uff0c\\u4e59\\u65b9\\u7ee7\\u7eed\\u4f7f\\u7528\\u76f8\\u5173\\u6280\\u672f\\u7684\\uff0c\\u5e94\\u4e0e\\u7532\\u65b9\\u53e6\\u884c\\u534f\\u5546\\u5e76\\u7b7e\\u8ba2\\u4e66\\u9762\\u534f\\u8bae\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u53ef\\u4ee5\\u751f\\u4ea7\\u8bbe\\u5907\\u540e\\u5341\\u4e2a\\u5de5\\u4f5c\\u65e5\\u5185\\u652f\\u4ed840\\u4e07\\u5143\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u5408\\u540c\\u7ec8\\u6b62\\u540e\\u4e59\\u65b9\\u5e94\\u505c\\u6b62\\u4f7f\\u7528\\u8bb8\\u53ef\\u4e13\\u5229\\u751f\\u4ea7\\u8bbe\\u5907\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u7532\\u65b9\\u5411\\u4e59\\u65b9\\u6388\\u4e88\\u4e0a\\u8ff0\\u4e13\\u5229\\u7684\\u666e\\u901a\\u5b9e\\u65bd\\u8bb8\\u53ef\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_secret_grant_list_keeps_its_original_source[\\n\\n]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u5e94\\u901a\\u77e5\\u7532\\u65b9\\u8bbe\\u5907\\u4f7f\\u7528\\u8bb8\\u53ef\\u4e13\\u5229\\u8fdb\\u884c\\u751f\\u4ea7\\u7684\\u60c5\\u51b5\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u5408\\u540c\\u7ec8\\u6b62\\u540e\\u4e59\\u65b9\\u5e94\\u505c\\u6b62\\u4f7f\\u7528\\u8bb8\\u53ef\\u4e13\\u5229\\u751f\\u4ea7\\u8bbe\\u5907\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u4f7f\\u7528\\u4e13\\u5229\\u540e\\u652f\\u4ed8\\u8bb8\\u53ef\\u8d39\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_actual_permission_and_product_restrictions_survive[\\u88ab\\u8bb8\\u53ef\\u65b9\\u4ec5\\u53ef\\u5728\\u4e2d\\u534e\\u4eba\\u6c11\\u5171\\u548c\\u56fd\\u5927\\u9646\\u5730\\u533a\\uff0c\\u5c06\\u672c\\u9879\\u6280\\u672f\\u79d8\\u5bc6\\u7528\\u4e8eHV-R600\\u7cfb\\u5217\\u5de5\\u4e1a\\u89c6\\u89c9\\u673a\\u5668\\u4eba\\u63a7\\u5236\\u7cfb\\u7edf\\u7684\\u7814\\u53d1\\u3001\\u751f\\u4ea7\\u548c\\u9500\\u552e\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_public_predicate_scope_does_not_promote_event_or_object[\\u4e59\\u65b9\\u5e94\\u505c\\u6b62\\u4f7f\\u7528\\u8bb8\\u53ef\\u4e13\\u5229\\u3002-\\u4f7f\\u7528]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_actual_permission_and_product_restrictions_survive[\\u4e59\\u65b9\\u652f\\u4ed8\\u9996\\u671f\\u6b3e\\u540e\\uff0c\\u53ef\\u4ee5\\u5236\\u9020\\u3001\\u4f7f\\u7528\\u8bbe\\u5907\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_secret_grant_list_keeps_its_original_source[\\n\\n\\n]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_secret_grant_list_keeps_its_original_source[\\n]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u53ef\\u80fd\\u4f7f\\u7528\\u4e13\\u5229\\u751f\\u4ea7\\u8bbe\\u5907\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_actual_permission_and_product_restrictions_survive[\\u8bb8\\u53ef\\u671f\\u9650\\u4e94\\u5e74\\uff0c\\u8bb8\\u53ef\\u5730\\u57df\\u4e3a\\u4e2d\\u56fd\\u5883\\u5185\\uff0c\\u4ec5\\u9650\\u751f\\u4ea7\\u5408\\u540c\\u4ea7\\u54c1\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u56e0\\u7532\\u65b9\\u65e0\\u6743\\u8bb8\\u53ef\\u6216\\u8005\\u7532\\u65b9\\u660e\\u77e5\\u6d89\\u6848\\u4e13\\u5229\\u5b9e\\u65bd\\u5fc5\\u7136\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u5728\\u5148\\u6743\\u5229\\u800c\\u672a\\u62ab\\u9732\\uff0c\\u5bfc\\u81f4\\u4e59\\u65b9\\u627f\\u62c5\\u8d54\\u507f\\u8d23\\u4efb\\u7684\\uff0c\\u7531\\u7532\\u65b9\\u627f\\u62c5\\u4e59\\u65b9\\u56e0\\u6b64\\u4ea7\\u751f\\u7684\\u5408\\u7406\\u76f4\\u63a5\\u635f\\u5931\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_public_predicate_scope_does_not_promote_event_or_object[\\u7532\\u65b9\\u5e94\\u901a\\u77e5\\u4e59\\u65b9\\u4e13\\u5229\\u5931\\u6548\\u60c5\\u51b5\\u3002-\\u5931\\u6548]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u53ef\\u80fd\\u4f7f\\u7528\\u4e13\\u5229\\u751f\\u4ea7\\u8bbe\\u5907\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u9996\\u53f0\\u4f7f\\u7528\\u8bb8\\u53ef\\u4e13\\u5229\\u7684\\u8bbe\\u5907\\u5b8c\\u6210\\u751f\\u4ea7\\u540e\\u5341\\u4e2a\\u5de5\\u4f5c\\u65e5\\u5185\\u652f\\u4ed840\\u4e07\\u5143\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u9664\\u4e0a\\u8ff0\\u8bb8\\u53ef\\u8d39\\u5916\\uff0c\\u4e59\\u65b9\\u65e0\\u9700\\u6839\\u636e\\u8bbe\\u5907\\u4ea7\\u91cf\\u3001\\u9500\\u552e\\u989d\\u6216\\u8005\\u5229\\u6da6\\u53e6\\u884c\\u652f\\u4ed8\\u4e13\\u5229\\u8bb8\\u53ef\\u63d0\\u6210\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_actual_permission_and_product_restrictions_survive[\\u4e59\\u65b9\\u53ef\\u4ee5\\u5236\\u9020\\u3001\\u4f7f\\u7528\\u3001\\u9500\\u552e\\u76f8\\u5173\\u8bbe\\u5907\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_actual_permission_and_product_restrictions_survive[\\u7532\\u65b9\\u6388\\u4e88\\u4e59\\u65b9\\u5236\\u9020\\u3001\\u4f7f\\u7528\\u548c\\u9500\\u552e\\u8bbe\\u5907\\u7684\\u8bb8\\u53ef\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u4e0d\\u5f97\\u5236\\u9020\\u8bbe\\u5907\\u662f\\u5426\\u6210\\u7acb\\uff0c\\u53cc\\u65b9\\u672a\\u660e\\u786e\\u7ea6\\u5b9a\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u5982\\u56e0\\u7532\\u65b9\\u65e0\\u6743\\u8bb8\\u53ef\\u76f8\\u5173\\u6280\\u672f\\u800c\\u5bfc\\u81f4\\u4e59\\u65b9\\u4e0d\\u80fd\\u6309\\u7167\\u672c\\u5408\\u540c\\u7ea6\\u5b9a\\u6b63\\u5e38\\u4f7f\\u7528\\u8bb8\\u53ef\\u6280\\u672f\\uff0c\\u7532\\u65b9\\u5e94\\u9000\\u8fd8\\u53d7\\u5f71\\u54cd\\u90e8\\u5206\\u5bf9\\u5e94\\u7684\\u8bb8\\u53ef\\u8d39\\u7528\\uff0c\\u5e76\\u8d54\\u507f\\u4e59\\u65b9\\u56e0\\u6b64\\u4ea7\\u751f\\u7684\\u76f4\\u63a5\\u7ecf\\u6d4e\\u635f\\u5931\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_public_predicate_scope_does_not_promote_event_or_object[\\u4e13\\u5229\\u5931\\u6548\\u540e\\u5e94\\u901a\\u77e5\\u4e59\\u65b9\\u3002-\\u5931\\u6548]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u4f7f\\u7528\\u8bb8\\u53ef\\u6280\\u672f\\u5236\\u9020\\u4ea7\\u54c1\\u540e\\u7ed3\\u7b97\\u8d39\\u7528\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u4e0d\\u5f97\\u5236\\u9020\\u8bbe\\u5907\\u662f\\u5426\\u6210\\u7acb\\uff0c\\u53cc\\u65b9\\u672a\\u660e\\u786e\\u7ea6\\u5b9a\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_actual_permission_and_product_restrictions_survive[\\u4e59\\u65b9\\u4e0d\\u5f97\\u5229\\u7528\\u672c\\u8bb8\\u53ef\\u751f\\u4ea7\\u4e0e\\u81ea\\u52a8\\u5316\\u88c5\\u914d\\u8bbe\\u5907\\u65e0\\u5173\\u7684\\u5176\\u4ed6\\u4ea7\\u54c1\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u53ef\\u4ee5\\u751f\\u4ea7\\u8bbe\\u5907\\u540e\\u5341\\u4e2a\\u5de5\\u4f5c\\u65e5\\u5185\\u652f\\u4ed840\\u4e07\\u5143\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_public_predicate_scope_does_not_promote_event_or_object[\\u8bbe\\u5907\\u751f\\u4ea7\\u5b8c\\u6210\\u540e\\u4ed8\\u6b3e\\u3002-\\u751f\\u4ea7]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u53cc\\u65b9\\u672a\\u7ea6\\u5b9a\\u4e59\\u65b9\\u53ef\\u4ee5\\u5236\\u9020\\u8bbe\\u5907\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u9664\\u4e0a\\u8ff0\\u8bb8\\u53ef\\u8d39\\u5916\\uff0c\\u4e59\\u65b9\\u65e0\\u9700\\u6839\\u636e\\u8bbe\\u5907\\u4ea7\\u91cf\\u3001\\u9500\\u552e\\u989d\\u6216\\u8005\\u5229\\u6da6\\u53e6\\u884c\\u652f\\u4ed8\\u4e13\\u5229\\u8bb8\\u53ef\\u63d0\\u6210\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u8bbe\\u5907\\u751f\\u4ea7\\u5b8c\\u6210\\u540e\\u4ed8\\u6b3e\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_separate_payment_duty_is_not_displayed_as_grant_evidence[False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_actual_permission_and_product_restrictions_survive[\\u7532\\u65b9\\u6388\\u6743\\u4e59\\u65b9\\u751f\\u4ea7\\u548c\\u9500\\u552e\\u8bb8\\u53ef\\u4ea7\\u54c1\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u4f7f\\u7528\\u8bb8\\u53ef\\u6280\\u672f\\u5236\\u9020\\u4ea7\\u54c1\\u540e\\u7ed3\\u7b97\\u8d39\\u7528\\u3002-False]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_other_obligation_objects_are_not_implementation_rights[\\u4e59\\u65b9\\u9996\\u53f0\\u4f7f\\u7528\\u8bb8\\u53ef\\u4e13\\u5229\\u7684\\u8bbe\\u5907\\u5b8c\\u6210\\u751f\\u4ea7\\u540e\\u5341\\u4e2a\\u5de5\\u4f5c\\u65e5\\u5185\\u652f\\u4ed840\\u4e07\\u5143\\u3002-True]": "PASS",
+      "backend.tests.test_implementation_candidate_scope::test_actual_permission_and_product_restrictions_survive[\\u4e59\\u65b9\\u53ef\\u5236\\u9020\\u3001\\u4f7f\\u7528\\u3001\\u9500\\u552e\\u76f8\\u5173\\u8bbe\\u5907\\u3002-False]": "PASS"
+    },
+    "removed": []
+  },
+  "supplemental": {
+    "total": 41,
+    "passed": 30,
+    "failed": 11,
+    "changes": {},
+    "newly_failing": [],
+    "added": {},
+    "removed": []
+  },
+  "focused": {
+    "total": 300,
+    "passed": 300,
+    "failed": 0,
+    "changes": {}
+  },
+  "changed_engine_functions": [],
+  "changed_gate_or_verifier_functions": []
+}

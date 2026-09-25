@@ -1,0 +1,294 @@
+{
+  "status": "FAIL",
+  "command": [
+    "docker",
+    "build",
+    "--memory=512m",
+    "--memory-swap=1536m",
+    "--cpu-period=100000",
+    "--cpu-quota=50000",
+    "--cpu-shares=128",
+    "--force-rm",
+    "-f",
+    "Dockerfile.frontend",
+    "-t",
+    "sageai-release-verify-20260909:frontend",
+    "."
+  ],
+  "started": 1788937134.4447997,
+  "resource_configuration": {
+    "npm_node_options": "--max-old-space-size=768",
+    "physical_memory": "512m",
+    "memory_plus_swap": "1536m"
+  },
+  "checks_unchanged": "Original Dockerfile, npm run build, production Vite configuration, dependency lock and minification unchanged.",
+  "resource_samples": [
+    {
+      "at": 1788937134.4457672,
+      "available": "680936 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937139.450968,
+      "available": "649836 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937144.5473802,
+      "available": "645584 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937149.6870825,
+      "available": "605544 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937154.6923642,
+      "available": "533380 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937159.6979659,
+      "available": "457120 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937164.700278,
+      "available": "365936 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937169.7022629,
+      "available": "267832 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937174.7113779,
+      "available": "157752 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937179.7162173,
+      "available": "157248 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937184.7202103,
+      "available": "156584 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937189.744144,
+      "available": "160024 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937194.7496746,
+      "available": "155600 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937199.7529263,
+      "available": "158280 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937204.7561703,
+      "available": "153032 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937209.760192,
+      "available": "133816 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937214.7655013,
+      "available": "142680 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937219.9139125,
+      "available": "139240 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937224.9362726,
+      "available": "142164 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937230.0854173,
+      "available": "157048 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937235.1440191,
+      "available": "159820 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937240.1874757,
+      "available": "157916 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937245.192097,
+      "available": "156460 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937250.1961148,
+      "available": "151744 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937255.200185,
+      "available": "144976 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937260.204152,
+      "available": "154680 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937265.210028,
+      "available": "159452 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937270.2126186,
+      "available": "158556 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937275.216178,
+      "available": "159200 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937280.304151,
+      "available": "163224 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937285.3742144,
+      "available": "164248 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937290.37621,
+      "available": "149932 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937295.605647,
+      "available": "150888 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937300.6091065,
+      "available": "157152 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937305.6383898,
+      "available": "163832 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937310.6441624,
+      "available": "161912 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937315.6484394,
+      "available": "165176 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937320.6521366,
+      "available": "159932 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937325.6569934,
+      "available": "164272 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937330.6619656,
+      "available": "162284 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937335.6661668,
+      "available": "158440 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937340.6714907,
+      "available": "158628 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937345.6761127,
+      "available": "164688 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937350.680136,
+      "available": "165520 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937355.6850238,
+      "available": "158368 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937360.6870394,
+      "available": "156036 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937365.6921859,
+      "available": "159664 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937370.696434,
+      "available": "155804 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937375.7014322,
+      "available": "156840 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937380.7047102,
+      "available": "158468 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937385.710536,
+      "available": "152564 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937390.7398396,
+      "available": "152824 kB",
+      "swap_free": "2097148 kB"
+    },
+    {
+      "at": 1788937395.7448323,
+      "available": "153388 kB",
+      "swap_free": "2097148 kB"
+    }
+  ],
+  "exit": 137,
+  "finished": 1788937400.7505012
+}

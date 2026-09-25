@@ -1,0 +1,160 @@
+{
+  "updated_at": "2026-09-12T08:26:53.992430+00:00",
+  "overall_status": "INCOMPLETE_FIRST_BATCH_BLOCKED",
+  "framework_status": "IMPLEMENTED_OFFLINE_TESTED",
+  "activated_contracts": [
+    "labor",
+    "non_compete",
+    "confidentiality"
+  ],
+  "newly_activated_contracts": [],
+  "first_batch_candidates": {
+    "loan": {
+      "status": "CANDIDATE_NOT_RELEASED",
+      "migrated_fact_consumers": [
+        "LoanFacts.from_clauses",
+        "LoanFacts.applicability",
+        "loan_facts.extract",
+        "loan_facts.supports"
+      ],
+      "atomic_coverage_nodes": [
+        "loan_actual_disbursement_evidence",
+        "loan_collection_ack_limitation_interruption",
+        "loan_collection_record_attachment",
+        "loan_compound_interest_limit",
+        "loan_early_repayment_interest",
+        "loan_early_repayment_notice",
+        "loan_enterprise_business_need",
+        "loan_extension_guarantor_consent",
+        "loan_extension_interest_rate",
+        "loan_extension_original_due_no_consent",
+        "loan_extension_request",
+        "loan_financial_interest_compliance",
+        "loan_financial_private_distinction",
+        "loan_guarantee_attachment",
+        "loan_guarantor_collection_within_period",
+        "loan_interest_calculation_base",
+        "loan_interest_no_agreement_rule",
+        "loan_interest_rate_agreed",
+        "loan_limitation_start",
+        "loan_natural_person_formation",
+        "loan_note_receipt_attachment",
+        "loan_notice_service_method",
+        "loan_old_for_new_guarantor_notice",
+        "loan_overdue_interest",
+        "loan_repayment_deadline",
+        "loan_repayment_method_account",
+        "loan_repayment_offset_order",
+        "loan_repayment_receipt_confirmation",
+        "loan_transfer_voucher_attachment",
+        "loan_voucher_creditor_identification"
+      ],
+      "unmapped_rule_nodes": [
+        "loan_contract_type_identification",
+        "loan_sale_security_distinction",
+        "loan_relending_bank_loan_invalid",
+        "loan_professional_lender_invalid",
+        "loan_illegal_purpose_known_invalid",
+        "loan_principal_amount",
+        "loan_deducted_interest_forbidden",
+        "loan_interest_lpr_cap",
+        "loan_hidden_fee_over_cap",
+        "loan_early_repayment_right",
+        "loan_unreasonable_early_repayment_penalty",
+        "loan_guarantee_type_joint_or_general",
+        "loan_guarantee_period",
+        "loan_guarantee_scope",
+        "loan_spousal_joint_intent",
+        "loan_daily_family_need",
+        "loan_joint_business_need",
+        "loan_beyond_family_need_evidence"
+      ],
+      "blocked_legacy_stages": [
+        "extract_contract_fact_graph",
+        "loan_facts.units",
+        "loan_costs.analyze_costs",
+        "loan_facts.negative_scan",
+        "legacy per-rule/raw-text postprocessing"
+      ],
+      "release_ready": false
+    }
+  },
+  "first_batch_not_started": [
+    "guarantee",
+    "mortgage",
+    "movable_pledge",
+    "equity_pledge",
+    "rights_pledge"
+  ],
+  "schema": {
+    "loan": {
+      "registered_concepts": 70,
+      "root_concepts": 25,
+      "active_without_parent_relations": 56
+    }
+  },
+  "tests": {
+    "total": 321,
+    "passed": 319,
+    "failed": 2,
+    "new_tests": 92,
+    "new_tests_passed": 92,
+    "failures": [
+      {
+        "test": "backend.tests.test_loan_applicability_and_consistency::test_current_48_rules_and_final_counters",
+        "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验"
+      },
+      {
+        "test": "backend.tests.test_review_entry_modes::test_normal_upload_generates_report_despite_legacy_diagnostic_env[utility_supply-62 \\u4f9b\\u7528\\u6c34\\u7535\\u6c14\\u70ed\\u529b\\u5408\\u540c.docx]",
+        "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED"
+      }
+    ],
+    "live_deepseek_acceptance": "NOT_PERFORMED",
+    "xml": "final-regression.xml"
+  },
+  "baseline": {
+    "before_changes": {
+      "tests": 118,
+      "passed": 117,
+      "failed": 1,
+      "failure": "test_current_48_rules_and_final_counters: L-05-02"
+    },
+    "utility_legacy_comparison": "utility-routing-comparison.json",
+    "utility_same_rule_outcomes": true
+  },
+  "verifier_is_unique_fact_gate": {
+    "new_candidate_store": true,
+    "all_v2_reports": false
+  },
+  "remaining_raw_fact_paths": [
+    "extract_contract_fact_graph",
+    "loan_facts.units",
+    "loan_costs.analyze_costs",
+    "loan_facts.negative_scan",
+    "legacy per-rule/raw-text postprocessing"
+  ],
+  "legacy_compatibility_retained": true,
+  "legal_thresholds_changed": false,
+  "production_deployed": false,
+  "business_database_modified_by_this_work": false,
+  "documentation": "docs/unified-facts-first-batch.md",
+  "source_sha256": {
+    "backend/review_v2/fact_routing.py": "6955bd8e3a3c9c6987f8b325183e9bbddf7c7de58b254fbc58e1420bc5563599",
+    "backend/review_v2/fact_module_registry.py": "3aa712f2482fa57301b97dc5540e1feb58b2b3c9ac4fa32008a9dd3c88dc612d",
+    "backend/review_v2/deepseek_transport.py": "f5bb16327ee3938b924972cc3141a16a5b177a88bffcada712925cd661a5c7e1",
+    "backend/review_v2/fact_number_normalization.py": "281ad9d5596da362a61e2e5a4212567f1ca5c5397db3701d9f5872e4756b03d1",
+    "backend/review_v2/fact_modules.py": "96d99f43019ece88097feb13baa9ceb1be84d1fea5c1e8427081b7221f8ea88b",
+    "backend/review_v2/deepseek_facts.py": "51915b192de546dd069a8154ab19da62a9111beda2059f9eedc805b0c9d8b9f0",
+    "backend/review_v2/employment_fact_store.py": "d8f66b2ef6e7e57d1d22d85b47af23b674aa3ac6b6facad75cf1349ce852ae3a",
+    "backend/review_v2/loan_facts.py": "d64e086ddf865563d75997b6b3d48a5bc7ed13610b6506cf69132f3233462eb4",
+    "backend/review_v2/contract_facts.py": "f08c238835bc9eb0aa8d65966590652b39c6224957863be14d6ef023aad169f3",
+    "backend/review_v2/engine.py": "732ab08e69623991c4738be744fcf9cb3f19749eb506836dade859f199731732",
+    "backend/review_v2/unified_facts/loan.py": "342acd1299f5fc9204594ca21bae08966cc3349de8d28ced4e4676c440874fc1",
+    "backend/review_v2/unified_facts/normalization.py": "c4092cb1fc1b58b5a3615d301f4eba2e8781bcc2ecd57a9bdef096fb243a0ae9",
+    "backend/review_v2/unified_facts/pipeline.py": "ce6a15312d3a6cfb6b5dafc008217997dd900a9e8668cbd88ce3bfe83d100753",
+    "backend/review_v2/unified_facts/schema.py": "6e30b5da3b792233df50af1bfa573e2c3baced83a75a90a0055559025510f602",
+    "backend/review_v2/unified_facts/store.py": "9b86cb2bb53bf400d650751ff76aa826b20a9319da33fd81ddf2156207ba295d",
+    "backend/review_v2/unified_facts/__init__.py": "12c1cfefdc5ad94d0c224dc5df189009ecea19dfb8c16c5072228f5b11917af4",
+    "backend/routers/review_v2.py": "e0340059209eb27ffe7969b2cc4ff8a6f82c8cdda8ac9b56359b30b8a3c065e5"
+  }
+}

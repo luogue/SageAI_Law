@@ -1,0 +1,815 @@
+{
+  "response": {
+    "schema_version": "employment-facts-1.0",
+    "coverage": {
+      "identity.employer_name": "EXTRACTED",
+      "identity.employer_address": "EXTRACTED",
+      "identity.worker_name": "EXTRACTED",
+      "identity.worker_id": "EXTRACTED",
+      "contract.type": "EXTRACTED",
+      "contract.start_date": "EXTRACTED",
+      "contract.end_date": "EXTRACTED",
+      "contract.duration_months": "ABSENT",
+      "contract.task": "ABSENT",
+      "contract.task_end": "ABSENT",
+      "probation.arrangement": "EXTRACTED",
+      "probation.start_date": "UNCERTAIN",
+      "probation.end_date": "UNCERTAIN",
+      "probation.duration_months": "EXTRACTED",
+      "probation.salary": "EXTRACTED",
+      "probation.repeated": "ABSENT",
+      "job.position": "EXTRACTED",
+      "job.duties": "EXTRACTED",
+      "job.locations": "EXTRACTED",
+      "working_hours.system": "EXTRACTED",
+      "working_hours.hours_per_day": "EXTRACTED",
+      "working_hours.hours_per_week": "EXTRACTED",
+      "working_hours.rest": "EXTRACTED",
+      "working_hours.overtime": "EXTRACTED",
+      "salary.regular": "EXTRACTED",
+      "salary.payment_date": "EXTRACTED",
+      "salary.payment_method": "EXTRACTED",
+      "salary.withheld_for_handover": "ABSENT",
+      "social_insurance.employer_enrolls": "EXTRACTED",
+      "social_insurance.employer_pays": "EXTRACTED",
+      "social_insurance.employee_withheld": "EXTRACTED",
+      "social_insurance.cash_replacement": "ABSENT",
+      "social_insurance.waived": "ABSENT",
+      "social_insurance.employer_share_shifted": "ABSENT",
+      "labor_protection.measures": "EXTRACTED",
+      "labor_protection.training": "EXTRACTED",
+      "labor_protection.hazard_exists": "EXTRACTED",
+      "labor_protection.hazard_protection": "EXTRACTED",
+      "training.arrangement": "EXTRACTED",
+      "training.cost": "ABSENT",
+      "training.duration_months": "ABSENT",
+      "training.penalty_prorated": "ABSENT",
+      "termination.grounds": "EXTRACTED",
+      "termination.notice": "EXTRACTED",
+      "termination.notice_days": "ABSENT",
+      "termination.approval_required": "ABSENT",
+      "termination.employer_unrestricted": "ABSENT",
+      "termination.handover": "EXTRACTED",
+      "economic_compensation.statutory": "EXTRACTED",
+      "economic_compensation.settlement_deadline": "EXTRACTED",
+      "economic_compensation.waived": "ABSENT",
+      "economic_compensation.reduced": "ABSENT",
+      "dispute.arbitration": "EXTRACTED",
+      "penalties.obligations": "ABSENT",
+      "non_compete.arrangement": "EXTRACTED",
+      "non_compete.personnel": "ABSENT",
+      "non_compete.secret_access": "ABSENT",
+      "non_compete.businesses": "ABSENT",
+      "non_compete.territories": "ABSENT",
+      "non_compete.duration_months": "ABSENT",
+      "non_compete.compensation": "ABSENT",
+      "non_compete.compensation_deferred": "ABSENT",
+      "non_compete.compensation_waived": "ABSENT",
+      "non_compete.all_staff": "ABSENT",
+      "ip.assignment_scope": "ABSENT",
+      "ip.personal_rights_waived": "ABSENT"
+    },
+    "reviewed_clause_ids": [
+      "C0001",
+      "C0002",
+      "C0003",
+      "C0004",
+      "C0005",
+      "C0006",
+      "C0007",
+      "C0008",
+      "C0009",
+      "C0010"
+    ],
+    "facts": [
+      {
+        "concept": "identity.employer_name",
+        "value": "北岭设备有限公司",
+        "confidence": 0.99,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "用人单位：北岭设备有限公司，住所：成都市高新路12号。"
+          }
+        ]
+      },
+      {
+        "concept": "identity.employer_address",
+        "value": "成都市高新路12号",
+        "confidence": 0.99,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "用人单位：北岭设备有限公司，住所：成都市高新路12号。"
+          }
+        ]
+      },
+      {
+        "concept": "identity.worker_name",
+        "value": "顾林",
+        "confidence": 0.99,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "劳动者：顾林，身份证明号码：510100199003041234。"
+          }
+        ]
+      },
+      {
+        "concept": "identity.worker_id",
+        "value": "510100199003041234",
+        "confidence": 0.99,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "劳动者：顾林，身份证明号码：510100199003041234。"
+          }
+        ]
+      },
+      {
+        "concept": "contract.type",
+        "value": "FIXED",
+        "confidence": 0.99,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "合同为固定期限，自2027年2月1日至2029年1月31日。"
+          }
+        ]
+      },
+      {
+        "concept": "contract.start_date",
+        "value": "2027-02-01",
+        "confidence": 0.99,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "合同为固定期限，自2027年2月1日至2029年1月31日。"
+          }
+        ]
+      },
+      {
+        "concept": "contract.end_date",
+        "value": "2029-01-31",
+        "confidence": 0.99,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "合同为固定期限，自2027年2月1日至2029年1月31日。"
+          }
+        ]
+      },
+      {
+        "concept": "probation.arrangement",
+        "value": "CURRENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0004",
+            "quote": "开始履职后的首月作为试用阶段，该阶段每月报酬为人民币壹万叁仟元整。"
+          }
+        ]
+      },
+      {
+        "concept": "probation.duration_months",
+        "value": 1.0,
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0004",
+            "quote": "开始履职后的首月作为试用阶段，该阶段每月报酬为人民币壹万叁仟元整。"
+          }
+        ]
+      },
+      {
+        "concept": "probation.salary",
+        "value": {
+          "amount_text": "壹万叁仟",
+          "unit": "CNY/MONTH",
+          "component": "TOTAL",
+          "amount": 13000.0,
+          "determinate": true
+        },
+        "confidence": 0.98,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0004",
+            "quote": "开始履职后的首月作为试用阶段，该阶段每月报酬为人民币壹万叁仟元整。"
+          }
+        ]
+      },
+      {
+        "concept": "job.position",
+        "value": "设备维护员",
+        "confidence": 0.99,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0003",
+            "quote": "受聘担任设备维护员，负责设备巡检和维修。"
+          }
+        ]
+      },
+      {
+        "concept": "job.duties",
+        "value": [
+          "设备巡检",
+          "维修"
+        ],
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0003",
+            "quote": "受聘担任设备维护员，负责设备巡检和维修。"
+          }
+        ]
+      },
+      {
+        "concept": "job.locations",
+        "value": [
+          "成都"
+        ],
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0003",
+            "quote": "常驻成都工作。"
+          }
+        ]
+      },
+      {
+        "concept": "working_hours.system",
+        "value": "STANDARD",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0008",
+            "quote": "每日八小时，每周四十小时，依法休息休假。"
+          }
+        ]
+      },
+      {
+        "concept": "working_hours.hours_per_day",
+        "value": 8.0,
+        "confidence": 0.99,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0008",
+            "quote": "每日八小时，每周四十小时，依法休息休假。"
+          }
+        ]
+      },
+      {
+        "concept": "working_hours.hours_per_week",
+        "value": 40.0,
+        "confidence": 0.99,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0008",
+            "quote": "每日八小时，每周四十小时，依法休息休假。"
+          }
+        ]
+      },
+      {
+        "concept": "working_hours.rest",
+        "value": "依法休息休假",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0008",
+            "quote": "每日八小时，每周四十小时，依法休息休假。"
+          }
+        ]
+      },
+      {
+        "concept": "working_hours.overtime",
+        "value": "STATUTORY",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0008",
+            "quote": "加班报酬按法律规定结算。"
+          }
+        ]
+      },
+      {
+        "concept": "salary.regular",
+        "value": {
+          "amount_text": "壹万伍仟捌佰",
+          "unit": "CNY/MONTH",
+          "component": "BASE",
+          "amount": 15800.0,
+          "determinate": true
+        },
+        "confidence": 0.98,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0005",
+            "quote": "通过试用后月基本工资人民币壹万伍仟捌佰元整，每月八号汇至员工银行账户。"
+          }
+        ]
+      },
+      {
+        "concept": "salary.payment_date",
+        "value": "每月八号",
+        "confidence": 0.98,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0005",
+            "quote": "通过试用后月基本工资人民币壹万伍仟捌佰元整，每月八号汇至员工银行账户。"
+          }
+        ]
+      },
+      {
+        "concept": "salary.payment_method",
+        "value": "BANK",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0005",
+            "quote": "通过试用后月基本工资人民币壹万伍仟捌佰元整，每月八号汇至员工银行账户。"
+          }
+        ]
+      },
+      {
+        "concept": "social_insurance.employer_enrolls",
+        "value": true,
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0006",
+            "quote": "企业负责职工社会保险登记。"
+          }
+        ]
+      },
+      {
+        "concept": "social_insurance.employer_pays",
+        "value": true,
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0007",
+            "quote": "社会保险中依法属于单位的费用由本企业负担，个人部分从工资代扣。"
+          }
+        ]
+      },
+      {
+        "concept": "social_insurance.employee_withheld",
+        "value": true,
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0007",
+            "quote": "社会保险中依法属于单位的费用由本企业负担，个人部分从工资代扣。"
+          }
+        ]
+      },
+      {
+        "concept": "labor_protection.measures",
+        "value": "单位建立职业健康管理制度并配发防护用品，定期组织安全教育培训。岗位不涉及职业病危害。",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0008",
+            "quote": "单位建立职业健康管理制度并配发防护用品，定期组织安全教育培训。岗位不涉及职业病危害。"
+          }
+        ]
+      },
+      {
+        "concept": "labor_protection.training",
+        "value": true,
+        "confidence": 0.98,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0008",
+            "quote": "单位建立职业健康管理制度并配发防护用品，定期组织安全教育培训。"
+          }
+        ]
+      },
+      {
+        "concept": "labor_protection.hazard_exists",
+        "value": false,
+        "confidence": 0.98,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0008",
+            "quote": "岗位不涉及职业病危害。"
+          }
+        ]
+      },
+      {
+        "concept": "labor_protection.hazard_protection",
+        "value": "单位建立职业健康管理制度并配发防护用品，定期组织安全教育培训。岗位不涉及职业病危害。",
+        "confidence": 0.98,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0008",
+            "quote": "单位建立职业健康管理制度并配发防护用品，定期组织安全教育培训。岗位不涉及职业病危害。"
+          }
+        ]
+      },
+      {
+        "concept": "training.arrangement",
+        "value": "NONE",
+        "confidence": 0.98,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0010",
+            "quote": "双方不设竞业限制，也不设专项培训服务期。"
+          }
+        ]
+      },
+      {
+        "concept": "termination.grounds",
+        "value": [
+          "双方依法解除或终止劳动关系"
+        ],
+        "confidence": 0.98,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0009",
+            "quote": "双方依法解除或终止劳动关系，劳动者按法定通知期限辞职并交接工作。"
+          }
+        ]
+      },
+      {
+        "concept": "termination.notice",
+        "value": "劳动者按法定通知期限辞职",
+        "confidence": 0.98,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0009",
+            "quote": "劳动者按法定通知期限辞职并交接工作。"
+          }
+        ]
+      },
+      {
+        "concept": "termination.handover",
+        "value": "劳动者按法定通知期限辞职并交接工作。",
+        "confidence": 0.98,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0009",
+            "quote": "劳动者按法定通知期限辞职并交接工作。"
+          }
+        ]
+      },
+      {
+        "concept": "economic_compensation.statutory",
+        "value": "符合补偿条件时，用人单位依法律规定支付经济补偿",
+        "confidence": 0.98,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0009",
+            "quote": "符合补偿条件时，用人单位依法律规定支付经济补偿，工资及补偿在离职当日结清。"
+          }
+        ]
+      },
+      {
+        "concept": "economic_compensation.settlement_deadline",
+        "value": "工资及补偿在离职当日结清",
+        "confidence": 0.98,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0009",
+            "quote": "符合补偿条件时，用人单位依法律规定支付经济补偿，工资及补偿在离职当日结清。"
+          }
+        ]
+      },
+      {
+        "concept": "dispute.arbitration",
+        "value": true,
+        "confidence": 0.98,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0009",
+            "quote": "争议可向劳动仲裁委员会申请仲裁。"
+          }
+        ]
+      },
+      {
+        "concept": "non_compete.arrangement",
+        "value": "NONE",
+        "confidence": 0.98,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0010",
+            "quote": "双方不设竞业限制，也不设专项培训服务期。"
+          }
+        ]
+      }
+    ]
+  },
+  "provider": "deepseek",
+  "model": "deepseek-flash",
+  "verification": {
+    "checks": [
+      {
+        "fact_id": "EF-cbd003317e57e6fc",
+        "supported": true,
+        "reason": "引文明确载明用人单位为北岭设备有限公司。"
+      },
+      {
+        "fact_id": "EF-30c84235ff861e3e",
+        "supported": true,
+        "reason": "引文明确载明住所为成都市高新路12号。"
+      },
+      {
+        "fact_id": "EF-40fcf82dbe92be1d",
+        "supported": true,
+        "reason": "引文明确载明劳动者为顾林。"
+      },
+      {
+        "fact_id": "EF-0eda84cd85b410d3",
+        "supported": true,
+        "reason": "引文明确载明身份证明号码为510100199003041234。"
+      },
+      {
+        "fact_id": "EF-b64b0d5560917634",
+        "supported": true,
+        "reason": "引文明确载明合同为固定期限。"
+      },
+      {
+        "fact_id": "EF-3d13ecbf1d6cfb20",
+        "supported": true,
+        "reason": "引文明确载明合同自2027年2月1日起。"
+      },
+      {
+        "fact_id": "EF-1f244c124e9bb12c",
+        "supported": true,
+        "reason": "引文明确载明合同至2029年1月31日止。"
+      },
+      {
+        "fact_id": "EF-d21a8dbf018adb1d",
+        "supported": true,
+        "reason": "引文明确约定开始履职后的首月作为试用阶段，属于已实际约定。"
+      },
+      {
+        "fact_id": "EF-7223ba46b6ca4873",
+        "supported": true,
+        "reason": "引文明确约定首月为试用阶段，即1个月。"
+      },
+      {
+        "fact_id": "EF-0880a952decfe3f6",
+        "supported": true,
+        "reason": "引文明确约定试用阶段每月报酬为人民币壹万叁仟元整。"
+      },
+      {
+        "fact_id": "EF-11dbb798c86f989b",
+        "supported": true,
+        "reason": "引文明确载明受聘担任设备维护员。"
+      },
+      {
+        "fact_id": "EF-36749772f2ff3c35",
+        "supported": true,
+        "reason": "引文明确载明负责设备巡检和维修。"
+      },
+      {
+        "fact_id": "EF-47b2c521ddcc01e7",
+        "supported": true,
+        "reason": "引文明确载明常驻成都工作。"
+      },
+      {
+        "fact_id": "EF-ded361a962564637",
+        "supported": true,
+        "reason": "引文明确约定每日八小时、每周四十小时，符合标准工时制。"
+      },
+      {
+        "fact_id": "EF-8f700085ac87edbf",
+        "supported": true,
+        "reason": "引文明确约定每日八小时。"
+      },
+      {
+        "fact_id": "EF-69e6e814a7158390",
+        "supported": true,
+        "reason": "引文明确约定每周四十小时。"
+      },
+      {
+        "fact_id": "EF-60d7c56f9b0f4af4",
+        "supported": true,
+        "reason": "引文明确约定依法休息休假。"
+      },
+      {
+        "fact_id": "EF-6363d947ceddc10d",
+        "supported": true,
+        "reason": "引文明确约定加班报酬按法律规定结算。"
+      },
+      {
+        "fact_id": "EF-a602447cc4dd0809",
+        "supported": true,
+        "reason": "引文明确约定通过试用后月基本工资人民币壹万伍仟捌佰元整。"
+      },
+      {
+        "fact_id": "EF-0807ba2c9bac6395",
+        "supported": true,
+        "reason": "引文明确约定每月八号汇至员工银行账户。"
+      },
+      {
+        "fact_id": "EF-b6f91c89084562aa",
+        "supported": true,
+        "reason": "引文明确约定汇至员工银行账户，属于银行发放。"
+      },
+      {
+        "fact_id": "EF-6a2893c1972026d0",
+        "supported": true,
+        "reason": "引文明确约定企业负责职工社会保险登记。"
+      },
+      {
+        "fact_id": "EF-0032bec7693bf8af",
+        "supported": true,
+        "reason": "引文明确约定社会保险中依法属于单位的费用由本企业负担。"
+      },
+      {
+        "fact_id": "EF-5cfdfe53e5ab79da",
+        "supported": true,
+        "reason": "引文明确约定个人部分从工资代扣。"
+      },
+      {
+        "fact_id": "EF-7cca886a6defc7d4",
+        "supported": true,
+        "reason": "引文明确载明职业健康管理制度、防护用品、安全教育培训及岗位不涉及职业病危害。"
+      },
+      {
+        "fact_id": "EF-242a61129c8b33c3",
+        "supported": true,
+        "reason": "引文明确约定定期组织安全教育培训。"
+      },
+      {
+        "fact_id": "EF-c4fa04664fb6875e",
+        "supported": true,
+        "reason": "引文明确载明岗位不涉及职业病危害。"
+      },
+      {
+        "fact_id": "EF-70a9cc263d8d7eb1",
+        "supported": true,
+        "reason": "引文明确载明职业健康管理制度、防护用品、安全教育培训及岗位不涉及职业病危害。"
+      },
+      {
+        "fact_id": "EF-70d4ec0e2547c455",
+        "supported": true,
+        "reason": "引文明确约定不设专项培训服务期。"
+      },
+      {
+        "fact_id": "EF-647955374f97d7ae",
+        "supported": true,
+        "reason": "引文明确约定双方依法解除或终止劳动关系。"
+      },
+      {
+        "fact_id": "EF-5db78614050b984b",
+        "supported": true,
+        "reason": "引文明确约定劳动者按法定通知期限辞职。"
+      },
+      {
+        "fact_id": "EF-0d55dbed955be37a",
+        "supported": true,
+        "reason": "引文明确约定劳动者按法定通知期限辞职并交接工作。"
+      },
+      {
+        "fact_id": "EF-e4a1ec00ea3ba1ad",
+        "supported": true,
+        "reason": "引文明确约定符合补偿条件时用人单位依法律规定支付经济补偿。"
+      },
+      {
+        "fact_id": "EF-9094ad13d5e027c8",
+        "supported": true,
+        "reason": "引文明确约定工资及补偿在离职当日结清。"
+      },
+      {
+        "fact_id": "EF-c862b2c7022eb94f",
+        "supported": true,
+        "reason": "引文明确约定争议可向劳动仲裁委员会申请仲裁。"
+      },
+      {
+        "fact_id": "EF-4bb9d6e9fc6ddcd2",
+        "supported": true,
+        "reason": "引文明确约定双方不设竞业限制。"
+      }
+    ],
+    "coverage": {
+      "identity.employer_name": "EXTRACTED",
+      "identity.employer_address": "EXTRACTED",
+      "identity.worker_name": "EXTRACTED",
+      "identity.worker_id": "EXTRACTED",
+      "contract.type": "EXTRACTED",
+      "contract.start_date": "EXTRACTED",
+      "contract.end_date": "EXTRACTED",
+      "contract.duration_months": "ABSENT",
+      "contract.task": "ABSENT",
+      "contract.task_end": "ABSENT",
+      "probation.arrangement": "EXTRACTED",
+      "probation.start_date": "UNCERTAIN",
+      "probation.end_date": "UNCERTAIN",
+      "probation.duration_months": "EXTRACTED",
+      "probation.salary": "EXTRACTED",
+      "probation.repeated": "ABSENT",
+      "job.position": "EXTRACTED",
+      "job.duties": "EXTRACTED",
+      "job.locations": "EXTRACTED",
+      "working_hours.system": "EXTRACTED",
+      "working_hours.hours_per_day": "EXTRACTED",
+      "working_hours.hours_per_week": "EXTRACTED",
+      "working_hours.rest": "EXTRACTED",
+      "working_hours.overtime": "EXTRACTED",
+      "salary.regular": "EXTRACTED",
+      "salary.payment_date": "EXTRACTED",
+      "salary.payment_method": "EXTRACTED",
+      "salary.withheld_for_handover": "ABSENT",
+      "social_insurance.employer_enrolls": "EXTRACTED",
+      "social_insurance.employer_pays": "EXTRACTED",
+      "social_insurance.employee_withheld": "EXTRACTED",
+      "social_insurance.cash_replacement": "ABSENT",
+      "social_insurance.waived": "ABSENT",
+      "social_insurance.employer_share_shifted": "ABSENT",
+      "labor_protection.measures": "EXTRACTED",
+      "labor_protection.training": "EXTRACTED",
+      "labor_protection.hazard_exists": "EXTRACTED",
+      "labor_protection.hazard_protection": "EXTRACTED",
+      "training.arrangement": "EXTRACTED",
+      "training.cost": "ABSENT",
+      "training.duration_months": "ABSENT",
+      "training.penalty_prorated": "ABSENT",
+      "termination.grounds": "EXTRACTED",
+      "termination.notice": "EXTRACTED",
+      "termination.notice_days": "ABSENT",
+      "termination.approval_required": "ABSENT",
+      "termination.employer_unrestricted": "ABSENT",
+      "termination.handover": "EXTRACTED",
+      "economic_compensation.statutory": "EXTRACTED",
+      "economic_compensation.settlement_deadline": "EXTRACTED",
+      "economic_compensation.waived": "ABSENT",
+      "economic_compensation.reduced": "ABSENT",
+      "dispute.arbitration": "EXTRACTED",
+      "penalties.obligations": "ABSENT",
+      "non_compete.arrangement": "EXTRACTED",
+      "non_compete.personnel": "ABSENT",
+      "non_compete.secret_access": "ABSENT",
+      "non_compete.businesses": "ABSENT",
+      "non_compete.territories": "ABSENT",
+      "non_compete.duration_months": "ABSENT",
+      "non_compete.compensation": "ABSENT",
+      "non_compete.compensation_deferred": "ABSENT",
+      "non_compete.compensation_waived": "ABSENT",
+      "non_compete.all_staff": "ABSENT",
+      "ip.assignment_scope": "ABSENT",
+      "ip.personal_rights_waived": "ABSENT"
+    },
+    "additional_facts": [],
+    "reviewed_clause_ids": [
+      "C0001",
+      "C0002",
+      "C0003",
+      "C0004",
+      "C0005",
+      "C0006",
+      "C0007",
+      "C0008",
+      "C0009",
+      "C0010"
+    ]
+  },
+  "usage": {
+    "prompt_tokens": 6335,
+    "completion_tokens": 2676,
+    "total_tokens": 9011,
+    "prompt_tokens_details": {
+      "cached_tokens": 1792
+    },
+    "prompt_cache_hit_tokens": 1792,
+    "prompt_cache_miss_tokens": 4543
+  }
+}

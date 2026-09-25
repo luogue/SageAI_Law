@@ -1,0 +1,13 @@
+{
+  "release_quality_gate": "BLOCKED",
+  "engine_report_gate": "REPORT_READY",
+  "upload_report_gate": "REPORT_READY",
+  "rules_executed": 52,
+  "use_llm": false,
+  "input_sha256": "e0d4d04d570d3e8e87fa3a89526d24f10a014f0b4045b5867036acb3157252ba",
+  "regression_tests": 64,
+  "blocking_failures": [
+    "backend.tests.test_input_layer_word_compat::test_real_production_report_contract_review",
+    "backend.tests.test_domain_selection_consistency::test_high_confidence_framework_document_overrides_house_lease_selection"
+  ]
+}

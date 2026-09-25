@@ -16,7 +16,7 @@ from typing import Dict, Tuple
 from review_v2.agency_contract_checklist import AGENCY_REVIEW_CHECKLIST
 from review_v2.brokerage_contract_checklist import BROKERAGE_REVIEW_CHECKLIST
 from review_v2.commission_agency_contract_checklist import COMMISSION_AGENCY_REVIEW_CHECKLIST
-from review_v2.construction_contract_checklist import CONSTRUCTION_REVIEW_CHECKLIST
+from review_v2.construction_contract_checklist import get_construction_checklist
 from review_v2.finance_lease_contract_checklist import FINANCE_LEASE_REVIEW_CHECKLIST
 from review_v2.framework_supply_checklist import FRAMEWORK_SUPPLY_REVIEW_CHECKLIST
 from review_v2.gift_contract_checklist import GIFT_REVIEW_CHECKLIST
@@ -32,7 +32,13 @@ from review_v2.transportation_contract_checklist import TRANSPORTATION_REVIEW_CH
 from review_v2.utility_supply_contract_checklist import UTILITY_SUPPLY_REVIEW_CHECKLIST
 from review_v2.warehouse_contract_checklist import WAREHOUSE_REVIEW_CHECKLIST
 from review_v2.work_contract_checklist import WORK_CONTRACT_REVIEW_CHECKLIST
+from review_v2.priority_contract_types import PRIORITY_TYPES
+from review_v2.employment_contract_checklist import LABOR_CHECKLIST, NON_COMPETE_CHECKLIST, CONFIDENTIALITY_CHECKLIST, TERMINATION_CHECKLIST
+from review_v2.security_property_checklist import MORTGAGE_CHECKLIST, MOVABLE_PLEDGE_CHECKLIST, EQUITY_PLEDGE_CHECKLIST, RIGHTS_PLEDGE_CHECKLIST
+from review_v2.equity_investment_checklist import EQUITY_TRANSFER_CHECKLIST, CAPITAL_INCREASE_CHECKLIST, INVESTMENT_CHECKLIST, SHAREHOLDERS_CHECKLIST
 
+
+from review_v2.operating_cooperation import CHECKLIST as OPERATING_CHECKLIST
 
 class ContractType(str, Enum):
     """Implemented contract-review v2 checklist types."""
@@ -54,6 +60,19 @@ class ContractType(str, Enum):
     COMMISSION_AGENCY = "commission_agency"
     UTILITY_SUPPLY = "utility_supply"
     BROKERAGE = "brokerage"
+    LABOR = "labor"
+    NON_COMPETE = "non_compete"
+    CONFIDENTIALITY = "confidentiality"
+    EMPLOYMENT_TERMINATION = "employment_termination"
+    MORTGAGE = "mortgage"
+    MOVABLE_PLEDGE = "movable_pledge"
+    EQUITY_PLEDGE = "equity_pledge"
+    RIGHTS_PLEDGE = "rights_pledge"
+    EQUITY_TRANSFER = "equity_transfer"
+    CAPITAL_INCREASE = "capital_increase"
+    INVESTMENT = "investment"
+    SHAREHOLDERS = "shareholders"
+    OPERATING_COOPERATION = 'operating_cooperation'
 
 
 @dataclass(frozen=True)
@@ -62,6 +81,7 @@ class ContractTypeMeta:
     display_name: str
     response_key: str
     aliases: Tuple[str, ...]
+    parent_family: str = ""
 
 
 CONTRACT_CHECKLISTS: Dict[str, Tuple[ReviewCheckpoint, ...]] = {
@@ -77,11 +97,24 @@ CONTRACT_CHECKLISTS: Dict[str, Tuple[ReviewCheckpoint, ...]] = {
     ContractType.GUARANTEE.value: GUARANTEE_REVIEW_CHECKLIST,
     ContractType.FINANCE_LEASE.value: FINANCE_LEASE_REVIEW_CHECKLIST,
     ContractType.WAREHOUSE.value: WAREHOUSE_REVIEW_CHECKLIST,
-    ContractType.CONSTRUCTION.value: CONSTRUCTION_REVIEW_CHECKLIST,
+    ContractType.CONSTRUCTION.value: get_construction_checklist(),
     ContractType.TECHNOLOGY.value: TECHNOLOGY_REVIEW_CHECKLIST,
     ContractType.COMMISSION_AGENCY.value: COMMISSION_AGENCY_REVIEW_CHECKLIST,
     ContractType.UTILITY_SUPPLY.value: UTILITY_SUPPLY_REVIEW_CHECKLIST,
     ContractType.BROKERAGE.value: BROKERAGE_REVIEW_CHECKLIST,
+    "labor": LABOR_CHECKLIST,
+    "non_compete": NON_COMPETE_CHECKLIST,
+    "confidentiality": CONFIDENTIALITY_CHECKLIST,
+    "employment_termination": TERMINATION_CHECKLIST,
+    "mortgage": MORTGAGE_CHECKLIST,
+    "movable_pledge": MOVABLE_PLEDGE_CHECKLIST,
+    "equity_pledge": EQUITY_PLEDGE_CHECKLIST,
+    "rights_pledge": RIGHTS_PLEDGE_CHECKLIST,
+    "equity_transfer": EQUITY_TRANSFER_CHECKLIST,
+    "capital_increase": CAPITAL_INCREASE_CHECKLIST,
+    "investment": INVESTMENT_CHECKLIST,
+    "shareholders": SHAREHOLDERS_CHECKLIST,
+    'operating_cooperation': OPERATING_CHECKLIST,
 }
 
 
@@ -201,6 +234,19 @@ CONTRACT_TYPE_META: Dict[ContractType, ContractTypeMeta] = {
 }
 
 
+CONTRACT_TYPE_META.update({
+    ContractType(key): ContractTypeMeta(ContractType(key), meta.name, key,
+        (key, *meta.titles, *(("employment", "labor_contract") if key == "labor" else ("pledge",) if key == "movable_pledge" else ())),
+        parent_family=meta.family)
+    for key, meta in PRIORITY_TYPES.items()
+})
+
+# Additive type tree; existing flat keys and APIs remain valid.
+CONTRACT_TYPE_TREE = {
+    family: tuple(key for key, meta in PRIORITY_TYPES.items() if meta.family == family)
+    for family in ("EMPLOYMENT", "SECURITY_PROPERTY", "EQUITY_INVESTMENT")
+}
+
 _ALIAS_TO_TYPE: Dict[str, ContractType] = {
     alias.lower(): meta.key
     for meta in CONTRACT_TYPE_META.values()
@@ -239,6 +285,12 @@ def get_contract_meta(contract_type: str | ContractType | None) -> ContractTypeM
 
 def get_checklist(contract_type: str | ContractType) -> Tuple[ReviewCheckpoint, ...]:
     resolved = contract_type if isinstance(contract_type, ContractType) else resolve_contract_type(contract_type)
+    if resolved.value == 'labor':
+        from review_v2.employment_fact_store import current
+        store = current()
+        if store is not None:
+            from review_v2.employment_rule_adapter import adapt
+            return adapt(store,LABOR_CHECKLIST)[0]
     try:
         return CONTRACT_CHECKLISTS[resolved.value]
     except KeyError as exc:
@@ -270,10 +322,20 @@ def _owned_sale_checklist() -> Tuple[ReviewCheckpoint, ...]:
 
 def get_checklist_for_resolution(contract_type: str | ContractType, resolution: object) -> Tuple[ReviewCheckpoint, ...]:
     resolved = contract_type if isinstance(contract_type, ContractType) else resolve_contract_type(contract_type)
+    if resolved.value == 'shareholders' and getattr(resolution, 'domain_attributes', {}).get('company_formation', {}).get('established'):
+        from review_v2.company_formation_checklist import COMPANY_FORMATION_CHECKLIST
+        return COMPANY_FORMATION_CHECKLIST
     if resolved is ContractType.TECHNOLOGY and getattr(resolution, "transaction_structure", "") == "MIXED_SALE_TECHNOLOGY_LICENSE":
         sale_rows = tuple(replace(row, allowed_families=("TECHNOLOGY", "SALE")) for row in _owned_sale_checklist())
         return TECHNOLOGY_REVIEW_CHECKLIST + sale_rows
     if resolved is not ContractType.SALE:
+        if resolved.value in {'shareholders', 'investment', 'capital_increase', 'equity_transfer'}:
+            from review_v2.equity_common_checklist import compose
+            rows = get_checklist(resolved)
+            if resolved.value == 'shareholders':
+                from review_v2.company_formation_checklist import COMPANY_FORMATION_CHECKLIST
+                rows += tuple(c for c in COMPANY_FORMATION_CHECKLIST if c.node_id == 'formation_no_shareholder_organ')
+            return compose(rows)
         return get_checklist(resolved)
     owned = _owned_sale_checklist()
     subject = getattr(resolution, "subject_matter", "UNCERTAIN")

@@ -1,0 +1,605 @@
+FFFF........                                                             [100%]
+================================== FAILURES ===================================
+_____ test_prerequisites_final_report[False-18-False-\u5f85\u6838\u9a8c] ______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001DD49659B10>
+actual = False, months = 18, all_staff = False, expected = '待核验'
+
+    @pytest.mark.parametrize('actual,months,all_staff,expected', [
+        (False,18,False,'待核验'),
+        (True,18,False,'通过'),
+        (True,30,False,'风险条款'),
+        (True,18,True,'风险条款'),
+    ])
+    def test_prerequisites_final_report(monkeypatch,actual,months,all_staff,expected):
+        from review_v2 import employment_fact_pipeline as pipeline
+        from review_v2.engine import review_contract_v2
+        text='竞业限制协议\n第一条\n双方约定离职竞业限制。\n适用人员为研发主管。岗位可以接触秘密。\n员工已掌握客户底价和源代码。\n第二条\n竞争业务为数据库软件，地域为杭州。\n第三条\n竞业期限为'+str(months)+'个月。每月补偿6000元。\n第四条\n所有员工均须承担竞业限制。'
+        vals=[('non_compete.arrangement','EXISTS','双方约定离职竞业限制。'),
+              ('non_compete.personnel','研发主管','适用人员为研发主管。'),
+              ('non_compete.access_capability',True,'岗位可以接触秘密。'),
+              ('non_compete.businesses','数据库软件','竞争业务为数据库软件，地域为杭州。'),
+              ('non_compete.territories','杭州','竞争业务为数据库软件，地域为杭州。'),
+              ('non_compete.duration_months',months,'竞业期限为'+str(months)+'个月。'),
+              ('non_compete.compensation',{'amount':6000,'unit':'CNY/MONTH'},'每月补偿6000元。')]
+        if actual: vals.append(('non_compete.actual_access',True,'员工已掌握客户底价和源代码。'))
+        else: text=text.replace('员工已掌握客户底价和源代码。','')
+        if all_staff: vals.append(('non_compete.all_staff',True,'所有员工均须承担竞业限制。'))
+        else: text=text.replace('所有员工均须承担竞业限制。','')
+        cs=parse_contract_clauses(text)
+        monkeypatch.setattr(pipeline,'extract',lambda *a,**k:packet(cs,[fact(cs,c,v,q) for c,v,q in vals]))
+        monkeypatch.setattr(pipeline,'verify',verified_packet)
+>       result=review_contract_v2(text,'non_compete')
+
+backend\tests\test_noncompete_prerequisite_report.py:29: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\review_v2\engine.py:51677: in review_contract_v2
+    return run(contract_text, contract_type, _review_contract_v2_legacy, **options)
+backend\review_v2\employment_fact_pipeline.py:36: in run
+    extracted = FactStore(source, clauses, raw)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <review_v2.employment_fact_store.FactStore object at 0x000001DD4E3F36A0>
+source = '竞业限制协议\n第一条\n双方约定离职竞业限制。\n适用人员为研发主管。岗位可以接触秘密。\n\n第二条\n竞争业务为数据库软件，地域为杭州。\n第三条\n竞业期限为18个月。每月补偿6000元。\n第四条'
+clauses = [ParsedClause(clause_id='C0001', location='全文', title='全文', text='竞业限制协议', section_type='正式合同条款', level=0, raw_text='竞...umber='', item_number='', sentence_index=1, start_offset=91, end_offset=94, source_type='BODY', party_obligation=True)]
+raw = [{'response': {'schema_version': 'employment-facts-1.2', 'reviewed_clause_ids': ['C0001', 'C0002', 'C0003', 'C0004', '..., 'value': 18, 'confidence': 1, 'assertion': 'EXPLICIT', ...}, ...]}, 'provider': 'deepseek', 'model': 'test-fixture'}]
+
+    def __init__(self, source, clauses, raw):
+        self.source = source
+        self.clauses = clauses
+        self.raw = raw
+        self.hash = hashlib.sha256(source.encode()).hexdigest()
+        self.facts = []
+        self.coverage = {}
+        self.decisions = {}
+        self.by_id = {}
+        self.adverse_cache = {}
+        self.element_specs = deepcopy(ELEMENTS)
+        self.normalization_events = []
+        from review_v2.employment_fact_schema import NONCRITICAL_FACTS
+        self.validation_diagnostics = []
+        self.quarantined_concepts = set()
+        searched_concepts = set()
+        unresolved_concepts = set()
+        by_clause = {c.clause_id: c for c in clauses}
+        for packet_index, packet in enumerate(raw):
+            data = packet.get('response') if isinstance(packet, dict) else None
+            if not isinstance(data, dict):
+                self._schema_error('INVALID_FACT_ENVELOPE', 'response', data, 'object')
+            if data.get('schema_version') != SCHEMA_VERSION:
+                self._schema_error('SCHEMA_VERSION_MISMATCH', 'schema_version', data.get('schema_version'), SCHEMA_VERSION)
+            reviewed = data.get('reviewed_clause_ids')
+            if not isinstance(reviewed, list) or not all(isinstance(c,str) for c in reviewed) or set(reviewed) != set(by_clause):
+                self._schema_error('INCOMPLETE_FULL_TEXT_COVERAGE', 'reviewed_clause_ids', reviewed, sorted(by_clause))
+            coverage = data.get('coverage')
+            if 'searched_concepts' in data:
+                searched = data['searched_concepts']
+                uncertain = data.get('unresolved_concepts',[])
+                if not isinstance(searched,list) or not all(isinstance(c,str) and c in CONCEPTS for c in searched):
+                    self._schema_error('INVALID_SEARCH_SCOPE','searched_concepts',searched,sorted(CONCEPTS))
+                # Every topic batch reads the same full document. Cross-batch
+                # uncertainty is retained globally; unknown concepts still fail.
+                if not isinstance(uncertain,list) or not all(isinstance(c,str) and c in CONCEPTS for c in uncertain):
+                    self._schema_error('INVALID_UNRESOLVED_SCOPE','unresolved_concepts',uncertain,sorted(CONCEPTS))
+                searched_concepts.update(searched)
+                unresolved_concepts.update(uncertain)
+                coverage = {c:'UNCERTAIN' for c in searched}
+            if not isinstance(coverage, dict):
+                self._schema_error('INVALID_COVERAGE_TYPE', 'coverage', coverage, 'concept -> extraction status mapping')
+            self.coverage.update(coverage)
+            if not isinstance(data.get('facts'), list):
+                self._schema_error('INVALID_FACTS_TYPE', 'facts', data.get('facts'), 'array')
+            for index, fact in enumerate(data['facts']):
+                concept = fact.get('concept') if isinstance(fact, dict) else None
+                try:
+                    row = self._validate_fact(fact, by_clause, coverage)
+                except FactExtractionError as exc:
+                    for diagnostic in exc.diagnostics:
+                        diagnostic.update(fact_id=(fact.get('fact_id') if isinstance(fact,dict) else None) or f'candidate-{packet_index}-{index}',
+                                          concept=concept, model_raw_value=fact,
+                                          evidence=fact.get('evidence') if isinstance(fact,dict) else None)
+                        diagnostic.update(fact_key=concept,raw_value=fact.get('value') if isinstance(fact,dict) else fact,normalized_value=None,
+                            allowed_values=sorted(ENUMS[concept]) if concept in ENUMS else None,
+                            source_clause=[{'clause_id':e.get('clause_id'),'section':by_clause[e['clause_id']].location,'text':by_clause[e['clause_id']].text} for e in (fact.get('evidence',[]) if isinstance(fact,dict) else []) if isinstance(e,dict) and e.get('clause_id') in by_clause])
+                        if concept in NONCRITICAL_FACTS and diagnostic['failed_stage'] in {'NORMALIZATION','FACT_SCHEMA'}:
+                            diagnostic['disposition'] = 'QUARANTINE_AND_MANUAL_REVIEW'
+                            self.quarantined_concepts.add(concept)
+                        self.validation_diagnostics.append(diagnostic)
+                    continue
+                if row['fact_id'] not in self.by_id:
+                    self.facts.append(row)
+                    self.by_id[row['fact_id']] = row
+                else:
+                    previous = self.by_id[row['fact_id']]
+                    rank = lambda f: (f['assertion']=='EXPLICIT', f['confidence'])
+                    if rank(row) > rank(previous):
+                        # Identical value/source duplicates must not let an
+                        # earlier inferred or low-confidence record win by order.
+                        previous.update(row)
+        if set(self.coverage) != set(CONCEPTS):
+            self._schema_error('INCOMPLETE_CONCEPT_COVERAGE', 'coverage.keys', sorted(self.coverage), sorted(CONCEPTS))
+        for key, status in self.coverage.items():
+            if key in self.quarantined_concepts:
+                self.coverage[key] = 'UNCERTAIN'
+                continue
+            if key in searched_concepts:
+                rows = [f for f in self.facts if f['concept']==key]
+                self.coverage[key] = ('EXTRACTED' if any(f['assertion']=='EXPLICIT' and f['confidence']>=.75 for f in rows)
+                    else 'UNCERTAIN' if rows or key in unresolved_concepts else 'ABSENT')
+                continue
+            if isinstance(status,str) and status in ENUMS.get(key, set()) and any(f['concept']==key and f['normalized_value']==status for f in self.facts):
+                self.normalization_events.append({'concept':key,'field':'coverage','from':status,'to':'EXTRACTED'})
+                self.coverage[key] = status = 'EXTRACTED'
+            if status not in ('EXTRACTED','ABSENT','UNCERTAIN'):
+                self.validation_diagnostics.append(self._diagnostic('INVALID_EXTRACTION_COVERAGE', 'coverage.'+key, status, ['EXTRACTED','ABSENT','UNCERTAIN']))
+            elif status != 'UNCERTAIN' and (status == 'EXTRACTED') != any(f['concept'] == key for f in self.facts):
+                self.validation_diagnostics.append(self._diagnostic('CONTRADICTORY_EXTRACTION', 'coverage.'+key, status, 'EXTRACTED iff validated fact exists; otherwise ABSENT or UNCERTAIN'))
+        if any(d['disposition'] == 'BLOCK' for d in self.validation_diagnostics):
+            exc = FactExtractionError('FACT_STORE_VALIDATION_FAILED', diagnostics=self.validation_diagnostics)
+            exc.raw_output = raw
+>           raise exc
+E           review_v2.fact_validation.FactExtractionError: FACT_STORE_VALIDATION_FAILED: UNDEFINED_CALCULATION:non_compete.compensation; CONTRADICTORY_EXTRACTION
+
+backend\review_v2\employment_fact_store.py:222: FactExtractionError
+_________ test_prerequisites_final_report[True-18-False-\u901a\u8fc7] _________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001DD56F2F940>
+actual = True, months = 18, all_staff = False, expected = '通过'
+
+    @pytest.mark.parametrize('actual,months,all_staff,expected', [
+        (False,18,False,'待核验'),
+        (True,18,False,'通过'),
+        (True,30,False,'风险条款'),
+        (True,18,True,'风险条款'),
+    ])
+    def test_prerequisites_final_report(monkeypatch,actual,months,all_staff,expected):
+        from review_v2 import employment_fact_pipeline as pipeline
+        from review_v2.engine import review_contract_v2
+        text='竞业限制协议\n第一条\n双方约定离职竞业限制。\n适用人员为研发主管。岗位可以接触秘密。\n员工已掌握客户底价和源代码。\n第二条\n竞争业务为数据库软件，地域为杭州。\n第三条\n竞业期限为'+str(months)+'个月。每月补偿6000元。\n第四条\n所有员工均须承担竞业限制。'
+        vals=[('non_compete.arrangement','EXISTS','双方约定离职竞业限制。'),
+              ('non_compete.personnel','研发主管','适用人员为研发主管。'),
+              ('non_compete.access_capability',True,'岗位可以接触秘密。'),
+              ('non_compete.businesses','数据库软件','竞争业务为数据库软件，地域为杭州。'),
+              ('non_compete.territories','杭州','竞争业务为数据库软件，地域为杭州。'),
+              ('non_compete.duration_months',months,'竞业期限为'+str(months)+'个月。'),
+              ('non_compete.compensation',{'amount':6000,'unit':'CNY/MONTH'},'每月补偿6000元。')]
+        if actual: vals.append(('non_compete.actual_access',True,'员工已掌握客户底价和源代码。'))
+        else: text=text.replace('员工已掌握客户底价和源代码。','')
+        if all_staff: vals.append(('non_compete.all_staff',True,'所有员工均须承担竞业限制。'))
+        else: text=text.replace('所有员工均须承担竞业限制。','')
+        cs=parse_contract_clauses(text)
+        monkeypatch.setattr(pipeline,'extract',lambda *a,**k:packet(cs,[fact(cs,c,v,q) for c,v,q in vals]))
+        monkeypatch.setattr(pipeline,'verify',verified_packet)
+>       result=review_contract_v2(text,'non_compete')
+
+backend\tests\test_noncompete_prerequisite_report.py:29: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\review_v2\engine.py:51677: in review_contract_v2
+    return run(contract_text, contract_type, _review_contract_v2_legacy, **options)
+backend\review_v2\employment_fact_pipeline.py:36: in run
+    extracted = FactStore(source, clauses, raw)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <review_v2.employment_fact_store.FactStore object at 0x000001DD56F2F700>
+source = '竞业限制协议\n第一条\n双方约定离职竞业限制。\n适用人员为研发主管。岗位可以接触秘密。\n员工已掌握客户底价和源代码。\n第二条\n竞争业务为数据库软件，地域为杭州。\n第三条\n竞业期限为18个月。每月补偿6000元。\n第四条'
+clauses = [ParsedClause(clause_id='C0001', location='全文', title='全文', text='竞业限制协议', section_type='正式合同条款', level=0, raw_text='竞...ber='', item_number='', sentence_index=1, start_offset=105, end_offset=108, source_type='BODY', party_obligation=True)]
+raw = [{'response': {'schema_version': 'employment-facts-1.2', 'reviewed_clause_ids': ['C0001', 'C0002', 'C0003', 'C0004', '..., 'value': 18, 'confidence': 1, 'assertion': 'EXPLICIT', ...}, ...]}, 'provider': 'deepseek', 'model': 'test-fixture'}]
+
+    def __init__(self, source, clauses, raw):
+        self.source = source
+        self.clauses = clauses
+        self.raw = raw
+        self.hash = hashlib.sha256(source.encode()).hexdigest()
+        self.facts = []
+        self.coverage = {}
+        self.decisions = {}
+        self.by_id = {}
+        self.adverse_cache = {}
+        self.element_specs = deepcopy(ELEMENTS)
+        self.normalization_events = []
+        from review_v2.employment_fact_schema import NONCRITICAL_FACTS
+        self.validation_diagnostics = []
+        self.quarantined_concepts = set()
+        searched_concepts = set()
+        unresolved_concepts = set()
+        by_clause = {c.clause_id: c for c in clauses}
+        for packet_index, packet in enumerate(raw):
+            data = packet.get('response') if isinstance(packet, dict) else None
+            if not isinstance(data, dict):
+                self._schema_error('INVALID_FACT_ENVELOPE', 'response', data, 'object')
+            if data.get('schema_version') != SCHEMA_VERSION:
+                self._schema_error('SCHEMA_VERSION_MISMATCH', 'schema_version', data.get('schema_version'), SCHEMA_VERSION)
+            reviewed = data.get('reviewed_clause_ids')
+            if not isinstance(reviewed, list) or not all(isinstance(c,str) for c in reviewed) or set(reviewed) != set(by_clause):
+                self._schema_error('INCOMPLETE_FULL_TEXT_COVERAGE', 'reviewed_clause_ids', reviewed, sorted(by_clause))
+            coverage = data.get('coverage')
+            if 'searched_concepts' in data:
+                searched = data['searched_concepts']
+                uncertain = data.get('unresolved_concepts',[])
+                if not isinstance(searched,list) or not all(isinstance(c,str) and c in CONCEPTS for c in searched):
+                    self._schema_error('INVALID_SEARCH_SCOPE','searched_concepts',searched,sorted(CONCEPTS))
+                # Every topic batch reads the same full document. Cross-batch
+                # uncertainty is retained globally; unknown concepts still fail.
+                if not isinstance(uncertain,list) or not all(isinstance(c,str) and c in CONCEPTS for c in uncertain):
+                    self._schema_error('INVALID_UNRESOLVED_SCOPE','unresolved_concepts',uncertain,sorted(CONCEPTS))
+                searched_concepts.update(searched)
+                unresolved_concepts.update(uncertain)
+                coverage = {c:'UNCERTAIN' for c in searched}
+            if not isinstance(coverage, dict):
+                self._schema_error('INVALID_COVERAGE_TYPE', 'coverage', coverage, 'concept -> extraction status mapping')
+            self.coverage.update(coverage)
+            if not isinstance(data.get('facts'), list):
+                self._schema_error('INVALID_FACTS_TYPE', 'facts', data.get('facts'), 'array')
+            for index, fact in enumerate(data['facts']):
+                concept = fact.get('concept') if isinstance(fact, dict) else None
+                try:
+                    row = self._validate_fact(fact, by_clause, coverage)
+                except FactExtractionError as exc:
+                    for diagnostic in exc.diagnostics:
+                        diagnostic.update(fact_id=(fact.get('fact_id') if isinstance(fact,dict) else None) or f'candidate-{packet_index}-{index}',
+                                          concept=concept, model_raw_value=fact,
+                                          evidence=fact.get('evidence') if isinstance(fact,dict) else None)
+                        diagnostic.update(fact_key=concept,raw_value=fact.get('value') if isinstance(fact,dict) else fact,normalized_value=None,
+                            allowed_values=sorted(ENUMS[concept]) if concept in ENUMS else None,
+                            source_clause=[{'clause_id':e.get('clause_id'),'section':by_clause[e['clause_id']].location,'text':by_clause[e['clause_id']].text} for e in (fact.get('evidence',[]) if isinstance(fact,dict) else []) if isinstance(e,dict) and e.get('clause_id') in by_clause])
+                        if concept in NONCRITICAL_FACTS and diagnostic['failed_stage'] in {'NORMALIZATION','FACT_SCHEMA'}:
+                            diagnostic['disposition'] = 'QUARANTINE_AND_MANUAL_REVIEW'
+                            self.quarantined_concepts.add(concept)
+                        self.validation_diagnostics.append(diagnostic)
+                    continue
+                if row['fact_id'] not in self.by_id:
+                    self.facts.append(row)
+                    self.by_id[row['fact_id']] = row
+                else:
+                    previous = self.by_id[row['fact_id']]
+                    rank = lambda f: (f['assertion']=='EXPLICIT', f['confidence'])
+                    if rank(row) > rank(previous):
+                        # Identical value/source duplicates must not let an
+                        # earlier inferred or low-confidence record win by order.
+                        previous.update(row)
+        if set(self.coverage) != set(CONCEPTS):
+            self._schema_error('INCOMPLETE_CONCEPT_COVERAGE', 'coverage.keys', sorted(self.coverage), sorted(CONCEPTS))
+        for key, status in self.coverage.items():
+            if key in self.quarantined_concepts:
+                self.coverage[key] = 'UNCERTAIN'
+                continue
+            if key in searched_concepts:
+                rows = [f for f in self.facts if f['concept']==key]
+                self.coverage[key] = ('EXTRACTED' if any(f['assertion']=='EXPLICIT' and f['confidence']>=.75 for f in rows)
+                    else 'UNCERTAIN' if rows or key in unresolved_concepts else 'ABSENT')
+                continue
+            if isinstance(status,str) and status in ENUMS.get(key, set()) and any(f['concept']==key and f['normalized_value']==status for f in self.facts):
+                self.normalization_events.append({'concept':key,'field':'coverage','from':status,'to':'EXTRACTED'})
+                self.coverage[key] = status = 'EXTRACTED'
+            if status not in ('EXTRACTED','ABSENT','UNCERTAIN'):
+                self.validation_diagnostics.append(self._diagnostic('INVALID_EXTRACTION_COVERAGE', 'coverage.'+key, status, ['EXTRACTED','ABSENT','UNCERTAIN']))
+            elif status != 'UNCERTAIN' and (status == 'EXTRACTED') != any(f['concept'] == key for f in self.facts):
+                self.validation_diagnostics.append(self._diagnostic('CONTRADICTORY_EXTRACTION', 'coverage.'+key, status, 'EXTRACTED iff validated fact exists; otherwise ABSENT or UNCERTAIN'))
+        if any(d['disposition'] == 'BLOCK' for d in self.validation_diagnostics):
+            exc = FactExtractionError('FACT_STORE_VALIDATION_FAILED', diagnostics=self.validation_diagnostics)
+            exc.raw_output = raw
+>           raise exc
+E           review_v2.fact_validation.FactExtractionError: FACT_STORE_VALIDATION_FAILED: UNDEFINED_CALCULATION:non_compete.compensation; CONTRADICTORY_EXTRACTION
+
+backend\review_v2\employment_fact_store.py:222: FactExtractionError
+___ test_prerequisites_final_report[True-30-False-\u98ce\u9669\u6761\u6b3e] ___
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001DD4E3FFE20>
+actual = True, months = 30, all_staff = False, expected = '风险条款'
+
+    @pytest.mark.parametrize('actual,months,all_staff,expected', [
+        (False,18,False,'待核验'),
+        (True,18,False,'通过'),
+        (True,30,False,'风险条款'),
+        (True,18,True,'风险条款'),
+    ])
+    def test_prerequisites_final_report(monkeypatch,actual,months,all_staff,expected):
+        from review_v2 import employment_fact_pipeline as pipeline
+        from review_v2.engine import review_contract_v2
+        text='竞业限制协议\n第一条\n双方约定离职竞业限制。\n适用人员为研发主管。岗位可以接触秘密。\n员工已掌握客户底价和源代码。\n第二条\n竞争业务为数据库软件，地域为杭州。\n第三条\n竞业期限为'+str(months)+'个月。每月补偿6000元。\n第四条\n所有员工均须承担竞业限制。'
+        vals=[('non_compete.arrangement','EXISTS','双方约定离职竞业限制。'),
+              ('non_compete.personnel','研发主管','适用人员为研发主管。'),
+              ('non_compete.access_capability',True,'岗位可以接触秘密。'),
+              ('non_compete.businesses','数据库软件','竞争业务为数据库软件，地域为杭州。'),
+              ('non_compete.territories','杭州','竞争业务为数据库软件，地域为杭州。'),
+              ('non_compete.duration_months',months,'竞业期限为'+str(months)+'个月。'),
+              ('non_compete.compensation',{'amount':6000,'unit':'CNY/MONTH'},'每月补偿6000元。')]
+        if actual: vals.append(('non_compete.actual_access',True,'员工已掌握客户底价和源代码。'))
+        else: text=text.replace('员工已掌握客户底价和源代码。','')
+        if all_staff: vals.append(('non_compete.all_staff',True,'所有员工均须承担竞业限制。'))
+        else: text=text.replace('所有员工均须承担竞业限制。','')
+        cs=parse_contract_clauses(text)
+        monkeypatch.setattr(pipeline,'extract',lambda *a,**k:packet(cs,[fact(cs,c,v,q) for c,v,q in vals]))
+        monkeypatch.setattr(pipeline,'verify',verified_packet)
+>       result=review_contract_v2(text,'non_compete')
+
+backend\tests\test_noncompete_prerequisite_report.py:29: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\review_v2\engine.py:51677: in review_contract_v2
+    return run(contract_text, contract_type, _review_contract_v2_legacy, **options)
+backend\review_v2\employment_fact_pipeline.py:36: in run
+    extracted = FactStore(source, clauses, raw)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <review_v2.employment_fact_store.FactStore object at 0x000001DD4E3FC130>
+source = '竞业限制协议\n第一条\n双方约定离职竞业限制。\n适用人员为研发主管。岗位可以接触秘密。\n员工已掌握客户底价和源代码。\n第二条\n竞争业务为数据库软件，地域为杭州。\n第三条\n竞业期限为30个月。每月补偿6000元。\n第四条'
+clauses = [ParsedClause(clause_id='C0001', location='全文', title='全文', text='竞业限制协议', section_type='正式合同条款', level=0, raw_text='竞...ber='', item_number='', sentence_index=1, start_offset=105, end_offset=108, source_type='BODY', party_obligation=True)]
+raw = [{'response': {'schema_version': 'employment-facts-1.2', 'reviewed_clause_ids': ['C0001', 'C0002', 'C0003', 'C0004', '..., 'value': 30, 'confidence': 1, 'assertion': 'EXPLICIT', ...}, ...]}, 'provider': 'deepseek', 'model': 'test-fixture'}]
+
+    def __init__(self, source, clauses, raw):
+        self.source = source
+        self.clauses = clauses
+        self.raw = raw
+        self.hash = hashlib.sha256(source.encode()).hexdigest()
+        self.facts = []
+        self.coverage = {}
+        self.decisions = {}
+        self.by_id = {}
+        self.adverse_cache = {}
+        self.element_specs = deepcopy(ELEMENTS)
+        self.normalization_events = []
+        from review_v2.employment_fact_schema import NONCRITICAL_FACTS
+        self.validation_diagnostics = []
+        self.quarantined_concepts = set()
+        searched_concepts = set()
+        unresolved_concepts = set()
+        by_clause = {c.clause_id: c for c in clauses}
+        for packet_index, packet in enumerate(raw):
+            data = packet.get('response') if isinstance(packet, dict) else None
+            if not isinstance(data, dict):
+                self._schema_error('INVALID_FACT_ENVELOPE', 'response', data, 'object')
+            if data.get('schema_version') != SCHEMA_VERSION:
+                self._schema_error('SCHEMA_VERSION_MISMATCH', 'schema_version', data.get('schema_version'), SCHEMA_VERSION)
+            reviewed = data.get('reviewed_clause_ids')
+            if not isinstance(reviewed, list) or not all(isinstance(c,str) for c in reviewed) or set(reviewed) != set(by_clause):
+                self._schema_error('INCOMPLETE_FULL_TEXT_COVERAGE', 'reviewed_clause_ids', reviewed, sorted(by_clause))
+            coverage = data.get('coverage')
+            if 'searched_concepts' in data:
+                searched = data['searched_concepts']
+                uncertain = data.get('unresolved_concepts',[])
+                if not isinstance(searched,list) or not all(isinstance(c,str) and c in CONCEPTS for c in searched):
+                    self._schema_error('INVALID_SEARCH_SCOPE','searched_concepts',searched,sorted(CONCEPTS))
+                # Every topic batch reads the same full document. Cross-batch
+                # uncertainty is retained globally; unknown concepts still fail.
+                if not isinstance(uncertain,list) or not all(isinstance(c,str) and c in CONCEPTS for c in uncertain):
+                    self._schema_error('INVALID_UNRESOLVED_SCOPE','unresolved_concepts',uncertain,sorted(CONCEPTS))
+                searched_concepts.update(searched)
+                unresolved_concepts.update(uncertain)
+                coverage = {c:'UNCERTAIN' for c in searched}
+            if not isinstance(coverage, dict):
+                self._schema_error('INVALID_COVERAGE_TYPE', 'coverage', coverage, 'concept -> extraction status mapping')
+            self.coverage.update(coverage)
+            if not isinstance(data.get('facts'), list):
+                self._schema_error('INVALID_FACTS_TYPE', 'facts', data.get('facts'), 'array')
+            for index, fact in enumerate(data['facts']):
+                concept = fact.get('concept') if isinstance(fact, dict) else None
+                try:
+                    row = self._validate_fact(fact, by_clause, coverage)
+                except FactExtractionError as exc:
+                    for diagnostic in exc.diagnostics:
+                        diagnostic.update(fact_id=(fact.get('fact_id') if isinstance(fact,dict) else None) or f'candidate-{packet_index}-{index}',
+                                          concept=concept, model_raw_value=fact,
+                                          evidence=fact.get('evidence') if isinstance(fact,dict) else None)
+                        diagnostic.update(fact_key=concept,raw_value=fact.get('value') if isinstance(fact,dict) else fact,normalized_value=None,
+                            allowed_values=sorted(ENUMS[concept]) if concept in ENUMS else None,
+                            source_clause=[{'clause_id':e.get('clause_id'),'section':by_clause[e['clause_id']].location,'text':by_clause[e['clause_id']].text} for e in (fact.get('evidence',[]) if isinstance(fact,dict) else []) if isinstance(e,dict) and e.get('clause_id') in by_clause])
+                        if concept in NONCRITICAL_FACTS and diagnostic['failed_stage'] in {'NORMALIZATION','FACT_SCHEMA'}:
+                            diagnostic['disposition'] = 'QUARANTINE_AND_MANUAL_REVIEW'
+                            self.quarantined_concepts.add(concept)
+                        self.validation_diagnostics.append(diagnostic)
+                    continue
+                if row['fact_id'] not in self.by_id:
+                    self.facts.append(row)
+                    self.by_id[row['fact_id']] = row
+                else:
+                    previous = self.by_id[row['fact_id']]
+                    rank = lambda f: (f['assertion']=='EXPLICIT', f['confidence'])
+                    if rank(row) > rank(previous):
+                        # Identical value/source duplicates must not let an
+                        # earlier inferred or low-confidence record win by order.
+                        previous.update(row)
+        if set(self.coverage) != set(CONCEPTS):
+            self._schema_error('INCOMPLETE_CONCEPT_COVERAGE', 'coverage.keys', sorted(self.coverage), sorted(CONCEPTS))
+        for key, status in self.coverage.items():
+            if key in self.quarantined_concepts:
+                self.coverage[key] = 'UNCERTAIN'
+                continue
+            if key in searched_concepts:
+                rows = [f for f in self.facts if f['concept']==key]
+                self.coverage[key] = ('EXTRACTED' if any(f['assertion']=='EXPLICIT' and f['confidence']>=.75 for f in rows)
+                    else 'UNCERTAIN' if rows or key in unresolved_concepts else 'ABSENT')
+                continue
+            if isinstance(status,str) and status in ENUMS.get(key, set()) and any(f['concept']==key and f['normalized_value']==status for f in self.facts):
+                self.normalization_events.append({'concept':key,'field':'coverage','from':status,'to':'EXTRACTED'})
+                self.coverage[key] = status = 'EXTRACTED'
+            if status not in ('EXTRACTED','ABSENT','UNCERTAIN'):
+                self.validation_diagnostics.append(self._diagnostic('INVALID_EXTRACTION_COVERAGE', 'coverage.'+key, status, ['EXTRACTED','ABSENT','UNCERTAIN']))
+            elif status != 'UNCERTAIN' and (status == 'EXTRACTED') != any(f['concept'] == key for f in self.facts):
+                self.validation_diagnostics.append(self._diagnostic('CONTRADICTORY_EXTRACTION', 'coverage.'+key, status, 'EXTRACTED iff validated fact exists; otherwise ABSENT or UNCERTAIN'))
+        if any(d['disposition'] == 'BLOCK' for d in self.validation_diagnostics):
+            exc = FactExtractionError('FACT_STORE_VALIDATION_FAILED', diagnostics=self.validation_diagnostics)
+            exc.raw_output = raw
+>           raise exc
+E           review_v2.fact_validation.FactExtractionError: FACT_STORE_VALIDATION_FAILED: UNDEFINED_CALCULATION:non_compete.compensation; CONTRADICTORY_EXTRACTION
+
+backend\review_v2\employment_fact_store.py:222: FactExtractionError
+___ test_prerequisites_final_report[True-18-True-\u98ce\u9669\u6761\u6b3e] ____
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001DD4970FD90>
+actual = True, months = 18, all_staff = True, expected = '风险条款'
+
+    @pytest.mark.parametrize('actual,months,all_staff,expected', [
+        (False,18,False,'待核验'),
+        (True,18,False,'通过'),
+        (True,30,False,'风险条款'),
+        (True,18,True,'风险条款'),
+    ])
+    def test_prerequisites_final_report(monkeypatch,actual,months,all_staff,expected):
+        from review_v2 import employment_fact_pipeline as pipeline
+        from review_v2.engine import review_contract_v2
+        text='竞业限制协议\n第一条\n双方约定离职竞业限制。\n适用人员为研发主管。岗位可以接触秘密。\n员工已掌握客户底价和源代码。\n第二条\n竞争业务为数据库软件，地域为杭州。\n第三条\n竞业期限为'+str(months)+'个月。每月补偿6000元。\n第四条\n所有员工均须承担竞业限制。'
+        vals=[('non_compete.arrangement','EXISTS','双方约定离职竞业限制。'),
+              ('non_compete.personnel','研发主管','适用人员为研发主管。'),
+              ('non_compete.access_capability',True,'岗位可以接触秘密。'),
+              ('non_compete.businesses','数据库软件','竞争业务为数据库软件，地域为杭州。'),
+              ('non_compete.territories','杭州','竞争业务为数据库软件，地域为杭州。'),
+              ('non_compete.duration_months',months,'竞业期限为'+str(months)+'个月。'),
+              ('non_compete.compensation',{'amount':6000,'unit':'CNY/MONTH'},'每月补偿6000元。')]
+        if actual: vals.append(('non_compete.actual_access',True,'员工已掌握客户底价和源代码。'))
+        else: text=text.replace('员工已掌握客户底价和源代码。','')
+        if all_staff: vals.append(('non_compete.all_staff',True,'所有员工均须承担竞业限制。'))
+        else: text=text.replace('所有员工均须承担竞业限制。','')
+        cs=parse_contract_clauses(text)
+        monkeypatch.setattr(pipeline,'extract',lambda *a,**k:packet(cs,[fact(cs,c,v,q) for c,v,q in vals]))
+        monkeypatch.setattr(pipeline,'verify',verified_packet)
+>       result=review_contract_v2(text,'non_compete')
+
+backend\tests\test_noncompete_prerequisite_report.py:29: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\review_v2\engine.py:51677: in review_contract_v2
+    return run(contract_text, contract_type, _review_contract_v2_legacy, **options)
+backend\review_v2\employment_fact_pipeline.py:36: in run
+    extracted = FactStore(source, clauses, raw)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <review_v2.employment_fact_store.FactStore object at 0x000001DD4E3BF460>
+source = '竞业限制协议\n第一条\n双方约定离职竞业限制。\n适用人员为研发主管。岗位可以接触秘密。\n员工已掌握客户底价和源代码。\n第二条\n竞争业务为数据库软件，地域为杭州。\n第三条\n竞业期限为18个月。每月补偿6000元。\n第四条\n所有员工均须承担竞业限制。'
+clauses = [ParsedClause(clause_id='C0001', location='全文', title='全文', text='竞业限制协议', section_type='正式合同条款', level=0, raw_text='竞...ber='', item_number='', sentence_index=1, start_offset=105, end_offset=122, source_type='BODY', party_obligation=True)]
+raw = [{'response': {'schema_version': 'employment-facts-1.2', 'reviewed_clause_ids': ['C0001', 'C0002', 'C0003', 'C0004', '..., 'value': 18, 'confidence': 1, 'assertion': 'EXPLICIT', ...}, ...]}, 'provider': 'deepseek', 'model': 'test-fixture'}]
+
+    def __init__(self, source, clauses, raw):
+        self.source = source
+        self.clauses = clauses
+        self.raw = raw
+        self.hash = hashlib.sha256(source.encode()).hexdigest()
+        self.facts = []
+        self.coverage = {}
+        self.decisions = {}
+        self.by_id = {}
+        self.adverse_cache = {}
+        self.element_specs = deepcopy(ELEMENTS)
+        self.normalization_events = []
+        from review_v2.employment_fact_schema import NONCRITICAL_FACTS
+        self.validation_diagnostics = []
+        self.quarantined_concepts = set()
+        searched_concepts = set()
+        unresolved_concepts = set()
+        by_clause = {c.clause_id: c for c in clauses}
+        for packet_index, packet in enumerate(raw):
+            data = packet.get('response') if isinstance(packet, dict) else None
+            if not isinstance(data, dict):
+                self._schema_error('INVALID_FACT_ENVELOPE', 'response', data, 'object')
+            if data.get('schema_version') != SCHEMA_VERSION:
+                self._schema_error('SCHEMA_VERSION_MISMATCH', 'schema_version', data.get('schema_version'), SCHEMA_VERSION)
+            reviewed = data.get('reviewed_clause_ids')
+            if not isinstance(reviewed, list) or not all(isinstance(c,str) for c in reviewed) or set(reviewed) != set(by_clause):
+                self._schema_error('INCOMPLETE_FULL_TEXT_COVERAGE', 'reviewed_clause_ids', reviewed, sorted(by_clause))
+            coverage = data.get('coverage')
+            if 'searched_concepts' in data:
+                searched = data['searched_concepts']
+                uncertain = data.get('unresolved_concepts',[])
+                if not isinstance(searched,list) or not all(isinstance(c,str) and c in CONCEPTS for c in searched):
+                    self._schema_error('INVALID_SEARCH_SCOPE','searched_concepts',searched,sorted(CONCEPTS))
+                # Every topic batch reads the same full document. Cross-batch
+                # uncertainty is retained globally; unknown concepts still fail.
+                if not isinstance(uncertain,list) or not all(isinstance(c,str) and c in CONCEPTS for c in uncertain):
+                    self._schema_error('INVALID_UNRESOLVED_SCOPE','unresolved_concepts',uncertain,sorted(CONCEPTS))
+                searched_concepts.update(searched)
+                unresolved_concepts.update(uncertain)
+                coverage = {c:'UNCERTAIN' for c in searched}
+            if not isinstance(coverage, dict):
+                self._schema_error('INVALID_COVERAGE_TYPE', 'coverage', coverage, 'concept -> extraction status mapping')
+            self.coverage.update(coverage)
+            if not isinstance(data.get('facts'), list):
+                self._schema_error('INVALID_FACTS_TYPE', 'facts', data.get('facts'), 'array')
+            for index, fact in enumerate(data['facts']):
+                concept = fact.get('concept') if isinstance(fact, dict) else None
+                try:
+                    row = self._validate_fact(fact, by_clause, coverage)
+                except FactExtractionError as exc:
+                    for diagnostic in exc.diagnostics:
+                        diagnostic.update(fact_id=(fact.get('fact_id') if isinstance(fact,dict) else None) or f'candidate-{packet_index}-{index}',
+                                          concept=concept, model_raw_value=fact,
+                                          evidence=fact.get('evidence') if isinstance(fact,dict) else None)
+                        diagnostic.update(fact_key=concept,raw_value=fact.get('value') if isinstance(fact,dict) else fact,normalized_value=None,
+                            allowed_values=sorted(ENUMS[concept]) if concept in ENUMS else None,
+                            source_clause=[{'clause_id':e.get('clause_id'),'section':by_clause[e['clause_id']].location,'text':by_clause[e['clause_id']].text} for e in (fact.get('evidence',[]) if isinstance(fact,dict) else []) if isinstance(e,dict) and e.get('clause_id') in by_clause])
+                        if concept in NONCRITICAL_FACTS and diagnostic['failed_stage'] in {'NORMALIZATION','FACT_SCHEMA'}:
+                            diagnostic['disposition'] = 'QUARANTINE_AND_MANUAL_REVIEW'
+                            self.quarantined_concepts.add(concept)
+                        self.validation_diagnostics.append(diagnostic)
+                    continue
+                if row['fact_id'] not in self.by_id:
+                    self.facts.append(row)
+                    self.by_id[row['fact_id']] = row
+                else:
+                    previous = self.by_id[row['fact_id']]
+                    rank = lambda f: (f['assertion']=='EXPLICIT', f['confidence'])
+                    if rank(row) > rank(previous):
+                        # Identical value/source duplicates must not let an
+                        # earlier inferred or low-confidence record win by order.
+                        previous.update(row)
+        if set(self.coverage) != set(CONCEPTS):
+            self._schema_error('INCOMPLETE_CONCEPT_COVERAGE', 'coverage.keys', sorted(self.coverage), sorted(CONCEPTS))
+        for key, status in self.coverage.items():
+            if key in self.quarantined_concepts:
+                self.coverage[key] = 'UNCERTAIN'
+                continue
+            if key in searched_concepts:
+                rows = [f for f in self.facts if f['concept']==key]
+                self.coverage[key] = ('EXTRACTED' if any(f['assertion']=='EXPLICIT' and f['confidence']>=.75 for f in rows)
+                    else 'UNCERTAIN' if rows or key in unresolved_concepts else 'ABSENT')
+                continue
+            if isinstance(status,str) and status in ENUMS.get(key, set()) and any(f['concept']==key and f['normalized_value']==status for f in self.facts):
+                self.normalization_events.append({'concept':key,'field':'coverage','from':status,'to':'EXTRACTED'})
+                self.coverage[key] = status = 'EXTRACTED'
+            if status not in ('EXTRACTED','ABSENT','UNCERTAIN'):
+                self.validation_diagnostics.append(self._diagnostic('INVALID_EXTRACTION_COVERAGE', 'coverage.'+key, status, ['EXTRACTED','ABSENT','UNCERTAIN']))
+            elif status != 'UNCERTAIN' and (status == 'EXTRACTED') != any(f['concept'] == key for f in self.facts):
+                self.validation_diagnostics.append(self._diagnostic('CONTRADICTORY_EXTRACTION', 'coverage.'+key, status, 'EXTRACTED iff validated fact exists; otherwise ABSENT or UNCERTAIN'))
+        if any(d['disposition'] == 'BLOCK' for d in self.validation_diagnostics):
+            exc = FactExtractionError('FACT_STORE_VALIDATION_FAILED', diagnostics=self.validation_diagnostics)
+            exc.raw_output = raw
+>           raise exc
+E           review_v2.fact_validation.FactExtractionError: FACT_STORE_VALIDATION_FAILED: UNDEFINED_CALCULATION:non_compete.compensation; CONTRADICTORY_EXTRACTION
+
+backend\review_v2\employment_fact_store.py:222: FactExtractionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_noncompete_prerequisite_report.py::test_prerequisites_final_report[False-18-False-\u5f85\u6838\u9a8c]
+FAILED backend/tests/test_noncompete_prerequisite_report.py::test_prerequisites_final_report[True-18-False-\u901a\u8fc7]
+FAILED backend/tests/test_noncompete_prerequisite_report.py::test_prerequisites_final_report[True-30-False-\u98ce\u9669\u6761\u6b3e]
+FAILED backend/tests/test_noncompete_prerequisite_report.py::test_prerequisites_final_report[True-18-True-\u98ce\u9669\u6761\u6b3e]
+4 failed, 8 passed, 6 warnings in 26.57s

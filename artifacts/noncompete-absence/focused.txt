@@ -1,0 +1,82 @@
+....FF............                                                       [100%]
+================================== FAILURES ===================================
+_ test_states_and_nc_applicability[\u52b3\u52a8\u8005\u4fdd\u5b88\u79d8\u5bc6\u3002\u79bb\u804c\u540e\u4e8c\u5e74\u4e0d\u5f97\u4ece\u4e8b\u7ade\u4e89\u4e1a\u52a1\u3002-EXISTS-EXISTS] _
+
+text = '劳动者保守秘密。离职后二年不得从事竞争业务。', value = 'EXISTS', state = 'EXISTS'
+
+    @pytest.mark.parametrize('text,value,state',[
+     ('劳动者应保守商业秘密。',None,'NOT_FOUND'),
+     ('保密义务不得限制正常就业。',None,'NOT_FOUND'),
+     ('离职后二年不得从事竞争业务。','EXISTS','EXISTS'),
+     ('双方不设离职竞业限制。','EXPLICIT_NONE','EXPLICIT_NONE'),
+     ('劳动者保守秘密。离职后二年不得从事竞争业务。','EXISTS','EXISTS'),
+    ])
+    def test_states_and_nc_applicability(text,value,state):
+     cs=parse_contract_clauses(text)
+>    s=FactStore(text,cs,packet(cs,[fact(cs,KEY,value,text)] if value else []))
+
+backend\tests\test_noncompete_arrangement_states.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+clauses = [ParsedClause(clause_id='C0001', location='第1段', title='劳动者保守秘密。', text='劳动者保守秘密。', section_type='正式合同条款', level=0, ra...number='', item_number='', sentence_index=1, start_offset=8, end_offset=22, source_type='BODY', party_obligation=True)]
+concept = 'non_compete.arrangement', value = 'EXISTS'
+quote = '劳动者保守秘密。离职后二年不得从事竞争业务。'
+
+    def fact(clauses, concept, value, quote):
+>       c = next(c for c in clauses if quote in c.text)
+E       StopIteration
+
+backend\tests\test_employment_fact_pipeline.py:25: StopIteration
+______________ test_rejected_false_none_needs_full_search_proof _______________
+
+    def test_rejected_false_none_needs_full_search_proof():
+     text='保密不得妨碍正常就业。';cs=parse_contract_clauses(text)
+     s=FactStore(text,cs,packet(cs,[fact(cs,KEY,'NONE',text)]))
+     p=verified_packet(cs,s);p['verification']['checks'][0]['supported']=False
+     with pytest.raises(FactExtractionError,match='CORE_FACT_VERIFICATION_FAILED'):verified_store(s,p)
+     p['verification']['absence_audits']=[dict(concept=KEY,result='ABSENT',reason='全文仅有保密义务，没有离职从业限制。',reviewed_clause_ids=[c.clause_id for c in cs],searched_concepts=[KEY,*ABSENCE_SCOPES[KEY]])]
+     v=verified_store(s,p)
+>    assert v.values(KEY)==[]
+E    AssertionError: assert ['NOT_FOUND'] == []
+E      
+E      Left contains one more item: 'NOT_FOUND'
+E      Use -v to get more diff
+
+backend\tests\test_noncompete_arrangement_states.py:33: AssertionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_noncompete_arrangement_states.py::test_states_and_nc_applicability[\u52b3\u52a8\u8005\u4fdd\u5b88\u79d8\u5bc6\u3002\u79bb\u804c\u540e\u4e8c\u5e74\u4e0d\u5f97\u4ece\u4e8b\u7ade\u4e89\u4e1a\u52a1\u3002-EXISTS-EXISTS]
+FAILED backend/tests/test_noncompete_arrangement_states.py::test_rejected_false_none_needs_full_search_proof
+2 failed, 16 passed, 6 warnings in 6.72s

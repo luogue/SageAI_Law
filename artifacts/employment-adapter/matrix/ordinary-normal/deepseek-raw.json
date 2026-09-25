@@ -1,0 +1,840 @@
+[
+  {
+    "response": {
+      "schema_version": "employment-facts-1.0",
+      "reviewed_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009",
+        "C0010",
+        "C0011",
+        "C0012",
+        "C0013",
+        "C0014"
+      ],
+      "searched_concepts": [
+        "identity.employer_name",
+        "identity.employer_address",
+        "identity.worker_name",
+        "identity.worker_id",
+        "contract.type",
+        "contract.start_date",
+        "contract.end_date",
+        "contract.duration_months",
+        "contract.task",
+        "contract.task_end",
+        "probation.arrangement",
+        "probation.start_date",
+        "probation.end_date",
+        "probation.duration_months",
+        "probation.salary",
+        "probation.repeated",
+        "job.position",
+        "job.duties",
+        "job.locations",
+        "working_hours.system",
+        "working_hours.hours_per_day",
+        "working_hours.hours_per_week",
+        "working_hours.rest",
+        "working_hours.rest_days_per_week",
+        "working_hours.rest_waived",
+        "working_hours.overtime",
+        "salary.regular",
+        "salary.payment_date",
+        "salary.payment_method",
+        "salary.withheld_for_handover",
+        "social_insurance.employer_enrolls",
+        "social_insurance.employer_pays",
+        "social_insurance.employee_withheld",
+        "social_insurance.cash_replacement",
+        "social_insurance.waived"
+      ],
+      "unresolved_concepts": [],
+      "facts": [
+        {
+          "concept": "identity.employer_name",
+          "value": "青禾信息有限公司",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方：青禾信息有限公司，住所：本市创业路二号。"
+            }
+          ]
+        },
+        {
+          "concept": "identity.employer_address",
+          "value": "本市创业路二号",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方：青禾信息有限公司，住所：本市创业路二号。"
+            }
+          ]
+        },
+        {
+          "concept": "identity.worker_name",
+          "value": "林清",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "乙方：林清，身份证号码：11010119900101XXXX。"
+            }
+          ]
+        },
+        {
+          "concept": "identity.worker_id",
+          "value": "11010119900101XXXX",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "乙方：林清，身份证号码：11010119900101XXXX。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.type",
+          "value": "FIXED",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0011",
+              "quote": "本合同固定期限自2027年1月1日至2028年12月31日。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.start_date",
+          "value": "2027-01-01",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0011",
+              "quote": "本合同固定期限自2027年1月1日至2028年12月31日。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.end_date",
+          "value": "2028-12-31",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0011",
+              "quote": "本合同固定期限自2027年1月1日至2028年12月31日。"
+            }
+          ]
+        },
+        {
+          "concept": "probation.arrangement",
+          "value": "CURRENT",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0012",
+              "quote": "试用一个月。"
+            }
+          ]
+        },
+        {
+          "concept": "probation.duration_months",
+          "value": 1,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0012",
+              "quote": "试用一个月。"
+            }
+          ]
+        },
+        {
+          "concept": "probation.salary",
+          "value": {
+            "amount_text": "九千",
+            "unit": "CNY/MONTH",
+            "component": "TOTAL"
+          },
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0014",
+              "quote": "通常工资每月一万元，约定试用时试用工资九千元，每月五日银行支付。"
+            }
+          ]
+        },
+        {
+          "concept": "job.position",
+          "value": "资料分析员",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "岗位为资料分析员，负责整理档案，工作地点为公司办公地。"
+            }
+          ]
+        },
+        {
+          "concept": "job.duties",
+          "value": [
+            "整理档案"
+          ],
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "岗位为资料分析员，负责整理档案，工作地点为公司办公地。"
+            }
+          ]
+        },
+        {
+          "concept": "job.locations",
+          "value": [
+            "公司办公地"
+          ],
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "岗位为资料分析员，负责整理档案，工作地点为公司办公地。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.system",
+          "value": "STANDARD",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0013",
+              "quote": "实行标准工时每日八小时每周四十小时，周末休息，依法支付加班费。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.hours_per_day",
+          "value": 8,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0013",
+              "quote": "实行标准工时每日八小时每周四十小时，周末休息，依法支付加班费。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.hours_per_week",
+          "value": 40,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0013",
+              "quote": "实行标准工时每日八小时每周四十小时，周末休息，依法支付加班费。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.rest",
+          "value": "周末休息",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0013",
+              "quote": "实行标准工时每日八小时每周四十小时，周末休息，依法支付加班费。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.overtime",
+          "value": "STATUTORY",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0013",
+              "quote": "实行标准工时每日八小时每周四十小时，周末休息，依法支付加班费。"
+            }
+          ]
+        },
+        {
+          "concept": "salary.regular",
+          "value": {
+            "amount_text": "一万元",
+            "unit": "CNY/MONTH",
+            "component": "TOTAL"
+          },
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0014",
+              "quote": "通常工资每月一万元，约定试用时试用工资九千元，每月五日银行支付。"
+            }
+          ]
+        },
+        {
+          "concept": "salary.payment_date",
+          "value": "每月五日",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0014",
+              "quote": "通常工资每月一万元，约定试用时试用工资九千元，每月五日银行支付。"
+            }
+          ]
+        },
+        {
+          "concept": "salary.payment_method",
+          "value": "BANK",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0014",
+              "quote": "通常工资每月一万元，约定试用时试用工资九千元，每月五日银行支付。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.employer_enrolls",
+          "value": true,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0005",
+              "quote": "单位依法为劳动者办理社会保险并承担单位缴费，个人部分代扣代缴。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.employer_pays",
+          "value": true,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0005",
+              "quote": "单位依法为劳动者办理社会保险并承担单位缴费，个人部分代扣代缴。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.employee_withheld",
+          "value": true,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0005",
+              "quote": "单位依法为劳动者办理社会保险并承担单位缴费，个人部分代扣代缴。"
+            }
+          ]
+        }
+      ]
+    },
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 2491,
+      "completion_tokens": 1771,
+      "total_tokens": 4262,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664
+      },
+      "prompt_cache_hit_tokens": 1664,
+      "prompt_cache_miss_tokens": 827
+    },
+    "provider": "deepseek"
+  },
+  {
+    "response": {
+      "schema_version": "employment-facts-1.0",
+      "reviewed_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009",
+        "C0010",
+        "C0011",
+        "C0012",
+        "C0013",
+        "C0014"
+      ],
+      "searched_concepts": [
+        "social_insurance.employer_share_shifted",
+        "social_insurance.employer_underpays",
+        "social_insurance.employer_liability_excluded",
+        "social_insurance.employee_remedy_excluded",
+        "labor_protection.measures",
+        "labor_protection.training",
+        "labor_protection.hazard_exists",
+        "labor_protection.hazard_protection",
+        "training.arrangement",
+        "training.cost",
+        "training.duration_months",
+        "training.penalty_prorated",
+        "termination.grounds",
+        "termination.notice",
+        "termination.notice_days",
+        "termination.approval_required",
+        "termination.employee_right_waived",
+        "termination.employer_unrestricted",
+        "termination.handover",
+        "economic_compensation.statutory",
+        "economic_compensation.settlement_deadline",
+        "economic_compensation.waived",
+        "economic_compensation.reduced",
+        "economic_compensation.statutory_percentage",
+        "economic_compensation.payment_delay_months",
+        "dispute.arbitration",
+        "penalties.obligations",
+        "non_compete.arrangement",
+        "non_compete.personnel",
+        "non_compete.secret_access",
+        "non_compete.businesses",
+        "non_compete.territories",
+        "non_compete.duration_months",
+        "non_compete.compensation",
+        "non_compete.compensation_deferred"
+      ],
+      "unresolved_concepts": [],
+      "facts": [
+        {
+          "concept": "social_insurance.employer_share_shifted",
+          "value": false,
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0005",
+              "quote": "单位依法为劳动者办理社会保险并承担单位缴费，个人部分代扣代缴。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.employer_underpays",
+          "value": false,
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0005",
+              "quote": "单位依法为劳动者办理社会保险并承担单位缴费，个人部分代扣代缴。"
+            }
+          ]
+        },
+        {
+          "concept": "labor_protection.measures",
+          "value": "单位提供劳动保护、安全卫生制度",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0006",
+              "quote": "单位提供劳动保护、安全卫生制度并组织安全培训，本岗位无职业病危害因素。"
+            }
+          ]
+        },
+        {
+          "concept": "labor_protection.training",
+          "value": true,
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0006",
+              "quote": "单位提供劳动保护、安全卫生制度并组织安全培训，本岗位无职业病危害因素。"
+            }
+          ]
+        },
+        {
+          "concept": "labor_protection.hazard_exists",
+          "value": false,
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0006",
+              "quote": "单位提供劳动保护、安全卫生制度并组织安全培训，本岗位无职业病危害因素。"
+            }
+          ]
+        },
+        {
+          "concept": "training.arrangement",
+          "value": "NONE",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0007",
+              "quote": "未约定专项培训服务期，不设置离职竞业限制。"
+            }
+          ]
+        },
+        {
+          "concept": "termination.grounds",
+          "value": [
+            "解除终止依法律规定"
+          ],
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "解除终止依法律规定，依法支付应付经济补偿，离职时结清已挣得工资。"
+            }
+          ]
+        },
+        {
+          "concept": "termination.handover",
+          "value": "离职时结清已挣得工资",
+          "confidence": 0.9,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "解除终止依法律规定，依法支付应付经济补偿，离职时结清已挣得工资。"
+            }
+          ]
+        },
+        {
+          "concept": "economic_compensation.statutory",
+          "value": "依法支付应付经济补偿",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "解除终止依法律规定，依法支付应付经济补偿，离职时结清已挣得工资。"
+            }
+          ]
+        },
+        {
+          "concept": "economic_compensation.settlement_deadline",
+          "value": "离职时结清已挣得工资",
+          "confidence": 0.9,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "解除终止依法律规定，依法支付应付经济补偿，离职时结清已挣得工资。"
+            }
+          ]
+        },
+        {
+          "concept": "dispute.arbitration",
+          "value": true,
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0010",
+              "quote": "争议依法申请劳动仲裁。"
+            }
+          ]
+        },
+        {
+          "concept": "non_compete.arrangement",
+          "value": "NONE",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0007",
+              "quote": "未约定专项培训服务期，不设置离职竞业限制。"
+            }
+          ]
+        }
+      ]
+    },
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 2807,
+      "completion_tokens": 1147,
+      "total_tokens": 3954,
+      "prompt_tokens_details": {
+        "cached_tokens": 2048
+      },
+      "prompt_cache_hit_tokens": 2048,
+      "prompt_cache_miss_tokens": 759
+    },
+    "provider": "deepseek"
+  },
+  {
+    "response": {
+      "schema_version": "employment-facts-1.0",
+      "reviewed_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009",
+        "C0010",
+        "C0011",
+        "C0012",
+        "C0013",
+        "C0014"
+      ],
+      "searched_concepts": [
+        "non_compete.compensation_waived",
+        "non_compete.all_staff",
+        "ip.assignment_scope",
+        "ip.allocations",
+        "ip.personal_rights_waived",
+        "contract.employment_form",
+        "dispatch.agency",
+        "dispatch.host",
+        "dispatch.position",
+        "dispatch.period",
+        "dispatch.position_basis",
+        "dispatch.long_term_position",
+        "dispatch.temporary_duration_months",
+        "dispatch.equal_pay",
+        "dispatch.idle_pay",
+        "dispatch.worker_charges",
+        "dispatch.return_procedure",
+        "dispatch.reassignment_procedure",
+        "dispatch.refusal_termination",
+        "dispatch.refusal_compensation_waived",
+        "dispatch.host_direct_dismissal",
+        "dispatch.agreement_disclosure",
+        "dispatch.agency_obligations",
+        "dispatch.host_obligations",
+        "dispatch.obligations_waived",
+        "contract.term_limit_mode",
+        "contract.term_limit_date",
+        "contract.term_limit_months",
+        "capability.ground",
+        "capability.training",
+        "capability.reassignment",
+        "capability.reassessment",
+        "capability.notice",
+        "capability.compensation",
+        "working_hours.days_per_week"
+      ],
+      "unresolved_concepts": [],
+      "facts": [
+        {
+          "concept": "ip.assignment_scope",
+          "value": "DUTY_OR_RESOURCES",
+          "confidence": 0.9,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "职务成果依法律确定，劳动者入职前成果及无关个人成果仍归本人。"
+            }
+          ]
+        },
+        {
+          "concept": "ip.allocations",
+          "value": {
+            "scope": "DUTY_OR_RESOURCES",
+            "beneficiary": "UNSPECIFIED",
+            "mode": "STATUTORY"
+          },
+          "confidence": 0.9,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "职务成果依法律确定，劳动者入职前成果及无关个人成果仍归本人。"
+            }
+          ]
+        },
+        {
+          "concept": "ip.allocations",
+          "value": {
+            "scope": "PRE_EXISTING",
+            "beneficiary": "EMPLOYEE",
+            "mode": "AUTOMATIC"
+          },
+          "confidence": 0.9,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "职务成果依法律确定，劳动者入职前成果及无关个人成果仍归本人。"
+            }
+          ]
+        },
+        {
+          "concept": "ip.allocations",
+          "value": {
+            "scope": "NON_DUTY",
+            "beneficiary": "EMPLOYEE",
+            "mode": "AUTOMATIC"
+          },
+          "confidence": 0.9,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "职务成果依法律确定，劳动者入职前成果及无关个人成果仍归本人。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.employment_form",
+          "value": "DIRECT",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0001",
+              "quote": "普通劳动合同"
+            },
+            {
+              "clause_id": "C0002",
+              "quote": "甲方：青禾信息有限公司，住所：本市创业路二号。"
+            },
+            {
+              "clause_id": "C0003",
+              "quote": "乙方：林清，身份证号码：11010119900101XXXX。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.term_limit_mode",
+          "value": "CALENDAR_EXPIRY",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0011",
+              "quote": "本合同固定期限自2027年1月1日至2028年12月31日。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.term_limit_date",
+          "value": "2028-12-31",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0011",
+              "quote": "本合同固定期限自2027年1月1日至2028年12月31日。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.days_per_week",
+          "value": 5,
+          "confidence": 0.9,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0013",
+              "quote": "实行标准工时每日八小时每周四十小时，周末休息，依法支付加班费。"
+            }
+          ]
+        }
+      ]
+    },
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 3297,
+      "completion_tokens": 919,
+      "total_tokens": 4216,
+      "prompt_tokens_details": {
+        "cached_tokens": 2432
+      },
+      "prompt_cache_hit_tokens": 2432,
+      "prompt_cache_miss_tokens": 865
+    },
+    "provider": "deepseek"
+  },
+  {
+    "response": {
+      "schema_version": "employment-facts-1.0",
+      "reviewed_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009",
+        "C0010",
+        "C0011",
+        "C0012",
+        "C0013",
+        "C0014"
+      ],
+      "searched_concepts": [
+        "salary.cycle_kind",
+        "salary.cycle_days",
+        "part_time.hourly_minimum",
+        "part_time.injury_insurance",
+        "part_time.employee_notice_days",
+        "part_time.employer_notice_days",
+        "part_time.exit_approval"
+      ],
+      "unresolved_concepts": [],
+      "facts": [
+        {
+          "concept": "salary.cycle_kind",
+          "value": "MONTHLY",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0014",
+              "quote": "通常工资每月一万元，约定试用时试用工资九千元，每月五日银行支付。"
+            }
+          ]
+        }
+      ]
+    },
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 1781,
+      "completion_tokens": 212,
+      "total_tokens": 1993,
+      "prompt_tokens_details": {
+        "cached_tokens": 1024
+      },
+      "prompt_cache_hit_tokens": 1024,
+      "prompt_cache_miss_tokens": 757
+    },
+    "provider": "deepseek"
+  }
+]

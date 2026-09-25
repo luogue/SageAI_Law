@@ -1,0 +1,103 @@
+.....................................................................F.. [ 86%]
+........FF.                                                              [100%]
+================================== FAILURES ===================================
+___ test_existing_adverse_third_party_allocation_is_not_treated_as_missing ____
+
+secret_transfer_text = '技术转让（技术秘密）合同\n合同编号：TS-2026-0831-001\n项目名称：新能源汽车电池模组智能热管理控制技术转让项目\n受让方（甲方）：苏州恒锐新能源科技有限公司\n让与方（乙方）：上海凌川智能科技有限公司\n签订时间：2...n本合同自双方签字盖章之日起生效。\n甲方：苏州恒锐新能源科技有限公司\n法定代表人/授权代表：张伟\n签署日期：2026年10月20日\n乙方：上海凌川智能科技有限公司\n法定代表人/授权代表：陈宇\n签署日期：2026年10月20日'
+secret_transfer_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_existing_adverse_third_party_allocation_is_not_treated_as_missing(
+        secret_transfer_text: str,
+        secret_transfer_review: dict,
+    ):
+        claim = build_technology_fact_registry(secret_transfer_text)["third_party_claim"]
+        by_id = {row["item_id"]: row for row in secret_transfer_review["items"]}
+        claim_elements = {
+            row["element_id"]: row for row in by_id["TC-12-02"]["coverage_elements"]
+        }
+    
+        assert claim["authority_warranty"] is True
+        assert claim["claim_trigger"] is True
+>       assert claim["claim_assistance"] is True
+E       assert False is True
+
+backend\tests\test_technical_secret_transfer_contract_review.py:85: AssertionError
+__ test_acceptance_test_attachment_is_fact_activated_and_theme_deduplicated ___
+
+secret_transfer_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_acceptance_test_attachment_is_fact_activated_and_theme_deduplicated(
+        secret_transfer_review: dict,
+    ):
+        by_id = {row["item_id"]: row for row in secret_transfer_review["items"]}
+        attachment = by_id["TC-13-03"]
+        theme = next(
+            row for row in secret_transfer_review["risk_themes"]
+            if "TC-13-03" in row["source_rule_ids"]
+        )
+    
+        assert attachment["coverage_status"] == "部分覆盖"
+        assert attachment["risk_level"] == "低"
+        assert attachment["action_priority"] == "C_OPTIMIZATION"
+        assert set(theme["source_rule_ids"]) == {"TC-09-02", "TC-13-03"}
+        # The shared liability-cap validity and excessive-liquidated-damages
+        # screens are independently evidenced in this fixture as well.
+>       assert secret_transfer_review["risk_theme_count"] == 13
+E       assert 17 == 13
+
+backend\tests\test_technical_secret_transfer_contract_review.py:290: AssertionError
+______ test_acceptance_test_attachment_narrative_has_complete_sentences _______
+
+secret_transfer_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_acceptance_test_attachment_narrative_has_complete_sentences(
+        secret_transfer_review: dict,
+    ):
+        attachment = next(
+            row for row in secret_transfer_review["items"]
+            if row["item_id"] == "TC-13-03"
+        )
+        report = secret_transfer_review["result"]
+        narrative = attachment["decision_trace"]["narrative_elements"]
+    
+>       assert "测试争议的复测机制未明确。" in narrative["judgment"]
+E       AssertionError: assert '测试争议的复测机制未明确。' in '已覆盖：合同第十二条已明确验收场景和基本标准；合同第一条和验收条款已列明客观技术指标；测试设备和环境条件；尚未覆盖：独立验收测试方案附件；测试方法和操作步骤；固定测试数据集或样本；统计口径；测试记录和签认要求；争议复测或第三方检测机制。'
+
+backend\tests\test_technical_secret_transfer_contract_review.py:304: AssertionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:159
+  F:\ai\Sage\backend\main.py:159: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_technical_secret_transfer_contract_review.py::test_existing_adverse_third_party_allocation_is_not_treated_as_missing
+FAILED backend/tests/test_technical_secret_transfer_contract_review.py::test_acceptance_test_attachment_is_fact_activated_and_theme_deduplicated
+FAILED backend/tests/test_technical_secret_transfer_contract_review.py::test_acceptance_test_attachment_narrative_has_complete_sentences
+3 failed, 80 passed, 5 warnings in 43.85s

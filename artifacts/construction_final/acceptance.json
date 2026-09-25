@@ -1,0 +1,33 @@
+{
+  "release_quality_gate": "PASSED",
+  "scope": "建设工程本轮验收及既有建设工程回归；不代表其他合同域的全项目发布验收",
+  "engine_protocol_status": "REPORT_READY",
+  "checks": {
+    "52_statuses_closed": true,
+    "summary_recalculable": true,
+    "external_fact_consistency": true,
+    "permit_optional_only": true,
+    "pass_evidence_semantics_and_location": true,
+    "completion_direct_location": true,
+    "risk_direct_evidence": true,
+    "previous_cross_clause_regressions": true,
+    "previous_negation_regressions": true,
+    "engine_release_gate": true,
+    "api_audit_preserved": true,
+    "construction_regression_tests": true
+  },
+  "tests_passed": 89,
+  "tests_failed": [],
+  "coverage_summary": {
+    "通过": 35,
+    "待核验": 6,
+    "缺失": 3,
+    "法律提示": 7,
+    "部分覆盖": 1
+  },
+  "manual_review_count": 6,
+  "model_sources": {
+    "llm": 43,
+    "rule_fallback": 9
+  }
+}

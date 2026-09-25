@@ -1,0 +1,83 @@
+{
+  "checks": [
+    {
+      "key": "broad_geography",
+      "status": "REVIEW_REQUIRED",
+      "message": "竞业地域约定较宽（全国范围）；缺少相应实际经营地域或秘密接触范围的支持事实，需结合劳动者岗位核验必要性和合理性。",
+      "evidence": [
+        {
+          "clause_id": "C0029",
+          "location": "第4项",
+          "text": "本协议项下，乙方应履行竞业限制的地域范围为：中华人民共和国全国范围",
+          "quote": "本协议项下，乙方应履行竞业限制的地域范围为：中华人民共和国全国范围",
+          "source_start": 4,
+          "source_end": 37,
+          "source_type": "CONTRACT_TEXT"
+        }
+      ],
+      "supporting_business": false,
+      "supporting_secrets": false,
+      "justification": false
+    },
+    {
+      "key": "duration_compensation",
+      "status": "REVIEW_REQUIRED",
+      "message": "竞业期限为24个月，月补偿比例为30%；需核验补偿水平是否与期限及限制强度匹配。",
+      "evidence": [
+        {
+          "clause_id": "C0003",
+          "location": "1.1",
+          "text": "指自甲方和乙方任何一方与对方终止或解除劳动合同（不论终止或解除的理由）之日起的 2年内，乙方不得自营或为他人经营与公司有竞争的业务",
+          "expression": "2年",
+          "role": "NONCOMPETE_DURATION",
+          "source_start": 51,
+          "source_end": 53
+        },
+        {
+          "clause_id": "C0032",
+          "location": "第5项",
+          "text": "经济补偿金为乙方离职前12个月月平均工资的 30%，即每月 人民币9,600元，且该金额不得低于劳动合同履行地最低工资标准",
+          "quote": "经济补偿金为乙方离职前12个月月平均工资的 30%，即每月 人民币9,600元，且该金额不得低于劳动合同履行地最低工资标准",
+          "source_start": 92,
+          "source_end": 153,
+          "source_type": "CONTRACT_TEXT"
+        }
+      ],
+      "duration_months": 24.0,
+      "compensation_percent": 30.0,
+      "legal_basis": "《企业实施竞业限制合规指引》：超过1年月补偿一般不宜低于离职前12个月平均工资50%；属于合规审查基准，不自动认定无效。"
+    },
+    {
+      "key": "early_termination_compensation",
+      "status": "REVIEW_REQUIRED",
+      "message": "协议允许单位提前解除，但未明确额外补偿责任。须区分已履行期间正常补偿、解除后的未来普通补偿与额外补偿；履行期间单位解除时应核对劳动者请求额外三个月补偿的权利，通知期不能替代该责任。",
+      "evidence": [
+        {
+          "clause_id": "C0038",
+          "location": "第6项",
+          "text": "乙方履行离职后竞业限制义务期间，甲方经评定后认为无需乙方继续履行竞业限制义务的，经甲方提前 1个月 书面通知乙方后，甲方可解除本协议",
+          "quote": "乙方履行离职后竞业限制义务期间，甲方经评定后认为无需乙方继续履行竞业限制义务的，经甲方提前 1个月 书面通知乙方后，甲方可解除本协议",
+          "source_start": 4,
+          "source_end": 70,
+          "source_type": "CONTRACT_TEXT"
+        }
+      ],
+      "legal_basis": "《劳动争议司法解释（一）》第39条：竞业履行期间单位请求解除，劳动者请求额外支付三个月竞业经济补偿的，人民法院应予支持。",
+      "nature": "LEGAL_NOTICE_NOT_AUTOMATIC_ILLEGALITY"
+    }
+  ],
+  "duration_months": 24.0,
+  "compensation_percent": 30.0,
+  "early_termination_evidence": [
+    {
+      "clause_id": "C0038",
+      "location": "第6项",
+      "text": "乙方履行离职后竞业限制义务期间，甲方经评定后认为无需乙方继续履行竞业限制义务的，经甲方提前 1个月 书面通知乙方后，甲方可解除本协议",
+      "quote": "乙方履行离职后竞业限制义务期间，甲方经评定后认为无需乙方继续履行竞业限制义务的，经甲方提前 1个月 书面通知乙方后，甲方可解除本协议",
+      "source_start": 4,
+      "source_end": 70,
+      "source_type": "CONTRACT_TEXT"
+    }
+  ],
+  "extra_compensation_evidence": []
+}

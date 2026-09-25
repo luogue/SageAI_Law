@@ -1,0 +1,1831 @@
+{
+  "baseline": {
+    "PASS": 893,
+    "FAIL": 252
+  },
+  "counts": {
+    "PASS": 904,
+    "FAIL": 251,
+    "SKIP": 0
+  },
+  "comparison": {
+    "recovered": [
+      "backend.tests.test_technical_secret_transfer_contract_review::test_full_report_uses_secret_transfer_role_and_non_patent_proof_semantics"
+    ],
+    "newly_failing": [],
+    "removed": [],
+    "added": {
+      "backend.tests.test_transfer_ancillary_upload_closure::test_both_parties_explicit_confidentiality_remedies_remain_covered": "PASS",
+      "backend.tests.test_transfer_ancillary_upload_closure::test_derived_risk_must_publish_calculation_element_ownership[payment_formula_inconsistency]": "PASS",
+      "backend.tests.test_transfer_ancillary_upload_closure::test_derived_risk_must_publish_calculation_element_ownership[technical_timeline_conflict]": "PASS",
+      "backend.tests.test_transfer_ancillary_upload_closure::test_mixed_liability_article_does_not_inherit_confidentiality_trigger[\\u4e59\\u65b9\\u8fdd\\u7ea6\\u7684\\u8d54\\u507f\\u603b\\u989d\\u4ee5\\u5408\\u540c\\u4ef7\\u6b3e20%\\u4e3a\\u9650\\u3002]": "PASS",
+      "backend.tests.test_transfer_ancillary_upload_closure::test_mixed_liability_article_does_not_inherit_confidentiality_trigger[\\u7532\\u65b9\\u8fdd\\u53cd\\u5b9e\\u65bd\\u8303\\u56f4\\u6216\\u8005\\u64c5\\u81ea\\u8f6c\\u8ba9\\u6280\\u672f\\u79d8\\u5bc6\\u7684\\uff0c\\u652f\\u4ed8\\u8f6c\\u8ba9\\u8d3950%\\u7684\\u8fdd\\u7ea6\\u91d1\\u3002]": "PASS",
+      "backend.tests.test_transfer_ancillary_upload_closure::test_original_ancillary_upload_is_ready_and_retains_actual_risks": "PASS",
+      "backend.tests.test_transfer_ancillary_upload_closure::test_original_fee_does_not_infer_included_total_price": "PASS",
+      "backend.tests.test_transfer_ancillary_upload_closure::test_review_exact_mapping_rejects_removed_proof[GEN-LIAB-02]": "PASS",
+      "backend.tests.test_transfer_ancillary_upload_closure::test_review_exact_mapping_rejects_removed_proof[GEN-LIAB-03]": "PASS",
+      "backend.tests.test_transfer_ancillary_upload_closure::test_review_exact_mapping_rejects_removed_proof[TC-06-02]": "PASS"
+    }
+  },
+  "test_migrations": 0,
+  "business_modules": {
+    "backend/review_v2/engine.py": "78ea074d743cd58d2a653978c721dc8ab8e451bbd76136213fba49d93bfd7b8b",
+    "backend/review_v2/confidentiality_remedies.py": "d9d93f53a6672454275fb479e456bc10f88dcbb810ac23bd16ce74072e349e08"
+  },
+  "protections": {
+    "remaining_five": {
+      "backend.tests.test_technical_secret_license_contract_review::test_case_i_j_confidentiality_balance_is_directional": "PASS",
+      "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_confidentiality_consumes_cross_article_facts": "PASS",
+      "backend.tests.test_technical_secret_license_contract_review::test_over_scope_liability_b_existing_clause_is_not_missing": "PASS",
+      "backend.tests.test_technical_secret_transfer_contract_review::test_ancillary_service_fee_keeps_covered_base_and_only_reports_excess_fee_gaps": "PASS",
+      "backend.tests.test_technical_service_dynamic_roles_and_grounding::test_service_provider_does_not_receive_counterparty_liability_cap_risk": "PASS"
+    },
+    "protected_twenty_one": {
+      "backend.tests.test_current_patent_license_evidence_recall::test_patent_identity_and_support_reuse_direct_source_facts": "PASS",
+      "backend.tests.test_patent_application_transfer_consistency::test_claim_liability_reuses_seller_responsibility": "PASS",
+      "backend.tests.test_patent_application_transfer_consistency::test_completed_core_becomes_pass_without_fabricated_gap_or_exposure": "PASS",
+      "backend.tests.test_patent_application_transfer_consistency::test_duty_and_non_duty_have_separate_triggers": "PASS",
+      "backend.tests.test_patent_application_transfer_consistency::test_warranty_is_not_demoted_by_missing_proof_documents": "PASS",
+      "backend.tests.test_patent_license_theme_recommendation_economics::test_all_confirmed_competition_restrictions_have_recommendation_fragments": "PASS",
+      "backend.tests.test_patent_license_theme_recommendation_economics::test_compound_advice_is_semantic_not_rule_id_or_fixed_duration[GENERIC-RESTRICTION-7]": "PASS",
+      "backend.tests.test_patent_license_theme_recommendation_economics::test_compound_advice_is_semantic_not_rule_id_or_fixed_duration[OTHER-REVIEW-2]": "PASS",
+      "backend.tests.test_technical_consulting_contract_review::test_complete_consulting_data_provision_is_pass": "PASS",
+      "backend.tests.test_technical_consulting_contract_review::test_consulting_elements_and_evidence_are_status_separated_and_contract_grounded": "PASS",
+      "backend.tests.test_technical_consulting_contract_review::test_consulting_signing_law_context_is_not_false_positive": "PASS",
+      "backend.tests.test_technical_consulting_contract_review::test_consulting_subtype_is_inferred_from_transaction_substance_without_explicit_title": "PASS",
+      "backend.tests.test_technical_consulting_contract_review::test_consulting_tc08_rules_and_direct_evidence": "PASS",
+      "backend.tests.test_technical_consulting_contract_review::test_production_file_endpoint_uses_active_consulting_evidence_implementation": "PASS",
+      "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_compliant_use_infringement_liability_is_covered": "PASS",
+      "backend.tests.test_technical_secret_transfer_contract_review::test_service_fee_and_confidentiality_use_only_direct_operational_clauses": "PASS",
+      "backend.tests.test_technical_service_latest_shared_fact_regressions::test_party_direction_and_finding_consistency_are_enforced": "PASS",
+      "backend.tests.test_technology_license_final_precision::test_tc_12_04_requires_same_loss_general_remedy_before_activation": "PASS",
+      "backend.tests.test_technology_license_scenario_interest_isolation::test_d_party_interest_check_distinguishes_uncapped_and_low_capped_licensor_liability": "PASS",
+      "backend.tests.test_technology_pass_semantic_sources::test_negative_rule_requires_reproduced_complete_adverse_search[\\u7b2c\\u4e09\\u65b9\\u63d0\\u51fa\\u4fb5\\u6743\\u4e3b\\u5f20\\u65f6\\uff0c\\u4e59\\u65b9\\u5e94\\u5904\\u7406\\u7ea0\\u7eb7\\u3002-True-REPORT_READY]": "PASS",
+      "backend.tests.test_technology_subject_identity_consistency::test_current_application_identity_uses_basic_information_and_definition": "PASS"
+    },
+    "prior_eight": {
+      "backend.tests.test_current_patent_license_evidence_recall::test_infringement_remedy_coordination_ignores_unrelated_payment_penalty": "PASS",
+      "backend.tests.test_entrusted_cross_rule_consistency::test_completed_negative_check_does_not_leave_an_obsolete_manual_review": "PASS",
+      "backend.tests.test_entrusted_development_fact_direction_regressions::test_complete_source_delivery_is_checked_against_unilateral_carveout": "PASS",
+      "backend.tests.test_entrusted_development_fact_direction_regressions::test_complex_project_short_deemed_acceptance_preserves_latent_defect_review": "PASS",
+      "backend.tests.test_entrusted_development_fact_direction_regressions::test_development_failure_full_price_exposure_is_direct_and_quantified": "PASS",
+      "backend.tests.test_entrusted_development_fact_direction_regressions::test_existing_failure_allocation_is_covered_adverse_not_missing": "PASS",
+      "backend.tests.test_entrusted_development_fact_direction_regressions::test_project_contact_material_change_authority_is_adverse": "PASS",
+      "backend.tests.test_entrusted_development_fact_direction_regressions::test_secondary_data_use_is_an_independent_adverse_risk": "PASS"
+    },
+    "prior_twenty_two": {
+      "backend.tests.test_technology_verified_decision_boundary::test_canonical_penalty_rekey_preserves_exact_binding_contract": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_confidentiality_undertaking_is_only_applicability_not_breach_liability": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_general_liability_allocation_does_not_establish_concrete_damage_items": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_generic_confidentiality_claim_reuses_scope_and_obligation_sources": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_liability_cap_does_not_replace_explicit_claim_handler": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_material_delivery_uses_same_document_taxonomy_as_scope[\\u8bb8\\u53ef\\u65b9\\u5e94\\u4ea4\\u4ed8\\u8bbe\\u8ba1\\u56fe\\u7eb8\\u548c\\u64cd\\u4f5c\\u624b\\u518c\\u3002-True]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_material_delivery_uses_same_document_taxonomy_as_scope[\\u8bb8\\u53ef\\u65b9\\u5e94\\u63d0\\u4ea4\\u7535\\u6c14\\u539f\\u7406\\u56fe\\u548c\\u7ef4\\u4fee\\u624b\\u518c\\u3002-True]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_material_delivery_uses_same_document_taxonomy_as_scope[\\u8bb8\\u53ef\\u65b9\\u63d0\\u4f9b\\u7684\\u64cd\\u4f5c\\u624b\\u518c\\u53d1\\u751f\\u9519\\u8bef\\u65f6\\u5e94\\u627f\\u62c5\\u8d54\\u507f\\u8d23\\u4efb\\u3002-False]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_negative_audit_requires_reproducible_predicate_and_full_corpus[contrary_clause]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_negative_audit_requires_reproducible_predicate_and_full_corpus[incomplete_scope]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_negative_audit_requires_reproducible_predicate_and_full_corpus[wrong_predicate]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_negative_search_is_not_replaced_by_checkpoint_display_metadata[TC-02-02]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_negative_search_is_not_replaced_by_checkpoint_display_metadata[TC-10-04]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_owner_declaration_is_identity_not_document_availability[\\u7532\\u65b9\\u4e0d\\u662f\\u8be5\\u9879\\u6280\\u672f\\u7684\\u4e13\\u5229\\u6743\\u4eba\\u3002-False]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_owner_declaration_is_identity_not_document_availability[\\u7532\\u65b9\\u58f0\\u660e\\u662f\\u8be5\\u9879\\u6280\\u672f\\u7684\\u4e13\\u5229\\u6743\\u4eba\\u3002-True]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_owner_declaration_is_identity_not_document_availability[\\u7532\\u65b9\\u5982\\u4e3a\\u4e13\\u5229\\u6743\\u4eba\\uff0c\\u5e94\\u63d0\\u4f9b\\u8bc1\\u4e66\\u3002-False]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_owner_declaration_is_identity_not_document_availability[\\u8bb8\\u53ef\\u65b9\\u786e\\u8ba4\\u5176\\u4e3a\\u8bb8\\u53ef\\u6807\\u7684\\u7684\\u5408\\u6cd5\\u4e13\\u5229\\u6743\\u4eba\\u3002-True]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_patent_identity_absence_query_is_field_specific": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_rejected_positive_element_cannot_be_restored_from_specialized_snapshot": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_replaying_completed_negative_search_is_idempotent": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_trigger_party_does_not_own_later_provider_response[\\u4e70\\u65b9\\u906d\\u5230\\u7b2c\\u4e09\\u4eba\\u7d22\\u8d54\\u7684\\uff0c\\u5356\\u65b9\\u5e94\\u8d1f\\u8d23\\u5904\\u7406\\u5e76\\u627f\\u62c5\\u5408\\u7406\\u635f\\u5931\\u3002]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_trigger_party_does_not_own_later_provider_response[\\u63a5\\u53d7\\u65b9\\u6309\\u7ea6\\u5b9e\\u65bd\\u906d\\u9047\\u7b2c\\u4e09\\u65b9\\u4fb5\\u6743\\u4e3b\\u5f20\\u65f6\\uff0c\\u8bb8\\u53ef\\u65b9\\u5e94\\u8d1f\\u8d23\\u5e94\\u8bc9\\u5e76\\u627f\\u62c5\\u76f8\\u5e94\\u4fb5\\u6743\\u8d23\\u4efb\\u3002]": "PASS"
+    },
+    "prior_sixteen": {
+      "backend.tests.test_consulting_verified_fact_projection::test_canonical_sources_survive_projection_and_independent_verification[consulting_quality-\\u4e59\\u65b9\\u5bf9\\u7cfb\\u7edf\\u67b6\\u6784\\u8fdb\\u884c\\u5206\\u6790\\u8bc4\\u4f30\\u3002\\u54a8\\u8be2\\u62a5\\u544a\\u5e94\\u5305\\u62ec\\u98ce\\u9669\\u5206\\u6790\\u3002\\u4e59\\u65b9\\u63d0\\u4ea4\\u7eb8\\u8d28\\u54a8\\u8be2\\u62a5\\u544a\\u3002\\u54a8\\u8be2\\u62a5\\u544a\\u5e94\\u5b8c\\u6574\\u8986\\u76d6\\u7ea6\\u5b9a\\u5185\\u5bb9\\u3002-4]": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_canonical_sources_survive_projection_and_independent_verification[consulting_inputs-\\u7532\\u65b9\\u63d0\\u4f9b\\u7cfb\\u7edf\\u67b6\\u6784\\u56fe\\u548c\\u6027\\u80fd\\u6570\\u636e\\uff0c\\u5b89\\u6392\\u4eba\\u5458\\u8bbf\\u8c08\\u53ca\\u6d4b\\u8bd5\\u73af\\u5883\\u3002\\u7532\\u65b9\\u4fdd\\u8bc1\\u8d44\\u6599\\u771f\\u5b9e\\u3001\\u5b8c\\u6574\\uff0c\\u5e76\\u901a\\u8fc7\\u52a0\\u5bc6\\u7535\\u5b50\\u6587\\u4ef6\\u65b9\\u5f0f\\u63d0\\u4ea4\\u3002-4]": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_canonical_sources_survive_projection_and_independent_verification[consulting_remedy-\\u54a8\\u8be2\\u6210\\u679c\\u4e0d\\u7b26\\u5408\\u7ea6\\u5b9a\\u7684\\uff0c\\u4e59\\u65b9\\u5e94\\u5728\\u5408\\u7406\\u671f\\u9650\\u5185\\u514d\\u8d39\\u4fee\\u6539\\u3002-3]": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_related_heading_and_other_obligation_do_not_prove_consulting_elements[consulting_quality]": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_related_heading_and_other_obligation_do_not_prove_consulting_elements[consulting_inputs]": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_related_heading_and_other_obligation_do_not_prove_consulting_elements[consulting_remedy]": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_exact_report_id_does_not_get_shadowed_by_clause_id_in_advice": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_inline_article_payload_reaches_the_same_fact_predicate": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_explicit_mutual_undertaking_is_not_an_unidentified_party_group": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_response_projection_uses_original_not_reparsed_clause_identity": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_application_representations_are_not_inferred_from_future_materials[\\u5356\\u65b9\\u4fdd\\u8bc1\\u5df2\\u7ecf\\u53d6\\u5f97\\u5168\\u90e8\\u7814\\u53d1\\u4eba\\u5458\\u804c\\u52a1\\u6210\\u679c\\u5f52\\u5c5e\\u7684\\u5185\\u90e8\\u6587\\u4ef6\\u3002-True]": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_application_representations_are_not_inferred_from_future_materials[\\u5356\\u65b9\\u5e94\\u5f53\\u4eca\\u540e\\u63d0\\u4f9b\\u7814\\u53d1\\u4eba\\u5458\\u8eab\\u4efd\\u6750\\u6599\\u3002-False]": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_service_subject_candidates_retain_performance_not_remedy_sources[\\u4e59\\u65b9\\u901a\\u8fc7\\u7cfb\\u7edf\\u5206\\u6790\\u548c\\u53c2\\u6570\\u8c03\\u8bd5\\u63d0\\u4f9b\\u6280\\u672f\\u670d\\u52a1\\uff0c\\u5e76\\u63d0\\u4ea4\\u6280\\u672f\\u4f18\\u5316\\u62a5\\u544a\\u3002-True]": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_service_subject_candidates_retain_performance_not_remedy_sources[\\u7532\\u65b9\\u652f\\u4ed8\\u6280\\u672f\\u670d\\u52a1\\u8d39\\u7528\\u3002\\u4e59\\u65b9\\u8fdd\\u7ea6\\u8d54\\u507f\\u4ee5\\u6280\\u672f\\u670d\\u52a1\\u8d39\\u7528\\u4e3a\\u4e0a\\u9650\\u3002-False]": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_named_object_of_confidentiality_duty_is_scope_not_remedy": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_multiple_sources_for_one_element_do_not_expand_verified_quotes": "PASS"
+    }
+  },
+  "samples": [
+    {
+      "sample": "patent",
+      "gate": "REPORT_READY",
+      "raw_before": 0,
+      "raw_after": 0,
+      "expanded_before": 0,
+      "expanded_after": 0,
+      "closed_tuples": [],
+      "new_tuples": [],
+      "runtime_process_id": 25568,
+      "engine_sha256": "78ea074d743cd58d2a653978c721dc8ab8e451bbd76136213fba49d93bfd7b8b",
+      "runtime_matches_final_code": true,
+      "removed_risk_groups": [],
+      "added_risk_groups": [],
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round10_final_patent_live\\report.json"
+    },
+    {
+      "sample": "guard",
+      "gate": "REPORT_READY",
+      "raw_before": 0,
+      "raw_after": 0,
+      "expanded_before": 0,
+      "expanded_after": 0,
+      "closed_tuples": [],
+      "new_tuples": [],
+      "runtime_process_id": 25568,
+      "engine_sha256": "78ea074d743cd58d2a653978c721dc8ab8e451bbd76136213fba49d93bfd7b8b",
+      "runtime_matches_final_code": true,
+      "removed_risk_groups": [],
+      "added_risk_groups": [],
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round10_final_guard_live\\report.json"
+    },
+    {
+      "sample": "consulting",
+      "gate": "REPORT_READY",
+      "raw_before": 0,
+      "raw_after": 0,
+      "expanded_before": 0,
+      "expanded_after": 0,
+      "closed_tuples": [],
+      "new_tuples": [],
+      "runtime_process_id": 25568,
+      "engine_sha256": "78ea074d743cd58d2a653978c721dc8ab8e451bbd76136213fba49d93bfd7b8b",
+      "runtime_matches_final_code": true,
+      "removed_risk_groups": [],
+      "added_risk_groups": [],
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round10_final_consulting_live\\report.json"
+    },
+    {
+      "sample": "industrial",
+      "gate": "BLOCKED",
+      "raw_before": 7,
+      "raw_after": 7,
+      "expanded_before": 18,
+      "expanded_after": 12,
+      "closed_tuples": [
+        {
+          "element_id": "generic_liability_cap_validity_adverse_arrangement",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "rule_id": "GEN-LIAB-02",
+          "source_spans": [
+            {
+              "clause_id": "C0006",
+              "evidence_id": "SRC-caef2ef0825ab139116a",
+              "quote": "五、违约责任\n因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 672,
+                "raw_text": "五、违约责任\n因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。",
+                "start_offset": 625
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_liability_cap_validity_adverse_arrangement"
+              ]
+            }
+          ]
+        },
+        {
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "rule_id": "GEN-LIAB-03",
+          "source_spans": [
+            {
+              "clause_id": "C0006",
+              "evidence_id": "SRC-caef2ef0825ab139116a",
+              "quote": "五、违约责任\n因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 672,
+                "raw_text": "五、违约责任\n因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。",
+                "start_offset": 625
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+              ]
+            }
+          ]
+        },
+        {
+          "element_id": "payment_formula_inconsistency_adverse_arrangement",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "rule_id": "GEN-PAY-01",
+          "source_spans": [
+            {
+              "clause_id": "",
+              "evidence_id": "EV-a94e1707a1acd448",
+              "quote": "合同总价：1000000 CNY；付款比例：30% + 40% + 35% = 105%；付款金额：300000 + 400000 + 350000 = 1050000 CNY；差额：50000 CNY。",
+              "source_span": {
+                "end_offset": 102,
+                "raw_text": "合同总价：1000000 CNY；付款比例：30% + 40% + 35% = 105%；付款金额：300000 + 400000 + 350000 = 1050000 CNY；差额：50000 CNY。",
+                "start_offset": 0
+              },
+              "source_type": "CALCULATION",
+              "supporting_element_ids": [
+                "payment_formula_inconsistency_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0005",
+              "evidence_id": "SRC-2340027c251bbc479628",
+              "quote": "服务报酬总额为人民币1,000,000元",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 480,
+                "raw_text": "服务报酬总额为人民币1,000,000元",
+                "start_offset": 460
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "payment_formula_inconsistency.adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0005",
+              "evidence_id": "SRC-684d54e990253e3b3781",
+              "quote": "系统部署完成后5个工作日内，甲方向乙方支付合同总金额的40%，即人民币400,000元",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 568,
+                "raw_text": "系统部署完成后5个工作日内，甲方向乙方支付合同总金额的40%，即人民币400,000元",
+                "start_offset": 525
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "payment_formula_inconsistency.adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0005",
+              "evidence_id": "SRC-a56e28e4aed702d1d212",
+              "quote": "项目验收合格后5个工作日内，甲方向乙方支付人民币350,000元",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 602,
+                "raw_text": "项目验收合格后5个工作日内，甲方向乙方支付人民币350,000元",
+                "start_offset": 570
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "payment_formula_inconsistency.adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0005",
+              "evidence_id": "SRC-ae678b59d9a1e6dd5af6",
+              "quote": "合同签订后5个工作日内，甲方向乙方支付合同总金额的30%，即人民币300,000元",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 523,
+                "raw_text": "合同签订后5个工作日内，甲方向乙方支付合同总金额的30%，即人民币300,000元",
+                "start_offset": 482
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "payment_formula_inconsistency.adverse_arrangement"
+              ]
+            }
+          ]
+        }
+      ],
+      "new_tuples": [],
+      "runtime_process_id": 25568,
+      "engine_sha256": "78ea074d743cd58d2a653978c721dc8ab8e451bbd76136213fba49d93bfd7b8b",
+      "runtime_matches_final_code": true,
+      "removed_risk_groups": [],
+      "added_risk_groups": [],
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round10_final_industrial_live\\report.json"
+    },
+    {
+      "sample": "over_scope",
+      "gate": "BLOCKED",
+      "raw_before": 10,
+      "raw_after": 9,
+      "expanded_before": 44,
+      "expanded_after": 21,
+      "closed_tuples": [
+        {
+          "element_id": "generic_liability_cap_validity_adverse_arrangement",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "rule_id": "GEN-LIAB-02",
+          "source_spans": [
+            {
+              "clause_id": "C0028",
+              "evidence_id": "SRC-700c0a4385e2692e4627",
+              "quote": "4．即使侵权直接来源于卖方提供的技术秘密或技术资料，卖方承担的全部赔偿责任最高不超过买方已经实际支付技术秘密许可使用费的20%。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 1727,
+                "raw_text": "4．即使侵权直接来源于卖方提供的技术秘密或技术资料，卖方承担的全部赔偿责任最高不超过买方已经实际支付技术秘密许可使用费的20%。",
+                "start_offset": 1663
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_liability_cap_validity_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0072",
+              "evidence_id": "SRC-a8dc09847df0b8363f2f",
+              "quote": "1．卖方逾期交付主要技术资料的，每逾期一周，按照买方已经支付许可费的0.1%支付违约金。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 4087,
+                "raw_text": "1．卖方逾期交付主要技术资料的，每逾期一周，按照买方已经支付许可费的0.1%支付违约金。",
+                "start_offset": 4043
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_liability_cap_validity_adverse_arrangement"
+              ]
+            }
+          ]
+        },
+        {
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE",
+          "rule_id": "GEN-LIAB-03",
+          "source_spans": [
+            {
+              "clause_id": "C0028",
+              "evidence_id": "SRC-700c0a4385e2692e4627",
+              "quote": "4．即使侵权直接来源于卖方提供的技术秘密或技术资料，卖方承担的全部赔偿责任最高不超过买方已经实际支付技术秘密许可使用费的20%。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 1727,
+                "raw_text": "4．即使侵权直接来源于卖方提供的技术秘密或技术资料，卖方承担的全部赔偿责任最高不超过买方已经实际支付技术秘密许可使用费的20%。",
+                "start_offset": 1663
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0034",
+              "evidence_id": "SRC-21453b3f61f1a63bab68",
+              "quote": "4．泄密责任：\n买方违反保密义务的，应向卖方支付人民币5,000,000元违约金。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 2120,
+                "raw_text": "4．泄密责任：\n买方违反保密义务的，应向卖方支付人民币5,000,000元违约金。",
+                "start_offset": 2079
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0042",
+              "evidence_id": "SRC-2f433bbdf6c08fedadd2",
+              "quote": "2．技术服务方式：\n远程支持与现场服务相结合。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 2576,
+                "raw_text": "2．技术服务方式：\n远程支持与现场服务相结合。",
+                "start_offset": 2553
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0072",
+              "evidence_id": "SRC-a8dc09847df0b8363f2f",
+              "quote": "1．卖方逾期交付主要技术资料的，每逾期一周，按照买方已经支付许可费的0.1%支付违约金。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 4087,
+                "raw_text": "1．卖方逾期交付主要技术资料的，每逾期一周，按照买方已经支付许可费的0.1%支付违约金。",
+                "start_offset": 4043
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+              ]
+            }
+          ]
+        },
+        {
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "rule_id": "GEN-LIAB-03",
+          "source_spans": [
+            {
+              "clause_id": "C0028",
+              "evidence_id": "SRC-700c0a4385e2692e4627",
+              "quote": "4．即使侵权直接来源于卖方提供的技术秘密或技术资料，卖方承担的全部赔偿责任最高不超过买方已经实际支付技术秘密许可使用费的20%。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 1727,
+                "raw_text": "4．即使侵权直接来源于卖方提供的技术秘密或技术资料，卖方承担的全部赔偿责任最高不超过买方已经实际支付技术秘密许可使用费的20%。",
+                "start_offset": 1663
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0034",
+              "evidence_id": "SRC-21453b3f61f1a63bab68",
+              "quote": "4．泄密责任：\n买方违反保密义务的，应向卖方支付人民币5,000,000元违约金。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 2120,
+                "raw_text": "4．泄密责任：\n买方违反保密义务的，应向卖方支付人民币5,000,000元违约金。",
+                "start_offset": 2079
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0042",
+              "evidence_id": "SRC-2f433bbdf6c08fedadd2",
+              "quote": "2．技术服务方式：\n远程支持与现场服务相结合。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 2576,
+                "raw_text": "2．技术服务方式：\n远程支持与现场服务相结合。",
+                "start_offset": 2553
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0072",
+              "evidence_id": "SRC-a8dc09847df0b8363f2f",
+              "quote": "1．卖方逾期交付主要技术资料的，每逾期一周，按照买方已经支付许可费的0.1%支付违约金。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 4087,
+                "raw_text": "1．卖方逾期交付主要技术资料的，每逾期一周，按照买方已经支付许可费的0.1%支付违约金。",
+                "start_offset": 4043
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+              ]
+            }
+          ]
+        },
+        {
+          "element_id": "narrative_judgment",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+          "rule_id": "TECH-SHARED-03",
+          "source_spans": [
+            {
+              "clause_id": "",
+              "evidence_id": "EV-2de77d6f38bffae5",
+              "quoted_text": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+              "source_type": "CALCULATION"
+            },
+            {
+              "clause_id": "C0001",
+              "evidence_id": "EV-0e0bbbef4e776027",
+              "quoted_text": "有效期限：2026年10月10日至2034年10月9日",
+              "source_type": "BODY"
+            },
+            {
+              "clause_id": "C0001",
+              "evidence_id": "EV-1cae3cd7aa7ac834",
+              "quoted_text": "签订时间：2026年10月20日",
+              "source_type": "BODY"
+            },
+            {
+              "clause_id": "C0099",
+              "evidence_id": "EV-f7175ddd4c847d66",
+              "quoted_text": "本合同经双方签字盖章后生效。",
+              "source_type": "BODY"
+            }
+          ]
+        },
+        {
+          "element_id": "payment_formula_inconsistency_adverse_arrangement",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "rule_id": "GEN-PAY-01",
+          "source_spans": [
+            {
+              "clause_id": "",
+              "evidence_id": "EV-7d17be3c4d14cf22",
+              "quote": "合同总价：2400000 CNY；付款比例：50% + 40% + 30% = 120%；付款金额：1200000 + 960000 + 720000 = 2880000 CNY；差额：480000 CNY。",
+              "source_span": {
+                "end_offset": 104,
+                "raw_text": "合同总价：2400000 CNY；付款比例：50% + 40% + 30% = 120%；付款金额：1200000 + 960000 + 720000 = 2880000 CNY；差额：480000 CNY。",
+                "start_offset": 0
+              },
+              "source_type": "CALCULATION",
+              "supporting_element_ids": [
+                "payment_formula_inconsistency_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0044",
+              "evidence_id": "SRC-847dee5ae45f357699cb",
+              "quote": "许可使用费总额：\n人民币2,400,000元",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 2657,
+                "raw_text": "许可使用费总额：\n人民币2,400,000元",
+                "start_offset": 2635
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "payment_formula_inconsistency_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0046",
+              "evidence_id": "SRC-99821149a1aaacd221cc",
+              "quote": "（1）合同签订后5个工作日内支付50%，即人民币1,200,000元",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 2730,
+                "raw_text": "（1）合同签订后5个工作日内支付50%，即人民币1,200,000元",
+                "start_offset": 2696
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "payment_formula_inconsistency_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0047",
+              "evidence_id": "SRC-bba60a94ac320e0fe2ea",
+              "quote": "（2）主要技术资料交付后5个工作日内支付40%，即人民币960,000元",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 2768,
+                "raw_text": "（2）主要技术资料交付后5个工作日内支付40%，即人民币960,000元",
+                "start_offset": 2732
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "payment_formula_inconsistency_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0048",
+              "evidence_id": "SRC-a2c696259f1a4fd65814",
+              "quote": "（3）项目最终验收后5个工作日内支付30%，即人民币720,000元",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 2804,
+                "raw_text": "（3）项目最终验收后5个工作日内支付30%，即人民币720,000元",
+                "start_offset": 2770
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "payment_formula_inconsistency_adverse_arrangement"
+              ]
+            }
+          ]
+        },
+        {
+          "element_id": "post_termination_material_retention",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "rule_id": "TC-11-03",
+          "source_spans": [
+            {
+              "clause_id": "C0038",
+              "evidence_id": "EV-30996982e8782b08",
+              "quoted_text": "4．泄密责任： 卖方根据实际损失承担合理责任。 本合同终止后，卖方可以继续保存买方在项目实施过程中形成的生产数据、测试数据、设备运行数据和技术反馈，并可以将上述资料用于科研、教学、成果展示、融资、政府项目申报以及后续产品研发。",
+              "source_span": {
+                "end_offset": 2349,
+                "raw_text": "4．泄密责任： 卖方根据实际损失承担合理责任。 本合同终止后，卖方可以继续保存买方在项目实施过程中形成的生产数据、测试数据、设备运行数据和技术反馈，并可以将上述资料用于科研、教学、成果展示、融资、政府项目申报以及后续产品研发。",
+                "start_offset": 2236
+              },
+              "source_type": "BODY"
+            }
+          ]
+        },
+        {
+          "element_id": "review_judgment",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+          "rule_id": "TECH-SHARED-03",
+          "source_spans": [
+            {
+              "clause_id": "",
+              "evidence_id": "EV-2de77d6f38bffae5",
+              "quoted_text": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+              "source_type": "CALCULATION"
+            },
+            {
+              "clause_id": "C0001",
+              "evidence_id": "EV-0e0bbbef4e776027",
+              "quoted_text": "有效期限：2026年10月10日至2034年10月9日",
+              "source_type": "BODY"
+            },
+            {
+              "clause_id": "C0001",
+              "evidence_id": "EV-1cae3cd7aa7ac834",
+              "quoted_text": "签订时间：2026年10月20日",
+              "source_type": "BODY"
+            },
+            {
+              "clause_id": "C0099",
+              "evidence_id": "EV-f7175ddd4c847d66",
+              "quoted_text": "本合同经双方签字盖章后生效。",
+              "source_type": "BODY"
+            }
+          ]
+        },
+        {
+          "element_id": "risk_description",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+          "rule_id": "TECH-SHARED-03",
+          "source_spans": [
+            {
+              "clause_id": "",
+              "evidence_id": "EV-2de77d6f38bffae5",
+              "quoted_text": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+              "source_type": "CALCULATION"
+            },
+            {
+              "clause_id": "C0001",
+              "evidence_id": "EV-0e0bbbef4e776027",
+              "quoted_text": "有效期限：2026年10月10日至2034年10月9日",
+              "source_type": "BODY"
+            },
+            {
+              "clause_id": "C0001",
+              "evidence_id": "EV-1cae3cd7aa7ac834",
+              "quoted_text": "签订时间：2026年10月20日",
+              "source_type": "BODY"
+            },
+            {
+              "clause_id": "C0099",
+              "evidence_id": "EV-f7175ddd4c847d66",
+              "quoted_text": "本合同经双方签字盖章后生效。",
+              "source_type": "BODY"
+            }
+          ]
+        },
+        {
+          "element_id": "risk_point_description",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+          "rule_id": "TECH-SHARED-03",
+          "source_spans": [
+            {
+              "clause_id": "",
+              "evidence_id": "EV-2de77d6f38bffae5",
+              "quoted_text": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+              "source_type": "CALCULATION"
+            },
+            {
+              "clause_id": "C0001",
+              "evidence_id": "EV-0e0bbbef4e776027",
+              "quoted_text": "有效期限：2026年10月10日至2034年10月9日",
+              "source_type": "BODY"
+            },
+            {
+              "clause_id": "C0001",
+              "evidence_id": "EV-1cae3cd7aa7ac834",
+              "quoted_text": "签订时间：2026年10月20日",
+              "source_type": "BODY"
+            },
+            {
+              "clause_id": "C0099",
+              "evidence_id": "EV-f7175ddd4c847d66",
+              "quoted_text": "本合同经双方签字盖章后生效。",
+              "source_type": "BODY"
+            }
+          ]
+        },
+        {
+          "element_id": "technical_timeline_conflict_adverse_arrangement",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "rule_id": "TECH-SHARED-03",
+          "source_spans": [
+            {
+              "clause_id": "",
+              "evidence_id": "EV-2de77d6f38bffae5",
+              "quote": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+              "source_span": {
+                "end_offset": 82,
+                "raw_text": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+                "start_offset": 0
+              },
+              "source_type": "CALCULATION",
+              "supporting_element_ids": [
+                "technical_timeline_conflict_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0001",
+              "evidence_id": "SRC-31c8eb20afffa6b4dbce",
+              "quote": "有效期限：2026年10月10日至2034年10月9日",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 168,
+                "raw_text": "有效期限：2026年10月10日至2034年10月9日",
+                "start_offset": 141
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "technical_timeline_conflict_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0001",
+              "evidence_id": "SRC-5e70b63a6f3736c29be3",
+              "quote": "签订时间：2026年10月20日",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 128,
+                "raw_text": "签订时间：2026年10月20日",
+                "start_offset": 112
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "technical_timeline_conflict_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0099",
+              "evidence_id": "SRC-9ee5a38fa6cad3712dca",
+              "quote": "本合同经双方签字盖章后生效。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 5189,
+                "raw_text": "本合同经双方签字盖章后生效。",
+                "start_offset": 5175
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "technical_timeline_conflict_adverse_arrangement"
+              ]
+            }
+          ]
+        },
+        {
+          "element_id": null,
+          "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "CONSEQUENCE_REQUIREMENTS_MISMATCH",
+          "rule_id": "TC-11-04",
+          "source_spans": [
+            {
+              "clause_id": "C0034",
+              "evidence_id": "SRC-285cd6f823f849c20d76",
+              "quote": "买方违反保密义务的，应向卖方支付人民币5,000,000元违约金。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 2120,
+                "raw_text": "买方违反保密义务的，应向卖方支付人民币5,000,000元违约金。",
+                "start_offset": 2087
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "specific_confidentiality_penalty"
+              ]
+            },
+            {
+              "clause_id": "C0075",
+              "evidence_id": "SRC-c41ceccba48df9751eaf",
+              "quote": "买方违反保密义务的，应支付人民币5,000,000元违约金；不足以弥补损失的，应继续赔偿。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 4263,
+                "raw_text": "买方违反保密义务的，应支付人民币5,000,000元违约金；不足以弥补损失的，应继续赔偿。",
+                "start_offset": 4218
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "breach_damage_liability",
+                "specific_confidentiality_penalty",
+                "excess_loss_compensation"
+              ]
+            }
+          ]
+        }
+      ],
+      "new_tuples": [],
+      "runtime_process_id": 25568,
+      "engine_sha256": "78ea074d743cd58d2a653978c721dc8ab8e451bbd76136213fba49d93bfd7b8b",
+      "runtime_matches_final_code": true,
+      "removed_risk_groups": [],
+      "added_risk_groups": [],
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round10_final_over_scope_live\\report.json"
+    },
+    {
+      "sample": "provider",
+      "gate": "REPORT_READY",
+      "raw_before": 0,
+      "raw_after": 0,
+      "expanded_before": 0,
+      "expanded_after": 0,
+      "closed_tuples": [],
+      "new_tuples": [],
+      "runtime_process_id": 25568,
+      "engine_sha256": "78ea074d743cd58d2a653978c721dc8ab8e451bbd76136213fba49d93bfd7b8b",
+      "runtime_matches_final_code": true,
+      "removed_risk_groups": [],
+      "added_risk_groups": [],
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round10_final_provider_live\\report.json"
+    },
+    {
+      "sample": "balanced",
+      "gate": "REPORT_READY",
+      "raw_before": 0,
+      "raw_after": 0,
+      "expanded_before": 0,
+      "expanded_after": 0,
+      "closed_tuples": [],
+      "new_tuples": [],
+      "runtime_process_id": 25568,
+      "engine_sha256": "78ea074d743cd58d2a653978c721dc8ab8e451bbd76136213fba49d93bfd7b8b",
+      "runtime_matches_final_code": true,
+      "removed_risk_groups": [],
+      "added_risk_groups": [],
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round10_final_balanced_live\\report.json"
+    },
+    {
+      "sample": "cross_article",
+      "gate": "BLOCKED",
+      "raw_before": 7,
+      "raw_after": 6,
+      "expanded_before": 9,
+      "expanded_after": 6,
+      "closed_tuples": [
+        {
+          "element_id": null,
+          "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "CONSEQUENCE_REQUIREMENTS_MISMATCH",
+          "rule_id": "TC-11-04",
+          "source_spans": [
+            {
+              "clause_id": "C0028",
+              "evidence_id": "SRC-fb15a58e696e8ca1dc5a",
+              "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 1694,
+                "raw_text": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+                "start_offset": 1622
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "breach_damage_liability",
+                "stop_disclosure",
+                "stop_use",
+                "mitigation_obligation"
+              ]
+            },
+            {
+              "clause_id": "C0032",
+              "evidence_id": "SRC-77d35af770ff7a4f002e",
+              "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 1883,
+                "raw_text": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+                "start_offset": 1841
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "breach_damage_liability",
+                "stop_disclosure",
+                "stop_use"
+              ]
+            },
+            {
+              "clause_id": "C0062",
+              "evidence_id": "SRC-b61f6ae08c405ca30933",
+              "quote": "买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 2841,
+                "raw_text": "买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+                "start_offset": 2786
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "breach_damage_liability"
+              ]
+            }
+          ]
+        },
+        {
+          "element_id": null,
+          "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "DETAIL_UNRESOLVED_REQUIREMENTS_OMITTED",
+          "rule_id": "TC-11-04",
+          "source_spans": [
+            {
+              "clause_id": "C0028",
+              "evidence_id": "SRC-fb15a58e696e8ca1dc5a",
+              "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 1694,
+                "raw_text": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+                "start_offset": 1622
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "breach_damage_liability",
+                "stop_disclosure",
+                "stop_use",
+                "mitigation_obligation"
+              ]
+            },
+            {
+              "clause_id": "C0032",
+              "evidence_id": "SRC-77d35af770ff7a4f002e",
+              "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 1883,
+                "raw_text": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+                "start_offset": 1841
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "breach_damage_liability",
+                "stop_disclosure",
+                "stop_use"
+              ]
+            },
+            {
+              "clause_id": "C0062",
+              "evidence_id": "SRC-b61f6ae08c405ca30933",
+              "quote": "买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 2841,
+                "raw_text": "买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+                "start_offset": 2786
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "breach_damage_liability"
+              ]
+            }
+          ]
+        }
+      ],
+      "new_tuples": [],
+      "runtime_process_id": 25568,
+      "engine_sha256": "78ea074d743cd58d2a653978c721dc8ab8e451bbd76136213fba49d93bfd7b8b",
+      "runtime_matches_final_code": true,
+      "removed_risk_groups": [],
+      "added_risk_groups": [],
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round10_final_cross_article_live\\report.json"
+    },
+    {
+      "sample": "ancillary",
+      "gate": "REPORT_READY",
+      "raw_before": 4,
+      "raw_after": 0,
+      "expanded_before": 27,
+      "expanded_after": 0,
+      "closed_tuples": [
+        {
+          "element_id": "breach_damage_liability",
+          "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "REMEDY_OR_PARTY_NOT_ENTAILED",
+          "rule_id": "TC-11-04",
+          "source_spans": [
+            {
+              "clause_id": "C0009",
+              "evidence_id": "SRC-8d48e944734730057e6a",
+              "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 1634,
+                "raw_text": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+                "start_offset": 1583
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "breach_damage_liability",
+                "specific_confidentiality_penalty",
+                "excess_loss_compensation"
+              ]
+            },
+            {
+              "clause_id": "C0018",
+              "evidence_id": "SRC-217d4d7aab9435054c64",
+              "quote": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 3123,
+                "raw_text": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+                "start_offset": 3074
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "breach_damage_liability"
+              ]
+            },
+            {
+              "clause_id": "C0018",
+              "evidence_id": "SRC-7340d7666ca1c4bea814",
+              "quote": "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 3073,
+                "raw_text": "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；",
+                "start_offset": 3034
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "specific_confidentiality_penalty"
+              ]
+            },
+            {
+              "clause_id": "C0018",
+              "evidence_id": "SRC-ce4ccc6a648606822f6f",
+              "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 3033,
+                "raw_text": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+                "start_offset": 2997
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "breach_damage_liability",
+                "specific_confidentiality_penalty"
+              ]
+            }
+          ]
+        },
+        {
+          "element_id": "core_contract_arrangement",
+          "error_code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership.",
+          "rule_id": "TC-06-02",
+          "source_spans": [
+            {
+              "clause_id": "C0003",
+              "evidence_id": "SRC-5ddee96fae77052d06ee",
+              "quote": "第二条 技术资料交付\n乙方应向甲方提供：\n热管理控制算法源代码；",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 461,
+                "raw_text": "第二条 技术资料交付\n乙方应向甲方提供：\n热管理控制算法源代码；",
+                "start_offset": 429
+              },
+              "supporting_element_ids": [
+                "core_contract_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0004",
+              "evidence_id": "SRC-1d871ced7c87e9189463",
+              "quote": "第三条 技术资料交付时间、地点和方式\n首批资料于2026年11月10日前交付；",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 573,
+                "raw_text": "第三条 技术资料交付时间、地点和方式\n首批资料于2026年11月10日前交付；",
+                "start_offset": 534
+              },
+              "supporting_element_ids": [
+                "core_contract_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0009",
+              "evidence_id": "SRC-ad5ec7445597ef9821e3",
+              "quote": "第八条 保密义务\n甲方义务\n甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 1510,
+                "raw_text": "第八条 保密义务\n甲方义务\n甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。",
+                "start_offset": 1452
+              },
+              "supporting_element_ids": [
+                "core_contract_arrangement"
+              ]
+            }
+          ]
+        },
+        {
+          "element_id": "generic_liability_cap_validity_adverse_arrangement",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "rule_id": "GEN-LIAB-02",
+          "source_spans": [
+            {
+              "clause_id": "C0018",
+              "evidence_id": "SRC-eb4b194cc43b358eab82",
+              "quote": "第十七条 违约责任\n甲方逾期付款的，每逾期一日按照应付款金额的0.5%支付违约金；",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 2996,
+                "raw_text": "第十七条 违约责任\n甲方逾期付款的，每逾期一日按照应付款金额的0.5%支付违约金；",
+                "start_offset": 2955
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_liability_cap_validity_adverse_arrangement"
+              ]
+            }
+          ]
+        },
+        {
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE",
+          "rule_id": "GEN-LIAB-03",
+          "source_spans": [
+            {
+              "clause_id": "C0007",
+              "evidence_id": "SRC-bed66e0c17edeca217f2",
+              "quote": "第六条 权利保证及第三方权利\n乙方保证其有权签署本合同并向甲方提供本项技术。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 1057,
+                "raw_text": "第六条 权利保证及第三方权利\n乙方保证其有权签署本合同并向甲方提供本项技术。",
+                "start_offset": 1019
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0009",
+              "evidence_id": "SRC-ad5ec7445597ef9821e3",
+              "quote": "第八条 保密义务\n甲方义务\n甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 1510,
+                "raw_text": "第八条 保密义务\n甲方义务\n甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。",
+                "start_offset": 1452
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0011",
+              "evidence_id": "SRC-15566826376aed2e1e78",
+              "quote": "第十条 技术服务和技术指导\n乙方应向甲方提供：\n技术资料讲解；",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 1933,
+                "raw_text": "第十条 技术服务和技术指导\n乙方应向甲方提供：\n技术资料讲解；",
+                "start_offset": 1902
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0014",
+              "evidence_id": "SRC-7a8e586e4cf36b9503d0",
+              "quote": "第十三条 实施义务\n甲方应在本合同生效后30日内开始实施本项技术。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 2438,
+                "raw_text": "第十三条 实施义务\n甲方应在本合同生效后30日内开始实施本项技术。",
+                "start_offset": 2405
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+              ]
+            }
+          ]
+        },
+        {
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "rule_id": "GEN-LIAB-03",
+          "source_spans": [
+            {
+              "clause_id": "C0007",
+              "evidence_id": "SRC-bed66e0c17edeca217f2",
+              "quote": "第六条 权利保证及第三方权利\n乙方保证其有权签署本合同并向甲方提供本项技术。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 1057,
+                "raw_text": "第六条 权利保证及第三方权利\n乙方保证其有权签署本合同并向甲方提供本项技术。",
+                "start_offset": 1019
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0009",
+              "evidence_id": "SRC-ad5ec7445597ef9821e3",
+              "quote": "第八条 保密义务\n甲方义务\n甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 1510,
+                "raw_text": "第八条 保密义务\n甲方义务\n甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。",
+                "start_offset": 1452
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0011",
+              "evidence_id": "SRC-15566826376aed2e1e78",
+              "quote": "第十条 技术服务和技术指导\n乙方应向甲方提供：\n技术资料讲解；",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 1933,
+                "raw_text": "第十条 技术服务和技术指导\n乙方应向甲方提供：\n技术资料讲解；",
+                "start_offset": 1902
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0014",
+              "evidence_id": "SRC-7a8e586e4cf36b9503d0",
+              "quote": "第十三条 实施义务\n甲方应在本合同生效后30日内开始实施本项技术。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 2438,
+                "raw_text": "第十三条 实施义务\n甲方应在本合同生效后30日内开始实施本项技术。",
+                "start_offset": 2405
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+              ]
+            }
+          ]
+        },
+        {
+          "element_id": "narrative_judgment",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+          "rule_id": "TECH-SHARED-03",
+          "source_spans": [
+            {
+              "clause_id": "",
+              "evidence_id": "EV-2de77d6f38bffae5",
+              "quoted_text": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+              "source_type": "CALCULATION"
+            },
+            {
+              "clause_id": "C0006",
+              "evidence_id": "EV-a54e19130f4b43eb",
+              "quoted_text": "合同期限为2026年10月10日至2036年10月9日。",
+              "source_type": "BODY"
+            },
+            {
+              "clause_id": "C0026",
+              "evidence_id": "EV-49cd654f067723fd",
+              "quoted_text": "签署日期：2026年10月20日",
+              "source_type": "BODY"
+            },
+            {
+              "clause_id": "C0026",
+              "evidence_id": "EV-8d1db286ac832413",
+              "quoted_text": "本合同自双方签字盖章之日起生效。",
+              "source_type": "BODY"
+            }
+          ]
+        },
+        {
+          "element_id": "payment_formula_inconsistency_adverse_arrangement",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "rule_id": "GEN-PAY-01",
+          "source_spans": [
+            {
+              "clause_id": "",
+              "evidence_id": "EV-b2a5def7f0acbb08",
+              "quote": "合同总价：3000000 CNY；付款比例：40% + 40% + 30% = 110%；付款金额：1200000 + 1200000 + 900000 = 3300000 CNY；差额：300000 CNY。",
+              "source_span": {
+                "end_offset": 105,
+                "raw_text": "合同总价：3000000 CNY；付款比例：40% + 40% + 30% = 110%；付款金额：1200000 + 1200000 + 900000 = 3300000 CNY；差额：300000 CNY。",
+                "start_offset": 0
+              },
+              "source_type": "CALCULATION",
+              "supporting_element_ids": [
+                "payment_formula_inconsistency_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0012",
+              "evidence_id": "SRC-126a75861e2a6e435ff1",
+              "quote": "第三期：甲方产品首次实现商业销售后10个工作日内支付30%，即900,000元",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 2169,
+                "raw_text": "第三期：甲方产品首次实现商业销售后10个工作日内支付30%，即900,000元",
+                "start_offset": 2130
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "payment_formula_inconsistency_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0012",
+              "evidence_id": "SRC-284a67fe455ae4ad092b",
+              "quote": "固定技术转让费总额为人民币3,000,000元",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 2043,
+                "raw_text": "固定技术转让费总额为人民币3,000,000元",
+                "start_offset": 2020
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "payment_formula_inconsistency_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0012",
+              "evidence_id": "SRC-4e0cd3932fdc1fb5b34d",
+              "quote": "第一期：合同签署后5个工作日内支付40%，即1,200,000元",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 2086,
+                "raw_text": "第一期：合同签署后5个工作日内支付40%，即1,200,000元",
+                "start_offset": 2054
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "payment_formula_inconsistency_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0012",
+              "evidence_id": "SRC-e42bd400f55ff696217b",
+              "quote": "第二期：乙方完成首次技术资料交付后5个工作日内支付40%，即1,200,000元",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 2128,
+                "raw_text": "第二期：乙方完成首次技术资料交付后5个工作日内支付40%，即1,200,000元",
+                "start_offset": 2088
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "payment_formula_inconsistency_adverse_arrangement"
+              ]
+            }
+          ]
+        },
+        {
+          "element_id": "post_termination_material_retention",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "rule_id": "TC-11-03",
+          "source_spans": [
+            {
+              "clause_id": "C0009",
+              "evidence_id": "EV-63411ddb3cf3c632",
+              "quoted_text": "第八条 保密义务 甲方义务 甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。 甲方涉密人员包括： 员工； 关联公司员工； 供应商； 代工企业； 顾问及其他可能接触相关资料的人员。 甲方保密期限为相关信息披露之日起20年。 甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金； 不足以弥补乙方损失的，还应继续赔偿。 乙方义务 乙方对甲方在项目实施过程中提供的销售数据、生产数据和客户资料承担保密义务。 乙方保密期限为本合同有效期内。 本合同终止后，乙方可以为研发、案例展示、融资及经营管理目的继续保存和使用甲方提供的有关资料。",
+              "source_span": {
+                "end_offset": 1741,
+                "raw_text": "第八条 保密义务 甲方义务 甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。 甲方涉密人员包括： 员工； 关联公司员工； 供应商； 代工企业； 顾问及其他可能接触相关资料的人员。 甲方保密期限为相关信息披露之日起20年。 甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金； 不足以弥补乙方损失的，还应继续赔偿。 乙方义务 乙方对甲方在项目实施过程中提供的销售数据、生产数据和客户资料承担保密义务。 乙方保密期限为本合同有效期内。 本合同终止后，乙方可以为研发、案例展示、融资及经营管理目的继续保存和使用甲方提供的有关资料。",
+                "start_offset": 1452
+              },
+              "source_type": "BODY"
+            }
+          ]
+        },
+        {
+          "element_id": "review_judgment",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+          "rule_id": "TECH-SHARED-03",
+          "source_spans": [
+            {
+              "clause_id": "",
+              "evidence_id": "EV-2de77d6f38bffae5",
+              "quoted_text": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+              "source_type": "CALCULATION"
+            },
+            {
+              "clause_id": "C0006",
+              "evidence_id": "EV-a54e19130f4b43eb",
+              "quoted_text": "合同期限为2026年10月10日至2036年10月9日。",
+              "source_type": "BODY"
+            },
+            {
+              "clause_id": "C0026",
+              "evidence_id": "EV-49cd654f067723fd",
+              "quoted_text": "签署日期：2026年10月20日",
+              "source_type": "BODY"
+            },
+            {
+              "clause_id": "C0026",
+              "evidence_id": "EV-8d1db286ac832413",
+              "quoted_text": "本合同自双方签字盖章之日起生效。",
+              "source_type": "BODY"
+            }
+          ]
+        },
+        {
+          "element_id": "risk_description",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+          "rule_id": "TECH-SHARED-03",
+          "source_spans": [
+            {
+              "clause_id": "",
+              "evidence_id": "EV-2de77d6f38bffae5",
+              "quoted_text": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+              "source_type": "CALCULATION"
+            },
+            {
+              "clause_id": "C0006",
+              "evidence_id": "EV-a54e19130f4b43eb",
+              "quoted_text": "合同期限为2026年10月10日至2036年10月9日。",
+              "source_type": "BODY"
+            },
+            {
+              "clause_id": "C0026",
+              "evidence_id": "EV-49cd654f067723fd",
+              "quoted_text": "签署日期：2026年10月20日",
+              "source_type": "BODY"
+            },
+            {
+              "clause_id": "C0026",
+              "evidence_id": "EV-8d1db286ac832413",
+              "quoted_text": "本合同自双方签字盖章之日起生效。",
+              "source_type": "BODY"
+            }
+          ]
+        },
+        {
+          "element_id": "risk_point_description",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+          "rule_id": "TECH-SHARED-03",
+          "source_spans": [
+            {
+              "clause_id": "",
+              "evidence_id": "EV-2de77d6f38bffae5",
+              "quoted_text": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+              "source_type": "CALCULATION"
+            },
+            {
+              "clause_id": "C0006",
+              "evidence_id": "EV-a54e19130f4b43eb",
+              "quoted_text": "合同期限为2026年10月10日至2036年10月9日。",
+              "source_type": "BODY"
+            },
+            {
+              "clause_id": "C0026",
+              "evidence_id": "EV-49cd654f067723fd",
+              "quoted_text": "签署日期：2026年10月20日",
+              "source_type": "BODY"
+            },
+            {
+              "clause_id": "C0026",
+              "evidence_id": "EV-8d1db286ac832413",
+              "quoted_text": "本合同自双方签字盖章之日起生效。",
+              "source_type": "BODY"
+            }
+          ]
+        },
+        {
+          "element_id": "technical_timeline_conflict_adverse_arrangement",
+          "error_code": "NARRATIVE_EVIDENCE_GATE",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "rule_id": "TECH-SHARED-03",
+          "source_spans": [
+            {
+              "clause_id": "",
+              "evidence_id": "EV-2de77d6f38bffae5",
+              "quote": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+              "source_span": {
+                "end_offset": 82,
+                "raw_text": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+                "start_offset": 0
+              },
+              "source_type": "CALCULATION",
+              "supporting_element_ids": [
+                "technical_timeline_conflict_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0006",
+              "evidence_id": "SRC-692364db6596bdd3b3b7",
+              "quote": "合同期限为2026年10月10日至2036年10月9日。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 1018,
+                "raw_text": "合同期限为2026年10月10日至2036年10月9日。",
+                "start_offset": 990
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "technical_timeline_conflict_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0026",
+              "evidence_id": "SRC-6e555cfdbf1add2cbbc8",
+              "quote": "本合同自双方签字盖章之日起生效。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 3895,
+                "raw_text": "本合同自双方签字盖章之日起生效。",
+                "start_offset": 3879
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "technical_timeline_conflict_adverse_arrangement"
+              ]
+            },
+            {
+              "clause_id": "C0026",
+              "evidence_id": "SRC-f996eb417580e3cfa4a1",
+              "quote": "签署日期：2026年10月20日",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 3943,
+                "raw_text": "签署日期：2026年10月20日",
+                "start_offset": 3927
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "technical_timeline_conflict_adverse_arrangement"
+              ]
+            }
+          ]
+        },
+        {
+          "element_id": null,
+          "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "CONSEQUENCE_REQUIREMENTS_MISMATCH",
+          "rule_id": "TC-11-04",
+          "source_spans": [
+            {
+              "clause_id": "C0009",
+              "evidence_id": "SRC-8d48e944734730057e6a",
+              "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 1634,
+                "raw_text": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+                "start_offset": 1583
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "breach_damage_liability",
+                "specific_confidentiality_penalty",
+                "excess_loss_compensation"
+              ]
+            },
+            {
+              "clause_id": "C0018",
+              "evidence_id": "SRC-217d4d7aab9435054c64",
+              "quote": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 3123,
+                "raw_text": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+                "start_offset": 3074
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "breach_damage_liability"
+              ]
+            },
+            {
+              "clause_id": "C0018",
+              "evidence_id": "SRC-7340d7666ca1c4bea814",
+              "quote": "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 3073,
+                "raw_text": "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；",
+                "start_offset": 3034
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "specific_confidentiality_penalty"
+              ]
+            },
+            {
+              "clause_id": "C0018",
+              "evidence_id": "SRC-ce4ccc6a648606822f6f",
+              "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 3033,
+                "raw_text": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+                "start_offset": 2997
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "breach_damage_liability",
+                "specific_confidentiality_penalty"
+              ]
+            }
+          ]
+        },
+        {
+          "element_id": null,
+          "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "fact_id": null,
+          "gate_reasons": null,
+          "reject_reason": "DETAIL_UNRESOLVED_REQUIREMENTS_OMITTED",
+          "rule_id": "TC-11-04",
+          "source_spans": [
+            {
+              "clause_id": "C0009",
+              "evidence_id": "SRC-8d48e944734730057e6a",
+              "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 1634,
+                "raw_text": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+                "start_offset": 1583
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "breach_damage_liability",
+                "specific_confidentiality_penalty",
+                "excess_loss_compensation"
+              ]
+            },
+            {
+              "clause_id": "C0018",
+              "evidence_id": "SRC-217d4d7aab9435054c64",
+              "quote": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 3123,
+                "raw_text": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+                "start_offset": 3074
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "breach_damage_liability"
+              ]
+            },
+            {
+              "clause_id": "C0018",
+              "evidence_id": "SRC-7340d7666ca1c4bea814",
+              "quote": "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 3073,
+                "raw_text": "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；",
+                "start_offset": 3034
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "specific_confidentiality_penalty"
+              ]
+            },
+            {
+              "clause_id": "C0018",
+              "evidence_id": "SRC-ce4ccc6a648606822f6f",
+              "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+              "source_span": {
+                "coordinate_system": "DOCUMENT_TEXT",
+                "end_offset": 3033,
+                "raw_text": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+                "start_offset": 2997
+              },
+              "source_type": "BODY",
+              "supporting_element_ids": [
+                "breach_damage_liability",
+                "specific_confidentiality_penalty"
+              ]
+            }
+          ]
+        }
+      ],
+      "new_tuples": [],
+      "runtime_process_id": 25568,
+      "engine_sha256": "78ea074d743cd58d2a653978c721dc8ab8e451bbd76136213fba49d93bfd7b8b",
+      "runtime_matches_final_code": true,
+      "removed_risk_groups": [],
+      "added_risk_groups": [],
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round10_final_ancillary_live\\report.json"
+    }
+  ],
+  "raw_blocker_causes": [
+    {
+      "raw_index": 1,
+      "code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+      "rule_id": "TC-06-02",
+      "element_id": "core_contract_arrangement",
+      "fact_id": null,
+      "first_wrong_stage": "EXACT_SOURCE_VERIFIER accepted evidence projection",
+      "cause": "Verified evidence IDs were replaced while source clause/span arrays retained the old paragraph snapshot."
+    },
+    {
+      "raw_index": 2,
+      "code": "NARRATIVE_EVIDENCE_GATE",
+      "first_wrong_stage": "SPECIALIZED_CANDIDATE_TO_REPORT_ELEMENT",
+      "cause": "Exact risk source segments and selected penalty obligations did not populate Review bindings; typed calculation derivation inputs lost element/review ownership in final bundles."
+    },
+    {
+      "raw_index": 3,
+      "code": "NARRATIVE_EVIDENCE_GATE",
+      "duplicate_of_raw_index": 2,
+      "cause": "The same 11 narrative refusal tuples were also emitted by the final narrative audit."
+    },
+    {
+      "raw_index": 4,
+      "code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-11-04",
+      "first_wrong_stage": "confidentiality_remedy_elements event-context extraction",
+      "cause": "A confidentiality sentence promoted an entire mixed liability article to confidentiality context. General liability of the other party was incorrectly covered; the residual party requirements and consequence projection also diverged."
+    }
+  ]
+}

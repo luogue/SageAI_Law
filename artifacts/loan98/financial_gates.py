@@ -1,0 +1,5 @@
+from pathlib import Path
+p=Path('backend/review_v2/loan_facts.py');s=p.read_text(encoding='utf8');s=s.replace("        if node == 'loan_note_receipt_attachment':", "        if node in {'loan_relending_bank_loan_invalid','loan_professional_lender_invalid'}:\n            tests[node]=(('lender_kind',),v['lender_kind']!='financial')\n        if node == 'loan_note_receipt_attachment':")
+p.write_text(s,encoding='utf8')
+p=Path('backend/tests/test_loan_applicability_and_consistency.py');s=p.read_text(encoding='utf8').replace('assert len(rows) == r["all_items_count"] == 48','assert len(rows) == r["all_items_count"]\n    assert sum(key.startswith("L-") for key in rows) == 48\n    assert set(rows)-{key for key in rows if key.startswith("L-")} <= {"COMMON-23-01"}').replace("assert len(r['items'])==48","assert len(r['items'])==r['all_items_count']") ;p.write_text(s,encoding='utf8')
+p=Path('backend/tests/test_loan_financial_semantics.py');s=p.read_text(encoding='utf8').replace("['L-02-04','L-08-01'","['L-02-01','L-02-02','L-02-04','L-08-01'");p.write_text(s,encoding='utf8')

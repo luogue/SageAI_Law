@@ -1,0 +1,67 @@
+[
+  {
+    "response": {
+      "schema_version": "employment-facts-1.0",
+      "reviewed_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009",
+        "C0010"
+      ],
+      "searched_concepts": [
+        "probation.duration_months",
+        "probation.end_date",
+        "probation.start_date",
+        "working_hours.system"
+      ],
+      "unresolved_concepts": [
+        "probation.end_date",
+        "probation.start_date"
+      ],
+      "facts": [
+        {
+          "concept": "probation.duration_months",
+          "value": 1,
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "开始履职后的首月作为试用阶段，该阶段每月报酬为人民币壹万叁仟元整。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.system",
+          "value": "STANDARD",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "每日八小时，每周四十小时，依法休息休假。"
+            }
+          ]
+        }
+      ]
+    },
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 1933,
+      "completion_tokens": 232,
+      "total_tokens": 2165,
+      "prompt_tokens_details": {
+        "cached_tokens": 1024
+      },
+      "prompt_cache_hit_tokens": 1024,
+      "prompt_cache_miss_tokens": 909
+    },
+    "provider": "deepseek"
+  }
+]

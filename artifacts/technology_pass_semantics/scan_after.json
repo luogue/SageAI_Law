@@ -1,0 +1,509 @@
+{
+  "pass_rule_count": 6,
+  "covered_element_count": 17,
+  "mismatch_count": 0,
+  "failures": [],
+  "rules": [
+    {
+      "rule_id": "TC-01-01",
+      "status": "通过",
+      "check": {
+        "status": "PASS",
+        "failures": [],
+        "element_evidence_ids": {
+          "transaction_rd_performance": [
+            "SRC-075c62d54de3ad7a7b29",
+            "SRC-0c646c2cfad93e952a57"
+          ],
+          "transaction_entrusted_direction": [
+            "SRC-075c62d54de3ad7a7b29"
+          ]
+        }
+      },
+      "elements": [
+        {
+          "element_id": "transaction_rd_performance",
+          "status": "COVERED",
+          "proposition": "研究开发核心给付已有直接约定。",
+          "evidence_ids": [
+            "SRC-075c62d54de3ad7a7b29",
+            "SRC-0c646c2cfad93e952a57"
+          ]
+        },
+        {
+          "element_id": "transaction_entrusted_direction",
+          "status": "COVERED",
+          "proposition": "委托方提出需求、受托方承担开发的交易结构已有直接约定。",
+          "evidence_ids": [
+            "SRC-075c62d54de3ad7a7b29"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "evidence_id": "SRC-075c62d54de3ad7a7b29",
+          "clause_id": "C0004",
+          "location": "第一条 项目名称及开发目标",
+          "quote": "乙方根据甲方业务需求完成平台设计、开发、部署及技术文档编制，实现以下主要功能："
+        },
+        {
+          "evidence_id": "SRC-0c646c2cfad93e952a57",
+          "clause_id": "C0006",
+          "location": "第三条 开发周期",
+          "quote": "乙方应按以下阶段完成工作：\n第一阶段：2026年10月20日前完成需求分析及系统设计；"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-01-02",
+      "status": "通过",
+      "check": {
+        "status": "PASS",
+        "failures": [],
+        "element_evidence_ids": {
+          "transaction_rd_performance": [
+            "SRC-075c62d54de3ad7a7b29",
+            "SRC-0c646c2cfad93e952a57"
+          ],
+          "transaction_entrusted_direction": [
+            "SRC-075c62d54de3ad7a7b29"
+          ]
+        }
+      },
+      "elements": [
+        {
+          "element_id": "transaction_rd_performance",
+          "status": "COVERED",
+          "proposition": "研究开发核心给付已有直接约定。",
+          "evidence_ids": [
+            "SRC-075c62d54de3ad7a7b29",
+            "SRC-0c646c2cfad93e952a57"
+          ]
+        },
+        {
+          "element_id": "transaction_entrusted_direction",
+          "status": "COVERED",
+          "proposition": "委托方提出需求、受托方承担开发的交易结构已有直接约定。",
+          "evidence_ids": [
+            "SRC-075c62d54de3ad7a7b29"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "evidence_id": "SRC-075c62d54de3ad7a7b29",
+          "clause_id": "C0004",
+          "location": "第一条 项目名称及开发目标",
+          "quote": "乙方根据甲方业务需求完成平台设计、开发、部署及技术文档编制，实现以下主要功能："
+        },
+        {
+          "evidence_id": "SRC-0c646c2cfad93e952a57",
+          "clause_id": "C0006",
+          "location": "第三条 开发周期",
+          "quote": "乙方应按以下阶段完成工作：\n第一阶段：2026年10月20日前完成需求分析及系统设计；"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-01-03",
+      "status": "通过",
+      "check": {
+        "status": "PASS",
+        "failures": [],
+        "element_evidence_ids": {
+          "project_identity": [
+            "SRC-0a93ac0d8afe42947fce"
+          ],
+          "functional_scope": [
+            "SRC-075c62d54de3ad7a7b29"
+          ],
+          "performance_scope": [
+            "SRC-0c646c2cfad93e952a57",
+            "SRC-a85b209b84e5550ea4bd",
+            "SRC-e9a22556e07c58eaecdf",
+            "SRC-f78d2290e7ecdc373924",
+            "SRC-e43c2098ee6e8fd37ffb"
+          ]
+        }
+      },
+      "elements": [
+        {
+          "element_id": "project_identity",
+          "status": "COVERED",
+          "proposition": "研发项目身份已有明确约定。",
+          "evidence_ids": [
+            "SRC-0a93ac0d8afe42947fce"
+          ]
+        },
+        {
+          "element_id": "functional_scope",
+          "status": "COVERED",
+          "proposition": "研发功能范围已有明确约定。",
+          "evidence_ids": [
+            "SRC-075c62d54de3ad7a7b29"
+          ]
+        },
+        {
+          "element_id": "performance_scope",
+          "status": "COVERED",
+          "proposition": "研发履行期限或节点已有明确约定。",
+          "evidence_ids": [
+            "SRC-0c646c2cfad93e952a57",
+            "SRC-a85b209b84e5550ea4bd",
+            "SRC-e9a22556e07c58eaecdf",
+            "SRC-f78d2290e7ecdc373924",
+            "SRC-e43c2098ee6e8fd37ffb"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "evidence_id": "SRC-0a93ac0d8afe42947fce",
+          "clause_id": "C0004",
+          "location": "第一条 项目名称及开发目标",
+          "quote": "项目名称：智能供应链预测平台V1.0。"
+        },
+        {
+          "evidence_id": "SRC-075c62d54de3ad7a7b29",
+          "clause_id": "C0004",
+          "location": "第一条 项目名称及开发目标",
+          "quote": "乙方根据甲方业务需求完成平台设计、开发、部署及技术文档编制，实现以下主要功能："
+        },
+        {
+          "evidence_id": "SRC-0c646c2cfad93e952a57",
+          "clause_id": "C0006",
+          "location": "第三条 开发周期",
+          "quote": "乙方应按以下阶段完成工作：\n第一阶段：2026年10月20日前完成需求分析及系统设计；"
+        },
+        {
+          "evidence_id": "SRC-a85b209b84e5550ea4bd",
+          "clause_id": "C0006",
+          "location": "第三条 开发周期",
+          "quote": "第二阶段：2026年11月30日前完成主要功能开发；"
+        },
+        {
+          "evidence_id": "SRC-e9a22556e07c58eaecdf",
+          "clause_id": "C0006",
+          "location": "第三条 开发周期",
+          "quote": "第三阶段：2026年12月20日前完成测试环境部署；"
+        },
+        {
+          "evidence_id": "SRC-f78d2290e7ecdc373924",
+          "clause_id": "C0006",
+          "location": "第三条 开发周期",
+          "quote": "最终版本应于2026年12月31日前提交甲方验收。"
+        },
+        {
+          "evidence_id": "SRC-e43c2098ee6e8fd37ffb",
+          "clause_id": "C0017",
+          "location": "第十一条 技术支持与缺陷修复",
+          "quote": "自项目最终验收之日起12个月内，乙方免费提供系统缺陷修复服务。"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-04-01",
+      "status": "通过",
+      "check": {
+        "status": "PASS",
+        "failures": [],
+        "element_evidence_ids": {
+          "commissioned_project_and_objective": [
+            "SRC-0a93ac0d8afe42947fce"
+          ],
+          "functional_and_technical_scope": [
+            "SRC-075c62d54de3ad7a7b29",
+            "SRC-0f588d53b45901c0d4fc"
+          ],
+          "schedule_and_milestones": [
+            "SRC-0c646c2cfad93e952a57",
+            "SRC-a85b209b84e5550ea4bd",
+            "SRC-e9a22556e07c58eaecdf",
+            "SRC-f78d2290e7ecdc373924"
+          ],
+          "deliverables_and_acceptance": [
+            "SRC-0f588d53b45901c0d4fc",
+            "SRC-29cfb79788249c1b297f",
+            "SRC-6f540ef57af5ea282309",
+            "SRC-a50e53d3d79e1ef2fca2",
+            "SRC-f4b051329a6dc370c148",
+            "SRC-45d85914eaea5c9e398b"
+          ]
+        }
+      },
+      "elements": [
+        {
+          "element_id": "commissioned_project_and_objective",
+          "status": "COVERED",
+          "proposition": "项目及目标已有直接约定。",
+          "evidence_ids": [
+            "SRC-0a93ac0d8afe42947fce"
+          ]
+        },
+        {
+          "element_id": "functional_and_technical_scope",
+          "status": "COVERED",
+          "proposition": "功能和技术范围已有直接约定。",
+          "evidence_ids": [
+            "SRC-075c62d54de3ad7a7b29",
+            "SRC-0f588d53b45901c0d4fc"
+          ]
+        },
+        {
+          "element_id": "schedule_and_milestones",
+          "status": "COVERED",
+          "proposition": "开发期限及里程碑已有直接约定。",
+          "evidence_ids": [
+            "SRC-0c646c2cfad93e952a57",
+            "SRC-a85b209b84e5550ea4bd",
+            "SRC-e9a22556e07c58eaecdf",
+            "SRC-f78d2290e7ecdc373924"
+          ]
+        },
+        {
+          "element_id": "deliverables_and_acceptance",
+          "status": "COVERED",
+          "proposition": "开发成果交付、验收标准已有直接约定。",
+          "evidence_ids": [
+            "SRC-0f588d53b45901c0d4fc",
+            "SRC-29cfb79788249c1b297f",
+            "SRC-6f540ef57af5ea282309",
+            "SRC-a50e53d3d79e1ef2fca2",
+            "SRC-f4b051329a6dc370c148",
+            "SRC-45d85914eaea5c9e398b"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "evidence_id": "SRC-0a93ac0d8afe42947fce",
+          "clause_id": "C0004",
+          "location": "第一条 项目名称及开发目标",
+          "quote": "项目名称：智能供应链预测平台V1.0。"
+        },
+        {
+          "evidence_id": "SRC-075c62d54de3ad7a7b29",
+          "clause_id": "C0004",
+          "location": "第一条 项目名称及开发目标",
+          "quote": "乙方根据甲方业务需求完成平台设计、开发、部署及技术文档编制，实现以下主要功能："
+        },
+        {
+          "evidence_id": "SRC-0f588d53b45901c0d4fc",
+          "clause_id": "C0004",
+          "location": "第一条 项目名称及开发目标",
+          "quote": "具体功能以双方确认的《需求规格说明书》为准。"
+        },
+        {
+          "evidence_id": "SRC-0c646c2cfad93e952a57",
+          "clause_id": "C0006",
+          "location": "第三条 开发周期",
+          "quote": "乙方应按以下阶段完成工作：\n第一阶段：2026年10月20日前完成需求分析及系统设计；"
+        },
+        {
+          "evidence_id": "SRC-a85b209b84e5550ea4bd",
+          "clause_id": "C0006",
+          "location": "第三条 开发周期",
+          "quote": "第二阶段：2026年11月30日前完成主要功能开发；"
+        },
+        {
+          "evidence_id": "SRC-e9a22556e07c58eaecdf",
+          "clause_id": "C0006",
+          "location": "第三条 开发周期",
+          "quote": "第三阶段：2026年12月20日前完成测试环境部署；"
+        },
+        {
+          "evidence_id": "SRC-f78d2290e7ecdc373924",
+          "clause_id": "C0006",
+          "location": "第三条 开发周期",
+          "quote": "最终版本应于2026年12月31日前提交甲方验收。"
+        },
+        {
+          "evidence_id": "SRC-29cfb79788249c1b297f",
+          "clause_id": "C0013",
+          "location": "第七条 项目验收",
+          "quote": "乙方完成项目后，应向甲方提交：\n1. 可运行的软件系统；\n2. 程序源代码；"
+        },
+        {
+          "evidence_id": "SRC-6f540ef57af5ea282309",
+          "clause_id": "C0013",
+          "location": "第七条 项目验收",
+          "quote": "乙方完成项目后，应向甲方提交：\n1. 可运行的软件系统；\n2. 程序源代码；\n3. 数据库设计文档；"
+        },
+        {
+          "evidence_id": "SRC-a50e53d3d79e1ef2fca2",
+          "clause_id": "C0013",
+          "location": "第七条 项目验收",
+          "quote": "乙方完成项目后，应向甲方提交：\n1. 可运行的软件系统；\n2. 程序源代码；\n3. 数据库设计文档；\n4. 部署说明；"
+        },
+        {
+          "evidence_id": "SRC-f4b051329a6dc370c148",
+          "clause_id": "C0013",
+          "location": "第七条 项目验收",
+          "quote": "乙方完成项目后，应向甲方提交：\n1. 可运行的软件系统；\n2. 程序源代码；\n3. 数据库设计文档；\n4. 部署说明；\n5. API接口文档；"
+        },
+        {
+          "evidence_id": "SRC-45d85914eaea5c9e398b",
+          "clause_id": "C0013",
+          "location": "第七条 项目验收",
+          "quote": "乙方完成项目后，应向甲方提交：\n1. 可运行的软件系统；\n2. 程序源代码；\n3. 数据库设计文档；\n4. 部署说明；\n5. API接口文档；\n6. 用户操作手册。"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-11-01",
+      "status": "通过",
+      "check": {
+        "status": "PASS",
+        "failures": [],
+        "element_evidence_ids": {
+          "core_contract_arrangement": [
+            "SRC-c1fc0e4bf9dd874fc2d8",
+            "SRC-f3b1694c2a43f3fabb90"
+          ]
+        }
+      },
+      "elements": [
+        {
+          "element_id": "core_contract_arrangement",
+          "status": "COVERED",
+          "proposition": "合同存在可验证的“技术秘密保密义务”实质条款内容。",
+          "evidence_ids": [
+            "SRC-c1fc0e4bf9dd874fc2d8",
+            "SRC-f3b1694c2a43f3fabb90"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "evidence_id": "SRC-c1fc0e4bf9dd874fc2d8",
+          "clause_id": "C0014",
+          "location": "第八条 技术成果和知识产权",
+          "quote": "第八条 技术成果和知识产权\n本项目开发形成的软件源代码、技术文档、数据库结构、接口设计、模型配置及其他技术成果归甲方所有。\n乙方在项目开发前已经掌握的算法、程序框架、开发工具、通用组件及技术经验仍归乙方所有。\n乙方有权继续使用本项目开发过程中形成的通用技术、开发方法和经验，但不得使用甲方商业秘密。\n双方未对哪些内容属于乙方既有技术另行制作清单。"
+        },
+        {
+          "evidence_id": "SRC-f3b1694c2a43f3fabb90",
+          "clause_id": "C0016",
+          "location": "第十条 保密义务",
+          "quote": "第十条 保密义务\n任何一方因履行本合同知悉的对方非公开技术资料、经营数据、客户信息及商业计划均属于保密信息。"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-11-02",
+      "status": "通过",
+      "check": {
+        "status": "PASS",
+        "failures": [],
+        "element_evidence_ids": {
+          "confidential_information_scope": [
+            "SRC-9db6c8bd015f2ed49e1e"
+          ],
+          "during_contract_confidentiality": [
+            "SRC-4495dfce77de548c9e99"
+          ],
+          "post_termination_confidentiality": [
+            "SRC-2cd9cf954b0b4377b370"
+          ],
+          "confidentiality_duration": [
+            "SRC-2cd9cf954b0b4377b370"
+          ],
+          "confidentiality_exceptions": [
+            "SRC-2c9d499dc135fd6b88e6",
+            "SRC-cd93a04122c6082fb7e4",
+            "SRC-77836b1ad4494b4a81d6",
+            "SRC-28133e311aac18911a18"
+          ]
+        }
+      },
+      "elements": [
+        {
+          "element_id": "confidential_information_scope",
+          "status": "COVERED",
+          "proposition": "保密信息类别和范围已有明确约定。",
+          "evidence_ids": [
+            "SRC-9db6c8bd015f2ed49e1e"
+          ]
+        },
+        {
+          "element_id": "during_contract_confidentiality",
+          "status": "COVERED",
+          "proposition": "合同履行期间的保密义务已有明确约定。",
+          "evidence_ids": [
+            "SRC-4495dfce77de548c9e99"
+          ]
+        },
+        {
+          "element_id": "post_termination_confidentiality",
+          "status": "COVERED",
+          "proposition": "合同终止或解除后的继续保密义务已有明确约定。",
+          "evidence_ids": [
+            "SRC-2cd9cf954b0b4377b370"
+          ]
+        },
+        {
+          "element_id": "confidentiality_duration",
+          "status": "COVERED",
+          "proposition": "保密义务的持续期间已有明确约定。",
+          "evidence_ids": [
+            "SRC-2cd9cf954b0b4377b370"
+          ]
+        },
+        {
+          "element_id": "confidentiality_exceptions",
+          "status": "COVERED",
+          "proposition": "公开信息、合法取得、独立开发及依法披露例外已有明确约定。",
+          "evidence_ids": [
+            "SRC-2c9d499dc135fd6b88e6",
+            "SRC-cd93a04122c6082fb7e4",
+            "SRC-77836b1ad4494b4a81d6",
+            "SRC-28133e311aac18911a18"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "evidence_id": "SRC-9db6c8bd015f2ed49e1e",
+          "clause_id": "C0016",
+          "location": "第十条 保密义务",
+          "quote": "任何一方因履行本合同知悉的对方非公开技术资料、经营数据、客户信息及商业计划均属于保密信息。"
+        },
+        {
+          "evidence_id": "SRC-4495dfce77de548c9e99",
+          "clause_id": "C0016",
+          "location": "第十条 保密义务",
+          "quote": "未经信息提供方书面同意，接受方不得向无权知悉的第三方披露或用于本合同以外的目的。"
+        },
+        {
+          "evidence_id": "SRC-2cd9cf954b0b4377b370",
+          "clause_id": "C0016",
+          "location": "第十条 保密义务",
+          "quote": "保密义务在本合同终止后继续有效五年。"
+        },
+        {
+          "evidence_id": "SRC-2c9d499dc135fd6b88e6",
+          "clause_id": "C0016",
+          "location": "第十条 保密义务",
+          "quote": "以下信息不属于保密信息：\n1. 已经合法公开的信息；"
+        },
+        {
+          "evidence_id": "SRC-cd93a04122c6082fb7e4",
+          "clause_id": "C0016",
+          "location": "第十条 保密义务",
+          "quote": "以下信息不属于保密信息：\n1. 已经合法公开的信息；\n2. 接受方在取得前已经合法知悉的信息；\n3. 接受方从有权披露的第三方合法取得的信息；"
+        },
+        {
+          "evidence_id": "SRC-77836b1ad4494b4a81d6",
+          "clause_id": "C0016",
+          "location": "第十条 保密义务",
+          "quote": "以下信息不属于保密信息：\n1. 已经合法公开的信息；\n2. 接受方在取得前已经合法知悉的信息；\n3. 接受方从有权披露的第三方合法取得的信息；\n4. 接受方未使用对方资料独立开发形成的信息。"
+        },
+        {
+          "evidence_id": "SRC-28133e311aac18911a18",
+          "clause_id": "C0016",
+          "location": "第十条 保密义务",
+          "quote": "法律法规或有权机关要求披露的，不视为违约。"
+        }
+      ]
+    }
+  ]
+}

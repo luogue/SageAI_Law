@@ -1,0 +1,15 @@
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+  warnings.warn(
+INFO:reasoning.llm_client:[CircuitBreaker] 熔断器初始化 - 阈值:3次, 超时:30秒
+Traceback (most recent call last):
+  File "F:\ai\Sage\scripts\trace_round8_nda.py", line 41, in <module>
+    report = engine.review_contract_v2(text, 'confidentiality', use_llm=False)
+  File "F:\ai\Sage\backend\review_v2\engine.py", line 52188, in review_contract_v2
+    return finalize(run(contract_text, route.resolved_type, _review_contract_v2_legacy, **options))
+  File "F:\ai\Sage\backend\review_v2\employment_fact_pipeline.py", line 27, in run
+    return _run(text,contract_type,legacy_engine,**kwargs)
+  File "F:\ai\Sage\backend\review_v2\employment_fact_pipeline.py", line 49, in _run
+    store = verified_store(extracted, verification)
+  File "F:\ai\Sage\backend\review_v2\fact_verification.py", line 183, in verified_store
+    raise error
+review_v2.fact_validation.FactExtractionError: CORE_FACT_VERIFICATION_FAILED: CORE_FACT_VERIFICATION_FAILED

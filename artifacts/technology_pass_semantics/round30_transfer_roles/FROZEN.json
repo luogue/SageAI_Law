@@ -1,0 +1,30 @@
+{
+  "status": "FROZEN",
+  "round": "Round30",
+  "scope": "technology_secret_transfer",
+  "frozen_at": "2026-09-18T05:57:02.032649+00:00",
+  "acceptance_file": "acceptance.json",
+  "acceptance_sha256": "f25db3b66926a6c67cc6c908d2fb5c53e2c299cf4bb86805b659dd5ca0a51969",
+  "acceptance_status": "ACCEPTED_WITH_DOCUMENTED_MODEL_VARIABILITY",
+  "snapshot_manifest": "frozen_snapshot/manifest.json",
+  "snapshot_manifest_sha256": "a7b5657b36aef5ed51eb59796bef74442d041e5c801c3d136fd55f109b928b37",
+  "snapshot_files": 1168,
+  "snapshot_verifier_sha256": "52e8c4b1b6c5641d59c6611dbaa3a3c893692156fae00b870c336c766f24dc12",
+  "verification": {
+    "source_and_existing_tests_match_acceptance": true,
+    "snapshot_copy_hashes_verified": true,
+    "new_test_failures": 0,
+    "old_pass_to_fail": 0,
+    "removed_tests": 0,
+    "gate_verifier_fallback_unchanged": true,
+    "acceptance_preserved_byte_for_byte": true
+  },
+  "known_limitations": [
+    "246 pre-existing full-regression failures remain outside this round.",
+    "Two final protection/control samples have pre-existing live-model variability reproducible with prior source; zero drift is not claimed.",
+    "One prior penalty-base false positive was corrected.",
+    "Reproduction uses the existing project dependencies and environment configuration; secrets are not included in the snapshot."
+  ],
+  "next_recommended_test_type": "专利申请权转让合同",
+  "next_round_started": false
+}

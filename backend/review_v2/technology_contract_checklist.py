@@ -38,7 +38,7 @@ def _technology_applicable_if(item_id: str, node_id: str) -> str:
     if item_id.startswith("TC-05"):
         if node_id == "technical_secret_result_rights":
             return (
-                "适用于合作开发中需要审查最终成果归属、背景技术和既有知识产权保留、"
+                "适用于委托开发或合作开发中需要审查最终成果归属、背景技术和既有知识产权保留、"
                 "独立成果与项目依赖型成果承接，以及许可、转让和商业复用边界的情形。"
             )
         if node_id == "cooperation_breach_and_exit":

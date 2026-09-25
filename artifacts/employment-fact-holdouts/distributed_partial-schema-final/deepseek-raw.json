@@ -1,0 +1,485 @@
+[
+  {
+    "response": {
+      "schema_version": "employment-facts-1.0",
+      "reviewed_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009",
+        "C0010",
+        "C0011"
+      ],
+      "coverage": {
+        "identity.employer_name": "EXTRACTED",
+        "identity.employer_address": "EXTRACTED",
+        "identity.worker_name": "EXTRACTED",
+        "identity.worker_id": "EXTRACTED",
+        "contract.type": "EXTRACTED",
+        "contract.start_date": "EXTRACTED",
+        "contract.end_date": "EXTRACTED",
+        "contract.duration_months": "ABSENT",
+        "contract.task": "ABSENT",
+        "contract.task_end": "ABSENT",
+        "probation.arrangement": "EXTRACTED",
+        "probation.start_date": "ABSENT",
+        "probation.end_date": "ABSENT",
+        "probation.duration_months": "EXTRACTED",
+        "probation.salary": "EXTRACTED",
+        "probation.repeated": "ABSENT",
+        "job.position": "ABSENT",
+        "job.duties": "ABSENT",
+        "job.locations": "ABSENT",
+        "working_hours.system": "ABSENT",
+        "working_hours.hours_per_day": "ABSENT",
+        "working_hours.hours_per_week": "ABSENT",
+        "working_hours.rest": "ABSENT",
+        "working_hours.rest_days_per_week": "ABSENT",
+        "working_hours.rest_waived": "ABSENT",
+        "working_hours.overtime": "ABSENT",
+        "salary.regular": "EXTRACTED",
+        "salary.payment_date": "EXTRACTED",
+        "salary.payment_method": "EXTRACTED",
+        "salary.withheld_for_handover": "ABSENT",
+        "social_insurance.employer_enrolls": "EXTRACTED",
+        "social_insurance.employer_pays": "EXTRACTED",
+        "social_insurance.employee_withheld": "EXTRACTED",
+        "social_insurance.cash_replacement": "ABSENT",
+        "social_insurance.waived": "ABSENT"
+      },
+      "facts": [
+        {
+          "concept": "identity.employer_name",
+          "value": "远岑物流有限公司",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方：远岑物流有限公司，住所南京市江宁区中山路23号。"
+            }
+          ]
+        },
+        {
+          "concept": "identity.employer_address",
+          "value": "南京市江宁区中山路23号",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方：远岑物流有限公司，住所南京市江宁区中山路23号。"
+            }
+          ]
+        },
+        {
+          "concept": "identity.worker_name",
+          "value": "李淳",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方：李淳，身份证号码320100198802091234。"
+            }
+          ]
+        },
+        {
+          "concept": "identity.worker_id",
+          "value": "320100198802091234",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方：李淳，身份证号码320100198802091234。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.type",
+          "value": "FIXED",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "期限类型固定，自2027年3月1日至2029年2月28日。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.start_date",
+          "value": "2027-03-01",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "期限类型固定，自2027年3月1日至2029年2月28日。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.end_date",
+          "value": "2029-02-28",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "期限类型固定，自2027年3月1日至2029年2月28日。"
+            }
+          ]
+        },
+        {
+          "concept": "probation.arrangement",
+          "value": "CURRENT",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "试用期一个月，月薪9，800.50元。"
+            }
+          ]
+        },
+        {
+          "concept": "probation.duration_months",
+          "value": 1,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "试用期一个月，月薪9，800.50元。"
+            }
+          ]
+        },
+        {
+          "concept": "probation.salary",
+          "value": {
+            "amount_text": "9，800.50",
+            "unit": "CNY/MONTH",
+            "component": "TOTAL"
+          },
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "试用期一个月，月薪9，800.50元。"
+            }
+          ]
+        },
+        {
+          "concept": "salary.regular",
+          "value": {
+            "amount_text": "18.75",
+            "unit": "CNY/PIECE",
+            "component": "TOTAL"
+          },
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "正式任职后实行计件工资，每完成一件合格组件计人民币18.75元，上不封顶。"
+            }
+          ]
+        },
+        {
+          "concept": "salary.payment_date",
+          "value": "每月20日",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0005",
+              "quote": "薪金于每月20日银行转账。"
+            }
+          ]
+        },
+        {
+          "concept": "salary.payment_method",
+          "value": "BANK",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0005",
+              "quote": "薪金于每月20日银行转账。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.employer_enrolls",
+          "value": true,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0006",
+              "quote": "甲方负责为乙方办妥社会保险参保手续。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.employer_pays",
+          "value": true,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0007",
+              "quote": "单位缴费部分由甲方依法足额缴付，员工缴费部分依法扣缴。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.employee_withheld",
+          "value": true,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0007",
+              "quote": "单位缴费部分由甲方依法足额缴付，员工缴费部分依法扣缴。"
+            }
+          ]
+        }
+      ]
+    },
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 1918,
+      "completion_tokens": 1386,
+      "total_tokens": 3304,
+      "prompt_tokens_details": {
+        "cached_tokens": 768
+      },
+      "prompt_cache_hit_tokens": 768,
+      "prompt_cache_miss_tokens": 1150
+    },
+    "provider": "deepseek"
+  },
+  {
+    "response": {
+      "schema_version": "employment-facts-1.0",
+      "reviewed_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009",
+        "C0010",
+        "C0011"
+      ],
+      "coverage": {
+        "social_insurance.employer_share_shifted": "ABSENT",
+        "social_insurance.employer_underpays": "ABSENT",
+        "social_insurance.employer_liability_excluded": "ABSENT",
+        "social_insurance.employee_remedy_excluded": "ABSENT",
+        "labor_protection.measures": "EXTRACTED",
+        "labor_protection.training": "ABSENT",
+        "labor_protection.hazard_exists": "ABSENT",
+        "labor_protection.hazard_protection": "ABSENT",
+        "training.arrangement": "ABSENT",
+        "training.cost": "ABSENT",
+        "training.duration_months": "ABSENT",
+        "training.penalty_prorated": "ABSENT",
+        "termination.grounds": "EXTRACTED",
+        "termination.notice": "ABSENT",
+        "termination.notice_days": "ABSENT",
+        "termination.approval_required": "ABSENT",
+        "termination.employee_right_waived": "ABSENT",
+        "termination.employer_unrestricted": "ABSENT",
+        "termination.handover": "ABSENT",
+        "economic_compensation.statutory": "EXTRACTED",
+        "economic_compensation.settlement_deadline": "ABSENT",
+        "economic_compensation.waived": "ABSENT",
+        "economic_compensation.reduced": "ABSENT",
+        "economic_compensation.statutory_percentage": "ABSENT",
+        "economic_compensation.payment_delay_months": "ABSENT",
+        "dispute.arbitration": "EXTRACTED",
+        "penalties.obligations": "ABSENT",
+        "non_compete.arrangement": "EXTRACTED",
+        "non_compete.personnel": "EXTRACTED",
+        "non_compete.secret_access": "EXTRACTED",
+        "non_compete.businesses": "EXTRACTED",
+        "non_compete.territories": "EXTRACTED",
+        "non_compete.duration_months": "EXTRACTED",
+        "non_compete.compensation": "ABSENT",
+        "non_compete.compensation_deferred": "EXTRACTED",
+        "non_compete.compensation_waived": "ABSENT",
+        "non_compete.all_staff": "ABSENT",
+        "ip.assignment_scope": "ABSENT",
+        "ip.allocations": "ABSENT",
+        "ip.personal_rights_waived": "ABSENT"
+      },
+      "facts": [
+        {
+          "concept": "labor_protection.measures",
+          "value": "劳动保护和职业健康制度适用于员工，企业提供必要劳动防护设施。",
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "劳动保护和职业健康制度适用于员工，企业提供必要劳动防护设施。"
+            }
+          ]
+        },
+        {
+          "concept": "termination.grounds",
+          "value": [
+            "甲乙双方解除终止劳动合同按照法律规定办理"
+          ],
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "甲乙双方解除终止劳动合同按照法律规定办理，应当给予经济补偿或赔偿的由单位依法承担。"
+            }
+          ]
+        },
+        {
+          "concept": "economic_compensation.statutory",
+          "value": "应当给予经济补偿或赔偿的由单位依法承担",
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "甲乙双方解除终止劳动合同按照法律规定办理，应当给予经济补偿或赔偿的由单位依法承担。"
+            }
+          ]
+        },
+        {
+          "concept": "dispute.arbitration",
+          "value": true,
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0011",
+              "quote": "争议依法提起劳动仲裁。"
+            }
+          ]
+        },
+        {
+          "concept": "non_compete.arrangement",
+          "value": "CURRENT",
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0010",
+              "quote": "适用竞业限制的对象为实际接触技术秘密的高级技术人员。员工在劳动关系结束后的十八个月内不得从事竞争业务。"
+            }
+          ]
+        },
+        {
+          "concept": "non_compete.personnel",
+          "value": "实际接触技术秘密的高级技术人员",
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0010",
+              "quote": "适用竞业限制的对象为实际接触技术秘密的高级技术人员。"
+            }
+          ]
+        },
+        {
+          "concept": "non_compete.secret_access",
+          "value": "实际接触技术秘密",
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0010",
+              "quote": "适用竞业限制的对象为实际接触技术秘密的高级技术人员。"
+            }
+          ]
+        },
+        {
+          "concept": "non_compete.businesses",
+          "value": [
+            "物流调度软件",
+            "仓储自动化业务"
+          ],
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0011",
+              "quote": "竞争业务为物流调度软件及仓储自动化业务。"
+            }
+          ]
+        },
+        {
+          "concept": "non_compete.territories",
+          "value": [
+            "浙江省",
+            "江苏省"
+          ],
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0011",
+              "quote": "限定地域为浙江省与江苏省。"
+            }
+          ]
+        },
+        {
+          "concept": "non_compete.duration_months",
+          "value": 18,
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0010",
+              "quote": "员工在劳动关系结束后的十八个月内不得从事竞争业务。"
+            }
+          ]
+        },
+        {
+          "concept": "non_compete.compensation_deferred",
+          "value": true,
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0011",
+              "quote": "竞业补偿的具体标准另行协商。"
+            }
+          ]
+        }
+      ]
+    },
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 2352,
+      "completion_tokens": 1696,
+      "total_tokens": 4048,
+      "prompt_tokens_details": {
+        "cached_tokens": 384
+      },
+      "prompt_cache_hit_tokens": 384,
+      "prompt_cache_miss_tokens": 1968
+    },
+    "provider": "deepseek"
+  }
+]

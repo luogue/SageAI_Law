@@ -1,0 +1,45 @@
+{
+  "release_quality_gate": "BLOCKED",
+  "technical_quality_gate": "REPORT_READY",
+  "test_count": 219,
+  "failed_tests": [],
+  "core_evidence_equal": true,
+  "all_rule_states_equal": true,
+  "input_sha256": "cef2d17221e5806776d8ff2080683d316749ce46f2bd53a90389ee56c3619fa5",
+  "coverage": {
+    "通过": 32,
+    "缺失": 9,
+    "不适用": 4,
+    "部分覆盖": 5
+  },
+  "children_gate": {
+    "status": "REPORT_READY",
+    "failures": [],
+    "rows": [
+      {
+        "risk_id": "RF-PROPERTY-DAMAGE-001",
+        "actionable_child_ids": [
+          "HL-035",
+          "HL-037",
+          "HL-040",
+          "HL-041"
+        ],
+        "theme_child_ids": [
+          "HL-035",
+          "HL-037",
+          "HL-040",
+          "HL-041"
+        ],
+        "formal_child_ids": [
+          "HL-035",
+          "HL-037",
+          "HL-040",
+          "HL-041"
+        ],
+        "missing_top_fragments": []
+      }
+    ]
+  },
+  "transport": "FastAPI TestClient: real multipart route and response model; test-only authentication override",
+  "browser_refreshed": false
+}

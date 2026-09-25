@@ -54,22 +54,9 @@ MAX_CONNECTIONS = int(os.getenv("MAX_CONNECTIONS", "100"))
 GZIP_MIN_SIZE = int(os.getenv("GZIP_MIN_SIZE", "500"))
 
 # ========== LLM 模型配置 ==========
-# 千问 (Qwen / DashScope) - 首选模型
-DASHSCOPE_API_KEY = os.getenv("DASHSCOPE_API_KEY", "")
-QWEN_MODEL = os.getenv("QWEN_MODEL", "qwen-max")
-
-# 火山方舟 (豆包/Doubao / Ark) - 次选模型
-ARK_API_KEY = os.getenv("ARK_API_KEY", "")
-ARK_ENDPOINT_ID = os.getenv("ARK_ENDPOINT_ID", "")
-
-# DeepSeek - 备选模型
-DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY", "")
-
-# 模型优先级（可选，逗号分隔，默认: doubao,qwen,deepseek）- 火山优先
-LLM_PRIORITY = os.getenv("LLM_PRIORITY", "doubao,qwen,deepseek")
-
-# 备用模型列表（兼容旧配置）
-ALTERNATIVE_MODELS = os.getenv("ALTERNATIVE_MODELS", "")
+from model_settings import configuration as model_configuration
+DEEPSEEK_API_KEY = model_configuration()['key']
+DEEPSEEK_MODEL = model_configuration()['model']
 
 # ========== 法条校验配置 ==========
 ENABLE_LEGAL_CHECK = os.getenv("ENABLE_LEGAL_CHECK", "true").lower() == "true"

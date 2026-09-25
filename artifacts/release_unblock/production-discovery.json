@@ -1,0 +1,152 @@
+{
+  "PRODUCTION_DB_STATUS": "UNKNOWN",
+  "access_method": "Existing deployment settings; strict known_hosts; credentials not logged",
+  "access": "CONNECTED",
+  "discovery": {
+    "command": "python3 -c 'import json,subprocess,os\ndef run(args):\n p=subprocess.run(args,capture_output=True,text=True);return {'\"'\"'exit'\"'\"':p.returncode,'\"'\"'stdout'\"'\"':p.stdout,'\"'\"'stderr'\"'\"':p.stderr}\nr={'\"'\"'uname'\"'\"':run(['\"'\"'uname'\"'\"','\"'\"'-a'\"'\"']),'\"'\"'memory'\"'\"':run(['\"'\"'free'\"'\"','\"'\"'-m'\"'\"']),'\"'\"'disk'\"'\"':run(['\"'\"'df'\"'\"','\"'\"'-h'\"'\"','\"'\"'/opt/sageai'\"'\"']),\n   '\"'\"'docker_version'\"'\"':run(['\"'\"'docker'\"'\"','\"'\"'version'\"'\"','\"'\"'--format'\"'\"','\"'\"'{{json .Server}}'\"'\"']),\n   '\"'\"'containers'\"'\"':run(['\"'\"'docker'\"'\"','\"'\"'ps'\"'\"','\"'\"'--format'\"'\"','\"'\"'{{json .}}'\"'\"']),\n   '\"'\"'git_commit'\"'\"':run(['\"'\"'git'\"'\"','\"'\"'-C'\"'\"','\"'\"'/opt/sageai'\"'\"','\"'\"'rev-parse'\"'\"','\"'\"'HEAD'\"'\"'])}\np=subprocess.run(['\"'\"'docker'\"'\"','\"'\"'inspect'\"'\"','\"'\"'sageai-backend'\"'\"'],capture_output=True,text=True)\nif p.returncode==0:\n c=json.loads(p.stdout)[0];e=dict(x.split('\"'\"'='\"'\"',1) for x in c['\"'\"'Config'\"'\"']['\"'\"'Env'\"'\"'] if '\"'\"'='\"'\"' in x)\n r['\"'\"'backend'\"'\"']={'\"'\"'id'\"'\"':c['\"'\"'Id'\"'\"'],'\"'\"'image_id'\"'\"':c['\"'\"'Image'\"'\"'],'\"'\"'image_name'\"'\"':c['\"'\"'Config'\"'\"']['\"'\"'Image'\"'\"'],'\"'\"'created'\"'\"':c['\"'\"'Created'\"'\"'],\n '\"'\"'state'\"'\"':{k:c['\"'\"'State'\"'\"'].get(k) for k in ['\"'\"'Status'\"'\"','\"'\"'Running'\"'\"','\"'\"'StartedAt'\"'\"','\"'\"'Health'\"'\"']},'\"'\"'working_dir'\"'\"':c['\"'\"'Config'\"'\"']['\"'\"'WorkingDir'\"'\"'],\n '\"'\"'environment'\"'\"':{k:e.get(k) for k in ['\"'\"'DATABASE_URL'\"'\"','\"'\"'ENV'\"'\"','\"'\"'SAGE_DATA_DIR'\"'\"']},'\"'\"'mounts'\"'\"':c['\"'\"'Mounts'\"'\"'],\n '\"'\"'labels'\"'\"':{k:v for k,v in c['\"'\"'Config'\"'\"'].get('\"'\"'Labels'\"'\"',{}).items() if k.startswith('\"'\"'com.docker.compose.'\"'\"') or k.startswith('\"'\"'org.opencontainers.image.'\"'\"')},'\"'\"'command'\"'\"':c['\"'\"'Config'\"'\"']['\"'\"'Cmd'\"'\"']}\nelse:r['\"'\"'backend_inspect_error'\"'\"']=p.stderr\nprint(json.dumps(r,ensure_ascii=False))\n'",
+    "exit": 0,
+    "stdout": "{\"uname\": {\"exit\": 0, \"stdout\": \"Linux iZwz93ayl3kssiq6us30n2Z 5.15.0-142-generic #152-Ubuntu SMP Mon May 19 10:54:31 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux\\n\", \"stderr\": \"\"}, \"memory\": {\"exit\": 0, \"stdout\": \"               total        used        free      shared  buff/cache   available\\nMem:            1608         795          88           2         724         642\\nSwap:           2047           0        2047\\n\", \"stderr\": \"\"}, \"disk\": {\"exit\": 0, \"stdout\": \"Filesystem      Size  Used Avail Use% Mounted on\\n/dev/vda3        40G   13G   25G  35% /\\n\", \"stderr\": \"\"}, \"docker_version\": {\"exit\": 0, \"stdout\": \"{\\\"Platform\\\":{\\\"Name\\\":\\\"\\\"},\\\"Version\\\":\\\"29.1.3\\\",\\\"ApiVersion\\\":\\\"1.52\\\",\\\"MinAPIVersion\\\":\\\"1.44\\\",\\\"Os\\\":\\\"linux\\\",\\\"Arch\\\":\\\"amd64\\\",\\\"Components\\\":[{\\\"Name\\\":\\\"Engine\\\",\\\"Version\\\":\\\"29.1.3\\\",\\\"Details\\\":{\\\"ApiVersion\\\":\\\"1.52\\\",\\\"Arch\\\":\\\"amd64\\\",\\\"BuildTime\\\":\\\"Wed Apr 29 22:18:59 2026\\\",\\\"Experimental\\\":\\\"false\\\",\\\"GitCommit\\\":\\\"29.1.3-0ubuntu3~22.04.2\\\",\\\"GoVersion\\\":\\\"go1.24.4\\\",\\\"KernelVersion\\\":\\\"5.15.0-142-generic\\\",\\\"MinAPIVersion\\\":\\\"1.44\\\",\\\"Os\\\":\\\"linux\\\"}},{\\\"Name\\\":\\\"containerd\\\",\\\"Version\\\":\\\"2.2.1\\\",\\\"Details\\\":{\\\"GitCommit\\\":\\\"\\\"}},{\\\"Name\\\":\\\"runc\\\",\\\"Version\\\":\\\"1.3.4-0ubuntu1~22.04.1\\\",\\\"Details\\\":{\\\"GitCommit\\\":\\\"\\\"}},{\\\"Name\\\":\\\"docker-init\\\",\\\"Version\\\":\\\"0.19.0\\\",\\\"Details\\\":{\\\"GitCommit\\\":\\\"\\\"}}],\\\"GitCommit\\\":\\\"29.1.3-0ubuntu3~22.04.2\\\",\\\"GoVersion\\\":\\\"go1.24.4\\\",\\\"KernelVersion\\\":\\\"5.15.0-142-generic\\\",\\\"BuildTime\\\":\\\"2026-04-29T22:18:59.000000000+00:00\\\"}\\n\", \"stderr\": \"\"}, \"containers\": {\"exit\": 0, \"stdout\": \"{\\\"Command\\\":\\\"\\\\\\\"/docker-entrypoint.…\\\\\\\"\\\",\\\"CreatedAt\\\":\\\"2026-08-28 12:06:41 +0800 CST\\\",\\\"ID\\\":\\\"aab63e61cacd\\\",\\\"Image\\\":\\\"sageai_frontend\\\",\\\"Labels\\\":\\\"com.docker.compose.config-hash=d2f970118c5bb79bf6f3d7f8d7b01a2e21990e49ba39b474a5b7570e69be6621,com.docker.compose.container-number=1,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=docker-compose.yml,com.docker.compose.project.working_dir=/opt/sageai,com.docker.compose.project=sageai,com.docker.compose.service=frontend,com.docker.compose.version=1.29.2,maintainer=NGINX Docker Maintainers \\\\u003cdocker-maint@nginx.com\\\\u003e\\\",\\\"LocalVolumes\\\":\\\"0\\\",\\\"Mounts\\\":\\\"\\\",\\\"Names\\\":\\\"sageai-frontend\\\",\\\"Networks\\\":\\\"sageai-network\\\",\\\"Platform\\\":{\\\"architecture\\\":\\\"amd64\\\",\\\"os\\\":\\\"linux\\\"},\\\"Ports\\\":\\\"0.0.0.0:80-\\\\u003e80/tcp, [::]:80-\\\\u003e80/tcp, 0.0.0.0:443-\\\\u003e443/tcp, [::]:443-\\\\u003e443/tcp\\\",\\\"RunningFor\\\":\\\"12 days ago\\\",\\\"Size\\\":\\\"2.56MB (virtual 72.2MB)\\\",\\\"State\\\":\\\"running\\\",\\\"Status\\\":\\\"Up 12 days (unhealthy)\\\"}\\n{\\\"Command\\\":\\\"\\\\\\\"docker-entrypoint.s…\\\\\\\"\\\",\\\"CreatedAt\\\":\\\"2026-08-28 12:06:31 +0800 CST\\\",\\\"ID\\\":\\\"6e6065d1ba02\\\",\\\"Image\\\":\\\"redis:7-alpine\\\",\\\"Labels\\\":\\\"com.docker.compose.config-hash=3f9c085d6be2470ac028cb960093cf2f8ef48690ccc9afa561654109e1a6fd08,com.docker.compose.container-number=1,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=docker-compose.yml,com.docker.compose.project.working_dir=/opt/sageai,com.docker.compose.project=sageai,com.docker.compose.service=redis,com.docker.compose.version=1.29.2\\\",\\\"LocalVolumes\\\":\\\"1\\\",\\\"Mounts\\\":\\\"sageai-redis-d…\\\",\\\"Names\\\":\\\"sageai-redis\\\",\\\"Networks\\\":\\\"sageai-network\\\",\\\"Platform\\\":{\\\"architecture\\\":\\\"amd64\\\",\\\"os\\\":\\\"linux\\\"},\\\"Ports\\\":\\\"0.0.0.0:6379-\\\\u003e6379/tcp, [::]:6379-\\\\u003e6379/tcp\\\",\\\"RunningFor\\\":\\\"12 days ago\\\",\\\"Size\\\":\\\"4.1kB (virtual 41.1MB)\\\",\\\"State\\\":\\\"running\\\",\\\"Status\\\":\\\"Up 12 days\\\"}\\n{\\\"Command\\\":\\\"\\\\\\\"gunicorn main:app -…\\\\\\\"\\\",\\\"CreatedAt\\\":\\\"2026-08-28 12:06:31 +0800 CST\\\",\\\"ID\\\":\\\"2689c00511d9\\\",\\\"Image\\\":\\\"sageai_backend\\\",\\\"Labels\\\":\\\"com.docker.compose.config-hash=b20fbca3a84fcd6d1aad5fb4710a1b9126186f4418b99ad657a68e9360d9e51d,com.docker.compose.container-number=1,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=docker-compose.yml,com.docker.compose.project.working_dir=/opt/sageai,com.docker.compose.project=sageai,com.docker.compose.service=backend,com.docker.compose.version=1.29.2\\\",\\\"LocalVolumes\\\":\\\"2\\\",\\\"Mounts\\\":\\\"sageai-db-data,sageai-log-data\\\",\\\"Names\\\":\\\"sageai-backend\\\",\\\"Networks\\\":\\\"sageai-network\\\",\\\"Platform\\\":{\\\"architecture\\\":\\\"amd64\\\",\\\"os\\\":\\\"linux\\\"},\\\"Ports\\\":\\\"0.0.0.0:8000-\\\\u003e8000/tcp, [::]:8000-\\\\u003e8000/tcp\\\",\\\"RunningFor\\\":\\\"12 days ago\\\",\\\"Size\\\":\\\"831kB (virtual 506MB)\\\",\\\"State\\\":\\\"running\\\",\\\"Status\\\":\\\"Up 12 days (healthy)\\\"}\\n\", \"stderr\": \"\"}, \"git_commit\": {\"exit\": 128, \"stdout\": \"HEAD\\n\", \"stderr\": \"fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.\\nUse '--' to separate paths from revisions, like this:\\n'git <command> [<revision>...] -- [<file>...]'\\n\"}, \"backend\": {\"id\": \"2689c00511d963b1a51a262680d3a409dcdd0c3d3cb95cc22eba8bf1c1591c4b\", \"image_id\": \"sha256:a1954471f1473036a7dda7a1250b169a8be6b4b3bf0415ce8956a7e362523332\", \"image_name\": \"sageai_backend\", \"created\": \"2026-08-28T04:06:31.446349925Z\", \"state\": {\"Status\": \"running\", \"Running\": true, \"StartedAt\": \"2026-08-28T04:06:31.509357448Z\", \"Health\": {\"Status\": \"healthy\", \"FailingStreak\": 0, \"Log\": [{\"Start\": \"2026-09-09T11:44:19.384367962+08:00\", \"End\": \"2026-09-09T11:44:19.465325329+08:00\", \"ExitCode\": 0, \"Output\": \"\"}, {\"Start\": \"2026-09-09T11:44:49.465693355+08:00\", \"End\": \"2026-09-09T11:44:49.54673881+08:00\", \"ExitCode\": 0, \"Output\": \"\"}, {\"Start\": \"2026-09-09T11:45:19.54778762+08:00\", \"End\": \"2026-09-09T11:45:19.628315936+08:00\", \"ExitCode\": 0, \"Output\": \"\"}, {\"Start\": \"2026-09-09T11:45:49.629020678+08:00\", \"End\": \"2026-09-09T11:45:49.709988532+08:00\", \"ExitCode\": 0, \"Output\": \"\"}, {\"Start\": \"2026-09-09T11:46:19.711300196+08:00\", \"End\": \"2026-09-09T11:46:19.808776333+08:00\", \"ExitCode\": 0, \"Output\": \"\"}]}}, \"working_dir\": \"/app\", \"environment\": {\"DATABASE_URL\": \"sqlite:////app/data/app.db\", \"ENV\": \"production\", \"SAGE_DATA_DIR\": null}, \"mounts\": [{\"Type\": \"volume\", \"Name\": \"sageai-log-data\", \"Source\": \"/var/lib/docker/volumes/sageai-log-data/_data\", \"Destination\": \"/app/logs\", \"Driver\": \"local\", \"Mode\": \"rw\", \"RW\": true, \"Propagation\": \"\"}, {\"Type\": \"volume\", \"Name\": \"sageai-db-data\", \"Source\": \"/var/lib/docker/volumes/sageai-db-data/_data\", \"Destination\": \"/app/data\", \"Driver\": \"local\", \"Mode\": \"rw\", \"RW\": true, \"Propagation\": \"\"}], \"labels\": {\"com.docker.compose.config-hash\": \"b20fbca3a84fcd6d1aad5fb4710a1b9126186f4418b99ad657a68e9360d9e51d\", \"com.docker.compose.container-number\": \"1\", \"com.docker.compose.oneoff\": \"False\", \"com.docker.compose.project\": \"sageai\", \"com.docker.compose.project.config_files\": \"docker-compose.yml\", \"com.docker.compose.project.working_dir\": \"/opt/sageai\", \"com.docker.compose.service\": \"backend\", \"com.docker.compose.version\": \"1.29.2\"}, \"command\": [\"gunicorn\", \"main:app\", \"--workers\", \"6\", \"--worker-class\", \"uvicorn.workers.UvicornWorker\", \"--bind\", \"0.0.0.0:8000\", \"--timeout\", \"180\", \"--graceful-timeout\", \"120\", \"--keep-alive\", \"5\", \"--max-requests\", \"100\", \"--max-requests-jitter\", \"20\", \"--access-logfile\", \"-\", \"--error-logfile\", \"-\"]}}\n",
+    "stderr": ""
+  },
+  "discovery_data": {
+    "uname": {
+      "exit": 0,
+      "stdout": "Linux iZwz93ayl3kssiq6us30n2Z 5.15.0-142-generic #152-Ubuntu SMP Mon May 19 10:54:31 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux\n",
+      "stderr": ""
+    },
+    "memory": {
+      "exit": 0,
+      "stdout": "               total        used        free      shared  buff/cache   available\nMem:            1608         795          88           2         724         642\nSwap:           2047           0        2047\n",
+      "stderr": ""
+    },
+    "disk": {
+      "exit": 0,
+      "stdout": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/vda3        40G   13G   25G  35% /\n",
+      "stderr": ""
+    },
+    "docker_version": {
+      "exit": 0,
+      "stdout": "{\"Platform\":{\"Name\":\"\"},\"Version\":\"29.1.3\",\"ApiVersion\":\"1.52\",\"MinAPIVersion\":\"1.44\",\"Os\":\"linux\",\"Arch\":\"amd64\",\"Components\":[{\"Name\":\"Engine\",\"Version\":\"29.1.3\",\"Details\":{\"ApiVersion\":\"1.52\",\"Arch\":\"amd64\",\"BuildTime\":\"Wed Apr 29 22:18:59 2026\",\"Experimental\":\"false\",\"GitCommit\":\"29.1.3-0ubuntu3~22.04.2\",\"GoVersion\":\"go1.24.4\",\"KernelVersion\":\"5.15.0-142-generic\",\"MinAPIVersion\":\"1.44\",\"Os\":\"linux\"}},{\"Name\":\"containerd\",\"Version\":\"2.2.1\",\"Details\":{\"GitCommit\":\"\"}},{\"Name\":\"runc\",\"Version\":\"1.3.4-0ubuntu1~22.04.1\",\"Details\":{\"GitCommit\":\"\"}},{\"Name\":\"docker-init\",\"Version\":\"0.19.0\",\"Details\":{\"GitCommit\":\"\"}}],\"GitCommit\":\"29.1.3-0ubuntu3~22.04.2\",\"GoVersion\":\"go1.24.4\",\"KernelVersion\":\"5.15.0-142-generic\",\"BuildTime\":\"2026-04-29T22:18:59.000000000+00:00\"}\n",
+      "stderr": ""
+    },
+    "containers": {
+      "exit": 0,
+      "stdout": "{\"Command\":\"\\\"/docker-entrypoint.…\\\"\",\"CreatedAt\":\"2026-08-28 12:06:41 +0800 CST\",\"ID\":\"aab63e61cacd\",\"Image\":\"sageai_frontend\",\"Labels\":\"com.docker.compose.config-hash=d2f970118c5bb79bf6f3d7f8d7b01a2e21990e49ba39b474a5b7570e69be6621,com.docker.compose.container-number=1,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=docker-compose.yml,com.docker.compose.project.working_dir=/opt/sageai,com.docker.compose.project=sageai,com.docker.compose.service=frontend,com.docker.compose.version=1.29.2,maintainer=NGINX Docker Maintainers \\u003cdocker-maint@nginx.com\\u003e\",\"LocalVolumes\":\"0\",\"Mounts\":\"\",\"Names\":\"sageai-frontend\",\"Networks\":\"sageai-network\",\"Platform\":{\"architecture\":\"amd64\",\"os\":\"linux\"},\"Ports\":\"0.0.0.0:80-\\u003e80/tcp, [::]:80-\\u003e80/tcp, 0.0.0.0:443-\\u003e443/tcp, [::]:443-\\u003e443/tcp\",\"RunningFor\":\"12 days ago\",\"Size\":\"2.56MB (virtual 72.2MB)\",\"State\":\"running\",\"Status\":\"Up 12 days (unhealthy)\"}\n{\"Command\":\"\\\"docker-entrypoint.s…\\\"\",\"CreatedAt\":\"2026-08-28 12:06:31 +0800 CST\",\"ID\":\"6e6065d1ba02\",\"Image\":\"redis:7-alpine\",\"Labels\":\"com.docker.compose.config-hash=3f9c085d6be2470ac028cb960093cf2f8ef48690ccc9afa561654109e1a6fd08,com.docker.compose.container-number=1,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=docker-compose.yml,com.docker.compose.project.working_dir=/opt/sageai,com.docker.compose.project=sageai,com.docker.compose.service=redis,com.docker.compose.version=1.29.2\",\"LocalVolumes\":\"1\",\"Mounts\":\"sageai-redis-d…\",\"Names\":\"sageai-redis\",\"Networks\":\"sageai-network\",\"Platform\":{\"architecture\":\"amd64\",\"os\":\"linux\"},\"Ports\":\"0.0.0.0:6379-\\u003e6379/tcp, [::]:6379-\\u003e6379/tcp\",\"RunningFor\":\"12 days ago\",\"Size\":\"4.1kB (virtual 41.1MB)\",\"State\":\"running\",\"Status\":\"Up 12 days\"}\n{\"Command\":\"\\\"gunicorn main:app -…\\\"\",\"CreatedAt\":\"2026-08-28 12:06:31 +0800 CST\",\"ID\":\"2689c00511d9\",\"Image\":\"sageai_backend\",\"Labels\":\"com.docker.compose.config-hash=b20fbca3a84fcd6d1aad5fb4710a1b9126186f4418b99ad657a68e9360d9e51d,com.docker.compose.container-number=1,com.docker.compose.oneoff=False,com.docker.compose.project.config_files=docker-compose.yml,com.docker.compose.project.working_dir=/opt/sageai,com.docker.compose.project=sageai,com.docker.compose.service=backend,com.docker.compose.version=1.29.2\",\"LocalVolumes\":\"2\",\"Mounts\":\"sageai-db-data,sageai-log-data\",\"Names\":\"sageai-backend\",\"Networks\":\"sageai-network\",\"Platform\":{\"architecture\":\"amd64\",\"os\":\"linux\"},\"Ports\":\"0.0.0.0:8000-\\u003e8000/tcp, [::]:8000-\\u003e8000/tcp\",\"RunningFor\":\"12 days ago\",\"Size\":\"831kB (virtual 506MB)\",\"State\":\"running\",\"Status\":\"Up 12 days (healthy)\"}\n",
+      "stderr": ""
+    },
+    "git_commit": {
+      "exit": 128,
+      "stdout": "HEAD\n",
+      "stderr": "fatal: ambiguous argument 'HEAD': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\n"
+    },
+    "backend": {
+      "id": "2689c00511d963b1a51a262680d3a409dcdd0c3d3cb95cc22eba8bf1c1591c4b",
+      "image_id": "sha256:a1954471f1473036a7dda7a1250b169a8be6b4b3bf0415ce8956a7e362523332",
+      "image_name": "sageai_backend",
+      "created": "2026-08-28T04:06:31.446349925Z",
+      "state": {
+        "Status": "running",
+        "Running": true,
+        "StartedAt": "2026-08-28T04:06:31.509357448Z",
+        "Health": {
+          "Status": "healthy",
+          "FailingStreak": 0,
+          "Log": [
+            {
+              "Start": "2026-09-09T11:44:19.384367962+08:00",
+              "End": "2026-09-09T11:44:19.465325329+08:00",
+              "ExitCode": 0,
+              "Output": ""
+            },
+            {
+              "Start": "2026-09-09T11:44:49.465693355+08:00",
+              "End": "2026-09-09T11:44:49.54673881+08:00",
+              "ExitCode": 0,
+              "Output": ""
+            },
+            {
+              "Start": "2026-09-09T11:45:19.54778762+08:00",
+              "End": "2026-09-09T11:45:19.628315936+08:00",
+              "ExitCode": 0,
+              "Output": ""
+            },
+            {
+              "Start": "2026-09-09T11:45:49.629020678+08:00",
+              "End": "2026-09-09T11:45:49.709988532+08:00",
+              "ExitCode": 0,
+              "Output": ""
+            },
+            {
+              "Start": "2026-09-09T11:46:19.711300196+08:00",
+              "End": "2026-09-09T11:46:19.808776333+08:00",
+              "ExitCode": 0,
+              "Output": ""
+            }
+          ]
+        }
+      },
+      "working_dir": "/app",
+      "environment": {
+        "DATABASE_URL": "sqlite:////app/data/app.db",
+        "ENV": "production",
+        "SAGE_DATA_DIR": null
+      },
+      "mounts": [
+        {
+          "Type": "volume",
+          "Name": "sageai-log-data",
+          "Source": "/var/lib/docker/volumes/sageai-log-data/_data",
+          "Destination": "/app/logs",
+          "Driver": "local",
+          "Mode": "rw",
+          "RW": true,
+          "Propagation": ""
+        },
+        {
+          "Type": "volume",
+          "Name": "sageai-db-data",
+          "Source": "/var/lib/docker/volumes/sageai-db-data/_data",
+          "Destination": "/app/data",
+          "Driver": "local",
+          "Mode": "rw",
+          "RW": true,
+          "Propagation": ""
+        }
+      ],
+      "labels": {
+        "com.docker.compose.config-hash": "b20fbca3a84fcd6d1aad5fb4710a1b9126186f4418b99ad657a68e9360d9e51d",
+        "com.docker.compose.container-number": "1",
+        "com.docker.compose.oneoff": "False",
+        "com.docker.compose.project": "sageai",
+        "com.docker.compose.project.config_files": "docker-compose.yml",
+        "com.docker.compose.project.working_dir": "/opt/sageai",
+        "com.docker.compose.service": "backend",
+        "com.docker.compose.version": "1.29.2"
+      },
+      "command": [
+        "gunicorn",
+        "main:app",
+        "--workers",
+        "6",
+        "--worker-class",
+        "uvicorn.workers.UvicornWorker",
+        "--bind",
+        "0.0.0.0:8000",
+        "--timeout",
+        "180",
+        "--graceful-timeout",
+        "120",
+        "--keep-alive",
+        "5",
+        "--max-requests",
+        "100",
+        "--max-requests-jitter",
+        "20",
+        "--access-logfile",
+        "-",
+        "--error-logfile",
+        "-"
+      ]
+    }
+  }
+}

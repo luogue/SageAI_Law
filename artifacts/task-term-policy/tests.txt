@@ -1,0 +1,146 @@
+FFF.FF.                                                                  [100%]
+================================== FAILURES ===================================
+_____________ test_task_trial[CURRENT-1-\u98ce\u9669\u6761\u6b3e] _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000017459C46E00>
+arrangement = 'CURRENT', duration = 1, status = '风险条款'
+
+    @pytest.mark.parametrize('arrangement,duration,status',[('CURRENT',1,'风险条款'),('CURRENT',None,'风险条款'),('NONE',None,'通过')])
+    def test_task_trial(monkeypatch,arrangement,duration,status):
+     q='约定试用期一个月。' if arrangement=='CURRENT' else '双方不设试用期。'
+     values=base()+[('probation.arrangement',arrangement,q)]
+     if duration:values.append(('probation.duration_months',duration,q))
+     item=review(monkeypatch,TASK+'\n'+q,values)['EMP-15-01']
+     assert item['coverage_status']==status
+     if status=='风险条款':
+>     assert item['risk_level']=='高' and item['action_priority']=='A_MUST'
+E     AssertionError: assert ('\u9ad8' == '\u9ad8'
+E       
+E         高 and 'A_CORE' == 'A_MUST'
+E       
+E       - A_MUST
+E       + A_CORE)
+
+backend\tests\test_task_term_risk_policy.py:14: AssertionError
+___________ test_task_trial[CURRENT-None-\u98ce\u9669\u6761\u6b3e] ____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000017454EBACB0>
+arrangement = 'CURRENT', duration = None, status = '风险条款'
+
+    @pytest.mark.parametrize('arrangement,duration,status',[('CURRENT',1,'风险条款'),('CURRENT',None,'风险条款'),('NONE',None,'通过')])
+    def test_task_trial(monkeypatch,arrangement,duration,status):
+     q='约定试用期一个月。' if arrangement=='CURRENT' else '双方不设试用期。'
+     values=base()+[('probation.arrangement',arrangement,q)]
+     if duration:values.append(('probation.duration_months',duration,q))
+     item=review(monkeypatch,TASK+'\n'+q,values)['EMP-15-01']
+     assert item['coverage_status']==status
+     if status=='风险条款':
+>     assert item['risk_level']=='高' and item['action_priority']=='A_MUST'
+E     AssertionError: assert ('\u9ad8' == '\u9ad8'
+E       
+E         高 and 'A_CORE' == 'A_MUST'
+E       
+E       - A_MUST
+E       + A_CORE)
+
+backend\tests\test_task_term_risk_policy.py:14: AssertionError
+___________________ test_task_trial[NONE-None-\u901a\u8fc7] ___________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000017454F96D40>
+arrangement = 'NONE', duration = None, status = '通过'
+
+    @pytest.mark.parametrize('arrangement,duration,status',[('CURRENT',1,'风险条款'),('CURRENT',None,'风险条款'),('NONE',None,'通过')])
+    def test_task_trial(monkeypatch,arrangement,duration,status):
+     q='约定试用期一个月。' if arrangement=='CURRENT' else '双方不设试用期。'
+     values=base()+[('probation.arrangement',arrangement,q)]
+     if duration:values.append(('probation.duration_months',duration,q))
+     item=review(monkeypatch,TASK+'\n'+q,values)['EMP-15-01']
+>    assert item['coverage_status']==status
+E    AssertionError: assert '不适用' == '通过'
+E      
+E      - 通过
+E      + 不适用
+
+backend\tests\test_task_term_risk_policy.py:12: AssertionError
+_ test_task_compensation[EXCLUDED-\u4efb\u52a1\u5b8c\u6210\u7ec8\u6b62\u540e\u65e0\u9700\u652f\u4ed8\u7ecf\u6d4e\u8865\u507f\u3002-\u98ce\u9669\u6761\u6b3e] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000017454F10C40>
+kind = 'EXCLUDED', quote = '任务完成终止后无需支付经济补偿。', status = '风险条款'
+
+    @pytest.mark.parametrize('kind,quote,status',[('STATUTORY_PAY','任务完成终止后依法支付经济补偿。','通过'),('EXCLUDED','任务完成终止后无需支付经济补偿。','风险条款'),('WAIVED','任务完成终止时劳动者自愿放弃经济补偿。','风险条款')])
+    def test_task_compensation(monkeypatch,kind,quote,status):
+     deadline='终止当日结清补偿和工资。'
+     values=base()+[('economic_compensation.statutory',{'kind':kind,'basis':quote},quote),('economic_compensation.settlement_deadline','终止当日',deadline)]
+     item=review(monkeypatch,TASK+'\n'+quote+'\n'+deadline,values)['EMP-11-01']
+     assert item['coverage_status']==status
+     if status=='风险条款':
+>     assert item['risk_level']=='高' and item['action_priority']=='A_MUST'
+E     AssertionError: assert ('\u9ad8' == '\u9ad8'
+E       
+E         高 and 'A_CORE' == 'A_MUST'
+E       
+E       - A_MUST
+E       + A_CORE)
+
+backend\tests\test_task_term_risk_policy.py:25: AssertionError
+_ test_task_compensation[WAIVED-\u4efb\u52a1\u5b8c\u6210\u7ec8\u6b62\u65f6\u52b3\u52a8\u8005\u81ea\u613f\u653e\u5f03\u7ecf\u6d4e\u8865\u507f\u3002-\u98ce\u9669\u6761\u6b3e] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000017454F96F80>
+kind = 'WAIVED', quote = '任务完成终止时劳动者自愿放弃经济补偿。', status = '风险条款'
+
+    @pytest.mark.parametrize('kind,quote,status',[('STATUTORY_PAY','任务完成终止后依法支付经济补偿。','通过'),('EXCLUDED','任务完成终止后无需支付经济补偿。','风险条款'),('WAIVED','任务完成终止时劳动者自愿放弃经济补偿。','风险条款')])
+    def test_task_compensation(monkeypatch,kind,quote,status):
+     deadline='终止当日结清补偿和工资。'
+     values=base()+[('economic_compensation.statutory',{'kind':kind,'basis':quote},quote),('economic_compensation.settlement_deadline','终止当日',deadline)]
+     item=review(monkeypatch,TASK+'\n'+quote+'\n'+deadline,values)['EMP-11-01']
+     assert item['coverage_status']==status
+     if status=='风险条款':
+>     assert item['risk_level']=='高' and item['action_priority']=='A_MUST'
+E     AssertionError: assert ('\u9ad8' == '\u9ad8'
+E       
+E         高 and 'A_CORE' == 'A_MUST'
+E       
+E       - A_MUST
+E       + A_CORE)
+
+backend\tests\test_task_term_risk_policy.py:25: AssertionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_task_term_risk_policy.py::test_task_trial[CURRENT-1-\u98ce\u9669\u6761\u6b3e]
+FAILED backend/tests/test_task_term_risk_policy.py::test_task_trial[CURRENT-None-\u98ce\u9669\u6761\u6b3e]
+FAILED backend/tests/test_task_term_risk_policy.py::test_task_trial[NONE-None-\u901a\u8fc7]
+FAILED backend/tests/test_task_term_risk_policy.py::test_task_compensation[EXCLUDED-\u4efb\u52a1\u5b8c\u6210\u7ec8\u6b62\u540e\u65e0\u9700\u652f\u4ed8\u7ecf\u6d4e\u8865\u507f\u3002-\u98ce\u9669\u6761\u6b3e]
+FAILED backend/tests/test_task_term_risk_policy.py::test_task_compensation[WAIVED-\u4efb\u52a1\u5b8c\u6210\u7ec8\u6b62\u65f6\u52b3\u52a8\u8005\u81ea\u613f\u653e\u5f03\u7ecf\u6d4e\u8865\u507f\u3002-\u98ce\u9669\u6761\u6b3e]
+5 failed, 2 passed, 6 warnings in 17.86s

@@ -1,0 +1,1654 @@
+{
+  "source_sha256": "665dd5864724606f35ba82d6e2adb5b35c5d355875592ec60fd9a8dd25d5b011",
+  "transport": "FastAPI multipart business route",
+  "fresh_deepseek": false,
+  "gate": {
+    "status": "REPORT_READY",
+    "failures": [],
+    "priority_consistency_verification": {
+      "executed": true,
+      "high_finding_count": 1,
+      "core_priority_count": 0,
+      "consistency": "CONSISTENT",
+      "explanations": [
+        {
+          "finding_id": "RF-005",
+          "severity": "HIGH",
+          "priority": "B_PRACTICAL",
+          "default_law_status": "UNCERTAIN_DEFAULT",
+          "economic_impact": "none",
+          "reason": "重大影响不自动等于 A_CORE；该 Finding 的经济暴露、核心义务、默认法保护、发生概率与可恢复性未达到 A_CORE 阈值。"
+        }
+      ],
+      "needs_recalibration": false
+    },
+    "context_consistency": {
+      "status": "PASS",
+      "failures": [],
+      "contract_type": "labor",
+      "domain_pack": "priority-domain-1.0"
+    },
+    "gate_results": {
+      "PASS_EVIDENCE_PROVENANCE_GATE": "PASS",
+      "PARTIAL_ELEMENT_NARRATIVE_GATE": "PASS",
+      "COVERAGE_SENTENCE_CONSISTENCY_GATE": "PASS",
+      "ELEMENT_STATUS_CONTRADICTION": "PASS",
+      "EVIDENCE_MONOTONICITY_VIOLATION": "PASS",
+      "FINDING_EVIDENCE_GATE": "PASS",
+      "CROSS_LAYER_CONSISTENCY_GATE": "PASS",
+      "DEFAULT_LAW_COMPLETENESS_GATE": "PASS",
+      "DEFAULT_LAW_EFFECTIVE_GAP_GATE": "PASS",
+      "NARRATIVE_ELEMENT_CONSISTENCY_GATE": "PASS",
+      "NARRATIVE_TRUTH_GATE": "PASS",
+      "PRIORITY_CONSISTENCY_GATE": "PASS",
+      "SIGNABILITY_GATE": "PASS",
+      "CONFIDENCE_VALIDATION_GATE": "PASS",
+      "DOMAIN_SUBTYPE_GATE": "PASS",
+      "DOMAIN_REVIEW_ISOLATION_GATE": "PASS",
+      "DOMAIN_MATERIAL_COVERAGE_GATE": "PASS",
+      "TRANSACTION_STRUCTURE_GATE": "PASS",
+      "FRAMEWORK_DOMAIN_GATE": "PASS",
+      "ORDER_RELATION_GATE": "PASS",
+      "DYNAMIC_QUANTITY_GATE": "PASS",
+      "PRICE_MECHANISM_GATE": "PASS",
+      "ALTERNATIVE_SATISFACTION_GATE": "PASS",
+      "FALSE_RISK_EXISTENCE_GATE": "PASS",
+      "FACT_REGISTRY_SNAPSHOT_CONSISTENCY": "PASS",
+      "FACT_REGISTRY_CONFLICTING_FACT": "PASS",
+      "CROSS_REVIEW_FACT_CONFLICT": "PASS",
+      "FACT_TRUTH_OVERRIDE_VIOLATION": "PASS",
+      "FACT_CONSUMER_MAPPING_MISSING": "PASS",
+      "RISK_EVIDENCE_MISMATCH": "PASS",
+      "CANONICAL_PENALTY_BINDING": "PASS",
+      "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS",
+      "APPLICABILITY_PRECONDITION_GATE": "PASS",
+      "SHARED_CLAIM_CONSISTENCY_GATE": "PASS",
+      "FINDING_PRECONDITION_GATE": "PASS",
+      "REPORT_CONTEXT_GATE": "PASS",
+      "REPORT_TRANSACTION_TRUTH_GATE": "PASS",
+      "CROSS_REVIEW_CONSISTENCY_GATE": "PASS",
+      "RECOMMENDATION_NON_DEGRADATION_GATE": "PASS",
+      "COMMON_REVIEW_SATISFACTION_GATE": "PASS",
+      "ELEMENT_IDENTITY_CONTRADICTION_GATE": "PASS",
+      "PRODUCT_APPLICABILITY_GATE": "PASS",
+      "SHARED_CLAIM_REUSE_GATE": "PASS",
+      "FINDING_INDEPENDENCE_GATE": "PASS",
+      "TECHNOLOGY_TRANSACTION_CONSISTENCY": "NOT_APPLICABLE",
+      "PERSPECTIVE_DOMAIN_CONSISTENCY_GATE": "PASS",
+      "PATENT_TRANSFER_QUALITY_GATE": "NOT_APPLICABLE",
+      "PRODUCTION_FACT_POLARITY_GATE": "PASS",
+      "ADVERSE_POLARITY_AUDIT_GATE": "PASS",
+      "RECOMMENDATION_SOURCE_UNMAPPED": "PASS",
+      "RECOMMENDATION_ELEMENT_LEAKAGE": "PASS",
+      "RECOMMENDATION_COVERED_ELEMENT_REINTRODUCED": "PASS",
+      "RECOMMENDATION_PLACEHOLDER_TEXT": "PASS",
+      "RECOMMENDATION_FINAL_DISPOSITION_MISMATCH": "PASS",
+      "CLIENT_INTEREST_GATE": "PASS",
+      "RISK_STATISTICS_INVARIANT": "PASS",
+      "FINAL_DISPOSITION_INVARIANT": "PASS",
+      "FORMAL_RECOMMENDATION_FINAL_DISPOSITION_INVARIANT": "PASS",
+      "RECOMMENDATION_OWNERSHIP_INVARIANT": "PASS",
+      "HIGH_NON_MUST_CHANGE_REASON_INVARIANT": "PASS",
+      "OPTIONAL_IMPROVEMENT_VISIBILITY_INVARIANT": "PASS",
+      "ACTIONABLE_RECOMMENDATION_COMPLETENESS_INVARIANT": "PASS",
+      "LEGAL_AUTHORITY_DEDUP_GATE": "PASS",
+      "LEGAL_AUTHORITY_SELECTION_GATE": "PASS",
+      "CITATION_ENTAILMENT_GATE": "PASS",
+      "LEGAL_DEFAULT_LAW_CONSISTENCY_GATE": "PASS",
+      "ATOMIC_LEGAL_ELEMENT_GATE": "PASS",
+      "DEFAULT_LAW_NARRATIVE_TRUTH_GATE": "PASS",
+      "NOT_APPLICABLE_NARRATIVE_GATE": "PASS",
+      "NOT_APPLICABLE_GAP_GATE": "PASS",
+      "REVIEW_POLARITY_NARRATIVE_GATE": "PASS",
+      "NEGATIVE_CHECK_PASS_GATE": "PASS",
+      "CROSS_REVIEW_SHARED_CLAIM_GATE": "PASS",
+      "NARRATIVE_EVIDENCE_GATE": "PASS",
+      "CANONICAL_SEMANTIC_PROOF_GATE": "PASS",
+      "VERIFIED_PASS_ORIGINAL_GATE": "PASS",
+      "EXACT_ELEMENT_REPORT_INVARIANT": "PASS",
+      "PRODUCTION_INTERNAL_TOKEN_GATE": "PASS",
+      "DEFAULT_LAW_PROVENANCE_GATE": "PASS",
+      "RECOMMENDATION_SINGLE_SOURCE_GATE": "PASS",
+      "RECOMMENDATION_CROSS_RENDERER_CONSISTENCY_GATE": "PASS",
+      "REPORT_TEXT_VALIDATION": "PASS",
+      "REPORT_DISPOSITION_PROJECTION_INVARIANT": "PASS",
+      "EVIDENCE_BUNDLE_ENTAILMENT_GATE": "PASS",
+      "RECOMMENDATION_SEMANTIC_BINDING_GATE": "PASS",
+      "SUMMARY_DETAIL_RISK_ID_GATE": "PASS",
+      "ISSUE_TYPE_NARRATIVE_GATE": "PASS",
+      "OPTIONAL_REPORT_COUNT_GATE": "PASS",
+      "REPORT_ROLE_PLACEHOLDER_GATE": "PASS",
+      "ACTIONABLE_RECOMMENDATION_VISIBILITY_GATE": "PASS",
+      "CLAIM_EVIDENCE_COVERAGE_GATE": "PASS",
+      "EVIDENCE_FACT_ROLE_GATE": "PASS",
+      "SINGLE_EVIDENCE_SOURCE_GATE": "PASS",
+      "EVIDENCE_BUNDLE_RENDER_GATE": "PASS",
+      "APPLICABILITY_DISPLAY_CONSISTENCY_GATE": "PASS",
+      "ISSUE_TYPE_CONSISTENCY_GATE": "PASS",
+      "PARTIAL_MISSING_ELEMENT_GATE": "PASS",
+      "SUMMARY_TRUNCATION_DISCLOSURE_GATE": "PASS",
+      "TECHNICAL_REPORT_PLACEHOLDER_GATE": "PASS",
+      "FINAL_RISK_EVIDENCE_BUNDLE_GATE": "PASS",
+      "EVIDENCE_ITEM_UNIQUENESS_GATE": "PASS",
+      "CLAUSE_NODE_CONSISTENCY_GATE": "PASS",
+      "MISSING_RISK_ABSENCE_EVIDENCE_GATE": "PASS",
+      "COVERAGE_RISK_ACTION_CONSISTENCY_GATE": "PASS",
+      "PATENT_ROLE_TERMINOLOGY_GATE": "PASS",
+      "DUPLICATE_TEMPLATE_PHRASE_GATE": "PASS",
+      "EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+      "PASS_EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+      "CANONICAL_RISK_COVERAGE_INVARIANT": "PASS",
+      "CONSULTING_REPORT_CONTEXT_GATE": "PASS",
+      "TERMINOLOGY_CONSISTENCY_GATE": "PASS",
+      "APPLICABILITY_AND_EVIDENCE_BOUNDARY": "PASS"
+    },
+    "blocking_rules": [],
+    "blocking_stage": "",
+    "blocking_entities": [],
+    "blocking_reasons": [],
+    "post_render_status": "REPORT_READY"
+  },
+  "items": [
+    {
+      "item_id": "EMP-01-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-01-01",
+          "element_id": "employment_identity_1",
+          "proposition": "用人单位住所",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-017275ba6c698637ca14",
+            "SRC-017275ba6c698637ca14"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "甲方：远岑物流有限公司，住所南京市江宁区中山路23号。"
+          ],
+          "source_locations": [
+            "第一条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-017275ba6c698637ca14",
+            "SRC-017275ba6c698637ca14"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-017275ba6c698637ca14",
+            "SRC-017275ba6c698637ca14"
+          ],
+          "bound_evidence_ids": [
+            "SRC-017275ba6c698637ca14",
+            "SRC-017275ba6c698637ca14"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方：远岑物流有限公司，住所南京市江宁区中山路23号。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-01-01",
+          "element_id": "employment_identity_2",
+          "proposition": "劳动者姓名与身份证明",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-069b92d65bdc47de5d6b",
+            "SRC-069b92d65bdc47de5d6b"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "乙方：李淳，身份证号码320100198802091234。"
+          ],
+          "source_locations": [
+            "第一条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-069b92d65bdc47de5d6b",
+            "SRC-069b92d65bdc47de5d6b"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-069b92d65bdc47de5d6b",
+            "SRC-069b92d65bdc47de5d6b"
+          ],
+          "bound_evidence_ids": [
+            "SRC-069b92d65bdc47de5d6b",
+            "SRC-069b92d65bdc47de5d6b"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方：李淳，身份证号码320100198802091234。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-01-01",
+          "element_id": "employment_identity_name",
+          "proposition": "用人单位名称",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-017275ba6c698637ca14",
+            "SRC-017275ba6c698637ca14"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "甲方：远岑物流有限公司，住所南京市江宁区中山路23号。"
+          ],
+          "source_locations": [
+            "第一条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-017275ba6c698637ca14",
+            "SRC-017275ba6c698637ca14"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-017275ba6c698637ca14",
+            "SRC-017275ba6c698637ca14"
+          ],
+          "bound_evidence_ids": [
+            "SRC-017275ba6c698637ca14",
+            "SRC-017275ba6c698637ca14"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方：远岑物流有限公司，住所南京市江宁区中山路23号。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-02-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-02-01",
+          "element_id": "employment_term_1",
+          "proposition": "期限类型",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "期限类型固定，自2027年3月1日至2029年2月28日。"
+          ],
+          "source_locations": [
+            "第一条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31"
+          ],
+          "bound_evidence_ids": [
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "期限类型固定，自2027年3月1日至2029年2月28日。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-02-01",
+          "element_id": "employment_term_start",
+          "proposition": "生效或起始日期",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "期限类型固定，自2027年3月1日至2029年2月28日。"
+          ],
+          "source_locations": [
+            "第一条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31"
+          ],
+          "bound_evidence_ids": [
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "期限类型固定，自2027年3月1日至2029年2月28日。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-02-01",
+          "element_id": "employment_term_end",
+          "proposition": "终止日期",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "期限类型固定，自2027年3月1日至2029年2月28日。"
+          ],
+          "source_locations": [
+            "第一条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31"
+          ],
+          "bound_evidence_ids": [
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31",
+            "SRC-0f0ec87e12f386772f31"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "期限类型固定，自2027年3月1日至2029年2月28日。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-03-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-03-01",
+          "element_id": "employment_probation_1",
+          "proposition": "试用期长度",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-9630100439203231b325",
+            "SRC-9630100439203231b325"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0003"
+          ],
+          "source_spans": [
+            "试用期一个月，月薪9，800.50元。"
+          ],
+          "source_locations": [
+            "第二条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0003"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-9630100439203231b325",
+            "SRC-9630100439203231b325"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-9630100439203231b325",
+            "SRC-9630100439203231b325"
+          ],
+          "bound_evidence_ids": [
+            "SRC-9630100439203231b325",
+            "SRC-9630100439203231b325"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "试用期一个月，月薪9，800.50元。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-03-01",
+          "element_id": "employment_probation_2",
+          "proposition": "试用期工资标准",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-9630100439203231b325",
+            "SRC-9630100439203231b325"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0003"
+          ],
+          "source_spans": [
+            "试用期一个月，月薪9，800.50元。"
+          ],
+          "source_locations": [
+            "第二条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0003"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-9630100439203231b325",
+            "SRC-9630100439203231b325"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-9630100439203231b325",
+            "SRC-9630100439203231b325"
+          ],
+          "bound_evidence_ids": [
+            "SRC-9630100439203231b325",
+            "SRC-9630100439203231b325"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "试用期一个月，月薪9，800.50元。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-15-01",
+      "coverage_status": "通过",
+      "coverage_elements": []
+    },
+    {
+      "item_id": "EMP-04-01",
+      "coverage_status": "缺失",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-04-01",
+          "element_id": "employment_work_1",
+          "proposition": "具体工作岗位或职责",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "entailment": "NOT_RELEVANT",
+          "verifier_confidence": "medium",
+          "reason": "未找到可支撑该元素的合同证据。",
+          "claim_id": "",
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "MISSING",
+          "fact_value": null,
+          "fact_evidence_refs": [],
+          "requirement_status": "NOT_SATISFIED",
+          "requirement_reason": "未找到可支撑该元素的合同证据。",
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        },
+        {
+          "review_id": "EMP-04-01",
+          "element_id": "employment_work_2",
+          "proposition": "具体工作地点",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "entailment": "NOT_RELEVANT",
+          "verifier_confidence": "medium",
+          "reason": "未找到可支撑该元素的合同证据。",
+          "claim_id": "",
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "MISSING",
+          "fact_value": null,
+          "fact_evidence_refs": [],
+          "requirement_status": "NOT_SATISFIED",
+          "requirement_reason": "未找到可支撑该元素的合同证据。",
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-05-01",
+      "coverage_status": "缺失",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-05-01",
+          "element_id": "employment_hours_1",
+          "proposition": "工时制度及工作时间",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "entailment": "NOT_RELEVANT",
+          "verifier_confidence": "medium",
+          "reason": "未找到可支撑该元素的合同证据。",
+          "claim_id": "",
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "MISSING",
+          "fact_value": null,
+          "fact_evidence_refs": [],
+          "requirement_status": "NOT_SATISFIED",
+          "requirement_reason": "未找到可支撑该元素的合同证据。",
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        },
+        {
+          "review_id": "EMP-05-01",
+          "element_id": "employment_hours_2",
+          "proposition": "休息休假安排",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "entailment": "NOT_RELEVANT",
+          "verifier_confidence": "medium",
+          "reason": "未找到可支撑该元素的合同证据。",
+          "claim_id": "",
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "MISSING",
+          "fact_value": null,
+          "fact_evidence_refs": [],
+          "requirement_status": "NOT_SATISFIED",
+          "requirement_reason": "未找到可支撑该元素的合同证据。",
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        },
+        {
+          "review_id": "EMP-05-01",
+          "element_id": "employment_hours_3",
+          "proposition": "加班报酬或依法调休",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "entailment": "NOT_RELEVANT",
+          "verifier_confidence": "medium",
+          "reason": "未找到可支撑该元素的合同证据。",
+          "claim_id": "",
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "MISSING",
+          "fact_value": null,
+          "fact_evidence_refs": [],
+          "requirement_status": "NOT_SATISFIED",
+          "requirement_reason": "未找到可支撑该元素的合同证据。",
+          "residual_gap": "法定加班报酬规则无需在合同中重复列明；明确不利约定仍独立审查",
+          "risk_relevant": false,
+          "recommendation_action": "OPTIONAL",
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-06-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-06-01",
+          "element_id": "employment_wage_1",
+          "proposition": "工资金额或可计算标准",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-0721ea6c68a39620a89f"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0004"
+          ],
+          "source_spans": [
+            "正式任职后实行计件工资，每完成一件合格组件计人民币18.75元，上不封顶。"
+          ],
+          "source_locations": [
+            "第三条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0004"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-0721ea6c68a39620a89f"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-0721ea6c68a39620a89f"
+          ],
+          "bound_evidence_ids": [
+            "SRC-0721ea6c68a39620a89f"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "正式任职后实行计件工资，每完成一件合格组件计人民币18.75元，上不封顶。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-06-01",
+          "element_id": "employment_wage_2",
+          "proposition": "工资支付日期",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-4b4d10301bf756c4e2d3",
+            "SRC-4b4d10301bf756c4e2d3"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0005"
+          ],
+          "source_spans": [
+            "薪金于每月20日银行转账。"
+          ],
+          "source_locations": [
+            "第四条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0005"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-4b4d10301bf756c4e2d3",
+            "SRC-4b4d10301bf756c4e2d3"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-4b4d10301bf756c4e2d3",
+            "SRC-4b4d10301bf756c4e2d3"
+          ],
+          "bound_evidence_ids": [
+            "SRC-4b4d10301bf756c4e2d3",
+            "SRC-4b4d10301bf756c4e2d3"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0005",
+              "quote": "薪金于每月20日银行转账。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-06-01",
+          "element_id": "employment_wage_3",
+          "proposition": "工资支付方式",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-4b4d10301bf756c4e2d3",
+            "SRC-4b4d10301bf756c4e2d3"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0005"
+          ],
+          "source_spans": [
+            "薪金于每月20日银行转账。"
+          ],
+          "source_locations": [
+            "第四条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0005"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-4b4d10301bf756c4e2d3",
+            "SRC-4b4d10301bf756c4e2d3"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-4b4d10301bf756c4e2d3",
+            "SRC-4b4d10301bf756c4e2d3"
+          ],
+          "bound_evidence_ids": [
+            "SRC-4b4d10301bf756c4e2d3",
+            "SRC-4b4d10301bf756c4e2d3"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0005",
+              "quote": "薪金于每月20日银行转账。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-07-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-07-01",
+          "element_id": "employment_insurance_1",
+          "proposition": "用人单位依法办理参保并缴费",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-e9e47825abbb9c08cde0",
+            "SRC-0f04bae9f8cd55c2c685",
+            "SRC-0f04bae9f8cd55c2c685"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0006"
+          ],
+          "source_spans": [
+            "甲方负责为乙方办妥社会保险参保手续。"
+          ],
+          "source_locations": [
+            "第五条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0006"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-e9e47825abbb9c08cde0",
+            "SRC-0f04bae9f8cd55c2c685",
+            "SRC-0f04bae9f8cd55c2c685"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-e9e47825abbb9c08cde0",
+            "SRC-0f04bae9f8cd55c2c685",
+            "SRC-0f04bae9f8cd55c2c685"
+          ],
+          "bound_evidence_ids": [
+            "SRC-e9e47825abbb9c08cde0",
+            "SRC-0f04bae9f8cd55c2c685",
+            "SRC-0f04bae9f8cd55c2c685"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0006",
+              "quote": "甲方负责为乙方办妥社会保险参保手续。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-07-01",
+          "element_id": "employment_insurance_2",
+          "proposition": "个人应缴部分及代扣代缴",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-0f04bae9f8cd55c2c685",
+            "SRC-0f04bae9f8cd55c2c685"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0007"
+          ],
+          "source_spans": [
+            "单位缴费部分由甲方依法足额缴付，员工缴费部分依法扣缴。"
+          ],
+          "source_locations": [
+            "第六条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0007"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "residual_gap": "法定个人缴费及代扣代缴机制无需在普通劳动合同中重复列明",
+          "risk_relevant": false,
+          "gap_risk_level": "中",
+          "recommendation_action": "OPTIONAL",
+          "evidence_refs": [
+            "SRC-0f04bae9f8cd55c2c685",
+            "SRC-0f04bae9f8cd55c2c685"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-0f04bae9f8cd55c2c685",
+            "SRC-0f04bae9f8cd55c2c685"
+          ],
+          "bound_evidence_ids": [
+            "SRC-0f04bae9f8cd55c2c685",
+            "SRC-0f04bae9f8cd55c2c685"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0007",
+              "quote": "单位缴费部分由甲方依法足额缴付，员工缴费部分依法扣缴。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-08-01",
+      "coverage_status": "部分覆盖",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-08-01",
+          "element_id": "employment_safety_1",
+          "proposition": "劳动保护和安全健康制度",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-437052abe0986a31dfe1",
+            "EV-a08ea97a4a6093b0"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0008"
+          ],
+          "source_spans": [
+            "劳动保护和职业健康制度适用于员工，企业提供必要劳动防护设施。"
+          ],
+          "source_locations": [
+            "第七条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0008"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-437052abe0986a31dfe1",
+            "EV-a08ea97a4a6093b0"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "劳动保护和职业健康制度适用于员工，企业提供必要劳动防护设施。"
+            }
+          ],
+          "supporting_evidence_ids": [
+            "SRC-437052abe0986a31dfe1",
+            "EV-a08ea97a4a6093b0"
+          ]
+        },
+        {
+          "review_id": "EMP-08-01",
+          "element_id": "employment_safety_training",
+          "proposition": "安全培训",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "entailment": "NOT_RELEVANT",
+          "verifier_confidence": "medium",
+          "reason": "未找到可支撑该元素的合同证据。",
+          "claim_id": "",
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "MISSING",
+          "fact_value": null,
+          "fact_evidence_refs": [],
+          "requirement_status": "NOT_SATISFIED",
+          "requirement_reason": "未找到可支撑该元素的合同证据。",
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        },
+        {
+          "element_id": "employment_safety_2",
+          "status": "CONDITION_UNRESOLVED",
+          "proposition": "核实岗位是否存在职业病危害因素，再确定专项保护义务。",
+          "required_fact": "职业危害告知和健康保护",
+          "conditional_element": true,
+          "prerequisite_status": "UNKNOWN",
+          "prerequisite_fact": "岗位实际存在职业病危害因素",
+          "verification_instruction": "核实岗位是否存在职业病危害因素，再确定专项保护义务。",
+          "risk_relevant": false,
+          "bound_evidence_ids": [],
+          "prerequisite_evidence": [],
+          "source_clause_ids": [],
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-09-01",
+      "coverage_status": "不适用",
+      "coverage_elements": []
+    },
+    {
+      "item_id": "EMP-10-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-10-01",
+          "element_id": "employment_exit_1",
+          "proposition": "解除终止事由或协商一致",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-e8c84fc692726c3d1e53"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0009"
+          ],
+          "source_spans": [
+            "甲乙双方解除终止劳动合同按照法律规定办理，应当给予经济补偿或赔偿的由单位依法承担。"
+          ],
+          "source_locations": [
+            "第八条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0009"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-e8c84fc692726c3d1e53"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-e8c84fc692726c3d1e53"
+          ],
+          "bound_evidence_ids": [
+            "SRC-e8c84fc692726c3d1e53"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "甲乙双方解除终止劳动合同按照法律规定办理，应当给予经济补偿或赔偿的由单位依法承担。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-10-01",
+          "element_id": "employment_exit_2",
+          "proposition": "解除通知方式或明确解除日期",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "entailment": "NOT_RELEVANT",
+          "verifier_confidence": "medium",
+          "reason": "未找到可支撑该元素的合同证据。",
+          "claim_id": "",
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "MISSING",
+          "fact_value": null,
+          "fact_evidence_refs": [],
+          "requirement_status": "NOT_SATISFIED",
+          "requirement_reason": "未找到可支撑该元素的合同证据。",
+          "residual_gap": "可选完善解除通知方式或未来解除日期确认机制",
+          "risk_relevant": false,
+          "recommendation_action": "OPTIONAL",
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-11-01",
+      "coverage_status": "部分覆盖",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-11-01",
+          "element_id": "employment_compensation_1",
+          "proposition": "经济补偿依法处理、计算依据或正常结算安排",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-e8c84fc692726c3d1e53",
+            "EV-fddbe2798ec0a9ac"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0009"
+          ],
+          "source_spans": [
+            "甲乙双方解除终止劳动合同按照法律规定办理，应当给予经济补偿或赔偿的由单位依法承担。"
+          ],
+          "source_locations": [
+            "第八条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0009"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-e8c84fc692726c3d1e53",
+            "EV-fddbe2798ec0a9ac"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "甲乙双方解除终止劳动合同按照法律规定办理，应当给予经济补偿或赔偿的由单位依法承担。"
+            }
+          ],
+          "supporting_evidence_ids": [
+            "SRC-e8c84fc692726c3d1e53",
+            "EV-fddbe2798ec0a9ac"
+          ]
+        },
+        {
+          "review_id": "EMP-11-01",
+          "element_id": "employment_compensation_2",
+          "proposition": "解除终止后工资及补偿结算期限",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "entailment": "NOT_RELEVANT",
+          "verifier_confidence": "medium",
+          "reason": "未找到可支撑该元素的合同证据。",
+          "claim_id": "",
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "MISSING",
+          "fact_value": null,
+          "fact_evidence_refs": [],
+          "requirement_status": "NOT_SATISFIED",
+          "requirement_reason": "未找到可支撑该元素的合同证据。",
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-12-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-12-01",
+          "element_id": "employment_dispute_1",
+          "proposition": "劳动争议依法申请劳动仲裁",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-8103da226dd9951495c7"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0011"
+          ],
+          "source_spans": [
+            "争议依法提起劳动仲裁。"
+          ],
+          "source_locations": [
+            "第十条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0011"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-8103da226dd9951495c7"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-8103da226dd9951495c7"
+          ],
+          "bound_evidence_ids": [
+            "SRC-8103da226dd9951495c7"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0011",
+              "quote": "争议依法提起劳动仲裁。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-13-01",
+      "coverage_status": "通过",
+      "coverage_elements": []
+    },
+    {
+      "item_id": "EMP-16-01",
+      "coverage_status": "通过",
+      "coverage_elements": []
+    },
+    {
+      "item_id": "EMP-14-01",
+      "coverage_status": "通过",
+      "coverage_elements": []
+    },
+    {
+      "item_id": "NC-01-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "NC-01-01",
+          "element_id": "employment_noncompete_scope_1",
+          "proposition": "人员范围及实际接触秘密",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-1c3ec24f9e9802564096",
+            "SRC-1c3ec24f9e9802564096"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0010"
+          ],
+          "source_spans": [
+            "适用竞业限制的对象为实际接触技术秘密的高级技术人员。"
+          ],
+          "source_locations": [
+            "第九条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0010"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-1c3ec24f9e9802564096",
+            "SRC-1c3ec24f9e9802564096"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-1c3ec24f9e9802564096",
+            "SRC-1c3ec24f9e9802564096"
+          ],
+          "bound_evidence_ids": [
+            "SRC-1c3ec24f9e9802564096",
+            "SRC-1c3ec24f9e9802564096"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0010",
+              "quote": "适用竞业限制的对象为实际接触技术秘密的高级技术人员。"
+            }
+          ]
+        },
+        {
+          "review_id": "NC-01-01",
+          "element_id": "employment_noncompete_scope_2",
+          "proposition": "明确约定竞业业务范围",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-ab831824b1c6da102c1a"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0011"
+          ],
+          "source_spans": [
+            "竞争业务为物流调度软件及仓储自动化业务。"
+          ],
+          "source_locations": [
+            "第十条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0011"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-ab831824b1c6da102c1a"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-ab831824b1c6da102c1a"
+          ],
+          "bound_evidence_ids": [
+            "SRC-ab831824b1c6da102c1a"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0011",
+              "quote": "竞争业务为物流调度软件及仓储自动化业务。"
+            }
+          ]
+        },
+        {
+          "review_id": "NC-01-01",
+          "element_id": "employment_noncompete_scope_3",
+          "proposition": "明确约定竞业地域范围",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-9a6a66b2d0004c061539"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0011"
+          ],
+          "source_spans": [
+            "限定地域为浙江省与江苏省。"
+          ],
+          "source_locations": [
+            "第十条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0011"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-9a6a66b2d0004c061539"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-9a6a66b2d0004c061539"
+          ],
+          "bound_evidence_ids": [
+            "SRC-9a6a66b2d0004c061539"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0011",
+              "quote": "限定地域为浙江省与江苏省。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "NC-02-01",
+      "coverage_status": "部分覆盖",
+      "coverage_elements": [
+        {
+          "review_id": "NC-02-01",
+          "element_id": "employment_noncompete_term_1",
+          "proposition": "离职竞业限制期限",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-62fc87a3350417112169",
+            "EV-8115a0e81004909d"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0010"
+          ],
+          "source_spans": [
+            "员工在劳动关系结束后的十八个月内不得从事竞争业务。"
+          ],
+          "source_locations": [
+            "第九条"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0010"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-62fc87a3350417112169",
+            "EV-8115a0e81004909d"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0010",
+              "quote": "员工在劳动关系结束后的十八个月内不得从事竞争业务。"
+            }
+          ],
+          "supporting_evidence_ids": [
+            "SRC-62fc87a3350417112169",
+            "EV-8115a0e81004909d"
+          ]
+        },
+        {
+          "review_id": "NC-02-01",
+          "element_id": "employment_noncompete_term_2",
+          "proposition": "离职后按月经济补偿的金额或计算标准",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "entailment": "NOT_RELEVANT",
+          "verifier_confidence": "medium",
+          "reason": "未找到可支撑该元素的合同证据。",
+          "claim_id": "",
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "MISSING",
+          "fact_value": null,
+          "fact_evidence_refs": [],
+          "requirement_status": "NOT_SATISFIED",
+          "requirement_reason": "未找到可支撑该元素的合同证据。",
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        }
+      ]
+    },
+    {
+      "item_id": "NC-03-01",
+      "coverage_status": "待核验",
+      "coverage_elements": [
+        {
+          "review_id": "NC-03-01",
+          "element_id": "core_contract_arrangement",
+          "proposition": "合同存在可验证的“竞业范围或补偿明显不当”实质条款内容。",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "entailment": "NOT_RELEVANT",
+          "verifier_confidence": "medium",
+          "reason": "未找到可支撑该元素的合同证据。",
+          "claim_id": "",
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "MISSING",
+          "fact_value": null,
+          "fact_evidence_refs": [],
+          "requirement_status": "NOT_SATISFIED",
+          "requirement_reason": "未找到可支撑该元素的合同证据。",
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        },
+        {
+          "element_id": "noncompete_reasonableness_prerequisites",
+          "status": "CONDITION_UNRESOLVED",
+          "proposition": "竞业合理性核验尚缺：employment_noncompete_term_2；需核对具体范围、秘密接触及补偿标准。",
+          "required_fact": "竞业范围及补偿合理性判断前提",
+          "conditional_element": true,
+          "prerequisite_status": "UNKNOWN",
+          "prerequisite_fact": "人员、秘密接触、范围、期限和补偿事实完整",
+          "verification_instruction": "竞业合理性核验尚缺：employment_noncompete_term_2；需核对具体范围、秘密接触及补偿标准。",
+          "risk_relevant": false,
+          "bound_evidence_ids": [],
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-IP-01",
+      "coverage_status": "通过",
+      "coverage_elements": []
+    }
+  ]
+}

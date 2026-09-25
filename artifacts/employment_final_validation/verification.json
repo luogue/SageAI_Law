@@ -1,0 +1,39 @@
+{
+  "checks": {
+    "same_normalized_input": true,
+    "quoted_A_B_absent": true,
+    "emp05_partial": true,
+    "emp10_partial": true,
+    "emp11_missing": true,
+    "emp07_partial_medium": true,
+    "quality_gate_ready": true,
+    "statistics_consistent": true,
+    "report_counts_match": true
+  },
+  "source_hashes": {
+    "backend\\review_v2\\priority_checklist_helpers.py": "eb02aa18a014b0e97e8251409c8cfdb3860195725d55519fea63108676b596f7",
+    "backend\\review_v2\\priority_contract_review.py": "8092665e7fe8d270a8c78dfb81013a96947301d19e96bad09335b870c7b931a7",
+    "backend\\review_v2\\employment_contract_checklist.py": "be227f77dc8360e6c6b7210f1f04b9c2abefbb0de58eb410e8d01e7f596d1329"
+  },
+  "severity_assessment": {
+    "basis": "MAXIMUM_ACTUAL_UNCOVERED_ELEMENT_SEVERITY",
+    "theme_default_level": "高",
+    "selected_level": "中",
+    "elements": [
+      {
+        "element_id": "employment_insurance_1",
+        "status": "COVERED",
+        "gap_risk_level": "高",
+        "source_clause_ids": [
+          "C0017"
+        ]
+      },
+      {
+        "element_id": "employment_insurance_2",
+        "status": "MISSING",
+        "gap_risk_level": "中",
+        "source_clause_ids": []
+      }
+    ]
+  }
+}

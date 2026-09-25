@@ -1,0 +1,793 @@
+FF...................................................................... [ 52%]
+.........................................FFFFFFFFFFFF...........         [100%]
+================================== FAILURES ===================================
+_ test_overtime_payment_alternative_is_covered[\u4f9d\u6cd5\u5b89\u6392\u4e59\u65b9\u8865\u4f11\u6216\u652f\u4ed8\u52a0\u73ed\u5de5\u8d44] _
+
+wage_clause = '依法安排乙方补休或支付加班工资'
+
+    @pytest.mark.parametrize('wage_clause', ['依法安排乙方补休或支付加班工资', '甲方依法安排劳动者调休或支付加班工资'])
+    def test_overtime_payment_alternative_is_covered(wage_clause):
+        result = review('标准工时，每周至少休息一天。\n第六条 ' + wage_clause + '。')
+        row = item(result, 'EMP-05-01')
+        assert row['coverage_status'] == '通过'
+>       assert not row['decision_trace'].get('element_absence_searches')
+E       AssertionError: assert not [{'element_id': 'employment_hours_1', 'review_id': 'EMP-05-01', 'search_targets': ['工时制度及工作时间'], 'query_patterns': ['(...法调休'], 'query_patterns': ['加班.{0,40}(?:依法支付|加班工资|补休|调休)', '依法安排[^。；\\n]{0,20}(?:补休|调休)或支付加班工资', '(?:支付|发放)加班工资'], ...}]
+E        +  where [{'element_id': 'employment_hours_1', 'review_id': 'EMP-05-01', 'search_targets': ['工时制度及工作时间'], 'query_patterns': ['(...法调休'], 'query_patterns': ['加班.{0,40}(?:依法支付|加班工资|补休|调休)', '依法安排[^。；\\n]{0,20}(?:补休|调休)或支付加班工资', '(?:支付|发放)加班工资'], ...}] = <built-in method get of dict object at 0x000002251B1DB640>('element_absence_searches')
+E        +    where <built-in method get of dict object at 0x000002251B1DB640> = {'execution_context': {'contract_context': {'contract_family': 'EMPLOYMENT', 'subject_matter': 'LABOR', 'contract_subt...'CFR-CF5318C99451', 'required_fact_keys': [], 'facts': {}, 'fact_source': {}}, 'review_mode': 'PRESENCE_REQUIRED', ...}.get
+
+backend\tests\test_employment_round2_semantics.py:16: AssertionError
+_ test_overtime_payment_alternative_is_covered[\u7532\u65b9\u4f9d\u6cd5\u5b89\u6392\u52b3\u52a8\u8005\u8c03\u4f11\u6216\u652f\u4ed8\u52a0\u73ed\u5de5\u8d44] _
+
+wage_clause = '甲方依法安排劳动者调休或支付加班工资'
+
+    @pytest.mark.parametrize('wage_clause', ['依法安排乙方补休或支付加班工资', '甲方依法安排劳动者调休或支付加班工资'])
+    def test_overtime_payment_alternative_is_covered(wage_clause):
+        result = review('标准工时，每周至少休息一天。\n第六条 ' + wage_clause + '。')
+        row = item(result, 'EMP-05-01')
+        assert row['coverage_status'] == '通过'
+>       assert not row['decision_trace'].get('element_absence_searches')
+E       AssertionError: assert not [{'element_id': 'employment_hours_1', 'review_id': 'EMP-05-01', 'search_targets': ['工时制度及工作时间'], 'query_patterns': ['(...法调休'], 'query_patterns': ['加班.{0,40}(?:依法支付|加班工资|补休|调休)', '依法安排[^。；\\n]{0,20}(?:补休|调休)或支付加班工资', '(?:支付|发放)加班工资'], ...}]
+E        +  where [{'element_id': 'employment_hours_1', 'review_id': 'EMP-05-01', 'search_targets': ['工时制度及工作时间'], 'query_patterns': ['(...法调休'], 'query_patterns': ['加班.{0,40}(?:依法支付|加班工资|补休|调休)', '依法安排[^。；\\n]{0,20}(?:补休|调休)或支付加班工资', '(?:支付|发放)加班工资'], ...}] = <built-in method get of dict object at 0x000002251C3FED00>('element_absence_searches')
+E        +    where <built-in method get of dict object at 0x000002251C3FED00> = {'execution_context': {'contract_context': {'contract_family': 'EMPLOYMENT', 'subject_matter': 'LABOR', 'contract_subt...'CFR-CF5318C99451', 'required_fact_keys': [], 'facts': {}, 'fact_source': {}}, 'review_mode': 'PRESENCE_REQUIRED', ...}.get
+
+backend\tests\test_employment_round2_semantics.py:16: AssertionError
+______ test_docx_upload_routes_new_types_through_the_existing_api[labor] ______
+
+key = 'labor'
+
+    @pytest.mark.parametrize("key", ("labor", "mortgage", "movable_pledge", "equity_pledge", "rights_pledge", "equity_transfer", "capital_increase", "investment", "shareholders", "non_compete", "confidentiality", "employment_termination"))
+    def test_docx_upload_routes_new_types_through_the_existing_api(key):
+        import asyncio
+        import io
+        from docx import Document
+        from starlette.datastructures import UploadFile
+        from routers.review_v2 import review_v2_file
+        document = Document()
+        for line in NORMAL[key].splitlines():
+            document.add_paragraph(line)
+        buffer = io.BytesIO()
+        document.save(buffer)
+        buffer.seek(0)
+>       result = asyncio.run(review_v2_file(
+            file=UploadFile(file=buffer, filename=key + ".docx"), contract_type=key,
+            include_low_risk=True, use_llm=False, profile_json="{}", current_user={"id": 1}))
+
+backend\tests\test_priority_contract_review.py:167: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py:44: in run
+    return loop.run_until_complete(main)
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py:649: in run_until_complete
+    return future.result()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+file = UploadFile(filename='labor.docx', size=None, headers=Headers({}))
+contract_type = 'labor', include_low_risk = True, use_llm = False
+profile_json = '{}', current_user = {'id': 1}
+
+    @router.post("/file", response_model=ReviewV2Result, summary="合同审查第二版：文件上传审查")
+    async def review_v2_file(
+        file: UploadFile = File(...),
+        contract_type: str = Form("house_lease"),
+        include_low_risk: bool = Form(True),
+        use_llm: bool = Form(True),
+        profile_json: str = Form("{}"),
+        current_user: dict = Depends(get_current_user),
+    ):
+        """接收 Word/PDF 合同文件，抽取文本后运行清单式审查。"""
+    
+        source_drift = _runtime_source_drift_status()
+        if source_drift["status"] != "CURRENT":
+            logger.critical(
+                "[STALE_REVIEW_RUNTIME] dependencies=%s process_id=%s",
+                source_drift["changed_dependencies"],
+                os.getpid(),
+            )
+>           raise HTTPException(
+                status_code=503,
+                detail="审查后端已加载旧代码，请重启本地服务后重新审查。",
+            )
+E           fastapi.exceptions.HTTPException: 503: 审查后端已加载旧代码，请重启本地服务后重新审查。
+
+backend\routers\review_v2.py:1056: HTTPException
+---------------------------- Captured stderr call -----------------------------
+2026-09-08 06:46:36 - routers.review_v2 - CRITICAL - [unknown] - [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+------------------------------ Captured log call ------------------------------
+CRITICAL routers.review_v2:review_v2.py:1051 [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+____ test_docx_upload_routes_new_types_through_the_existing_api[mortgage] _____
+
+key = 'mortgage'
+
+    @pytest.mark.parametrize("key", ("labor", "mortgage", "movable_pledge", "equity_pledge", "rights_pledge", "equity_transfer", "capital_increase", "investment", "shareholders", "non_compete", "confidentiality", "employment_termination"))
+    def test_docx_upload_routes_new_types_through_the_existing_api(key):
+        import asyncio
+        import io
+        from docx import Document
+        from starlette.datastructures import UploadFile
+        from routers.review_v2 import review_v2_file
+        document = Document()
+        for line in NORMAL[key].splitlines():
+            document.add_paragraph(line)
+        buffer = io.BytesIO()
+        document.save(buffer)
+        buffer.seek(0)
+>       result = asyncio.run(review_v2_file(
+            file=UploadFile(file=buffer, filename=key + ".docx"), contract_type=key,
+            include_low_risk=True, use_llm=False, profile_json="{}", current_user={"id": 1}))
+
+backend\tests\test_priority_contract_review.py:167: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py:44: in run
+    return loop.run_until_complete(main)
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py:649: in run_until_complete
+    return future.result()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+file = UploadFile(filename='mortgage.docx', size=None, headers=Headers({}))
+contract_type = 'mortgage', include_low_risk = True, use_llm = False
+profile_json = '{}', current_user = {'id': 1}
+
+    @router.post("/file", response_model=ReviewV2Result, summary="合同审查第二版：文件上传审查")
+    async def review_v2_file(
+        file: UploadFile = File(...),
+        contract_type: str = Form("house_lease"),
+        include_low_risk: bool = Form(True),
+        use_llm: bool = Form(True),
+        profile_json: str = Form("{}"),
+        current_user: dict = Depends(get_current_user),
+    ):
+        """接收 Word/PDF 合同文件，抽取文本后运行清单式审查。"""
+    
+        source_drift = _runtime_source_drift_status()
+        if source_drift["status"] != "CURRENT":
+            logger.critical(
+                "[STALE_REVIEW_RUNTIME] dependencies=%s process_id=%s",
+                source_drift["changed_dependencies"],
+                os.getpid(),
+            )
+>           raise HTTPException(
+                status_code=503,
+                detail="审查后端已加载旧代码，请重启本地服务后重新审查。",
+            )
+E           fastapi.exceptions.HTTPException: 503: 审查后端已加载旧代码，请重启本地服务后重新审查。
+
+backend\routers\review_v2.py:1056: HTTPException
+---------------------------- Captured stderr call -----------------------------
+2026-09-08 06:46:36 - routers.review_v2 - CRITICAL - [unknown] - [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+------------------------------ Captured log call ------------------------------
+CRITICAL routers.review_v2:review_v2.py:1051 [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+_ test_docx_upload_routes_new_types_through_the_existing_api[movable_pledge] __
+
+key = 'movable_pledge'
+
+    @pytest.mark.parametrize("key", ("labor", "mortgage", "movable_pledge", "equity_pledge", "rights_pledge", "equity_transfer", "capital_increase", "investment", "shareholders", "non_compete", "confidentiality", "employment_termination"))
+    def test_docx_upload_routes_new_types_through_the_existing_api(key):
+        import asyncio
+        import io
+        from docx import Document
+        from starlette.datastructures import UploadFile
+        from routers.review_v2 import review_v2_file
+        document = Document()
+        for line in NORMAL[key].splitlines():
+            document.add_paragraph(line)
+        buffer = io.BytesIO()
+        document.save(buffer)
+        buffer.seek(0)
+>       result = asyncio.run(review_v2_file(
+            file=UploadFile(file=buffer, filename=key + ".docx"), contract_type=key,
+            include_low_risk=True, use_llm=False, profile_json="{}", current_user={"id": 1}))
+
+backend\tests\test_priority_contract_review.py:167: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py:44: in run
+    return loop.run_until_complete(main)
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py:649: in run_until_complete
+    return future.result()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+file = UploadFile(filename='movable_pledge.docx', size=None, headers=Headers({}))
+contract_type = 'movable_pledge', include_low_risk = True, use_llm = False
+profile_json = '{}', current_user = {'id': 1}
+
+    @router.post("/file", response_model=ReviewV2Result, summary="合同审查第二版：文件上传审查")
+    async def review_v2_file(
+        file: UploadFile = File(...),
+        contract_type: str = Form("house_lease"),
+        include_low_risk: bool = Form(True),
+        use_llm: bool = Form(True),
+        profile_json: str = Form("{}"),
+        current_user: dict = Depends(get_current_user),
+    ):
+        """接收 Word/PDF 合同文件，抽取文本后运行清单式审查。"""
+    
+        source_drift = _runtime_source_drift_status()
+        if source_drift["status"] != "CURRENT":
+            logger.critical(
+                "[STALE_REVIEW_RUNTIME] dependencies=%s process_id=%s",
+                source_drift["changed_dependencies"],
+                os.getpid(),
+            )
+>           raise HTTPException(
+                status_code=503,
+                detail="审查后端已加载旧代码，请重启本地服务后重新审查。",
+            )
+E           fastapi.exceptions.HTTPException: 503: 审查后端已加载旧代码，请重启本地服务后重新审查。
+
+backend\routers\review_v2.py:1056: HTTPException
+---------------------------- Captured stderr call -----------------------------
+2026-09-08 06:46:36 - routers.review_v2 - CRITICAL - [unknown] - [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+------------------------------ Captured log call ------------------------------
+CRITICAL routers.review_v2:review_v2.py:1051 [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+__ test_docx_upload_routes_new_types_through_the_existing_api[equity_pledge] __
+
+key = 'equity_pledge'
+
+    @pytest.mark.parametrize("key", ("labor", "mortgage", "movable_pledge", "equity_pledge", "rights_pledge", "equity_transfer", "capital_increase", "investment", "shareholders", "non_compete", "confidentiality", "employment_termination"))
+    def test_docx_upload_routes_new_types_through_the_existing_api(key):
+        import asyncio
+        import io
+        from docx import Document
+        from starlette.datastructures import UploadFile
+        from routers.review_v2 import review_v2_file
+        document = Document()
+        for line in NORMAL[key].splitlines():
+            document.add_paragraph(line)
+        buffer = io.BytesIO()
+        document.save(buffer)
+        buffer.seek(0)
+>       result = asyncio.run(review_v2_file(
+            file=UploadFile(file=buffer, filename=key + ".docx"), contract_type=key,
+            include_low_risk=True, use_llm=False, profile_json="{}", current_user={"id": 1}))
+
+backend\tests\test_priority_contract_review.py:167: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py:44: in run
+    return loop.run_until_complete(main)
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py:649: in run_until_complete
+    return future.result()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+file = UploadFile(filename='equity_pledge.docx', size=None, headers=Headers({}))
+contract_type = 'equity_pledge', include_low_risk = True, use_llm = False
+profile_json = '{}', current_user = {'id': 1}
+
+    @router.post("/file", response_model=ReviewV2Result, summary="合同审查第二版：文件上传审查")
+    async def review_v2_file(
+        file: UploadFile = File(...),
+        contract_type: str = Form("house_lease"),
+        include_low_risk: bool = Form(True),
+        use_llm: bool = Form(True),
+        profile_json: str = Form("{}"),
+        current_user: dict = Depends(get_current_user),
+    ):
+        """接收 Word/PDF 合同文件，抽取文本后运行清单式审查。"""
+    
+        source_drift = _runtime_source_drift_status()
+        if source_drift["status"] != "CURRENT":
+            logger.critical(
+                "[STALE_REVIEW_RUNTIME] dependencies=%s process_id=%s",
+                source_drift["changed_dependencies"],
+                os.getpid(),
+            )
+>           raise HTTPException(
+                status_code=503,
+                detail="审查后端已加载旧代码，请重启本地服务后重新审查。",
+            )
+E           fastapi.exceptions.HTTPException: 503: 审查后端已加载旧代码，请重启本地服务后重新审查。
+
+backend\routers\review_v2.py:1056: HTTPException
+---------------------------- Captured stderr call -----------------------------
+2026-09-08 06:46:36 - routers.review_v2 - CRITICAL - [unknown] - [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+------------------------------ Captured log call ------------------------------
+CRITICAL routers.review_v2:review_v2.py:1051 [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+__ test_docx_upload_routes_new_types_through_the_existing_api[rights_pledge] __
+
+key = 'rights_pledge'
+
+    @pytest.mark.parametrize("key", ("labor", "mortgage", "movable_pledge", "equity_pledge", "rights_pledge", "equity_transfer", "capital_increase", "investment", "shareholders", "non_compete", "confidentiality", "employment_termination"))
+    def test_docx_upload_routes_new_types_through_the_existing_api(key):
+        import asyncio
+        import io
+        from docx import Document
+        from starlette.datastructures import UploadFile
+        from routers.review_v2 import review_v2_file
+        document = Document()
+        for line in NORMAL[key].splitlines():
+            document.add_paragraph(line)
+        buffer = io.BytesIO()
+        document.save(buffer)
+        buffer.seek(0)
+>       result = asyncio.run(review_v2_file(
+            file=UploadFile(file=buffer, filename=key + ".docx"), contract_type=key,
+            include_low_risk=True, use_llm=False, profile_json="{}", current_user={"id": 1}))
+
+backend\tests\test_priority_contract_review.py:167: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py:44: in run
+    return loop.run_until_complete(main)
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py:649: in run_until_complete
+    return future.result()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+file = UploadFile(filename='rights_pledge.docx', size=None, headers=Headers({}))
+contract_type = 'rights_pledge', include_low_risk = True, use_llm = False
+profile_json = '{}', current_user = {'id': 1}
+
+    @router.post("/file", response_model=ReviewV2Result, summary="合同审查第二版：文件上传审查")
+    async def review_v2_file(
+        file: UploadFile = File(...),
+        contract_type: str = Form("house_lease"),
+        include_low_risk: bool = Form(True),
+        use_llm: bool = Form(True),
+        profile_json: str = Form("{}"),
+        current_user: dict = Depends(get_current_user),
+    ):
+        """接收 Word/PDF 合同文件，抽取文本后运行清单式审查。"""
+    
+        source_drift = _runtime_source_drift_status()
+        if source_drift["status"] != "CURRENT":
+            logger.critical(
+                "[STALE_REVIEW_RUNTIME] dependencies=%s process_id=%s",
+                source_drift["changed_dependencies"],
+                os.getpid(),
+            )
+>           raise HTTPException(
+                status_code=503,
+                detail="审查后端已加载旧代码，请重启本地服务后重新审查。",
+            )
+E           fastapi.exceptions.HTTPException: 503: 审查后端已加载旧代码，请重启本地服务后重新审查。
+
+backend\routers\review_v2.py:1056: HTTPException
+---------------------------- Captured stderr call -----------------------------
+2026-09-08 06:46:37 - routers.review_v2 - CRITICAL - [unknown] - [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+------------------------------ Captured log call ------------------------------
+CRITICAL routers.review_v2:review_v2.py:1051 [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+_ test_docx_upload_routes_new_types_through_the_existing_api[equity_transfer] _
+
+key = 'equity_transfer'
+
+    @pytest.mark.parametrize("key", ("labor", "mortgage", "movable_pledge", "equity_pledge", "rights_pledge", "equity_transfer", "capital_increase", "investment", "shareholders", "non_compete", "confidentiality", "employment_termination"))
+    def test_docx_upload_routes_new_types_through_the_existing_api(key):
+        import asyncio
+        import io
+        from docx import Document
+        from starlette.datastructures import UploadFile
+        from routers.review_v2 import review_v2_file
+        document = Document()
+        for line in NORMAL[key].splitlines():
+            document.add_paragraph(line)
+        buffer = io.BytesIO()
+        document.save(buffer)
+        buffer.seek(0)
+>       result = asyncio.run(review_v2_file(
+            file=UploadFile(file=buffer, filename=key + ".docx"), contract_type=key,
+            include_low_risk=True, use_llm=False, profile_json="{}", current_user={"id": 1}))
+
+backend\tests\test_priority_contract_review.py:167: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py:44: in run
+    return loop.run_until_complete(main)
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py:649: in run_until_complete
+    return future.result()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+file = UploadFile(filename='equity_transfer.docx', size=None, headers=Headers({}))
+contract_type = 'equity_transfer', include_low_risk = True, use_llm = False
+profile_json = '{}', current_user = {'id': 1}
+
+    @router.post("/file", response_model=ReviewV2Result, summary="合同审查第二版：文件上传审查")
+    async def review_v2_file(
+        file: UploadFile = File(...),
+        contract_type: str = Form("house_lease"),
+        include_low_risk: bool = Form(True),
+        use_llm: bool = Form(True),
+        profile_json: str = Form("{}"),
+        current_user: dict = Depends(get_current_user),
+    ):
+        """接收 Word/PDF 合同文件，抽取文本后运行清单式审查。"""
+    
+        source_drift = _runtime_source_drift_status()
+        if source_drift["status"] != "CURRENT":
+            logger.critical(
+                "[STALE_REVIEW_RUNTIME] dependencies=%s process_id=%s",
+                source_drift["changed_dependencies"],
+                os.getpid(),
+            )
+>           raise HTTPException(
+                status_code=503,
+                detail="审查后端已加载旧代码，请重启本地服务后重新审查。",
+            )
+E           fastapi.exceptions.HTTPException: 503: 审查后端已加载旧代码，请重启本地服务后重新审查。
+
+backend\routers\review_v2.py:1056: HTTPException
+---------------------------- Captured stderr call -----------------------------
+2026-09-08 06:46:37 - routers.review_v2 - CRITICAL - [unknown] - [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+------------------------------ Captured log call ------------------------------
+CRITICAL routers.review_v2:review_v2.py:1051 [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+_ test_docx_upload_routes_new_types_through_the_existing_api[capital_increase] _
+
+key = 'capital_increase'
+
+    @pytest.mark.parametrize("key", ("labor", "mortgage", "movable_pledge", "equity_pledge", "rights_pledge", "equity_transfer", "capital_increase", "investment", "shareholders", "non_compete", "confidentiality", "employment_termination"))
+    def test_docx_upload_routes_new_types_through_the_existing_api(key):
+        import asyncio
+        import io
+        from docx import Document
+        from starlette.datastructures import UploadFile
+        from routers.review_v2 import review_v2_file
+        document = Document()
+        for line in NORMAL[key].splitlines():
+            document.add_paragraph(line)
+        buffer = io.BytesIO()
+        document.save(buffer)
+        buffer.seek(0)
+>       result = asyncio.run(review_v2_file(
+            file=UploadFile(file=buffer, filename=key + ".docx"), contract_type=key,
+            include_low_risk=True, use_llm=False, profile_json="{}", current_user={"id": 1}))
+
+backend\tests\test_priority_contract_review.py:167: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py:44: in run
+    return loop.run_until_complete(main)
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py:649: in run_until_complete
+    return future.result()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+file = UploadFile(filename='capital_increase.docx', size=None, headers=Headers({}))
+contract_type = 'capital_increase', include_low_risk = True, use_llm = False
+profile_json = '{}', current_user = {'id': 1}
+
+    @router.post("/file", response_model=ReviewV2Result, summary="合同审查第二版：文件上传审查")
+    async def review_v2_file(
+        file: UploadFile = File(...),
+        contract_type: str = Form("house_lease"),
+        include_low_risk: bool = Form(True),
+        use_llm: bool = Form(True),
+        profile_json: str = Form("{}"),
+        current_user: dict = Depends(get_current_user),
+    ):
+        """接收 Word/PDF 合同文件，抽取文本后运行清单式审查。"""
+    
+        source_drift = _runtime_source_drift_status()
+        if source_drift["status"] != "CURRENT":
+            logger.critical(
+                "[STALE_REVIEW_RUNTIME] dependencies=%s process_id=%s",
+                source_drift["changed_dependencies"],
+                os.getpid(),
+            )
+>           raise HTTPException(
+                status_code=503,
+                detail="审查后端已加载旧代码，请重启本地服务后重新审查。",
+            )
+E           fastapi.exceptions.HTTPException: 503: 审查后端已加载旧代码，请重启本地服务后重新审查。
+
+backend\routers\review_v2.py:1056: HTTPException
+---------------------------- Captured stderr call -----------------------------
+2026-09-08 06:46:37 - routers.review_v2 - CRITICAL - [unknown] - [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+------------------------------ Captured log call ------------------------------
+CRITICAL routers.review_v2:review_v2.py:1051 [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+___ test_docx_upload_routes_new_types_through_the_existing_api[investment] ____
+
+key = 'investment'
+
+    @pytest.mark.parametrize("key", ("labor", "mortgage", "movable_pledge", "equity_pledge", "rights_pledge", "equity_transfer", "capital_increase", "investment", "shareholders", "non_compete", "confidentiality", "employment_termination"))
+    def test_docx_upload_routes_new_types_through_the_existing_api(key):
+        import asyncio
+        import io
+        from docx import Document
+        from starlette.datastructures import UploadFile
+        from routers.review_v2 import review_v2_file
+        document = Document()
+        for line in NORMAL[key].splitlines():
+            document.add_paragraph(line)
+        buffer = io.BytesIO()
+        document.save(buffer)
+        buffer.seek(0)
+>       result = asyncio.run(review_v2_file(
+            file=UploadFile(file=buffer, filename=key + ".docx"), contract_type=key,
+            include_low_risk=True, use_llm=False, profile_json="{}", current_user={"id": 1}))
+
+backend\tests\test_priority_contract_review.py:167: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py:44: in run
+    return loop.run_until_complete(main)
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py:649: in run_until_complete
+    return future.result()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+file = UploadFile(filename='investment.docx', size=None, headers=Headers({}))
+contract_type = 'investment', include_low_risk = True, use_llm = False
+profile_json = '{}', current_user = {'id': 1}
+
+    @router.post("/file", response_model=ReviewV2Result, summary="合同审查第二版：文件上传审查")
+    async def review_v2_file(
+        file: UploadFile = File(...),
+        contract_type: str = Form("house_lease"),
+        include_low_risk: bool = Form(True),
+        use_llm: bool = Form(True),
+        profile_json: str = Form("{}"),
+        current_user: dict = Depends(get_current_user),
+    ):
+        """接收 Word/PDF 合同文件，抽取文本后运行清单式审查。"""
+    
+        source_drift = _runtime_source_drift_status()
+        if source_drift["status"] != "CURRENT":
+            logger.critical(
+                "[STALE_REVIEW_RUNTIME] dependencies=%s process_id=%s",
+                source_drift["changed_dependencies"],
+                os.getpid(),
+            )
+>           raise HTTPException(
+                status_code=503,
+                detail="审查后端已加载旧代码，请重启本地服务后重新审查。",
+            )
+E           fastapi.exceptions.HTTPException: 503: 审查后端已加载旧代码，请重启本地服务后重新审查。
+
+backend\routers\review_v2.py:1056: HTTPException
+---------------------------- Captured stderr call -----------------------------
+2026-09-08 06:46:37 - routers.review_v2 - CRITICAL - [unknown] - [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+------------------------------ Captured log call ------------------------------
+CRITICAL routers.review_v2:review_v2.py:1051 [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+__ test_docx_upload_routes_new_types_through_the_existing_api[shareholders] ___
+
+key = 'shareholders'
+
+    @pytest.mark.parametrize("key", ("labor", "mortgage", "movable_pledge", "equity_pledge", "rights_pledge", "equity_transfer", "capital_increase", "investment", "shareholders", "non_compete", "confidentiality", "employment_termination"))
+    def test_docx_upload_routes_new_types_through_the_existing_api(key):
+        import asyncio
+        import io
+        from docx import Document
+        from starlette.datastructures import UploadFile
+        from routers.review_v2 import review_v2_file
+        document = Document()
+        for line in NORMAL[key].splitlines():
+            document.add_paragraph(line)
+        buffer = io.BytesIO()
+        document.save(buffer)
+        buffer.seek(0)
+>       result = asyncio.run(review_v2_file(
+            file=UploadFile(file=buffer, filename=key + ".docx"), contract_type=key,
+            include_low_risk=True, use_llm=False, profile_json="{}", current_user={"id": 1}))
+
+backend\tests\test_priority_contract_review.py:167: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py:44: in run
+    return loop.run_until_complete(main)
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py:649: in run_until_complete
+    return future.result()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+file = UploadFile(filename='shareholders.docx', size=None, headers=Headers({}))
+contract_type = 'shareholders', include_low_risk = True, use_llm = False
+profile_json = '{}', current_user = {'id': 1}
+
+    @router.post("/file", response_model=ReviewV2Result, summary="合同审查第二版：文件上传审查")
+    async def review_v2_file(
+        file: UploadFile = File(...),
+        contract_type: str = Form("house_lease"),
+        include_low_risk: bool = Form(True),
+        use_llm: bool = Form(True),
+        profile_json: str = Form("{}"),
+        current_user: dict = Depends(get_current_user),
+    ):
+        """接收 Word/PDF 合同文件，抽取文本后运行清单式审查。"""
+    
+        source_drift = _runtime_source_drift_status()
+        if source_drift["status"] != "CURRENT":
+            logger.critical(
+                "[STALE_REVIEW_RUNTIME] dependencies=%s process_id=%s",
+                source_drift["changed_dependencies"],
+                os.getpid(),
+            )
+>           raise HTTPException(
+                status_code=503,
+                detail="审查后端已加载旧代码，请重启本地服务后重新审查。",
+            )
+E           fastapi.exceptions.HTTPException: 503: 审查后端已加载旧代码，请重启本地服务后重新审查。
+
+backend\routers\review_v2.py:1056: HTTPException
+---------------------------- Captured stderr call -----------------------------
+2026-09-08 06:46:37 - routers.review_v2 - CRITICAL - [unknown] - [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+------------------------------ Captured log call ------------------------------
+CRITICAL routers.review_v2:review_v2.py:1051 [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+___ test_docx_upload_routes_new_types_through_the_existing_api[non_compete] ___
+
+key = 'non_compete'
+
+    @pytest.mark.parametrize("key", ("labor", "mortgage", "movable_pledge", "equity_pledge", "rights_pledge", "equity_transfer", "capital_increase", "investment", "shareholders", "non_compete", "confidentiality", "employment_termination"))
+    def test_docx_upload_routes_new_types_through_the_existing_api(key):
+        import asyncio
+        import io
+        from docx import Document
+        from starlette.datastructures import UploadFile
+        from routers.review_v2 import review_v2_file
+        document = Document()
+        for line in NORMAL[key].splitlines():
+            document.add_paragraph(line)
+        buffer = io.BytesIO()
+        document.save(buffer)
+        buffer.seek(0)
+>       result = asyncio.run(review_v2_file(
+            file=UploadFile(file=buffer, filename=key + ".docx"), contract_type=key,
+            include_low_risk=True, use_llm=False, profile_json="{}", current_user={"id": 1}))
+
+backend\tests\test_priority_contract_review.py:167: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py:44: in run
+    return loop.run_until_complete(main)
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py:649: in run_until_complete
+    return future.result()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+file = UploadFile(filename='non_compete.docx', size=None, headers=Headers({}))
+contract_type = 'non_compete', include_low_risk = True, use_llm = False
+profile_json = '{}', current_user = {'id': 1}
+
+    @router.post("/file", response_model=ReviewV2Result, summary="合同审查第二版：文件上传审查")
+    async def review_v2_file(
+        file: UploadFile = File(...),
+        contract_type: str = Form("house_lease"),
+        include_low_risk: bool = Form(True),
+        use_llm: bool = Form(True),
+        profile_json: str = Form("{}"),
+        current_user: dict = Depends(get_current_user),
+    ):
+        """接收 Word/PDF 合同文件，抽取文本后运行清单式审查。"""
+    
+        source_drift = _runtime_source_drift_status()
+        if source_drift["status"] != "CURRENT":
+            logger.critical(
+                "[STALE_REVIEW_RUNTIME] dependencies=%s process_id=%s",
+                source_drift["changed_dependencies"],
+                os.getpid(),
+            )
+>           raise HTTPException(
+                status_code=503,
+                detail="审查后端已加载旧代码，请重启本地服务后重新审查。",
+            )
+E           fastapi.exceptions.HTTPException: 503: 审查后端已加载旧代码，请重启本地服务后重新审查。
+
+backend\routers\review_v2.py:1056: HTTPException
+---------------------------- Captured stderr call -----------------------------
+2026-09-08 06:46:38 - routers.review_v2 - CRITICAL - [unknown] - [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+------------------------------ Captured log call ------------------------------
+CRITICAL routers.review_v2:review_v2.py:1051 [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+_ test_docx_upload_routes_new_types_through_the_existing_api[confidentiality] _
+
+key = 'confidentiality'
+
+    @pytest.mark.parametrize("key", ("labor", "mortgage", "movable_pledge", "equity_pledge", "rights_pledge", "equity_transfer", "capital_increase", "investment", "shareholders", "non_compete", "confidentiality", "employment_termination"))
+    def test_docx_upload_routes_new_types_through_the_existing_api(key):
+        import asyncio
+        import io
+        from docx import Document
+        from starlette.datastructures import UploadFile
+        from routers.review_v2 import review_v2_file
+        document = Document()
+        for line in NORMAL[key].splitlines():
+            document.add_paragraph(line)
+        buffer = io.BytesIO()
+        document.save(buffer)
+        buffer.seek(0)
+>       result = asyncio.run(review_v2_file(
+            file=UploadFile(file=buffer, filename=key + ".docx"), contract_type=key,
+            include_low_risk=True, use_llm=False, profile_json="{}", current_user={"id": 1}))
+
+backend\tests\test_priority_contract_review.py:167: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py:44: in run
+    return loop.run_until_complete(main)
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py:649: in run_until_complete
+    return future.result()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+file = UploadFile(filename='confidentiality.docx', size=None, headers=Headers({}))
+contract_type = 'confidentiality', include_low_risk = True, use_llm = False
+profile_json = '{}', current_user = {'id': 1}
+
+    @router.post("/file", response_model=ReviewV2Result, summary="合同审查第二版：文件上传审查")
+    async def review_v2_file(
+        file: UploadFile = File(...),
+        contract_type: str = Form("house_lease"),
+        include_low_risk: bool = Form(True),
+        use_llm: bool = Form(True),
+        profile_json: str = Form("{}"),
+        current_user: dict = Depends(get_current_user),
+    ):
+        """接收 Word/PDF 合同文件，抽取文本后运行清单式审查。"""
+    
+        source_drift = _runtime_source_drift_status()
+        if source_drift["status"] != "CURRENT":
+            logger.critical(
+                "[STALE_REVIEW_RUNTIME] dependencies=%s process_id=%s",
+                source_drift["changed_dependencies"],
+                os.getpid(),
+            )
+>           raise HTTPException(
+                status_code=503,
+                detail="审查后端已加载旧代码，请重启本地服务后重新审查。",
+            )
+E           fastapi.exceptions.HTTPException: 503: 审查后端已加载旧代码，请重启本地服务后重新审查。
+
+backend\routers\review_v2.py:1056: HTTPException
+---------------------------- Captured stderr call -----------------------------
+2026-09-08 06:46:38 - routers.review_v2 - CRITICAL - [unknown] - [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+------------------------------ Captured log call ------------------------------
+CRITICAL routers.review_v2:review_v2.py:1051 [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+_ test_docx_upload_routes_new_types_through_the_existing_api[employment_termination] _
+
+key = 'employment_termination'
+
+    @pytest.mark.parametrize("key", ("labor", "mortgage", "movable_pledge", "equity_pledge", "rights_pledge", "equity_transfer", "capital_increase", "investment", "shareholders", "non_compete", "confidentiality", "employment_termination"))
+    def test_docx_upload_routes_new_types_through_the_existing_api(key):
+        import asyncio
+        import io
+        from docx import Document
+        from starlette.datastructures import UploadFile
+        from routers.review_v2 import review_v2_file
+        document = Document()
+        for line in NORMAL[key].splitlines():
+            document.add_paragraph(line)
+        buffer = io.BytesIO()
+        document.save(buffer)
+        buffer.seek(0)
+>       result = asyncio.run(review_v2_file(
+            file=UploadFile(file=buffer, filename=key + ".docx"), contract_type=key,
+            include_low_risk=True, use_llm=False, profile_json="{}", current_user={"id": 1}))
+
+backend\tests\test_priority_contract_review.py:167: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py:44: in run
+    return loop.run_until_complete(main)
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py:649: in run_until_complete
+    return future.result()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+file = UploadFile(filename='employment_termination.docx', size=None, headers=Headers({}))
+contract_type = 'employment_termination', include_low_risk = True
+use_llm = False, profile_json = '{}', current_user = {'id': 1}
+
+    @router.post("/file", response_model=ReviewV2Result, summary="合同审查第二版：文件上传审查")
+    async def review_v2_file(
+        file: UploadFile = File(...),
+        contract_type: str = Form("house_lease"),
+        include_low_risk: bool = Form(True),
+        use_llm: bool = Form(True),
+        profile_json: str = Form("{}"),
+        current_user: dict = Depends(get_current_user),
+    ):
+        """接收 Word/PDF 合同文件，抽取文本后运行清单式审查。"""
+    
+        source_drift = _runtime_source_drift_status()
+        if source_drift["status"] != "CURRENT":
+            logger.critical(
+                "[STALE_REVIEW_RUNTIME] dependencies=%s process_id=%s",
+                source_drift["changed_dependencies"],
+                os.getpid(),
+            )
+>           raise HTTPException(
+                status_code=503,
+                detail="审查后端已加载旧代码，请重启本地服务后重新审查。",
+            )
+E           fastapi.exceptions.HTTPException: 503: 审查后端已加载旧代码，请重启本地服务后重新审查。
+
+backend\routers\review_v2.py:1056: HTTPException
+---------------------------- Captured stderr call -----------------------------
+2026-09-08 06:46:38 - routers.review_v2 - CRITICAL - [unknown] - [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+------------------------------ Captured log call ------------------------------
+CRITICAL routers.review_v2:review_v2.py:1051 [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=18652
+=========================== short test summary info ===========================
+FAILED backend/tests/test_employment_round2_semantics.py::test_overtime_payment_alternative_is_covered[\u4f9d\u6cd5\u5b89\u6392\u4e59\u65b9\u8865\u4f11\u6216\u652f\u4ed8\u52a0\u73ed\u5de5\u8d44]
+FAILED backend/tests/test_employment_round2_semantics.py::test_overtime_payment_alternative_is_covered[\u7532\u65b9\u4f9d\u6cd5\u5b89\u6392\u52b3\u52a8\u8005\u8c03\u4f11\u6216\u652f\u4ed8\u52a0\u73ed\u5de5\u8d44]
+FAILED backend/tests/test_priority_contract_review.py::test_docx_upload_routes_new_types_through_the_existing_api[labor]
+FAILED backend/tests/test_priority_contract_review.py::test_docx_upload_routes_new_types_through_the_existing_api[mortgage]
+FAILED backend/tests/test_priority_contract_review.py::test_docx_upload_routes_new_types_through_the_existing_api[movable_pledge]
+FAILED backend/tests/test_priority_contract_review.py::test_docx_upload_routes_new_types_through_the_existing_api[equity_pledge]
+FAILED backend/tests/test_priority_contract_review.py::test_docx_upload_routes_new_types_through_the_existing_api[rights_pledge]
+FAILED backend/tests/test_priority_contract_review.py::test_docx_upload_routes_new_types_through_the_existing_api[equity_transfer]
+FAILED backend/tests/test_priority_contract_review.py::test_docx_upload_routes_new_types_through_the_existing_api[capital_increase]
+FAILED backend/tests/test_priority_contract_review.py::test_docx_upload_routes_new_types_through_the_existing_api[investment]
+FAILED backend/tests/test_priority_contract_review.py::test_docx_upload_routes_new_types_through_the_existing_api[shareholders]
+FAILED backend/tests/test_priority_contract_review.py::test_docx_upload_routes_new_types_through_the_existing_api[non_compete]
+FAILED backend/tests/test_priority_contract_review.py::test_docx_upload_routes_new_types_through_the_existing_api[confidentiality]
+FAILED backend/tests/test_priority_contract_review.py::test_docx_upload_routes_new_types_through_the_existing_api[employment_termination]
+14 failed, 122 passed, 5 warnings in 49.71s

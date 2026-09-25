@@ -1,0 +1,174 @@
+........F                                                                [100%]
+================================== FAILURES ===================================
+_________ test_upload_preserves_role_sources_and_conditional_coverage _________
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\anyio\streams\memory.py:98: in receive
+    return self.receive_nowait()
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\anyio\streams\memory.py:93: in receive_nowait
+    raise WouldBlock
+E   anyio.WouldBlock
+
+During handling of the above exception, another exception occurred:
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\middleware\base.py:159: in call_next
+    message = await recv_stream.receive()
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\anyio\streams\memory.py:118: in receive
+    raise EndOfStream
+E   anyio.EndOfStream
+
+During handling of the above exception, another exception occurred:
+backend\tests\test_transfer_verified_roles_and_conditions.py:62: in test_upload_preserves_role_sources_and_conditional_coverage
+    response = client.post('/review-v2/file',
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\testclient.py:608: in post
+    return super().post(
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:1157: in post
+    return self.request(
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\testclient.py:491: in request
+    return super().request(
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:837: in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:926: in send
+    response = self._send_handling_auth(
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:954: in _send_handling_auth
+    response = self._send_handling_redirects(
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:991: in _send_handling_redirects
+    response = self._send_single_request(request)
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:1027: in _send_single_request
+    response = transport.handle_request(request)
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\testclient.py:372: in handle_request
+    raise exc
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\testclient.py:369: in handle_request
+    portal.call(self.app, scope, receive, send)
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\anyio\from_thread.py:277: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\concurrent\futures\_base.py:458: in result
+    return self.__get_result()
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\concurrent\futures\_base.py:403: in __get_result
+    raise self._exception
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\anyio\from_thread.py:217: in _call_func
+    retval = await retval
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:1054: in __call__
+    await super().__call__(scope, receive, send)
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\applications.py:123: in __call__
+    await self.middleware_stack(scope, receive, send)
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\middleware\errors.py:186: in __call__
+    raise exc
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\middleware\errors.py:164: in __call__
+    await self.app(scope, receive, _send)
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\middleware\base.py:191: in __call__
+    response = await self.dispatch_func(request, call_next)
+backend\security\middleware.py:85: in dispatch
+    response = await call_next(request)
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\middleware\base.py:165: in call_next
+    raise app_exc
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\middleware\base.py:151: in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\middleware\cors.py:83: in __call__
+    await self.app(scope, receive, send)
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\middleware\exceptions.py:62: in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\_exception_handler.py:64: in wrapped_app
+    raise exc
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\_exception_handler.py:53: in wrapped_app
+    await app(scope, receive, sender)
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\routing.py:758: in __call__
+    await self.middleware_stack(scope, receive, send)
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\routing.py:778: in app
+    await route.handle(scope, receive, send)
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\routing.py:299: in handle
+    await self.app(scope, receive, send)
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\routing.py:79: in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\_exception_handler.py:64: in wrapped_app
+    raise exc
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\_exception_handler.py:53: in wrapped_app
+    await app(scope, receive, sender)
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\starlette\routing.py:74: in app
+    response = await func(request)
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\routing.py:278: in app
+    raw_response = await run_endpoint_function(
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\routing.py:191: in run_endpoint_function
+    return await dependant.call(**values)
+backend\routers\review_v2.py:1455: in review_v2_file
+    result = _review_with_fact_errors(
+backend\routers\review_v2.py:1129: in _review_with_fact_errors
+    return review_contract_v2(*args, **kwargs)
+backend\review_v2\engine.py:52421: in review_contract_v2
+    response = _review_contract_v2_legacy(contract_text, route.resolved_type, **options)
+backend\review_v2\engine.py:51454: in _review_contract_v2_legacy
+    _bind_material_narrative_elements(items, clauses)
+backend\review_v2\engine.py:43310: in _bind_material_narrative_elements
+    over_scope_elements.append(dict(remedy_atoms['damage_compensation']))
+E   NameError: name 'over_scope_elements' is not defined
+---------------------------- Captured stdout call -----------------------------
+Redis连接失败: Timeout connecting to server
+---------------------------- Captured stderr call -----------------------------
+2026-09-15 16:39:02 - security.sensitive_filter - INFO - [unknown] - 已清理 0 条超过 90 天的拦截日志
+2026-09-15 16:39:02 - main - INFO - [unknown] - 启动时清理了 0 条过期拦截日志
+2026-09-15 16:39:04 - main - INFO - [unknown] - Redis连接失败，已切换到内存模式，后续请求无延迟
+2026-09-15 16:39:04 - security.output_guard - INFO - [unknown] - [OUTPUT_GUARD] 初始化完成: 系统提示词长度=4633, 片段哈希数量=4584, 完整哈希=13c9684b6d3e79c1...
+2026-09-15 16:39:04 - main - INFO - [unknown] - [STARTUP] 输出安全守卫初始化完成: 片段哈希数=4584
+2026-09-15 16:39:04 - security.injection_detector - INFO - [unknown] - [INJECTION_DETECTOR] 已加载 70 个注入检测模式
+2026-09-15 16:39:04 - main - INFO - [unknown] - [STARTUP] 注入检测器初始化完成
+2026-09-15 16:39:04 - layers.legal_check_layer - INFO - [unknown] - [MCP_ADAPTER] MCP 客户端已初始化
+2026-09-15 16:39:04 - main - INFO - [unknown] - [STARTUP] 法条校验层初始化完成
+2026-09-15 16:39:04 - routers.review_v2 - WARNING - [50268542] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=source_document used=True chars=2852 compact_chars=2731 paragraphs=104 sha256=6ce9c611dfda83d925ff32de6f86c52653a001ba4152ecd77b88226ffd9d878f head='专利权转让合同\n合同编号：PT-2026-0915-02\n甲方（转让方）：广州辰岳智能科技有限公司统一社会信用代码：91440101MA9XXXXXXX住所：广东省广州市黄埔区科学大道188号法定代表人：周明远\n乙方（受让方）：杭州启衡机器人有限公司统一社会信用代码：91330108MA2XXXXXXX住所：浙江省杭州市滨江区江陵路1200号法定代表人：许文川\n鉴于甲方合法拥有本合同项下专利权，乙方拟受让该专利权，双方根据《中华人民共和国民法典》《中华人民共和国专利法》等相关规定，经协商一致，订立本合同。\n第一条 转让标的\n专利名称：一种面向仓储机器人的动态路径规划方法及系统。\n专利号：ZL2' tail='方均可向乙方住所地有管辖权的人民法院提起诉讼。\n第十七条 通知\n双方在本合同中载明的住所、电子邮箱及联系人信息均可作为有效通知地址。\n任何一方联系方式发生变化，应在5个工作日内书面通知另一方。\n第十八条 其他\n本合同自双方法定代表人或授权代表签字并加盖公章之日起生效。\n本合同未尽事宜，由双方另行签订书面补充协议。\n补充协议与本合同具有同等法律效力。\n本合同一式肆份，甲乙双方各执贰份。\n甲方：广州辰岳智能科技有限公司法定代表人/授权代表：____________签署日期：2026年9月15日\n乙方：杭州启衡机器人有限公司法定代表人/授权代表：____________签署日期：2026年9月15日'
+2026-09-15 16:39:04 - routers.review_v2 - WARNING - [50268542] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=extracted_full_text used=True chars=2862 compact_chars=2731 paragraphs=114 sha256=ea237f4a0703c8c8b2f057b9824780ec1f3434c7d578de9a511b2aae0ae68c60 head='专利权转让合同\n合同编号：PT-2026-0915-02\n甲方（转让方）：广州辰岳智能科技有限公司\n统一社会信用代码：91440101MA9XXXXXXX\n住所：广东省广州市黄埔区科学大道188号\n法定代表人：周明远\n乙方（受让方）：杭州启衡机器人有限公司\n统一社会信用代码：91330108MA2XXXXXXX\n住所：浙江省杭州市滨江区江陵路1200号\n法定代表人：许文川\n鉴于甲方合法拥有本合同项下专利权，乙方拟受让该专利权，双方根据《中华人民共和国民法典》《中华人民共和国专利法》等相关规定，经协商一致，订立本合同。\n第一条 转让标的\n专利名称：一种面向仓储机器人的动态路径规划方法及系统。\n专' tail='乙方住所地有管辖权的人民法院提起诉讼。\n第十七条 通知\n双方在本合同中载明的住所、电子邮箱及联系人信息均可作为有效通知地址。\n任何一方联系方式发生变化，应在5个工作日内书面通知另一方。\n第十八条 其他\n本合同自双方法定代表人或授权代表签字并加盖公章之日起生效。\n本合同未尽事宜，由双方另行签订书面补充协议。\n补充协议与本合同具有同等法律效力。\n本合同一式肆份，甲乙双方各执贰份。\n甲方：广州辰岳智能科技有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日\n乙方：杭州启衡机器人有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日'
+2026-09-15 16:39:04 - routers.review_v2 - WARNING - [50268542] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=normalized_full_text used=True chars=2862 compact_chars=2731 paragraphs=114 sha256=ea237f4a0703c8c8b2f057b9824780ec1f3434c7d578de9a511b2aae0ae68c60 head='专利权转让合同\n合同编号：PT-2026-0915-02\n甲方（转让方）：广州辰岳智能科技有限公司\n统一社会信用代码：91440101MA9XXXXXXX\n住所：广东省广州市黄埔区科学大道188号\n法定代表人：周明远\n乙方（受让方）：杭州启衡机器人有限公司\n统一社会信用代码：91330108MA2XXXXXXX\n住所：浙江省杭州市滨江区江陵路1200号\n法定代表人：许文川\n鉴于甲方合法拥有本合同项下专利权，乙方拟受让该专利权，双方根据《中华人民共和国民法典》《中华人民共和国专利法》等相关规定，经协商一致，订立本合同。\n第一条 转让标的\n专利名称：一种面向仓储机器人的动态路径规划方法及系统。\n专' tail='乙方住所地有管辖权的人民法院提起诉讼。\n第十七条 通知\n双方在本合同中载明的住所、电子邮箱及联系人信息均可作为有效通知地址。\n任何一方联系方式发生变化，应在5个工作日内书面通知另一方。\n第十八条 其他\n本合同自双方法定代表人或授权代表签字并加盖公章之日起生效。\n本合同未尽事宜，由双方另行签订书面补充协议。\n补充协议与本合同具有同等法律效力。\n本合同一式肆份，甲乙双方各执贰份。\n甲方：广州辰岳智能科技有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日\n乙方：杭州启衡机器人有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日'
+2026-09-15 16:39:04 - routers.review_v2 - WARNING - [50268542] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=classifier_input used=False chars=2862 compact_chars=2731 paragraphs=114 sha256=ea237f4a0703c8c8b2f057b9824780ec1f3434c7d578de9a511b2aae0ae68c60 head='专利权转让合同\n合同编号：PT-2026-0915-02\n甲方（转让方）：广州辰岳智能科技有限公司\n统一社会信用代码：91440101MA9XXXXXXX\n住所：广东省广州市黄埔区科学大道188号\n法定代表人：周明远\n乙方（受让方）：杭州启衡机器人有限公司\n统一社会信用代码：91330108MA2XXXXXXX\n住所：浙江省杭州市滨江区江陵路1200号\n法定代表人：许文川\n鉴于甲方合法拥有本合同项下专利权，乙方拟受让该专利权，双方根据《中华人民共和国民法典》《中华人民共和国专利法》等相关规定，经协商一致，订立本合同。\n第一条 转让标的\n专利名称：一种面向仓储机器人的动态路径规划方法及系统。\n专' tail='乙方住所地有管辖权的人民法院提起诉讼。\n第十七条 通知\n双方在本合同中载明的住所、电子邮箱及联系人信息均可作为有效通知地址。\n任何一方联系方式发生变化，应在5个工作日内书面通知另一方。\n第十八条 其他\n本合同自双方法定代表人或授权代表签字并加盖公章之日起生效。\n本合同未尽事宜，由双方另行签订书面补充协议。\n补充协议与本合同具有同等法律效力。\n本合同一式肆份，甲乙双方各执贰份。\n甲方：广州辰岳智能科技有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日\n乙方：杭州启衡机器人有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日'
+2026-09-15 16:39:04 - routers.review_v2 - WARNING - [50268542] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=clause_extraction_input used=False chars=2862 compact_chars=2731 paragraphs=114 sha256=ea237f4a0703c8c8b2f057b9824780ec1f3434c7d578de9a511b2aae0ae68c60 head='专利权转让合同\n合同编号：PT-2026-0915-02\n甲方（转让方）：广州辰岳智能科技有限公司\n统一社会信用代码：91440101MA9XXXXXXX\n住所：广东省广州市黄埔区科学大道188号\n法定代表人：周明远\n乙方（受让方）：杭州启衡机器人有限公司\n统一社会信用代码：91330108MA2XXXXXXX\n住所：浙江省杭州市滨江区江陵路1200号\n法定代表人：许文川\n鉴于甲方合法拥有本合同项下专利权，乙方拟受让该专利权，双方根据《中华人民共和国民法典》《中华人民共和国专利法》等相关规定，经协商一致，订立本合同。\n第一条 转让标的\n专利名称：一种面向仓储机器人的动态路径规划方法及系统。\n专' tail='乙方住所地有管辖权的人民法院提起诉讼。\n第十七条 通知\n双方在本合同中载明的住所、电子邮箱及联系人信息均可作为有效通知地址。\n任何一方联系方式发生变化，应在5个工作日内书面通知另一方。\n第十八条 其他\n本合同自双方法定代表人或授权代表签字并加盖公章之日起生效。\n本合同未尽事宜，由双方另行签订书面补充协议。\n补充协议与本合同具有同等法律效力。\n本合同一式肆份，甲乙双方各执贰份。\n甲方：广州辰岳智能科技有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日\n乙方：杭州启衡机器人有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日'
+2026-09-15 16:39:04 - routers.review_v2 - WARNING - [50268542] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=rule_engine_input used=False chars=2862 compact_chars=2731 paragraphs=114 sha256=ea237f4a0703c8c8b2f057b9824780ec1f3434c7d578de9a511b2aae0ae68c60 head='专利权转让合同\n合同编号：PT-2026-0915-02\n甲方（转让方）：广州辰岳智能科技有限公司\n统一社会信用代码：91440101MA9XXXXXXX\n住所：广东省广州市黄埔区科学大道188号\n法定代表人：周明远\n乙方（受让方）：杭州启衡机器人有限公司\n统一社会信用代码：91330108MA2XXXXXXX\n住所：浙江省杭州市滨江区江陵路1200号\n法定代表人：许文川\n鉴于甲方合法拥有本合同项下专利权，乙方拟受让该专利权，双方根据《中华人民共和国民法典》《中华人民共和国专利法》等相关规定，经协商一致，订立本合同。\n第一条 转让标的\n专利名称：一种面向仓储机器人的动态路径规划方法及系统。\n专' tail='乙方住所地有管辖权的人民法院提起诉讼。\n第十七条 通知\n双方在本合同中载明的住所、电子邮箱及联系人信息均可作为有效通知地址。\n任何一方联系方式发生变化，应在5个工作日内书面通知另一方。\n第十八条 其他\n本合同自双方法定代表人或授权代表签字并加盖公章之日起生效。\n本合同未尽事宜，由双方另行签订书面补充协议。\n补充协议与本合同具有同等法律效力。\n本合同一式肆份，甲乙双方各执贰份。\n甲方：广州辰岳智能科技有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日\n乙方：杭州启衡机器人有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日'
+2026-09-15 16:39:04 - routers.review_v2 - WARNING - [50268542] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=search_audit_input used=False chars=2862 compact_chars=2731 paragraphs=114 sha256=ea237f4a0703c8c8b2f057b9824780ec1f3434c7d578de9a511b2aae0ae68c60 head='专利权转让合同\n合同编号：PT-2026-0915-02\n甲方（转让方）：广州辰岳智能科技有限公司\n统一社会信用代码：91440101MA9XXXXXXX\n住所：广东省广州市黄埔区科学大道188号\n法定代表人：周明远\n乙方（受让方）：杭州启衡机器人有限公司\n统一社会信用代码：91330108MA2XXXXXXX\n住所：浙江省杭州市滨江区江陵路1200号\n法定代表人：许文川\n鉴于甲方合法拥有本合同项下专利权，乙方拟受让该专利权，双方根据《中华人民共和国民法典》《中华人民共和国专利法》等相关规定，经协商一致，订立本合同。\n第一条 转让标的\n专利名称：一种面向仓储机器人的动态路径规划方法及系统。\n专' tail='乙方住所地有管辖权的人民法院提起诉讼。\n第十七条 通知\n双方在本合同中载明的住所、电子邮箱及联系人信息均可作为有效通知地址。\n任何一方联系方式发生变化，应在5个工作日内书面通知另一方。\n第十八条 其他\n本合同自双方法定代表人或授权代表签字并加盖公章之日起生效。\n本合同未尽事宜，由双方另行签订书面补充协议。\n补充协议与本合同具有同等法律效力。\n本合同一式肆份，甲乙双方各执贰份。\n甲方：广州辰岳智能科技有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日\n乙方：杭州启衡机器人有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日'
+2026-09-15 16:39:04 - routers.review_v2 - WARNING - [50268542] - [REVIEW_INPUT_INTEGRITY_GATE] trace_id= filename=original.docx status=PASS failures=[] anchors={'专利技术': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '许可方': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '接受方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '非独占': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '提成费': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '专利资料': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '中国国际经济贸易仲裁委员会': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '不可抗力': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '专利失效': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '专利费用': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '侵权': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': None, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+------------------------------ Captured log call ------------------------------
+INFO     security.sensitive_filter:sensitive_filter.py:223 已清理 0 条超过 90 天的拦截日志
+INFO     main:main.py:163 启动时清理了 0 条过期拦截日志
+INFO     main:main.py:172 Redis连接失败，已切换到内存模式，后续请求无延迟
+INFO     security.output_guard:output_guard.py:141 [OUTPUT_GUARD] 初始化完成: 系统提示词长度=4633, 片段哈希数量=4584, 完整哈希=13c9684b6d3e79c1...
+INFO     main:main.py:182 [STARTUP] 输出安全守卫初始化完成: 片段哈希数=4584
+INFO     security.injection_detector:injection_detector.py:107 [INJECTION_DETECTOR] 已加载 70 个注入检测模式
+INFO     main:main.py:189 [STARTUP] 注入检测器初始化完成
+INFO     layers.legal_check_layer:legal_check_layer.py:171 [MCP_ADAPTER] MCP 客户端已初始化
+INFO     main:main.py:209 [STARTUP] 法条校验层初始化完成
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=source_document used=True chars=2852 compact_chars=2731 paragraphs=104 sha256=6ce9c611dfda83d925ff32de6f86c52653a001ba4152ecd77b88226ffd9d878f head='专利权转让合同\n合同编号：PT-2026-0915-02\n甲方（转让方）：广州辰岳智能科技有限公司统一社会信用代码：91440101MA9XXXXXXX住所：广东省广州市黄埔区科学大道188号法定代表人：周明远\n乙方（受让方）：杭州启衡机器人有限公司统一社会信用代码：91330108MA2XXXXXXX住所：浙江省杭州市滨江区江陵路1200号法定代表人：许文川\n鉴于甲方合法拥有本合同项下专利权，乙方拟受让该专利权，双方根据《中华人民共和国民法典》《中华人民共和国专利法》等相关规定，经协商一致，订立本合同。\n第一条 转让标的\n专利名称：一种面向仓储机器人的动态路径规划方法及系统。\n专利号：ZL2' tail='方均可向乙方住所地有管辖权的人民法院提起诉讼。\n第十七条 通知\n双方在本合同中载明的住所、电子邮箱及联系人信息均可作为有效通知地址。\n任何一方联系方式发生变化，应在5个工作日内书面通知另一方。\n第十八条 其他\n本合同自双方法定代表人或授权代表签字并加盖公章之日起生效。\n本合同未尽事宜，由双方另行签订书面补充协议。\n补充协议与本合同具有同等法律效力。\n本合同一式肆份，甲乙双方各执贰份。\n甲方：广州辰岳智能科技有限公司法定代表人/授权代表：____________签署日期：2026年9月15日\n乙方：杭州启衡机器人有限公司法定代表人/授权代表：____________签署日期：2026年9月15日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=extracted_full_text used=True chars=2862 compact_chars=2731 paragraphs=114 sha256=ea237f4a0703c8c8b2f057b9824780ec1f3434c7d578de9a511b2aae0ae68c60 head='专利权转让合同\n合同编号：PT-2026-0915-02\n甲方（转让方）：广州辰岳智能科技有限公司\n统一社会信用代码：91440101MA9XXXXXXX\n住所：广东省广州市黄埔区科学大道188号\n法定代表人：周明远\n乙方（受让方）：杭州启衡机器人有限公司\n统一社会信用代码：91330108MA2XXXXXXX\n住所：浙江省杭州市滨江区江陵路1200号\n法定代表人：许文川\n鉴于甲方合法拥有本合同项下专利权，乙方拟受让该专利权，双方根据《中华人民共和国民法典》《中华人民共和国专利法》等相关规定，经协商一致，订立本合同。\n第一条 转让标的\n专利名称：一种面向仓储机器人的动态路径规划方法及系统。\n专' tail='乙方住所地有管辖权的人民法院提起诉讼。\n第十七条 通知\n双方在本合同中载明的住所、电子邮箱及联系人信息均可作为有效通知地址。\n任何一方联系方式发生变化，应在5个工作日内书面通知另一方。\n第十八条 其他\n本合同自双方法定代表人或授权代表签字并加盖公章之日起生效。\n本合同未尽事宜，由双方另行签订书面补充协议。\n补充协议与本合同具有同等法律效力。\n本合同一式肆份，甲乙双方各执贰份。\n甲方：广州辰岳智能科技有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日\n乙方：杭州启衡机器人有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=normalized_full_text used=True chars=2862 compact_chars=2731 paragraphs=114 sha256=ea237f4a0703c8c8b2f057b9824780ec1f3434c7d578de9a511b2aae0ae68c60 head='专利权转让合同\n合同编号：PT-2026-0915-02\n甲方（转让方）：广州辰岳智能科技有限公司\n统一社会信用代码：91440101MA9XXXXXXX\n住所：广东省广州市黄埔区科学大道188号\n法定代表人：周明远\n乙方（受让方）：杭州启衡机器人有限公司\n统一社会信用代码：91330108MA2XXXXXXX\n住所：浙江省杭州市滨江区江陵路1200号\n法定代表人：许文川\n鉴于甲方合法拥有本合同项下专利权，乙方拟受让该专利权，双方根据《中华人民共和国民法典》《中华人民共和国专利法》等相关规定，经协商一致，订立本合同。\n第一条 转让标的\n专利名称：一种面向仓储机器人的动态路径规划方法及系统。\n专' tail='乙方住所地有管辖权的人民法院提起诉讼。\n第十七条 通知\n双方在本合同中载明的住所、电子邮箱及联系人信息均可作为有效通知地址。\n任何一方联系方式发生变化，应在5个工作日内书面通知另一方。\n第十八条 其他\n本合同自双方法定代表人或授权代表签字并加盖公章之日起生效。\n本合同未尽事宜，由双方另行签订书面补充协议。\n补充协议与本合同具有同等法律效力。\n本合同一式肆份，甲乙双方各执贰份。\n甲方：广州辰岳智能科技有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日\n乙方：杭州启衡机器人有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=classifier_input used=False chars=2862 compact_chars=2731 paragraphs=114 sha256=ea237f4a0703c8c8b2f057b9824780ec1f3434c7d578de9a511b2aae0ae68c60 head='专利权转让合同\n合同编号：PT-2026-0915-02\n甲方（转让方）：广州辰岳智能科技有限公司\n统一社会信用代码：91440101MA9XXXXXXX\n住所：广东省广州市黄埔区科学大道188号\n法定代表人：周明远\n乙方（受让方）：杭州启衡机器人有限公司\n统一社会信用代码：91330108MA2XXXXXXX\n住所：浙江省杭州市滨江区江陵路1200号\n法定代表人：许文川\n鉴于甲方合法拥有本合同项下专利权，乙方拟受让该专利权，双方根据《中华人民共和国民法典》《中华人民共和国专利法》等相关规定，经协商一致，订立本合同。\n第一条 转让标的\n专利名称：一种面向仓储机器人的动态路径规划方法及系统。\n专' tail='乙方住所地有管辖权的人民法院提起诉讼。\n第十七条 通知\n双方在本合同中载明的住所、电子邮箱及联系人信息均可作为有效通知地址。\n任何一方联系方式发生变化，应在5个工作日内书面通知另一方。\n第十八条 其他\n本合同自双方法定代表人或授权代表签字并加盖公章之日起生效。\n本合同未尽事宜，由双方另行签订书面补充协议。\n补充协议与本合同具有同等法律效力。\n本合同一式肆份，甲乙双方各执贰份。\n甲方：广州辰岳智能科技有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日\n乙方：杭州启衡机器人有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=clause_extraction_input used=False chars=2862 compact_chars=2731 paragraphs=114 sha256=ea237f4a0703c8c8b2f057b9824780ec1f3434c7d578de9a511b2aae0ae68c60 head='专利权转让合同\n合同编号：PT-2026-0915-02\n甲方（转让方）：广州辰岳智能科技有限公司\n统一社会信用代码：91440101MA9XXXXXXX\n住所：广东省广州市黄埔区科学大道188号\n法定代表人：周明远\n乙方（受让方）：杭州启衡机器人有限公司\n统一社会信用代码：91330108MA2XXXXXXX\n住所：浙江省杭州市滨江区江陵路1200号\n法定代表人：许文川\n鉴于甲方合法拥有本合同项下专利权，乙方拟受让该专利权，双方根据《中华人民共和国民法典》《中华人民共和国专利法》等相关规定，经协商一致，订立本合同。\n第一条 转让标的\n专利名称：一种面向仓储机器人的动态路径规划方法及系统。\n专' tail='乙方住所地有管辖权的人民法院提起诉讼。\n第十七条 通知\n双方在本合同中载明的住所、电子邮箱及联系人信息均可作为有效通知地址。\n任何一方联系方式发生变化，应在5个工作日内书面通知另一方。\n第十八条 其他\n本合同自双方法定代表人或授权代表签字并加盖公章之日起生效。\n本合同未尽事宜，由双方另行签订书面补充协议。\n补充协议与本合同具有同等法律效力。\n本合同一式肆份，甲乙双方各执贰份。\n甲方：广州辰岳智能科技有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日\n乙方：杭州启衡机器人有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=rule_engine_input used=False chars=2862 compact_chars=2731 paragraphs=114 sha256=ea237f4a0703c8c8b2f057b9824780ec1f3434c7d578de9a511b2aae0ae68c60 head='专利权转让合同\n合同编号：PT-2026-0915-02\n甲方（转让方）：广州辰岳智能科技有限公司\n统一社会信用代码：91440101MA9XXXXXXX\n住所：广东省广州市黄埔区科学大道188号\n法定代表人：周明远\n乙方（受让方）：杭州启衡机器人有限公司\n统一社会信用代码：91330108MA2XXXXXXX\n住所：浙江省杭州市滨江区江陵路1200号\n法定代表人：许文川\n鉴于甲方合法拥有本合同项下专利权，乙方拟受让该专利权，双方根据《中华人民共和国民法典》《中华人民共和国专利法》等相关规定，经协商一致，订立本合同。\n第一条 转让标的\n专利名称：一种面向仓储机器人的动态路径规划方法及系统。\n专' tail='乙方住所地有管辖权的人民法院提起诉讼。\n第十七条 通知\n双方在本合同中载明的住所、电子邮箱及联系人信息均可作为有效通知地址。\n任何一方联系方式发生变化，应在5个工作日内书面通知另一方。\n第十八条 其他\n本合同自双方法定代表人或授权代表签字并加盖公章之日起生效。\n本合同未尽事宜，由双方另行签订书面补充协议。\n补充协议与本合同具有同等法律效力。\n本合同一式肆份，甲乙双方各执贰份。\n甲方：广州辰岳智能科技有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日\n乙方：杭州启衡机器人有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=search_audit_input used=False chars=2862 compact_chars=2731 paragraphs=114 sha256=ea237f4a0703c8c8b2f057b9824780ec1f3434c7d578de9a511b2aae0ae68c60 head='专利权转让合同\n合同编号：PT-2026-0915-02\n甲方（转让方）：广州辰岳智能科技有限公司\n统一社会信用代码：91440101MA9XXXXXXX\n住所：广东省广州市黄埔区科学大道188号\n法定代表人：周明远\n乙方（受让方）：杭州启衡机器人有限公司\n统一社会信用代码：91330108MA2XXXXXXX\n住所：浙江省杭州市滨江区江陵路1200号\n法定代表人：许文川\n鉴于甲方合法拥有本合同项下专利权，乙方拟受让该专利权，双方根据《中华人民共和国民法典》《中华人民共和国专利法》等相关规定，经协商一致，订立本合同。\n第一条 转让标的\n专利名称：一种面向仓储机器人的动态路径规划方法及系统。\n专' tail='乙方住所地有管辖权的人民法院提起诉讼。\n第十七条 通知\n双方在本合同中载明的住所、电子邮箱及联系人信息均可作为有效通知地址。\n任何一方联系方式发生变化，应在5个工作日内书面通知另一方。\n第十八条 其他\n本合同自双方法定代表人或授权代表签字并加盖公章之日起生效。\n本合同未尽事宜，由双方另行签订书面补充协议。\n补充协议与本合同具有同等法律效力。\n本合同一式肆份，甲乙双方各执贰份。\n甲方：广州辰岳智能科技有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日\n乙方：杭州启衡机器人有限公司\n法定代表人/授权代表：____________\n签署日期：2026年9月15日'
+WARNING  routers.review_v2:input_integrity.py:291 [REVIEW_INPUT_INTEGRITY_GATE] trace_id= filename=original.docx status=PASS failures=[] anchors={'专利技术': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '许可方': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '接受方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '非独占': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '提成费': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '专利资料': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '中国国际经济贸易仲裁委员会': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '不可抗力': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '专利失效': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '专利费用': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '侵权': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': None, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+backend/tests/test_transfer_verified_roles_and_conditions.py::test_upload_preserves_role_sources_and_conditional_coverage
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_transfer_verified_roles_and_conditions.py::test_upload_preserves_role_sources_and_conditional_coverage
+1 failed, 8 passed, 6 warnings in 12.99s

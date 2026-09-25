@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import UploadPage from '../components/UploadPage.vue'
 
 // 路由守卫：检查用户登录状态
 function requireAuth(to, from, next) {
@@ -45,8 +46,14 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'Upload',
-        component: () => import('../components/UploadPage.vue'),
+        name: 'ContractReview',
+        alias: 'review',
+        component: () => import('../views/ContractReviewV2.vue')
+      },
+      {
+        path: 'review-legacy',
+        name: 'ContractReviewLegacy',
+        component: UploadPage,
         meta: { keepAlive: true }
       },
       {
@@ -56,8 +63,7 @@ const routes = [
       },
       {
         path: 'contract-review-v2',
-        name: 'ContractReviewV2',
-        component: () => import('../views/ContractReviewV2.vue')
+        redirect: '/review'
       },
       {
         path: 'report/:id',
@@ -78,8 +84,7 @@ const routes = [
   },
   {
     path: '/contract-review-v2',
-    name: 'ContractReviewV2Standalone',
-    component: () => import('../views/ContractReviewV2.vue')
+    redirect: '/review'
   },
   // ========== 后台管理路由 ==========
   {

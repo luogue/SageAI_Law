@@ -1,0 +1,453 @@
+{
+  "round": "Round42",
+  "contract_type": "技术合同—技术咨询合同",
+  "source_hashes": {
+    "backend/review_v2/consulting_element_facts.py": "e0a4202457271c085d74322d7e094e3bf8a5d25173617fb6702d03567f6ad910",
+    "backend/review_v2/technology_transaction_evidence.py": "c6ebbf1c187e577bb50796f3586dba6cdc006ba6f869ae3ef7998167f258c1ee",
+    "backend/review_v2/technology_service_elements.py": "0e0eb1ee9e2020699445eb2114325667a7b509ccaec5eee03a76e2e62ed8add9",
+    "backend/review_v2/obligation_detail_elements.py": "62ee73b3630eeddca9721bcbb65c48f30618f5e196559bcc6ae22b291dbd2db3",
+    "backend/review_v2/penalty_base.py": "47900a1d077eed3e9368d39769e7d104f361df6c5293c44c60943a360d03c230",
+    "backend/tests/test_round42_consulting_generalization.py": "278955ada452d6c1acbe413875a608c0baadb807f52b104e0f2999c085ee34d5",
+    "backend/tests/fixtures/round42_consulting.txt": "a6d9c463f845e79d9e56348e7bcc402f2b1884877432f2fe3fae8ce6cd074a64"
+  },
+  "real_runs": {
+    "party_a": {
+      "run_id": "c9204baa-cd5a-41a8-8541-e7c162f996e1",
+      "task_id": "10f0dd6a-8a7f-40ff-af3a-b98187d2bdd0",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0
+    },
+    "party_b": {
+      "run_id": "9454e601-4e04-401d-901a-c53f1e9dd0e9",
+      "task_id": "7174ad39-3bc7-4f35-afc4-c22590bffce4",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0
+    }
+  },
+  "rules": {
+    "TC-01-01": {
+      "coverage": "通过",
+      "elements": [
+        {
+          "id": "transaction_consulting_performance",
+          "status": "COVERED",
+          "fact": "technology.transaction.consulting_performance",
+          "evidence_ids": [
+            "SRC-e5b80bc60288d3dc3576",
+            "SRC-c1c52f104a733901cf8d",
+            "SRC-b2f1b1694520cff26379",
+            "SRC-7b886f26056ebf44c098",
+            "SRC-434ba38a980bc4641594",
+            "SRC-2c29f8a52e6362f9b4ac",
+            "SRC-144f3cfdc53245a490fa",
+            "SRC-b08f91cf4638825df1ed",
+            "SRC-9968edb45eac08bfd670",
+            "SRC-183bbcd930b6349e59a9",
+            "SRC-99a8d51cfd786f8b5af5",
+            "SRC-a1e04a2ca55fe9f6d12c",
+            "SRC-f059a6c5d4607c7a231b"
+          ]
+        }
+      ]
+    },
+    "TC-01-02": {
+      "coverage": "通过",
+      "elements": [
+        {
+          "id": "transaction_consulting_performance",
+          "status": "COVERED",
+          "fact": "technology.transaction.consulting_performance",
+          "evidence_ids": [
+            "SRC-e5b80bc60288d3dc3576",
+            "SRC-c1c52f104a733901cf8d",
+            "SRC-b2f1b1694520cff26379",
+            "SRC-7b886f26056ebf44c098",
+            "SRC-434ba38a980bc4641594",
+            "SRC-2c29f8a52e6362f9b4ac",
+            "SRC-144f3cfdc53245a490fa",
+            "SRC-b08f91cf4638825df1ed",
+            "SRC-9968edb45eac08bfd670",
+            "SRC-183bbcd930b6349e59a9",
+            "SRC-99a8d51cfd786f8b5af5",
+            "SRC-a1e04a2ca55fe9f6d12c",
+            "SRC-f059a6c5d4607c7a231b"
+          ]
+        }
+      ]
+    },
+    "TC-01-03": {
+      "coverage": "通过",
+      "elements": [
+        {
+          "id": "consulting_project",
+          "status": "COVERED",
+          "fact": "consulting_subject.consulting_project",
+          "evidence_ids": [
+            "SRC-e5b80bc60288d3dc3576"
+          ]
+        },
+        {
+          "id": "technical_question_or_object",
+          "status": "COVERED",
+          "fact": "consulting_subject.technical_question_or_object",
+          "evidence_ids": [
+            "SRC-c1c52f104a733901cf8d",
+            "SRC-b2f1b1694520cff26379",
+            "SRC-7b886f26056ebf44c098",
+            "SRC-2c29f8a52e6362f9b4ac",
+            "SRC-144f3cfdc53245a490fa"
+          ]
+        },
+        {
+          "id": "consulting_scope",
+          "status": "COVERED",
+          "fact": "consulting_subject.consulting_scope",
+          "evidence_ids": [
+            "SRC-c1c52f104a733901cf8d",
+            "SRC-b2f1b1694520cff26379",
+            "SRC-7b886f26056ebf44c098",
+            "SRC-2c29f8a52e6362f9b4ac",
+            "SRC-144f3cfdc53245a490fa",
+            "SRC-434ba38a980bc4641594"
+          ]
+        },
+        {
+          "id": "consulting_deliverable",
+          "status": "COVERED",
+          "fact": "consulting_subject.consulting_deliverable",
+          "evidence_ids": [
+            "SRC-b08f91cf4638825df1ed",
+            "SRC-9968edb45eac08bfd670",
+            "SRC-183bbcd930b6349e59a9",
+            "SRC-99a8d51cfd786f8b5af5",
+            "SRC-a1e04a2ca55fe9f6d12c",
+            "SRC-f059a6c5d4607c7a231b"
+          ]
+        }
+      ]
+    },
+    "TC-08-01": {
+      "coverage": "通过",
+      "elements": [
+        {
+          "id": "consulting_scope",
+          "status": "COVERED",
+          "fact": "consulting_quality.consulting_scope",
+          "evidence_ids": [
+            "SRC-c1c52f104a733901cf8d",
+            "SRC-144f3cfdc53245a490fa"
+          ]
+        },
+        {
+          "id": "report_contents",
+          "status": "COVERED",
+          "fact": "consulting_quality.report_contents",
+          "evidence_ids": [
+            "SRC-7669265b6a5cb89e9ac6",
+            "SRC-5c79f7297b1f193ef060",
+            "SRC-9a0ddfe3931e48578f6b"
+          ]
+        },
+        {
+          "id": "delivery_form",
+          "status": "COVERED",
+          "fact": "consulting_quality.delivery_form",
+          "evidence_ids": [
+            "SRC-17487dacfb6b437f5790"
+          ]
+        },
+        {
+          "id": "acceptance_standard",
+          "status": "COVERED",
+          "fact": "consulting_quality.acceptance_standard",
+          "evidence_ids": [
+            "SRC-b08f91cf4638825df1ed"
+          ]
+        }
+      ]
+    },
+    "TC-08-02": {
+      "coverage": "通过",
+      "elements": [
+        {
+          "id": "qualified_consulting_decision_risk",
+          "status": "COVERED",
+          "fact": "consulting_decision.qualified_consulting_decision_risk",
+          "evidence_ids": [
+            "SRC-d0f8a8f7a562265e3791"
+          ]
+        },
+        {
+          "id": "consultant_fault_exception",
+          "status": "COVERED",
+          "fact": "consulting_decision.consultant_fault_exception",
+          "evidence_ids": [
+            "SRC-ac70fe7db6573b3843da"
+          ]
+        }
+      ]
+    },
+    "TC-08-03": {
+      "coverage": "部分覆盖",
+      "elements": [
+        {
+          "id": "technical_materials",
+          "status": "COVERED",
+          "fact": "consulting_inputs.technical_materials",
+          "evidence_ids": [
+            "SRC-f13d2c51738d4124dd91",
+            "SRC-f28baddac8174e04454f"
+          ]
+        },
+        {
+          "id": "cooperation_conditions",
+          "status": "MISSING",
+          "fact": "consulting_inputs.cooperation_conditions",
+          "evidence_ids": []
+        },
+        {
+          "id": "truthfulness_completeness",
+          "status": "PARTIALLY_COVERED",
+          "fact": "consulting_inputs.truthfulness_completeness",
+          "evidence_ids": [
+            "SRC-f28baddac8174e04454f"
+          ]
+        },
+        {
+          "id": "delivery_time_method",
+          "status": "MISSING",
+          "fact": "consulting_inputs.delivery_time_method",
+          "evidence_ids": []
+        }
+      ]
+    },
+    "TC-11-01": {
+      "coverage": "部分覆盖",
+      "elements": [
+        {
+          "id": "confidential_information_scope",
+          "status": "COVERED",
+          "fact": "confidentiality.confidential_information_scope",
+          "evidence_ids": [
+            "SRC-aaaadbfe82734bf58b93"
+          ]
+        },
+        {
+          "id": "confidentiality_obligation",
+          "status": "COVERED",
+          "fact": "confidentiality.during_contract_confidentiality",
+          "evidence_ids": [
+            "SRC-aaaadbfe82734bf58b93"
+          ]
+        },
+        {
+          "id": "need_to_know_personnel",
+          "status": "MISSING",
+          "fact": "confidentiality.confidential_personnel_scope",
+          "evidence_ids": []
+        },
+        {
+          "id": "confidentiality_duration",
+          "status": "COVERED",
+          "fact": "confidentiality.confidentiality_duration",
+          "evidence_ids": [
+            "SRC-c776ad5e7901a62f1529"
+          ]
+        },
+        {
+          "id": "purpose_limitation",
+          "status": "COVERED",
+          "fact": "technology.confidentiality_controls.purpose_limitation",
+          "evidence_ids": [
+            "SRC-c0c257b76c299ef00996"
+          ]
+        },
+        {
+          "id": "third_party_disclosure_restriction",
+          "status": "MISSING",
+          "fact": "technology.confidentiality_controls.third_party_disclosure_restriction",
+          "evidence_ids": []
+        },
+        {
+          "id": "copying_restriction",
+          "status": "MISSING",
+          "fact": "technology.confidentiality_controls.copying_restriction",
+          "evidence_ids": []
+        },
+        {
+          "id": "security_measures",
+          "status": "MISSING",
+          "fact": "technology.confidentiality_controls.security_measures",
+          "evidence_ids": []
+        }
+      ]
+    },
+    "TC-11-02": {
+      "coverage": "通过",
+      "elements": [
+        {
+          "id": "confidential_information_scope",
+          "status": "COVERED",
+          "fact": "technology.confidentiality_disclosure.confidential_information_scope",
+          "evidence_ids": [
+            "SRC-aaaadbfe82734bf58b93"
+          ]
+        },
+        {
+          "id": "confidentiality_period",
+          "status": "COVERED",
+          "fact": "technology.confidentiality_disclosure.confidentiality_period",
+          "evidence_ids": [
+            "SRC-c776ad5e7901a62f1529"
+          ]
+        },
+        {
+          "id": "post_termination_confidentiality",
+          "status": "COVERED",
+          "fact": "technology.confidentiality_disclosure.post_termination_confidentiality",
+          "evidence_ids": [
+            "SRC-c776ad5e7901a62f1529"
+          ]
+        },
+        {
+          "id": "public_information_exception",
+          "status": "COVERED",
+          "fact": "technology.confidentiality_disclosure.public_information_exception",
+          "evidence_ids": [
+            "SRC-1ddc444338f8cbe0cb68"
+          ]
+        },
+        {
+          "id": "lawful_third_party_source_exception",
+          "status": "COVERED",
+          "fact": "technology.confidentiality_disclosure.lawful_third_party_source_exception",
+          "evidence_ids": [
+            "SRC-e211376ab6debe9f6624"
+          ]
+        },
+        {
+          "id": "independent_development_exception",
+          "status": "COVERED",
+          "fact": "technology.confidentiality_disclosure.independent_development_exception",
+          "evidence_ids": [
+            "SRC-133bbeb6caadc447a8cf"
+          ]
+        },
+        {
+          "id": "compelled_disclosure_exception",
+          "status": "COVERED",
+          "fact": "technology.confidentiality_disclosure.compelled_disclosure_exception",
+          "evidence_ids": [
+            "SRC-05be43ac82536588ff52"
+          ]
+        },
+        {
+          "id": "prior_notice_when_legally_permitted",
+          "status": "COVERED",
+          "fact": "technology.confidentiality_disclosure.prior_notice_when_legally_permitted",
+          "evidence_ids": [
+            "SRC-66cca678ec5743446ece"
+          ]
+        }
+      ]
+    },
+    "TC-11-03": {
+      "coverage": "部分覆盖",
+      "elements": [
+        {
+          "id": "termination_return_or_delete",
+          "status": "COVERED",
+          "fact": "technology.material_exit.termination_return_or_delete",
+          "evidence_ids": [
+            "SRC-ae068d6695bf013b194e",
+            "SRC-8f7daf35579c28b26789"
+          ]
+        },
+        {
+          "id": "processing_deadline",
+          "status": "MISSING",
+          "fact": "technology.material_exit.processing_deadline",
+          "evidence_ids": []
+        },
+        {
+          "id": "retained_backup_use_restriction",
+          "status": "MISSING",
+          "fact": "technology.material_exit.retained_backup_use_restriction",
+          "evidence_ids": []
+        },
+        {
+          "id": "confidential_copy_deletion",
+          "status": "COVERED",
+          "fact": "technology.material_exit.confidential_copy_deletion",
+          "evidence_ids": [
+            "SRC-8f7daf35579c28b26789"
+          ]
+        },
+        {
+          "id": "confidential_backup_deletion",
+          "status": "MISSING",
+          "fact": "technology.material_exit.confidential_backup_deletion",
+          "evidence_ids": []
+        },
+        {
+          "id": "confidential_material_destruction",
+          "status": "MISSING",
+          "fact": "technology.material_exit.confidential_material_destruction",
+          "evidence_ids": []
+        },
+        {
+          "id": "confidential_disposal_confirmation",
+          "status": "COVERED",
+          "fact": "technology.material_exit.confidential_disposal_confirmation",
+          "evidence_ids": [
+            "SRC-09bf24f5bde8bad95d1d"
+          ]
+        }
+      ]
+    },
+    "COMMON-20-01": {
+      "coverage": "通过",
+      "elements": [
+        {
+          "id": "common_penalty_base_determinability_ratio",
+          "status": "COVERED",
+          "fact": null,
+          "evidence_ids": [
+            "SRC-5d8922cc5b911f4d2cb6",
+            "SRC-c203f7003288f269fd71",
+            "SRC-c203f7003288f269fd71"
+          ]
+        },
+        {
+          "id": "common_penalty_base_determinability_definition",
+          "status": "COVERED",
+          "fact": null,
+          "evidence_ids": [
+            "SRC-92c05e28f10f78bf7d94",
+            "SRC-c203f7003288f269fd71",
+            "SRC-c203f7003288f269fd71"
+          ]
+        }
+      ]
+    }
+  },
+  "tests": {
+    "round42": "5/5 PASS",
+    "round41_round36_consulting_projection": "131/131 PASS",
+    "confidentiality_penalty": "38/38 PASS",
+    "technical_contract_suite": "252 PASS / 32 existing FAIL",
+    "protected_deterministic": "15/17 REPORT_READY; 2 model-dependent secret-transfer samples BLOCKED",
+    "full_suite": "NOT RUN"
+  },
+  "new_failures": 0,
+  "notes": [
+    "No Gate/Verifier relaxation",
+    "No fallback restored",
+    "No old test expectation changed",
+    "Protected comparison is deterministic no-model and cannot establish model-dependent zero drift"
+  ]
+}

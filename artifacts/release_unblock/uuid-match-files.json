@@ -1,0 +1,37 @@
+{
+  "command": [
+    "rg",
+    "-a",
+    "-l",
+    "-uuu",
+    "-F",
+    "--glob",
+    "!.git/objects/**",
+    "--glob",
+    "!frontend/node_modules/**",
+    "--glob",
+    "!**/__pycache__/**",
+    "-e",
+    "7ea566e9-1f67-4d2e-bceb-a88c405081be",
+    "-e",
+    "89ff9724-8eb3-43c5-8169-6071a0ba2bdc",
+    "-e",
+    "c6daf70a-ed9c-443a-9ad6-0b742f51ce76",
+    "-e",
+    "e451edda-230a-49f9-8c23-7668892fb607",
+    "."
+  ],
+  "returncode": 0,
+  "files": [
+    ".\\backend\\logs\\task_result.log",
+    ".\\backend\\app.db",
+    ".\\backend\\logs\\app_2026-06-14.log",
+    ".\\artifacts\\db_recovery\\wal_replay\\app.db",
+    ".\\artifacts\\db_recovery\\task-salvage.json",
+    ".\\artifacts\\db_recovery\\latest_materialized\\app.db",
+    ".\\artifacts\\db_recovery\\evidence_followup\\app.db",
+    ".\\artifacts\\db_recovery\\evidence\\app.db",
+    ".\\artifacts\\db_recovery\\candidates_latest\\task-salvage.json"
+  ],
+  "stderr": ""
+}

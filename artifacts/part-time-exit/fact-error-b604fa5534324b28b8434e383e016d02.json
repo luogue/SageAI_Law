@@ -1,0 +1,4917 @@
+{
+  "code": "FACT_EXTRACTION_BLOCKED",
+  "release_quality_gate": "BLOCKED",
+  "provider": "deepseek",
+  "message": "事实校验失败：FACT_VERIFICATION / non_compete.arrangement / CORE_FACT_VERIFICATION_FAILED；详见诊断。",
+  "reason": "CORE_FACT_VERIFICATION_FAILED: CORE_FACT_VERIFICATION_FAILED",
+  "failed_stage": "FACT_VERIFICATION",
+  "fact_id": [
+    "EF-0a8803e5a167cc80"
+  ],
+  "field": "non_compete.arrangement",
+  "validation_rule": "CORE_FACT_VERIFICATION_FAILED",
+  "model_raw_value": [
+    {
+      "fact_id": "EF-0a8803e5a167cc80",
+      "supported": false,
+      "reason": "C0011仅说明正常履行保密义务不得限制乙方依法选择其他工作，并未明确约定离职竞业限制安排为NONE；该候选以保密条款否定性表述推断不存在竞业安排，缺乏明示依据。"
+    }
+  ],
+  "evidence": [
+    {
+      "clause_id": "C0011",
+      "location": "第十条 保密义务",
+      "title": "保密义务",
+      "text": "正常履行保密义务不得限制乙方依法选择其他工作。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "第十条 保密义务\n乙方对工作过程中知悉的客户非公开资料、系统账号信息、内部业务数据以及其他依法构成商业秘密的信息承担保密义务。\n正常履行保密义务不得限制乙方依法选择其他工作。",
+      "normalized_text": "第十条保密义务乙方对工作过程中知悉的客户非公开资料、系统账号信息、内部业务数据以及其他依法构成商业秘密的信息承担保密义务。正常履行保密义务不得限制乙方依法选择其他工作。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "第十条 保密义务"
+      ],
+      "heading": "保密义务",
+      "clause_number": "第十条",
+      "paragraph_index": 10,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [
+        "乙方"
+      ],
+      "dates": [],
+      "amounts": [],
+      "percentages": [],
+      "durations": [],
+      "cross_references": [
+        "第十条"
+      ],
+      "node_id": "C0011",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "第十条 保密义务"
+      ],
+      "article_number": "第十条",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 1339,
+      "end_offset": 1426,
+      "source_type": "CONTRACT_TEXT",
+      "party_obligation": true,
+      "quote": "正常履行保密义务不得限制乙方依法选择其他工作。",
+      "original_excerpt": "正常履行保密义务不得限制乙方依法选择其他工作。",
+      "model_quote": "正常履行保密义务不得限制乙方依法选择其他工作。",
+      "alignment_mode": "EXACT",
+      "source_start": 64,
+      "source_end": 87,
+      "evidence_span": {
+        "basis": "clause.text",
+        "start": 64,
+        "end": 87
+      },
+      "document_span": {
+        "start": 1403,
+        "end": 1426
+      },
+      "verified_original": true,
+      "fact_concept": "non_compete.arrangement",
+      "structured_fact_id": "EF-0a8803e5a167cc80"
+    }
+  ],
+  "expected": "supported, source-bound core fact or a verified correction",
+  "actual": {
+    "required_fact": "non_compete.arrangement",
+    "factstore_state": "VERIFICATION_REJECTED",
+    "verification_state": "VERIFICATION_REJECTED",
+    "coverage_state": "UNCERTAIN",
+    "verified_fact_ids": [],
+    "rejected_fact_ids": [
+      "EF-0a8803e5a167cc80"
+    ],
+    "unresolved": false,
+    "model_coverage_advisory": null,
+    "extraction_state": "EXTRACTED",
+    "absence_audit": null,
+    "verified_absence_value": null
+  },
+  "disposition": "BLOCK",
+  "diagnostics": [
+    {
+      "failed_stage": "FACT_VERIFICATION",
+      "fact_id": [
+        "EF-0a8803e5a167cc80"
+      ],
+      "field": "non_compete.arrangement",
+      "validation_rule": "CORE_FACT_VERIFICATION_FAILED",
+      "model_raw_value": [
+        {
+          "fact_id": "EF-0a8803e5a167cc80",
+          "supported": false,
+          "reason": "C0011仅说明正常履行保密义务不得限制乙方依法选择其他工作，并未明确约定离职竞业限制安排为NONE；该候选以保密条款否定性表述推断不存在竞业安排，缺乏明示依据。"
+        }
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0011",
+          "location": "第十条 保密义务",
+          "title": "保密义务",
+          "text": "正常履行保密义务不得限制乙方依法选择其他工作。",
+          "section_type": "正式合同条款",
+          "level": 1,
+          "raw_text": "第十条 保密义务\n乙方对工作过程中知悉的客户非公开资料、系统账号信息、内部业务数据以及其他依法构成商业秘密的信息承担保密义务。\n正常履行保密义务不得限制乙方依法选择其他工作。",
+          "normalized_text": "第十条保密义务乙方对工作过程中知悉的客户非公开资料、系统账号信息、内部业务数据以及其他依法构成商业秘密的信息承担保密义务。正常履行保密义务不得限制乙方依法选择其他工作。",
+          "option_groups": [],
+          "source": "body",
+          "section_path": [
+            "正式合同条款",
+            "第十条 保密义务"
+          ],
+          "heading": "保密义务",
+          "clause_number": "第十条",
+          "paragraph_index": 10,
+          "block_type": "OPERATIVE_CLAUSE",
+          "parties": [
+            "乙方"
+          ],
+          "dates": [],
+          "amounts": [],
+          "percentages": [],
+          "durations": [],
+          "cross_references": [
+            "第十条"
+          ],
+          "node_id": "C0011",
+          "document_id": "contract_package/main",
+          "heading_path": [
+            "第十条 保密义务"
+          ],
+          "article_number": "第十条",
+          "section_number": "",
+          "item_number": "",
+          "sentence_index": 1,
+          "start_offset": 1339,
+          "end_offset": 1426,
+          "source_type": "CONTRACT_TEXT",
+          "party_obligation": true,
+          "quote": "正常履行保密义务不得限制乙方依法选择其他工作。",
+          "original_excerpt": "正常履行保密义务不得限制乙方依法选择其他工作。",
+          "model_quote": "正常履行保密义务不得限制乙方依法选择其他工作。",
+          "alignment_mode": "EXACT",
+          "source_start": 64,
+          "source_end": 87,
+          "evidence_span": {
+            "basis": "clause.text",
+            "start": 64,
+            "end": 87
+          },
+          "document_span": {
+            "start": 1403,
+            "end": 1426
+          },
+          "verified_original": true,
+          "fact_concept": "non_compete.arrangement",
+          "structured_fact_id": "EF-0a8803e5a167cc80"
+        }
+      ],
+      "expected": "supported, source-bound core fact or a verified correction",
+      "actual": {
+        "required_fact": "non_compete.arrangement",
+        "factstore_state": "VERIFICATION_REJECTED",
+        "verification_state": "VERIFICATION_REJECTED",
+        "coverage_state": "UNCERTAIN",
+        "verified_fact_ids": [],
+        "rejected_fact_ids": [
+          "EF-0a8803e5a167cc80"
+        ],
+        "unresolved": false,
+        "model_coverage_advisory": null,
+        "extraction_state": "EXTRACTED",
+        "absence_audit": null,
+        "verified_absence_value": null
+      },
+      "disposition": "BLOCK",
+      "stage": "FACT_VERIFICATION",
+      "code": "CORE_FACT_VERIFICATION_FAILED",
+      "fact_key": null,
+      "raw_value": [
+        {
+          "fact_id": "EF-0a8803e5a167cc80",
+          "supported": false,
+          "reason": "C0011仅说明正常履行保密义务不得限制乙方依法选择其他工作，并未明确约定离职竞业限制安排为NONE；该候选以保密条款否定性表述推断不存在竞业安排，缺乏明示依据。"
+        }
+      ],
+      "normalized_value": null,
+      "allowed_values": "supported, source-bound core fact or a verified correction",
+      "clause": null,
+      "message": "抽取值未通过事实类型、证据或语义校验；未生成报告，不能以默认值替代。",
+      "trace_id": "FACT-e5a1e6693c95482eb36966be829f4cb2"
+    }
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "BLOCKED",
+      "diagnostics": [
+        {
+          "failed_stage": "FACT_VERIFICATION",
+          "fact_id": [
+            "EF-b66c89dfea06dcc4"
+          ],
+          "field": "contract.type",
+          "validation_rule": "CORE_FACT_VERIFICATION_FAILED",
+          "model_raw_value": [
+            {
+              "fact_id": "EF-b66c89dfea06dcc4",
+              "supported": false,
+              "reason": "C0002仅称不设固定最低履行期限，并未明确约定合同期限类型为无固定期限；非全日制用工不设最低履行期限不能直接等同于INDEFINITE，故不支持该值。"
+            }
+          ],
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "location": "第一条 用工性质及开始时间",
+              "title": "用工性质及开始时间",
+              "text": "本协议不设固定最低履行期限。",
+              "section_type": "正式合同条款",
+              "level": 1,
+              "raw_text": "第一条 用工性质及开始时间\n双方确认，本协议项下用工属于非全日制用工。\n乙方自2027年12月6日起开始为甲方提供劳动。\n双方不约定试用期。\n本协议不设固定最低履行期限。",
+              "normalized_text": "第一条用工性质及开始时间双方确认，本协议项下用工属于非全日制用工。乙方自2027年12月6日起开始为甲方提供劳动。双方不约定试用期。本协议不设固定最低履行期限。",
+              "option_groups": [],
+              "source": "body",
+              "section_path": [
+                "正式合同条款",
+                "第一条 用工性质及开始时间"
+              ],
+              "heading": "用工性质及开始时间",
+              "clause_number": "第一条",
+              "paragraph_index": 1,
+              "block_type": "OPERATIVE_CLAUSE",
+              "parties": [
+                "乙方",
+                "甲方"
+              ],
+              "dates": [
+                "2027年12月6日"
+              ],
+              "amounts": [],
+              "percentages": [],
+              "durations": [
+                "2027年",
+                "12月",
+                "6日"
+              ],
+              "cross_references": [
+                "第一条"
+              ],
+              "node_id": "C0002",
+              "document_id": "contract_package/main",
+              "heading_path": [
+                "第一条 用工性质及开始时间"
+              ],
+              "article_number": "第一条",
+              "section_number": "",
+              "item_number": "",
+              "sentence_index": 1,
+              "start_offset": 192,
+              "end_offset": 277,
+              "source_type": "CONTRACT_TEXT",
+              "party_obligation": true,
+              "quote": "本协议不设固定最低履行期限。",
+              "original_excerpt": "本协议不设固定最低履行期限。",
+              "model_quote": "本协议不设固定最低履行期限。",
+              "alignment_mode": "EXACT",
+              "source_start": 71,
+              "source_end": 85,
+              "evidence_span": {
+                "basis": "clause.text",
+                "start": 71,
+                "end": 85
+              },
+              "document_span": {
+                "start": 263,
+                "end": 277
+              },
+              "verified_original": true,
+              "fact_concept": "contract.type",
+              "structured_fact_id": "EF-b66c89dfea06dcc4"
+            }
+          ],
+          "expected": "supported, source-bound core fact or a verified correction",
+          "actual": {
+            "required_fact": "contract.type",
+            "factstore_state": "VERIFICATION_REJECTED",
+            "verification_state": "VERIFICATION_REJECTED",
+            "coverage_state": "UNCERTAIN",
+            "verified_fact_ids": [],
+            "rejected_fact_ids": [
+              "EF-b66c89dfea06dcc4"
+            ],
+            "unresolved": false,
+            "model_coverage_advisory": null,
+            "extraction_state": "EXTRACTED",
+            "absence_audit": null,
+            "verified_absence_value": null
+          },
+          "disposition": "BLOCK"
+        },
+        {
+          "failed_stage": "FACT_VERIFICATION",
+          "fact_id": [
+            "EF-b8549c8db8a3a6dc"
+          ],
+          "field": "working_hours.rest",
+          "validation_rule": "CORE_FACT_VERIFICATION_FAILED",
+          "model_raw_value": [
+            {
+              "fact_id": "EF-b8549c8db8a3a6dc",
+              "supported": false,
+              "reason": "C0005仅约定每周原则上工作五日及周一至周五每日14:00至18:00，未明示“周六周日休息”，该休息日表述属于推断而非原文明示。"
+            }
+          ],
+          "evidence": [
+            {
+              "clause_id": "C0005",
+              "location": "第四条 工作时间",
+              "title": "工作时间",
+              "text": "乙方每周原则上工作五日。\n通常安排为周一至周五每日14:00至18:00，每日4小时。",
+              "section_type": "正式合同条款",
+              "level": 1,
+              "raw_text": "第四条 工作时间\n乙方每周原则上工作五日。\n通常安排为周一至周五每日14:00至18:00，每日4小时。\n每周累计工作时间不超过20小时。\n具体排班可以根据工作任务进行调整，但调整后的平均每日工作时间及每周累计工作时间应符合非全日制用工的法律规定。",
+              "normalized_text": "第四条工作时间乙方每周原则上工作五日。通常安排为周一至周五每日14:00至18:00，每日4小时。每周累计工作时间不超过20小时。具体排班可以根据工作任务进行调整，但调整后的平均每日工作时间及每周累计工作时间应符合非全日制用工的法律规定。",
+              "option_groups": [],
+              "source": "body",
+              "section_path": [
+                "正式合同条款",
+                "第四条 工作时间"
+              ],
+              "heading": "工作时间",
+              "clause_number": "第四条",
+              "paragraph_index": 4,
+              "block_type": "OPERATIVE_CLAUSE",
+              "parties": [
+                "乙方"
+              ],
+              "dates": [],
+              "amounts": [],
+              "percentages": [],
+              "durations": [
+                "五日"
+              ],
+              "cross_references": [
+                "第四条"
+              ],
+              "node_id": "C0005",
+              "document_id": "contract_package/main",
+              "heading_path": [
+                "第四条 工作时间"
+              ],
+              "article_number": "第四条",
+              "section_number": "",
+              "item_number": "",
+              "sentence_index": 1,
+              "start_offset": 481,
+              "end_offset": 605,
+              "source_type": "CONTRACT_TEXT",
+              "party_obligation": true,
+              "quote": "乙方每周原则上工作五日。\n通常安排为周一至周五每日14:00至18:00，每日4小时。",
+              "original_excerpt": "乙方每周原则上工作五日。\n通常安排为周一至周五每日14:00至18:00，每日4小时。",
+              "model_quote": "乙方每周原则上工作五日。\n通常安排为周一至周五每日14:00至18:00，每日4小时。",
+              "alignment_mode": "EXACT",
+              "source_start": 9,
+              "source_end": 52,
+              "evidence_span": {
+                "basis": "clause.text",
+                "start": 9,
+                "end": 52
+              },
+              "document_span": {
+                "start": 490,
+                "end": 533
+              },
+              "verified_original": true,
+              "fact_concept": "working_hours.rest",
+              "structured_fact_id": "EF-b8549c8db8a3a6dc"
+            }
+          ],
+          "expected": "supported, source-bound core fact or a verified correction",
+          "actual": {
+            "required_fact": "working_hours.rest",
+            "factstore_state": "VERIFICATION_REJECTED",
+            "verification_state": "VERIFICATION_REJECTED",
+            "coverage_state": "UNCERTAIN",
+            "verified_fact_ids": [],
+            "rejected_fact_ids": [
+              "EF-b8549c8db8a3a6dc"
+            ],
+            "unresolved": false,
+            "model_coverage_advisory": null,
+            "extraction_state": "EXTRACTED",
+            "absence_audit": null,
+            "verified_absence_value": null
+          },
+          "disposition": "BLOCK"
+        },
+        {
+          "failed_stage": "FACT_VERIFICATION",
+          "fact_id": [
+            "EF-02b7dbd485658bd9"
+          ],
+          "field": "working_hours.rest_days_per_week",
+          "validation_rule": "CORE_FACT_VERIFICATION_FAILED",
+          "model_raw_value": [
+            {
+              "fact_id": "EF-02b7dbd485658bd9",
+              "supported": false,
+              "reason": "C0005未明示每周休息天数，仅约定每周原则上工作五日及周一至周五工作安排，不能据此明示支持每周休息2天。"
+            }
+          ],
+          "evidence": [
+            {
+              "clause_id": "C0005",
+              "location": "第四条 工作时间",
+              "title": "工作时间",
+              "text": "乙方每周原则上工作五日。\n通常安排为周一至周五每日14:00至18:00，每日4小时。",
+              "section_type": "正式合同条款",
+              "level": 1,
+              "raw_text": "第四条 工作时间\n乙方每周原则上工作五日。\n通常安排为周一至周五每日14:00至18:00，每日4小时。\n每周累计工作时间不超过20小时。\n具体排班可以根据工作任务进行调整，但调整后的平均每日工作时间及每周累计工作时间应符合非全日制用工的法律规定。",
+              "normalized_text": "第四条工作时间乙方每周原则上工作五日。通常安排为周一至周五每日14:00至18:00，每日4小时。每周累计工作时间不超过20小时。具体排班可以根据工作任务进行调整，但调整后的平均每日工作时间及每周累计工作时间应符合非全日制用工的法律规定。",
+              "option_groups": [],
+              "source": "body",
+              "section_path": [
+                "正式合同条款",
+                "第四条 工作时间"
+              ],
+              "heading": "工作时间",
+              "clause_number": "第四条",
+              "paragraph_index": 4,
+              "block_type": "OPERATIVE_CLAUSE",
+              "parties": [
+                "乙方"
+              ],
+              "dates": [],
+              "amounts": [],
+              "percentages": [],
+              "durations": [
+                "五日"
+              ],
+              "cross_references": [
+                "第四条"
+              ],
+              "node_id": "C0005",
+              "document_id": "contract_package/main",
+              "heading_path": [
+                "第四条 工作时间"
+              ],
+              "article_number": "第四条",
+              "section_number": "",
+              "item_number": "",
+              "sentence_index": 1,
+              "start_offset": 481,
+              "end_offset": 605,
+              "source_type": "CONTRACT_TEXT",
+              "party_obligation": true,
+              "quote": "乙方每周原则上工作五日。\n通常安排为周一至周五每日14:00至18:00，每日4小时。",
+              "original_excerpt": "乙方每周原则上工作五日。\n通常安排为周一至周五每日14:00至18:00，每日4小时。",
+              "model_quote": "乙方每周原则上工作五日。\n通常安排为周一至周五每日14:00至18:00，每日4小时。",
+              "alignment_mode": "EXACT",
+              "source_start": 9,
+              "source_end": 52,
+              "evidence_span": {
+                "basis": "clause.text",
+                "start": 9,
+                "end": 52
+              },
+              "document_span": {
+                "start": 490,
+                "end": 533
+              },
+              "verified_original": true,
+              "fact_concept": "working_hours.rest_days_per_week",
+              "structured_fact_id": "EF-02b7dbd485658bd9"
+            }
+          ],
+          "expected": "supported, source-bound core fact or a verified correction",
+          "actual": {
+            "required_fact": "working_hours.rest_days_per_week",
+            "factstore_state": "VERIFICATION_REJECTED",
+            "verification_state": "VERIFICATION_REJECTED",
+            "coverage_state": "UNCERTAIN",
+            "verified_fact_ids": [],
+            "rejected_fact_ids": [
+              "EF-02b7dbd485658bd9"
+            ],
+            "unresolved": false,
+            "model_coverage_advisory": null,
+            "extraction_state": "EXTRACTED",
+            "absence_audit": null,
+            "verified_absence_value": null
+          },
+          "disposition": "BLOCK"
+        }
+      ],
+      "raw_extraction": [
+        {
+          "response": {
+            "schema_version": "employment-facts-1.0",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018"
+            ],
+            "searched_concepts": [
+              "identity.employer_representative",
+              "identity.worker_address",
+              "identity.employer_name",
+              "identity.employer_address",
+              "identity.worker_name",
+              "identity.worker_id",
+              "contract.type",
+              "contract.start_date",
+              "contract.end_date",
+              "contract.duration_months",
+              "contract.task",
+              "contract.task_end",
+              "probation.arrangement",
+              "probation.start_date",
+              "probation.end_date",
+              "probation.duration_months",
+              "probation.salary",
+              "probation.repeated",
+              "job.position",
+              "job.duties",
+              "job.locations",
+              "working_hours.system",
+              "working_hours.hours_per_day",
+              "working_hours.hours_per_week",
+              "working_hours.rest",
+              "working_hours.rest_days_per_week",
+              "working_hours.rest_waived",
+              "working_hours.overtime",
+              "salary.regular",
+              "salary.payment_date",
+              "salary.payment_method",
+              "salary.withheld_for_handover",
+              "social_insurance.employer_enrolls",
+              "social_insurance.statutory_duties",
+              "social_insurance.employer_pays"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "identity.employer_representative",
+                "value": "高文博",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "法定代表人：高文博"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_address",
+                "value": "湖北省武汉市洪山区关山大道XX号",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "居住地址：湖北省武汉市洪山区关山大道XX号"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.employer_name",
+                "value": "武汉云岚信息服务有限公司",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "甲方：武汉云岚信息服务有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.employer_address",
+                "value": "湖北省武汉市洪山区珞喻路889号",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "注册地址：湖北省武汉市洪山区珞喻路889号"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_name",
+                "value": "周欣怡",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "乙方：周欣怡"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_id",
+                "value": "42011120010318XXXX",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "身份证号码：42011120010318XXXX"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.type",
+                "value": "INDEFINITE",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "本协议不设固定最低履行期限。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.start_date",
+                "value": "2027-12-06",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "乙方自2027年12月6日起开始为甲方提供劳动。"
+                  }
+                ]
+              },
+              {
+                "concept": "probation.arrangement",
+                "value": "NONE",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "双方不约定试用期。"
+                  }
+                ]
+              },
+              {
+                "concept": "job.position",
+                "value": "内容资料整理助理",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方担任内容资料整理助理，主要负责："
+                  }
+                ]
+              },
+              {
+                "concept": "job.duties",
+                "value": [
+                  "整理公开行业资料",
+                  "对指定业务数据进行分类录入",
+                  "检查文档格式及基础数据完整性",
+                  "协助维护部门资料目录",
+                  "完成与前述事项直接相关的辅助工作"
+                ],
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "整理公开行业资料；\n对指定业务数据进行分类录入；\n检查文档格式及基础数据完整性；\n协助维护部门资料目录；\n完成与前述事项直接相关的辅助工作。"
+                  }
+                ]
+              },
+              {
+                "concept": "job.locations",
+                "value": [
+                  "武汉市洪山区珞喻路889号"
+                ],
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方主要工作地点为武汉市洪山区珞喻路889号。"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.system",
+                "value": "OTHER",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "乙方每周原则上工作五日。\n通常安排为周一至周五每日14:00至18:00，每日4小时。\n每周累计工作时间不超过20小时。"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.hours_per_day",
+                "value": 4,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "通常安排为周一至周五每日14:00至18:00，每日4小时。"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.hours_per_week",
+                "value": 20,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "每周累计工作时间不超过20小时。"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.rest",
+                "value": "每周原则上工作五日，通常安排为周一至周五工作，周六周日休息",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "乙方每周原则上工作五日。\n通常安排为周一至周五每日14:00至18:00，每日4小时。"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.rest_days_per_week",
+                "value": 2,
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "乙方每周原则上工作五日。\n通常安排为周一至周五每日14:00至18:00，每日4小时。"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.rest_waived",
+                "value": false,
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "乙方每周原则上工作五日。\n通常安排为周一至周五每日14:00至18:00，每日4小时。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.regular",
+                "value": {
+                  "amount_text": "45",
+                  "unit": "CNY/HOUR",
+                  "component": "TOTAL"
+                },
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "乙方小时工资标准为人民币45元/小时。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.payment_date",
+                "value": "每月15日前结算当月1日至10日的工资；次月5日前结算当月11日至月末已经完成工作的工资",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "第一次于每月15日前结算当月1日至10日的工资；\n第二次于次月5日前结算当月11日至月末已经完成工作的工资。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.payment_method",
+                "value": "BANK",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "劳动报酬由甲方通过银行转账方式支付至乙方本人账户。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.withheld_for_handover",
+                "value": false,
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0013",
+                    "quote": "无论本协议因何原因终止，甲方均不得以工作尚未完成整个项目、内部审批尚未结束或者乙方未继续工作的理由拒绝支付乙方已经实际完成工作的工资。"
+                  }
+                ]
+              },
+              {
+                "concept": "social_insurance.employer_enrolls",
+                "value": true,
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "甲方应按照非全日制用工有关规定履行依法应由用人单位承担的社会保险义务。"
+                  }
+                ]
+              },
+              {
+                "concept": "social_insurance.statutory_duties",
+                "value": true,
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "本协议不得被解释为免除甲方依法承担的工伤保险及其他法定义务。"
+                  }
+                ]
+              },
+              {
+                "concept": "social_insurance.employer_pays",
+                "value": true,
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "甲方应按照非全日制用工有关规定履行依法应由用人单位承担的社会保险义务。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 3815,
+            "completion_tokens": 1944,
+            "total_tokens": 5759,
+            "prompt_tokens_details": {
+              "cached_tokens": 1920
+            },
+            "prompt_cache_hit_tokens": 1920,
+            "prompt_cache_miss_tokens": 1895
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.0",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018"
+            ],
+            "searched_concepts": [
+              "social_insurance.employee_withheld",
+              "social_insurance.cash_replacement",
+              "social_insurance.waived",
+              "social_insurance.employer_share_shifted",
+              "social_insurance.employer_underpays",
+              "social_insurance.employer_liability_excluded",
+              "social_insurance.employee_remedy_excluded",
+              "labor_protection.measures",
+              "labor_protection.training",
+              "labor_protection.special_training_required",
+              "labor_protection.training_excluded",
+              "labor_protection.hazard_exists",
+              "labor_protection.hazard_protection",
+              "training.arrangement",
+              "training.technical",
+              "training.service_penalty",
+              "training.cost",
+              "training.duration_months",
+              "training.penalty_prorated",
+              "termination.grounds",
+              "termination.notice",
+              "termination.notice_days",
+              "termination.approval_required",
+              "termination.employee_right_waived",
+              "termination.employer_unrestricted",
+              "termination.handover",
+              "economic_compensation.statutory",
+              "economic_compensation.settlement_deadline",
+              "economic_compensation.waived",
+              "economic_compensation.reduced",
+              "economic_compensation.statutory_percentage",
+              "economic_compensation.payment_delay_months",
+              "dispute.arbitration",
+              "penalties.obligations",
+              "non_compete.arrangement"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "labor_protection.measures",
+                "value": "甲方应向乙方提供完成工作所需要的基本工作条件；乙方进入甲方办公区域时，应遵守已经依法制定并向其告知的安全管理制度",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "甲方应向乙方提供完成工作所需要的基本工作条件。\n乙方进入甲方办公区域时，应遵守已经依法制定并向其告知的安全管理制度。"
+                  }
+                ]
+              },
+              {
+                "concept": "labor_protection.hazard_protection",
+                "value": "如实际工作内容发生变化并涉及特殊安全风险或者职业危害，甲方应依法采取相应劳动保护措施",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "如实际工作内容发生变化并涉及特殊安全风险或者职业危害，甲方应依法采取相应劳动保护措施。"
+                  }
+                ]
+              },
+              {
+                "concept": "termination.grounds",
+                "value": [
+                  "甲方或者乙方均可以随时通知对方终止非全日制用工关系"
+                ],
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "甲方或者乙方均可以随时通知对方终止非全日制用工关系，无须提前若干日提出通知。"
+                  }
+                ]
+              },
+              {
+                "concept": "termination.notice",
+                "value": "甲方或者乙方均可以随时通知对方终止非全日制用工关系，无须提前若干日提出通知",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "甲方或者乙方均可以随时通知对方终止非全日制用工关系，无须提前若干日提出通知。"
+                  }
+                ]
+              },
+              {
+                "concept": "termination.notice_days",
+                "value": 0,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "甲方或者乙方均可以随时通知对方终止非全日制用工关系，无须提前若干日提出通知。"
+                  }
+                ]
+              },
+              {
+                "concept": "termination.handover",
+                "value": "乙方终止用工时完整归还设备后，甲方应在三个工作日内将保证金全额返还乙方",
+                "confidence": 0.85,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "乙方终止用工时完整归还设备后，甲方应在三个工作日内将保证金全额返还乙方。"
+                  }
+                ]
+              },
+              {
+                "concept": "economic_compensation.settlement_deadline",
+                "value": "终止用工时，甲方应及时结清乙方已经提供劳动所对应的全部劳动报酬",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "终止用工时，甲方应及时结清乙方已经提供劳动所对应的全部劳动报酬。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispute.arbitration",
+                "value": true,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0015",
+                    "quote": "协商不成的，可以依法向有管辖权的劳动人事争议仲裁委员会申请仲裁。"
+                  }
+                ]
+              },
+              {
+                "concept": "penalties.obligations",
+                "value": {
+                  "scope": "ORDINARY_RESIGNATION",
+                  "amount_text": "任何一方不得要求对方因依法随时终止非全日制用工而支付违约金或者赔偿金",
+                  "imposed": false
+                },
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "任何一方不得要求对方因依法随时终止非全日制用工而支付违约金或者赔偿金。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.arrangement",
+                "value": "NONE",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0011",
+                    "quote": "正常履行保密义务不得限制乙方依法选择其他工作。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 4125,
+            "completion_tokens": 1178,
+            "total_tokens": 5303,
+            "prompt_tokens_details": {
+              "cached_tokens": 2304
+            },
+            "prompt_cache_hit_tokens": 2304,
+            "prompt_cache_miss_tokens": 1821
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.0",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018"
+            ],
+            "searched_concepts": [
+              "non_compete.personnel",
+              "non_compete.secret_access",
+              "non_compete.businesses",
+              "non_compete.territories",
+              "non_compete.duration_months",
+              "non_compete.compensation",
+              "non_compete.compensation_deferred",
+              "non_compete.compensation_waived",
+              "non_compete.all_staff",
+              "ip.assignment_scope",
+              "ip.allocations",
+              "ip.personal_rights_waived",
+              "contract.employment_form",
+              "dispatch.auxiliary_noncore",
+              "dispatch.auxiliary_procedure",
+              "dispatch.substitute",
+              "dispatch.worker_pay_method",
+              "dispatch.comparator_pay_method",
+              "dispatch.comparator_pay",
+              "dispatch.comparable_work",
+              "dispatch.agency",
+              "dispatch.host",
+              "dispatch.position",
+              "dispatch.period",
+              "dispatch.position_basis",
+              "dispatch.long_term_position",
+              "dispatch.temporary_duration_months",
+              "dispatch.equal_pay",
+              "dispatch.idle_pay",
+              "dispatch.worker_charges",
+              "dispatch.return_procedure",
+              "dispatch.reassignment_procedure",
+              "dispatch.refusal_termination",
+              "dispatch.refusal_compensation_waived",
+              "dispatch.host_direct_dismissal"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "contract.employment_form",
+                "value": "PART_TIME",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "双方确认，本协议项下用工属于非全日制用工。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 4461,
+            "completion_tokens": 403,
+            "total_tokens": 4864,
+            "prompt_tokens_details": {
+              "cached_tokens": 2560
+            },
+            "prompt_cache_hit_tokens": 2560,
+            "prompt_cache_miss_tokens": 1901
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.0",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018"
+            ],
+            "searched_concepts": [
+              "dispatch.agreement_disclosure",
+              "dispatch.agency_obligations",
+              "dispatch.host_obligations",
+              "dispatch.obligations_waived",
+              "contract.term_limit_mode",
+              "contract.term_limit_date",
+              "contract.term_limit_months",
+              "capability.ground",
+              "capability.training",
+              "capability.reassignment",
+              "capability.reassessment",
+              "capability.notice",
+              "capability.compensation",
+              "working_hours.days_per_week",
+              "salary.cycle_kind",
+              "salary.cycle_days",
+              "part_time.hourly_minimum",
+              "part_time.injury_insurance",
+              "part_time.employee_notice_days",
+              "part_time.exit_permission",
+              "part_time.exit_constraint",
+              "part_time.employer_notice_days",
+              "part_time.exit_approval",
+              "job.change_terms",
+              "discipline.dismissal_terms",
+              "dispatch.onward_assignment",
+              "dispatch.return_terms",
+              "worker.security_payment"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "contract.term_limit_mode",
+                "value": "NONE",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "本协议不设固定最低履行期限。"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.days_per_week",
+                "value": 5,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "乙方每周原则上工作五日。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.cycle_kind",
+                "value": "SEMIMONTHLY",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "甲方每月分两次结算劳动报酬："
+                  }
+                ]
+              },
+              {
+                "concept": "part_time.hourly_minimum",
+                "value": true,
+                "confidence": 0.6,
+                "assertion": "INFERRED",
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "乙方小时工资标准为人民币45元/小时。"
+                  }
+                ]
+              },
+              {
+                "concept": "part_time.injury_insurance",
+                "value": true,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "乙方因履行本协议约定的工作任务发生事故伤害或者依法认定为工伤的，甲方应按照国家和当地工伤保险相关规定承担相应责任，并依法办理应由单位办理的相关事项。"
+                  }
+                ]
+              },
+              {
+                "concept": "part_time.employee_notice_days",
+                "value": 0,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "甲方或者乙方均可以随时通知对方终止非全日制用工关系，无须提前若干日提出通知。"
+                  }
+                ]
+              },
+              {
+                "concept": "part_time.exit_permission",
+                "value": true,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "甲方或者乙方均可以随时通知对方终止非全日制用工关系，无须提前若干日提出通知。"
+                  }
+                ]
+              },
+              {
+                "concept": "part_time.exit_approval",
+                "value": false,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "甲方或者乙方均可以随时通知对方终止非全日制用工关系，无须提前若干日提出通知。"
+                  }
+                ]
+              },
+              {
+                "concept": "job.change_terms",
+                "value": {
+                  "consent": "REQUIRED",
+                  "unilateral_position": false,
+                  "position_scope": "BOUNDED"
+                },
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "甲方不得未经协商长期安排乙方从事与上述岗位明显无关的工作。"
+                  }
+                ]
+              },
+              {
+                "concept": "worker.security_payment",
+                "value": {
+                  "nature": "REFUNDABLE_SECURITY",
+                  "collector": "EMPLOYER",
+                  "required": true,
+                  "deducted_from_wage": true,
+                  "amount_text": "800元",
+                  "refund_condition": "乙方终止用工时完整归还设备后，甲方应在三个工作日内将保证金全额返还乙方。"
+                },
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "为保证设备妥善保管，甲方可以从乙方首次工资中暂扣人民币800元作为设备保证金。"
+                  },
+                  {
+                    "clause_id": "C0010",
+                    "quote": "乙方终止用工时完整归还设备后，甲方应在三个工作日内将保证金全额返还乙方。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 6010,
+            "completion_tokens": 1006,
+            "total_tokens": 7016,
+            "prompt_tokens_details": {
+              "cached_tokens": 4096
+            },
+            "prompt_cache_hit_tokens": 4096,
+            "prompt_cache_miss_tokens": 1914
+          },
+          "provider": "deepseek"
+        }
+      ],
+      "raw_verification": {
+        "provider": "deepseek",
+        "model": "deepseek-flash",
+        "verification": {
+          "verification_schema_version": "fact-verification-2",
+          "checks": [
+            {
+              "fact_id": "EF-39cbfb53ef40f2a0",
+              "supported": true,
+              "reason": "C0002明确约定本协议项下用工属于非全日制用工，支持PART_TIME。"
+            },
+            {
+              "fact_id": "EF-0453db5138040c29",
+              "supported": true,
+              "reason": "C0002明确乙方自2027年12月6日起开始提供劳动，支持起始日2027-12-06。"
+            },
+            {
+              "fact_id": "EF-b2493b7804f2f069",
+              "supported": true,
+              "reason": "C0002明确本协议不设固定最低履行期限，属于合同自身无确定终止时间，支持NONE。"
+            },
+            {
+              "fact_id": "EF-b66c89dfea06dcc4",
+              "supported": false,
+              "reason": "C0002仅称不设固定最低履行期限，并未明确约定合同期限类型为无固定期限；非全日制用工不设最低履行期限不能直接等同于INDEFINITE，故不支持该值。"
+            },
+            {
+              "fact_id": "EF-7bf10fbb13885c54",
+              "supported": true,
+              "reason": "C0015明确约定协商不成可以依法向有管辖权的劳动人事争议仲裁委员会申请仲裁，支持允许依法申请劳动仲裁。"
+            },
+            {
+              "fact_id": "EF-6e58d28ad61d9d1c",
+              "supported": true,
+              "reason": "C0012明确约定终止用工时甲方应及时结清乙方已经提供劳动所对应的全部劳动报酬，属于解除终止工资结算期限或结算事件。"
+            },
+            {
+              "fact_id": "EF-9fdc2d4a2abf0711",
+              "supported": true,
+              "reason": "C0001明确载明甲方注册地址为湖北省武汉市洪山区珞喻路889号。"
+            },
+            {
+              "fact_id": "EF-697cc06574b34f08",
+              "supported": true,
+              "reason": "C0001明确载明甲方为武汉云岚信息服务有限公司。"
+            },
+            {
+              "fact_id": "EF-8cc4560d6fd7bceb",
+              "supported": true,
+              "reason": "C0001明确载明法定代表人为高文博。"
+            },
+            {
+              "fact_id": "EF-685bdb0f7e479ff7",
+              "supported": true,
+              "reason": "C0001明确载明乙方居住地址为湖北省武汉市洪山区关山大道XX号。"
+            },
+            {
+              "fact_id": "EF-7c3837ff723acdd0",
+              "supported": true,
+              "reason": "C0001明确载明乙方身份证号码为42011120010318XXXX，保留遮蔽字符。"
+            },
+            {
+              "fact_id": "EF-b2c01c5bd25567a3",
+              "supported": true,
+              "reason": "C0001明确载明乙方为周欣怡。"
+            },
+            {
+              "fact_id": "EF-3be6905523b9670f",
+              "supported": true,
+              "reason": "C0003明确约定甲方不得未经协商长期安排乙方从事与上述岗位明显无关的工作，支持consent=REQUIRED、unilateral_position=false、position_scope=BOUNDED。"
+            },
+            {
+              "fact_id": "EF-ff2f1ad1ef8de100",
+              "supported": true,
+              "reason": "C0003逐项列明整理公开行业资料、分类录入、检查文档格式及基础数据完整性、协助维护资料目录及直接相关辅助工作，与候选职责数组一致。"
+            },
+            {
+              "fact_id": "EF-d9b288d4e48ea4b0",
+              "supported": true,
+              "reason": "C0004明确主要工作地点为武汉市洪山区珞喻路889号。"
+            },
+            {
+              "fact_id": "EF-887c4ce1a4d42e02",
+              "supported": true,
+              "reason": "C0003明确乙方担任内容资料整理助理。"
+            },
+            {
+              "fact_id": "EF-3d8913be4b0b61af",
+              "supported": true,
+              "reason": "C0008明确如实际工作内容变化涉及特殊安全风险或职业危害，甲方应依法采取相应劳动保护措施，属危害防护安排。"
+            },
+            {
+              "fact_id": "EF-d8565a9f401a6ee2",
+              "supported": true,
+              "reason": "C0008明确甲方提供基本工作条件，并要求乙方遵守已依法制定并告知的安全管理制度，属劳动保护措施。"
+            },
+            {
+              "fact_id": "EF-0a8803e5a167cc80",
+              "supported": true,
+              "reason": "C0011明确正常履行保密义务不得限制乙方依法选择其他工作，全文无离职竞业限制约定，支持non_compete.arrangement=NONE。"
+            },
+            {
+              "fact_id": "EF-d077769e8f044a62",
+              "supported": true,
+              "reason": "C0012明确约定双方均可随时通知终止，无须提前若干日通知，即提前通知天数为0。"
+            },
+            {
+              "fact_id": "EF-134d961914d781c0",
+              "supported": true,
+              "reason": "C0012约定双方均可随时通知终止，无须提前通知，未要求经单位批准，exit_approval为false。"
+            },
+            {
+              "fact_id": "EF-fa1ecc18395b8424",
+              "supported": true,
+              "reason": "C0012明确允许劳动者随时通知终止非全日制用工关系。"
+            },
+            {
+              "fact_id": "EF-8704be732d75e777",
+              "supported": false,
+              "reason": "C0006仅约定小时工资45元/小时，未明示或可推断该标准不低于用人单位所在地最低小时工资标准，不能以法律常识补写。"
+            },
+            {
+              "fact_id": "EF-7fe0c2c7a3d42c7b",
+              "supported": true,
+              "reason": "C0007明确约定甲方按国家和当地工伤保险规定承担相应责任并办理单位应办事项，属于单位承担工伤保险义务。"
+            },
+            {
+              "fact_id": "EF-65f772f9912f7ca3",
+              "supported": true,
+              "reason": "C0012明确禁止要求对方因依法随时终止非全日制用工支付违约金或赔偿金，属于对ORDINARY_RESIGNATION违约金义务的排除，imposed=false。"
+            },
+            {
+              "fact_id": "EF-e1fda10cd93ec626",
+              "supported": true,
+              "reason": "C0002明确约定双方不约定试用期，probation.arrangement为NONE。"
+            },
+            {
+              "fact_id": "EF-988edee26288ae7d",
+              "supported": true,
+              "reason": "C0006约定每月分两次结算劳动报酬，属于每半月结算，SEMIMONTHLY。"
+            },
+            {
+              "fact_id": "EF-5778e2edf130ecdd",
+              "supported": true,
+              "reason": "C0006明确约定第一次每月15日前结算当月1日至10日工资，第二次次月5日前结算当月11日至月末已完成工作工资。"
+            },
+            {
+              "fact_id": "EF-3f58e4b31d12592c",
+              "supported": true,
+              "reason": "C0006明确约定通过银行转账方式支付劳动报酬，payment_method为BANK。"
+            },
+            {
+              "fact_id": "EF-022db9956f928368",
+              "supported": true,
+              "reason": "C0006明确约定小时工资标准为人民币45元/小时，属于通常工资标准。"
+            },
+            {
+              "fact_id": "EF-9d1d3ed41d2f8230",
+              "supported": true,
+              "reason": "C0013明确禁止甲方以工作未完成、审批未结束或乙方未继续工作为由拒付已实际完成工作的工资，支持不得以未交接等理由扣留已挣得工资的否定事实。"
+            },
+            {
+              "fact_id": "EF-74832b4d3038b63f",
+              "supported": true,
+              "reason": "C0007明确甲方应履行依法应由用人单位承担的社会保险义务，支持单位承担参保办理义务。"
+            },
+            {
+              "fact_id": "EF-ed906f676b79f8a9",
+              "supported": true,
+              "reason": "C0007明确甲方应履行依法应由用人单位承担的社会保险义务，支持单位承担法定单位缴费部分。"
+            },
+            {
+              "fact_id": "EF-494b27ba4d9b5d54",
+              "supported": true,
+              "reason": "C0007明确本协议不得被解释为免除甲方依法承担的工伤保险及其他法定义务，支持一般性承诺依法处理社会保险并保留单位法定义务。"
+            },
+            {
+              "fact_id": "EF-91aa7c044e813481",
+              "supported": true,
+              "reason": "C0012明确甲方或者乙方均可以随时通知对方终止非全日制用工关系，支持该终止事由。"
+            },
+            {
+              "fact_id": "EF-cf696421acd7e953",
+              "supported": true,
+              "reason": "C0010明确乙方终止用工时完整归还设备后甲方应在三个工作日内全额返还保证金，属于离职时归还设备及手续安排。"
+            },
+            {
+              "fact_id": "EF-02594d16e8fc7645",
+              "supported": true,
+              "reason": "C0012明确双方均可随时通知对方终止非全日制用工关系，无须提前若干日提出通知，支持通知方式。"
+            },
+            {
+              "fact_id": "EF-168a12e0422e0386",
+              "supported": true,
+              "reason": "C0012明确无须提前若干日提出通知，即提前通知天数为0。"
+            },
+            {
+              "fact_id": "EF-bd1c8d6652e96c97",
+              "supported": true,
+              "reason": "C0010明确约定甲方可从首次工资暂扣800元作为设备保证金，终止用工完整归还设备后三个工作日内全额返还，构成可退保证金、收取方为雇主、从工资扣除、金额800元及退款条件。"
+            },
+            {
+              "fact_id": "EF-3e56e5c24a06f085",
+              "supported": true,
+              "reason": "C0005明确“乙方每周原则上工作五日”，支持每周工作天数5。"
+            },
+            {
+              "fact_id": "EF-583672aed5536c47",
+              "supported": true,
+              "reason": "C0005明确“每日4小时”，支持每日约定小时数4。"
+            },
+            {
+              "fact_id": "EF-9550a0609cb46aaf",
+              "supported": true,
+              "reason": "C0005明确“每周累计工作时间不超过20小时”，支持每周约定小时数20。"
+            },
+            {
+              "fact_id": "EF-b8549c8db8a3a6dc",
+              "supported": false,
+              "reason": "C0005仅约定每周原则上工作五日及周一至周五每日14:00至18:00，未明示“周六周日休息”，该休息日表述属于推断而非原文明示。"
+            },
+            {
+              "fact_id": "EF-02b7dbd485658bd9",
+              "supported": false,
+              "reason": "C0005未明示每周休息天数，仅约定每周原则上工作五日及周一至周五工作安排，不能据此明示支持每周休息2天。"
+            },
+            {
+              "fact_id": "EF-ef9118f550e0d901",
+              "supported": false,
+              "reason": "C0005未明确约定不得休息或无休息日，仅约定工作五日及每日4小时，不能明示支持rest_waived为false。"
+            },
+            {
+              "fact_id": "EF-d841b3c130e6702f",
+              "supported": true,
+              "reason": "C0005约定非全日制用工下的每周五日、每日4小时、每周不超过20小时，未采用标准工时或经批准的综合/不定时工时表述，归为OTHER有原文依据。"
+            }
+          ],
+          "searched_concepts": [
+            "capability.compensation",
+            "capability.ground",
+            "capability.notice",
+            "capability.reassessment",
+            "capability.reassignment",
+            "capability.training",
+            "contract.duration_months",
+            "contract.employment_form",
+            "contract.end_date",
+            "contract.start_date",
+            "contract.task",
+            "contract.task_end",
+            "contract.term_limit_date",
+            "contract.term_limit_mode",
+            "contract.term_limit_months",
+            "contract.type",
+            "discipline.dismissal_terms",
+            "dispatch.agency",
+            "dispatch.agency_obligations",
+            "dispatch.agreement_disclosure",
+            "dispatch.auxiliary_noncore",
+            "dispatch.auxiliary_procedure",
+            "dispatch.comparable_work",
+            "dispatch.comparator_pay",
+            "dispatch.comparator_pay_method",
+            "dispatch.equal_pay",
+            "dispatch.host",
+            "dispatch.host_direct_dismissal",
+            "dispatch.host_obligations",
+            "dispatch.idle_pay",
+            "dispatch.long_term_position",
+            "dispatch.obligations_waived",
+            "dispatch.onward_assignment",
+            "dispatch.period",
+            "dispatch.position",
+            "dispatch.position_basis",
+            "dispatch.reassignment_procedure",
+            "dispatch.refusal_compensation_waived",
+            "dispatch.refusal_termination",
+            "dispatch.return_procedure",
+            "dispatch.return_terms",
+            "dispatch.substitute",
+            "dispatch.temporary_duration_months",
+            "dispatch.worker_charges",
+            "dispatch.worker_pay_method",
+            "dispute.arbitration",
+            "economic_compensation.payment_delay_months",
+            "economic_compensation.reduced",
+            "economic_compensation.settlement_deadline",
+            "economic_compensation.statutory",
+            "economic_compensation.statutory_percentage",
+            "economic_compensation.waived",
+            "identity.employer_address",
+            "identity.employer_name",
+            "identity.employer_representative",
+            "identity.worker_address",
+            "identity.worker_id",
+            "identity.worker_name",
+            "ip.allocations",
+            "ip.assignment_scope",
+            "ip.personal_rights_waived",
+            "job.change_terms",
+            "job.duties",
+            "job.locations",
+            "job.position",
+            "labor_protection.hazard_exists",
+            "labor_protection.hazard_protection",
+            "labor_protection.measures",
+            "labor_protection.special_training_required",
+            "labor_protection.training",
+            "labor_protection.training_excluded",
+            "non_compete.all_staff",
+            "non_compete.arrangement",
+            "non_compete.businesses",
+            "non_compete.compensation",
+            "non_compete.compensation_deferred",
+            "non_compete.compensation_waived",
+            "non_compete.duration_months",
+            "non_compete.personnel",
+            "non_compete.secret_access",
+            "non_compete.territories",
+            "part_time.employee_notice_days",
+            "part_time.employer_notice_days",
+            "part_time.exit_approval",
+            "part_time.exit_constraint",
+            "part_time.exit_permission",
+            "part_time.hourly_minimum",
+            "part_time.injury_insurance",
+            "penalties.obligations",
+            "probation.arrangement",
+            "probation.duration_months",
+            "probation.end_date",
+            "probation.repeated",
+            "probation.salary",
+            "probation.start_date",
+            "salary.cycle_days",
+            "salary.cycle_kind",
+            "salary.payment_date",
+            "salary.payment_method",
+            "salary.regular",
+            "salary.withheld_for_handover",
+            "social_insurance.cash_replacement",
+            "social_insurance.employee_remedy_excluded",
+            "social_insurance.employee_withheld",
+            "social_insurance.employer_enrolls",
+            "social_insurance.employer_liability_excluded",
+            "social_insurance.employer_pays",
+            "social_insurance.employer_share_shifted",
+            "social_insurance.employer_underpays",
+            "social_insurance.statutory_duties",
+            "social_insurance.waived",
+            "termination.approval_required",
+            "termination.employee_right_waived",
+            "termination.employer_unrestricted",
+            "termination.grounds",
+            "termination.handover",
+            "termination.notice",
+            "termination.notice_days",
+            "training.arrangement",
+            "training.cost",
+            "training.duration_months",
+            "training.penalty_prorated",
+            "training.service_penalty",
+            "training.technical",
+            "worker.security_payment",
+            "working_hours.days_per_week",
+            "working_hours.hours_per_day",
+            "working_hours.hours_per_week",
+            "working_hours.overtime",
+            "working_hours.rest",
+            "working_hours.rest_days_per_week",
+            "working_hours.rest_waived",
+            "working_hours.system"
+          ],
+          "unresolved_concepts": [],
+          "additional_facts": [],
+          "absence_audits": [
+            {
+              "concept": "training.arrangement",
+              "result": "ABSENT",
+              "reason": "全文未约定专项培训服务期，也未约定专项技术培训、培训费用、培训期限或服务期违约金；C0008仅涉及基本工作条件、安全管理制度及特殊安全风险或职业危害的劳动保护措施，不属于专项培训服务期安排。",
+              "searched_concepts": [
+                "training.arrangement",
+                "training.technical",
+                "training.cost",
+                "training.duration_months",
+                "training.service_penalty"
+              ],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018"
+              ]
+            }
+          ],
+          "reviewed_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011",
+            "C0012",
+            "C0013",
+            "C0014",
+            "C0015",
+            "C0016",
+            "C0017",
+            "C0018"
+          ]
+        },
+        "batches": [
+          {
+            "batch_id": 1,
+            "input_fact_ids": [
+              "EF-39cbfb53ef40f2a0",
+              "EF-0453db5138040c29",
+              "EF-b2493b7804f2f069",
+              "EF-b66c89dfea06dcc4"
+            ],
+            "required_concepts": [
+              "capability.compensation",
+              "capability.ground",
+              "capability.notice",
+              "capability.reassessment",
+              "capability.reassignment",
+              "capability.training",
+              "contract.duration_months",
+              "contract.employment_form",
+              "contract.end_date",
+              "contract.start_date",
+              "contract.task",
+              "contract.task_end",
+              "contract.term_limit_date",
+              "contract.term_limit_mode",
+              "contract.term_limit_months",
+              "contract.type",
+              "discipline.dismissal_terms",
+              "dispatch.agency",
+              "dispatch.agency_obligations",
+              "dispatch.agreement_disclosure"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-39cbfb53ef40f2a0",
+                  "supported": true,
+                  "reason": "C0002明确约定本协议项下用工属于非全日制用工，支持PART_TIME。"
+                },
+                {
+                  "fact_id": "EF-0453db5138040c29",
+                  "supported": true,
+                  "reason": "C0002明确乙方自2027年12月6日起开始提供劳动，支持起始日2027-12-06。"
+                },
+                {
+                  "fact_id": "EF-b2493b7804f2f069",
+                  "supported": true,
+                  "reason": "C0002明确本协议不设固定最低履行期限，属于合同自身无确定终止时间，支持NONE。"
+                },
+                {
+                  "fact_id": "EF-b66c89dfea06dcc4",
+                  "supported": false,
+                  "reason": "C0002仅称不设固定最低履行期限，并未明确约定合同期限类型为无固定期限；非全日制用工不设最低履行期限不能直接等同于INDEFINITE，故不支持该值。"
+                }
+              ],
+              "searched_concepts": [
+                "capability.compensation",
+                "capability.ground",
+                "capability.notice",
+                "capability.reassessment",
+                "capability.reassignment",
+                "capability.training",
+                "contract.duration_months",
+                "contract.employment_form",
+                "contract.end_date",
+                "contract.start_date",
+                "contract.task",
+                "contract.task_end",
+                "contract.term_limit_date",
+                "contract.term_limit_mode",
+                "contract.term_limit_months",
+                "contract.type",
+                "discipline.dismissal_terms",
+                "dispatch.agency",
+                "dispatch.agency_obligations",
+                "dispatch.agreement_disclosure"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 9817,
+              "completion_tokens": 435,
+              "total_tokens": 10252,
+              "prompt_tokens_details": {
+                "cached_tokens": 1920
+              },
+              "prompt_cache_hit_tokens": 1920,
+              "prompt_cache_miss_tokens": 7897
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 2,
+            "input_fact_ids": [],
+            "required_concepts": [
+              "dispatch.auxiliary_noncore",
+              "dispatch.auxiliary_procedure",
+              "dispatch.comparable_work",
+              "dispatch.comparator_pay",
+              "dispatch.comparator_pay_method",
+              "dispatch.equal_pay",
+              "dispatch.host",
+              "dispatch.host_direct_dismissal",
+              "dispatch.host_obligations",
+              "dispatch.idle_pay",
+              "dispatch.long_term_position",
+              "dispatch.obligations_waived",
+              "dispatch.onward_assignment",
+              "dispatch.period",
+              "dispatch.position",
+              "dispatch.position_basis",
+              "dispatch.reassignment_procedure",
+              "dispatch.refusal_compensation_waived",
+              "dispatch.refusal_termination",
+              "dispatch.return_procedure"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [],
+              "searched_concepts": [
+                "dispatch.auxiliary_noncore",
+                "dispatch.auxiliary_procedure",
+                "dispatch.comparable_work",
+                "dispatch.comparator_pay",
+                "dispatch.comparator_pay_method",
+                "dispatch.equal_pay",
+                "dispatch.host",
+                "dispatch.host_direct_dismissal",
+                "dispatch.host_obligations",
+                "dispatch.idle_pay",
+                "dispatch.long_term_position",
+                "dispatch.obligations_waived",
+                "dispatch.onward_assignment",
+                "dispatch.period",
+                "dispatch.position",
+                "dispatch.position_basis",
+                "dispatch.reassignment_procedure",
+                "dispatch.refusal_compensation_waived",
+                "dispatch.refusal_termination",
+                "dispatch.return_procedure"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 9412,
+              "completion_tokens": 255,
+              "total_tokens": 9667,
+              "prompt_tokens_details": {
+                "cached_tokens": 1920
+              },
+              "prompt_cache_hit_tokens": 1920,
+              "prompt_cache_miss_tokens": 7492
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 3,
+            "input_fact_ids": [
+              "EF-7bf10fbb13885c54",
+              "EF-6e58d28ad61d9d1c",
+              "EF-9fdc2d4a2abf0711",
+              "EF-697cc06574b34f08",
+              "EF-8cc4560d6fd7bceb",
+              "EF-685bdb0f7e479ff7",
+              "EF-7c3837ff723acdd0",
+              "EF-b2c01c5bd25567a3"
+            ],
+            "required_concepts": [
+              "dispatch.return_terms",
+              "dispatch.substitute",
+              "dispatch.temporary_duration_months",
+              "dispatch.worker_charges",
+              "dispatch.worker_pay_method",
+              "dispute.arbitration",
+              "economic_compensation.payment_delay_months",
+              "economic_compensation.reduced",
+              "economic_compensation.settlement_deadline",
+              "economic_compensation.statutory",
+              "economic_compensation.statutory_percentage",
+              "economic_compensation.waived",
+              "identity.employer_address",
+              "identity.employer_name",
+              "identity.employer_representative",
+              "identity.worker_address",
+              "identity.worker_id",
+              "identity.worker_name",
+              "ip.allocations",
+              "ip.assignment_scope"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-7bf10fbb13885c54",
+                  "supported": true,
+                  "reason": "C0015明确约定协商不成可以依法向有管辖权的劳动人事争议仲裁委员会申请仲裁，支持允许依法申请劳动仲裁。"
+                },
+                {
+                  "fact_id": "EF-6e58d28ad61d9d1c",
+                  "supported": true,
+                  "reason": "C0012明确约定终止用工时甲方应及时结清乙方已经提供劳动所对应的全部劳动报酬，属于解除终止工资结算期限或结算事件。"
+                },
+                {
+                  "fact_id": "EF-9fdc2d4a2abf0711",
+                  "supported": true,
+                  "reason": "C0001明确载明甲方注册地址为湖北省武汉市洪山区珞喻路889号。"
+                },
+                {
+                  "fact_id": "EF-697cc06574b34f08",
+                  "supported": true,
+                  "reason": "C0001明确载明甲方为武汉云岚信息服务有限公司。"
+                },
+                {
+                  "fact_id": "EF-8cc4560d6fd7bceb",
+                  "supported": true,
+                  "reason": "C0001明确载明法定代表人为高文博。"
+                },
+                {
+                  "fact_id": "EF-685bdb0f7e479ff7",
+                  "supported": true,
+                  "reason": "C0001明确载明乙方居住地址为湖北省武汉市洪山区关山大道XX号。"
+                },
+                {
+                  "fact_id": "EF-7c3837ff723acdd0",
+                  "supported": true,
+                  "reason": "C0001明确载明乙方身份证号码为42011120010318XXXX，保留遮蔽字符。"
+                },
+                {
+                  "fact_id": "EF-b2c01c5bd25567a3",
+                  "supported": true,
+                  "reason": "C0001明确载明乙方为周欣怡。"
+                }
+              ],
+              "searched_concepts": [
+                "dispatch.return_terms",
+                "dispatch.substitute",
+                "dispatch.temporary_duration_months",
+                "dispatch.worker_charges",
+                "dispatch.worker_pay_method",
+                "dispute.arbitration",
+                "economic_compensation.payment_delay_months",
+                "economic_compensation.reduced",
+                "economic_compensation.settlement_deadline",
+                "economic_compensation.statutory",
+                "economic_compensation.statutory_percentage",
+                "economic_compensation.waived",
+                "identity.employer_address",
+                "identity.employer_name",
+                "identity.employer_representative",
+                "identity.worker_address",
+                "identity.worker_id",
+                "identity.worker_name",
+                "ip.allocations",
+                "ip.assignment_scope"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 10424,
+              "completion_tokens": 608,
+              "total_tokens": 11032,
+              "prompt_tokens_details": {
+                "cached_tokens": 2048
+              },
+              "prompt_cache_hit_tokens": 2048,
+              "prompt_cache_miss_tokens": 8376
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 4,
+            "input_fact_ids": [
+              "EF-3be6905523b9670f",
+              "EF-ff2f1ad1ef8de100",
+              "EF-d9b288d4e48ea4b0",
+              "EF-887c4ce1a4d42e02",
+              "EF-3d8913be4b0b61af",
+              "EF-d8565a9f401a6ee2",
+              "EF-0a8803e5a167cc80"
+            ],
+            "required_concepts": [
+              "ip.personal_rights_waived",
+              "job.change_terms",
+              "job.duties",
+              "job.locations",
+              "job.position",
+              "labor_protection.hazard_exists",
+              "labor_protection.hazard_protection",
+              "labor_protection.measures",
+              "labor_protection.special_training_required",
+              "labor_protection.training",
+              "labor_protection.training_excluded",
+              "non_compete.all_staff",
+              "non_compete.arrangement",
+              "non_compete.businesses",
+              "non_compete.compensation",
+              "non_compete.compensation_deferred",
+              "non_compete.compensation_waived",
+              "non_compete.duration_months",
+              "non_compete.personnel",
+              "non_compete.secret_access"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-3be6905523b9670f",
+                  "supported": true,
+                  "reason": "C0003明确约定甲方不得未经协商长期安排乙方从事与上述岗位明显无关的工作，支持consent=REQUIRED、unilateral_position=false、position_scope=BOUNDED。"
+                },
+                {
+                  "fact_id": "EF-ff2f1ad1ef8de100",
+                  "supported": true,
+                  "reason": "C0003逐项列明整理公开行业资料、分类录入、检查文档格式及基础数据完整性、协助维护资料目录及直接相关辅助工作，与候选职责数组一致。"
+                },
+                {
+                  "fact_id": "EF-d9b288d4e48ea4b0",
+                  "supported": true,
+                  "reason": "C0004明确主要工作地点为武汉市洪山区珞喻路889号。"
+                },
+                {
+                  "fact_id": "EF-887c4ce1a4d42e02",
+                  "supported": true,
+                  "reason": "C0003明确乙方担任内容资料整理助理。"
+                },
+                {
+                  "fact_id": "EF-3d8913be4b0b61af",
+                  "supported": true,
+                  "reason": "C0008明确如实际工作内容变化涉及特殊安全风险或职业危害，甲方应依法采取相应劳动保护措施，属危害防护安排。"
+                },
+                {
+                  "fact_id": "EF-d8565a9f401a6ee2",
+                  "supported": true,
+                  "reason": "C0008明确甲方提供基本工作条件，并要求乙方遵守已依法制定并告知的安全管理制度，属劳动保护措施。"
+                },
+                {
+                  "fact_id": "EF-0a8803e5a167cc80",
+                  "supported": true,
+                  "reason": "C0011明确正常履行保密义务不得限制乙方依法选择其他工作，全文无离职竞业限制约定，支持non_compete.arrangement=NONE。"
+                }
+              ],
+              "searched_concepts": [
+                "ip.personal_rights_waived",
+                "job.change_terms",
+                "job.duties",
+                "job.locations",
+                "job.position",
+                "labor_protection.hazard_exists",
+                "labor_protection.hazard_protection",
+                "labor_protection.measures",
+                "labor_protection.special_training_required",
+                "labor_protection.training",
+                "labor_protection.training_excluded",
+                "non_compete.all_staff",
+                "non_compete.arrangement",
+                "non_compete.businesses",
+                "non_compete.compensation",
+                "non_compete.compensation_deferred",
+                "non_compete.compensation_waived",
+                "non_compete.duration_months",
+                "non_compete.personnel",
+                "non_compete.secret_access"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 9912,
+              "completion_tokens": 640,
+              "total_tokens": 10552,
+              "prompt_tokens_details": {
+                "cached_tokens": 1664
+              },
+              "prompt_cache_hit_tokens": 1664,
+              "prompt_cache_miss_tokens": 8248
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 5,
+            "input_fact_ids": [
+              "EF-d077769e8f044a62",
+              "EF-134d961914d781c0",
+              "EF-fa1ecc18395b8424",
+              "EF-8704be732d75e777",
+              "EF-7fe0c2c7a3d42c7b",
+              "EF-65f772f9912f7ca3",
+              "EF-e1fda10cd93ec626",
+              "EF-988edee26288ae7d",
+              "EF-5778e2edf130ecdd",
+              "EF-3f58e4b31d12592c",
+              "EF-022db9956f928368"
+            ],
+            "required_concepts": [
+              "non_compete.territories",
+              "part_time.employee_notice_days",
+              "part_time.employer_notice_days",
+              "part_time.exit_approval",
+              "part_time.exit_constraint",
+              "part_time.exit_permission",
+              "part_time.hourly_minimum",
+              "part_time.injury_insurance",
+              "penalties.obligations",
+              "probation.arrangement",
+              "probation.duration_months",
+              "probation.end_date",
+              "probation.repeated",
+              "probation.salary",
+              "probation.start_date",
+              "salary.cycle_days",
+              "salary.cycle_kind",
+              "salary.payment_date",
+              "salary.payment_method",
+              "salary.regular"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-d077769e8f044a62",
+                  "supported": true,
+                  "reason": "C0012明确约定双方均可随时通知终止，无须提前若干日通知，即提前通知天数为0。"
+                },
+                {
+                  "fact_id": "EF-134d961914d781c0",
+                  "supported": true,
+                  "reason": "C0012约定双方均可随时通知终止，无须提前通知，未要求经单位批准，exit_approval为false。"
+                },
+                {
+                  "fact_id": "EF-fa1ecc18395b8424",
+                  "supported": true,
+                  "reason": "C0012明确允许劳动者随时通知终止非全日制用工关系。"
+                },
+                {
+                  "fact_id": "EF-8704be732d75e777",
+                  "supported": false,
+                  "reason": "C0006仅约定小时工资45元/小时，未明示或可推断该标准不低于用人单位所在地最低小时工资标准，不能以法律常识补写。"
+                },
+                {
+                  "fact_id": "EF-7fe0c2c7a3d42c7b",
+                  "supported": true,
+                  "reason": "C0007明确约定甲方按国家和当地工伤保险规定承担相应责任并办理单位应办事项，属于单位承担工伤保险义务。"
+                },
+                {
+                  "fact_id": "EF-65f772f9912f7ca3",
+                  "supported": true,
+                  "reason": "C0012明确禁止要求对方因依法随时终止非全日制用工支付违约金或赔偿金，属于对ORDINARY_RESIGNATION违约金义务的排除，imposed=false。"
+                },
+                {
+                  "fact_id": "EF-e1fda10cd93ec626",
+                  "supported": true,
+                  "reason": "C0002明确约定双方不约定试用期，probation.arrangement为NONE。"
+                },
+                {
+                  "fact_id": "EF-988edee26288ae7d",
+                  "supported": true,
+                  "reason": "C0006约定每月分两次结算劳动报酬，属于每半月结算，SEMIMONTHLY。"
+                },
+                {
+                  "fact_id": "EF-5778e2edf130ecdd",
+                  "supported": true,
+                  "reason": "C0006明确约定第一次每月15日前结算当月1日至10日工资，第二次次月5日前结算当月11日至月末已完成工作工资。"
+                },
+                {
+                  "fact_id": "EF-3f58e4b31d12592c",
+                  "supported": true,
+                  "reason": "C0006明确约定通过银行转账方式支付劳动报酬，payment_method为BANK。"
+                },
+                {
+                  "fact_id": "EF-022db9956f928368",
+                  "supported": true,
+                  "reason": "C0006明确约定小时工资标准为人民币45元/小时，属于通常工资标准。"
+                }
+              ],
+              "searched_concepts": [
+                "non_compete.territories",
+                "part_time.employee_notice_days",
+                "part_time.employer_notice_days",
+                "part_time.exit_approval",
+                "part_time.exit_constraint",
+                "part_time.exit_permission",
+                "part_time.hourly_minimum",
+                "part_time.injury_insurance",
+                "penalties.obligations",
+                "probation.arrangement",
+                "probation.duration_months",
+                "probation.end_date",
+                "probation.repeated",
+                "probation.salary",
+                "probation.start_date",
+                "salary.cycle_days",
+                "salary.cycle_kind",
+                "salary.payment_date",
+                "salary.payment_method",
+                "salary.regular"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 10454,
+              "completion_tokens": 773,
+              "total_tokens": 11227,
+              "prompt_tokens_details": {
+                "cached_tokens": 1920
+              },
+              "prompt_cache_hit_tokens": 1920,
+              "prompt_cache_miss_tokens": 8534
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 6,
+            "input_fact_ids": [
+              "EF-9d1d3ed41d2f8230",
+              "EF-74832b4d3038b63f",
+              "EF-ed906f676b79f8a9",
+              "EF-494b27ba4d9b5d54",
+              "EF-91aa7c044e813481",
+              "EF-cf696421acd7e953",
+              "EF-02594d16e8fc7645",
+              "EF-168a12e0422e0386"
+            ],
+            "required_concepts": [
+              "salary.withheld_for_handover",
+              "social_insurance.cash_replacement",
+              "social_insurance.employee_remedy_excluded",
+              "social_insurance.employee_withheld",
+              "social_insurance.employer_enrolls",
+              "social_insurance.employer_liability_excluded",
+              "social_insurance.employer_pays",
+              "social_insurance.employer_share_shifted",
+              "social_insurance.employer_underpays",
+              "social_insurance.statutory_duties",
+              "social_insurance.waived",
+              "termination.approval_required",
+              "termination.employee_right_waived",
+              "termination.employer_unrestricted",
+              "termination.grounds",
+              "termination.handover",
+              "termination.notice",
+              "termination.notice_days",
+              "training.arrangement",
+              "training.cost"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-9d1d3ed41d2f8230",
+                  "supported": true,
+                  "reason": "C0013明确禁止甲方以工作未完成、审批未结束或乙方未继续工作为由拒付已实际完成工作的工资，支持不得以未交接等理由扣留已挣得工资的否定事实。"
+                },
+                {
+                  "fact_id": "EF-74832b4d3038b63f",
+                  "supported": true,
+                  "reason": "C0007明确甲方应履行依法应由用人单位承担的社会保险义务，支持单位承担参保办理义务。"
+                },
+                {
+                  "fact_id": "EF-ed906f676b79f8a9",
+                  "supported": true,
+                  "reason": "C0007明确甲方应履行依法应由用人单位承担的社会保险义务，支持单位承担法定单位缴费部分。"
+                },
+                {
+                  "fact_id": "EF-494b27ba4d9b5d54",
+                  "supported": true,
+                  "reason": "C0007明确本协议不得被解释为免除甲方依法承担的工伤保险及其他法定义务，支持一般性承诺依法处理社会保险并保留单位法定义务。"
+                },
+                {
+                  "fact_id": "EF-91aa7c044e813481",
+                  "supported": true,
+                  "reason": "C0012明确甲方或者乙方均可以随时通知对方终止非全日制用工关系，支持该终止事由。"
+                },
+                {
+                  "fact_id": "EF-cf696421acd7e953",
+                  "supported": true,
+                  "reason": "C0010明确乙方终止用工时完整归还设备后甲方应在三个工作日内全额返还保证金，属于离职时归还设备及手续安排。"
+                },
+                {
+                  "fact_id": "EF-02594d16e8fc7645",
+                  "supported": true,
+                  "reason": "C0012明确双方均可随时通知对方终止非全日制用工关系，无须提前若干日提出通知，支持通知方式。"
+                },
+                {
+                  "fact_id": "EF-168a12e0422e0386",
+                  "supported": true,
+                  "reason": "C0012明确无须提前若干日提出通知，即提前通知天数为0。"
+                }
+              ],
+              "searched_concepts": [
+                "salary.withheld_for_handover",
+                "social_insurance.cash_replacement",
+                "social_insurance.employee_remedy_excluded",
+                "social_insurance.employee_withheld",
+                "social_insurance.employer_enrolls",
+                "social_insurance.employer_liability_excluded",
+                "social_insurance.employer_pays",
+                "social_insurance.employer_share_shifted",
+                "social_insurance.employer_underpays",
+                "social_insurance.statutory_duties",
+                "social_insurance.waived",
+                "termination.approval_required",
+                "termination.employee_right_waived",
+                "termination.employer_unrestricted",
+                "termination.grounds",
+                "termination.handover",
+                "termination.notice",
+                "termination.notice_days",
+                "training.arrangement",
+                "training.cost"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [
+                {
+                  "concept": "training.arrangement",
+                  "result": "ABSENT",
+                  "reason": "全文未约定专项培训服务期，也未约定专项技术培训、培训费用、培训期限或服务期违约金；C0008仅涉及基本工作条件、安全管理制度及特殊安全风险或职业危害的劳动保护措施，不属于专项培训服务期安排。",
+                  "searched_concepts": [
+                    "training.arrangement",
+                    "training.technical",
+                    "training.cost",
+                    "training.duration_months",
+                    "training.service_penalty"
+                  ],
+                  "reviewed_clause_ids": [
+                    "C0001",
+                    "C0002",
+                    "C0003",
+                    "C0004",
+                    "C0005",
+                    "C0006",
+                    "C0007",
+                    "C0008",
+                    "C0009",
+                    "C0010",
+                    "C0011",
+                    "C0012",
+                    "C0013",
+                    "C0014",
+                    "C0015",
+                    "C0016",
+                    "C0017",
+                    "C0018"
+                  ]
+                }
+              ],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 9855,
+              "completion_tokens": 872,
+              "total_tokens": 10727,
+              "prompt_tokens_details": {
+                "cached_tokens": 1664
+              },
+              "prompt_cache_hit_tokens": 1664,
+              "prompt_cache_miss_tokens": 8191
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 7,
+            "input_fact_ids": [
+              "EF-bd1c8d6652e96c97",
+              "EF-3e56e5c24a06f085",
+              "EF-583672aed5536c47",
+              "EF-9550a0609cb46aaf",
+              "EF-b8549c8db8a3a6dc",
+              "EF-02b7dbd485658bd9",
+              "EF-ef9118f550e0d901",
+              "EF-d841b3c130e6702f"
+            ],
+            "required_concepts": [
+              "training.duration_months",
+              "training.penalty_prorated",
+              "training.service_penalty",
+              "training.technical",
+              "worker.security_payment",
+              "working_hours.days_per_week",
+              "working_hours.hours_per_day",
+              "working_hours.hours_per_week",
+              "working_hours.overtime",
+              "working_hours.rest",
+              "working_hours.rest_days_per_week",
+              "working_hours.rest_waived",
+              "working_hours.system"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-bd1c8d6652e96c97",
+                  "supported": true,
+                  "reason": "C0010明确约定甲方可从首次工资暂扣800元作为设备保证金，终止用工完整归还设备后三个工作日内全额返还，构成可退保证金、收取方为雇主、从工资扣除、金额800元及退款条件。"
+                },
+                {
+                  "fact_id": "EF-3e56e5c24a06f085",
+                  "supported": true,
+                  "reason": "C0005明确“乙方每周原则上工作五日”，支持每周工作天数5。"
+                },
+                {
+                  "fact_id": "EF-583672aed5536c47",
+                  "supported": true,
+                  "reason": "C0005明确“每日4小时”，支持每日约定小时数4。"
+                },
+                {
+                  "fact_id": "EF-9550a0609cb46aaf",
+                  "supported": true,
+                  "reason": "C0005明确“每周累计工作时间不超过20小时”，支持每周约定小时数20。"
+                },
+                {
+                  "fact_id": "EF-b8549c8db8a3a6dc",
+                  "supported": false,
+                  "reason": "C0005仅约定每周原则上工作五日及周一至周五每日14:00至18:00，未明示“周六周日休息”，该休息日表述属于推断而非原文明示。"
+                },
+                {
+                  "fact_id": "EF-02b7dbd485658bd9",
+                  "supported": false,
+                  "reason": "C0005未明示每周休息天数，仅约定每周原则上工作五日及周一至周五工作安排，不能据此明示支持每周休息2天。"
+                },
+                {
+                  "fact_id": "EF-ef9118f550e0d901",
+                  "supported": false,
+                  "reason": "C0005未明确约定不得休息或无休息日，仅约定工作五日及每日4小时，不能明示支持rest_waived为false。"
+                },
+                {
+                  "fact_id": "EF-d841b3c130e6702f",
+                  "supported": true,
+                  "reason": "C0005约定非全日制用工下的每周五日、每日4小时、每周不超过20小时，未采用标准工时或经批准的综合/不定时工时表述，归为OTHER有原文依据。"
+                }
+              ],
+              "searched_concepts": [
+                "training.duration_months",
+                "training.penalty_prorated",
+                "training.service_penalty",
+                "training.technical",
+                "worker.security_payment",
+                "working_hours.days_per_week",
+                "working_hours.hours_per_day",
+                "working_hours.hours_per_week",
+                "working_hours.overtime",
+                "working_hours.rest",
+                "working_hours.rest_days_per_week",
+                "working_hours.rest_waived",
+                "working_hours.system"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 9946,
+              "completion_tokens": 646,
+              "total_tokens": 10592,
+              "prompt_tokens_details": {
+                "cached_tokens": 1536
+              },
+              "prompt_cache_hit_tokens": 1536,
+              "prompt_cache_miss_tokens": 8410
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 69820,
+          "completion_tokens": 4229,
+          "total_tokens": 74049
+        }
+      },
+      "verification_batches": null
+    },
+    {
+      "attempt": 2,
+      "status": "BLOCKED",
+      "diagnostics": [
+        {
+          "failed_stage": "FACT_VERIFICATION",
+          "fact_id": [
+            "EF-0a8803e5a167cc80"
+          ],
+          "field": "non_compete.arrangement",
+          "validation_rule": "CORE_FACT_VERIFICATION_FAILED",
+          "model_raw_value": [
+            {
+              "fact_id": "EF-0a8803e5a167cc80",
+              "supported": false,
+              "reason": "C0011仅说明正常履行保密义务不得限制乙方依法选择其他工作，并未明确约定离职竞业限制安排为NONE；该候选以保密条款否定性表述推断不存在竞业安排，缺乏明示依据。"
+            }
+          ],
+          "evidence": [
+            {
+              "clause_id": "C0011",
+              "location": "第十条 保密义务",
+              "title": "保密义务",
+              "text": "正常履行保密义务不得限制乙方依法选择其他工作。",
+              "section_type": "正式合同条款",
+              "level": 1,
+              "raw_text": "第十条 保密义务\n乙方对工作过程中知悉的客户非公开资料、系统账号信息、内部业务数据以及其他依法构成商业秘密的信息承担保密义务。\n正常履行保密义务不得限制乙方依法选择其他工作。",
+              "normalized_text": "第十条保密义务乙方对工作过程中知悉的客户非公开资料、系统账号信息、内部业务数据以及其他依法构成商业秘密的信息承担保密义务。正常履行保密义务不得限制乙方依法选择其他工作。",
+              "option_groups": [],
+              "source": "body",
+              "section_path": [
+                "正式合同条款",
+                "第十条 保密义务"
+              ],
+              "heading": "保密义务",
+              "clause_number": "第十条",
+              "paragraph_index": 10,
+              "block_type": "OPERATIVE_CLAUSE",
+              "parties": [
+                "乙方"
+              ],
+              "dates": [],
+              "amounts": [],
+              "percentages": [],
+              "durations": [],
+              "cross_references": [
+                "第十条"
+              ],
+              "node_id": "C0011",
+              "document_id": "contract_package/main",
+              "heading_path": [
+                "第十条 保密义务"
+              ],
+              "article_number": "第十条",
+              "section_number": "",
+              "item_number": "",
+              "sentence_index": 1,
+              "start_offset": 1339,
+              "end_offset": 1426,
+              "source_type": "CONTRACT_TEXT",
+              "party_obligation": true,
+              "quote": "正常履行保密义务不得限制乙方依法选择其他工作。",
+              "original_excerpt": "正常履行保密义务不得限制乙方依法选择其他工作。",
+              "model_quote": "正常履行保密义务不得限制乙方依法选择其他工作。",
+              "alignment_mode": "EXACT",
+              "source_start": 64,
+              "source_end": 87,
+              "evidence_span": {
+                "basis": "clause.text",
+                "start": 64,
+                "end": 87
+              },
+              "document_span": {
+                "start": 1403,
+                "end": 1426
+              },
+              "verified_original": true,
+              "fact_concept": "non_compete.arrangement",
+              "structured_fact_id": "EF-0a8803e5a167cc80"
+            }
+          ],
+          "expected": "supported, source-bound core fact or a verified correction",
+          "actual": {
+            "required_fact": "non_compete.arrangement",
+            "factstore_state": "VERIFICATION_REJECTED",
+            "verification_state": "VERIFICATION_REJECTED",
+            "coverage_state": "UNCERTAIN",
+            "verified_fact_ids": [],
+            "rejected_fact_ids": [
+              "EF-0a8803e5a167cc80"
+            ],
+            "unresolved": false,
+            "model_coverage_advisory": null,
+            "extraction_state": "EXTRACTED",
+            "absence_audit": null,
+            "verified_absence_value": null
+          },
+          "disposition": "BLOCK",
+          "stage": "FACT_VERIFICATION",
+          "code": "CORE_FACT_VERIFICATION_FAILED",
+          "fact_key": null,
+          "raw_value": [
+            {
+              "fact_id": "EF-0a8803e5a167cc80",
+              "supported": false,
+              "reason": "C0011仅说明正常履行保密义务不得限制乙方依法选择其他工作，并未明确约定离职竞业限制安排为NONE；该候选以保密条款否定性表述推断不存在竞业安排，缺乏明示依据。"
+            }
+          ],
+          "normalized_value": null,
+          "allowed_values": "supported, source-bound core fact or a verified correction",
+          "clause": null,
+          "message": "抽取值未通过事实类型、证据或语义校验；未生成报告，不能以默认值替代。",
+          "trace_id": "FACT-e5a1e6693c95482eb36966be829f4cb2"
+        }
+      ],
+      "raw_extraction": [
+        {
+          "provider": "deepseek",
+          "model": "deepseek-flash",
+          "kind": "VERIFIED_REPAIR_SEED",
+          "response": {
+            "schema_version": "employment-facts-1.0",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018"
+            ],
+            "searched_concepts": [
+              "identity.employer_representative",
+              "identity.worker_address",
+              "identity.employer_name",
+              "identity.employer_address",
+              "identity.worker_name",
+              "identity.worker_id",
+              "contract.start_date",
+              "contract.end_date",
+              "contract.duration_months",
+              "contract.task",
+              "contract.task_end",
+              "probation.arrangement",
+              "probation.start_date",
+              "probation.end_date",
+              "probation.duration_months",
+              "probation.salary",
+              "probation.repeated",
+              "job.position",
+              "job.duties",
+              "job.locations",
+              "working_hours.system",
+              "working_hours.hours_per_day",
+              "working_hours.hours_per_week",
+              "working_hours.rest_waived",
+              "working_hours.overtime",
+              "salary.regular",
+              "salary.payment_date",
+              "salary.payment_method",
+              "salary.withheld_for_handover",
+              "social_insurance.employer_enrolls",
+              "social_insurance.statutory_duties",
+              "social_insurance.employer_pays",
+              "social_insurance.employee_withheld",
+              "social_insurance.cash_replacement",
+              "social_insurance.waived",
+              "social_insurance.employer_share_shifted",
+              "social_insurance.employer_underpays",
+              "social_insurance.employer_liability_excluded",
+              "social_insurance.employee_remedy_excluded",
+              "labor_protection.measures",
+              "labor_protection.training",
+              "labor_protection.special_training_required",
+              "labor_protection.training_excluded",
+              "labor_protection.hazard_exists",
+              "labor_protection.hazard_protection",
+              "training.arrangement",
+              "training.technical",
+              "training.service_penalty",
+              "training.cost",
+              "training.duration_months",
+              "training.penalty_prorated",
+              "termination.grounds",
+              "termination.notice",
+              "termination.notice_days",
+              "termination.approval_required",
+              "termination.employee_right_waived",
+              "termination.employer_unrestricted",
+              "termination.handover",
+              "economic_compensation.statutory",
+              "economic_compensation.settlement_deadline",
+              "economic_compensation.waived",
+              "economic_compensation.reduced",
+              "economic_compensation.statutory_percentage",
+              "economic_compensation.payment_delay_months",
+              "dispute.arbitration",
+              "penalties.obligations",
+              "non_compete.arrangement",
+              "non_compete.personnel",
+              "non_compete.secret_access",
+              "non_compete.businesses",
+              "non_compete.territories",
+              "non_compete.duration_months",
+              "non_compete.compensation",
+              "non_compete.compensation_deferred",
+              "non_compete.compensation_waived",
+              "non_compete.all_staff",
+              "ip.assignment_scope",
+              "ip.allocations",
+              "ip.personal_rights_waived",
+              "contract.employment_form",
+              "dispatch.auxiliary_noncore",
+              "dispatch.auxiliary_procedure",
+              "dispatch.substitute",
+              "dispatch.worker_pay_method",
+              "dispatch.comparator_pay_method",
+              "dispatch.comparator_pay",
+              "dispatch.comparable_work",
+              "dispatch.agency",
+              "dispatch.host",
+              "dispatch.position",
+              "dispatch.period",
+              "dispatch.position_basis",
+              "dispatch.long_term_position",
+              "dispatch.temporary_duration_months",
+              "dispatch.equal_pay",
+              "dispatch.idle_pay",
+              "dispatch.worker_charges",
+              "dispatch.return_procedure",
+              "dispatch.reassignment_procedure",
+              "dispatch.refusal_termination",
+              "dispatch.refusal_compensation_waived",
+              "dispatch.host_direct_dismissal",
+              "dispatch.agreement_disclosure",
+              "dispatch.agency_obligations",
+              "dispatch.host_obligations",
+              "dispatch.obligations_waived",
+              "contract.term_limit_mode",
+              "contract.term_limit_date",
+              "contract.term_limit_months",
+              "capability.ground",
+              "capability.training",
+              "capability.reassignment",
+              "capability.reassessment",
+              "capability.notice",
+              "capability.compensation",
+              "working_hours.days_per_week",
+              "salary.cycle_kind",
+              "salary.cycle_days",
+              "part_time.hourly_minimum",
+              "part_time.injury_insurance",
+              "part_time.employee_notice_days",
+              "part_time.exit_permission",
+              "part_time.exit_constraint",
+              "part_time.employer_notice_days",
+              "part_time.exit_approval",
+              "job.change_terms",
+              "discipline.dismissal_terms",
+              "dispatch.onward_assignment",
+              "dispatch.return_terms",
+              "worker.security_payment"
+            ],
+            "unresolved_concepts": [
+              "working_hours.rest_waived",
+              "part_time.hourly_minimum"
+            ],
+            "facts": [
+              {
+                "concept": "identity.employer_representative",
+                "value": "高文博",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "法定代表人：高文博"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_address",
+                "value": "湖北省武汉市洪山区关山大道XX号",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "居住地址：湖北省武汉市洪山区关山大道XX号"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.employer_name",
+                "value": "武汉云岚信息服务有限公司",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "甲方：武汉云岚信息服务有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.employer_address",
+                "value": "湖北省武汉市洪山区珞喻路889号",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "注册地址：湖北省武汉市洪山区珞喻路889号"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_name",
+                "value": "周欣怡",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "乙方：周欣怡"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_id",
+                "value": "42011120010318XXXX",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "身份证号码：42011120010318XXXX"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.start_date",
+                "value": "2027-12-06",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "乙方自2027年12月6日起开始为甲方提供劳动。"
+                  }
+                ]
+              },
+              {
+                "concept": "probation.arrangement",
+                "value": "NONE",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "双方不约定试用期。"
+                  }
+                ]
+              },
+              {
+                "concept": "job.position",
+                "value": "内容资料整理助理",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方担任内容资料整理助理，主要负责："
+                  }
+                ]
+              },
+              {
+                "concept": "job.duties",
+                "value": [
+                  "整理公开行业资料",
+                  "对指定业务数据进行分类录入",
+                  "检查文档格式及基础数据完整性",
+                  "协助维护部门资料目录",
+                  "完成与前述事项直接相关的辅助工作"
+                ],
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "整理公开行业资料；\n对指定业务数据进行分类录入；\n检查文档格式及基础数据完整性；\n协助维护部门资料目录；\n完成与前述事项直接相关的辅助工作。"
+                  }
+                ]
+              },
+              {
+                "concept": "job.locations",
+                "value": [
+                  "武汉市洪山区珞喻路889号"
+                ],
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方主要工作地点为武汉市洪山区珞喻路889号。"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.system",
+                "value": "OTHER",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "乙方每周原则上工作五日。\n通常安排为周一至周五每日14:00至18:00，每日4小时。\n每周累计工作时间不超过20小时。"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.hours_per_day",
+                "value": 4.0,
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "通常安排为周一至周五每日14:00至18:00，每日4小时。"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.hours_per_week",
+                "value": 20.0,
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "每周累计工作时间不超过20小时。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.regular",
+                "value": {
+                  "amount_text": "45",
+                  "unit": "CNY/HOUR",
+                  "component": "TOTAL",
+                  "amount": 45.0,
+                  "determinate": true
+                },
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "乙方小时工资标准为人民币45元/小时。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.payment_date",
+                "value": "每月15日前结算当月1日至10日的工资；次月5日前结算当月11日至月末已经完成工作的工资",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "第一次于每月15日前结算当月1日至10日的工资；\n第二次于次月5日前结算当月11日至月末已经完成工作的工资。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.payment_method",
+                "value": "BANK",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "劳动报酬由甲方通过银行转账方式支付至乙方本人账户。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.withheld_for_handover",
+                "value": false,
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0013",
+                    "quote": "无论本协议因何原因终止，甲方均不得以工作尚未完成整个项目、内部审批尚未结束或者乙方未继续工作的理由拒绝支付乙方已经实际完成工作的工资。"
+                  }
+                ]
+              },
+              {
+                "concept": "social_insurance.employer_enrolls",
+                "value": true,
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "甲方应按照非全日制用工有关规定履行依法应由用人单位承担的社会保险义务。"
+                  }
+                ]
+              },
+              {
+                "concept": "social_insurance.statutory_duties",
+                "value": true,
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "本协议不得被解释为免除甲方依法承担的工伤保险及其他法定义务。"
+                  }
+                ]
+              },
+              {
+                "concept": "social_insurance.employer_pays",
+                "value": true,
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "甲方应按照非全日制用工有关规定履行依法应由用人单位承担的社会保险义务。"
+                  }
+                ]
+              },
+              {
+                "concept": "labor_protection.measures",
+                "value": "甲方应向乙方提供完成工作所需要的基本工作条件；乙方进入甲方办公区域时，应遵守已经依法制定并向其告知的安全管理制度",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "甲方应向乙方提供完成工作所需要的基本工作条件。\n乙方进入甲方办公区域时，应遵守已经依法制定并向其告知的安全管理制度。"
+                  }
+                ]
+              },
+              {
+                "concept": "labor_protection.hazard_protection",
+                "value": "如实际工作内容发生变化并涉及特殊安全风险或者职业危害，甲方应依法采取相应劳动保护措施",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "如实际工作内容发生变化并涉及特殊安全风险或者职业危害，甲方应依法采取相应劳动保护措施。"
+                  }
+                ]
+              },
+              {
+                "concept": "termination.grounds",
+                "value": [
+                  "甲方或者乙方均可以随时通知对方终止非全日制用工关系"
+                ],
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "甲方或者乙方均可以随时通知对方终止非全日制用工关系，无须提前若干日提出通知。"
+                  }
+                ]
+              },
+              {
+                "concept": "termination.notice",
+                "value": "甲方或者乙方均可以随时通知对方终止非全日制用工关系，无须提前若干日提出通知",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "甲方或者乙方均可以随时通知对方终止非全日制用工关系，无须提前若干日提出通知。"
+                  }
+                ]
+              },
+              {
+                "concept": "termination.notice_days",
+                "value": 0.0,
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "甲方或者乙方均可以随时通知对方终止非全日制用工关系，无须提前若干日提出通知。"
+                  }
+                ]
+              },
+              {
+                "concept": "termination.handover",
+                "value": "乙方终止用工时完整归还设备后，甲方应在三个工作日内将保证金全额返还乙方",
+                "assertion": "EXPLICIT",
+                "confidence": 0.85,
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "乙方终止用工时完整归还设备后，甲方应在三个工作日内将保证金全额返还乙方。"
+                  }
+                ]
+              },
+              {
+                "concept": "economic_compensation.settlement_deadline",
+                "value": "终止用工时，甲方应及时结清乙方已经提供劳动所对应的全部劳动报酬",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "终止用工时，甲方应及时结清乙方已经提供劳动所对应的全部劳动报酬。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispute.arbitration",
+                "value": true,
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0015",
+                    "quote": "协商不成的，可以依法向有管辖权的劳动人事争议仲裁委员会申请仲裁。"
+                  }
+                ]
+              },
+              {
+                "concept": "penalties.obligations",
+                "value": {
+                  "scope": "ORDINARY_RESIGNATION",
+                  "amount_text": "任何一方不得要求对方因依法随时终止非全日制用工而支付违约金或者赔偿金",
+                  "imposed": false
+                },
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "任何一方不得要求对方因依法随时终止非全日制用工而支付违约金或者赔偿金。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.arrangement",
+                "value": "NONE",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0011",
+                    "quote": "正常履行保密义务不得限制乙方依法选择其他工作。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.employment_form",
+                "value": "PART_TIME",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "双方确认，本协议项下用工属于非全日制用工。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.term_limit_mode",
+                "value": "NONE",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "本协议不设固定最低履行期限。"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.days_per_week",
+                "value": 5.0,
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "乙方每周原则上工作五日。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.cycle_kind",
+                "value": "SEMIMONTHLY",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "甲方每月分两次结算劳动报酬："
+                  }
+                ]
+              },
+              {
+                "concept": "part_time.injury_insurance",
+                "value": true,
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "乙方因履行本协议约定的工作任务发生事故伤害或者依法认定为工伤的，甲方应按照国家和当地工伤保险相关规定承担相应责任，并依法办理应由单位办理的相关事项。"
+                  }
+                ]
+              },
+              {
+                "concept": "part_time.employee_notice_days",
+                "value": 0.0,
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "甲方或者乙方均可以随时通知对方终止非全日制用工关系，无须提前若干日提出通知。"
+                  }
+                ]
+              },
+              {
+                "concept": "part_time.exit_permission",
+                "value": true,
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "甲方或者乙方均可以随时通知对方终止非全日制用工关系，无须提前若干日提出通知。"
+                  }
+                ]
+              },
+              {
+                "concept": "part_time.exit_approval",
+                "value": false,
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "甲方或者乙方均可以随时通知对方终止非全日制用工关系，无须提前若干日提出通知。"
+                  }
+                ]
+              },
+              {
+                "concept": "job.change_terms",
+                "value": {
+                  "consent": "REQUIRED",
+                  "unilateral_position": false,
+                  "position_scope": "BOUNDED"
+                },
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "甲方不得未经协商长期安排乙方从事与上述岗位明显无关的工作。"
+                  }
+                ]
+              },
+              {
+                "concept": "worker.security_payment",
+                "value": {
+                  "nature": "REFUNDABLE_SECURITY",
+                  "collector": "EMPLOYER",
+                  "required": true,
+                  "deducted_from_wage": true,
+                  "amount_text": "800元",
+                  "refund_condition": "乙方终止用工时完整归还设备后，甲方应在三个工作日内将保证金全额返还乙方。"
+                },
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "为保证设备妥善保管，甲方可以从乙方首次工资中暂扣人民币800元作为设备保证金。"
+                  },
+                  {
+                    "clause_id": "C0010",
+                    "quote": "乙方终止用工时完整归还设备后，甲方应在三个工作日内将保证金全额返还乙方。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.0",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018"
+            ],
+            "searched_concepts": [
+              "contract.type",
+              "working_hours.rest",
+              "working_hours.rest_days_per_week"
+            ],
+            "unresolved_concepts": [
+              "contract.type",
+              "working_hours.rest",
+              "working_hours.rest_days_per_week"
+            ],
+            "facts": []
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 5476,
+            "completion_tokens": 147,
+            "total_tokens": 5623,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 4708
+          },
+          "provider": "deepseek"
+        }
+      ],
+      "raw_verification": {
+        "provider": "deepseek",
+        "model": "deepseek-flash",
+        "verification": {
+          "verification_schema_version": "fact-verification-2",
+          "checks": [
+            {
+              "fact_id": "EF-39cbfb53ef40f2a0",
+              "supported": true,
+              "reason": "C0002明示“双方确认，本协议项下用工属于非全日制用工”，直接支持PART_TIME。"
+            },
+            {
+              "fact_id": "EF-0453db5138040c29",
+              "supported": true,
+              "reason": "C0002明示“乙方自2027年12月6日起开始为甲方提供劳动”，支持起始日2027-12-06。"
+            },
+            {
+              "fact_id": "EF-b2493b7804f2f069",
+              "supported": true,
+              "reason": "C0002明示“本协议不设固定最低履行期限”，属于合同本身明确无确定终止时间，支持term_limit_mode为NONE。"
+            },
+            {
+              "fact_id": "EF-7bf10fbb13885c54",
+              "supported": true,
+              "reason": "C0015明确约定协商不成可以依法向有管辖权的劳动人事争议仲裁委员会申请仲裁，支持允许依法申请劳动仲裁。"
+            },
+            {
+              "fact_id": "EF-6e58d28ad61d9d1c",
+              "supported": true,
+              "reason": "C0012明确约定终止用工时甲方应及时结清乙方已经提供劳动所对应的全部劳动报酬，属于解除终止工资结算期限或结算事件。"
+            },
+            {
+              "fact_id": "EF-9fdc2d4a2abf0711",
+              "supported": true,
+              "reason": "C0001载明甲方注册地址为湖北省武汉市洪山区珞喻路889号。"
+            },
+            {
+              "fact_id": "EF-697cc06574b34f08",
+              "supported": true,
+              "reason": "C0001载明甲方为武汉云岚信息服务有限公司。"
+            },
+            {
+              "fact_id": "EF-8cc4560d6fd7bceb",
+              "supported": true,
+              "reason": "C0001载明甲方法定代表人为高文博。"
+            },
+            {
+              "fact_id": "EF-685bdb0f7e479ff7",
+              "supported": true,
+              "reason": "C0001载明乙方居住地址为湖北省武汉市洪山区关山大道XX号。"
+            },
+            {
+              "fact_id": "EF-7c3837ff723acdd0",
+              "supported": true,
+              "reason": "C0001载明乙方身份证号码为42011120010318XXXX，保留遮蔽字符。"
+            },
+            {
+              "fact_id": "EF-b2c01c5bd25567a3",
+              "supported": true,
+              "reason": "C0001载明乙方为周欣怡。"
+            },
+            {
+              "fact_id": "EF-3be6905523b9670f",
+              "supported": true,
+              "reason": "C0003明确约定甲方不得未经协商长期安排乙方从事与上述岗位明显无关的工作，支持consent=REQUIRED、unilateral_position=false、position_scope=BOUNDED。"
+            },
+            {
+              "fact_id": "EF-ff2f1ad1ef8de100",
+              "supported": true,
+              "reason": "C0003逐项列明整理公开行业资料、分类录入、检查文档格式及基础数据完整性、协助维护部门资料目录及直接相关辅助工作，与候选职责数组一致。"
+            },
+            {
+              "fact_id": "EF-d9b288d4e48ea4b0",
+              "supported": true,
+              "reason": "C0004明确乙方主要工作地点为武汉市洪山区珞喻路889号。"
+            },
+            {
+              "fact_id": "EF-887c4ce1a4d42e02",
+              "supported": true,
+              "reason": "C0003明确乙方担任内容资料整理助理。"
+            },
+            {
+              "fact_id": "EF-3d8913be4b0b61af",
+              "supported": true,
+              "reason": "C0008明确如实际工作内容变化涉及特殊安全风险或职业危害，甲方应依法采取相应劳动保护措施，候选引文与原文一致。"
+            },
+            {
+              "fact_id": "EF-d8565a9f401a6ee2",
+              "supported": true,
+              "reason": "C0008明确甲方提供基本工作条件，并要求乙方遵守已依法制定并告知的安全管理制度，候选引文与原文一致。"
+            },
+            {
+              "fact_id": "EF-0a8803e5a167cc80",
+              "supported": false,
+              "reason": "C0011仅说明正常履行保密义务不得限制乙方依法选择其他工作，并未明确约定离职竞业限制安排为NONE；该候选以保密条款否定性表述推断不存在竞业安排，缺乏明示依据。"
+            },
+            {
+              "fact_id": "EF-d077769e8f044a62",
+              "supported": true,
+              "reason": "C0012明示双方均可随时通知终止且无须提前若干日通知，即提前通知天数为0。"
+            },
+            {
+              "fact_id": "EF-134d961914d781c0",
+              "supported": true,
+              "reason": "C0012明示双方均可随时通知终止，无须提前通知，未要求任何批准，故exit_approval为false。"
+            },
+            {
+              "fact_id": "EF-fa1ecc18395b8424",
+              "supported": true,
+              "reason": "C0012明示甲方或乙方均可以随时通知对方终止非全日制用工关系，即允许劳动者随时通知终止。"
+            },
+            {
+              "fact_id": "EF-7fe0c2c7a3d42c7b",
+              "supported": true,
+              "reason": "C0007明示甲方应按国家和当地工伤保险相关规定承担相应责任并办理单位应办事项，明确约定单位承担工伤保险义务。"
+            },
+            {
+              "fact_id": "EF-65f772f9912f7ca3",
+              "supported": true,
+              "reason": "C0012明示任何一方不得要求对方因依法随时终止非全日制用工而支付违约金或赔偿金，即对普通辞职不施加违约金，imposed=false。"
+            },
+            {
+              "fact_id": "EF-e1fda10cd93ec626",
+              "supported": true,
+              "reason": "C0002明示双方不约定试用期，probation.arrangement为NONE。"
+            },
+            {
+              "fact_id": "EF-988edee26288ae7d",
+              "supported": true,
+              "reason": "C0006明示甲方每月分两次结算劳动报酬，属于每半月结算，SEMIMONTHLY。"
+            },
+            {
+              "fact_id": "EF-5778e2edf130ecdd",
+              "supported": true,
+              "reason": "C0006明示第一次于每月15日前结算当月1日至10日工资，第二次于次月5日前结算当月11日至月末已完成工作工资。"
+            },
+            {
+              "fact_id": "EF-3f58e4b31d12592c",
+              "supported": true,
+              "reason": "C0006明示劳动报酬由甲方通过银行转账方式支付至乙方本人账户，payment_method为BANK。"
+            },
+            {
+              "fact_id": "EF-022db9956f928368",
+              "supported": true,
+              "reason": "C0006明示乙方小时工资标准为人民币45元/小时，为通常工资标准。"
+            },
+            {
+              "fact_id": "EF-9d1d3ed41d2f8230",
+              "supported": true,
+              "reason": "C0013明确禁止甲方以工作未完成、审批未结束或乙方未继续工作为由拒付已实际完成工作的工资，即不得以未交接等理由扣留已挣得工资，支持false。"
+            },
+            {
+              "fact_id": "EF-74832b4d3038b63f",
+              "supported": true,
+              "reason": "C0007约定甲方应履行依法应由用人单位承担的社会保险义务，明示单位承担参保办理义务。"
+            },
+            {
+              "fact_id": "EF-ed906f676b79f8a9",
+              "supported": true,
+              "reason": "C0007约定甲方履行依法应由用人单位承担的社会保险义务，明示单位承担法定单位缴费部分。"
+            },
+            {
+              "fact_id": "EF-494b27ba4d9b5d54",
+              "supported": true,
+              "reason": "C0007明确本协议不得解释为免除甲方依法承担的工伤保险及其他法定义务，属一般性承诺依法处理社会保险并保留单位法定义务。"
+            },
+            {
+              "fact_id": "EF-91aa7c044e813481",
+              "supported": true,
+              "reason": "C0012明确约定甲方或乙方均可随时通知对方终止非全日制用工关系，属实际约定的终止事由/机制。"
+            },
+            {
+              "fact_id": "EF-cf696421acd7e953",
+              "supported": true,
+              "reason": "C0010约定乙方终止用工时完整归还设备后甲方三个工作日内全额返还保证金，属离职交接手续安排。"
+            },
+            {
+              "fact_id": "EF-02594d16e8fc7645",
+              "supported": true,
+              "reason": "C0012明确约定双方均可随时通知终止且无须提前若干日通知，属解除通知方式约定。"
+            },
+            {
+              "fact_id": "EF-168a12e0422e0386",
+              "supported": true,
+              "reason": "C0012明确无须提前若干日提出通知，即普通辞职提前通知天数为0。"
+            },
+            {
+              "fact_id": "EF-bd1c8d6652e96c97",
+              "supported": true,
+              "reason": "C0010明示甲方可从乙方首次工资中暂扣800元作为设备保证金，并约定终止用工完整归还设备后三个工作日内全额返还，支持可退保证金、收取方为雇主、从工资扣除及退款条件。"
+            },
+            {
+              "fact_id": "EF-3e56e5c24a06f085",
+              "supported": true,
+              "reason": "C0005明示乙方每周原则上工作五日，支持每周工作天数5。"
+            },
+            {
+              "fact_id": "EF-583672aed5536c47",
+              "supported": true,
+              "reason": "C0005明示通常安排每日14:00至18:00、每日4小时，支持每日约定小时数4。"
+            },
+            {
+              "fact_id": "EF-9550a0609cb46aaf",
+              "supported": true,
+              "reason": "C0005明示每周累计工作时间不超过20小时，支持每周约定小时数20。"
+            },
+            {
+              "fact_id": "EF-d841b3c130e6702f",
+              "supported": true,
+              "reason": "C0005约定非全日制用工下的每周工作五日、每日4小时及每周不超过20小时的具体排班安排，未采用标准工时或经批准的特殊工时表述，归为OTHER有原文依据。"
+            }
+          ],
+          "searched_concepts": [
+            "capability.compensation",
+            "capability.ground",
+            "capability.notice",
+            "capability.reassessment",
+            "capability.reassignment",
+            "capability.training",
+            "contract.duration_months",
+            "contract.employment_form",
+            "contract.end_date",
+            "contract.start_date",
+            "contract.task",
+            "contract.task_end",
+            "contract.term_limit_date",
+            "contract.term_limit_mode",
+            "contract.term_limit_months",
+            "contract.type",
+            "discipline.dismissal_terms",
+            "dispatch.agency",
+            "dispatch.agency_obligations",
+            "dispatch.agreement_disclosure",
+            "dispatch.auxiliary_noncore",
+            "dispatch.auxiliary_procedure",
+            "dispatch.comparable_work",
+            "dispatch.comparator_pay",
+            "dispatch.comparator_pay_method",
+            "dispatch.equal_pay",
+            "dispatch.host",
+            "dispatch.host_direct_dismissal",
+            "dispatch.host_obligations",
+            "dispatch.idle_pay",
+            "dispatch.long_term_position",
+            "dispatch.obligations_waived",
+            "dispatch.onward_assignment",
+            "dispatch.period",
+            "dispatch.position",
+            "dispatch.position_basis",
+            "dispatch.reassignment_procedure",
+            "dispatch.refusal_compensation_waived",
+            "dispatch.refusal_termination",
+            "dispatch.return_procedure",
+            "dispatch.return_terms",
+            "dispatch.substitute",
+            "dispatch.temporary_duration_months",
+            "dispatch.worker_charges",
+            "dispatch.worker_pay_method",
+            "dispute.arbitration",
+            "economic_compensation.payment_delay_months",
+            "economic_compensation.reduced",
+            "economic_compensation.settlement_deadline",
+            "economic_compensation.statutory",
+            "economic_compensation.statutory_percentage",
+            "economic_compensation.waived",
+            "identity.employer_address",
+            "identity.employer_name",
+            "identity.employer_representative",
+            "identity.worker_address",
+            "identity.worker_id",
+            "identity.worker_name",
+            "ip.allocations",
+            "ip.assignment_scope",
+            "ip.personal_rights_waived",
+            "job.change_terms",
+            "job.duties",
+            "job.locations",
+            "job.position",
+            "labor_protection.hazard_exists",
+            "labor_protection.hazard_protection",
+            "labor_protection.measures",
+            "labor_protection.special_training_required",
+            "labor_protection.training",
+            "labor_protection.training_excluded",
+            "non_compete.all_staff",
+            "non_compete.arrangement",
+            "non_compete.businesses",
+            "non_compete.compensation",
+            "non_compete.compensation_deferred",
+            "non_compete.compensation_waived",
+            "non_compete.duration_months",
+            "non_compete.personnel",
+            "non_compete.secret_access",
+            "non_compete.territories",
+            "part_time.employee_notice_days",
+            "part_time.employer_notice_days",
+            "part_time.exit_approval",
+            "part_time.exit_constraint",
+            "part_time.exit_permission",
+            "part_time.hourly_minimum",
+            "part_time.injury_insurance",
+            "penalties.obligations",
+            "probation.arrangement",
+            "probation.duration_months",
+            "probation.end_date",
+            "probation.repeated",
+            "probation.salary",
+            "probation.start_date",
+            "salary.cycle_days",
+            "salary.cycle_kind",
+            "salary.payment_date",
+            "salary.payment_method",
+            "salary.regular",
+            "salary.withheld_for_handover",
+            "social_insurance.cash_replacement",
+            "social_insurance.employee_remedy_excluded",
+            "social_insurance.employee_withheld",
+            "social_insurance.employer_enrolls",
+            "social_insurance.employer_liability_excluded",
+            "social_insurance.employer_pays",
+            "social_insurance.employer_share_shifted",
+            "social_insurance.employer_underpays",
+            "social_insurance.statutory_duties",
+            "social_insurance.waived",
+            "termination.approval_required",
+            "termination.employee_right_waived",
+            "termination.employer_unrestricted",
+            "termination.grounds",
+            "termination.handover",
+            "termination.notice",
+            "termination.notice_days",
+            "training.arrangement",
+            "training.cost",
+            "training.duration_months",
+            "training.penalty_prorated",
+            "training.service_penalty",
+            "training.technical",
+            "worker.security_payment",
+            "working_hours.days_per_week",
+            "working_hours.hours_per_day",
+            "working_hours.hours_per_week",
+            "working_hours.overtime",
+            "working_hours.rest",
+            "working_hours.rest_days_per_week",
+            "working_hours.rest_waived",
+            "working_hours.system"
+          ],
+          "unresolved_concepts": [],
+          "additional_facts": [],
+          "absence_audits": [
+            {
+              "concept": "training.arrangement",
+              "result": "ABSENT",
+              "reason": "全文通读C0001至C0018，仅C0008涉及安全管理制度遵守及特殊风险时依法采取劳动保护措施，属普通安全/岗位保护，未约定任何专项技术培训、培训费用、培训期限或服务期安排，也无明确不设服务期的原文，故专项培训服务期安排全文不存在。",
+              "searched_concepts": [
+                "training.arrangement",
+                "training.technical",
+                "training.cost",
+                "training.duration_months",
+                "training.service_penalty"
+              ],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018"
+              ]
+            }
+          ],
+          "reviewed_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011",
+            "C0012",
+            "C0013",
+            "C0014",
+            "C0015",
+            "C0016",
+            "C0017",
+            "C0018"
+          ]
+        },
+        "batches": [
+          {
+            "batch_id": 1,
+            "input_fact_ids": [
+              "EF-39cbfb53ef40f2a0",
+              "EF-0453db5138040c29",
+              "EF-b2493b7804f2f069"
+            ],
+            "required_concepts": [
+              "capability.compensation",
+              "capability.ground",
+              "capability.notice",
+              "capability.reassessment",
+              "capability.reassignment",
+              "capability.training",
+              "contract.duration_months",
+              "contract.employment_form",
+              "contract.end_date",
+              "contract.start_date",
+              "contract.task",
+              "contract.task_end",
+              "contract.term_limit_date",
+              "contract.term_limit_mode",
+              "contract.term_limit_months",
+              "contract.type",
+              "discipline.dismissal_terms",
+              "dispatch.agency",
+              "dispatch.agency_obligations",
+              "dispatch.agreement_disclosure"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-39cbfb53ef40f2a0",
+                  "supported": true,
+                  "reason": "C0002明示“双方确认，本协议项下用工属于非全日制用工”，直接支持PART_TIME。"
+                },
+                {
+                  "fact_id": "EF-0453db5138040c29",
+                  "supported": true,
+                  "reason": "C0002明示“乙方自2027年12月6日起开始为甲方提供劳动”，支持起始日2027-12-06。"
+                },
+                {
+                  "fact_id": "EF-b2493b7804f2f069",
+                  "supported": true,
+                  "reason": "C0002明示“本协议不设固定最低履行期限”，属于合同本身明确无确定终止时间，支持term_limit_mode为NONE。"
+                }
+              ],
+              "searched_concepts": [
+                "capability.compensation",
+                "capability.ground",
+                "capability.notice",
+                "capability.reassessment",
+                "capability.reassignment",
+                "capability.training",
+                "contract.duration_months",
+                "contract.employment_form",
+                "contract.end_date",
+                "contract.start_date",
+                "contract.task",
+                "contract.task_end",
+                "contract.term_limit_date",
+                "contract.term_limit_mode",
+                "contract.term_limit_months",
+                "contract.type",
+                "discipline.dismissal_terms",
+                "dispatch.agency",
+                "dispatch.agency_obligations",
+                "dispatch.agreement_disclosure"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 11997,
+              "completion_tokens": 385,
+              "total_tokens": 12382,
+              "prompt_tokens_details": {
+                "cached_tokens": 1152
+              },
+              "prompt_cache_hit_tokens": 1152,
+              "prompt_cache_miss_tokens": 10845
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 2,
+            "input_fact_ids": [],
+            "required_concepts": [
+              "dispatch.auxiliary_noncore",
+              "dispatch.auxiliary_procedure",
+              "dispatch.comparable_work",
+              "dispatch.comparator_pay",
+              "dispatch.comparator_pay_method",
+              "dispatch.equal_pay",
+              "dispatch.host",
+              "dispatch.host_direct_dismissal",
+              "dispatch.host_obligations",
+              "dispatch.idle_pay",
+              "dispatch.long_term_position",
+              "dispatch.obligations_waived",
+              "dispatch.onward_assignment",
+              "dispatch.period",
+              "dispatch.position",
+              "dispatch.position_basis",
+              "dispatch.reassignment_procedure",
+              "dispatch.refusal_compensation_waived",
+              "dispatch.refusal_termination",
+              "dispatch.return_procedure"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [],
+              "searched_concepts": [
+                "dispatch.auxiliary_noncore",
+                "dispatch.auxiliary_procedure",
+                "dispatch.comparable_work",
+                "dispatch.comparator_pay",
+                "dispatch.comparator_pay_method",
+                "dispatch.equal_pay",
+                "dispatch.host",
+                "dispatch.host_direct_dismissal",
+                "dispatch.host_obligations",
+                "dispatch.idle_pay",
+                "dispatch.long_term_position",
+                "dispatch.obligations_waived",
+                "dispatch.onward_assignment",
+                "dispatch.period",
+                "dispatch.position",
+                "dispatch.position_basis",
+                "dispatch.reassignment_procedure",
+                "dispatch.refusal_compensation_waived",
+                "dispatch.refusal_termination",
+                "dispatch.return_procedure"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 11686,
+              "completion_tokens": 255,
+              "total_tokens": 11941,
+              "prompt_tokens_details": {
+                "cached_tokens": 3712
+              },
+              "prompt_cache_hit_tokens": 3712,
+              "prompt_cache_miss_tokens": 7974
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 3,
+            "input_fact_ids": [
+              "EF-7bf10fbb13885c54",
+              "EF-6e58d28ad61d9d1c",
+              "EF-9fdc2d4a2abf0711",
+              "EF-697cc06574b34f08",
+              "EF-8cc4560d6fd7bceb",
+              "EF-685bdb0f7e479ff7",
+              "EF-7c3837ff723acdd0",
+              "EF-b2c01c5bd25567a3"
+            ],
+            "required_concepts": [
+              "dispatch.return_terms",
+              "dispatch.substitute",
+              "dispatch.temporary_duration_months",
+              "dispatch.worker_charges",
+              "dispatch.worker_pay_method",
+              "dispute.arbitration",
+              "economic_compensation.payment_delay_months",
+              "economic_compensation.reduced",
+              "economic_compensation.settlement_deadline",
+              "economic_compensation.statutory",
+              "economic_compensation.statutory_percentage",
+              "economic_compensation.waived",
+              "identity.employer_address",
+              "identity.employer_name",
+              "identity.employer_representative",
+              "identity.worker_address",
+              "identity.worker_id",
+              "identity.worker_name",
+              "ip.allocations",
+              "ip.assignment_scope"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-7bf10fbb13885c54",
+                  "supported": true,
+                  "reason": "C0015明确约定协商不成可以依法向有管辖权的劳动人事争议仲裁委员会申请仲裁，支持允许依法申请劳动仲裁。"
+                },
+                {
+                  "fact_id": "EF-6e58d28ad61d9d1c",
+                  "supported": true,
+                  "reason": "C0012明确约定终止用工时甲方应及时结清乙方已经提供劳动所对应的全部劳动报酬，属于解除终止工资结算期限或结算事件。"
+                },
+                {
+                  "fact_id": "EF-9fdc2d4a2abf0711",
+                  "supported": true,
+                  "reason": "C0001载明甲方注册地址为湖北省武汉市洪山区珞喻路889号。"
+                },
+                {
+                  "fact_id": "EF-697cc06574b34f08",
+                  "supported": true,
+                  "reason": "C0001载明甲方为武汉云岚信息服务有限公司。"
+                },
+                {
+                  "fact_id": "EF-8cc4560d6fd7bceb",
+                  "supported": true,
+                  "reason": "C0001载明甲方法定代表人为高文博。"
+                },
+                {
+                  "fact_id": "EF-685bdb0f7e479ff7",
+                  "supported": true,
+                  "reason": "C0001载明乙方居住地址为湖北省武汉市洪山区关山大道XX号。"
+                },
+                {
+                  "fact_id": "EF-7c3837ff723acdd0",
+                  "supported": true,
+                  "reason": "C0001载明乙方身份证号码为42011120010318XXXX，保留遮蔽字符。"
+                },
+                {
+                  "fact_id": "EF-b2c01c5bd25567a3",
+                  "supported": true,
+                  "reason": "C0001载明乙方为周欣怡。"
+                }
+              ],
+              "searched_concepts": [
+                "dispatch.return_terms",
+                "dispatch.substitute",
+                "dispatch.temporary_duration_months",
+                "dispatch.worker_charges",
+                "dispatch.worker_pay_method",
+                "dispute.arbitration",
+                "economic_compensation.payment_delay_months",
+                "economic_compensation.reduced",
+                "economic_compensation.settlement_deadline",
+                "economic_compensation.statutory",
+                "economic_compensation.statutory_percentage",
+                "economic_compensation.waived",
+                "identity.employer_address",
+                "identity.employer_name",
+                "identity.employer_representative",
+                "identity.worker_address",
+                "identity.worker_id",
+                "identity.worker_name",
+                "ip.allocations",
+                "ip.assignment_scope"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 12698,
+              "completion_tokens": 604,
+              "total_tokens": 13302,
+              "prompt_tokens_details": {
+                "cached_tokens": 3712
+              },
+              "prompt_cache_hit_tokens": 3712,
+              "prompt_cache_miss_tokens": 8986
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 4,
+            "input_fact_ids": [
+              "EF-3be6905523b9670f",
+              "EF-ff2f1ad1ef8de100",
+              "EF-d9b288d4e48ea4b0",
+              "EF-887c4ce1a4d42e02",
+              "EF-3d8913be4b0b61af",
+              "EF-d8565a9f401a6ee2",
+              "EF-0a8803e5a167cc80"
+            ],
+            "required_concepts": [
+              "ip.personal_rights_waived",
+              "job.change_terms",
+              "job.duties",
+              "job.locations",
+              "job.position",
+              "labor_protection.hazard_exists",
+              "labor_protection.hazard_protection",
+              "labor_protection.measures",
+              "labor_protection.special_training_required",
+              "labor_protection.training",
+              "labor_protection.training_excluded",
+              "non_compete.all_staff",
+              "non_compete.arrangement",
+              "non_compete.businesses",
+              "non_compete.compensation",
+              "non_compete.compensation_deferred",
+              "non_compete.compensation_waived",
+              "non_compete.duration_months",
+              "non_compete.personnel",
+              "non_compete.secret_access"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-3be6905523b9670f",
+                  "supported": true,
+                  "reason": "C0003明确约定甲方不得未经协商长期安排乙方从事与上述岗位明显无关的工作，支持consent=REQUIRED、unilateral_position=false、position_scope=BOUNDED。"
+                },
+                {
+                  "fact_id": "EF-ff2f1ad1ef8de100",
+                  "supported": true,
+                  "reason": "C0003逐项列明整理公开行业资料、分类录入、检查文档格式及基础数据完整性、协助维护部门资料目录及直接相关辅助工作，与候选职责数组一致。"
+                },
+                {
+                  "fact_id": "EF-d9b288d4e48ea4b0",
+                  "supported": true,
+                  "reason": "C0004明确乙方主要工作地点为武汉市洪山区珞喻路889号。"
+                },
+                {
+                  "fact_id": "EF-887c4ce1a4d42e02",
+                  "supported": true,
+                  "reason": "C0003明确乙方担任内容资料整理助理。"
+                },
+                {
+                  "fact_id": "EF-3d8913be4b0b61af",
+                  "supported": true,
+                  "reason": "C0008明确如实际工作内容变化涉及特殊安全风险或职业危害，甲方应依法采取相应劳动保护措施，候选引文与原文一致。"
+                },
+                {
+                  "fact_id": "EF-d8565a9f401a6ee2",
+                  "supported": true,
+                  "reason": "C0008明确甲方提供基本工作条件，并要求乙方遵守已依法制定并告知的安全管理制度，候选引文与原文一致。"
+                },
+                {
+                  "fact_id": "EF-0a8803e5a167cc80",
+                  "supported": false,
+                  "reason": "C0011仅说明正常履行保密义务不得限制乙方依法选择其他工作，并未明确约定离职竞业限制安排为NONE；该候选以保密条款否定性表述推断不存在竞业安排，缺乏明示依据。"
+                }
+              ],
+              "searched_concepts": [
+                "ip.personal_rights_waived",
+                "job.change_terms",
+                "job.duties",
+                "job.locations",
+                "job.position",
+                "labor_protection.hazard_exists",
+                "labor_protection.hazard_protection",
+                "labor_protection.measures",
+                "labor_protection.special_training_required",
+                "labor_protection.training",
+                "labor_protection.training_excluded",
+                "non_compete.all_staff",
+                "non_compete.arrangement",
+                "non_compete.businesses",
+                "non_compete.compensation",
+                "non_compete.compensation_deferred",
+                "non_compete.compensation_waived",
+                "non_compete.duration_months",
+                "non_compete.personnel",
+                "non_compete.secret_access"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 12186,
+              "completion_tokens": 659,
+              "total_tokens": 12845,
+              "prompt_tokens_details": {
+                "cached_tokens": 3712
+              },
+              "prompt_cache_hit_tokens": 3712,
+              "prompt_cache_miss_tokens": 8474
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 5,
+            "input_fact_ids": [
+              "EF-d077769e8f044a62",
+              "EF-134d961914d781c0",
+              "EF-fa1ecc18395b8424",
+              "EF-7fe0c2c7a3d42c7b",
+              "EF-65f772f9912f7ca3",
+              "EF-e1fda10cd93ec626",
+              "EF-988edee26288ae7d",
+              "EF-5778e2edf130ecdd",
+              "EF-3f58e4b31d12592c",
+              "EF-022db9956f928368"
+            ],
+            "required_concepts": [
+              "non_compete.territories",
+              "part_time.employee_notice_days",
+              "part_time.employer_notice_days",
+              "part_time.exit_approval",
+              "part_time.exit_constraint",
+              "part_time.exit_permission",
+              "part_time.hourly_minimum",
+              "part_time.injury_insurance",
+              "penalties.obligations",
+              "probation.arrangement",
+              "probation.duration_months",
+              "probation.end_date",
+              "probation.repeated",
+              "probation.salary",
+              "probation.start_date",
+              "salary.cycle_days",
+              "salary.cycle_kind",
+              "salary.payment_date",
+              "salary.payment_method",
+              "salary.regular"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-d077769e8f044a62",
+                  "supported": true,
+                  "reason": "C0012明示双方均可随时通知终止且无须提前若干日通知，即提前通知天数为0。"
+                },
+                {
+                  "fact_id": "EF-134d961914d781c0",
+                  "supported": true,
+                  "reason": "C0012明示双方均可随时通知终止，无须提前通知，未要求任何批准，故exit_approval为false。"
+                },
+                {
+                  "fact_id": "EF-fa1ecc18395b8424",
+                  "supported": true,
+                  "reason": "C0012明示甲方或乙方均可以随时通知对方终止非全日制用工关系，即允许劳动者随时通知终止。"
+                },
+                {
+                  "fact_id": "EF-7fe0c2c7a3d42c7b",
+                  "supported": true,
+                  "reason": "C0007明示甲方应按国家和当地工伤保险相关规定承担相应责任并办理单位应办事项，明确约定单位承担工伤保险义务。"
+                },
+                {
+                  "fact_id": "EF-65f772f9912f7ca3",
+                  "supported": true,
+                  "reason": "C0012明示任何一方不得要求对方因依法随时终止非全日制用工而支付违约金或赔偿金，即对普通辞职不施加违约金，imposed=false。"
+                },
+                {
+                  "fact_id": "EF-e1fda10cd93ec626",
+                  "supported": true,
+                  "reason": "C0002明示双方不约定试用期，probation.arrangement为NONE。"
+                },
+                {
+                  "fact_id": "EF-988edee26288ae7d",
+                  "supported": true,
+                  "reason": "C0006明示甲方每月分两次结算劳动报酬，属于每半月结算，SEMIMONTHLY。"
+                },
+                {
+                  "fact_id": "EF-5778e2edf130ecdd",
+                  "supported": true,
+                  "reason": "C0006明示第一次于每月15日前结算当月1日至10日工资，第二次于次月5日前结算当月11日至月末已完成工作工资。"
+                },
+                {
+                  "fact_id": "EF-3f58e4b31d12592c",
+                  "supported": true,
+                  "reason": "C0006明示劳动报酬由甲方通过银行转账方式支付至乙方本人账户，payment_method为BANK。"
+                },
+                {
+                  "fact_id": "EF-022db9956f928368",
+                  "supported": true,
+                  "reason": "C0006明示乙方小时工资标准为人民币45元/小时，为通常工资标准。"
+                }
+              ],
+              "searched_concepts": [
+                "non_compete.territories",
+                "part_time.employee_notice_days",
+                "part_time.employer_notice_days",
+                "part_time.exit_approval",
+                "part_time.exit_constraint",
+                "part_time.exit_permission",
+                "part_time.hourly_minimum",
+                "part_time.injury_insurance",
+                "penalties.obligations",
+                "probation.arrangement",
+                "probation.duration_months",
+                "probation.end_date",
+                "probation.repeated",
+                "probation.salary",
+                "probation.start_date",
+                "salary.cycle_days",
+                "salary.cycle_kind",
+                "salary.payment_date",
+                "salary.payment_method",
+                "salary.regular"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 12634,
+              "completion_tokens": 742,
+              "total_tokens": 13376,
+              "prompt_tokens_details": {
+                "cached_tokens": 3712
+              },
+              "prompt_cache_hit_tokens": 3712,
+              "prompt_cache_miss_tokens": 8922
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 6,
+            "input_fact_ids": [
+              "EF-9d1d3ed41d2f8230",
+              "EF-74832b4d3038b63f",
+              "EF-ed906f676b79f8a9",
+              "EF-494b27ba4d9b5d54",
+              "EF-91aa7c044e813481",
+              "EF-cf696421acd7e953",
+              "EF-02594d16e8fc7645",
+              "EF-168a12e0422e0386"
+            ],
+            "required_concepts": [
+              "salary.withheld_for_handover",
+              "social_insurance.cash_replacement",
+              "social_insurance.employee_remedy_excluded",
+              "social_insurance.employee_withheld",
+              "social_insurance.employer_enrolls",
+              "social_insurance.employer_liability_excluded",
+              "social_insurance.employer_pays",
+              "social_insurance.employer_share_shifted",
+              "social_insurance.employer_underpays",
+              "social_insurance.statutory_duties",
+              "social_insurance.waived",
+              "termination.approval_required",
+              "termination.employee_right_waived",
+              "termination.employer_unrestricted",
+              "termination.grounds",
+              "termination.handover",
+              "termination.notice",
+              "termination.notice_days",
+              "training.arrangement",
+              "training.cost"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-9d1d3ed41d2f8230",
+                  "supported": true,
+                  "reason": "C0013明确禁止甲方以工作未完成、审批未结束或乙方未继续工作为由拒付已实际完成工作的工资，即不得以未交接等理由扣留已挣得工资，支持false。"
+                },
+                {
+                  "fact_id": "EF-74832b4d3038b63f",
+                  "supported": true,
+                  "reason": "C0007约定甲方应履行依法应由用人单位承担的社会保险义务，明示单位承担参保办理义务。"
+                },
+                {
+                  "fact_id": "EF-ed906f676b79f8a9",
+                  "supported": true,
+                  "reason": "C0007约定甲方履行依法应由用人单位承担的社会保险义务，明示单位承担法定单位缴费部分。"
+                },
+                {
+                  "fact_id": "EF-494b27ba4d9b5d54",
+                  "supported": true,
+                  "reason": "C0007明确本协议不得解释为免除甲方依法承担的工伤保险及其他法定义务，属一般性承诺依法处理社会保险并保留单位法定义务。"
+                },
+                {
+                  "fact_id": "EF-91aa7c044e813481",
+                  "supported": true,
+                  "reason": "C0012明确约定甲方或乙方均可随时通知对方终止非全日制用工关系，属实际约定的终止事由/机制。"
+                },
+                {
+                  "fact_id": "EF-cf696421acd7e953",
+                  "supported": true,
+                  "reason": "C0010约定乙方终止用工时完整归还设备后甲方三个工作日内全额返还保证金，属离职交接手续安排。"
+                },
+                {
+                  "fact_id": "EF-02594d16e8fc7645",
+                  "supported": true,
+                  "reason": "C0012明确约定双方均可随时通知终止且无须提前若干日通知，属解除通知方式约定。"
+                },
+                {
+                  "fact_id": "EF-168a12e0422e0386",
+                  "supported": true,
+                  "reason": "C0012明确无须提前若干日提出通知，即普通辞职提前通知天数为0。"
+                }
+              ],
+              "searched_concepts": [
+                "salary.withheld_for_handover",
+                "social_insurance.cash_replacement",
+                "social_insurance.employee_remedy_excluded",
+                "social_insurance.employee_withheld",
+                "social_insurance.employer_enrolls",
+                "social_insurance.employer_liability_excluded",
+                "social_insurance.employer_pays",
+                "social_insurance.employer_share_shifted",
+                "social_insurance.employer_underpays",
+                "social_insurance.statutory_duties",
+                "social_insurance.waived",
+                "termination.approval_required",
+                "termination.employee_right_waived",
+                "termination.employer_unrestricted",
+                "termination.grounds",
+                "termination.handover",
+                "termination.notice",
+                "termination.notice_days",
+                "training.arrangement",
+                "training.cost"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [
+                {
+                  "concept": "training.arrangement",
+                  "result": "ABSENT",
+                  "reason": "全文通读C0001至C0018，仅C0008涉及安全管理制度遵守及特殊风险时依法采取劳动保护措施，属普通安全/岗位保护，未约定任何专项技术培训、培训费用、培训期限或服务期安排，也无明确不设服务期的原文，故专项培训服务期安排全文不存在。",
+                  "searched_concepts": [
+                    "training.arrangement",
+                    "training.technical",
+                    "training.cost",
+                    "training.duration_months",
+                    "training.service_penalty"
+                  ],
+                  "reviewed_clause_ids": [
+                    "C0001",
+                    "C0002",
+                    "C0003",
+                    "C0004",
+                    "C0005",
+                    "C0006",
+                    "C0007",
+                    "C0008",
+                    "C0009",
+                    "C0010",
+                    "C0011",
+                    "C0012",
+                    "C0013",
+                    "C0014",
+                    "C0015",
+                    "C0016",
+                    "C0017",
+                    "C0018"
+                  ]
+                }
+              ],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 12129,
+              "completion_tokens": 887,
+              "total_tokens": 13016,
+              "prompt_tokens_details": {
+                "cached_tokens": 3712
+              },
+              "prompt_cache_hit_tokens": 3712,
+              "prompt_cache_miss_tokens": 8417
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 7,
+            "input_fact_ids": [
+              "EF-bd1c8d6652e96c97",
+              "EF-3e56e5c24a06f085",
+              "EF-583672aed5536c47",
+              "EF-9550a0609cb46aaf",
+              "EF-d841b3c130e6702f"
+            ],
+            "required_concepts": [
+              "training.duration_months",
+              "training.penalty_prorated",
+              "training.service_penalty",
+              "training.technical",
+              "worker.security_payment",
+              "working_hours.days_per_week",
+              "working_hours.hours_per_day",
+              "working_hours.hours_per_week",
+              "working_hours.overtime",
+              "working_hours.rest",
+              "working_hours.rest_days_per_week",
+              "working_hours.rest_waived",
+              "working_hours.system"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-bd1c8d6652e96c97",
+                  "supported": true,
+                  "reason": "C0010明示甲方可从乙方首次工资中暂扣800元作为设备保证金，并约定终止用工完整归还设备后三个工作日内全额返还，支持可退保证金、收取方为雇主、从工资扣除及退款条件。"
+                },
+                {
+                  "fact_id": "EF-3e56e5c24a06f085",
+                  "supported": true,
+                  "reason": "C0005明示乙方每周原则上工作五日，支持每周工作天数5。"
+                },
+                {
+                  "fact_id": "EF-583672aed5536c47",
+                  "supported": true,
+                  "reason": "C0005明示通常安排每日14:00至18:00、每日4小时，支持每日约定小时数4。"
+                },
+                {
+                  "fact_id": "EF-9550a0609cb46aaf",
+                  "supported": true,
+                  "reason": "C0005明示每周累计工作时间不超过20小时，支持每周约定小时数20。"
+                },
+                {
+                  "fact_id": "EF-d841b3c130e6702f",
+                  "supported": true,
+                  "reason": "C0005约定非全日制用工下的每周工作五日、每日4小时及每周不超过20小时的具体排班安排，未采用标准工时或经批准的特殊工时表述，归为OTHER有原文依据。"
+                }
+              ],
+              "searched_concepts": [
+                "training.duration_months",
+                "training.penalty_prorated",
+                "training.service_penalty",
+                "training.technical",
+                "worker.security_payment",
+                "working_hours.days_per_week",
+                "working_hours.hours_per_day",
+                "working_hours.hours_per_week",
+                "working_hours.overtime",
+                "working_hours.rest",
+                "working_hours.rest_days_per_week",
+                "working_hours.rest_waived",
+                "working_hours.system"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 11859,
+              "completion_tokens": 485,
+              "total_tokens": 12344,
+              "prompt_tokens_details": {
+                "cached_tokens": 3712
+              },
+              "prompt_cache_hit_tokens": 3712,
+              "prompt_cache_miss_tokens": 8147
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 85189,
+          "completion_tokens": 4017,
+          "total_tokens": 89206
+        }
+      },
+      "verification_batches": null
+    }
+  ],
+  "trace_id": "FACT-e5a1e6693c95482eb36966be829f4cb2"
+}

@@ -1,0 +1,1180 @@
+{
+  "stage": "VERIFICATION",
+  "payload": {
+    "schema_version": "contract-facts-1.0",
+    "family": "credit.loan",
+    "active_concepts": [
+      "common.parties",
+      "common.signing_date",
+      "common.effective_date",
+      "common.effective_condition",
+      "common.term",
+      "common.amounts",
+      "common.liability",
+      "common.dispute_method",
+      "common.dispute_institution",
+      "loan.lender_kind",
+      "loan.borrower_kind",
+      "loan.guarantee"
+    ],
+    "concepts": {
+      "common.parties": {
+        "kind": "party",
+        "description": "合同主体名称、角色及主体性质，分别提取各主体，不猜测身份。",
+        "multiple": true
+      },
+      "common.signing_date": {
+        "kind": "date",
+        "description": "实际填写的合同签署日期，不能用其他日期代替。",
+        "multiple": false
+      },
+      "common.effective_date": {
+        "kind": "date",
+        "description": "明确的生效日期；生效条件另存，不计算或补日期。",
+        "multiple": false
+      },
+      "common.effective_condition": {
+        "kind": "string",
+        "description": "合同生效条件的具体约定。",
+        "multiple": false,
+        "value_schema": {
+          "type": "string"
+        }
+      },
+      "common.term": {
+        "kind": "duration",
+        "description": "合同明确约定的期限及单位，不用日期差生成事实。",
+        "multiple": false
+      },
+      "common.amounts": {
+        "kind": "money",
+        "description": "合同金额；须保留币种和语义角色，不能把不同用途金额合并。",
+        "multiple": true
+      },
+      "common.liability": {
+        "kind": "string",
+        "description": "当前合同责任分配、责任触发条件和责任承担方式。",
+        "multiple": true,
+        "value_schema": {
+          "type": "string"
+        }
+      },
+      "common.dispute_method": {
+        "kind": "enum",
+        "description": "约定的争议解决方式。",
+        "multiple": true,
+        "enum": [
+          "LITIGATION",
+          "ARBITRATION",
+          "NEGOTIATION",
+          "MEDIATION"
+        ],
+        "value_schema": {
+          "type": "string",
+          "enum": [
+            "LITIGATION",
+            "ARBITRATION",
+            "NEGOTIATION",
+            "MEDIATION"
+          ]
+        }
+      },
+      "common.dispute_institution": {
+        "kind": "string",
+        "description": "约定的法院、仲裁机构或可确定的管辖连接点。",
+        "multiple": false,
+        "value_schema": {
+          "type": "string"
+        }
+      },
+      "loan.lender_kind": {
+        "kind": "enum",
+        "description": "贷款人主体性质，名称不足以确认时为UNCERTAIN。",
+        "multiple": false,
+        "enum": [
+          "natural",
+          "enterprise",
+          "financial"
+        ],
+        "value_schema": {
+          "type": "string",
+          "enum": [
+            "natural",
+            "enterprise",
+            "financial"
+          ]
+        }
+      },
+      "loan.borrower_kind": {
+        "kind": "enum",
+        "description": "借款人主体性质，不能用收款银行身份代替借款人。",
+        "multiple": false,
+        "enum": [
+          "natural",
+          "enterprise",
+          "financial"
+        ],
+        "value_schema": {
+          "type": "string",
+          "enum": [
+            "natural",
+            "enterprise",
+            "financial"
+          ]
+        }
+      },
+      "loan.guarantee": {
+        "kind": "boolean",
+        "description": "当前是否已有第三方作为保证人向债权人承诺在债务人不履行时承担从属性保证责任。保险人承担保险赔付责任不属于此种保证人责任。拟另签保证、模板或可选提示不是当前保证。",
+        "multiple": false,
+        "value_schema": {
+          "type": "boolean"
+        }
+      }
+    },
+    "known_verified_roots": [],
+    "document": [
+      {
+        "clause_id": "C0001",
+        "section": "全文",
+        "text": "企业借款合同\n合同编号：QYJK-2026-0921-03",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 0,
+        "source_end": 29
+      },
+      {
+        "clause_id": "C0002",
+        "section": "甲方（出借方）：南京启衡供应链管理有限公司统一社会信用代码：91320105MA",
+        "text": "甲方（出借方）：南京启衡供应链管理有限公司统一社会信用代码：91320105MA2X7K8P3R法定代表人：赵文博住所：江苏省南京市建邺区江东中路188号联系电话：025-86581236",
+        "section_type": "正式合同条款",
+        "block_type": "PARTY_INFORMATION",
+        "source_start": 30,
+        "source_end": 124
+      },
+      {
+        "clause_id": "C0003",
+        "section": "乙方（借款方）：苏州辰岳智能装备有限公司统一社会信用代码：91320594MA2",
+        "text": "乙方（借款方）：苏州辰岳智能装备有限公司统一社会信用代码：91320594MA2W9F6N7T法定代表人：韩志成住所：江苏省苏州市工业园区星湖街328号联系电话：0512-67293518\n鉴于乙方因生产经营过程中采购原材料、支付供应商货款及补充流动资金存在阶段性资金需求，甲方同意以自有资金向乙方提供借款。双方根据平等、自愿、诚实信用原则，就本次借款事宜达成如下协议。",
+        "section_type": "正式合同条款",
+        "block_type": "PARTY_INFORMATION",
+        "source_start": 125,
+        "source_end": 310
+      },
+      {
+        "clause_id": "C0004",
+        "section": "第一条 借款金额",
+        "text": "第一条 借款金额\n甲方向乙方提供借款人民币壹佰贰拾万元整（¥1,200,000.00）。\n本合同项下借款由甲方以自有资金提供，不属于甲方通过银行贷款、信托融资或者其他融资方式取得后再行转贷的资金。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 311,
+        "source_end": 409
+      },
+      {
+        "clause_id": "C0005",
+        "section": "第二条 借款用途",
+        "text": "第二条 借款用途\n\n乙方借款用途为：\n\n\n采购生产设备零部件；\n\n\n支付上游供应商货款；\n\n\n补充日常经营流动资金。\n\n\n未经甲方书面同意，乙方不得将借款用于：\n\n\n股票、期货、虚拟货币等投资；\n\n\n向第三方提供借款；\n\n\n与乙方主营业务无关的大额资产投资；\n\n\n法律法规禁止的其他用途。\n\n\n甲方有权要求乙方提供与借款用途相关的采购合同、发票、付款凭证等资料。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 410,
+        "source_end": 591
+      },
+      {
+        "clause_id": "C0006",
+        "section": "第三条 借款期限",
+        "text": "第三条 借款期限\n借款期限为9个月，自2026年9月25日起至2027年6月24日止。\n甲方实际放款日晚于2026年9月25日的，利息自实际到账之日起计算，但最终还款日仍为2027年6月24日。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 593,
+        "source_end": 690
+      },
+      {
+        "clause_id": "C0007",
+        "section": "第四条 借款发放",
+        "text": "第四条 借款发放\n\n甲方应于本合同签署并生效后3个工作日内，将借款一次性支付至乙方以下账户：\n\n账户名称：苏州辰岳智能装备有限公司开户银行：中国工商银行苏州工业园区支行银行账号：1102 0203 9200 6688 321\n\n银行转账凭证、电子回单以及乙方银行账户到账记录，均可作为甲方已经履行借款交付义务的证明。\n\n\n乙方应在借款到账后1个工作日内通过电子邮件或者盖章确认函向甲方确认收款。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 691,
+        "source_end": 888
+      },
+      {
+        "clause_id": "C0008",
+        "section": "第五条 借款利率",
+        "text": "第五条 借款利率\n\n本合同借款年利率为7.2%，按照单利计算。\n\n\n利息以乙方实际占用且尚未归还的借款本金为计算基数。\n\n\n日利率按照年利率÷365计算。\n\n\n利息自借款实际到账之日起计算至相应本金实际归还之日止。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 890,
+        "source_end": 997
+      },
+      {
+        "clause_id": "C0009",
+        "section": "第六条 利息支付",
+        "text": "第六条 利息支付\n乙方按季度支付利息。\n具体支付时间为：\n\n2026年12月25日前支付第一期利息；\n\n\n2027年3月25日前支付第二期利息；\n\n\n2027年6月24日前结清剩余全部利息。\n\n乙方提前归还部分本金的，自该部分本金实际到账之日起停止计算该部分本金后续利息。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 999,
+        "source_end": 1135
+      },
+      {
+        "clause_id": "C0010",
+        "section": "第七条 本金偿还",
+        "text": "第七条 本金偿还\n乙方按照以下方式偿还本金：\n\n2027年3月25日前偿还本金人民币300,000元；\n\n\n2027年6月24日前偿还剩余本金人民币900,000元。\n\n甲方指定还款账户如下：\n账户名称：南京启衡供应链管理有限公司开户银行：中国银行南京河西支行银行账号：5437 8201 9100 2266 518\n乙方支付的款项以实际到达甲方指定账户之日视为完成付款。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 1136,
+        "source_end": 1322
+      },
+      {
+        "clause_id": "C0011",
+        "section": "第八条 提前还款",
+        "text": "第八条 提前还款\n\n乙方有权提前归还全部或者部分借款。\n\n\n乙方拟提前还款的，应至少提前5个工作日书面通知甲方。\n\n\n提前还款不收取提前还款手续费或者违约金。\n\n\n提前归还的本金仅计算至实际还款日已经产生的利息，不再计算实际还款日之后的利息。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 1323,
+        "source_end": 1444
+      },
+      {
+        "clause_id": "C0012",
+        "section": "第九条 双方陈述与保证",
+        "text": "第九条 双方陈述与保证\n甲方保证\n\n甲方依法设立并有效存续；\n\n\n签署本合同已经履行必要的内部审批程序；\n\n\n本次出借资金来源合法，为甲方有权自主处分的资金；\n\n\n不存在以吸收公众资金、套取金融机构贷款等方式取得资金后向乙方转贷的情形。\n\n乙方保证\n\n乙方依法设立并有效存续；\n\n\n本次借款确因生产经营需要；\n\n\n已经履行公司内部必要的借款审批程序；\n\n\n提供给甲方的财务、经营及主体资料真实、完整；\n\n\n不存在故意隐瞒可能严重影响还款能力的重大债务、重大诉讼或执行案件。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 1446,
+        "source_end": 1682
+      },
+      {
+        "clause_id": "C0013",
+        "section": "第十条 信息披露",
+        "text": "第十条 信息披露\n借款全部偿还前，乙方发生下列事项之一的，应在5个工作日内通知甲方：\n\n法定代表人、注册地址或者主要经营地址发生重大变化；\n\n\n注册资本发生重大变化；\n\n\n发生金额超过人民币500,000元的重大诉讼、仲裁或者被执行事项；\n\n\n主要资产被查封、冻结或者扣押；\n\n\n停产、停业、解散、申请破产或者被申请破产；\n\n\n其他明显影响偿债能力的重大事项。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 1684,
+        "source_end": 1864
+      },
+      {
+        "clause_id": "C0014",
+        "section": "第十一条 违约责任",
+        "text": "第十一条 违约责任\n乙方发生下列情形之一的，构成违约：\n\n未按照约定期限偿还本金；\n\n\n未按照约定期限支付利息；\n\n\n未按照约定用途使用借款；\n\n\n向甲方提供虚假材料或者隐瞒重大事实；\n\n\n明显转移资产或者逃避债务；\n\n\n停止主要经营活动，导致还款能力明显下降；\n\n\n被人民法院列为被执行人且可能严重影响本合同履行；\n\n\n其他严重违反本合同约定的行为。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 1866,
+        "source_end": 2042
+      },
+      {
+        "clause_id": "C0015",
+        "section": "第十二条 逾期责任",
+        "text": "第十二条 逾期责任\n\n乙方逾期偿还本金的，自逾期之日起，对逾期本金按照年利率10.8%计算逾期利息，直至该部分本金实际清偿之日止。\n\n\n乙方逾期支付应付利息的，自逾期之日起至实际支付之日止，按照应付未付利息每日0.02%的标准支付违约金。\n\n\n乙方逾期超过15日的，甲方有权宣布全部剩余借款本金、已产生利息及其他到期款项立即到期。\n\n\n乙方违约导致甲方通过诉讼、财产保全或者执行程序实现债权的，乙方应承担甲方为实现债权合理发生的诉讼费、保全费、执行费、律师费及其他必要费用。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 2044,
+        "source_end": 2281
+      },
+      {
+        "clause_id": "C0016",
+        "section": "第十三条 还款抵充",
+        "text": "第十三条 还款抵充\n乙方支付的款项不足以清偿全部到期债务时，在法律允许范围内按照以下顺序抵充：\n\n实现债权的合理费用；\n\n\n到期违约金；\n\n\n到期利息及逾期利息；\n\n\n借款本金。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 2283,
+        "source_end": 2372
+      },
+      {
+        "clause_id": "C0017",
+        "section": "第十四条 债权债务转让",
+        "text": "第十四条 债权债务转让\n未经甲方书面同意，乙方不得将本合同项下全部或者部分债务转移给第三方。\n甲方依法转让本合同项下债权的，应按照法律规定通知乙方。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 2374,
+        "source_end": 2448
+      },
+      {
+        "clause_id": "C0018",
+        "section": "第十五条 通知与送达",
+        "text": "第十五条 通知与送达\n\n本合同所列住所、联系电话及双方后续书面确认的电子邮箱均为有效联系方式。\n\n\n任一方联系方式发生变化，应在3个工作日内书面通知另一方。\n\n\n双方之间的通知、催收、还款确认等文件，可以通过专人送达、快递、电子邮件或者双方确认的企业微信发送。\n\n\n因一方未及时通知联系方式变化导致文件无法正常送达的，按照原联系方式送出的文件，依法能够证明发送成功的，可以作为双方履行通知义务的证据。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 2449,
+        "source_end": 2649
+      },
+      {
+        "clause_id": "C0019",
+        "section": "第十六条 还款及结清确认",
+        "text": "第十六条 还款及结清确认\n\n乙方每次还款后，甲方应根据乙方合理要求提供到账确认。\n\n\n乙方全部清偿本金、利息及其他应付款项后，甲方应在5个工作日内向乙方出具书面结清确认。\n\n\n银行流水、转账记录、电子邮件、盖章确认函等均可作为双方履行情况的证明。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 2651,
+        "source_end": 2774
+      },
+      {
+        "clause_id": "C0020",
+        "section": "第十七条 争议解决",
+        "text": "第十七条 争议解决\n因本合同产生或者与本合同有关的任何争议，双方应首先协商解决。\n协商不成的，任何一方均可向甲方住所地有管辖权的人民法院提起诉讼。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 2776,
+        "source_end": 2849
+      },
+      {
+        "clause_id": "C0021",
+        "section": "第十八条 合同生效",
+        "text": "第十八条 合同生效\n\n本合同自双方加盖公章或者合同专用章之日起生效。\n\n\n本合同一式四份，甲乙双方各执两份，具有同等法律效力。\n\n\n本合同的补充协议、银行转账凭证、收款确认、还款记录及双方确认的电子文件均属于本合同履行证据。\n\n（以下无正文）\n甲方：南京启衡供应链管理有限公司法定代表人或授权代表：赵文博签署日期：2026年9月22日盖章：\n乙方：苏州辰岳智能装备有限公司法定代表人或授权代表：韩志成签署日期：2026年9月22日盖章：",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 2850,
+        "source_end": 3068
+      }
+    ],
+    "candidates": [
+      {
+        "concept": "common.parties",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "name": "南京启衡供应链管理有限公司",
+          "role": "甲方（出借方）",
+          "kind": "ENTERPRISE"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "甲方（出借方）：南京启衡供应链管理有限公司统一社会信用代码：91320105MA2X7K8P3R法定代表人：赵文博住所：江苏省南京市建邺区江东中路188号联系电话：025-86581236",
+            "section": "甲方（出借方）：南京启衡供应链管理有限公司统一社会信用代码：91320105MA",
+            "source_start": 30,
+            "source_end": 124,
+            "block_type": "PARTY_INFORMATION",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-805eff34ae3be8879a5be444"
+      },
+      {
+        "concept": "common.parties",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "name": "苏州辰岳智能装备有限公司",
+          "role": "乙方（借款方）",
+          "kind": "ENTERPRISE"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0003",
+            "quote": "乙方（借款方）：苏州辰岳智能装备有限公司统一社会信用代码：91320594MA2W9F6N7T法定代表人：韩志成住所：江苏省苏州市工业园区星湖街328号联系电话：0512-67293518",
+            "section": "乙方（借款方）：苏州辰岳智能装备有限公司统一社会信用代码：91320594MA2",
+            "source_start": 125,
+            "source_end": 219,
+            "block_type": "PARTY_INFORMATION",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-f37c43df2a43a96ece371c8a"
+      },
+      {
+        "concept": "common.signing_date",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "2026-09-22",
+        "evidence": [
+          {
+            "clause_id": "C0021",
+            "quote": "甲方：南京启衡供应链管理有限公司法定代表人或授权代表：赵文博签署日期：2026年9月22日盖章：",
+            "section": "第十八条 合同生效",
+            "source_start": 2972,
+            "source_end": 3020,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0021",
+            "quote": "乙方：苏州辰岳智能装备有限公司法定代表人或授权代表：韩志成签署日期：2026年9月22日盖章：",
+            "section": "第十八条 合同生效",
+            "source_start": 3021,
+            "source_end": 3068,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-eee8c0ca1ff8a30b99bdb22b"
+      },
+      {
+        "concept": "common.effective_date",
+        "state": "ABSENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [],
+        "fact_id": "CF-805fb1ed93fa947a65964028"
+      },
+      {
+        "concept": "common.effective_condition",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "本合同自双方加盖公章或者合同专用章之日起生效。",
+        "evidence": [
+          {
+            "clause_id": "C0021",
+            "quote": "本合同自双方加盖公章或者合同专用章之日起生效。",
+            "section": "第十八条 合同生效",
+            "source_start": 2861,
+            "source_end": 2884,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-ae69ff40c42d5a1731bb2ee2"
+      },
+      {
+        "concept": "common.term",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "amount": "9",
+          "unit": "MONTH"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0006",
+            "quote": "借款期限为9个月，自2026年9月25日起至2027年6月24日止。",
+            "section": "第三条 借款期限",
+            "source_start": 602,
+            "source_end": 636,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-489909202a4c8f280e9b4de5"
+      },
+      {
+        "concept": "common.amounts",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "amount": "1200000",
+          "currency": "CNY",
+          "role": "借款本金"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0004",
+            "quote": "甲方向乙方提供借款人民币壹佰贰拾万元整（¥1,200,000.00）。",
+            "section": "第一条 借款金额",
+            "source_start": 320,
+            "source_end": 355,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-1d5fbe12a6f7dc2aba1f585a"
+      },
+      {
+        "concept": "common.amounts",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "amount": "300000",
+          "currency": "CNY",
+          "role": "分期偿还本金"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0010",
+            "quote": "2027年3月25日前偿还本金人民币300,000元；",
+            "section": "第七条 本金偿还",
+            "source_start": 1160,
+            "source_end": 1187,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-b7bcc03b7037d8a4f4200687"
+      },
+      {
+        "concept": "common.amounts",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "amount": "900000",
+          "currency": "CNY",
+          "role": "剩余偿还本金"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0010",
+            "quote": "2027年6月24日前偿还剩余本金人民币900,000元。",
+            "section": "第七条 本金偿还",
+            "source_start": 1190,
+            "source_end": 1219,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-3e45be79e59794da4559a7be"
+      },
+      {
+        "concept": "common.liability",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "乙方逾期偿还本金的，自逾期之日起，对逾期本金按照年利率10.8%计算逾期利息，直至该部分本金实际清偿之日止。",
+        "evidence": [
+          {
+            "clause_id": "C0015",
+            "quote": "乙方逾期偿还本金的，自逾期之日起，对逾期本金按照年利率10.8%计算逾期利息，直至该部分本金实际清偿之日止。",
+            "section": "第十二条 逾期责任",
+            "source_start": 2055,
+            "source_end": 2109,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-af7c420704dc5c2d1f89da35"
+      },
+      {
+        "concept": "common.liability",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "乙方逾期支付应付利息的，自逾期之日起至实际支付之日止，按照应付未付利息每日0.02%的标准支付违约金。",
+        "evidence": [
+          {
+            "clause_id": "C0015",
+            "quote": "乙方逾期支付应付利息的，自逾期之日起至实际支付之日止，按照应付未付利息每日0.02%的标准支付违约金。",
+            "section": "第十二条 逾期责任",
+            "source_start": 2112,
+            "source_end": 2163,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-2d85bfb91d1a89193635b885"
+      },
+      {
+        "concept": "common.liability",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "乙方逾期超过15日的，甲方有权宣布全部剩余借款本金、已产生利息及其他到期款项立即到期。",
+        "evidence": [
+          {
+            "clause_id": "C0015",
+            "quote": "乙方逾期超过15日的，甲方有权宣布全部剩余借款本金、已产生利息及其他到期款项立即到期。",
+            "section": "第十二条 逾期责任",
+            "source_start": 2166,
+            "source_end": 2209,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-0e30e1f482e38601c9e4e0d5"
+      },
+      {
+        "concept": "common.liability",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "乙方违约导致甲方通过诉讼、财产保全或者执行程序实现债权的，乙方应承担甲方为实现债权合理发生的诉讼费、保全费、执行费、律师费及其他必要费用。",
+        "evidence": [
+          {
+            "clause_id": "C0015",
+            "quote": "乙方违约导致甲方通过诉讼、财产保全或者执行程序实现债权的，乙方应承担甲方为实现债权合理发生的诉讼费、保全费、执行费、律师费及其他必要费用。",
+            "section": "第十二条 逾期责任",
+            "source_start": 2212,
+            "source_end": 2281,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-91a86ae672d4a87918a60156"
+      },
+      {
+        "concept": "common.dispute_method",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "NEGOTIATION",
+        "evidence": [
+          {
+            "clause_id": "C0020",
+            "quote": "因本合同产生或者与本合同有关的任何争议，双方应首先协商解决。",
+            "section": "第十七条 争议解决",
+            "source_start": 2786,
+            "source_end": 2816,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-83bdfda616043db4480a753d"
+      },
+      {
+        "concept": "common.dispute_method",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "LITIGATION",
+        "evidence": [
+          {
+            "clause_id": "C0020",
+            "quote": "协商不成的，任何一方均可向甲方住所地有管辖权的人民法院提起诉讼。",
+            "section": "第十七条 争议解决",
+            "source_start": 2817,
+            "source_end": 2849,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-f897108aee97598c21f58113"
+      },
+      {
+        "concept": "common.dispute_institution",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "甲方住所地有管辖权的人民法院",
+        "evidence": [
+          {
+            "clause_id": "C0020",
+            "quote": "协商不成的，任何一方均可向甲方住所地有管辖权的人民法院提起诉讼。",
+            "section": "第十七条 争议解决",
+            "source_start": 2817,
+            "source_end": 2849,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-6ceca2b72f897fc28b5559cc"
+      },
+      {
+        "concept": "loan.lender_kind",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "enterprise",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "甲方（出借方）：南京启衡供应链管理有限公司统一社会信用代码：91320105MA2X7K8P3R法定代表人：赵文博住所：江苏省南京市建邺区江东中路188号联系电话：025-86581236",
+            "section": "甲方（出借方）：南京启衡供应链管理有限公司统一社会信用代码：91320105MA",
+            "source_start": 30,
+            "source_end": 124,
+            "block_type": "PARTY_INFORMATION",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-24c6ae46210d89326eac5dd7"
+      },
+      {
+        "concept": "loan.borrower_kind",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "enterprise",
+        "evidence": [
+          {
+            "clause_id": "C0003",
+            "quote": "乙方（借款方）：苏州辰岳智能装备有限公司统一社会信用代码：91320594MA2W9F6N7T法定代表人：韩志成住所：江苏省苏州市工业园区星湖街328号联系电话：0512-67293518",
+            "section": "乙方（借款方）：苏州辰岳智能装备有限公司统一社会信用代码：91320594MA2",
+            "source_start": 125,
+            "source_end": 219,
+            "block_type": "PARTY_INFORMATION",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-51ddcacc19bf3b6dbe702bb5"
+      },
+      {
+        "concept": "loan.guarantee",
+        "state": "ABSENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [],
+        "fact_id": "CF-ac4a11247cbece7134ed35db"
+      }
+    ]
+  },
+  "response": {
+    "reviewed_clause_ids": [
+      "C0001",
+      "C0002",
+      "C0003",
+      "C0004",
+      "C0005",
+      "C0006",
+      "C0007",
+      "C0008",
+      "C0009",
+      "C0010",
+      "C0011",
+      "C0012",
+      "C0013",
+      "C0014",
+      "C0015",
+      "C0016",
+      "C0017",
+      "C0018",
+      "C0019",
+      "C0020",
+      "C0021"
+    ],
+    "searched_concepts": [
+      "common.parties",
+      "common.signing_date",
+      "common.effective_date",
+      "common.effective_condition",
+      "common.term",
+      "common.amounts",
+      "common.liability",
+      "common.dispute_method",
+      "common.dispute_institution",
+      "loan.lender_kind",
+      "loan.borrower_kind",
+      "loan.guarantee"
+    ],
+    "checks": [
+      {
+        "fact_id": "CF-805eff34ae3be8879a5be444",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-f37c43df2a43a96ece371c8a",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-eee8c0ca1ff8a30b99bdb22b",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-805fb1ed93fa947a65964028",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-ae69ff40c42d5a1731bb2ee2",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-489909202a4c8f280e9b4de5",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-1d5fbe12a6f7dc2aba1f585a",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-b7bcc03b7037d8a4f4200687",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-3e45be79e59794da4559a7be",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-af7c420704dc5c2d1f89da35",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-2d85bfb91d1a89193635b885",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-0e30e1f482e38601c9e4e0d5",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-91a86ae672d4a87918a60156",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-83bdfda616043db4480a753d",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-f897108aee97598c21f58113",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-6ceca2b72f897fc28b5559cc",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-24c6ae46210d89326eac5dd7",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-51ddcacc19bf3b6dbe702bb5",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-ac4a11247cbece7134ed35db",
+        "supported": true
+      }
+    ],
+    "audits": [
+      {
+        "concept": "common.parties",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "C0002载明甲方（出借方）南京启衡供应链管理有限公司，C0003载明乙方（借款方）苏州辰岳智能装备有限公司，C0021签署栏再次确认双方名称及法定代表人，全文未发现其他合同主体，已提取两主体。"
+      },
+      {
+        "concept": "common.signing_date",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "C0021甲方、乙方签署日期均为2026年9月22日，与候选一致；其他条款无实际签署日期。"
+      },
+      {
+        "concept": "common.effective_date",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "C0021仅约定自双方加盖公章或合同专用章之日起生效，属生效条件，未明确具体生效日期，全文无其他生效日期约定，ABSENT成立。"
+      },
+      {
+        "concept": "common.effective_condition",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "C0021明确约定本合同自双方加盖公章或者合同专用章之日起生效，候选取值与原文一致。"
+      },
+      {
+        "concept": "common.term",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "C0006明确借款期限为9个月，自2026年9月25日起至2027年6月24日止，候选取值与原文一致。"
+      },
+      {
+        "concept": "common.amounts",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "C0004借款本金1,200,000元、C0010分期偿还本金300,000元及剩余本金900,000元均已提取；C0013中500,000元为重大诉讼披露阈值，非合同金额，不属common.amounts。"
+      },
+      {
+        "concept": "common.liability",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "C0015四条责任均已提取；C0014违约情形、C0016还款抵充顺序、C0017债务转移限制、C0018送达责任、C0019结清确认义务等属其他条款，未遗漏C0015项下责任事实。"
+      },
+      {
+        "concept": "common.dispute_method",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "C0020约定先协商解决，协商不成向法院起诉，NEGOTIATION与LITIGATION均已提取，无仲裁或调解约定。"
+      },
+      {
+        "concept": "common.dispute_institution",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "C0020约定向甲方住所地有管辖权的人民法院提起诉讼，候选取值与原文一致。"
+      },
+      {
+        "concept": "loan.lender_kind",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "C0002显示甲方为南京启衡供应链管理有限公司，有统一社会信用代码及法定代表人，属企业法人；C0004载明以自有资金出借，非金融机构，enterprise成立。"
+      },
+      {
+        "concept": "loan.borrower_kind",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "C0003显示乙方为苏州辰岳智能装备有限公司，有统一社会信用代码及法定代表人，属企业法人；C0007收款账户为乙方自身账户，未改变借款人性质，enterprise成立。"
+      },
+      {
+        "concept": "loan.guarantee",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "全文未出现保证人、保证责任、担保等第三方从属性保证约定，C0017仅限制债务转移，不构成保证，ABSENT成立。"
+      }
+    ]
+  },
+  "model": "deepseek-flash",
+  "usage": {
+    "prompt_tokens": 7486,
+    "completion_tokens": 2472,
+    "total_tokens": 9958,
+    "prompt_tokens_details": {
+      "cached_tokens": 5376
+    },
+    "prompt_cache_hit_tokens": 5376,
+    "prompt_cache_miss_tokens": 2110
+  },
+  "seconds": 8.23
+}

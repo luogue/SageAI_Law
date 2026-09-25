@@ -15,6 +15,7 @@ from typing import Any, Dict, Iterable, List, Optional
 from review_v2.domain_packs import get_domain_pack
 from review_v2.domain_resolution import DomainResolution
 from review_v2.technology_service_analysis import classify_technology_transaction
+from review_v2.legal_basis_selection import AUTHORITY_TEXTS
 
 
 COVERAGE_PASS = "PASS"
@@ -203,7 +204,7 @@ LEGAL_AUTHORITY_KB: Dict[tuple[str, str], LegalAuthority] = {
         law_name="中华人民共和国民法典",
         article="第585条",
         paragraph="",
-        text="约定的违约金低于或者过分高于造成的损失时，可以依法请求调整。",
+        text="当事人可以约定一方违约时应当根据违约情况向对方支付一定数额的违约金，也可以约定因违约产生的损失赔偿额的计算方法。约定的违约金低于造成的损失的，人民法院或者仲裁机构可以根据当事人的请求予以增加；约定的违约金过分高于造成的损失的，人民法院或者仲裁机构可以根据当事人的请求予以适当减少。当事人就迟延履行约定违约金的，违约方支付违约金后，还应当履行债务。",
         authority_level="法律",
         effective_from="2021-01-01",
         effective_to=None,
@@ -211,6 +212,28 @@ LEGAL_AUTHORITY_KB: Dict[tuple[str, str], LegalAuthority] = {
         replacement=None,
         source="legal_authority_kb_minimal",
         last_verified_at="2026-08-11",
+    ),
+    **{('中华人民共和国民法典',article):LegalAuthority(
+        authority_id='CN-CIVIL-CODE-'+article[1:-1],jurisdiction='CN',law_name='中华人民共和国民法典',article=article,paragraph='',text=text,
+        authority_level='法律',effective_from='2021-01-01',effective_to=None,status='CURRENT',replacement=None,
+        source='https://ipc.court.gov.cn/zh-cn/news/view-371.html',last_verified_at='2026-09-09') for article,text in AUTHORITY_TEXTS.items()},
+    **{('中华人民共和国民法典',article):LegalAuthority(
+        authority_id='CN-CIVIL-CODE-'+article[1:-1],jurisdiction='CN',law_name='中华人民共和国民法典',article=article,paragraph='',text=text,
+        authority_level='法律',effective_from='2021-01-01',effective_to=None,status='CURRENT',replacement=None,
+        source='https://www.court.gov.cn/zixun/xiangqing/233181.html',last_verified_at='2026-09-09') for article,text in {
+        '第448条':'债权人留置的动产，应当与债权属于同一法律关系，但是企业之间留置的除外。',
+        '第889条':'寄存人应当按照约定向保管人支付保管费。当事人对保管费没有约定或者约定不明确，依据本法第五百一十条的规定仍不能确定的，视为无偿保管。',
+        '第510条':'合同生效后，当事人就质量、价款或者报酬、履行地点等内容没有约定或者约定不明确的，可以协议补充；不能达成补充协议的，按照合同相关条款或者交易习惯确定。',
+        '第450条':'留置财产为可分物的，留置财产的价值应当相当于债务的金额。',
+        '第453条':'留置权人与债务人应当约定留置财产后的债务履行期限；没有约定或者约定不明确的，留置权人应当给债务人六十日以上履行债务的期限，但是鲜活易腐等不易保管的动产除外。债务人逾期未履行的，留置权人可以与债务人协议以留置财产折价，也可以就拍卖、变卖留置财产所得的价款优先受偿。留置财产折价或者变卖的，应当参照市场价格。',
+        '第902条':'有偿的保管合同，寄存人应当按照约定的期限向保管人支付保管费。当事人对支付期限没有约定或者约定不明确，依据本法第五百一十条的规定仍不能确定的，应当在领取保管物的同时支付。',
+    }.items()},
+    ("中华人民共和国民法典", "第903条"): LegalAuthority(
+        authority_id="CN-CIVIL-CODE-903", jurisdiction="CN", law_name="中华人民共和国民法典",
+        article="第903条", paragraph="",
+        text="寄存人未按照约定支付保管费或者其他费用的，保管人对保管物享有留置权，但是当事人另有约定的除外。",
+        authority_level="法律", effective_from="2021-01-01", effective_to=None, status="CURRENT", replacement=None,
+        source="https://www.court.gov.cn/zixun/xiangqing/233181.html", last_verified_at="2026-09-09",
     ),
     ("中华人民共和国民法典", "第725条"): LegalAuthority(
         authority_id="CN-CIVIL-CODE-725",
@@ -256,6 +279,14 @@ LEGAL_AUTHORITY_KB: Dict[tuple[str, str], LegalAuthority] = {
         replacement=None,
         source="legal_authority_kb_minimal",
         last_verified_at="2026-08-11",
+    ),
+    ("中华人民共和国民法典", "第948条"): LegalAuthority(
+        authority_id="CN-CIVIL-CODE-948", jurisdiction="CN", law_name="中华人民共和国民法典",
+        article="第948条", paragraph="",
+        text="物业服务期限届满后，业主没有依法作出续聘或者另聘物业服务人的决定，物业服务人继续提供物业服务的，原物业服务合同继续有效，但是服务期限为不定期。当事人可以随时解除不定期物业服务合同，但是应当提前六十日书面通知对方。",
+        authority_level="法律", effective_from="2021-01-01", effective_to=None,
+        status="CURRENT", replacement=None, source="https://www.court.gov.cn/zixun/xiangqing/233181.html",
+        last_verified_at="2026-09-09",
     ),
     ("中华人民共和国合同法", ""): LegalAuthority(
         authority_id="CN-CONTRACT-LAW-REPEALED",
@@ -308,10 +339,19 @@ LEGAL_AUTHORITY_KB.update({
     ("中华人民共和国民法典", "第584条"): _civil_code_authority("第584条", "CN-CC-584", "违约损失赔偿包括合同履行后可以获得的利益，但不得超过违约方订立合同时预见到或者应当预见到的损失。"),
     ("中华人民共和国民法典", "第589条"): _civil_code_authority("第589条", "CN-CC-589", "债权人无正当理由拒绝受领的，债务人可以请求赔偿增加的费用；受领迟延期间债务人无须支付利息。"),
     ("中华人民共和国民法典", "第591条"): _civil_code_authority("第591条", "CN-CC-591", "违约后对方应采取适当措施防止损失扩大；未采取措施导致扩大的，不得就扩大部分请求赔偿。"),
+    ("中华人民共和国民法典", "第590条"): _civil_code_authority("第590条", "CN-CIVIL-CODE-590", "因不可抗力不能履行民事义务的，根据不可抗力的影响部分或者全部免除责任，法律另有规定的除外。"),
+    ("中华人民共和国民法典", "第708条"): _civil_code_authority("第708条", "CN-CIVIL-CODE-708", "出租人应当按照约定将租赁物交付承租人，并在租赁期限内保持租赁物符合约定的用途。"),
+    ("中华人民共和国民法典", "第710条"): _civil_code_authority("第710条", "CN-CIVIL-CODE-710", "承租人按照约定的方法或者根据租赁物的性质使用租赁物，致使租赁物受到损耗的，不承担赔偿责任。"),
+    ("中华人民共和国民法典", "第713条"): _civil_code_authority("第713条", "CN-CIVIL-CODE-713", "承租人在租赁物需要维修时可以请求出租人在合理期限内维修；出租人未履行维修义务的，承租人可以自行维修，维修费用由出租人负担。"),
+    ("中华人民共和国民法典", "第714条"): _civil_code_authority("第714条", "CN-CIVIL-CODE-714", "承租人应当妥善保管租赁物，因保管不善造成租赁物毁损、灭失的，应当承担赔偿责任。"),
+    ("中华人民共和国民法典", "第733条"): _civil_code_authority("第733条", "CN-CIVIL-CODE-733", "租赁期限届满，承租人应当返还租赁物；返还的租赁物应当符合按照约定或者根据租赁物性质使用后的状态。"),
+    ("中华人民共和国民法典", "第533条"): _civil_code_authority("第533条", "CN-CIVIL-CODE-533", "合同基础条件发生当事人在订立合同时无法预见、不属于商业风险的重大变化，继续履行明显不公平的，受不利影响方可以重新协商；合理期限内协商不成，可请求人民法院或仲裁机构变更或者解除合同。"),
+    ("中华人民共和国民法典", "第1165条"): _civil_code_authority("第1165条", "CN-CIVIL-CODE-1165", "行为人因过错侵害他人民事权益造成损害的，应当承担侵权责任。"),
     ("中华人民共和国民法典", "第604条"): _civil_code_authority("第604条", "CN-CC-604", "标的物毁损、灭失风险原则上在交付前由出卖人承担，交付后由买受人承担，但另有约定或法定例外除外。"),
     ("中华人民共和国民法典", "第605条"): _civil_code_authority("第605条", "CN-CC-605", "因买受人原因致使标的物未按约定期限交付的，买受人自违反约定时起承担标的物毁损、灭失风险。"),
     ("中华人民共和国民法典", "第607条"): _civil_code_authority("第607条", "CN-CC-607", "出卖人按约将标的物运送至买受人指定地点并交付承运人的，风险依法律规定的交付节点转移。"),
     ("中华人民共和国民法典", "第617条"): _civil_code_authority("第617条", "CN-CC-617", "出卖人交付的标的物不符合质量要求的，买受人可以依法请求承担违约责任。"),
+    ("中华人民共和国民法典", "第561条"): _civil_code_authority("第561条", "CN-CC-561", "给付不足以清偿全部债务且无另行约定时，按实现债权费用、利息、主债务的顺序抵充。"),
     ("中华人民共和国民法典", "第620条"): _civil_code_authority("第620条", "CN-CC-620", "买受人收到标的物时应在约定检验期限内检验；没有约定检验期限的，应及时检验。"),
     ("中华人民共和国民法典", "第621条"): _civil_code_authority("第621条", "CN-CC-621", "当事人约定检验期限的，买受人应在期限内通知数量或质量不符合约定；未约定期限的，应在合理期限内通知。"),
     ("中华人民共和国民法典", "第563条"): _civil_code_authority("第563条", "CN-CC-563", "符合法定情形时，当事人可以依法解除合同。"),
@@ -359,10 +399,20 @@ def normalize_law_name(law_name: str) -> str:
 
 DEFAULT_LAW_RULES = {
     "owner_change_no_break_lease": "CLEAR_DEFAULT",
+    "lease_before_sale": "CLEAR_DEFAULT",
     "normal_wear": "CLEAR_DEFAULT",
     "tenant_death_successor": "CLEAR_DEFAULT",
     "lessor_death": "CLEAR_DEFAULT",
     "indefinite_lease": "CLEAR_DEFAULT",
+    "force_majeure": "PARTIAL_DEFAULT",
+    "changed_circumstances": "PARTIAL_DEFAULT",
+    "pre_delivery_defect": "PARTIAL_DEFAULT",
+    "third_party_tort": "PARTIAL_DEFAULT",
+    "third_party_defect": "PARTIAL_DEFAULT",
+    "housing_safety_emergency": "PARTIAL_DEFAULT",
+    "reasonable_repair_cost": "PARTIAL_DEFAULT",
+    "excessive_deduction": "CLEAR_DEFAULT",
+    "handover_evidence": "PARTIAL_DEFAULT",
     "deposit_return_timing": "PARTIAL_DEFAULT",
     "deposit_offset_order": "PARTIAL_DEFAULT",
     "property_damage_deposit_evidence": "PARTIAL_DEFAULT",
@@ -813,6 +863,9 @@ def validate_citation_entailment(
     elif article == "第734条":
         support_type = "PARTIAL_SUPPORT"
         confidence = "medium"
+    elif article == "第948条" and '物业服务' in prop and '不定期' in prop and any(term in prop for term in ('通知','解除','继续有效')):
+        support_type = "DIRECT_SUPPORT"
+        confidence = "high"
     elif article == "第730条" and any(term in prop for term in ("不定期", "合理期限", "通知", "解除")):
         support_type = "DIRECT_SUPPORT"
         confidence = "high"
@@ -1029,7 +1082,7 @@ def post_render_quality_gate(
         finding for finding in findings
         if finding.get("risk_group") in {"legal_reference", "outdated_legal_reference"}
     ]
-    contract_law_lines = [line for line in (report or "").splitlines() if "合同法" in line]
+    contract_law_lines = [line for line in (report or "").splitlines() if re.search(r"(?<!劳动)合同法", line)]
     unqualified_contract_law_lines = [
         line for line in contract_law_lines
         if not all(marker in line for marker in ("签署时法律依据", "现行对应规则", "民法典"))

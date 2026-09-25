@@ -1,0 +1,128 @@
+.............FF..........F.............F..FF                             [100%]
+================================== FAILURES ===================================
+_________ test_implementation_list_inherits_only_positive_grant[\n\n] _________
+
+separator = '\n\n'
+
+    @pytest.mark.parametrize('separator', ['\n', '\n\n', '\n\n\n'])
+    def test_implementation_list_inherits_only_positive_grant(separator):
+        text = '乙方（被许可方）：乙公司\n第三条 实施范围\n乙方可以实施下列行为：' + separator + ('；'+separator).join(['制造装配设备','使用上述设备','销售、许诺销售上述设备','为售后维修目的更换零部件']) + '。'
+        row = next(e for e in license_scope_elements(parse_contract_clauses(text)) if e['element_id']=='permitted_implementation_acts')
+        assert row['status'] == 'COVERED'
+>       assert all(s['quote'] in text and '可以实施' in s['quote'] for s in row['supporting_evidence'])
+E       assert False
+E        +  where False = all(<generator object test_implementation_list_inherits_only_positive_grant.<locals>.<genexpr> at 0x000002BC36974900>)
+
+backend\tests\test_patent_component_consistency.py:41: AssertionError
+________ test_implementation_list_inherits_only_positive_grant[\n\n\n] ________
+
+separator = '\n\n\n'
+
+    @pytest.mark.parametrize('separator', ['\n', '\n\n', '\n\n\n'])
+    def test_implementation_list_inherits_only_positive_grant(separator):
+        text = '乙方（被许可方）：乙公司\n第三条 实施范围\n乙方可以实施下列行为：' + separator + ('；'+separator).join(['制造装配设备','使用上述设备','销售、许诺销售上述设备','为售后维修目的更换零部件']) + '。'
+        row = next(e for e in license_scope_elements(parse_contract_clauses(text)) if e['element_id']=='permitted_implementation_acts')
+        assert row['status'] == 'COVERED'
+>       assert all(s['quote'] in text and '可以实施' in s['quote'] for s in row['supporting_evidence'])
+E       assert False
+E        +  where False = all(<generator object test_implementation_list_inherits_only_positive_grant.<locals>.<genexpr> at 0x000002BC2F7D6180>)
+
+backend\tests\test_patent_component_consistency.py:41: AssertionError
+_ test_notice_and_missing_deadline_are_independent[\u653e\u5f03\u4e13\u5229\u6743] _
+
+event = '放弃专利权'
+
+    @pytest.mark.parametrize('event', ['放弃专利权','专利被无效','专利被撤销','专利权终止','专利法律状态变化'])
+    def test_notice_and_missing_deadline_are_independent(event):
+        text=f'如发生{event}，甲方应及时通知乙方。\n双方未约定具体通知期限。'
+>       assert len(patent_support_sources(text)['technology.patent.status_change_notice'])==1
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+backend\tests\test_patent_component_consistency.py:70: AssertionError
+______ test_liability_in_compensation_premise_does_not_reassign_the_duty ______
+
+    def test_liability_in_compensation_premise_does_not_reassign_the_duty():
+        text='第三方权利主张\n因甲方无权许可，导致乙方承担赔偿责任的，由甲方承担乙方因此产生的合理直接损失。'
+        facts=extract_claim_response_facts(parse_contract_clauses(text),'甲方','乙方')
+        assert not any(s.get('actor')=='LICENSEE' for s in facts.get('liability_responsible_party',[]))
+>       assert facts.get('damages_allocation')
+E       AssertionError: assert None
+E        +  where None = <built-in method get of dict object at 0x000002BC33663280>('damages_allocation')
+E        +    where <built-in method get of dict object at 0x000002BC33663280> = {}.get
+
+backend\tests\test_patent_component_consistency.py:105: AssertionError
+____ test_final_patent_report_consistency[\u7532\u65b9/\u8bb8\u53ef\u65b9] ____
+
+party = '甲方/许可方'
+
+    @pytest.mark.parametrize('party',['甲方/许可方','乙方/被许可方'])
+    def test_final_patent_report_consistency(party):
+        from review_v2.engine import review_contract_v2
+        from review_v2.user_profile import UserRiskProfile
+        text=Path(__file__).with_name('fixtures').joinpath('patent_license_component_consistency.txt').read_text(encoding='utf-8')
+        report=review_contract_v2(text,'technology',use_llm=False,profile=UserRiskProfile(user_identity=party))
+>       assert report['release_quality_gate']['status']=='REPORT_READY'
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_patent_component_consistency.py:119: AssertionError
+_ test_final_patent_report_consistency[\u4e59\u65b9/\u88ab\u8bb8\u53ef\u65b9] _
+
+party = '乙方/被许可方'
+
+    @pytest.mark.parametrize('party',['甲方/许可方','乙方/被许可方'])
+    def test_final_patent_report_consistency(party):
+        from review_v2.engine import review_contract_v2
+        from review_v2.user_profile import UserRiskProfile
+        text=Path(__file__).with_name('fixtures').joinpath('patent_license_component_consistency.txt').read_text(encoding='utf-8')
+        report=review_contract_v2(text,'technology',use_llm=False,profile=UserRiskProfile(user_identity=party))
+>       assert report['release_quality_gate']['status']=='REPORT_READY'
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_patent_component_consistency.py:119: AssertionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:159
+  F:\ai\Sage\backend\main.py:159: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_patent_component_consistency.py::test_implementation_list_inherits_only_positive_grant[\n\n]
+FAILED backend/tests/test_patent_component_consistency.py::test_implementation_list_inherits_only_positive_grant[\n\n\n]
+FAILED backend/tests/test_patent_component_consistency.py::test_notice_and_missing_deadline_are_independent[\u653e\u5f03\u4e13\u5229\u6743]
+FAILED backend/tests/test_patent_component_consistency.py::test_liability_in_compensation_premise_does_not_reassign_the_duty
+FAILED backend/tests/test_patent_component_consistency.py::test_final_patent_report_consistency[\u7532\u65b9/\u8bb8\u53ef\u65b9]
+FAILED backend/tests/test_patent_component_consistency.py::test_final_patent_report_consistency[\u4e59\u65b9/\u88ab\u8bb8\u53ef\u65b9]
+6 failed, 38 passed, 5 warnings in 26.21s

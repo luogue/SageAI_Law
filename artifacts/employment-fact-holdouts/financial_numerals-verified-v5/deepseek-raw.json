@@ -1,0 +1,576 @@
+[
+  {
+    "response": {
+      "schema_version": "employment-facts-1.0",
+      "reviewed_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009",
+        "C0010"
+      ],
+      "searched_concepts": [
+        "identity.employer_name",
+        "identity.employer_address",
+        "identity.worker_name",
+        "identity.worker_id",
+        "contract.type",
+        "contract.start_date",
+        "contract.end_date",
+        "contract.duration_months",
+        "contract.task",
+        "contract.task_end",
+        "probation.arrangement",
+        "probation.start_date",
+        "probation.end_date",
+        "probation.duration_months",
+        "probation.salary",
+        "probation.repeated",
+        "job.position",
+        "job.duties",
+        "job.locations",
+        "working_hours.system",
+        "working_hours.hours_per_day",
+        "working_hours.hours_per_week",
+        "working_hours.rest",
+        "working_hours.rest_days_per_week",
+        "working_hours.rest_waived",
+        "working_hours.overtime",
+        "salary.regular",
+        "salary.payment_date",
+        "salary.payment_method",
+        "salary.withheld_for_handover",
+        "social_insurance.employer_enrolls",
+        "social_insurance.employer_pays",
+        "social_insurance.employee_withheld",
+        "social_insurance.cash_replacement",
+        "social_insurance.waived"
+      ],
+      "unresolved_concepts": [
+        "probation.start_date",
+        "probation.end_date",
+        "probation.duration_months"
+      ],
+      "facts": [
+        {
+          "concept": "identity.employer_name",
+          "value": "北岭设备有限公司",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "用人单位：北岭设备有限公司，住所：成都市高新路12号。"
+            }
+          ]
+        },
+        {
+          "concept": "identity.employer_address",
+          "value": "成都市高新路12号",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "用人单位：北岭设备有限公司，住所：成都市高新路12号。"
+            }
+          ]
+        },
+        {
+          "concept": "identity.worker_name",
+          "value": "顾林",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "劳动者：顾林，身份证明号码：510100199003041234。"
+            }
+          ]
+        },
+        {
+          "concept": "identity.worker_id",
+          "value": "510100199003041234",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "劳动者：顾林，身份证明号码：510100199003041234。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.type",
+          "value": "FIXED",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "合同为固定期限，自2027年2月1日至2029年1月31日。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.start_date",
+          "value": "2027-02-01",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "合同为固定期限，自2027年2月1日至2029年1月31日。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.end_date",
+          "value": "2029-01-31",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "合同为固定期限，自2027年2月1日至2029年1月31日。"
+            }
+          ]
+        },
+        {
+          "concept": "probation.arrangement",
+          "value": "CURRENT",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "开始履职后的首月作为试用阶段，该阶段每月报酬为人民币壹万叁仟元整。"
+            }
+          ]
+        },
+        {
+          "concept": "probation.salary",
+          "value": {
+            "amount_text": "壹万叁仟",
+            "unit": "CNY/MONTH",
+            "component": "TOTAL"
+          },
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "开始履职后的首月作为试用阶段，该阶段每月报酬为人民币壹万叁仟元整。"
+            }
+          ]
+        },
+        {
+          "concept": "job.position",
+          "value": "设备维护员",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "受聘担任设备维护员，负责设备巡检和维修。"
+            }
+          ]
+        },
+        {
+          "concept": "job.duties",
+          "value": [
+            "设备巡检",
+            "维修"
+          ],
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "受聘担任设备维护员，负责设备巡检和维修。"
+            }
+          ]
+        },
+        {
+          "concept": "job.locations",
+          "value": [
+            "成都"
+          ],
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "常驻成都工作。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.system",
+          "value": "STANDARD",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "每日八小时，每周四十小时，依法休息休假。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.hours_per_day",
+          "value": 8,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "每日八小时，每周四十小时，依法休息休假。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.hours_per_week",
+          "value": 40,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "每日八小时，每周四十小时，依法休息休假。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.rest",
+          "value": "依法休息休假",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "每日八小时，每周四十小时，依法休息休假。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.overtime",
+          "value": "STATUTORY",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "加班报酬按法律规定结算。"
+            }
+          ]
+        },
+        {
+          "concept": "salary.regular",
+          "value": {
+            "amount_text": "壹万伍仟捌佰",
+            "unit": "CNY/MONTH",
+            "component": "BASE"
+          },
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0005",
+              "quote": "通过试用后月基本工资人民币壹万伍仟捌佰元整，每月八号汇至员工银行账户。"
+            }
+          ]
+        },
+        {
+          "concept": "salary.payment_date",
+          "value": "每月八号",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0005",
+              "quote": "通过试用后月基本工资人民币壹万伍仟捌佰元整，每月八号汇至员工银行账户。"
+            }
+          ]
+        },
+        {
+          "concept": "salary.payment_method",
+          "value": "BANK",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0005",
+              "quote": "通过试用后月基本工资人民币壹万伍仟捌佰元整，每月八号汇至员工银行账户。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.employer_enrolls",
+          "value": true,
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0006",
+              "quote": "企业负责职工社会保险登记。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.employer_pays",
+          "value": true,
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0007",
+              "quote": "社会保险中依法属于单位的费用由本企业负担，个人部分从工资代扣。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.employee_withheld",
+          "value": true,
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0007",
+              "quote": "社会保险中依法属于单位的费用由本企业负担，个人部分从工资代扣。"
+            }
+          ]
+        }
+      ]
+    },
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 2502,
+      "completion_tokens": 1733,
+      "total_tokens": 4235,
+      "prompt_tokens_details": {
+        "cached_tokens": 896
+      },
+      "prompt_cache_hit_tokens": 896,
+      "prompt_cache_miss_tokens": 1606
+    },
+    "provider": "deepseek"
+  },
+  {
+    "response": {
+      "schema_version": "employment-facts-1.0",
+      "reviewed_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009",
+        "C0010"
+      ],
+      "searched_concepts": [
+        "social_insurance.employer_share_shifted",
+        "social_insurance.employer_underpays",
+        "social_insurance.employer_liability_excluded",
+        "social_insurance.employee_remedy_excluded",
+        "labor_protection.measures",
+        "labor_protection.training",
+        "labor_protection.hazard_exists",
+        "labor_protection.hazard_protection",
+        "training.arrangement",
+        "training.cost",
+        "training.duration_months",
+        "training.penalty_prorated",
+        "termination.grounds",
+        "termination.notice",
+        "termination.notice_days",
+        "termination.approval_required",
+        "termination.employee_right_waived",
+        "termination.employer_unrestricted",
+        "termination.handover",
+        "economic_compensation.statutory",
+        "economic_compensation.settlement_deadline",
+        "economic_compensation.waived",
+        "economic_compensation.reduced",
+        "economic_compensation.statutory_percentage",
+        "economic_compensation.payment_delay_months",
+        "dispute.arbitration",
+        "penalties.obligations",
+        "non_compete.arrangement",
+        "non_compete.personnel",
+        "non_compete.secret_access",
+        "non_compete.businesses",
+        "non_compete.territories",
+        "non_compete.duration_months",
+        "non_compete.compensation",
+        "non_compete.compensation_deferred",
+        "non_compete.compensation_waived",
+        "non_compete.all_staff",
+        "ip.assignment_scope",
+        "ip.allocations",
+        "ip.personal_rights_waived"
+      ],
+      "unresolved_concepts": [
+        "probation.start_date",
+        "probation.end_date",
+        "probation.duration_months"
+      ],
+      "facts": [
+        {
+          "concept": "labor_protection.measures",
+          "value": "单位建立职业健康管理制度并配发防护用品，定期组织安全教育培训。",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "单位建立职业健康管理制度并配发防护用品，定期组织安全教育培训。"
+            }
+          ]
+        },
+        {
+          "concept": "labor_protection.training",
+          "value": true,
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "定期组织安全教育培训。"
+            }
+          ]
+        },
+        {
+          "concept": "labor_protection.hazard_exists",
+          "value": false,
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "岗位不涉及职业病危害。"
+            }
+          ]
+        },
+        {
+          "concept": "training.arrangement",
+          "value": "NONE",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0010",
+              "quote": "双方不设竞业限制，也不设专项培训服务期。"
+            }
+          ]
+        },
+        {
+          "concept": "termination.grounds",
+          "value": [
+            "双方依法解除或终止劳动关系"
+          ],
+          "confidence": 0.9,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "双方依法解除或终止劳动关系，劳动者按法定通知期限辞职并交接工作。"
+            }
+          ]
+        },
+        {
+          "concept": "termination.notice",
+          "value": "按法定通知期限辞职",
+          "confidence": 0.9,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "劳动者按法定通知期限辞职并交接工作。"
+            }
+          ]
+        },
+        {
+          "concept": "termination.handover",
+          "value": "交接工作",
+          "confidence": 0.9,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "劳动者按法定通知期限辞职并交接工作。"
+            }
+          ]
+        },
+        {
+          "concept": "economic_compensation.statutory",
+          "value": "符合补偿条件时，用人单位依法律规定支付经济补偿",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "符合补偿条件时，用人单位依法律规定支付经济补偿，工资及补偿在离职当日结清。"
+            }
+          ]
+        },
+        {
+          "concept": "economic_compensation.settlement_deadline",
+          "value": "工资及补偿在离职当日结清",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "符合补偿条件时，用人单位依法律规定支付经济补偿，工资及补偿在离职当日结清。"
+            }
+          ]
+        },
+        {
+          "concept": "dispute.arbitration",
+          "value": true,
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "争议可向劳动仲裁委员会申请仲裁。"
+            }
+          ]
+        },
+        {
+          "concept": "non_compete.arrangement",
+          "value": "NONE",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0010",
+              "quote": "双方不设竞业限制，也不设专项培训服务期。"
+            }
+          ]
+        }
+      ]
+    },
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 2936,
+      "completion_tokens": 1079,
+      "total_tokens": 4015,
+      "prompt_tokens_details": {
+        "cached_tokens": 896
+      },
+      "prompt_cache_hit_tokens": 896,
+      "prompt_cache_miss_tokens": 2040
+    },
+    "provider": "deepseek"
+  }
+]

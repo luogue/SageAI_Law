@@ -1,0 +1,745 @@
+.............................FFFF...FFFFFF....FF.....F.FF.FF...FFFFFF... [ 39%]
+..........................F...F...FF.F..F..FF.....EEEEEEEEEEEEEEEEEEEEEE [ 78%]
+EEFFFFE..FFF.F.FF.FFF......F......FF...                                  [100%]
+=================================== ERRORS ====================================
+________ ERROR at setup of test_scope_liability_survives_file_pipeline ________
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+---------------------------- Captured stderr setup ----------------------------
+2026-09-16 06:33:30 - security.sensitive_filter - INFO - [unknown] - 已清理 0 条超过 90 天的拦截日志
+2026-09-16 06:33:30 - main - INFO - [unknown] - 启动时清理了 0 条过期拦截日志
+2026-09-16 06:33:30 - main - INFO - [unknown] - Redis连接失败，已切换到内存模式，后续请求无延迟
+2026-09-16 06:33:30 - security.output_guard - INFO - [unknown] - [OUTPUT_GUARD] 初始化完成: 系统提示词长度=4633, 片段哈希数量=4584, 完整哈希=13c9684b6d3e79c1...
+2026-09-16 06:33:30 - main - INFO - [unknown] - [STARTUP] 输出安全守卫初始化完成: 片段哈希数=4584
+2026-09-16 06:33:30 - main - INFO - [unknown] - [STARTUP] 注入检测器初始化完成
+2026-09-16 06:33:30 - layers.legal_check_layer - INFO - [unknown] - [MCP_ADAPTER] MCP 客户端已初始化
+2026-09-16 06:33:30 - main - INFO - [unknown] - [STARTUP] 法条校验层初始化完成
+2026-09-16 06:33:30 - routers.review_v2 - CRITICAL - [afab0623] - [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=3500
+2026-09-16 06:33:30 - sageai - INFO - [afab0623] - {"type": "request", "request_id": "afab0623", "user_id": "anoxxx", "ip": "unknown", "path": "/review-v2/file", "method": "POST", "duration_ms": 178.46, "status_code": 503, "error": null}
+2026-09-16 06:33:30 - httpx - INFO - [unknown] - HTTP Request: POST http://testserver/review-v2/file "HTTP/1.1 503 Service Unavailable"
+----------------------------- Captured log setup ------------------------------
+INFO     security.sensitive_filter:sensitive_filter.py:223 已清理 0 条超过 90 天的拦截日志
+INFO     main:main.py:163 启动时清理了 0 条过期拦截日志
+INFO     main:main.py:172 Redis连接失败，已切换到内存模式，后续请求无延迟
+INFO     security.output_guard:output_guard.py:141 [OUTPUT_GUARD] 初始化完成: 系统提示词长度=4633, 片段哈希数量=4584, 完整哈希=13c9684b6d3e79c1...
+INFO     main:main.py:182 [STARTUP] 输出安全守卫初始化完成: 片段哈希数=4584
+INFO     main:main.py:189 [STARTUP] 注入检测器初始化完成
+INFO     layers.legal_check_layer:legal_check_layer.py:171 [MCP_ADAPTER] MCP 客户端已初始化
+INFO     main:main.py:209 [STARTUP] 法条校验层初始化完成
+CRITICAL routers.review_v2:review_v2.py:1402 [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=3500
+INFO     sageai:logging_utils.py:133 {"type": "request", "request_id": "afab0623", "user_id": "anoxxx", "ip": "unknown", "path": "/review-v2/file", "method": "POST", "duration_ms": 178.46, "status_code": 503, "error": null}
+INFO     httpx:_client.py:1038 HTTP Request: POST http://testserver/review-v2/file "HTTP/1.1 503 Service Unavailable"
+______ ERROR at setup of test_responsible_party_synonyms_cannot_disagree ______
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_broad_claim_responsibility_does_not_expand_to_concrete_fields _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_principle_liability_and_concrete_scope_agree_across_rules _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_release_gate_blocks_cross_rule_scope_inflation[element] _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_release_gate_blocks_cross_rule_scope_inflation[narrative] _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_final_gate_rejects_invented_specific_cost_support[element] _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_final_gate_rejects_invented_specific_cost_support[review] _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_final_gate_rejects_invented_specific_cost_support[aggregate] _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_final_gate_rejects_invented_specific_cost_support[alias] _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_______ ERROR at setup of test_each_final_notice_gap_has_its_own_search _______
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_unknown_proof_conditions_are_verification_not_drafting _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_existing_license_atomic_facts_survive_absence_and_all_report_sections _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+__ ERROR at setup of test_production_report_gate_and_previous_correct_states __
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_confidentiality_remedies_remain_atomic_and_party_bound_in_report _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_partial_proof_requirements_survive_summary_recommendation_and_evidence _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_party_remedy_gaps_are_identical_in_all_five_report_layers _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_secret_identity_tags_have_direct_scope_support_in_production _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_release_gate_rejects_party_penalty_or_unresolved_projection_drift[penalty-PENALTY_NARRATIVE_WITHOUT_PENALTY_EVIDENCE] _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_release_gate_rejects_party_penalty_or_unresolved_projection_drift[party-OBLIGATED_PARTY_EVIDENCE_MISMATCH] _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_release_gate_rejects_party_penalty_or_unresolved_projection_drift[aggregate-AGGREGATE_UNRESOLVED_ELEMENTS_MISMATCH] _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_release_gate_rejects_party_penalty_or_unresolved_projection_drift[evidence-EVIDENCE_UNRESOLVED_ELEMENTS_MISMATCH] _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_release_gate_rejects_party_penalty_or_unresolved_projection_drift[narrative-UNRESOLVED_NARRATIVE_OMISSION] _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_release_gate_rejects_party_penalty_or_unresolved_projection_drift[party_narrative-PARTY_NARRATIVE_STATUS_MISMATCH] _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+_ ERROR at setup of test_removing_one_absence_binding_cannot_pass_release_invariant _
+backend\tests\test_secret_license_production_closure.py:50: in current_report
+    report = review_upload(CURRENT.read_bytes(), CURRENT.name)
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+================================== FAILURES ===================================
+____ test_follow_on_improvement_clauses_are_recalled_and_split_by_element _____
+backend\tests\test_current_patent_license_evidence_recall.py:74: in test_follow_on_improvement_clauses_are_recalled_and_split_by_element
+    assert by_id["TC-10-01"]["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+_____ test_material_schedule_and_handover_confirmation_are_positive_facts _____
+backend\tests\test_current_patent_license_evidence_recall.py:96: in test_material_schedule_and_handover_confirmation_are_positive_facts
+    assert elements["closed_attachment_schedule"]["status"] == "COVERED"
+E   AssertionError: assert 'MISSING' == 'COVERED'
+E     
+E     - COVERED
+E     + MISSING
+_______ test_patent_proof_search_audit_uses_atomic_positive_fact_names ________
+backend\tests\test_current_patent_license_evidence_recall.py:128: in test_patent_proof_search_audit_uses_atomic_positive_fact_names
+    assert elements["patent_identity_in_contract"]["status"] == "COVERED"
+E   KeyError: 'patent_identity_in_contract'
+________ test_patent_proof_partial_summary_lists_only_unresolved_gaps _________
+backend\tests\test_current_patent_license_evidence_recall.py:155: in test_patent_proof_partial_summary_lists_only_unresolved_gaps
+    assert "正文已约定许可方按时缴纳" not in item["reasoning_summary"]
+E   AssertionError: assert '正文已约定许可方按时缴纳' not in '已有部分安排；仍需补足...及完整权利状态核验材料。'
+E     
+E     '正文已约定许可方按时缴纳' is contained here:
+E       已有部分安排；仍需补足：专利申请日期、正文已约定许可方按时缴纳专利费用、维持专利有效并就法律状态变化书面通知；当前未提供实际缴费状态或专利登记状态证明、共同专利权人信息、专利质押登记、专利查封保全、《专利权证明文件》附件的实际内容及完整权利状态核验材料。
+E     ?                    ++++++++++++
+__ test_audit_confidentiality_does_not_cover_general_technical_secret_rules ___
+backend\tests\test_current_patent_license_evidence_recall.py:208: in test_audit_confidentiality_does_not_cover_general_technical_secret_rules
+    assert item["coverage_status"] == "INSUFFICIENT_CONTEXT"
+E   AssertionError: assert '待核验' == 'INSUFFICIENT_CONTEXT'
+E     
+E     - INSUFFICIENT_CONTEXT
+E     + 待核验
+__________ test_major_risks_and_action_counts_share_the_final_result __________
+backend\tests\test_current_patent_license_evidence_recall.py:230: in test_major_risks_and_action_counts_share_the_final_result
+    assert overview["major_risk"] == 0
+E   assert 1 == 0
+_____ test_major_missing_rules_have_transaction_specific_recommendations ______
+backend\tests\test_current_patent_license_evidence_recall.py:242: in test_major_missing_rules_have_transaction_specific_recommendations
+    assert over_scope["risk_level"] == "低"
+E   AssertionError: assert '高' == '低'
+E     
+E     - 低
+E     + 高
+___ test_confidentiality_liability_inherits_unresolved_family_applicability ___
+backend\tests\test_current_patent_license_evidence_recall.py:261: in test_confidentiality_liability_inherits_unresolved_family_applicability
+    assert item["coverage_status"] == "INSUFFICIENT_CONTEXT"
+E   AssertionError: assert '待核验' == 'INSUFFICIENT_CONTEXT'
+E     
+E     - INSUFFICIENT_CONTEXT
+E     + 待核验
+_______ test_third_party_claim_core_and_advanced_elements_are_separated _______
+backend\tests\test_current_patent_license_evidence_recall.py:278: in test_third_party_claim_core_and_advanced_elements_are_separated
+    assert elements["damages_allocation"]["status"] == "COVERED"
+E   AssertionError: assert 'MISSING' == 'COVERED'
+E     
+E     - COVERED
+E     + MISSING
+________ test_cross_border_patent_license_uses_ordered_import_analysis ________
+backend\tests\test_current_patent_license_evidence_recall.py:303: in test_cross_border_patent_license_uses_ordered_import_analysis
+    assert "专利实施许可" in rendered
+E   AssertionError: assert '专利实施许可' in '已覆盖：境外许可方向中国被许可方提供技术的跨境方向、技术进口交易方向、跨境技术许可交易类型；尚需核验或补充：需查询现行技术进出口目录确认自由、限制或禁止属性、目录属性对应的禁止履行、进口许可或合同登记路径、提成合同首次登记及后续变更登...；补充明确技术进口合同登记及变更登记的具体办理责任方；补充明确技术进口相关手续的办理协作义务；补充明确及时提供办理所需文件和资料的义务；补充明确技术进口相关手续的办理期限或节点；补充明确合同主要内容变更后的重新登记、备案或许可办理机制。'
+___ test_third_party_claim_registry_preserves_notice_cost_direction_and_cap ___
+backend\tests\test_patent_license_cross_clause_consistency.py:102: in test_third_party_claim_registry_preserves_notice_cost_direction_and_cap
+    assert claim["attorney_fee_allocation"] is True
+E   assert False is True
+__ test_full_review_projects_cross_clause_risks_without_stale_missing_facts ___
+backend\tests\test_patent_license_cross_clause_consistency.py:112: in test_full_review_projects_cross_clause_risks_without_stale_missing_facts
+    assert patent_license_review["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_ test_third_party_claim_atomic_states_do_not_relabel_existing_terms_as_missing _
+backend\tests\test_patent_license_cross_clause_consistency.py:228: in test_third_party_claim_atomic_states_do_not_relabel_existing_terms_as_missing
+    assert elements["licensor_participation"]["status"] == "COVERED"
+E   AssertionError: assert 'MISSING' == 'COVERED'
+E     
+E     - COVERED
+E     + MISSING
+______ test_final_report_consumes_the_same_element_truth_as_review_items ______
+backend\tests\test_patent_license_cross_clause_consistency.py:263: in test_final_report_consumes_the_same_element_truth_as_review_items
+    assert "被许可方独立形成的改进成果及知识产权被要求无偿转归许可方" in report
+E   AssertionError: assert '被许可方独立形成的改进成果及知识产权被要求无偿转归许可方' in '# 专利实施许可合同审查报告\n\n\n## 一、合同总体评价\n\n- 审查立场：甲方 / 许可方\n- 使用场景：专利实施许可\n- 合同类型：技术合同—技术许可合同—专利实施许可\n- 总体可签署性：建议专业法律复核后决定\n-...方存在故意或者重大过失的，双方仍按照本条约定的责任范围处理。\n- 第十三条 违约责任 [支持：违约金标准偏高及司法调减风险]: 被许可方逾期支付任何款项的，每逾期一日，应按照逾期未付款金额的0.5%向许可方支付违约金\n\n---\n'
+_ test_user_visible_themes_merge_the_same_improvement_fact_without_losing_findings _
+backend\tests\test_patent_license_cross_clause_consistency.py:298: in test_user_visible_themes_merge_the_same_improvement_fact_without_losing_findings
+    assert patent_license_review["finding_count"] == 13
+E   assert 19 == 13
+___ test_report_statistics_and_summary_use_the_aggregated_theme_projection ____
+backend\tests\test_patent_license_cross_clause_consistency.py:337: in test_report_statistics_and_summary_use_the_aggregated_theme_projection
+    assert theme_summary == {
+E   AssertionError: assert {'total': 19,...ment': 5, ...} == {'total': 13,...ment': 2, ...}
+E     
+E     Omitting 1 identical items, use -vv to show
+E     Differing items:
+E     {'optional_improvement': 5} != {'optional_improvement': 2}
+E     {'must_change': 6} != {'must_change': 1}
+E     {'should_change': 8} != {'should_change': 10}
+E     {'total': 19} != {'total': 13}
+E     Use -v to get more diff
+______ test_file_api_response_schema_preserves_user_visible_risk_themes _______
+backend\tests\test_patent_license_cross_clause_consistency.py:366: in test_file_api_response_schema_preserves_user_visible_risk_themes
+    assert public_response["risk_theme_count"] == 13
+E   assert 19 == 13
+______ test_patent_license_granted_transfer_and_application_transfer[27] ______
+backend\tests\test_technology_subject_identity_consistency.py:91: in test_patent_license_granted_transfer_and_application_transfer
+    assert_consistent_identity(result)
+backend\tests\test_technology_subject_identity_consistency.py:34: in assert_consistent_identity
+    assert item["coverage_status"] == "通过"
+E   AssertionError: assert '缺失' == '通过'
+E     
+E     - 通过
+E     + 缺失
+______ test_patent_license_granted_transfer_and_application_transfer[43] ______
+backend\tests\test_technology_subject_identity_consistency.py:92: in test_patent_license_granted_transfer_and_application_transfer
+    assert result["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+______ test_patent_license_granted_transfer_and_application_transfer[44] ______
+backend\tests\test_technology_subject_identity_consistency.py:92: in test_patent_license_granted_transfer_and_application_transfer
+    assert result["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_ test_secret_transactions_do_not_acquire_patent_identifier_requirements[26] __
+backend\tests\test_technology_subject_identity_consistency.py:99: in test_secret_transactions_do_not_acquire_patent_identifier_requirements
+    assert item["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+_ test_secret_transactions_do_not_acquire_patent_identifier_requirements[38] __
+backend\tests\test_technology_subject_identity_consistency.py:99: in test_secret_transactions_do_not_acquire_patent_identifier_requirements
+    assert item["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+_ test_secret_transactions_do_not_acquire_patent_identifier_requirements[41] __
+backend\tests\test_technology_subject_identity_consistency.py:99: in test_secret_transactions_do_not_acquire_patent_identifier_requirements
+    assert item["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+_________________ test_current_secret_license_full_regression _________________
+backend\tests\test_technical_secret_license_contract_review.py:192: in test_current_secret_license_full_regression
+    assert "技术秘密许可合同" in by_id["TC-01-01"]["risk_point_description"]
+E   AssertionError: assert '技术秘密许可合同' in '现有摘录尚不足以形成经原文与语义双重验证的通过结论，需要核对合同证据；不据此推断存在不利条款。'
+____ test_over_scope_liability_d_reasonable_clause_can_pass_or_be_partial _____
+backend\tests\test_technical_secret_license_contract_review.py:264: in test_over_scope_liability_d_reasonable_clause_can_pass_or_be_partial
+    assert item["coverage_status"] in {"通过", "部分覆盖"}
+E   AssertionError: assert '待核验' in {'通过', '部分覆盖'}
+__________ test_latest_secret_license_route_and_protective_polarity ___________
+backend\tests\test_technical_secret_license_contract_review.py:331: in test_latest_secret_license_route_and_protective_polarity
+    assert competition["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+______ test_latest_secret_license_shared_fee_improvement_and_claim_facts ______
+backend\tests\test_technical_secret_license_contract_review.py:348: in test_latest_secret_license_shared_fee_improvement_and_claim_facts
+    assert {"C0038", "C0039"} <= _evidence_ids(service_fee)
+E   AssertionError: assert {'C0038', 'C0039'} <= {'C0038', 'C0...041', 'C0042'}
+E     
+E     Extra items in the left set:
+E     'C0039'
+_______ test_latest_secret_license_acceptance_evidence_is_subject_bound _______
+backend\tests\test_technical_secret_license_contract_review.py:406: in test_latest_secret_license_acceptance_evidence_is_subject_bound
+    assert acceptance_ids == {"C0004", "C0042", "C0043", "C0044"}
+E   AssertionError: assert {'C0004', 'C0...046', 'C0047'} == {'C0004', 'C0...043', 'C0044'}
+E     
+E     Extra items in the left set:
+E     'C0045'
+E     'C0046'
+E     'C0047'
+E     Extra items in the right set:
+E     'C0043'...
+E     
+E     ...Full output truncated (3 lines hidden), use '-vv' to show
+_ test_latest_secret_license_service_acceptance_uses_shared_subject_evidence __
+backend\tests\test_technical_secret_license_contract_review.py:457: in test_latest_secret_license_service_acceptance_uses_shared_subject_evidence
+    assert item["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '缺失' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 缺失
+_____ test_latest_secret_loss_positive_notice_facts_never_reenter_missing _____
+backend\tests\test_technical_secret_license_contract_review.py:566: in test_latest_secret_loss_positive_notice_facts_never_reenter_missing
+    assert elements[element_id].get("evidence_ids") == ["C0023"]
+E   AssertionError: assert ['SRC-b393ad7423ab2347ecd4'] == ['C0023']
+E     
+E     At index 0 diff: 'SRC-b393ad7423ab2347ecd4' != 'C0023'
+E     Use -v to get more diff
+____ test_latest_improvement_notice_is_partial_with_only_residual_details _____
+backend\tests\test_technical_secret_license_contract_review.py:592: in test_latest_improvement_notice_is_partial_with_only_residual_details
+    assert elements["improvement_notice_trigger"].get("evidence_ids") == ["C0052"]
+E   AssertionError: assert ['SRC-36447fe30b45362f9e0d'] == ['C0052']
+E     
+E     At index 0 diff: 'SRC-36447fe30b45362f9e0d' != 'C0052'
+E     Use -v to get more diff
+_ test_conditional_states_through_uploaded_document[\u672c\u5408\u540c\u6280\u672f\u4e0d\u542b\u5f00\u6e90\u7ec4\u4ef6\uff0c\u4e0d\u6d89\u53ca\u7b2c\u4e09\u65b9\u4ee3\u7801\uff1b\u4e0d\u5b58\u5728\u5171\u540c\u6301\u6709\u4eba\uff0c\u4e0d\u6d89\u53ca\u804c\u52a1\u6210\u679c\uff1b\u672a\u767b\u8bb0\u8f6f\u4ef6\u8457\u4f5c\u6743\u3002-NOT_APPLICABLE] _
+backend\tests\test_secret_license_production_closure.py:376: in test_conditional_states_through_uploaded_document
+    report = amended_upload([statement])
+backend\tests\test_secret_license_production_closure.py:367: in amended_upload
+    return review_upload(stream.getvalue())
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+---------------------------- Captured stderr call -----------------------------
+2026-09-16 06:33:30 - security.sensitive_filter - INFO - [unknown] - 已清理 0 条超过 90 天的拦截日志
+2026-09-16 06:33:30 - main - INFO - [unknown] - 启动时清理了 0 条过期拦截日志
+2026-09-16 06:33:30 - main - INFO - [unknown] - Redis连接失败，已切换到内存模式，后续请求无延迟
+2026-09-16 06:33:30 - security.output_guard - INFO - [unknown] - [OUTPUT_GUARD] 初始化完成: 系统提示词长度=4633, 片段哈希数量=4584, 完整哈希=13c9684b6d3e79c1...
+2026-09-16 06:33:30 - main - INFO - [unknown] - [STARTUP] 输出安全守卫初始化完成: 片段哈希数=4584
+2026-09-16 06:33:30 - main - INFO - [unknown] - [STARTUP] 注入检测器初始化完成
+2026-09-16 06:33:30 - layers.legal_check_layer - INFO - [unknown] - [MCP_ADAPTER] MCP 客户端已初始化
+2026-09-16 06:33:30 - main - INFO - [unknown] - [STARTUP] 法条校验层初始化完成
+2026-09-16 06:33:31 - routers.review_v2 - CRITICAL - [75a0f812] - [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=3500
+2026-09-16 06:33:31 - sageai - INFO - [75a0f812] - {"type": "request", "request_id": "75a0f812", "user_id": "anoxxx", "ip": "unknown", "path": "/review-v2/file", "method": "POST", "duration_ms": 132.47, "status_code": 503, "error": null}
+2026-09-16 06:33:31 - httpx - INFO - [unknown] - HTTP Request: POST http://testserver/review-v2/file "HTTP/1.1 503 Service Unavailable"
+------------------------------ Captured log call ------------------------------
+INFO     security.sensitive_filter:sensitive_filter.py:223 已清理 0 条超过 90 天的拦截日志
+INFO     main:main.py:163 启动时清理了 0 条过期拦截日志
+INFO     main:main.py:172 Redis连接失败，已切换到内存模式，后续请求无延迟
+INFO     security.output_guard:output_guard.py:141 [OUTPUT_GUARD] 初始化完成: 系统提示词长度=4633, 片段哈希数量=4584, 完整哈希=13c9684b6d3e79c1...
+INFO     main:main.py:182 [STARTUP] 输出安全守卫初始化完成: 片段哈希数=4584
+INFO     main:main.py:189 [STARTUP] 注入检测器初始化完成
+INFO     layers.legal_check_layer:legal_check_layer.py:171 [MCP_ADAPTER] MCP 客户端已初始化
+INFO     main:main.py:209 [STARTUP] 法条校验层初始化完成
+CRITICAL routers.review_v2:review_v2.py:1402 [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=3500
+INFO     sageai:logging_utils.py:133 {"type": "request", "request_id": "75a0f812", "user_id": "anoxxx", "ip": "unknown", "path": "/review-v2/file", "method": "POST", "duration_ms": 132.47, "status_code": 503, "error": null}
+INFO     httpx:_client.py:1038 HTTP Request: POST http://testserver/review-v2/file "HTTP/1.1 503 Service Unavailable"
+_ test_conditional_states_through_uploaded_document[\u672c\u5408\u540c\u6280\u672f\u4f7f\u7528\u5f00\u6e90\u7ec4\u4ef6\u548c\u7b2c\u4e09\u65b9\u4ee3\u7801\uff1b\u5171\u540c\u6301\u6709\u4eba\u4e3a\u5357\u6865\u6280\u672f\u6709\u9650\u516c\u53f8\uff1b\u5458\u5de5\u7814\u53d1\u5f62\u6210\u7684\u6280\u672f\u5c5e\u4e8e\u804c\u52a1\u6210\u679c\uff1b\u5df2\u529e\u7406\u8f6f\u4ef6\u8457\u4f5c\u6743\u3002-MISSING] _
+backend\tests\test_secret_license_production_closure.py:376: in test_conditional_states_through_uploaded_document
+    report = amended_upload([statement])
+backend\tests\test_secret_license_production_closure.py:367: in amended_upload
+    return review_upload(stream.getvalue())
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+---------------------------- Captured stderr call -----------------------------
+2026-09-16 06:33:31 - security.sensitive_filter - INFO - [unknown] - 已清理 0 条超过 90 天的拦截日志
+2026-09-16 06:33:31 - main - INFO - [unknown] - 启动时清理了 0 条过期拦截日志
+2026-09-16 06:33:31 - main - INFO - [unknown] - Redis连接失败，已切换到内存模式，后续请求无延迟
+2026-09-16 06:33:31 - security.output_guard - INFO - [unknown] - [OUTPUT_GUARD] 初始化完成: 系统提示词长度=4633, 片段哈希数量=4584, 完整哈希=13c9684b6d3e79c1...
+2026-09-16 06:33:31 - main - INFO - [unknown] - [STARTUP] 输出安全守卫初始化完成: 片段哈希数=4584
+2026-09-16 06:33:31 - main - INFO - [unknown] - [STARTUP] 注入检测器初始化完成
+2026-09-16 06:33:31 - layers.legal_check_layer - INFO - [unknown] - [MCP_ADAPTER] MCP 客户端已初始化
+2026-09-16 06:33:31 - main - INFO - [unknown] - [STARTUP] 法条校验层初始化完成
+2026-09-16 06:33:31 - routers.review_v2 - CRITICAL - [57f66f16] - [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=3500
+2026-09-16 06:33:31 - sageai - INFO - [57f66f16] - {"type": "request", "request_id": "57f66f16", "user_id": "anoxxx", "ip": "unknown", "path": "/review-v2/file", "method": "POST", "duration_ms": 132.31, "status_code": 503, "error": null}
+2026-09-16 06:33:31 - httpx - INFO - [unknown] - HTTP Request: POST http://testserver/review-v2/file "HTTP/1.1 503 Service Unavailable"
+------------------------------ Captured log call ------------------------------
+INFO     security.sensitive_filter:sensitive_filter.py:223 已清理 0 条超过 90 天的拦截日志
+INFO     main:main.py:163 启动时清理了 0 条过期拦截日志
+INFO     main:main.py:172 Redis连接失败，已切换到内存模式，后续请求无延迟
+INFO     security.output_guard:output_guard.py:141 [OUTPUT_GUARD] 初始化完成: 系统提示词长度=4633, 片段哈希数量=4584, 完整哈希=13c9684b6d3e79c1...
+INFO     main:main.py:182 [STARTUP] 输出安全守卫初始化完成: 片段哈希数=4584
+INFO     main:main.py:189 [STARTUP] 注入检测器初始化完成
+INFO     layers.legal_check_layer:legal_check_layer.py:171 [MCP_ADAPTER] MCP 客户端已初始化
+INFO     main:main.py:209 [STARTUP] 法条校验层初始化完成
+CRITICAL routers.review_v2:review_v2.py:1402 [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=3500
+INFO     sageai:logging_utils.py:133 {"type": "request", "request_id": "57f66f16", "user_id": "anoxxx", "ip": "unknown", "path": "/review-v2/file", "method": "POST", "duration_ms": 132.31, "status_code": 503, "error": null}
+INFO     httpx:_client.py:1038 HTTP Request: POST http://testserver/review-v2/file "HTTP/1.1 503 Service Unavailable"
+_ test_conditional_states_through_uploaded_document[\u662f\u5426\u5305\u542b\u5f00\u6e90\u7ec4\u4ef6\u3001\u7b2c\u4e09\u65b9\u4ee3\u7801\u53ca\u804c\u52a1\u6210\u679c\uff0c\u4ee5\u53ca\u662f\u5426\u5b58\u5728\u5171\u540c\u6301\u6709\u4eba\u3001\u8f6f\u4ef6\u8457\u4f5c\u6743\u767b\u8bb0\uff0c\u9700\u53e6\u884c\u6838\u9a8c\u3002-CONDITION_UNRESOLVED] _
+backend\tests\test_secret_license_production_closure.py:376: in test_conditional_states_through_uploaded_document
+    report = amended_upload([statement])
+backend\tests\test_secret_license_production_closure.py:367: in amended_upload
+    return review_upload(stream.getvalue())
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+---------------------------- Captured stderr call -----------------------------
+2026-09-16 06:33:31 - security.sensitive_filter - INFO - [unknown] - 已清理 0 条超过 90 天的拦截日志
+2026-09-16 06:33:31 - main - INFO - [unknown] - 启动时清理了 0 条过期拦截日志
+2026-09-16 06:33:31 - main - INFO - [unknown] - Redis连接失败，已切换到内存模式，后续请求无延迟
+2026-09-16 06:33:31 - security.output_guard - INFO - [unknown] - [OUTPUT_GUARD] 初始化完成: 系统提示词长度=4633, 片段哈希数量=4584, 完整哈希=13c9684b6d3e79c1...
+2026-09-16 06:33:31 - main - INFO - [unknown] - [STARTUP] 输出安全守卫初始化完成: 片段哈希数=4584
+2026-09-16 06:33:31 - main - INFO - [unknown] - [STARTUP] 注入检测器初始化完成
+2026-09-16 06:33:31 - layers.legal_check_layer - INFO - [unknown] - [MCP_ADAPTER] MCP 客户端已初始化
+2026-09-16 06:33:31 - main - INFO - [unknown] - [STARTUP] 法条校验层初始化完成
+2026-09-16 06:33:31 - routers.review_v2 - CRITICAL - [8974b66e] - [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=3500
+2026-09-16 06:33:31 - sageai - INFO - [8974b66e] - {"type": "request", "request_id": "8974b66e", "user_id": "anoxxx", "ip": "unknown", "path": "/review-v2/file", "method": "POST", "duration_ms": 126.14, "status_code": 503, "error": null}
+2026-09-16 06:33:31 - httpx - INFO - [unknown] - HTTP Request: POST http://testserver/review-v2/file "HTTP/1.1 503 Service Unavailable"
+------------------------------ Captured log call ------------------------------
+INFO     security.sensitive_filter:sensitive_filter.py:223 已清理 0 条超过 90 天的拦截日志
+INFO     main:main.py:163 启动时清理了 0 条过期拦截日志
+INFO     main:main.py:172 Redis连接失败，已切换到内存模式，后续请求无延迟
+INFO     security.output_guard:output_guard.py:141 [OUTPUT_GUARD] 初始化完成: 系统提示词长度=4633, 片段哈希数量=4584, 完整哈希=13c9684b6d3e79c1...
+INFO     main:main.py:182 [STARTUP] 输出安全守卫初始化完成: 片段哈希数=4584
+INFO     main:main.py:189 [STARTUP] 注入检测器初始化完成
+INFO     layers.legal_check_layer:legal_check_layer.py:171 [MCP_ADAPTER] MCP 客户端已初始化
+INFO     main:main.py:209 [STARTUP] 法条校验层初始化完成
+CRITICAL routers.review_v2:review_v2.py:1402 [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=3500
+INFO     sageai:logging_utils.py:133 {"type": "request", "request_id": "8974b66e", "user_id": "anoxxx", "ip": "unknown", "path": "/review-v2/file", "method": "POST", "duration_ms": 126.14, "status_code": 503, "error": null}
+INFO     httpx:_client.py:1038 HTTP Request: POST http://testserver/review-v2/file "HTTP/1.1 503 Service Unavailable"
+______ test_notice_positive_parameters_defeat_old_absence_through_upload ______
+backend\tests\test_secret_license_production_closure.py:389: in test_notice_positive_parameters_defeat_old_absence_through_upload
+    report = amended_upload([
+backend\tests\test_secret_license_production_closure.py:367: in amended_upload
+    return review_upload(stream.getvalue())
+backend\tests\test_secret_license_production_closure.py:37: in review_upload
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+---------------------------- Captured stderr call -----------------------------
+2026-09-16 06:33:31 - security.sensitive_filter - INFO - [unknown] - 已清理 0 条超过 90 天的拦截日志
+2026-09-16 06:33:31 - main - INFO - [unknown] - 启动时清理了 0 条过期拦截日志
+2026-09-16 06:33:31 - main - INFO - [unknown] - Redis连接失败，已切换到内存模式，后续请求无延迟
+2026-09-16 06:33:31 - security.output_guard - INFO - [unknown] - [OUTPUT_GUARD] 初始化完成: 系统提示词长度=4633, 片段哈希数量=4584, 完整哈希=13c9684b6d3e79c1...
+2026-09-16 06:33:31 - main - INFO - [unknown] - [STARTUP] 输出安全守卫初始化完成: 片段哈希数=4584
+2026-09-16 06:33:31 - main - INFO - [unknown] - [STARTUP] 注入检测器初始化完成
+2026-09-16 06:33:31 - layers.legal_check_layer - INFO - [unknown] - [MCP_ADAPTER] MCP 客户端已初始化
+2026-09-16 06:33:31 - main - INFO - [unknown] - [STARTUP] 法条校验层初始化完成
+2026-09-16 06:33:31 - routers.review_v2 - CRITICAL - [0c6aaaab] - [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=3500
+2026-09-16 06:33:31 - sageai - INFO - [0c6aaaab] - {"type": "request", "request_id": "0c6aaaab", "user_id": "anoxxx", "ip": "unknown", "path": "/review-v2/file", "method": "POST", "duration_ms": 136.63, "status_code": 503, "error": null}
+2026-09-16 06:33:31 - httpx - INFO - [unknown] - HTTP Request: POST http://testserver/review-v2/file "HTTP/1.1 503 Service Unavailable"
+------------------------------ Captured log call ------------------------------
+INFO     security.sensitive_filter:sensitive_filter.py:223 已清理 0 条超过 90 天的拦截日志
+INFO     main:main.py:163 启动时清理了 0 条过期拦截日志
+INFO     main:main.py:172 Redis连接失败，已切换到内存模式，后续请求无延迟
+INFO     security.output_guard:output_guard.py:141 [OUTPUT_GUARD] 初始化完成: 系统提示词长度=4633, 片段哈希数量=4584, 完整哈希=13c9684b6d3e79c1...
+INFO     main:main.py:182 [STARTUP] 输出安全守卫初始化完成: 片段哈希数=4584
+INFO     main:main.py:189 [STARTUP] 注入检测器初始化完成
+INFO     layers.legal_check_layer:legal_check_layer.py:171 [MCP_ADAPTER] MCP 客户端已初始化
+INFO     main:main.py:209 [STARTUP] 法条校验层初始化完成
+CRITICAL routers.review_v2:review_v2.py:1402 [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=3500
+INFO     sageai:logging_utils.py:133 {"type": "request", "request_id": "0c6aaaab", "user_id": "anoxxx", "ip": "unknown", "path": "/review-v2/file", "method": "POST", "duration_ms": 136.63, "status_code": 503, "error": null}
+INFO     httpx:_client.py:1038 HTTP Request: POST http://testserver/review-v2/file "HTTP/1.1 503 Service Unavailable"
+_ test_fixed_fee_drafting_does_not_invent_royalties[\u8bb8\u53ef\u4ef7\u6b3e\u4e3a\u56fa\u5b9a\u603b\u4ef7120\u4e07\u5143\uff0c\u5305\u542b\u6280\u672f\u670d\u52a1\u8d39\uff0c\u5206\u4e09\u671f\u652f\u4ed8\u3002] _
+backend\tests\test_secret_license_evidence_display_cleanup.py:57: in test_fixed_fee_drafting_does_not_invent_royalties
+    assert "尚未支付的许可价款" in action
+E   AssertionError: assert '尚未支付的许可价款' in ''
+_ test_fixed_fee_drafting_does_not_invent_royalties[\u8bb8\u53ef\u4ef7\u6b3e\u4e3a\u56fa\u5b9a\u603b\u4ef7120\u4e07\u5143\uff0c\u6280\u672f\u6307\u5bfc\u5df2\u8ba1\u5165\u3002\u672c\u5408\u540c\u4e0d\u91c7\u7528\u63d0\u6210\u8d39\u652f\u4ed8\u3002] _
+backend\tests\test_secret_license_evidence_display_cleanup.py:57: in test_fixed_fee_drafting_does_not_invent_royalties
+    assert "尚未支付的许可价款" in action
+E   AssertionError: assert '尚未支付的许可价款' in ''
+_ test_fixed_fee_drafting_does_not_invent_royalties[\u5408\u540c\u603b\u4ef7\u5305\u62ec\u6280\u672f\u670d\u52a1\u3002\u82e5\u540e\u7eed\u91c7\u7528\u63d0\u6210\u652f\u4ed8\uff0c\u53e6\u884c\u534f\u5546\u63d0\u6210\u7387\u3002] _
+backend\tests\test_secret_license_evidence_display_cleanup.py:57: in test_fixed_fee_drafting_does_not_invent_royalties
+    assert "尚未支付的许可价款" in action
+E   AssertionError: assert '尚未支付的许可价款' in ''
+_ test_secret_license_scope_reuses_subject_territory_term_and_survival_facts __
+backend\tests\test_foreign_secret_license_evidence_consistency.py:52: in test_secret_license_scope_reuses_subject_territory_term_and_survival_facts
+    assert elements["licensed_secret_subject"]["status"] == "COVERED"
+E   AssertionError: assert 'UNCERTAIN' == 'COVERED'
+E     
+E     - COVERED
+E     + UNCERTAIN
+____ test_improvement_provision_is_shared_without_inventing_a_restriction _____
+backend\tests\test_foreign_secret_license_evidence_consistency.py:94: in test_improvement_provision_is_shared_without_inventing_a_restriction
+    assert "C0050" in _elements(sharing)["improvement_material_sharing"]["evidence_ids"]
+E   AssertionError: assert 'C0050' in ['SRC-bcf32dab4eda9ea93a64']
+_ test_public_information_exception_is_covered_and_removed_from_residual_gaps _
+backend\tests\test_foreign_secret_license_evidence_consistency.py:113: in test_public_information_exception_is_covered_and_removed_from_residual_gaps
+    assert elements["technical_secret_consideration"]["status"] == "COVERED"
+E   AssertionError: assert 'UNCERTAIN' == 'COVERED'
+E     
+E     - COVERED
+E     + UNCERTAIN
+__________ test_cross_rule_positive_facts_never_reappear_as_missing ___________
+backend\tests\test_foreign_secret_license_evidence_consistency.py:159: in test_cross_rule_positive_facts_never_reappear_as_missing
+    assert result["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+______________ test_report_statistics_are_clean_decimal_integers ______________
+backend\tests\test_foreign_secret_license_evidence_consistency.py:164: in test_report_statistics_are_clean_decimal_integers
+    assert "规则级审查命中数：15" in result["result"]
+E   AssertionError: assert '规则级审查命中数：15' in '# 技术秘密许可合同审查报告\n\n\n## 一、合同总体评价\n\n- 审查立场：甲方 / 受让方（被许可方）\n- 使用场景：技术秘密许可\n- 合同类型：技术合同—技术许可合同—技术秘密许可合同\n- 总体可签署性：建议修改后签...分，具有同等法律效力。\n- 支持要素：第十四条引用核验\n- 条款编号：13.6\n- 原文片段：13.6 本合同由第一条至第十四条及附件一至附件七组成，合同正文与附件均为本合同不可分割的组成部分，具有同等法律效力。\n\n---\n'
+__ test_scope_recommendation_and_evidence_use_precise_term_survival_clauses ___
+backend\tests\test_foreign_secret_license_evidence_consistency.py:181: in test_scope_recommendation_and_evidence_use_precise_term_survival_clauses
+    assert evidence_ids[:3] == ["C0014", "C0083", "C0063"]
+E   AssertionError: assert ['C0013', 'C0079', 'C0080'] == ['C0014', 'C0083', 'C0063']
+E     
+E     At index 0 diff: 'C0013' != 'C0014'
+E     Use -v to get more diff
+_______ test_prohibition_of_illegal_restriction_is_protective_not_risk ________
+backend\tests\test_technology_semantic_polarity_and_finding_consistency.py:38: in test_prohibition_of_illegal_restriction_is_protective_not_risk
+    assert item["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+_ test_material_list_in_body_preserves_types_and_reports_only_remaining_delivery_metadata _
+backend\tests\test_technology_semantic_polarity_and_finding_consistency.py:125: in test_material_list_in_body_preserves_types_and_reports_only_remaining_delivery_metadata
+    assert "版本号或文件编号" in item["risk_point_description"]
+E   AssertionError: assert '版本号或文件编号' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'
+______ test_vague_material_obligation_reports_specific_missing_elements _______
+backend\tests\test_technology_semantic_polarity_and_finding_consistency.py:133: in test_vague_material_obligation_reports_specific_missing_elements
+    assert "未列举主要技术资料文件类型" in item["risk_point_description"]
+E   AssertionError: assert '未列举主要技术资料文件类型' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+backend/tests/test_license_report_evidence_boundaries.py::test_disclosed_facts_are_not_residual_audit_targets[TC-03-04]
+backend/tests/test_license_element_ownership.py::test_normal_upload_preserves_license_element_ownership
+backend/tests/test_secret_license_production_closure.py::test_scope_liability_survives_file_pipeline
+backend/tests/test_secret_license_production_closure.py::test_conditional_states_through_uploaded_document[\u672c\u5408\u540c\u6280\u672f\u4e0d\u542b\u5f00\u6e90\u7ec4\u4ef6\uff0c\u4e0d\u6d89\u53ca\u7b2c\u4e09\u65b9\u4ee3\u7801\uff1b\u4e0d\u5b58\u5728\u5171\u540c\u6301\u6709\u4eba\uff0c\u4e0d\u6d89\u53ca\u804c\u52a1\u6210\u679c\uff1b\u672a\u767b\u8bb0\u8f6f\u4ef6\u8457\u4f5c\u6743\u3002-NOT_APPLICABLE]
+backend/tests/test_secret_license_production_closure.py::test_conditional_states_through_uploaded_document[\u672c\u5408\u540c\u6280\u672f\u4f7f\u7528\u5f00\u6e90\u7ec4\u4ef6\u548c\u7b2c\u4e09\u65b9\u4ee3\u7801\uff1b\u5171\u540c\u6301\u6709\u4eba\u4e3a\u5357\u6865\u6280\u672f\u6709\u9650\u516c\u53f8\uff1b\u5458\u5de5\u7814\u53d1\u5f62\u6210\u7684\u6280\u672f\u5c5e\u4e8e\u804c\u52a1\u6210\u679c\uff1b\u5df2\u529e\u7406\u8f6f\u4ef6\u8457\u4f5c\u6743\u3002-MISSING]
+backend/tests/test_secret_license_production_closure.py::test_conditional_states_through_uploaded_document[\u662f\u5426\u5305\u542b\u5f00\u6e90\u7ec4\u4ef6\u3001\u7b2c\u4e09\u65b9\u4ee3\u7801\u53ca\u804c\u52a1\u6210\u679c\uff0c\u4ee5\u53ca\u662f\u5426\u5b58\u5728\u5171\u540c\u6301\u6709\u4eba\u3001\u8f6f\u4ef6\u8457\u4f5c\u6743\u767b\u8bb0\uff0c\u9700\u53e6\u884c\u6838\u9a8c\u3002-CONDITION_UNRESOLVED]
+backend/tests/test_secret_license_production_closure.py::test_notice_positive_parameters_defeat_old_absence_through_upload
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_follow_on_improvement_clauses_are_recalled_and_split_by_element
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_material_schedule_and_handover_confirmation_are_positive_facts
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_patent_proof_search_audit_uses_atomic_positive_fact_names
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_patent_proof_partial_summary_lists_only_unresolved_gaps
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_audit_confidentiality_does_not_cover_general_technical_secret_rules
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_major_risks_and_action_counts_share_the_final_result
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_major_missing_rules_have_transaction_specific_recommendations
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_confidentiality_liability_inherits_unresolved_family_applicability
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_third_party_claim_core_and_advanced_elements_are_separated
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_cross_border_patent_license_uses_ordered_import_analysis
+FAILED backend/tests/test_patent_license_cross_clause_consistency.py::test_third_party_claim_registry_preserves_notice_cost_direction_and_cap
+FAILED backend/tests/test_patent_license_cross_clause_consistency.py::test_full_review_projects_cross_clause_risks_without_stale_missing_facts
+FAILED backend/tests/test_patent_license_cross_clause_consistency.py::test_third_party_claim_atomic_states_do_not_relabel_existing_terms_as_missing
+FAILED backend/tests/test_patent_license_cross_clause_consistency.py::test_final_report_consumes_the_same_element_truth_as_review_items
+FAILED backend/tests/test_patent_license_cross_clause_consistency.py::test_user_visible_themes_merge_the_same_improvement_fact_without_losing_findings
+FAILED backend/tests/test_patent_license_cross_clause_consistency.py::test_report_statistics_and_summary_use_the_aggregated_theme_projection
+FAILED backend/tests/test_patent_license_cross_clause_consistency.py::test_file_api_response_schema_preserves_user_visible_risk_themes
+FAILED backend/tests/test_technology_subject_identity_consistency.py::test_patent_license_granted_transfer_and_application_transfer[27]
+FAILED backend/tests/test_technology_subject_identity_consistency.py::test_patent_license_granted_transfer_and_application_transfer[43]
+FAILED backend/tests/test_technology_subject_identity_consistency.py::test_patent_license_granted_transfer_and_application_transfer[44]
+FAILED backend/tests/test_technology_subject_identity_consistency.py::test_secret_transactions_do_not_acquire_patent_identifier_requirements[26]
+FAILED backend/tests/test_technology_subject_identity_consistency.py::test_secret_transactions_do_not_acquire_patent_identifier_requirements[38]
+FAILED backend/tests/test_technology_subject_identity_consistency.py::test_secret_transactions_do_not_acquire_patent_identifier_requirements[41]
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_current_secret_license_full_regression
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_over_scope_liability_d_reasonable_clause_can_pass_or_be_partial
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_secret_license_route_and_protective_polarity
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_secret_license_shared_fee_improvement_and_claim_facts
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_secret_license_acceptance_evidence_is_subject_bound
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_secret_license_service_acceptance_uses_shared_subject_evidence
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_secret_loss_positive_notice_facts_never_reenter_missing
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_improvement_notice_is_partial_with_only_residual_details
+FAILED backend/tests/test_secret_license_production_closure.py::test_conditional_states_through_uploaded_document[\u672c\u5408\u540c\u6280\u672f\u4e0d\u542b\u5f00\u6e90\u7ec4\u4ef6\uff0c\u4e0d\u6d89\u53ca\u7b2c\u4e09\u65b9\u4ee3\u7801\uff1b\u4e0d\u5b58\u5728\u5171\u540c\u6301\u6709\u4eba\uff0c\u4e0d\u6d89\u53ca\u804c\u52a1\u6210\u679c\uff1b\u672a\u767b\u8bb0\u8f6f\u4ef6\u8457\u4f5c\u6743\u3002-NOT_APPLICABLE]
+FAILED backend/tests/test_secret_license_production_closure.py::test_conditional_states_through_uploaded_document[\u672c\u5408\u540c\u6280\u672f\u4f7f\u7528\u5f00\u6e90\u7ec4\u4ef6\u548c\u7b2c\u4e09\u65b9\u4ee3\u7801\uff1b\u5171\u540c\u6301\u6709\u4eba\u4e3a\u5357\u6865\u6280\u672f\u6709\u9650\u516c\u53f8\uff1b\u5458\u5de5\u7814\u53d1\u5f62\u6210\u7684\u6280\u672f\u5c5e\u4e8e\u804c\u52a1\u6210\u679c\uff1b\u5df2\u529e\u7406\u8f6f\u4ef6\u8457\u4f5c\u6743\u3002-MISSING]
+FAILED backend/tests/test_secret_license_production_closure.py::test_conditional_states_through_uploaded_document[\u662f\u5426\u5305\u542b\u5f00\u6e90\u7ec4\u4ef6\u3001\u7b2c\u4e09\u65b9\u4ee3\u7801\u53ca\u804c\u52a1\u6210\u679c\uff0c\u4ee5\u53ca\u662f\u5426\u5b58\u5728\u5171\u540c\u6301\u6709\u4eba\u3001\u8f6f\u4ef6\u8457\u4f5c\u6743\u767b\u8bb0\uff0c\u9700\u53e6\u884c\u6838\u9a8c\u3002-CONDITION_UNRESOLVED]
+FAILED backend/tests/test_secret_license_production_closure.py::test_notice_positive_parameters_defeat_old_absence_through_upload
+FAILED backend/tests/test_secret_license_evidence_display_cleanup.py::test_fixed_fee_drafting_does_not_invent_royalties[\u8bb8\u53ef\u4ef7\u6b3e\u4e3a\u56fa\u5b9a\u603b\u4ef7120\u4e07\u5143\uff0c\u5305\u542b\u6280\u672f\u670d\u52a1\u8d39\uff0c\u5206\u4e09\u671f\u652f\u4ed8\u3002]
+FAILED backend/tests/test_secret_license_evidence_display_cleanup.py::test_fixed_fee_drafting_does_not_invent_royalties[\u8bb8\u53ef\u4ef7\u6b3e\u4e3a\u56fa\u5b9a\u603b\u4ef7120\u4e07\u5143\uff0c\u6280\u672f\u6307\u5bfc\u5df2\u8ba1\u5165\u3002\u672c\u5408\u540c\u4e0d\u91c7\u7528\u63d0\u6210\u8d39\u652f\u4ed8\u3002]
+FAILED backend/tests/test_secret_license_evidence_display_cleanup.py::test_fixed_fee_drafting_does_not_invent_royalties[\u5408\u540c\u603b\u4ef7\u5305\u62ec\u6280\u672f\u670d\u52a1\u3002\u82e5\u540e\u7eed\u91c7\u7528\u63d0\u6210\u652f\u4ed8\uff0c\u53e6\u884c\u534f\u5546\u63d0\u6210\u7387\u3002]
+FAILED backend/tests/test_foreign_secret_license_evidence_consistency.py::test_secret_license_scope_reuses_subject_territory_term_and_survival_facts
+FAILED backend/tests/test_foreign_secret_license_evidence_consistency.py::test_improvement_provision_is_shared_without_inventing_a_restriction
+FAILED backend/tests/test_foreign_secret_license_evidence_consistency.py::test_public_information_exception_is_covered_and_removed_from_residual_gaps
+FAILED backend/tests/test_foreign_secret_license_evidence_consistency.py::test_cross_rule_positive_facts_never_reappear_as_missing
+FAILED backend/tests/test_foreign_secret_license_evidence_consistency.py::test_report_statistics_are_clean_decimal_integers
+FAILED backend/tests/test_foreign_secret_license_evidence_consistency.py::test_scope_recommendation_and_evidence_use_precise_term_survival_clauses
+FAILED backend/tests/test_technology_semantic_polarity_and_finding_consistency.py::test_prohibition_of_illegal_restriction_is_protective_not_risk
+FAILED backend/tests/test_technology_semantic_polarity_and_finding_consistency.py::test_material_list_in_body_preserves_types_and_reports_only_remaining_delivery_metadata
+FAILED backend/tests/test_technology_semantic_polarity_and_finding_consistency.py::test_vague_material_obligation_reports_specific_missing_elements
+ERROR backend/tests/test_secret_license_production_closure.py::test_scope_liability_survives_file_pipeline
+ERROR backend/tests/test_secret_license_production_closure.py::test_responsible_party_synonyms_cannot_disagree
+ERROR backend/tests/test_secret_license_production_closure.py::test_broad_claim_responsibility_does_not_expand_to_concrete_fields
+ERROR backend/tests/test_secret_license_production_closure.py::test_principle_liability_and_concrete_scope_agree_across_rules
+ERROR backend/tests/test_secret_license_production_closure.py::test_release_gate_blocks_cross_rule_scope_inflation[element]
+ERROR backend/tests/test_secret_license_production_closure.py::test_release_gate_blocks_cross_rule_scope_inflation[narrative]
+ERROR backend/tests/test_secret_license_production_closure.py::test_final_gate_rejects_invented_specific_cost_support[element]
+ERROR backend/tests/test_secret_license_production_closure.py::test_final_gate_rejects_invented_specific_cost_support[review]
+ERROR backend/tests/test_secret_license_production_closure.py::test_final_gate_rejects_invented_specific_cost_support[aggregate]
+ERROR backend/tests/test_secret_license_production_closure.py::test_final_gate_rejects_invented_specific_cost_support[alias]
+ERROR backend/tests/test_secret_license_production_closure.py::test_each_final_notice_gap_has_its_own_search
+ERROR backend/tests/test_secret_license_production_closure.py::test_unknown_proof_conditions_are_verification_not_drafting
+ERROR backend/tests/test_secret_license_production_closure.py::test_existing_license_atomic_facts_survive_absence_and_all_report_sections
+ERROR backend/tests/test_secret_license_production_closure.py::test_production_report_gate_and_previous_correct_states
+ERROR backend/tests/test_secret_license_production_closure.py::test_confidentiality_remedies_remain_atomic_and_party_bound_in_report
+ERROR backend/tests/test_secret_license_production_closure.py::test_partial_proof_requirements_survive_summary_recommendation_and_evidence
+ERROR backend/tests/test_secret_license_production_closure.py::test_party_remedy_gaps_are_identical_in_all_five_report_layers
+ERROR backend/tests/test_secret_license_production_closure.py::test_secret_identity_tags_have_direct_scope_support_in_production
+ERROR backend/tests/test_secret_license_production_closure.py::test_release_gate_rejects_party_penalty_or_unresolved_projection_drift[penalty-PENALTY_NARRATIVE_WITHOUT_PENALTY_EVIDENCE]
+ERROR backend/tests/test_secret_license_production_closure.py::test_release_gate_rejects_party_penalty_or_unresolved_projection_drift[party-OBLIGATED_PARTY_EVIDENCE_MISMATCH]
+ERROR backend/tests/test_secret_license_production_closure.py::test_release_gate_rejects_party_penalty_or_unresolved_projection_drift[aggregate-AGGREGATE_UNRESOLVED_ELEMENTS_MISMATCH]
+ERROR backend/tests/test_secret_license_production_closure.py::test_release_gate_rejects_party_penalty_or_unresolved_projection_drift[evidence-EVIDENCE_UNRESOLVED_ELEMENTS_MISMATCH]
+ERROR backend/tests/test_secret_license_production_closure.py::test_release_gate_rejects_party_penalty_or_unresolved_projection_drift[narrative-UNRESOLVED_NARRATIVE_OMISSION]
+ERROR backend/tests/test_secret_license_production_closure.py::test_release_gate_rejects_party_penalty_or_unresolved_projection_drift[party_narrative-PARTY_NARRATIVE_STATUS_MISMATCH]
+ERROR backend/tests/test_secret_license_production_closure.py::test_removing_one_absence_binding_cannot_pass_release_invariant
+47 failed, 111 passed, 12 warnings, 25 errors in 327.89s (0:05:27)

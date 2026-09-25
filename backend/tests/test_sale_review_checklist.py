@@ -3,6 +3,7 @@
 from review_v2.house_lease_checklist import ReviewCheckpoint
 from review_v2.engine import COVERAGE_NOT_APPLICABLE, ISSUE_NOT_APPLICABLE, review_contract_v2
 from review_v2.sale_contract_checklist import get_sale_checklist
+from review_v2.user_profile import UserRiskProfile
 
 
 def test_sale_review_checklist_has_56_points_and_13_modules():
@@ -151,6 +152,7 @@ def test_sale_review_applies_special_points_when_trigger_keywords_exist():
         "标的物为已发运的在途货物，并按封样样品交付。双方约定先试用三日。",
         "sale",
         use_llm=False,
+        profile=UserRiskProfile(user_identity="卖方"),
     )
 
     triggered_ids = {
@@ -228,8 +230,9 @@ def test_sale_cement_contract_practical_risk_level_corrections():
     assert by_id["S-01-03"]["issue_type"] == "完全缺失"
 
     assert by_id["S-07-02"]["risk_level"] == "中"
-    assert by_id["S-07-02"]["coverage_status"] == "缺失"
-    assert by_id["S-07-02"]["issue_type"] == "完全缺失"
+    # Public responses project internal INSUFFICIENT_CONTEXT to 待核验.
+    assert by_id["S-07-02"]["coverage_status"] == "待核验"
+    assert by_id["S-07-02"]["needs_manual_review"]
 
     assert by_id["S-07-03"]["risk_level"] == "中"
     assert by_id["S-07-03"]["coverage_status"] == "缺失"
@@ -314,4 +317,6 @@ def test_sale_review_calibrates_payment_schedule_price_adjustment_intent_effecti
 
     assert by_id["S-03-03"]["risk_level"] == "低"
     assert by_id["S-03-03"]["coverage_status"] == "部分覆盖"
-    assert "凭证形式" in by_id["S-03-03"]["reasoning_summary"]
+    assert any(e["element_id"] == "goods_receipt_record" and e["status"] == "MISSING"
+               for e in by_id["S-03-03"]["coverage_elements"])
+    assert "凭证" in by_id["S-03-03"]["reasoning_summary"]

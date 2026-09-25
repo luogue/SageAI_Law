@@ -1,0 +1,749 @@
+{
+  "legacy_baseline": {
+    "gate": {
+      "status": "BLOCKED",
+      "failures": [
+        {
+          "requirement": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+          "failure_stage": "Review Evidence Projection",
+          "root_cause": "Review evidence is not exactly bound to covered elements: 1 mismatch(es).",
+          "current_status": "FAIL",
+          "mismatches": [
+            {
+              "review_id": "US-10-01",
+              "element_id": "core_contract_arrangement",
+              "status": "PARTIALLY_COVERED",
+              "evidence_refs": [
+                "C0005"
+              ],
+              "direct_evidence_refs": [],
+              "selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+              "reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership."
+            }
+          ]
+        }
+      ],
+      "priority_consistency_verification": {
+        "executed": true,
+        "high_finding_count": 12,
+        "core_priority_count": 11,
+        "consistency": "CONSISTENT",
+        "explanations": [],
+        "needs_recalibration": false
+      },
+      "context_consistency": {
+        "status": "PASS",
+        "failures": [],
+        "contract_type": "utility_supply",
+        "domain_pack": "domain-pack-shared-1.0"
+      },
+      "gate_results": {
+        "PASS_EVIDENCE_PROVENANCE_GATE": "PASS",
+        "PARTIAL_ELEMENT_NARRATIVE_GATE": "PASS",
+        "COVERAGE_SENTENCE_CONSISTENCY_GATE": "PASS",
+        "ELEMENT_STATUS_CONTRADICTION": "PASS",
+        "EVIDENCE_MONOTONICITY_VIOLATION": "PASS",
+        "FINDING_EVIDENCE_GATE": "PASS",
+        "CROSS_LAYER_CONSISTENCY_GATE": "PASS",
+        "DEFAULT_LAW_COMPLETENESS_GATE": "PASS",
+        "DEFAULT_LAW_EFFECTIVE_GAP_GATE": "PASS",
+        "NARRATIVE_ELEMENT_CONSISTENCY_GATE": "PASS",
+        "NARRATIVE_TRUTH_GATE": "PASS",
+        "PRIORITY_CONSISTENCY_GATE": "PASS",
+        "SIGNABILITY_GATE": "PASS",
+        "CONFIDENCE_VALIDATION_GATE": "PASS",
+        "DOMAIN_SUBTYPE_GATE": "PASS",
+        "DOMAIN_REVIEW_ISOLATION_GATE": "PASS",
+        "DOMAIN_MATERIAL_COVERAGE_GATE": "PASS",
+        "TRANSACTION_STRUCTURE_GATE": "PASS",
+        "FRAMEWORK_DOMAIN_GATE": "PASS",
+        "ORDER_RELATION_GATE": "PASS",
+        "DYNAMIC_QUANTITY_GATE": "PASS",
+        "PRICE_MECHANISM_GATE": "PASS",
+        "ALTERNATIVE_SATISFACTION_GATE": "PASS",
+        "FALSE_RISK_EXISTENCE_GATE": "PASS",
+        "FACT_REGISTRY_SNAPSHOT_CONSISTENCY": "PASS",
+        "FACT_REGISTRY_CONFLICTING_FACT": "PASS",
+        "CROSS_REVIEW_FACT_CONFLICT": "PASS",
+        "FACT_TRUTH_OVERRIDE_VIOLATION": "PASS",
+        "FACT_CONSUMER_MAPPING_MISSING": "PASS",
+        "RISK_EVIDENCE_MISMATCH": "PASS",
+        "CANONICAL_PENALTY_BINDING": "PASS",
+        "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "FAIL",
+        "APPLICABILITY_PRECONDITION_GATE": "PASS",
+        "SHARED_CLAIM_CONSISTENCY_GATE": "PASS",
+        "FINDING_PRECONDITION_GATE": "PASS",
+        "REPORT_CONTEXT_GATE": "PASS",
+        "REPORT_TRANSACTION_TRUTH_GATE": "PASS",
+        "CROSS_REVIEW_CONSISTENCY_GATE": "PASS",
+        "RECOMMENDATION_NON_DEGRADATION_GATE": "PASS",
+        "COMMON_REVIEW_SATISFACTION_GATE": "PASS",
+        "ELEMENT_IDENTITY_CONTRADICTION_GATE": "PASS",
+        "PRODUCT_APPLICABILITY_GATE": "PASS",
+        "SHARED_CLAIM_REUSE_GATE": "PASS",
+        "FINDING_INDEPENDENCE_GATE": "PASS",
+        "TECHNOLOGY_TRANSACTION_CONSISTENCY": "NOT_APPLICABLE",
+        "PERSPECTIVE_DOMAIN_CONSISTENCY_GATE": "PASS",
+        "PATENT_TRANSFER_QUALITY_GATE": "NOT_APPLICABLE",
+        "PRODUCTION_FACT_POLARITY_GATE": "PASS",
+        "ADVERSE_POLARITY_AUDIT_GATE": "PASS",
+        "RECOMMENDATION_SOURCE_UNMAPPED": "PASS",
+        "RECOMMENDATION_ELEMENT_LEAKAGE": "PASS",
+        "RECOMMENDATION_COVERED_ELEMENT_REINTRODUCED": "PASS",
+        "RECOMMENDATION_PLACEHOLDER_TEXT": "PASS",
+        "RECOMMENDATION_FINAL_DISPOSITION_MISMATCH": "PASS",
+        "CLIENT_INTEREST_GATE": "PASS",
+        "RISK_STATISTICS_INVARIANT": "PASS",
+        "FINAL_DISPOSITION_INVARIANT": "PASS",
+        "FORMAL_RECOMMENDATION_FINAL_DISPOSITION_INVARIANT": "PASS",
+        "RECOMMENDATION_OWNERSHIP_INVARIANT": "PASS",
+        "HIGH_NON_MUST_CHANGE_REASON_INVARIANT": "PASS",
+        "OPTIONAL_IMPROVEMENT_VISIBILITY_INVARIANT": "PASS",
+        "ACTIONABLE_RECOMMENDATION_COMPLETENESS_INVARIANT": "PASS",
+        "LEGAL_AUTHORITY_DEDUP_GATE": "PASS",
+        "LEGAL_AUTHORITY_SELECTION_GATE": "PASS",
+        "CITATION_ENTAILMENT_GATE": "PASS",
+        "LEGAL_DEFAULT_LAW_CONSISTENCY_GATE": "PASS",
+        "ATOMIC_LEGAL_ELEMENT_GATE": "PASS",
+        "DEFAULT_LAW_NARRATIVE_TRUTH_GATE": "PASS",
+        "NOT_APPLICABLE_NARRATIVE_GATE": "PASS",
+        "NOT_APPLICABLE_GAP_GATE": "PASS",
+        "REVIEW_POLARITY_NARRATIVE_GATE": "PASS",
+        "NEGATIVE_CHECK_PASS_GATE": "PASS",
+        "CROSS_REVIEW_SHARED_CLAIM_GATE": "PASS",
+        "NARRATIVE_EVIDENCE_GATE": "PASS",
+        "CANONICAL_SEMANTIC_PROOF_GATE": "PASS",
+        "VERIFIED_PASS_ORIGINAL_GATE": "PASS",
+        "EXACT_ELEMENT_REPORT_INVARIANT": "PASS",
+        "RISK_TITLE_EVIDENCE_CONSISTENCY": "PASS",
+        "COVERAGE_LEGALITY_CONSISTENCY": "PASS",
+        "REPORT_TOPIC_LABEL_CONSISTENCY": "PASS",
+        "PRODUCTION_INTERNAL_TOKEN_GATE": "PASS",
+        "DEFAULT_LAW_PROVENANCE_GATE": "PASS",
+        "RECOMMENDATION_SINGLE_SOURCE_GATE": "PASS",
+        "RECOMMENDATION_CROSS_RENDERER_CONSISTENCY_GATE": "PASS",
+        "REPORT_TEXT_VALIDATION": "PASS",
+        "REPORT_DISPOSITION_PROJECTION_INVARIANT": "PASS",
+        "EVIDENCE_BUNDLE_ENTAILMENT_GATE": "PASS",
+        "RECOMMENDATION_SEMANTIC_BINDING_GATE": "PASS",
+        "SUMMARY_DETAIL_RISK_ID_GATE": "PASS",
+        "ISSUE_TYPE_NARRATIVE_GATE": "PASS",
+        "OPTIONAL_REPORT_COUNT_GATE": "PASS",
+        "REPORT_ROLE_PLACEHOLDER_GATE": "PASS",
+        "ACTIONABLE_RECOMMENDATION_VISIBILITY_GATE": "PASS",
+        "CLAIM_EVIDENCE_COVERAGE_GATE": "PASS",
+        "EVIDENCE_FACT_ROLE_GATE": "PASS",
+        "SINGLE_EVIDENCE_SOURCE_GATE": "PASS",
+        "EVIDENCE_BUNDLE_RENDER_GATE": "PASS",
+        "APPLICABILITY_DISPLAY_CONSISTENCY_GATE": "PASS",
+        "ISSUE_TYPE_CONSISTENCY_GATE": "PASS",
+        "PARTIAL_MISSING_ELEMENT_GATE": "PASS",
+        "SUMMARY_TRUNCATION_DISCLOSURE_GATE": "PASS",
+        "TECHNICAL_REPORT_PLACEHOLDER_GATE": "PASS",
+        "FINAL_RISK_EVIDENCE_BUNDLE_GATE": "PASS",
+        "EVIDENCE_ITEM_UNIQUENESS_GATE": "PASS",
+        "CLAUSE_NODE_CONSISTENCY_GATE": "PASS",
+        "MISSING_RISK_ABSENCE_EVIDENCE_GATE": "PASS",
+        "COVERAGE_RISK_ACTION_CONSISTENCY_GATE": "PASS",
+        "PATENT_ROLE_TERMINOLOGY_GATE": "PASS",
+        "DUPLICATE_TEMPLATE_PHRASE_GATE": "PASS",
+        "EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+        "PASS_EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+        "CANONICAL_RISK_COVERAGE_INVARIANT": "PASS",
+        "CONSULTING_REPORT_CONTEXT_GATE": "PASS",
+        "TERMINOLOGY_CONSISTENCY_GATE": "PASS",
+        "APPLICABILITY_AND_EVIDENCE_BOUNDARY": "PASS",
+        "UTILITY_SUPPLY_CONSISTENCY_GATE": "PASS"
+      },
+      "blocking_rules": [
+        {
+          "code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+          "stage": "Review Evidence Projection",
+          "reason": "Review evidence is not exactly bound to covered elements: 1 mismatch(es).",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        }
+      ],
+      "blocking_stage": "Review Evidence Projection",
+      "blocking_entities": [
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        }
+      ],
+      "blocking_reasons": [
+        "Review evidence is not exactly bound to covered elements: 1 mismatch(es)."
+      ],
+      "post_render_status": "REPORT_READY"
+    },
+    "rows": {
+      "US-01-01": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-01-02": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-01-03": {
+        "coverage": "缺失",
+        "risk": "中"
+      },
+      "US-01-04": {
+        "coverage": "通过",
+        "risk": "低"
+      },
+      "US-02-01": {
+        "coverage": "法律提示",
+        "risk": "低"
+      },
+      "US-02-02": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-02-03": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-02-04": {
+        "coverage": "缺失",
+        "risk": "中"
+      },
+      "US-03-01": {
+        "coverage": "通过",
+        "risk": "低"
+      },
+      "US-03-02": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-03-03": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-03-04": {
+        "coverage": "缺失",
+        "risk": "低"
+      },
+      "US-04-01": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-04-02": {
+        "coverage": "通过",
+        "risk": "低"
+      },
+      "US-04-03": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-04-04": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-05-01": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-05-02": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-05-03": {
+        "coverage": "通过",
+        "risk": "低"
+      },
+      "US-05-04": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-06-01": {
+        "coverage": "通过",
+        "risk": "低"
+      },
+      "US-06-02": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-06-03": {
+        "coverage": "缺失",
+        "risk": "中"
+      },
+      "US-06-04": {
+        "coverage": "待核验",
+        "risk": "中"
+      },
+      "US-07-01": {
+        "coverage": "通过",
+        "risk": "低"
+      },
+      "US-07-02": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-07-03": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-07-04": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-08-01": {
+        "coverage": "部分覆盖",
+        "risk": "低"
+      },
+      "US-08-02": {
+        "coverage": "部分覆盖",
+        "risk": "高"
+      },
+      "US-08-03": {
+        "coverage": "通过",
+        "risk": "低"
+      },
+      "US-08-04": {
+        "coverage": "通过",
+        "risk": "低"
+      },
+      "US-09-01": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-09-02": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-09-03": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-09-04": {
+        "coverage": "缺失",
+        "risk": "低"
+      },
+      "US-10-01": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-10-02": {
+        "coverage": "通过",
+        "risk": "低"
+      },
+      "US-10-03": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-10-04": {
+        "coverage": "缺失",
+        "risk": "低"
+      },
+      "US-11-01": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-11-02": {
+        "coverage": "不适用",
+        "risk": "none"
+      },
+      "US-11-03": {
+        "coverage": "待核验",
+        "risk": "中"
+      },
+      "US-11-04": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-12-01": {
+        "coverage": "部分覆盖",
+        "risk": "低"
+      },
+      "US-12-02": {
+        "coverage": "缺失",
+        "risk": "低"
+      },
+      "US-12-03": {
+        "coverage": "缺失",
+        "risk": "低"
+      },
+      "US-12-04": {
+        "coverage": "缺失",
+        "risk": "低"
+      }
+    }
+  },
+  "new_routing": {
+    "gate": {
+      "status": "BLOCKED",
+      "failures": [
+        {
+          "requirement": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+          "failure_stage": "Review Evidence Projection",
+          "root_cause": "Review evidence is not exactly bound to covered elements: 1 mismatch(es).",
+          "current_status": "FAIL",
+          "mismatches": [
+            {
+              "review_id": "US-10-01",
+              "element_id": "core_contract_arrangement",
+              "status": "PARTIALLY_COVERED",
+              "evidence_refs": [
+                "C0005"
+              ],
+              "direct_evidence_refs": [],
+              "selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+              "reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership."
+            }
+          ]
+        }
+      ],
+      "priority_consistency_verification": {
+        "executed": true,
+        "high_finding_count": 12,
+        "core_priority_count": 11,
+        "consistency": "CONSISTENT",
+        "explanations": [],
+        "needs_recalibration": false
+      },
+      "context_consistency": {
+        "status": "PASS",
+        "failures": [],
+        "contract_type": "utility_supply",
+        "domain_pack": "domain-pack-shared-1.0"
+      },
+      "gate_results": {
+        "PASS_EVIDENCE_PROVENANCE_GATE": "PASS",
+        "PARTIAL_ELEMENT_NARRATIVE_GATE": "PASS",
+        "COVERAGE_SENTENCE_CONSISTENCY_GATE": "PASS",
+        "ELEMENT_STATUS_CONTRADICTION": "PASS",
+        "EVIDENCE_MONOTONICITY_VIOLATION": "PASS",
+        "FINDING_EVIDENCE_GATE": "PASS",
+        "CROSS_LAYER_CONSISTENCY_GATE": "PASS",
+        "DEFAULT_LAW_COMPLETENESS_GATE": "PASS",
+        "DEFAULT_LAW_EFFECTIVE_GAP_GATE": "PASS",
+        "NARRATIVE_ELEMENT_CONSISTENCY_GATE": "PASS",
+        "NARRATIVE_TRUTH_GATE": "PASS",
+        "PRIORITY_CONSISTENCY_GATE": "PASS",
+        "SIGNABILITY_GATE": "PASS",
+        "CONFIDENCE_VALIDATION_GATE": "PASS",
+        "DOMAIN_SUBTYPE_GATE": "PASS",
+        "DOMAIN_REVIEW_ISOLATION_GATE": "PASS",
+        "DOMAIN_MATERIAL_COVERAGE_GATE": "PASS",
+        "TRANSACTION_STRUCTURE_GATE": "PASS",
+        "FRAMEWORK_DOMAIN_GATE": "PASS",
+        "ORDER_RELATION_GATE": "PASS",
+        "DYNAMIC_QUANTITY_GATE": "PASS",
+        "PRICE_MECHANISM_GATE": "PASS",
+        "ALTERNATIVE_SATISFACTION_GATE": "PASS",
+        "FALSE_RISK_EXISTENCE_GATE": "PASS",
+        "FACT_REGISTRY_SNAPSHOT_CONSISTENCY": "PASS",
+        "FACT_REGISTRY_CONFLICTING_FACT": "PASS",
+        "CROSS_REVIEW_FACT_CONFLICT": "PASS",
+        "FACT_TRUTH_OVERRIDE_VIOLATION": "PASS",
+        "FACT_CONSUMER_MAPPING_MISSING": "PASS",
+        "RISK_EVIDENCE_MISMATCH": "PASS",
+        "CANONICAL_PENALTY_BINDING": "PASS",
+        "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "FAIL",
+        "APPLICABILITY_PRECONDITION_GATE": "PASS",
+        "SHARED_CLAIM_CONSISTENCY_GATE": "PASS",
+        "FINDING_PRECONDITION_GATE": "PASS",
+        "REPORT_CONTEXT_GATE": "PASS",
+        "REPORT_TRANSACTION_TRUTH_GATE": "PASS",
+        "CROSS_REVIEW_CONSISTENCY_GATE": "PASS",
+        "RECOMMENDATION_NON_DEGRADATION_GATE": "PASS",
+        "COMMON_REVIEW_SATISFACTION_GATE": "PASS",
+        "ELEMENT_IDENTITY_CONTRADICTION_GATE": "PASS",
+        "PRODUCT_APPLICABILITY_GATE": "PASS",
+        "SHARED_CLAIM_REUSE_GATE": "PASS",
+        "FINDING_INDEPENDENCE_GATE": "PASS",
+        "TECHNOLOGY_TRANSACTION_CONSISTENCY": "NOT_APPLICABLE",
+        "PERSPECTIVE_DOMAIN_CONSISTENCY_GATE": "PASS",
+        "PATENT_TRANSFER_QUALITY_GATE": "NOT_APPLICABLE",
+        "PRODUCTION_FACT_POLARITY_GATE": "PASS",
+        "ADVERSE_POLARITY_AUDIT_GATE": "PASS",
+        "RECOMMENDATION_SOURCE_UNMAPPED": "PASS",
+        "RECOMMENDATION_ELEMENT_LEAKAGE": "PASS",
+        "RECOMMENDATION_COVERED_ELEMENT_REINTRODUCED": "PASS",
+        "RECOMMENDATION_PLACEHOLDER_TEXT": "PASS",
+        "RECOMMENDATION_FINAL_DISPOSITION_MISMATCH": "PASS",
+        "CLIENT_INTEREST_GATE": "PASS",
+        "RISK_STATISTICS_INVARIANT": "PASS",
+        "FINAL_DISPOSITION_INVARIANT": "PASS",
+        "FORMAL_RECOMMENDATION_FINAL_DISPOSITION_INVARIANT": "PASS",
+        "RECOMMENDATION_OWNERSHIP_INVARIANT": "PASS",
+        "HIGH_NON_MUST_CHANGE_REASON_INVARIANT": "PASS",
+        "OPTIONAL_IMPROVEMENT_VISIBILITY_INVARIANT": "PASS",
+        "ACTIONABLE_RECOMMENDATION_COMPLETENESS_INVARIANT": "PASS",
+        "LEGAL_AUTHORITY_DEDUP_GATE": "PASS",
+        "LEGAL_AUTHORITY_SELECTION_GATE": "PASS",
+        "CITATION_ENTAILMENT_GATE": "PASS",
+        "LEGAL_DEFAULT_LAW_CONSISTENCY_GATE": "PASS",
+        "ATOMIC_LEGAL_ELEMENT_GATE": "PASS",
+        "DEFAULT_LAW_NARRATIVE_TRUTH_GATE": "PASS",
+        "NOT_APPLICABLE_NARRATIVE_GATE": "PASS",
+        "NOT_APPLICABLE_GAP_GATE": "PASS",
+        "REVIEW_POLARITY_NARRATIVE_GATE": "PASS",
+        "NEGATIVE_CHECK_PASS_GATE": "PASS",
+        "CROSS_REVIEW_SHARED_CLAIM_GATE": "PASS",
+        "NARRATIVE_EVIDENCE_GATE": "PASS",
+        "CANONICAL_SEMANTIC_PROOF_GATE": "PASS",
+        "VERIFIED_PASS_ORIGINAL_GATE": "PASS",
+        "EXACT_ELEMENT_REPORT_INVARIANT": "PASS",
+        "RISK_TITLE_EVIDENCE_CONSISTENCY": "PASS",
+        "COVERAGE_LEGALITY_CONSISTENCY": "PASS",
+        "REPORT_TOPIC_LABEL_CONSISTENCY": "PASS",
+        "PRODUCTION_INTERNAL_TOKEN_GATE": "PASS",
+        "DEFAULT_LAW_PROVENANCE_GATE": "PASS",
+        "RECOMMENDATION_SINGLE_SOURCE_GATE": "PASS",
+        "RECOMMENDATION_CROSS_RENDERER_CONSISTENCY_GATE": "PASS",
+        "REPORT_TEXT_VALIDATION": "PASS",
+        "REPORT_DISPOSITION_PROJECTION_INVARIANT": "PASS",
+        "EVIDENCE_BUNDLE_ENTAILMENT_GATE": "PASS",
+        "RECOMMENDATION_SEMANTIC_BINDING_GATE": "PASS",
+        "SUMMARY_DETAIL_RISK_ID_GATE": "PASS",
+        "ISSUE_TYPE_NARRATIVE_GATE": "PASS",
+        "OPTIONAL_REPORT_COUNT_GATE": "PASS",
+        "REPORT_ROLE_PLACEHOLDER_GATE": "PASS",
+        "ACTIONABLE_RECOMMENDATION_VISIBILITY_GATE": "PASS",
+        "CLAIM_EVIDENCE_COVERAGE_GATE": "PASS",
+        "EVIDENCE_FACT_ROLE_GATE": "PASS",
+        "SINGLE_EVIDENCE_SOURCE_GATE": "PASS",
+        "EVIDENCE_BUNDLE_RENDER_GATE": "PASS",
+        "APPLICABILITY_DISPLAY_CONSISTENCY_GATE": "PASS",
+        "ISSUE_TYPE_CONSISTENCY_GATE": "PASS",
+        "PARTIAL_MISSING_ELEMENT_GATE": "PASS",
+        "SUMMARY_TRUNCATION_DISCLOSURE_GATE": "PASS",
+        "TECHNICAL_REPORT_PLACEHOLDER_GATE": "PASS",
+        "FINAL_RISK_EVIDENCE_BUNDLE_GATE": "PASS",
+        "EVIDENCE_ITEM_UNIQUENESS_GATE": "PASS",
+        "CLAUSE_NODE_CONSISTENCY_GATE": "PASS",
+        "MISSING_RISK_ABSENCE_EVIDENCE_GATE": "PASS",
+        "COVERAGE_RISK_ACTION_CONSISTENCY_GATE": "PASS",
+        "PATENT_ROLE_TERMINOLOGY_GATE": "PASS",
+        "DUPLICATE_TEMPLATE_PHRASE_GATE": "PASS",
+        "EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+        "PASS_EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+        "CANONICAL_RISK_COVERAGE_INVARIANT": "PASS",
+        "CONSULTING_REPORT_CONTEXT_GATE": "PASS",
+        "TERMINOLOGY_CONSISTENCY_GATE": "PASS",
+        "APPLICABILITY_AND_EVIDENCE_BOUNDARY": "PASS",
+        "UTILITY_SUPPLY_CONSISTENCY_GATE": "PASS"
+      },
+      "blocking_rules": [
+        {
+          "code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+          "stage": "Review Evidence Projection",
+          "reason": "Review evidence is not exactly bound to covered elements: 1 mismatch(es).",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        }
+      ],
+      "blocking_stage": "Review Evidence Projection",
+      "blocking_entities": [
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        }
+      ],
+      "blocking_reasons": [
+        "Review evidence is not exactly bound to covered elements: 1 mismatch(es)."
+      ],
+      "post_render_status": "REPORT_READY"
+    },
+    "rows": {
+      "US-01-01": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-01-02": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-01-03": {
+        "coverage": "缺失",
+        "risk": "中"
+      },
+      "US-01-04": {
+        "coverage": "通过",
+        "risk": "低"
+      },
+      "US-02-01": {
+        "coverage": "法律提示",
+        "risk": "低"
+      },
+      "US-02-02": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-02-03": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-02-04": {
+        "coverage": "缺失",
+        "risk": "中"
+      },
+      "US-03-01": {
+        "coverage": "通过",
+        "risk": "低"
+      },
+      "US-03-02": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-03-03": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-03-04": {
+        "coverage": "缺失",
+        "risk": "低"
+      },
+      "US-04-01": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-04-02": {
+        "coverage": "通过",
+        "risk": "低"
+      },
+      "US-04-03": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-04-04": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-05-01": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-05-02": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-05-03": {
+        "coverage": "通过",
+        "risk": "低"
+      },
+      "US-05-04": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-06-01": {
+        "coverage": "通过",
+        "risk": "低"
+      },
+      "US-06-02": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-06-03": {
+        "coverage": "缺失",
+        "risk": "中"
+      },
+      "US-06-04": {
+        "coverage": "待核验",
+        "risk": "中"
+      },
+      "US-07-01": {
+        "coverage": "通过",
+        "risk": "低"
+      },
+      "US-07-02": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-07-03": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-07-04": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-08-01": {
+        "coverage": "部分覆盖",
+        "risk": "低"
+      },
+      "US-08-02": {
+        "coverage": "部分覆盖",
+        "risk": "高"
+      },
+      "US-08-03": {
+        "coverage": "通过",
+        "risk": "低"
+      },
+      "US-08-04": {
+        "coverage": "通过",
+        "risk": "低"
+      },
+      "US-09-01": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-09-02": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-09-03": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-09-04": {
+        "coverage": "缺失",
+        "risk": "低"
+      },
+      "US-10-01": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-10-02": {
+        "coverage": "通过",
+        "risk": "低"
+      },
+      "US-10-03": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-10-04": {
+        "coverage": "缺失",
+        "risk": "低"
+      },
+      "US-11-01": {
+        "coverage": "风险条款",
+        "risk": "高"
+      },
+      "US-11-02": {
+        "coverage": "不适用",
+        "risk": "none"
+      },
+      "US-11-03": {
+        "coverage": "待核验",
+        "risk": "中"
+      },
+      "US-11-04": {
+        "coverage": "待核验",
+        "risk": "低"
+      },
+      "US-12-01": {
+        "coverage": "部分覆盖",
+        "risk": "低"
+      },
+      "US-12-02": {
+        "coverage": "缺失",
+        "risk": "低"
+      },
+      "US-12-03": {
+        "coverage": "缺失",
+        "risk": "低"
+      },
+      "US-12-04": {
+        "coverage": "缺失",
+        "risk": "低"
+      }
+    }
+  },
+  "same_rule_outcomes": true
+}

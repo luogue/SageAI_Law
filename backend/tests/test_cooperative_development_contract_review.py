@@ -184,8 +184,8 @@ def test_missing_element_recommendation_is_natural_without_rewriting_source():
 def test_single_manual_review_does_not_abort_report(monkeypatch):
     original = engine._applicability_result_for_checkpoint
 
-    def one_uncertain_item(checkpoint, clauses, applicable, reason, canonical_claims=None):
-        result = original(checkpoint, clauses, applicable, reason, canonical_claims)
+    def one_uncertain_item(checkpoint, clauses, applicable, reason, canonical_claims=None, contract_type_key="sale"):
+        result = original(checkpoint, clauses, applicable, reason, canonical_claims, contract_type_key)
         if checkpoint.item_id == "TC-08-01":
             result.update({
                 "status": "UNCERTAIN",

@@ -1,0 +1,3804 @@
+{
+  "code": "FACT_EXTRACTION_BLOCKED",
+  "release_quality_gate": "BLOCKED",
+  "provider": "deepseek",
+  "message": "事实校验失败：FACT_VERIFICATION / salary.regular / CORE_FACT_VERIFICATION_FAILED；详见诊断。",
+  "reason": "CORE_FACT_VERIFICATION_FAILED: CORE_FACT_VERIFICATION_FAILED",
+  "failed_stage": "FACT_VERIFICATION",
+  "fact_id": [
+    "EF-a546bea6030a020a"
+  ],
+  "field": "salary.regular",
+  "validation_rule": "CORE_FACT_VERIFICATION_FAILED",
+  "model_raw_value": [
+    {
+      "fact_id": "EF-a546bea6030a020a",
+      "supported": false,
+      "reason": "该候选将竞业限制经济补偿标准（解除或终止前十二个月平均工资的35%，每月不低于8000元）作为salary.regular（转正/通常工资标准）提取。C0009原文明确该35%标准是竞业限制经济补偿，而非劳动关系存续期间的正常工资标准；全文亦无正常工资标准约定，故不支持。"
+    }
+  ],
+  "evidence": [
+    {
+      "clause_id": "C0009",
+      "location": "第六条 经济补偿",
+      "title": "经济补偿",
+      "text": "补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "第六条 经济补偿\n乙方履行竞业限制义务期间，甲方按月向乙方支付竞业限制经济补偿。\n补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。\n甲方应于每月10日前将上月竞业限制补偿支付至乙方原工资账户。",
+      "normalized_text": "第六条经济补偿乙方履行竞业限制义务期间，甲方按月向乙方支付竞业限制经济补偿。补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。甲方应于每月10日前将上月竞业限制补偿支付至乙方原工资账户。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "第六条 经济补偿"
+      ],
+      "heading": "经济补偿",
+      "clause_number": "第六条",
+      "paragraph_index": 8,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [
+        "乙方",
+        "甲方"
+      ],
+      "dates": [],
+      "amounts": [
+        "人民币8,000元"
+      ],
+      "percentages": [
+        "35%"
+      ],
+      "durations": [
+        "十二个月",
+        "10日"
+      ],
+      "cross_references": [
+        "第六条"
+      ],
+      "node_id": "C0009",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "第六条 经济补偿"
+      ],
+      "article_number": "第六条",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 858,
+      "end_offset": 977,
+      "source_type": "CONTRACT_TEXT",
+      "party_obligation": true,
+      "quote": "补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。",
+      "original_excerpt": "补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。",
+      "model_quote": "补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。",
+      "alignment_mode": "EXACT",
+      "source_start": 41,
+      "source_end": 88,
+      "evidence_span": {
+        "basis": "clause.text",
+        "start": 41,
+        "end": 88
+      },
+      "document_span": {
+        "start": 899,
+        "end": 946
+      },
+      "verified_original": true,
+      "fact_concept": "salary.regular",
+      "structured_fact_id": "EF-a546bea6030a020a"
+    }
+  ],
+  "expected": "supported, source-bound core fact or a verified correction",
+  "actual": {
+    "required_fact": "salary.regular",
+    "factstore_state": "VERIFICATION_REJECTED",
+    "verification_state": "VERIFICATION_REJECTED",
+    "coverage_state": "UNCERTAIN",
+    "verified_fact_ids": [],
+    "rejected_fact_ids": [
+      "EF-a546bea6030a020a"
+    ],
+    "unresolved": false,
+    "model_coverage_advisory": null,
+    "extraction_state": "EXTRACTED",
+    "absence_audit": null,
+    "verified_absence_value": null
+  },
+  "disposition": "BLOCK",
+  "diagnostics": [
+    {
+      "failed_stage": "FACT_VERIFICATION",
+      "fact_id": [
+        "EF-a546bea6030a020a"
+      ],
+      "field": "salary.regular",
+      "validation_rule": "CORE_FACT_VERIFICATION_FAILED",
+      "model_raw_value": [
+        {
+          "fact_id": "EF-a546bea6030a020a",
+          "supported": false,
+          "reason": "该候选将竞业限制经济补偿标准（解除或终止前十二个月平均工资的35%，每月不低于8000元）作为salary.regular（转正/通常工资标准）提取。C0009原文明确该35%标准是竞业限制经济补偿，而非劳动关系存续期间的正常工资标准；全文亦无正常工资标准约定，故不支持。"
+        }
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0009",
+          "location": "第六条 经济补偿",
+          "title": "经济补偿",
+          "text": "补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。",
+          "section_type": "正式合同条款",
+          "level": 1,
+          "raw_text": "第六条 经济补偿\n乙方履行竞业限制义务期间，甲方按月向乙方支付竞业限制经济补偿。\n补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。\n甲方应于每月10日前将上月竞业限制补偿支付至乙方原工资账户。",
+          "normalized_text": "第六条经济补偿乙方履行竞业限制义务期间，甲方按月向乙方支付竞业限制经济补偿。补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。甲方应于每月10日前将上月竞业限制补偿支付至乙方原工资账户。",
+          "option_groups": [],
+          "source": "body",
+          "section_path": [
+            "正式合同条款",
+            "第六条 经济补偿"
+          ],
+          "heading": "经济补偿",
+          "clause_number": "第六条",
+          "paragraph_index": 8,
+          "block_type": "OPERATIVE_CLAUSE",
+          "parties": [
+            "乙方",
+            "甲方"
+          ],
+          "dates": [],
+          "amounts": [
+            "人民币8,000元"
+          ],
+          "percentages": [
+            "35%"
+          ],
+          "durations": [
+            "十二个月",
+            "10日"
+          ],
+          "cross_references": [
+            "第六条"
+          ],
+          "node_id": "C0009",
+          "document_id": "contract_package/main",
+          "heading_path": [
+            "第六条 经济补偿"
+          ],
+          "article_number": "第六条",
+          "section_number": "",
+          "item_number": "",
+          "sentence_index": 1,
+          "start_offset": 858,
+          "end_offset": 977,
+          "source_type": "CONTRACT_TEXT",
+          "party_obligation": true,
+          "quote": "补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。",
+          "original_excerpt": "补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。",
+          "model_quote": "补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。",
+          "alignment_mode": "EXACT",
+          "source_start": 41,
+          "source_end": 88,
+          "evidence_span": {
+            "basis": "clause.text",
+            "start": 41,
+            "end": 88
+          },
+          "document_span": {
+            "start": 899,
+            "end": 946
+          },
+          "verified_original": true,
+          "fact_concept": "salary.regular",
+          "structured_fact_id": "EF-a546bea6030a020a"
+        }
+      ],
+      "expected": "supported, source-bound core fact or a verified correction",
+      "actual": {
+        "required_fact": "salary.regular",
+        "factstore_state": "VERIFICATION_REJECTED",
+        "verification_state": "VERIFICATION_REJECTED",
+        "coverage_state": "UNCERTAIN",
+        "verified_fact_ids": [],
+        "rejected_fact_ids": [
+          "EF-a546bea6030a020a"
+        ],
+        "unresolved": false,
+        "model_coverage_advisory": null,
+        "extraction_state": "EXTRACTED",
+        "absence_audit": null,
+        "verified_absence_value": null
+      },
+      "disposition": "BLOCK",
+      "stage": "FACT_VERIFICATION",
+      "code": "CORE_FACT_VERIFICATION_FAILED",
+      "fact_key": null,
+      "raw_value": [
+        {
+          "fact_id": "EF-a546bea6030a020a",
+          "supported": false,
+          "reason": "该候选将竞业限制经济补偿标准（解除或终止前十二个月平均工资的35%，每月不低于8000元）作为salary.regular（转正/通常工资标准）提取。C0009原文明确该35%标准是竞业限制经济补偿，而非劳动关系存续期间的正常工资标准；全文亦无正常工资标准约定，故不支持。"
+        }
+      ],
+      "normalized_value": null,
+      "allowed_values": "supported, source-bound core fact or a verified correction",
+      "clause": null,
+      "message": "抽取值未通过事实类型、证据或语义校验；未生成报告，不能以默认值替代。",
+      "trace_id": "FACT-73f2999d07a749cc8e31145098ac162c"
+    }
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "BLOCKED",
+      "diagnostics": [
+        {
+          "failed_stage": "FACT_VERIFICATION",
+          "fact_id": null,
+          "field": "required_facts",
+          "validation_rule": "REQUIRED_FACT_VERIFICATION_UNRESOLVED",
+          "model_raw_value": {
+            "salary.payment_method": {
+              "required_fact": "salary.payment_method",
+              "factstore_state": "VERIFIED_INFERRED_OR_LOW_CONFIDENCE",
+              "verification_state": "VERIFIED_INFERRED_OR_LOW_CONFIDENCE",
+              "coverage_state": "UNCERTAIN",
+              "verified_fact_ids": [
+                "EF-047542126760fede"
+              ],
+              "rejected_fact_ids": [],
+              "unresolved": false,
+              "model_coverage_advisory": null,
+              "extraction_state": "UNCERTAIN",
+              "absence_audit": null,
+              "verified_absence_value": null
+            }
+          },
+          "evidence": null,
+          "expected": "recheck the full source and concept definitions; preserve genuine uncertainty without inventing facts",
+          "actual": [
+            "salary.payment_method"
+          ],
+          "disposition": "BLOCK"
+        }
+      ],
+      "raw_extraction": [
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017"
+            ],
+            "searched_concepts": [
+              "identity.employer_representative",
+              "identity.worker_address",
+              "identity.employer_name",
+              "identity.employer_address",
+              "identity.worker_name",
+              "identity.worker_id",
+              "contract.type",
+              "contract.start_date",
+              "contract.end_date",
+              "contract.duration_months",
+              "contract.task",
+              "contract.task_end",
+              "probation.arrangement",
+              "probation.start_date",
+              "probation.end_date",
+              "probation.duration_months",
+              "probation.salary",
+              "probation.repeated",
+              "job.position",
+              "job.duties",
+              "job.locations",
+              "working_hours.system",
+              "working_hours.hours_per_day",
+              "working_hours.hours_per_week",
+              "working_hours.rest",
+              "working_hours.rest_days_per_week",
+              "working_hours.rest_waived",
+              "working_hours.overtime",
+              "salary.regular",
+              "salary.payment_date",
+              "salary.payment_method",
+              "salary.withheld_for_handover",
+              "social_insurance.employer_enrolls",
+              "social_insurance.statutory_duties",
+              "social_insurance.employer_pays"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "identity.employer_representative",
+                "value": "赵明远",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "法定代表人：赵明远"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_address",
+                "value": "上海市杨浦区国定路266号",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "通讯地址：上海市杨浦区国定路266号"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.employer_name",
+                "value": "上海澜图智能科技有限公司",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：上海澜图智能科技有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.employer_address",
+                "value": "上海市浦东新区张江路588号",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "注册地址：上海市浦东新区张江路588号"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_name",
+                "value": "陈嘉宁",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方（劳动者）：陈嘉宁"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_id",
+                "value": "31011519940628XXXX",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "身份证号码：31011519940628XXXX"
+                  }
+                ]
+              },
+              {
+                "concept": "job.position",
+                "value": "高级产品经理",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "现任岗位：高级产品经理"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.regular",
+                "value": {
+                  "formula": {
+                    "kind": "PERCENT_OF_BASE",
+                    "percent": 35,
+                    "base": "PREVIOUS_AVERAGE_SALARY"
+                  },
+                  "unit": "CNY/MONTH"
+                },
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.payment_date",
+                "value": "每月10日前",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "甲方应于每月10日前将上月竞业限制补偿支付至乙方原工资账户。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.payment_method",
+                "value": "BANK",
+                "confidence": 0.85,
+                "assertion": "INFERRED",
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "甲方应于每月10日前将上月竞业限制补偿支付至乙方原工资账户。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 3828,
+            "completion_tokens": 921,
+            "total_tokens": 4749,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "prompt_cache_hit_tokens": 0,
+            "prompt_cache_miss_tokens": 3828
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017"
+            ],
+            "searched_concepts": [
+              "social_insurance.employee_withheld",
+              "social_insurance.cash_replacement",
+              "social_insurance.waived",
+              "social_insurance.employer_share_shifted",
+              "social_insurance.employer_underpays",
+              "social_insurance.employer_liability_excluded",
+              "social_insurance.employee_remedy_excluded",
+              "labor_protection.measures",
+              "labor_protection.training",
+              "labor_protection.special_training_required",
+              "labor_protection.training_excluded",
+              "labor_protection.hazard_exists",
+              "labor_protection.hazard_protection",
+              "training.arrangement",
+              "training.technical",
+              "training.service_penalty",
+              "training.cost",
+              "training.duration_months",
+              "training.penalty_prorated",
+              "termination.grounds",
+              "termination.notice",
+              "termination.notice_days",
+              "termination.approval_required",
+              "termination.employee_right_waived",
+              "termination.employer_unrestricted",
+              "termination.handover",
+              "economic_compensation.statutory",
+              "economic_compensation.settlement_deadline",
+              "economic_compensation.waived",
+              "economic_compensation.reduced",
+              "economic_compensation.statutory_percentage",
+              "economic_compensation.payment_delay_months",
+              "dispute.arbitration",
+              "penalties.obligations",
+              "non_compete.arrangement"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "non_compete.arrangement",
+                "value": "EXISTS",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "乙方与甲方解除或终止劳动关系后，应履行竞业限制义务，竞业限制期限为十八个月，自双方劳动关系正式解除或终止之日起计算。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispute.arbitration",
+                "value": true,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0014",
+                    "quote": "协商不成的，任何一方均可依法向有管辖权的劳动人事争议仲裁委员会申请仲裁。"
+                  }
+                ]
+              },
+              {
+                "concept": "penalties.obligations",
+                "value": {
+                  "scope": "NON_COMPETE",
+                  "trigger": "乙方违反本协议约定的竞业限制义务",
+                  "imposed": true,
+                  "amount_text": "人民币120,000元"
+                },
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "双方约定竞业限制违约金为人民币120,000元。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 4491,
+            "completion_tokens": 617,
+            "total_tokens": 5108,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 3595
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017"
+            ],
+            "searched_concepts": [
+              "non_compete.personnel",
+              "non_compete.secret_access",
+              "non_compete.access_capability",
+              "non_compete.actual_access",
+              "non_compete.businesses",
+              "non_compete.territories",
+              "non_compete.duration_months",
+              "non_compete.compensation",
+              "non_compete.compensation_deferred",
+              "non_compete.compensation_waived",
+              "non_compete.all_staff",
+              "ip.assignment_scope",
+              "ip.allocations",
+              "ip.personal_rights_waived",
+              "contract.employment_form",
+              "dispatch.auxiliary_noncore",
+              "dispatch.auxiliary_procedure",
+              "dispatch.substitute",
+              "dispatch.worker_pay_method",
+              "dispatch.comparator_pay_method",
+              "dispatch.comparator_pay",
+              "dispatch.comparable_work",
+              "dispatch.agency",
+              "dispatch.host",
+              "dispatch.position",
+              "dispatch.period",
+              "dispatch.position_basis",
+              "dispatch.long_term_position",
+              "dispatch.temporary_duration_months",
+              "dispatch.equal_pay",
+              "dispatch.idle_pay",
+              "dispatch.worker_charges",
+              "dispatch.return_procedure",
+              "dispatch.reassignment_procedure",
+              "dispatch.refusal_termination"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "non_compete.personnel",
+                "value": "高级管理/高级技术/实际接触秘密人员",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方确认，其任职岗位能够接触甲方重要商业秘密及与知识产权相关的保密事项，因此属于双方约定实施竞业限制的人员范围。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.secret_access",
+                "value": "任职岗位能够接触甲方重要商业秘密及与知识产权相关的保密事项",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方确认，其任职岗位能够接触甲方重要商业秘密及与知识产权相关的保密事项，因此属于双方约定实施竞业限制的人员范围。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.access_capability",
+                "value": true,
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方确认，其任职岗位能够接触甲方重要商业秘密及与知识产权相关的保密事项，因此属于双方约定实施竞业限制的人员范围。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.businesses",
+                "value": [
+                  "企业级人工智能应用软件开发",
+                  "智能数据分析平台研发及销售",
+                  "面向企业客户的AI自动化解决方案",
+                  "与上述业务直接构成竞争关系的其他产品或服务"
+                ],
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "本协议所称具有实质竞争关系的业务，主要包括：\n企业级人工智能应用软件开发；\n智能数据分析平台研发及销售；\n面向企业客户的AI自动化解决方案；\n与上述业务直接构成竞争关系的其他产品或服务。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.territories",
+                "value": [
+                  "甲方在乙方离职前十二个月内实际开展同类业务并已有客户、项目或持续经营活动的中国大陆地区"
+                ],
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "竞业限制地域范围为甲方在乙方离职前十二个月内实际开展同类业务并已有客户、项目或持续经营活动的中国大陆地区。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.duration_months",
+                "value": 18,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "乙方与甲方解除或终止劳动关系后，应履行竞业限制义务，竞业限制期限为十八个月，自双方劳动关系正式解除或终止之日起计算。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.compensation",
+                "value": {
+                  "formula": {
+                    "kind": "PERCENT_OF_BASE",
+                    "percent": 35,
+                    "base": "PREVIOUS_AVERAGE_SALARY"
+                  },
+                  "unit": "CNY/MONTH"
+                },
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.compensation_deferred",
+                "value": false,
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "乙方履行竞业限制义务期间，甲方按月向乙方支付竞业限制经济补偿。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.compensation_waived",
+                "value": false,
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "乙方履行竞业限制义务期间，甲方按月向乙方支付竞业限制经济补偿。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.all_staff",
+                "value": false,
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方确认，其任职岗位能够接触甲方重要商业秘密及与知识产权相关的保密事项，因此属于双方约定实施竞业限制的人员范围。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.employment_form",
+                "value": "DIRECT",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：上海澜图智能科技有限公司"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方（劳动者）：陈嘉宁"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 4552,
+            "completion_tokens": 1261,
+            "total_tokens": 5813,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 3656
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017"
+            ],
+            "searched_concepts": [
+              "dispatch.refusal_compensation_waived",
+              "dispatch.host_direct_dismissal",
+              "dispatch.agreement_disclosure",
+              "dispatch.agency_obligations",
+              "dispatch.host_obligations",
+              "dispatch.obligations_waived",
+              "contract.term_limit_mode",
+              "contract.term_limit_date",
+              "contract.term_limit_months",
+              "capability.ground",
+              "capability.training",
+              "capability.reassignment",
+              "capability.reassessment",
+              "capability.notice",
+              "capability.compensation",
+              "working_hours.days_per_week",
+              "salary.cycle_kind",
+              "salary.cycle_days",
+              "part_time.hourly_minimum",
+              "part_time.injury_insurance",
+              "part_time.employee_notice_days",
+              "part_time.exit_permission",
+              "part_time.exit_constraint",
+              "part_time.employer_notice_days",
+              "part_time.exit_approval",
+              "salary.settlement_period",
+              "worker.damage_liability",
+              "job.change_terms",
+              "discipline.dismissal_terms",
+              "dispatch.onward_assignment",
+              "dispatch.return_terms",
+              "worker.security_payment"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "worker.damage_liability",
+                "value": {
+                  "kind": "STATUTORY_LIABILITY",
+                  "trigger": "乙方违反本协议约定的竞业限制义务，给甲方造成损失的",
+                  "basis": "应依法承担相应责任"
+                },
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "乙方违反本协议约定的竞业限制义务，给甲方造成损失的，应依法承担相应责任。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 7034,
+            "completion_tokens": 423,
+            "total_tokens": 7457,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 6138
+          },
+          "provider": "deepseek"
+        }
+      ],
+      "raw_verification": {
+        "provider": "deepseek",
+        "model": "deepseek-flash",
+        "verification": {
+          "verification_schema_version": "fact-verification-2",
+          "checks": [
+            {
+              "fact_id": "EF-c24c079e072ee3e6",
+              "supported": true,
+              "reason": "C0002明确甲方为用人单位上海澜图智能科技有限公司，C0003明确乙方为劳动者陈嘉宁，双方直接建立劳动关系，未显示派遣单位或非全日制安排，支持DIRECT。"
+            },
+            {
+              "fact_id": "EF-a78b4d21b2c6d208",
+              "supported": true,
+              "reason": "C0014明确约定协商不成可依法向劳动人事争议仲裁委员会申请仲裁，支持允许依法申请劳动仲裁。"
+            },
+            {
+              "fact_id": "EF-d3e1c408f444d892",
+              "supported": true,
+              "reason": "C0002明确载明注册地址为上海市浦东新区张江路588号。"
+            },
+            {
+              "fact_id": "EF-a8e5a7c50e5230b3",
+              "supported": true,
+              "reason": "C0002明确载明甲方（用人单位）为上海澜图智能科技有限公司。"
+            },
+            {
+              "fact_id": "EF-8cc454f7ba18c23e",
+              "supported": true,
+              "reason": "C0002明确载明法定代表人为赵明远。"
+            },
+            {
+              "fact_id": "EF-25d36e625b8f01e1",
+              "supported": true,
+              "reason": "C0003明确载明乙方通讯地址为上海市杨浦区国定路266号。"
+            },
+            {
+              "fact_id": "EF-f8f94fb48a0283e8",
+              "supported": true,
+              "reason": "C0003明确载明身份证号码为31011519940628XXXX，保留遮蔽字符。"
+            },
+            {
+              "fact_id": "EF-3144cac81f353bd2",
+              "supported": true,
+              "reason": "C0003明确载明乙方（劳动者）为陈嘉宁。"
+            },
+            {
+              "fact_id": "EF-46e4158f8c75b3fe",
+              "supported": true,
+              "reason": "C0003明确载明现任岗位为高级产品经理。"
+            },
+            {
+              "fact_id": "EF-6dd35d0cae5c1c5f",
+              "supported": true,
+              "reason": "C0004明确乙方任职岗位能够接触甲方重要商业秘密及与知识产权相关的保密事项，属于接触能力。"
+            },
+            {
+              "fact_id": "EF-117fb8c661be4ed0",
+              "supported": true,
+              "reason": "C0004将竞业限制人员限定为经确认能够接触重要商业秘密的乙方，并非不区分秘密接触而适用于所有员工。"
+            },
+            {
+              "fact_id": "EF-7a32518828ed5570",
+              "supported": true,
+              "reason": "C0005明确约定劳动关系解除或终止后乙方应履行十八个月竞业限制义务，构成离职竞业安排。"
+            },
+            {
+              "fact_id": "EF-05099f45718c3ae6",
+              "supported": true,
+              "reason": "C0006逐项列明企业级人工智能应用软件开发、智能数据分析平台研发及销售、面向企业客户的AI自动化解决方案及直接竞争的其他产品或服务。"
+            },
+            {
+              "fact_id": "EF-322b3c03f5cf66db",
+              "supported": true,
+              "reason": "C0009明确补偿标准为解除或终止前十二个月平均工资的35%，且每月不低于人民币8,000元。"
+            },
+            {
+              "fact_id": "EF-927fec638dc77a77",
+              "supported": true,
+              "reason": "C0009直接约定按月支付竞业限制经济补偿，未约定补偿标准另议。"
+            },
+            {
+              "fact_id": "EF-af98a93eb9978213",
+              "supported": true,
+              "reason": "C0009约定甲方按月支付经济补偿，未约定无需补偿或无偿履行。"
+            },
+            {
+              "fact_id": "EF-1551026bb1dc62b8",
+              "supported": true,
+              "reason": "C0005明确竞业限制期限为十八个月。"
+            },
+            {
+              "fact_id": "EF-52552a953df1165d",
+              "supported": true,
+              "reason": "C0004明确乙方任职岗位能够接触重要商业秘密及知识产权相关保密事项，属于约定实施竞业限制的人员范围，支持该人员范围事实。"
+            },
+            {
+              "fact_id": "EF-269d73be1167dd8e",
+              "supported": true,
+              "reason": "C0004原文明确表述任职岗位能够接触甲方重要商业秘密及与知识产权相关的保密事项，属于资格/范围声明，未升级为实际接触。"
+            },
+            {
+              "fact_id": "EF-b05d02d976dca823",
+              "supported": true,
+              "reason": "C0007明确竞业限制地域范围为甲方在乙方离职前十二个月内实际开展同类业务并已有客户、项目或持续经营活动的中国大陆地区。"
+            },
+            {
+              "fact_id": "EF-3cc0f54bdd7ae5b5",
+              "supported": true,
+              "reason": "C0012明确约定竞业限制违约金为人民币120,000元，触发条件为乙方违反竞业限制义务，scope为NON_COMPETE，imposed为true。"
+            },
+            {
+              "fact_id": "EF-adbc74f0c0e7cceb",
+              "supported": true,
+              "reason": "C0009明确甲方应于每月10日前支付上月竞业限制补偿，支持工资/补偿发放日事实。"
+            },
+            {
+              "fact_id": "EF-047542126760fede",
+              "supported": true,
+              "reason": "引文明确补偿支付至乙方原工资账户，工资账户支付可明示支持BANK支付方式。"
+            },
+            {
+              "fact_id": "EF-a546bea6030a020a",
+              "supported": true,
+              "reason": "引文明示补偿标准为解除或终止前十二个月平均工资的35%，且每月不低于人民币8,000元，支持该工资/补偿标准公式。"
+            },
+            {
+              "fact_id": "EF-654e6f77d1faa0b1",
+              "supported": true,
+              "reason": "C0012原文明确：乙方违反竞业限制义务给甲方造成损失的，应依法承担相应责任；kind为STATUTORY_LIABILITY，trigger与basis均与引文一致。"
+            }
+          ],
+          "searched_concepts": [
+            "capability.compensation",
+            "capability.ground",
+            "capability.notice",
+            "capability.reassessment",
+            "capability.reassignment",
+            "capability.training",
+            "contract.duration_months",
+            "contract.employment_form",
+            "contract.end_date",
+            "contract.start_date",
+            "contract.task",
+            "contract.task_end",
+            "contract.term_limit_date",
+            "contract.term_limit_mode",
+            "contract.term_limit_months",
+            "contract.type",
+            "discipline.dismissal_terms",
+            "dispatch.agency",
+            "dispatch.agency_obligations",
+            "dispatch.agreement_disclosure",
+            "dispatch.auxiliary_noncore",
+            "dispatch.auxiliary_procedure",
+            "dispatch.comparable_work",
+            "dispatch.comparator_pay",
+            "dispatch.comparator_pay_method",
+            "dispatch.equal_pay",
+            "dispatch.host",
+            "dispatch.host_direct_dismissal",
+            "dispatch.host_obligations",
+            "dispatch.idle_pay",
+            "dispatch.long_term_position",
+            "dispatch.obligations_waived",
+            "dispatch.onward_assignment",
+            "dispatch.period",
+            "dispatch.position",
+            "dispatch.position_basis",
+            "dispatch.reassignment_procedure",
+            "dispatch.refusal_compensation_waived",
+            "dispatch.refusal_termination",
+            "dispatch.return_procedure",
+            "dispatch.return_terms",
+            "dispatch.substitute",
+            "dispatch.temporary_duration_months",
+            "dispatch.worker_charges",
+            "dispatch.worker_pay_method",
+            "dispute.arbitration",
+            "economic_compensation.payment_delay_months",
+            "economic_compensation.reduced",
+            "economic_compensation.settlement_deadline",
+            "economic_compensation.statutory",
+            "economic_compensation.statutory_percentage",
+            "economic_compensation.waived",
+            "identity.employer_address",
+            "identity.employer_name",
+            "identity.employer_representative",
+            "identity.worker_address",
+            "identity.worker_id",
+            "identity.worker_name",
+            "ip.allocations",
+            "ip.assignment_scope",
+            "ip.personal_rights_waived",
+            "job.change_terms",
+            "job.duties",
+            "job.locations",
+            "job.position",
+            "labor_protection.hazard_exists",
+            "labor_protection.hazard_protection",
+            "labor_protection.measures",
+            "labor_protection.special_training_required",
+            "labor_protection.training",
+            "labor_protection.training_excluded",
+            "non_compete.access_capability",
+            "non_compete.actual_access",
+            "non_compete.all_staff",
+            "non_compete.arrangement",
+            "non_compete.businesses",
+            "non_compete.compensation",
+            "non_compete.compensation_deferred",
+            "non_compete.compensation_waived",
+            "non_compete.duration_months",
+            "non_compete.personnel",
+            "non_compete.secret_access",
+            "non_compete.territories",
+            "part_time.employee_notice_days",
+            "part_time.employer_notice_days",
+            "part_time.exit_approval",
+            "part_time.exit_constraint",
+            "part_time.exit_permission",
+            "part_time.hourly_minimum",
+            "part_time.injury_insurance",
+            "penalties.obligations",
+            "probation.arrangement",
+            "probation.duration_months",
+            "probation.end_date",
+            "probation.repeated",
+            "probation.salary",
+            "probation.start_date",
+            "salary.cycle_days",
+            "salary.cycle_kind",
+            "salary.payment_date",
+            "salary.payment_method",
+            "salary.regular",
+            "salary.settlement_period",
+            "salary.withheld_for_handover",
+            "social_insurance.cash_replacement",
+            "social_insurance.employee_remedy_excluded",
+            "social_insurance.employee_withheld",
+            "social_insurance.employer_enrolls",
+            "social_insurance.employer_liability_excluded",
+            "social_insurance.employer_pays",
+            "social_insurance.employer_share_shifted",
+            "social_insurance.employer_underpays",
+            "social_insurance.statutory_duties",
+            "social_insurance.waived",
+            "termination.approval_required",
+            "termination.employee_right_waived",
+            "termination.employer_unrestricted",
+            "termination.grounds",
+            "termination.handover",
+            "termination.notice",
+            "termination.notice_days",
+            "training.arrangement",
+            "training.cost",
+            "training.duration_months",
+            "training.penalty_prorated",
+            "training.service_penalty",
+            "training.technical",
+            "worker.damage_liability",
+            "worker.security_payment",
+            "working_hours.days_per_week",
+            "working_hours.hours_per_day",
+            "working_hours.hours_per_week",
+            "working_hours.overtime",
+            "working_hours.rest",
+            "working_hours.rest_days_per_week",
+            "working_hours.rest_waived",
+            "working_hours.system"
+          ],
+          "unresolved_concepts": [],
+          "additional_facts": [],
+          "absence_audits": [
+            {
+              "concept": "training.arrangement",
+              "result": "ABSENT",
+              "reason": "全文（C0001-C0017）仅涉及竞业限制、保密、经济补偿、违约责任及争议解决，未出现任何专项技术培训、培训费用、服务期或培训服务期违约金的约定；C0015仅概括性规定未约定事项按法律法规执行，不构成培训服务期安排。",
+              "searched_concepts": [
+                "training.arrangement",
+                "training.technical",
+                "training.cost",
+                "training.duration_months",
+                "training.service_penalty"
+              ],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017"
+              ]
+            }
+          ],
+          "reviewed_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011",
+            "C0012",
+            "C0013",
+            "C0014",
+            "C0015",
+            "C0016",
+            "C0017"
+          ]
+        },
+        "batches": [
+          {
+            "batch_id": 1,
+            "input_fact_ids": [
+              "EF-c24c079e072ee3e6"
+            ],
+            "required_concepts": [
+              "capability.compensation",
+              "capability.ground",
+              "capability.notice",
+              "capability.reassessment",
+              "capability.reassignment",
+              "capability.training",
+              "contract.duration_months",
+              "contract.employment_form",
+              "contract.end_date",
+              "contract.start_date",
+              "contract.task",
+              "contract.task_end",
+              "contract.term_limit_date",
+              "contract.term_limit_mode",
+              "contract.term_limit_months",
+              "contract.type",
+              "discipline.dismissal_terms",
+              "dispatch.agency",
+              "dispatch.agency_obligations",
+              "dispatch.agreement_disclosure"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-c24c079e072ee3e6",
+                  "supported": true,
+                  "reason": "C0002明确甲方为用人单位上海澜图智能科技有限公司，C0003明确乙方为劳动者陈嘉宁，双方直接建立劳动关系，未显示派遣单位或非全日制安排，支持DIRECT。"
+                }
+              ],
+              "searched_concepts": [
+                "capability.compensation",
+                "capability.ground",
+                "capability.notice",
+                "capability.reassessment",
+                "capability.reassignment",
+                "capability.training",
+                "contract.duration_months",
+                "contract.employment_form",
+                "contract.end_date",
+                "contract.start_date",
+                "contract.task",
+                "contract.task_end",
+                "contract.term_limit_date",
+                "contract.term_limit_mode",
+                "contract.term_limit_months",
+                "contract.type",
+                "discipline.dismissal_terms",
+                "dispatch.agency",
+                "dispatch.agency_obligations",
+                "dispatch.agreement_disclosure"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 8171,
+              "completion_tokens": 291,
+              "total_tokens": 8462,
+              "prompt_tokens_details": {
+                "cached_tokens": 128
+              },
+              "prompt_cache_hit_tokens": 128,
+              "prompt_cache_miss_tokens": 8043
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 2,
+            "input_fact_ids": [],
+            "required_concepts": [
+              "dispatch.auxiliary_noncore",
+              "dispatch.auxiliary_procedure",
+              "dispatch.comparable_work",
+              "dispatch.comparator_pay",
+              "dispatch.comparator_pay_method",
+              "dispatch.equal_pay",
+              "dispatch.host",
+              "dispatch.host_direct_dismissal",
+              "dispatch.host_obligations",
+              "dispatch.idle_pay",
+              "dispatch.long_term_position",
+              "dispatch.obligations_waived",
+              "dispatch.onward_assignment",
+              "dispatch.period",
+              "dispatch.position",
+              "dispatch.position_basis",
+              "dispatch.reassignment_procedure",
+              "dispatch.refusal_compensation_waived",
+              "dispatch.refusal_termination",
+              "dispatch.return_procedure"
+            ],
+            "audit_owner": true,
+            "response": {
+              "type": "json_object",
+              "verification_schema_version": "fact-verification-2",
+              "checks": [],
+              "searched_concepts": [
+                "dispatch.auxiliary_noncore",
+                "dispatch.auxiliary_procedure",
+                "dispatch.comparable_work",
+                "dispatch.comparator_pay",
+                "dispatch.comparator_pay_method",
+                "dispatch.equal_pay",
+                "dispatch.host",
+                "dispatch.host_direct_dismissal",
+                "dispatch.host_obligations",
+                "dispatch.idle_pay",
+                "dispatch.long_term_position",
+                "dispatch.obligations_waived",
+                "dispatch.onward_assignment",
+                "dispatch.period",
+                "dispatch.position",
+                "dispatch.position_basis",
+                "dispatch.reassignment_procedure",
+                "dispatch.refusal_compensation_waived",
+                "dispatch.refusal_termination",
+                "dispatch.return_procedure"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 8041,
+              "completion_tokens": 256,
+              "total_tokens": 8297,
+              "prompt_tokens_details": {
+                "cached_tokens": 1408
+              },
+              "prompt_cache_hit_tokens": 1408,
+              "prompt_cache_miss_tokens": 6633
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 3,
+            "input_fact_ids": [
+              "EF-a78b4d21b2c6d208",
+              "EF-d3e1c408f444d892",
+              "EF-a8e5a7c50e5230b3",
+              "EF-8cc454f7ba18c23e",
+              "EF-25d36e625b8f01e1",
+              "EF-f8f94fb48a0283e8",
+              "EF-3144cac81f353bd2"
+            ],
+            "required_concepts": [
+              "dispatch.return_terms",
+              "dispatch.substitute",
+              "dispatch.temporary_duration_months",
+              "dispatch.worker_charges",
+              "dispatch.worker_pay_method",
+              "dispute.arbitration",
+              "economic_compensation.payment_delay_months",
+              "economic_compensation.reduced",
+              "economic_compensation.settlement_deadline",
+              "economic_compensation.statutory",
+              "economic_compensation.statutory_percentage",
+              "economic_compensation.waived",
+              "identity.employer_address",
+              "identity.employer_name",
+              "identity.employer_representative",
+              "identity.worker_address",
+              "identity.worker_id",
+              "identity.worker_name",
+              "ip.allocations",
+              "ip.assignment_scope"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-a78b4d21b2c6d208",
+                  "supported": true,
+                  "reason": "C0014明确约定协商不成可依法向劳动人事争议仲裁委员会申请仲裁，支持允许依法申请劳动仲裁。"
+                },
+                {
+                  "fact_id": "EF-d3e1c408f444d892",
+                  "supported": true,
+                  "reason": "C0002明确载明注册地址为上海市浦东新区张江路588号。"
+                },
+                {
+                  "fact_id": "EF-a8e5a7c50e5230b3",
+                  "supported": true,
+                  "reason": "C0002明确载明甲方（用人单位）为上海澜图智能科技有限公司。"
+                },
+                {
+                  "fact_id": "EF-8cc454f7ba18c23e",
+                  "supported": true,
+                  "reason": "C0002明确载明法定代表人为赵明远。"
+                },
+                {
+                  "fact_id": "EF-25d36e625b8f01e1",
+                  "supported": true,
+                  "reason": "C0003明确载明乙方通讯地址为上海市杨浦区国定路266号。"
+                },
+                {
+                  "fact_id": "EF-f8f94fb48a0283e8",
+                  "supported": true,
+                  "reason": "C0003明确载明身份证号码为31011519940628XXXX，保留遮蔽字符。"
+                },
+                {
+                  "fact_id": "EF-3144cac81f353bd2",
+                  "supported": true,
+                  "reason": "C0003明确载明乙方（劳动者）为陈嘉宁。"
+                }
+              ],
+              "searched_concepts": [
+                "dispatch.return_terms",
+                "dispatch.substitute",
+                "dispatch.temporary_duration_months",
+                "dispatch.worker_charges",
+                "dispatch.worker_pay_method",
+                "dispute.arbitration",
+                "economic_compensation.payment_delay_months",
+                "economic_compensation.reduced",
+                "economic_compensation.settlement_deadline",
+                "economic_compensation.statutory",
+                "economic_compensation.statutory_percentage",
+                "economic_compensation.waived",
+                "identity.employer_address",
+                "identity.employer_name",
+                "identity.employer_representative",
+                "identity.worker_address",
+                "identity.worker_id",
+                "identity.worker_name",
+                "ip.allocations",
+                "ip.assignment_scope"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 9159,
+              "completion_tokens": 550,
+              "total_tokens": 9709,
+              "prompt_tokens_details": {
+                "cached_tokens": 1408
+              },
+              "prompt_cache_hit_tokens": 1408,
+              "prompt_cache_miss_tokens": 7751
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 4,
+            "input_fact_ids": [
+              "EF-46e4158f8c75b3fe",
+              "EF-6dd35d0cae5c1c5f",
+              "EF-117fb8c661be4ed0",
+              "EF-7a32518828ed5570",
+              "EF-05099f45718c3ae6",
+              "EF-322b3c03f5cf66db",
+              "EF-927fec638dc77a77",
+              "EF-af98a93eb9978213",
+              "EF-1551026bb1dc62b8"
+            ],
+            "required_concepts": [
+              "ip.personal_rights_waived",
+              "job.change_terms",
+              "job.duties",
+              "job.locations",
+              "job.position",
+              "labor_protection.hazard_exists",
+              "labor_protection.hazard_protection",
+              "labor_protection.measures",
+              "labor_protection.special_training_required",
+              "labor_protection.training",
+              "labor_protection.training_excluded",
+              "non_compete.access_capability",
+              "non_compete.actual_access",
+              "non_compete.all_staff",
+              "non_compete.arrangement",
+              "non_compete.businesses",
+              "non_compete.compensation",
+              "non_compete.compensation_deferred",
+              "non_compete.compensation_waived",
+              "non_compete.duration_months"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-46e4158f8c75b3fe",
+                  "supported": true,
+                  "reason": "C0003明确载明现任岗位为高级产品经理。"
+                },
+                {
+                  "fact_id": "EF-6dd35d0cae5c1c5f",
+                  "supported": true,
+                  "reason": "C0004明确乙方任职岗位能够接触甲方重要商业秘密及与知识产权相关的保密事项，属于接触能力。"
+                },
+                {
+                  "fact_id": "EF-117fb8c661be4ed0",
+                  "supported": true,
+                  "reason": "C0004将竞业限制人员限定为经确认能够接触重要商业秘密的乙方，并非不区分秘密接触而适用于所有员工。"
+                },
+                {
+                  "fact_id": "EF-7a32518828ed5570",
+                  "supported": true,
+                  "reason": "C0005明确约定劳动关系解除或终止后乙方应履行十八个月竞业限制义务，构成离职竞业安排。"
+                },
+                {
+                  "fact_id": "EF-05099f45718c3ae6",
+                  "supported": true,
+                  "reason": "C0006逐项列明企业级人工智能应用软件开发、智能数据分析平台研发及销售、面向企业客户的AI自动化解决方案及直接竞争的其他产品或服务。"
+                },
+                {
+                  "fact_id": "EF-322b3c03f5cf66db",
+                  "supported": true,
+                  "reason": "C0009明确补偿标准为解除或终止前十二个月平均工资的35%，且每月不低于人民币8,000元。"
+                },
+                {
+                  "fact_id": "EF-927fec638dc77a77",
+                  "supported": true,
+                  "reason": "C0009直接约定按月支付竞业限制经济补偿，未约定补偿标准另议。"
+                },
+                {
+                  "fact_id": "EF-af98a93eb9978213",
+                  "supported": true,
+                  "reason": "C0009约定甲方按月支付经济补偿，未约定无需补偿或无偿履行。"
+                },
+                {
+                  "fact_id": "EF-1551026bb1dc62b8",
+                  "supported": true,
+                  "reason": "C0005明确竞业限制期限为十八个月。"
+                }
+              ],
+              "searched_concepts": [
+                "ip.personal_rights_waived",
+                "job.change_terms",
+                "job.duties",
+                "job.locations",
+                "job.position",
+                "labor_protection.hazard_exists",
+                "labor_protection.hazard_protection",
+                "labor_protection.measures",
+                "labor_protection.special_training_required",
+                "labor_protection.training",
+                "labor_protection.training_excluded",
+                "non_compete.access_capability",
+                "non_compete.actual_access",
+                "non_compete.all_staff",
+                "non_compete.arrangement",
+                "non_compete.businesses",
+                "non_compete.compensation",
+                "non_compete.compensation_deferred",
+                "non_compete.compensation_waived",
+                "non_compete.duration_months"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 9084,
+              "completion_tokens": 678,
+              "total_tokens": 9762,
+              "prompt_tokens_details": {
+                "cached_tokens": 1408
+              },
+              "prompt_cache_hit_tokens": 1408,
+              "prompt_cache_miss_tokens": 7676
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 5,
+            "input_fact_ids": [
+              "EF-52552a953df1165d",
+              "EF-269d73be1167dd8e",
+              "EF-b05d02d976dca823",
+              "EF-3cc0f54bdd7ae5b5",
+              "EF-adbc74f0c0e7cceb"
+            ],
+            "required_concepts": [
+              "non_compete.personnel",
+              "non_compete.secret_access",
+              "non_compete.territories",
+              "part_time.employee_notice_days",
+              "part_time.employer_notice_days",
+              "part_time.exit_approval",
+              "part_time.exit_constraint",
+              "part_time.exit_permission",
+              "part_time.hourly_minimum",
+              "part_time.injury_insurance",
+              "penalties.obligations",
+              "probation.arrangement",
+              "probation.duration_months",
+              "probation.end_date",
+              "probation.repeated",
+              "probation.salary",
+              "probation.start_date",
+              "salary.cycle_days",
+              "salary.cycle_kind",
+              "salary.payment_date"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-52552a953df1165d",
+                  "supported": true,
+                  "reason": "C0004明确乙方任职岗位能够接触重要商业秘密及知识产权相关保密事项，属于约定实施竞业限制的人员范围，支持该人员范围事实。"
+                },
+                {
+                  "fact_id": "EF-269d73be1167dd8e",
+                  "supported": true,
+                  "reason": "C0004原文明确表述任职岗位能够接触甲方重要商业秘密及与知识产权相关的保密事项，属于资格/范围声明，未升级为实际接触。"
+                },
+                {
+                  "fact_id": "EF-b05d02d976dca823",
+                  "supported": true,
+                  "reason": "C0007明确竞业限制地域范围为甲方在乙方离职前十二个月内实际开展同类业务并已有客户、项目或持续经营活动的中国大陆地区。"
+                },
+                {
+                  "fact_id": "EF-3cc0f54bdd7ae5b5",
+                  "supported": true,
+                  "reason": "C0012明确约定竞业限制违约金为人民币120,000元，触发条件为乙方违反竞业限制义务，scope为NON_COMPETE，imposed为true。"
+                },
+                {
+                  "fact_id": "EF-adbc74f0c0e7cceb",
+                  "supported": true,
+                  "reason": "C0009明确甲方应于每月10日前支付上月竞业限制补偿，支持工资/补偿发放日事实。"
+                }
+              ],
+              "searched_concepts": [
+                "non_compete.personnel",
+                "non_compete.secret_access",
+                "non_compete.territories",
+                "part_time.employee_notice_days",
+                "part_time.employer_notice_days",
+                "part_time.exit_approval",
+                "part_time.exit_constraint",
+                "part_time.exit_permission",
+                "part_time.hourly_minimum",
+                "part_time.injury_insurance",
+                "penalties.obligations",
+                "probation.arrangement",
+                "probation.duration_months",
+                "probation.end_date",
+                "probation.repeated",
+                "probation.salary",
+                "probation.start_date",
+                "salary.cycle_days",
+                "salary.cycle_kind",
+                "salary.payment_date"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 8575,
+              "completion_tokens": 530,
+              "total_tokens": 9105,
+              "prompt_tokens_details": {
+                "cached_tokens": 1408
+              },
+              "prompt_cache_hit_tokens": 1408,
+              "prompt_cache_miss_tokens": 7167
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 6,
+            "input_fact_ids": [
+              "EF-047542126760fede",
+              "EF-a546bea6030a020a"
+            ],
+            "required_concepts": [
+              "salary.payment_method",
+              "salary.regular",
+              "salary.settlement_period",
+              "salary.withheld_for_handover",
+              "social_insurance.cash_replacement",
+              "social_insurance.employee_remedy_excluded",
+              "social_insurance.employee_withheld",
+              "social_insurance.employer_enrolls",
+              "social_insurance.employer_liability_excluded",
+              "social_insurance.employer_pays",
+              "social_insurance.employer_share_shifted",
+              "social_insurance.employer_underpays",
+              "social_insurance.statutory_duties",
+              "social_insurance.waived",
+              "termination.approval_required",
+              "termination.employee_right_waived",
+              "termination.employer_unrestricted",
+              "termination.grounds",
+              "termination.handover",
+              "termination.notice"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-047542126760fede",
+                  "supported": true,
+                  "reason": "引文明确补偿支付至乙方原工资账户，工资账户支付可明示支持BANK支付方式。"
+                },
+                {
+                  "fact_id": "EF-a546bea6030a020a",
+                  "supported": true,
+                  "reason": "引文明示补偿标准为解除或终止前十二个月平均工资的35%，且每月不低于人民币8,000元，支持该工资/补偿标准公式。"
+                }
+              ],
+              "searched_concepts": [
+                "salary.payment_method",
+                "salary.regular",
+                "salary.settlement_period",
+                "salary.withheld_for_handover",
+                "social_insurance.cash_replacement",
+                "social_insurance.employee_remedy_excluded",
+                "social_insurance.employee_withheld",
+                "social_insurance.employer_enrolls",
+                "social_insurance.employer_liability_excluded",
+                "social_insurance.employer_pays",
+                "social_insurance.employer_share_shifted",
+                "social_insurance.employer_underpays",
+                "social_insurance.statutory_duties",
+                "social_insurance.waived",
+                "termination.approval_required",
+                "termination.employee_right_waived",
+                "termination.employer_unrestricted",
+                "termination.grounds",
+                "termination.handover",
+                "termination.notice"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 8337,
+              "completion_tokens": 381,
+              "total_tokens": 8718,
+              "prompt_tokens_details": {
+                "cached_tokens": 1408
+              },
+              "prompt_cache_hit_tokens": 1408,
+              "prompt_cache_miss_tokens": 6929
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 7,
+            "input_fact_ids": [
+              "EF-654e6f77d1faa0b1"
+            ],
+            "required_concepts": [
+              "termination.notice_days",
+              "training.arrangement",
+              "training.cost",
+              "training.duration_months",
+              "training.penalty_prorated",
+              "training.service_penalty",
+              "training.technical",
+              "worker.damage_liability",
+              "worker.security_payment",
+              "working_hours.days_per_week",
+              "working_hours.hours_per_day",
+              "working_hours.hours_per_week",
+              "working_hours.overtime",
+              "working_hours.rest",
+              "working_hours.rest_days_per_week",
+              "working_hours.rest_waived",
+              "working_hours.system"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-654e6f77d1faa0b1",
+                  "supported": true,
+                  "reason": "C0012原文明确：乙方违反竞业限制义务给甲方造成损失的，应依法承担相应责任；kind为STATUTORY_LIABILITY，trigger与basis均与引文一致。"
+                }
+              ],
+              "searched_concepts": [
+                "termination.notice_days",
+                "training.arrangement",
+                "training.cost",
+                "training.duration_months",
+                "training.penalty_prorated",
+                "training.service_penalty",
+                "training.technical",
+                "worker.damage_liability",
+                "worker.security_payment",
+                "working_hours.days_per_week",
+                "working_hours.hours_per_day",
+                "working_hours.hours_per_week",
+                "working_hours.overtime",
+                "working_hours.rest",
+                "working_hours.rest_days_per_week",
+                "working_hours.rest_waived",
+                "working_hours.system"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [
+                {
+                  "concept": "training.arrangement",
+                  "result": "ABSENT",
+                  "reason": "全文（C0001-C0017）仅涉及竞业限制、保密、经济补偿、违约责任及争议解决，未出现任何专项技术培训、培训费用、服务期或培训服务期违约金的约定；C0015仅概括性规定未约定事项按法律法规执行，不构成培训服务期安排。",
+                  "searched_concepts": [
+                    "training.arrangement",
+                    "training.technical",
+                    "training.cost",
+                    "training.duration_months",
+                    "training.service_penalty"
+                  ],
+                  "reviewed_clause_ids": [
+                    "C0001",
+                    "C0002",
+                    "C0003",
+                    "C0004",
+                    "C0005",
+                    "C0006",
+                    "C0007",
+                    "C0008",
+                    "C0009",
+                    "C0010",
+                    "C0011",
+                    "C0012",
+                    "C0013",
+                    "C0014",
+                    "C0015",
+                    "C0016",
+                    "C0017"
+                  ]
+                }
+              ],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 8160,
+              "completion_tokens": 492,
+              "total_tokens": 8652,
+              "prompt_tokens_details": {
+                "cached_tokens": 1408
+              },
+              "prompt_cache_hit_tokens": 1408,
+              "prompt_cache_miss_tokens": 6752
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 59527,
+          "completion_tokens": 3178,
+          "total_tokens": 62705
+        }
+      },
+      "verification_batches": null
+    },
+    {
+      "attempt": 2,
+      "status": "BLOCKED",
+      "diagnostics": [
+        {
+          "failed_stage": "FACT_VERIFICATION",
+          "fact_id": [
+            "EF-a546bea6030a020a"
+          ],
+          "field": "salary.regular",
+          "validation_rule": "CORE_FACT_VERIFICATION_FAILED",
+          "model_raw_value": [
+            {
+              "fact_id": "EF-a546bea6030a020a",
+              "supported": false,
+              "reason": "该候选将竞业限制经济补偿标准（解除或终止前十二个月平均工资的35%，每月不低于8000元）作为salary.regular（转正/通常工资标准）提取。C0009原文明确该35%标准是竞业限制经济补偿，而非劳动关系存续期间的正常工资标准；全文亦无正常工资标准约定，故不支持。"
+            }
+          ],
+          "evidence": [
+            {
+              "clause_id": "C0009",
+              "location": "第六条 经济补偿",
+              "title": "经济补偿",
+              "text": "补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。",
+              "section_type": "正式合同条款",
+              "level": 1,
+              "raw_text": "第六条 经济补偿\n乙方履行竞业限制义务期间，甲方按月向乙方支付竞业限制经济补偿。\n补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。\n甲方应于每月10日前将上月竞业限制补偿支付至乙方原工资账户。",
+              "normalized_text": "第六条经济补偿乙方履行竞业限制义务期间，甲方按月向乙方支付竞业限制经济补偿。补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。甲方应于每月10日前将上月竞业限制补偿支付至乙方原工资账户。",
+              "option_groups": [],
+              "source": "body",
+              "section_path": [
+                "正式合同条款",
+                "第六条 经济补偿"
+              ],
+              "heading": "经济补偿",
+              "clause_number": "第六条",
+              "paragraph_index": 8,
+              "block_type": "OPERATIVE_CLAUSE",
+              "parties": [
+                "乙方",
+                "甲方"
+              ],
+              "dates": [],
+              "amounts": [
+                "人民币8,000元"
+              ],
+              "percentages": [
+                "35%"
+              ],
+              "durations": [
+                "十二个月",
+                "10日"
+              ],
+              "cross_references": [
+                "第六条"
+              ],
+              "node_id": "C0009",
+              "document_id": "contract_package/main",
+              "heading_path": [
+                "第六条 经济补偿"
+              ],
+              "article_number": "第六条",
+              "section_number": "",
+              "item_number": "",
+              "sentence_index": 1,
+              "start_offset": 858,
+              "end_offset": 977,
+              "source_type": "CONTRACT_TEXT",
+              "party_obligation": true,
+              "quote": "补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。",
+              "original_excerpt": "补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。",
+              "model_quote": "补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。",
+              "alignment_mode": "EXACT",
+              "source_start": 41,
+              "source_end": 88,
+              "evidence_span": {
+                "basis": "clause.text",
+                "start": 41,
+                "end": 88
+              },
+              "document_span": {
+                "start": 899,
+                "end": 946
+              },
+              "verified_original": true,
+              "fact_concept": "salary.regular",
+              "structured_fact_id": "EF-a546bea6030a020a"
+            }
+          ],
+          "expected": "supported, source-bound core fact or a verified correction",
+          "actual": {
+            "required_fact": "salary.regular",
+            "factstore_state": "VERIFICATION_REJECTED",
+            "verification_state": "VERIFICATION_REJECTED",
+            "coverage_state": "UNCERTAIN",
+            "verified_fact_ids": [],
+            "rejected_fact_ids": [
+              "EF-a546bea6030a020a"
+            ],
+            "unresolved": false,
+            "model_coverage_advisory": null,
+            "extraction_state": "EXTRACTED",
+            "absence_audit": null,
+            "verified_absence_value": null
+          },
+          "disposition": "BLOCK",
+          "stage": "FACT_VERIFICATION",
+          "code": "CORE_FACT_VERIFICATION_FAILED",
+          "fact_key": null,
+          "raw_value": [
+            {
+              "fact_id": "EF-a546bea6030a020a",
+              "supported": false,
+              "reason": "该候选将竞业限制经济补偿标准（解除或终止前十二个月平均工资的35%，每月不低于8000元）作为salary.regular（转正/通常工资标准）提取。C0009原文明确该35%标准是竞业限制经济补偿，而非劳动关系存续期间的正常工资标准；全文亦无正常工资标准约定，故不支持。"
+            }
+          ],
+          "normalized_value": null,
+          "allowed_values": "supported, source-bound core fact or a verified correction",
+          "clause": null,
+          "message": "抽取值未通过事实类型、证据或语义校验；未生成报告，不能以默认值替代。",
+          "trace_id": "FACT-73f2999d07a749cc8e31145098ac162c"
+        }
+      ],
+      "raw_extraction": [
+        {
+          "provider": "deepseek",
+          "model": "deepseek-flash",
+          "kind": "VERIFIED_REPAIR_SEED",
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017"
+            ],
+            "searched_concepts": [
+              "identity.employer_representative",
+              "identity.worker_address",
+              "identity.employer_name",
+              "identity.employer_address",
+              "identity.worker_name",
+              "identity.worker_id",
+              "contract.type",
+              "contract.start_date",
+              "contract.end_date",
+              "contract.duration_months",
+              "contract.task",
+              "contract.task_end",
+              "probation.arrangement",
+              "probation.start_date",
+              "probation.end_date",
+              "probation.duration_months",
+              "probation.salary",
+              "probation.repeated",
+              "job.position",
+              "job.duties",
+              "job.locations",
+              "working_hours.system",
+              "working_hours.hours_per_day",
+              "working_hours.hours_per_week",
+              "working_hours.rest",
+              "working_hours.rest_days_per_week",
+              "working_hours.rest_waived",
+              "working_hours.overtime",
+              "salary.regular",
+              "salary.payment_date",
+              "salary.withheld_for_handover",
+              "social_insurance.employer_enrolls",
+              "social_insurance.statutory_duties",
+              "social_insurance.employer_pays",
+              "social_insurance.employee_withheld",
+              "social_insurance.cash_replacement",
+              "social_insurance.waived",
+              "social_insurance.employer_share_shifted",
+              "social_insurance.employer_underpays",
+              "social_insurance.employer_liability_excluded",
+              "social_insurance.employee_remedy_excluded",
+              "labor_protection.measures",
+              "labor_protection.training",
+              "labor_protection.special_training_required",
+              "labor_protection.training_excluded",
+              "labor_protection.hazard_exists",
+              "labor_protection.hazard_protection",
+              "training.arrangement",
+              "training.technical",
+              "training.service_penalty",
+              "training.cost",
+              "training.duration_months",
+              "training.penalty_prorated",
+              "termination.grounds",
+              "termination.notice",
+              "termination.notice_days",
+              "termination.approval_required",
+              "termination.employee_right_waived",
+              "termination.employer_unrestricted",
+              "termination.handover",
+              "economic_compensation.statutory",
+              "economic_compensation.settlement_deadline",
+              "economic_compensation.waived",
+              "economic_compensation.reduced",
+              "economic_compensation.statutory_percentage",
+              "economic_compensation.payment_delay_months",
+              "dispute.arbitration",
+              "penalties.obligations",
+              "non_compete.arrangement",
+              "non_compete.personnel",
+              "non_compete.secret_access",
+              "non_compete.access_capability",
+              "non_compete.actual_access",
+              "non_compete.businesses",
+              "non_compete.territories",
+              "non_compete.duration_months",
+              "non_compete.compensation",
+              "non_compete.compensation_deferred",
+              "non_compete.compensation_waived",
+              "non_compete.all_staff",
+              "ip.assignment_scope",
+              "ip.allocations",
+              "ip.personal_rights_waived",
+              "contract.employment_form",
+              "dispatch.auxiliary_noncore",
+              "dispatch.auxiliary_procedure",
+              "dispatch.substitute",
+              "dispatch.worker_pay_method",
+              "dispatch.comparator_pay_method",
+              "dispatch.comparator_pay",
+              "dispatch.comparable_work",
+              "dispatch.agency",
+              "dispatch.host",
+              "dispatch.position",
+              "dispatch.period",
+              "dispatch.position_basis",
+              "dispatch.long_term_position",
+              "dispatch.temporary_duration_months",
+              "dispatch.equal_pay",
+              "dispatch.idle_pay",
+              "dispatch.worker_charges",
+              "dispatch.return_procedure",
+              "dispatch.reassignment_procedure",
+              "dispatch.refusal_termination",
+              "dispatch.refusal_compensation_waived",
+              "dispatch.host_direct_dismissal",
+              "dispatch.agreement_disclosure",
+              "dispatch.agency_obligations",
+              "dispatch.host_obligations",
+              "dispatch.obligations_waived",
+              "contract.term_limit_mode",
+              "contract.term_limit_date",
+              "contract.term_limit_months",
+              "capability.ground",
+              "capability.training",
+              "capability.reassignment",
+              "capability.reassessment",
+              "capability.notice",
+              "capability.compensation",
+              "working_hours.days_per_week",
+              "salary.cycle_kind",
+              "salary.cycle_days",
+              "part_time.hourly_minimum",
+              "part_time.injury_insurance",
+              "part_time.employee_notice_days",
+              "part_time.exit_permission",
+              "part_time.exit_constraint",
+              "part_time.employer_notice_days",
+              "part_time.exit_approval",
+              "salary.settlement_period",
+              "worker.damage_liability",
+              "job.change_terms",
+              "discipline.dismissal_terms",
+              "dispatch.onward_assignment",
+              "dispatch.return_terms",
+              "worker.security_payment"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "identity.employer_representative",
+                "value": "赵明远",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "法定代表人：赵明远"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_address",
+                "value": "上海市杨浦区国定路266号",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "通讯地址：上海市杨浦区国定路266号"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.employer_name",
+                "value": "上海澜图智能科技有限公司",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：上海澜图智能科技有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.employer_address",
+                "value": "上海市浦东新区张江路588号",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "注册地址：上海市浦东新区张江路588号"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_name",
+                "value": "陈嘉宁",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方（劳动者）：陈嘉宁"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_id",
+                "value": "31011519940628XXXX",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "身份证号码：31011519940628XXXX"
+                  }
+                ]
+              },
+              {
+                "concept": "job.position",
+                "value": "高级产品经理",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "现任岗位：高级产品经理"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.regular",
+                "value": {
+                  "formula": {
+                    "kind": "PERCENT_OF_BASE",
+                    "percent": 35,
+                    "base": "PREVIOUS_AVERAGE_SALARY"
+                  },
+                  "unit": "CNY/MONTH",
+                  "determinate": true
+                },
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.payment_date",
+                "value": "每月10日前",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "甲方应于每月10日前将上月竞业限制补偿支付至乙方原工资账户。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.arrangement",
+                "value": "EXISTS",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "乙方与甲方解除或终止劳动关系后，应履行竞业限制义务，竞业限制期限为十八个月，自双方劳动关系正式解除或终止之日起计算。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispute.arbitration",
+                "value": true,
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0014",
+                    "quote": "协商不成的，任何一方均可依法向有管辖权的劳动人事争议仲裁委员会申请仲裁。"
+                  }
+                ]
+              },
+              {
+                "concept": "penalties.obligations",
+                "value": {
+                  "scope": "NON_COMPETE",
+                  "trigger": "乙方违反本协议约定的竞业限制义务",
+                  "imposed": true,
+                  "amount_text": "人民币120,000元"
+                },
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "双方约定竞业限制违约金为人民币120,000元。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.personnel",
+                "value": "高级管理/高级技术/实际接触秘密人员",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方确认，其任职岗位能够接触甲方重要商业秘密及与知识产权相关的保密事项，因此属于双方约定实施竞业限制的人员范围。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.secret_access",
+                "value": "任职岗位能够接触甲方重要商业秘密及与知识产权相关的保密事项",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方确认，其任职岗位能够接触甲方重要商业秘密及与知识产权相关的保密事项，因此属于双方约定实施竞业限制的人员范围。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.access_capability",
+                "value": true,
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方确认，其任职岗位能够接触甲方重要商业秘密及与知识产权相关的保密事项，因此属于双方约定实施竞业限制的人员范围。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.businesses",
+                "value": [
+                  "企业级人工智能应用软件开发",
+                  "智能数据分析平台研发及销售",
+                  "面向企业客户的AI自动化解决方案",
+                  "与上述业务直接构成竞争关系的其他产品或服务"
+                ],
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "本协议所称具有实质竞争关系的业务，主要包括：\n企业级人工智能应用软件开发；\n智能数据分析平台研发及销售；\n面向企业客户的AI自动化解决方案；\n与上述业务直接构成竞争关系的其他产品或服务。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.territories",
+                "value": [
+                  "甲方在乙方离职前十二个月内实际开展同类业务并已有客户、项目或持续经营活动的中国大陆地区"
+                ],
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "竞业限制地域范围为甲方在乙方离职前十二个月内实际开展同类业务并已有客户、项目或持续经营活动的中国大陆地区。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.duration_months",
+                "value": 18.0,
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "乙方与甲方解除或终止劳动关系后，应履行竞业限制义务，竞业限制期限为十八个月，自双方劳动关系正式解除或终止之日起计算。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.compensation",
+                "value": {
+                  "formula": {
+                    "kind": "PERCENT_OF_BASE",
+                    "percent": 35,
+                    "base": "PREVIOUS_AVERAGE_SALARY"
+                  },
+                  "unit": "CNY/MONTH",
+                  "determinate": true
+                },
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "补偿标准为乙方劳动关系解除或终止前十二个月平均工资的35%，且每月不得低于人民币8,000元。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.compensation_deferred",
+                "value": false,
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "乙方履行竞业限制义务期间，甲方按月向乙方支付竞业限制经济补偿。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.compensation_waived",
+                "value": false,
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "乙方履行竞业限制义务期间，甲方按月向乙方支付竞业限制经济补偿。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.all_staff",
+                "value": false,
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方确认，其任职岗位能够接触甲方重要商业秘密及与知识产权相关的保密事项，因此属于双方约定实施竞业限制的人员范围。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.employment_form",
+                "value": "DIRECT",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：上海澜图智能科技有限公司"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方（劳动者）：陈嘉宁"
+                  }
+                ]
+              },
+              {
+                "concept": "worker.damage_liability",
+                "value": {
+                  "kind": "STATUTORY_LIABILITY",
+                  "trigger": "乙方违反本协议约定的竞业限制义务，给甲方造成损失的",
+                  "basis": "应依法承担相应责任"
+                },
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "乙方违反本协议约定的竞业限制义务，给甲方造成损失的，应依法承担相应责任。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017"
+            ],
+            "searched_concepts": [
+              "salary.payment_method"
+            ],
+            "unresolved_concepts": [
+              "salary.payment_method"
+            ],
+            "facts": []
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 3036,
+            "completion_tokens": 117,
+            "total_tokens": 3153,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 2140
+          },
+          "provider": "deepseek"
+        }
+      ],
+      "raw_verification": {
+        "provider": "deepseek",
+        "model": "deepseek-flash",
+        "verification": {
+          "verification_schema_version": "fact-verification-2",
+          "checks": [
+            {
+              "fact_id": "EF-c24c079e072ee3e6",
+              "supported": true,
+              "reason": "C0002明确甲方为用人单位，C0003明确乙方为劳动者，双方直接建立劳动关系，未出现派遣单位或用工单位，支持DIRECT。"
+            },
+            {
+              "fact_id": "EF-a78b4d21b2c6d208",
+              "supported": true,
+              "reason": "C0014明确约定协商不成可依法向劳动人事争议仲裁委员会申请仲裁，支持允许依法申请劳动仲裁。"
+            },
+            {
+              "fact_id": "EF-d3e1c408f444d892",
+              "supported": true,
+              "reason": "C0002明确载明注册地址为上海市浦东新区张江路588号。"
+            },
+            {
+              "fact_id": "EF-a8e5a7c50e5230b3",
+              "supported": true,
+              "reason": "C0002明确载明甲方（用人单位）为上海澜图智能科技有限公司。"
+            },
+            {
+              "fact_id": "EF-8cc454f7ba18c23e",
+              "supported": true,
+              "reason": "C0002明确载明法定代表人为赵明远。"
+            },
+            {
+              "fact_id": "EF-25d36e625b8f01e1",
+              "supported": true,
+              "reason": "C0003明确载明乙方通讯地址为上海市杨浦区国定路266号。"
+            },
+            {
+              "fact_id": "EF-f8f94fb48a0283e8",
+              "supported": true,
+              "reason": "C0003明确载明身份证号码为31011519940628XXXX。"
+            },
+            {
+              "fact_id": "EF-3144cac81f353bd2",
+              "supported": true,
+              "reason": "C0003明确载明乙方（劳动者）为陈嘉宁。"
+            },
+            {
+              "fact_id": "EF-46e4158f8c75b3fe",
+              "supported": true,
+              "reason": "C0003明确载明现任岗位为高级产品经理。"
+            },
+            {
+              "fact_id": "EF-6dd35d0cae5c1c5f",
+              "supported": true,
+              "reason": "C0004明确乙方任职岗位能够接触甲方重要商业秘密及与知识产权相关的保密事项，属于接触可能性/能力，符合access_capability定义。"
+            },
+            {
+              "fact_id": "EF-117fb8c661be4ed0",
+              "supported": true,
+              "reason": "C0004将竞业限制人员限定为经确认能够接触重要商业秘密的乙方，并非不区分秘密接触而适用于所有员工，false有原文依据。"
+            },
+            {
+              "fact_id": "EF-7a32518828ed5570",
+              "supported": true,
+              "reason": "C0005明确约定劳动关系解除或终止后乙方应履行竞业限制义务及十八个月期限，构成离职竞业安排EXISTS。"
+            },
+            {
+              "fact_id": "EF-05099f45718c3ae6",
+              "supported": true,
+              "reason": "C0006逐项列明实质竞争业务范围，候选数组与原文一致。"
+            },
+            {
+              "fact_id": "EF-322b3c03f5cf66db",
+              "supported": true,
+              "reason": "C0009明确补偿标准为解除或终止前十二个月平均工资的35%且每月不低于8,000元，候选公式与单位有原文支持。"
+            },
+            {
+              "fact_id": "EF-927fec638dc77a77",
+              "supported": true,
+              "reason": "C0009约定甲方按月支付竞业限制经济补偿，未约定补偿标准另议，false与原文一致。"
+            },
+            {
+              "fact_id": "EF-af98a93eb9978213",
+              "supported": true,
+              "reason": "C0009约定甲方按月支付经济补偿，未约定无需补偿或无偿履行，false与原文一致。"
+            },
+            {
+              "fact_id": "EF-1551026bb1dc62b8",
+              "supported": true,
+              "reason": "C0005明确竞业限制期限为十八个月，数值18有原文支持。"
+            },
+            {
+              "fact_id": "EF-52552a953df1165d",
+              "supported": true,
+              "reason": "C0004明确乙方任职岗位能够接触重要商业秘密及知识产权相关保密事项，属于双方约定实施竞业限制的人员范围，支持该人员范围表述。"
+            },
+            {
+              "fact_id": "EF-269d73be1167dd8e",
+              "supported": true,
+              "reason": "C0004原文明确表述任职岗位能够接触甲方重要商业秘密及与知识产权相关的保密事项，属于资格/范围声明。"
+            },
+            {
+              "fact_id": "EF-b05d02d976dca823",
+              "supported": true,
+              "reason": "C0007明确约定竞业限制地域范围为离职前十二个月内实际开展同类业务并已有客户、项目或持续经营活动的中国大陆地区。"
+            },
+            {
+              "fact_id": "EF-3cc0f54bdd7ae5b5",
+              "supported": true,
+              "reason": "C0012明确约定竞业限制违约金为人民币120,000元，触发条件为乙方违反竞业限制义务，scope为NON_COMPETE，imposed为true。"
+            },
+            {
+              "fact_id": "EF-adbc74f0c0e7cceb",
+              "supported": true,
+              "reason": "C0009明确甲方应于每月10日前支付上月竞业限制补偿，支持工资发放日表述。"
+            },
+            {
+              "fact_id": "EF-a546bea6030a020a",
+              "supported": false,
+              "reason": "该候选将竞业限制经济补偿标准（解除或终止前十二个月平均工资的35%，每月不低于8000元）作为salary.regular（转正/通常工资标准）提取。C0009原文明确该35%标准是竞业限制经济补偿，而非劳动关系存续期间的正常工资标准；全文亦无正常工资标准约定，故不支持。"
+            },
+            {
+              "fact_id": "EF-654e6f77d1faa0b1",
+              "supported": true,
+              "reason": "C0012原文明确约定乙方违反竞业限制义务给甲方造成损失的应依法承担相应责任，属于依法承担责任的STATUTORY_LIABILITY，trigger与basis均与引文一致。"
+            }
+          ],
+          "searched_concepts": [
+            "capability.compensation",
+            "capability.ground",
+            "capability.notice",
+            "capability.reassessment",
+            "capability.reassignment",
+            "capability.training",
+            "contract.duration_months",
+            "contract.employment_form",
+            "contract.end_date",
+            "contract.start_date",
+            "contract.task",
+            "contract.task_end",
+            "contract.term_limit_date",
+            "contract.term_limit_mode",
+            "contract.term_limit_months",
+            "contract.type",
+            "discipline.dismissal_terms",
+            "dispatch.agency",
+            "dispatch.agency_obligations",
+            "dispatch.agreement_disclosure",
+            "dispatch.auxiliary_noncore",
+            "dispatch.auxiliary_procedure",
+            "dispatch.comparable_work",
+            "dispatch.comparator_pay",
+            "dispatch.comparator_pay_method",
+            "dispatch.equal_pay",
+            "dispatch.host",
+            "dispatch.host_direct_dismissal",
+            "dispatch.host_obligations",
+            "dispatch.idle_pay",
+            "dispatch.long_term_position",
+            "dispatch.obligations_waived",
+            "dispatch.onward_assignment",
+            "dispatch.period",
+            "dispatch.position",
+            "dispatch.position_basis",
+            "dispatch.reassignment_procedure",
+            "dispatch.refusal_compensation_waived",
+            "dispatch.refusal_termination",
+            "dispatch.return_procedure",
+            "dispatch.return_terms",
+            "dispatch.substitute",
+            "dispatch.temporary_duration_months",
+            "dispatch.worker_charges",
+            "dispatch.worker_pay_method",
+            "dispute.arbitration",
+            "economic_compensation.payment_delay_months",
+            "economic_compensation.reduced",
+            "economic_compensation.settlement_deadline",
+            "economic_compensation.statutory",
+            "economic_compensation.statutory_percentage",
+            "economic_compensation.waived",
+            "identity.employer_address",
+            "identity.employer_name",
+            "identity.employer_representative",
+            "identity.worker_address",
+            "identity.worker_id",
+            "identity.worker_name",
+            "ip.allocations",
+            "ip.assignment_scope",
+            "ip.personal_rights_waived",
+            "job.change_terms",
+            "job.duties",
+            "job.locations",
+            "job.position",
+            "labor_protection.hazard_exists",
+            "labor_protection.hazard_protection",
+            "labor_protection.measures",
+            "labor_protection.special_training_required",
+            "labor_protection.training",
+            "labor_protection.training_excluded",
+            "non_compete.access_capability",
+            "non_compete.actual_access",
+            "non_compete.all_staff",
+            "non_compete.arrangement",
+            "non_compete.businesses",
+            "non_compete.compensation",
+            "non_compete.compensation_deferred",
+            "non_compete.compensation_waived",
+            "non_compete.duration_months",
+            "non_compete.personnel",
+            "non_compete.secret_access",
+            "non_compete.territories",
+            "part_time.employee_notice_days",
+            "part_time.employer_notice_days",
+            "part_time.exit_approval",
+            "part_time.exit_constraint",
+            "part_time.exit_permission",
+            "part_time.hourly_minimum",
+            "part_time.injury_insurance",
+            "penalties.obligations",
+            "probation.arrangement",
+            "probation.duration_months",
+            "probation.end_date",
+            "probation.repeated",
+            "probation.salary",
+            "probation.start_date",
+            "salary.cycle_days",
+            "salary.cycle_kind",
+            "salary.payment_date",
+            "salary.payment_method",
+            "salary.regular",
+            "salary.settlement_period",
+            "salary.withheld_for_handover",
+            "social_insurance.cash_replacement",
+            "social_insurance.employee_remedy_excluded",
+            "social_insurance.employee_withheld",
+            "social_insurance.employer_enrolls",
+            "social_insurance.employer_liability_excluded",
+            "social_insurance.employer_pays",
+            "social_insurance.employer_share_shifted",
+            "social_insurance.employer_underpays",
+            "social_insurance.statutory_duties",
+            "social_insurance.waived",
+            "termination.approval_required",
+            "termination.employee_right_waived",
+            "termination.employer_unrestricted",
+            "termination.grounds",
+            "termination.handover",
+            "termination.notice",
+            "termination.notice_days",
+            "training.arrangement",
+            "training.cost",
+            "training.duration_months",
+            "training.penalty_prorated",
+            "training.service_penalty",
+            "training.technical",
+            "worker.damage_liability",
+            "worker.security_payment",
+            "working_hours.days_per_week",
+            "working_hours.hours_per_day",
+            "working_hours.hours_per_week",
+            "working_hours.overtime",
+            "working_hours.rest",
+            "working_hours.rest_days_per_week",
+            "working_hours.rest_waived",
+            "working_hours.system"
+          ],
+          "unresolved_concepts": [],
+          "additional_facts": [],
+          "absence_audits": [
+            {
+              "concept": "training.arrangement",
+              "result": "ABSENT",
+              "reason": "全文通读C0001至C0017，仅涉及竞业限制、保密、经济补偿、违约责任及争议解决，未出现任何专项技术培训、培训费用、服务期或培训服务期违约金的约定，也无明确不设服务期的否定性表述，故training.arrangement及其absence_scopes所列概念均不存在。",
+              "searched_concepts": [
+                "training.arrangement",
+                "training.technical",
+                "training.cost",
+                "training.duration_months",
+                "training.service_penalty"
+              ],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017"
+              ]
+            }
+          ],
+          "reviewed_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011",
+            "C0012",
+            "C0013",
+            "C0014",
+            "C0015",
+            "C0016",
+            "C0017"
+          ]
+        },
+        "batches": [
+          {
+            "batch_id": 1,
+            "input_fact_ids": [
+              "EF-c24c079e072ee3e6"
+            ],
+            "required_concepts": [
+              "capability.compensation",
+              "capability.ground",
+              "capability.notice",
+              "capability.reassessment",
+              "capability.reassignment",
+              "capability.training",
+              "contract.duration_months",
+              "contract.employment_form",
+              "contract.end_date",
+              "contract.start_date",
+              "contract.task",
+              "contract.task_end",
+              "contract.term_limit_date",
+              "contract.term_limit_mode",
+              "contract.term_limit_months",
+              "contract.type",
+              "discipline.dismissal_terms",
+              "dispatch.agency",
+              "dispatch.agency_obligations",
+              "dispatch.agreement_disclosure"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-c24c079e072ee3e6",
+                  "supported": true,
+                  "reason": "C0002明确甲方为用人单位，C0003明确乙方为劳动者，双方直接建立劳动关系，未出现派遣单位或用工单位，支持DIRECT。"
+                }
+              ],
+              "searched_concepts": [
+                "capability.compensation",
+                "capability.ground",
+                "capability.notice",
+                "capability.reassessment",
+                "capability.reassignment",
+                "capability.training",
+                "contract.duration_months",
+                "contract.employment_form",
+                "contract.end_date",
+                "contract.start_date",
+                "contract.task",
+                "contract.task_end",
+                "contract.term_limit_date",
+                "contract.term_limit_mode",
+                "contract.term_limit_months",
+                "contract.type",
+                "discipline.dismissal_terms",
+                "dispatch.agency",
+                "dispatch.agency_obligations",
+                "dispatch.agreement_disclosure"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 8431,
+              "completion_tokens": 282,
+              "total_tokens": 8713,
+              "prompt_tokens_details": {
+                "cached_tokens": 1408
+              },
+              "prompt_cache_hit_tokens": 1408,
+              "prompt_cache_miss_tokens": 7023
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 2,
+            "input_fact_ids": [],
+            "required_concepts": [
+              "dispatch.auxiliary_noncore",
+              "dispatch.auxiliary_procedure",
+              "dispatch.comparable_work",
+              "dispatch.comparator_pay",
+              "dispatch.comparator_pay_method",
+              "dispatch.equal_pay",
+              "dispatch.host",
+              "dispatch.host_direct_dismissal",
+              "dispatch.host_obligations",
+              "dispatch.idle_pay",
+              "dispatch.long_term_position",
+              "dispatch.obligations_waived",
+              "dispatch.onward_assignment",
+              "dispatch.period",
+              "dispatch.position",
+              "dispatch.position_basis",
+              "dispatch.reassignment_procedure",
+              "dispatch.refusal_compensation_waived",
+              "dispatch.refusal_termination",
+              "dispatch.return_procedure"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [],
+              "searched_concepts": [
+                "dispatch.auxiliary_noncore",
+                "dispatch.auxiliary_procedure",
+                "dispatch.comparable_work",
+                "dispatch.comparator_pay",
+                "dispatch.comparator_pay_method",
+                "dispatch.equal_pay",
+                "dispatch.host",
+                "dispatch.host_direct_dismissal",
+                "dispatch.host_obligations",
+                "dispatch.idle_pay",
+                "dispatch.long_term_position",
+                "dispatch.obligations_waived",
+                "dispatch.onward_assignment",
+                "dispatch.period",
+                "dispatch.position",
+                "dispatch.position_basis",
+                "dispatch.reassignment_procedure",
+                "dispatch.refusal_compensation_waived",
+                "dispatch.refusal_termination",
+                "dispatch.return_procedure"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 8301,
+              "completion_tokens": 251,
+              "total_tokens": 8552,
+              "prompt_tokens_details": {
+                "cached_tokens": 1664
+              },
+              "prompt_cache_hit_tokens": 1664,
+              "prompt_cache_miss_tokens": 6637
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 3,
+            "input_fact_ids": [
+              "EF-a78b4d21b2c6d208",
+              "EF-d3e1c408f444d892",
+              "EF-a8e5a7c50e5230b3",
+              "EF-8cc454f7ba18c23e",
+              "EF-25d36e625b8f01e1",
+              "EF-f8f94fb48a0283e8",
+              "EF-3144cac81f353bd2"
+            ],
+            "required_concepts": [
+              "dispatch.return_terms",
+              "dispatch.substitute",
+              "dispatch.temporary_duration_months",
+              "dispatch.worker_charges",
+              "dispatch.worker_pay_method",
+              "dispute.arbitration",
+              "economic_compensation.payment_delay_months",
+              "economic_compensation.reduced",
+              "economic_compensation.settlement_deadline",
+              "economic_compensation.statutory",
+              "economic_compensation.statutory_percentage",
+              "economic_compensation.waived",
+              "identity.employer_address",
+              "identity.employer_name",
+              "identity.employer_representative",
+              "identity.worker_address",
+              "identity.worker_id",
+              "identity.worker_name",
+              "ip.allocations",
+              "ip.assignment_scope"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-a78b4d21b2c6d208",
+                  "supported": true,
+                  "reason": "C0014明确约定协商不成可依法向劳动人事争议仲裁委员会申请仲裁，支持允许依法申请劳动仲裁。"
+                },
+                {
+                  "fact_id": "EF-d3e1c408f444d892",
+                  "supported": true,
+                  "reason": "C0002明确载明注册地址为上海市浦东新区张江路588号。"
+                },
+                {
+                  "fact_id": "EF-a8e5a7c50e5230b3",
+                  "supported": true,
+                  "reason": "C0002明确载明甲方（用人单位）为上海澜图智能科技有限公司。"
+                },
+                {
+                  "fact_id": "EF-8cc454f7ba18c23e",
+                  "supported": true,
+                  "reason": "C0002明确载明法定代表人为赵明远。"
+                },
+                {
+                  "fact_id": "EF-25d36e625b8f01e1",
+                  "supported": true,
+                  "reason": "C0003明确载明乙方通讯地址为上海市杨浦区国定路266号。"
+                },
+                {
+                  "fact_id": "EF-f8f94fb48a0283e8",
+                  "supported": true,
+                  "reason": "C0003明确载明身份证号码为31011519940628XXXX。"
+                },
+                {
+                  "fact_id": "EF-3144cac81f353bd2",
+                  "supported": true,
+                  "reason": "C0003明确载明乙方（劳动者）为陈嘉宁。"
+                }
+              ],
+              "searched_concepts": [
+                "dispatch.return_terms",
+                "dispatch.substitute",
+                "dispatch.temporary_duration_months",
+                "dispatch.worker_charges",
+                "dispatch.worker_pay_method",
+                "dispute.arbitration",
+                "economic_compensation.payment_delay_months",
+                "economic_compensation.reduced",
+                "economic_compensation.settlement_deadline",
+                "economic_compensation.statutory",
+                "economic_compensation.statutory_percentage",
+                "economic_compensation.waived",
+                "identity.employer_address",
+                "identity.employer_name",
+                "identity.employer_representative",
+                "identity.worker_address",
+                "identity.worker_id",
+                "identity.worker_name",
+                "ip.allocations",
+                "ip.assignment_scope"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 9419,
+              "completion_tokens": 546,
+              "total_tokens": 9965,
+              "prompt_tokens_details": {
+                "cached_tokens": 1664
+              },
+              "prompt_cache_hit_tokens": 1664,
+              "prompt_cache_miss_tokens": 7755
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 4,
+            "input_fact_ids": [
+              "EF-46e4158f8c75b3fe",
+              "EF-6dd35d0cae5c1c5f",
+              "EF-117fb8c661be4ed0",
+              "EF-7a32518828ed5570",
+              "EF-05099f45718c3ae6",
+              "EF-322b3c03f5cf66db",
+              "EF-927fec638dc77a77",
+              "EF-af98a93eb9978213",
+              "EF-1551026bb1dc62b8"
+            ],
+            "required_concepts": [
+              "ip.personal_rights_waived",
+              "job.change_terms",
+              "job.duties",
+              "job.locations",
+              "job.position",
+              "labor_protection.hazard_exists",
+              "labor_protection.hazard_protection",
+              "labor_protection.measures",
+              "labor_protection.special_training_required",
+              "labor_protection.training",
+              "labor_protection.training_excluded",
+              "non_compete.access_capability",
+              "non_compete.actual_access",
+              "non_compete.all_staff",
+              "non_compete.arrangement",
+              "non_compete.businesses",
+              "non_compete.compensation",
+              "non_compete.compensation_deferred",
+              "non_compete.compensation_waived",
+              "non_compete.duration_months"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-46e4158f8c75b3fe",
+                  "supported": true,
+                  "reason": "C0003明确载明现任岗位为高级产品经理。"
+                },
+                {
+                  "fact_id": "EF-6dd35d0cae5c1c5f",
+                  "supported": true,
+                  "reason": "C0004明确乙方任职岗位能够接触甲方重要商业秘密及与知识产权相关的保密事项，属于接触可能性/能力，符合access_capability定义。"
+                },
+                {
+                  "fact_id": "EF-117fb8c661be4ed0",
+                  "supported": true,
+                  "reason": "C0004将竞业限制人员限定为经确认能够接触重要商业秘密的乙方，并非不区分秘密接触而适用于所有员工，false有原文依据。"
+                },
+                {
+                  "fact_id": "EF-7a32518828ed5570",
+                  "supported": true,
+                  "reason": "C0005明确约定劳动关系解除或终止后乙方应履行竞业限制义务及十八个月期限，构成离职竞业安排EXISTS。"
+                },
+                {
+                  "fact_id": "EF-05099f45718c3ae6",
+                  "supported": true,
+                  "reason": "C0006逐项列明实质竞争业务范围，候选数组与原文一致。"
+                },
+                {
+                  "fact_id": "EF-322b3c03f5cf66db",
+                  "supported": true,
+                  "reason": "C0009明确补偿标准为解除或终止前十二个月平均工资的35%且每月不低于8,000元，候选公式与单位有原文支持。"
+                },
+                {
+                  "fact_id": "EF-927fec638dc77a77",
+                  "supported": true,
+                  "reason": "C0009约定甲方按月支付竞业限制经济补偿，未约定补偿标准另议，false与原文一致。"
+                },
+                {
+                  "fact_id": "EF-af98a93eb9978213",
+                  "supported": true,
+                  "reason": "C0009约定甲方按月支付经济补偿，未约定无需补偿或无偿履行，false与原文一致。"
+                },
+                {
+                  "fact_id": "EF-1551026bb1dc62b8",
+                  "supported": true,
+                  "reason": "C0005明确竞业限制期限为十八个月，数值18有原文支持。"
+                }
+              ],
+              "searched_concepts": [
+                "ip.personal_rights_waived",
+                "job.change_terms",
+                "job.duties",
+                "job.locations",
+                "job.position",
+                "labor_protection.hazard_exists",
+                "labor_protection.hazard_protection",
+                "labor_protection.measures",
+                "labor_protection.special_training_required",
+                "labor_protection.training",
+                "labor_protection.training_excluded",
+                "non_compete.access_capability",
+                "non_compete.actual_access",
+                "non_compete.all_staff",
+                "non_compete.arrangement",
+                "non_compete.businesses",
+                "non_compete.compensation",
+                "non_compete.compensation_deferred",
+                "non_compete.compensation_waived",
+                "non_compete.duration_months"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 9344,
+              "completion_tokens": 704,
+              "total_tokens": 10048,
+              "prompt_tokens_details": {
+                "cached_tokens": 1664
+              },
+              "prompt_cache_hit_tokens": 1664,
+              "prompt_cache_miss_tokens": 7680
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 5,
+            "input_fact_ids": [
+              "EF-52552a953df1165d",
+              "EF-269d73be1167dd8e",
+              "EF-b05d02d976dca823",
+              "EF-3cc0f54bdd7ae5b5",
+              "EF-adbc74f0c0e7cceb"
+            ],
+            "required_concepts": [
+              "non_compete.personnel",
+              "non_compete.secret_access",
+              "non_compete.territories",
+              "part_time.employee_notice_days",
+              "part_time.employer_notice_days",
+              "part_time.exit_approval",
+              "part_time.exit_constraint",
+              "part_time.exit_permission",
+              "part_time.hourly_minimum",
+              "part_time.injury_insurance",
+              "penalties.obligations",
+              "probation.arrangement",
+              "probation.duration_months",
+              "probation.end_date",
+              "probation.repeated",
+              "probation.salary",
+              "probation.start_date",
+              "salary.cycle_days",
+              "salary.cycle_kind",
+              "salary.payment_date"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-52552a953df1165d",
+                  "supported": true,
+                  "reason": "C0004明确乙方任职岗位能够接触重要商业秘密及知识产权相关保密事项，属于双方约定实施竞业限制的人员范围，支持该人员范围表述。"
+                },
+                {
+                  "fact_id": "EF-269d73be1167dd8e",
+                  "supported": true,
+                  "reason": "C0004原文明确表述任职岗位能够接触甲方重要商业秘密及与知识产权相关的保密事项，属于资格/范围声明。"
+                },
+                {
+                  "fact_id": "EF-b05d02d976dca823",
+                  "supported": true,
+                  "reason": "C0007明确约定竞业限制地域范围为离职前十二个月内实际开展同类业务并已有客户、项目或持续经营活动的中国大陆地区。"
+                },
+                {
+                  "fact_id": "EF-3cc0f54bdd7ae5b5",
+                  "supported": true,
+                  "reason": "C0012明确约定竞业限制违约金为人民币120,000元，触发条件为乙方违反竞业限制义务，scope为NON_COMPETE，imposed为true。"
+                },
+                {
+                  "fact_id": "EF-adbc74f0c0e7cceb",
+                  "supported": true,
+                  "reason": "C0009明确甲方应于每月10日前支付上月竞业限制补偿，支持工资发放日表述。"
+                }
+              ],
+              "searched_concepts": [
+                "non_compete.personnel",
+                "non_compete.secret_access",
+                "non_compete.territories",
+                "part_time.employee_notice_days",
+                "part_time.employer_notice_days",
+                "part_time.exit_approval",
+                "part_time.exit_constraint",
+                "part_time.exit_permission",
+                "part_time.hourly_minimum",
+                "part_time.injury_insurance",
+                "penalties.obligations",
+                "probation.arrangement",
+                "probation.duration_months",
+                "probation.end_date",
+                "probation.repeated",
+                "probation.salary",
+                "probation.start_date",
+                "salary.cycle_days",
+                "salary.cycle_kind",
+                "salary.payment_date"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 8835,
+              "completion_tokens": 521,
+              "total_tokens": 9356,
+              "prompt_tokens_details": {
+                "cached_tokens": 1664
+              },
+              "prompt_cache_hit_tokens": 1664,
+              "prompt_cache_miss_tokens": 7171
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 6,
+            "input_fact_ids": [
+              "EF-a546bea6030a020a"
+            ],
+            "required_concepts": [
+              "salary.payment_method",
+              "salary.regular",
+              "salary.settlement_period",
+              "salary.withheld_for_handover",
+              "social_insurance.cash_replacement",
+              "social_insurance.employee_remedy_excluded",
+              "social_insurance.employee_withheld",
+              "social_insurance.employer_enrolls",
+              "social_insurance.employer_liability_excluded",
+              "social_insurance.employer_pays",
+              "social_insurance.employer_share_shifted",
+              "social_insurance.employer_underpays",
+              "social_insurance.statutory_duties",
+              "social_insurance.waived",
+              "termination.approval_required",
+              "termination.employee_right_waived",
+              "termination.employer_unrestricted",
+              "termination.grounds",
+              "termination.handover",
+              "termination.notice"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-a546bea6030a020a",
+                  "supported": false,
+                  "reason": "该候选将竞业限制经济补偿标准（解除或终止前十二个月平均工资的35%，每月不低于8000元）作为salary.regular（转正/通常工资标准）提取。C0009原文明确该35%标准是竞业限制经济补偿，而非劳动关系存续期间的正常工资标准；全文亦无正常工资标准约定，故不支持。"
+                }
+              ],
+              "searched_concepts": [
+                "salary.payment_method",
+                "salary.regular",
+                "salary.settlement_period",
+                "salary.withheld_for_handover",
+                "social_insurance.cash_replacement",
+                "social_insurance.employee_remedy_excluded",
+                "social_insurance.employee_withheld",
+                "social_insurance.employer_enrolls",
+                "social_insurance.employer_liability_excluded",
+                "social_insurance.employer_pays",
+                "social_insurance.employer_share_shifted",
+                "social_insurance.employer_underpays",
+                "social_insurance.statutory_duties",
+                "social_insurance.waived",
+                "termination.approval_required",
+                "termination.employee_right_waived",
+                "termination.employer_unrestricted",
+                "termination.grounds",
+                "termination.handover",
+                "termination.notice"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 8500,
+              "completion_tokens": 382,
+              "total_tokens": 8882,
+              "prompt_tokens_details": {
+                "cached_tokens": 1664
+              },
+              "prompt_cache_hit_tokens": 1664,
+              "prompt_cache_miss_tokens": 6836
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 7,
+            "input_fact_ids": [
+              "EF-654e6f77d1faa0b1"
+            ],
+            "required_concepts": [
+              "termination.notice_days",
+              "training.arrangement",
+              "training.cost",
+              "training.duration_months",
+              "training.penalty_prorated",
+              "training.service_penalty",
+              "training.technical",
+              "worker.damage_liability",
+              "worker.security_payment",
+              "working_hours.days_per_week",
+              "working_hours.hours_per_day",
+              "working_hours.hours_per_week",
+              "working_hours.overtime",
+              "working_hours.rest",
+              "working_hours.rest_days_per_week",
+              "working_hours.rest_waived",
+              "working_hours.system"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-654e6f77d1faa0b1",
+                  "supported": true,
+                  "reason": "C0012原文明确约定乙方违反竞业限制义务给甲方造成损失的应依法承担相应责任，属于依法承担责任的STATUTORY_LIABILITY，trigger与basis均与引文一致。"
+                }
+              ],
+              "searched_concepts": [
+                "termination.notice_days",
+                "training.arrangement",
+                "training.cost",
+                "training.duration_months",
+                "training.penalty_prorated",
+                "training.service_penalty",
+                "training.technical",
+                "worker.damage_liability",
+                "worker.security_payment",
+                "working_hours.days_per_week",
+                "working_hours.hours_per_day",
+                "working_hours.hours_per_week",
+                "working_hours.overtime",
+                "working_hours.rest",
+                "working_hours.rest_days_per_week",
+                "working_hours.rest_waived",
+                "working_hours.system"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [
+                {
+                  "concept": "training.arrangement",
+                  "result": "ABSENT",
+                  "reason": "全文通读C0001至C0017，仅涉及竞业限制、保密、经济补偿、违约责任及争议解决，未出现任何专项技术培训、培训费用、服务期或培训服务期违约金的约定，也无明确不设服务期的否定性表述，故training.arrangement及其absence_scopes所列概念均不存在。",
+                  "searched_concepts": [
+                    "training.arrangement",
+                    "training.technical",
+                    "training.cost",
+                    "training.duration_months",
+                    "training.service_penalty"
+                  ],
+                  "reviewed_clause_ids": [
+                    "C0001",
+                    "C0002",
+                    "C0003",
+                    "C0004",
+                    "C0005",
+                    "C0006",
+                    "C0007",
+                    "C0008",
+                    "C0009",
+                    "C0010",
+                    "C0011",
+                    "C0012",
+                    "C0013",
+                    "C0014",
+                    "C0015",
+                    "C0016",
+                    "C0017"
+                  ]
+                }
+              ],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 8420,
+              "completion_tokens": 498,
+              "total_tokens": 8918,
+              "prompt_tokens_details": {
+                "cached_tokens": 1664
+              },
+              "prompt_cache_hit_tokens": 1664,
+              "prompt_cache_miss_tokens": 6756
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 61250,
+          "completion_tokens": 3184,
+          "total_tokens": 64434
+        }
+      },
+      "verification_batches": null
+    }
+  ],
+  "trace_id": "FACT-73f2999d07a749cc8e31145098ac162c"
+}

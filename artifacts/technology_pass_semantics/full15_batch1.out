@@ -1,0 +1,574 @@
+.F..FF..FFFFFFF..F......F..F....FF.....F...F.FFFFFFFFF.F.F..F..FFF..F... [ 28%]
+...FF......FF........FFFF...FFFFFF.FF.................F.F.F.F.FF.F...FF. [ 56%]
+F..FFF..F.....................................F.....................F... [ 84%]
+.......................................                                  [100%]
+================================== FAILURES ===================================
+_______________ test_consulting_tc08_rules_and_direct_evidence ________________
+backend\tests\test_technical_consulting_contract_review.py:122: in test_consulting_tc08_rules_and_direct_evidence
+    assert [by_id[f"TC-08-0{index}"]["coverage_status"] for index in range(1, 5)] == ["通过"] * 4
+E   AssertionError: assert ['待核验', '待核验', '待核验', '待核验'] == ['通过', '通过', '通过', '通过']
+E     
+E     At index 0 diff: '待核验' != '通过'
+E     Use -v to get more diff
+________________ test_consulting_attachments_and_release_gate _________________
+backend\tests\test_technical_consulting_contract_review.py:184: in test_consulting_attachments_and_release_gate
+    assert attachment["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+__________ test_consulting_signing_law_context_is_not_false_positive __________
+backend\tests\test_technical_consulting_contract_review.py:205: in test_consulting_signing_law_context_is_not_false_positive
+    assert context["display_text"] in consulting_review["result"]
+E   AssertionError: assert '签署时法律依据：《中华人民共和国合同法》第359条（技术咨询合同决策风险承担规则）；现行对应规则：《中华人民共和国民法典》第881条；具体争议适用法律仍应结合履行时间、争议事实及相关法律适用规则判断。' in '# 技术咨询合同审查报告\n\n\n## 一、合同总体评价\n\n- 审查立场：甲方 / 委托方\n- 使用场景：技术咨询\n- 合同类型：技术合同—技术咨询合同\n- 总体可签署性：建议修改后签署\n- 风险主题数（聚合后）：1\n...人民共和国民法典》第466条\n\n【证据定位】\n- 支持要素：第一条引用核验\n- 条款编号：第七条第2项\n- 原文片段：2、咨询报告应完整覆盖第一条约定内容，并就架构、性能瓶颈、改造路线和主要风险提出明确意见。\n\n---\n'
+_ test_consulting_subtype_is_inferred_from_transaction_substance_without_explicit_title _
+backend\tests\test_technical_consulting_contract_review.py:258: in test_consulting_subtype_is_inferred_from_transaction_substance_without_explicit_title
+    assert by_id["TC-01-03"]["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+_ test_consulting_elements_and_evidence_are_status_separated_and_contract_grounded _
+backend\tests\test_technical_consulting_contract_review.py:296: in test_consulting_elements_and_evidence_are_status_separated_and_contract_grounded
+    assert by_id["TC-01-03"]["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+__________ test_consulting_cross_section_evidence_recall_and_binding __________
+backend\tests\test_technical_consulting_contract_review.py:416: in test_consulting_cross_section_evidence_recall_and_binding
+    assert remedy["coverage_status"] in {"通过", "部分覆盖"}
+E   AssertionError: assert '待核验' in {'通过', '部分覆盖'}
+___ test_consulting_report_projects_seven_atomic_findings_into_three_themes ___
+backend\tests\test_technical_consulting_contract_review.py:502: in test_consulting_report_projects_seven_atomic_findings_into_three_themes
+    assert "底层审查发现数：7" in output["result"]
+E   AssertionError: assert '底层审查发现数：7' in '# 技术咨询合同审查报告\n\n\n## 一、合同总体评价\n\n- 审查立场：甲方 / 委托方\n- 使用场景：技术咨询\n- 合同类型：技术合同—技术咨询合同\n- 总体可签署性：可以签署，建议进一步完善\n- 风险主题数（聚合后...论\n- **处理建议**：不适用。\n- 覆盖状态：不适用\n- 【适用说明】：当前文本识别为技术咨询场景，未触发“技术进出口管制附件”的适用条件：仅在合同涉及技术进口、技术出口、跨境许可、跨境交付或数据出境时适用。\n\n---\n'
+____ test_missing_consulting_data_provision_is_low_risk_but_should_change _____
+backend\tests\test_technical_consulting_contract_review.py:536: in test_missing_consulting_data_provision_is_low_risk_but_should_change
+    assert finding["recommendation"] == (
+E   AssertionError: assert '建议明确委托方的合理资料...、因果证明和实际影响范围。' == '建议将委托方的资料提供和...免责仅限于实际受影响范围。'
+E     
+E     - 建议将委托方的资料提供和协作义务限定于开展咨询工作所合理必要的范围；咨询方发现资料缺失、矛盾或不适用时，应及时书面通知并说明具体影响。咨询方主张工期顺延、费用调整或免责的，应证明资料问题与受影响工作之间的因果关系，且顺延、调整或免责仅限于实际受影响范围。
+E     + 建议明确委托方的合理资料和协作范围，以及咨询方发现资料问题后的书面通知、因果证明和实际影响范围。
+________ test_simple_consulting_data_provision_is_partial_not_missing _________
+backend\tests\test_technical_consulting_contract_review.py:576: in test_simple_consulting_data_provision_is_partial_not_missing
+    assert "及时书面通知" in finding["recommendation"]
+E   AssertionError: assert '及时书面通知' in '建议补充明确委托方的合理资料和协作范围尚未完整明确；明确咨询方发现资料问题后的书面通知、具体影响说明，以及主张顺延、费用调整或免责时的因果关系和实际影响范围。'
+_______________ test_complete_consulting_data_provision_is_pass _______________
+backend\tests\test_technical_consulting_contract_review.py:588: in test_complete_consulting_data_provision_is_pass
+    assert _items(output)["TC-08-03"]["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+_ test_complete_consulting_confidentiality_produces_no_confidentiality_theme __
+backend\tests\test_technical_consulting_contract_review.py:632: in test_complete_consulting_confidentiality_produces_no_confidentiality_theme
+    assert all(by_id[item_id]["coverage_status"] == "通过" for item_id in (
+E   assert False
+E    +  where False = all(<generator object test_complete_consulting_confidentiality_produces_no_confidentiality_theme.<locals>.<genexpr> at 0x000001E1EBCF0660>)
+___ test_consulting_confidentiality_elements_bind_to_actual_clause_evidence ___
+backend\tests\test_technical_consulting_contract_review.py:723: in test_consulting_confidentiality_elements_bind_to_actual_clause_evidence
+    assert "保密信息仅可用于本合同约定的项目目的" in tc1101_finding["issue"]
+E   AssertionError: assert '保密信息仅可用于本合同约定的项目目的' in '仍需补足：未明确涉密人员范围、True、未明确未经许可不得复制保密资料、未明确访问控制、加密等必要安全措施。'
+_ test_production_file_endpoint_uses_active_consulting_evidence_implementation _
+backend\tests\test_technical_consulting_contract_review.py:869: in test_production_file_endpoint_uses_active_consulting_evidence_implementation
+    assert by_id["TC-01-03"]["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+---------------------------- Captured stdout call -----------------------------
+Redis连接失败: Timeout connecting to server
+---------------------------- Captured stderr call -----------------------------
+2026-09-14 08:48:41 - security.sensitive_filter - INFO - [unknown] - 已清理 0 条超过 90 天的拦截日志
+2026-09-14 08:48:41 - main - INFO - [unknown] - 启动时清理了 0 条过期拦截日志
+2026-09-14 08:48:43 - main - INFO - [unknown] - Redis连接失败，已切换到内存模式，后续请求无延迟
+2026-09-14 08:48:43 - security.output_guard - INFO - [unknown] - [OUTPUT_GUARD] 初始化完成: 系统提示词长度=4633, 片段哈希数量=4584, 完整哈希=13c9684b6d3e79c1...
+2026-09-14 08:48:43 - main - INFO - [unknown] - [STARTUP] 输出安全守卫初始化完成: 片段哈希数=4584
+2026-09-14 08:48:43 - security.injection_detector - INFO - [unknown] - [INJECTION_DETECTOR] 已加载 70 个注入检测模式
+2026-09-14 08:48:43 - main - INFO - [unknown] - [STARTUP] 注入检测器初始化完成
+2026-09-14 08:48:43 - layers.legal_check_layer - INFO - [unknown] - [MCP_ADAPTER] MCP 客户端已初始化
+2026-09-14 08:48:43 - main - INFO - [unknown] - [STARTUP] 法条校验层初始化完成
+2026-09-14 08:48:44 - routers.review_v2 - WARNING - [0cf5f427] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=consulting-production-path.docx stage=source_document used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+2026-09-14 08:48:44 - routers.review_v2 - WARNING - [0cf5f427] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=consulting-production-path.docx stage=extracted_full_text used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+2026-09-14 08:48:44 - routers.review_v2 - WARNING - [0cf5f427] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=consulting-production-path.docx stage=normalized_full_text used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+2026-09-14 08:48:44 - routers.review_v2 - WARNING - [0cf5f427] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=consulting-production-path.docx stage=classifier_input used=False chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+2026-09-14 08:48:44 - routers.review_v2 - WARNING - [0cf5f427] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=consulting-production-path.docx stage=clause_extraction_input used=False chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+2026-09-14 08:48:44 - routers.review_v2 - WARNING - [0cf5f427] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=consulting-production-path.docx stage=rule_engine_input used=False chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+2026-09-14 08:48:44 - routers.review_v2 - WARNING - [0cf5f427] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=consulting-production-path.docx stage=search_audit_input used=False chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+2026-09-14 08:48:44 - routers.review_v2 - WARNING - [0cf5f427] - [REVIEW_INPUT_INTEGRITY_GATE] trace_id= filename=consulting-production-path.docx status=PASS failures=[] anchors={'专利技术': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '许可方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '接受方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '非独占': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '提成费': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '专利资料': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '中国国际经济贸易仲裁委员会': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '不可抗力': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '专利失效': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '专利费用': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '侵权': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': None, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+2026-09-14 08:48:50 - routers.review_v2 - WARNING - [0cf5f427] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx stage=source_document used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+2026-09-14 08:48:50 - routers.review_v2 - WARNING - [0cf5f427] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx stage=extracted_full_text used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+2026-09-14 08:48:50 - routers.review_v2 - WARNING - [0cf5f427] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx stage=normalized_full_text used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+2026-09-14 08:48:50 - routers.review_v2 - WARNING - [0cf5f427] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx stage=classifier_input used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+2026-09-14 08:48:50 - routers.review_v2 - WARNING - [0cf5f427] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx stage=clause_extraction_input used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+2026-09-14 08:48:50 - routers.review_v2 - WARNING - [0cf5f427] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx stage=rule_engine_input used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+2026-09-14 08:48:50 - routers.review_v2 - WARNING - [0cf5f427] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx stage=search_audit_input used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+2026-09-14 08:48:50 - routers.review_v2 - WARNING - [0cf5f427] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx stage=clause_extraction_output used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+2026-09-14 08:48:50 - routers.review_v2 - WARNING - [0cf5f427] - [REVIEW_INPUT_INTEGRITY_GATE] trace_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx status=PASS failures=[] anchors={'专利技术': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '许可方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '接受方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '非独占': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '提成费': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '专利资料': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '中国国际经济贸易仲裁委员会': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '不可抗力': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '专利失效': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '专利费用': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '侵权': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': 1.0, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+2026-09-14 08:48:50 - routers.review_v2 - WARNING - [0cf5f427] - [FACT] review_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx candidate_id= source_rule= source_clause_ids=['C0005', 'C0008'] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+2026-09-14 08:48:50 - routers.review_v2 - WARNING - [0cf5f427] - [RULE_EXECUTED] review_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx candidate_id= source_rule=analyze_payment_schedule source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations=4 arithmetic_status=INSUFFICIENT_DATA percentage_total=None amount_total=0 merged= finding_id= final_present= rendered=
+2026-09-14 08:48:50 - routers.review_v2 - WARNING - [0cf5f427] - [CANDIDATE_CREATED] review_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx candidate_id=PAYMENT-d883a4abc4cc source_rule=payment_formula_inconsistency source_clause_ids=['C0005', 'C0008'] scenario=TECHNICAL_CONSULTING applicability={} status= filter_reason=arithmetic_status=INSUFFICIENT_DATA; payment_formula_inconsistency signal was false invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+2026-09-14 08:48:50 - routers.review_v2 - WARNING - [0cf5f427] - [CANDIDATE_FILTERED] review_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx candidate_id=PAYMENT-d883a4abc4cc source_rule= source_clause_ids=[] scenario= applicability={} status=NOT_APPLICABLE_NO_CANDIDATE filter_reason=arithmetic_status=INSUFFICIENT_DATA; payment_formula_inconsistency signal was false invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+2026-09-14 08:48:50 - routers.review_v2 - WARNING - [0cf5f427] - [CANDIDATE_MERGED] review_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx candidate_id=PAYMENT-d883a4abc4cc source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged=False finding_id= final_present= rendered=
+2026-09-14 08:48:50 - routers.review_v2 - WARNING - [0cf5f427] - [FINAL_RISK] review_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx candidate_id=PAYMENT-d883a4abc4cc source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present=False rendered=False
+2026-09-14 08:48:50 - routers.review_v2 - WARNING - [0cf5f427] - [TRACE_REVIEW_V2] pid=21368 pipeline=canonical-review-v2-production-6.4 classifier=technical-transaction-classifier-v3-single-source evaluator=canonical-review-evaluator-6.4-single-classification ruleset=review-v2-rules-quality3-2026-08-11 entry=F:\ai\Sage\backend\routers\review_v2.py:1382 engine=F:\ai\Sage\backend\review_v2\engine.py:52073 subtype=TECHNICAL_CONSULTING classifier_executions=1 registry_id=2069895243344 evidence_impl=technical-consulting-evidence-v2.1-active-path doc_hash=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d confidentiality=True
+2026-09-14 08:48:50 - routers.review_v2 - INFO - [0cf5f427] - [REVIEW_RELEASE_GATE] review_id=CR-20260914-084844-B4EB28 pid=21368 runtime=CURRENT status=BLOCKED failures=['EXACT_ELEMENT_REPORT_INVARIANT']
+2026-09-14 08:48:51 - sageai - INFO - [0cf5f427] - {"type": "request", "request_id": "0cf5f427", "user_id": "anoxxx", "ip": "unknown", "path": "/review-v2/file", "method": "POST", "duration_ms": 7117.64, "status_code": 200, "error": null}
+2026-09-14 08:48:51 - httpx - INFO - [unknown] - HTTP Request: POST http://testserver/review-v2/file "HTTP/1.1 200 OK"
+------------------------------ Captured log call ------------------------------
+INFO     security.sensitive_filter:sensitive_filter.py:223 已清理 0 条超过 90 天的拦截日志
+INFO     main:main.py:163 启动时清理了 0 条过期拦截日志
+INFO     main:main.py:172 Redis连接失败，已切换到内存模式，后续请求无延迟
+INFO     security.output_guard:output_guard.py:141 [OUTPUT_GUARD] 初始化完成: 系统提示词长度=4633, 片段哈希数量=4584, 完整哈希=13c9684b6d3e79c1...
+INFO     main:main.py:182 [STARTUP] 输出安全守卫初始化完成: 片段哈希数=4584
+INFO     security.injection_detector:injection_detector.py:107 [INJECTION_DETECTOR] 已加载 70 个注入检测模式
+INFO     main:main.py:189 [STARTUP] 注入检测器初始化完成
+INFO     layers.legal_check_layer:legal_check_layer.py:171 [MCP_ADAPTER] MCP 客户端已初始化
+INFO     main:main.py:209 [STARTUP] 法条校验层初始化完成
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=consulting-production-path.docx stage=source_document used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=consulting-production-path.docx stage=extracted_full_text used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=consulting-production-path.docx stage=normalized_full_text used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=consulting-production-path.docx stage=classifier_input used=False chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=consulting-production-path.docx stage=clause_extraction_input used=False chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=consulting-production-path.docx stage=rule_engine_input used=False chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=consulting-production-path.docx stage=search_audit_input used=False chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+WARNING  routers.review_v2:input_integrity.py:291 [REVIEW_INPUT_INTEGRITY_GATE] trace_id= filename=consulting-production-path.docx status=PASS failures=[] anchors={'专利技术': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '许可方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '接受方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '非独占': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '提成费': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '专利资料': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '中国国际经济贸易仲裁委员会': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '不可抗力': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '专利失效': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '专利费用': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '侵权': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': None, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx stage=source_document used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx stage=extracted_full_text used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx stage=normalized_full_text used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx stage=classifier_input used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx stage=clause_extraction_input used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx stage=rule_engine_input used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx stage=search_audit_input used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx stage=clause_extraction_output used=True chars=655 compact_chars=626 paragraphs=23 sha256=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d head='项目名称：新能源汽车动力电池生产线节能优化技术咨询项目\n甲方（委托方）：测试甲方\n乙方（咨询方）：测试乙方\n第一条 咨询事项\n乙方针对动力电池生产线能耗数据、主要耗能设备和工艺流程进行分析评估，设计节能改造方案并提交最终技术咨询报告。\n第二条 咨询报酬\n甲方支付咨询报酬人民币20万元。\n第三条 咨询资料\n甲方应向乙方提供能耗数据、生产线图纸、设计资料、适用规范和其他咨询所需信息，并保证资料真实、完整。\n第四条 保密\n保密资料包括双方在项目中接触的商业秘密、技术秘密、图纸、设计资料、规范和未公开信息。\n双方承担保密义务，未经对方书面同意不得向第三方披露，但已公开信息和依法必须披露的信息除外。\n在' tail='方应在收到通知后10日内完成修改并重新提交。\n整改后仍不能达到验收标准的，甲方可以解除合同，乙方应退还已付款并按年利率4%支付利息。\n第六条 保密范围与义务\n保密资料包括与本项目有关的经营情况、财务情况、商业秘密、技术秘密、图纸和其他未公开信息。\n双方应采取适当措施严格保密，未经信息拥有方书面同意，不得使用或向第三方泄露从对方获得的保密信息。\n公众已知信息以及法律法规或司法程序要求披露的信息不属于违反保密义务，但依法披露前应尽合理努力通知信息拥有方。\n在任何情形下，本条规定的保密义务应持续有效。\n第七条 保密违约救济\n任何一方违反保密义务的，守约方可以解除合同，并可采取法律允许的其他补救措施。'
+WARNING  routers.review_v2:input_integrity.py:291 [REVIEW_INPUT_INTEGRITY_GATE] trace_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx status=PASS failures=[] anchors={'专利技术': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '许可方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '接受方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '非独占': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '提成费': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '专利资料': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '中国国际经济贸易仲裁委员会': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '不可抗力': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '专利失效': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '专利费用': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '侵权': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': 1.0, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+WARNING  routers.review_v2:review_v2.py:1527 [FACT] review_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx candidate_id= source_rule= source_clause_ids=['C0005', 'C0008'] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [RULE_EXECUTED] review_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx candidate_id= source_rule=analyze_payment_schedule source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations=4 arithmetic_status=INSUFFICIENT_DATA percentage_total=None amount_total=0 merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [CANDIDATE_CREATED] review_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx candidate_id=PAYMENT-d883a4abc4cc source_rule=payment_formula_inconsistency source_clause_ids=['C0005', 'C0008'] scenario=TECHNICAL_CONSULTING applicability={} status= filter_reason=arithmetic_status=INSUFFICIENT_DATA; payment_formula_inconsistency signal was false invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [CANDIDATE_FILTERED] review_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx candidate_id=PAYMENT-d883a4abc4cc source_rule= source_clause_ids=[] scenario= applicability={} status=NOT_APPLICABLE_NO_CANDIDATE filter_reason=arithmetic_status=INSUFFICIENT_DATA; payment_formula_inconsistency signal was false invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [CANDIDATE_MERGED] review_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx candidate_id=PAYMENT-d883a4abc4cc source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged=False finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [FINAL_RISK] review_id=CR-20260914-084844-B4EB28 filename=consulting-production-path.docx candidate_id=PAYMENT-d883a4abc4cc source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present=False rendered=False
+WARNING  routers.review_v2:review_v2.py:1556 [TRACE_REVIEW_V2] pid=21368 pipeline=canonical-review-v2-production-6.4 classifier=technical-transaction-classifier-v3-single-source evaluator=canonical-review-evaluator-6.4-single-classification ruleset=review-v2-rules-quality3-2026-08-11 entry=F:\ai\Sage\backend\routers\review_v2.py:1382 engine=F:\ai\Sage\backend\review_v2\engine.py:52073 subtype=TECHNICAL_CONSULTING classifier_executions=1 registry_id=2069895243344 evidence_impl=technical-consulting-evidence-v2.1-active-path doc_hash=5b344cff7cf5719fe957ef0297a7abaa42e62c13d925183155f9eda0e38fed5d confidentiality=True
+INFO     routers.review_v2:review_v2.py:1576 [REVIEW_RELEASE_GATE] review_id=CR-20260914-084844-B4EB28 pid=21368 runtime=CURRENT status=BLOCKED failures=['EXACT_ELEMENT_REPORT_INVARIANT']
+INFO     sageai:logging_utils.py:133 {"type": "request", "request_id": "0cf5f427", "user_id": "anoxxx", "ip": "unknown", "path": "/review-v2/file", "method": "POST", "duration_ms": 7117.64, "status_code": 200, "error": null}
+INFO     httpx:_client.py:1038 HTTP Request: POST http://testserver/review-v2/file "HTTP/1.1 200 OK"
+_ test_latest_consulting_docx_full_regression_has_no_subtype_or_evidence_regression _
+backend\tests\test_technical_consulting_contract_review.py:1042: in test_latest_consulting_docx_full_regression_has_no_subtype_or_evidence_regression
+    assert by_id["TC-01-03"]["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+_________________ test_cooperative_development_classification _________________
+backend\tests\test_cooperative_development_contract_review.py:63: in test_cooperative_development_classification
+    assert cooperative_review["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_______________ test_single_manual_review_does_not_abort_report _______________
+backend\tests\test_cooperative_development_contract_review.py:208: in test_single_manual_review_does_not_abort_report
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+______ test_cooperative_rules_use_operational_facts_and_direct_evidence _______
+backend\tests\test_cooperative_development_contract_review.py:268: in test_cooperative_rules_use_operational_facts_and_direct_evidence
+    assert investment["coverage_status"] == "通过"
+E   AssertionError: assert '缺失' == '通过'
+E     
+E     - 通过
+E     + 缺失
+________ test_final_evidence_covers_each_cooperative_risk_proposition _________
+backend\tests\test_cooperative_development_contract_review.py:403: in test_final_evidence_covers_each_cooperative_risk_proposition
+    assert any(row["source_type"] == "SEARCH_AUDIT" for row in dispute)
+E   assert False
+E    +  where False = any(<generator object test_final_evidence_covers_each_cooperative_risk_proposition.<locals>.<genexpr> at 0x000001E1EC349620>)
+_____ test_cross_rule_and_partial_narratives_are_semantically_consistent ______
+backend\tests\test_cooperative_development_contract_review.py:458: in test_cross_rule_and_partial_narratives_are_semantically_consistent
+    assert item["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '待核验' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 待核验
+____ test_minimal_cooperative_development_rules_and_report_are_consistent _____
+backend\tests\test_cooperative_development_contract_review.py:507: in test_minimal_cooperative_development_rules_and_report_are_consistent
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_______ test_existing_failure_allocation_is_covered_adverse_not_missing _______
+backend\tests\test_entrusted_development_fact_direction_regressions.py:59: in test_existing_failure_allocation_is_covered_adverse_not_missing
+    assert item["coverage_status"] == "风险条款"
+E   AssertionError: assert '部分覆盖' == '风险条款'
+E     
+E     - 风险条款
+E     + 部分覆盖
+_____ test_general_foreground_ip_does_not_override_specific_patent_right ______
+backend\tests\test_entrusted_development_fact_direction_regressions.py:73: in test_general_foreground_ip_does_not_override_specific_patent_right
+    assert item["issue_type"] == "CONFLICTING"
+E   AssertionError: assert 'PARTIAL' == 'CONFLICTING'
+E     
+E     - CONFLICTING
+E     + PARTIAL
+__________ test_confidentiality_positive_facts_survive_search_audit ___________
+backend\tests\test_entrusted_development_fact_direction_regressions.py:94: in test_confidentiality_positive_facts_survive_search_audit
+    assert elements[element_id]["status"] == "COVERED"
+E   AssertionError: assert 'MISSING' == 'COVERED'
+E     
+E     - COVERED
+E     + MISSING
+___________ test_secondary_data_use_is_an_independent_adverse_risk ____________
+backend\tests\test_entrusted_development_fact_direction_regressions.py:119: in test_secondary_data_use_is_an_independent_adverse_risk
+    assert elements[element_id]["status"] == "ADVERSE"
+E   KeyError: 'performance_purpose_limitation'
+____ test_complete_source_delivery_is_checked_against_unilateral_carveout _____
+backend\tests\test_entrusted_development_fact_direction_regressions.py:129: in test_complete_source_delivery_is_checked_against_unilateral_carveout
+    assert item["issue_type"] == "CONFLICTING"
+E   AssertionError: assert 'PARTIAL' == 'CONFLICTING'
+E     
+E     - CONFLICTING
+E     + PARTIAL
+_ test_developer_controlled_component_risk_keeps_direction_and_procedure_separate _
+backend\tests\test_entrusted_development_fact_direction_regressions.py:142: in test_developer_controlled_component_risk_keeps_direction_and_procedure_separate
+    assert elements["developer_component_selection_control"]["status"] == "COVERED"
+E   KeyError: 'developer_component_selection_control'
+__________ test_project_contact_material_change_authority_is_adverse __________
+backend\tests\test_entrusted_development_fact_direction_regressions.py:175: in test_project_contact_material_change_authority_is_adverse
+    assert elements["electronic_contact_confirmation"]["status"] == "COVERED"
+E   KeyError: 'electronic_contact_confirmation'
+_ test_major_liability_cap_separates_statutory_validity_and_commercial_recovery_risks _
+backend\tests\test_entrusted_development_fact_direction_regressions.py:214: in test_major_liability_cap_separates_statutory_validity_and_commercial_recovery_risks
+    assert commercial["risk_group"] == "entrusted_major_liability_cap"
+E   AssertionError: assert 'indemnity_and_liability_cap' == 'entrusted_ma...liability_cap'
+E     
+E     - entrusted_major_liability_cap
+E     + indemnity_and_liability_cap
+_ test_complex_project_short_deemed_acceptance_preserves_latent_defect_review _
+backend\tests\test_entrusted_development_fact_direction_regressions.py:281: in test_complex_project_short_deemed_acceptance_preserves_latent_defect_review
+    assert elements["deemed_acceptance_clause"]["status"] == "ADVERSE"
+E   KeyError: 'deemed_acceptance_clause'
+____ test_development_failure_full_price_exposure_is_direct_and_quantified ____
+backend\tests\test_entrusted_development_fact_direction_regressions.py:330: in test_development_failure_full_price_exposure_is_direct_and_quantified
+    assert {row["clause_id"] for row in item["evidence_clauses"]} == {"C0003", "C0004"}
+E   AssertionError: assert {'', 'C0003'} == {'C0003', 'C0004'}
+E     
+E     Extra items in the left set:
+E     ''
+E     Extra items in the right set:
+E     'C0004'
+E     Use -v to get more diff
+_____ test_confidentiality_covered_elements_bind_distinct_direct_evidence _____
+backend\tests\test_entrusted_development_fact_direction_regressions.py:348: in test_confidentiality_covered_elements_bind_distinct_direct_evidence
+    obligation_ids = elements["confidentiality_obligation"]["evidence_ids"]
+E   KeyError: 'confidentiality_obligation'
+__ test_liability_cap_reference_alone_does_not_cover_confidentiality_damages __
+backend\tests\test_entrusted_development_fact_direction_regressions.py:366: in test_liability_cap_reference_alone_does_not_cover_confidentiality_damages
+    assert elements["confidentiality_obligation"]["status"] == "COVERED"
+E   KeyError: 'confidentiality_obligation'
+_______ test_prohibition_of_illegal_restriction_is_protective_not_risk ________
+backend\tests\test_technology_semantic_polarity_and_finding_consistency.py:38: in test_prohibition_of_illegal_restriction_is_protective_not_risk
+    assert item["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+_ test_material_list_in_body_preserves_types_and_reports_only_remaining_delivery_metadata _
+backend\tests\test_technology_semantic_polarity_and_finding_consistency.py:123: in test_material_list_in_body_preserves_types_and_reports_only_remaining_delivery_metadata
+    assert item["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '缺失' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 缺失
+______ test_vague_material_obligation_reports_specific_missing_elements _______
+backend\tests\test_technology_semantic_polarity_and_finding_consistency.py:132: in test_vague_material_obligation_reports_specific_missing_elements
+    assert item["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '缺失' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 缺失
+_ test_uncertain_parent_confidentiality_applicability_propagates_to_children __
+backend\tests\test_foreign_patent_license_status_consistency.py:144: in test_uncertain_parent_confidentiality_applicability_propagates_to_children
+    assert item["coverage_status"] == INSUFFICIENT_CONTEXT
+E   AssertionError: assert '待核验' == 'INSUFFICIENT_CONTEXT'
+E     
+E     - INSUFFICIENT_CONTEXT
+E     + 待核验
+____ test_direct_child_trigger_can_override_uncertain_parent_applicability ____
+backend\tests\test_foreign_patent_license_status_consistency.py:170: in test_direct_child_trigger_can_override_uncertain_parent_applicability
+    assert _item(output, "TC-11-01")["coverage_status"] == INSUFFICIENT_CONTEXT
+E   AssertionError: assert '待核验' == 'INSUFFICIENT_CONTEXT'
+E     
+E     - INSUFFICIENT_CONTEXT
+E     + 待核验
+____ test_follow_on_improvement_clauses_are_recalled_and_split_by_element _____
+backend\tests\test_current_patent_license_evidence_recall.py:74: in test_follow_on_improvement_clauses_are_recalled_and_split_by_element
+    assert by_id["TC-10-01"]["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+_____ test_material_schedule_and_handover_confirmation_are_positive_facts _____
+backend\tests\test_current_patent_license_evidence_recall.py:95: in test_material_schedule_and_handover_confirmation_are_positive_facts
+    assert item["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '缺失' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 缺失
+_______ test_patent_proof_search_audit_uses_atomic_positive_fact_names ________
+backend\tests\test_current_patent_license_evidence_recall.py:128: in test_patent_proof_search_audit_uses_atomic_positive_fact_names
+    assert elements["patent_identity_in_contract"]["status"] == "COVERED"
+E   KeyError: 'patent_identity_in_contract'
+________ test_patent_proof_partial_summary_lists_only_unresolved_gaps _________
+backend\tests\test_current_patent_license_evidence_recall.py:155: in test_patent_proof_partial_summary_lists_only_unresolved_gaps
+    assert "正文已约定许可方按时缴纳" not in item["reasoning_summary"]
+E   AssertionError: assert '正文已约定许可方按时缴纳' not in '已有部分安排；仍需补足...及完整权利状态核验材料。'
+E     
+E     '正文已约定许可方按时缴纳' is contained here:
+E       已有部分安排；仍需补足：专利申请日期、正文已约定许可方按时缴纳专利费用、维持专利有效并就法律状态变化书面通知；当前未提供实际缴费状态或专利登记状态证明、当前材料尚不能核验共有权人、既有许可以及质押、查封等权利负担、《专利权证明文件》附件的实际内容及完整权利状态核验材料。
+E     ?                    ++++++++++++
+__ test_audit_confidentiality_does_not_cover_general_technical_secret_rules ___
+backend\tests\test_current_patent_license_evidence_recall.py:208: in test_audit_confidentiality_does_not_cover_general_technical_secret_rules
+    assert item["coverage_status"] == "INSUFFICIENT_CONTEXT"
+E   AssertionError: assert '待核验' == 'INSUFFICIENT_CONTEXT'
+E     
+E     - INSUFFICIENT_CONTEXT
+E     + 待核验
+__________ test_major_risks_and_action_counts_share_the_final_result __________
+backend\tests\test_current_patent_license_evidence_recall.py:230: in test_major_risks_and_action_counts_share_the_final_result
+    assert overview["major_risk"] == 0
+E   assert 1 == 0
+_____ test_major_missing_rules_have_transaction_specific_recommendations ______
+backend\tests\test_current_patent_license_evidence_recall.py:242: in test_major_missing_rules_have_transaction_specific_recommendations
+    assert over_scope["risk_level"] == "低"
+E   AssertionError: assert '高' == '低'
+E     
+E     - 低
+E     + 高
+___ test_confidentiality_liability_inherits_unresolved_family_applicability ___
+backend\tests\test_current_patent_license_evidence_recall.py:261: in test_confidentiality_liability_inherits_unresolved_family_applicability
+    assert item["coverage_status"] == "INSUFFICIENT_CONTEXT"
+E   AssertionError: assert '待核验' == 'INSUFFICIENT_CONTEXT'
+E     
+E     - INSUFFICIENT_CONTEXT
+E     + 待核验
+_______ test_third_party_claim_core_and_advanced_elements_are_separated _______
+backend\tests\test_current_patent_license_evidence_recall.py:278: in test_third_party_claim_core_and_advanced_elements_are_separated
+    assert elements["damages_allocation"]["status"] == "COVERED"
+E   AssertionError: assert 'MISSING' == 'COVERED'
+E     
+E     - COVERED
+E     + MISSING
+________ test_cross_border_patent_license_uses_ordered_import_analysis ________
+backend\tests\test_current_patent_license_evidence_recall.py:303: in test_cross_border_patent_license_uses_ordered_import_analysis
+    assert "专利实施许可" in rendered
+E   AssertionError: assert '专利实施许可' in '已覆盖：境外许可方向中国被许可方提供技术的跨境方向、技术进口交易方向、跨境技术许可交易类型；尚需核验或补充：需查询现行技术进出口目录确认自由、限制或禁止属性、目录属性对应的禁止履行、进口许可或合同登记路径、提成合同首次登记及后续变更登...；补充明确技术进口合同登记及变更登记的具体办理责任方；补充明确技术进口相关手续的办理协作义务；补充明确及时提供办理所需文件和资料的义务；补充明确技术进口相关手续的办理期限或节点；补充明确合同主要内容变更后的重新登记、备案或许可办理机制。'
+_____ test_gold_generic_calculations_and_relationship_risks_remain_active _____
+backend\tests\test_technology_license_primary_transaction.py:134: in test_gold_generic_calculations_and_relationship_risks_remain_active
+    assert gold_review["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+____________ test_gold_semantic_facts_and_rendering_are_consistent ____________
+backend\tests\test_technology_license_primary_transaction.py:158: in test_gold_semantic_facts_and_rendering_are_consistent
+    assert items["TC-12-01"]["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '缺失' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 缺失
+________________ test_review_v2_can_load_technology_checklist _________________
+backend\tests\test_technology_review_checklist.py:124: in test_review_v2_can_load_technology_checklist
+    assert output["contract_type_name"] == "技术合同"
+E   AssertionError: assert '技术合同—技术开发合同—委托开发合同' == '技术合同'
+E     
+E     - 技术合同
+E     + 技术合同—技术开发合同—委托开发合同
+__ test_technology_fixture_entrusted_development_filters_cooperative_points ___
+backend\tests\test_technology_review_checklist.py:209: in test_technology_fixture_entrusted_development_filters_cooperative_points
+    assert fixture is not None
+E   assert None is not None
+_______ test_competition_and_improvement_facts_are_shared_across_rules ________
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:62: in test_competition_and_improvement_facts_are_shared_across_rules
+    assert any("不得自行开发" in (row.get("text") or "") for row in competition["evidence_clauses"])
+E   assert False
+E    +  where False = any(<generator object test_competition_and_improvement_facts_are_shared_across_rules.<locals>.<genexpr> at 0x000001E1F5FF4DD0>)
+__ test_acceptance_separates_test_control_authority_from_concrete_parameters __
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:97: in test_acceptance_separates_test_control_authority_from_concrete_parameters
+    assert statuses["quantitative_performance_targets"] == "COVERED"
+E   KeyError: 'quantitative_performance_targets'
+____ test_confidentiality_is_split_by_obligated_party_for_recipient_review ____
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:140: in test_confidentiality_is_split_by_obligated_party_for_recipient_review
+    assert liability["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+__________ test_party_direction_and_finding_consistency_are_enforced __________
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:167: in test_party_direction_and_finding_consistency_are_enforced
+    assert subject["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+____ test_report_statistics_are_recomputed_from_final_findings_and_themes _____
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:196: in test_report_statistics_are_recomputed_from_final_findings_and_themes
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+__ test_third_party_claim_consequence_and_advice_only_consume_residual_gaps ___
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:263: in test_third_party_claim_consequence_and_advice_only_consume_residual_gaps
+    assert "通知期限" in advice and "抗辩控制" in advice and "解除权" in advice
+E   AssertionError: assert ('通知期限' in '建议补充明确第三方软件或技术引发的知识产权纠纷责任被转由服务接受方承担；补充明确第三方权利主张发生后的通知义务明确；补充明确第三方权利主张通知期限明确；补充明确重大权利瑕疵导致无法继续使用时的解除救济明确；补充明确重大权利瑕疵后的退款或返还价款救济明确；补充明确抗辩决策及当前审查方参与机制仍未完整明确；补充明确第三方索赔律师选择机制明确；补充明确第三方索赔和解决策权限明确。' and '抗辩控制' in '建议补充明确第三方软件或技术引发的知识产权纠纷责任被转由服务接受方承担；补充明确第三方权利主张发生后的通知义务明确；补充明确第三方权利主张通知期限明确；补充明确重大权利瑕疵导致无法继续使用时的解除救济明确；补充明确重大权利瑕疵后的退款或返还价款救济明确；补充明确抗辩决策及当前审查方参与机制仍未完整明确；补充明确第三方索赔律师选择机制明确；补充明确第三方索赔和解决策权限明确。')
+_ test_referenced_but_unprovided_attachment_is_not_an_ordinary_missing_clause _
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:270: in test_referenced_but_unprovided_attachment_is_not_an_ordinary_missing_clause
+    attachment = next(
+E   StopIteration
+______ test_na_reason_preserves_confirmed_confidential_information_fact _______
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:323: in test_na_reason_preserves_confirmed_confidential_information_fact
+    assert "虽涉及技术秘密或保密资料" in reason
+E   AssertionError: assert '虽涉及技术秘密或保密资料' in '当前合同未形成可识别的技术秘密范围、限制使用或独立对价事实，技术秘密丧失秘密性后的使用与费用处理规则不适用。'
+__ test_attachment_finding_only_describes_the_unprovided_referenced_material __
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:361: in test_attachment_finding_only_describes_the_unprovided_referenced_material
+    assert "附件正文未随本次审查材料提供" in finding["issue"]
+E   AssertionError: assert '附件正文未随本次审查材料提供' in '仍需补足：独立验收测试方案附件、固定测试数据集或样本、统计口径、测试记录和签认要求。'
+_____ test_structural_pass_is_linked_to_higher_priority_substantive_risk ______
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:372: in test_structural_pass_is_linked_to_higher_priority_substantive_risk
+    assert ownership["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+________ test_ip_liability_and_general_remedies_jointly_trigger_tc1204 ________
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:385: in test_ip_liability_and_general_remedies_jointly_trigger_tc1204
+    assert item["applicability"]["status"] == "APPLICABLE"
+E   AssertionError: assert 'NOT_APPLICABLE' == 'APPLICABLE'
+E     
+E     - APPLICABLE
+E     + NOT_APPLICABLE
+E     ? ++++
+_ test_excessive_liquidated_damages_are_flagged_as_adjustment_risk_not_invalidity _
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:448: in test_excessive_liquidated_damages_are_flagged_as_adjustment_risk_not_invalidity
+    assert "每日0.5%" in item["risk_point_description"]
+E   AssertionError: assert '每日0.5%' in '当前审查方承担的高额违约金包括甲方违反保密义务的，应向乙方支付人民币200万元违约金；相对方承担、当前审查方受益的高额违约金包括乙方逾期完成任何阶段技术服务的，每逾期一日，按照合同总额的0.5%支付违约金；乙方违反保密、知识产权或者数据使用约定的，应向甲方支付人民币300万元违约金，不足以弥补甲方损失的，应继续赔偿。合同价比例仅用于识别异常，不等同于实际损失比例。'
+_ test_negative_rule_requires_reproduced_complete_adverse_search[\u7b2c\u4e09\u65b9\u63d0\u51fa\u4fb5\u6743\u4e3b\u5f20\u65f6\uff0c\u4e59\u65b9\u5e94\u5904\u7406\u7ea0\u7eb7\u3002-True-REPORT_READY] _
+backend\tests\test_technology_pass_semantic_sources.py:176: in test_negative_rule_requires_reproduced_complete_adverse_search
+    assert _verified_pass_sources([item], clauses)['status'] == expected
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+________________ test_shared_identity_and_development_coverage ________________
+backend\tests\test_shared_penalty_registry.py:25: in test_shared_identity_and_development_coverage
+    bind(items, graph)
+backend\review_v2\penalty_fact_binding.py:41: in bind
+    item.decision_trace.setdefault('direct_fact_bindings', {})[refs[0]] = direct
+E   AttributeError: 'types.SimpleNamespace' object has no attribute 'decision_trace'
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+backend/tests/test_technical_consulting_contract_review.py::test_production_file_endpoint_uses_active_consulting_evidence_implementation
+backend/tests/test_technical_consulting_contract_review.py::test_legacy_batch_entry_rejects_confident_technical_contract
+backend/tests/test_technical_consulting_contract_review.py::test_production_file_endpoint_is_deterministic_across_fresh_no_cache_runs
+backend/tests/test_technology_license_primary_transaction.py::test_gold_routes_raw_docx_to_technology_license_not_sale
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_consulting_tc08_rules_and_direct_evidence
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_consulting_attachments_and_release_gate
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_consulting_signing_law_context_is_not_false_positive
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_consulting_subtype_is_inferred_from_transaction_substance_without_explicit_title
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_consulting_elements_and_evidence_are_status_separated_and_contract_grounded
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_consulting_cross_section_evidence_recall_and_binding
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_consulting_report_projects_seven_atomic_findings_into_three_themes
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_missing_consulting_data_provision_is_low_risk_but_should_change
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_simple_consulting_data_provision_is_partial_not_missing
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_complete_consulting_data_provision_is_pass
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_complete_consulting_confidentiality_produces_no_confidentiality_theme
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_consulting_confidentiality_elements_bind_to_actual_clause_evidence
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_production_file_endpoint_uses_active_consulting_evidence_implementation
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_latest_consulting_docx_full_regression_has_no_subtype_or_evidence_regression
+FAILED backend/tests/test_cooperative_development_contract_review.py::test_cooperative_development_classification
+FAILED backend/tests/test_cooperative_development_contract_review.py::test_single_manual_review_does_not_abort_report
+FAILED backend/tests/test_cooperative_development_contract_review.py::test_cooperative_rules_use_operational_facts_and_direct_evidence
+FAILED backend/tests/test_cooperative_development_contract_review.py::test_final_evidence_covers_each_cooperative_risk_proposition
+FAILED backend/tests/test_cooperative_development_contract_review.py::test_cross_rule_and_partial_narratives_are_semantically_consistent
+FAILED backend/tests/test_cooperative_development_contract_review.py::test_minimal_cooperative_development_rules_and_report_are_consistent
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_existing_failure_allocation_is_covered_adverse_not_missing
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_general_foreground_ip_does_not_override_specific_patent_right
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_confidentiality_positive_facts_survive_search_audit
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_secondary_data_use_is_an_independent_adverse_risk
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_complete_source_delivery_is_checked_against_unilateral_carveout
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_developer_controlled_component_risk_keeps_direction_and_procedure_separate
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_project_contact_material_change_authority_is_adverse
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_major_liability_cap_separates_statutory_validity_and_commercial_recovery_risks
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_complex_project_short_deemed_acceptance_preserves_latent_defect_review
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_development_failure_full_price_exposure_is_direct_and_quantified
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_confidentiality_covered_elements_bind_distinct_direct_evidence
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_liability_cap_reference_alone_does_not_cover_confidentiality_damages
+FAILED backend/tests/test_technology_semantic_polarity_and_finding_consistency.py::test_prohibition_of_illegal_restriction_is_protective_not_risk
+FAILED backend/tests/test_technology_semantic_polarity_and_finding_consistency.py::test_material_list_in_body_preserves_types_and_reports_only_remaining_delivery_metadata
+FAILED backend/tests/test_technology_semantic_polarity_and_finding_consistency.py::test_vague_material_obligation_reports_specific_missing_elements
+FAILED backend/tests/test_foreign_patent_license_status_consistency.py::test_uncertain_parent_confidentiality_applicability_propagates_to_children
+FAILED backend/tests/test_foreign_patent_license_status_consistency.py::test_direct_child_trigger_can_override_uncertain_parent_applicability
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_follow_on_improvement_clauses_are_recalled_and_split_by_element
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_material_schedule_and_handover_confirmation_are_positive_facts
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_patent_proof_search_audit_uses_atomic_positive_fact_names
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_patent_proof_partial_summary_lists_only_unresolved_gaps
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_audit_confidentiality_does_not_cover_general_technical_secret_rules
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_major_risks_and_action_counts_share_the_final_result
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_major_missing_rules_have_transaction_specific_recommendations
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_confidentiality_liability_inherits_unresolved_family_applicability
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_third_party_claim_core_and_advanced_elements_are_separated
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_cross_border_patent_license_uses_ordered_import_analysis
+FAILED backend/tests/test_technology_license_primary_transaction.py::test_gold_generic_calculations_and_relationship_risks_remain_active
+FAILED backend/tests/test_technology_license_primary_transaction.py::test_gold_semantic_facts_and_rendering_are_consistent
+FAILED backend/tests/test_technology_review_checklist.py::test_review_v2_can_load_technology_checklist
+FAILED backend/tests/test_technology_review_checklist.py::test_technology_fixture_entrusted_development_filters_cooperative_points
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_competition_and_improvement_facts_are_shared_across_rules
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_acceptance_separates_test_control_authority_from_concrete_parameters
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_confidentiality_is_split_by_obligated_party_for_recipient_review
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_party_direction_and_finding_consistency_are_enforced
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_report_statistics_are_recomputed_from_final_findings_and_themes
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_third_party_claim_consequence_and_advice_only_consume_residual_gaps
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_referenced_but_unprovided_attachment_is_not_an_ordinary_missing_clause
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_na_reason_preserves_confirmed_confidential_information_fact
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_attachment_finding_only_describes_the_unprovided_referenced_material
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_structural_pass_is_linked_to_higher_priority_substantive_risk
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_ip_liability_and_general_remedies_jointly_trigger_tc1204
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_excessive_liquidated_damages_are_flagged_as_adjustment_risk_not_invalidity
+FAILED backend/tests/test_technology_pass_semantic_sources.py::test_negative_rule_requires_reproduced_complete_adverse_search[\u7b2c\u4e09\u65b9\u63d0\u51fa\u4fb5\u6743\u4e3b\u5f20\u65f6\uff0c\u4e59\u65b9\u5e94\u5904\u7406\u7ea0\u7eb7\u3002-True-REPORT_READY]
+FAILED backend/tests/test_shared_penalty_registry.py::test_shared_identity_and_development_coverage
+65 failed, 190 passed, 9 warnings in 643.33s (0:10:43)

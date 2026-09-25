@@ -1,0 +1,42 @@
+{
+  "round": "Round45",
+  "status": "REPORT_READY",
+  "runs": {
+    "party_a": {
+      "review_run_id": "9bfdefa0-8398-4173-8587-14cae4303e4e",
+      "review_task_id": "254d011f-33ee-4e18-958c-d3fc3948051b",
+      "gate": "REPORT_READY",
+      "original_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0
+    },
+    "party_b": {
+      "review_run_id": "5f83e8c3-dfcd-4a00-89da-bf987acce67b",
+      "review_task_id": "864f4118-bedf-43d1-ad14-4fcf1d086ada",
+      "gate": "REPORT_READY",
+      "original_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0
+    }
+  },
+  "tests": {
+    "round45_targeted": "5/5 PASS",
+    "consulting_and_adjacent_protection": "234/234 PASS"
+  },
+  "source_hashes": {
+    "backend/review_v2/consulting_element_facts.py": "92017e829e74fb877f07f6720fb71ac4d70b94c8ffa7a476347930d716ce64c1",
+    "backend/review_v2/technology_service_elements.py": "dbc1ef13434dc432def689e63be99e8ac1800542a8121a6af83d70ba05b11881",
+    "backend/review_v2/obligation_detail_elements.py": "99f2c11417553ebf554ef7920f12e298b743bbfeccee76cc65bbd082d1b2b62c",
+    "backend/review_v2/confidentiality_remedies.py": "53776f3479a54c087a0bae2d4f16ccb939a7b5cf74eec69cfd73e3a77e46cbc1",
+    "backend/review_v2/technology_service_analysis.py": "0e1d82a84efb5fb6c60e264b1ca4699543bf19c2f7f548bc60f111a331d32235",
+    "backend/review_v2/engine.py": "92ddf993dfc7adf8fb9f5ee598cbb2964fa653b1810d021097d3e0ad412b7696",
+    "backend/tests/test_round45_consulting_projection_refresh.py": "62e3c4c560091806c90a17d7fc9861a8fc744c1c3d1b090da0f49e8bf0f92fd9",
+    "backend/tests/fixtures/round45_consulting_projection.txt": "4527c905030c46fb6eb29f421f5562e219f6274e80a12dbdca81a90c371fa523"
+  },
+  "constraints": {
+    "gate_relaxed": false,
+    "verifier_relaxed": false,
+    "fallback_restored": false
+  },
+  "full_suite": "NOT_RUN_BY_REQUEST"
+}

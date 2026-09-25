@@ -1,0 +1,112 @@
+[
+  {
+    "file": "F:\\ai\\Sage\\test_data\\49 借款合同.docx",
+    "file_sha256": "f7b6add0014282b759e925776666881db6c971582281b3eb6fc19b2ccc43fa60",
+    "source_sha256": "42a49a60dc6ad5b37f52b0aa36155fb933347022f53e757d4fdec5fd0f553c90",
+    "source_characters": 3360,
+    "code_sha256": {
+      "backend\\review_v2\\unified_facts\\__init__.py": "12c1cfefdc5ad94d0c224dc5df189009ecea19dfb8c16c5072228f5b11917af4",
+      "backend\\review_v2\\unified_facts\\certificates.py": "71950e48cfca51744943f95c52f6d6565f4ecbb947e093dbd1fcdc14c8053c09",
+      "backend\\review_v2\\unified_facts\\loan.py": "3e14cadac840ec98982142f41ca47837bd4598b5423caf0522b53ffc5d00a208",
+      "backend\\review_v2\\unified_facts\\loan_bindings.py": "dcaa90bf61a91cffdb6d1b3ff13472ddfeacc3a5eeb9e7f565ad1e4358d0eff4",
+      "backend\\review_v2\\unified_facts\\loan_costs.py": "13d80e0775ddd3fb05a8a327b53254ba75b9f8464ee070d8a318282c828dadfa",
+      "backend\\review_v2\\unified_facts\\loan_formulas.py": "a8f21df6a86e9bff2ea3edd0b80e800980316cee89f22731555926ecb1ce510e",
+      "backend\\review_v2\\unified_facts\\loan_pipeline.py": "2dc44befc2801f3ddc7cc33054dac2b62de77f44cd40c1afa6047f8a860a31ae",
+      "backend\\review_v2\\unified_facts\\loan_rules.py": "cb8678312100908a9e535b289486cbe0f5d783600f6612f93a01ddefdf411bb6",
+      "backend\\review_v2\\unified_facts\\normalization.py": "cdafbb6f66ee4aecf93a5fe2154671a6f84e9d5b295170a337bd0655c82bff4e",
+      "backend\\review_v2\\unified_facts\\ontology.py": "bc4cbb6cddc05a04e6445a616b89987bcdafc90f7cb55fe47c9380550c4dbaba",
+      "backend\\review_v2\\unified_facts\\pipeline.py": "5b8f35891698b4aef6c763a973ac3b446813bac78067542f5715a05f4daa0009",
+      "backend\\review_v2\\unified_facts\\schema.py": "3532060bf1af1de433ab080b58ad69b055b8302f447b34678727c2d20e101a75",
+      "backend\\review_v2\\unified_facts\\store.py": "ed1d18b7fe14ed06680f649ad31bea32ffb984d29ec3e49b4e55129c8e5b5b5c"
+    },
+    "sample_origin": "EXISTING_DOCX",
+    "status": "BLOCKED",
+    "error": "FactExtractionError: FACT_VERIFICATION_REJECTED",
+    "diagnostics": [
+      {
+        "failed_stage": "UNIFIED_FACT_VALIDATION",
+        "fact_id": null,
+        "field": "checks",
+        "validation_rule": "FACT_VERIFICATION_REJECTED",
+        "model_raw_value": null,
+        "evidence": null,
+        "expected": null,
+        "actual": [
+          {
+            "fact_id": "CF-132715acfa1473aee246265d",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-f2cb0c03d3dd5f14b33d630d",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-fbcdffa46f60fe9b76556365",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-33a2cf16df775079dc4c672b",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-0079106c608b412cd196b24a",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-cc1583994fa9ab8d1e2c2866",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-62db5519d03686d64b9a7832",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-f5def60637e8e0d0e8ac3725",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-7721cc4ea46cdaf7f335e943",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-4d48d226f65180dae8023a02",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-8eb9b1029218df4428f9ba94",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-e436536609d2932ecf697de4",
+            "supported": false,
+            "reason": "取值不支持：候选将loan.interest_accrual_unit标为UNKNOWN/INFERRED且无证据，但原文已明示计息时长单位。C0007约定“借款月利率为0.8%，自乙方实际收到借款之日起计算”并“按照实际占用借款本金及实际借款期限计算并支付利息”，C0009约定“按月结息，利息支付日为每月8日”，C0030约定“借款月利率为0.8%，按月支付利息，每月8日为利息支付日”，均表明实际计息时长单位为MONTH。应修正为PRESENT/MONTH。",
+            "correction": {
+              "concept": "loan.interest_accrual_unit",
+              "state": "PRESENT",
+              "value": "MONTH",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "evidence": [
+                {
+                  "clause_id": "C0007",
+                  "quote": "本合同项下借款利率为固定利率，借款月利率为0.8%，自乙方实际收到借款之日起计算。\n乙方应按照实际占用借款本金及实际借款期限计算并支付利息。"
+                },
+                {
+                  "clause_id": "C0009",
+                  "quote": "2、按月结息，利息支付日为每月8日，借款期限届满时一次性归还全部借款本金，并结清剩余利息。"
+                },
+                {
+                  "clause_id": "C0030",
+                  "quote": "借款月利率为0.8%，按月支付利息，每月8日为利息支付日，借款期限届满时一次性偿还全部借款本金并结清剩余利息。"
+                }
+              ]
+            }
+          }
+        ],
+        "disposition": "BLOCK"
+      }
+    ],
+    "attempts": [],
+    "calls": 22
+  }
+]

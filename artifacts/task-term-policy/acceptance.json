@@ -1,0 +1,36 @@
+{
+  "trace_id": "CR-20260912-094437-4216F2",
+  "process_id": 20620,
+  "source_unchanged": true,
+  "source_sha256": "638173c1d638161d8aede94ef0bdaf25040638d4cc6f61f1f7c87ed36ed266ad",
+  "risk_theme_count": 3,
+  "rules": {
+    "EMP-15-01": {
+      "title": "以完成一定工作任务为期限劳动合同不得约定试用期",
+      "coverage_status": "风险条款",
+      "risk_level": "高",
+      "action_priority": "A_CORE",
+      "suggested_clause_example": "建议删除试用期约定，不以缩短试用期或调整试用工资使其合法化。",
+      "economic_impact": ""
+    },
+    "EMP-11-01": {
+      "title": "排除法定经济补偿",
+      "coverage_status": "风险条款",
+      "risk_level": "高",
+      "action_priority": "A_CORE",
+      "suggested_clause_example": "建议删除免除经济补偿的约定，并按法律规定在工作任务完成导致合同终止时依法处理经济补偿。",
+      "economic_impact": ""
+    },
+    "EMP-14-01": {
+      "title": "违法约定劳动者违约金",
+      "coverage_status": "风险条款",
+      "risk_level": "高",
+      "action_priority": "A_CORE",
+      "suggested_clause_example": "劳动者违约金限于合法专项培训服务期和竞业限制；一般保密义务违反可依法按实际损失追责。",
+      "economic_impact": "直接涉及5000元违约金；同一责任不重复累计；是否实际发生取决于触发条件，不等同已经产生实际损失。"
+    }
+  },
+  "release_quality_gate": "REPORT_READY",
+  "tests_passed": 60,
+  "new_cases": 7
+}

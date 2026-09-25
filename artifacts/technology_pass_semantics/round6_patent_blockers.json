@@ -1,0 +1,988 @@
+{
+  "status": "BLOCKED",
+  "contract_type": "technology",
+  "selected_contract_type": "sale",
+  "raw_failure_count": 10,
+  "blocker_tuple_count": 11,
+  "blockers": [
+    {
+      "error_code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+      "rule_id": "TC-11-01",
+      "element_id": "confidential_information_scope",
+      "fact_id": null,
+      "detected_stage": "Review Evidence Projection",
+      "reject_reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership.",
+      "source_spans": [
+        {
+          "clause_id": "C0008",
+          "quote": "第七条 保密及出口合规 双方对履约中知悉的技术秘密承担保密义务；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 626,
+            "end_offset": 686,
+            "raw_text": "第七条 保密及出口合规\n双方对履约中知悉的技术秘密承担保密义务；跨境交付专利资料时应依法办理技术进出口审批、登记或备案。"
+          },
+          "supporting_element_ids": [
+            "confidential_information_scope"
+          ]
+        },
+        {
+          "evidence_id": "CANONICAL-TC-11-01-confidential_information_scope-0",
+          "clause_id": "C0008",
+          "quote": "第七条 保密及出口合规 双方对履约中知悉的技术秘密承担保密义务；",
+          "source_type": "SOURCE_CLAUSE",
+          "supporting_element_ids": [
+            "confidential_information_scope"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-11-01",
+          "element_id": "confidential_information_scope",
+          "claim_id": "TC-11-01-confidential_information_scope",
+          "proposition": "非公开算法、源代码、控制参数及技术诀窍等技术秘密范围已明确。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-1a76c4d9ae0a4b0f"
+          ],
+          "supporting_evidence_ids": [
+            "EV-1a76c4d9ae0a4b0f"
+          ],
+          "source_clause_ids": [
+            "C0008"
+          ],
+          "source_spans": [
+            "第七条 保密及出口合规 双方对履约中知悉的技术秘密承担保密义务；"
+          ],
+          "source_locations": [
+            "第七条 保密及出口合规"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "非公开算法、源代码、控制参数及技术诀窍等技术秘密范围已明确。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "evidence_refs": [
+            "EV-1a76c4d9ae0a4b0f"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "第七条 保密及出口合规 双方对履约中知悉的技术秘密承担保密义务；"
+            }
+          ]
+        }
+      ],
+      "observed_status_transitions": [
+        {
+          "stage": "_apply_technology_confidentiality_semantic_rules",
+          "before": "通过",
+          "after": "部分覆盖"
+        }
+      ],
+      "gate_tuple": {
+        "requirement": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+        "failure_stage": "Review Evidence Projection",
+        "root_cause": "Review evidence is not exactly bound to covered elements: 1 mismatch(es).",
+        "current_status": "FAIL",
+        "review_id": "TC-11-01",
+        "element_id": "confidential_information_scope",
+        "status": "COVERED",
+        "evidence_refs": [
+          "EV-1a76c4d9ae0a4b0f"
+        ],
+        "direct_evidence_refs": [],
+        "selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership."
+      }
+    },
+    {
+      "error_code": "MISSING_WITH_POSITIVE_EVIDENCE",
+      "rule_id": "TC-11-04",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Technology Coverage Consistency",
+      "reject_reason": "TC-11-04 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+      "source_spans": [
+        {
+          "evidence_id": "C0008",
+          "clause_id": "C0008",
+          "quote": "双方对履约中知悉的技术秘密承担保密义务；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 626,
+            "end_offset": 686,
+            "raw_text": "第七条 保密及出口合规\n双方对履约中知悉的技术秘密承担保密义务；跨境交付专利资料时应依法办理技术进出口审批、登记或备案。"
+          },
+          "supporting_element_ids": [
+            "confidentiality_obligation_reference"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-11-04",
+          "element_id": "confidentiality_obligation_reference",
+          "claim_id": "TC-11-04-confidentiality_obligation_reference",
+          "proposition": "合同存在违反保密义务的责任触发引用，实质保密义务范围由TC-11-01独立判断。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-a2352737e2a112cb"
+          ],
+          "supporting_evidence_ids": [
+            "EV-a2352737e2a112cb"
+          ],
+          "source_clause_ids": [
+            "C0008"
+          ],
+          "source_spans": [
+            "双方对履约中知悉的技术秘密承担保密义务；"
+          ],
+          "source_locations": [
+            "第七条 保密及出口合规"
+          ],
+          "evidence_refs": [
+            "EV-a2352737e2a112cb"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "保密义务引用可支持泄密责任触发，但不替代TC-11-01对实质保密义务的审查。",
+          "required_fact_key": "confidentiality_obligation_reference",
+          "fact_status": "COVERED",
+          "requirement_status": "COVERED",
+          "atomic": true,
+          "risk_relevant": false,
+          "evidence_selection_reason": "Direct Registry/element evidence selected by exact source-clause ownership.",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "双方对履约中知悉的技术秘密承担保密义务；"
+            }
+          ]
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "breach_damage_liability",
+          "claim_id": "TC-11-04-breach_damage_liability",
+          "proposition": "违反保密义务造成的损失可适用合同约定或法定违约损害赔偿责任",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "evidence_refs": [],
+          "entailment": "NOT_FOUND",
+          "verifier_confidence": "high",
+          "reason": "法定违约损害赔偿不因合同未逐项列明而排除；专项写入属于增强保护。",
+          "required_fact_key": "breach_damage_liability",
+          "fact_status": "MISSING",
+          "requirement_status": "MISSING",
+          "atomic": true,
+          "risk_relevant": false,
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "direct_loss",
+          "claim_id": "TC-11-04-direct_loss",
+          "proposition": "逐项列明直接损失属于增强型保护",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "evidence_refs": [],
+          "entailment": "NOT_FOUND",
+          "verifier_confidence": "high",
+          "reason": "一般违约条款明确列入直接损失。",
+          "required_fact_key": "direct_loss",
+          "fact_status": "MISSING",
+          "requirement_status": "MISSING",
+          "atomic": true,
+          "risk_relevant": false,
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "lost_profit",
+          "claim_id": "TC-11-04-lost_profit",
+          "proposition": "逐项列明可得利益损失属于增强型保护",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "evidence_refs": [],
+          "entailment": "NOT_FOUND",
+          "verifier_confidence": "high",
+          "reason": "一般违约条款明确列入可得利益损失。",
+          "required_fact_key": "lost_profit",
+          "fact_status": "MISSING",
+          "requirement_status": "MISSING",
+          "atomic": true,
+          "risk_relevant": false,
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "attorney_fee",
+          "claim_id": "TC-11-04-attorney_fee",
+          "proposition": "逐项列明合理律师费属于可选增强项",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "evidence_refs": [],
+          "entailment": "NOT_FOUND",
+          "verifier_confidence": "high",
+          "reason": "一般违约条款明确列入律师费。",
+          "required_fact_key": "attorney_fee",
+          "fact_status": "MISSING",
+          "requirement_status": "MISSING",
+          "atomic": true,
+          "risk_relevant": false,
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "litigation_cost",
+          "claim_id": "TC-11-04-litigation_cost",
+          "proposition": "逐项列明诉讼费用属于可选增强项",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "evidence_refs": [],
+          "entailment": "NOT_FOUND",
+          "verifier_confidence": "high",
+          "reason": "一般违约条款明确列入诉讼费。",
+          "required_fact_key": "litigation_cost",
+          "fact_status": "MISSING",
+          "requirement_status": "MISSING",
+          "atomic": true,
+          "risk_relevant": false,
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "stop_disclosure",
+          "claim_id": "TC-11-04-stop_disclosure",
+          "proposition": "泄密后应立即停止披露",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "evidence_refs": [],
+          "entailment": "NOT_FOUND",
+          "verifier_confidence": "high",
+          "reason": "未找到泄密后的停止披露义务。",
+          "required_fact_key": "stop_disclosure",
+          "fact_status": "MISSING",
+          "requirement_status": "MISSING",
+          "atomic": true,
+          "risk_relevant": true,
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "stop_use",
+          "claim_id": "TC-11-04-stop_use",
+          "proposition": "泄密后应立即停止使用",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "evidence_refs": [],
+          "entailment": "NOT_FOUND",
+          "verifier_confidence": "high",
+          "reason": "未找到泄密后的停止使用义务。",
+          "required_fact_key": "stop_use",
+          "fact_status": "MISSING",
+          "requirement_status": "MISSING",
+          "atomic": true,
+          "risk_relevant": true,
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "mitigation_obligation",
+          "claim_id": "TC-11-04-mitigation_obligation",
+          "proposition": "泄密后应采取措施防止损失或披露继续扩大",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "evidence_refs": [],
+          "entailment": "NOT_FOUND",
+          "verifier_confidence": "high",
+          "reason": "未找到泄密后的扩散控制或补救义务。",
+          "required_fact_key": "mitigation_obligation",
+          "fact_status": "MISSING",
+          "requirement_status": "MISSING",
+          "atomic": true,
+          "risk_relevant": true,
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "incident_notification",
+          "claim_id": "TC-11-04-incident_notification",
+          "proposition": "泄密后应及时通知受影响方",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "evidence_refs": [],
+          "entailment": "NOT_FOUND",
+          "verifier_confidence": "high",
+          "reason": "未找到泄密后的必要通知义务。",
+          "required_fact_key": "incident_notification",
+          "fact_status": "MISSING",
+          "requirement_status": "MISSING",
+          "atomic": true,
+          "risk_relevant": true,
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "return_or_destroy",
+          "claim_id": "TC-11-04-return_or_destroy",
+          "proposition": "保密资料及副本返还、删除或销毁由TC-11-03独立审查。",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "evidence_refs": [],
+          "entailment": "NOT_FOUND",
+          "verifier_confidence": "high",
+          "reason": "本要素由TC-11-03独立审查。",
+          "required_fact_key": "return_or_destroy",
+          "fact_status": "NOT_APPLICABLE",
+          "requirement_status": "NOT_APPLICABLE",
+          "atomic": true,
+          "risk_relevant": false,
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "disposition_confirmation",
+          "claim_id": "TC-11-04-disposition_confirmation",
+          "proposition": "保密资料处置结果确认由TC-11-03独立审查。",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "evidence_refs": [],
+          "entailment": "NOT_FOUND",
+          "verifier_confidence": "high",
+          "reason": "本要素由TC-11-03独立审查。",
+          "required_fact_key": "disposition_confirmation",
+          "fact_status": "NOT_APPLICABLE",
+          "requirement_status": "NOT_APPLICABLE",
+          "atomic": true,
+          "risk_relevant": false,
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "specific_confidentiality_penalty",
+          "claim_id": "TC-11-04-specific_confidentiality_penalty",
+          "proposition": "保密违约专项违约金属于可选增强项。",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "evidence_refs": [],
+          "entailment": "NOT_FOUND",
+          "verifier_confidence": "high",
+          "reason": "专项保密违约金不是损害赔偿或行为性救济的必备要素。",
+          "required_fact_key": "specific_confidentiality_penalty",
+          "fact_status": "NOT_APPLICABLE",
+          "requirement_status": "NOT_APPLICABLE",
+          "atomic": true,
+          "risk_relevant": false,
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        }
+      ],
+      "observed_status_transitions": [
+        {
+          "stage": "_apply_technology_confidentiality_semantic_rules",
+          "before": "缺失",
+          "after": "部分覆盖"
+        },
+        {
+          "stage": "_apply_final_technology_fact_projection",
+          "before": "部分覆盖",
+          "after": "缺失"
+        }
+      ],
+      "gate_tuple": {
+        "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+        "failure_stage": "Technology Coverage Consistency",
+        "root_cause": "TC-11-04 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+        "entity_type": "review",
+        "entity_id": "TC-11-04",
+        "source_clause_ids": [
+          "C0008"
+        ],
+        "severity": "blocking"
+      }
+    },
+    {
+      "error_code": "VERIFIED_PASS_ORIGINAL_GATE",
+      "rule_id": "TC-10-04",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": null,
+      "reject_reason": "NO_VERIFIED_ORIGINAL",
+      "source_spans": [],
+      "current_elements": [
+        {
+          "review_id": "TC-10-04",
+          "element_id": "unreasonable_improvement_restriction",
+          "claim_id": "TC-10-04-unreasonable_improvement_restriction",
+          "proposition": "未发现禁止研发、限制改进或强制无偿移交改进成果的直接条款。",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "未发现禁止研发、限制改进或强制无偿移交改进成果的直接条款。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false
+        }
+      ],
+      "observed_status_transitions": [
+        {
+          "stage": "_apply_technology_transaction_evidence_consistency",
+          "before": "缺失",
+          "after": "通过"
+        },
+        {
+          "stage": "_apply_final_technology_fact_projection",
+          "before": "INSUFFICIENT_CONTEXT",
+          "after": "通过"
+        }
+      ],
+      "gate_tuple": {
+        "requirement": "VERIFIED_PASS_ORIGINAL_GATE",
+        "root_cause": "TC-10-04",
+        "reason": "NO_VERIFIED_ORIGINAL",
+        "current_status": "FAIL"
+      }
+    },
+    {
+      "error_code": "VERIFIED_PASS_ORIGINAL_GATE",
+      "rule_id": "TC-10-04",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": null,
+      "reject_reason": "NO_VERIFIABLE_REQUIREMENTS",
+      "source_spans": [],
+      "current_elements": [
+        {
+          "review_id": "TC-10-04",
+          "element_id": "unreasonable_improvement_restriction",
+          "claim_id": "TC-10-04-unreasonable_improvement_restriction",
+          "proposition": "未发现禁止研发、限制改进或强制无偿移交改进成果的直接条款。",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "未发现禁止研发、限制改进或强制无偿移交改进成果的直接条款。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false
+        }
+      ],
+      "observed_status_transitions": [
+        {
+          "stage": "_apply_technology_transaction_evidence_consistency",
+          "before": "缺失",
+          "after": "通过"
+        },
+        {
+          "stage": "_apply_final_technology_fact_projection",
+          "before": "INSUFFICIENT_CONTEXT",
+          "after": "通过"
+        }
+      ],
+      "gate_tuple": {
+        "requirement": "VERIFIED_PASS_ORIGINAL_GATE",
+        "root_cause": "TC-10-04",
+        "reason": "NO_VERIFIABLE_REQUIREMENTS",
+        "current_status": "FAIL"
+      }
+    },
+    {
+      "error_code": "VERIFIED_PASS_ORIGINAL_GATE",
+      "rule_id": "TC-10-04",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": null,
+      "reject_reason": "NO_VERIFIED_ORIGINAL",
+      "source_spans": [],
+      "current_elements": [
+        {
+          "review_id": "TC-10-04",
+          "element_id": "unreasonable_improvement_restriction",
+          "claim_id": "TC-10-04-unreasonable_improvement_restriction",
+          "proposition": "未发现禁止研发、限制改进或强制无偿移交改进成果的直接条款。",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "未发现禁止研发、限制改进或强制无偿移交改进成果的直接条款。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false
+        }
+      ],
+      "observed_status_transitions": [
+        {
+          "stage": "_apply_technology_transaction_evidence_consistency",
+          "before": "缺失",
+          "after": "通过"
+        },
+        {
+          "stage": "_apply_final_technology_fact_projection",
+          "before": "INSUFFICIENT_CONTEXT",
+          "after": "通过"
+        }
+      ],
+      "gate_tuple": {
+        "requirement": "VERIFIED_PASS_ORIGINAL_GATE",
+        "root_cause": "TC-10-04",
+        "reason": "NO_VERIFIED_ORIGINAL",
+        "current_status": "FAIL"
+      }
+    },
+    {
+      "error_code": "VERIFIED_PASS_ORIGINAL_GATE",
+      "rule_id": "TC-10-04",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": null,
+      "reject_reason": "NO_VERIFIABLE_REQUIREMENTS",
+      "source_spans": [],
+      "current_elements": [
+        {
+          "review_id": "TC-10-04",
+          "element_id": "unreasonable_improvement_restriction",
+          "claim_id": "TC-10-04-unreasonable_improvement_restriction",
+          "proposition": "未发现禁止研发、限制改进或强制无偿移交改进成果的直接条款。",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "未发现禁止研发、限制改进或强制无偿移交改进成果的直接条款。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false
+        }
+      ],
+      "observed_status_transitions": [
+        {
+          "stage": "_apply_technology_transaction_evidence_consistency",
+          "before": "缺失",
+          "after": "通过"
+        },
+        {
+          "stage": "_apply_final_technology_fact_projection",
+          "before": "INSUFFICIENT_CONTEXT",
+          "after": "通过"
+        }
+      ],
+      "gate_tuple": {
+        "requirement": "VERIFIED_PASS_ORIGINAL_GATE",
+        "root_cause": "TC-10-04",
+        "reason": "NO_VERIFIABLE_REQUIREMENTS",
+        "current_status": "FAIL"
+      }
+    },
+    {
+      "error_code": "POSITIVE_FACT_MONOTONICITY",
+      "rule_id": "TC-11-04",
+      "element_id": "confidentiality_obligation_reference",
+      "fact_id": null,
+      "detected_stage": null,
+      "reject_reason": "TC-11-04",
+      "source_spans": [
+        {
+          "evidence_id": "C0008",
+          "clause_id": "C0008",
+          "quote": "双方对履约中知悉的技术秘密承担保密义务；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 626,
+            "end_offset": 686,
+            "raw_text": "第七条 保密及出口合规\n双方对履约中知悉的技术秘密承担保密义务；跨境交付专利资料时应依法办理技术进出口审批、登记或备案。"
+          },
+          "supporting_element_ids": [
+            "confidentiality_obligation_reference"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-11-04",
+          "element_id": "confidentiality_obligation_reference",
+          "claim_id": "TC-11-04-confidentiality_obligation_reference",
+          "proposition": "合同存在违反保密义务的责任触发引用，实质保密义务范围由TC-11-01独立判断。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-a2352737e2a112cb"
+          ],
+          "supporting_evidence_ids": [
+            "EV-a2352737e2a112cb"
+          ],
+          "source_clause_ids": [
+            "C0008"
+          ],
+          "source_spans": [
+            "双方对履约中知悉的技术秘密承担保密义务；"
+          ],
+          "source_locations": [
+            "第七条 保密及出口合规"
+          ],
+          "evidence_refs": [
+            "EV-a2352737e2a112cb"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "保密义务引用可支持泄密责任触发，但不替代TC-11-01对实质保密义务的审查。",
+          "required_fact_key": "confidentiality_obligation_reference",
+          "fact_status": "COVERED",
+          "requirement_status": "COVERED",
+          "atomic": true,
+          "risk_relevant": false,
+          "evidence_selection_reason": "Direct Registry/element evidence selected by exact source-clause ownership.",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "双方对履约中知悉的技术秘密承担保密义务；"
+            }
+          ]
+        }
+      ],
+      "observed_status_transitions": [
+        {
+          "stage": "_apply_technology_confidentiality_semantic_rules",
+          "before": "缺失",
+          "after": "部分覆盖"
+        },
+        {
+          "stage": "_apply_final_technology_fact_projection",
+          "before": "部分覆盖",
+          "after": "缺失"
+        }
+      ],
+      "gate_tuple": {
+        "requirement": "POSITIVE_FACT_MONOTONICITY",
+        "root_cause": "TC-11-04",
+        "element_id": "confidentiality_obligation_reference",
+        "final_element_status": "COVERED",
+        "bound_evidence_ids": [
+          "EV-a2352737e2a112cb"
+        ],
+        "search_audit": null,
+        "current_status": "FAIL"
+      }
+    },
+    {
+      "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-03-04",
+      "element_id": "patent_identity_in_contract",
+      "fact_id": null,
+      "detected_stage": "Final Evidence Projection",
+      "reject_reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH",
+      "source_spans": [
+        {
+          "evidence_id": "C0002",
+          "clause_id": "C0002",
+          "quote": "许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 67,
+            "end_offset": 138,
+            "raw_text": "第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。"
+          },
+          "supporting_element_ids": [
+            "patent_identity_in_contract",
+            "licensor_authority_contractual_representation"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-03-04",
+          "element_id": "patent_identity_in_contract",
+          "claim_id": "TC-03-04-patent_identity_in_contract",
+          "proposition": "合同已载明专利号，专利身份字段仍不完整。",
+          "status": "PARTIALLY_COVERED",
+          "evidence_ids": [
+            "C0002"
+          ],
+          "supporting_evidence_ids": [
+            "C0002"
+          ],
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。"
+          ],
+          "source_locations": [
+            "第一条 专利技术"
+          ],
+          "entailment": "PARTIAL_SUPPORT",
+          "verifier_confidence": "high",
+          "reason": "合同已载明专利号，专利身份字段仍不完整。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact_key": "patent_identity_in_contract",
+          "evidence_level": null
+        }
+      ],
+      "observed_status_transitions": [
+        {
+          "stage": "_apply_coverage_gap_consistency_guard",
+          "before": "部分覆盖",
+          "after": "缺失"
+        }
+      ],
+      "gate_tuple": {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "risk_id": "RF-003",
+        "review_id": "TC-03-04",
+        "element_id": "patent_identity_in_contract",
+        "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+      }
+    },
+    {
+      "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-10-04",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Final Evidence Projection",
+      "reject_reason": "PASS_WITH_PENDING_MANUAL_REVIEW",
+      "source_spans": [],
+      "current_elements": [
+        {
+          "review_id": "TC-10-04",
+          "element_id": "unreasonable_improvement_restriction",
+          "claim_id": "TC-10-04-unreasonable_improvement_restriction",
+          "proposition": "未发现禁止研发、限制改进或强制无偿移交改进成果的直接条款。",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "未发现禁止研发、限制改进或强制无偿移交改进成果的直接条款。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false
+        }
+      ],
+      "observed_status_transitions": [
+        {
+          "stage": "_apply_technology_transaction_evidence_consistency",
+          "before": "缺失",
+          "after": "通过"
+        },
+        {
+          "stage": "_apply_final_technology_fact_projection",
+          "before": "INSUFFICIENT_CONTEXT",
+          "after": "通过"
+        }
+      ],
+      "gate_tuple": {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "review_id": "TC-10-04",
+        "reason": "PASS_WITH_PENDING_MANUAL_REVIEW"
+      }
+    },
+    {
+      "error_code": "EVIDENCE_PROPOSITION_MATCH_GATE",
+      "rule_id": null,
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": null,
+      "reject_reason": null,
+      "source_spans": [],
+      "current_elements": [],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "EVIDENCE_PROPOSITION_MATCH_GATE",
+        "field": "evidence_bundle",
+        "risk_id": "RF-011",
+        "risk_group": "license_infringement_responsibility",
+        "risk_propositions": [
+          "该条款直接构成“按约实施侵权处理及损失责任主要由被许可方承担”的触发或部分覆盖事实。",
+          "第三方就许可技术提出侵权主张的触发场景已明确。",
+          "在约定检索范围内未发现以下正向事实：被许可方按约实施许可技术时仍承担主要侵权处理和损失责任。",
+          "在约定检索范围内未发现以下正向事实：第三方权利主张由被许可方自行处理。",
+          "在约定检索范围内未发现以下正向事实：条款明确分配的相关费用及损失由被许可方承担。",
+          "在约定检索范围内未发现以下正向事实：即使侵权来源于许可方提供的技术或资料，许可方责任仍受低额上限限制。"
+        ],
+        "direct_evidence_ids": [
+          "EV-db11943d575032f0",
+          "EV-672306bae8ef5a32",
+          "EV-13f796b80013c0aa",
+          "EV-5fa6c902d8ff3e3b",
+          "EV-625e7d79dd979a41",
+          "EV-73cd08a95a4f99cd"
+        ],
+        "direct_contract_evidence_ids": [
+          "EV-db11943d575032f0",
+          "EV-672306bae8ef5a32"
+        ],
+        "status": "FAIL",
+        "reasons": [
+          "Missing proposition evidence: INFRINGING_IMPLEMENTATION_TRIGGER, LICENSEE_LOSS_ALLOCATION, LICENSOR_ASSISTANCE_ONLY."
+        ]
+      }
+    },
+    {
+      "error_code": "PASS_EVIDENCE_PROPOSITION_MATCH_GATE",
+      "rule_id": "TC-13-01",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": null,
+      "reject_reason": null,
+      "source_spans": [
+        {
+          "evidence_id": "SRC-ee0c0efbd53ca678ae15",
+          "clause_id": "C0006",
+          "quote": "第五条 专利资料交付和后续改进\n许可方应在合同生效后十五日内交付专利资料、设计图纸、控制参数、测试数据和操作手册，并提供技术指导。双方对后续改进应相互书面通知，改进成果归改进方所有，另一方需要使用的应另行协商许可条件。",
+          "source_span": {
+            "start_offset": 380,
+            "end_offset": 489,
+            "raw_text": "第五条 专利资料交付和后续改进\n许可方应在合同生效后十五日内交付专利资料、设计图纸、控制参数、测试数据和操作手册，并提供技术指导。双方对后续改进应相互书面通知，改进成果归改进方所有，另一方需要使用的应另行协商许可条件。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "core_contract_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-13-01",
+          "element_id": "core_contract_arrangement",
+          "proposition": "合同存在可验证的“技术资料附件”实质条款内容。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-ee0c0efbd53ca678ae15"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0006"
+          ],
+          "source_spans": [
+            "第五条 专利资料交付和后续改进\n许可方应在合同生效后十五日内交付专利资料、设计图纸、控制参数、测试数据和操作手册，并提供技术指导。双方对后续改进应相互书面通知，改进成果归改进方所有，另一方需要使用的应另行协商许可条件。"
+          ],
+          "source_locations": [
+            "第五条 专利资料交付和后续改进"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0006"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-ee0c0efbd53ca678ae15"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-ee0c0efbd53ca678ae15"
+          ],
+          "bound_evidence_ids": [
+            "SRC-ee0c0efbd53ca678ae15"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0006",
+              "quote": "第五条 专利资料交付和后续改进\n许可方应在合同生效后十五日内交付专利资料、设计图纸、控制参数、测试数据和操作手册，并提供技术指导。双方对后续改进应相互书面通知，改进成果归改进方所有，另一方需要使用的应另行协商许可条件。"
+            }
+          ]
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "PASS_EVIDENCE_PROPOSITION_MATCH_GATE",
+        "field": "review_evidence",
+        "review_id": "TC-13-01",
+        "status": "NO_DIRECT_EVIDENCE",
+        "repaired": false,
+        "primary_evidence_was_direct": false,
+        "coverage_propositions": [
+          "合同存在可验证的“技术资料附件”实质条款内容。"
+        ],
+        "direct_evidence_ids": [],
+        "missing_element_ids": [
+          "core_contract_arrangement"
+        ],
+        "synthetic_proposition_only": false
+      }
+    }
+  ],
+  "note": "Null IDs/stages mean the existing gate did not publish them; none are fabricated."
+}

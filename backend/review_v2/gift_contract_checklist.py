@@ -153,5 +153,25 @@ GIFT_REVIEW_CHECKLIST: Tuple[ReviewCheckpoint, ...] = (
 )
 
 
+from dataclasses import replace
+from review_v2.gift_evidence import CONDITIONS, PREDICATES
+
+STATUTORY_RULES = {
+    'G-04-01', 'G-04-02', 'G-05-01', 'G-05-02', 'G-05-03', 'G-05-04',
+    'G-06-01', 'G-06-02', 'G-07-01', 'G-08-01', 'G-08-02', 'G-08-03',
+    'G-10-01', 'G-10-04', 'G-11-01',
+}
+GIFT_REVIEW_CHECKLIST = tuple(
+    replace(rule, prerequisite_facts=(CONDITIONS[rule.item_id],),
+            applicable_if='仅在' + PREDICATES.get(CONDITIONS[rule.item_id], ('', '对应公证、公益或登记事实'))[1] + '时适用；未触发不审查，事实待确认则人工核验。')
+    if rule.item_id in CONDITIONS else replace(rule, applicable_if='适用于赠与合同；按本项直接事实审查，不以相邻概念替代。')
+    for rule in GIFT_REVIEW_CHECKLIST
+)
+GIFT_REVIEW_CHECKLIST = tuple(replace(rule,
+    review_nature='STATUTORY_DEFAULT' if rule.item_id in STATUTORY_RULES else
+                  'CONDITIONAL_CONTRACT_REQUIRED' if rule.item_id in CONDITIONS else 'CONTRACT_REQUIRED',
+    linked_adverse_rules=('G-04-04',) if rule.item_id in {'G-04-01','G-04-03'} else (),
+) for rule in GIFT_REVIEW_CHECKLIST)
+
 def get_gift_checklist() -> Tuple[ReviewCheckpoint, ...]:
     return GIFT_REVIEW_CHECKLIST

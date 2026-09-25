@@ -1,0 +1,131 @@
+[
+  {
+    "source": "绩效低于80分可以退回。",
+    "facts": [
+      {
+        "concept": "dispatch.return_terms",
+        "value": {
+          "disposition": "ALLOWED_RETURN_REASON",
+          "reason": "绩效低于80分",
+          "reason_type": "ORDINARY_PERFORMANCE",
+          "basis": "REASON_ALONE",
+          "threshold": 80
+        },
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "绩效低于80分可以退回。"
+          }
+        ]
+      }
+    ],
+    "status": "PASS"
+  },
+  {
+    "source": "不得仅因绩效低于80分退回。",
+    "facts": [
+      {
+        "concept": "dispatch.return_terms",
+        "value": {
+          "disposition": "PROHIBITED_RETURN_REASON",
+          "reason": "绩效低于80分",
+          "reason_type": "ORDINARY_PERFORMANCE",
+          "threshold": 80
+        },
+        "confidence": 0.98,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "不得仅因绩效低于80分退回。"
+          }
+        ]
+      }
+    ],
+    "status": "PASS"
+  },
+  {
+    "source": "绩效低于80分不当然构成退回事由。",
+    "facts": [
+      {
+        "concept": "dispatch.return_terms",
+        "value": {
+          "disposition": "PROHIBITED_RETURN_REASON",
+          "reason": "绩效低于80分",
+          "reason_type": "ORDINARY_PERFORMANCE",
+          "threshold": 80
+        },
+        "confidence": 0.98,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "绩效低于80分不当然构成退回事由。"
+          }
+        ]
+      }
+    ],
+    "status": "PASS"
+  },
+  {
+    "source": "发生法律规定可以退回的情形时依法退回。",
+    "facts": [
+      {
+        "concept": "dispatch.return_terms",
+        "value": {
+          "disposition": "LEGAL_REFERENCE_ONLY"
+        },
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "发生法律规定可以退回的情形时依法退回。"
+          }
+        ]
+      }
+    ],
+    "status": "PASS"
+  },
+  {
+    "source": "岗位考核未达标可以退回，但不得仅因团队文化不匹配退回。",
+    "facts": [
+      {
+        "concept": "dispatch.return_terms",
+        "value": {
+          "disposition": "ALLOWED_RETURN_REASON",
+          "reason": "岗位考核未达标",
+          "reason_type": "ORDINARY_PERFORMANCE",
+          "basis": "REASON_ALONE"
+        },
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "岗位考核未达标可以退回，但不得仅因团队文化不匹配退回。"
+          }
+        ]
+      },
+      {
+        "concept": "dispatch.return_terms",
+        "value": {
+          "disposition": "PROHIBITED_RETURN_REASON",
+          "reason": "团队文化不匹配",
+          "reason_type": "SUBJECTIVE_MISMATCH"
+        },
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "岗位考核未达标可以退回，但不得仅因团队文化不匹配退回。"
+          }
+        ]
+      }
+    ],
+    "status": "PASS"
+  }
+]

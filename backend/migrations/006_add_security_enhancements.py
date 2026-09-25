@@ -3,13 +3,13 @@ import sqlite3
 import os
 import sys
 
-# 获取数据库路径 - 使用 app.db（SQLAlchemy 管理的数据库）
-backend_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-db_path = os.path.join(backend_dir, 'data', 'app.db')
-os.makedirs(os.path.dirname(db_path), exist_ok=True)
 
 
 def migrate():
+    from storage.database import engine
+    if engine.dialect.name != "sqlite":
+        return
+    db_path = engine.url.database
     if not os.path.exists(db_path):
         print(f"数据库文件不存在: {db_path}，跳过迁移（将在应用启动时由 SQLAlchemy 自动创建）")
         return

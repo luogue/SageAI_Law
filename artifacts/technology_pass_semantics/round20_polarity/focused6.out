@@ -1,0 +1,49 @@
+...............FF.......................................                 [100%]
+================================== FAILURES ===================================
+_ test_event_occurrence_polarity[\u5f53\u672c\u6280\u672f\u88ab\u786e\u8ba4\u4fb5\u72af\u7b2c\u4e09\u65b9\u4e13\u5229\u65f6\uff0c\u7532\u65b9\u5e94\u8d54\u507f\u635f\u5931\u3002-False] _
+backend\tests\test_claim_semantic_scope.py:33: in test_event_occurrence_polarity
+    assert has_actual_infringement(text) is expected
+E   AssertionError: assert True is False
+E    +  where True = has_actual_infringement('当本技术被确认侵犯第三方专利时，甲方应赔偿损失。')
+_ test_event_occurrence_polarity[\u5728\u672c\u6280\u672f\u88ab\u786e\u8ba4\u4fb5\u72af\u7b2c\u4e09\u65b9\u4e13\u5229\u7684\u60c5\u51b5\u4e0b\uff0c\u7532\u65b9\u5e94\u8d54\u507f\u635f\u5931\u3002-False] _
+backend\tests\test_claim_semantic_scope.py:33: in test_event_occurrence_polarity
+    assert has_actual_infringement(text) is expected
+E   AssertionError: assert True is False
+E    +  where True = has_actual_infringement('在本技术被确认侵犯第三方专利的情况下，甲方应赔偿损失。')
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+backend/tests/test_registered_patent_asset_routing.py::test_actual_patent_upload_routes_and_keeps_source_bound_report
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_claim_semantic_scope.py::test_event_occurrence_polarity[\u5f53\u672c\u6280\u672f\u88ab\u786e\u8ba4\u4fb5\u72af\u7b2c\u4e09\u65b9\u4e13\u5229\u65f6\uff0c\u7532\u65b9\u5e94\u8d54\u507f\u635f\u5931\u3002-False]
+FAILED backend/tests/test_claim_semantic_scope.py::test_event_occurrence_polarity[\u5728\u672c\u6280\u672f\u88ab\u786e\u8ba4\u4fb5\u72af\u7b2c\u4e09\u65b9\u4e13\u5229\u7684\u60c5\u51b5\u4e0b\uff0c\u7532\u65b9\u5e94\u8d54\u507f\u635f\u5931\u3002-False]
+2 failed, 54 passed, 6 warnings in 58.57s

@@ -1,0 +1,19 @@
+2026-09-14 09:54:44 - storage.database - INFO - [unknown] - [DB] SQLite PRAGMA 优化已配置 (WAL/NORMAL/64MB缓存)
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+  warnings.warn(
+2026-09-14 09:54:44 - reasoning.llm_client - INFO - [unknown] - [LLM] 使用自定义模型优先级: ['qwen', 'doubao', 'deepseek']
+2026-09-14 09:54:44 - reasoning.llm_client - INFO - [unknown] - [CircuitBreaker] 熔断器初始化 - 阈值:3次, 超时:30秒
+2026-09-14 09:54:46 - tasks - INFO - [unknown] - [TaskDB] 容器启动，从数据库恢复了 1 个未完成任务到内存
+INFO:     Started server process [16664]
+INFO:     Waiting for application startup.
+2026-09-14 09:54:46 - security.sensitive_filter - INFO - [unknown] - 已清理 0 条超过 90 天的拦截日志
+2026-09-14 09:54:46 - main - INFO - [unknown] - 启动时清理了 0 条过期拦截日志
+2026-09-14 09:54:50 - main - INFO - [unknown] - Redis连接失败，已切换到内存模式，后续请求无延迟
+2026-09-14 09:54:50 - security.output_guard - INFO - [unknown] - [OUTPUT_GUARD] 初始化完成: 系统提示词长度=4633, 片段哈希数量=4584, 完整哈希=13c9684b6d3e79c1...
+2026-09-14 09:54:50 - main - INFO - [unknown] - [STARTUP] 输出安全守卫初始化完成: 片段哈希数=4584
+2026-09-14 09:54:50 - security.injection_detector - INFO - [unknown] - [INJECTION_DETECTOR] 已加载 70 个注入检测模式
+2026-09-14 09:54:50 - main - INFO - [unknown] - [STARTUP] 注入检测器初始化完成
+2026-09-14 09:54:50 - layers.legal_check_layer - INFO - [unknown] - [MCP_ADAPTER] MCP 客户端已初始化
+2026-09-14 09:54:50 - main - INFO - [unknown] - [STARTUP] 法条校验层初始化完成
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8016 (Press CTRL+C to quit)

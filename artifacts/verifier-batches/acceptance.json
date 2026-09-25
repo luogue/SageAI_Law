@@ -1,0 +1,74 @@
+{
+  "gate": "BLOCKED",
+  "trace_id": "FACT-4bd2d5770bb2431dbb505bf1775c8d8e",
+  "attempts": [
+    {
+      "attempt": 1,
+      "batches": [
+        {
+          "batch": 1,
+          "input": 20,
+          "output": 20
+        },
+        {
+          "batch": 2,
+          "input": 20,
+          "output": 20
+        },
+        {
+          "batch": 3,
+          "input": 20,
+          "output": 20
+        },
+        {
+          "batch": 4,
+          "input": 7,
+          "output": 7
+        }
+      ],
+      "errors": [
+        {
+          "code": "CORE_FACT_VERIFICATION_FAILED",
+          "field": "non_compete.compensation_waived"
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "batches": [
+        {
+          "batch": 1,
+          "input": 20,
+          "output": 20
+        },
+        {
+          "batch": 2,
+          "input": 20,
+          "output": 20
+        },
+        {
+          "batch": 3,
+          "input": 20,
+          "output": 20
+        },
+        {
+          "batch": 4,
+          "input": 4,
+          "output": 4
+        }
+      ],
+      "errors": [
+        {
+          "code": "CORE_FACT_VERIFICATION_FAILED",
+          "field": "salary.withheld_for_handover"
+        },
+        {
+          "code": "CORE_FACT_VERIFICATION_FAILED",
+          "field": "penalties.obligations"
+        }
+      ]
+    }
+  ],
+  "backend_tests": 94,
+  "frontend_tests": 6
+}

@@ -1,0 +1,77 @@
+[
+  {
+    "source": "/var/lib/docker/volumes/sageai-release-verify-20260909-round2-db/_data/app.db",
+    "integrity": [
+      [
+        "ok"
+      ]
+    ],
+    "tables": {
+      "task_record": {
+        "count": 1,
+        "conflicting_primary_keys": [
+          1
+        ],
+        "ids": [
+          1
+        ]
+      },
+      "record": {
+        "count": 1,
+        "conflicting_primary_keys": [],
+        "ids": [
+          1
+        ]
+      }
+    }
+  },
+  {
+    "source": "/var/lib/docker/volumes/sageai-db-data/_data/app.db",
+    "integrity": [
+      [
+        "ok"
+      ]
+    ],
+    "tables": {
+      "task_record": {
+        "count": 11,
+        "conflicting_primary_keys": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "record": {
+        "count": 2,
+        "conflicting_primary_keys": [
+          2
+        ],
+        "ids": [
+          1,
+          2
+        ]
+      }
+    }
+  }
+]

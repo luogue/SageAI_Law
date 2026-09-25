@@ -1,0 +1,355 @@
+.F.....F....F.......FFFFFFFF..FF..F.....FFFFFFFFF..FFFF.F..FFF.......... [ 59%]
+...F.......................F....F....FFFFFFFFF...F                       [100%]
+================================== FAILURES ===================================
+___________ test_patent_transfer_golden_matrix_semantic_invariants ____________
+backend\tests\test_patent_right_transfer_contract_review.py:111: in test_patent_transfer_golden_matrix_semantic_invariants
+    assert output["coverage_summary"] == manifest["coverage_summary"]
+E   AssertionError: assert {'通过': 8, '不适...部分覆盖': 4, ...} == {'通过': 17, '不... '缺失': 2, ...}
+E     
+E     Differing items:
+E     {'风险条款': 9} != {'风险条款': 8}
+E     {'部分覆盖': 4} != {'部分覆盖': 1}
+E     {'缺失': 3} != {'缺失': 2}
+E     {'通过': 8} != {'通过': 17}
+E     {'不适用': 31} != {'不适用': 30}...
+E     
+E     ...Full output truncated (3 lines hidden), use '-vv' to show
+________ test_default_law_and_negative_assertions_for_patent_transfer _________
+backend\tests\test_patent_right_transfer_contract_review.py:228: in test_default_law_and_negative_assertions_for_patent_transfer
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_____ test_patent_gold_closure_review_semantics_links_and_economic_impact _____
+backend\tests\test_patent_right_transfer_contract_review.py:304: in test_patent_gold_closure_review_semantics_links_and_economic_impact
+    assert "transferee_infringement_liability_shift" in linked_groups
+E   AssertionError: assert 'transferee_infringement_liability_shift' in set()
+_ test_explicit_confidentiality_breach_liability_is_present_with_dedicated_fact_type _
+backend\tests\test_patent_right_transfer_contract_review.py:446: in test_explicit_confidentiality_breach_liability_is_present_with_dedicated_fact_type
+    assert item["coverage_presence"] == "PRESENT"
+E   AssertionError: assert 'PARTIAL' == 'PRESENT'
+E     
+E     - PRESENT
+E     + PARTIAL
+__ test_general_any_breach_liability_is_partial_without_confidentiality_link __
+backend\tests\test_patent_right_transfer_contract_review.py:456: in test_general_any_breach_liability_is_partial_without_confidentiality_link
+    assert item["coverage_presence"] == "PARTIAL"
+E   AssertionError: assert 'MISSING' == 'PARTIAL'
+E     
+E     - PARTIAL
+E     + MISSING
+_ test_partial_without_a_concrete_gap_is_promoted_to_pass_and_cannot_create_a_finding _
+backend\tests\test_patent_right_transfer_contract_review.py:505: in test_partial_without_a_concrete_gap_is_promoted_to_pass_and_cannot_create_a_finding
+    assert item.coverage_status == "通过"
+E   AssertionError: assert '缺失' == '通过'
+E     
+E     - 通过
+E     + 缺失
+_ test_partial_with_a_concrete_missing_element_and_tc_11_04_evidence_remain_unchanged _
+backend\tests\test_patent_right_transfer_contract_review.py:542: in test_partial_with_a_concrete_missing_element_and_tc_11_04_evidence_remain_unchanged
+    assert item.coverage_status == "部分覆盖"
+E   AssertionError: assert '缺失' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 缺失
+_ test_patent_gold_confidentiality_liability_uses_a_complete_two_clause_evidence_chain _
+backend\tests\test_patent_right_transfer_contract_review.py:552: in test_patent_gold_confidentiality_liability_uses_a_complete_two_clause_evidence_chain
+    assert item["action_suggestion"] == "建议处理"
+E   AssertionError: assert '可选优化' == '建议处理'
+E     
+E     - 建议处理
+E     + 可选优化
+_ test_patent_gold_optional_recommendations_and_report_language_close_cleanly _
+backend\tests\test_patent_right_transfer_contract_review.py:643: in test_patent_gold_optional_recommendations_and_report_language_close_cleanly
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_ test_current_patent_transfer_registration_feasibility_blocker_is_core_risk __
+backend\tests\test_patent_right_transfer_contract_review.py:672: in test_current_patent_transfer_registration_feasibility_blocker_is_core_risk
+    assert registration["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '缺失' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 缺失
+_ test_current_patent_transfer_ancillary_service_materials_and_domestic_scope_are_fact_driven _
+backend\tests\test_patent_right_transfer_contract_review.py:693: in test_current_patent_transfer_ancillary_service_materials_and_domestic_scope_are_fact_driven
+    assert by_id["TC-09-01"]["coverage_status"] == "通过"
+E   AssertionError: assert '部分覆盖' == '通过'
+E     
+E     - 通过
+E     + 部分覆盖
+_ test_report_missing_notice_is_conditionally_rendered_from_existing_coverage_summary _
+backend\tests\test_patent_right_transfer_contract_review.py:780: in test_report_missing_notice_is_conditionally_rendered_from_existing_coverage_summary
+    assert current["coverage_summary"].get("缺失", 0) == 0
+E   AssertionError: assert 5 == 0
+E    +  where 5 = <built-in method get of dict object at 0x00000245ABF08540>('缺失', 0)
+E    +    where <built-in method get of dict object at 0x00000245ABF08540> = {'缺失': 5, '通过': 2, '不适用': 32, '待核验': 9, ...}.get
+_____ test_third_party_claim_advanced_only_gaps_are_optional_optimization _____
+backend\tests\test_patent_right_transfer_contract_review.py:809: in test_third_party_claim_advanced_only_gaps_are_optional_optimization
+    assert all(element_status[element_id] == "COVERED" for element_id in (
+backend\tests\test_patent_right_transfer_contract_review.py:809: in <genexpr>
+    assert all(element_status[element_id] == "COVERED" for element_id in (
+E   KeyError: 'claim_trigger'
+_________ test_industrial_service_core_risks_survive_route_resolution _________
+backend\tests\test_industrial_technical_service_routing_regression.py:72: in test_industrial_service_core_risks_survive_route_resolution
+    assert {
+E   AssertionError: assert {'confidentia...nership', ...} <= {'acceptance_...alidity', ...}
+E     
+E     Extra items in the left set:
+E     'technical_timeline_conflict'
+____ test_complete_review_rows_are_unique_and_partial_rows_have_real_gaps _____
+backend\tests\test_industrial_technical_service_routing_regression.py:184: in test_complete_review_rows_are_unique_and_partial_rows_have_real_gaps
+    assert item_ids.count("TECH-SHARED-03") == 1
+E   AssertionError: assert 0 == 1
+E    +  where 0 = <built-in method count of list object at 0x00000245ADD9C500>('TECH-SHARED-03')
+E    +    where <built-in method count of list object at 0x00000245ADD9C500> = ['TC-01-01', 'TC-01-02', 'TC-01-03', 'TC-01-04', 'TC-02-01', 'TC-02-02', ...].count
+_____ test_cooperative_investment_and_work_facts_are_atomically_resolved ______
+backend\tests\test_cooperative_development_advanced_regressions.py:63: in test_cooperative_investment_and_work_facts_are_atomically_resolved
+    assert analysis["payment_conflicts"] == [{
+E   AssertionError: assert [{'party': '甲...50000.0, ...}] == [{'party': '甲...: 50000, ...}]
+E     
+E     At index 0 diff: {'party': '甲方', 'nominal_investment': 1200000.0, 'payment_total': 850000.0, 'difference': -350000.0, 'nodes': [400000.0, 450000.0]} != {'party': '甲方', 'nominal_investment': 1200000, 'payment_total': 1250000, 'difference': 50000, 'nodes': [400000, 400000, 450000]}
+E     Use -v to get more diff
+______ test_final_result_patent_license_and_revenue_rights_are_compared _______
+backend\tests\test_cooperative_development_advanced_regressions.py:91: in test_final_result_patent_license_and_revenue_rights_are_compared
+    assert "收益归该许可方单独所有" in item["risk_point_description"]
+E   AssertionError: assert '收益归该许可方单独所有' in '合同存在以下有直接证据支持的不利安排：最终成果虽约定共同所有，但专利申请权归单一合作方，权属层级相互冲突；最终成果虽约定共同所有，但授权后的专利权归单一合作方，权属层级相互冲突；任何一方均可不经其他共有方同意单独对外许可最终成果；共有最终成果由单一合作方许可第三方后，许可收益归该技术提供方单独所有。'
+________ test_existing_failure_and_exit_terms_are_adverse_not_missing _________
+backend\tests\test_cooperative_development_advanced_regressions.py:98: in test_existing_failure_and_exit_terms_are_adverse_not_missing
+    assert item["coverage_status"] == "风险条款"
+E   AssertionError: assert '部分覆盖' == '风险条款'
+E     
+E     - 风险条款
+E     + 部分覆盖
+_ test_governance_deadlock_silence_and_contact_authority_are_one_control_risk _
+backend\tests\test_cooperative_development_advanced_regressions.py:116: in test_governance_deadlock_silence_and_contact_authority_are_one_control_risk
+    assert elements["major_matter_voting"]["status"] == "COVERED"
+E   KeyError: 'major_matter_voting'
+_ test_component_control_and_loss_direction_are_separate_from_claim_procedure _
+backend\tests\test_cooperative_development_advanced_regressions.py:128: in test_component_control_and_loss_direction_are_separate_from_claim_procedure
+    assert elements["component_selection_control"]["status"] == "COVERED"
+E   KeyError: 'component_selection_control'
+___ test_result_reuse_data_reuse_and_follow_on_improvement_remain_distinct ____
+backend\tests\test_cooperative_development_advanced_regressions.py:146: in test_result_reuse_data_reuse_and_follow_on_improvement_remain_distinct
+    assert _elements(data_use)["project_purpose_limitation"]["status"] == "ADVERSE"
+E   KeyError: 'project_purpose_limitation'
+___ test_reviewer_funded_equipment_transfer_is_an_independent_adverse_risk ____
+backend\tests\test_cooperative_development_advanced_regressions.py:159: in test_reviewer_funded_equipment_transfer_is_an_independent_adverse_risk
+    assert elements["reviewer_funded_asset_ownership"]["status"] == "ADVERSE"
+E   KeyError: 'reviewer_funded_asset_ownership'
+___ test_complex_five_day_deemed_acceptance_preserves_latent_defect_rights ____
+backend\tests\test_cooperative_development_advanced_regressions.py:170: in test_complex_five_day_deemed_acceptance_preserves_latent_defect_rights
+    assert elements["short_deemed_acceptance"]["status"] == "ADVERSE"
+E   KeyError: 'short_deemed_acceptance'
+_____ test_attachment_reference_and_attachment_content_are_distinct_facts _____
+backend\tests\test_cooperative_development_advanced_regressions.py:220: in test_attachment_reference_and_attachment_content_are_distinct_facts
+    assert "C0029" in elements["actual_ip_proof_attachment"]["source_clause_ids"]
+E   AssertionError: assert 'C0029' in ['C0034']
+_______ test_confidentiality_evidence_is_not_expanded_beyond_the_quote ________
+backend\tests\test_cooperative_development_advanced_regressions.py:238: in test_confidentiality_evidence_is_not_expanded_beyond_the_quote
+    evidence = next(row for row in item["evidence_clauses"] if row["clause_id"] == "C0015")
+E   StopIteration
+__ test_unrelated_breach_remedies_do_not_activate_infringement_coordination ___
+backend\tests\test_cooperative_development_advanced_regressions.py:253: in test_unrelated_breach_remedies_do_not_activate_infringement_coordination
+    assert item["applicability"]["machine_reason"] == "SAME_LOSS_GENERAL_REMEDY_NOT_FOUND"
+E   AssertionError: assert '合同虽存在侵权专项责任，...责任已排除，故本项不适用。' == 'SAME_LOSS_GE...EDY_NOT_FOUND'
+E     
+E     - SAME_LOSS_GENERAL_REMEDY_NOT_FOUND
+E     + 合同虽存在侵权专项责任，但未同时存在可针对同一侵权损失适用的一般赔偿或违约救济；迟延付款、退出等其他违约责任已排除，故本项不适用。
+________ test_registry_bound_risk_evidence_reuses_final_review_sources ________
+backend\tests\test_cooperative_development_advanced_regressions.py:267: in test_registry_bound_risk_evidence_reuses_final_review_sources
+    assert {row.get("clause_id") for row in body_rows} == {"C0019", "C0020", "C0029"}
+E   AssertionError: assert {'C0022', 'C0023', 'C0034'} == {'C0019', 'C0020', 'C0029'}
+E     
+E     Extra items in the left set:
+E     'C0034'
+E     'C0022'
+E     'C0023'
+E     Extra items in the right set:
+E     'C0019'...
+E     
+E     ...Full output truncated (3 lines hidden), use '-vv' to show
+____ test_referenced_attachments_are_material_pending_not_contract_defects ____
+backend\tests\test_cooperative_development_advanced_regressions.py:289: in test_referenced_attachments_are_material_pending_not_contract_defects
+    assert item["recommended_action"] == "MANUAL_REVIEW"
+E   AssertionError: assert 'RECOMMENDED' == 'MANUAL_REVIEW'
+E     
+E     - MANUAL_REVIEW
+E     + RECOMMENDED
+___________ test_search_audit_queries_are_positive_objective_facts ____________
+backend\tests\test_cooperative_development_advanced_regressions.py:331: in test_search_audit_queries_are_positive_objective_facts
+    assert "非履约使用须取得数据提供方事先书面同意" in targets
+E   AssertionError: assert '非履约使用须取得数据提供方事先书面同意' in ['研发成果权属', '委托方使用开发成果的权利', '成果向第三方许可或转让的条件', '开发方副本留存范围和期限', '项目结束后的资料返还或删除', '第三方权利主张发生后的通知或参与处理机制', ...]
+__ test_manual_review_records_are_executable_and_have_no_empty_formal_advice __
+backend\tests\test_cooperative_development_advanced_regressions.py:341: in test_manual_review_records_are_executable_and_have_no_empty_formal_advice
+    instruction = records[review_id]["review_instruction"]
+E   KeyError: 'TC-13-01'
+___ test_unprovided_attachment_narrative_does_not_assert_content_is_missing ___
+backend\tests\test_cooperative_development_advanced_regressions.py:358: in test_unprovided_attachment_narrative_does_not_assert_content_is_missing
+    assert judgment == "正文存在部分相关约定，但附件未提供，当前无法核验完整性。"
+E   AssertionError: assert '已覆盖：测试报告交付已有...作资料交付；缺陷记录交付。' == '正文存在部分相关约定，但附件未提供，当前无法核验完整性。'
+E     
+E     - 正文存在部分相关约定，但附件未提供，当前无法核验完整性。
+E     + 已覆盖：测试报告交付已有明确约定；尚未覆盖：源代码或可执行程序交付；技术文档交付；接口文档交付；架构文档交付；安装部署资料交付；用户或操作资料交付；缺陷记录交付。
+_____________ test_same_contract_baseline_counts_and_release_gate _____________
+backend\tests\test_patent_license_theme_recommendation_economics.py:35: in test_same_contract_baseline_counts_and_release_gate
+    assert result["risk_theme_count"] == 23
+E   assert 27 == 23
+_____________ test_route_payment_and_partial_facts_do_not_regress _____________
+backend\tests\test_patent_license_theme_recommendation_economics.py:176: in test_route_payment_and_partial_facts_do_not_regress
+    method = next(row for row in material["coverage_elements"] if row["element_id"] == "delivery_method")
+E   StopIteration
+___________ test_current_names_and_document_advice_are_not_expanded ___________
+backend\tests\test_atomic_narrative_and_recommendation_binding.py:43: in test_current_names_and_document_advice_are_not_expanded
+    assert current["release_quality_gate"]["status"] == "REPORT_READY", current["release_quality_gate"]["failures"]
+E   AssertionError: [{'requirement': 'CONFIDENCE_VALIDATION_GATE', 'failure_stage': 'Pre-render Confidence Gate', 'root_cause': '存在实质一致性错误..., 'root_cause': 'TC-01-03', 'evidence_id': 'SRC-317fac83affa54d7d502', 'reason': 'IRRELEVANT_PASS_EVIDENCE', ...}, ...]
+E   assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+____________ test_latest_cooperative_route_and_final_quality_gate _____________
+backend\tests\test_cooperative_development_latest_regressions.py:48: in test_latest_cooperative_route_and_final_quality_gate
+    assert latest_cooperative_review["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_____ test_competition_and_improvement_rules_reuse_direct_atomic_evidence _____
+backend\tests\test_cooperative_development_latest_regressions.py:56: in test_competition_and_improvement_rules_reuse_direct_atomic_evidence
+    assert {row["status"] for row in competition["coverage_elements"]} == {"ADVERSE"}
+E   AssertionError: assert {'MISSING'} == {'ADVERSE'}
+E     
+E     Extra items in the left set:
+E     'MISSING'
+E     Extra items in the right set:
+E     'ADVERSE'
+E     Use -v to get more diff
+___________ test_tc_05_01_does_not_invent_covered_cooperation_facts ___________
+backend\tests\test_cooperative_development_latest_regressions.py:82: in test_tc_05_01_does_not_invent_covered_cooperation_facts
+    assert item["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '缺失' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 缺失
+___ test_acceptance_metrics_and_internal_reference_are_separately_resolved ____
+backend\tests\test_cooperative_development_latest_regressions.py:97: in test_acceptance_metrics_and_internal_reference_are_separately_resolved
+    assert item["issue_type"] == "CONFLICTING"
+E   AssertionError: assert 'PARTIAL' == 'CONFLICTING'
+E     
+E     - CONFLICTING
+E     + PARTIAL
+_______ test_claim_allocation_is_not_misreported_as_actual_infringement _______
+backend\tests\test_cooperative_development_latest_regressions.py:124: in test_claim_allocation_is_not_misreported_as_actual_infringement
+    assert elements["claim_handling_responsibility"]["status"] == "COVERED"
+E   KeyError: 'claim_handling_responsibility'
+_ test_budget_investment_and_cooperation_timeline_use_shared_deterministic_checks _
+backend\tests\test_cooperative_development_latest_regressions.py:152: in test_budget_investment_and_cooperation_timeline_use_shared_deterministic_checks
+    assert len(evidence_quotes) == len(set(evidence_quotes))
+E   AssertionError: assert 5 == 3
+E    +  where 5 = len(['合作期限为三年，自2026年10月1日起至2029年9月30日止。', '本协议自双方于2026年10月15日签字盖章之日起生效。', '履行开始日期 = 2026-10-01；合同生效日期 = 2026-10-15；2026-10-01 < 2026-10-15，存在生效前履行事实。', '合作期限为三年，自2026年10月1日起至2029年9月30日止。', '本协议自双方于2026年10月15日签字盖章之日起生效。'])
+E    +  and   3 = len({'合作期限为三年，自2026年10月1日起至2029年9月30日止。', '履行开始日期 = 2026-10-01；合同生效日期 = 2026-10-15；2026-10-01 < 2026-10-15，存在生效前履行事实。', '本协议自双方于2026年10月15日签字盖章之日起生效。'})
+E    +    where {'合作期限为三年，自2026年10月1日起至2029年9月30日止。', '履行开始日期 = 2026-10-01；合同生效日期 = 2026-10-15；2026-10-01 < 2026-10-15，存在生效前履行事实。', '本协议自双方于2026年10月15日签字盖章之日起生效。'} = set(['合作期限为三年，自2026年10月1日起至2029年9月30日止。', '本协议自双方于2026年10月15日签字盖章之日起生效。', '履行开始日期 = 2026-10-01；合同生效日期 = 2026-10-15；2026-10-01 < 2026-10-15，存在生效前履行事实。', '合作期限为三年，自2026年10月1日起至2029年9月30日止。', '本协议自双方于2026年10月15日签字盖章之日起生效。'])
+________ test_cooperative_failure_allocation_is_an_evidence_bound_risk ________
+backend\tests\test_cooperative_development_latest_regressions.py:160: in test_cooperative_failure_allocation_is_an_evidence_bound_risk
+    assert elements["incurred_cost_allocation"]["status"] == "ADVERSE"
+E   KeyError: 'incurred_cost_allocation'
+___ test_existing_result_license_and_revenue_terms_are_adverse_not_missing ____
+backend\tests\test_cooperative_development_latest_regressions.py:174: in test_existing_result_license_and_revenue_terms_are_adverse_not_missing
+    assert item["coverage_status"] == "风险条款"
+E   AssertionError: assert '部分覆盖' == '风险条款'
+E     
+E     - 风险条款
+E     + 部分覆盖
+_ test_technical_material_attachment_preserves_body_scope_and_work_allocation _
+backend\tests\test_cooperative_development_latest_regressions.py:187: in test_technical_material_attachment_preserves_body_scope_and_work_allocation
+    assert elements["body_development_scope"]["status"] == "COVERED"
+E   KeyError: 'body_development_scope'
+_________ test_major_decision_recommendation_is_direct_and_actionable _________
+backend\tests\test_cooperative_development_latest_regressions.py:223: in test_major_decision_recommendation_is_direct_and_actionable
+    assert recommendation == "建议约定重大需求变更、技术路线调整、预算增加、项目延期等重大事项须经双方书面确认。"
+E   AssertionError: assert '建议明确技术、人员投入及...时的补足、接管和责任机制。' == '建议约定重大需求变更、技...重大事项须经双方书面确认。'
+E     
+E     - 建议约定重大需求变更、技术路线调整、预算增加、项目延期等重大事项须经双方书面确认。
+E     + 建议明确技术、人员投入及投入标准；明确数据、设备及研发环境等资源投入；调整以下已确认的不利安排：各方名义投资合计1,800,000元与项目总投资1,500,000元不一致；补充明确尚未建立双方书面共同决策程序，决策主体、流程和僵局处理仍不完整；明确投入不足或未完成约定研发分工时的补足、接管和责任机制。
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_patent_transfer_golden_matrix_semantic_invariants
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_default_law_and_negative_assertions_for_patent_transfer
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_patent_gold_closure_review_semantics_links_and_economic_impact
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_explicit_confidentiality_breach_liability_is_present_with_dedicated_fact_type
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_general_any_breach_liability_is_partial_without_confidentiality_link
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_partial_without_a_concrete_gap_is_promoted_to_pass_and_cannot_create_a_finding
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_partial_with_a_concrete_missing_element_and_tc_11_04_evidence_remain_unchanged
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_patent_gold_confidentiality_liability_uses_a_complete_two_clause_evidence_chain
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_patent_gold_optional_recommendations_and_report_language_close_cleanly
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_current_patent_transfer_registration_feasibility_blocker_is_core_risk
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_current_patent_transfer_ancillary_service_materials_and_domestic_scope_are_fact_driven
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_report_missing_notice_is_conditionally_rendered_from_existing_coverage_summary
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_third_party_claim_advanced_only_gaps_are_optional_optimization
+FAILED backend/tests/test_industrial_technical_service_routing_regression.py::test_industrial_service_core_risks_survive_route_resolution
+FAILED backend/tests/test_industrial_technical_service_routing_regression.py::test_complete_review_rows_are_unique_and_partial_rows_have_real_gaps
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_cooperative_investment_and_work_facts_are_atomically_resolved
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_final_result_patent_license_and_revenue_rights_are_compared
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_existing_failure_and_exit_terms_are_adverse_not_missing
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_governance_deadlock_silence_and_contact_authority_are_one_control_risk
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_component_control_and_loss_direction_are_separate_from_claim_procedure
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_result_reuse_data_reuse_and_follow_on_improvement_remain_distinct
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_reviewer_funded_equipment_transfer_is_an_independent_adverse_risk
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_complex_five_day_deemed_acceptance_preserves_latent_defect_rights
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_attachment_reference_and_attachment_content_are_distinct_facts
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_confidentiality_evidence_is_not_expanded_beyond_the_quote
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_unrelated_breach_remedies_do_not_activate_infringement_coordination
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_registry_bound_risk_evidence_reuses_final_review_sources
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_referenced_attachments_are_material_pending_not_contract_defects
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_search_audit_queries_are_positive_objective_facts
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_manual_review_records_are_executable_and_have_no_empty_formal_advice
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_unprovided_attachment_narrative_does_not_assert_content_is_missing
+FAILED backend/tests/test_patent_license_theme_recommendation_economics.py::test_same_contract_baseline_counts_and_release_gate
+FAILED backend/tests/test_patent_license_theme_recommendation_economics.py::test_route_payment_and_partial_facts_do_not_regress
+FAILED backend/tests/test_atomic_narrative_and_recommendation_binding.py::test_current_names_and_document_advice_are_not_expanded
+FAILED backend/tests/test_cooperative_development_latest_regressions.py::test_latest_cooperative_route_and_final_quality_gate
+FAILED backend/tests/test_cooperative_development_latest_regressions.py::test_competition_and_improvement_rules_reuse_direct_atomic_evidence
+FAILED backend/tests/test_cooperative_development_latest_regressions.py::test_tc_05_01_does_not_invent_covered_cooperation_facts
+FAILED backend/tests/test_cooperative_development_latest_regressions.py::test_acceptance_metrics_and_internal_reference_are_separately_resolved
+FAILED backend/tests/test_cooperative_development_latest_regressions.py::test_claim_allocation_is_not_misreported_as_actual_infringement
+FAILED backend/tests/test_cooperative_development_latest_regressions.py::test_budget_investment_and_cooperation_timeline_use_shared_deterministic_checks
+FAILED backend/tests/test_cooperative_development_latest_regressions.py::test_cooperative_failure_allocation_is_an_evidence_bound_risk
+FAILED backend/tests/test_cooperative_development_latest_regressions.py::test_existing_result_license_and_revenue_terms_are_adverse_not_missing
+FAILED backend/tests/test_cooperative_development_latest_regressions.py::test_technical_material_attachment_preserves_body_scope_and_work_allocation
+FAILED backend/tests/test_cooperative_development_latest_regressions.py::test_major_decision_recommendation_is_direct_and_actionable
+44 failed, 78 passed, 6 warnings in 655.90s (0:10:55)

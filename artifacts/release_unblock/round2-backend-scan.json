@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "image": "sageai-release-verify-20260909:backend",
+  "commands": [
+    {
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "sageai-release-verify-20260909:backend"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "docker",
+        "create",
+        "--name",
+        "sageai-release-verify-20260909-round2-scan",
+        "--network",
+        "none",
+        "--entrypoint",
+        "true",
+        "sageai-release-verify-20260909:backend"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "docker",
+        "rm",
+        "-v",
+        "sageai-release-verify-20260909-round2-scan"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "docker",
+        "image",
+        "save",
+        "-o",
+        "/var/tmp/sageai-release-verify-20260909/round2-backend-image.tar",
+        "sageai-release-verify-20260909:backend"
+      ],
+      "exit": 0
+    }
+  ],
+  "scans": [
+    {
+      "scope": "final root filesystem",
+      "files_checked": 13540,
+      "findings": []
+    },
+    {
+      "scope": "layer blobs/sha256/1e2ee32cdbfb61035a13be9ac474eccf461c4025928c4c9da2ce966ec3f08e3c",
+      "files_checked": 0,
+      "findings": []
+    },
+    {
+      "scope": "layer blobs/sha256/296e14559b1ad816b3ee68b067218a52d271373efc845c62815862d4a2739a83",
+      "files_checked": 549,
+      "findings": []
+    },
+    {
+      "scope": "layer blobs/sha256/2ed6f38fa2f244c71d091ced53019948711021f8fe37c4c63a3911f89da74d5a",
+      "files_checked": 8,
+      "findings": []
+    },
+    {
+      "scope": "layer blobs/sha256/45006ceeeea9e2ca59a046b6f4ac9a212e4b27b3d8d6e7d348b03f0aaccdac99",
+      "files_checked": 0,
+      "findings": []
+    },
+    {
+      "scope": "layer blobs/sha256/5b4d6ff92fc4e14e911b7753c954fac965d48c40fe1075758d284148ccace970",
+      "files_checked": 2668,
+      "findings": []
+    },
+    {
+      "scope": "layer blobs/sha256/6e3b676aa872e61beeedb3ea5a0b5ffd39e4c47f81142ec9602ec6600db45f25",
+      "files_checked": 502,
+      "findings": []
+    },
+    {
+      "scope": "layer blobs/sha256/797d495f2c68eb4664df918d39078ca04612d7ef47c57b5c784f7f6eedd42bf5",
+      "files_checked": 2099,
+      "findings": []
+    },
+    {
+      "scope": "layer blobs/sha256/84be1bf8533885e7939c90b77f066fbfdd5b2d66ed9af29275057561dc1175bb",
+      "files_checked": 1,
+      "findings": []
+    },
+    {
+      "scope": "layer blobs/sha256/8649771fee179d7c2590c94f533aaa5fceb70e36e25dec83672fe836d99577c5",
+      "files_checked": 204,
+      "findings": []
+    },
+    {
+      "scope": "layer blobs/sha256/b0223637f738b45cfb5bcff6df728d46e0552e941202651f5724ccfe62f19beb",
+      "files_checked": 501,
+      "findings": []
+    },
+    {
+      "scope": "layer blobs/sha256/c78c34ad2ac1226a07dcdafd0f74aea16ad15b5c7bb977f14264b1e72b7a9f78",
+      "files_checked": 7563,
+      "findings": []
+    }
+  ],
+  "image_id": "sha256:b52381b00707382f98cc624f8d7295b7abd5a67e5ea7dab4d82252556b7a5774",
+  "layers": [
+    "sha256:219a998c60509502b47b97f1158067d5dd62640d2d689560d32cfd5594f6bc40",
+    "sha256:98df1ca0e575d9026c1abd12994fad3c14effa4558d50b6961fd586930956b26",
+    "sha256:bffa3c30a00bb534b2e3637bd26d9a75e095172be7d0b33924f1a61bf6cb2120",
+    "sha256:89bfb82659d056dd4ef25b8b3f99c7a97874083d86d92924e931ffa2fb7c7861",
+    "sha256:14fd84be10783ce29cc96ec109b4a16e9a137a4160a2555124d6bec8c9c3fbdb",
+    "sha256:b5b29e2354039168930a566812bece98a5a084b0ee7064c97bae46d12ab96d4c",
+    "sha256:8463d57e468c22cde4b1bb950edefc33a5ef70400f1409bcdd5e4cb58395fbff",
+    "sha256:3bbacfe4e861ddfec6b765e7e27ecc6fe52f7891b77967664ba0e755736ea1f8",
+    "sha256:23c981f8b647a00e45b6a9cf4d4979f79e8874d0eeda09e5610da42a31fe6955",
+    "sha256:d78e844b069f0d3ecb31e7072c22cdcb1e69ab89d51a23b635ad7603c1168f48",
+    "sha256:1b507f8394a191cc77dab24832da5766ab6cebc8f7d681a45e8ea8e5ea2d5e3c"
+  ]
+}

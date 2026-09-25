@@ -1,0 +1,102 @@
+F.....................................................FFF                [100%]
+================================== FAILURES ===================================
+___ test_missing_support_elements_are_not_rendered_as_existing_arrangements ___
+
+foreign_patent_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_missing_support_elements_are_not_rendered_as_existing_arrangements(
+        foreign_patent_review: dict,
+    ):
+        item = _item(foreign_patent_review, "TC-07-04")
+        statuses = {row["element_id"]: row["status"] for row in item["coverage_elements"]}
+        recommendation = item["suggested_clause_example"]
+    
+>       assert statuses == {
+            "on_demand_technical_service": "COVERED",
+            "technical_service_execution_details": "MISSING",
+            "patent_fee_and_validity_maintenance": "MISSING",
+            "patent_status_change_notice": "MISSING",
+        }
+E       AssertionError: assert {'core_contra...t': 'COVERED'} == {'on_demand_t...e': 'MISSING'}
+E         
+E         Left contains 1 more item:
+E         {'core_contract_arrangement': 'COVERED'}
+E         Right contains 4 more items:
+E         {'on_demand_technical_service': 'COVERED',
+E          'patent_fee_and_validity_maintenance': 'MISSING',
+E          'patent_status_change_notice': 'MISSING',
+E          'technical_service_execution_details': 'MISSING'}
+E         Use -v to get more diff
+
+backend\tests\test_foreign_patent_license_status_consistency.py:57: AssertionError
+___________ test_support_list_preserves_operative_introduction[\n] ____________
+
+breaks = '\n'
+
+    @pytest.mark.parametrize('breaks',['\n','\n\n'])
+    def test_support_list_preserves_operative_introduction(breaks):
+        sources=patent_support_sources('出让方应提供：'+breaks+'远程技术支持、系统部署指导、技术培训。')
+>       assert sources['technology.license.licensor_support']
+E       assert []
+
+backend\tests\test_patent_component_consistency.py:174: AssertionError
+__________ test_support_list_preserves_operative_introduction[\n\n] ___________
+
+breaks = '\n\n'
+
+    @pytest.mark.parametrize('breaks',['\n','\n\n'])
+    def test_support_list_preserves_operative_introduction(breaks):
+        sources=patent_support_sources('出让方应提供：'+breaks+'远程技术支持、系统部署指导、技术培训。')
+>       assert sources['technology.license.licensor_support']
+E       assert []
+
+backend\tests\test_patent_component_consistency.py:174: AssertionError
+________ test_settlement_prohibition_keeps_preceding_actual_allocation ________
+
+    def test_settlement_prohibition_keeps_preceding_actual_allocation():
+        text='如第三方主张乙方侵权，甲方负责交涉。甲方承担赔偿责任，未经乙方书面同意，甲方不得以要求乙方承担额外付款义务为条件达成和解。'
+        facts=extract_claim_response_facts(parse_contract_clauses(text),'甲方','乙方')
+>       assert any(s.get('actor')=='LICENSOR' for s in facts.get('liability_responsible_party',[]))
+E       assert False
+E        +  where False = any(<generator object test_settlement_prohibition_keeps_preceding_actual_allocation.<locals>.<genexpr> at 0x000001AF925D8890>)
+
+backend\tests\test_patent_component_consistency.py:180: AssertionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:159
+  F:\ai\Sage\backend\main.py:159: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+backend/tests/test_development_truth_projection.py::test_classification_pass_has_no_insufficient_narrative
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_foreign_patent_license_status_consistency.py::test_missing_support_elements_are_not_rendered_as_existing_arrangements
+FAILED backend/tests/test_patent_component_consistency.py::test_support_list_preserves_operative_introduction[\n]
+FAILED backend/tests/test_patent_component_consistency.py::test_support_list_preserves_operative_introduction[\n\n]
+FAILED backend/tests/test_patent_component_consistency.py::test_settlement_prohibition_keeps_preceding_actual_allocation
+4 failed, 53 passed, 6 warnings in 52.56s

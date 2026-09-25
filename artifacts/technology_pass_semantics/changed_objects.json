@@ -1,0 +1,721 @@
+{
+  "test_cooperative_development_latest_regressions": [
+    {
+      "rule_id": "TC-02-02",
+      "coverage": "待核验",
+      "elements": [
+        {
+          "review_id": "TC-02-02",
+          "element_id": "affirmative_infringement_fact",
+          "claim_id": "TC-02-02-affirmative_infringement_fact",
+          "proposition": "未发现技术已经侵害他人技术成果的肯定性事实。",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "未发现技术已经侵害他人技术成果的肯定性事实。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false
+        }
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0012",
+          "evidence_id": "C0012",
+          "quote": "第十一条 第三方权利主张\n如第三方主张本项目软件、算法或其他技术侵犯其知识产权：\n由乙方负责处理全部争议；\n律师费、诉讼费、鉴定费、和解费用、赔偿费用及其他损失均由乙方承担；\n即使相关技术方案由甲方指定或者由甲方提供，乙方仍承担全部责任。\n甲方因第三方知识产权纠纷承担的全部赔偿责任不超过人民币10万元。",
+          "location": "第十一条 第三方权利主张",
+          "supporting_element_ids": []
+        },
+        {
+          "clause_id": "C0006",
+          "evidence_id": "C0006",
+          "quote": "第五条 知识产权\n双方共同开发形成的软件源代码、技术文档及完整程序，其著作权由双方共同享有。\n甲方有权自行决定将合作成果许可第三方使用或进行商业化，无需另行取得乙方同意。\n合作成果商业化取得的收益，甲方享有80%，乙方享有20%。\n双方基于合作成果共同申请专利的，专利申请权及专利权由甲乙双方共同享有。\n乙方自行基于本项目成果进一步开发形成的算法、模型、软件模块、技术改进及其他成果，其知识产权无偿归甲方所有。\n未经甲方书面同意，乙方不得将合作开发成果许可、转让或提供给任何第三方。\n双方在软件开发过程中不得侵犯第三方知识产权。因乙方开发内容产生的第三方知识产权纠纷，由乙方承担全部责任。",
+          "location": "第五条 知识产权",
+          "supporting_element_ids": []
+        },
+        {
+          "clause_id": "C0007",
+          "evidence_id": "C0007",
+          "quote": "如双方对验收结果存在争议，由甲方指定第三方检测机构进行复测，相关费用由乙方承担。",
+          "location": "第六条 研发进度和验收",
+          "supporting_element_ids": []
+        },
+        {
+          "clause_id": "C0009",
+          "evidence_id": "C0009",
+          "quote": "第八条 研发失败风险承担\n如因现有技术水平、算法限制、第三方平台调整或其他技术原因导致合作开发项目不能完成：\n甲方不承担由此产生的损失；\n乙方已经投入的资金和人员成本自行承担；\n乙方仍应继续承担尚未完成部分的开发费用；",
+          "location": "第八条 研发失败风险承担",
+          "supporting_element_ids": []
+        }
+      ],
+      "gate": {
+        "status": "BLOCKED",
+        "failures": [
+          {
+            "reason": "NO_VERIFIABLE_REQUIREMENTS"
+          }
+        ],
+        "element_evidence_ids": {},
+        "rejected_decision": "PASS",
+        "resolution": "NEEDS_REVIEW"
+      },
+      "negative": {
+        "negative_clause_check": {
+          "review_id": "TC-02-02",
+          "query_semantics": "ADVERSE_CLAUSE_SEARCH",
+          "result": "NO_ADVERSE_CLAUSE_FOUND",
+          "description": "未发现对应禁止性/不利约定。",
+          "searched_scope": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011",
+            "C0012",
+            "C0013",
+            "C0014",
+            "C0015"
+          ],
+          "candidate_adverse_clauses": [],
+          "counter_evidence": [],
+          "search_coverage": "SUFFICIENT",
+          "adverse_clause_exists": false,
+          "confidence": "high",
+          "coverage_result": "INSUFFICIENT_CONTEXT"
+        }
+      },
+      "family": null
+    }
+  ],
+  "test_technical_service_latest_shared_fact_regressions": [
+    {
+      "rule_id": "TC-09-03",
+      "coverage": "待核验",
+      "elements": [
+        {
+          "review_id": "TC-09-03",
+          "element_id": "service_result_scope",
+          "claim_id": "TC-09-03-service_result_scope",
+          "proposition": "服务中新形成的方法、经验、报告或其他成果范围已有明确约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-52904e04e8da52ce",
+            "EV-72b5601d24416b96",
+            "EV-522dcac1d499831a",
+            "EV-d3b947d64fcc3723",
+            "EV-d3c1abc6d57ff55d",
+            "EV-329012ee19bb1b15"
+          ],
+          "supporting_evidence_ids": [
+            "EV-52904e04e8da52ce",
+            "EV-72b5601d24416b96",
+            "EV-522dcac1d499831a",
+            "EV-d3b947d64fcc3723",
+            "EV-d3c1abc6d57ff55d",
+            "EV-329012ee19bb1b15"
+          ],
+          "source_clause_ids": [
+            "C0030",
+            "C0029",
+            "C0033",
+            "C0034",
+            "C0035",
+            "C0037"
+          ],
+          "source_spans": [
+            "在本合同有效期内，甲方利用乙方提交的技术服务成果进一步形成的新技术成果，全部归甲方所有。\n乙方利用甲方提供的技术资料、数据、设备或者其他工作条件形成的新技术成果，其知识产权亦全部归甲方所有。\n乙方在提供技术服务过程中独立形成的算法、模型、软件模块、技术方案、改进成果及专利申请权，均无偿归甲方所有。",
+            "甲方认为技术服务成果未达到要求的，乙方应无条件进行整改，直至甲方认为符合要求。",
+            "乙方技术服务成果连续两次未通过甲方验收；",
+            "乙方保证其提供的全部技术服务成果不存在侵犯任何第三方知识产权的情形。\n如第三方主张乙方技术服务成果侵犯其专利权、著作权、技术秘密或其他权利：\n由乙方负责处理全部争议；",
+            "技术服务成果：乙方为履行本合同形成的技术报告、算法参数、测试记录及其他交付成果。\n新技术成果：任何一方基于本项目技术、资料、数据或服务成果形成的改进、优化、算法、软件、模型及其他技术成果。",
+            "乙方不得采购、使用或者向第三方推荐可以替代本项目技术服务成果的解决方案。"
+          ],
+          "source_locations": [
+            "第八条 新技术成果归属",
+            "第七条 验收",
+            "第十一条 合同解除",
+            "第十二条 第三方知识产权",
+            "第十三条 名词和技术术语",
+            "第十五条 其他事项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "服务中新形成的方法、经验、报告或其他成果范围已有明确约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "evidence_refs": [
+            "EV-52904e04e8da52ce",
+            "EV-72b5601d24416b96",
+            "EV-522dcac1d499831a",
+            "EV-d3b947d64fcc3723",
+            "EV-d3c1abc6d57ff55d",
+            "EV-329012ee19bb1b15"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0030",
+              "quote": "在本合同有效期内，甲方利用乙方提交的技术服务成果进一步形成的新技术成果，全部归甲方所有。\n乙方利用甲方提供的技术资料、数据、设备或者其他工作条件形成的新技术成果，其知识产权亦全部归甲方所有。\n乙方在提供技术服务过程中独立形成的算法、模型、软件模块、技术方案、改进成果及专利申请权，均无偿归甲方所有。"
+            },
+            {
+              "clause_id": "C0029",
+              "quote": "甲方认为技术服务成果未达到要求的，乙方应无条件进行整改，直至甲方认为符合要求。"
+            },
+            {
+              "clause_id": "C0033",
+              "quote": "乙方技术服务成果连续两次未通过甲方验收；"
+            },
+            {
+              "clause_id": "C0034",
+              "quote": "乙方保证其提供的全部技术服务成果不存在侵犯任何第三方知识产权的情形。\n如第三方主张乙方技术服务成果侵犯其专利权、著作权、技术秘密或其他权利：\n由乙方负责处理全部争议；"
+            },
+            {
+              "clause_id": "C0035",
+              "quote": "技术服务成果：乙方为履行本合同形成的技术报告、算法参数、测试记录及其他交付成果。\n新技术成果：任何一方基于本项目技术、资料、数据或服务成果形成的改进、优化、算法、软件、模型及其他技术成果。"
+            },
+            {
+              "clause_id": "C0037",
+              "quote": "乙方不得采购、使用或者向第三方推荐可以替代本项目技术服务成果的解决方案。"
+            }
+          ]
+        },
+        {
+          "review_id": "TC-09-03",
+          "element_id": "service_result_ownership_finality",
+          "claim_id": "TC-09-03-service_result_ownership_finality",
+          "proposition": "服务中新成果归属已最终确定为甲方。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-52904e04e8da52ce"
+          ],
+          "supporting_evidence_ids": [
+            "EV-52904e04e8da52ce"
+          ],
+          "source_clause_ids": [
+            "C0030"
+          ],
+          "source_spans": [
+            "在本合同有效期内，甲方利用乙方提交的技术服务成果进一步形成的新技术成果，全部归甲方所有。\n乙方利用甲方提供的技术资料、数据、设备或者其他工作条件形成的新技术成果，其知识产权亦全部归甲方所有。\n乙方在提供技术服务过程中独立形成的算法、模型、软件模块、技术方案、改进成果及专利申请权，均无偿归甲方所有。"
+          ],
+          "source_locations": [
+            "第八条 新技术成果归属"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "服务中新成果归属已最终确定为甲方。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "evidence_refs": [
+            "EV-52904e04e8da52ce"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0030",
+              "quote": "在本合同有效期内，甲方利用乙方提交的技术服务成果进一步形成的新技术成果，全部归甲方所有。\n乙方利用甲方提供的技术资料、数据、设备或者其他工作条件形成的新技术成果，其知识产权亦全部归甲方所有。\n乙方在提供技术服务过程中独立形成的算法、模型、软件模块、技术方案、改进成果及专利申请权，均无偿归甲方所有。"
+            }
+          ]
+        },
+        {
+          "review_id": "TC-09-03",
+          "element_id": "service_result_use_boundary",
+          "claim_id": "TC-09-03-service_result_use_boundary",
+          "proposition": "报告内部使用、对外提供及服务方后续复用边界",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "报告内部使用、对外提供及服务方后续复用边界",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        }
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0030",
+          "evidence_id": "SRC-265c66dad98669dd5730",
+          "quote": "在本合同有效期内，甲方利用乙方提交的技术服务成果进一步形成的新技术成果，全部归甲方所有。\n乙方利用甲方提供的技术资料、数据、设备或者其他工作条件形成的新技术成果，其知识产权亦全部归甲方所有。\n乙方在提供技术服务过程中独立形成的算法、模型、软件模块、技术方案、改进成果及专利申请权，均无偿归甲方所有。",
+          "location": "第八条 新技术成果归属",
+          "supporting_element_ids": [
+            "service_result_scope",
+            "service_result_ownership_finality"
+          ]
+        },
+        {
+          "clause_id": "C0030",
+          "evidence_id": "SRC-265c66dad98669dd5730",
+          "quote": "在本合同有效期内，甲方利用乙方提交的技术服务成果进一步形成的新技术成果，全部归甲方所有。\n乙方利用甲方提供的技术资料、数据、设备或者其他工作条件形成的新技术成果，其知识产权亦全部归甲方所有。\n乙方在提供技术服务过程中独立形成的算法、模型、软件模块、技术方案、改进成果及专利申请权，均无偿归甲方所有。",
+          "location": "第八条 新技术成果归属",
+          "supporting_element_ids": [
+            "service_result_scope",
+            "service_result_ownership_finality"
+          ]
+        },
+        {
+          "clause_id": "C0030",
+          "evidence_id": "SRC-265c66dad98669dd5730",
+          "quote": "在本合同有效期内，甲方利用乙方提交的技术服务成果进一步形成的新技术成果，全部归甲方所有。\n乙方利用甲方提供的技术资料、数据、设备或者其他工作条件形成的新技术成果，其知识产权亦全部归甲方所有。\n乙方在提供技术服务过程中独立形成的算法、模型、软件模块、技术方案、改进成果及专利申请权，均无偿归甲方所有。",
+          "location": "第八条 新技术成果归属",
+          "supporting_element_ids": [
+            "service_result_scope",
+            "service_result_ownership_finality"
+          ]
+        },
+        {
+          "clause_id": "C0029",
+          "evidence_id": "SRC-5559debdf7f8d210bdc0",
+          "quote": "甲方认为技术服务成果未达到要求的，乙方应无条件进行整改，直至甲方认为符合要求。",
+          "location": "第七条 验收",
+          "supporting_element_ids": [
+            "service_result_scope"
+          ]
+        },
+        {
+          "clause_id": "C0029",
+          "evidence_id": "SRC-5559debdf7f8d210bdc0",
+          "quote": "甲方认为技术服务成果未达到要求的，乙方应无条件进行整改，直至甲方认为符合要求。",
+          "location": "第七条 验收",
+          "supporting_element_ids": [
+            "service_result_scope"
+          ]
+        },
+        {
+          "clause_id": "C0033",
+          "evidence_id": "SRC-0bfbb1dc2cd73f7df66b",
+          "quote": "乙方技术服务成果连续两次未通过甲方验收；",
+          "location": "第十一条 合同解除",
+          "supporting_element_ids": [
+            "service_result_scope"
+          ]
+        },
+        {
+          "clause_id": "C0033",
+          "evidence_id": "SRC-0bfbb1dc2cd73f7df66b",
+          "quote": "乙方技术服务成果连续两次未通过甲方验收；",
+          "location": "第十一条 合同解除",
+          "supporting_element_ids": [
+            "service_result_scope"
+          ]
+        },
+        {
+          "clause_id": "C0035",
+          "evidence_id": "SRC-34287356252d2a6bbadc",
+          "quote": "技术服务成果：乙方为履行本合同形成的技术报告、算法参数、测试记录及其他交付成果。\n新技术成果：任何一方基于本项目技术、资料、数据或服务成果形成的改进、优化、算法、软件、模型及其他技术成果。",
+          "location": "第十三条 名词和技术术语",
+          "supporting_element_ids": [
+            "service_result_scope"
+          ]
+        },
+        {
+          "clause_id": "C0035",
+          "evidence_id": "SRC-34287356252d2a6bbadc",
+          "quote": "技术服务成果：乙方为履行本合同形成的技术报告、算法参数、测试记录及其他交付成果。\n新技术成果：任何一方基于本项目技术、资料、数据或服务成果形成的改进、优化、算法、软件、模型及其他技术成果。",
+          "location": "第十三条 名词和技术术语",
+          "supporting_element_ids": [
+            "service_result_scope"
+          ]
+        },
+        {
+          "clause_id": "C0034",
+          "evidence_id": "SRC-ff491caf1d06c5b40b9c",
+          "quote": "乙方保证其提供的全部技术服务成果不存在侵犯任何第三方知识产权的情形。\n如第三方主张乙方技术服务成果侵犯其专利权、著作权、技术秘密或其他权利：\n由乙方负责处理全部争议；",
+          "location": "第十二条 第三方知识产权",
+          "supporting_element_ids": [
+            "service_result_scope"
+          ]
+        },
+        {
+          "clause_id": "C0034",
+          "evidence_id": "SRC-ff491caf1d06c5b40b9c",
+          "quote": "乙方保证其提供的全部技术服务成果不存在侵犯任何第三方知识产权的情形。\n如第三方主张乙方技术服务成果侵犯其专利权、著作权、技术秘密或其他权利：\n由乙方负责处理全部争议；",
+          "location": "第十二条 第三方知识产权",
+          "supporting_element_ids": [
+            "service_result_scope"
+          ]
+        },
+        {
+          "clause_id": "C0037",
+          "evidence_id": "SRC-4030bc3b5b34e7472f22",
+          "quote": "乙方不得采购、使用或者向第三方推荐可以替代本项目技术服务成果的解决方案。",
+          "location": "第十五条 其他事项",
+          "supporting_element_ids": [
+            "service_result_scope"
+          ]
+        },
+        {
+          "clause_id": "C0037",
+          "evidence_id": "SRC-4030bc3b5b34e7472f22",
+          "quote": "乙方不得采购、使用或者向第三方推荐可以替代本项目技术服务成果的解决方案。",
+          "location": "第十五条 其他事项",
+          "supporting_element_ids": [
+            "service_result_scope"
+          ]
+        },
+        {
+          "clause_id": "C0012",
+          "evidence_id": "SRC-518fcf96b86752529499",
+          "quote": "（1）现有BMS系统技术文档；",
+          "location": "第三条（1）",
+          "supporting_element_ids": []
+        },
+        {
+          "clause_id": "C0027",
+          "evidence_id": "SRC-416797eb396c55b41beb",
+          "quote": "保密内容：\n乙方提供的算法方案、技术报告、参数、技术文档及其他未公开技术资料。",
+          "location": "第五条 保密义务",
+          "supporting_element_ids": []
+        },
+        {
+          "clause_id": "C0036",
+          "evidence_id": "SRC-336b945d2ce6d3f52ee4",
+          "quote": "《项目成果交付清单》。",
+          "location": "第十四条 技术文件",
+          "supporting_element_ids": []
+        }
+      ],
+      "gate": {
+        "status": "BLOCKED",
+        "failures": [
+          {
+            "evidence_id": "SRC-265c66dad98669dd5730",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-265c66dad98669dd5730",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-265c66dad98669dd5730",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-5559debdf7f8d210bdc0",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-5559debdf7f8d210bdc0",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-0bfbb1dc2cd73f7df66b",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-0bfbb1dc2cd73f7df66b",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-34287356252d2a6bbadc",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-34287356252d2a6bbadc",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-ff491caf1d06c5b40b9c",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-ff491caf1d06c5b40b9c",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-4030bc3b5b34e7472f22",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-4030bc3b5b34e7472f22",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-518fcf96b86752529499",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-416797eb396c55b41beb",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-336b945d2ce6d3f52ee4",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "element_id": "service_result_scope",
+            "reason": "NO_VERIFIED_SEMANTIC_SUPPORT"
+          },
+          {
+            "element_id": "service_result_ownership_finality",
+            "reason": "NO_VERIFIED_SEMANTIC_SUPPORT"
+          },
+          {
+            "element_id": "service_result_use_boundary",
+            "reason": "NO_VERIFIED_SEMANTIC_SUPPORT"
+          }
+        ],
+        "element_evidence_ids": {
+          "service_result_scope": [],
+          "service_result_ownership_finality": [],
+          "service_result_use_boundary": []
+        }
+      },
+      "negative": {},
+      "family": null
+    },
+    {
+      "rule_id": "TC-09-04",
+      "coverage": "通过",
+      "elements": [
+        {
+          "review_id": "TC-09-04",
+          "element_id": "technical_service_remuneration",
+          "proposition": "技术服务报酬和费用安排",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-33bfc1b7ee99ebe9"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0023"
+          ],
+          "source_spans": [
+            "第四条 技术服务报酬及支付方式\n本项目技术服务费总额为人民币 120万元。\n技术服务费由甲方分期支付：\n（1）合同签订后5个工作日内支付人民币50万元；"
+          ],
+          "source_locations": [
+            "第四条 技术服务报酬及支付方式"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0023"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "EV-33bfc1b7ee99ebe9"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0023",
+              "quote": "第四条 技术服务报酬及支付方式\n本项目技术服务费总额为人民币 120万元。\n技术服务费由甲方分期支付：\n（1）合同签订后5个工作日内支付人民币50万元；"
+            }
+          ],
+          "supporting_evidence_ids": [
+            "EV-33bfc1b7ee99ebe9"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0001",
+          "evidence_id": null,
+          "quote": "技术服务合同 （模拟测试数据） 合同登记编号：JS2026-JSFW-0816 项目名称：新能源汽车电池管理系统技术优化服务项目 委托方（甲方）：江苏恒驰新能源汽车有限公司 受托方（乙方）：南京智控技术有限公司 签订时间：2026年10月15日 签订地点：江苏省南京市 有效期限：2026年10月1日至2027年9月30日 技术服务合同 委托方（甲方）：江苏恒驰新能源汽车有限公司 住所地：江苏省苏州市工业园区星湖街588号 法定代表人：张建国 项目联系人：王伟 通讯地址：江苏省苏州市工业园区星湖街588号 电话：0512-88886666 电子信箱：wangwei@example.com 受托方（乙方）：南京智控技术有限公司 住所地：江苏省南京市江宁区创新大道168号 法定代表人：李明远 项目联系人：陈浩 通讯地址：江苏省南京市江宁区创新大道168号 电话：025-86668888 电子信箱：chenhao@example.com...",
+          "location": "全文",
+          "supporting_element_ids": []
+        },
+        {
+          "clause_id": "C0023",
+          "evidence_id": "SRC-b2387da55adc449a1f32",
+          "quote": "第四条 技术服务报酬及支付方式\n本项目技术服务费总额为人民币 120万元。",
+          "location": "第四条 技术服务报酬及支付方式",
+          "supporting_element_ids": []
+        }
+      ],
+      "gate": {
+        "status": "BLOCKED",
+        "failures": [
+          {
+            "evidence_id": null,
+            "reason": "INVALID_ORIGINAL",
+            "errors": [
+              "QUOTE_NOT_IN_ORIGINAL"
+            ]
+          }
+        ],
+        "element_evidence_ids": {
+          "technical_service_remuneration": [
+            "SRC-b2387da55adc449a1f32"
+          ]
+        }
+      },
+      "negative": {},
+      "family": null
+    }
+  ],
+  "test_patent_application_transfer_consistency": [
+    {
+      "rule_id": "TC-06-04",
+      "coverage": "通过",
+      "elements": [
+        {
+          "review_id": "TC-06-04",
+          "element_id": "registration_responsible_party",
+          "claim_id": "TC-06-04-registration_responsible_party",
+          "proposition": "专利申请权转让登记的具体办理主体",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-29b1f509845c5d887aa1"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-29b1f509845c5d887aa1"
+          ],
+          "source_clause_ids": [
+            "C0015"
+          ],
+          "source_spans": [
+            "第十一条 专利申请权转让登记 本合同签署后，由卖方负责在10个工作日内向国家知识产权局办理专利申请权转让相关手续。"
+          ],
+          "source_locations": [
+            "第十一条 专利申请权转让登记"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "专利申请权转让登记的具体办理主体",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "evidence_level": "CONTRACTUAL_REPRESENTATION",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0015",
+              "quote": "第十一条 专利申请权转让登记 本合同签署后，由卖方负责在10个工作日内向国家知识产权局办理专利申请权转让相关手续。"
+            }
+          ]
+        },
+        {
+          "review_id": "TC-06-04",
+          "element_id": "registration_deadline",
+          "claim_id": "TC-06-04-registration_deadline",
+          "proposition": "专利申请权转让登记的提交期限",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-29b1f509845c5d887aa1"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-29b1f509845c5d887aa1"
+          ],
+          "source_clause_ids": [
+            "C0015"
+          ],
+          "source_spans": [
+            "第十一条 专利申请权转让登记 本合同签署后，由卖方负责在10个工作日内向国家知识产权局办理专利申请权转让相关手续。"
+          ],
+          "source_locations": [
+            "第十一条 专利申请权转让登记"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "专利申请权转让登记的提交期限",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "evidence_level": "CONTRACTUAL_REPRESENTATION",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0015",
+              "quote": "第十一条 专利申请权转让登记 本合同签署后，由卖方负责在10个工作日内向国家知识产权局办理专利申请权转让相关手续。"
+            }
+          ]
+        },
+        {
+          "review_id": "TC-06-04",
+          "element_id": "registration_cooperation",
+          "claim_id": "TC-06-04-registration_cooperation",
+          "proposition": "申请人变更及申请权转让登记材料配合义务",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-29b1f509845c5d887aa1"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-29b1f509845c5d887aa1"
+          ],
+          "source_clause_ids": [
+            "C0015"
+          ],
+          "source_spans": [
+            "第十一条 专利申请权转让登记 本合同签署后，由卖方负责在10个工作日内向国家知识产权局办理专利申请权转让相关手续。"
+          ],
+          "source_locations": [
+            "第十一条 专利申请权转让登记"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "申请人变更及申请权转让登记材料配合义务",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "evidence_level": "CONTRACTUAL_REPRESENTATION",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0015",
+              "quote": "第十一条 专利申请权转让登记 本合同签署后，由卖方负责在10个工作日内向国家知识产权局办理专利申请权转让相关手续。"
+            }
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0015",
+          "evidence_id": "SRC-29b1f509845c5d887aa1",
+          "quote": "第十一条 专利申请权转让登记\n本合同签署后，由卖方负责在10个工作日内向国家知识产权局办理专利申请权转让相关手续。",
+          "location": "第十一条 专利申请权转让登记",
+          "supporting_element_ids": [
+            "registration_responsible_party",
+            "registration_deadline",
+            "registration_cooperation"
+          ]
+        }
+      ],
+      "gate": {
+        "status": "BLOCKED",
+        "failures": [
+          {
+            "evidence_id": "SRC-29b1f509845c5d887aa1",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "element_id": "registration_responsible_party",
+            "reason": "NO_VERIFIED_SEMANTIC_SUPPORT"
+          },
+          {
+            "element_id": "registration_deadline",
+            "reason": "NO_VERIFIED_SEMANTIC_SUPPORT"
+          },
+          {
+            "element_id": "registration_cooperation",
+            "reason": "NO_VERIFIED_SEMANTIC_SUPPORT"
+          }
+        ],
+        "element_evidence_ids": {
+          "registration_responsible_party": [],
+          "registration_deadline": [],
+          "registration_cooperation": []
+        }
+      },
+      "negative": {},
+      "family": null
+    }
+  ]
+}

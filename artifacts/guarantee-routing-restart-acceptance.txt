@@ -1,0 +1,51 @@
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+  warnings.warn(
+{
+  "primary_contract_type": "GUARANTEE",
+  "contract_type_confidence": "high",
+  "secondary_clause_features": [
+    "CONFIDENTIALITY",
+    "NOTICE",
+    "DISPUTE_RESOLUTION"
+  ],
+  "classification_conflict": {
+    "detected": true,
+    "selected": "CONFIDENTIALITY",
+    "document": "GUARANTEE",
+    "resolved": true
+  },
+  "guarantee_features_detected": [
+    "parties",
+    "creditor_debtor",
+    "secured_debt",
+    "undertaking",
+    "period",
+    "scope",
+    "recourse"
+  ],
+  "nda_primary_features_detected": [
+    "information"
+  ],
+  "task_id": "CR-20260908-163855-0CD86A",
+  "worker_pid": 6048,
+  "contract_hash": "dec08149bef6064a8217056ac4ce81ea3b240fa4e065d8478f95fb2a0bd5da6c",
+  "selected_rule_packs": [
+    "GUA"
+  ],
+  "nda_04_01": {
+    "status": "NOT_APPLICABLE",
+    "reason": "主类型为保证合同，未加载独立NDA规则包",
+    "accepted_evidence": []
+  },
+  "final_contract_type": "guarantee",
+  "contract_type_name": "保证合同",
+  "statistics": {
+    "风险条款": 1,
+    "不适用": 20,
+    "通过": 20,
+    "法律提示": 5,
+    "缺失": 1,
+    "待核验": 2
+  },
+  "release_quality_gate": "REPORT_READY"
+}

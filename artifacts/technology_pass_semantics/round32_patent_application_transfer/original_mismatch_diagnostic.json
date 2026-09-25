@@ -1,0 +1,238 @@
+{
+  "raw_gate_failure": {
+    "requirement": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+    "failure_stage": "Review Evidence Projection",
+    "root_cause": "Review evidence is not exactly bound to covered elements: 1 mismatch(es).",
+    "current_status": "FAIL",
+    "mismatches": [
+      {
+        "review_id": "TC-03-03",
+        "element_id": "creator_named_identity",
+        "status": "COVERED",
+        "evidence_refs": [
+          "C0004"
+        ],
+        "direct_evidence_refs": [],
+        "selection_reason": "",
+        "reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership."
+      }
+    ]
+  },
+  "raw_final_element": {
+    "review_id": "TC-03-03",
+    "element_id": "creator_named_identity",
+    "claim_id": "TC-03-03-creator_named_identity",
+    "status": "COVERED",
+    "proposition": "合同已列明发明人或完成人姓名。",
+    "required_fact_key": "technology.creator.named_identity",
+    "evidence_ids": [
+      "C0004"
+    ],
+    "supporting_evidence_ids": [
+      "C0004"
+    ],
+    "source_clause_ids": [
+      "C0004"
+    ],
+    "source_spans": [
+      "第一条 转让标的\n乙方同意将其拥有的下列发明专利申请权转让给甲方：\n专利申请名称：一种基于多模态视觉的工业机器人抓取定位方法及系统\n专利申请号：CN202510246810.5\n申请日：2025年3月12日\n公开（公告）号：CN120345678A\n专利类型：发明专利申请\n当前法律状态：实质审查中，尚未取得授权。\n申请人：广州灵拓智能装备有限公司。\n发明人：\n陈嘉伟\n刘子豪\n周文博\n赵海峰\n本合同转让标的为上述专利申请的全部专利申请权及依法可随专利申请权转移的相关权益。\n专利申请权自国家知识产权局完成申请权转让登记之日起转移至甲方。"
+    ],
+    "source_locations": [
+      "第一条 转让标的"
+    ],
+    "entailment": "SUPPORTS",
+    "verifier_confidence": "high",
+    "fact_status": "FOUND",
+    "fact_value": "陈嘉伟",
+    "fact_evidence_refs": [
+      "F-TECHNOLOGY-CREATOR-NAMED_IDENTITY-001"
+    ],
+    "requirement_status": "SATISFIED",
+    "requirement_reason": "合同已列明发明人或完成人姓名。",
+    "risk_relevant": true,
+    "atomic": true
+  },
+  "raw_published_evidence": {
+    "clause_id": "C0004",
+    "location": "第一条 转让标的",
+    "title": "转让标的",
+    "text": "发明人：\n陈嘉伟",
+    "section_type": "正式合同条款",
+    "level": 1,
+    "raw_text": "第一条 转让标的\n乙方同意将其拥有的下列发明专利申请权转让给甲方：\n专利申请名称：一种基于多模态视觉的工业机器人抓取定位方法及系统\n专利申请号：CN202510246810.5\n申请日：2025年3月12日\n公开（公告）号：CN120345678A\n专利类型：发明专利申请\n当前法律状态：实质审查中，尚未取得授权。\n申请人：广州灵拓智能装备有限公司。\n发明人：\n陈嘉伟\n刘子豪\n周文博\n赵海峰\n本合同转让标的为上述专利申请的全部专利申请权及依法可随专利申请权转移的相关权益。\n专利申请权自国家知识产权局完成申请权转让登记之日起转移至甲方。",
+    "normalized_text": "第一条转让标的乙方同意将其拥有的下列发明专利申请权转让给甲方：专利申请名称：一种基于多模态视觉的工业机器人抓取定位方法及系统专利申请号：CN202510246810.5申请日：2025年3月12日公开（公告）号：CN120345678A专利类型：发明专利申请当前法律状态：实质审查中，尚未取得授权。申请人：广州灵拓智能装备有限公司。发明人：陈嘉伟刘子豪周文博赵海峰本合同转让标的为上述专利申请的全部专利申请权及依法可随专利申请权转移的相关权益。专利申请权自国家知识产权局完成申请权转让登记之日起转移至甲方。",
+    "option_groups": [],
+    "source": "body",
+    "section_path": [
+      "正式合同条款",
+      "第一条 转让标的"
+    ],
+    "heading": "转让标的",
+    "clause_number": "第一条",
+    "paragraph_index": 3,
+    "block_type": "OPERATIVE_CLAUSE",
+    "parties": [
+      "乙方",
+      "甲方"
+    ],
+    "dates": [
+      "2025年3月12日"
+    ],
+    "amounts": [],
+    "percentages": [],
+    "durations": [
+      "2025年",
+      "3月",
+      "12日"
+    ],
+    "cross_references": [
+      "第一条"
+    ],
+    "node_id": "C0004",
+    "document_id": "contract_package/main",
+    "heading_path": [
+      "第一条 转让标的"
+    ],
+    "article_number": "第一条",
+    "section_number": "",
+    "item_number": "",
+    "sentence_index": 1,
+    "start_offset": 197,
+    "end_offset": 466,
+    "source_type": "BODY",
+    "party_obligation": true,
+    "document_type": "MAIN_CONTRACT",
+    "source_document_type": "MAIN_CONTRACT",
+    "evidence_block_type": "OPERATIVE_CLAUSE",
+    "document_name": "合同正文",
+    "section": "第一条 转让标的",
+    "quote": "发明人：\n陈嘉伟",
+    "confidence": "high",
+    "evidence_type": "CONTRACT_TEXT",
+    "source_span": {
+      "start_offset": 373,
+      "end_offset": 381,
+      "raw_text": "发明人：\n陈嘉伟",
+      "coordinate_system": "DOCUMENT_TEXT"
+    },
+    "source_start": 373,
+    "source_end": 381,
+    "source_document": "contract_package/main",
+    "original_document_reference": "contract_package/main",
+    "derived_or_original": "ORIGINAL",
+    "evidence_source": {
+      "document_id": "contract_package/main",
+      "document_type": "MAIN_CONTRACT",
+      "document_name": "合同正文",
+      "clause_id": "C0004",
+      "section": "第一条 转让标的",
+      "sentence_index": 1,
+      "quote": "发明人：\n陈嘉伟",
+      "confidence": "high",
+      "evidence_block_type": "OPERATIVE_CLAUSE",
+      "evidence_type": "CONTRACT_TEXT",
+      "source_span": {
+        "start_offset": 373,
+        "end_offset": 381,
+        "raw_text": "发明人：\n陈嘉伟",
+        "coordinate_system": "DOCUMENT_TEXT"
+      },
+      "derived_or_original": "ORIGINAL",
+      "source_ref": {
+        "document_id": "contract_package/main",
+        "clause_id": "C0004",
+        "clause_sha256": "45ef0fcf0e7d486e55ccc09a51cedfccd68d7d514f85f054dd50848c2c36a5c9",
+        "local_start": 176,
+        "local_end": 184,
+        "locator": "第一条 转让标的"
+      },
+      "verified_original": true
+    },
+    "source_text_hash": "68a5d239671d9eb77dc193a9c3408a1a1fdc2d54e34107d6913eb377675cb015",
+    "source_full_path": [
+      "第一条 转让标的"
+    ],
+    "source_identity": {
+      "document_id": "contract_package/main",
+      "section_id": "正式合同条款",
+      "parent_clause_id": "第一条",
+      "clause_id": "C0004",
+      "document_offset": 197,
+      "source_text_hash": "68a5d239671d9eb77dc193a9c3408a1a1fdc2d54e34107d6913eb377675cb015"
+    },
+    "original_excerpt": "发明人：\n陈嘉伟",
+    "evidence_id": "SRC-917c4a92837af8685b53",
+    "fact_type": "technology_creator_named_identity",
+    "fact_types": [
+      "technology_creator_named_identity"
+    ],
+    "canonical_fact_keys": [
+      "technology.creator.named_identity"
+    ],
+    "support_type": "DIRECT",
+    "entailment_status": "SUPPORTS",
+    "selection_reason": "Specialized proposition matching selected this operative clause.",
+    "evidence_role": "REGISTRY_FACT_EVIDENCE",
+    "semantic_score": 1.0,
+    "supporting_element_ids": [
+      "creator_named_identity"
+    ],
+    "element_ids": [
+      "creator_named_identity"
+    ],
+    "evidence_polarity": "SUPPORTS_PARTIAL",
+    "verified_original": true,
+    "source_verification": {
+      "status": "PASS",
+      "errors": [],
+      "method": "EXACT_PARSER_SOURCE_SPAN"
+    },
+    "quoted_text": "发明人：\n陈嘉伟",
+    "source_ref": {
+      "document_id": "contract_package/main",
+      "clause_id": "C0004",
+      "clause_sha256": "45ef0fcf0e7d486e55ccc09a51cedfccd68d7d514f85f054dd50848c2c36a5c9",
+      "local_start": 176,
+      "local_end": 184,
+      "locator": "第一条 转让标的"
+    },
+    "provenance_validation": {
+      "status": "PASS",
+      "evidence_type": "CONTRACT_TEXT",
+      "errors": []
+    }
+  },
+  "rule_id": "TC-03-03",
+  "component_key": "creator_named_identity",
+  "final_status": "COVERED",
+  "canonical_fact_key": "technology.creator.named_identity",
+  "canonical_fact_value": "陈嘉伟",
+  "evidence_id": "SRC-917c4a92837af8685b53",
+  "clause_id": "C0004",
+  "span": {
+    "start_offset": 373,
+    "end_offset": 381,
+    "raw_text": "发明人：\n陈嘉伟",
+    "coordinate_system": "DOCUMENT_TEXT"
+  },
+  "source_ref": {
+    "document_id": "contract_package/main",
+    "clause_id": "C0004",
+    "clause_sha256": "45ef0fcf0e7d486e55ccc09a51cedfccd68d7d514f85f054dd50848c2c36a5c9",
+    "local_start": 176,
+    "local_end": 184,
+    "locator": "第一条 转让标的"
+  },
+  "quote": "发明人：\n陈嘉伟",
+  "support_type": "DIRECT",
+  "expected_binding": "creator_named_identity -> technology.creator.named_identity -> same-clause DIRECT verified evidence ID and exact quote",
+  "actual_binding": {
+    "element_evidence_refs": [
+      "C0004"
+    ],
+    "published_evidence_id": "SRC-917c4a92837af8685b53",
+    "source_fact_key": null,
+    "supporting_evidence": null
+  },
+  "root_cause": "Registry adapter emitted clause-ID-only element refs and omitted the typed source_fact_key/supporting_evidence consumed by final exact binding."
+}

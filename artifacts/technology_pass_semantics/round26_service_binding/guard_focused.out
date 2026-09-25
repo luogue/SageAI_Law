@@ -1,0 +1,54 @@
+................................................................FFF..    [100%]
+================================== FAILURES ===================================
+_ test_service_claim_keys_use_shared_entailment_schema[\u4e59\u65b9\u627f\u62c5\u5f8b\u5e08\u8d39\u548c\u8bc9\u8bbc\u8d39] _
+backend\tests\test_service_final_fact_binding.py:180: in test_service_claim_keys_use_shared_entailment_schema
+    assert not claim_response_entailment_failures(atoms, clauses, provider='乙方', recipient='甲方')
+E   AssertionError: assert not [{'element_id': 'defense_cost_allocation', 'reason': 'CLAIM_RESPONSE_SOURCE_BINDING_MISMATCH'}]
+E    +  where [{'element_id': 'defense_cost_allocation', 'reason': 'CLAIM_RESPONSE_SOURCE_BINDING_MISMATCH'}] = <function claim_response_entailment_failures at 0x000002665C6BEB90>([{'element_id': 'third_party_claim_trigger', 'required_fact': '第三方权利主张触发情形', 'status': 'COVERED', 'proposition': '第三方权...: 'third_party_compensation', 'required_fact': '第三方侵权赔偿责任', 'status': 'MISSING', 'proposition': '第三方侵权赔偿责任', ...}, ...], [ParsedClause(clause_id='C0001', location='全文', title='全文', text='技术服务合同', section_type='正式合同条款', level=0, raw_text='技...umber='', item_number='', sentence_index=1, start_offset=19, end_offset=50, source_type='BODY', party_obligation=True)], provider='乙方', recipient='甲方')
+_ test_service_claim_keys_use_shared_entailment_schema[\u4e59\u65b9\u8d54\u507f\u7532\u65b9\u76f4\u63a5\u635f\u5931] _
+backend\tests\test_service_final_fact_binding.py:180: in test_service_claim_keys_use_shared_entailment_schema
+    assert not claim_response_entailment_failures(atoms, clauses, provider='乙方', recipient='甲方')
+E   AssertionError: assert not [{'element_id': 'direct_damage', 'reason': 'CLAIM_RESPONSE_SOURCE_BINDING_MISMATCH'}]
+E    +  where [{'element_id': 'direct_damage', 'reason': 'CLAIM_RESPONSE_SOURCE_BINDING_MISMATCH'}] = <function claim_response_entailment_failures at 0x000002665C6BEB90>([{'element_id': 'third_party_claim_trigger', 'required_fact': '第三方权利主张触发情形', 'status': 'COVERED', 'proposition': '第三方权...: 'third_party_compensation', 'required_fact': '第三方侵权赔偿责任', 'status': 'MISSING', 'proposition': '第三方侵权赔偿责任', ...}, ...], [ParsedClause(clause_id='C0001', location='全文', title='全文', text='技术服务合同', section_type='正式合同条款', level=0, raw_text='技...umber='', item_number='', sentence_index=1, start_offset=19, end_offset=49, source_type='BODY', party_obligation=True)], provider='乙方', recipient='甲方')
+_ test_service_claim_keys_use_shared_entailment_schema[\u4e59\u65b9\u8d1f\u8d23\u9009\u62e9\u5f8b\u5e08] _
+backend\tests\test_service_final_fact_binding.py:180: in test_service_claim_keys_use_shared_entailment_schema
+    assert not claim_response_entailment_failures(atoms, clauses, provider='乙方', recipient='甲方')
+E   AssertionError: assert not [{'element_id': 'lawyer_selection', 'reason': 'CLAIM_RESPONSE_SOURCE_BINDING_MISMATCH'}]
+E    +  where [{'element_id': 'lawyer_selection', 'reason': 'CLAIM_RESPONSE_SOURCE_BINDING_MISMATCH'}] = <function claim_response_entailment_failures at 0x000002665C6BEB90>([{'element_id': 'third_party_claim_trigger', 'required_fact': '第三方权利主张触发情形', 'status': 'COVERED', 'proposition': '第三方权...: 'third_party_compensation', 'required_fact': '第三方侵权赔偿责任', 'status': 'MISSING', 'proposition': '第三方侵权赔偿责任', ...}, ...], [ParsedClause(clause_id='C0001', location='全文', title='全文', text='技术服务合同', section_type='正式合同条款', level=0, raw_text='技...umber='', item_number='', sentence_index=1, start_offset=19, end_offset=47, source_type='BODY', party_obligation=True)], provider='乙方', recipient='甲方')
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:159
+  F:\ai\Sage\backend\main.py:159: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_service_final_fact_binding.py::test_service_claim_keys_use_shared_entailment_schema[\u4e59\u65b9\u627f\u62c5\u5f8b\u5e08\u8d39\u548c\u8bc9\u8bbc\u8d39]
+FAILED backend/tests/test_service_final_fact_binding.py::test_service_claim_keys_use_shared_entailment_schema[\u4e59\u65b9\u8d54\u507f\u7532\u65b9\u76f4\u63a5\u635f\u5931]
+FAILED backend/tests/test_service_final_fact_binding.py::test_service_claim_keys_use_shared_entailment_schema[\u4e59\u65b9\u8d1f\u8d23\u9009\u62e9\u5f8b\u5e08]
+3 failed, 66 passed, 5 warnings in 53.53s

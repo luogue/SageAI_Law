@@ -27,7 +27,7 @@
                             ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                       推理层 (Inference Layer)                  │
-│  加载提示词模板 → 填充事实数据 → 调用千问API → 生成原始报告       │
+│  加载提示词模板 → 填充事实数据 → 调用DeepSeek API → 生成原始报告       │
 └───────────────────────────┬─────────────────────────────────────┘
                             │
                             ▼
@@ -48,7 +48,7 @@
 | 层级 | 职责 | 关键功能 |
 |------|------|----------|
 | **输入层** | 接收和解析输入 | 文件上传、文本提取、事实识别 |
-| **推理层** | 生成分析报告 | 提示词构建、千问API调用 |
+| **推理层** | 生成分析报告 | 提示词构建、DeepSeek API调用 |
 | **校验层** | 验证报告质量 | 格式检查、置信度验证、来源抽查 |
 | **输出封装层** | 格式化输出 | 统一格式、元数据、多格式支持 |
 
@@ -107,9 +107,9 @@ pip install -r requirements.txt
 ```bash
 cp .env.example .env
 ```
-编辑 `.env` 文件，添加你的阿里云DashScope API Key：
+编辑 `backend/.env` 文件，添加你的DeepSeek API Key：
 ```
-DASHSCOPE_API_KEY=your-api-key-here
+DEEPSEEK_API_KEY=your-api-key-here
 ```
 
 4. 启动后端服务：
@@ -170,7 +170,7 @@ uvicorn main:app --host 0.0.0.0 --port 8000
   "result": "合同审查报告内容...",
   "metadata": {
     "timestamp": "2024-01-01 12:00:00",
-    "model_version": "qwen-max",
+    "model_version": "deepseek-chat",
     "confidence_score": 0.85,
     "validation_status": "pass"
   },
@@ -228,7 +228,7 @@ uvicorn main:app --host 0.0.0.0 --port 8000
 
 ## 注意事项
 
-1. 请确保已正确配置阿里云DashScope API Key
+1. 请确保已正确配置DeepSeek API Key
 2. 上传文件大小限制为10MB
 3. 支持的文件格式：.docx、.txt、.pdf
 4. 大模型调用可能产生费用，请合理使用

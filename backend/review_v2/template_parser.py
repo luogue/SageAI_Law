@@ -19,6 +19,37 @@ OPTION_MARKS = CHECK_MARKS | UNCHECK_MARKS
 OPTION_MARK_CLASS = "".join(re.escape(mark) for mark in sorted(OPTION_MARKS))
 
 
+def inactive_alternative_lines(text):
+    """Resolve explicit numbered selectors within their list, retaining raw lines.
+
+    No selector means no inference that a numbered provision is an alternative.
+    Checkbox exclusions require an affirmative check in that same block.
+    """
+    excluded = set()
+    selected = None
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+    blocks, block = {}, 0
+    for index,line in enumerate(lines):
+        if re.match(r'^(?:\d+[、．.]|第[一二三四五六七八九十\d]+条)', line):
+            block += 1
+        blocks[index] = block
+    checked_blocks = {blocks[i] for i,line in enumerate(lines) if re.match(r'^[☑☒√■✅]',line)}
+    for index,line in enumerate(lines):
+        selector = re.search(r'(?:按(?:照)?(?:以下|下列)?|选择|选用|采用|因下列)[^。；]{0,12}第\s*[（(]?([\d一二三四五六七八九十]+)[）)]?\s*[项条]', line)
+        if selector:
+            selected = selector[1]
+        elif re.match(r'^(?:\d+[、．.]|第[一二三四五六七八九十\d]+条)', line):
+            selected = None
+        option = re.match(r'^[（(]([\d一二三四五六七八九十]+)[）)]', line)
+        if option and selected is not None:
+            number = lambda s: str('零一二三四五六七八九十'.index(s)) if s in '零一二三四五六七八九十' else s
+            if number(option[1]) != number(selected):
+                excluded.add(line)
+        if blocks[index] in checked_blocks and re.match(r'^[□☐○◇]', line):
+            excluded.add(line)
+    return excluded
+
+
 @dataclass(frozen=True)
 class TemplateOption:
     label: str

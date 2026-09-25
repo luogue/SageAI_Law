@@ -1,0 +1,2067 @@
+{
+  "file": "F:\\ai\\Sage\\test_data\\98 借款合同.docx",
+  "file_sha256": "b0add44adf035d4025d62b511645cb2cc324eab094a3511a27c9cc7129c2b809",
+  "source_sha256": "53b70b7ac320a8fd97d6601625c3ee1cea32f196094c1d131a4b9b0a7f7962ba",
+  "source_characters": 2183,
+  "status": "BLOCKED",
+  "error": "FactExtractionError: FACT_VERIFICATION_REJECTED",
+  "diagnostics": [
+    {
+      "failed_stage": "UNIFIED_FACT_VALIDATION",
+      "fact_id": null,
+      "field": "checks",
+      "validation_rule": "FACT_VERIFICATION_REJECTED",
+      "model_raw_value": null,
+      "evidence": null,
+      "expected": null,
+      "actual": [
+        {
+          "fact_id": "CF-3e91b5876b25ab393de75257",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-781b7a99340e03da9fdf13bd",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-d0de5eb422a43413891a8112",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-ddd00db4d2221fdd6572ebce",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-b968dd8556f4c5e62ed0fb53",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-9de92ab8a9f32d072acc3e10",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-df6b884d25e6ea7217d9cb23",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-71b85e6abc4e55f6f94fce29",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-971cf26e95663c1bd25c1e60",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-018ac6a938aa7b1faecbceb5",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-11aba8dd6f5f91d1559dc876",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-c556dbbfec2713cfcb2e4489",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-dc3b80d3ea4f58ce184d9a7c",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-ba9801b894d01eee44f19642",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-7494bbbd68a89063f6d030e1",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-2129155891ab5234b992d8ff",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-629495ce2e1d76c347968fb3",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-fe89e2d709711cfd0abb2633",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-5db4f82ed096cb5a0ab7b43b",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-eddc06e891e3772826ab1758",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-2af212816f8781ad8e30c19b",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-7c620105897aa13996186cb0",
+          "supported": false
+        }
+      ],
+      "disposition": "BLOCK"
+    }
+  ],
+  "attempts": [
+    {
+      "raw_extraction": {
+        "schema_version": "contract-facts-1.0",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021",
+          "C0022",
+          "C0023"
+        ],
+        "searched_concepts": [
+          "common.parties",
+          "common.signing_date",
+          "common.effective_date",
+          "common.effective_condition",
+          "common.term",
+          "common.amounts",
+          "common.liability",
+          "common.dispute_method",
+          "common.dispute_institution",
+          "loan.lender_kind",
+          "loan.borrower_kind",
+          "loan.guarantee"
+        ],
+        "observations": [
+          {
+            "concept": "common.parties",
+            "state": "PRESENT",
+            "value": {
+              "name": "山西银行股份有限公司太原迎泽支行",
+              "role": "贷款人",
+              "kind": "FINANCIAL"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0001",
+                "quote": "贷款人：山西银行股份有限公司太原迎泽支行"
+              },
+              {
+                "clause_id": "C0023",
+                "quote": "贷款人：山西银行股份有限公司太原迎泽支行"
+              }
+            ]
+          },
+          {
+            "concept": "common.parties",
+            "state": "PRESENT",
+            "value": {
+              "name": "张明远",
+              "role": "借款人",
+              "kind": "NATURAL"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0001",
+                "quote": "借款人：张明远"
+              },
+              {
+                "clause_id": "C0002",
+                "quote": "姓名：张明远"
+              },
+              {
+                "clause_id": "C0023",
+                "quote": "借款人：张明远"
+              }
+            ]
+          },
+          {
+            "concept": "common.signing_date",
+            "state": "PRESENT",
+            "value": "2026-09-15",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0023",
+                "quote": "签订日期：2026年9月15日"
+              }
+            ]
+          },
+          {
+            "concept": "common.effective_date",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "common.effective_condition",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "common.term",
+            "state": "PRESENT",
+            "value": {
+              "amount": "24",
+              "unit": "MONTH"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0005",
+                "quote": "贷款期限：24个月"
+              }
+            ]
+          },
+          {
+            "concept": "common.amounts",
+            "state": "PRESENT",
+            "value": {
+              "amount": "120000.00",
+              "currency": "CNY",
+              "role": "贷款金额"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0003",
+                "quote": "贷款金额（大写）：人民币壹拾贰万元整"
+              },
+              {
+                "clause_id": "C0003",
+                "quote": "贷款金额（小写）：¥120,000.00"
+              }
+            ]
+          },
+          {
+            "concept": "common.amounts",
+            "state": "PRESENT",
+            "value": {
+              "amount": "120000.00",
+              "currency": "CNY",
+              "role": "支付金额"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0012",
+                "quote": "支付金额：人民币120,000.00元"
+              }
+            ]
+          },
+          {
+            "concept": "common.amounts",
+            "state": "PRESENT",
+            "value": {
+              "amount": "136800.00",
+              "currency": "CNY",
+              "role": "交易合同金额"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0013",
+                "quote": "合同金额：人民币136,800.00元"
+              }
+            ]
+          },
+          {
+            "concept": "common.amounts",
+            "state": "PRESENT",
+            "value": {
+              "amount": "120000.00",
+              "currency": "CNY",
+              "role": "贷款支付金额"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0013",
+                "quote": "贷款支付金额：人民币120,000.00元"
+              }
+            ]
+          },
+          {
+            "concept": "common.amounts",
+            "state": "PRESENT",
+            "value": {
+              "amount": "16800.00",
+              "currency": "CNY",
+              "role": "借款人自有资金支付"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0013",
+                "quote": "借款人自有资金支付：人民币16,800.00元"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "借款人未按期偿还贷款本息的，构成违约。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": [
+              {
+                "clause_id": "C0021",
+                "quote": "借款人未按期偿还贷款本息的，构成违约。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "借款人改变贷款用途的，构成违约。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": [
+              {
+                "clause_id": "C0021",
+                "quote": "借款人改变贷款用途的，构成违约。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "借款人提供虚假贷款资料的，构成违约。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": [
+              {
+                "clause_id": "C0021",
+                "quote": "借款人提供虚假贷款资料的，构成违约。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "借款人信用状况或者偿债能力明显恶化的，贷款人可以要求补充担保。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": [
+              {
+                "clause_id": "C0021",
+                "quote": "借款人信用状况或者偿债能力明显恶化的，贷款人可以要求补充担保。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "发生严重违约时，贷款人有权宣布全部贷款提前到期。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": [
+              {
+                "clause_id": "C0021",
+                "quote": "发生严重违约时，贷款人有权宣布全部贷款提前到期。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "贷款人有权要求借款人承担实现债权产生的诉讼费、保全费、执行费、律师费、评估费、拍卖费等费用。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": [
+              {
+                "clause_id": "C0021",
+                "quote": "贷款人有权要求借款人承担实现债权产生的诉讼费、保全费、执行费、律师费、评估费、拍卖费等费用。"
+              }
+            ]
+          },
+          {
+            "concept": "common.dispute_method",
+            "state": "PRESENT",
+            "value": "LITIGATION",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0022",
+                "quote": "争议解决方式：诉讼"
+              }
+            ]
+          },
+          {
+            "concept": "common.dispute_institution",
+            "state": "PRESENT",
+            "value": "贷款人所在地有管辖权的人民法院",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0022",
+                "quote": "管辖法院：贷款人所在地有管辖权的人民法院"
+              }
+            ]
+          },
+          {
+            "concept": "loan.lender_kind",
+            "state": "PRESENT",
+            "value": "financial",
+            "assertion": "INFERRED",
+            "confidence": 0.85,
+            "evidence": [
+              {
+                "clause_id": "C0001",
+                "quote": "贷款人：山西银行股份有限公司太原迎泽支行"
+              }
+            ]
+          },
+          {
+            "concept": "loan.borrower_kind",
+            "state": "PRESENT",
+            "value": "natural",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0002",
+                "quote": "姓名：张明远"
+              },
+              {
+                "clause_id": "C0002",
+                "quote": "证件类型：居民身份证"
+              }
+            ]
+          },
+          {
+            "concept": "loan.guarantee",
+            "state": "EXPLICIT_NONE",
+            "assertion": "EXPLICIT",
+            "confidence": 0.85,
+            "evidence": [
+              {
+                "clause_id": "C0018",
+                "quote": "增信方式：个人贷款保证保险"
+              }
+            ]
+          }
+        ]
+      },
+      "verification": {
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021",
+          "C0022",
+          "C0023"
+        ],
+        "searched_concepts": [
+          "common.parties",
+          "common.signing_date",
+          "common.effective_date",
+          "common.effective_condition",
+          "common.term",
+          "common.amounts",
+          "common.liability",
+          "common.dispute_method",
+          "common.dispute_institution",
+          "loan.lender_kind",
+          "loan.borrower_kind",
+          "loan.guarantee"
+        ],
+        "checks": [
+          {
+            "fact_id": "CF-3e91b5876b25ab393de75257",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-781b7a99340e03da9fdf13bd",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-d0de5eb422a43413891a8112",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-ddd00db4d2221fdd6572ebce",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-b968dd8556f4c5e62ed0fb53",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-9de92ab8a9f32d072acc3e10",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-df6b884d25e6ea7217d9cb23",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-71b85e6abc4e55f6f94fce29",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-971cf26e95663c1bd25c1e60",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-018ac6a938aa7b1faecbceb5",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-11aba8dd6f5f91d1559dc876",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-c556dbbfec2713cfcb2e4489",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-dc3b80d3ea4f58ce184d9a7c",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-ba9801b894d01eee44f19642",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-7494bbbd68a89063f6d030e1",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-2129155891ab5234b992d8ff",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-629495ce2e1d76c347968fb3",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-fe89e2d709711cfd0abb2633",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-5db4f82ed096cb5a0ab7b43b",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-eddc06e891e3772826ab1758",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-2af212816f8781ad8e30c19b",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-7c620105897aa13996186cb0",
+            "supported": false
+          }
+        ],
+        "audits": [
+          {
+            "concept": "common.parties",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "全文仅出现贷款人山西银行股份有限公司太原迎泽支行与借款人张明远两个合同主体，C0001、C0002、C0023均有明确记载，无其他主体遗漏。"
+          },
+          {
+            "concept": "common.signing_date",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "C0023明确载明签订日期：2026年9月15日，其他条款无签署日期，无遗漏。"
+          },
+          {
+            "concept": "common.effective_date",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "全文未出现合同生效日期的明确约定，贷款起始日、放款日、签订日期均非生效日期，无遗漏。"
+          },
+          {
+            "concept": "common.effective_condition",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "全文未约定合同生效条件，无遗漏。"
+          },
+          {
+            "concept": "common.term",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "C0005明确贷款期限24个月，其他条款无其他期限约定，无遗漏。"
+          },
+          {
+            "concept": "common.amounts",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "已提取贷款金额120000元、支付金额120000元、交易合同金额136800元、贷款支付金额120000元、借款人自有资金支付16800元；C0006利率、C0009罚息利率、C0018保费均非合同金额，无遗漏。"
+          },
+          {
+            "concept": "common.liability",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "C0021已提取全部违约情形、补充担保、提前到期及实现债权费用责任；C0009罚息、C0016提前还款限制、C0020承诺均非责任分配条款，无遗漏。"
+          },
+          {
+            "concept": "common.dispute_method",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "C0022明确争议解决方式为诉讼，无其他争议解决方式约定，无遗漏。"
+          },
+          {
+            "concept": "common.dispute_institution",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "C0022明确管辖法院为贷款人所在地有管辖权的人民法院，无遗漏。"
+          },
+          {
+            "concept": "loan.lender_kind",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "C0001、C0023显示贷款人为山西银行股份有限公司太原迎泽支行，银行分支机构属金融机构，无遗漏。"
+          },
+          {
+            "concept": "loan.borrower_kind",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "C0002显示借款人张明远为居民身份证自然人，无遗漏。"
+          },
+          {
+            "concept": "loan.guarantee",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "C0018约定的是个人贷款保证保险，属于保险增信而非人的保证关系；全文无保证人、保证合同或保证条款，当前不存在已设立的人的保证关系，无遗漏。"
+          }
+        ]
+      },
+      "diagnostics": [
+        {
+          "failed_stage": "UNIFIED_FACT_VALIDATION",
+          "fact_id": null,
+          "field": "checks",
+          "validation_rule": "FACT_VERIFICATION_REJECTED",
+          "model_raw_value": null,
+          "evidence": null,
+          "expected": null,
+          "actual": [
+            {
+              "fact_id": "CF-3e91b5876b25ab393de75257",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-781b7a99340e03da9fdf13bd",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-d0de5eb422a43413891a8112",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-ddd00db4d2221fdd6572ebce",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-b968dd8556f4c5e62ed0fb53",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-9de92ab8a9f32d072acc3e10",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-df6b884d25e6ea7217d9cb23",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-71b85e6abc4e55f6f94fce29",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-971cf26e95663c1bd25c1e60",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-018ac6a938aa7b1faecbceb5",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-11aba8dd6f5f91d1559dc876",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-c556dbbfec2713cfcb2e4489",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-dc3b80d3ea4f58ce184d9a7c",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-ba9801b894d01eee44f19642",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-7494bbbd68a89063f6d030e1",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-2129155891ab5234b992d8ff",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-629495ce2e1d76c347968fb3",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-fe89e2d709711cfd0abb2633",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-5db4f82ed096cb5a0ab7b43b",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-eddc06e891e3772826ab1758",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-2af212816f8781ad8e30c19b",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-7c620105897aa13996186cb0",
+              "supported": false
+            }
+          ],
+          "disposition": "BLOCK"
+        }
+      ]
+    },
+    {
+      "raw_extraction": {
+        "schema_version": "contract-facts-1.0",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021",
+          "C0022",
+          "C0023"
+        ],
+        "searched_concepts": [
+          "common.parties",
+          "common.signing_date",
+          "common.effective_date",
+          "common.effective_condition",
+          "common.term",
+          "common.amounts",
+          "common.liability",
+          "common.dispute_method",
+          "common.dispute_institution",
+          "loan.lender_kind",
+          "loan.borrower_kind",
+          "loan.guarantee"
+        ],
+        "observations": [
+          {
+            "concept": "common.parties",
+            "state": "PRESENT",
+            "value": {
+              "name": "山西银行股份有限公司太原迎泽支行",
+              "role": "贷款人",
+              "kind": "FINANCIAL"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0001",
+                "quote": "贷款人：山西银行股份有限公司太原迎泽支行"
+              },
+              {
+                "clause_id": "C0023",
+                "quote": "贷款人：山西银行股份有限公司太原迎泽支行"
+              }
+            ]
+          },
+          {
+            "concept": "common.parties",
+            "state": "PRESENT",
+            "value": {
+              "name": "张明远",
+              "role": "借款人",
+              "kind": "NATURAL"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0001",
+                "quote": "借款人：张明远"
+              },
+              {
+                "clause_id": "C0002",
+                "quote": "姓名：张明远"
+              },
+              {
+                "clause_id": "C0023",
+                "quote": "借款人：张明远"
+              }
+            ]
+          },
+          {
+            "concept": "common.signing_date",
+            "state": "PRESENT",
+            "value": "2026-09-15",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0023",
+                "quote": "签订日期：2026年9月15日"
+              }
+            ]
+          },
+          {
+            "concept": "common.effective_date",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "common.effective_condition",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "common.term",
+            "state": "PRESENT",
+            "value": {
+              "amount": "24",
+              "unit": "MONTH"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0005",
+                "quote": "贷款期限：24个月"
+              }
+            ]
+          },
+          {
+            "concept": "common.amounts",
+            "state": "PRESENT",
+            "value": {
+              "amount": "120000.00",
+              "currency": "CNY",
+              "role": "贷款金额"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0003",
+                "quote": "贷款金额（大写）：人民币壹拾贰万元整"
+              },
+              {
+                "clause_id": "C0003",
+                "quote": "贷款金额（小写）：¥120,000.00"
+              }
+            ]
+          },
+          {
+            "concept": "common.amounts",
+            "state": "PRESENT",
+            "value": {
+              "amount": "120000.00",
+              "currency": "CNY",
+              "role": "支付金额"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0012",
+                "quote": "支付金额：人民币120,000.00元"
+              }
+            ]
+          },
+          {
+            "concept": "common.amounts",
+            "state": "PRESENT",
+            "value": {
+              "amount": "136800.00",
+              "currency": "CNY",
+              "role": "交易合同金额"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0013",
+                "quote": "合同金额：人民币136,800.00元"
+              }
+            ]
+          },
+          {
+            "concept": "common.amounts",
+            "state": "PRESENT",
+            "value": {
+              "amount": "120000.00",
+              "currency": "CNY",
+              "role": "贷款支付金额"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0013",
+                "quote": "贷款支付金额：人民币120,000.00元"
+              }
+            ]
+          },
+          {
+            "concept": "common.amounts",
+            "state": "PRESENT",
+            "value": {
+              "amount": "16800.00",
+              "currency": "CNY",
+              "role": "借款人自有资金支付"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0013",
+                "quote": "借款人自有资金支付：人民币16,800.00元"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "借款人未按期偿还贷款本息的，构成违约。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": [
+              {
+                "clause_id": "C0021",
+                "quote": "借款人未按期偿还贷款本息的，构成违约。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "借款人改变贷款用途的，构成违约。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": [
+              {
+                "clause_id": "C0021",
+                "quote": "借款人改变贷款用途的，构成违约。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "借款人提供虚假贷款资料的，构成违约。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": [
+              {
+                "clause_id": "C0021",
+                "quote": "借款人提供虚假贷款资料的，构成违约。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "借款人信用状况或者偿债能力明显恶化的，贷款人可以要求补充担保。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": [
+              {
+                "clause_id": "C0021",
+                "quote": "借款人信用状况或者偿债能力明显恶化的，贷款人可以要求补充担保。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "发生严重违约时，贷款人有权宣布全部贷款提前到期。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": [
+              {
+                "clause_id": "C0021",
+                "quote": "发生严重违约时，贷款人有权宣布全部贷款提前到期。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "贷款人有权要求借款人承担实现债权产生的诉讼费、保全费、执行费、律师费、评估费、拍卖费等费用。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": [
+              {
+                "clause_id": "C0021",
+                "quote": "贷款人有权要求借款人承担实现债权产生的诉讼费、保全费、执行费、律师费、评估费、拍卖费等费用。"
+              }
+            ]
+          },
+          {
+            "concept": "common.dispute_method",
+            "state": "PRESENT",
+            "value": "LITIGATION",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0022",
+                "quote": "争议解决方式：诉讼"
+              }
+            ]
+          },
+          {
+            "concept": "common.dispute_institution",
+            "state": "PRESENT",
+            "value": "贷款人所在地有管辖权的人民法院",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0022",
+                "quote": "管辖法院：贷款人所在地有管辖权的人民法院"
+              }
+            ]
+          },
+          {
+            "concept": "loan.lender_kind",
+            "state": "PRESENT",
+            "value": "financial",
+            "assertion": "INFERRED",
+            "confidence": 0.85,
+            "evidence": [
+              {
+                "clause_id": "C0001",
+                "quote": "贷款人：山西银行股份有限公司太原迎泽支行"
+              }
+            ]
+          },
+          {
+            "concept": "loan.borrower_kind",
+            "state": "PRESENT",
+            "value": "natural",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0002",
+                "quote": "姓名：张明远"
+              },
+              {
+                "clause_id": "C0002",
+                "quote": "证件类型：居民身份证"
+              }
+            ]
+          },
+          {
+            "concept": "loan.guarantee",
+            "state": "EXPLICIT_NONE",
+            "assertion": "EXPLICIT",
+            "confidence": 0.85,
+            "evidence": [
+              {
+                "clause_id": "C0018",
+                "quote": "增信方式：个人贷款保证保险"
+              }
+            ]
+          }
+        ]
+      },
+      "verification": {
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021",
+          "C0022",
+          "C0023"
+        ],
+        "searched_concepts": [
+          "common.parties",
+          "common.signing_date",
+          "common.effective_date",
+          "common.effective_condition",
+          "common.term",
+          "common.amounts",
+          "common.liability",
+          "common.dispute_method",
+          "common.dispute_institution",
+          "loan.lender_kind",
+          "loan.borrower_kind",
+          "loan.guarantee"
+        ],
+        "checks": [
+          {
+            "fact_id": "CF-3e91b5876b25ab393de75257",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-781b7a99340e03da9fdf13bd",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-d0de5eb422a43413891a8112",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-ddd00db4d2221fdd6572ebce",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-b968dd8556f4c5e62ed0fb53",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-9de92ab8a9f32d072acc3e10",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-df6b884d25e6ea7217d9cb23",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-71b85e6abc4e55f6f94fce29",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-971cf26e95663c1bd25c1e60",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-018ac6a938aa7b1faecbceb5",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-11aba8dd6f5f91d1559dc876",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-c556dbbfec2713cfcb2e4489",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-dc3b80d3ea4f58ce184d9a7c",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-ba9801b894d01eee44f19642",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-7494bbbd68a89063f6d030e1",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-2129155891ab5234b992d8ff",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-629495ce2e1d76c347968fb3",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-fe89e2d709711cfd0abb2633",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-5db4f82ed096cb5a0ab7b43b",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-eddc06e891e3772826ab1758",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-2af212816f8781ad8e30c19b",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-7c620105897aa13996186cb0",
+            "supported": false
+          }
+        ],
+        "audits": [
+          {
+            "concept": "common.parties",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "全文仅出现贷款人山西银行股份有限公司太原迎泽支行（C0001、C0023）与借款人张明远（C0001、C0002、C0023）两个合同主体；C0012交易对象山西恒居家装有限公司为交易对象而非合同主体，C0018保险公司为增信主体而非借款合同主体，均不属common.parties。"
+          },
+          {
+            "concept": "common.signing_date",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "C0023明确载明“签订日期：2026年9月15日”，其他条款无签署日期，无遗漏。"
+          },
+          {
+            "concept": "common.effective_date",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "全文未出现合同生效日期的明确约定；C0005贷款起始日、C0010预计放款日、C0023签订日期均非生效日期，无遗漏。"
+          },
+          {
+            "concept": "common.effective_condition",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "全文未约定合同生效条件，无遗漏。"
+          },
+          {
+            "concept": "common.term",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "C0005明确“贷款期限：24个月”，其他条款无其他期限约定，无遗漏。"
+          },
+          {
+            "concept": "common.amounts",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "已提取C0003贷款金额120000元、C0012支付金额120000元、C0013交易合同金额136800元、贷款支付金额120000元、借款人自有资金支付16800元；C0006利率、C0009罚息利率、C0018保费均非合同金额，无遗漏。"
+          },
+          {
+            "concept": "common.liability",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "C0021已提取全部违约情形、补充担保、提前到期及实现债权费用责任；C0009罚息、C0016提前还款限制、C0020承诺均非责任分配条款，无遗漏。"
+          },
+          {
+            "concept": "common.dispute_method",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "C0022明确“争议解决方式：诉讼”，无其他争议解决方式约定，无遗漏。"
+          },
+          {
+            "concept": "common.dispute_institution",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "C0022明确“管辖法院：贷款人所在地有管辖权的人民法院”，无遗漏。"
+          },
+          {
+            "concept": "loan.lender_kind",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "C0001、C0023显示贷款人为山西银行股份有限公司太原迎泽支行，银行分支机构属金融机构，无遗漏。"
+          },
+          {
+            "concept": "loan.borrower_kind",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "C0002显示借款人张明远为居民身份证自然人，无遗漏。"
+          },
+          {
+            "concept": "loan.guarantee",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "C0018约定的是个人贷款保证保险，属于保险增信而非人的保证关系；全文无保证人、保证合同或保证条款，当前不存在已设立的人的保证关系，无遗漏。"
+          }
+        ]
+      },
+      "diagnostics": [
+        {
+          "failed_stage": "UNIFIED_FACT_VALIDATION",
+          "fact_id": null,
+          "field": "checks",
+          "validation_rule": "FACT_VERIFICATION_REJECTED",
+          "model_raw_value": null,
+          "evidence": null,
+          "expected": null,
+          "actual": [
+            {
+              "fact_id": "CF-3e91b5876b25ab393de75257",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-781b7a99340e03da9fdf13bd",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-d0de5eb422a43413891a8112",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-ddd00db4d2221fdd6572ebce",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-b968dd8556f4c5e62ed0fb53",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-9de92ab8a9f32d072acc3e10",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-df6b884d25e6ea7217d9cb23",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-71b85e6abc4e55f6f94fce29",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-971cf26e95663c1bd25c1e60",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-018ac6a938aa7b1faecbceb5",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-11aba8dd6f5f91d1559dc876",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-c556dbbfec2713cfcb2e4489",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-dc3b80d3ea4f58ce184d9a7c",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-ba9801b894d01eee44f19642",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-7494bbbd68a89063f6d030e1",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-2129155891ab5234b992d8ff",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-629495ce2e1d76c347968fb3",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-fe89e2d709711cfd0abb2633",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-5db4f82ed096cb5a0ab7b43b",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-eddc06e891e3772826ab1758",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-2af212816f8781ad8e30c19b",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-7c620105897aa13996186cb0",
+              "supported": false
+            }
+          ],
+          "disposition": "BLOCK"
+        }
+      ]
+    }
+  ],
+  "calls": 4
+}

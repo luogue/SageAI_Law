@@ -1,0 +1,195 @@
+{
+  "trace_id": "CR-20260912-184356-4A3A8E",
+  "gate": "REPORT_READY",
+  "source_sha256": "37a01d2788729d959a57b49684a2ba07b68fed41046291c9693d9099b9432793",
+  "facts": {
+    "nda.exception_public": {
+      "values": [
+        true
+      ],
+      "coverage": "EXTRACTED",
+      "quotes": [
+        "乙方取得前已经公开并能够从正常公开渠道获得的信息；"
+      ]
+    },
+    "nda.exception_prior": {
+      "values": [],
+      "coverage": "ABSENT",
+      "quotes": []
+    },
+    "nda.incident_response": {
+      "values": [
+        "乙方发现信息被误发、丢失、泄露或者存在未经授权访问的，应尽快向甲方报告，并配合甲方采取合理措施减少损失。"
+      ],
+      "coverage": "EXTRACTED",
+      "quotes": [
+        "乙方发现信息被误发、丢失、泄露或者存在未经授权访问的，应尽快向甲方报告，并配合甲方采取合理措施减少损失。"
+      ]
+    },
+    "nda.remedies": {
+      "values": [
+        "乙方故意或者重大过失违反本协议，给甲方造成实际经济损失的，应依法承担赔偿责任；乙方应向甲方承担的赔偿金额不得低于人民币100,000元；若甲方实际损失超过前述金额，乙方还应赔偿超过部分。"
+      ],
+      "coverage": "EXTRACTED",
+      "quotes": [
+        "乙方故意或者重大过失违反本协议，给甲方造成实际经济损失的，应依法承担赔偿责任。",
+        "乙方应向甲方承担的赔偿金额不得低于人民币100,000元；若甲方实际损失超过前述金额，乙方还应赔偿超过部分。"
+      ]
+    },
+    "non_compete.arrangement": {
+      "values": [
+        "EXISTS"
+      ],
+      "coverage": "EXTRACTED",
+      "quotes": [
+        "甲方认为乙方岗位涉及重要商业秘密，因此乙方离职后原则上不得进入与甲方存在竞争关系的企业工作。",
+        "具体限制范围、期限及补偿标准由双方在乙方离职时另行确定。"
+      ]
+    },
+    "non_compete.businesses": {
+      "values": [],
+      "coverage": "ABSENT",
+      "quotes": []
+    },
+    "non_compete.duration_months": {
+      "values": [],
+      "coverage": "ABSENT",
+      "quotes": []
+    },
+    "non_compete.compensation": {
+      "values": [],
+      "coverage": "ABSENT",
+      "quotes": []
+    },
+    "non_compete.territories": {
+      "values": [],
+      "coverage": "ABSENT"
+    }
+  },
+  "rules": {
+    "NDA-01-01": {
+      "status": "部分覆盖",
+      "elements": [
+        [
+          "employment_secret_scope_1",
+          "COVERED"
+        ],
+        [
+          "nda_exception_public",
+          "COVERED"
+        ],
+        [
+          "nda_exception_prior",
+          "MISSING"
+        ],
+        [
+          "nda_exception_independent",
+          "COVERED"
+        ],
+        [
+          "nda_exception_third_party",
+          "COVERED"
+        ],
+        [
+          "nda_exception_mandatory",
+          "COVERED"
+        ]
+      ],
+      "evidence": [
+        "（七）其他根据具体情况能够合理判断属于甲方非公开经营、技术或者管理信息的资料。",
+        "乙方取得前已经公开并能够从正常公开渠道获得的信息；",
+        "乙方能够证明在未使用甲方任何资料的情况下自行研究、开发形成的信息；",
+        "乙方从第三方合法获得，且该第三方对甲方不存在保密义务的信息。",
+        "乙方因履行岗位职责知悉或者取得的下列未公开信息，均属于本协议保护范围：",
+        "如乙方因司法机关、行政机关、监管机构依法提出的要求而必须提交相关信息，应仅在法律要求范围内提供。",
+        "上述依法进行的信息提供不构成乙方违约。",
+        "（一）产品设计方案、功能需求、版本计划、项目排期及内部测试资料；",
+        "（三）客户身份信息、客户需求、联系方式、采购计划、历史交易记录及商务沟通内容；",
+        "（二）系统账号、后台配置、数据结构、接口资料、源代码及技术实施方案；",
+        "（五）合作伙伴、供应商的身份、价格、结算条件及合作安排；",
+        "（六）甲方根据法律、合同或者其他合法原因需要为第三方保守秘密的信息；",
+        "（四）销售数据、成本数据、收入情况、预算、经营目标、市场投放方案及内部分析材料；"
+      ]
+    },
+    "NDA-04-01": {
+      "status": "通过",
+      "elements": [
+        [
+          "confidentiality_remedies_1",
+          "COVERED"
+        ]
+      ],
+      "evidence": [
+        "乙方故意或者重大过失违反本协议，给甲方造成实际经济损失的，应依法承担赔偿责任。",
+        "乙方应向甲方承担的赔偿金额不得低于人民币100,000元；若甲方实际损失超过前述金额，乙方还应赔偿超过部分。"
+      ]
+    },
+    "EMP-14-01": {
+      "status": "风险条款",
+      "elements": [
+        [
+          "employment_general_penalty_adverse",
+          "COVERED"
+        ]
+      ],
+      "evidence": [
+        "乙方故意或者重大过失违反本协议，给甲方造成实际经济损失的，应依法承担赔偿责任。",
+        "乙方应向甲方承担的赔偿金额不得低于人民币100,000元；若甲方实际损失超过前述金额，乙方还应赔偿超过部分。"
+      ]
+    },
+    "NC-01-01": {
+      "status": "部分覆盖",
+      "elements": [
+        [
+          "employment_noncompete_scope_1",
+          "COVERED"
+        ],
+        [
+          "employment_noncompete_scope_2",
+          "MISSING"
+        ],
+        [
+          "employment_noncompete_scope_3",
+          "MISSING"
+        ]
+      ],
+      "evidence": [
+        "甲方认为乙方岗位涉及重要商业秘密，因此乙方离职后原则上不得进入与甲方存在竞争关系的企业工作。"
+      ]
+    },
+    "NC-02-01": {
+      "status": "缺失",
+      "elements": [
+        [
+          "employment_noncompete_term_1",
+          "MISSING"
+        ],
+        [
+          "employment_noncompete_term_2",
+          "MISSING"
+        ]
+      ],
+      "evidence": []
+    },
+    "NC-03-01": {
+      "status": "待核验",
+      "elements": [
+        [
+          "core_contract_arrangement",
+          "MISSING"
+        ],
+        [
+          "noncompete_reasonableness_prerequisites",
+          "CONDITION_UNRESOLVED"
+        ]
+      ],
+      "evidence": []
+    }
+  },
+  "tests": {
+    "passed": 137,
+    "failed": 0,
+    "new_tests": 28,
+    "live_deepseek_cases": 3
+  }
+}

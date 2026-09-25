@@ -1,0 +1,21 @@
+.................F...................................................... [ 40%]
+........................................................................ [ 80%]
+...................................                                      [100%]
+================================== FAILURES ===================================
+________ test_severity_and_action_counts_match_detail_and_explanation _________
+
+    def test_severity_and_action_counts_match_detail_and_explanation():
+        result = review('社会保险缴纳主体：川海技术有限公司。')
+        assert statistics_gate(result)['status'] == 'REPORT_READY'
+        high = [d for d in result['final_dispositions'] if d['severity'] in {'HIGH', 'CRITICAL'}]
+        for disposition in high:
+            if disposition['final_action'] != 'MUST_CHANGE':
+                assert disposition['downgrade_reason']
+                assert '处理次序说明' in result['result']
+>       assert not high  # Only the personal withholding drafting detail is absent.
+E       AssertionError: assert not [{'risk_id': 'RF-001', 'risk_title': '用工主体与劳动者身份', 'review_ids': ['EMP-01-01'], 'severity': 'HIGH', ...}, {'risk_id': 'RF-005', 'risk_title': '工资标准与支付', 'review_ids': ['EMP-06-01'], 'severity': 'HIGH', ...}]
+
+backend\tests\test_employment_round2_semantics.py:77: AssertionError
+=========================== short test summary info ===========================
+FAILED backend/tests/test_employment_round2_semantics.py::test_severity_and_action_counts_match_detail_and_explanation
+1 failed, 178 passed, 5 warnings in 85.15s (0:01:25)

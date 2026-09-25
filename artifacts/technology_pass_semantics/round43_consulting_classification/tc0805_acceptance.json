@@ -1,0 +1,119 @@
+{
+  "round": "Round43 TC-08-05 closure",
+  "generated_at": "2026-09-24T06:24:29.311690+08:00",
+  "real_interface": {
+    "party_a": {
+      "review_run_id": "bbb35c56-2bca-4687-bc41-8dc71067af7d",
+      "gate": "REPORT_READY",
+      "gate_failure_count": 0,
+      "tc_08_05_coverage": "通过",
+      "pass_evidence_audit": {
+        "coverage_propositions": [
+          "咨询报酬总额",
+          "咨询报酬支付节点和期限"
+        ],
+        "deterministic_proposition_binding": true,
+        "direct_evidence_ids": [
+          "EV-fe54247efa3f97ec",
+          "EV-a35cff66e4a8f477",
+          "EV-e4330a7c3395bd9a",
+          "EV-c54297642431c702",
+          "EV-0e7f94cf4b874f71"
+        ],
+        "missing_element_ids": [],
+        "primary_evidence_was_direct": true,
+        "repaired": false,
+        "status": "PASS"
+      },
+      "elements": {
+        "consulting_fee_total": {
+          "status": "COVERED",
+          "fact_key": "consulting_payment.consulting_fee_total",
+          "evidence_ids": [
+            "SRC-1d8bdd4ec7771628327d"
+          ]
+        },
+        "payment_milestones": {
+          "status": "COVERED",
+          "fact_key": "consulting_payment.payment_milestones",
+          "evidence_ids": [
+            "SRC-71eaa345fdfcbe80d7ea",
+            "SRC-b4785c882e0517124b6b",
+            "SRC-8afd1a334e0dd99e34f2",
+            "SRC-c372bae7a3a4ecbc0287"
+          ]
+        }
+      },
+      "risk_evidence_mismatch_count": 0
+    },
+    "party_b": {
+      "review_run_id": "170a42ae-d2f0-4c58-81d9-e0d810c48f50",
+      "gate": "REPORT_READY",
+      "gate_failure_count": 0,
+      "tc_08_05_coverage": "通过",
+      "pass_evidence_audit": {
+        "coverage_propositions": [
+          "咨询报酬总额",
+          "咨询报酬支付节点和期限"
+        ],
+        "deterministic_proposition_binding": true,
+        "direct_evidence_ids": [
+          "EV-fe54247efa3f97ec",
+          "EV-a35cff66e4a8f477",
+          "EV-e4330a7c3395bd9a",
+          "EV-c54297642431c702",
+          "EV-0e7f94cf4b874f71"
+        ],
+        "missing_element_ids": [],
+        "primary_evidence_was_direct": true,
+        "repaired": false,
+        "status": "PASS"
+      },
+      "elements": {
+        "consulting_fee_total": {
+          "status": "COVERED",
+          "fact_key": "consulting_payment.consulting_fee_total",
+          "evidence_ids": [
+            "SRC-1d8bdd4ec7771628327d"
+          ]
+        },
+        "payment_milestones": {
+          "status": "COVERED",
+          "fact_key": "consulting_payment.payment_milestones",
+          "evidence_ids": [
+            "SRC-71eaa345fdfcbe80d7ea",
+            "SRC-b4785c882e0517124b6b",
+            "SRC-8afd1a334e0dd99e34f2",
+            "SRC-c372bae7a3a4ecbc0287"
+          ]
+        }
+      },
+      "risk_evidence_mismatch_count": 0
+    }
+  },
+  "verification": {
+    "round41_round42_round43_consulting_and_common20_targeted": {
+      "passed": 152,
+      "failed": 0
+    },
+    "broader_technical_consulting_suite": {
+      "passed": 177,
+      "failed": 8,
+      "classification": "pre-existing unrelated assertions outside TC-08-05 scope",
+      "tc_08_05_related_failures": 0
+    },
+    "full_suite": "not run"
+  },
+  "source_hashes": {
+    "backend/review_v2/consulting_element_facts.py": "b584c7d39502aa3329c7f4f28c4ad4e7da62992021aee15e2fab810aa0cfbef1",
+    "backend/review_v2/engine.py": "29da5eeb81d5107c890de78a6016bbaf18aff9004a7055625ae358d3946044da",
+    "backend/tests/test_round43_consulting_classification.py": "15fe1b8f36bcecd4e569f73096af38716a04485454864fb2ae0eb301c5eca294"
+  },
+  "constraints": {
+    "classification_changed_in_this_closure": false,
+    "gate_lowered": false,
+    "verifier_lowered": false,
+    "fallback_restored": false,
+    "old_expectations_modified": false
+  }
+}

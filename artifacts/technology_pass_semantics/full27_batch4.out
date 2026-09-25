@@ -1,0 +1,481 @@
+.F....FF...F.F....FFFFFF.....F...F...FF.FF.F..FF......F..FF..FFF........ [ 43%]
+.................FFFF.F......FFFF.F..FFF.FFFFF.F..........FFFF.....FF... [ 86%]
+.F.....................                                                  [100%]
+================================== FAILURES ===================================
+__ test_service_acceptance_and_new_result_core_facts_are_not_keyword_passes ___
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:99: in test_service_acceptance_and_new_result_core_facts_are_not_keyword_passes
+    assert acceptance_elements["deemed_acceptance_arrangement"] == "COVERED"
+E   AssertionError: assert 'PARTIALLY_COVERED' == 'COVERED'
+E     
+E     - COVERED
+E     + PARTIALLY_COVERED
+___ test_third_party_claim_direction_changes_between_provider_and_recipient ___
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:244: in test_third_party_claim_direction_changes_between_provider_and_recipient
+    assert provider_item["coverage_status"] == recipient_item["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '风险条款' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 风险条款
+________ test_service_result_consequence_survives_finding_aggregation _________
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:276: in test_service_result_consequence_survives_finding_aggregation
+    assert "项目定制成果的知识产权归属" in finding["recommendation"]
+E   AssertionError: assert '项目定制成果的知识产权归属' in '建议补充明确尚未形成最终权属安排。'
+__ test_second_service_timeline_is_deterministic_and_binds_only_direct_dates __
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:336: in test_second_service_timeline_is_deterministic_and_binds_only_direct_dates
+    assert timeline["conflict_types"] == ["SERVICE_BEFORE_SIGNING"]
+E   AssertionError: assert ['VALIDITY_BE...FORE_SIGNING'] == ['SERVICE_BEFORE_SIGNING']
+E     
+E     At index 0 diff: 'VALIDITY_BEFORE_SIGNING' != 'SERVICE_BEFORE_SIGNING'
+E     Left contains one more item: 'SERVICE_BEFORE_SIGNING'
+E     Use -v to get more diff
+_ test_second_service_scene_liability_limit_and_acceptance_disconnect_are_grounded _
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:400: in test_second_service_scene_liability_limit_and_acceptance_disconnect_are_grounded
+    assert liability["title"] == "服务方赔偿责任上限及免责范围过宽"
+E   AssertionError: assert '责任限制机制风险' == '服务方赔偿责任上限及免责范围过宽'
+E     
+E     - 服务方赔偿责任上限及免责范围过宽
+E     + 责任限制机制风险
+_ test_second_service_attachment_acceptance_and_confidentiality_are_scenario_specific _
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:492: in test_second_service_attachment_acceptance_and_confidentiality_are_scenario_specific
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_ test_service_search_audit_and_material_attachment_follow_current_subtype_facts _
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:535: in test_service_search_audit_and_material_attachment_follow_current_subtype_facts
+    assert "未显示附件级技术资料清单已经实际形成" in attachment["risk_point_description"]
+E   AssertionError: assert '未显示附件级技术资料清单已经实际形成' in '已有部分安排；仍需补足：数据、接口信息及相关技术资料的概括提供范围、现有合同证据未显示已经形成可核验的附件级技术资料清单、技术资料的文件名称、版本或编号尚未由现有附件固定。'
+____ test_search_audit_preserves_scalar_scope_and_searches_positive_facts _____
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:550: in test_search_audit_preserves_scalar_scope_and_searches_positive_facts
+    assert audit["required_elements"] == [
+E   AssertionError: assert ['量化服务目标与最终验收合格条件之间的衔接'] == ['量化服务目标与最终验收...达到量化指标时的整改义务']
+E     
+E     Right contains one more item: '未达到量化指标时的整改义务'
+E     Use -v to get more diff
+_ test_second_service_search_audits_classification_and_screening_are_semantically_consistent _
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:565: in test_second_service_search_audits_classification_and_screening_are_semantically_consistent
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_ test_service_confidentiality_period_and_scope_bind_direct_confidentiality_clauses _
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:646: in test_service_confidentiality_period_and_scope_bind_direct_confidentiality_clauses
+    assert item["coverage_status"] == "通过"
+E   AssertionError: assert '缺失' == '通过'
+E     
+E     - 通过
+E     + 缺失
+_ test_service_provider_confidentiality_breach_narrative_excludes_liability_expansion _
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:668: in test_service_provider_confidentiality_breach_narrative_excludes_liability_expansion
+    finding = next(row for row in output["risk_findings"] if "TC-11-04" in row["source_review_ids"])
+E   StopIteration
+_________________ test_current_secret_license_full_regression _________________
+backend\tests\test_technical_secret_license_contract_review.py:192: in test_current_secret_license_full_regression
+    assert "技术秘密许可合同" in by_id["TC-01-01"]["risk_point_description"]
+E   AssertionError: assert '技术秘密许可合同' in '现有摘录尚不足以形成经原文与语义双重验证的通过结论，需要核对合同证据；不据此推断存在不利条款。'
+____ test_over_scope_liability_d_reasonable_clause_can_pass_or_be_partial _____
+backend\tests\test_technical_secret_license_contract_review.py:264: in test_over_scope_liability_d_reasonable_clause_can_pass_or_be_partial
+    assert item["coverage_status"] in {"通过", "部分覆盖"}
+E   AssertionError: assert '待核验' in {'通过', '部分覆盖'}
+__________ test_latest_secret_license_route_and_protective_polarity ___________
+backend\tests\test_technical_secret_license_contract_review.py:331: in test_latest_secret_license_route_and_protective_polarity
+    assert competition["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+______ test_latest_secret_license_shared_fee_improvement_and_claim_facts ______
+backend\tests\test_technical_secret_license_contract_review.py:343: in test_latest_secret_license_shared_fee_improvement_and_claim_facts
+    assert service_fee["coverage_status"] == "通过"
+E   AssertionError: assert '缺失' == '通过'
+E     
+E     - 通过
+E     + 缺失
+_______ test_latest_secret_license_acceptance_evidence_is_subject_bound _______
+backend\tests\test_technical_secret_license_contract_review.py:406: in test_latest_secret_license_acceptance_evidence_is_subject_bound
+    assert acceptance_ids == {"C0004", "C0042", "C0043", "C0044"}
+E   AssertionError: assert {'C0004', 'C0...046', 'C0047'} == {'C0004', 'C0...043', 'C0044'}
+E     
+E     Extra items in the left set:
+E     'C0047'
+E     'C0046'
+E     'C0045'
+E     Extra items in the right set:
+E     'C0043'...
+E     
+E     ...Full output truncated (3 lines hidden), use '-vv' to show
+___ test_latest_secret_license_report_consistency_and_empty_template_gates ____
+backend\tests\test_technical_secret_license_contract_review.py:414: in test_latest_secret_license_report_consistency_and_empty_template_gates
+    assert latest_review["technology_transaction_consistency_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_ test_latest_secret_license_service_acceptance_uses_shared_subject_evidence __
+backend\tests\test_technical_secret_license_contract_review.py:457: in test_latest_secret_license_service_acceptance_uses_shared_subject_evidence
+    assert item["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '缺失' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 缺失
+_____ test_latest_secret_loss_positive_notice_facts_never_reenter_missing _____
+backend\tests\test_technical_secret_license_contract_review.py:566: in test_latest_secret_loss_positive_notice_facts_never_reenter_missing
+    assert elements[element_id].get("evidence_ids") == ["C0023"]
+E   AssertionError: assert ['SRC-b393ad7423ab2347ecd4'] == ['C0023']
+E     
+E     At index 0 diff: 'SRC-b393ad7423ab2347ecd4' != 'C0023'
+E     Use -v to get more diff
+____ test_latest_improvement_notice_is_partial_with_only_residual_details _____
+backend\tests\test_technical_secret_license_contract_review.py:592: in test_latest_improvement_notice_is_partial_with_only_residual_details
+    assert elements["improvement_notice_trigger"].get("evidence_ids") == ["C0052"]
+E   AssertionError: assert ['SRC-36447fe30b45362f9e0d'] == ['C0052']
+E     
+E     At index 0 diff: 'SRC-36447fe30b45362f9e0d' != 'C0052'
+E     Use -v to get more diff
+______ test_pure_patent_transaction_uses_fact_driven_proof_requirements _______
+backend\tests\test_technology_transaction_routing_consistency.py:92: in test_pure_patent_transaction_uses_fact_driven_proof_requirements
+    assert {row["element_id"] for row in item["coverage_elements"]} == expected_elements
+E   AssertionError: assert {'license_enc...on_file', ...} == {'license_enc...verification'}
+E     
+E     Extra items in the left set:
+E     'technology_patent_name'
+E     'technology_patent_number'
+E     'technology_patent_owner'
+E     'technology_patent_authorization_date'
+E     'sublicense_authorization_file'...
+E     
+E     ...Full output truncated (5 lines hidden), use '-vv' to show
+_______ test_existing_third_party_rights_clause_is_partial_not_missing ________
+backend\tests\test_technology_transaction_routing_consistency.py:172: in test_existing_third_party_rights_clause_is_partial_not_missing
+    assert {row["fact_type"] for row in finding["evidence_bundle"]["items"]} == {
+E   AssertionError: assert {'ABSENCE_EVI...tion_trigger'} == {'INFRINGING_...ISTANCE_ONLY'}
+E     
+E     Extra items in the left set:
+E     'ABSENCE_EVIDENCE'
+E     'infringing_implementation_trigger'
+E     Use -v to get more diff
+_____ test_license_evidence_semantics_and_atomic_elements_are_consistent ______
+backend\tests\test_technology_transaction_routing_consistency.py:205: in test_license_evidence_semantics_and_atomic_elements_are_consistent
+    assert item["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+_ test_new_patent_transfer_generalization_sample_routes_without_frozen_risks __
+backend\tests\test_technology_transaction_routing_consistency.py:308: in test_new_patent_transfer_generalization_sample_routes_without_frozen_risks
+    assert by_id["TC-11-01"]["coverage_status"] == "通过"
+E   AssertionError: assert '部分覆盖' == '通过'
+E     
+E     - 通过
+E     + 部分覆盖
+___ test_liability_cap_evidence_excludes_patent_maintenance_as_core_support ___
+backend\tests\test_technology_transaction_routing_consistency.py:363: in test_liability_cap_evidence_excludes_patent_maintenance_as_core_support
+    finding = next(row for row in output["risk_findings"] if "TC-12-04" in row["source_review_ids"])
+E   StopIteration
+_________ test_patent_license_direction_and_provenance_golden_sample __________
+backend\tests\test_technology_transaction_routing_consistency.py:397: in test_patent_license_direction_and_provenance_golden_sample
+    assert output["perspective_resolution"]["canonical_role"] == "PATENT_LICENSEE"
+E   AssertionError: assert 'PATENT_LICENSOR' == 'PATENT_LICENSEE'
+E     
+E     - PATENT_LICENSEE
+E     ?              ^^
+E     + PATENT_LICENSOR
+E     ?              ^^
+___________ test_file_upload_response_keeps_exact_element_evidence ____________
+backend\tests\test_claim_response_exact_evidence_binding.py:166: in test_file_upload_response_keeps_exact_element_evidence
+    assert payload["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+---------------------------- Captured stderr call -----------------------------
+2026-09-14 16:12:06 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 专利实施许可（含后续开发）合同.docx stage=source_document used=True chars=5731 compact_chars=5429 paragraphs=254 sha256=1437c31737ddecbff562355c9b29eaa61d869ad18d1f4ad625021827df1477ea head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+2026-09-14 16:12:06 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 专利实施许可（含后续开发）合同.docx stage=extracted_full_text used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+2026-09-14 16:12:06 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 专利实施许可（含后续开发）合同.docx stage=normalized_full_text used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+2026-09-14 16:12:06 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 专利实施许可（含后续开发）合同.docx stage=classifier_input used=False chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+2026-09-14 16:12:06 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 专利实施许可（含后续开发）合同.docx stage=clause_extraction_input used=False chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+2026-09-14 16:12:06 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 专利实施许可（含后续开发）合同.docx stage=rule_engine_input used=False chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+2026-09-14 16:12:06 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 专利实施许可（含后续开发）合同.docx stage=search_audit_input used=False chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+2026-09-14 16:12:06 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY_GATE] trace_id= filename=27 专利实施许可（含后续开发）合同.docx status=PASS failures=[] anchors={'专利技术': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '许可方': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '接受方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '非独占': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '提成费': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '专利资料': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '中国国际经济贸易仲裁委员会': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '不可抗力': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '专利失效': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '专利费用': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '侵权': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}} lineage={'source_to_extracted_retention': 0.999263, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': None, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+2026-09-14 16:12:29 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx stage=source_document used=True chars=5731 compact_chars=5429 paragraphs=254 sha256=1437c31737ddecbff562355c9b29eaa61d869ad18d1f4ad625021827df1477ea head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+2026-09-14 16:12:29 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx stage=extracted_full_text used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+2026-09-14 16:12:29 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx stage=normalized_full_text used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+2026-09-14 16:12:29 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx stage=classifier_input used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+2026-09-14 16:12:29 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx stage=clause_extraction_input used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+2026-09-14 16:12:29 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx stage=rule_engine_input used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+2026-09-14 16:12:29 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx stage=search_audit_input used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+2026-09-14 16:12:29 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx stage=clause_extraction_output used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+2026-09-14 16:12:29 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY_GATE] trace_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx status=PASS failures=[] anchors={'专利技术': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '许可方': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '接受方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '非独占': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '提成费': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '专利资料': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '中国国际经济贸易仲裁委员会': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '不可抗力': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '专利失效': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '专利费用': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '侵权': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}} lineage={'source_to_extracted_retention': 0.999263, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': 1.0, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+2026-09-14 16:12:29 - routers.review_v2 - WARNING - [unknown] - [FACT] review_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx candidate_id= source_rule= source_clause_ids=['C0002', 'C0006', 'C0009', 'C0010', 'C0011', 'C0012', 'C0013', 'C0020', 'C0026', 'C0027', 'C0029', 'C0032', 'C0035'] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total=[60, 30, 20, 50, 40, 30] amount_total=[1800000, 900000, 600000, 900000, 720000, 540000] merged= finding_id= final_present= rendered=
+2026-09-14 16:12:29 - routers.review_v2 - WARNING - [unknown] - [RULE_EXECUTED] review_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx candidate_id= source_rule=analyze_payment_schedule source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations=4 arithmetic_status=INCONSISTENT percentage_total=113.75 amount_total=5460000 merged= finding_id= final_present= rendered=
+2026-09-14 16:12:29 - routers.review_v2 - WARNING - [unknown] - [CANDIDATE_CREATED] review_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx candidate_id=TECH-SHARED-GEN-PAY-01 source_rule=payment_formula_inconsistency source_clause_ids=['C0009', 'C0010', 'C0011'] scenario=TECHNOLOGY_LICENSE applicability={'status': 'APPLICABLE', 'applicable': True, 'reason': '合同中的结构化事实关系已触发。', 'depends_on': []} status= filter_reason=arithmetic status is INCONSISTENT invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+2026-09-14 16:12:29 - routers.review_v2 - WARNING - [unknown] - [CANDIDATE_FILTERED] review_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx candidate_id=TECH-SHARED-GEN-PAY-01 source_rule= source_clause_ids=[] scenario= applicability={} status=NOT_FILTERED filter_reason=candidate survived applicability, aggregation, evidence and final finding filters invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+2026-09-14 16:12:29 - routers.review_v2 - WARNING - [unknown] - [CANDIDATE_MERGED] review_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx candidate_id=TECH-SHARED-GEN-PAY-01 source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged=True finding_id=RF-020 final_present= rendered=
+2026-09-14 16:12:29 - routers.review_v2 - WARNING - [unknown] - [FINAL_RISK] review_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx candidate_id=TECH-SHARED-GEN-PAY-01 source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id=RF-020 final_present=True rendered=True
+2026-09-14 16:12:29 - routers.review_v2 - WARNING - [unknown] - [TRACE_REVIEW_V2] pid=5320 pipeline=canonical-review-v2-production-6.4 classifier=technical-transaction-classifier-v3-single-source evaluator=canonical-review-evaluator-6.4-single-classification ruleset=review-v2-rules-quality3-2026-08-11 entry=F:\ai\Sage\backend\routers\review_v2.py:1382 engine=F:\ai\Sage\backend\review_v2\engine.py:52277 subtype=TECHNOLOGY_LICENSE classifier_executions=1 registry_id=1692107024416 evidence_impl=technical-consulting-evidence-v2.1-active-path doc_hash=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c confidentiality=True
+2026-09-14 16:12:29 - routers.review_v2 - INFO - [unknown] - [REVIEW_RELEASE_GATE] review_id=CR-20260914-161206-252259 pid=5320 runtime=CURRENT status=BLOCKED failures=['COVERAGE_SENTENCE_CONSISTENCY_GATE', 'REVIEW_EVIDENCE_ELEMENT_MISMATCH', 'CROSS_RULE_CANONICAL_FACT_CONSISTENCY', 'NARRATIVE_EVIDENCE_GATE', 'REPORT_ELEMENT_EVIDENCE_POLLUTION', 'REPORT_ELEMENT_EVIDENCE_POLLUTION', 'NARRATIVE_EVIDENCE_GATE', 'EXACT_ELEMENT_REPORT_INVARIANT', 'EVIDENCE_PROPOSITION_MATCH_GATE', 'CLAUSE_NODE_CONSISTENCY_GATE']
+------------------------------ Captured log call ------------------------------
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 专利实施许可（含后续开发）合同.docx stage=source_document used=True chars=5731 compact_chars=5429 paragraphs=254 sha256=1437c31737ddecbff562355c9b29eaa61d869ad18d1f4ad625021827df1477ea head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 专利实施许可（含后续开发）合同.docx stage=extracted_full_text used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 专利实施许可（含后续开发）合同.docx stage=normalized_full_text used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 专利实施许可（含后续开发）合同.docx stage=classifier_input used=False chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 专利实施许可（含后续开发）合同.docx stage=clause_extraction_input used=False chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 专利实施许可（含后续开发）合同.docx stage=rule_engine_input used=False chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 专利实施许可（含后续开发）合同.docx stage=search_audit_input used=False chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+WARNING  routers.review_v2:input_integrity.py:291 [REVIEW_INPUT_INTEGRITY_GATE] trace_id= filename=27 专利实施许可（含后续开发）合同.docx status=PASS failures=[] anchors={'专利技术': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '许可方': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '接受方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '非独占': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '提成费': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '专利资料': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '中国国际经济贸易仲裁委员会': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '不可抗力': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '专利失效': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '专利费用': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '侵权': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}} lineage={'source_to_extracted_retention': 0.999263, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': None, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx stage=source_document used=True chars=5731 compact_chars=5429 paragraphs=254 sha256=1437c31737ddecbff562355c9b29eaa61d869ad18d1f4ad625021827df1477ea head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx stage=extracted_full_text used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx stage=normalized_full_text used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx stage=classifier_input used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx stage=clause_extraction_input used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx stage=rule_engine_input used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx stage=search_audit_input used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx stage=clause_extraction_output used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日： 2023年6月20日\n专利法定届满日： 2041年3月17日\n许可方名称： 东南大学\n地址： 江苏省南京市玄武区四牌楼2号\n代表人： 李明远\n被许可方名称： 江苏恒能新能源汽车科技有限公司\n地址： 江苏省苏州市工业园区星湖街328号\n代表人： 张建国\n合同备案号： 2026-ZL-XK-0826\n签订地点： 江苏省南京市\n签订日期： 2026年10月20日\n有效期限： 2' tail='可方未经许可方书面同意，不得自行研发与本合同专利具有相同或类似功能的技术方案。\n被许可方不得从许可方竞争对手处购买能够替代本合同技术的专利许可或者技术服务。\n上述限制在本合同终止后继续有效5年。\n本合同附件包括：\n《专利权证明文件》\n《专利技术资料清单》\n《技术秘密资料清单》\n《后续技术开发任务书》\n《项目测试方案》\n《技术培训计划》\n附件中技术文件的最终版本号、编号和数量以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+WARNING  routers.review_v2:input_integrity.py:291 [REVIEW_INPUT_INTEGRITY_GATE] trace_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx status=PASS failures=[] anchors={'专利技术': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '许可方': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '接受方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '非独占': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '提成费': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '专利资料': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '中国国际经济贸易仲裁委员会': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '不可抗力': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '专利失效': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '专利费用': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '侵权': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}} lineage={'source_to_extracted_retention': 0.999263, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': 1.0, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+WARNING  routers.review_v2:review_v2.py:1527 [FACT] review_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx candidate_id= source_rule= source_clause_ids=['C0002', 'C0006', 'C0009', 'C0010', 'C0011', 'C0012', 'C0013', 'C0020', 'C0026', 'C0027', 'C0029', 'C0032', 'C0035'] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total=[60, 30, 20, 50, 40, 30] amount_total=[1800000, 900000, 600000, 900000, 720000, 540000] merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [RULE_EXECUTED] review_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx candidate_id= source_rule=analyze_payment_schedule source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations=4 arithmetic_status=INCONSISTENT percentage_total=113.75 amount_total=5460000 merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [CANDIDATE_CREATED] review_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx candidate_id=TECH-SHARED-GEN-PAY-01 source_rule=payment_formula_inconsistency source_clause_ids=['C0009', 'C0010', 'C0011'] scenario=TECHNOLOGY_LICENSE applicability={'status': 'APPLICABLE', 'applicable': True, 'reason': '合同中的结构化事实关系已触发。', 'depends_on': []} status= filter_reason=arithmetic status is INCONSISTENT invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [CANDIDATE_FILTERED] review_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx candidate_id=TECH-SHARED-GEN-PAY-01 source_rule= source_clause_ids=[] scenario= applicability={} status=NOT_FILTERED filter_reason=candidate survived applicability, aggregation, evidence and final finding filters invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [CANDIDATE_MERGED] review_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx candidate_id=TECH-SHARED-GEN-PAY-01 source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged=True finding_id=RF-020 final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [FINAL_RISK] review_id=CR-20260914-161206-252259 filename=27 专利实施许可（含后续开发）合同.docx candidate_id=TECH-SHARED-GEN-PAY-01 source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id=RF-020 final_present=True rendered=True
+WARNING  routers.review_v2:review_v2.py:1556 [TRACE_REVIEW_V2] pid=5320 pipeline=canonical-review-v2-production-6.4 classifier=technical-transaction-classifier-v3-single-source evaluator=canonical-review-evaluator-6.4-single-classification ruleset=review-v2-rules-quality3-2026-08-11 entry=F:\ai\Sage\backend\routers\review_v2.py:1382 engine=F:\ai\Sage\backend\review_v2\engine.py:52277 subtype=TECHNOLOGY_LICENSE classifier_executions=1 registry_id=1692107024416 evidence_impl=technical-consulting-evidence-v2.1-active-path doc_hash=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c confidentiality=True
+INFO     routers.review_v2:review_v2.py:1576 [REVIEW_RELEASE_GATE] review_id=CR-20260914-161206-252259 pid=5320 runtime=CURRENT status=BLOCKED failures=['COVERAGE_SENTENCE_CONSISTENCY_GATE', 'REVIEW_EVIDENCE_ELEMENT_MISMATCH', 'CROSS_RULE_CANONICAL_FACT_CONSISTENCY', 'NARRATIVE_EVIDENCE_GATE', 'REPORT_ELEMENT_EVIDENCE_POLLUTION', 'REPORT_ELEMENT_EVIDENCE_POLLUTION', 'NARRATIVE_EVIDENCE_GATE', 'EXACT_ELEMENT_REPORT_INVARIANT', 'EVIDENCE_PROPOSITION_MATCH_GATE', 'CLAUSE_NODE_CONSISTENCY_GATE']
+_____________ test_current_patent_license_report_and_release_gate _____________
+backend\tests\test_claim_response_exact_evidence_binding.py:189: in test_current_patent_license_report_and_release_gate
+    assert result["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_____ test_cooperative_investment_and_work_facts_are_atomically_resolved ______
+backend\tests\test_cooperative_development_advanced_regressions.py:63: in test_cooperative_investment_and_work_facts_are_atomically_resolved
+    assert analysis["payment_conflicts"] == [{
+E   AssertionError: assert [{'party': '甲...50000.0, ...}] == [{'party': '甲...: 50000, ...}]
+E     
+E     At index 0 diff: {'party': '甲方', 'nominal_investment': 1200000.0, 'payment_total': 850000.0, 'difference': -350000.0, 'nodes': [400000.0, 450000.0]} != {'party': '甲方', 'nominal_investment': 1200000, 'payment_total': 1250000, 'difference': 50000, 'nodes': [400000, 400000, 450000]}
+E     Use -v to get more diff
+______ test_final_result_patent_license_and_revenue_rights_are_compared _______
+backend\tests\test_cooperative_development_advanced_regressions.py:91: in test_final_result_patent_license_and_revenue_rights_are_compared
+    assert "收益归该许可方单独所有" in item["risk_point_description"]
+E   AssertionError: assert '收益归该许可方单独所有' in '合同存在以下有直接证据支持的不利安排：最终成果虽约定共同所有，但专利申请权归单一合作方，权属层级相互冲突；最终成果虽约定共同所有，但授权后的专利权归单一合作方，权属层级相互冲突；任何一方均可不经其他共有方同意单独对外许可最终成果；共有最终成果由单一合作方许可第三方后，许可收益归该技术提供方单独所有。'
+_ test_governance_deadlock_silence_and_contact_authority_are_one_control_risk _
+backend\tests\test_cooperative_development_advanced_regressions.py:121: in test_governance_deadlock_silence_and_contact_authority_are_one_control_risk
+    assert all(trace.values())
+E   AssertionError: assert False
+E    +  where False = all(dict_values([True, True, True, '乙方', False, True, True]))
+E    +    where dict_values([True, True, True, '乙方', False, True, True]) = <built-in method values of dict object at 0x0000018982455440>()
+E    +      where <built-in method values of dict object at 0x0000018982455440> = {'unanimous_major_decisions': True, 'unilateral_deadlock_control': True, 'unilateral_major_matter_control': True, 'unilateral_major_matter_owner': '乙方', ...}.values
+_____ test_attachment_reference_and_attachment_content_are_distinct_facts _____
+backend\tests\test_cooperative_development_advanced_regressions.py:220: in test_attachment_reference_and_attachment_content_are_distinct_facts
+    assert "C0029" in elements["actual_ip_proof_attachment"]["source_clause_ids"]
+E   AssertionError: assert 'C0029' in ['C0034']
+_______ test_confidentiality_evidence_is_not_expanded_beyond_the_quote ________
+backend\tests\test_cooperative_development_advanced_regressions.py:238: in test_confidentiality_evidence_is_not_expanded_beyond_the_quote
+    evidence = next(row for row in item["evidence_clauses"] if row["clause_id"] == "C0015")
+E   StopIteration
+__ test_unrelated_breach_remedies_do_not_activate_infringement_coordination ___
+backend\tests\test_cooperative_development_advanced_regressions.py:253: in test_unrelated_breach_remedies_do_not_activate_infringement_coordination
+    assert item["applicability"]["machine_reason"] == "SAME_LOSS_GENERAL_REMEDY_NOT_FOUND"
+E   AssertionError: assert '合同虽存在侵权专项责任，...责任已排除，故本项不适用。' == 'SAME_LOSS_GE...EDY_NOT_FOUND'
+E     
+E     - SAME_LOSS_GENERAL_REMEDY_NOT_FOUND
+E     + 合同虽存在侵权专项责任，但未同时存在可针对同一侵权损失适用的一般赔偿或违约救济；迟延付款、退出等其他违约责任已排除，故本项不适用。
+________ test_registry_bound_risk_evidence_reuses_final_review_sources ________
+backend\tests\test_cooperative_development_advanced_regressions.py:267: in test_registry_bound_risk_evidence_reuses_final_review_sources
+    assert {row.get("clause_id") for row in body_rows} == {"C0019", "C0020", "C0029"}
+E   AssertionError: assert {'C0022', 'C0023', 'C0034'} == {'C0019', 'C0020', 'C0029'}
+E     
+E     Extra items in the left set:
+E     'C0022'
+E     'C0034'
+E     'C0023'
+E     Extra items in the right set:
+E     'C0029'...
+E     
+E     ...Full output truncated (3 lines hidden), use '-vv' to show
+____ test_referenced_attachments_are_material_pending_not_contract_defects ____
+backend\tests\test_cooperative_development_advanced_regressions.py:289: in test_referenced_attachments_are_material_pending_not_contract_defects
+    assert item["recommended_action"] == "MANUAL_REVIEW"
+E   AssertionError: assert 'RECOMMENDED' == 'MANUAL_REVIEW'
+E     
+E     - MANUAL_REVIEW
+E     + RECOMMENDED
+___________ test_search_audit_queries_are_positive_objective_facts ____________
+backend\tests\test_cooperative_development_advanced_regressions.py:331: in test_search_audit_queries_are_positive_objective_facts
+    assert "非履约使用须取得数据提供方事先书面同意" in targets
+E   AssertionError: assert '非履约使用须取得数据提供方事先书面同意' in ['各方背景技术及既有知识产权的保留和必要许可边界', '项目依赖型成果与各方独立成果的识别和权利承接边界', '其他合作方使用阶段成果的许可和费用', '合作终止后各方继续使用未公开成果的边界', '其余合作方接管项目、继续开发或委托第三方接续开发的权利', '第三方权利主张的通知期限、方式和资料要求', ...]
+__ test_manual_review_records_are_executable_and_have_no_empty_formal_advice __
+backend\tests\test_cooperative_development_advanced_regressions.py:341: in test_manual_review_records_are_executable_and_have_no_empty_formal_advice
+    instruction = records[review_id]["review_instruction"]
+E   KeyError: 'TC-13-01'
+___ test_unprovided_attachment_narrative_does_not_assert_content_is_missing ___
+backend\tests\test_cooperative_development_advanced_regressions.py:358: in test_unprovided_attachment_narrative_does_not_assert_content_is_missing
+    assert judgment == "正文存在部分相关约定，但附件未提供，当前无法核验完整性。"
+E   AssertionError: assert '已覆盖：测试报告交付已有...作资料交付；缺陷记录交付。' == '正文存在部分相关约定，但附件未提供，当前无法核验完整性。'
+E     
+E     - 正文存在部分相关约定，但附件未提供，当前无法核验完整性。
+E     + 已覆盖：测试报告交付已有明确约定；尚未覆盖：源代码或可执行程序交付；技术文档交付；接口文档交付；架构文档交付；安装部署资料交付；用户或操作资料交付；缺陷记录交付。
+______________ test_payment_formula_is_partitioned_by_price_base ______________
+backend\tests\test_patent_license_with_follow_on_development.py:66: in test_payment_formula_is_partitioned_by_price_base
+    assert payment["percentage_total"] is None
+E   assert 113.75 is None
+________ test_license_scope_invalidity_notice_and_competition_results _________
+backend\tests\test_patent_license_with_follow_on_development.py:89: in test_license_scope_invalidity_notice_and_competition_results
+    assert "排他许可" in by_id["TC-07-01"]["risk_point_description"]
+E   AssertionError: assert '排他许可' in '合同约定排他实施许可，但许可方仍可向部分第三方授予普通许可；被许可方未达到实施条件时，许可方可无需被许可方同意单方将排他实施许可降级为普通许可，且未设置通知、宽限整改及排他实施许可对价调整机制。'
+__ test_acceptance_and_ip_proof_attachment_are_partial_without_manual_review __
+backend\tests\test_patent_license_with_follow_on_development.py:124: in test_acceptance_and_ip_proof_attachment_are_partial_without_manual_review
+    assert acceptance["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '缺失' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 缺失
+_ test_unilateral_acceptance_and_confidentiality_asymmetry_are_distinct_risks _
+backend\tests\test_patent_license_with_follow_on_development.py:150: in test_unilateral_acceptance_and_confidentiality_asymmetry_are_distinct_risks
+    assert "双方在测试前书面确认" in acceptance["suggested_clause_example"]
+E   AssertionError: assert '双方在测试前书面确认' in '建议调整以下已确认的不利安排：影响验收结论的测试环境、测试数据、性能指标及验收方法由对方单方确定；补充明确双方事先书面确认测试方案及其变更的机制。'
+_____ test_not_applicable_secret_rule_acknowledges_existing_secret_facts ______
+backend\tests\test_patent_license_with_follow_on_development.py:164: in test_not_applicable_secret_rule_acknowledges_existing_secret_facts
+    assert "已明确技术秘密范围" in item["applicability"]["reason"]
+E   AssertionError: assert '已明确技术秘密范围' in '合同虽涉及技术秘密或保密资料，但当前交易不是以既有技术秘密转让、许可或独立使用费为核心标的，未形成以秘密性为独立对价基础的持续收费或秘密性丧失后的费用安排，因此本项不适用。'
+____ test_full_report_uses_grouped_calculation_and_aggregated_risk_themes _____
+backend\tests\test_patent_license_with_follow_on_development.py:196: in test_full_report_uses_grouped_calculation_and_aggregated_risk_themes
+    assert len(improvement_themes) == 1
+E   assert 0 == 1
+E    +  where 0 = len([])
+_________ test_gold_timeline_evidence_binds_the_two_conflicting_dates _________
+backend\tests\test_entrusted_development_consistency.py:157: in test_gold_timeline_evidence_binds_the_two_conflicting_dates
+    assert "第一阶段" in combined
+E   AssertionError: assert '第一阶段' in '履行开始日期 = 2026-09-01；合同生效日期 = 2026-09-20；2026-09-01 < 2026-09-20，存在生效前履行事实。 18.4. 本合同经各方签名或盖章后生效。 签订时间：2026年9月20日'
+___________ test_gold_demand_reduction_evidence_stays_on_clause_5_5 ___________
+backend\tests\test_entrusted_development_consistency.py:169: in test_gold_demand_reduction_evidence_stays_on_clause_5_5
+    assert {row["location"] for row in item["evidence_clauses"]} == {"第5.5项"}
+E   AssertionError: assert {'第二部分 开发安排第5.5项'} == {'第5.5项'}
+E     
+E     Extra items in the left set:
+E     '第二部分 开发安排第5.5项'
+E     Extra items in the right set:
+E     '第5.5项'
+E     Use -v to get more diff
+___________ test_gold_liability_evidence_preserves_multiple_sources ___________
+backend\tests\test_entrusted_development_consistency.py:177: in test_gold_liability_evidence_preserves_multiple_sources
+    assert item["decision_trace"]["evidence_consistency_gate"]["status"] == "PASSED"
+E   AssertionError: assert 'EVIDENCE_INSUFFICIENT' == 'PASSED'
+E     
+E     - PASSED
+E     + EVIDENCE_INSUFFICIENT
+_________ test_internal_uncertainty_metadata_never_enters_user_report _________
+backend\tests\test_entrusted_development_consistency.py:206: in test_internal_uncertainty_metadata_never_enters_user_report
+    assert items["TC-13-03"]["decision_trace"]["internal_uncertainty_metadata"][
+E   KeyError: 'internal_uncertainty_metadata'
+________ test_tc_13_01_does_not_expand_generic_technical_documentation ________
+backend\tests\test_entrusted_development_consistency.py:287: in test_tc_13_01_does_not_expand_generic_technical_documentation
+    assert elements["generic_technical_documentation"] == "COVERED"
+E   AssertionError: assert 'MISSING' == 'COVERED'
+E     
+E     - COVERED
+E     + MISSING
+_______ test_renderer_uses_lineage_evidence_instead_of_keyword_fallback _______
+backend\tests\test_entrusted_development_consistency.py:305: in test_renderer_uses_lineage_evidence_instead_of_keyword_fallback
+    assert all(term in timeline for term in ("第一阶段", "2026年9月1日", "签订时间：2026年9月20日"))
+E   assert False
+E    +  where False = all(<generator object test_renderer_uses_lineage_evidence_instead_of_keyword_fallback.<locals>.<genexpr> at 0x0000018980D74C10>)
+___________ test_current_names_and_document_advice_are_not_expanded ___________
+backend\tests\test_atomic_narrative_and_recommendation_binding.py:43: in test_current_names_and_document_advice_are_not_expanded
+    assert current["release_quality_gate"]["status"] == "REPORT_READY", current["release_quality_gate"]["failures"]
+E   AssertionError: [{'requirement': 'EXACT_ELEMENT_REPORT_INVARIANT', 'failure_stage': 'Final Evidence Projection', 'root_cause': '最终要素、原..., 'bundle_id': 'EB-4e1da2af7e03', 'invalid_clause_node_ids': ['C0050'], 'requirement': 'CLAUSE_NODE_CONSISTENCY_GATE'}]
+E   assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+backend/tests/test_entrusted_development_consistency.py::test_gold_payment_trace_and_generic_routing
+backend/tests/test_license_term_upload_closure.py::test_balanced_secret_license_authenticated_upload_is_publishable_with_real_gaps
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_service_acceptance_and_new_result_core_facts_are_not_keyword_passes
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_third_party_claim_direction_changes_between_provider_and_recipient
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_service_result_consequence_survives_finding_aggregation
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_second_service_timeline_is_deterministic_and_binds_only_direct_dates
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_second_service_scene_liability_limit_and_acceptance_disconnect_are_grounded
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_second_service_attachment_acceptance_and_confidentiality_are_scenario_specific
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_service_search_audit_and_material_attachment_follow_current_subtype_facts
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_search_audit_preserves_scalar_scope_and_searches_positive_facts
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_second_service_search_audits_classification_and_screening_are_semantically_consistent
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_service_confidentiality_period_and_scope_bind_direct_confidentiality_clauses
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_service_provider_confidentiality_breach_narrative_excludes_liability_expansion
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_current_secret_license_full_regression
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_over_scope_liability_d_reasonable_clause_can_pass_or_be_partial
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_secret_license_route_and_protective_polarity
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_secret_license_shared_fee_improvement_and_claim_facts
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_secret_license_acceptance_evidence_is_subject_bound
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_secret_license_report_consistency_and_empty_template_gates
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_secret_license_service_acceptance_uses_shared_subject_evidence
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_secret_loss_positive_notice_facts_never_reenter_missing
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_improvement_notice_is_partial_with_only_residual_details
+FAILED backend/tests/test_technology_transaction_routing_consistency.py::test_pure_patent_transaction_uses_fact_driven_proof_requirements
+FAILED backend/tests/test_technology_transaction_routing_consistency.py::test_existing_third_party_rights_clause_is_partial_not_missing
+FAILED backend/tests/test_technology_transaction_routing_consistency.py::test_license_evidence_semantics_and_atomic_elements_are_consistent
+FAILED backend/tests/test_technology_transaction_routing_consistency.py::test_new_patent_transfer_generalization_sample_routes_without_frozen_risks
+FAILED backend/tests/test_technology_transaction_routing_consistency.py::test_liability_cap_evidence_excludes_patent_maintenance_as_core_support
+FAILED backend/tests/test_technology_transaction_routing_consistency.py::test_patent_license_direction_and_provenance_golden_sample
+FAILED backend/tests/test_claim_response_exact_evidence_binding.py::test_file_upload_response_keeps_exact_element_evidence
+FAILED backend/tests/test_claim_response_exact_evidence_binding.py::test_current_patent_license_report_and_release_gate
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_cooperative_investment_and_work_facts_are_atomically_resolved
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_final_result_patent_license_and_revenue_rights_are_compared
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_governance_deadlock_silence_and_contact_authority_are_one_control_risk
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_attachment_reference_and_attachment_content_are_distinct_facts
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_confidentiality_evidence_is_not_expanded_beyond_the_quote
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_unrelated_breach_remedies_do_not_activate_infringement_coordination
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_registry_bound_risk_evidence_reuses_final_review_sources
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_referenced_attachments_are_material_pending_not_contract_defects
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_search_audit_queries_are_positive_objective_facts
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_manual_review_records_are_executable_and_have_no_empty_formal_advice
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_unprovided_attachment_narrative_does_not_assert_content_is_missing
+FAILED backend/tests/test_patent_license_with_follow_on_development.py::test_payment_formula_is_partitioned_by_price_base
+FAILED backend/tests/test_patent_license_with_follow_on_development.py::test_license_scope_invalidity_notice_and_competition_results
+FAILED backend/tests/test_patent_license_with_follow_on_development.py::test_acceptance_and_ip_proof_attachment_are_partial_without_manual_review
+FAILED backend/tests/test_patent_license_with_follow_on_development.py::test_unilateral_acceptance_and_confidentiality_asymmetry_are_distinct_risks
+FAILED backend/tests/test_patent_license_with_follow_on_development.py::test_not_applicable_secret_rule_acknowledges_existing_secret_facts
+FAILED backend/tests/test_patent_license_with_follow_on_development.py::test_full_report_uses_grouped_calculation_and_aggregated_risk_themes
+FAILED backend/tests/test_entrusted_development_consistency.py::test_gold_timeline_evidence_binds_the_two_conflicting_dates
+FAILED backend/tests/test_entrusted_development_consistency.py::test_gold_demand_reduction_evidence_stays_on_clause_5_5
+FAILED backend/tests/test_entrusted_development_consistency.py::test_gold_liability_evidence_preserves_multiple_sources
+FAILED backend/tests/test_entrusted_development_consistency.py::test_internal_uncertainty_metadata_never_enters_user_report
+FAILED backend/tests/test_entrusted_development_consistency.py::test_tc_13_01_does_not_expand_generic_technical_documentation
+FAILED backend/tests/test_entrusted_development_consistency.py::test_renderer_uses_lineage_evidence_instead_of_keyword_fallback
+FAILED backend/tests/test_atomic_narrative_and_recommendation_binding.py::test_current_names_and_document_advice_are_not_expanded
+52 failed, 115 passed, 8 warnings in 728.46s (0:12:08)

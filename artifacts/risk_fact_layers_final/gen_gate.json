@@ -1,0 +1,329 @@
+{
+  "status": "REPORT_READY",
+  "claims": [
+    {
+      "risk_id": "RF-010",
+      "field": "element_proposition",
+      "fact": "若因乙方原因导致迟延交付，每迟延一天，乙方应按照合同总金额的0.1%向甲方支付违约金",
+      "element_ids": [
+        "penalty_obligation_1"
+      ],
+      "supporting_evidence_ids": [
+        "EV-8a962a085c759034"
+      ]
+    },
+    {
+      "risk_id": "RF-010",
+      "field": "review_judgment",
+      "fact": "每日0.1%",
+      "element_ids": [
+        "penalty_obligation_1"
+      ],
+      "supporting_evidence_ids": [
+        "EV-8a962a085c759034"
+      ]
+    }
+  ],
+  "risk_fact_layers": [
+    {
+      "rule_id": "GEN-LIAB-03",
+      "risk_fact_id": "penalty_obligation_1",
+      "source_fact_id": "f_penalty_574d255a6409691888f8",
+      "element_key": "obligor",
+      "canonical_value": "乙方",
+      "direct_report_evidence_id": [
+        "EV-8a962a085c759034"
+      ],
+      "reject_reason": null,
+      "orientation_provenance": {
+        "review_context_key": "liquidated_damages_direction.review_party_side",
+        "review_party_side": "PARTY_A",
+        "source_fact_key": "f_penalty_574d255a6409691888f8",
+        "element_key": "beneficiary",
+        "beneficiary": "甲方"
+      },
+      "evaluation_provenance": {
+        "source_fact_key": "f_penalty_574d255a6409691888f8",
+        "rule_id": "GEN-LIAB-03",
+        "decision_trace_key": "liquidated_damages_calibration",
+        "parameter_evaluation": [
+          {
+            "rate_percent_per_day": 0.1,
+            "source_text": "若因乙方原因导致迟延交付，每迟延一天，乙方应按照合同总金额的0.1%向甲方支付违约金",
+            "potentially_excessive": true,
+            "calculation_method": "DAILY_PERCENTAGE",
+            "obligor": "乙方",
+            "obligee": "甲方",
+            "trigger": "若因乙方原因导致迟延交付，每迟延一天，乙方应"
+          }
+        ],
+        "legal_basis": [
+          {
+            "text": "《中华人民共和国民法典》第585条；《最高人民法院关于适用〈中华人民共和国民法典〉合同编通则若干问题的解释》第65条",
+            "authority_status": "validated_or_general_principle",
+            "confidence": "medium"
+          }
+        ]
+      },
+      "finding_id": "RF-010"
+    },
+    {
+      "rule_id": "GEN-LIAB-03",
+      "risk_fact_id": "penalty_obligation_1",
+      "source_fact_id": "f_penalty_574d255a6409691888f8",
+      "element_key": "beneficiary",
+      "canonical_value": "甲方",
+      "direct_report_evidence_id": [
+        "EV-8a962a085c759034"
+      ],
+      "reject_reason": null,
+      "orientation_provenance": {
+        "review_context_key": "liquidated_damages_direction.review_party_side",
+        "review_party_side": "PARTY_A",
+        "source_fact_key": "f_penalty_574d255a6409691888f8",
+        "element_key": "beneficiary",
+        "beneficiary": "甲方"
+      },
+      "evaluation_provenance": {
+        "source_fact_key": "f_penalty_574d255a6409691888f8",
+        "rule_id": "GEN-LIAB-03",
+        "decision_trace_key": "liquidated_damages_calibration",
+        "parameter_evaluation": [
+          {
+            "rate_percent_per_day": 0.1,
+            "source_text": "若因乙方原因导致迟延交付，每迟延一天，乙方应按照合同总金额的0.1%向甲方支付违约金",
+            "potentially_excessive": true,
+            "calculation_method": "DAILY_PERCENTAGE",
+            "obligor": "乙方",
+            "obligee": "甲方",
+            "trigger": "若因乙方原因导致迟延交付，每迟延一天，乙方应"
+          }
+        ],
+        "legal_basis": [
+          {
+            "text": "《中华人民共和国民法典》第585条；《最高人民法院关于适用〈中华人民共和国民法典〉合同编通则若干问题的解释》第65条",
+            "authority_status": "validated_or_general_principle",
+            "confidence": "medium"
+          }
+        ]
+      },
+      "finding_id": "RF-010"
+    },
+    {
+      "rule_id": "GEN-LIAB-03",
+      "risk_fact_id": "penalty_obligation_1",
+      "source_fact_id": "f_penalty_574d255a6409691888f8",
+      "element_key": "trigger",
+      "canonical_value": "迟延交付",
+      "direct_report_evidence_id": [
+        "EV-8a962a085c759034"
+      ],
+      "reject_reason": null,
+      "orientation_provenance": {
+        "review_context_key": "liquidated_damages_direction.review_party_side",
+        "review_party_side": "PARTY_A",
+        "source_fact_key": "f_penalty_574d255a6409691888f8",
+        "element_key": "beneficiary",
+        "beneficiary": "甲方"
+      },
+      "evaluation_provenance": {
+        "source_fact_key": "f_penalty_574d255a6409691888f8",
+        "rule_id": "GEN-LIAB-03",
+        "decision_trace_key": "liquidated_damages_calibration",
+        "parameter_evaluation": [
+          {
+            "rate_percent_per_day": 0.1,
+            "source_text": "若因乙方原因导致迟延交付，每迟延一天，乙方应按照合同总金额的0.1%向甲方支付违约金",
+            "potentially_excessive": true,
+            "calculation_method": "DAILY_PERCENTAGE",
+            "obligor": "乙方",
+            "obligee": "甲方",
+            "trigger": "若因乙方原因导致迟延交付，每迟延一天，乙方应"
+          }
+        ],
+        "legal_basis": [
+          {
+            "text": "《中华人民共和国民法典》第585条；《最高人民法院关于适用〈中华人民共和国民法典〉合同编通则若干问题的解释》第65条",
+            "authority_status": "validated_or_general_principle",
+            "confidence": "medium"
+          }
+        ]
+      },
+      "finding_id": "RF-010"
+    },
+    {
+      "rule_id": "GEN-LIAB-03",
+      "risk_fact_id": "penalty_obligation_1",
+      "source_fact_id": "f_penalty_574d255a6409691888f8",
+      "element_key": "period",
+      "canonical_value": "每迟延一天",
+      "direct_report_evidence_id": [
+        "EV-8a962a085c759034"
+      ],
+      "reject_reason": null,
+      "orientation_provenance": {
+        "review_context_key": "liquidated_damages_direction.review_party_side",
+        "review_party_side": "PARTY_A",
+        "source_fact_key": "f_penalty_574d255a6409691888f8",
+        "element_key": "beneficiary",
+        "beneficiary": "甲方"
+      },
+      "evaluation_provenance": {
+        "source_fact_key": "f_penalty_574d255a6409691888f8",
+        "rule_id": "GEN-LIAB-03",
+        "decision_trace_key": "liquidated_damages_calibration",
+        "parameter_evaluation": [
+          {
+            "rate_percent_per_day": 0.1,
+            "source_text": "若因乙方原因导致迟延交付，每迟延一天，乙方应按照合同总金额的0.1%向甲方支付违约金",
+            "potentially_excessive": true,
+            "calculation_method": "DAILY_PERCENTAGE",
+            "obligor": "乙方",
+            "obligee": "甲方",
+            "trigger": "若因乙方原因导致迟延交付，每迟延一天，乙方应"
+          }
+        ],
+        "legal_basis": [
+          {
+            "text": "《中华人民共和国民法典》第585条；《最高人民法院关于适用〈中华人民共和国民法典〉合同编通则若干问题的解释》第65条",
+            "authority_status": "validated_or_general_principle",
+            "confidence": "medium"
+          }
+        ]
+      },
+      "finding_id": "RF-010"
+    },
+    {
+      "rule_id": "GEN-LIAB-03",
+      "risk_fact_id": "penalty_obligation_1",
+      "source_fact_id": "f_penalty_574d255a6409691888f8",
+      "element_key": "rate",
+      "canonical_value": "0.1%",
+      "direct_report_evidence_id": [
+        "EV-8a962a085c759034"
+      ],
+      "reject_reason": null,
+      "orientation_provenance": {
+        "review_context_key": "liquidated_damages_direction.review_party_side",
+        "review_party_side": "PARTY_A",
+        "source_fact_key": "f_penalty_574d255a6409691888f8",
+        "element_key": "beneficiary",
+        "beneficiary": "甲方"
+      },
+      "evaluation_provenance": {
+        "source_fact_key": "f_penalty_574d255a6409691888f8",
+        "rule_id": "GEN-LIAB-03",
+        "decision_trace_key": "liquidated_damages_calibration",
+        "parameter_evaluation": [
+          {
+            "rate_percent_per_day": 0.1,
+            "source_text": "若因乙方原因导致迟延交付，每迟延一天，乙方应按照合同总金额的0.1%向甲方支付违约金",
+            "potentially_excessive": true,
+            "calculation_method": "DAILY_PERCENTAGE",
+            "obligor": "乙方",
+            "obligee": "甲方",
+            "trigger": "若因乙方原因导致迟延交付，每迟延一天，乙方应"
+          }
+        ],
+        "legal_basis": [
+          {
+            "text": "《中华人民共和国民法典》第585条；《最高人民法院关于适用〈中华人民共和国民法典〉合同编通则若干问题的解释》第65条",
+            "authority_status": "validated_or_general_principle",
+            "confidence": "medium"
+          }
+        ]
+      },
+      "finding_id": "RF-010"
+    },
+    {
+      "rule_id": "GEN-LIAB-03",
+      "risk_fact_id": "penalty_obligation_1",
+      "source_fact_id": "f_penalty_574d255a6409691888f8",
+      "element_key": "base",
+      "canonical_value": "合同总金额",
+      "direct_report_evidence_id": [
+        "EV-8a962a085c759034"
+      ],
+      "reject_reason": null,
+      "orientation_provenance": {
+        "review_context_key": "liquidated_damages_direction.review_party_side",
+        "review_party_side": "PARTY_A",
+        "source_fact_key": "f_penalty_574d255a6409691888f8",
+        "element_key": "beneficiary",
+        "beneficiary": "甲方"
+      },
+      "evaluation_provenance": {
+        "source_fact_key": "f_penalty_574d255a6409691888f8",
+        "rule_id": "GEN-LIAB-03",
+        "decision_trace_key": "liquidated_damages_calibration",
+        "parameter_evaluation": [
+          {
+            "rate_percent_per_day": 0.1,
+            "source_text": "若因乙方原因导致迟延交付，每迟延一天，乙方应按照合同总金额的0.1%向甲方支付违约金",
+            "potentially_excessive": true,
+            "calculation_method": "DAILY_PERCENTAGE",
+            "obligor": "乙方",
+            "obligee": "甲方",
+            "trigger": "若因乙方原因导致迟延交付，每迟延一天，乙方应"
+          }
+        ],
+        "legal_basis": [
+          {
+            "text": "《中华人民共和国民法典》第585条；《最高人民法院关于适用〈中华人民共和国民法典〉合同编通则若干问题的解释》第65条",
+            "authority_status": "validated_or_general_principle",
+            "confidence": "medium"
+          }
+        ]
+      },
+      "finding_id": "RF-010"
+    },
+    {
+      "rule_id": "GEN-LIAB-03",
+      "risk_fact_id": "penalty_obligation_1",
+      "source_fact_id": "f_penalty_574d255a6409691888f8",
+      "element_key": "consequence",
+      "canonical_value": "支付违约金",
+      "direct_report_evidence_id": [
+        "EV-8a962a085c759034"
+      ],
+      "reject_reason": null,
+      "orientation_provenance": {
+        "review_context_key": "liquidated_damages_direction.review_party_side",
+        "review_party_side": "PARTY_A",
+        "source_fact_key": "f_penalty_574d255a6409691888f8",
+        "element_key": "beneficiary",
+        "beneficiary": "甲方"
+      },
+      "evaluation_provenance": {
+        "source_fact_key": "f_penalty_574d255a6409691888f8",
+        "rule_id": "GEN-LIAB-03",
+        "decision_trace_key": "liquidated_damages_calibration",
+        "parameter_evaluation": [
+          {
+            "rate_percent_per_day": 0.1,
+            "source_text": "若因乙方原因导致迟延交付，每迟延一天，乙方应按照合同总金额的0.1%向甲方支付违约金",
+            "potentially_excessive": true,
+            "calculation_method": "DAILY_PERCENTAGE",
+            "obligor": "乙方",
+            "obligee": "甲方",
+            "trigger": "若因乙方原因导致迟延交付，每迟延一天，乙方应"
+          }
+        ],
+        "legal_basis": [
+          {
+            "text": "《中华人民共和国民法典》第585条；《最高人民法院关于适用〈中华人民共和国民法典〉合同编通则若干问题的解释》第65条",
+            "authority_status": "validated_or_general_principle",
+            "confidence": "medium"
+          }
+        ]
+      },
+      "finding_id": "RF-010"
+    }
+  ],
+  "final_risk_fact_count": 1,
+  "mismatch_count": 0,
+  "failures": [],
+  "gate_results": {
+    "NARRATIVE_EVIDENCE_GATE": "PASS"
+  }
+}

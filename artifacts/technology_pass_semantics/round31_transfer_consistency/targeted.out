@@ -1,0 +1,487 @@
+........................................................................ [ 41%]
+........................................................................ [ 83%]
+...............F....FFFFFFF..                                            [100%]
+================================== FAILURES ===================================
+_ test_final_required_coverage_resolves_stale_partial_and_gate_detects_regression _
+
+    def test_final_required_coverage_resolves_stale_partial_and_gate_detects_regression():
+        review = item([{"element_id": "required", "status": "COVERED", "proposition": "责任已明确",
+                        "evidence_ids": ["SOURCE"]},
+                       {"element_id": "optional", "status": "MISSING", "risk_relevant": False}],
+                      decision_trace={"deterministic_semantic_risk": True, "specialized_multi_element_state": True})
+>       assert engine._exact_element_report_invariants([review], []) == [
+            {"review_id": "TEST-01", "reason": "PARTIAL_WITHOUT_UNRESOLVED_ELEMENT"}]
+
+backend\tests\test_final_coverage_and_review_topics.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+items = [namespace(item_id='TEST-01', title='权属核验', risk_group='proof', risk_level='低', coverage_elements=[{'element_id': 'req...xt': '合同明确约定本项责任。'}], risk_point_description='保护不完整', reasoning_summary='保护不完整', legal_consequence_if_missing='保护不完整')]
+findings = []
+
+    def _exact_element_report_invariants(items: List[ReviewItemResult], findings: List[RiskFinding]) -> List[Dict[str, Any]]:
+        """Fail closed on lost semantic bindings and factual template expansion."""
+        failures = []
+        for item in items:
+            failures.extend({"review_id": item.item_id, **failure}
+                            for failure in confidentiality_binding_failures(item.coverage_elements))
+>           state = item.narrative_state or {}
+E           AttributeError: 'types.SimpleNamespace' object has no attribute 'narrative_state'
+
+backend\review_v2\engine.py:44036: AttributeError
+_ test_disclosure_children_have_independent_positive_evidence[\u7532\u65b9\u66fe\u5411\u8fdc\u5ddd\u79d1\u6280\u6709\u9650\u516c\u53f8\u6388\u4e88\u666e\u901a\u5b9e\u65bd\u8bb8\u53ef\uff0c\u8bb8\u53ef\u671f\u9650\u81f32032\u5e746\u670830\u65e5\uff0c\u8bb8\u53ef\u5730\u57df\u4e3a\u5e7f\u4e1c\u7701\u3002-covered0] _
+
+text = '甲方曾向远川科技有限公司授予普通实施许可，许可期限至2032年6月30日，许可地域为广东省。'
+covered = {'existing_license_counterparty', 'existing_license_disclosure', 'existing_license_term', 'existing_license_territory'}
+
+    @pytest.mark.parametrize("text,covered", [
+        ("甲方曾向远川科技有限公司授予普通实施许可，许可期限至2032年6月30日，许可地域为广东省。",
+         {"existing_license_disclosure", "existing_license_counterparty", "existing_license_term", "existing_license_territory"}),
+        ("此前已向远川科技有限公司授予普通许可。", {"existing_license_disclosure", "existing_license_counterparty"}),
+        ("本合同技术用于自有测试项目。", {"test_use_arrangement"}),
+        ("技术由双方合作企业联合研发。", set()),
+        ("本合同许可期限为三年，许可地域为广东省。", set()),
+        ("此前接触过技术的合作企业均未与卖方签署完整的技术秘密许可合同。", set()),
+        ("乙方曾向合作企业提供部分控制参数进行测试。", {"other_third_party_use_arrangement"}),
+    ])
+    def test_disclosure_children_have_independent_positive_evidence(text, covered):
+        clauses = [ParsedClause("SOURCE", "第四条", "既有使用", text, "正式合同条款", 1)]
+        rows, evidence = engine._existing_technology_use_disclosure_results(clauses)
+        assert {row["element_id"] for row in rows if row["status"] == "COVERED"} == covered
+        assert all(row["bound_evidence_ids"] == ["SOURCE"] for row in rows if row["status"] == "COVERED")
+        review = item(rows)
+        for row in rows:
+>           audit = engine._search_final_element(review, row, clauses)
+
+backend\tests\test_final_coverage_and_review_topics.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+item = namespace(item_id='TEST-01', title='权属核验', risk_group='proof', risk_level='低', coverage_elements=[{'element_id': 'exis...ext': '合同明确约定本项责任。'}], risk_point_description='保护不完整', reasoning_summary='保护不完整', legal_consequence_if_missing='保护不完整')
+element = {'element_id': 'existing_license_disclosure', 'status': 'COVERED', 'proposition': '既有许可情况披露已有明确记载。', 'required_fact': '既有许可情况披露', ...}
+clauses = [ParsedClause(clause_id='SOURCE', location='第四条', title='既有使用', text='甲方曾向远川科技有限公司授予普通实施许可，许可期限至2032年6月30日，许可地域为广东省。',...umber='', item_number='', sentence_index=1, start_offset=-1, end_offset=-1, source_type='BODY', party_obligation=True)]
+
+    def _search_final_element(item: ReviewItemResult, element: Dict[str, Any], clauses: List[ParsedClause]) -> Dict[str, Any]:
+        """Execute and retain a separate positive-fact query for each residual gap."""
+        key = element["element_id"]
+        if requirements := element.get('source_requirements'):
+            hits = [dict(clause_id=c.clause_id, quote=c.text) for c in clauses
+                    if _source_meets_requirements(_clause_public_dict(c), requirements)]
+            return dict(element_id=key, review_id=item.item_id, search_targets=_objective_fact_search_targets(element),
+                        query_patterns=requirements['terms'], query_semantics='POSITIVE_REQUIRED_FACT',
+                        search_mode='REQUIRED_SOURCE_DOCUMENT', searched_clause_ids=[c.clause_id for c in clauses],
+                        searched_document_hash=_stable_hash('\n'.join(c.text for c in clauses)),
+                        result='FOUND' if hits else 'NOT_FOUND', supporting_evidence=hits)
+        if key in _PATENT_IDENTITY_FIELDS:
+            # Use the same registry predicate as the positive projection. A
+            # different identity field cannot satisfy this field's absence query.
+            graph = extract_contract_fact_graph(clauses)
+            hits = _technology_registry_evidence(graph, clauses, key)
+            return {
+                "element_id": key, "review_id": item.item_id,
+                "search_targets": [_PATENT_IDENTITY_FIELDS[key]],
+                "query_patterns": [key], "query_semantics": "POSITIVE_REQUIRED_FACT",
+                "search_mode": "CANONICAL_REGISTRY_FIELD",
+                "searched_clause_ids": [c.clause_id for c in clauses],
+                "searched_document_hash": _stable_hash("\n".join(c.text for c in clauses)),
+                "result": "FOUND" if hits else "NOT_FOUND", "supporting_evidence": hits,
+            }
+>       construction_requirement = next((r for r in item.decision_trace.get("construction_required_elements", CONSTRUCTION_COVERAGE_PROFILES.get(item.node_id, [])) if r["element_id"] == key), None)
+E       AttributeError: 'types.SimpleNamespace' object has no attribute 'node_id'
+
+backend\review_v2\engine.py:6590: AttributeError
+_ test_disclosure_children_have_independent_positive_evidence[\u6b64\u524d\u5df2\u5411\u8fdc\u5ddd\u79d1\u6280\u6709\u9650\u516c\u53f8\u6388\u4e88\u666e\u901a\u8bb8\u53ef\u3002-covered1] _
+
+text = '此前已向远川科技有限公司授予普通许可。'
+covered = {'existing_license_counterparty', 'existing_license_disclosure'}
+
+    @pytest.mark.parametrize("text,covered", [
+        ("甲方曾向远川科技有限公司授予普通实施许可，许可期限至2032年6月30日，许可地域为广东省。",
+         {"existing_license_disclosure", "existing_license_counterparty", "existing_license_term", "existing_license_territory"}),
+        ("此前已向远川科技有限公司授予普通许可。", {"existing_license_disclosure", "existing_license_counterparty"}),
+        ("本合同技术用于自有测试项目。", {"test_use_arrangement"}),
+        ("技术由双方合作企业联合研发。", set()),
+        ("本合同许可期限为三年，许可地域为广东省。", set()),
+        ("此前接触过技术的合作企业均未与卖方签署完整的技术秘密许可合同。", set()),
+        ("乙方曾向合作企业提供部分控制参数进行测试。", {"other_third_party_use_arrangement"}),
+    ])
+    def test_disclosure_children_have_independent_positive_evidence(text, covered):
+        clauses = [ParsedClause("SOURCE", "第四条", "既有使用", text, "正式合同条款", 1)]
+        rows, evidence = engine._existing_technology_use_disclosure_results(clauses)
+        assert {row["element_id"] for row in rows if row["status"] == "COVERED"} == covered
+        assert all(row["bound_evidence_ids"] == ["SOURCE"] for row in rows if row["status"] == "COVERED")
+        review = item(rows)
+        for row in rows:
+>           audit = engine._search_final_element(review, row, clauses)
+
+backend\tests\test_final_coverage_and_review_topics.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+item = namespace(item_id='TEST-01', title='权属核验', risk_group='proof', risk_level='低', coverage_elements=[{'element_id': 'exis...ext': '合同明确约定本项责任。'}], risk_point_description='保护不完整', reasoning_summary='保护不完整', legal_consequence_if_missing='保护不完整')
+element = {'element_id': 'existing_license_disclosure', 'status': 'COVERED', 'proposition': '既有许可情况披露已有明确记载。', 'required_fact': '既有许可情况披露', ...}
+clauses = [ParsedClause(clause_id='SOURCE', location='第四条', title='既有使用', text='此前已向远川科技有限公司授予普通许可。', section_type='正式合同条款', lev...umber='', item_number='', sentence_index=1, start_offset=-1, end_offset=-1, source_type='BODY', party_obligation=True)]
+
+    def _search_final_element(item: ReviewItemResult, element: Dict[str, Any], clauses: List[ParsedClause]) -> Dict[str, Any]:
+        """Execute and retain a separate positive-fact query for each residual gap."""
+        key = element["element_id"]
+        if requirements := element.get('source_requirements'):
+            hits = [dict(clause_id=c.clause_id, quote=c.text) for c in clauses
+                    if _source_meets_requirements(_clause_public_dict(c), requirements)]
+            return dict(element_id=key, review_id=item.item_id, search_targets=_objective_fact_search_targets(element),
+                        query_patterns=requirements['terms'], query_semantics='POSITIVE_REQUIRED_FACT',
+                        search_mode='REQUIRED_SOURCE_DOCUMENT', searched_clause_ids=[c.clause_id for c in clauses],
+                        searched_document_hash=_stable_hash('\n'.join(c.text for c in clauses)),
+                        result='FOUND' if hits else 'NOT_FOUND', supporting_evidence=hits)
+        if key in _PATENT_IDENTITY_FIELDS:
+            # Use the same registry predicate as the positive projection. A
+            # different identity field cannot satisfy this field's absence query.
+            graph = extract_contract_fact_graph(clauses)
+            hits = _technology_registry_evidence(graph, clauses, key)
+            return {
+                "element_id": key, "review_id": item.item_id,
+                "search_targets": [_PATENT_IDENTITY_FIELDS[key]],
+                "query_patterns": [key], "query_semantics": "POSITIVE_REQUIRED_FACT",
+                "search_mode": "CANONICAL_REGISTRY_FIELD",
+                "searched_clause_ids": [c.clause_id for c in clauses],
+                "searched_document_hash": _stable_hash("\n".join(c.text for c in clauses)),
+                "result": "FOUND" if hits else "NOT_FOUND", "supporting_evidence": hits,
+            }
+>       construction_requirement = next((r for r in item.decision_trace.get("construction_required_elements", CONSTRUCTION_COVERAGE_PROFILES.get(item.node_id, [])) if r["element_id"] == key), None)
+E       AttributeError: 'types.SimpleNamespace' object has no attribute 'node_id'
+
+backend\review_v2\engine.py:6590: AttributeError
+_ test_disclosure_children_have_independent_positive_evidence[\u672c\u5408\u540c\u6280\u672f\u7528\u4e8e\u81ea\u6709\u6d4b\u8bd5\u9879\u76ee\u3002-covered2] _
+
+text = '本合同技术用于自有测试项目。', covered = {'test_use_arrangement'}
+
+    @pytest.mark.parametrize("text,covered", [
+        ("甲方曾向远川科技有限公司授予普通实施许可，许可期限至2032年6月30日，许可地域为广东省。",
+         {"existing_license_disclosure", "existing_license_counterparty", "existing_license_term", "existing_license_territory"}),
+        ("此前已向远川科技有限公司授予普通许可。", {"existing_license_disclosure", "existing_license_counterparty"}),
+        ("本合同技术用于自有测试项目。", {"test_use_arrangement"}),
+        ("技术由双方合作企业联合研发。", set()),
+        ("本合同许可期限为三年，许可地域为广东省。", set()),
+        ("此前接触过技术的合作企业均未与卖方签署完整的技术秘密许可合同。", set()),
+        ("乙方曾向合作企业提供部分控制参数进行测试。", {"other_third_party_use_arrangement"}),
+    ])
+    def test_disclosure_children_have_independent_positive_evidence(text, covered):
+        clauses = [ParsedClause("SOURCE", "第四条", "既有使用", text, "正式合同条款", 1)]
+        rows, evidence = engine._existing_technology_use_disclosure_results(clauses)
+        assert {row["element_id"] for row in rows if row["status"] == "COVERED"} == covered
+        assert all(row["bound_evidence_ids"] == ["SOURCE"] for row in rows if row["status"] == "COVERED")
+        review = item(rows)
+        for row in rows:
+>           audit = engine._search_final_element(review, row, clauses)
+
+backend\tests\test_final_coverage_and_review_topics.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+item = namespace(item_id='TEST-01', title='权属核验', risk_group='proof', risk_level='低', coverage_elements=[{'element_id': 'exis...ext': '合同明确约定本项责任。'}], risk_point_description='保护不完整', reasoning_summary='保护不完整', legal_consequence_if_missing='保护不完整')
+element = {'element_id': 'existing_license_disclosure', 'status': 'MISSING', 'proposition': '既有许可情况披露', 'required_fact': '既有许可情况披露', ...}
+clauses = [ParsedClause(clause_id='SOURCE', location='第四条', title='既有使用', text='本合同技术用于自有测试项目。', section_type='正式合同条款', level=1,...umber='', item_number='', sentence_index=1, start_offset=-1, end_offset=-1, source_type='BODY', party_obligation=True)]
+
+    def _search_final_element(item: ReviewItemResult, element: Dict[str, Any], clauses: List[ParsedClause]) -> Dict[str, Any]:
+        """Execute and retain a separate positive-fact query for each residual gap."""
+        key = element["element_id"]
+        if requirements := element.get('source_requirements'):
+            hits = [dict(clause_id=c.clause_id, quote=c.text) for c in clauses
+                    if _source_meets_requirements(_clause_public_dict(c), requirements)]
+            return dict(element_id=key, review_id=item.item_id, search_targets=_objective_fact_search_targets(element),
+                        query_patterns=requirements['terms'], query_semantics='POSITIVE_REQUIRED_FACT',
+                        search_mode='REQUIRED_SOURCE_DOCUMENT', searched_clause_ids=[c.clause_id for c in clauses],
+                        searched_document_hash=_stable_hash('\n'.join(c.text for c in clauses)),
+                        result='FOUND' if hits else 'NOT_FOUND', supporting_evidence=hits)
+        if key in _PATENT_IDENTITY_FIELDS:
+            # Use the same registry predicate as the positive projection. A
+            # different identity field cannot satisfy this field's absence query.
+            graph = extract_contract_fact_graph(clauses)
+            hits = _technology_registry_evidence(graph, clauses, key)
+            return {
+                "element_id": key, "review_id": item.item_id,
+                "search_targets": [_PATENT_IDENTITY_FIELDS[key]],
+                "query_patterns": [key], "query_semantics": "POSITIVE_REQUIRED_FACT",
+                "search_mode": "CANONICAL_REGISTRY_FIELD",
+                "searched_clause_ids": [c.clause_id for c in clauses],
+                "searched_document_hash": _stable_hash("\n".join(c.text for c in clauses)),
+                "result": "FOUND" if hits else "NOT_FOUND", "supporting_evidence": hits,
+            }
+>       construction_requirement = next((r for r in item.decision_trace.get("construction_required_elements", CONSTRUCTION_COVERAGE_PROFILES.get(item.node_id, [])) if r["element_id"] == key), None)
+E       AttributeError: 'types.SimpleNamespace' object has no attribute 'node_id'
+
+backend\review_v2\engine.py:6590: AttributeError
+_ test_disclosure_children_have_independent_positive_evidence[\u6280\u672f\u7531\u53cc\u65b9\u5408\u4f5c\u4f01\u4e1a\u8054\u5408\u7814\u53d1\u3002-covered3] _
+
+text = '技术由双方合作企业联合研发。', covered = set()
+
+    @pytest.mark.parametrize("text,covered", [
+        ("甲方曾向远川科技有限公司授予普通实施许可，许可期限至2032年6月30日，许可地域为广东省。",
+         {"existing_license_disclosure", "existing_license_counterparty", "existing_license_term", "existing_license_territory"}),
+        ("此前已向远川科技有限公司授予普通许可。", {"existing_license_disclosure", "existing_license_counterparty"}),
+        ("本合同技术用于自有测试项目。", {"test_use_arrangement"}),
+        ("技术由双方合作企业联合研发。", set()),
+        ("本合同许可期限为三年，许可地域为广东省。", set()),
+        ("此前接触过技术的合作企业均未与卖方签署完整的技术秘密许可合同。", set()),
+        ("乙方曾向合作企业提供部分控制参数进行测试。", {"other_third_party_use_arrangement"}),
+    ])
+    def test_disclosure_children_have_independent_positive_evidence(text, covered):
+        clauses = [ParsedClause("SOURCE", "第四条", "既有使用", text, "正式合同条款", 1)]
+        rows, evidence = engine._existing_technology_use_disclosure_results(clauses)
+        assert {row["element_id"] for row in rows if row["status"] == "COVERED"} == covered
+        assert all(row["bound_evidence_ids"] == ["SOURCE"] for row in rows if row["status"] == "COVERED")
+        review = item(rows)
+        for row in rows:
+>           audit = engine._search_final_element(review, row, clauses)
+
+backend\tests\test_final_coverage_and_review_topics.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+item = namespace(item_id='TEST-01', title='权属核验', risk_group='proof', risk_level='低', coverage_elements=[{'element_id': 'exis...ext': '合同明确约定本项责任。'}], risk_point_description='保护不完整', reasoning_summary='保护不完整', legal_consequence_if_missing='保护不完整')
+element = {'element_id': 'existing_license_disclosure', 'status': 'MISSING', 'proposition': '既有许可情况披露', 'required_fact': '既有许可情况披露', ...}
+clauses = [ParsedClause(clause_id='SOURCE', location='第四条', title='既有使用', text='技术由双方合作企业联合研发。', section_type='正式合同条款', level=1,...umber='', item_number='', sentence_index=1, start_offset=-1, end_offset=-1, source_type='BODY', party_obligation=True)]
+
+    def _search_final_element(item: ReviewItemResult, element: Dict[str, Any], clauses: List[ParsedClause]) -> Dict[str, Any]:
+        """Execute and retain a separate positive-fact query for each residual gap."""
+        key = element["element_id"]
+        if requirements := element.get('source_requirements'):
+            hits = [dict(clause_id=c.clause_id, quote=c.text) for c in clauses
+                    if _source_meets_requirements(_clause_public_dict(c), requirements)]
+            return dict(element_id=key, review_id=item.item_id, search_targets=_objective_fact_search_targets(element),
+                        query_patterns=requirements['terms'], query_semantics='POSITIVE_REQUIRED_FACT',
+                        search_mode='REQUIRED_SOURCE_DOCUMENT', searched_clause_ids=[c.clause_id for c in clauses],
+                        searched_document_hash=_stable_hash('\n'.join(c.text for c in clauses)),
+                        result='FOUND' if hits else 'NOT_FOUND', supporting_evidence=hits)
+        if key in _PATENT_IDENTITY_FIELDS:
+            # Use the same registry predicate as the positive projection. A
+            # different identity field cannot satisfy this field's absence query.
+            graph = extract_contract_fact_graph(clauses)
+            hits = _technology_registry_evidence(graph, clauses, key)
+            return {
+                "element_id": key, "review_id": item.item_id,
+                "search_targets": [_PATENT_IDENTITY_FIELDS[key]],
+                "query_patterns": [key], "query_semantics": "POSITIVE_REQUIRED_FACT",
+                "search_mode": "CANONICAL_REGISTRY_FIELD",
+                "searched_clause_ids": [c.clause_id for c in clauses],
+                "searched_document_hash": _stable_hash("\n".join(c.text for c in clauses)),
+                "result": "FOUND" if hits else "NOT_FOUND", "supporting_evidence": hits,
+            }
+>       construction_requirement = next((r for r in item.decision_trace.get("construction_required_elements", CONSTRUCTION_COVERAGE_PROFILES.get(item.node_id, [])) if r["element_id"] == key), None)
+E       AttributeError: 'types.SimpleNamespace' object has no attribute 'node_id'
+
+backend\review_v2\engine.py:6590: AttributeError
+_ test_disclosure_children_have_independent_positive_evidence[\u672c\u5408\u540c\u8bb8\u53ef\u671f\u9650\u4e3a\u4e09\u5e74\uff0c\u8bb8\u53ef\u5730\u57df\u4e3a\u5e7f\u4e1c\u7701\u3002-covered4] _
+
+text = '本合同许可期限为三年，许可地域为广东省。', covered = set()
+
+    @pytest.mark.parametrize("text,covered", [
+        ("甲方曾向远川科技有限公司授予普通实施许可，许可期限至2032年6月30日，许可地域为广东省。",
+         {"existing_license_disclosure", "existing_license_counterparty", "existing_license_term", "existing_license_territory"}),
+        ("此前已向远川科技有限公司授予普通许可。", {"existing_license_disclosure", "existing_license_counterparty"}),
+        ("本合同技术用于自有测试项目。", {"test_use_arrangement"}),
+        ("技术由双方合作企业联合研发。", set()),
+        ("本合同许可期限为三年，许可地域为广东省。", set()),
+        ("此前接触过技术的合作企业均未与卖方签署完整的技术秘密许可合同。", set()),
+        ("乙方曾向合作企业提供部分控制参数进行测试。", {"other_third_party_use_arrangement"}),
+    ])
+    def test_disclosure_children_have_independent_positive_evidence(text, covered):
+        clauses = [ParsedClause("SOURCE", "第四条", "既有使用", text, "正式合同条款", 1)]
+        rows, evidence = engine._existing_technology_use_disclosure_results(clauses)
+        assert {row["element_id"] for row in rows if row["status"] == "COVERED"} == covered
+        assert all(row["bound_evidence_ids"] == ["SOURCE"] for row in rows if row["status"] == "COVERED")
+        review = item(rows)
+        for row in rows:
+>           audit = engine._search_final_element(review, row, clauses)
+
+backend\tests\test_final_coverage_and_review_topics.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+item = namespace(item_id='TEST-01', title='权属核验', risk_group='proof', risk_level='低', coverage_elements=[{'element_id': 'exis...ext': '合同明确约定本项责任。'}], risk_point_description='保护不完整', reasoning_summary='保护不完整', legal_consequence_if_missing='保护不完整')
+element = {'element_id': 'existing_license_disclosure', 'status': 'MISSING', 'proposition': '既有许可情况披露', 'required_fact': '既有许可情况披露', ...}
+clauses = [ParsedClause(clause_id='SOURCE', location='第四条', title='既有使用', text='本合同许可期限为三年，许可地域为广东省。', section_type='正式合同条款', le...umber='', item_number='', sentence_index=1, start_offset=-1, end_offset=-1, source_type='BODY', party_obligation=True)]
+
+    def _search_final_element(item: ReviewItemResult, element: Dict[str, Any], clauses: List[ParsedClause]) -> Dict[str, Any]:
+        """Execute and retain a separate positive-fact query for each residual gap."""
+        key = element["element_id"]
+        if requirements := element.get('source_requirements'):
+            hits = [dict(clause_id=c.clause_id, quote=c.text) for c in clauses
+                    if _source_meets_requirements(_clause_public_dict(c), requirements)]
+            return dict(element_id=key, review_id=item.item_id, search_targets=_objective_fact_search_targets(element),
+                        query_patterns=requirements['terms'], query_semantics='POSITIVE_REQUIRED_FACT',
+                        search_mode='REQUIRED_SOURCE_DOCUMENT', searched_clause_ids=[c.clause_id for c in clauses],
+                        searched_document_hash=_stable_hash('\n'.join(c.text for c in clauses)),
+                        result='FOUND' if hits else 'NOT_FOUND', supporting_evidence=hits)
+        if key in _PATENT_IDENTITY_FIELDS:
+            # Use the same registry predicate as the positive projection. A
+            # different identity field cannot satisfy this field's absence query.
+            graph = extract_contract_fact_graph(clauses)
+            hits = _technology_registry_evidence(graph, clauses, key)
+            return {
+                "element_id": key, "review_id": item.item_id,
+                "search_targets": [_PATENT_IDENTITY_FIELDS[key]],
+                "query_patterns": [key], "query_semantics": "POSITIVE_REQUIRED_FACT",
+                "search_mode": "CANONICAL_REGISTRY_FIELD",
+                "searched_clause_ids": [c.clause_id for c in clauses],
+                "searched_document_hash": _stable_hash("\n".join(c.text for c in clauses)),
+                "result": "FOUND" if hits else "NOT_FOUND", "supporting_evidence": hits,
+            }
+>       construction_requirement = next((r for r in item.decision_trace.get("construction_required_elements", CONSTRUCTION_COVERAGE_PROFILES.get(item.node_id, [])) if r["element_id"] == key), None)
+E       AttributeError: 'types.SimpleNamespace' object has no attribute 'node_id'
+
+backend\review_v2\engine.py:6590: AttributeError
+_ test_disclosure_children_have_independent_positive_evidence[\u6b64\u524d\u63a5\u89e6\u8fc7\u6280\u672f\u7684\u5408\u4f5c\u4f01\u4e1a\u5747\u672a\u4e0e\u5356\u65b9\u7b7e\u7f72\u5b8c\u6574\u7684\u6280\u672f\u79d8\u5bc6\u8bb8\u53ef\u5408\u540c\u3002-covered5] _
+
+text = '此前接触过技术的合作企业均未与卖方签署完整的技术秘密许可合同。', covered = set()
+
+    @pytest.mark.parametrize("text,covered", [
+        ("甲方曾向远川科技有限公司授予普通实施许可，许可期限至2032年6月30日，许可地域为广东省。",
+         {"existing_license_disclosure", "existing_license_counterparty", "existing_license_term", "existing_license_territory"}),
+        ("此前已向远川科技有限公司授予普通许可。", {"existing_license_disclosure", "existing_license_counterparty"}),
+        ("本合同技术用于自有测试项目。", {"test_use_arrangement"}),
+        ("技术由双方合作企业联合研发。", set()),
+        ("本合同许可期限为三年，许可地域为广东省。", set()),
+        ("此前接触过技术的合作企业均未与卖方签署完整的技术秘密许可合同。", set()),
+        ("乙方曾向合作企业提供部分控制参数进行测试。", {"other_third_party_use_arrangement"}),
+    ])
+    def test_disclosure_children_have_independent_positive_evidence(text, covered):
+        clauses = [ParsedClause("SOURCE", "第四条", "既有使用", text, "正式合同条款", 1)]
+        rows, evidence = engine._existing_technology_use_disclosure_results(clauses)
+        assert {row["element_id"] for row in rows if row["status"] == "COVERED"} == covered
+        assert all(row["bound_evidence_ids"] == ["SOURCE"] for row in rows if row["status"] == "COVERED")
+        review = item(rows)
+        for row in rows:
+>           audit = engine._search_final_element(review, row, clauses)
+
+backend\tests\test_final_coverage_and_review_topics.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+item = namespace(item_id='TEST-01', title='权属核验', risk_group='proof', risk_level='低', coverage_elements=[{'element_id': 'exis...ext': '合同明确约定本项责任。'}], risk_point_description='保护不完整', reasoning_summary='保护不完整', legal_consequence_if_missing='保护不完整')
+element = {'element_id': 'existing_license_disclosure', 'status': 'MISSING', 'proposition': '既有许可情况披露', 'required_fact': '既有许可情况披露', ...}
+clauses = [ParsedClause(clause_id='SOURCE', location='第四条', title='既有使用', text='此前接触过技术的合作企业均未与卖方签署完整的技术秘密许可合同。', section_type='...umber='', item_number='', sentence_index=1, start_offset=-1, end_offset=-1, source_type='BODY', party_obligation=True)]
+
+    def _search_final_element(item: ReviewItemResult, element: Dict[str, Any], clauses: List[ParsedClause]) -> Dict[str, Any]:
+        """Execute and retain a separate positive-fact query for each residual gap."""
+        key = element["element_id"]
+        if requirements := element.get('source_requirements'):
+            hits = [dict(clause_id=c.clause_id, quote=c.text) for c in clauses
+                    if _source_meets_requirements(_clause_public_dict(c), requirements)]
+            return dict(element_id=key, review_id=item.item_id, search_targets=_objective_fact_search_targets(element),
+                        query_patterns=requirements['terms'], query_semantics='POSITIVE_REQUIRED_FACT',
+                        search_mode='REQUIRED_SOURCE_DOCUMENT', searched_clause_ids=[c.clause_id for c in clauses],
+                        searched_document_hash=_stable_hash('\n'.join(c.text for c in clauses)),
+                        result='FOUND' if hits else 'NOT_FOUND', supporting_evidence=hits)
+        if key in _PATENT_IDENTITY_FIELDS:
+            # Use the same registry predicate as the positive projection. A
+            # different identity field cannot satisfy this field's absence query.
+            graph = extract_contract_fact_graph(clauses)
+            hits = _technology_registry_evidence(graph, clauses, key)
+            return {
+                "element_id": key, "review_id": item.item_id,
+                "search_targets": [_PATENT_IDENTITY_FIELDS[key]],
+                "query_patterns": [key], "query_semantics": "POSITIVE_REQUIRED_FACT",
+                "search_mode": "CANONICAL_REGISTRY_FIELD",
+                "searched_clause_ids": [c.clause_id for c in clauses],
+                "searched_document_hash": _stable_hash("\n".join(c.text for c in clauses)),
+                "result": "FOUND" if hits else "NOT_FOUND", "supporting_evidence": hits,
+            }
+>       construction_requirement = next((r for r in item.decision_trace.get("construction_required_elements", CONSTRUCTION_COVERAGE_PROFILES.get(item.node_id, [])) if r["element_id"] == key), None)
+E       AttributeError: 'types.SimpleNamespace' object has no attribute 'node_id'
+
+backend\review_v2\engine.py:6590: AttributeError
+_ test_disclosure_children_have_independent_positive_evidence[\u4e59\u65b9\u66fe\u5411\u5408\u4f5c\u4f01\u4e1a\u63d0\u4f9b\u90e8\u5206\u63a7\u5236\u53c2\u6570\u8fdb\u884c\u6d4b\u8bd5\u3002-covered6] _
+
+text = '乙方曾向合作企业提供部分控制参数进行测试。', covered = {'other_third_party_use_arrangement'}
+
+    @pytest.mark.parametrize("text,covered", [
+        ("甲方曾向远川科技有限公司授予普通实施许可，许可期限至2032年6月30日，许可地域为广东省。",
+         {"existing_license_disclosure", "existing_license_counterparty", "existing_license_term", "existing_license_territory"}),
+        ("此前已向远川科技有限公司授予普通许可。", {"existing_license_disclosure", "existing_license_counterparty"}),
+        ("本合同技术用于自有测试项目。", {"test_use_arrangement"}),
+        ("技术由双方合作企业联合研发。", set()),
+        ("本合同许可期限为三年，许可地域为广东省。", set()),
+        ("此前接触过技术的合作企业均未与卖方签署完整的技术秘密许可合同。", set()),
+        ("乙方曾向合作企业提供部分控制参数进行测试。", {"other_third_party_use_arrangement"}),
+    ])
+    def test_disclosure_children_have_independent_positive_evidence(text, covered):
+        clauses = [ParsedClause("SOURCE", "第四条", "既有使用", text, "正式合同条款", 1)]
+        rows, evidence = engine._existing_technology_use_disclosure_results(clauses)
+        assert {row["element_id"] for row in rows if row["status"] == "COVERED"} == covered
+        assert all(row["bound_evidence_ids"] == ["SOURCE"] for row in rows if row["status"] == "COVERED")
+        review = item(rows)
+        for row in rows:
+>           audit = engine._search_final_element(review, row, clauses)
+
+backend\tests\test_final_coverage_and_review_topics.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+item = namespace(item_id='TEST-01', title='权属核验', risk_group='proof', risk_level='低', coverage_elements=[{'element_id': 'exis...ext': '合同明确约定本项责任。'}], risk_point_description='保护不完整', reasoning_summary='保护不完整', legal_consequence_if_missing='保护不完整')
+element = {'element_id': 'existing_license_disclosure', 'status': 'MISSING', 'proposition': '既有许可情况披露', 'required_fact': '既有许可情况披露', ...}
+clauses = [ParsedClause(clause_id='SOURCE', location='第四条', title='既有使用', text='乙方曾向合作企业提供部分控制参数进行测试。', section_type='正式合同条款', l...umber='', item_number='', sentence_index=1, start_offset=-1, end_offset=-1, source_type='BODY', party_obligation=True)]
+
+    def _search_final_element(item: ReviewItemResult, element: Dict[str, Any], clauses: List[ParsedClause]) -> Dict[str, Any]:
+        """Execute and retain a separate positive-fact query for each residual gap."""
+        key = element["element_id"]
+        if requirements := element.get('source_requirements'):
+            hits = [dict(clause_id=c.clause_id, quote=c.text) for c in clauses
+                    if _source_meets_requirements(_clause_public_dict(c), requirements)]
+            return dict(element_id=key, review_id=item.item_id, search_targets=_objective_fact_search_targets(element),
+                        query_patterns=requirements['terms'], query_semantics='POSITIVE_REQUIRED_FACT',
+                        search_mode='REQUIRED_SOURCE_DOCUMENT', searched_clause_ids=[c.clause_id for c in clauses],
+                        searched_document_hash=_stable_hash('\n'.join(c.text for c in clauses)),
+                        result='FOUND' if hits else 'NOT_FOUND', supporting_evidence=hits)
+        if key in _PATENT_IDENTITY_FIELDS:
+            # Use the same registry predicate as the positive projection. A
+            # different identity field cannot satisfy this field's absence query.
+            graph = extract_contract_fact_graph(clauses)
+            hits = _technology_registry_evidence(graph, clauses, key)
+            return {
+                "element_id": key, "review_id": item.item_id,
+                "search_targets": [_PATENT_IDENTITY_FIELDS[key]],
+                "query_patterns": [key], "query_semantics": "POSITIVE_REQUIRED_FACT",
+                "search_mode": "CANONICAL_REGISTRY_FIELD",
+                "searched_clause_ids": [c.clause_id for c in clauses],
+                "searched_document_hash": _stable_hash("\n".join(c.text for c in clauses)),
+                "result": "FOUND" if hits else "NOT_FOUND", "supporting_evidence": hits,
+            }
+>       construction_requirement = next((r for r in item.decision_trace.get("construction_required_elements", CONSTRUCTION_COVERAGE_PROFILES.get(item.node_id, [])) if r["element_id"] == key), None)
+E       AttributeError: 'types.SimpleNamespace' object has no attribute 'node_id'
+
+backend\review_v2\engine.py:6590: AttributeError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:159
+  F:\ai\Sage\backend\main.py:159: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_final_coverage_and_review_topics.py::test_final_required_coverage_resolves_stale_partial_and_gate_detects_regression
+FAILED backend/tests/test_final_coverage_and_review_topics.py::test_disclosure_children_have_independent_positive_evidence[\u7532\u65b9\u66fe\u5411\u8fdc\u5ddd\u79d1\u6280\u6709\u9650\u516c\u53f8\u6388\u4e88\u666e\u901a\u5b9e\u65bd\u8bb8\u53ef\uff0c\u8bb8\u53ef\u671f\u9650\u81f32032\u5e746\u670830\u65e5\uff0c\u8bb8\u53ef\u5730\u57df\u4e3a\u5e7f\u4e1c\u7701\u3002-covered0]
+FAILED backend/tests/test_final_coverage_and_review_topics.py::test_disclosure_children_have_independent_positive_evidence[\u6b64\u524d\u5df2\u5411\u8fdc\u5ddd\u79d1\u6280\u6709\u9650\u516c\u53f8\u6388\u4e88\u666e\u901a\u8bb8\u53ef\u3002-covered1]
+FAILED backend/tests/test_final_coverage_and_review_topics.py::test_disclosure_children_have_independent_positive_evidence[\u672c\u5408\u540c\u6280\u672f\u7528\u4e8e\u81ea\u6709\u6d4b\u8bd5\u9879\u76ee\u3002-covered2]
+FAILED backend/tests/test_final_coverage_and_review_topics.py::test_disclosure_children_have_independent_positive_evidence[\u6280\u672f\u7531\u53cc\u65b9\u5408\u4f5c\u4f01\u4e1a\u8054\u5408\u7814\u53d1\u3002-covered3]
+FAILED backend/tests/test_final_coverage_and_review_topics.py::test_disclosure_children_have_independent_positive_evidence[\u672c\u5408\u540c\u8bb8\u53ef\u671f\u9650\u4e3a\u4e09\u5e74\uff0c\u8bb8\u53ef\u5730\u57df\u4e3a\u5e7f\u4e1c\u7701\u3002-covered4]
+FAILED backend/tests/test_final_coverage_and_review_topics.py::test_disclosure_children_have_independent_positive_evidence[\u6b64\u524d\u63a5\u89e6\u8fc7\u6280\u672f\u7684\u5408\u4f5c\u4f01\u4e1a\u5747\u672a\u4e0e\u5356\u65b9\u7b7e\u7f72\u5b8c\u6574\u7684\u6280\u672f\u79d8\u5bc6\u8bb8\u53ef\u5408\u540c\u3002-covered5]
+FAILED backend/tests/test_final_coverage_and_review_topics.py::test_disclosure_children_have_independent_positive_evidence[\u4e59\u65b9\u66fe\u5411\u5408\u4f5c\u4f01\u4e1a\u63d0\u4f9b\u90e8\u5206\u63a7\u5236\u53c2\u6570\u8fdb\u884c\u6d4b\u8bd5\u3002-covered6]
+8 failed, 165 passed, 5 warnings in 97.75s (0:01:37)

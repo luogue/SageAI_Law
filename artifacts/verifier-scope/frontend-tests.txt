@@ -1,0 +1,45 @@
+TAP version 13
+# Subtest: A fails, B upload clears A, B succeeds, A history remains restorable
+ok 1 - A fails, B upload clears A, B succeeds, A history remains restorable
+  ---
+  duration_ms: 3.3036
+  ...
+# Subtest: stale request cannot publish diagnostics into a replacement document
+ok 2 - stale request cannot publish diagnostics into a replacement document
+  ---
+  duration_ms: 0.2887
+  ...
+# Subtest: retry clears old trace, displays only latest failure, success clears current only
+ok 3 - retry clears old trace, displays only latest failure, success clears current only
+  ---
+  duration_ms: 1.1941
+  ...
+# Subtest: refresh restores only selected task, folded by default
+ok 4 - refresh restores only selected task, folded by default
+  ---
+  duration_ms: 0.3213
+  ...
+# Subtest: saving new failure does not remove existing history
+ok 5 - saving new failure does not remove existing history
+  ---
+  duration_ms: 2.157
+  ...
+# Subtest: verification set diagnostics survive history restore with compact differences
+ok 6 - verification set diagnostics survive history restore with compact differences
+  ---
+  duration_ms: 1.1508
+  ...
+# Subtest: scope difference diagnostics persist without the full schema list
+ok 7 - scope difference diagnostics persist without the full schema list
+  ---
+  duration_ms: 0.2602
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 204.4317

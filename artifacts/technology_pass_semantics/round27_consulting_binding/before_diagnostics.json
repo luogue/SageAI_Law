@@ -1,0 +1,460 @@
+{
+  "client": {
+    "contract_type": "技术合同—技术咨询合同",
+    "raw_gate_failures": [
+      {
+        "requirement": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+        "failure_stage": "Review Evidence Projection",
+        "root_cause": "Review evidence is not exactly bound to covered elements: 2 mismatch(es).",
+        "current_status": "FAIL",
+        "mismatches": [
+          {
+            "review_id": "TC-12-02",
+            "element_id": "claim_notice_and_participation",
+            "status": "COVERED",
+            "evidence_refs": [
+              "C0018"
+            ],
+            "direct_evidence_refs": [],
+            "selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+            "reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership."
+          },
+          {
+            "review_id": "TC-12-02",
+            "element_id": "PRIMARY_EVIDENCE",
+            "evidence_refs": [
+              "C0018"
+            ],
+            "reason": "The primary report evidence does not directly support any covered element in this Review."
+          }
+        ]
+      },
+      {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "details": [
+          {
+            "risk_id": "RF-006",
+            "element_id": "claim_notice_and_participation",
+            "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+            "rule_id": "TC-12-02",
+            "finding_id": "RF-006",
+            "fact_key": "claim_notice_and_participation",
+            "fact_value": "合同约定第三方权利主张发生后的通知或参与处理机制。",
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+            "binding_diagnostics": [
+              {
+                "rule_id": "TC-12-02",
+                "finding_id": "RF-006",
+                "fact_key": "claim_notice_and_participation",
+                "fact_value": "合同约定第三方权利主张发生后的通知或参与处理机制。",
+                "current_evidence_refs": [
+                  "C0018"
+                ],
+                "current_supporting_evidence": [],
+                "report_evidence_id": null,
+                "support_target": [],
+                "source_type": null,
+                "conditions": {
+                  "published_element_evidence_exists": false
+                },
+                "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "details": [
+          {
+            "risk_id": "RF-006",
+            "element_id": "claim_notice_and_participation",
+            "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+            "rule_id": "TC-12-02",
+            "finding_id": "RF-006",
+            "fact_key": "claim_notice_and_participation",
+            "fact_value": "合同约定第三方权利主张发生后的通知或参与处理机制。",
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+            "binding_diagnostics": [
+              {
+                "rule_id": "TC-12-02",
+                "finding_id": "RF-006",
+                "fact_key": "claim_notice_and_participation",
+                "fact_value": "合同约定第三方权利主张发生后的通知或参与处理机制。",
+                "current_evidence_refs": [
+                  "C0018"
+                ],
+                "current_supporting_evidence": [],
+                "report_evidence_id": null,
+                "support_target": [],
+                "source_type": null,
+                "conditions": {
+                  "published_element_evidence_exists": false
+                },
+                "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "details": [
+          {
+            "risk_id": "RF-003",
+            "review_id": "TC-11-02",
+            "element_id": "required_disclosure_exception",
+            "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+          },
+          {
+            "review_id": "TC-11-02",
+            "evidence_owner": "ELEMENT_SEARCH",
+            "element_id": "required_disclosure_exception",
+            "reason": "INVALID_ABSENCE_SEARCH_TARGET",
+            "target_fields": [
+              "search_targets"
+            ],
+            "search_targets": []
+          }
+        ]
+      }
+    ],
+    "mismatches": [
+      {
+        "raw_gate_diagnostic": {
+          "review_id": "TC-12-02",
+          "element_id": "claim_notice_and_participation",
+          "status": "COVERED",
+          "evidence_refs": [
+            "C0018"
+          ],
+          "direct_evidence_refs": [],
+          "selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership."
+        },
+        "rule_id": "TC-12-02",
+        "element_key": "claim_notice_and_participation",
+        "final_status": "COVERED",
+        "canonical_fact_key": null,
+        "canonical_fact_value": null,
+        "evidence": [
+          {
+            "evidence_id": "SRC-62cd26110d2519063799",
+            "clause_id": "C0018",
+            "quote": "第十五条 第三方权利主张\n如第三方主张乙方提供的咨询报告、分析工具或者乙方自行提供的材料侵犯其知识产权，乙方应及时通知甲方并配合处理。",
+            "span": {
+              "start_offset": 2652,
+              "end_offset": 2719,
+              "raw_text": "第十五条 第三方权利主张\n如第三方主张乙方提供的咨询报告、分析工具或者乙方自行提供的材料侵犯其知识产权，乙方应及时通知甲方并配合处理。",
+              "coordinate_system": "DOCUMENT_TEXT"
+            },
+            "source_ref": {
+              "document_id": "contract_package/main",
+              "clause_id": "C0018",
+              "clause_sha256": "878d612bd0fa667e9a3ef0edf9bab8c3efb5e7d1cb9a2c0d76a0b20eee092d22",
+              "local_start": 0,
+              "local_end": 67,
+              "locator": "第十五条 第三方权利主张"
+            },
+            "support_type": "CONTEXTUAL",
+            "polarity": [
+              {
+                "quote": "第十五条 第三方权利主张",
+                "polarity": "AFFIRMATIVE"
+              },
+              {
+                "quote": "如第三方主张乙方提供的咨询报告、分析工具或者乙方自行提供的材料侵犯其知识产权，乙方应及时通知甲方并配合处理。",
+                "polarity": "CONDITIONAL"
+              }
+            ]
+          }
+        ],
+        "gate_reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership."
+      },
+      {
+        "raw_gate_diagnostic": {
+          "review_id": "TC-12-02",
+          "element_id": "PRIMARY_EVIDENCE",
+          "evidence_refs": [
+            "C0018"
+          ],
+          "reason": "The primary report evidence does not directly support any covered element in this Review."
+        },
+        "rule_id": "TC-12-02",
+        "element_key": "PRIMARY_EVIDENCE",
+        "final_status": "COVERED",
+        "canonical_fact_key": null,
+        "canonical_fact_value": null,
+        "evidence": [
+          {
+            "evidence_id": "SRC-62cd26110d2519063799",
+            "clause_id": "C0018",
+            "quote": "第十五条 第三方权利主张\n如第三方主张乙方提供的咨询报告、分析工具或者乙方自行提供的材料侵犯其知识产权，乙方应及时通知甲方并配合处理。",
+            "span": {
+              "start_offset": 2652,
+              "end_offset": 2719,
+              "raw_text": "第十五条 第三方权利主张\n如第三方主张乙方提供的咨询报告、分析工具或者乙方自行提供的材料侵犯其知识产权，乙方应及时通知甲方并配合处理。",
+              "coordinate_system": "DOCUMENT_TEXT"
+            },
+            "source_ref": {
+              "document_id": "contract_package/main",
+              "clause_id": "C0018",
+              "clause_sha256": "878d612bd0fa667e9a3ef0edf9bab8c3efb5e7d1cb9a2c0d76a0b20eee092d22",
+              "local_start": 0,
+              "local_end": 67,
+              "locator": "第十五条 第三方权利主张"
+            },
+            "support_type": "CONTEXTUAL",
+            "polarity": [
+              {
+                "quote": "第十五条 第三方权利主张",
+                "polarity": "AFFIRMATIVE"
+              },
+              {
+                "quote": "如第三方主张乙方提供的咨询报告、分析工具或者乙方自行提供的材料侵犯其知识产权，乙方应及时通知甲方并配合处理。",
+                "polarity": "CONDITIONAL"
+              }
+            ]
+          }
+        ],
+        "gate_reason": "The primary report evidence does not directly support any covered element in this Review."
+      }
+    ]
+  },
+  "provider": {
+    "contract_type": "技术合同—技术咨询合同",
+    "raw_gate_failures": [
+      {
+        "requirement": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+        "failure_stage": "Review Evidence Projection",
+        "root_cause": "Review evidence is not exactly bound to covered elements: 2 mismatch(es).",
+        "current_status": "FAIL",
+        "mismatches": [
+          {
+            "review_id": "TC-12-02",
+            "element_id": "claim_notice_and_participation",
+            "status": "COVERED",
+            "evidence_refs": [
+              "C0018"
+            ],
+            "direct_evidence_refs": [],
+            "selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+            "reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership."
+          },
+          {
+            "review_id": "TC-12-02",
+            "element_id": "PRIMARY_EVIDENCE",
+            "evidence_refs": [
+              "C0018"
+            ],
+            "reason": "The primary report evidence does not directly support any covered element in this Review."
+          }
+        ]
+      },
+      {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "details": [
+          {
+            "risk_id": "RF-006",
+            "element_id": "claim_notice_and_participation",
+            "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+            "rule_id": "TC-12-02",
+            "finding_id": "RF-006",
+            "fact_key": "claim_notice_and_participation",
+            "fact_value": "合同约定第三方权利主张发生后的通知或参与处理机制。",
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+            "binding_diagnostics": [
+              {
+                "rule_id": "TC-12-02",
+                "finding_id": "RF-006",
+                "fact_key": "claim_notice_and_participation",
+                "fact_value": "合同约定第三方权利主张发生后的通知或参与处理机制。",
+                "current_evidence_refs": [
+                  "C0018"
+                ],
+                "current_supporting_evidence": [],
+                "report_evidence_id": null,
+                "support_target": [],
+                "source_type": null,
+                "conditions": {
+                  "published_element_evidence_exists": false
+                },
+                "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "details": [
+          {
+            "risk_id": "RF-006",
+            "element_id": "claim_notice_and_participation",
+            "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+            "rule_id": "TC-12-02",
+            "finding_id": "RF-006",
+            "fact_key": "claim_notice_and_participation",
+            "fact_value": "合同约定第三方权利主张发生后的通知或参与处理机制。",
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+            "binding_diagnostics": [
+              {
+                "rule_id": "TC-12-02",
+                "finding_id": "RF-006",
+                "fact_key": "claim_notice_and_participation",
+                "fact_value": "合同约定第三方权利主张发生后的通知或参与处理机制。",
+                "current_evidence_refs": [
+                  "C0018"
+                ],
+                "current_supporting_evidence": [],
+                "report_evidence_id": null,
+                "support_target": [],
+                "source_type": null,
+                "conditions": {
+                  "published_element_evidence_exists": false
+                },
+                "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "details": [
+          {
+            "risk_id": "RF-003",
+            "review_id": "TC-11-02",
+            "element_id": "required_disclosure_exception",
+            "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+          },
+          {
+            "review_id": "TC-11-02",
+            "evidence_owner": "ELEMENT_SEARCH",
+            "element_id": "required_disclosure_exception",
+            "reason": "INVALID_ABSENCE_SEARCH_TARGET",
+            "target_fields": [
+              "search_targets"
+            ],
+            "search_targets": []
+          }
+        ]
+      }
+    ],
+    "mismatches": [
+      {
+        "raw_gate_diagnostic": {
+          "review_id": "TC-12-02",
+          "element_id": "claim_notice_and_participation",
+          "status": "COVERED",
+          "evidence_refs": [
+            "C0018"
+          ],
+          "direct_evidence_refs": [],
+          "selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership."
+        },
+        "rule_id": "TC-12-02",
+        "element_key": "claim_notice_and_participation",
+        "final_status": "COVERED",
+        "canonical_fact_key": null,
+        "canonical_fact_value": null,
+        "evidence": [
+          {
+            "evidence_id": "SRC-62cd26110d2519063799",
+            "clause_id": "C0018",
+            "quote": "第十五条 第三方权利主张\n如第三方主张乙方提供的咨询报告、分析工具或者乙方自行提供的材料侵犯其知识产权，乙方应及时通知甲方并配合处理。",
+            "span": {
+              "start_offset": 2652,
+              "end_offset": 2719,
+              "raw_text": "第十五条 第三方权利主张\n如第三方主张乙方提供的咨询报告、分析工具或者乙方自行提供的材料侵犯其知识产权，乙方应及时通知甲方并配合处理。",
+              "coordinate_system": "DOCUMENT_TEXT"
+            },
+            "source_ref": {
+              "document_id": "contract_package/main",
+              "clause_id": "C0018",
+              "clause_sha256": "878d612bd0fa667e9a3ef0edf9bab8c3efb5e7d1cb9a2c0d76a0b20eee092d22",
+              "local_start": 0,
+              "local_end": 67,
+              "locator": "第十五条 第三方权利主张"
+            },
+            "support_type": "CONTEXTUAL",
+            "polarity": [
+              {
+                "quote": "第十五条 第三方权利主张",
+                "polarity": "AFFIRMATIVE"
+              },
+              {
+                "quote": "如第三方主张乙方提供的咨询报告、分析工具或者乙方自行提供的材料侵犯其知识产权，乙方应及时通知甲方并配合处理。",
+                "polarity": "CONDITIONAL"
+              }
+            ]
+          }
+        ],
+        "gate_reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership."
+      },
+      {
+        "raw_gate_diagnostic": {
+          "review_id": "TC-12-02",
+          "element_id": "PRIMARY_EVIDENCE",
+          "evidence_refs": [
+            "C0018"
+          ],
+          "reason": "The primary report evidence does not directly support any covered element in this Review."
+        },
+        "rule_id": "TC-12-02",
+        "element_key": "PRIMARY_EVIDENCE",
+        "final_status": "COVERED",
+        "canonical_fact_key": null,
+        "canonical_fact_value": null,
+        "evidence": [
+          {
+            "evidence_id": "SRC-62cd26110d2519063799",
+            "clause_id": "C0018",
+            "quote": "第十五条 第三方权利主张\n如第三方主张乙方提供的咨询报告、分析工具或者乙方自行提供的材料侵犯其知识产权，乙方应及时通知甲方并配合处理。",
+            "span": {
+              "start_offset": 2652,
+              "end_offset": 2719,
+              "raw_text": "第十五条 第三方权利主张\n如第三方主张乙方提供的咨询报告、分析工具或者乙方自行提供的材料侵犯其知识产权，乙方应及时通知甲方并配合处理。",
+              "coordinate_system": "DOCUMENT_TEXT"
+            },
+            "source_ref": {
+              "document_id": "contract_package/main",
+              "clause_id": "C0018",
+              "clause_sha256": "878d612bd0fa667e9a3ef0edf9bab8c3efb5e7d1cb9a2c0d76a0b20eee092d22",
+              "local_start": 0,
+              "local_end": 67,
+              "locator": "第十五条 第三方权利主张"
+            },
+            "support_type": "CONTEXTUAL",
+            "polarity": [
+              {
+                "quote": "第十五条 第三方权利主张",
+                "polarity": "AFFIRMATIVE"
+              },
+              {
+                "quote": "如第三方主张乙方提供的咨询报告、分析工具或者乙方自行提供的材料侵犯其知识产权，乙方应及时通知甲方并配合处理。",
+                "polarity": "CONDITIONAL"
+              }
+            ]
+          }
+        ],
+        "gate_reason": "The primary report evidence does not directly support any covered element in this Review."
+      }
+    ]
+  }
+}

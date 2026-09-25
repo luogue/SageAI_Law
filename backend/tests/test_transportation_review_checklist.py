@@ -104,4 +104,7 @@ def test_review_v2_can_load_transportation_checklist():
     assert output["contract_type_name"] == "运输合同"
     assert output["all_items_count"] == 48
     assert len(output["items"]) == 48
-    assert output["summary"]["高"] + output["summary"]["中"] + output["summary"]["低"] == 48
+    assert len(output['items']) == 48
+    assert sum(output['coverage_summary'].values()) == 48
+    from collections import Counter
+    assert output['coverage_summary'] == dict(Counter(i['coverage_status'] for i in output['items']))

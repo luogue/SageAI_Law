@@ -1,0 +1,49 @@
+.................F..F                                                    [100%]
+================================== FAILURES ===================================
+_ test_infringement_polarity_through_final_report[\u7532\u65b9\u786e\u8ba4\u8be5\u6280\u672f\u76ee\u524d\u4fb5\u72af\u7b2c\u4e09\u65b9\u4e13\u5229\u3002-True] _
+backend\tests\test_claim_semantic_scope.py:100: in test_infringement_polarity_through_final_report
+    assert any(e['status'] == 'ADVERSE' for e in item['coverage_elements']) is adverse
+E   assert False is True
+E    +  where False = any(<generator object test_infringement_polarity_through_final_report.<locals>.<genexpr> at 0x000002571C133290>)
+__ test_non_actionable_party_gap_remains_visible_without_risk_recommendation __
+backend\tests\test_claim_semantic_scope.py:121: in test_non_actionable_party_gap_remains_visible_without_risk_recommendation
+    assert not party_narrative_failures(item.coverage_elements, state, state['recommendation'])
+E   AssertionError: assert not [{'element_id': 'stop_disclosure', 'obligated_party': '责任方', 'reason': 'PARTY_NARRATIVE_STATUS_MISMATCH'}, {'element_i...ATCH'}, {'element_id': 'incident_notification', 'obligated_party': '责任方', 'reason': 'PARTY_NARRATIVE_STATUS_MISMATCH'}]
+E    +  where [{'element_id': 'stop_disclosure', 'obligated_party': '责任方', 'reason': 'PARTY_NARRATIVE_STATUS_MISMATCH'}, {'element_i...ATCH'}, {'element_id': 'incident_notification', 'obligated_party': '责任方', 'reason': 'PARTY_NARRATIVE_STATUS_MISMATCH'}] = <function party_narrative_failures at 0x000002571848ED40>([{'element_id': 'breach_damage_liability', 'status': 'MISSING', 'proposition': '泄密损失赔偿责任', 'required_fact': '责任方泄密损失赔偿..._confidentiality_penalty', 'status': 'NOT_APPLICABLE', 'proposition': '泄密专项违约金', 'required_fact': '泄密专项违约金', ...}, ...], {'review_id': 'TC-11-04', 'applicability': 'APPLICABLE', 'polarity': 'POSITIVE_REQUIREMENT', 'coverage_status': '缺失', ...}, '建议补充明确泄密后停止披露；补充明确泄密后停止使用；补充明确泄密后采取措施防止继续扩散或损失扩大；补充明确泄密后及时通知受影响方。')
+E    +    where [{'element_id': 'breach_damage_liability', 'status': 'MISSING', 'proposition': '泄密损失赔偿责任', 'required_fact': '责任方泄密损失赔偿..._confidentiality_penalty', 'status': 'NOT_APPLICABLE', 'proposition': '泄密专项违约金', 'required_fact': '泄密专项违约金', ...}, ...] = ReviewItemResult(item_id='TC-11-04', node_id='test', title='泄密救济', risk_level='中', status='缺失', risk_point_description...isk_status='', recommended_action='', review_risk_links=[], contract_allocation='', risk_direction={}, presentation={}).coverage_elements
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_claim_semantic_scope.py::test_infringement_polarity_through_final_report[\u7532\u65b9\u786e\u8ba4\u8be5\u6280\u672f\u76ee\u524d\u4fb5\u72af\u7b2c\u4e09\u65b9\u4e13\u5229\u3002-True]
+FAILED backend/tests/test_claim_semantic_scope.py::test_non_actionable_party_gap_remains_visible_without_risk_recommendation
+2 failed, 19 passed, 5 warnings in 30.78s

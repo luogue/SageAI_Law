@@ -1,0 +1,393 @@
+{
+  "trace_id": "CR-20260911-180310-48FFBA",
+  "process_id": 21656,
+  "document_sha256": "056491270bb316248d72ca06d1822e4bc61b446c15e5decffbb695862f04ba6b",
+  "PT-07": {
+    "coverage_status": "通过",
+    "risk_level": "低",
+    "action_priority": "NONE",
+    "needs_manual_review": false,
+    "evidence_clauses": [
+      {
+        "clause_id": "C0004",
+        "location": "第一条 用工形式",
+        "title": "用工形式",
+        "text": "双方未约定固定终止日期，任何一方均可依法通知对方终止非全日制用工关系。",
+        "section_type": "正式合同条款",
+        "level": 1,
+        "raw_text": "第一条 用工形式\n双方确认建立非全日制劳动关系。\n本合同自2027年11月1日起生效。\n双方未约定固定终止日期，任何一方均可依法通知对方终止非全日制用工关系。",
+        "normalized_text": "第一条用工形式双方确认建立非全日制劳动关系。本合同自2027年11月1日起生效。双方未约定固定终止日期，任何一方均可依法通知对方终止非全日制用工关系。",
+        "option_groups": [],
+        "source": "body",
+        "section_path": [
+          "正式合同条款",
+          "第一条 用工形式"
+        ],
+        "heading": "用工形式",
+        "clause_number": "第一条",
+        "paragraph_index": 3,
+        "block_type": "OPERATIVE_CLAUSE",
+        "parties": [],
+        "dates": [
+          "2027年11月1日"
+        ],
+        "amounts": [],
+        "percentages": [],
+        "durations": [
+          "2027年",
+          "11月",
+          "1日"
+        ],
+        "cross_references": [
+          "第一条"
+        ],
+        "node_id": "C0004",
+        "document_id": "contract_package/main",
+        "heading_path": [
+          "第一条 用工形式"
+        ],
+        "article_number": "第一条",
+        "section_number": "",
+        "item_number": "",
+        "sentence_index": 1,
+        "start_offset": 227,
+        "end_offset": 306,
+        "source_type": "CONTRACT_TEXT",
+        "party_obligation": true,
+        "quote": "双方未约定固定终止日期，任何一方均可依法通知对方终止非全日制用工关系。",
+        "original_excerpt": "双方未约定固定终止日期，任何一方均可依法通知对方终止非全日制用工关系。",
+        "model_quote": "双方未约定固定终止日期，任何一方均可依法通知对方终止非全日制用工关系。",
+        "alignment_mode": "EXACT",
+        "source_start": 271,
+        "source_end": 306,
+        "evidence_span": {
+          "basis": "clause.text",
+          "start": 44,
+          "end": 79
+        },
+        "document_span": {
+          "start": 271,
+          "end": 306
+        },
+        "verified_original": true,
+        "fact_concept": "part_time.exit_permission",
+        "structured_fact_id": "EF-1574287e1578f5cb",
+        "supports_element_ids": [
+          "employment_part_time_exit_protection"
+        ],
+        "supporting_element_ids": [
+          "employment_part_time_exit_protection"
+        ],
+        "selection_reason": "Contextual retrieval evidence does not directly support a resolved ReviewElementTruth.",
+        "entailment_score": 100,
+        "document_type": "MAIN_CONTRACT",
+        "source_document_type": "MAIN_CONTRACT",
+        "evidence_block_type": "OPERATIVE_CLAUSE",
+        "document_name": "合同正文",
+        "section": "第一条 用工形式",
+        "confidence": "high",
+        "evidence_type": "CONTRACT_TEXT",
+        "source_span": {
+          "start_offset": 271,
+          "end_offset": 306,
+          "raw_text": "双方未约定固定终止日期，任何一方均可依法通知对方终止非全日制用工关系。",
+          "coordinate_system": "DOCUMENT_TEXT"
+        },
+        "source_document": "contract_package/main",
+        "original_document_reference": "contract_package/main",
+        "derived_or_original": "ORIGINAL",
+        "evidence_source": {
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "document_name": "合同正文",
+          "clause_id": "C0004",
+          "section": "第一条 用工形式",
+          "sentence_index": 1,
+          "quote": "双方未约定固定终止日期，任何一方均可依法通知对方终止非全日制用工关系。",
+          "confidence": "high",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "evidence_type": "CONTRACT_TEXT",
+          "source_span": {
+            "start_offset": 271,
+            "end_offset": 306,
+            "raw_text": "双方未约定固定终止日期，任何一方均可依法通知对方终止非全日制用工关系。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "derived_or_original": "ORIGINAL",
+          "source_ref": {
+            "document_id": "contract_package/main",
+            "clause_id": "C0004",
+            "clause_sha256": "d58e100d37aabcf373c273ce17b8ed69a205a22d6ed3b794b6b3d3e828b36f33",
+            "local_start": 44,
+            "local_end": 79,
+            "locator": "第一条 用工形式"
+          },
+          "verified_original": true
+        },
+        "evidence_polarity": "SUPPORTS_ABSENCE",
+        "evidence_claim_id": "PT-07-01-EC-01",
+        "entailment_status": "UNCERTAIN",
+        "semantic_score": 0.25,
+        "entity_match": false,
+        "obligation_match": false,
+        "consequence_match": true,
+        "polarity_match": true,
+        "canonical_fact_keys": [],
+        "relevance_score": 0.25,
+        "review_id": "PT-07-01",
+        "element_ids": [],
+        "support_type": "CONTEXTUAL",
+        "source_verification": {
+          "status": "PASS",
+          "errors": [],
+          "method": "EXACT_PARSER_SOURCE_SPAN"
+        },
+        "evidence_id": "SRC-235f77ff63fe1968227b",
+        "quoted_text": "双方未约定固定终止日期，任何一方均可依法通知对方终止非全日制用工关系。",
+        "source_ref": {
+          "document_id": "contract_package/main",
+          "clause_id": "C0004",
+          "clause_sha256": "d58e100d37aabcf373c273ce17b8ed69a205a22d6ed3b794b6b3d3e828b36f33",
+          "local_start": 44,
+          "local_end": 79,
+          "locator": "第一条 用工形式"
+        },
+        "provenance_validation": {
+          "status": "PASS",
+          "evidence_type": "CONTRACT_TEXT",
+          "errors": []
+        }
+      },
+      {
+        "clause_id": "C0013",
+        "location": "第十条 用工终止",
+        "title": "用工终止",
+        "text": "甲方或者乙方均可以根据非全日制用工的有关规定通知对方终止用工。",
+        "section_type": "正式合同条款",
+        "level": 1,
+        "raw_text": "第十条 用工终止\n甲方或者乙方均可以根据非全日制用工的有关规定通知对方终止用工。\n任何一方依法终止用工的，双方应及时结清已经发生的劳动报酬。\n甲方不得拖欠乙方已经实际完成工作的工资。",
+        "normalized_text": "第十条用工终止甲方或者乙方均可以根据非全日制用工的有关规定通知对方终止用工。任何一方依法终止用工的，双方应及时结清已经发生的劳动报酬。甲方不得拖欠乙方已经实际完成工作的工资。",
+        "option_groups": [],
+        "source": "body",
+        "section_path": [
+          "正式合同条款",
+          "第十条 用工终止"
+        ],
+        "heading": "用工终止",
+        "clause_number": "第十条",
+        "paragraph_index": 12,
+        "block_type": "OPERATIVE_CLAUSE",
+        "parties": [
+          "甲方",
+          "乙方"
+        ],
+        "dates": [],
+        "amounts": [],
+        "percentages": [],
+        "durations": [],
+        "cross_references": [
+          "第十条"
+        ],
+        "node_id": "C0013",
+        "document_id": "contract_package/main",
+        "heading_path": [
+          "第十条 用工终止"
+        ],
+        "article_number": "第十条",
+        "section_number": "",
+        "item_number": "",
+        "sentence_index": 1,
+        "start_offset": 1136,
+        "end_offset": 1227,
+        "source_type": "CONTRACT_TEXT",
+        "party_obligation": true,
+        "quote": "甲方或者乙方均可以根据非全日制用工的有关规定通知对方终止用工。",
+        "original_excerpt": "甲方或者乙方均可以根据非全日制用工的有关规定通知对方终止用工。",
+        "model_quote": "甲方或者乙方均可以根据非全日制用工的有关规定通知对方终止用工。",
+        "alignment_mode": "EXACT",
+        "source_start": 1145,
+        "source_end": 1176,
+        "evidence_span": {
+          "basis": "clause.text",
+          "start": 9,
+          "end": 40
+        },
+        "document_span": {
+          "start": 1145,
+          "end": 1176
+        },
+        "verified_original": true,
+        "fact_concept": "part_time.exit_permission",
+        "structured_fact_id": "EF-1574287e1578f5cb",
+        "supports_element_ids": [
+          "employment_part_time_exit_protection"
+        ],
+        "supporting_element_ids": [
+          "employment_part_time_exit_protection"
+        ],
+        "selection_reason": "Contextual retrieval evidence does not directly support a resolved ReviewElementTruth.",
+        "entailment_score": 100,
+        "document_type": "MAIN_CONTRACT",
+        "source_document_type": "MAIN_CONTRACT",
+        "evidence_block_type": "OPERATIVE_CLAUSE",
+        "document_name": "合同正文",
+        "section": "第十条 用工终止",
+        "confidence": "high",
+        "evidence_type": "CONTRACT_TEXT",
+        "source_span": {
+          "start_offset": 1145,
+          "end_offset": 1176,
+          "raw_text": "甲方或者乙方均可以根据非全日制用工的有关规定通知对方终止用工。",
+          "coordinate_system": "DOCUMENT_TEXT"
+        },
+        "source_document": "contract_package/main",
+        "original_document_reference": "contract_package/main",
+        "derived_or_original": "ORIGINAL",
+        "evidence_source": {
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "document_name": "合同正文",
+          "clause_id": "C0013",
+          "section": "第十条 用工终止",
+          "sentence_index": 1,
+          "quote": "甲方或者乙方均可以根据非全日制用工的有关规定通知对方终止用工。",
+          "confidence": "high",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "evidence_type": "CONTRACT_TEXT",
+          "source_span": {
+            "start_offset": 1145,
+            "end_offset": 1176,
+            "raw_text": "甲方或者乙方均可以根据非全日制用工的有关规定通知对方终止用工。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "derived_or_original": "ORIGINAL",
+          "source_ref": {
+            "document_id": "contract_package/main",
+            "clause_id": "C0013",
+            "clause_sha256": "d0f0916c93aa59592b0adedde8d88daea5d4a5e5879c358a454d3b3787921453",
+            "local_start": 9,
+            "local_end": 40,
+            "locator": "第十条 用工终止"
+          },
+          "verified_original": true
+        },
+        "evidence_polarity": "SUPPORTS_COVERAGE",
+        "evidence_claim_id": "PT-07-01-EC-01",
+        "entailment_status": "UNCERTAIN",
+        "semantic_score": 0.25,
+        "entity_match": false,
+        "obligation_match": false,
+        "consequence_match": true,
+        "polarity_match": true,
+        "canonical_fact_keys": [],
+        "relevance_score": 0.25,
+        "review_id": "PT-07-01",
+        "element_ids": [],
+        "support_type": "CONTEXTUAL",
+        "source_verification": {
+          "status": "PASS",
+          "errors": [],
+          "method": "EXACT_PARSER_SOURCE_SPAN"
+        },
+        "evidence_id": "SRC-194819f0c669588fc0ed",
+        "quoted_text": "甲方或者乙方均可以根据非全日制用工的有关规定通知对方终止用工。",
+        "source_ref": {
+          "document_id": "contract_package/main",
+          "clause_id": "C0013",
+          "clause_sha256": "d0f0916c93aa59592b0adedde8d88daea5d4a5e5879c358a454d3b3787921453",
+          "local_start": 9,
+          "local_end": 40,
+          "locator": "第十条 用工终止"
+        },
+        "provenance_validation": {
+          "status": "PASS",
+          "evidence_type": "CONTRACT_TEXT",
+          "errors": []
+        }
+      }
+    ]
+  },
+  "notice_days_facts": [],
+  "verified_search": {
+    "source_sha256": "563224df5edebfcca219cb4f30d8ee70a9649d9e553bc8f23fa5007c92c92850",
+    "searched_concepts": [
+      "part_time.exit_constraint",
+      "part_time.exit_approval",
+      "termination.employee_right_waived",
+      "penalties.obligations"
+    ],
+    "verification_states": {
+      "part_time.exit_constraint": {
+        "required_fact": "part_time.exit_constraint",
+        "factstore_state": "VERIFIED_ABSENT",
+        "verification_state": "VERIFIED_ABSENT",
+        "coverage_state": "ABSENT",
+        "verified_fact_ids": [],
+        "rejected_fact_ids": [],
+        "unresolved": false,
+        "model_coverage_advisory": null,
+        "extraction_state": "ABSENT",
+        "absence_audit": null,
+        "verified_absence_value": null
+      },
+      "part_time.exit_approval": {
+        "required_fact": "part_time.exit_approval",
+        "factstore_state": "VERIFIED_PRESENT",
+        "verification_state": "VERIFIED_PRESENT",
+        "coverage_state": "EXTRACTED",
+        "verified_fact_ids": [
+          "EF-24a98f108bdb6d1e"
+        ],
+        "rejected_fact_ids": [],
+        "unresolved": false,
+        "model_coverage_advisory": null,
+        "extraction_state": "EXTRACTED",
+        "absence_audit": null,
+        "verified_absence_value": null
+      },
+      "termination.employee_right_waived": {
+        "required_fact": "termination.employee_right_waived",
+        "factstore_state": "VERIFIED_ABSENT",
+        "verification_state": "VERIFIED_ABSENT",
+        "coverage_state": "ABSENT",
+        "verified_fact_ids": [],
+        "rejected_fact_ids": [],
+        "unresolved": false,
+        "model_coverage_advisory": null,
+        "extraction_state": "ABSENT",
+        "absence_audit": null,
+        "verified_absence_value": null
+      },
+      "penalties.obligations": {
+        "required_fact": "penalties.obligations",
+        "factstore_state": "VERIFIED_ABSENT",
+        "verification_state": "VERIFIED_ABSENT",
+        "coverage_state": "ABSENT",
+        "verified_fact_ids": [],
+        "rejected_fact_ids": [],
+        "unresolved": false,
+        "model_coverage_advisory": null,
+        "extraction_state": "ABSENT",
+        "absence_audit": null,
+        "verified_absence_value": null
+      }
+    },
+    "coverage": {
+      "part_time.exit_constraint": "ABSENT",
+      "part_time.exit_approval": "EXTRACTED",
+      "termination.employee_right_waived": "ABSENT",
+      "penalties.obligations": "ABSENT"
+    },
+    "result": "NO_ADVERSE_FOUND"
+  },
+  "risk_rules": [
+    "PT-01-01",
+    "PT-02-01",
+    "PT-03-01"
+  ],
+  "PT-04": {
+    "coverage": "部分覆盖",
+    "priority": "C_OPTIMIZATION"
+  },
+  "release_quality_gate": "REPORT_READY"
+}

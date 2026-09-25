@@ -1,0 +1,630 @@
+{
+  "classification": {
+    "family": "TECHNOLOGY",
+    "primary_category": "TECHNICAL_CONTRACT",
+    "primary_subtype": "TECHNICAL_CONSULTING",
+    "tertiary_subtype": "",
+    "transfer_asset_facts": {
+      "patent_identifier": [],
+      "patent_grant": [],
+      "patent_registration": [],
+      "secret_transaction": []
+    },
+    "independent_secret_transaction": false,
+    "confidence": "high",
+    "classification_score": 27,
+    "evidence_node_ids": [
+      "title:technical_consulting",
+      "core_obligation:analysis_evaluation_advice",
+      "deliverable:consulting_report_or_opinion",
+      "consideration:consulting_fee",
+      "boundary:no_direct_implementation"
+    ],
+    "classification_evidence": [
+      "title:technical_consulting",
+      "core_obligation:analysis_evaluation_advice",
+      "deliverable:consulting_report_or_opinion",
+      "consideration:consulting_fee",
+      "boundary:no_direct_implementation"
+    ],
+    "classification_evidence_details": {
+      "contract_title": "技术咨询服务协议",
+      "subject_matter": [],
+      "core_performance_obligations": [],
+      "rights_transfer_method": [],
+      "consideration_nature": [
+        "第五条 咨询报酬",
+        "除故意、重大过失、侵犯第三方知识产权或违反保密义务外，乙方对甲方承担的累计赔偿责任不超过本协议项下乙方实际收到的咨询报酬。"
+      ],
+      "key_clauses": []
+    },
+    "primary_contract_type": "technology_consulting",
+    "secondary_contract_types": [],
+    "primary_transaction": {
+      "type": "technology_consulting",
+      "subtype": "technical_consulting"
+    },
+    "primary_transaction_model": {
+      "type": "UNKNOWN",
+      "dominant_family": "UNKNOWN",
+      "confidence": "low",
+      "primary_subject": "undetermined",
+      "rights_change": [],
+      "primary_obligation_grantor": [],
+      "primary_obligation_grantee": [],
+      "primary_consideration": [],
+      "transaction_purpose": "undetermined",
+      "secondary_transactions": [],
+      "license_semantics": {
+        "grant": false,
+        "roles": false,
+        "boundaries": {
+          "license_mode": false,
+          "non_transferable": false,
+          "territory": false,
+          "use_scope": true,
+          "post_termination_use": false
+        },
+        "entry_fee": false,
+        "royalty": false,
+        "technical_delivery": false,
+        "independent_economic_value": false
+      },
+      "technology_transfer_semantics": {
+        "ownership_transfer": false,
+        "technical_secret_transfer": false,
+        "explicit_technology_rights_transfer": false
+      },
+      "sale_semantics": {
+        "ownership_transfer": false,
+        "roles": false,
+        "quantity_unit_price": false,
+        "goods_purchase_obligation": false,
+        "purchase_price": false,
+        "independent_economic_value": false,
+        "ancillary_future_supply": false
+      },
+      "development_semantics": {
+        "client_and_developer_roles": false,
+        "research_objectives": false,
+        "research_consideration": false,
+        "developer_research_performance": false,
+        "research_schedule": false,
+        "research_result_delivery": false,
+        "is_primary_commission": false
+      },
+      "cooperative_semantics": {
+        "research_division": false,
+        "joint_investment": false,
+        "development_target": false,
+        "joint_result": false,
+        "research_failure_risk": false,
+        "established": false
+      },
+      "family_scores": {
+        "TECHNOLOGY": 2,
+        "SALE": 0
+      },
+      "decision_basis": "operative rights change + primary obligations + consideration + economic independence"
+    },
+    "transaction_layers": {
+      "main_transaction": "TECHNICAL_CONSULTING",
+      "sub_transactions": []
+    },
+    "secondary_transactions": [],
+    "sub_transactions": [],
+    "structured_facts": {
+      "technical_secret": {
+        "scope": false,
+        "restricted_use": false,
+        "separate_fee": false
+      },
+      "technical_service": {
+        "content": false,
+        "activities": [
+          "技术咨询"
+        ],
+        "separate_fee": false,
+        "included_in_main_price": false,
+        "included_service_scope": false,
+        "extra_service_charge_trigger": false,
+        "extra_service_pricing_standard": false,
+        "extra_service_billing_method": false,
+        "extra_service_payment_node": false,
+        "technical_guidance": false
+      },
+      "acceptance": {
+        "defined": false,
+        "remedy_deadline": false,
+        "reinspection_procedure": false,
+        "reinspection_count": "",
+        "final_failure_remedy": false,
+        "refund_remedy": false,
+        "damage_remedy": false
+      },
+      "technical_material_delivery": {
+        "defined": false
+      }
+    },
+    "fact_registry": {
+      "third_party_claim": {
+        "authority_warranty": false,
+        "licensor_is_patent_owner": false,
+        "licensor_owner_identity": null,
+        "sublicense_permission": null,
+        "claim_trigger": true,
+        "claim_handling": false,
+        "licensee_claim_handling": false,
+        "claim_assistance": false,
+        "litigation_handling": false,
+        "licensee_litigation_handling": false,
+        "attorney_fee": false,
+        "litigation_cost": false,
+        "legal_cost": false,
+        "attorney_fee_allocation": false,
+        "litigation_cost_allocation": false,
+        "third_party_compensation_allocation": false,
+        "claim_cost_allocation": false,
+        "claim_cost_bearer": "UNKNOWN",
+        "licensee_broad_business_loss_allocation": false,
+        "direct_damage": false,
+        "notification_requirement": false,
+        "notification_deadline": false,
+        "defense_control": false,
+        "lawyer_selection": false,
+        "settlement_authority": false,
+        "settlement_consultation": false,
+        "replacement_remedy": false,
+        "license_cure": false,
+        "refund_remedy": false,
+        "general_liability": false,
+        "licensor_liability_cap": false,
+        "licensor_liability_cap_percentage": null,
+        "licensor_liability_cap_text": "",
+        "licensee_liability_cap": false,
+        "licensee_liability_cap_percentage": null,
+        "licensee_liability_cap_text": "",
+        "liability_cap_balance": "NO_CAPS",
+        "liability_cap_imbalance": false,
+        "liability_cap_exceptions": false,
+        "licensee_open_ended_infringement_liability": false,
+        "explicit_process_gap": false,
+        "responsible_party": "UNKNOWN",
+        "settlement_non_prejudice": false,
+        "liability_responsible_party": false,
+        "response_element_evidence": {
+          "claim_trigger": [
+            {
+              "clause_id": "C0009",
+              "quote": "如第三方向甲方主张乙方交付的报告侵犯其知识产权，乙方应在收到甲方通知后配合提供相关资料",
+              "location": "第八条 第三方资料及产品",
+              "actor": "",
+              "condition": "如第三方向甲方主张乙方交付的报告侵犯其知识产权",
+              "limited": false,
+              "polarity": "CONDITIONAL"
+            },
+            {
+              "clause_id": "C0014",
+              "quote": "除故意、重大过失、侵犯第三方知识产权或违反保密义务外，乙方对甲方承担的累计赔偿责任不超过本协议项下乙方实际收到的咨询报酬",
+              "location": "第十三条 违约责任",
+              "actor": ""
+            }
+          ]
+        },
+        "response_party_patterns": {
+          "provider": "(?:(?<!被)许可人|(?<!被)许可方|出让方|卖方|让与方|转让方)",
+          "recipient": "(?:买方|受让方|接受方|被许可人|被许可方)"
+        },
+        "administrative_handling": false
+      }
+    },
+    "active_transaction_types": [
+      "TECHNICAL_CONSULTING"
+    ],
+    "title_transaction_type": "TECHNICAL_CONSULTING",
+    "operative_transaction_type": "",
+    "contract_type_conflict": {
+      "exists": false,
+      "title_transaction_type": "TECHNICAL_CONSULTING",
+      "operative_transaction_type": "",
+      "resolution": "NO_CONFLICT",
+      "reason": "合同标题与核心给付义务不存在实质类型冲突。"
+    },
+    "excluded_subtypes": [
+      "COOPERATIVE_DEVELOPMENT",
+      "ENTRUSTED_DEVELOPMENT",
+      "TECHNOLOGY_TRANSFER",
+      "TECHNOLOGY_LICENSE",
+      "TECHNICAL_SERVICE"
+    ],
+    "candidate_scores": {
+      "COOPERATIVE_DEVELOPMENT": 0,
+      "ENTRUSTED_DEVELOPMENT": 0,
+      "TECHNOLOGY_TRANSFER": 0,
+      "TECHNOLOGY_LICENSE": 0,
+      "TECHNICAL_CONSULTING": 27,
+      "TECHNICAL_SERVICE": 0
+    },
+    "subtype": "TECHNICAL_CONSULTING",
+    "development_mode": "",
+    "is_technical_service": false,
+    "transaction_structure": "B2B_TECHNICAL_CONSULTING",
+    "scenario": "TECHNICAL_CONSULTING",
+    "scenario_label": "技术咨询",
+    "current_transaction": "TECHNICAL_CONSULTING",
+    "secondary_modules": [],
+    "transaction_module_evidence": {},
+    "ancillary_obligations": [],
+    "transitional_arrangements": [],
+    "factual_triggers": [
+      "CONFIDENTIAL_INFORMATION",
+      "THIRD_PARTY_IP_RISK"
+    ],
+    "license_mode": "",
+    "referenced_contracts": [],
+    "involves_personal_information": false,
+    "involves_background_ip": false,
+    "involves_software_or_data": false
+  },
+  "resolution": {
+    "selected_contract_type": "technology",
+    "document_domain": {
+      "contract_family": "TECHNOLOGY",
+      "subject_matter": "TECHNOLOGY",
+      "transaction_nature": "TECHNOLOGY_TRANSACTION",
+      "contract_subtype": "TECHNICAL_CONSULTING",
+      "asset_usage": "NOT_APPLICABLE",
+      "consideration_type": "TECHNOLOGY_FEE",
+      "ownership_transfer": false,
+      "possession_transfer": false,
+      "transaction_structure": "B2B_TECHNICAL_CONSULTING",
+      "product_category": "NOT_APPLICABLE",
+      "transaction_purpose": "technology_consulting",
+      "jurisdiction": "CN",
+      "primary_subject": "TECHNOLOGY",
+      "accessory_subjects": [],
+      "selected_domain_packs": [
+        "shared",
+        "technology"
+      ],
+      "rejected_domain_packs": [],
+      "confidence": "high",
+      "evidence": [],
+      "domain_attributes": {
+        "classification_source": "review_v2.technology_service_analysis.classify_technology_transaction",
+        "classification_score": 27,
+        "tertiary_subtype": "",
+        "scenario": "TECHNICAL_CONSULTING",
+        "scenario_label": "技术咨询",
+        "primary_transaction_model": {
+          "type": "UNKNOWN",
+          "dominant_family": "UNKNOWN",
+          "confidence": "low",
+          "primary_subject": "undetermined",
+          "rights_change": [],
+          "primary_obligation_grantor": [],
+          "primary_obligation_grantee": [],
+          "primary_consideration": [],
+          "transaction_purpose": "undetermined",
+          "secondary_transactions": [],
+          "license_semantics": {
+            "grant": false,
+            "roles": false,
+            "boundaries": {
+              "license_mode": false,
+              "non_transferable": false,
+              "territory": false,
+              "use_scope": true,
+              "post_termination_use": false
+            },
+            "entry_fee": false,
+            "royalty": false,
+            "technical_delivery": false,
+            "independent_economic_value": false
+          },
+          "technology_transfer_semantics": {
+            "ownership_transfer": false,
+            "technical_secret_transfer": false,
+            "explicit_technology_rights_transfer": false
+          },
+          "sale_semantics": {
+            "ownership_transfer": false,
+            "roles": false,
+            "quantity_unit_price": false,
+            "goods_purchase_obligation": false,
+            "purchase_price": false,
+            "independent_economic_value": false,
+            "ancillary_future_supply": false
+          },
+          "development_semantics": {
+            "client_and_developer_roles": false,
+            "research_objectives": false,
+            "research_consideration": false,
+            "developer_research_performance": false,
+            "research_schedule": false,
+            "research_result_delivery": false,
+            "is_primary_commission": false
+          },
+          "cooperative_semantics": {
+            "research_division": false,
+            "joint_investment": false,
+            "development_target": false,
+            "joint_result": false,
+            "research_failure_risk": false,
+            "established": false
+          },
+          "family_scores": {
+            "TECHNOLOGY": 2,
+            "SALE": 0
+          },
+          "decision_basis": "operative rights change + primary obligations + consideration + economic independence"
+        }
+      },
+      "family": "TECHNOLOGY",
+      "classification_confidence": "high",
+      "classification_scores": {
+        "SALE": 4,
+        "HOUSE_LEASE": 0,
+        "SERVICE": 10,
+        "TECHNOLOGY": 27
+      },
+      "primary_contract_type": "technology_consulting",
+      "primary_subtype": "TECHNICAL_CONSULTING",
+      "primary_transaction_model": {
+        "type": "UNKNOWN",
+        "dominant_family": "UNKNOWN",
+        "confidence": "low",
+        "primary_subject": "undetermined",
+        "rights_change": [],
+        "primary_obligation_grantor": [],
+        "primary_obligation_grantee": [],
+        "primary_consideration": [],
+        "transaction_purpose": "undetermined",
+        "secondary_transactions": [],
+        "license_semantics": {
+          "grant": false,
+          "roles": false,
+          "boundaries": {
+            "license_mode": false,
+            "non_transferable": false,
+            "territory": false,
+            "use_scope": true,
+            "post_termination_use": false
+          },
+          "entry_fee": false,
+          "royalty": false,
+          "technical_delivery": false,
+          "independent_economic_value": false
+        },
+        "technology_transfer_semantics": {
+          "ownership_transfer": false,
+          "technical_secret_transfer": false,
+          "explicit_technology_rights_transfer": false
+        },
+        "sale_semantics": {
+          "ownership_transfer": false,
+          "roles": false,
+          "quantity_unit_price": false,
+          "goods_purchase_obligation": false,
+          "purchase_price": false,
+          "independent_economic_value": false,
+          "ancillary_future_supply": false
+        },
+        "development_semantics": {
+          "client_and_developer_roles": false,
+          "research_objectives": false,
+          "research_consideration": false,
+          "developer_research_performance": false,
+          "research_schedule": false,
+          "research_result_delivery": false,
+          "is_primary_commission": false
+        },
+        "cooperative_semantics": {
+          "research_division": false,
+          "joint_investment": false,
+          "development_target": false,
+          "joint_result": false,
+          "research_failure_risk": false,
+          "established": false
+        },
+        "family_scores": {
+          "TECHNOLOGY": 2,
+          "SALE": 0
+        },
+        "decision_basis": "operative rights change + primary obligations + consideration + economic independence"
+      }
+    },
+    "compatibility": "COMPATIBLE",
+    "resolution": "AGREE",
+    "selected_domain": "TECHNOLOGY",
+    "rejected_domain": "",
+    "confidence": "high",
+    "reasons": [
+      "document family scores: SALE=4, HOUSE_LEASE=0, SERVICE=10, TECHNOLOGY=27",
+      "document family=TECHNOLOGY, confidence=high",
+      "The user selection remains a compatible or uncontested routing prior."
+    ],
+    "classification_evidence": [
+      {
+        "signal_type": "goods_purchase_obligation",
+        "signal": "销售",
+        "target_family": "SALE",
+        "weight": 4,
+        "source_clause_ids": [
+          "C0010"
+        ]
+      },
+      {
+        "signal_type": "service_obligation",
+        "signal": "乙方提供",
+        "target_family": "SERVICE",
+        "weight": 5,
+        "source_clause_ids": [
+          "C0005"
+        ]
+      },
+      {
+        "signal_type": "service_fee",
+        "signal": "服务报酬",
+        "target_family": "SERVICE",
+        "weight": 5,
+        "source_clause_ids": [
+          "C0006",
+          "C0014"
+        ]
+      },
+      {
+        "signal_type": "technology_technical_consulting",
+        "signal": "title:technical_consulting、core_obligation:analysis_evaluation_advice、deliverable:consulting_report_or_opinion、consideration:consulting_fee、boundary:no_direct_implementation",
+        "target_family": "TECHNOLOGY",
+        "weight": 27,
+        "source_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0007",
+          "C0009"
+        ]
+      }
+    ],
+    "classification_context": {
+      "effect_review_ids": [],
+      "property_service_structure": false,
+      "business_overlays": [],
+      "overlay_review_ids": [],
+      "settlement_formulas": [],
+      "carriage_scope": {
+        "established": false,
+        "facts": {},
+        "framework": false
+      },
+      "operating_structure": {
+        "established": false,
+        "facts": {
+          "authority": "授权"
+        },
+        "downstream_contracts": false
+      },
+      "incomplete_obligations": [],
+      "business_domain_tags": [],
+      "primary_contract_type": "TECHNOLOGY",
+      "contract_type_confidence": "high",
+      "secondary_clause_features": [
+        "CONFIDENTIALITY",
+        "NOTICE",
+        "DISPUTE_RESOLUTION",
+        "INTELLECTUAL_PROPERTY"
+      ],
+      "suppressed_primary_purpose_candidate": null,
+      "guarantee_features_detected": [
+        "undertaking"
+      ],
+      "nda_primary_features_detected": [
+        "information",
+        "use_restriction",
+        "return",
+        "remedy"
+      ],
+      "classification_conflict": {
+        "detected": false,
+        "selected": "TECHNOLOGY",
+        "document": "TECHNOLOGY",
+        "resolved": true
+      },
+      "primary_transaction": {
+        "type": "technology_consulting",
+        "subtype": "technical_consulting"
+      },
+      "primary_transaction_model": {
+        "type": "UNKNOWN",
+        "dominant_family": "UNKNOWN",
+        "confidence": "low",
+        "primary_subject": "undetermined",
+        "rights_change": [],
+        "primary_obligation_grantor": [],
+        "primary_obligation_grantee": [],
+        "primary_consideration": [],
+        "transaction_purpose": "undetermined",
+        "secondary_transactions": [],
+        "license_semantics": {
+          "grant": false,
+          "roles": false,
+          "boundaries": {
+            "license_mode": false,
+            "non_transferable": false,
+            "territory": false,
+            "use_scope": true,
+            "post_termination_use": false
+          },
+          "entry_fee": false,
+          "royalty": false,
+          "technical_delivery": false,
+          "independent_economic_value": false
+        },
+        "technology_transfer_semantics": {
+          "ownership_transfer": false,
+          "technical_secret_transfer": false,
+          "explicit_technology_rights_transfer": false
+        },
+        "sale_semantics": {
+          "ownership_transfer": false,
+          "roles": false,
+          "quantity_unit_price": false,
+          "goods_purchase_obligation": false,
+          "purchase_price": false,
+          "independent_economic_value": false,
+          "ancillary_future_supply": false
+        },
+        "development_semantics": {
+          "client_and_developer_roles": false,
+          "research_objectives": false,
+          "research_consideration": false,
+          "developer_research_performance": false,
+          "research_schedule": false,
+          "research_result_delivery": false,
+          "is_primary_commission": false
+        },
+        "cooperative_semantics": {
+          "research_division": false,
+          "joint_investment": false,
+          "development_target": false,
+          "joint_result": false,
+          "research_failure_risk": false,
+          "established": false
+        },
+        "family_scores": {
+          "TECHNOLOGY": 2,
+          "SALE": 0
+        },
+        "decision_basis": "operative rights change + primary obligations + consideration + economic independence"
+      },
+      "secondary_transactions": [],
+      "ancillary_obligations": [],
+      "post_delivery_obligations": [],
+      "consumer_service_context": {
+        "is_consumer_transaction": false,
+        "is_prepaid_service": false,
+        "is_training_primary_transaction": false,
+        "consumer_signals": [],
+        "prepaid_signals": [],
+        "training_signals": [],
+        "gate_status": "NOT_APPLICABLE"
+      },
+      "candidate_scores": {
+        "SALE": 4,
+        "HOUSE_LEASE": 0,
+        "SERVICE": 10,
+        "TECHNOLOGY": 27
+      },
+      "technology_candidate_scores": {
+        "COOPERATIVE_DEVELOPMENT": 0,
+        "ENTRUSTED_DEVELOPMENT": 0,
+        "TECHNOLOGY_TRANSFER": 0,
+        "TECHNOLOGY_LICENSE": 0,
+        "TECHNICAL_CONSULTING": 27,
+        "TECHNICAL_SERVICE": 0
+      },
+      "primary_transaction_reason": "Operative rights change, primary obligations, consideration and economic independence control before Review Registry loading."
+    }
+  },
+  "routed": "technology"
+}

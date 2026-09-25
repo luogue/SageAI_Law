@@ -1,0 +1,5 @@
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+  warnings.warn(
+INFO:reasoning.llm_client:[CircuitBreaker] 熔断器初始化 - 阈值:3次, 超时:30秒
+INFO:reasoning.llm_client:[LLM] DeepSeek succeeded model=deepseek-chat
+{"provider": "deepseek", "model": "deepseek-chat", "configured": true, "primary_call_ok": true, "fact_transport_ok": true, "calls": [{"url": "https://api.deepseek.com/v1/chat/completions", "status": 200, "model": "deepseek-chat"}, {"url": "https://api.deepseek.com/v1/chat/completions", "status": 200, "model": "deepseek-chat"}]}

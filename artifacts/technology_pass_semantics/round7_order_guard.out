@@ -1,0 +1,133 @@
+FF.F......FFFF.F..FFFFF....................                              [100%]
+================================== FAILURES ===================================
+_____ test_cooperative_investment_and_work_facts_are_atomically_resolved ______
+backend\tests\test_cooperative_development_advanced_regressions.py:63: in test_cooperative_investment_and_work_facts_are_atomically_resolved
+    assert analysis["payment_conflicts"] == [{
+E   AssertionError: assert [{'party': '甲...50000.0, ...}] == [{'party': '甲...: 50000, ...}]
+E     
+E     At index 0 diff: {'party': '甲方', 'nominal_investment': 1200000.0, 'payment_total': 850000.0, 'difference': -350000.0, 'nodes': [400000.0, 450000.0]} != {'party': '甲方', 'nominal_investment': 1200000, 'payment_total': 1250000, 'difference': 50000, 'nodes': [400000, 400000, 450000]}
+E     Use -v to get more diff
+______ test_final_result_patent_license_and_revenue_rights_are_compared _______
+backend\tests\test_cooperative_development_advanced_regressions.py:91: in test_final_result_patent_license_and_revenue_rights_are_compared
+    assert "收益归该许可方单独所有" in item["risk_point_description"]
+E   AssertionError: assert '收益归该许可方单独所有' in '合同存在以下有直接证据支持的不利安排：最终成果虽约定共同所有，但专利申请权归单一合作方，权属层级相互冲突；最终成果虽约定共同所有，但授权后的专利权归单一合作方，权属层级相互冲突；任何一方均可不经其他共有方同意单独对外许可最终成果；共有最终成果由单一合作方许可第三方后，许可收益归该技术提供方单独所有。'
+_ test_governance_deadlock_silence_and_contact_authority_are_one_control_risk _
+backend\tests\test_cooperative_development_advanced_regressions.py:121: in test_governance_deadlock_silence_and_contact_authority_are_one_control_risk
+    assert all(trace.values())
+E   AssertionError: assert False
+E    +  where False = all(dict_values([True, True, True, '乙方', False, True, True]))
+E    +    where dict_values([True, True, True, '乙方', False, True, True]) = <built-in method values of dict object at 0x000001ADA6243280>()
+E    +      where <built-in method values of dict object at 0x000001ADA6243280> = {'unanimous_major_decisions': True, 'unilateral_deadlock_control': True, 'unilateral_major_matter_control': True, 'unilateral_major_matter_owner': '乙方', ...}.values
+_____ test_attachment_reference_and_attachment_content_are_distinct_facts _____
+backend\tests\test_cooperative_development_advanced_regressions.py:220: in test_attachment_reference_and_attachment_content_are_distinct_facts
+    assert "C0029" in elements["actual_ip_proof_attachment"]["source_clause_ids"]
+E   AssertionError: assert 'C0029' in ['C0034']
+_______ test_confidentiality_evidence_is_not_expanded_beyond_the_quote ________
+backend\tests\test_cooperative_development_advanced_regressions.py:238: in test_confidentiality_evidence_is_not_expanded_beyond_the_quote
+    evidence = next(row for row in item["evidence_clauses"] if row["clause_id"] == "C0015")
+E   StopIteration
+__ test_unrelated_breach_remedies_do_not_activate_infringement_coordination ___
+backend\tests\test_cooperative_development_advanced_regressions.py:253: in test_unrelated_breach_remedies_do_not_activate_infringement_coordination
+    assert item["applicability"]["machine_reason"] == "SAME_LOSS_GENERAL_REMEDY_NOT_FOUND"
+E   AssertionError: assert '合同虽存在侵权专项责任，...责任已排除，故本项不适用。' == 'SAME_LOSS_GE...EDY_NOT_FOUND'
+E     
+E     - SAME_LOSS_GENERAL_REMEDY_NOT_FOUND
+E     + 合同虽存在侵权专项责任，但未同时存在可针对同一侵权损失适用的一般赔偿或违约救济；迟延付款、退出等其他违约责任已排除，故本项不适用。
+________ test_registry_bound_risk_evidence_reuses_final_review_sources ________
+backend\tests\test_cooperative_development_advanced_regressions.py:267: in test_registry_bound_risk_evidence_reuses_final_review_sources
+    assert {row.get("clause_id") for row in body_rows} == {"C0019", "C0020", "C0029"}
+E   AssertionError: assert {'C0022', 'C0023', 'C0034'} == {'C0019', 'C0020', 'C0029'}
+E     
+E     Extra items in the left set:
+E     'C0023'
+E     'C0034'
+E     'C0022'
+E     Extra items in the right set:
+E     'C0020'...
+E     
+E     ...Full output truncated (3 lines hidden), use '-vv' to show
+____ test_referenced_attachments_are_material_pending_not_contract_defects ____
+backend\tests\test_cooperative_development_advanced_regressions.py:289: in test_referenced_attachments_are_material_pending_not_contract_defects
+    assert item["recommended_action"] == "MANUAL_REVIEW"
+E   AssertionError: assert 'RECOMMENDED' == 'MANUAL_REVIEW'
+E     
+E     - MANUAL_REVIEW
+E     + RECOMMENDED
+___________ test_search_audit_queries_are_positive_objective_facts ____________
+backend\tests\test_cooperative_development_advanced_regressions.py:331: in test_search_audit_queries_are_positive_objective_facts
+    assert "非履约使用须取得数据提供方事先书面同意" in targets
+E   AssertionError: assert '非履约使用须取得数据提供方事先书面同意' in ['各方背景技术及既有知识产权的保留和必要许可边界', '项目依赖型成果与各方独立成果的识别和权利承接边界', '其他合作方使用阶段成果的许可和费用', '合作终止后各方继续使用未公开成果的边界', '其余合作方接管项目、继续开发或委托第三方接续开发的权利', '第三方权利主张的通知期限、方式和资料要求', ...]
+__ test_manual_review_records_are_executable_and_have_no_empty_formal_advice __
+backend\tests\test_cooperative_development_advanced_regressions.py:341: in test_manual_review_records_are_executable_and_have_no_empty_formal_advice
+    instruction = records[review_id]["review_instruction"]
+E   KeyError: 'TC-13-01'
+___ test_unprovided_attachment_narrative_does_not_assert_content_is_missing ___
+backend\tests\test_cooperative_development_advanced_regressions.py:358: in test_unprovided_attachment_narrative_does_not_assert_content_is_missing
+    assert judgment == "正文存在部分相关约定，但附件未提供，当前无法核验完整性。"
+E   AssertionError: assert '已覆盖：测试报告交付已有...作资料交付；缺陷记录交付。' == '正文存在部分相关约定，但附件未提供，当前无法核验完整性。'
+E     
+E     - 正文存在部分相关约定，但附件未提供，当前无法核验完整性。
+E     + 已覆盖：测试报告交付已有明确约定；尚未覆盖：源代码或可执行程序交付；技术文档交付；接口文档交付；架构文档交付；安装部署资料交付；用户或操作资料交付；缺陷记录交付。
+_______________ test_consulting_tc08_rules_and_direct_evidence ________________
+backend\tests\test_technical_consulting_contract_review.py:122: in test_consulting_tc08_rules_and_direct_evidence
+    assert [by_id[f"TC-08-0{index}"]["coverage_status"] for index in range(1, 5)] == ["通过"] * 4
+E   AssertionError: assert ['待核验', '待核验', '待核验', '待核验'] == ['通过', '通过', '通过', '通过']
+E     
+E     At index 0 diff: '待核验' != '通过'
+E     Use -v to get more diff
+_____ test_third_party_responsibility_follows_the_actual_party_allocation _____
+backend\tests\test_patent_license_latest_report_regressions.py:72: in test_third_party_responsibility_follows_the_actual_party_allocation
+    assert allocation["responsible_party"] == "LICENSEE"
+E   AssertionError: assert 'LICENSOR' == 'LICENSEE'
+E     
+E     - LICENSEE
+E     ?       ^^
+E     + LICENSOR
+E     ?       ^^
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_cooperative_investment_and_work_facts_are_atomically_resolved
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_final_result_patent_license_and_revenue_rights_are_compared
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_governance_deadlock_silence_and_contact_authority_are_one_control_risk
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_attachment_reference_and_attachment_content_are_distinct_facts
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_confidentiality_evidence_is_not_expanded_beyond_the_quote
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_unrelated_breach_remedies_do_not_activate_infringement_coordination
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_registry_bound_risk_evidence_reuses_final_review_sources
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_referenced_attachments_are_material_pending_not_contract_defects
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_search_audit_queries_are_positive_objective_facts
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_manual_review_records_are_executable_and_have_no_empty_formal_advice
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_unprovided_attachment_narrative_does_not_assert_content_is_missing
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_consulting_tc08_rules_and_direct_evidence
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_third_party_responsibility_follows_the_actual_party_allocation
+13 failed, 30 passed, 5 warnings in 54.01s

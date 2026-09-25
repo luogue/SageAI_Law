@@ -1,0 +1,36 @@
+............F
+================================== FAILURES ===================================
+_________________ test_security_amount_and_cross_rule_display _________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002685AAE44F0>
+
+    def test_security_amount_and_cross_rule_display(monkeypatch):
+     from review_v2 import employment_fact_pipeline as p
+     from review_v2.engine import review_contract_v2
+     from review_v2.clause_parser import parse_contract_clauses
+     from backend.tests.test_employment_fact_pipeline import fact,packet,verified_packet
+     text='劳动合同\n派遣劳动关系。\n正常工资每月七千元，以银行转账支付，每月十日发放。\n退回后拒绝任意岗位即可解除。\n收取可退保证金两千元，从工资扣除。'
+     cs=parse_contract_clauses(text)
+     values=[('contract.employment_form','DISPATCH','派遣劳动关系。'),
+     ('termination.grounds',['拒绝任意岗位解除'],'退回后拒绝任意岗位即可解除。'),('termination.notice','解除通知','退回后拒绝任意岗位即可解除。'),
+     ('dispatch.refusal_termination','ANY_OFFER','退回后拒绝任意岗位即可解除。'),
+     ('worker.security_payment',dict(nature='REFUNDABLE_SECURITY',collector='AGENCY',required=True,deducted_from_wage=True,amount_text='两千元'),'收取可退保证金两千元，从工资扣除。')]
+     monkeypatch.setattr(p,'extract',lambda *a,**k:packet(cs,[fact(cs,c,v,q) for c,v,q in values]));monkeypatch.setattr(p,'verify',verified_packet)
+     r=review_contract_v2(text,'labor');rs={i['item_id']:i for i in r['items']}
+     assert '2000元' in rs['EMP-06-01']['economic_impact']
+     assert rs['EMP-10-01']['coverage_status']=='通过'
+     assert rs['EMP-10-01']['decision_trace']['coverage_legality']['legality']=='RELATED_ADVERSE'
+     section=r['result'].split('（EMP-10-01）')[1].split('\n## ')[0]
+     assert '无需修改' not in section and 'DSP-06-01' in section
+     assert rs['EMP-17-01']['coverage_status']=='缺失'
+>    assert r['release_quality_gate']['status']=='REPORT_READY'
+E    AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E      
+E      - REPORT_READY
+E      + BLOCKED
+
+backend\tests\test_dispatch_completeness.py:45: AssertionError
+=========================== short test summary info ===========================
+FAILED backend/tests/test_dispatch_completeness.py::test_security_amount_and_cross_rule_display
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 12 passed, 6 warnings in 10.52s

@@ -1,0 +1,252 @@
+{
+  "normalization_values": [
+    {
+      "concept": "ip.assignment_scope",
+      "raw": "DUTY_OR_RESOURCES",
+      "normalized": "DUTY_OR_RESOURCES"
+    },
+    {
+      "concept": "working_hours.days_per_week",
+      "raw": 5,
+      "normalized": 5.0
+    },
+    {
+      "concept": "ip.assignment_scope",
+      "raw": "DUTY_OR_RESOURCES",
+      "normalized": "DUTY_OR_RESOURCES"
+    },
+    {
+      "concept": "working_hours.days_per_week",
+      "raw": 5,
+      "normalized": 5.0
+    }
+  ],
+  "http_status": 503,
+  "release_quality_gate": "BLOCKED",
+  "blocking_diagnostics": [
+    {
+      "failed_stage": "FACT_VERIFICATION",
+      "fact_id": [
+        "EF-d2b3f3cae01c7591"
+      ],
+      "field": "part_time.employee_notice_days",
+      "validation_rule": "CORE_FACT_VERIFICATION_FAILED",
+      "model_raw_value": [
+        {
+          "fact_id": "EF-d2b3f3cae01c7591",
+          "supported": false,
+          "reason": "C0007仅约定标准工时制，未约定非全日制劳动者终止前通知天数，不能据此确认该事实。"
+        }
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0007",
+          "location": "第四条 工作时间",
+          "title": "工作时间",
+          "text": "乙方实行标准工时制，每日工作8小时，每周工作40小时。",
+          "section_type": "正式合同条款",
+          "level": 1,
+          "raw_text": "第四条 工作时间\n乙方实行标准工时制，每日工作8小时，每周工作40小时。\n正常工作时间为周一至周五9:00至18:00，中午休息1小时。\n乙方依法享有法定节假日、年休假等休息休假。\n甲方安排加班的，应依法支付加班工资或者依法安排补休。",
+          "normalized_text": "第四条工作时间乙方实行标准工时制，每日工作8小时，每周工作40小时。正常工作时间为周一至周五9:00至18:00，中午休息1小时。乙方依法享有法定节假日、年休假等休息休假。甲方安排加班的，应依法支付加班工资或者依法安排补休。",
+          "option_groups": [],
+          "source": "body",
+          "section_path": [
+            "正式合同条款",
+            "第四条 工作时间"
+          ],
+          "heading": "工作时间",
+          "clause_number": "第四条",
+          "paragraph_index": 6,
+          "block_type": "OPERATIVE_CLAUSE",
+          "parties": [
+            "乙方",
+            "甲方"
+          ],
+          "dates": [],
+          "amounts": [],
+          "percentages": [],
+          "durations": [],
+          "cross_references": [
+            "第四条"
+          ],
+          "node_id": "C0007",
+          "document_id": "contract_package/main",
+          "heading_path": [
+            "第四条 工作时间"
+          ],
+          "article_number": "第四条",
+          "section_number": "",
+          "item_number": "",
+          "sentence_index": 1,
+          "start_offset": 455,
+          "end_offset": 572,
+          "source_type": "CONTRACT_TEXT",
+          "party_obligation": true,
+          "quote": "乙方实行标准工时制，每日工作8小时，每周工作40小时。",
+          "original_excerpt": "乙方实行标准工时制，每日工作8小时，每周工作40小时。",
+          "model_quote": "乙方实行标准工时制，每日工作8小时，每周工作40小时。",
+          "alignment_mode": "EXACT",
+          "source_start": 9,
+          "source_end": 36,
+          "evidence_span": {
+            "basis": "clause.text",
+            "start": 9,
+            "end": 36
+          },
+          "document_span": {
+            "start": 464,
+            "end": 491
+          },
+          "verified_original": true,
+          "fact_concept": "part_time.employee_notice_days",
+          "structured_fact_id": "EF-d2b3f3cae01c7591"
+        }
+      ],
+      "expected": "supported, source-bound core fact or a verified correction",
+      "actual": {
+        "required_fact": "part_time.employee_notice_days",
+        "factstore_state": "VERIFICATION_REJECTED",
+        "verification_state": "VERIFICATION_REJECTED",
+        "coverage_state": "UNCERTAIN",
+        "verified_fact_ids": [],
+        "rejected_fact_ids": [
+          "EF-d2b3f3cae01c7591"
+        ],
+        "unresolved": false,
+        "model_coverage_advisory": null,
+        "extraction_state": "EXTRACTED",
+        "absence_audit": null,
+        "verified_absence_value": null
+      },
+      "disposition": "BLOCK",
+      "stage": "FACT_VERIFICATION",
+      "code": "CORE_FACT_VERIFICATION_FAILED",
+      "fact_key": null,
+      "raw_value": [
+        {
+          "fact_id": "EF-d2b3f3cae01c7591",
+          "supported": false,
+          "reason": "C0007仅约定标准工时制，未约定非全日制劳动者终止前通知天数，不能据此确认该事实。"
+        }
+      ],
+      "normalized_value": null,
+      "allowed_values": "supported, source-bound core fact or a verified correction",
+      "clause": null,
+      "message": "抽取值未通过事实类型、证据或语义校验；未生成报告，不能以默认值替代。",
+      "trace_id": "FACT-a807cbb6af3c4378a2b8afa8bc624438"
+    },
+    {
+      "failed_stage": "FACT_VERIFICATION",
+      "fact_id": [
+        "EF-5e9848c72c2a7734"
+      ],
+      "field": "part_time.employer_notice_days",
+      "validation_rule": "CORE_FACT_VERIFICATION_FAILED",
+      "model_raw_value": [
+        {
+          "fact_id": "EF-5e9848c72c2a7734",
+          "supported": false,
+          "reason": "C0007仅约定标准工时制，未约定非全日制单位提前通知天数，不能据此确认该事实。"
+        }
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0007",
+          "location": "第四条 工作时间",
+          "title": "工作时间",
+          "text": "乙方实行标准工时制，每日工作8小时，每周工作40小时。",
+          "section_type": "正式合同条款",
+          "level": 1,
+          "raw_text": "第四条 工作时间\n乙方实行标准工时制，每日工作8小时，每周工作40小时。\n正常工作时间为周一至周五9:00至18:00，中午休息1小时。\n乙方依法享有法定节假日、年休假等休息休假。\n甲方安排加班的，应依法支付加班工资或者依法安排补休。",
+          "normalized_text": "第四条工作时间乙方实行标准工时制，每日工作8小时，每周工作40小时。正常工作时间为周一至周五9:00至18:00，中午休息1小时。乙方依法享有法定节假日、年休假等休息休假。甲方安排加班的，应依法支付加班工资或者依法安排补休。",
+          "option_groups": [],
+          "source": "body",
+          "section_path": [
+            "正式合同条款",
+            "第四条 工作时间"
+          ],
+          "heading": "工作时间",
+          "clause_number": "第四条",
+          "paragraph_index": 6,
+          "block_type": "OPERATIVE_CLAUSE",
+          "parties": [
+            "乙方",
+            "甲方"
+          ],
+          "dates": [],
+          "amounts": [],
+          "percentages": [],
+          "durations": [],
+          "cross_references": [
+            "第四条"
+          ],
+          "node_id": "C0007",
+          "document_id": "contract_package/main",
+          "heading_path": [
+            "第四条 工作时间"
+          ],
+          "article_number": "第四条",
+          "section_number": "",
+          "item_number": "",
+          "sentence_index": 1,
+          "start_offset": 455,
+          "end_offset": 572,
+          "source_type": "CONTRACT_TEXT",
+          "party_obligation": true,
+          "quote": "乙方实行标准工时制，每日工作8小时，每周工作40小时。",
+          "original_excerpt": "乙方实行标准工时制，每日工作8小时，每周工作40小时。",
+          "model_quote": "乙方实行标准工时制，每日工作8小时，每周工作40小时。",
+          "alignment_mode": "EXACT",
+          "source_start": 9,
+          "source_end": 36,
+          "evidence_span": {
+            "basis": "clause.text",
+            "start": 9,
+            "end": 36
+          },
+          "document_span": {
+            "start": 464,
+            "end": 491
+          },
+          "verified_original": true,
+          "fact_concept": "part_time.employer_notice_days",
+          "structured_fact_id": "EF-5e9848c72c2a7734"
+        }
+      ],
+      "expected": "supported, source-bound core fact or a verified correction",
+      "actual": {
+        "required_fact": "part_time.employer_notice_days",
+        "factstore_state": "VERIFICATION_REJECTED",
+        "verification_state": "VERIFICATION_REJECTED",
+        "coverage_state": "UNCERTAIN",
+        "verified_fact_ids": [],
+        "rejected_fact_ids": [
+          "EF-5e9848c72c2a7734"
+        ],
+        "unresolved": false,
+        "model_coverage_advisory": null,
+        "extraction_state": "EXTRACTED",
+        "absence_audit": null,
+        "verified_absence_value": null
+      },
+      "disposition": "BLOCK",
+      "stage": "FACT_VERIFICATION",
+      "code": "CORE_FACT_VERIFICATION_FAILED",
+      "fact_key": null,
+      "raw_value": [
+        {
+          "fact_id": "EF-5e9848c72c2a7734",
+          "supported": false,
+          "reason": "C0007仅约定标准工时制，未约定非全日制单位提前通知天数，不能据此确认该事实。"
+        }
+      ],
+      "normalized_value": null,
+      "allowed_values": "supported, source-bound core fact or a verified correction",
+      "clause": null,
+      "message": "抽取值未通过事实类型、证据或语义校验；未生成报告，不能以默认值替代。",
+      "trace_id": "FACT-a807cbb6af3c4378a2b8afa8bc624438"
+    }
+  ],
+  "tests": "204 passed",
+  "scope": "normalizer only; remaining verifier evidence failures intentionally retained"
+}

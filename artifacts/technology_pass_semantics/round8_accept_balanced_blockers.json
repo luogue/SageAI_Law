@@ -1,0 +1,120 @@
+{
+  "status": "BLOCKED",
+  "contract_type": "technology",
+  "selected_contract_type": "technology",
+  "raw_failure_count": 1,
+  "blocker_tuple_count": 1,
+  "blockers": [
+    {
+      "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-07-01",
+      "element_id": "license_term",
+      "fact_id": null,
+      "detected_stage": "Final Evidence Projection",
+      "reject_reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH",
+      "source_spans": [
+        {
+          "evidence_id": "EV-db96baea5f017482",
+          "clause_id": "C0005",
+          "quoted_text": "第三条 许可期限五年，许可地域为中国境内，仅限生产合同产品。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 130,
+            "end_offset": 160,
+            "raw_text": "第三条 许可期限五年，许可地域为中国境内，仅限生产合同产品。"
+          },
+          "supporting_element_ids": [
+            "permitted_implementation_acts",
+            "license_territory"
+          ]
+        },
+        {
+          "evidence_id": "EV-019954ffeade0f4d",
+          "clause_id": "C0003",
+          "quoted_text": "第一条 技术秘密内容：未公开的控制算法、源代码、控制参数和测试数据。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 36,
+            "end_offset": 70,
+            "raw_text": "第一条 技术秘密内容：未公开的控制算法、源代码、控制参数和测试数据。"
+          },
+          "supporting_element_ids": [
+            "licensed_secret_subject"
+          ]
+        },
+        {
+          "evidence_id": "EV-7ae5eece6823153f",
+          "clause_id": "C0004",
+          "quoted_text": "第二条 乙方将上述技术秘密以排他许可方式许可甲方实施，许可方应向被许可方交付完整技术秘密资料清单、源代码和接口说明。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 71,
+            "end_offset": 129,
+            "raw_text": "第二条 乙方将上述技术秘密以排他许可方式许可甲方实施，许可方应向被许可方交付完整技术秘密资料清单、源代码和接口说明。"
+          },
+          "supporting_element_ids": [
+            "licensed_secret_subject",
+            "license_type"
+          ]
+        },
+        {
+          "evidence_id": "EV-c82297db9a2cee3c",
+          "clause_id": "C0006",
+          "quoted_text": "第四条 技术秘密许可使用费为人民币100万元。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 161,
+            "end_offset": 184,
+            "raw_text": "第四条 技术秘密许可使用费为人民币100万元。"
+          },
+          "supporting_element_ids": [
+            "permitted_implementation_acts"
+          ]
+        },
+        {
+          "evidence_id": "EV-c68d35d6f758b4f6",
+          "clause_id": "",
+          "quoted_text": "已检索合同正文及全部已提供附件，未找到以下正向事实：向第三方转让、许可或提供边界。",
+          "source_type": "SEARCH_AUDIT",
+          "source_span": {
+            "start_offset": 0,
+            "end_offset": 41,
+            "raw_text": "已检索合同正文及全部已提供附件，未找到以下正向事实：向第三方转让、许可或提供边界。"
+          }
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-07-01",
+          "element_id": "license_term",
+          "claim_id": "TC-07-01-license_term",
+          "proposition": "许可期限",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "许可期限",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "许可期限"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "risk_id": "RF-003",
+        "review_id": "TC-07-01",
+        "element_id": "license_term",
+        "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+      }
+    }
+  ],
+  "note": "Null IDs/stages mean the existing gate did not publish them; none are fabricated."
+}

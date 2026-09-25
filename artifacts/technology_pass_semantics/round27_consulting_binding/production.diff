@@ -1,0 +1,229 @@
+--- before/consulting_element_facts.py
++++ after/consulting_element_facts.py
+@@ -6,6 +6,8 @@
+ """
+ import re
+ from review_v2.obligation_detail_elements import _segments
++from review_v2.proposition_scope import arrangement_matches
++from review_v2.obligation_detail_elements import _DURATION
+ 
+ FAMILIES = {
+     'consulting_payment': (
+@@ -48,6 +50,43 @@
+     ('consulting_deliverable', '咨询成果', r'(?:提交|提供|出具|完成).{0,30}(?:技术咨询报告|咨询报告|分析评价报告|技术分析报告|可行性论证)'),
+ )
+ 
++# Extend the existing semantic definitions, retaining their canonical keys.
++# Normal commercial risk and an advisor's fault exception are distinct duties.
++ALIASES = {
++    'consulting_project': r'拟(?:建设|实施|开展)[^。；]{1,70}(?:系统|工程|项目)[^。；]{0,80}(?:咨询|论证)|就[^。；]{1,50}项目提供技术咨询',
++    'consulting_scope': r'就[^。；]{1,70}(?:提供|开展)技术咨询|(?:分析|比较|评估|论证)[^。；]{1,70}(?:技术|方案|参数|风险)',
++    'qualified_consulting_decision_risk': r'(?:根据|依据)[^。；]{0,40}咨询(?:意见|建议)[^。；]{0,60}(?:决策责任|决策风险|商业风险)[^。；]{0,20}(?:甲方|委托方|委托人)[^。；]{0,6}承担',
++    'defect_trigger': r'(?:认为|发现)[^。；]{0,20}(?:报告|成果)[^。；]{0,15}(?:遗漏|缺漏|缺陷|错误)',
++    'correction_period': _DURATION + r'内[^。；]{0,20}(?:补充|补正|修正|改正|修改)',
++    'correction_remedy': r'(?:乙方|咨询方|受托方)[^。；]{0,10}(?:应|须)[^。；]{0,45}(?:合理)?(?:补充|补正|修正)',
++    'payment_milestones': r'(?:支付|付款)[^。；]{0,12}\d[\d,.]*万?元',
++}
++for family, definitions in list(FAMILIES.items()):
++    FAMILIES[family] = tuple((key,label,pattern+'|'+ALIASES[key] if key in ALIASES else pattern)
++                              for key,label,pattern in definitions)
++FAMILIES['consulting_decision'] += (
++    ('consultant_fault_exception', '咨询方故意或重大过错的责任例外',
++     r'(?:乙方|咨询方|受托方)[^。；]{0,90}(?:故意|重大过失|重大过错)[^。；]{0,90}(?:承担|赔偿)|(?:乙方|咨询方|受托方)[^。；]{0,35}下列情形[^。；]{0,90}(?:承担|赔偿)'),)
++FAMILIES['consulting_remedy'] += (
++    ('reinspection_deadline', '补正完成后的再次验收期限',
++     _DURATION+r'内[^。；]{0,20}(?:再次验收|重新验收|复验)'),)
++
++
++def evaluation_dimensions(clauses):
++    """An evaluation list's '是否' defines criteria, not an unanswered query."""
++    rows = []
++    for clause in clauses:
++        start = None
++        for m in re.finditer(r'[^\n。；;]+[。；;]?', clause.text):
++            q = m[0].strip()
++            if list(arrangement_matches(r'验收(?:主要)?(?:检查|评价|考察)[：:]$', q)):
++                start = m.start()
++            elif start is not None and re.match(r'是否(?:完成|提交|列明|说明|分析|对)', q):
++                rows.append(dict(clause_id=clause.clause_id, quote=clause.text[start:m.end()].strip(),location=clause.location))
++            else:
++                start = None
++    return rows
++
+ 
+ def _client_action(text, action):
+     """Resolve the clause's acting party, excluding 向乙方 as a recipient.
+@@ -71,7 +110,7 @@
+         sources = []
+         for clause, heading, quote in _segments(clauses):
+             text = re.sub(r'\s+', '', quote)
+-            matched = bool(re.search(predicate, text))
++            matched = bool(list(arrangement_matches(predicate, text)))
+             if family == 'consulting_inputs':
+                 actions = {
+                     'technical_materials': r'(?:提供|提交).{0,80}(?:资料|图纸|架构图|文档|数据|信息)',
+@@ -79,7 +118,7 @@
+                     'truthfulness_completeness': r'(?:保证|确保).{0,20}(?:资料|数据|信息).{0,20}真实.{0,8}完整',
+                     'delivery_time_method': r'(?:通过|采用|以).{0,25}(?:电子|交接|书面|加密|方式).{0,30}(?:提供|提交)',
+                 }
+-                matched = _client_action(text, actions[key])
++                matched = _client_action(text, actions[key]) and bool(list(arrangement_matches(actions[key], text)))
+             if getattr(clause, 'block_type', '') == 'HEADING' or not matched:
+                 continue
+             # Scope/standards concern the consulting performance, not another
+@@ -91,7 +130,15 @@
+                 continue
+             sources.append({'clause_id': clause.clause_id, 'quote': quote,
+                             'location': clause.location})
++        if key == 'acceptance_standard':
++            sources.extend(evaluation_dimensions(clauses))
+         optional = key in OPTIONAL | PAYMENT_OPTIONAL
++        # These refine an existing allocation/remedy, rather than creating
++        # additional mandatory business requirements when never addressed.
++        if key == 'consultant_fault_exception':
++            optional = True
++        if key == 'reinspection_deadline':
++            optional = not any(re.search(r'再次验收|重新验收|复验', c.text) for c in clauses)
+         result.append(dict(element_id=key, source_fact_key=family + '.' + key,
+                            status='COVERED' if sources else 'MISSING',
+                            required_fact=label, proposition=label,
+--- before/data_use_scope.py
++++ after/data_use_scope.py
+@@ -14,12 +14,13 @@
+             q = row['quote']
+             if not re.search(r'数据|信息', q):
+                 continue
+-            purpose = re.search(r'(?:用于|用作|使用于)([^。；;]+)', q)
++            operative = q[row['match_start']:]
++            purpose = re.search(r'(?:用于|用作|使用于)([^。；;]+)', operative)
+             if not purpose:
+                 continue
+-            obj = q[:purpose.start()]
+-            actor_name = re.search(actor, q)[0]
+-            anonymous = bool(re.search(r'匿名化(?:的)?统计数据|无法识别[^。；;]{0,55}(?:匿名化|统计数据)', obj))
++            obj = operative[:purpose.start()]
++            actor_name = re.match(actor, operative)[0]
++            anonymous = bool(re.search(r'匿名化(?:的)?统计(?:数据|信息)|无法识别[^。；;]{0,55}(?:匿名化|(?:汇总)?统计(?:数据|信息))', obj))
+             # The sentence actor is not automatically the data's owner. Bind
+             # the possessor inside the object phrase, before its data noun.
+             owned = re.search(r'(?P<owner>甲方|乙方|委托方|客户|对方)(?:的)?'
+--- before/engine.py
++++ after/engine.py
+@@ -18697,6 +18697,12 @@
+                                 ('TC-08-04', 'consulting_remedy'),
+                                 ('TC-08-05', 'consulting_payment')):
+             if rule_id in by_id and _project_atomic_requirement_state(by_id[rule_id], family, clauses, allow_empty=True):
++                final_projection_ids.add(rule_id)
++        for rule_id, family in (('TC-11-01','confidentiality_controls'),
++                                ('TC-11-02','confidentiality_disclosure'),
++                                ('TC-11-03','material_exit'),('TC-11-04','confidentiality_remedies'),
++                                ('TC-12-02','service_claims')):
++            if (item := by_id.get(rule_id)) and _project_atomic_requirement_state(item, family, clauses):
+                 final_projection_ids.add(rule_id)
+     development_types = {"ENTRUSTED_DEVELOPMENT", "COOPERATIVE_DEVELOPMENT"}
+     active_types = {classification.get("primary_subtype")} | set(classification.get("active_transaction_types") or [])
+@@ -51027,6 +51033,8 @@
+             from review_v2.consulting_element_facts import FAMILIES as consulting_families
+             for family in consulting_families:
+                 _register_atomic_family_facts(generic_fact_graph, family, clauses)
++            for family in ('confidentiality_controls','confidentiality_disclosure','material_exit','service_claims'):
++                _register_atomic_family_facts(generic_fact_graph, family, clauses)
+         if technology_classification.get('tertiary_subtype') == 'PATENT_APPLICATION_RIGHT_TRANSFER':
+             _register_atomic_family_facts(generic_fact_graph, 'application_transfer', clauses)
+     patent_transfer_analysis = (
+--- before/obligation_detail_elements.py
++++ after/obligation_detail_elements.py
+@@ -324,6 +324,8 @@
+         field = _field(extract_field, quote, ("涉密人员范围", "涉密人员", "允许披露人员"))
+         if field and not re.search(_DEFERRED, field["field_value"]):
+             remember("confidential_personnel_scope", clause, quote, **field)
++        elif re.search(r'(?:仅可|只可|仅限|只限)[^。；]{0,20}(?:知悉必要|必要知悉|有必要知悉)[^。；]{0,20}(?:员工|人员)', compact):
++            remember("confidential_personnel_scope", clause, quote)
+         # A court mention or a damages clause is not a disclosure exception.
+         if re.search(r"(?:以下|下列)信息不属于(?:本合同(?:项下)?)?保密(?:信息|范围)|保密.{0,8}(?:例外|除外)[：:]", compact):
+             exception_context = True
+--- before/technology_service_analysis.py
++++ after/technology_service_analysis.py
+@@ -1829,14 +1829,19 @@
+                 # Keep the label and its value together as one direct source.
+                 add("notification_requirement", clause, field_source, "LICENSEE")
+                 add("notification_deadline", clause, field_source, "LICENSEE", value=field_notice[1])
+-            notice = re.search(rf"(?:应当|应|须|必须|及时).{{0,45}}(?:通知|告知|通知给){provider}", s)
+-            if notice and not re.search(r"(?:无需|无须|不必|未约定|未明确).{0,20}(?:通知|告知)", s):
+-                notice_actor = re.search(recipient, s[:notice.start()])
+-                if notice_actor or actor == "LICENSEE":
+-                    add("notification_requirement", clause, sentence, "LICENSEE")
+-                    deadline = re.search(r"(?:\d+|[一二三四五六七八九十]+)个?(?:工作日|日|天|小时)内", notice.group(0))
+-                    if deadline:
+-                        add("notification_deadline", clause, sentence, "LICENSEE", value=deadline.group(0))
++            for sender, target, role in ((recipient, provider, "LICENSEE"),
++                                         (provider, recipient, "LICENSOR")):
++                # Match the operative subject, rather than a party mentioned
++                # in the preceding claim's condition or affected object.
++                notice = re.search(rf"{sender}(?:应当|应|须|必须)[^。；]{{0,35}}?(?:通知|告知)(?:给)?{target}", s)
++                if not notice:
++                    continue
++                if re.search(r"无需|无须|不必|未约定|未明确|不得", notice[0]):
++                    continue
++                add("notification_requirement", clause, sentence, role)
++                deadline = re.search(r"(?:\d+|[一二三四五六七八九十]+)个?(?:工作日|日|天|小时)内", notice[0])
++                if deadline:
++                    add("notification_deadline", clause, sentence, role, value=deadline[0])
+             if "和解" in s and not re.search(r"未约定|未明确|另行协商责任", s):
+                 if re.search(rf"(?:不得|不应).{{0,15}}损害.{{0,10}}{recipient}|未经{recipient}.{{0,15}}同意.{{0,20}}不得.{{0,10}}和解|未经{recipient}.{{0,15}}同意.{{0,20}}不得以[^。；]{{0,90}}(?:承认侵权|停止[^。；]{{0,10}}生产|额外付款)[^。；]{{0,60}}为条件(?:达成)?和解", s):
+                     add("settlement_non_prejudice", clause, sentence)
+@@ -4522,8 +4527,8 @@
+     # party's role after whitespace compaction joins two header lines.
+     role_text = re.sub(r'[^\S\r\n]+', '', text or '')
+     provider_party = (
+-        "甲方" if re.search(r"甲方(?:(?!乙方)[^。；\n]){0,15}(?:服务提供方|技术服务提供方|服务方)", role_text)
+-        else "乙方" if re.search(r"乙方(?:(?!甲方)[^。；\n]){0,15}(?:服务提供方|技术服务提供方|服务方)", role_text)
++        "甲方" if re.search(r"甲方(?:(?!乙方)[^。；\n]){0,15}(?:服务提供方|技术服务提供方|服务方|咨询方|技术咨询方)", role_text)
++        else "乙方" if re.search(r"乙方(?:(?!甲方)[^。；\n]){0,15}(?:服务提供方|技术服务提供方|服务方|咨询方|技术咨询方)", role_text)
+         else "甲方" if re.search(r"(?:受托人|受托方)[：:]?[^。；\n]{0,60}[（(]?甲方[）)]?", role_text)
+         else "乙方" if re.search(r"(?:受托人|受托方)[：:]?[^。；\n]{0,60}[（(]?乙方[）)]?", role_text)
+         else ""
+--- before/technology_service_elements.py
++++ after/technology_service_elements.py
+@@ -11,7 +11,8 @@
+ 
+ 
+ FAMILIES = ('service_content', 'service_payment', 'service_quality',
+-            'service_results', 'service_claims', 'material_exit', 'component_inventory')
++            'service_results', 'service_claims', 'material_exit', 'component_inventory',
++            'confidentiality_controls', 'confidentiality_disclosure')
+ RULE_FAMILIES = {'TC-09-01': 'service_content', 'TC-09-04': 'service_payment',
+                  'TC-09-02': 'service_quality', 'TC-09-03': 'service_results',
+                  'TC-12-02': 'service_claims', 'TC-11-03': 'material_exit',
+@@ -47,6 +48,31 @@
+ def elements(family, clauses):
+     def find(pattern, **kw):
+         return sources(clauses, pattern, **kw)
++    if family in {'confidentiality_controls', 'confidentiality_disclosure'}:
++        from review_v2.obligation_detail_elements import confidentiality_detail_elements
++        from review_v2.engine import extract_semantic_field_value
++        facts = {e['element_id']:e for e in confidentiality_detail_elements(clauses, extract_field=extract_semantic_field_value)}
++        if family == 'confidentiality_controls':
++            mappings = [('confidential_information_scope','confidential_information_scope'),
++                        ('during_contract_confidentiality','confidentiality_obligation'),
++                        ('confidential_personnel_scope','need_to_know_personnel'),
++                        ('confidentiality_duration','confidentiality_duration')]
++            atoms = [{**facts[a], 'element_id':b} for a,b in mappings]
++            atoms += _rows(family, [
++                ('purpose_limitation','保密数据的合同目的使用限制',find(r'(?:只能|仅可|仅限)[^。；]{0,35}(?:本项目|咨询目的|合同目的)[^。；]{0,25}(?:处理|使用)')),
++                ('third_party_disclosure_restriction','向第三方披露的限制',find(r'未经[^。；]{0,25}同意[^。；]{0,35}不得[^。；]{0,35}(?:披露|泄露)')),
++                ('copying_restriction','保密资料复制限制',find(r'(?:不得|禁止|仅可)[^。；]{0,25}复制',context=r'保密|秘密')),
++                ('security_measures','保密信息安全措施',find(r'(?:应|须)[^。；]{0,25}(?:加密|访问控制|权限管理)',context=r'保密|秘密|信息'))])
++            return atoms
++        specs = [('confidential_information_scope','保密信息范围',facts['confidential_information_scope']['supporting_evidence']),
++                 ('confidentiality_period','保密期限',facts['confidentiality_duration']['supporting_evidence'])]
++        components = facts['confidentiality_exceptions']['component_coverage']
++        for key, component in zip(('public_information_exception','lawful_third_party_source_exception',
++                                   'independent_development_exception','compelled_disclosure_exception'),components):
++            specs.append((key,component['required_fact'],component['supporting_evidence']))
++        specs.append(('prior_notice_when_legally_permitted','依法强制披露时在法律允许范围内提前通知',
++            find(r'(?:应|须)[^。；]{0,25}(?:法律允许|依法允许)[^。；]{0,12}(?:提前|事先)通知[^。；]{0,12}(?:另一方|对方)',context=r'法律|机关')))
++        return _rows(family,specs)
+     if family == 'service_content':
+         from review_v2.technology_transaction_evidence import extract_elements
+         atoms = extract_elements('technical_service_subject', clauses)

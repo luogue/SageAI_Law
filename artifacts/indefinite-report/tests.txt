@@ -1,0 +1,345 @@
+FFFF..FF..FF....F                                                        [100%]
+================================== FAILURES ===================================
+_ test_penalty_exposure[\u4eba\u6c11\u5e011,000\u5143-\u672a\u63d0\u524d\u901a\u77e5\u987b\u652f\u4ed8\u4eba\u6c11\u5e011,000\u5143\u8fdd\u7ea6\u91d1\u3002-1000\u5143] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001BA40C46B90>
+amount = '人民币1,000元', quote = '未提前通知须支付人民币1,000元违约金。', expected = '1000元'
+
+    @pytest.mark.parametrize('amount,quote,expected',[
+     ('人民币1,000元','未提前通知须支付人民币1,000元违约金。','1000元'),
+     ('合同金额10%','应支付合同金额10%的违约金。','合同金额10%'),
+     ('每逾期一日100元','每逾期一日支付100元违约金。','每逾期一日100元'),
+    ])
+    def test_penalty_exposure(monkeypatch,amount,quote,expected):
+>    r=review(monkeypatch,'劳动合同\n'+quote,[('penalties.obligations',dict(scope='ORDINARY_RESIGNATION',imposed=True,amount_text=amount),quote)])['EMP-14-01']
+
+backend\tests\test_verified_monetary_exposure.py:10: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001BA40C46B90>
+text = '劳动合同\n未提前通知须支付人民币1,000元违约金。'
+values = [('penalties.obligations', {'scope': 'ORDINARY_RESIGNATION', 'imposed': True, 'amount_text': '人民币1,000元'}, '未提前通知须支付人民币1,000元违约金。')]
+
+    def review(monkeypatch, text, values):
+        from review_v2 import employment_fact_pipeline as pipeline
+        from review_v2.engine import review_contract_v2
+        cs = parse_contract_clauses(text)
+        monkeypatch.setattr(pipeline, 'extract', lambda *a, **k: packet(cs, [fact(cs, c, v, q) for c, v, q in values]))
+        monkeypatch.setattr(pipeline, 'verify', verified_packet)
+        result = review_contract_v2(text, 'labor')
+>       assert result['release_quality_gate']['status'] == 'REPORT_READY', result['release_quality_gate']
+E       AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'RENDERED_COVERAGE_CLOSURE', 'failure_stage': 'Final Summary Projec..._consistency': {'status': 'PASS', 'failures': [], 'contract_type': 'labor', 'domain_pack': 'priority-domain-1.0'}, ...}
+E       assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_part_time_proportionate_coverage.py:13: AssertionError
+_ test_penalty_exposure[\u5408\u540c\u91d1\u989d10%-\u5e94\u652f\u4ed8\u5408\u540c\u91d1\u989d10%\u7684\u8fdd\u7ea6\u91d1\u3002-\u5408\u540c\u91d1\u989d10%] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001BA43FCE140>
+amount = '合同金额10%', quote = '应支付合同金额10%的违约金。', expected = '合同金额10%'
+
+    @pytest.mark.parametrize('amount,quote,expected',[
+     ('人民币1,000元','未提前通知须支付人民币1,000元违约金。','1000元'),
+     ('合同金额10%','应支付合同金额10%的违约金。','合同金额10%'),
+     ('每逾期一日100元','每逾期一日支付100元违约金。','每逾期一日100元'),
+    ])
+    def test_penalty_exposure(monkeypatch,amount,quote,expected):
+>    r=review(monkeypatch,'劳动合同\n'+quote,[('penalties.obligations',dict(scope='ORDINARY_RESIGNATION',imposed=True,amount_text=amount),quote)])['EMP-14-01']
+
+backend\tests\test_verified_monetary_exposure.py:10: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001BA43FCE140>
+text = '劳动合同\n应支付合同金额10%的违约金。'
+values = [('penalties.obligations', {'scope': 'ORDINARY_RESIGNATION', 'imposed': True, 'amount_text': '合同金额10%'}, '应支付合同金额10%的违约金。')]
+
+    def review(monkeypatch, text, values):
+        from review_v2 import employment_fact_pipeline as pipeline
+        from review_v2.engine import review_contract_v2
+        cs = parse_contract_clauses(text)
+        monkeypatch.setattr(pipeline, 'extract', lambda *a, **k: packet(cs, [fact(cs, c, v, q) for c, v, q in values]))
+        monkeypatch.setattr(pipeline, 'verify', verified_packet)
+        result = review_contract_v2(text, 'labor')
+>       assert result['release_quality_gate']['status'] == 'REPORT_READY', result['release_quality_gate']
+E       AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'RENDERED_COVERAGE_CLOSURE', 'failure_stage': 'Final Summary Projec..._consistency': {'status': 'PASS', 'failures': [], 'contract_type': 'labor', 'domain_pack': 'priority-domain-1.0'}, ...}
+E       assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_part_time_proportionate_coverage.py:13: AssertionError
+_ test_penalty_exposure[\u6bcf\u903e\u671f\u4e00\u65e5100\u5143-\u6bcf\u903e\u671f\u4e00\u65e5\u652f\u4ed8100\u5143\u8fdd\u7ea6\u91d1\u3002-\u6bcf\u903e\u671f\u4e00\u65e5100\u5143] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001BA46B95F30>
+amount = '每逾期一日100元', quote = '每逾期一日支付100元违约金。', expected = '每逾期一日100元'
+
+    @pytest.mark.parametrize('amount,quote,expected',[
+     ('人民币1,000元','未提前通知须支付人民币1,000元违约金。','1000元'),
+     ('合同金额10%','应支付合同金额10%的违约金。','合同金额10%'),
+     ('每逾期一日100元','每逾期一日支付100元违约金。','每逾期一日100元'),
+    ])
+    def test_penalty_exposure(monkeypatch,amount,quote,expected):
+>    r=review(monkeypatch,'劳动合同\n'+quote,[('penalties.obligations',dict(scope='ORDINARY_RESIGNATION',imposed=True,amount_text=amount),quote)])['EMP-14-01']
+
+backend\tests\test_verified_monetary_exposure.py:10: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001BA46B95F30>
+text = '劳动合同\n每逾期一日支付100元违约金。'
+values = [('penalties.obligations', {'scope': 'ORDINARY_RESIGNATION', 'imposed': True, 'amount_text': '每逾期一日100元'}, '每逾期一日支付100元违约金。')]
+
+    def review(monkeypatch, text, values):
+        from review_v2 import employment_fact_pipeline as pipeline
+        from review_v2.engine import review_contract_v2
+        cs = parse_contract_clauses(text)
+        monkeypatch.setattr(pipeline, 'extract', lambda *a, **k: packet(cs, [fact(cs, c, v, q) for c, v, q in values]))
+        monkeypatch.setattr(pipeline, 'verify', verified_packet)
+        result = review_contract_v2(text, 'labor')
+>       assert result['release_quality_gate']['status'] == 'REPORT_READY', result['release_quality_gate']
+E       AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'RENDERED_COVERAGE_CLOSURE', 'failure_stage': 'Final Summary Projec..._consistency': {'status': 'PASS', 'failures': [], 'contract_type': 'labor', 'domain_pack': 'priority-domain-1.0'}, ...}
+E       assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_part_time_proportionate_coverage.py:13: AssertionError
+______________________ test_separate_obligation_amounts _______________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001BA43FEA1A0>
+
+    def test_separate_obligation_amounts(monkeypatch):
+     deposit='从工资扣设备押金800元，归还设备后返还。';penalty='自行离职支付1000元违约金。'
+     text='劳动合同\n第九条 责任\n'+deposit+'\n'+penalty
+>    rows=review(monkeypatch,text,[('worker.security_payment',dict(required=True,collector='EMPLOYER',deducted_from_wage=True,amount_text='800元'),deposit),('penalties.obligations',dict(scope='ORDINARY_RESIGNATION',imposed=True,amount_text='1000元'),penalty)])
+
+backend\tests\test_verified_monetary_exposure.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001BA43FEA1A0>
+text = '劳动合同\n第九条 责任\n从工资扣设备押金800元，归还设备后返还。\n自行离职支付1000元违约金。'
+values = [('worker.security_payment', {'required': True, 'collector': 'EMPLOYER', 'deducted_from_wage': True, 'amount_text': '8...penalties.obligations', {'scope': 'ORDINARY_RESIGNATION', 'imposed': True, 'amount_text': '1000元'}, '自行离职支付1000元违约金。')]
+
+    def review(monkeypatch, text, values):
+        from review_v2 import employment_fact_pipeline as pipeline
+        from review_v2.engine import review_contract_v2
+        cs = parse_contract_clauses(text)
+        monkeypatch.setattr(pipeline, 'extract', lambda *a, **k: packet(cs, [fact(cs, c, v, q) for c, v, q in values]))
+        monkeypatch.setattr(pipeline, 'verify', verified_packet)
+        result = review_contract_v2(text, 'labor')
+>       assert result['release_quality_gate']['status'] == 'REPORT_READY', result['release_quality_gate']
+E       AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'RENDERED_COVERAGE_CLOSURE', 'failure_stage': 'Final Summary Projec..._consistency': {'status': 'PASS', 'failures': [], 'contract_type': 'labor', 'domain_pack': 'priority-domain-1.0'}, ...}
+E       assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_part_time_proportionate_coverage.py:13: AssertionError
+_____________ test_task_trial[CURRENT-1-\u98ce\u9669\u6761\u6b3e] _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001BA3B5E1600>
+arrangement = 'CURRENT', duration = 1, status = '风险条款'
+
+    @pytest.mark.parametrize('arrangement,duration,status',[('CURRENT',1,'风险条款'),('CURRENT',None,'风险条款'),('NONE',None,'通过')])
+    def test_task_trial(monkeypatch,arrangement,duration,status):
+     q='约定试用期一个月。' if arrangement=='CURRENT' else '双方不设试用期。'
+     values=base()+[('probation.arrangement',arrangement,q)]
+     if duration:values.append(('probation.duration_months',duration,q))
+>    item=review(monkeypatch,TASK+'\n'+q,values)['EMP-15-01']
+
+backend\tests\test_task_term_risk_policy.py:11: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001BA3B5E1600>
+text = '本合同以完成工作任务为期限，项目验收完成即终止。\n约定试用期一个月。'
+values = [('contract.type', 'TASK', '本合同以完成工作任务为期限，项目验收完成即终止。'), ('contract.task_end', '项目验收完成', '本合同以完成工作任务为期限，项目验收完成即终止。'), ('probation.arrangement', 'CURRENT', '约定试用期一个月。'), ('probation.duration_months', 1, '约定试用期一个月。')]
+
+    def review(monkeypatch, text, values):
+        from review_v2 import employment_fact_pipeline as pipeline
+        from review_v2.engine import review_contract_v2
+        cs = parse_contract_clauses(text)
+        monkeypatch.setattr(pipeline, 'extract', lambda *a, **k: packet(cs, [fact(cs, c, v, q) for c, v, q in values]))
+        monkeypatch.setattr(pipeline, 'verify', verified_packet)
+        result = review_contract_v2(text, 'labor')
+>       assert result['release_quality_gate']['status'] == 'REPORT_READY', result['release_quality_gate']
+E       AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'RENDERED_COVERAGE_CLOSURE', 'failure_stage': 'Final Summary Projec..._consistency': {'status': 'PASS', 'failures': [], 'contract_type': 'labor', 'domain_pack': 'priority-domain-1.0'}, ...}
+E       assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_part_time_proportionate_coverage.py:13: AssertionError
+___________ test_task_trial[CURRENT-None-\u98ce\u9669\u6761\u6b3e] ____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001BA3B5E2AA0>
+arrangement = 'CURRENT', duration = None, status = '风险条款'
+
+    @pytest.mark.parametrize('arrangement,duration,status',[('CURRENT',1,'风险条款'),('CURRENT',None,'风险条款'),('NONE',None,'通过')])
+    def test_task_trial(monkeypatch,arrangement,duration,status):
+     q='约定试用期一个月。' if arrangement=='CURRENT' else '双方不设试用期。'
+     values=base()+[('probation.arrangement',arrangement,q)]
+     if duration:values.append(('probation.duration_months',duration,q))
+>    item=review(monkeypatch,TASK+'\n'+q,values)['EMP-15-01']
+
+backend\tests\test_task_term_risk_policy.py:11: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001BA3B5E2AA0>
+text = '本合同以完成工作任务为期限，项目验收完成即终止。\n约定试用期一个月。'
+values = [('contract.type', 'TASK', '本合同以完成工作任务为期限，项目验收完成即终止。'), ('contract.task_end', '项目验收完成', '本合同以完成工作任务为期限，项目验收完成即终止。'), ('probation.arrangement', 'CURRENT', '约定试用期一个月。')]
+
+    def review(monkeypatch, text, values):
+        from review_v2 import employment_fact_pipeline as pipeline
+        from review_v2.engine import review_contract_v2
+        cs = parse_contract_clauses(text)
+        monkeypatch.setattr(pipeline, 'extract', lambda *a, **k: packet(cs, [fact(cs, c, v, q) for c, v, q in values]))
+        monkeypatch.setattr(pipeline, 'verify', verified_packet)
+        result = review_contract_v2(text, 'labor')
+>       assert result['release_quality_gate']['status'] == 'REPORT_READY', result['release_quality_gate']
+E       AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'RENDERED_COVERAGE_CLOSURE', 'failure_stage': 'Final Summary Projec..._consistency': {'status': 'PASS', 'failures': [], 'contract_type': 'labor', 'domain_pack': 'priority-domain-1.0'}, ...}
+E       assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_part_time_proportionate_coverage.py:13: AssertionError
+_ test_task_compensation[EXCLUDED-\u4efb\u52a1\u5b8c\u6210\u7ec8\u6b62\u540e\u65e0\u9700\u652f\u4ed8\u7ecf\u6d4e\u8865\u507f\u3002-\u98ce\u9669\u6761\u6b3e] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001BA3B710670>
+kind = 'EXCLUDED', quote = '任务完成终止后无需支付经济补偿。', status = '风险条款'
+
+    @pytest.mark.parametrize('kind,quote,status',[('STATUTORY_PAY','任务完成终止后依法支付经济补偿。','通过'),('EXCLUDED','任务完成终止后无需支付经济补偿。','风险条款'),('WAIVED','任务完成终止时劳动者自愿放弃经济补偿。','风险条款')])
+    def test_task_compensation(monkeypatch,kind,quote,status):
+     deadline='终止当日结清补偿和工资。'
+     values=base()+[('economic_compensation.statutory',{'kind':kind,'basis':quote},quote),('economic_compensation.settlement_deadline','终止当日',deadline)]
+>    item=review(monkeypatch,TASK+'\n'+quote+'\n'+deadline,values)['EMP-11-01']
+
+backend\tests\test_task_term_risk_policy.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001BA3B710670>
+text = '本合同以完成工作任务为期限，项目验收完成即终止。\n任务完成终止后无需支付经济补偿。\n终止当日结清补偿和工资。'
+values = [('contract.type', 'TASK', '本合同以完成工作任务为期限，项目验收完成即终止。'), ('contract.task_end', '项目验收完成', '本合同以完成工作任务为期限，项目验收完成即终止。'), (...asis': '任务完成终止后无需支付经济补偿。'}, '任务完成终止后无需支付经济补偿。'), ('economic_compensation.settlement_deadline', '终止当日', '终止当日结清补偿和工资。')]
+
+    def review(monkeypatch, text, values):
+        from review_v2 import employment_fact_pipeline as pipeline
+        from review_v2.engine import review_contract_v2
+        cs = parse_contract_clauses(text)
+        monkeypatch.setattr(pipeline, 'extract', lambda *a, **k: packet(cs, [fact(cs, c, v, q) for c, v, q in values]))
+        monkeypatch.setattr(pipeline, 'verify', verified_packet)
+        result = review_contract_v2(text, 'labor')
+>       assert result['release_quality_gate']['status'] == 'REPORT_READY', result['release_quality_gate']
+E       AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'RENDERED_COVERAGE_CLOSURE', 'failure_stage': 'Final Summary Projec..._consistency': {'status': 'PASS', 'failures': [], 'contract_type': 'labor', 'domain_pack': 'priority-domain-1.0'}, ...}
+E       assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_part_time_proportionate_coverage.py:13: AssertionError
+_ test_task_compensation[WAIVED-\u4efb\u52a1\u5b8c\u6210\u7ec8\u6b62\u65f6\u52b3\u52a8\u8005\u81ea\u613f\u653e\u5f03\u7ecf\u6d4e\u8865\u507f\u3002-\u98ce\u9669\u6761\u6b3e] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001BA43FF0370>
+kind = 'WAIVED', quote = '任务完成终止时劳动者自愿放弃经济补偿。', status = '风险条款'
+
+    @pytest.mark.parametrize('kind,quote,status',[('STATUTORY_PAY','任务完成终止后依法支付经济补偿。','通过'),('EXCLUDED','任务完成终止后无需支付经济补偿。','风险条款'),('WAIVED','任务完成终止时劳动者自愿放弃经济补偿。','风险条款')])
+    def test_task_compensation(monkeypatch,kind,quote,status):
+     deadline='终止当日结清补偿和工资。'
+     values=base()+[('economic_compensation.statutory',{'kind':kind,'basis':quote},quote),('economic_compensation.settlement_deadline','终止当日',deadline)]
+>    item=review(monkeypatch,TASK+'\n'+quote+'\n'+deadline,values)['EMP-11-01']
+
+backend\tests\test_task_term_risk_policy.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001BA43FF0370>
+text = '本合同以完成工作任务为期限，项目验收完成即终止。\n任务完成终止时劳动者自愿放弃经济补偿。\n终止当日结清补偿和工资。'
+values = [('contract.type', 'TASK', '本合同以完成工作任务为期限，项目验收完成即终止。'), ('contract.task_end', '项目验收完成', '本合同以完成工作任务为期限，项目验收完成即终止。'), (... '任务完成终止时劳动者自愿放弃经济补偿。'}, '任务完成终止时劳动者自愿放弃经济补偿。'), ('economic_compensation.settlement_deadline', '终止当日', '终止当日结清补偿和工资。')]
+
+    def review(monkeypatch, text, values):
+        from review_v2 import employment_fact_pipeline as pipeline
+        from review_v2.engine import review_contract_v2
+        cs = parse_contract_clauses(text)
+        monkeypatch.setattr(pipeline, 'extract', lambda *a, **k: packet(cs, [fact(cs, c, v, q) for c, v, q in values]))
+        monkeypatch.setattr(pipeline, 'verify', verified_packet)
+        result = review_contract_v2(text, 'labor')
+>       assert result['release_quality_gate']['status'] == 'REPORT_READY', result['release_quality_gate']
+E       AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'RENDERED_COVERAGE_CLOSURE', 'failure_stage': 'Final Summary Projec..._consistency': {'status': 'PASS', 'failures': [], 'contract_type': 'labor', 'domain_pack': 'priority-domain-1.0'}, ...}
+E       assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_part_time_proportionate_coverage.py:13: AssertionError
+_________________ test_final_report_three_independent_themes __________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001BA46B97F70>
+
+    def test_final_report_three_independent_themes(monkeypatch):
+     from review_v2 import employment_fact_pipeline as pipeline
+     from review_v2.engine import review_contract_v2
+     from backend.tests.test_employment_fact_pipeline import fact,packet,verified_packet
+     from review_v2.clause_parser import parse_contract_clauses
+     text='劳动合同\n以任务完成为期。\n公司自行判断任务完毕并终止。\n任务结束不付经济补偿。\n试用一个月。'
+     cs=parse_contract_clauses(text)
+     fs=[fact(cs,k,v,q) for k,v,q in [('contract.type','TASK','以任务完成为期。'),('contract.term_limit_mode','EMPLOYER_DETERMINED_COMPLETION','公司自行判断任务完毕并终止。'),('economic_compensation.waived',True,'任务结束不付经济补偿。'),('probation.arrangement','CURRENT','试用一个月。'),('probation.duration_months',1,'试用一个月。')]]
+     monkeypatch.setattr(pipeline,'extract',lambda *a,**k:packet(cs,fs))
+     monkeypatch.setattr(pipeline,'verify',verified_packet)
+     d=review_contract_v2(text,'labor',include_low_risk=True)
+     rows={r['item_id']:r for r in d['items']}
+     assert rows['EMP-10-01']['coverage_status']==rows['EMP-16-01']['coverage_status']=='风险条款'
+     assert '补偿' not in rows['EMP-16-01']['title']
+     relevant=[t for t in d['risk_themes'] if {'EMP-10-01','EMP-16-01'} & set(t.get('related_review_ids',t.get('related_rule_ids',[])))]
+     # The summary must reduce duplicated rule views without discarding rule hits.
+     assert d['risk_theme_count'] < d['finding_count']
+>    assert d['release_quality_gate']['status']=='REPORT_READY',d['release_quality_gate']['failures']
+E    AssertionError: [{'requirement': 'RENDERED_COVERAGE_CLOSURE', 'failure_stage': 'Final Summary Projection', 'root_cause': '报告缺少或错误统计风险条款。', 'current_status': 'FAIL'}]
+E    assert 'BLOCKED' == 'REPORT_READY'
+E      
+E      - REPORT_READY
+E      + BLOCKED
+
+backend\tests\test_employment_risk_semantics.py:61: AssertionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_verified_monetary_exposure.py::test_penalty_exposure[\u4eba\u6c11\u5e011,000\u5143-\u672a\u63d0\u524d\u901a\u77e5\u987b\u652f\u4ed8\u4eba\u6c11\u5e011,000\u5143\u8fdd\u7ea6\u91d1\u3002-1000\u5143]
+FAILED backend/tests/test_verified_monetary_exposure.py::test_penalty_exposure[\u5408\u540c\u91d1\u989d10%-\u5e94\u652f\u4ed8\u5408\u540c\u91d1\u989d10%\u7684\u8fdd\u7ea6\u91d1\u3002-\u5408\u540c\u91d1\u989d10%]
+FAILED backend/tests/test_verified_monetary_exposure.py::test_penalty_exposure[\u6bcf\u903e\u671f\u4e00\u65e5100\u5143-\u6bcf\u903e\u671f\u4e00\u65e5\u652f\u4ed8100\u5143\u8fdd\u7ea6\u91d1\u3002-\u6bcf\u903e\u671f\u4e00\u65e5100\u5143]
+FAILED backend/tests/test_verified_monetary_exposure.py::test_separate_obligation_amounts
+FAILED backend/tests/test_task_term_risk_policy.py::test_task_trial[CURRENT-1-\u98ce\u9669\u6761\u6b3e]
+FAILED backend/tests/test_task_term_risk_policy.py::test_task_trial[CURRENT-None-\u98ce\u9669\u6761\u6b3e]
+FAILED backend/tests/test_task_term_risk_policy.py::test_task_compensation[EXCLUDED-\u4efb\u52a1\u5b8c\u6210\u7ec8\u6b62\u540e\u65e0\u9700\u652f\u4ed8\u7ecf\u6d4e\u8865\u507f\u3002-\u98ce\u9669\u6761\u6b3e]
+FAILED backend/tests/test_task_term_risk_policy.py::test_task_compensation[WAIVED-\u4efb\u52a1\u5b8c\u6210\u7ec8\u6b62\u65f6\u52b3\u52a8\u8005\u81ea\u613f\u653e\u5f03\u7ecf\u6d4e\u8865\u507f\u3002-\u98ce\u9669\u6761\u6b3e]
+FAILED backend/tests/test_employment_risk_semantics.py::test_final_report_three_independent_themes
+9 failed, 8 passed, 6 warnings in 33.34s

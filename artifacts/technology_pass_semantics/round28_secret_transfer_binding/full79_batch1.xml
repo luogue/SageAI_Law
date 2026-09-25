@@ -1,0 +1,1670 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="107" skipped="0" tests="412" time="1616.012" timestamp="2026-09-18T08:48:38.217211+08:00" hostname="PC-202411042018"><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_pure_patent_license_keeps_main_transaction_without_inventing_service_module" time="0.059" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_patent_license_plus_technical_secret_activates_secret_rule_without_reclassification" time="6.921" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_patent_license_plus_technical_service_activates_tc09_without_changing_main_type" time="6.207" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_third_party_claim_partial_uses_concrete_covered_and_missing_elements" time="6.604" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_tc12_rules_share_one_registry_and_do_not_re_report_confirmed_costs" time="7.397" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_patent_license_without_software_facts_does_not_request_software_or_open_source_proof" time="5.174" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_existing_improvement_ownership_and_priority_arrangement_is_partial_not_missing" time="5.575"><failure message="AssertionError: assert '建议补充明确改进成果许可...成果商业使用及分许可条件。' == '建议在现有优先许可和另行...限、商业使用及分许可条件。'&#10;  &#10;  - 建议在现有优先许可和另行协商机制基础上，进一步明确许可费或定价机制、许可地域、期限、商业使用及分许可条件。&#10;  + 建议补充明确改进成果许可费或定价机制；补充明确改进成果许可地域；补充明确改进成果许可期限；补充明确改进成果商业使用及分许可条件。">def test_existing_improvement_ownership_and_priority_arrangement_is_partial_not_missing():
+        text = PATENT_LICENSE_BASE + """
+    第十条 改进成果
+    甲方改进成果归甲方，乙方使用需另行协商；乙方改进成果归乙方，甲方享有优先许可权。
+    """
+        item = _items(_review(text))["TC-10-02"]
+        statuses = _element_statuses(item)
+    
+        assert item["coverage_status"] == "部分覆盖"
+        assert statuses["licensee_improvement_ownership"] == "COVERED"
+        assert statuses["licensor_improvement_ownership"] == "COVERED"
+        assert statuses["priority_or_negotiated_license"] == "PARTIALLY_COVERED"
+        assert statuses["license_fee"] == "MISSING"
+&gt;       assert item["suggested_clause_example"] == "建议在现有优先许可和另行协商机制基础上，进一步明确许可费或定价机制、许可地域、期限、商业使用及分许可条件。"
+E       AssertionError: assert '建议补充明确改进成果许可...成果商业使用及分许可条件。' == '建议在现有优先许可和另行...限、商业使用及分许可条件。'
+E         
+E         - 建议在现有优先许可和另行协商机制基础上，进一步明确许可费或定价机制、许可地域、期限、商业使用及分许可条件。
+E         + 建议补充明确改进成果许可费或定价机制；补充明确改进成果许可地域；补充明确改进成果许可期限；补充明确改进成果商业使用及分许可条件。
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:164: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_coverage_evidence_is_bound_to_over_scope_and_material_delivery_clauses" time="6.329" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_licence_with_secret_service_guidance_and_acceptance_activates_real_applicability_chain" time="7.775"><failure message="KeyError: 'technical_secret_use_boundary'">def test_licence_with_secret_service_guidance_and_acceptance_activates_real_applicability_chain():
+        text = PATENT_LICENSE_BASE + """
+    第六条 技术秘密
+    技术秘密内容包括模型训练参数、数据标注规范和部署优化参数；实施要求：仅限甲方实施许可专利。
+    技术秘密使用费为人民币8万元，保密期限五年。
+    第七条 技术服务和指导
+    技术服务和指导内容：系统部署、模型训练、生产环境调试及技术人员培训。
+    技术服务和指导方式：现场指导与远程技术支持相结合。
+    第八条 验收
+    技术资料完整交付并经甲方书面确认，识别准确率应达到95%。
+    第九条 技术服务和指导费为人民币3万元。
+    """
+        output = _review(text)
+        classification = classify_technology_transaction(text)
+        items = _items(output)
+    
+        assert classification["primary_subtype"] == "TECHNOLOGY_LICENSE"
+        assert {"technical_secret", "technical_service", "technical_guidance", "acceptance"} &lt;= set(
+            classification["sub_transactions"]
+        )
+        assert all(items[f"TC-09-0{index}"]["coverage_status"] != "不适用" for index in (1, 2, 4))
+        assert items["TC-09-03"]["coverage_status"] == "不适用"
+        assert items["TC-09-03"]["decision_trace"]["service_generated_result_applicability"]["improvement_result_reused"] is False
+        assert items["TC-12-03"]["coverage_status"] != "不适用"
+&gt;       assert _element_statuses(items["TC-12-03"])["technical_secret_use_boundary"] == "COVERED"
+E       KeyError: 'technical_secret_use_boundary'
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:207: KeyError</failure></testcase><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_third_person_claim_wording_flows_from_registry_to_all_tc12_consumers" time="5.280"><failure message="AssertionError: assert '缺失' == '部分覆盖'&#10;  &#10;  - 部分覆盖&#10;  + 缺失">def test_third_person_claim_wording_flows_from_registry_to_all_tc12_consumers():
+        text = PATENT_LICENSE_BASE + """
+    第十条 第三人侵权责任
+    乙方负责与第三方交涉、应诉，并承担合理律师费、诉讼费及甲方直接经济损失。
+    """
+        output = _review(text)
+        items = _items(output)
+    
+&gt;       assert items["TC-12-02"]["coverage_status"] == "部分覆盖"
+E       AssertionError: assert '缺失' == '部分覆盖'
+E         
+E         - 部分覆盖
+E         + 缺失
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:218: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_material_registry_recognizes_method_quantity_confirmation_and_versioned_schedule" time="6.132" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_classification_ontology_is_not_a_required_contract_phrase" time="5.167"><failure message="AssertionError: assert '不适用' == '通过'&#10;  &#10;  - 通过&#10;  + 不适用">def test_classification_ontology_is_not_a_required_contract_phrase():
+        output = _review(PATENT_LICENSE_BASE)
+        item = _items(output)["TC-01-04"]
+    
+&gt;       assert item["coverage_status"] == "通过"
+E       AssertionError: assert '不适用' == '通过'
+E         
+E         - 通过
+E         + 不适用
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:251: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_licensor_equal_to_named_patent_owner_does_not_require_upstream_chain" time="4.804"><failure message="AssertionError: assert '无需另行证明上游授权或再许可权限' in '专利名称\n专利号\n专利权人\n专利申请日期\n专利授权日期\n专利证书或专利登记簿副本等独立权属证明附件\n许可方已在合同中作出其有权授予许可的陈述或保证。\n上游授权链证明文件不适用。\n建议核验合同是否允许被许可方分许可或再许可；如允许，再核验相应授权文件及权限。\n许可方为专利权人或已提供必要授权证明；上游授权/再许可证明按适用条件处理。\n专利法律状态、有效期限和年费缴纳情况有文件依据。\n共同专利权人信息、既有许可披露、专利质押登记、专利查封保全'&#10; +  where '专利名称\n专利号\n专利权人\n专利申请日期\n专利授权日期\n专利证书或专利登记簿副本等独立权属证明附件\n许可方已在合同中作出其有权授予许可的陈述或保证。\n上游授权链证明文件不适用。\n建议核验合同是否允许被许可方分许可或再许可；如允许，再核验相应授权文件及权限。\n许可方为专利权人或已提供必要授权证明；上游授权/再许可证明按适用条件处理。\n专利法律状态、有效期限和年费缴纳情况有文件依据。\n共同专利权人信息、既有许可披露、专利质押登记、专利查封保全' = &lt;built-in method join of str object at 0x0000021BC57F8E70&gt;(&lt;generator object test_licensor_equal_to_named_patent_owner_does_not_require_upstream_chain.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000021BCA0087B0&gt;)&#10; +    where &lt;built-in method join of str object at 0x0000021BC57F8E70&gt; = '\n'.join">def test_licensor_equal_to_named_patent_owner_does_not_require_upstream_chain():
+        text = """
+    专利实施许可合同
+    受让方（甲方）：智能制造有限公司
+    让与方（乙方）：先进技术研究院
+    乙方授予甲方在中国境内实施本专利的许可。
+    专利名称：工业检测技术；专利号：ZL202610000099.9；专利权人：先进技术研究院；授权日：2026年2月1日。
+    专利有效期至2046年2月1日，专利年费已缴纳。
+    许可期限五年。
+    """
+        output = _review(text)
+        item = _items(output)["TC-03-04"]
+        statuses = _element_statuses(item)
+        registry = build_technology_fact_registry(text)["third_party_claim"]
+    
+        assert registry["licensor_is_patent_owner"] is True
+        assert statuses["licensor_authority_and_upstream_authorization"] == "COVERED"
+&gt;       assert "无需另行证明上游授权或再许可权限" in "\n".join(
+            row["proposition"] for row in item["coverage_elements"]
+        )
+E       AssertionError: assert '无需另行证明上游授权或再许可权限' in '专利名称\n专利号\n专利权人\n专利申请日期\n专利授权日期\n专利证书或专利登记簿副本等独立权属证明附件\n许可方已在合同中作出其有权授予许可的陈述或保证。\n上游授权链证明文件不适用。\n建议核验合同是否允许被许可方分许可或再许可；如允许，再核验相应授权文件及权限。\n许可方为专利权人或已提供必要授权证明；上游授权/再许可证明按适用条件处理。\n专利法律状态、有效期限和年费缴纳情况有文件依据。\n共同专利权人信息、既有许可披露、专利质押登记、专利查封保全'
+E        +  where '专利名称\n专利号\n专利权人\n专利申请日期\n专利授权日期\n专利证书或专利登记簿副本等独立权属证明附件\n许可方已在合同中作出其有权授予许可的陈述或保证。\n上游授权链证明文件不适用。\n建议核验合同是否允许被许可方分许可或再许可；如允许，再核验相应授权文件及权限。\n许可方为专利权人或已提供必要授权证明；上游授权/再许可证明按适用条件处理。\n专利法律状态、有效期限和年费缴纳情况有文件依据。\n共同专利权人信息、既有许可披露、专利质押登记、专利查封保全' = &lt;built-in method join of str object at 0x0000021BC57F8E70&gt;(&lt;generator object test_licensor_equal_to_named_patent_owner_does_not_require_upstream_chain.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000021BCA0087B0&gt;)
+E        +    where &lt;built-in method join of str object at 0x0000021BC57F8E70&gt; = '\n'.join
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:274: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_colon_style_improvement_ownership_is_partial_not_missing" time="5.729" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_service_generated_result_is_distinct_from_follow_on_technical_improvement" time="11.945" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_tc12_final_absence_audit_respects_registry_and_rule_ownership" time="6.185"><failure message="StopIteration">def test_tc12_final_absence_audit_respects_registry_and_rule_ownership():
+        output = _review(PATENT_LICENSE_BASE + THIRD_PARTY_PARTIAL)
+&gt;       infringement = _finding(output, "license_infringement_responsibility")
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:313: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+output = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+group = 'license_infringement_responsibility'
+
+    def _finding(output: dict, group: str) -&gt; dict:
+&gt;       return next(row for row in output["risk_findings"] if row["risk_group"] == group)
+E       StopIteration
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:36: StopIteration</failure></testcase><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_tc1201_combined_licensor_and_out_of_scope_liability_closes_boundary" time="7.065"><failure message="KeyError: 'compliant_use_scope_boundary'">def test_tc1201_combined_licensor_and_out_of_scope_liability_closes_boundary():
+        text = PATENT_LICENSE_BASE + THIRD_PARTY_PARTIAL + """
+    第十六条 超范围实施责任
+    甲方超出许可范围实施、擅自修改许可技术或未经乙方同意擅自再许可的，应立即停止并自行承担相应责任。
+    """
+        output = _review(text)
+        item = _items(output)["TC-12-01"]
+    
+        assert item["coverage_status"] == "通过"
+&gt;       assert _element_statuses(item)["compliant_use_scope_boundary"] == "COVERED"
+E       KeyError: 'compliant_use_scope_boundary'
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:340: KeyError</failure></testcase><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_named_owner_with_only_independent_patent_proof_missing_is_low_optional" time="6.012"><failure message="AssertionError: assert ['technology_...r_attachment'] == ['patent_cert...r_attachment']&#10;  &#10;  At index 0 diff: 'technology_patent_application_date' != 'patent_certificate_or_register_attachment'&#10;  Left contains one more item: 'patent_certificate_or_register_attachment'&#10;  Use -v to get more diff">def test_named_owner_with_only_independent_patent_proof_missing_is_low_optional():
+        text = PATENT_LICENSE_BASE + """
+    专利有效期限至2046年1月10日，年费已按期缴纳。
+    乙方确认不存在共有权人、既有许可、独占或排他许可冲突、质押、查封及其他权利负担。
+    """
+        finding = _finding(_review(text), "technology_ip_rights_provenance")
+    
+&gt;       assert finding["missing_element_ids"] == ["patent_certificate_or_register_attachment"]
+E       AssertionError: assert ['technology_...r_attachment'] == ['patent_cert...r_attachment']
+E         
+E         At index 0 diff: 'technology_patent_application_date' != 'patent_certificate_or_register_attachment'
+E         Left contains one more item: 'patent_certificate_or_register_attachment'
+E         Use -v to get more diff
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:352: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_material_recommendation_only_mentions_identifier_when_it_is_the_only_gap" time="5.444" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_internal_element_keys_never_reach_rendered_report" time="6.105" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_named_patent_owner_recommendation_only_requests_independent_title_proof" time="6.497" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_actionable_secret_and_acceptance_recommendations_use_natural_contract_language" time="8.393"><failure message="AssertionError: assert '因非被许可方原因公开或丧失秘密性' in '建议补充明确技术秘密全部或部分公开、进入公共领域及许可方主动公开等触发情形；补充明确秘密性丧失后的通知义务；补充明确秘密性丧失后的通知期限；补充明确未通知或迟延通知造成损失的赔偿责任；补充明确秘密性丧失后尚未发生许可费的停止或调减规则；补充明确非因被许可方原因丧失秘密性后的解除权；补充明确完成且具有独立价值的技术服务分项结算。'">def test_actionable_secret_and_acceptance_recommendations_use_natural_contract_language():
+        text = PATENT_LICENSE_BASE + """
+    第六条 技术秘密
+    技术秘密内容包括模型训练参数、数据标注规范和部署优化参数；实施要求：仅限甲方实施本合同许可专利使用；技术秘密使用费5万元，保密期限五年。
+    第七条 技术服务
+    技术服务和指导内容：乙方提供系统部署、模型训练和技术人员培训。
+    第八条 验收
+    准确率应达到95%。
+    """
+        output = _review(text)
+        items = _items(output)
+    
+&gt;       assert "因非被许可方原因公开或丧失秘密性" in items["TC-12-03"]["suggested_clause_example"]
+E       AssertionError: assert '因非被许可方原因公开或丧失秘密性' in '建议补充明确技术秘密全部或部分公开、进入公共领域及许可方主动公开等触发情形；补充明确秘密性丧失后的通知义务；补充明确秘密性丧失后的通知期限；补充明确未通知或迟延通知造成损失的赔偿责任；补充明确秘密性丧失后尚未发生许可费的停止或调减规则；补充明确非因被许可方原因丧失秘密性后的解除权；补充明确完成且具有独立价值的技术服务分项结算。'
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:407: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_material_finding_binds_types_delivery_receipt_and_attachment_clauses" time="5.628" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_user_report_distinguishes_cluster_topics_from_underlying_findings" time="6.193"><failure message="AssertionError: assert '- 风险主题数（聚合后）：8' in '# 专利实施许可合同审查报告\n\n\n## 一、合同总体评价\n\n- 审查立场：甲方 / 被许可方\n- 使用场景：专利实施许可\n- 合同类型：技术合同—技术许可合同—专利实施许可\n- 总体可签署性：建议专业法律复核后决定\n...论\n- **处理建议**：不适用。\n- 覆盖状态：不适用\n- 【适用说明】：当前文本识别为技术许可场景，未触发“技术进出口管制附件”的适用条件：仅在合同涉及技术进口、技术出口、跨境许可、跨境交付或数据出境时适用。\n\n---\n'">def test_user_report_distinguishes_cluster_topics_from_underlying_findings():
+        output = _review(PATENT_LICENSE_BASE + THIRD_PARTY_PARTIAL)
+        report = output["result"]
+        raw_count = len(output["risk_findings"])
+        clustered_count = raw_count - 2
+    
+&gt;       assert f"- 风险主题数（聚合后）：{clustered_count}" in report
+E       AssertionError: assert '- 风险主题数（聚合后）：8' in '# 专利实施许可合同审查报告\n\n\n## 一、合同总体评价\n\n- 审查立场：甲方 / 被许可方\n- 使用场景：专利实施许可\n- 合同类型：技术合同—技术许可合同—专利实施许可\n- 总体可签署性：建议专业法律复核后决定\n...论\n- **处理建议**：不适用。\n- 覆盖状态：不适用\n- 【适用说明】：当前文本识别为技术许可场景，未触发“技术进出口管制附件”的适用条件：仅在合同涉及技术进口、技术出口、跨境许可、跨境交付或数据出境时适用。\n\n---\n'
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:443: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_tc1203_consistently_reviews_loss_of_secrecy_not_contract_invalidity" time="6.603" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_final_report_has_no_positive_fact_recommendation_conflict" time="5.923" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_context_and_role_are_single_source" time="5.747" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_tc08_rules_and_direct_evidence" time="0.001" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_subtype_applicability_is_isolated" time="0.001" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_confidentiality_uses_shared_atomic_evidence" time="0.001" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_attachments_and_release_gate" time="0.001"><failure message="AssertionError: assert '待核验' == '通过'&#10;  &#10;  - 通过&#10;  + 待核验">consulting_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ON', 'contract_subtype': 'TECHNICAL_CONSULTING', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_consulting_attachments_and_release_gate(consulting_review: dict):
+        by_id = _items(consulting_review)
+        attachment = by_id["TC-13-01"]
+&gt;       assert attachment["coverage_status"] == "通过"
+E       AssertionError: assert '待核验' == '通过'
+E         
+E         - 通过
+E         + 待核验
+
+backend\tests\test_technical_consulting_contract_review.py:184: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_signing_law_context_is_not_false_positive" time="0.001" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_modern_consulting_contract_does_not_display_repealed_contract_law" time="5.885" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_party_b_role_is_not_development_role" time="6.214" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_subtype_is_inferred_from_transaction_substance_without_explicit_title" time="7.679" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_elements_and_evidence_are_status_separated_and_contract_grounded" time="6.385" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_cross_section_evidence_recall_and_binding" time="6.867"><failure message="AssertionError: assert ('第七条' in '10.3 7.2')">def test_consulting_cross_section_evidence_recall_and_binding():
+        output = review_contract_v2(
+            CONSULTING_CROSS_SECTION_EVIDENCE_CONTRACT,
+            "technology",
+            use_llm=False,
+            profile=UserRiskProfile(user_identity="甲方/委托方"),
+        )
+        by_id = _items(output)
+    
+        remedy = by_id["TC-08-04"]
+        remedy_text = " ".join(
+            str(row.get("quote") or row.get("text") or "") for row in remedy["evidence_clauses"]
+        )
+        remedy_locations = " ".join(str(row.get("location") or "") for row in remedy["evidence_clauses"])
+        assert remedy["coverage_status"] in {"通过", "部分覆盖"}
+&gt;       assert "第七条" in remedy_locations and "第十条" in remedy_locations
+E       AssertionError: assert ('第七条' in '10.3 7.2')
+
+backend\tests\test_technical_consulting_contract_review.py:417: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_report_projects_seven_atomic_findings_into_three_themes" time="6.712"><failure message="AssertionError: assert '底层审查发现数：7' in '# 技术咨询合同审查报告\n\n\n## 一、合同总体评价\n\n- 审查立场：甲方 / 委托方\n- 使用场景：技术咨询\n- 合同类型：技术合同—技术咨询合同\n- 总体可签署性：可以签署，建议进一步完善\n- 风险主题数（聚合后...论\n- **处理建议**：不适用。\n- 覆盖状态：不适用\n- 【适用说明】：当前文本识别为技术咨询场景，未触发“技术进出口管制附件”的适用条件：仅在合同涉及技术进口、技术出口、跨境许可、跨境交付或数据出境时适用。\n\n---\n'">def test_consulting_report_projects_seven_atomic_findings_into_three_themes():
+        output = review_contract_v2(
+            CONSULTING_THEME_AGGREGATION_CONTRACT,
+            "technology",
+            use_llm=False,
+            profile=UserRiskProfile(user_identity="甲方/委托方"),
+        )
+        by_id = _items(output)
+        themes = {theme["title"]: theme for theme in output["risk_themes"]}
+    
+        assert output["report_context"]["contract_type_label"] == "技术合同—技术咨询合同"
+        assert len(output["risk_findings"]) == 7
+        assert output["finding_count"] == 7
+        assert output["risk_theme_count"] == output["aggregated_risk_count"] == 3
+        assert set(themes) == {
+            "咨询成果质量与验收机制不完整",
+            "咨询决策风险承担",
+            "保密机制不完整",
+        }
+        assert set(themes["咨询成果质量与验收机制不完整"]["source_review_ids"]) == {"TC-08-01", "TC-08-04"}
+        assert set(themes["保密机制不完整"]["source_review_ids"]) == {
+            "TC-11-01", "TC-11-02", "TC-11-03", "TC-11-04",
+        }
+        assert themes["咨询成果质量与验收机制不完整"]["final_action"] == "SHOULD_CHANGE"
+        assert themes["咨询决策风险承担"]["final_action"] == "OPTIONAL_IMPROVEMENT"
+        assert themes["保密机制不完整"]["final_action"] == "OPTIONAL_IMPROVEMENT"
+        assert output["risk_theme_summary"] == {
+            "total": 3,
+            "must_change": 0,
+            "should_change": 1,
+            "optional_improvement": 2,
+            "manual_review": 0,
+        }
+        assert output["risk_finding_summary"]["低风险"] == 7
+        assert by_id["TC-08-01"]["risk_severity"] == "LOW"
+        assert by_id["TC-08-01"]["action_priority"] == "B_PRACTICAL"
+        assert by_id["TC-08-04"]["risk_severity"] == "LOW"
+        assert by_id["TC-08-04"]["action_priority"] == "C_OPTIMIZATION"
+        assert by_id["TC-08-02"]["action_priority"] == "C_OPTIMIZATION"
+        for item_id in ("TC-11-01", "TC-11-02", "TC-11-03", "TC-11-04"):
+            assert by_id[item_id]["risk_severity"] == "LOW"
+            assert by_id[item_id]["action_priority"] == "C_OPTIMIZATION"
+        assert "风险主题数（聚合后）：3" in output["result"]
+&gt;       assert "底层审查发现数：7" in output["result"]
+E       AssertionError: assert '底层审查发现数：7' in '# 技术咨询合同审查报告\n\n\n## 一、合同总体评价\n\n- 审查立场：甲方 / 委托方\n- 使用场景：技术咨询\n- 合同类型：技术合同—技术咨询合同\n- 总体可签署性：可以签署，建议进一步完善\n- 风险主题数（聚合后...论\n- **处理建议**：不适用。\n- 覆盖状态：不适用\n- 【适用说明】：当前文本识别为技术咨询场景，未触发“技术进出口管制附件”的适用条件：仅在合同涉及技术进口、技术出口、跨境许可、跨境交付或数据出境时适用。\n\n---\n'
+
+backend\tests\test_technical_consulting_contract_review.py:502: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_missing_consulting_data_provision_is_low_risk_but_should_change" time="4.850"><failure message="AssertionError: assert '委托人提供资料的真实性、...告偏差和损失原因难以划分。' == '当前未完整明确委托方应提...仅限实际受影响范围的边界。'&#10;  &#10;  - 当前未完整明确委托方应提供的合理资料和协作范围，以及咨询方发现资料缺陷后的书面通知、影响说明、因果关系证明和顺延、费用调整或免责仅限实际受影响范围的边界。&#10;  + 委托人提供资料的真实性、完整性责任不明，报告偏差和损失原因难以划分。">def test_missing_consulting_data_provision_is_low_risk_but_should_change():
+        output = _consulting_data_review()
+        by_id = _items(output)
+        item = by_id["TC-08-03"]
+        finding = next(
+            row for row in output["risk_findings"]
+            if "TC-08-03" in row["source_review_ids"]
+        )
+    
+        assert item["coverage_status"] == "缺失"
+        assert item["risk_severity"] == "LOW"
+        assert item["action_priority"] == "B_PRACTICAL"
+&gt;       assert item["risk_point_description"] == (
+            "当前未完整明确委托方应提供的合理资料和协作范围，以及咨询方发现资料缺陷后的书面通知、"
+            "影响说明、因果关系证明和顺延、费用调整或免责仅限实际受影响范围的边界。"
+        )
+E       AssertionError: assert '委托人提供资料的真实性、...告偏差和损失原因难以划分。' == '当前未完整明确委托方应提...仅限实际受影响范围的边界。'
+E         
+E         - 当前未完整明确委托方应提供的合理资料和协作范围，以及咨询方发现资料缺陷后的书面通知、影响说明、因果关系证明和顺延、费用调整或免责仅限实际受影响范围的边界。
+E         + 委托人提供资料的真实性、完整性责任不明，报告偏差和损失原因难以划分。
+
+backend\tests\test_technical_consulting_contract_review.py:531: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_simple_consulting_data_provision_is_partial_not_missing" time="4.625"><failure message="assert True is False">def test_simple_consulting_data_provision_is_partial_not_missing():
+        output = _consulting_data_review(
+            "第三条 甲方应向乙方提供开展咨询所需的技术资料和相关数据。"
+        )
+    
+        item = _items(output)["TC-08-03"]
+        finding = next(
+            row for row in output["risk_findings"]
+            if "TC-08-03" in row["source_review_ids"]
+        )
+        truthfulness = next(
+            row for row in item["coverage_elements"]
+            if row["element_id"] == "truthfulness_completeness"
+        )
+    
+        assert item["coverage_status"] == "部分覆盖"
+        assert truthfulness["status"] == "MISSING"
+&gt;       assert truthfulness["risk_relevant"] is False
+E       assert True is False
+
+backend\tests\test_technical_consulting_contract_review.py:569: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_complete_consulting_data_provision_is_pass" time="4.939" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_tc0803_priority_override_does_not_upgrade_other_low_missing_rules" time="5.289" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_without_confidentiality_has_four_atomic_findings_but_one_theme" time="5.598" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_complete_consulting_confidentiality_produces_no_confidentiality_theme" time="6.434"><failure message="assert False&#10; +  where False = all(&lt;generator object test_complete_consulting_confidentiality_produces_no_confidentiality_theme.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000021BC9C226C0&gt;)">def test_complete_consulting_confidentiality_produces_no_confidentiality_theme():
+        output = review_contract_v2(
+            CONSULTING_CONTRACT + COMPLETE_CONSULTING_CONFIDENTIALITY,
+            "technology",
+            use_llm=False,
+            profile=UserRiskProfile(user_identity="甲方/委托方"),
+        )
+        by_id = _items(output)
+    
+&gt;       assert all(by_id[item_id]["coverage_status"] == "通过" for item_id in (
+            "TC-11-01", "TC-11-02", "TC-11-03", "TC-11-04",
+        ))
+E       assert False
+E        +  where False = all(&lt;generator object test_complete_consulting_confidentiality_produces_no_confidentiality_theme.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000021BC9C226C0&gt;)
+
+backend\tests\test_technical_consulting_contract_review.py:632: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_theme_projection_does_not_attach_to_other_technology_subtypes[\u6280\u672f\u670d\u52a1\u5408\u540c\n\u7532\u65b9\u59d4\u6258\u4e59\u65b9\u63d0\u4f9b\u8bbe\u5907\u7ef4\u62a4\u3001\u6545\u969c\u6392\u67e5\u548c\u6280\u672f\u652f\u6301\uff0c\u7532\u65b9\u6309\u6708\u652f\u4ed8\u6280\u672f\u670d\u52a1\u8d39\u3002]" time="3.468" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_theme_projection_does_not_attach_to_other_technology_subtypes[\u8f6f\u4ef6\u59d4\u6258\u5f00\u53d1\u5408\u540c\n\u7532\u65b9\u59d4\u6258\u4e59\u65b9\u7814\u53d1\u8f6f\u4ef6\u5e76\u4ea4\u4ed8\u6e90\u4ee3\u7801\u548c\u5f00\u53d1\u6210\u679c\uff0c\u7532\u65b9\u652f\u4ed8\u5f00\u53d1\u8d39\u7528\u3002]" time="7.250" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_theme_projection_does_not_attach_to_other_technology_subtypes[\u5408\u4f5c\u5f00\u53d1\u5408\u540c\n\u7532\u4e59\u53cc\u65b9\u5171\u540c\u6295\u5165\u4eba\u5458\u548c\u7ecf\u8d39\uff0c\u5171\u540c\u7814\u7a76\u5f00\u53d1\u65b0\u6280\u672f\u5e76\u5171\u4eab\u7814\u53d1\u6210\u679c\u3002]" time="4.450" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_theme_projection_does_not_attach_to_other_technology_subtypes[\u4e13\u5229\u6743\u8f6c\u8ba9\u5408\u540c\n\u4e59\u65b9\u5c06\u4e13\u5229\u6743\u5b8c\u6574\u8f6c\u8ba9\u7ed9\u7532\u65b9\uff0c\u53cc\u65b9\u529e\u7406\u4e13\u5229\u6743\u8f6c\u8ba9\u767b\u8bb0\uff0c\u7532\u65b9\u652f\u4ed8\u8f6c\u8ba9\u4ef7\u6b3e\u3002]" time="3.815" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_theme_projection_does_not_attach_to_other_technology_subtypes[\u4e13\u5229\u5b9e\u65bd\u8bb8\u53ef\u5408\u540c\n\u4e59\u65b9\u8bb8\u53ef\u7532\u65b9\u5728\u4e2d\u56fd\u5883\u5185\u5b9e\u65bd\u4e13\u5229\uff0c\u8bb8\u53ef\u671f\u9650\u4e94\u5e74\uff0c\u7532\u65b9\u652f\u4ed8\u8bb8\u53ef\u4f7f\u7528\u8d39\u3002]" time="4.580" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_vague_consulting_material_obligation_has_specific_attachment_gaps" time="6.252" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_confidentiality_elements_bind_to_actual_clause_evidence" time="5.808"><failure message="AssertionError: assert 'MISSING' == 'COVERED'&#10;  &#10;  - COVERED&#10;  + MISSING">def test_consulting_confidentiality_elements_bind_to_actual_clause_evidence():
+        output = review_contract_v2(
+            CONSULTING_CONFIDENTIALITY_BINDING_CONTRACT,
+            "technology",
+            use_llm=False,
+            profile=UserRiskProfile(user_identity="甲方/委托方"),
+        )
+        by_id = _items(output)
+    
+        tc1101 = by_id["TC-11-01"]
+        tc1101_elements = {row["element_id"]: row for row in tc1101["coverage_elements"]}
+        assert tc1101["coverage_status"] == "部分覆盖"
+        for element_id in (
+            "confidential_information_scope",
+            "confidentiality_obligation",
+            "third_party_disclosure_restriction",
+            "confidentiality_duration",
+        ):
+&gt;           assert tc1101_elements[element_id]["status"] == "COVERED"
+E           AssertionError: assert 'MISSING' == 'COVERED'
+E             
+E             - COVERED
+E             + MISSING
+
+backend\tests\test_technical_consulting_contract_review.py:715: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_material_direct_obligation_ranks_before_collection_progress" time="5.080" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_contract_section_parser_keeps_confidentiality_section_visible_with_offsets" time="0.001" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_production_file_endpoint_uses_active_consulting_evidence_implementation" time="8.927" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_legacy_batch_entry_rejects_confident_technical_contract" time="0.140" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_production_file_endpoint_is_deterministic_across_fresh_no_cache_runs" time="17.230" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_eur_mixed_payment_bases_and_direction_are_deterministic" time="0.005" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_consulting_relative_duration_cap_and_weekly_penalty_are_shared_facts" time="0.160" /><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_latest_consulting_docx_full_regression_has_no_subtype_or_evidence_regression" time="14.850"><failure message="AssertionError: assert '部分覆盖' == '通过'&#10;  &#10;  - 通过&#10;  + 部分覆盖">def test_latest_consulting_docx_full_regression_has_no_subtype_or_evidence_regression():
+        path = Path(__file__).resolve().parents[2] / "test_data" / "33 技术咨询服务合同.docx"
+        document = Document(path)
+        text = "\n".join(paragraph.text for paragraph in document.paragraphs)
+        output = review_contract_v2(
+            text,
+            "technology",
+            use_llm=False,
+            profile=UserRiskProfile(user_identity="甲方/委托方"),
+        )
+        by_id = _items(output)
+        titles = {row["title"] for row in output["risk_findings"]}
+        report = output["result"]
+    
+        assert output["deterministic_analysis"]["technology_classification"]["primary_subtype"] == "TECHNICAL_CONSULTING"
+        assert all(by_id[item_id]["coverage_status"] == "不适用" for item_id in (
+            "TC-09-01", "TC-09-02", "TC-09-03", "TC-09-04",
+        ))
+&gt;       assert by_id["TC-01-03"]["coverage_status"] == "通过"
+E       AssertionError: assert '部分覆盖' == '通过'
+E         
+E         - 通过
+E         + 部分覆盖
+
+backend\tests\test_technical_consulting_contract_review.py:1042: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_service_report_integrity" name="test_clause_parent_is_not_replaced_by_cross_reference_item_number" time="0.001" /><testcase classname="backend.tests.test_technical_service_report_integrity" name="test_core_findings_have_complete_fact_typed_evidence_bundles" time="14.366" /><testcase classname="backend.tests.test_technical_service_report_integrity" name="test_core_recommendations_are_bound_by_finding_id_and_semantics" time="15.025" /><testcase classname="backend.tests.test_technical_service_report_integrity" name="test_personal_information_trigger_ignores_contact_only_contracts" time="0.032" /><testcase classname="backend.tests.test_technical_service_report_integrity" name="test_report_uses_final_findings_and_quality_gate_checks_integrity" time="18.569"><failure message="AssertionError: assert 'BLOCKED' == 'REPORT_READY'&#10;  &#10;  - REPORT_READY&#10;  + BLOCKED">def test_report_uses_final_findings_and_quality_gate_checks_integrity():
+        output = _review()
+        report = output["result"]
+&gt;       assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_technical_service_report_integrity.py:91: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_service_report_integrity" name="test_secondary_cross_clause_risks_are_detected" time="19.240" /><testcase classname="backend.tests.test_technical_service_report_integrity" name="test_quality_gate_blocks_wrong_recommendation_binding" time="20.324"><failure message="TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'">def test_quality_gate_blocks_wrong_recommendation_binding():
+        output = _review()
+&gt;       items, findings, recommendations, dispositions = _integrity_inputs(output)
+
+backend\tests\test_technical_service_report_integrity.py:123: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\tests\test_technical_service_report_integrity.py:116: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = &lt;list_iterator object at 0x0000021BC9BA90F0&gt;
+
+&gt;       [Recommendation(**row) for row in output["recommendations"]],
+        [FinalDisposition(**row) for row in output["final_dispositions"]],
+    )
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+
+backend\tests\test_technical_service_report_integrity.py:116: TypeError</failure></testcase><testcase classname="backend.tests.test_technical_service_report_integrity" name="test_quality_gate_blocks_incomplete_evidence_bundle_and_missing_detail" time="17.071"><failure message="TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'">def test_quality_gate_blocks_incomplete_evidence_bundle_and_missing_detail():
+        output = _review()
+&gt;       items, findings, recommendations, dispositions = _integrity_inputs(output)
+
+backend\tests\test_technical_service_report_integrity.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\tests\test_technical_service_report_integrity.py:116: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = &lt;list_iterator object at 0x0000021BC979BCD0&gt;
+
+&gt;       [Recommendation(**row) for row in output["recommendations"]],
+        [FinalDisposition(**row) for row in output["final_dispositions"]],
+    )
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+
+backend\tests\test_technical_service_report_integrity.py:116: TypeError</failure></testcase><testcase classname="backend.tests.test_technical_service_report_integrity" name="test_quality_gate_blocks_semantically_invalid_evidence_and_claim_gap" time="14.512"><failure message="TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'">def test_quality_gate_blocks_semantically_invalid_evidence_and_claim_gap():
+        output = _review()
+&gt;       items, findings, recommendations, dispositions = _integrity_inputs(output)
+
+backend\tests\test_technical_service_report_integrity.py:147: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\tests\test_technical_service_report_integrity.py:116: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = &lt;list_iterator object at 0x0000021BD06D1A80&gt;
+
+&gt;       [Recommendation(**row) for row in output["recommendations"]],
+        [FinalDisposition(**row) for row in output["final_dispositions"]],
+    )
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+
+backend\tests\test_technical_service_report_integrity.py:116: TypeError</failure></testcase><testcase classname="backend.tests.test_technical_service_report_integrity" name="test_quality_gate_blocks_review_risk_bundle_projection_mismatch" time="13.821"><failure message="TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'">def test_quality_gate_blocks_review_risk_bundle_projection_mismatch():
+        output = _review()
+&gt;       items, findings, recommendations, dispositions = _integrity_inputs(output)
+
+backend\tests\test_technical_service_report_integrity.py:158: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\tests\test_technical_service_report_integrity.py:116: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = &lt;list_iterator object at 0x0000021BC9F2D540&gt;
+
+&gt;       [Recommendation(**row) for row in output["recommendations"]],
+        [FinalDisposition(**row) for row in output["final_dispositions"]],
+    )
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+
+backend\tests\test_technical_service_report_integrity.py:116: TypeError</failure></testcase><testcase classname="backend.tests.test_technical_service_report_integrity" name="test_quality_gate_blocks_issue_type_partial_and_applicability_conflicts" time="13.733"><failure message="TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'">def test_quality_gate_blocks_issue_type_partial_and_applicability_conflicts():
+        output = _review()
+&gt;       items, findings, recommendations, dispositions = _integrity_inputs(output)
+
+backend\tests\test_technical_service_report_integrity.py:168: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\tests\test_technical_service_report_integrity.py:116: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = &lt;list_iterator object at 0x0000021BC9BA90F0&gt;
+
+&gt;       [Recommendation(**row) for row in output["recommendations"]],
+        [FinalDisposition(**row) for row in output["final_dispositions"]],
+    )
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+
+backend\tests\test_technical_service_report_integrity.py:116: TypeError</failure></testcase><testcase classname="backend.tests.test_technical_service_report_integrity" name="test_quality_gate_allows_theme_projection_without_legacy_truncation_banner" time="14.008"><failure message="TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'">def test_quality_gate_allows_theme_projection_without_legacy_truncation_banner():
+        output = _review()
+&gt;       items, findings, recommendations, dispositions = _integrity_inputs(output)
+
+backend\tests\test_technical_service_report_integrity.py:186: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\tests\test_technical_service_report_integrity.py:116: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = &lt;list_iterator object at 0x0000021BC979BD00&gt;
+
+&gt;       [Recommendation(**row) for row in output["recommendations"]],
+        [FinalDisposition(**row) for row in output["final_dispositions"]],
+    )
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+
+backend\tests\test_technical_service_report_integrity.py:116: TypeError</failure></testcase><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_case_a_b_c_secret_loss_content_reasonableness" time="0.053" /><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_case_d_e_f_license_type_consistency" time="0.016" /><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_case_g_h_ancillary_service_and_acceptance_are_fact_routed" time="0.012" /><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_case_i_j_confidentiality_balance_is_directional" time="25.174" /><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_case_k_l_infringement_presence_is_separate_from_direction" time="0.002" /><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_current_secret_license_full_regression" time="0.036"><failure message="AssertionError: assert '技术秘密许可合同' in '现有摘录尚不足以形成经原文与语义双重验证的通过结论，需要核对合同证据；不据此推断存在不利条款。'">contract_text = '技术许可（技术秘密）合同\n合同编号：JM-XK-2026-1020\n项目名称：高功率动力电池热管理控制算法及标定参数技术秘密许可\n被许可人（买方）：江苏恒能新能源汽车科技有限公司\n许可人（卖方）：南京智控新能源技术有限公司\n...同经双方签字盖章后生效。\n买方：江苏恒能新能源汽车科技有限公司（盖章）\n法定代表人／委托代理人：张建国\n2026年10月20日\n卖方：南京智控新能源技术有限公司（盖章）\n法定代表人／委托代理人：李明远\n2026年10月20日'
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_current_secret_license_full_regression(contract_text: str, review: dict):
+        classification = classify_technology_transaction(contract_text)
+        payment = analyze_payment_schedule(contract_text)
+        by_id = {row["item_id"]: row for row in review["items"]}
+    
+        assert classification["primary_subtype"] == "TECHNOLOGY_LICENSE"
+        assert classification["tertiary_subtype"] == "TECHNICAL_SECRET_LICENSE"
+        assert classification["primary_contract_type"] == "technology_license_technical_secret"
+        assert classification["scenario"] == "TECHNICAL_SECRET_LICENSE"
+        assert {"technical_service", "technical_guidance", "acceptance", "technical_secret"} &lt;= set(
+            classification["sub_transactions"]
+        )
+    
+        assert payment["status"] == "INCONSISTENT"
+        assert payment["contract_total"] == 2_400_000
+        assert payment["percentage_total"] == 120
+        assert payment["amount_total"] == 2_880_000
+        assert payment["amount_delta"] == 480_000
+    
+&gt;       assert "技术秘密许可合同" in by_id["TC-01-01"]["risk_point_description"]
+E       AssertionError: assert '技术秘密许可合同' in '现有摘录尚不足以形成经原文与语义双重验证的通过结论，需要核对合同证据；不据此推断存在不利条款。'
+
+backend\tests\test_technical_secret_license_contract_review.py:192: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_over_scope_liability_a_missing_when_no_responsibility_clause" time="18.586" /><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_over_scope_liability_b_existing_clause_is_not_missing" time="16.641" /><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_over_scope_liability_c_fixed_penalty_and_all_losses_checks_cumulative_relation" time="17.933" /><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_over_scope_liability_d_reasonable_clause_can_pass_or_be_partial" time="15.221"><failure message="AssertionError: assert '待核验' in {'通过', '部分覆盖'}">contract_text = '技术许可（技术秘密）合同\n合同编号：JM-XK-2026-1020\n项目名称：高功率动力电池热管理控制算法及标定参数技术秘密许可\n被许可人（买方）：江苏恒能新能源汽车科技有限公司\n许可人（卖方）：南京智控新能源技术有限公司\n...同经双方签字盖章后生效。\n买方：江苏恒能新能源汽车科技有限公司（盖章）\n法定代表人／委托代理人：张建国\n2026年10月20日\n卖方：南京智控新能源技术有限公司（盖章）\n法定代表人／委托代理人：李明远\n2026年10月20日'
+
+    def test_over_scope_liability_d_reasonable_clause_can_pass_or_be_partial(contract_text: str):
+        result = _review(contract_text.replace(
+            "3．买方违反许可范围的，应支付人民币3,000,000元违约金，并赔偿卖方全部损失。",
+            "3．买方超出许可范围的，应立即停止并赔偿实际直接损失；"
+            "一般违约赔偿总额不超过已付许可费的30%，故意或重大过失不适用该上限。",
+        ))
+        item = _item(result, "TC-07-03")
+&gt;       assert item["coverage_status"] in {"通过", "部分覆盖"}
+E       AssertionError: assert '待核验' in {'通过', '部分覆盖'}
+
+backend\tests\test_technical_secret_license_contract_review.py:264: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_positive_fact_evidence_wins_over_search_audit_absence" time="0.321" /><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_secret_label_without_direct_measures_does_not_cover_measures" time="6.341" /><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_explicit_employee_nda_access_control_and_secret_list_cover_measures" time="8.501" /><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_latest_secret_license_route_and_protective_polarity" time="16.679"><failure message="AssertionError: assert '待核验' == '通过'&#10;  &#10;  - 通过&#10;  + 待核验">latest_contract_text = '合同编号：\nJSU-JM-XK-2026-0905-01\n项目名称：\n工业机器人高精度视觉标定与自适应控制参数技术秘密许可\n被许可人（买方）：\n上海华锐智能装备有限公司\n许可人（卖方）：\n江苏大学\n签订时间：\n202...\n核心算法设计文档及系统集成设计资料\n6．其他：\n《技术秘密资料交付清单》\n第二十三条 其他事项：\n未经另一方书面同意，任何一方不得以新闻稿、广告或公开宣传材料披露本合同涉及的技术秘密内容。\n第二十四条 合同份数：\n4份。'
+latest_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_latest_secret_license_route_and_protective_polarity(
+        latest_contract_text: str,
+        latest_review: dict,
+    ):
+        classification = classify_technology_transaction(latest_contract_text)
+        assert classification["primary_subtype"] == "TECHNOLOGY_LICENSE"
+        assert classification["tertiary_subtype"] == "TECHNICAL_SECRET_LICENSE"
+        assert classification["primary_subtype"] != "TECHNICAL_SERVICE"
+        assert {"technical_service", "technical_guidance"} &lt;= set(classification["sub_transactions"])
+    
+        competition = _item(latest_review, "TC-02-01")
+        improvement_boundary = _item(latest_review, "TC-10-04")
+&gt;       assert competition["coverage_status"] == "通过"
+E       AssertionError: assert '待核验' == '通过'
+E         
+E         - 通过
+E         + 待核验
+
+backend\tests\test_technical_secret_license_contract_review.py:331: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_latest_secret_license_shared_fee_improvement_and_claim_facts" time="0.001"><failure message="AssertionError: assert {'C0038', 'C0039'} &lt;= {'C0038', 'C0...041', 'C0042'}&#10;  &#10;  Extra items in the left set:&#10;  'C0039'">latest_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_latest_secret_license_shared_fee_improvement_and_claim_facts(latest_review: dict):
+        service_fee = _item(latest_review, "TC-09-04")
+        improvement = _item(latest_review, "TC-10-01")
+        claim = _item(latest_review, "TC-12-02")
+    
+        assert service_fee["coverage_status"] == "通过"
+        assert {
+            "service_fee_amount": "COVERED",
+            "service_payment_schedule": "COVERED",
+        }.items() &lt;= {key: row["status"] for key, row in _element_map(service_fee).items()}.items()
+&gt;       assert {"C0038", "C0039"} &lt;= _evidence_ids(service_fee)
+E       AssertionError: assert {'C0038', 'C0039'} &lt;= {'C0038', 'C0...041', 'C0042'}
+E         
+E         Extra items in the left set:
+E         'C0039'
+
+backend\tests\test_technical_secret_license_contract_review.py:348: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_latest_secret_license_confidentiality_consumes_cross_article_facts" time="0.001" /><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_latest_secret_license_acceptance_evidence_is_subject_bound" time="0.001"><failure message="AssertionError: assert {'C0004', 'C0...046', 'C0047'} == {'C0004', 'C0...043', 'C0044'}&#10;  &#10;  Extra items in the left set:&#10;  'C0047'&#10;  'C0046'&#10;  'C0045'&#10;  Extra items in the right set:&#10;  'C0043'...&#10;  &#10;  ...Full output truncated (3 lines hidden), use '-vv' to show">latest_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_latest_secret_license_acceptance_evidence_is_subject_bound(latest_review: dict):
+        acceptance = _item(latest_review, "TC-13-03")
+        acceptance_ids = _evidence_ids(acceptance)
+        assert acceptance["coverage_status"] == "部分覆盖"
+&gt;       assert acceptance_ids == {"C0004", "C0042", "C0043", "C0044"}
+E       AssertionError: assert {'C0004', 'C0...046', 'C0047'} == {'C0004', 'C0...043', 'C0044'}
+E         
+E         Extra items in the left set:
+E         'C0047'
+E         'C0046'
+E         'C0045'
+E         Extra items in the right set:
+E         'C0043'...
+E         
+E         ...Full output truncated (3 lines hidden), use '-vv' to show
+
+backend\tests\test_technical_secret_license_contract_review.py:406: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_latest_secret_license_report_consistency_and_empty_template_gates" time="0.001" /><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_latest_secret_license_compliant_use_infringement_liability_is_covered" time="0.001" /><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_latest_secret_license_service_acceptance_uses_shared_subject_evidence" time="0.001"><failure message="AssertionError: assert '缺失' == '部分覆盖'&#10;  &#10;  - 部分覆盖&#10;  + 缺失">latest_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_latest_secret_license_service_acceptance_uses_shared_subject_evidence(
+        latest_review: dict,
+    ):
+        item = _item(latest_review, "TC-09-02")
+        elements = _element_map(item)
+        evidence_ids = _evidence_ids(item)
+    
+&gt;       assert item["coverage_status"] == "部分覆盖"
+E       AssertionError: assert '缺失' == '部分覆盖'
+E         
+E         - 部分覆盖
+E         + 缺失
+
+backend\tests\test_technical_secret_license_contract_review.py:457: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_latest_secret_license_confidentiality_partial_renderer_uses_final_missing_fact" time="0.001" /><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_secret_loss_explicit_article_consumes_trigger_notice_termination_and_damage" time="14.238" /><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_latest_secret_loss_positive_notice_facts_never_reenter_missing" time="0.002"><failure message="AssertionError: assert ['EV-592ab641...36388292964e'] == ['C0023']&#10;  &#10;  At index 0 diff: 'EV-592ab6415951b6c8' != 'C0023'&#10;  Left contains one more item: 'EV-c9c436388292964e'&#10;  Use -v to get more diff">latest_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_latest_secret_loss_positive_notice_facts_never_reenter_missing(
+        latest_review: dict,
+    ):
+        item = _item(latest_review, "TC-12-03")
+        elements = _element_map(item)
+    
+        for element_id in (
+            "secret_loss_notification",
+            "secret_loss_notification_deadline",
+            "late_notification_damage",
+        ):
+            assert elements[element_id]["status"] == "COVERED"
+&gt;           assert elements[element_id].get("evidence_ids") == ["C0023"]
+E           AssertionError: assert ['EV-592ab641...36388292964e'] == ['C0023']
+E             
+E             At index 0 diff: 'EV-592ab6415951b6c8' != 'C0023'
+E             Left contains one more item: 'EV-c9c436388292964e'
+E             Use -v to get more diff
+
+backend\tests\test_technical_secret_license_contract_review.py:566: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_latest_improvement_notice_is_partial_with_only_residual_details" time="0.001"><failure message="AssertionError: assert ['SRC-36447fe30b45362f9e0d'] == ['C0052']&#10;  &#10;  At index 0 diff: 'SRC-36447fe30b45362f9e0d' != 'C0052'&#10;  Use -v to get more diff">latest_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_latest_improvement_notice_is_partial_with_only_residual_details(
+        latest_review: dict,
+    ):
+        item = _item(latest_review, "TC-10-03")
+        elements = _element_map(item)
+    
+        assert item["coverage_status"] == "部分覆盖"
+        assert elements["improvement_notice_trigger"]["status"] == "COVERED"
+&gt;       assert elements["improvement_notice_trigger"].get("evidence_ids") == ["C0052"]
+E       AssertionError: assert ['SRC-36447fe30b45362f9e0d'] == ['C0052']
+E         
+E         At index 0 diff: 'SRC-36447fe30b45362f9e0d' != 'C0052'
+E         Use -v to get more diff
+
+backend\tests\test_technical_secret_license_contract_review.py:592: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_latest_acceptance_absence_search_excludes_covered_metrics" time="0.004" /><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_latest_confidentiality_period_recommendation_only_uses_final_exception_gap" time="0.001" /><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_confidentiality_liability_evidence_explanation_is_element_bound" time="0.001" /><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_partial_rule_text_is_generated_only_from_final_missing_elements" time="0.001" /><testcase classname="backend.tests.test_technical_secret_license_contract_review" name="test_acceptance_report_blocks_share_one_final_missing_element_set" time="0.019" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_classification_is_canonical_across_report_and_execution" time="18.849" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_party_roles_follow_identity_and_subtype" time="18.271" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_rule_states_and_partial_elements_are_consistent" time="0.001"><failure message="AssertionError: assert {'TC-01-01': ...2': '通过', ...} == {'TC-01-01': ...2': '通过', ...}&#10;  &#10;  Omitting 8 identical items, use -vv to show&#10;  Differing items:&#10;  {'TC-04-03': '缺失'} != {'TC-04-03': '部分覆盖'}&#10;  {'TC-12-04': '不适用'} != {'TC-12-04': '部分覆盖'}&#10;  {'TC-04-04': '缺失'} != {'TC-04-04': '部分覆盖'}&#10;  Use -v to get more diff">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_entrusted_rule_states_and_partial_elements_are_consistent(party_a_review):
+        items = _by_id(party_a_review)
+        expected = {
+            "TC-01-01": "通过",
+            "TC-01-04": "不适用",
+            "TC-04-01": "通过",
+            "TC-04-02": "通过",
+            "TC-04-03": "部分覆盖",
+            "TC-04-04": "部分覆盖",
+            "TC-05-04": "部分覆盖",
+            "TC-12-02": "部分覆盖",
+            "TC-12-04": "部分覆盖",
+            "TC-13-01": "通过",
+            "TC-13-03": "部分覆盖",
+        }
+&gt;       assert {review_id: items[review_id]["coverage_status"] for review_id in expected} == expected
+E       AssertionError: assert {'TC-01-01': ...2': '通过', ...} == {'TC-01-01': ...2': '通过', ...}
+E         
+E         Omitting 8 identical items, use -vv to show
+E         Differing items:
+E         {'TC-04-03': '缺失'} != {'TC-04-03': '部分覆盖'}
+E         {'TC-12-04': '不适用'} != {'TC-12-04': '部分覆盖'}
+E         {'TC-04-04': '缺失'} != {'TC-04-04': '部分覆盖'}
+E         Use -v to get more diff
+
+backend\tests\test_entrusted_development_contract_review.py:111: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_rule_evidence_covers_body_and_attachment_semantics" time="0.001"><failure message="assert False&#10; +  where False = all(&lt;generator object test_entrusted_rule_evidence_covers_body_and_attachment_semantics.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000021BCFE42B90&gt;)">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_entrusted_rule_evidence_covers_body_and_attachment_semantics(party_a_review):
+        items = _by_id(party_a_review)
+    
+        expected_terms = {
+            "TC-04-01": ("主要功能", "里程碑"),
+            "TC-04-02": ("开发费用", "付款"),
+            "TC-04-03": ("前景知识产权", "申请"),
+            "TC-05-04": ("解除", "开发费用"),
+            "TC-12-02": ("第三方", "许可"),
+            "TC-13-01": ("源代码", "测试报告"),
+            "TC-13-03": ("验收", "测试"),
+        }
+        for review_id, terms in expected_terms.items():
+            evidence_text = " ".join(
+                str(row.get("text") or row.get("quote") or "")
+                for row in items[review_id]["evidence_clauses"]
+            )
+&gt;           assert all(term in evidence_text for term in terms)
+E           assert False
+E            +  where False = all(&lt;generator object test_entrusted_rule_evidence_covers_body_and_attachment_semantics.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000021BCFE42B90&gt;)
+
+backend\tests\test_entrusted_development_contract_review.py:145: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_report_is_generated_without_fatal_quality_gate" time="0.001"><failure message="AssertionError: assert 'GENERATED_WI...LITY_WARNINGS' == 'GENERATED'&#10;  &#10;  - GENERATED&#10;  + GENERATED_WITH_QUALITY_WARNINGS">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_entrusted_report_is_generated_without_fatal_quality_gate(party_a_review):
+&gt;       assert party_a_review["report_generation_decision"]["status"] == "GENERATED"
+E       AssertionError: assert 'GENERATED_WI...LITY_WARNINGS' == 'GENERATED'
+E         
+E         - GENERATED
+E         + GENERATED_WITH_QUALITY_WARNINGS
+
+backend\tests\test_entrusted_development_contract_review.py:149: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_unsubstantiated_generic_missing_is_local_manual_review" time="0.001" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_acceptance_evidence_does_not_invent_third_party_testing" time="0.001"><failure message="KeyError: 'test_method_and_report'">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_acceptance_evidence_does_not_invent_third_party_testing(party_a_review):
+        item = _by_id(party_a_review)["TC-13-03"]
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+    
+        assert item["coverage_status"] == "部分覆盖"
+        assert elements["acceptance_metrics"]["status"] == "COVERED"
+&gt;       assert elements["test_method_and_report"]["status"] == "COVERED"
+E       KeyError: 'test_method_and_report'
+
+backend\tests\test_entrusted_development_contract_review.py:176: KeyError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_explicit_third_party_testing_clause_is_covered" time="18.768"><failure message="AssertionError: assert '部分覆盖' == '通过'&#10;  &#10;  - 通过&#10;  + 部分覆盖">def test_explicit_third_party_testing_clause_is_covered():
+        text = _fixture_text() + "\n如双方对测试结果存在争议，共同委托有资质的第三方检测机构进行检测，检测结果作为验收依据。"
+        review = review_contract_v2(
+            text,
+            "technology",
+            use_llm=False,
+            profile=UserRiskProfile(user_identity="甲方"),
+        )
+        item = _by_id(review)["TC-13-03"]
+        element = next(row for row in item["coverage_elements"] if row["element_id"] == "acceptance_dispute_verification")
+    
+&gt;       assert item["coverage_status"] == "通过"
+E       AssertionError: assert '部分覆盖' == '通过'
+E         
+E         - 通过
+E         + 部分覆盖
+
+backend\tests\test_entrusted_development_contract_review.py:194: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_post_termination_confidentiality_is_directly_covered" time="0.001"><failure message="AssertionError: assert '部分覆盖' == '通过'&#10;  &#10;  - 通过&#10;  + 部分覆盖">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_post_termination_confidentiality_is_directly_covered(party_a_review):
+        item = _by_id(party_a_review)["TC-11-02"]
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+    
+&gt;       assert item["coverage_status"] == "通过"
+E       AssertionError: assert '部分覆盖' == '通过'
+E         
+E         - 通过
+E         + 部分覆盖
+
+backend\tests\test_entrusted_development_contract_review.py:203: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_recommendation_normalization_removes_negative_prefixes" time="0.001" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_gap_consequences_are_bound_to_actual_missing_elements" time="0.002"><failure message="assert False&#10; +  where False = all(&lt;generator object test_gap_consequences_are_bound_to_actual_missing_elements.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000021BD08776F0&gt;)">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_gap_consequences_are_bound_to_actual_missing_elements(party_a_review):
+        items = _by_id(party_a_review)
+        patent = items["TC-04-03"]["narrative_state"]["consequence"]
+        failure = items["TC-04-04"]["narrative_state"]["consequence"]
+        exit_consequence = items["TC-05-04"]["narrative_state"]["consequence"]
+    
+&gt;       assert all(term in patent for term in ("申请主体", "文件签署", "权利登记"))
+E       assert False
+E        +  where False = all(&lt;generator object test_gap_consequences_are_bound_to_actual_missing_elements.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000021BD08776F0&gt;)
+
+backend\tests\test_entrusted_development_contract_review.py:228: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_manual_review_and_insufficient_context_states_are_explained" time="0.001" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_semantic_coverage_and_conditional_applicability" time="0.001"><failure message="AssertionError: assert 'MISSING' == 'COVERED'&#10;  &#10;  - COVERED&#10;  + MISSING">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_entrusted_semantic_coverage_and_conditional_applicability(party_a_review):
+        items = _by_id(party_a_review)
+        patent = items["TC-04-03"]
+        patent_elements = {row["element_id"]: row for row in patent["coverage_elements"]}
+    
+        assert patent["decision_trace"]["open_ended_enumeration"] == {
+            "detected": True,
+            "scope": "OPEN",
+            "semantic_result": "SEMANTICALLY_COVERED",
+            "applies_to": ["patent_application_right_ownership", "patent_right_after_grant"],
+        }
+&gt;       assert patent_elements["patent_application_right_ownership"]["status"] == "COVERED"
+E       AssertionError: assert 'MISSING' == 'COVERED'
+E         
+E         - COVERED
+E         + MISSING
+
+backend\tests\test_entrusted_development_contract_review.py:267: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_confidentiality_liability_reuses_semantically_valid_evidence" time="0.001"><failure message="KeyError: 'CONFIDENTIALITY_OBLIGATION'">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_confidentiality_liability_reuses_semantically_valid_evidence(party_a_review):
+        item = _by_id(party_a_review)["TC-11-04"]
+        evidence_by_role = {
+            row.get("evidence_role"): str(row.get("quote") or row.get("text") or "")
+            for row in item["evidence_clauses"]
+        }
+    
+        assert item["applicability"]["status"] == "APPLICABLE"
+        assert item["coverage_status"] == "部分覆盖"
+        assert item["needs_manual_review"] is False
+&gt;       assert "无法自公开渠道" in evidence_by_role["CONFIDENTIALITY_OBLIGATION"]
+E       KeyError: 'CONFIDENTIALITY_OBLIGATION'
+
+backend\tests\test_entrusted_development_contract_review.py:298: KeyError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_general_breach_catch_all_propagates_only_damage_remedies" time="0.001"><failure message="KeyError: 'confidentiality_obligation'">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_general_breach_catch_all_propagates_only_damage_remedies(party_a_review):
+        item = _by_id(party_a_review)["TC-11-04"]
+        elements = {row["element_id"]: row["status"] for row in item["coverage_elements"]}
+        propagation = item["decision_trace"]["general_breach_semantic_propagation"]
+        finding = next(
+            row for row in party_a_review["risk_findings"]
+            if row["risk_group"] == "confidentiality_breach_liability"
+        )
+    
+        assert propagation["classification"] == "GENERAL_BREACH_CATCH_ALL"
+&gt;       assert all(elements[element_id] == "COVERED" for element_id in (
+            "confidentiality_obligation", "breach_damage_liability", "direct_loss",
+            "lost_profit", "attorney_fee", "litigation_cost",
+        ))
+
+backend\tests\test_entrusted_development_contract_review.py:314: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = &lt;tuple_iterator object at 0x0000021BCE61DB40&gt;
+
+&gt;   assert all(elements[element_id] == "COVERED" for element_id in (
+        "confidentiality_obligation", "breach_damage_liability", "direct_loss",
+        "lost_profit", "attorney_fee", "litigation_cost",
+    ))
+E   KeyError: 'confidentiality_obligation'
+
+backend\tests\test_entrusted_development_contract_review.py:314: KeyError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_secret_copy_retention_uses_matching_legal_consequence" time="0.001"><failure message="KeyError: 'legal_consequence_mapping'">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_secret_copy_retention_uses_matching_legal_consequence(party_a_review):
+        item = _by_id(party_a_review)["TC-05-03"]
+        consequence = item["narrative_state"]["consequence"]
+    
+&gt;       assert item["decision_trace"]["legal_consequence_mapping"]["semantic_domain"] == "SECRET_COPY_RETENTION"
+E       KeyError: 'legal_consequence_mapping'
+
+backend\tests\test_entrusted_development_contract_review.py:338: KeyError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_improvement_notification_rendering_respects_development_subtype" time="4.094"><failure message="AssertionError: assert 'GENERAL_TECHNOLOGY' == 'COOPERATIVE_DEVELOPMENT'&#10;  &#10;  - COOPERATIVE_DEVELOPMENT&#10;  + GENERAL_TECHNOLOGY">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_improvement_notification_rendering_respects_development_subtype(party_a_review):
+        commissioned = _by_id(party_a_review)["TC-10-03"]
+        commissioned_rendering = commissioned["decision_trace"]["subtype_rendering"]
+        commissioned_consequence = commissioned["narrative_state"]["consequence"]
+    
+        assert commissioned_rendering["primary_subtype"] == "ENTRUSTED_DEVELOPMENT"
+        assert commissioned_rendering["has_follow_on_entitlement"] is False
+        assert commissioned["coverage_status"] == "不适用"
+        assert commissioned["applicability"]["status"] == "NOT_APPLICABLE"
+        assert commissioned_consequence == ""
+    
+        cooperative_fixture = next((ROOT / "test_data").glob("11*.docx"))
+        cooperative_review = review_contract_v2(
+            _document_text(cooperative_fixture),
+            "technology",
+            use_llm=False,
+            profile=UserRiskProfile(user_identity="甲方"),
+        )
+        cooperative = _by_id(cooperative_review)["TC-10-03"]
+        cooperative_rendering = cooperative["decision_trace"]["subtype_rendering"]
+        cooperative_consequence = cooperative["narrative_state"]["consequence"]
+    
+&gt;       assert cooperative_rendering["primary_subtype"] == "COOPERATIVE_DEVELOPMENT"
+E       AssertionError: assert 'GENERAL_TECHNOLOGY' == 'COOPERATIVE_DEVELOPMENT'
+E         
+E         - COOPERATIVE_DEVELOPMENT
+E         + GENERAL_TECHNOLOGY
+
+backend\tests\test_entrusted_development_contract_review.py:368: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_improvement_boundary_requires_affirmative_restriction" time="20.210" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_commissioning_party_liability_direction_excludes_favorable_no_cap_gap" time="0.002"><failure message="AssertionError: assert '不适用' == '部分覆盖'&#10;  &#10;  - 部分覆盖&#10;  + 不适用">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_commissioning_party_liability_direction_excludes_favorable_no_cap_gap(party_a_review):
+        item = _by_id(party_a_review)["TC-12-04"]
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+        direction = item["risk_direction"]
+    
+&gt;       assert item["coverage_status"] == "部分覆盖"
+E       AssertionError: assert '不适用' == '部分覆盖'
+E         
+E         - 部分覆盖
+E         + 不适用
+
+backend\tests\test_entrusted_development_contract_review.py:396: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_partial_findings_have_positive_and_absence_evidence" time="0.001"><failure message="assert False&#10; +  where False = any(&lt;generator object test_entrusted_partial_findings_have_positive_and_absence_evidence.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000021BD0184EB0&gt;)">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_entrusted_partial_findings_have_positive_and_absence_evidence(party_a_review):
+        findings = {row["risk_group"]: row for row in party_a_review["risk_findings"]}
+        for group in (
+            "entrusted_patent_application_right",
+            "development_failure_risk",
+            "technical_secret_result_rights",
+            "cooperation_breach_and_exit",
+            "confidentiality_breach_liability",
+            "indemnity_and_liability_cap",
+        ):
+            evidence = findings[group]["evidence_bundle"]["items"]
+&gt;           assert any(row["source_type"] != "SEARCH_AUDIT" for row in evidence)
+E           assert False
+E            +  where False = any(&lt;generator object test_entrusted_partial_findings_have_positive_and_absence_evidence.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000021BD0184EB0&gt;)
+
+backend\tests\test_entrusted_development_contract_review.py:427: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_commissioned_development_golden_manifest" time="0.015"><failure message="assert False&#10; +  where False = all(&lt;generator object test_commissioned_development_golden_manifest.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000021BCFBBA880&gt;)">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_commissioned_development_golden_manifest(party_a_review):
+        manifest_path = Path(__file__).parent / "fixtures" / "technical_contracts" / "commissioned_development.golden.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        items = _by_id(party_a_review)
+        classification = party_a_review["contract_context"]["canonical_classification"]
+    
+        assert manifest["sample_id"] == "TECH_DEV_COMMISSIONED_GOLDEN_001"
+        assert manifest["sample_status"] == "GOLDEN_CANDIDATE"
+        assert party_a_review["technology_transaction_consistency_gate"]["primary_contract_type"] == manifest["primary_contract_type"]
+        assert classification["contract_family"] == manifest["contract_family"]
+        assert classification["contract_category"] == manifest["contract_category"]
+        assert classification["contract_subtype"] == manifest["contract_subtype"]
+        assert party_a_review["perspective_resolution"]["canonical_role"] == manifest["review_position"]
+&gt;       assert all(items[review_id]["coverage_status"] == status for review_id, status in manifest["key_statuses"].items())
+E       assert False
+E        +  where False = all(&lt;generator object test_commissioned_development_golden_manifest.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000021BCFBBA880&gt;)
+
+backend\tests\test_entrusted_development_contract_review.py:451: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_production_file_api_renders_entrusted_development_snapshot" time="20.831"><failure message="AssertionError: assert 'BLOCKED' == 'REPORT_READY'&#10;  &#10;  - REPORT_READY&#10;  + BLOCKED">def test_production_file_api_renders_entrusted_development_snapshot():
+        engine_output = asyncio.run(
+            review_v2_file(
+                file=_UploadFile(FIXTURE.name, FIXTURE.read_bytes()),
+                contract_type="technology",
+                include_low_risk=True,
+                use_llm=False,
+                profile_json=json.dumps({"user_identity": "甲方"}, ensure_ascii=False),
+                current_user={"id": 1},
+            )
+        )
+        output = ReviewV2Result.model_validate(engine_output).model_dump()
+        items = _by_id(output)
+        markdown = output["result"]
+        ownership = {
+            row["final_output"]: row
+            for row in output["observability"]["final_output_ownership_matrix"]
+        }
+    
+        assert output["filename"] == FIXTURE.name
+        assert output["extracted_text_length"] &gt; 1000
+        assert output["report_generation_decision"]["report_generated"] is True
+&gt;       assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_entrusted_development_contract_review.py:512: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_explicit_review_role_is_not_overridden_by_generic_subtype_identity" time="18.819"><failure message="AssertionError: assert 13 == 11&#10; +  where 13 = len([{'finding_id': 'RF-013', 'risk_group': 'generic_potential_excessive_liquidated_damages', 'title': '违约金标准偏高及司法调减风险', '...inding_id': 'RF-008', 'risk_group': 'third_party_claim_defense', 'title': '第三方权利主张处理', 'severity': 'MEDIUM', ...}, ...])">def test_explicit_review_role_is_not_overridden_by_generic_subtype_identity():
+        engine_output = asyncio.run(
+            review_v2_file(
+                file=_UploadFile(FIXTURE.name, FIXTURE.read_bytes()),
+                contract_type="technology",
+                include_low_risk=True,
+                use_llm=False,
+                profile_json=json.dumps(
+                    {
+                        "review_role": "甲方 / 委托方",
+                        "user_identity": "委托开发合同当事人",
+                    },
+                    ensure_ascii=False,
+                ),
+                current_user={"id": 1},
+            )
+        )
+        output = ReviewV2Result.model_validate(engine_output).model_dump()
+        items = _by_id(output)
+    
+        assert output["profile"]["user_identity"] == "甲方 / 委托方"
+        assert output["perspective_resolution"]["canonical_role"] == "COMMISSIONING_PARTY"
+        assert output["perspective_resolution"]["display_role"] == "甲方 / 委托方"
+        assert output["contract_context"]["review_party_identity"] == "PARTY_A"
+        assert "审查立场：甲方 / 委托方" in output["result"]
+        assert "审查立场：委托开发合同当事人" not in output["result"]
+&gt;       assert len(output["risk_findings"]) == 11
+E       AssertionError: assert 13 == 11
+E        +  where 13 = len([{'finding_id': 'RF-013', 'risk_group': 'generic_potential_excessive_liquidated_damages', 'title': '违约金标准偏高及司法调减风险', '...inding_id': 'RF-008', 'risk_group': 'third_party_claim_defense', 'title': '第三方权利主张处理', 'severity': 'MEDIUM', ...}, ...])
+
+backend\tests\test_entrusted_development_contract_review.py:583: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_future_development_warranty_does_not_trigger_existing_ip_proof_attachments" time="6.366"><failure message="assert '技术合同均适用' not in &quot;{'review_id... '技术合同均适用。'}&quot;&#10;  &#10;  '技术合同均适用' is contained here:&#10;    dition': '技术合同均适用。', 'triggered': False, 'condition_text': '技术合同均适用。'}&#10;  ?           +++++++">def test_future_development_warranty_does_not_trigger_existing_ip_proof_attachments():
+        text = """
+        软件委托开发合同。甲方委托乙方开发新的业务系统。
+        开发成果和源代码交付甲方，乙方保证开发成果不侵犯第三方知识产权。
+        """
+        output = review_contract_v2(
+            text,
+            "technology",
+            use_llm=False,
+            profile=UserRiskProfile(user_identity="甲方", contract_scenario="委托开发"),
+        )
+        items = _by_id(output)
+        assert _technology_ip_proof_context(text)["proof_asset_transaction"] is False
+        assert items["TC-03-04"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+        assert items["TC-13-02"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+&gt;       assert "技术合同均适用" not in str(items["TC-03-04"]["applicability"])
+E       assert '技术合同均适用' not in "{'review_id... '技术合同均适用。'}"
+E         
+E         '技术合同均适用' is contained here:
+E           dition': '技术合同均适用。', 'triggered': False, 'condition_text': '技术合同均适用。'}
+E         ?           +++++++
+
+backend\tests\test_entrusted_development_contract_review.py:607: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_existing_patent_transfer_still_triggers_ip_proof_review" time="3.588" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_shared_personal_information_trigger_requires_business_processing_fact" time="0.073" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_current_commissioning_party_liability_overlap_is_an_enforceability_risk" time="0.001" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_technical_material_types_are_positive_evidence_not_a_false_absence" time="4.706" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_vague_material_obligation_can_report_missing_file_types" time="4.576"><failure message="AssertionError: assert '未列举主要技术资料文件类型' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'">def test_vague_material_obligation_can_report_missing_file_types():
+        output = _review(LICENSE_BASE + "\n许可方应提供相关技术资料。")
+        item = _item(output, "TC-13-01")
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+    
+        assert elements["major_document_types"]["status"] == "MISSING"
+&gt;       assert "未列举主要技术资料文件类型" in item["risk_point_description"]
+E       AssertionError: assert '未列举主要技术资料文件类型' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'
+
+backend\tests\test_technology_license_final_precision.py:69: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_license_final_precision" name="test_material_categories_without_version_or_attachment_are_not_overstated" time="4.567" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_permanent_license_rights_are_favorable_to_licensee" time="0.001" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_undefined_post_termination_royalty_is_the_only_lifecycle_risk" time="15.988"><failure message="AssertionError: assert 'LOW' == 'MEDIUM'&#10;  &#10;  - MEDIUM&#10;  + LOW">def test_undefined_post_termination_royalty_is_the_only_lifecycle_risk():
+        output = _review(_gold_text())
+        finding = _finding(output, "license_lifecycle_boundary_gap")
+        item = _item(output, "TECH-SHARED-LICENSE-LIFECYCLE-01")
+        interest = item["decision_trace"]["party_interest_check"]
+    
+        assert finding["title"] == "合同终止后继续销售的提成费义务不明确"
+&gt;       assert finding["severity"] == "MEDIUM"
+E       AssertionError: assert 'LOW' == 'MEDIUM'
+E         
+E         - MEDIUM
+E         + LOW
+
+backend\tests\test_technology_license_final_precision.py:110: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_license_final_precision" name="test_license_timeline_uses_material_delivery_not_service_start" time="4.414" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_cross_border_explicit_gaps_survive_fallback_and_keep_medium_severity" time="4.752"><failure message="AssertionError: assert 'final_missing_elements' == 'structured_missing_elements'&#10;  &#10;  - structured_missing_elements&#10;  + final_missing_elements">def test_cross_border_explicit_gaps_survive_fallback_and_keep_medium_severity():
+        output = _review(
+            LICENSE_BASE
+            + "\n许可方为德国企业，被许可方为中国企业，本合同属于跨境技术交易。"
+            + "\n双方应遵守技术进出口、出口管制、制裁、外汇、税务、知识产权和数据跨境规则，"
+            + "但具体审批、登记、备案、许可文件、办理材料、期限及责任分工未约定，双方未形成专项附件。"
+        )
+        item = _item(output, "TC-13-04")
+        finding = _finding(output, "technology_import_export_control")
+        missing = {row["element_id"] for row in finding["final_missing_elements"]}
+    
+        assert item["coverage_status"] == "部分覆盖"
+        assert finding["severity"] == "MEDIUM"
+&gt;       assert item["decision_trace"]["missing_element_resolution"]["selected_source"] == "structured_missing_elements"
+E       AssertionError: assert 'final_missing_elements' == 'structured_missing_elements'
+E         
+E         - structured_missing_elements
+E         + final_missing_elements
+
+backend\tests\test_technology_license_final_precision.py:148: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_license_final_precision" name="test_generic_compliance_sentence_without_cross_border_fact_does_not_invent_specific_gap" time="4.214" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_open_ended_material_types_do_not_prove_closed_attachment_schedule" time="4.520" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_explicit_attachment_schedule_with_identifiers_and_versions_is_covered" time="4.851" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_material_attachment_gaps_are_aggregated_into_one_low_risk_finding" time="4.730"><failure message="AssertionError: assert '主要类别已经明确' in '仍需补足：技术资料交付义务、技术资料交付形式、技术资料交付数量、技术资料签收或验收确认机制、最终附件级技术资料交付清单、最终交付文件版本号、最终交付文件编号。'">def test_material_attachment_gaps_are_aggregated_into_one_low_risk_finding():
+        output = _review(
+            LICENSE_BASE
+            + "\n技术资料包括但不限于总体设计图、机械零件图、电气原理图、PLC源程序和安装手册。"
+        )
+        findings = [row for row in output["risk_findings"] if row["risk_group"] == "technical_material_attachment"]
+    
+        assert len(findings) == 1
+        assert findings[0]["severity"] == "LOW"
+&gt;       assert "主要类别已经明确" in findings[0]["issue"]
+E       AssertionError: assert '主要类别已经明确' in '仍需补足：技术资料交付义务、技术资料交付形式、技术资料交付数量、技术资料签收或验收确认机制、最终附件级技术资料交付清单、最终交付文件版本号、最终交付文件编号。'
+
+backend\tests\test_technology_license_final_precision.py:205: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_license_final_precision" name="test_high_risks_default_to_core_priority_without_unexplained_downgrade" time="16.172" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_confidentiality_disposal_gap_is_owned_only_by_tc_11_03" time="15.491" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_license_third_party_claim_advanced_only_gap_is_not_a_required_risk" time="5.914"><failure message="AssertionError: assert ['defense_cost_allocation'] == []&#10;  &#10;  Left contains one more item: 'defense_cost_allocation'&#10;  Use -v to get more diff">def test_license_third_party_claim_advanced_only_gap_is_not_a_required_risk():
+        output = _review(
+            LICENSE_BASE
+            + "\n被许可方按本合同约定实施技术时，如收到第三方知识产权权利主张，应在5个工作日内书面通知许可方。"
+            + "\n许可方应负责与第三方交涉、处理和应诉，提供权属证明及技术来源文件，并承担赔偿责任和被许可方的直接经济损失。"
+            + "\n未经被许可方书面同意，许可方不得与第三方达成损害被许可方权益的和解。"
+            + "\n因许可方权利瑕疵导致被许可方无法继续合法实施时，被许可方有权解除合同，许可方应返还全部许可费并赔偿损失。"
+        )
+        item = _item(output, "TC-12-02")
+        tiers = item["decision_trace"]["third_party_claim_element_tiers"]
+    
+&gt;       assert tiers["necessary_protection_gaps"] == []
+E       AssertionError: assert ['defense_cost_allocation'] == []
+E         
+E         Left contains one more item: 'defense_cost_allocation'
+E         Use -v to get more diff
+
+backend\tests\test_technology_license_final_precision.py:249: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_license_final_precision" name="test_tc_12_04_requires_same_loss_general_remedy_before_activation" time="17.214" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_tc_13_04_uses_cross_border_consequence_mapping_not_ip_claim_fallback" time="5.117"><failure message="assert False&#10; +  where False = all(&lt;generator object test_tc_13_04_uses_cross_border_consequence_mapping_not_ip_claim_fallback.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000021BC98ED620&gt;)">def test_tc_13_04_uses_cross_border_consequence_mapping_not_ip_claim_fallback():
+        output = _review(
+            LICENSE_BASE
+            + "\n许可方为德国企业，被许可方为中国企业，本合同属于跨境技术交易。"
+            + "\n双方遵守技术进出口、出口管制及数据跨境规则，但具体审批、登记、备案、许可和责任分工未约定。"
+        )
+        item = _item(output, "TC-13-04")
+        finding = _finding(output, "technology_import_export_control")
+    
+        assert item["decision_trace"]["field_provenance"]["legal_consequence_source"] == "rule_family:technology_import_export_control"
+&gt;       assert all(term in finding["consequence"] for term in ("跨境交付", "许可履行", "付款结算"))
+E       assert False
+E        +  where False = all(&lt;generator object test_tc_13_04_uses_cross_border_consequence_mapping_not_ip_claim_fallback.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000021BC98ED620&gt;)
+
+backend\tests\test_technology_license_final_precision.py:279: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_relationship_risk_recall" name="test_real_loader_parser_pipeline_keeps_general_relationship_risks_for_consulting" time="14.538"><failure message="AssertionError: assert {'data_retent...ability', ...} &lt;= {'acceptance_...on_risk', ...}&#10;  &#10;  Extra items in the left set:&#10;  'technical_background_ip_overtransfer'&#10;  'technical_uncapped_cumulative_liability'">consulting_relationship_review = {'contract_type_flow': {'stages': {'request': 'technology', 'canonical': 'technology', 'facts_pipeline': 'technology',...ore_only': False, 'family_status': 'NOT_MIGRATED'}, 'structured_fact_debug': {}, 'employment_rule_adaptation': {}, ...}
+
+    def test_real_loader_parser_pipeline_keeps_general_relationship_risks_for_consulting(
+        consulting_relationship_review: dict,
+    ):
+        payload = consulting_relationship_review
+        assert payload["contract_context"]["contract_subtype"] == "TECHNICAL_CONSULTING"
+        assert payload["report_context"]["scenario_label"] == "技术咨询"
+&gt;       assert {
+            "payment_formula_inconsistency",
+            "technical_timeline_conflict",
+            "data_retention_warranty_conflict",
+            "personal_information_processing_gap",
+            "technical_unilateral_termination_change",
+            "technical_uncapped_cumulative_liability",
+            "technical_background_ip_overtransfer",
+        } &lt;= _groups(payload)
+E       AssertionError: assert {'data_retent...ability', ...} &lt;= {'acceptance_...on_risk', ...}
+E         
+E         Extra items in the left set:
+E         'technical_background_ip_overtransfer'
+E         'technical_uncapped_cumulative_liability'
+
+backend\tests\test_technology_relationship_risk_recall.py:90: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_relationship_risk_recall" name="test_current_consulting_fixture_keeps_amount_only_node_without_false_formula_risk" time="10.879"><failure message="AssertionError: assert 3 == 1&#10; +  where 3 = len([{'fact_id': 'PAY-001-c4b670a343', 'source_document': 'f2ffe129f2769688cd89a8a48f2cce3748469f6a8e2a579d8a61fb9e03ba69b...ce3748469f6a8e2a579d8a61fb9e03ba69b9', 'source_clause': '（3）最终咨询报告验收通过后10个工作日内，甲方', 'source_location': 'line 88', ...}])">def test_current_consulting_fixture_keeps_amount_only_node_without_false_formula_risk():
+        payload = _review_file(SOURCE_CONSULTING_CONTRACT.read_bytes(), SOURCE_CONSULTING_CONTRACT.name)
+        payment = payload["deterministic_analysis"]["payment_formula"]
+        trace = payload["observability"]["payment_risk_lifecycle"]
+        events = {event["event"]: event for event in trace["events"]}
+    
+        assert payload["contract_context"]["contract_subtype"] == "TECHNICAL_CONSULTING"
+        assert payment["status"] == "INSUFFICIENT_DATA"
+&gt;       assert len(payment["nodes"]) == 1
+E       AssertionError: assert 3 == 1
+E        +  where 3 = len([{'fact_id': 'PAY-001-c4b670a343', 'source_document': 'f2ffe129f2769688cd89a8a48f2cce3748469f6a8e2a579d8a61fb9e03ba69b...ce3748469f6a8e2a579d8a61fb9e03ba69b9', 'source_clause': '（3）最终咨询报告验收通过后10个工作日内，甲方', 'source_location': 'line 88', ...}])
+
+backend\tests\test_technology_relationship_risk_recall.py:139: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_relationship_risk_recall" name="test_payment_percentage_mutation_removes_only_formula_conflict" time="15.926" /><testcase classname="backend.tests.test_technology_relationship_risk_recall" name="test_changed_total_with_same_105_percent_still_triggers_formula_conflict" time="16.630" /><testcase classname="backend.tests.test_technology_relationship_risk_recall" name="test_post_signature_timeline_mutation_removes_timeline_conflict" time="16.581" /><testcase classname="backend.tests.test_technology_relationship_risk_recall" name="test_removing_personal_data_facts_removes_processing_risk" time="18.062" /><testcase classname="backend.tests.test_technical_service_single_evidence_source" name="test_report_sections_project_the_same_evidence_bundle" time="16.133" /><testcase classname="backend.tests.test_technical_service_single_evidence_source" name="test_claim_level_bundles_are_complete_and_deduplicated" time="14.167"><failure message="KeyError: 'start_offset'">def test_claim_level_bundles_are_complete_and_deduplicated():
+        findings = {row["risk_group"]: row for row in _review()["risk_findings"]}
+        for finding in findings.values():
+            bundle = finding.get("evidence_bundle") or {}
+            if not bundle:
+                continue
+            assert bundle["bundle_id"]
+            assert set(bundle["required_claim_ids"]) &lt;= set(bundle["supported_claim_ids"])
+            assert not bundle["unsupported_claim_ids"]
+&gt;           keys = [
+                (row["clause_node_id"], row["start_offset"], row["end_offset"], row["claim_id"])
+                for row in bundle["items"]
+            ]
+
+backend\tests\test_technical_service_single_evidence_source.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = &lt;list_iterator object at 0x0000021BCFC4C6D0&gt;
+
+    keys = [
+&gt;       (row["clause_node_id"], row["start_offset"], row["end_offset"], row["claim_id"])
+        for row in bundle["items"]
+    ]
+E   KeyError: 'start_offset'
+
+backend\tests\test_technical_service_single_evidence_source.py:45: KeyError</failure></testcase><testcase classname="backend.tests.test_technical_service_single_evidence_source" name="test_semantic_fact_roles_exclude_keyword_collisions" time="13.804" /><testcase classname="backend.tests.test_technical_service_single_evidence_source" name="test_issue_types_describe_formula_conflict_validity_and_partial_gap" time="12.956"><failure message="AssertionError: assert 'MISSING' == 'PARTIAL'&#10;  &#10;  - PARTIAL&#10;  + MISSING">def test_issue_types_describe_formula_conflict_validity_and_partial_gap():
+        findings = {row["risk_group"]: row for row in _review()["risk_findings"]}
+        assert findings["payment_formula_inconsistency"]["issue_type"] == "FORMULA_ERROR"
+        assert findings["technical_background_ip_overtransfer"]["issue_type"] == "CONFLICTING"
+        assert findings["technical_timeline_conflict"]["issue_type"] == "CONFLICTING"
+        assert findings["data_retention_warranty_conflict"]["issue_type"] == "CONFLICTING"
+        assert findings["personal_injury_liability_exclusion"]["issue_type"] == "INVALID_OR_UNENFORCEABLE"
+&gt;       assert findings["personal_information_processing_gap"]["issue_type"] == "PARTIAL"
+E       AssertionError: assert 'MISSING' == 'PARTIAL'
+E         
+E         - PARTIAL
+E         + MISSING
+
+backend\tests\test_technical_service_single_evidence_source.py:88: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_service_single_evidence_source" name="test_applicability_display_uses_the_resolved_decision_reason" time="13.305"><failure message="AssertionError: assert '技术秘密丧失秘密性后的使用与费用处理' in '合同虽涉及技术秘密或保密资料，但当前交易不是以既有技术秘密转让、许可或独立使用费为核心标的，未形成以秘密性为独立对价基础的持续收费或秘密性丧失后的费用安排，因此本项不适用。'">def test_applicability_display_uses_the_resolved_decision_reason():
+        items = {row["item_id"]: row for row in _review()["items"]}
+        for review_id in ("TC-03-01", "TC-03-02", "TC-03-03"):
+            reason = items[review_id]["applicability"]["user_reason"]
+            assert "自然人" in reason or "员工" in reason
+            assert "技术合同均适用" not in reason
+        assert "受让人或被许可人" in items["TC-12-01"]["applicability"]["user_reason"]
+&gt;       assert "技术秘密丧失秘密性后的使用与费用处理" in items["TC-12-03"]["applicability"]["user_reason"]
+E       AssertionError: assert '技术秘密丧失秘密性后的使用与费用处理' in '合同虽涉及技术秘密或保密资料，但当前交易不是以既有技术秘密转让、许可或独立使用费为核心标的，未形成以秘密性为独立对价基础的持续收费或秘密性丧失后的费用安排，因此本项不适用。'
+
+backend\tests\test_technical_service_single_evidence_source.py:99: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_service_single_evidence_source" name="test_report_explains_summary_truncation_and_uses_non_placeholder_partial_text" time="14.104" /><testcase classname="backend.tests.test_industrial_technical_service_routing_regression" name="test_b2b_industrial_service_uses_technical_service_route_and_roles" time="6.672" /><testcase classname="backend.tests.test_industrial_technical_service_routing_regression" name="test_industrial_service_core_risks_survive_route_resolution" time="6.762"><failure message="AssertionError: assert {'confidentia...nership', ...} &lt;= {'acceptance_...alidity', ...}&#10;  &#10;  Extra items in the left set:&#10;  'technical_timeline_conflict'">def test_industrial_service_core_risks_survive_route_resolution():
+        result = _review()
+        groups = {finding["risk_group"] for finding in result["risk_findings"]}
+&gt;       assert {
+            "payment_formula_inconsistency",
+            "technical_timeline_conflict",
+            "generic_liability_cap_validity",
+            "generic_potential_excessive_liquidated_damages",
+            "confidentiality_duration_data_use_asymmetry",
+            "service_new_result_ownership",
+            "third_party_claim_defense",
+            "dispute_resolution_choice_conflict",
+            "technical_service_quality_acceptance",
+        } &lt;= groups
+E       AssertionError: assert {'confidentia...nership', ...} &lt;= {'acceptance_...alidity', ...}
+E         
+E         Extra items in the left set:
+E         'technical_timeline_conflict'
+
+backend\tests\test_industrial_technical_service_routing_regression.py:72: AssertionError</failure></testcase><testcase classname="backend.tests.test_industrial_technical_service_routing_regression" name="test_payment_and_timeline_are_bound_to_current_contract_facts" time="7.577" /><testcase classname="backend.tests.test_industrial_technical_service_routing_regression" name="test_third_party_component_fact_is_shared_by_claim_and_proof_reviews" time="6.749" /><testcase classname="backend.tests.test_industrial_technical_service_routing_regression" name="test_service_current_project_outputs_do_not_activate_follow_on_improvement_rules" time="13.814" /><testcase classname="backend.tests.test_industrial_technical_service_routing_regression" name="test_explicit_service_follow_on_improvement_still_activates_tc10" time="7.194" /><testcase classname="backend.tests.test_industrial_technical_service_routing_regression" name="test_improvement_recommendation_does_not_invent_existing_mechanisms" time="8.276" /><testcase classname="backend.tests.test_industrial_technical_service_routing_regression" name="test_complete_review_rows_are_unique_and_partial_rows_have_real_gaps" time="9.173"><failure message="AssertionError: assert 0 == 1&#10; +  where 0 = &lt;built-in method count of list object at 0x0000021BCEA3C080&gt;('TECH-SHARED-03')&#10; +    where &lt;built-in method count of list object at 0x0000021BCEA3C080&gt; = ['TC-01-01', 'TC-01-02', 'TC-01-03', 'TC-01-04', 'TC-02-01', 'TC-02-02', ...].count">def test_complete_review_rows_are_unique_and_partial_rows_have_real_gaps():
+        result = _review()
+        item_ids = [row["item_id"] for row in result["items"]]
+        assert len(item_ids) == len(set(item_ids))
+&gt;       assert item_ids.count("TECH-SHARED-03") == 1
+E       AssertionError: assert 0 == 1
+E        +  where 0 = &lt;built-in method count of list object at 0x0000021BCEA3C080&gt;('TECH-SHARED-03')
+E        +    where &lt;built-in method count of list object at 0x0000021BCEA3C080&gt; = ['TC-01-01', 'TC-01-02', 'TC-01-03', 'TC-01-04', 'TC-02-01', 'TC-02-02', ...].count
+
+backend\tests\test_industrial_technical_service_routing_regression.py:184: AssertionError</failure></testcase><testcase classname="backend.tests.test_penalty_base" name="test_no_percentage_penalty_has_no_base_gap[\u534f\u8bae\u53cc\u65b9\u5e94\u5f53\u4fdd\u5b88\u5546\u4e1a\u79d8\u5bc6\u3002]" time="7.470" /><testcase classname="backend.tests.test_penalty_base" name="test_no_percentage_penalty_has_no_base_gap[\u8fdd\u7ea6\u65b9\u5e94\u8d54\u507f\u5b9e\u9645\u635f\u5931\u3002]" time="6.269" /><testcase classname="backend.tests.test_penalty_base" name="test_no_percentage_penalty_has_no_base_gap[\u8fdd\u7ea6\u65b9\u5e94\u652f\u4ed8\u8fdd\u7ea6\u91d1\u4eba\u6c11\u5e015000\u5143\u3002]" time="7.985" /><testcase classname="backend.tests.test_penalty_base" name="test_no_percentage_penalty_has_no_base_gap[\u670d\u52a1\u8d39\u6309\u5408\u540c\u91d1\u989d\u768410%\u652f\u4ed8\u3002]" time="6.759" /><testcase classname="backend.tests.test_penalty_base" name="test_percentage_penalty_condition_and_metadata" time="0.004" /><testcase classname="backend.tests.test_penalty_base" name="test_percentage_base_resolution[\u5408\u540c\u603b\u4ef7\u4e3a100\u4e07\u5143\u3002\u8fdd\u7ea6\u65b9\u5e94\u6309\u5408\u540c\u603b\u4ef7\u768420%\u652f\u4ed8\u8fdd\u7ea6\u91d1\u3002-DETERMINABLE]" time="0.002" /><testcase classname="backend.tests.test_penalty_base" name="test_percentage_base_resolution[\u5408\u540c\u603b\u4ef7\u4e3a100\u4e07\u5143\uff0c\u5df2\u652f\u4ed820\u4e07\u5143\u3002\u6309\u5c1a\u672a\u652f\u4ed8\u6b3e\u9879\u768410%\u652f\u4ed8\u8fdd\u7ea6\u91d1\u3002-DETERMINABLE]" time="0.002" /><testcase classname="backend.tests.test_penalty_base" name="test_percentage_base_resolution[\u9879\u76ee\u6295\u8d44\u989d\u4e3a\u4eba\u6c11\u5e01100\u4e07\u5143\u3002\u6309\u9879\u76ee\u6295\u8d44\u989d20%\u652f\u4ed8\u8fdd\u7ea6\u91d1\u3002-DETERMINABLE]" time="0.001" /><testcase classname="backend.tests.test_penalty_base" name="test_percentage_base_resolution[\u6309\u6240\u5e94\u6295\u8d44\u989d20%\u652f\u4ed8\u8fdd\u7ea6\u91d1\u3002-UNDEFINED]" time="0.004" /><testcase classname="backend.tests.test_penalty_base" name="test_percentage_base_resolution[\u6309\u76f8\u5173\u8d39\u7528\u768430%\u627f\u62c5\u8fdd\u7ea6\u91d1\u3002-UNDEFINED]" time="0.002" /><testcase classname="backend.tests.test_penalty_base" name="test_percentage_base_resolution[\u7ea6\u5b9a\u9884\u7b97\u4e3a\u4eba\u6c11\u5e0150\u4e07\u5143\u3002\u6309\u7ea6\u5b9a\u9884\u7b97\u768415%\u652f\u4ed8\u8fdd\u7ea6\u91d1\u3002-DETERMINABLE]" time="0.002" /><testcase classname="backend.tests.test_penalty_base" name="test_percentage_base_resolution[\u6309\u5c1a\u672a\u652f\u4ed8\u6b3e\u9879\u768410%\u652f\u4ed8\u8fdd\u7ea6\u91d1\u3002-DETERMINABLE]" time="0.001" /><testcase classname="backend.tests.test_penalty_base" name="test_percentage_base_resolution[\u8ba1\u8d39\u989d\u4e3a\u9884\u7b97\u989d\u51cf\u53bb\u51cf\u514d\u989d\u3002\u6309\u8ba1\u8d39\u989d15%\u652f\u4ed8\u8fdd\u7ea6\u91d1\u3002-UNDEFINED]" time="0.002" /><testcase classname="backend.tests.test_penalty_base" name="test_generic_rule_is_not_nda_only[confidentiality-\u4fdd\u5bc6\u534f\u8bae]" time="6.699" /><testcase classname="backend.tests.test_penalty_base" name="test_generic_rule_is_not_nda_only[sale-\u4e70\u5356\u5408\u540c]" time="6.380" /><testcase classname="backend.tests.test_penalty_base" name="test_actual_nda_preserves_eight_reviews_and_adds_one_common_gap" time="19.861" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_delivery_list_inherits_predicate_not_number_style[False]" time="0.006" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_delivery_list_inherits_predicate_not_number_style[True]" time="0.003" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_exceptions_keep_independent_development_and_last_member" time="0.008" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_scope_and_acceptance_consume_same_metric_span" time="0.011" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_component_outage_is_not_infringement_remedy" time="0.003" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_third_party_testing_fee_is_not_component_fee" time="0.002" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_improvement_notice_requires_actor_action_and_object" time="0.005" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_software_deliverables_do_not_exclude_embodied_project_samples" time="0.004" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_absent_fee_basis_does_not_deny_secret_scope" time="0.001" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_absent_agreement_differs_from_future_consultation[\u53cc\u65b9\u672a\u53e6\u884c\u7ea6\u5b9a\u4e13\u5229\u7533\u8bf7\u8d39\u7528\u627f\u62c5\u3002-MISSING]" time="0.014" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_absent_agreement_differs_from_future_consultation[\u4e13\u5229\u7533\u8bf7\u8d39\u7528\u7531\u53cc\u65b9\u53e6\u884c\u534f\u5546\u627f\u62c5\u3002-PARTIALLY_COVERED]" time="0.002" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_data_disposal_does_not_invent_backup_deletion" time="0.010" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_added_scope_separate_price_is_fee_adjustment" time="0.004" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_improvement_negative_ownership_not_positive_assignment" time="0.011" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_bounded_use_rights_preserve_actor_object_and_scope" time="0.005" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_explicit_nonagreement_is_not_positive_notice" time="0.002" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_phase_delay_links_termination_without_penalty" time="0.005" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_client_caused_delay_exemption_is_not_developer_remedy" time="0.002" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_positive_gate_requires_exact_element_ownership" time="0.001" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_upload_preserves_partial_component_and_exact_gaps" time="15.771" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_upload_shared_lists_and_acceptance" time="0.001" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_whole_upload_gate" time="0.001" /><testcase classname="backend.tests.test_technology_semantic_polarity_and_finding_consistency" name="test_inactive_arbitration_option_does_not_create_dual_selection" time="0.002" /><testcase classname="backend.tests.test_technology_semantic_polarity_and_finding_consistency" name="test_genuine_dual_dispute_selection_remains_detectable" time="0.001" /><testcase classname="backend.tests.test_technology_semantic_polarity_and_finding_consistency" name="test_prohibition_of_illegal_restriction_is_protective_not_risk" time="4.470"><failure message="AssertionError: assert '待核验' == '通过'&#10;  &#10;  - 通过&#10;  + 待核验">def test_prohibition_of_illegal_restriction_is_protective_not_risk():
+        output = _review("任何一方不得非法限制另一方进行新的研究开发或者从其他渠道获得技术。")
+        item = next(row for row in output["items"] if row["item_id"] == "TC-02-01")
+&gt;       assert item["coverage_status"] == "通过"
+E       AssertionError: assert '待核验' == '通过'
+E         
+E         - 通过
+E         + 待核验
+
+backend\tests\test_technology_semantic_polarity_and_finding_consistency.py:38: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_semantic_polarity_and_finding_consistency" name="test_affirmative_research_and_external_technology_restriction_remains_risk" time="5.079" /><testcase classname="backend.tests.test_technology_semantic_polarity_and_finding_consistency" name="test_pure_patent_transfer_excludes_software_proof_requirements" time="4.384" /><testcase classname="backend.tests.test_technology_semantic_polarity_and_finding_consistency" name="test_patent_software_mixed_transaction_preserves_software_trigger" time="4.823" /><testcase classname="backend.tests.test_technology_semantic_polarity_and_finding_consistency" name="test_shared_third_party_fact_aggregates_top_finding_but_keeps_review_details" time="4.606" /><testcase classname="backend.tests.test_technology_semantic_polarity_and_finding_consistency" name="test_parent_finding_does_not_mutate_child_fields" time="0.001" /><testcase classname="backend.tests.test_technology_semantic_polarity_and_finding_consistency" name="test_generic_fallback_without_concrete_gap_cannot_create_finding" time="0.003" /><testcase classname="backend.tests.test_technology_semantic_polarity_and_finding_consistency" name="test_material_list_in_body_preserves_types_and_reports_only_remaining_delivery_metadata" time="4.886"><failure message="AssertionError: assert '版本号或文件编号' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'">def test_material_list_in_body_preserves_types_and_reports_only_remaining_delivery_metadata():
+        output = _review("乙方应以电子文件方式向甲方交付专利证书、说明书、权利要求书及实施技术资料清单，甲方签收确认。")
+        item = next(row for row in output["items"] if row["item_id"] == "TC-13-01")
+        assert item["coverage_status"] == "部分覆盖"
+        assert "主要技术资料文件类型" not in item["risk_point_description"]
+&gt;       assert "版本号或文件编号" in item["risk_point_description"]
+E       AssertionError: assert '版本号或文件编号' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'
+
+backend\tests\test_technology_semantic_polarity_and_finding_consistency.py:125: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_semantic_polarity_and_finding_consistency" name="test_vague_material_obligation_reports_specific_missing_elements" time="4.645"><failure message="AssertionError: assert '未列举主要技术资料文件类型' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'">def test_vague_material_obligation_reports_specific_missing_elements():
+        output = _review("乙方应提供相关技术资料。")
+        item = next(row for row in output["items"] if row["item_id"] == "TC-13-01")
+        assert item["coverage_status"] == "部分覆盖"
+&gt;       assert "未列举主要技术资料文件类型" in item["risk_point_description"]
+E       AssertionError: assert '未列举主要技术资料文件类型' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'
+
+backend\tests\test_technology_semantic_polarity_and_finding_consistency.py:133: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_semantic_polarity_and_finding_consistency" name="test_missing_partial_and_pass_narratives_preserve_status_polarity" time="0.003" /><testcase classname="backend.tests.test_technology_semantic_polarity_and_finding_consistency" name="test_rights_provenance_consequence_stays_in_ownership_and_registration_family" time="4.488" /><testcase classname="backend.tests.test_technology_semantic_polarity_and_finding_consistency" name="test_third_party_claim_rule_keeps_infringement_response_consequence" time="5.302" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_original_cross_article_upload_complete_gate" time="18.870" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_cross_article_sources_remain_separate_and_verbatim" time="0.042" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_each_confidentiality_duration_has_its_own_source" time="0.001" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_remedies_are_not_inferred_from_confidentiality_scope" time="0.001" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_price_component_has_explicit_total_and_instalment_sources" time="0.001" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_product_metrics_do_not_prove_support_service_acceptance" time="0.001" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_removed_element_publication_is_still_blocked" time="0.013" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_repeated_normal_upload_has_idempotent_states_and_spans" time="18.862" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_coordinated_fee_names_share_atomic_price_predicate[\u6280\u672f\u670d\u52a1\u53ca\u6307\u5bfc\u8d39]" time="0.006" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_coordinated_fee_names_share_atomic_price_predicate[\u6280\u672f\u652f\u6301\u548c\u57f9\u8bad\u8d39\u7528]" time="0.003" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_coordinated_fee_names_share_atomic_price_predicate[\u6280\u672f\u6307\u5bfc\u8d39]" time="0.003" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_service_promise_and_separate_price_do_not_imply_inclusion" time="0.001" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_historical_grant_does_not_supply_current_scope" time="0.034" /><testcase classname="backend.tests.test_development_truth_projection" name="test_exact_binding_rejects_theme_span_and_wrong_element" time="0.001" /><testcase classname="backend.tests.test_development_truth_projection" name="test_confidentiality_list_and_disclosure_prohibition_are_positive" time="0.009" /><testcase classname="backend.tests.test_development_truth_projection" name="test_acceptance_method_does_not_entail_documents_or_dispute_retest" time="0.003" /><testcase classname="backend.tests.test_development_truth_projection" name="test_acceptance_atoms_require_their_own_evidence[\u4e59\u65b9\u5e94\u63d0\u4ea4\u6d4b\u8bd5\u62a5\u544a\u3002-test_report_delivery]" time="0.003" /><testcase classname="backend.tests.test_development_truth_projection" name="test_acceptance_atoms_require_their_own_evidence[\u53cc\u65b9\u5e94\u7b7e\u7f72\u9a8c\u6536\u8bb0\u5f55\u3002-acceptance_record_requirement]" time="0.004" /><testcase classname="backend.tests.test_development_truth_projection" name="test_acceptance_atoms_require_their_own_evidence[\u4e59\u65b9\u5e94\u7f16\u5236\u6d4b\u8bd5\u7528\u4f8b\u3002-test_case_requirement]" time="0.005" /><testcase classname="backend.tests.test_development_truth_projection" name="test_acceptance_atoms_require_their_own_evidence[\u9a8c\u6536\u4e89\u8bae\u7531\u7b2c\u4e09\u65b9\u68c0\u6d4b\u3002-acceptance_dispute_verification]" time="0.003" /><testcase classname="backend.tests.test_development_truth_projection" name="test_uploaded_development_contract_truth_projection" time="17.430" /><testcase classname="backend.tests.test_development_truth_projection" name="test_classification_pass_has_no_insufficient_narrative" time="16.641" /><testcase classname="backend.tests.test_patent_license_latest_report_regressions" name="test_total_components_and_installments_are_reconciled_independently" time="0.104" /><testcase classname="backend.tests.test_patent_license_latest_report_regressions" name="test_patent_license_term_uses_explicit_expiry_without_mixing_development_term" time="0.019" /><testcase classname="backend.tests.test_patent_license_latest_report_regressions" name="test_third_party_responsibility_follows_the_actual_party_allocation" time="22.012" /><testcase classname="backend.tests.test_patent_license_latest_report_regressions" name="test_material_delivery_method_is_covered_but_version_and_schedule_gaps_remain" time="0.001"><failure message="KeyError: 'delivery_method'">review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_material_delivery_method_is_covered_but_version_and_schedule_gaps_remain(review: dict):
+        item = next(row for row in review["items"] if row["item_id"] == "TC-13-01")
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+    
+&gt;       assert elements["delivery_method"]["status"] == "COVERED"
+E       KeyError: 'delivery_method'
+
+backend\tests\test_patent_license_latest_report_regressions.py:85: KeyError</failure></testcase><testcase classname="backend.tests.test_patent_license_latest_report_regressions" name="test_third_party_disclosure_is_not_counterparty_improvement_notice" time="0.001" /><testcase classname="backend.tests.test_patent_license_latest_report_regressions" name="test_free_transfer_of_independent_improvements_is_adverse" time="0.004" /><testcase classname="backend.tests.test_patent_license_latest_report_regressions" name="test_cross_reference_subject_mismatch_is_bound_to_source_and_target" time="0.025"><failure message="AssertionError: assert '按照第七条约定执行' in '缺失：验收标准；验收方法；测试用例要求；测试报告交付；验收记录要求；验收争议的第三方检测或复测机制。'">contract_text = '专利实施许可（含后续开发）合同\n（模拟测试数据）\n专利名称：新能源汽车电池热管理智能控制方法及系统\n专利号：ZL201911234567.8\n许可方名称：南京智源新能源技术有限公司\n地址：江苏省南京市江宁区创新大道188号\...案是否完成，均不影响被许可方按照本合同支付全部合同价款。\n许可方签章：南京智源新能源技术有限公司\n被许可方签章：江苏恒能新能源汽车科技有限公司\n许可方法人代表：李明远\n被许可方法人代表：张建国\n签署日期：2026年10月20日'
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_cross_reference_subject_mismatch_is_bound_to_source_and_target(contract_text: str, review: dict):
+        mismatches = _analyze_clause_cross_reference_consistency(parse_contract_clauses(contract_text))
+        acceptance = next(row for row in review["items"] if row["item_id"] == "TC-13-03")
+    
+        assert [(row["expected_subject"], row["referenced_article"], row["target_subject"]) for row in mismatches] == [
+            ("验收", 7, "保密")
+        ]
+        assert acceptance["decision_trace"]["cross_reference_consistency"]["status"] == "MISMATCH"
+&gt;       assert "按照第七条约定执行" in acceptance["risk_point_description"]
+E       AssertionError: assert '按照第七条约定执行' in '缺失：验收标准；验收方法；测试用例要求；测试报告交付；验收记录要求；验收争议的第三方检测或复测机制。'
+
+backend\tests\test_patent_license_latest_report_regressions.py:117: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_latest_report_regressions" name="test_tc1303_positive_elements_have_element_specific_direct_evidence" time="0.001"><failure message="KeyError: 'quantitative_metrics'">review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_tc1303_positive_elements_have_element_specific_direct_evidence(review: dict):
+        item = next(row for row in review["items"] if row["item_id"] == "TC-13-03")
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+        evidence_by_clause = {
+            str(row.get("clause_id") or row.get("evidence_id") or ""): row
+            for row in item["evidence_clauses"]
+        }
+    
+&gt;       assert elements["quantitative_metrics"]["status"] == "MISSING"
+E       KeyError: 'quantitative_metrics'
+
+backend\tests\test_patent_license_latest_report_regressions.py:134: KeyError</failure></testcase><testcase classname="backend.tests.test_patent_license_latest_report_regressions" name="test_tc1303_cross_reference_bundle_and_issue_type_are_consistent" time="0.003"><failure message="AssertionError: assert 'MISSING' == 'CONFLICTING'&#10;  &#10;  - CONFLICTING&#10;  + MISSING">review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_tc1303_cross_reference_bundle_and_issue_type_are_consistent(review: dict):
+        item = next(row for row in review["items"] if row["item_id"] == "TC-13-03")
+        finding = next(row for row in review["risk_findings"] if "TC-13-03" in row["source_review_ids"])
+        evidence = {row["fact_type"]: row for row in finding["evidence_bundle"]["items"]}
+    
+&gt;       assert item["issue_type"] == "CONFLICTING"
+E       AssertionError: assert 'MISSING' == 'CONFLICTING'
+E         
+E         - CONFLICTING
+E         + MISSING
+
+backend\tests\test_patent_license_latest_report_regressions.py:151: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_latest_report_regressions" name="test_tc1303_recommendation_does_not_invent_a_named_attachment" time="0.002"><failure message="AssertionError: assert '验收测试附件或专项测试方案' in '建议补充明确验收标准；补充明确验收方法；补充明确测试用例要求；补充明确测试报告交付；补充明确验收记录要求；约定测试结果争议时共同委托有资质的第三方检测机构复测，并明确检测结果的效力和费用承担。'">review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_tc1303_recommendation_does_not_invent_a_named_attachment(review: dict):
+        finding = next(row for row in review["risk_findings"] if "TC-13-03" in row["source_review_ids"])
+    
+&gt;       assert "验收测试附件或专项测试方案" in finding["recommendation"]
+E       AssertionError: assert '验收测试附件或专项测试方案' in '建议补充明确验收标准；补充明确验收方法；补充明确测试用例要求；补充明确测试报告交付；补充明确验收记录要求；约定测试结果争议时共同委托有资质的第三方检测机构复测，并明确检测结果的效力和费用承担。'
+
+backend\tests\test_patent_license_latest_report_regressions.py:165: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_latest_report_regressions" name="test_tc0201_final_claims_do_not_exceed_direct_evidence" time="0.001"><failure message="AssertionError: assert ['SRC-657c1d71716548cd0046'] == ['C0019']&#10;  &#10;  At index 0 diff: 'SRC-657c1d71716548cd0046' != 'C0019'&#10;  Use -v to get more diff">review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_tc0201_final_claims_do_not_exceed_direct_evidence(review: dict):
+        item = next(row for row in review["items"] if row["item_id"] == "TC-02-01")
+        finding = next(row for row in review["risk_findings"] if "TC-02-01" in row["source_review_ids"])
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+    
+        assert elements["forced_free_improvement_transfer"]["status"] == "ADVERSE"
+&gt;       assert elements["forced_free_improvement_transfer"]["evidence_ids"] == ["C0019"]
+E       AssertionError: assert ['SRC-657c1d71716548cd0046'] == ['C0019']
+E         
+E         At index 0 diff: 'SRC-657c1d71716548cd0046' != 'C0019'
+E         Use -v to get more diff
+
+backend\tests\test_patent_license_latest_report_regressions.py:176: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_latest_report_regressions" name="test_improvement_claims_bind_the_actual_forced_transfer_clause[TC-10-01-licensee_independent_improvement_ownership]" time="0.002"><failure message="StopIteration">review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+review_id = 'TC-10-01'
+element_id = 'licensee_independent_improvement_ownership'
+
+    @pytest.mark.parametrize(
+        "review_id, element_id",
+        [
+            ("TC-10-01", "licensee_independent_improvement_ownership"),
+            ("TC-10-02", "licensee_improvement_ownership"),
+            ("TC-10-04", "forced_free_ownership_transfer"),
+        ],
+    )
+    def test_improvement_claims_bind_the_actual_forced_transfer_clause(review: dict, review_id: str, element_id: str):
+        item = next(row for row in review["items"] if row["item_id"] == review_id)
+        element = next(row for row in item["coverage_elements"] if row["element_id"] == element_id)
+&gt;       source = next(row for row in item["evidence_clauses"] if row.get("clause_id") == "C0019")
+E       StopIteration
+
+backend\tests\test_patent_license_latest_report_regressions.py:207: StopIteration</failure></testcase><testcase classname="backend.tests.test_patent_license_latest_report_regressions" name="test_improvement_claims_bind_the_actual_forced_transfer_clause[TC-10-02-licensee_improvement_ownership]" time="0.002"><failure message="StopIteration">review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+review_id = 'TC-10-02', element_id = 'licensee_improvement_ownership'
+
+    @pytest.mark.parametrize(
+        "review_id, element_id",
+        [
+            ("TC-10-01", "licensee_independent_improvement_ownership"),
+            ("TC-10-02", "licensee_improvement_ownership"),
+            ("TC-10-04", "forced_free_ownership_transfer"),
+        ],
+    )
+    def test_improvement_claims_bind_the_actual_forced_transfer_clause(review: dict, review_id: str, element_id: str):
+        item = next(row for row in review["items"] if row["item_id"] == review_id)
+        element = next(row for row in item["coverage_elements"] if row["element_id"] == element_id)
+&gt;       source = next(row for row in item["evidence_clauses"] if row.get("clause_id") == "C0019")
+E       StopIteration
+
+backend\tests\test_patent_license_latest_report_regressions.py:207: StopIteration</failure></testcase><testcase classname="backend.tests.test_patent_license_latest_report_regressions" name="test_improvement_claims_bind_the_actual_forced_transfer_clause[TC-10-04-forced_free_ownership_transfer]" time="0.002"><failure message="StopIteration">review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+review_id = 'TC-10-04', element_id = 'forced_free_ownership_transfer'
+
+    @pytest.mark.parametrize(
+        "review_id, element_id",
+        [
+            ("TC-10-01", "licensee_independent_improvement_ownership"),
+            ("TC-10-02", "licensee_improvement_ownership"),
+            ("TC-10-04", "forced_free_ownership_transfer"),
+        ],
+    )
+    def test_improvement_claims_bind_the_actual_forced_transfer_clause(review: dict, review_id: str, element_id: str):
+        item = next(row for row in review["items"] if row["item_id"] == review_id)
+        element = next(row for row in item["coverage_elements"] if row["element_id"] == element_id)
+&gt;       source = next(row for row in item["evidence_clauses"] if row.get("clause_id") == "C0019")
+E       StopIteration
+
+backend\tests\test_patent_license_latest_report_regressions.py:207: StopIteration</failure></testcase><testcase classname="backend.tests.test_patent_license_latest_report_regressions" name="test_aggregated_improvement_finding_has_a_complete_direct_evidence_bundle" time="0.005"><failure message="AssertionError: assert {'FREE_TRANSF...ship_written'} == {'FREE_TRANSF...HIP_TRANSFER'}&#10;  &#10;  Extra items in the left set:&#10;  'improvement_ownership_written'&#10;  Use -v to get more diff">review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_aggregated_improvement_finding_has_a_complete_direct_evidence_bundle(review: dict):
+        finding = next(
+            row for row in review["risk_findings"]
+            if row["risk_group"] == "improvement_no_unlawful_restriction"
+        )
+        fact_types = {row["fact_type"] for row in finding["evidence_bundle"]["items"]}
+    
+&gt;       assert fact_types == {
+            "LICENSEE_IMPROVEMENT_OWNERSHIP_TRANSFER",
+            "FREE_TRANSFER_OBLIGATION",
+        }
+E       AssertionError: assert {'FREE_TRANSF...ship_written'} == {'FREE_TRANSF...HIP_TRANSFER'}
+E         
+E         Extra items in the left set:
+E         'improvement_ownership_written'
+E         Use -v to get more diff
+
+backend\tests\test_patent_license_latest_report_regressions.py:223: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_latest_report_regressions" name="test_payment_recommendation_only_mentions_observed_payment_structure" time="0.001" /><testcase classname="backend.tests.test_patent_license_latest_report_regressions" name="test_operative_license_type_is_not_replaced_by_a_glossary_term" time="0.012" /><testcase classname="backend.tests.test_patent_license_latest_report_regressions" name="test_explicit_counterparty_improvement_notice_remains_recognizable" time="5.671" /><testcase classname="backend.tests.test_entrusted_cross_rule_consistency" name="test_shared_disposal_has_the_same_scope_and_remaining_requirements" time="17.740" /><testcase classname="backend.tests.test_entrusted_cross_rule_consistency" name="test_shared_disposal_is_one_canonical_issue_in_the_production_report" time="0.001"><failure message="AssertionError: assert 2 == 1&#10; +  where 2 = len([{'finding_id': 'RF-007', 'risk_group': 'technical_secret_result_rights', 'title': '技术秘密成果使用转让', 'severity': 'MEDIUM',...ding_id': 'RF-012', 'risk_group': 'confidential_material_return_destroy', 'title': '保密资料返还销毁', 'severity': 'LOW', ...}])">report = {'contract_type_flow': {'stages': {'request': 'technology', 'canonical': 'technology', 'facts_pipeline': 'technology',...ore_only': False, 'family_status': 'NOT_MIGRATED'}, 'structured_fact_debug': {}, 'employment_rule_adaptation': {}, ...}
+
+    def test_shared_disposal_is_one_canonical_issue_in_the_production_report(report):
+        sources = {"TC-05-03", "TC-11-03"}
+        matches = [f for f in report["risk_findings"] if sources.intersection(f["source_review_ids"])]
+&gt;       assert len(matches) == 1
+E       AssertionError: assert 2 == 1
+E        +  where 2 = len([{'finding_id': 'RF-007', 'risk_group': 'technical_secret_result_rights', 'title': '技术秘密成果使用转让', 'severity': 'MEDIUM',...ding_id': 'RF-012', 'risk_group': 'confidential_material_return_destroy', 'title': '保密资料返还销毁', 'severity': 'LOW', ...}])
+
+backend\tests\test_entrusted_cross_rule_consistency.py:50: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_cross_rule_consistency" name="test_production_release_gate_blocks_duplicate_scoped_issues" time="4.688" /><testcase classname="backend.tests.test_entrusted_cross_rule_consistency" name="test_applicability_prose_matches_the_active_entrusted_branch" time="0.167" /><testcase classname="backend.tests.test_entrusted_cross_rule_consistency" name="test_completed_negative_check_does_not_leave_an_obsolete_manual_review" time="0.001" /><testcase classname="backend.tests.test_entrusted_cross_rule_consistency" name="test_service_acceptance_cannot_borrow_personnel_or_product_evidence" time="0.001" /><testcase classname="backend.tests.test_entrusted_cross_rule_consistency" name="test_na_excludes_the_economic_trigger_without_denying_secret_material" time="0.001" /><testcase classname="backend.tests.test_entrusted_cross_rule_consistency" name="test_release_gate_rejects_reintroduced_manual_and_wrong_domain_support" time="0.068" /><testcase classname="backend.tests.test_entrusted_cross_rule_consistency" name="test_gate_rejects_shared_fact_and_stale_na_reason_mutations" time="1.194" /><testcase classname="backend.tests.test_entrusted_cross_rule_consistency" name="test_late_positive_material_projection_retains_exact_evidence_ownership" time="0.018" /><testcase classname="backend.tests.test_entrusted_cross_rule_consistency" name="test_unmodeled_ownership_is_not_replaced_by_disposal_requirements" time="0.039" /><testcase classname="backend.tests.test_entrusted_cross_rule_consistency" name="test_multiple_disposal_scopes_do_not_share_a_positive_fact_bucket" time="0.013" /><testcase classname="backend.tests.test_entrusted_cross_rule_consistency" name="test_final_report_passes_all_original_and_new_gates" time="0.001"><failure message="AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'REPORT_ELEMENT_EVIDENCE_POLLUTION', 'finding_id': 'RF-015', 'reaso...': {'status': 'PASS', 'failures': [], 'contract_type': 'technology', 'domain_pack': 'domain-pack-technology-1.0'}, ...}&#10;assert 'BLOCKED' == 'REPORT_READY'&#10;  &#10;  - REPORT_READY&#10;  + BLOCKED">report = {'contract_type_flow': {'stages': {'request': 'technology', 'canonical': 'technology', 'facts_pipeline': 'technology',...ore_only': False, 'family_status': 'NOT_MIGRATED'}, 'structured_fact_debug': {}, 'employment_rule_adaptation': {}, ...}
+
+    def test_final_report_passes_all_original_and_new_gates(report):
+&gt;       assert report["release_quality_gate"]["status"] == "REPORT_READY", report["release_quality_gate"]
+E       AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'REPORT_ELEMENT_EVIDENCE_POLLUTION', 'finding_id': 'RF-015', 'reaso...': {'status': 'PASS', 'failures': [], 'contract_type': 'technology', 'domain_pack': 'domain-pack-technology-1.0'}, ...}
+E       assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_entrusted_cross_rule_consistency.py:190: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_cross_rule_consistency" name="test_final_statistics_are_derived_from_the_same_report_objects" time="0.001" /><testcase classname="backend.tests.test_entrusted_cross_rule_consistency" name="test_negative_check_must_not_clear_an_unrelated_pending_review[NEEDS_EXTERNAL_VERIFICATION]" time="0.005" /><testcase classname="backend.tests.test_entrusted_cross_rule_consistency" name="test_negative_check_must_not_clear_an_unrelated_pending_review[CONDITIONAL_PREREQUISITE_UNKNOWN]" time="0.006" /><testcase classname="backend.tests.test_patent_license_with_follow_on_development" name="test_patent_license_route_and_cross_clause_conflicts" time="0.195" /><testcase classname="backend.tests.test_patent_license_with_follow_on_development" name="test_payment_formula_is_partitioned_by_price_base" time="0.056"><failure message="assert 113.75 is None">contract_text = '专利实施许可（含后续开发）合同\n基本信息\n专利名称： 新能源汽车动力电池液冷系统智能控制装置及控制方法\n专利号： ZL202110287654.3\n公开号： CN113456789A\n申请日： 2021年3月18日\n授权日...以许可方实际交付为准。\n许可方：东南大学\n许可方法定代表人或授权代表：李明远\n签署日期：2026年10月20日\n被许可方：江苏恒能新能源汽车科技有限公司\n被许可方法定代表人或授权代表：张建国\n签署日期：2026年10月20日'
+
+    def test_payment_formula_is_partitioned_by_price_base(contract_text: str):
+        payment = analyze_payment_schedule(contract_text)
+        groups = {row["label"]: row for row in payment["payment_groups"]}
+    
+        assert payment["status"] == "INCONSISTENT"
+        assert payment["contract_total"] == 4_800_000
+&gt;       assert payment["percentage_total"] is None
+E       assert 113.75 is None
+
+backend\tests\test_patent_license_with_follow_on_development.py:66: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_with_follow_on_development" name="test_license_scope_invalidity_notice_and_competition_results" time="26.887"><failure message="AssertionError: assert '排他许可' in '合同约定排他实施许可，但许可方仍可向部分第三方授予普通许可；被许可方未达到实施条件时，许可方可无需被许可方同意单方将排他实施许可降级为普通许可，且未设置通知、宽限整改及排他实施许可对价调整机制。'">review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_license_scope_invalidity_notice_and_competition_results(review: dict):
+        by_id = {row["item_id"]: row for row in review["items"]}
+    
+        assert by_id["TC-07-01"]["coverage_status"] == "风险条款"
+&gt;       assert "排他许可" in by_id["TC-07-01"]["risk_point_description"]
+E       AssertionError: assert '排他许可' in '合同约定排他实施许可，但许可方仍可向部分第三方授予普通许可；被许可方未达到实施条件时，许可方可无需被许可方同意单方将排他实施许可降级为普通许可，且未设置通知、宽限整改及排他实施许可对价调整机制。'
+
+backend\tests\test_patent_license_with_follow_on_development.py:89: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_with_follow_on_development" name="test_acceptance_and_ip_proof_attachment_are_partial_without_manual_review" time="0.004"><failure message="AssertionError: assert '缺失' == '部分覆盖'&#10;  &#10;  - 部分覆盖&#10;  + 缺失">review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_acceptance_and_ip_proof_attachment_are_partial_without_manual_review(review: dict):
+        by_id = {row["item_id"]: row for row in review["items"]}
+    
+        acceptance = by_id["TC-13-03"]
+        acceptance_elements = {row["element_id"]: row for row in acceptance["coverage_elements"]}
+&gt;       assert acceptance["coverage_status"] == "部分覆盖"
+E       AssertionError: assert '缺失' == '部分覆盖'
+E         
+E         - 部分覆盖
+E         + 缺失
+
+backend\tests\test_patent_license_with_follow_on_development.py:124: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_with_follow_on_development" name="test_unilateral_acceptance_and_confidentiality_asymmetry_are_distinct_risks" time="0.002"><failure message="AssertionError: assert '双方在测试前书面确认' in '建议调整以下已确认的不利安排：影响验收结论的测试环境、测试数据、性能指标及验收方法由对方单方确定；补充明确双方事先书面确认测试方案及其变更的机制。'">review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_unilateral_acceptance_and_confidentiality_asymmetry_are_distinct_risks(review: dict):
+        by_id = {row["item_id"]: row for row in review["items"]}
+    
+        acceptance = by_id["TC-04-01"]
+        assert acceptance["coverage_status"] == "风险条款"
+        assert acceptance["risk_level"] == "中"
+        assert "由对方单方决定" in acceptance["title"]
+&gt;       assert "双方在测试前书面确认" in acceptance["suggested_clause_example"]
+E       AssertionError: assert '双方在测试前书面确认' in '建议调整以下已确认的不利安排：影响验收结论的测试环境、测试数据、性能指标及验收方法由对方单方确定；补充明确双方事先书面确认测试方案及其变更的机制。'
+
+backend\tests\test_patent_license_with_follow_on_development.py:150: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_with_follow_on_development" name="test_not_applicable_secret_rule_acknowledges_existing_secret_facts" time="0.002"><failure message="AssertionError: assert '已明确技术秘密范围' in '合同虽涉及技术秘密或保密资料，但当前交易不是以既有技术秘密转让、许可或独立使用费为核心标的，未形成以秘密性为独立对价基础的持续收费或秘密性丧失后的费用安排，因此本项不适用。'">review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_not_applicable_secret_rule_acknowledges_existing_secret_facts(review: dict):
+        item = next(row for row in review["items"] if row["item_id"] == "TC-12-03")
+        assert item["coverage_status"] == "不适用"
+&gt;       assert "已明确技术秘密范围" in item["applicability"]["reason"]
+E       AssertionError: assert '已明确技术秘密范围' in '合同虽涉及技术秘密或保密资料，但当前交易不是以既有技术秘密转让、许可或独立使用费为核心标的，未形成以秘密性为独立对价基础的持续收费或秘密性丧失后的费用安排，因此本项不适用。'
+
+backend\tests\test_patent_license_with_follow_on_development.py:164: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_with_follow_on_development" name="test_final_evidence_bundles_never_render_blank_support_items" time="0.003" /><testcase classname="backend.tests.test_patent_license_with_follow_on_development" name="test_full_report_uses_grouped_calculation_and_aggregated_risk_themes" time="0.002"><failure message="assert 0 == 1&#10; +  where 0 = len([])">review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_full_report_uses_grouped_calculation_and_aggregated_risk_themes(review: dict):
+        report = review["result"]
+        payment = next(row for row in review["items"] if row["item_id"] == "GEN-PAY-01")
+    
+        assert "专利许可费的节点比例合计为110%" in payment["risk_point_description"]
+        assert "后续技术开发费的节点比例合计为120%" in payment["risk_point_description"]
+        assert "5,460,000元" in payment["risk_point_description"]
+        assert "4,800,000元相差660,000元" in payment["risk_point_description"]
+        assert "230%" not in report
+    
+        improvement_themes = [
+            theme for theme in review["risk_themes"]
+            if {"TC-02-01", "TC-10-01"} &lt;= set(theme["source_rule_ids"])
+        ]
+&gt;       assert len(improvement_themes) == 1
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+backend\tests\test_patent_license_with_follow_on_development.py:196: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_liability_caps" name="test_neither_party_has_liability_cap" time="0.045" /><testcase classname="backend.tests.test_patent_license_liability_caps" name="test_only_licensor_has_liability_cap" time="0.006" /><testcase classname="backend.tests.test_patent_license_liability_caps" name="test_only_licensee_has_liability_cap" time="0.003" /><testcase classname="backend.tests.test_patent_license_liability_caps" name="test_both_parties_have_reasonably_balanced_caps" time="0.006" /><testcase classname="backend.tests.test_patent_license_liability_caps" name="test_both_parties_have_materially_asymmetric_caps" time="0.005" /><testcase classname="backend.tests.test_patent_license_liability_caps" name="test_current_contract_reports_asymmetric_caps_instead_of_missing_cap" time="23.815"><failure message="AssertionError: assert '重新平衡双方责任上限' in '建议补充明确第三方侵权直接损失或特定过错损失已有分配；调整以下已确认的不利安排：许可方责任上限已明确为已支付许可费的20%；补充明确被许可方承担的侵权损失责任未设置总额上限；调整以下已确认的不利安排：双方责任范围和责任上限明显不对等；明确故意、重大过失及未披露权利瑕疵等例外；明确退款、损失赔偿和违约金之间的抵扣或并用关系；明确各项侵权救济是否累计适用。'">def test_current_contract_reports_asymmetric_caps_instead_of_missing_cap():
+        document = Document(str(FIXTURE))
+        contract_text = "\n".join(
+            paragraph.text for paragraph in document.paragraphs if paragraph.text.strip()
+        )
+        review = review_contract_v2(
+            contract_text,
+            "technology",
+            include_low_risk=True,
+            use_llm=False,
+            profile=UserRiskProfile(user_identity="甲方/被许可方"),
+        )
+        item = next(row for row in review["items"] if row["item_id"] == "TC-12-04")
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+    
+        assert item["title"] == "侵权赔偿和责任上限"
+        assert item["risk_level"] == "高"
+        assert "双方责任范围及责任上限明显不对等" in item["risk_point_description"]
+        assert "未设置责任上限" not in item["risk_point_description"]
+&gt;       assert "重新平衡双方责任上限" in item["suggested_clause_example"]
+E       AssertionError: assert '重新平衡双方责任上限' in '建议补充明确第三方侵权直接损失或特定过错损失已有分配；调整以下已确认的不利安排：许可方责任上限已明确为已支付许可费的20%；补充明确被许可方承担的侵权损失责任未设置总额上限；调整以下已确认的不利安排：双方责任范围和责任上限明显不对等；明确故意、重大过失及未披露权利瑕疵等例外；明确退款、损失赔偿和违约金之间的抵扣或并用关系；明确各项侵权救济是否累计适用。'
+
+backend\tests\test_patent_license_liability_caps.py:105: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_report_consistency_closure" name="test_patent_rights_positive_evidence_precedes_absence" time="17.008" /><testcase classname="backend.tests.test_entrusted_report_consistency_closure" name="test_risk_loss_allocation_is_not_payment_settlement" time="0.001" /><testcase classname="backend.tests.test_entrusted_report_consistency_closure" name="test_confidentiality_fields_and_survival_period_are_consumed" time="0.001" /><testcase classname="backend.tests.test_entrusted_report_consistency_closure" name="test_ancillary_support_and_priority_license_enter_substantive_review" time="0.001" /><testcase classname="backend.tests.test_entrusted_report_consistency_closure" name="test_non_applicable_remedy_coordination_cannot_remain_partial" time="0.002" /><testcase classname="backend.tests.test_entrusted_report_consistency_closure" name="test_material_unresolved_set_is_identical_in_all_projections" time="0.002" /><testcase classname="backend.tests.test_entrusted_report_consistency_closure" name="test_real_release_gate_and_new_invariants_reject_mutated_reports" time="0.001"><failure message="AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'REPORT_ELEMENT_EVIDENCE_POLLUTION', 'finding_id': 'RF-015', 'reaso...': {'status': 'PASS', 'failures': [], 'contract_type': 'technology', 'domain_pack': 'domain-pack-technology-1.0'}, ...}&#10;assert 'BLOCKED' == 'REPORT_READY'&#10;  &#10;  - REPORT_READY&#10;  + BLOCKED">report = {'contract_type_flow': {'stages': {'request': 'technology', 'canonical': 'technology', 'facts_pipeline': 'technology',...ore_only': False, 'family_status': 'NOT_MIGRATED'}, 'structured_fact_debug': {}, 'employment_rule_adaptation': {}, ...}
+
+    def test_real_release_gate_and_new_invariants_reject_mutated_reports(report):
+&gt;       assert report["release_quality_gate"]["status"] == "REPORT_READY", report["release_quality_gate"]
+E       AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'REPORT_ELEMENT_EVIDENCE_POLLUTION', 'finding_id': 'RF-015', 'reaso...': {'status': 'PASS', 'failures': [], 'contract_type': 'technology', 'domain_pack': 'domain-pack-technology-1.0'}, ...}
+E       assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_entrusted_report_consistency_closure.py:90: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_report_consistency_closure" name="test_final_requirement_keys_and_support_aliases_are_canonical" time="4.351" /><testcase classname="backend.tests.test_entrusted_report_consistency_closure" name="test_atomic_consequences_cannot_reintroduce_old_composite_absence" time="0.001" /><testcase classname="backend.tests.test_narrative_source_and_date_semantics" name="test_current_facts_publish_their_exact_sources" time="15.918"><failure message="AssertionError: [{'requirement': 'EVIDENCE_PROPOSITION_MATCH_GATE', 'field': 'evidence_bundle', 'failures': [{'risk_id': 'RF-008', 'ri..., 'bundle_id': 'EB-4e1da2af7e03', 'invalid_clause_node_ids': ['C0050'], 'requirement': 'CLAUSE_NODE_CONSISTENCY_GATE'}]&#10;assert 'BLOCKED' == 'REPORT_READY'&#10;  &#10;  - REPORT_READY&#10;  + BLOCKED">current = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_current_facts_publish_their_exact_sources(current):
+&gt;       assert current["release_quality_gate"]["status"] == "REPORT_READY", current["release_quality_gate"]["failures"]
+E       AssertionError: [{'requirement': 'EVIDENCE_PROPOSITION_MATCH_GATE', 'field': 'evidence_bundle', 'failures': [{'risk_id': 'RF-008', 'ri..., 'bundle_id': 'EB-4e1da2af7e03', 'invalid_clause_node_ids': ['C0050'], 'requirement': 'CLAUSE_NODE_CONSISTENCY_GATE'}]
+E       assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_narrative_source_and_date_semantics.py:32: AssertionError</failure></testcase><testcase classname="backend.tests.test_narrative_source_and_date_semantics" name="test_removing_one_material_source_blocks_not_rescued_by_other_clauses[\u4ec5\u9650\u672c\u5408\u540c\u6709\u6548\u671f\u5185]" time="0.489" /><testcase classname="backend.tests.test_narrative_source_and_date_semantics" name="test_removing_one_material_source_blocks_not_rescued_by_other_clauses[\u8fdd\u53cd\u6280\u672f\u4f7f\u7528\u3001\u8f6c\u8ba9\u6216\u4fdd\u5bc6\u4e49\u52a1]" time="0.648" /><testcase classname="backend.tests.test_narrative_source_and_date_semantics" name="test_invented_material_fact_in_any_projection_blocks[risk_point_description]" time="0.635" /><testcase classname="backend.tests.test_narrative_source_and_date_semantics" name="test_invented_material_fact_in_any_projection_blocks[reasoning_summary]" time="0.584" /><testcase classname="backend.tests.test_narrative_source_and_date_semantics" name="test_invented_material_fact_in_any_projection_blocks[narrative_state]" time="0.593" /><testcase classname="backend.tests.test_narrative_source_and_date_semantics" name="test_invented_material_fact_in_any_projection_blocks[finding_issue]" time="0.496" /><testcase classname="backend.tests.test_narrative_source_and_date_semantics" name="test_gate_is_element_generic_not_rule_id_specific" time="0.001" /><testcase classname="backend.tests.test_narrative_source_and_date_semantics" name="test_renderer_cannot_add_any_unregistered_independent_fact" time="0.644" /><testcase classname="backend.tests.test_narrative_source_and_date_semantics" name="test_same_amount_with_an_invented_trigger_is_not_supported" time="0.577" /><testcase classname="backend.tests.test_narrative_source_and_date_semantics" name="test_time_narrative_cannot_replace_validity_with_performance" time="0.619" /><testcase classname="backend.tests.test_narrative_source_and_date_semantics" name="test_four_dates_are_not_aliases" time="0.001" /><testcase classname="backend.tests.test_narrative_source_and_date_semantics" name="test_explicit_performance_and_effective_date_remain_distinct" time="0.001" /><testcase classname="backend.tests.test_narrative_source_and_date_semantics" name="test_signing_is_effective_only_with_direct_condition" time="0.002" /><testcase classname="backend.tests.test_narrative_source_and_date_semantics" name="test_current_timeline_has_no_invented_performance_or_effect" time="0.001" /><testcase classname="backend.tests.test_transfer_ancillary_upload_closure" name="test_original_ancillary_upload_is_ready_and_retains_actual_risks" time="20.916" /><testcase classname="backend.tests.test_transfer_ancillary_upload_closure" name="test_original_fee_does_not_infer_included_total_price" time="0.001" /><testcase classname="backend.tests.test_transfer_ancillary_upload_closure" name="test_mixed_liability_article_does_not_inherit_confidentiality_trigger[\u4e59\u65b9\u8fdd\u7ea6\u7684\u8d54\u507f\u603b\u989d\u4ee5\u5408\u540c\u4ef7\u6b3e20%\u4e3a\u9650\u3002]" time="0.011" /><testcase classname="backend.tests.test_transfer_ancillary_upload_closure" name="test_mixed_liability_article_does_not_inherit_confidentiality_trigger[\u7532\u65b9\u8fdd\u53cd\u5b9e\u65bd\u8303\u56f4\u6216\u8005\u64c5\u81ea\u8f6c\u8ba9\u6280\u672f\u79d8\u5bc6\u7684\uff0c\u652f\u4ed8\u8f6c\u8ba9\u8d3950%\u7684\u8fdd\u7ea6\u91d1\u3002]" time="0.002" /><testcase classname="backend.tests.test_transfer_ancillary_upload_closure" name="test_both_parties_explicit_confidentiality_remedies_remain_covered" time="0.001" /><testcase classname="backend.tests.test_transfer_ancillary_upload_closure" name="test_review_exact_mapping_rejects_removed_proof[TC-06-02]" time="0.010" /><testcase classname="backend.tests.test_transfer_ancillary_upload_closure" name="test_review_exact_mapping_rejects_removed_proof[GEN-LIAB-02]" time="0.004" /><testcase classname="backend.tests.test_transfer_ancillary_upload_closure" name="test_review_exact_mapping_rejects_removed_proof[GEN-LIAB-03]" time="0.010" /><testcase classname="backend.tests.test_transfer_ancillary_upload_closure" name="test_derived_risk_must_publish_calculation_element_ownership[payment_formula_inconsistency]" time="0.671" /><testcase classname="backend.tests.test_transfer_ancillary_upload_closure" name="test_derived_risk_must_publish_calculation_element_ownership[technical_timeline_conflict]" time="0.498" /><testcase classname="backend.tests.test_patent_license_composite_contract_review" name="test_patent_license_is_primary_and_commissioned_development_is_secondary_module" time="0.178" /><testcase classname="backend.tests.test_patent_license_composite_contract_review" name="test_composite_transaction_applicability_isolated_before_substantive_review" time="19.634" /><testcase classname="backend.tests.test_patent_license_composite_contract_review" name="test_composite_contract_recovers_development_and_infringement_truth" time="0.003"><failure message="AssertionError: assert '待核验' == '通过'&#10;  &#10;  - 通过&#10;  + 待核验">composite_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_composite_contract_recovers_development_and_infringement_truth(composite_review: dict):
+        by_id = {row["item_id"]: row for row in composite_review["items"]}
+    
+&gt;       assert by_id["TC-04-02"]["coverage_status"] == "通过"
+E       AssertionError: assert '待核验' == '通过'
+E         
+E         - 通过
+E         + 待核验
+
+backend\tests\test_patent_license_composite_contract_review.py:71: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_composite_contract_review" name="test_license_and_confidentiality_reviews_stay_covered_and_report_context_is_specific" time="0.002"><failure message="assert False&#10; +  where False = all(&lt;generator object test_license_and_confidentiality_reviews_stay_covered_and_report_context_is_specific.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000021BCFE41A80&gt;)">composite_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_license_and_confidentiality_reviews_stay_covered_and_report_context_is_specific(composite_review: dict):
+        by_id = {row["item_id"]: row for row in composite_review["items"]}
+    
+&gt;       assert all(by_id[f"TC-07-0{index}"]["coverage_status"] == "通过" for index in range(1, 5))
+E       assert False
+E        +  where False = all(&lt;generator object test_license_and_confidentiality_reviews_stay_covered_and_report_context_is_specific.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000021BCFE41A80&gt;)
+
+backend\tests\test_patent_license_composite_contract_review.py:99: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_composite_contract_review" name="test_composite_gap_reviews_use_contract_specific_states_and_evidence" time="0.002"><failure message="AssertionError: assert '风险条款' == '部分覆盖'&#10;  &#10;  - 部分覆盖&#10;  + 风险条款">composite_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_composite_gap_reviews_use_contract_specific_states_and_evidence(composite_review: dict):
+        by_id = {row["item_id"]: row for row in composite_review["items"]}
+    
+&gt;       assert by_id["TC-05-04"]["coverage_status"] == "部分覆盖"
+E       AssertionError: assert '风险条款' == '部分覆盖'
+E         
+E         - 部分覆盖
+E         + 风险条款
+
+backend\tests\test_patent_license_composite_contract_review.py:110: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_composite_contract_review" name="test_final_disposition_is_the_single_report_action_source" time="0.001"><failure message="IndexError: list index out of range">composite_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_final_disposition_is_the_single_report_action_source(composite_review: dict):
+        report = composite_review["result"]
+        dispositions = composite_review["final_dispositions"]
+        visible = [row for row in dispositions if row["report_visibility"] == "VISIBLE"]
+        recommended = [row for row in visible if row["final_action"] in {"MUST_CHANGE", "SHOULD_CHANGE"}]
+        optional = [row for row in visible if row["final_action"] == "OPTIONAL_IMPROVEMENT"]
+    
+        assert composite_review["report_view_model"]["recommended_total"] == len(recommended)
+        assert composite_review["report_view_model"]["optional_total"] == len(optional)
+        assert composite_review["report_disposition_projection_gate"]["status"] == "REPORT_READY"
+        assert all(row["recommendation"].strip() for row in recommended + optional)
+    
+&gt;       priority_section = report.split("、建议修改事项", 1)[1].split("\n## ", 1)[0]
+E       IndexError: list index out of range
+
+backend\tests\test_patent_license_composite_contract_review.py:139: IndexError</failure></testcase><testcase classname="backend.tests.test_patent_license_composite_contract_review" name="test_final_evidence_matches_each_adverse_proposition" time="0.002"><failure message="assert False&#10; +  where False = all(&lt;generator object test_final_evidence_matches_each_adverse_proposition.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000021BD0AB6F10&gt;)">composite_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_final_evidence_matches_each_adverse_proposition(composite_review: dict):
+        findings = {row["risk_group"]: row for row in composite_review["risk_findings"]}
+    
+        infringement = findings["license_infringement_responsibility"]["evidence_bundle"]["items"]
+        infringement_by_type = {row["fact_type"]: row for row in infringement}
+        assert "均由被许可方承担" in infringement_by_type["LICENSEE_LOSS_ALLOCATION"]["quoted_text"]
+&gt;       assert all(term in infringement_by_type["LICENSEE_LOSS_ALLOCATION"]["quoted_text"] for term in (
+            "停产损失", "产品召回损失", "对第三方的赔偿", "律师费", "诉讼费",
+        ))
+E       assert False
+E        +  where False = all(&lt;generator object test_final_evidence_matches_each_adverse_proposition.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000021BD0AB6F10&gt;)
+
+backend\tests\test_patent_license_composite_contract_review.py:160: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_composite_contract_review" name="test_ip_proof_linked_reviews_share_one_canonical_partial_state" time="0.001" /><testcase classname="backend.tests.test_patent_license_composite_contract_review" name="test_pass_evidence_is_bound_to_coverage_propositions" time="0.001"><failure message="AssertionError: assert '部分覆盖' == '通过'&#10;  &#10;  - 通过&#10;  + 部分覆盖">composite_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_pass_evidence_is_bound_to_coverage_propositions(composite_review: dict):
+        by_id = {row["item_id"]: row for row in composite_review["items"]}
+        secret_result = by_id["TC-05-03"]
+    
+&gt;       assert secret_result["coverage_status"] == "通过"
+E       AssertionError: assert '部分覆盖' == '通过'
+E         
+E         - 通过
+E         + 部分覆盖
+
+backend\tests\test_patent_license_composite_contract_review.py:210: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_classification_prefers_the_core_technical_secret_transfer_transaction" time="0.158" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_payment_consistency_is_shared_by_technical_secret_transfer" time="0.040" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_existing_adverse_third_party_allocation_is_not_treated_as_missing" time="19.283"><failure message="assert False is True">secret_transfer_text = '技术转让（技术秘密）合同\n合同编号：TS-2026-0831-001\n项目名称：新能源汽车电池模组智能热管理控制技术转让项目\n受让方（甲方）：苏州恒锐新能源科技有限公司\n让与方（乙方）：上海凌川智能科技有限公司\n签订时间：2...n本合同自双方签字盖章之日起生效。\n甲方：苏州恒锐新能源科技有限公司\n法定代表人/授权代表：张伟\n签署日期：2026年10月20日\n乙方：上海凌川智能科技有限公司\n法定代表人/授权代表：陈宇\n签署日期：2026年10月20日'
+secret_transfer_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_existing_adverse_third_party_allocation_is_not_treated_as_missing(
+        secret_transfer_text: str,
+        secret_transfer_review: dict,
+    ):
+        claim = build_technology_fact_registry(secret_transfer_text)["third_party_claim"]
+        by_id = {row["item_id"]: row for row in secret_transfer_review["items"]}
+        claim_elements = {
+            row["element_id"]: row for row in by_id["TC-12-02"]["coverage_elements"]
+        }
+    
+        assert claim["authority_warranty"] is True
+        assert claim["claim_trigger"] is True
+&gt;       assert claim["claim_assistance"] is True
+E       assert False is True
+
+backend\tests\test_technical_secret_transfer_contract_review.py:85: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_forced_improvement_transfer_separates_presence_from_direction" time="0.014" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_secret_loss_and_competition_rules_are_active_and_adverse" time="0.001" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_full_report_uses_secret_transfer_role_and_non_patent_proof_semantics" time="0.002" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_improvement_checklist_rows_aggregate_without_losing_auditability" time="0.002" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_ancillary_service_fee_keeps_covered_base_and_only_reports_excess_fee_gaps" time="0.001" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_positive_adverse_evidence_overrides_stale_absence_search" time="0.001" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_technical_secret_proof_uses_partial_atomic_facts_not_principle_warranty_pass" time="0.001" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_no_actual_infringement_fact_does_not_create_tc_02_02_finding" time="0.001" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_secret_proof_consequence_never_uses_patent_registration_or_pledge_language" time="0.001" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_competition_and_forced_improvement_consequences_include_validity_risk_without_overreach" time="0.003" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_acceptance_test_attachment_is_fact_activated_and_theme_deduplicated" time="0.001"><failure message="assert 17 == 13">secret_transfer_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_acceptance_test_attachment_is_fact_activated_and_theme_deduplicated(
+        secret_transfer_review: dict,
+    ):
+        by_id = {row["item_id"]: row for row in secret_transfer_review["items"]}
+        attachment = by_id["TC-13-03"]
+        theme = next(
+            row for row in secret_transfer_review["risk_themes"]
+            if "TC-13-03" in row["source_rule_ids"]
+        )
+    
+        assert attachment["coverage_status"] == "部分覆盖"
+        assert attachment["risk_level"] == "低"
+        assert attachment["action_priority"] == "C_OPTIMIZATION"
+        assert set(theme["source_rule_ids"]) == {"TC-09-02", "TC-13-03"}
+        # The shared liability-cap validity and excessive-liquidated-damages
+        # screens are independently evidenced in this fixture as well.
+&gt;       assert secret_transfer_review["risk_theme_count"] == 13
+E       assert 17 == 13
+
+backend\tests\test_technical_secret_transfer_contract_review.py:290: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_acceptance_test_attachment_narrative_has_complete_sentences" time="0.001"><failure message="AssertionError: assert '测试争议的复测机制未明确。' in '已覆盖：合同第十二条已明确验收场景和基本标准；合同第一条和验收条款已列明客观技术指标；测试设备和环境条件；尚未覆盖：独立验收测试方案附件；测试方法和操作步骤；固定测试数据集或样本；统计口径；测试记录和签认要求；争议复测或第三方检测机制。'">secret_transfer_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_acceptance_test_attachment_narrative_has_complete_sentences(
+        secret_transfer_review: dict,
+    ):
+        attachment = next(
+            row for row in secret_transfer_review["items"]
+            if row["item_id"] == "TC-13-03"
+        )
+        report = secret_transfer_review["result"]
+        narrative = attachment["decision_trace"]["narrative_elements"]
+    
+&gt;       assert "测试争议的复测机制未明确。" in narrative["judgment"]
+E       AssertionError: assert '测试争议的复测机制未明确。' in '已覆盖：合同第十二条已明确验收场景和基本标准；合同第一条和验收条款已列明客观技术指标；测试设备和环境条件；尚未覆盖：独立验收测试方案附件；测试方法和操作步骤；固定测试数据集或样本；统计口径；测试记录和签认要求；争议复测或第三方检测机制。'
+
+backend\tests\test_technical_secret_transfer_contract_review.py:304: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_service_fee_and_confidentiality_use_only_direct_operational_clauses" time="0.002" /><testcase classname="backend.tests.test_entrusted_development_production_closure" name="test_primary_and_ancillary_routing" time="17.908" /><testcase classname="backend.tests.test_entrusted_development_production_closure" name="test_exit_atoms_and_all_report_layers_share_state" time="0.001" /><testcase classname="backend.tests.test_entrusted_development_production_closure" name="test_release_gate_passes_without_skipping_consistency" time="0.002"><failure message="AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'REPORT_ELEMENT_EVIDENCE_POLLUTION', 'finding_id': 'RF-015', 'reaso...': {'status': 'PASS', 'failures': [], 'contract_type': 'technology', 'domain_pack': 'domain-pack-technology-1.0'}, ...}&#10;assert 'BLOCKED' in {'PASSED', 'REPORT_READY'}">report = {'contract_type_flow': {'stages': {'request': 'technology', 'canonical': 'technology', 'facts_pipeline': 'technology',...ore_only': False, 'family_status': 'NOT_MIGRATED'}, 'structured_fact_debug': {}, 'employment_rule_adaptation': {}, ...}
+
+    def test_release_gate_passes_without_skipping_consistency(report):
+        gate = report["release_quality_gate"]
+&gt;       assert gate["status"] in {"PASSED", "REPORT_READY"}, gate
+E       AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'REPORT_ELEMENT_EVIDENCE_POLLUTION', 'finding_id': 'RF-015', 'reaso...': {'status': 'PASS', 'failures': [], 'contract_type': 'technology', 'domain_pack': 'domain-pack-technology-1.0'}, ...}
+E       assert 'BLOCKED' in {'PASSED', 'REPORT_READY'}
+
+backend\tests\test_entrusted_development_production_closure.py:75: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_production_closure" name="test_newly_active_development_branch_consumes_actual_claim_evidence" time="0.001"><failure message="assert False&#10; +  where False = all(&lt;generator object test_newly_active_development_branch_consumes_actual_claim_evidence.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000021BD3A5E180&gt;)">report = {'contract_type_flow': {'stages': {'request': 'technology', 'canonical': 'technology', 'facts_pipeline': 'technology',...ore_only': False, 'family_status': 'NOT_MIGRATED'}, 'structured_fact_debug': {}, 'employment_rule_adaptation': {}, ...}
+
+    def test_newly_active_development_branch_consumes_actual_claim_evidence(report):
+        review = item(report, "TC-12-02")
+        rows = {e["element_id"]: e for e in review["coverage_elements"]}
+        for key in ("notification_requirement", "notification_deadline", "liability_responsible_party",
+                    "licensor_participation", "legal_cost_allocation", "settlement_consultation"):
+            assert rows[key]["status"] == "COVERED", rows[key]
+            assert rows[key]["supporting_evidence"]
+        assert "5个工作日" in rows["notification_deadline"]["proposition"]
+        assert "开发方" in rows["liability_responsible_party"]["proposition"]
+        assert rows["damages_scope"]["status"] == "MISSING"
+        nature = item(report, "TC-01-01")
+&gt;       assert all(e["supporting_evidence"] for e in nature["coverage_elements"])
+E       assert False
+E        +  where False = all(&lt;generator object test_newly_active_development_branch_consumes_actual_claim_evidence.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000021BD3A5E180&gt;)
+
+backend\tests\test_entrusted_development_production_closure.py:90: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_production_closure" name="test_positive_development_fact_cannot_be_mutated_to_absent" time="0.048" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_application_subtype_survives_report_projection" time="16.530" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_warranty_is_not_demoted_by_missing_proof_documents" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_duty_and_non_duty_have_separate_triggers" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_claim_liability_reuses_seller_responsibility" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_improvement_notice_does_not_use_confidentiality" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_improvement_negative_screen_passes_without_restrictive_fact" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_proof_model_uses_application_not_granted_fields" time="0.002" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_registration_effect_is_not_contract_formation" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_report_release_and_positive_evidence_provenance" time="0.001"><failure message="AssertionError: [{'requirement': 'REVIEW_EVIDENCE_ELEMENT_MISMATCH', 'failure_stage': 'Review Evidence Projection', 'root_cause': 'Rev...: 'COMMON-21-01:common_internal_references_4', 'current_status': 'FAIL', 'failure_stage': 'Semantic consistency'}, ...]&#10;assert 'BLOCKED' != 'BLOCKED'">result = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_report_release_and_positive_evidence_provenance(result):
+&gt;       assert result["release_quality_gate"]["status"] != "BLOCKED", result["release_quality_gate"]["failures"]
+E       AssertionError: [{'requirement': 'REVIEW_EVIDENCE_ELEMENT_MISMATCH', 'failure_stage': 'Review Evidence Projection', 'root_cause': 'Rev...: 'COMMON-21-01:common_internal_references_4', 'current_status': 'FAIL', 'failure_stage': 'Semantic consistency'}, ...]
+E       assert 'BLOCKED' != 'BLOCKED'
+
+backend\tests\test_patent_application_transfer_consistency.py:100: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_actual_attachment_list_is_not_absent" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_named_inventors_are_not_missing_with_optional_reward_gap" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_creator_reward_recommendation_is_consistent_across_report_sections" time="0.003" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_completed_core_becomes_pass_without_fabricated_gap_or_exposure" time="0.002" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_improvement_polarity_is_sentence_scoped[\u5356\u65b9\u65e0\u6743\u8981\u6c42\u65e0\u507f\u5171\u6709\u3001\u8f6c\u8ba9\u6216\u8005\u5206\u4eab\u4e70\u65b9\u72ec\u7acb\u5f62\u6210\u7684\u540e\u7eed\u6539\u8fdb\u6210\u679c\u3002-False]" time="0.002" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_improvement_polarity_is_sentence_scoped[\u53cc\u65b9\u5747\u6709\u6743\u81ea\u884c\u8fdb\u884c\u540e\u7eed\u6539\u8fdb\u3002-False]" time="0.002" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_improvement_polarity_is_sentence_scoped[\u4e70\u65b9\u4e0d\u5f97\u81ea\u4e3b\u7814\u7a76\u5f00\u53d1\u6216\u6539\u8fdb\u3002-True]" time="0.002" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_improvement_polarity_is_sentence_scoped[\u5356\u65b9\u4e0d\u5f97\u8981\u6c42\u65e0\u507f\u8f6c\u8ba9\u72ec\u7acb\u6539\u8fdb\u6210\u679c\u3002\u4e70\u65b9\u4e0d\u5f97\u81ea\u4e3b\u6539\u8fdb\u3002-True]" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_granted_patent_model_and_both_party_roles_remain_distinct" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_non_duty_applicability_requires_its_own_positive_fact[\u7533\u8bf7\u4eba\u4e3a\u4f01\u4e1a\uff0c\u53d1\u660e\u4eba\u4e3a\u81ea\u7136\u4eba\u3002\u5356\u65b9\u5df2\u53d6\u5f97\u5458\u5de5\u804c\u52a1\u6210\u679c\u5f52\u5c5e\u5185\u90e8\u6587\u4ef6\u3002-False]" time="0.044" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_non_duty_applicability_requires_its_own_positive_fact[\u672c\u9879\u76ee\u4e0d\u5b58\u5728\u975e\u804c\u52a1\u53d1\u660e\u3002-False]" time="0.004" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_non_duty_applicability_requires_its_own_positive_fact[\u672c\u9879\u76ee\u542b\u975e\u804c\u52a1\u53d1\u660e\uff0c\u53d1\u660e\u4eba\u4ee5\u4e2a\u4eba\u540d\u4e49\u6295\u5165\u3002-True]" time="0.004" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_non_duty_applicability_requires_its_own_positive_fact[\u5458\u5de5\u4e3b\u5f20\u5176\u4e3a\u6210\u679c\u6240\u6709\u6743\u4eba\uff0c\u4e0e\u5355\u4f4d\u5b58\u5728\u4e89\u8bae\u3002-True]" time="0.005" /><testcase classname="backend.tests.test_atomic_narrative_and_recommendation_binding" name="test_identity_does_not_support_a_second_attribution_assertion[\uff0c]" time="0.006" /><testcase classname="backend.tests.test_atomic_narrative_and_recommendation_binding" name="test_identity_does_not_support_a_second_attribution_assertion[\uff1b]" time="0.002" /><testcase classname="backend.tests.test_atomic_narrative_and_recommendation_binding" name="test_identity_does_not_support_a_second_attribution_assertion[\u3002]" time="0.003" /><testcase classname="backend.tests.test_atomic_narrative_and_recommendation_binding" name="test_each_independent_fact_can_have_its_own_direct_source" time="0.002" /><testcase classname="backend.tests.test_atomic_narrative_and_recommendation_binding" name="test_current_names_and_document_advice_are_not_expanded" time="16.745"><failure message="AssertionError: [{'requirement': 'EVIDENCE_PROPOSITION_MATCH_GATE', 'field': 'evidence_bundle', 'failures': [{'risk_id': 'RF-008', 'ri..., 'bundle_id': 'EB-4e1da2af7e03', 'invalid_clause_node_ids': ['C0050'], 'requirement': 'CLAUSE_NODE_CONSISTENCY_GATE'}]&#10;assert 'BLOCKED' == 'REPORT_READY'&#10;  &#10;  - REPORT_READY&#10;  + BLOCKED">current = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_current_names_and_document_advice_are_not_expanded(current):
+&gt;       assert current["release_quality_gate"]["status"] == "REPORT_READY", current["release_quality_gate"]["failures"]
+E       AssertionError: [{'requirement': 'EVIDENCE_PROPOSITION_MATCH_GATE', 'field': 'evidence_bundle', 'failures': [{'risk_id': 'RF-008', 'ri..., 'bundle_id': 'EB-4e1da2af7e03', 'invalid_clause_node_ids': ['C0050'], 'requirement': 'CLAUSE_NODE_CONSISTENCY_GATE'}]
+E       assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_atomic_narrative_and_recommendation_binding.py:43: AssertionError</failure></testcase><testcase classname="backend.tests.test_atomic_narrative_and_recommendation_binding" name="test_recommendation_gate_rejects_covered_or_unregistered_actions[covered_id]" time="0.087" /><testcase classname="backend.tests.test_atomic_narrative_and_recommendation_binding" name="test_recommendation_gate_rejects_covered_or_unregistered_actions[new_id]" time="0.098" /><testcase classname="backend.tests.test_atomic_narrative_and_recommendation_binding" name="test_recommendation_gate_rejects_covered_or_unregistered_actions[new_text]" time="0.098" /><testcase classname="backend.tests.test_atomic_narrative_and_recommendation_binding" name="test_recommendation_gate_rejects_covered_or_unregistered_actions[rendered_text]" time="0.185" /><testcase classname="backend.tests.test_cooperative_development_latest_regressions" name="test_latest_cooperative_route_and_final_quality_gate" time="12.483"><failure message="AssertionError: assert 'BLOCKED' == 'REPORT_READY'&#10;  &#10;  - REPORT_READY&#10;  + BLOCKED">latest_cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_latest_cooperative_route_and_final_quality_gate(latest_cooperative_review: dict):
+        classification = latest_cooperative_review["deterministic_analysis"]["technology_classification"]
+        assert classification["primary_subtype"] == "COOPERATIVE_DEVELOPMENT"
+        assert latest_cooperative_review["report_context"]["contract_type_label"] == "技术合同—技术开发合同—合作开发合同"
+        assert latest_cooperative_review["perspective_resolution"]["display_role"] == "甲方 / 合作开发方"
+&gt;       assert latest_cooperative_review["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_cooperative_development_latest_regressions.py:48: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_latest_regressions" name="test_competition_and_improvement_rules_reuse_direct_atomic_evidence" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_latest_regressions" name="test_tc_05_01_does_not_invent_covered_cooperation_facts" time="0.002"><failure message="AssertionError: assert '缺失' == '部分覆盖'&#10;  &#10;  - 部分覆盖&#10;  + 缺失">latest_cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_tc_05_01_does_not_invent_covered_cooperation_facts(latest_cooperative_review: dict):
+        item = _items(latest_cooperative_review)["TC-05-01"]
+        elements = _elements(item)
+&gt;       assert item["coverage_status"] == "部分覆盖"
+E       AssertionError: assert '缺失' == '部分覆盖'
+E         
+E         - 部分覆盖
+E         + 缺失
+
+backend\tests\test_cooperative_development_latest_regressions.py:82: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_latest_regressions" name="test_acceptance_metrics_and_internal_reference_are_separately_resolved" time="0.001"><failure message="AssertionError: assert 'PARTIAL' == 'CONFLICTING'&#10;  &#10;  - CONFLICTING&#10;  + PARTIAL">latest_cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_acceptance_metrics_and_internal_reference_are_separately_resolved(latest_cooperative_review: dict):
+        item = _items(latest_cooperative_review)["TC-13-03"]
+        elements = _elements(item)
+        assert item["coverage_status"] == "部分覆盖"
+&gt;       assert item["issue_type"] == "CONFLICTING"
+E       AssertionError: assert 'PARTIAL' == 'CONFLICTING'
+E         
+E         - CONFLICTING
+E         + PARTIAL
+
+backend\tests\test_cooperative_development_latest_regressions.py:97: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_latest_regressions" name="test_claim_allocation_is_not_misreported_as_actual_infringement" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_latest_regressions" name="test_budget_investment_and_cooperation_timeline_use_shared_deterministic_checks" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_latest_regressions" name="test_cooperative_failure_allocation_is_an_evidence_bound_risk" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_latest_regressions" name="test_existing_result_license_and_revenue_terms_are_adverse_not_missing" time="0.002"><failure message="AssertionError: assert 'COVERED' == 'ADVERSE'&#10;  &#10;  - ADVERSE&#10;  + COVERED">latest_cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_existing_result_license_and_revenue_terms_are_adverse_not_missing(latest_cooperative_review: dict):
+        item = _items(latest_cooperative_review)["TC-05-03"]
+        elements = _elements(item)
+        assert item["coverage_status"] == "风险条款"
+        assert elements["third_party_license_authority"]["status"] == "ADVERSE"
+        assert elements["external_revenue_allocation"]["status"] == "ADVERSE"
+&gt;       assert elements["counterparty_license_transfer_restriction"]["status"] == "ADVERSE"
+E       AssertionError: assert 'COVERED' == 'ADVERSE'
+E         
+E         - ADVERSE
+E         + COVERED
+
+backend\tests\test_cooperative_development_latest_regressions.py:177: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_latest_regressions" name="test_technical_material_attachment_preserves_body_scope_and_work_allocation" time="0.001"><failure message="KeyError: 'body_development_scope'">latest_cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_technical_material_attachment_preserves_body_scope_and_work_allocation(latest_cooperative_review: dict):
+        item = _items(latest_cooperative_review)["TC-13-01"]
+        elements = _elements(item)
+        assert item["coverage_status"] == "部分覆盖"
+&gt;       assert elements["body_development_scope"]["status"] == "COVERED"
+E       KeyError: 'body_development_scope'
+
+backend\tests\test_cooperative_development_latest_regressions.py:187: KeyError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_latest_regressions" name="test_improvement_boundary_claim_is_limited_to_its_bound_clause" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_latest_regressions" name="test_cooperative_report_has_no_license_party_role_pollution" time="0.002" /><testcase classname="backend.tests.test_cooperative_development_latest_regressions" name="test_absence_search_uses_contract_writable_positive_facts" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_latest_regressions" name="test_major_decision_recommendation_is_direct_and_actionable" time="0.002"><failure message="AssertionError: assert '建议补充明确现金资金投入...时的补足、接管和责任机制。' == '建议约定重大需求变更、技...重大事项须经双方书面确认。'&#10;  &#10;  - 建议约定重大需求变更、技术路线调整、预算增加、项目延期等重大事项须经双方书面确认。&#10;  + 建议补充明确现金资金投入金额及承担方式；明确技术、人员投入及投入标准；明确数据、设备及研发环境等资源投入；调整以下已确认的不利安排：各方名义投资合计1,800,000元与项目总投资1,500,000元不一致；补充明确尚未建立双方书面共同决策程序，决策主体、流程和僵局处理仍不完整；明确投入不足或未完成约定研发分工时的补足、接管和责任机制。">latest_cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_major_decision_recommendation_is_direct_and_actionable(latest_cooperative_review: dict):
+        recommendation = _items(latest_cooperative_review)["TC-05-01"]["suggested_clause_example"]
+&gt;       assert recommendation == "建议约定重大需求变更、技术路线调整、预算增加、项目延期等重大事项须经双方书面确认。"
+E       AssertionError: assert '建议补充明确现金资金投入...时的补足、接管和责任机制。' == '建议约定重大需求变更、技...重大事项须经双方书面确认。'
+E         
+E         - 建议约定重大需求变更、技术路线调整、预算增加、项目延期等重大事项须经双方书面确认。
+E         + 建议补充明确现金资金投入金额及承担方式；明确技术、人员投入及投入标准；明确数据、设备及研发环境等资源投入；调整以下已确认的不利安排：各方名义投资合计1,800,000元与项目总投资1,500,000元不一致；补充明确尚未建立双方书面共同决策程序，决策主体、流程和僵局处理仍不完整；明确投入不足或未完成约定研发分工时的补足、接管和责任机制。
+
+backend\tests\test_cooperative_development_latest_regressions.py:223: AssertionError</failure></testcase><testcase classname="backend.tests.test_penalty_nature_facts" name="test_non_penalty_liability[\u8bbe\u5907\u635f\u574f\u6309\u5b9e\u9645\u635f\u5931\u8d54\u507f\u3002-ACTUAL_DAMAGE_COMPENSATION]" time="2.397" /><testcase classname="backend.tests.test_penalty_nature_facts" name="test_non_penalty_liability[\u4f9d\u6cd5\u627f\u62c5\u8d54\u507f\u8d23\u4efb\u3002-STATUTORY_LIABILITY]" time="2.193" /><testcase classname="backend.tests.test_penalty_nature_facts" name="test_fixed_liability_remains_risk[\u635f\u574f\u8bbe\u5907\u5e94\u8d54\u507f\u56fa\u5b9a\u91d1\u989d\u516b\u767e\u5143\u3002-PROPERTY_DAMAGE-\u516b\u767e\u5143]" time="2.325" /><testcase classname="backend.tests.test_penalty_nature_facts" name="test_fixed_liability_remains_risk[\u6bcf\u8fdf\u5ef6\u4e00\u65e5\u652f\u4ed8\u4e00\u767e\u5143\u8fdd\u7ea6\u91d1\u3002-ORDINARY_DISCIPLINE-\u6bcf\u65e5\u4e00\u767e\u5143]" time="2.337" /><testcase classname="backend.tests.test_penalty_nature_facts" name="test_deposit_and_actual_damage_are_separate" time="2.036" /><testcase classname="backend.tests.test_penalty_nature_facts" name="test_verifier_rejection_cannot_become_pass" time="0.006" /><testcase classname="backend.tests.test_patent_license_input_integrity_routing" name="test_current_uploaded_fixture_is_field_page_and_is_blocked_before_review" time="0.227" /><testcase classname="backend.tests.test_patent_license_input_integrity_routing" name="test_anchor_loss_between_raw_classifier_or_rule_input_blocks_pipeline" time="0.003" /><testcase classname="backend.tests.test_patent_license_input_integrity_routing" name="test_diagnostics_cover_every_consumer_and_detect_non_anchor_replacement" time="0.001" /><testcase classname="backend.tests.test_patent_license_input_integrity_routing" name="test_generic_retention_checks_identify_extraction_and_normalization_loss" time="0.002" /><testcase classname="backend.tests.test_patent_license_input_integrity_routing" name="test_structured_short_contract_with_many_fields_is_not_a_field_summary" time="0.050" /><testcase classname="backend.tests.test_patent_license_input_integrity_routing" name="test_ooxml_textbox_body_is_recovered_before_completeness_check" time="0.067" /><testcase classname="backend.tests.test_patent_license_input_integrity_routing" name="test_complete_patent_license_uses_one_full_text_and_never_loads_sale_rules" time="10.368" /><testcase classname="backend.tests.test_patent_license_input_integrity_routing" name="test_acceptance_party_is_a_licensee_role_not_a_sale_role" time="0.064" /><testcase classname="backend.tests.test_penalty_exclusions" name="test_positive_penalty[\u5e94\u652f\u4ed8\u8fdd\u7ea6\u91d130\u4e07\u5143\u3002-30\u4e07\u5143]" time="0.002" /><testcase classname="backend.tests.test_penalty_exclusions" name="test_positive_penalty[\u8fdd\u7ea6\u91d1\u4e3a\u635f\u5931\u768420%\u3002-\u635f\u5931\u768420%]" time="0.002" /><testcase classname="backend.tests.test_penalty_exclusions" name="test_false_obligation_rejected" time="0.002" /><testcase classname="backend.tests.test_penalty_exclusions" name="test_explicit_absence_final_report[False]" time="1.110" /><testcase classname="backend.tests.test_penalty_exclusions" name="test_explicit_absence_final_report[True]" time="0.880" /></testsuite></testsuites>

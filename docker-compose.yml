@@ -18,6 +18,7 @@ services:
       - LOG_LEVEL=INFO
       - LOG_DIR=/app/logs
       - DATABASE_URL=sqlite:////app/data/app.db
+      - SAGE_DATA_DIR=/app/data
     env_file:
       - .env.production
     volumes:
@@ -49,7 +50,8 @@ services:
         condition: service_healthy
     volumes: []
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80/"]
+      # 与 Nginx 的 IPv4 监听一致；请求失败仍应标记 unhealthy。
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:80/"]
       interval: 30s
       timeout: 5s
       retries: 3

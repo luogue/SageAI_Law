@@ -13,12 +13,29 @@ from review_v2.house_lease_checklist import ReviewCheckpoint
 
 
 def _guarantee_applicable_if(node_id: str) -> str:
-    if node_id in {"guarantee_share_agreed", "joint_guarantor_internal_recourse"}:
+    from review_v2.guarantee_scenarios import CONDITIONS
+    if node_id in CONDITIONS:
+        return CONDITIONS[node_id]
+    if node_id in {"company_guarantor_authority", "company_guarantee_resolution"}:
+        return "仅在统一主体识别确认保证人为公司或法人主体时适用。"
+    if node_id == "joint_guarantee_explicit_wording":
+        return "仅在实际条款选择连带责任保证时适用；历史或引用文字不构成选择。"
+    if node_id == "general_guarantee_explicit_wording":
+        return "仅在实际条款选择一般保证时适用。"
+    if node_id == "unclear_guarantee_type_clause":
+        return "仅在全文未明确实际保证方式时适用；不能仅凭保证人称谓触发。"
+    if node_id in {"multiple_guarantors_identification", "partial_action_against_guarantors", "guarantee_share_agreed", "joint_guarantor_internal_recourse"}:
         return "仅在合同明确存在两个或两个以上保证人、共同保证人、共同担保或连带共同保证安排时适用。"
     if node_id == "maximum_guarantee_period":
         return "仅在合同明确涉及最高额保证、最高额担保、最高债权额或债权确定期间时适用。"
     if node_id == "post_period_signature_new_guarantee":
         return "仅在合同涉及保证期间届满后催收通知签字、重新保证或继续承担保证责任等特殊情形时适用。"
+    if node_id in {"prior_lawsuit_defense_rule", "prior_lawsuit_defense_exception"}:
+        return "一般保证的法定权利及例外提示，不要求合同逐项复述。"
+    if node_id == "waiver_prior_lawsuit_written":
+        return "仅在一般保证存在实际放弃先诉抗辩权安排时适用，不要求主动放弃。"
+    if node_id == "oral_waiver_prior_lawsuit":
+        return "仅在一般保证存在口头、沉默或默认放弃先诉抗辩权安排时适用。"
     return "始终适用"
 
 
@@ -53,6 +70,7 @@ def _required(
         evidence_scope="正式合同条款及附件",
         pass_criteria=pass_criteria or f"正式合同条款或附件中存在与“{title}”相关的明确、可执行约定，且关键主体、主债权、保证方式、保证期间、保证范围或授权文件已填写完整。",
         partial_criteria=partial_criteria or f"正式合同条款或附件中已有与“{title}”相关安排，但存在空白、未勾选、主体不明、期间不完整、范围不明或附件缺失。",
+        review_nature="LEGAL_REMINDER" if node_id in {"main_contract_validity_review", "prior_lawsuit_defense_rule", "prior_lawsuit_defense_exception"} else "CONTRACTUAL_REQUIREMENT",
     )
 
 
@@ -113,7 +131,7 @@ GUARANTEE_REVIEW_CHECKLIST: Tuple[ReviewCheckpoint, ...] = (
     _required("GUA-04-01", "guarantee_type_joint_or_general", "保证方式明确", "高", ("保证方式", "连带责任保证", "一般保证", "保证类型", "保证责任"), "保证方式未写明或约定不明，依法推定为一般保证，债权人不能当然直接要求保证人承担连带责任。", "保证方式为：□连带责任保证 / □一般保证。选择连带责任保证的，应明确写明“保证人对主合同项下债务承担连带责任保证”。", "《民法典》第686条"),
     _required("GUA-04-02", "joint_guarantee_explicit_wording", "连带责任保证明确表述", "高", ("连带责任", "连带保证", "共同承担", "直接要求保证人", "连带清偿"), "如需连带保证但合同未使用明确连带责任表述，可能被认定为一般保证。", "如选择连带责任保证，保证人确认债务人未按约履行债务时，债权人有权在保证范围内直接要求保证人承担保证责任。", "《民法典》第686条、第688条"),
     _required("GUA-04-03", "general_guarantee_explicit_wording", "一般保证规则提示", "中", ("一般保证", "先诉抗辩", "债务人不能履行", "强制执行"), "合同选择一般保证但未提示先诉抗辩权，债权人行权路径和保证人责任边界不清。", "如选择一般保证，保证人在主合同纠纷未经审判或仲裁并就债务人财产依法强制执行仍不能履行前，依法享有先诉抗辩权，法律规定例外除外。", "《民法典》第687条"),
-    _forbidden("GUA-04-04", "unclear_guarantee_type_clause", "只写担保人未写方式", "高", ("担保人", "保证人签字", "负责担保", "承担担保责任", "保证方式不明"), "合同仅写“担保人/保证人”或“负责担保”但未明确保证方式，将触发保证方式约定不明风险。", "建议改为：明确勾选并写明保证方式；如为连带责任保证，须使用“连带责任保证”明确表述。", "《民法典》第686条"),
+    _required("GUA-04-04", "unclear_guarantee_type_clause", "保证方式未明确", "中", ("一般保证", "连带责任保证"), "全文未明确实际保证方式时，依法适用一般保证默认规则。", "建议根据真实交易意图明确保证方式，不以保证人称谓或追偿条款替代。", "《民法典》第686条"),
 
     # ===== GUA-05 保证期间 =====
     _required("GUA-05-01", "guarantee_period_agreed", "保证期间明确", "高", ("保证期间", "担保期限", "保证期限", "主债务履行期限届满", "六个月"), "未约定保证期间或约定不明，可能适用主债务履行期限届满之日起六个月的法定保证期间。", "保证期间为主债务履行期限届满之日起__个月，自__年__月__日至__年__月__日。保证期间届满后，债权人未依法行使权利的，保证责任按法律规定处理。", "《民法典》第692条、第693条"),
@@ -162,6 +180,7 @@ GUARANTEE_REVIEW_CHECKLIST: Tuple[ReviewCheckpoint, ...] = (
     _required("GUA-12-02", "maximum_guarantee_period", "最高额保证期间", "中", ("最高额保证", "最高额担保", "最高债权额", "终止日", "终止通知"), "最高额保证未约定保证期间或约定不明，可能适用最高额保证终止之日或收到终止通知之日起六个月规则。", "本合同为最高额保证的，最高债权额为__元，债权确定期间为__至__；保证期间为债权确定之日/最高额保证终止之日起__个月。", "《民法典》第690条、担保制度解释第30条"),
     _required("GUA-12-03", "post_period_signature_new_guarantee", "期间届满后签字效力", "中", ("保证期间届满", "催收通知签字", "重新保证", "新的保证合同", "责任恢复"), "保证期间届满后保证人在催收通知上签字，未明确是否成立新保证合同，责任是否恢复容易争议。", "保证期间届满后，如需保证人重新承担保证责任，应另行签署新的保证合同或明确的书面保证文件；仅在催收通知上签收不当然恢复保证责任。", "担保制度解释第34条"),
     _required("GUA-12-04", "guarantee_attachment_integrity", "保证附件完整性", "中", ("附件", "主合同", "决议", "保证函", "送达地址", "催收记录"), "主合同、公司决议、保证函、送达地址和催收记录等附件不完整，保证责任行权证据链会变弱。", "主合同、保证合同/保证函、公司章程和决议、授权文件、保证人身份证明、送达地址确认书、催收和签收记录均应作为附件或履行资料保存。", "《民法典》第509条、第685条、第692条"),
+    _required("GUA-13-01", "credit_reporting_eligibility", "征信查询与报送资格", "低", ("征信", "授权", "查询", "报送"), "合同授权不等于获得征信数据库查询接入及信贷信息报送资格。", "征信查询须具有合法用途、有效授权和相应接入资格；报送须符合机构及业务资格要求，资格未经核验不得仅凭本合同实施查询或报送。", "《征信业管理条例》第18条、第28条、第29条"),
 )
 
 

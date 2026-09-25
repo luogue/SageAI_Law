@@ -1,0 +1,129 @@
+{
+  "round": "Round43",
+  "scope": "technical consulting classification conflict only",
+  "generated_at": "2026-09-24T05:55:44.297554+08:00",
+  "before": {
+    "technology_subtype": "TECHNICAL_CONSULTING",
+    "subtype_score": 8,
+    "confidence": "medium",
+    "family_scores": {
+      "SALE": 8,
+      "SERVICE": 10,
+      "TECHNOLOGY": 8
+    },
+    "document_family": "SERVICE",
+    "resolution": "UNCERTAIN_CONFLICT",
+    "classification_conflict": true
+  },
+  "after": {
+    "technology_subtype": "TECHNICAL_CONSULTING",
+    "subtype_score": 27,
+    "confidence": "high",
+    "family_scores": {
+      "HOUSE_LEASE": 0,
+      "SALE": 4,
+      "SERVICE": 10,
+      "TECHNOLOGY": 27
+    },
+    "technology_candidate_scores": {
+      "COOPERATIVE_DEVELOPMENT": 0,
+      "ENTRUSTED_DEVELOPMENT": 0,
+      "TECHNICAL_CONSULTING": 27,
+      "TECHNICAL_SERVICE": 0,
+      "TECHNOLOGY_LICENSE": 0,
+      "TECHNOLOGY_TRANSFER": 0
+    },
+    "document_family": "TECHNOLOGY",
+    "resolution": "AGREE",
+    "classification_conflict": false
+  },
+  "real_interface": {
+    "party_a": {
+      "review_run_id": "40c9baf7-5fe5-4f27-9031-a84c25bfb2f3",
+      "selected_type": "TECHNOLOGY",
+      "document_family": "TECHNOLOGY",
+      "resolved_type": null,
+      "resolution": "AGREE",
+      "compatibility": "COMPATIBLE",
+      "classification_conflict": false,
+      "family_scores": {
+        "HOUSE_LEASE": 0,
+        "SALE": 4,
+        "SERVICE": 10,
+        "TECHNOLOGY": 27
+      },
+      "technology_candidate_scores": {
+        "COOPERATIVE_DEVELOPMENT": 0,
+        "ENTRUSTED_DEVELOPMENT": 0,
+        "TECHNICAL_CONSULTING": 27,
+        "TECHNICAL_SERVICE": 0,
+        "TECHNOLOGY_LICENSE": 0,
+        "TECHNOLOGY_TRANSFER": 0
+      },
+      "gate": "BLOCKED",
+      "gate_failure_codes": [
+        "PASS_EVIDENCE_PROPOSITION_MATCH_GATE"
+      ],
+      "risk_evidence_mismatch_count": 0
+    },
+    "party_b": {
+      "review_run_id": "482a7831-d135-4fca-a8ce-b388a0cb21b3",
+      "selected_type": "TECHNOLOGY",
+      "document_family": "TECHNOLOGY",
+      "resolved_type": null,
+      "resolution": "AGREE",
+      "compatibility": "COMPATIBLE",
+      "classification_conflict": false,
+      "family_scores": {
+        "HOUSE_LEASE": 0,
+        "SALE": 4,
+        "SERVICE": 10,
+        "TECHNOLOGY": 27
+      },
+      "technology_candidate_scores": {
+        "COOPERATIVE_DEVELOPMENT": 0,
+        "ENTRUSTED_DEVELOPMENT": 0,
+        "TECHNICAL_CONSULTING": 27,
+        "TECHNICAL_SERVICE": 0,
+        "TECHNOLOGY_LICENSE": 0,
+        "TECHNOLOGY_TRANSFER": 0
+      },
+      "gate": "BLOCKED",
+      "gate_failure_codes": [
+        "PASS_EVIDENCE_PROPOSITION_MATCH_GATE"
+      ],
+      "risk_evidence_mismatch_count": 0
+    }
+  },
+  "scope_result": {
+    "classification_conflict_fixed": true,
+    "domain_selection_consistency_gate": "PASS",
+    "overall_gate": "BLOCKED",
+    "remaining_out_of_scope_blocker": "TC-08-05 PASS_EVIDENCE_PROPOSITION_MATCH_GATE: consulting_fee_total/payment_milestones lack DIRECT evidence",
+    "risk_evidence_mismatch_count": 0
+  },
+  "tests": {
+    "round43_and_adjacent_classification": {
+      "passed": 56,
+      "failed": 0
+    },
+    "broader_adjacent_previous_run": {
+      "passed": 72,
+      "failed": 14,
+      "note": "14 unrelated pre-existing rule/report assertions; no Round43 classification test failure"
+    },
+    "full_suite": "not run"
+  },
+  "source_hashes": {
+    "backend/review_v2/technology_service_analysis.py": "bc8a073304af91149799ad5b028ac66ada3b73eee042fda5922a7064ccf556ab",
+    "backend/review_v2/primary_purpose.py": "fd6dc545ff3943aed0ff778ce8320ecde19acd2dbc162dd5fa03aebe87039dbf",
+    "backend/review_v2/domain_selection.py": "9413ddfa67aaefd3b82baf438c44f351269a9589bc56a8d08e7ef47e3a6408a7",
+    "backend/tests/test_round43_consulting_classification.py": "0775ad413d7c8d11d3895dcf3dfb8db9f38c11a3e4f8cac18b3300cbfa29610a"
+  },
+  "constraints": {
+    "gate_lowered": false,
+    "verifier_lowered": false,
+    "fallback_restored": false,
+    "review_rule_fixes_in_scope": false
+  }
+}

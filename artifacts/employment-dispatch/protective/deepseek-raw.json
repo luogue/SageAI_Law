@@ -1,0 +1,851 @@
+[
+  {
+    "response": {
+      "schema_version": "employment-facts-1.0",
+      "reviewed_clause_ids": [
+        "C0001",
+        "C0002"
+      ],
+      "searched_concepts": [
+        "identity.employer_name",
+        "identity.employer_address",
+        "identity.worker_name",
+        "identity.worker_id",
+        "contract.type",
+        "contract.start_date",
+        "contract.end_date",
+        "contract.duration_months",
+        "contract.task",
+        "contract.task_end",
+        "probation.arrangement",
+        "probation.start_date",
+        "probation.end_date",
+        "probation.duration_months",
+        "probation.salary",
+        "probation.repeated",
+        "job.position",
+        "job.duties",
+        "job.locations",
+        "working_hours.system",
+        "working_hours.hours_per_day",
+        "working_hours.hours_per_week",
+        "working_hours.rest",
+        "working_hours.rest_days_per_week",
+        "working_hours.rest_waived",
+        "working_hours.overtime",
+        "salary.regular",
+        "salary.payment_date",
+        "salary.payment_method",
+        "salary.withheld_for_handover",
+        "social_insurance.employer_enrolls",
+        "social_insurance.employer_pays",
+        "social_insurance.employee_withheld",
+        "social_insurance.cash_replacement",
+        "social_insurance.waived"
+      ],
+      "unresolved_concepts": [],
+      "facts": [
+        {
+          "concept": "identity.employer_name",
+          "value": "远航用工服务有限公司",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18号。"
+            }
+          ]
+        },
+        {
+          "concept": "identity.employer_address",
+          "value": "成都市锦江区东风路18号",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18号。"
+            }
+          ]
+        },
+        {
+          "concept": "identity.worker_name",
+          "value": "林雨",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方：林雨，居民身份证号为510104199610080018。"
+            }
+          ]
+        },
+        {
+          "concept": "identity.worker_id",
+          "value": "510104199610080018",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方：林雨，居民身份证号为510104199610080018。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.type",
+          "value": "FIXED",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "合同为固定期限，自2027年3月1日起至2030年2月28日止，不设试用期。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.start_date",
+          "value": "2027-03-01",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "合同为固定期限，自2027年3月1日起至2030年2月28日止，不设试用期。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.end_date",
+          "value": "2030-02-28",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "合同为固定期限，自2027年3月1日起至2030年2月28日止，不设试用期。"
+            }
+          ]
+        },
+        {
+          "concept": "probation.arrangement",
+          "value": "NONE",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "合同为固定期限，自2027年3月1日起至2030年2月28日止，不设试用期。"
+            }
+          ]
+        },
+        {
+          "concept": "job.position",
+          "value": "辅助性档案整理",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方在接受单位的办公地点从事辅助性档案整理，派出期限与劳动合同期限相同。"
+            }
+          ]
+        },
+        {
+          "concept": "job.locations",
+          "value": [
+            "接受单位的办公地点"
+          ],
+          "confidence": 0.9,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方在接受单位的办公地点从事辅助性档案整理，派出期限与劳动合同期限相同。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.system",
+          "value": "STANDARD",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "采用每日八小时每周四十小时标准工时，依法休假并依法支付加班工资。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.hours_per_day",
+          "value": 8,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "采用每日八小时每周四十小时标准工时，依法休假并依法支付加班工资。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.hours_per_week",
+          "value": 40,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "采用每日八小时每周四十小时标准工时，依法休假并依法支付加班工资。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.rest",
+          "value": "依法休假",
+          "confidence": 0.9,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "采用每日八小时每周四十小时标准工时，依法休假并依法支付加班工资。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.overtime",
+          "value": "STATUTORY",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "采用每日八小时每周四十小时标准工时，依法休假并依法支付加班工资。"
+            }
+          ]
+        },
+        {
+          "concept": "salary.regular",
+          "value": {
+            "amount_text": "九千",
+            "unit": "CNY/MONTH",
+            "component": "TOTAL"
+          },
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方享有与接受单位同岗位劳动者相同的劳动报酬分配办法，不得给予较低工资。月薪为人民币九千元，每月八日通过银行账户发放。"
+            }
+          ]
+        },
+        {
+          "concept": "salary.payment_date",
+          "value": "每月八日",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方享有与接受单位同岗位劳动者相同的劳动报酬分配办法，不得给予较低工资。月薪为人民币九千元，每月八日通过银行账户发放。"
+            }
+          ]
+        },
+        {
+          "concept": "salary.payment_method",
+          "value": "BANK",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方享有与接受单位同岗位劳动者相同的劳动报酬分配办法，不得给予较低工资。月薪为人民币九千元，每月八日通过银行账户发放。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.employer_enrolls",
+          "value": true,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "派出单位办理参保登记，承担单位缴费部分，个人缴费从工资代扣。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.employer_pays",
+          "value": true,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "派出单位办理参保登记，承担单位缴费部分，个人缴费从工资代扣。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.employee_withheld",
+          "value": true,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "派出单位办理参保登记，承担单位缴费部分，个人缴费从工资代扣。"
+            }
+          ]
+        }
+      ]
+    },
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 2004,
+      "completion_tokens": 1667,
+      "total_tokens": 3671,
+      "prompt_tokens_details": {
+        "cached_tokens": 1280
+      },
+      "prompt_cache_hit_tokens": 1280,
+      "prompt_cache_miss_tokens": 724
+    },
+    "provider": "deepseek"
+  },
+  {
+    "response": {
+      "schema_version": "employment-facts-1.0",
+      "reviewed_clause_ids": [
+        "C0001",
+        "C0002"
+      ],
+      "searched_concepts": [
+        "social_insurance.employer_share_shifted",
+        "social_insurance.employer_underpays",
+        "social_insurance.employer_liability_excluded",
+        "social_insurance.employee_remedy_excluded",
+        "labor_protection.measures",
+        "labor_protection.training",
+        "labor_protection.hazard_exists",
+        "labor_protection.hazard_protection",
+        "training.arrangement",
+        "training.cost",
+        "training.duration_months",
+        "training.penalty_prorated",
+        "termination.grounds",
+        "termination.notice",
+        "termination.notice_days",
+        "termination.approval_required",
+        "termination.employee_right_waived",
+        "termination.employer_unrestricted",
+        "termination.handover",
+        "economic_compensation.statutory",
+        "economic_compensation.settlement_deadline",
+        "economic_compensation.waived",
+        "economic_compensation.reduced",
+        "economic_compensation.statutory_percentage",
+        "economic_compensation.payment_delay_months",
+        "dispute.arbitration",
+        "penalties.obligations",
+        "non_compete.arrangement",
+        "non_compete.personnel",
+        "non_compete.secret_access",
+        "non_compete.businesses",
+        "non_compete.territories",
+        "non_compete.duration_months",
+        "non_compete.compensation",
+        "non_compete.compensation_deferred"
+      ],
+      "unresolved_concepts": [],
+      "facts": [
+        {
+          "concept": "labor_protection.measures",
+          "value": "接受单位负责劳动条件、安全防护、岗位培训与依法支付加班待遇；派出单位负责工资、社会保险并督促接受单位履行保护义务。双方不得通过责任分工免除法定责任。",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "接受单位负责劳动条件、安全防护、岗位培训与依法支付加班待遇；派出单位负责工资、社会保险并督促接受单位履行保护义务。双方不得通过责任分工免除法定责任。"
+            }
+          ]
+        },
+        {
+          "concept": "labor_protection.training",
+          "value": true,
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "接受单位负责劳动条件、安全防护、岗位培训与依法支付加班待遇；派出单位负责工资、社会保险并督促接受单位履行保护义务。双方不得通过责任分工免除法定责任。"
+            }
+          ]
+        },
+        {
+          "concept": "training.arrangement",
+          "value": "NONE",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "没有约定离职竞业限制与培训服务期，也不收取普通离职违约金。"
+            }
+          ]
+        },
+        {
+          "concept": "termination.grounds",
+          "value": [
+            "接受单位须具备法定事由才可退回劳动者，不得直接解除乙方与甲方的劳动合同。",
+            "依法退回后甲方另行安排工作；只在维持或提高劳动合同约定条件且符合法定退回条件的情况下，乙方拒绝重新安排的，方可依法解除，并依法支付经济补偿。",
+            "新安排降低条件时，不得仅因拒绝而解除。",
+            "双方依法办理解除和终止，劳动者依法提前通知。"
+          ],
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "接受单位须具备法定事由才可退回劳动者，不得直接解除乙方与甲方的劳动合同。依法退回后甲方另行安排工作；只在维持或提高劳动合同约定条件且符合法定退回条件的情况下，乙方拒绝重新安排的，方可依法解除，并依法支付经济补偿。新安排降低条件时，不得仅因拒绝而解除。"
+            },
+            {
+              "clause_id": "C0002",
+              "quote": "双方依法办理解除和终止，劳动者依法提前通知。"
+            }
+          ]
+        },
+        {
+          "concept": "termination.notice",
+          "value": "劳动者依法提前通知",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "双方依法办理解除和终止，劳动者依法提前通知。"
+            }
+          ]
+        },
+        {
+          "concept": "termination.handover",
+          "value": "甲方依法计算经济补偿并于交接结束时结清工资与应付补偿。",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方依法计算经济补偿并于交接结束时结清工资与应付补偿。"
+            }
+          ]
+        },
+        {
+          "concept": "economic_compensation.statutory",
+          "value": "依法支付经济补偿；甲方依法计算经济补偿并于交接结束时结清工资与应付补偿。",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "依法退回后甲方另行安排工作；只在维持或提高劳动合同约定条件且符合法定退回条件的情况下，乙方拒绝重新安排的，方可依法解除，并依法支付经济补偿。"
+            },
+            {
+              "clause_id": "C0002",
+              "quote": "甲方依法计算经济补偿并于交接结束时结清工资与应付补偿。"
+            }
+          ]
+        },
+        {
+          "concept": "economic_compensation.settlement_deadline",
+          "value": "交接结束时结清工资与应付补偿",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方依法计算经济补偿并于交接结束时结清工资与应付补偿。"
+            }
+          ]
+        },
+        {
+          "concept": "dispute.arbitration",
+          "value": true,
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "争议依法申请劳动仲裁。"
+            }
+          ]
+        },
+        {
+          "concept": "penalties.obligations",
+          "value": {
+            "scope": "ORDINARY_RESIGNATION",
+            "amount_text": "不收取"
+          },
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "没有约定离职竞业限制与培训服务期，也不收取普通离职违约金。"
+            }
+          ]
+        },
+        {
+          "concept": "non_compete.arrangement",
+          "value": "NONE",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "没有约定离职竞业限制与培训服务期，也不收取普通离职违约金。"
+            }
+          ]
+        }
+      ]
+    },
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 2195,
+      "completion_tokens": 1325,
+      "total_tokens": 3520,
+      "prompt_tokens_details": {
+        "cached_tokens": 1536
+      },
+      "prompt_cache_hit_tokens": 1536,
+      "prompt_cache_miss_tokens": 659
+    },
+    "provider": "deepseek"
+  },
+  {
+    "response": {
+      "schema_version": "employment-facts-1.0",
+      "reviewed_clause_ids": [
+        "C0001",
+        "C0002"
+      ],
+      "searched_concepts": [
+        "non_compete.compensation_waived",
+        "non_compete.all_staff",
+        "ip.assignment_scope",
+        "ip.allocations",
+        "ip.personal_rights_waived",
+        "contract.employment_form",
+        "dispatch.agency",
+        "dispatch.host",
+        "dispatch.position",
+        "dispatch.period",
+        "dispatch.position_basis",
+        "dispatch.long_term_position",
+        "dispatch.temporary_duration_months",
+        "dispatch.equal_pay",
+        "dispatch.idle_pay",
+        "dispatch.worker_charges",
+        "dispatch.return_procedure",
+        "dispatch.reassignment_procedure",
+        "dispatch.refusal_termination",
+        "dispatch.refusal_compensation_waived",
+        "dispatch.host_direct_dismissal",
+        "dispatch.agreement_disclosure",
+        "dispatch.agency_obligations",
+        "dispatch.host_obligations",
+        "dispatch.obligations_waived"
+      ],
+      "unresolved_concepts": [],
+      "facts": [
+        {
+          "concept": "contract.employment_form",
+          "value": "DISPATCH",
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方与乙方建立劳动关系，安排乙方到接受单位澄海制造有限公司工作，由接受单位实施日常岗位管理；本合同实行劳务派遣。"
+            }
+          ]
+        },
+        {
+          "concept": "dispatch.agency",
+          "value": "远航用工服务有限公司",
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18号。"
+            }
+          ]
+        },
+        {
+          "concept": "dispatch.host",
+          "value": "澄海制造有限公司",
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方与乙方建立劳动关系，安排乙方到接受单位澄海制造有限公司工作，由接受单位实施日常岗位管理；本合同实行劳务派遣。"
+            }
+          ]
+        },
+        {
+          "concept": "dispatch.position",
+          "value": "辅助性档案整理",
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方在接受单位的办公地点从事辅助性档案整理，派出期限与劳动合同期限相同。"
+            }
+          ]
+        },
+        {
+          "concept": "dispatch.period",
+          "value": "派出期限与劳动合同期限相同",
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方在接受单位的办公地点从事辅助性档案整理，派出期限与劳动合同期限相同。"
+            }
+          ]
+        },
+        {
+          "concept": "dispatch.position_basis",
+          "value": "AUXILIARY",
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "该岗位不属于主营业务，经职工讨论、与工会协商并公示。岗位虽长期保留，仍属辅助性岗位。"
+            }
+          ]
+        },
+        {
+          "concept": "dispatch.long_term_position",
+          "value": true,
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "岗位虽长期保留，仍属辅助性岗位。"
+            }
+          ]
+        },
+        {
+          "concept": "dispatch.equal_pay",
+          "value": "EQUAL",
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方享有与接受单位同岗位劳动者相同的劳动报酬分配办法，不得给予较低工资。"
+            }
+          ]
+        },
+        {
+          "concept": "dispatch.idle_pay",
+          "value": "MONTHLY_LOCAL_MINIMUM",
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "派出单位在没有安排工作及等待重新安排期间，每月按其所在地政府规定的最低工资标准支付报酬，不得停发。"
+            }
+          ]
+        },
+        {
+          "concept": "dispatch.worker_charges",
+          "value": "PROHIBITED",
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "派出单位和接受单位均不得向乙方收取派遣服务费、管理费。"
+            }
+          ]
+        },
+        {
+          "concept": "dispatch.return_procedure",
+          "value": "接受单位须具备法定事由才可退回劳动者，不得直接解除乙方与甲方的劳动合同。",
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "接受单位须具备法定事由才可退回劳动者，不得直接解除乙方与甲方的劳动合同。"
+            }
+          ]
+        },
+        {
+          "concept": "dispatch.reassignment_procedure",
+          "value": "依法退回后甲方另行安排工作",
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "依法退回后甲方另行安排工作；只在维持或提高劳动合同约定条件且符合法定退回条件的情况下，乙方拒绝重新安排的，方可依法解除，并依法支付经济补偿。"
+            }
+          ]
+        },
+        {
+          "concept": "dispatch.refusal_termination",
+          "value": "MAINTAINED_CONDITIONS",
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "依法退回后甲方另行安排工作；只在维持或提高劳动合同约定条件且符合法定退回条件的情况下，乙方拒绝重新安排的，方可依法解除，并依法支付经济补偿。新安排降低条件时，不得仅因拒绝而解除。"
+            }
+          ]
+        },
+        {
+          "concept": "dispatch.refusal_compensation_waived",
+          "value": false,
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "依法退回后甲方另行安排工作；只在维持或提高劳动合同约定条件且符合法定退回条件的情况下，乙方拒绝重新安排的，方可依法解除，并依法支付经济补偿。"
+            }
+          ]
+        },
+        {
+          "concept": "dispatch.host_direct_dismissal",
+          "value": false,
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "接受单位须具备法定事由才可退回劳动者，不得直接解除乙方与甲方的劳动合同。"
+            }
+          ]
+        },
+        {
+          "concept": "dispatch.agreement_disclosure",
+          "value": true,
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方应向乙方告知派遣协议中关系其切身利益的内容。"
+            }
+          ]
+        },
+        {
+          "concept": "dispatch.agency_obligations",
+          "value": [
+            "工资",
+            "社会保险",
+            "督促接受单位履行保护义务",
+            "依法计算经济补偿并于交接结束时结清工资与应付补偿"
+          ],
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "接受单位负责劳动条件、安全防护、岗位培训与依法支付加班待遇；派出单位负责工资、社会保险并督促接受单位履行保护义务。双方不得通过责任分工免除法定责任。"
+            },
+            {
+              "clause_id": "C0002",
+              "quote": "甲方依法计算经济补偿并于交接结束时结清工资与应付补偿。"
+            }
+          ]
+        },
+        {
+          "concept": "dispatch.host_obligations",
+          "value": [
+            "劳动条件",
+            "安全防护",
+            "岗位培训",
+            "依法支付加班待遇"
+          ],
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "接受单位负责劳动条件、安全防护、岗位培训与依法支付加班待遇；派出单位负责工资、社会保险并督促接受单位履行保护义务。双方不得通过责任分工免除法定责任。"
+            }
+          ]
+        },
+        {
+          "concept": "dispatch.obligations_waived",
+          "value": false,
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "接受单位负责劳动条件、安全防护、岗位培训与依法支付加班待遇；派出单位负责工资、社会保险并督促接受单位履行保护义务。双方不得通过责任分工免除法定责任。"
+            }
+          ]
+        },
+        {
+          "concept": "ip.assignment_scope",
+          "value": "DUTY_OR_RESOURCES",
+          "confidence": 0.9,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "职务成果按法律规定确定归属，入职前的个人作品仍归劳动者。"
+            }
+          ]
+        },
+        {
+          "concept": "ip.allocations",
+          "value": {
+            "scope": "DUTY_OR_RESOURCES",
+            "beneficiary": "UNSPECIFIED",
+            "mode": "STATUTORY"
+          },
+          "confidence": 0.9,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "职务成果按法律规定确定归属，入职前的个人作品仍归劳动者。"
+            }
+          ]
+        }
+      ]
+    },
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 2257,
+      "completion_tokens": 1802,
+      "total_tokens": 4059,
+      "prompt_tokens_details": {
+        "cached_tokens": 1536
+      },
+      "prompt_cache_hit_tokens": 1536,
+      "prompt_cache_miss_tokens": 721
+    },
+    "provider": "deepseek"
+  }
+]

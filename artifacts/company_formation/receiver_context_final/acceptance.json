@@ -1,0 +1,83 @@
+{
+  "status": "PASS",
+  "tests": {
+    "new_rule_cases": 16,
+    "regression_passed": 326,
+    "full_repository": false
+  },
+  "deadline": {
+    "contribution_deadline_present": true,
+    "contribution_deadline_compliant": false,
+    "status": "RISK",
+    "basis": "PLANNED_OPERATION_YEAR_INFERENCE",
+    "evidence": [
+      "各股东认缴的注册资本应于2035年12月31日前全部缴足"
+    ],
+    "legal_basis": "《公司法》第47条",
+    "deadline": "2035-12-31",
+    "establishment_evidence": "四、合作期限为8年，自2026年10月1日起至2034年9月30日止",
+    "establishment_range": [
+      "2026-01-01",
+      "2026-12-31"
+    ]
+  },
+  "account_context": {
+    "personal_account_receiver_identified": true,
+    "evidence": [
+      {
+        "text": "三、各合作股东认购股权的款项应在签订本协议后3日内汇入甲方的银行账号：6214 8302 8899 6612；户名：黄志远；",
+        "start": 1141,
+        "end": 1203,
+        "fact_type": "personal_subscription_account",
+        "actor": "黄志远",
+        "action": "receive_subscription_funds",
+        "polarity": "NEUTRAL",
+        "evidence_role": "TRIGGER_CONTEXT",
+        "protective_coverage": false,
+        "source_clause_ids": [
+          "C0015"
+        ],
+        "source_locations": [
+          "三、各合作股东认购股权的款项应在签订本协议后3日内汇入甲方的银行账号：6214 8302 8899 6612；户名：黄志远；"
+        ]
+      }
+    ],
+    "conclusion": "已确认收款账户及资金保管主体为个人或筹备收款主体；该事实不证明资金安全保护已覆盖。"
+  },
+  "context": {
+    "family": "EQUITY_INVESTMENT",
+    "subject_matter": "EQUITY",
+    "transaction_structure": "SHAREHOLDERS",
+    "subtype": "SHAREHOLDERS",
+    "product_category": "",
+    "asset_usage": "",
+    "perspective": "shareholder",
+    "user_role": "shareholder",
+    "contract_type_label": "股东合作协议",
+    "scenario_label": "股东合作协议",
+    "usage_scenario_label": "股东合作协议",
+    "report_title": "股东合作协议审查报告",
+    "contract_family": "EQUITY_INVESTMENT",
+    "contract_subtype": "SHAREHOLDERS"
+  },
+  "counts": {
+    "rules": 25,
+    "themes": 15,
+    "findings": 16,
+    "major_risk": 6,
+    "medium_risk": 5,
+    "low_risk": 4,
+    "priority_action": 4,
+    "recommended_action": 8,
+    "optional_action": 3,
+    "manual_review": 0
+  },
+  "source_sha256": "18b8312c90ad1b7e80970df7c71ac251af3d5b372b959739a9e522de5dfd2294",
+  "all_preservation_assertions": "PASS",
+  "browser": {
+    "review_id": "CR-20260909-110651-C906AA",
+    "pid": 20908,
+    "runtime": "CURRENT",
+    "release_quality_gate": "REPORT_READY"
+  }
+}

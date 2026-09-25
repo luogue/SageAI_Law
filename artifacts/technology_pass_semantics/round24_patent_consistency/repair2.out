@@ -1,0 +1,65 @@
+F.........................................................               [100%]
+================================== FAILURES ===================================
+___ test_missing_support_elements_are_not_rendered_as_existing_arrangements ___
+
+foreign_patent_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_missing_support_elements_are_not_rendered_as_existing_arrangements(
+        foreign_patent_review: dict,
+    ):
+        item = _item(foreign_patent_review, "TC-07-04")
+        statuses = {row["element_id"]: row["status"] for row in item["coverage_elements"]}
+        recommendation = item["suggested_clause_example"]
+    
+        assert statuses == {
+            "on_demand_technical_service": "COVERED",
+            "technical_service_execution_details": "MISSING",
+            "patent_fee_and_validity_maintenance": "MISSING",
+            "patent_status_change_notice": "MISSING",
+        }
+        assert item["decision_trace"]["final_covered_element_ids"] == [
+            "on_demand_technical_service"
+        ]
+        # Final-element actions need not repeat covered facts as an introductory
+        # template; they must address the actual remaining execution parameters.
+>       assert "具体范围、响应时间和交付标准" in recommendation
+E       AssertionError: assert '具体范围、响应时间和交付标准' in '建议补充明确实施协助的具体内容范围、实施协助请求的响应时限、实施协助的完成或交付标准；补充明确专利费用缴纳及有效性维持义务；补充明确专利法律状态变化通知义务。'
+
+backend\tests\test_foreign_patent_license_status_consistency.py:68: AssertionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:159
+  F:\ai\Sage\backend\main.py:159: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+backend/tests/test_development_truth_projection.py::test_classification_pass_has_no_insufficient_narrative
+backend/tests/test_secret_license_production_closure.py::test_scope_liability_survives_file_pipeline
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_foreign_patent_license_status_consistency.py::test_missing_support_elements_are_not_rendered_as_existing_arrangements
+1 failed, 57 passed, 7 warnings in 153.16s (0:02:33)

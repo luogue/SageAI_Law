@@ -1,0 +1,34 @@
+{
+  "trace_id": "CR-20260912-131637-E6A09C",
+  "financial": {
+    "noncompete_duration_months": 18.0,
+    "compensation_ratio": 35,
+    "compensation_floor_amount": 8000.0,
+    "employee_salary_base": null,
+    "estimated_total_compensation": null,
+    "total_lower_bound": 144000.0,
+    "noncompete_penalty_amounts": [
+      120000.0
+    ],
+    "source_fact_ids": [
+      "EF-1551026bb1dc62b8",
+      "EF-322b3c03f5cf66db",
+      "EF-3d4115ae82d3a8f3",
+      "EF-3cc0f54bdd7ae5b5"
+    ],
+    "basis": "《企业实施竞业限制合规指引》第十三、十四条（合理性参考，不直接认定无效）",
+    "checks": [
+      "竞业期限18个月、补偿比例35%，需结合保底金额、工资基数和限制就业程度核验补偿合理性；指引对该期限建议参考50%，不据此直接认定违法或无效。",
+      "竞业违约金120000元；尚需核验与补偿公式同口径的工资基数，无法确定补偿总额及准确倍数，需结合损失、秘密价值等核验是否明显过高。按保底标准计算，全期补偿下限为144000.00元（非实际总额），该违约金不超过此下限的0.83倍，不能仅据金额认定过高。"
+    ],
+    "risks": []
+  },
+  "actual_access": "NEEDS_VERIFICATION",
+  "NC-01": "PASS",
+  "NC-02": "PASS",
+  "NC-03": "待核验",
+  "overall_signability": "可以签署",
+  "gate": "REPORT_READY",
+  "tests": "46 passed (8 financial cases)",
+  "source_unchanged": true
+}

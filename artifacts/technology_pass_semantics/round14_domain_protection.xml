@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="20.430" timestamp="2026-09-15T09:22:04.129610+08:00" hostname="PC-202411042018"><testcase classname="backend.tests.test_domain_selection_consistency" name="test_high_confidence_framework_document_overrides_house_lease_selection" time="7.772"><failure message="AssertionError: assert 'BLOCKED' == 'REPORT_READY'&#10;  &#10;  - REPORT_READY&#10;  + BLOCKED">backend\tests\test_domain_selection_consistency.py:36: in test_high_confidence_framework_document_overrides_house_lease_selection
+    assert result["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED</failure></testcase><testcase classname="backend.tests.test_domain_selection_consistency" name="test_high_confidence_house_lease_document_overrides_sale_selection" time="6.995" /><testcase classname="backend.tests.test_domain_selection_consistency" name="test_weak_document_evidence_keeps_user_selection_as_prior" time="0.085" /></testsuite></testsuites>

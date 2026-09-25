@@ -1,0 +1,375 @@
+{
+  "file": "F:\\ai\\Sage\\test_data\\72 无抵押借款.docx",
+  "file_sha256": "6878e648ecd7c983c7103c54a67a43e901cd0ec820ff0ce5da60320c2ea64930",
+  "source_sha256": "e15a8bbc871a7f4e6a327794d545d35883885f52ac44f0809e51e46cc54b4735",
+  "source_characters": 1164,
+  "status": "BLOCKED",
+  "error": "FactExtractionError: INVALID_TYPED_FACT:EXPECTED_BOOLEAN",
+  "diagnostics": [
+    {
+      "failed_stage": "UNIFIED_FACT_VALIDATION",
+      "fact_id": null,
+      "field": "loan.element.loan_interest_period",
+      "validation_rule": "INVALID_TYPED_FACT:EXPECTED_BOOLEAN",
+      "model_raw_value": null,
+      "evidence": null,
+      "expected": null,
+      "actual": {
+        "start": "2026-09-10",
+        "end": "2027-09-09"
+      },
+      "disposition": "BLOCK"
+    }
+  ],
+  "attempts": [
+    {
+      "raw_extraction": {
+        "schema_version": "contract-facts-1.0",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020"
+        ],
+        "searched_concepts": [
+          "loan.element.loan_disbursement_record",
+          "loan.element.loan_voucher_creditor",
+          "loan.element.loan_interest_base",
+          "loan.element.loan_interest_period",
+          "loan.element.loan_repayment_method",
+          "loan.element.loan_repayment_account",
+          "loan.element.loan_collection_records",
+          "loan.element.loan_maturity",
+          "loan.element.loan_agreed_rate",
+          "loan.element.loan_offset_order",
+          "loan.element.loan_repayment_receipt",
+          "loan.element.loan_interruption_record"
+        ],
+        "observations": [
+          {
+            "concept": "loan.element.loan_disbursement_record",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.element.loan_voucher_creditor",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.element.loan_interest_base",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.element.loan_interest_period",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "value": {
+              "start": "2026-09-10",
+              "end": "2027-09-09"
+            },
+            "evidence": [
+              {
+                "clause_id": "C0005",
+                "quote": "1.3 借款期限：自2026年9月10日至2027年9月9日。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.element.loan_repayment_method",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "value": "按月计收，每月10日（与借款发放日同一日）支付",
+            "evidence": [
+              {
+                "clause_id": "C0006",
+                "quote": "1.4 利息：利率为年利率10.8%，按月计收，每月10日（与借款发放日同一日）支付。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.element.loan_repayment_account",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.element.loan_collection_records",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.element.loan_maturity",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": "2027-09-09",
+            "evidence": [
+              {
+                "clause_id": "C0005",
+                "quote": "1.3 借款期限：自2026年9月10日至2027年9月9日。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.element.loan_agreed_rate",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": {
+              "rate": "10.8%",
+              "period": "YEAR"
+            },
+            "evidence": [
+              {
+                "clause_id": "C0006",
+                "quote": "1.4 利息：利率为年利率10.8%，按月计收，每月10日（与借款发放日同一日）支付。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.element.loan_offset_order",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.element.loan_repayment_receipt",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.element.loan_interruption_record",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          }
+        ]
+      },
+      "verification": null,
+      "diagnostics": [
+        {
+          "failed_stage": "UNIFIED_FACT_VALIDATION",
+          "fact_id": null,
+          "field": "loan.element.loan_interest_period",
+          "validation_rule": "INVALID_TYPED_FACT:EXPECTED_BOOLEAN",
+          "model_raw_value": null,
+          "evidence": null,
+          "expected": null,
+          "actual": {
+            "start": "2026-09-10",
+            "end": "2027-09-09"
+          },
+          "disposition": "BLOCK"
+        }
+      ]
+    },
+    {
+      "raw_extraction": {
+        "schema_version": "contract-facts-1.0",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020"
+        ],
+        "searched_concepts": [
+          "loan.element.loan_disbursement_record",
+          "loan.element.loan_voucher_creditor",
+          "loan.element.loan_interest_base",
+          "loan.element.loan_interest_period",
+          "loan.element.loan_repayment_method",
+          "loan.element.loan_repayment_account",
+          "loan.element.loan_collection_records",
+          "loan.element.loan_maturity",
+          "loan.element.loan_agreed_rate",
+          "loan.element.loan_offset_order",
+          "loan.element.loan_repayment_receipt",
+          "loan.element.loan_interruption_record"
+        ],
+        "observations": [
+          {
+            "concept": "loan.element.loan_disbursement_record",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.element.loan_voucher_creditor",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.element.loan_interest_base",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.element.loan_interest_period",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "value": {
+              "start": "2026-09-10",
+              "end": "2027-09-09"
+            },
+            "evidence": [
+              {
+                "clause_id": "C0005",
+                "quote": "1.3 借款期限：自2026年9月10日至2027年9月9日。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.element.loan_repayment_method",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "value": "按月计收，每月10日（与借款发放日同一日）支付",
+            "evidence": [
+              {
+                "clause_id": "C0006",
+                "quote": "1.4 利息：利率为年利率10.8%，按月计收，每月10日（与借款发放日同一日）支付。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.element.loan_repayment_account",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.element.loan_collection_records",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.element.loan_maturity",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": "2027-09-09",
+            "evidence": [
+              {
+                "clause_id": "C0005",
+                "quote": "1.3 借款期限：自2026年9月10日至2027年9月9日。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.element.loan_agreed_rate",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": {
+              "rate": "10.8%",
+              "period": "YEAR"
+            },
+            "evidence": [
+              {
+                "clause_id": "C0006",
+                "quote": "1.4 利息：利率为年利率10.8%，按月计收，每月10日（与借款发放日同一日）支付。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.element.loan_offset_order",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.element.loan_repayment_receipt",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.element.loan_interruption_record",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          }
+        ]
+      },
+      "verification": null,
+      "diagnostics": [
+        {
+          "failed_stage": "UNIFIED_FACT_VALIDATION",
+          "fact_id": null,
+          "field": "loan.element.loan_interest_period",
+          "validation_rule": "INVALID_TYPED_FACT:EXPECTED_BOOLEAN",
+          "model_raw_value": null,
+          "evidence": null,
+          "expected": null,
+          "actual": {
+            "start": "2026-09-10",
+            "end": "2027-09-09"
+          },
+          "disposition": "BLOCK"
+        }
+      ]
+    }
+  ],
+  "calls": 10
+}

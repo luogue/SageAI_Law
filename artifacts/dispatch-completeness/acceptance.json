@@ -1,0 +1,66 @@
+{
+  "trace_id": "CR-20260911-161838-CB0B28",
+  "process_id": 4268,
+  "endpoint": "http://127.0.0.1:5173/review-v2/file",
+  "file_sha256": "6df4e8f587aec49db0906d019dda4d16c0ec09620641682dc99e7c4c0d99a9b9",
+  "contract_type": "劳务派遣劳动合同",
+  "rule_count": 31,
+  "risk_themes": 6,
+  "rule_findings": 7,
+  "severity": {
+    "major": 6,
+    "medium": 0,
+    "low": 0
+  },
+  "manual_review": [
+    "EMP-08-01",
+    "DSP-03-01"
+  ],
+  "checked_facts": 71,
+  "searched_concepts": 128,
+  "themes": [
+    {
+      "title": "违法向劳动者收取保证金或从工资扣收费用",
+      "rules": [
+        "DSP-05-01",
+        "EMP-06-01"
+      ]
+    },
+    {
+      "title": "派遣岗位临时性、辅助性或替代性",
+      "rules": [
+        "DSP-02-01"
+      ]
+    },
+    {
+      "title": "退回、重新派遣与解除条件",
+      "rules": [
+        "DSP-06-01"
+      ]
+    },
+    {
+      "title": "派遣协议相关内容告知",
+      "rules": [
+        "DSP-07-01"
+      ]
+    },
+    {
+      "title": "用工单位再次派遣至其他用人单位",
+      "rules": [
+        "DSP-09-01"
+      ]
+    },
+    {
+      "title": "用工单位退回条件约定过宽",
+      "rules": [
+        "DSP-10-01"
+      ]
+    }
+  ],
+  "release_quality_gate": "REPORT_READY",
+  "automated_tests": {
+    "passed": 188,
+    "failed": 0,
+    "new_cases": 20
+  }
+}

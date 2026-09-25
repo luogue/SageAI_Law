@@ -1,20 +1,14 @@
-"""Sage 推理引擎 - 已切换为纯云端 API 模式（不再使用本地千问模型）"""
+"""Sage 推理引擎 - 已切换为纯云端 API 模式（DeepSeek）"""
 from methods import abstract, main_contradiction, boundary, verify, classify_domain
 from memory import Memory
-import os
-from dotenv import load_dotenv
 
-# 本地模型依赖已移除（Qwen3-4B-Thinking-2507 不再使用）
-# 当前推理完全通过云端 API 完成（千问 DashScope + 火山方舟）
-
-load_dotenv()
+from backend.model_settings import configuration
 
 class SageEngine:
     def __init__(self):
         self.memory = Memory()
-        self.dashscope_api_key = os.getenv('DASHSCOPE_API_KEY')
-        self.ark_api_key = os.getenv('ARK_API_KEY')
-        print(f"云端 API 模式已激活 - DashScope: {'已配置' if self.dashscope_api_key else '未配置'}, ARK: {'已配置' if self.ark_api_key else '未配置'}")
+        self.model = configuration()['model']
+        print("云端 DeepSeek 模式：" + ("已配置" if configuration()['key'] else "未配置"))
 
     def process(self, problem):
         domain, domain_desc = classify_domain(problem)

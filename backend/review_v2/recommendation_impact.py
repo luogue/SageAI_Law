@@ -91,6 +91,10 @@ def evaluate_recommendations(
             if authority_id
         ))
         proposed = recommendation.proposed_change or recommendation.suggested_text or ""
+        # Normalize role synonyms only inside this proposal's decision context;
+        # do not rewrite shared rule descriptions or the source contract.
+        proposed = re.sub(r"买受人|采购人|采购方", "买方", proposed)
+        proposed = re.sub(r"出卖人|供应商", "卖方", proposed)
         groups = {finding.risk_group for finding in target_findings}
         source_nodes = {str(getattr(item, "node_id", "") or "") for item in source_items}
         buyer = user_role == "BUYER"
@@ -140,6 +144,15 @@ def evaluate_recommendations(
             re.search(r"买方.{0,20}(?:承担|负责|赔偿|支付|风险转移)", proposed)
         )
         counterparty_expansion = buyer and bool(re.search(r"(?:卖方|供方).{0,12}(?:有权单方|可单方|有权随时)", proposed))
+        removing_restriction = bool(re.search(r"删除|取消|不增加|不新增|不要求|不得.*(?:取回|提前到期)", proposed))
+        if buyer and not removing_restriction:
+            counterparty_expansion = counterparty_expansion or bool(
+                re.search(r"(?:卖方|出卖方).{0,20}(?:有权取回|保留所有权|有权.{0,8}全部价款)", proposed)
+                or re.search(r"所有权.{0,12}(?:仍归|保留给).{0,8}(?:卖方|供方)", proposed)
+                or ("sale_retention_registration" in source_nodes and re.search(r"登记|公示|对抗", proposed))
+            )
+            short_acceptance = "sale_deemed_acceptance" in source_nodes and bool(re.search(r"视为|默认|推定", proposed))
+            counterparty_expansion = counterparty_expansion or short_acceptance
         shortens_right_period = buyer and bool(re.search(r"(?:缩短|仅限).{0,12}(?:期限|期间)|(?:期限|期间).{0,12}(?:缩短|仅限)", proposed))
         introduces_cap = buyer and bool(re.search(r"(?:赔偿|责任|损失).{0,12}(?:上限|封顶|最高不超过)", proposed))
         introduces_exclusion = buyer and bool(re.search(r"(?:排除|免责|不予赔偿|不得主张|视为放弃)", proposed))

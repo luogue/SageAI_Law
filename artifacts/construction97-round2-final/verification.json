@@ -1,0 +1,396 @@
+{
+  "runtime": {
+    "adverse_evidence": {
+      "file": "F:\\ai\\Sage\\backend\\review_v2\\adverse_evidence.py",
+      "sha256": "b5ac888b8b677d078c558d0226ace73a498b605f4cb9a51beca898f82478882d",
+      "runtime_matches_source": true
+    },
+    "adverse_consistency": {
+      "file": "F:\\ai\\Sage\\backend\\review_v2\\adverse_consistency.py",
+      "sha256": "4b3efd62ca2bcd5effffab1f6bac84d05316588f70a69f0bd5fc9a0f65cf8b0e",
+      "runtime_matches_source": true
+    },
+    "monetary_consequences": {
+      "file": "F:\\ai\\Sage\\backend\\review_v2\\monetary_consequences.py",
+      "sha256": "8a3fdaa8a5b482bbf467cae7a10c3a2205378eac962ba5d5b3bc2a37187ef39e",
+      "runtime_matches_source": true
+    },
+    "contract_effects": {
+      "file": "F:\\ai\\Sage\\backend\\review_v2\\contract_effects.py",
+      "sha256": "98da72e38a8d24b3f36b350d3ab015bcd65856fc24436a03b6706389c7678dd3",
+      "runtime_matches_source": true
+    },
+    "semantic_reviewer": {
+      "file": "F:\\ai\\Sage\\backend\\review_v2\\semantic_reviewer.py",
+      "sha256": "ee51cf41ec145a59808d1c8cb8a4b9880b218c9ece40a47166a6cb6baf73f4df",
+      "runtime_matches_source": true
+    },
+    "construction_coverage": {
+      "file": "F:\\ai\\Sage\\backend\\review_v2\\construction_coverage.py",
+      "sha256": "8d4d44fd38ec0bfd175bfe06b2bb5017e6cfe061f2e1dbe403d500f8cc63bb6f",
+      "runtime_matches_source": true
+    },
+    "penalty_base": {
+      "file": "F:\\ai\\Sage\\backend\\review_v2\\penalty_base.py",
+      "sha256": "2e9b2b7ae21d52364bfc6dd0bce68a83d4fb4293e4144a18bc535b545c45f01d",
+      "runtime_matches_source": true
+    }
+  },
+  "pid": 23360,
+  "llm_status": {
+    "enabled_by_env": true,
+    "has_model_key": true,
+    "available": true,
+    "configured_models": [
+      "qwen",
+      "doubao",
+      "deepseek"
+    ],
+    "priority": "qwen,doubao,deepseek",
+    "message": "AI语义审查已完成。"
+  },
+  "counts": {
+    "通过": 11,
+    "部分覆盖": 2,
+    "待核验": 8,
+    "缺失": 24,
+    "不适用": 2,
+    "法律提示": 7
+  },
+  "gate": {
+    "status": "REPORT_READY",
+    "failures": [],
+    "priority_consistency_verification": {
+      "executed": true,
+      "high_finding_count": 0,
+      "core_priority_count": 0,
+      "consistency": "CONSISTENT",
+      "explanations": [],
+      "needs_recalibration": false
+    },
+    "context_consistency": {
+      "status": "PASS",
+      "failures": [],
+      "contract_type": "construction",
+      "domain_pack": "domain-pack-shared-1.0"
+    },
+    "gate_results": {
+      "PASS_EVIDENCE_PROVENANCE_GATE": "PASS",
+      "PARTIAL_ELEMENT_NARRATIVE_GATE": "PASS",
+      "COVERAGE_SENTENCE_CONSISTENCY_GATE": "PASS",
+      "ELEMENT_STATUS_CONTRADICTION": "PASS",
+      "EVIDENCE_MONOTONICITY_VIOLATION": "PASS",
+      "FINDING_EVIDENCE_GATE": "PASS",
+      "CROSS_LAYER_CONSISTENCY_GATE": "PASS",
+      "DEFAULT_LAW_COMPLETENESS_GATE": "PASS",
+      "DEFAULT_LAW_EFFECTIVE_GAP_GATE": "PASS",
+      "NARRATIVE_ELEMENT_CONSISTENCY_GATE": "PASS",
+      "NARRATIVE_TRUTH_GATE": "PASS",
+      "PRIORITY_CONSISTENCY_GATE": "PASS",
+      "SIGNABILITY_GATE": "PASS",
+      "CONFIDENCE_VALIDATION_GATE": "PASS",
+      "DOMAIN_SUBTYPE_GATE": "PASS",
+      "DOMAIN_REVIEW_ISOLATION_GATE": "PASS",
+      "DOMAIN_MATERIAL_COVERAGE_GATE": "PASS",
+      "TRANSACTION_STRUCTURE_GATE": "PASS",
+      "FRAMEWORK_DOMAIN_GATE": "PASS",
+      "ORDER_RELATION_GATE": "PASS",
+      "DYNAMIC_QUANTITY_GATE": "PASS",
+      "PRICE_MECHANISM_GATE": "PASS",
+      "ALTERNATIVE_SATISFACTION_GATE": "PASS",
+      "FALSE_RISK_EXISTENCE_GATE": "PASS",
+      "FACT_REGISTRY_SNAPSHOT_CONSISTENCY": "PASS",
+      "FACT_REGISTRY_CONFLICTING_FACT": "PASS",
+      "CROSS_REVIEW_FACT_CONFLICT": "PASS",
+      "FACT_TRUTH_OVERRIDE_VIOLATION": "PASS",
+      "FACT_CONSUMER_MAPPING_MISSING": "PASS",
+      "RISK_EVIDENCE_MISMATCH": "PASS",
+      "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS",
+      "APPLICABILITY_PRECONDITION_GATE": "PASS",
+      "SHARED_CLAIM_CONSISTENCY_GATE": "PASS",
+      "FINDING_PRECONDITION_GATE": "PASS",
+      "REPORT_CONTEXT_GATE": "PASS",
+      "REPORT_TRANSACTION_TRUTH_GATE": "PASS",
+      "CROSS_REVIEW_CONSISTENCY_GATE": "PASS",
+      "RECOMMENDATION_NON_DEGRADATION_GATE": "PASS",
+      "COMMON_REVIEW_SATISFACTION_GATE": "PASS",
+      "ELEMENT_IDENTITY_CONTRADICTION_GATE": "PASS",
+      "PRODUCT_APPLICABILITY_GATE": "PASS",
+      "SHARED_CLAIM_REUSE_GATE": "PASS",
+      "FINDING_INDEPENDENCE_GATE": "PASS",
+      "TECHNOLOGY_TRANSACTION_CONSISTENCY": "NOT_APPLICABLE",
+      "PERSPECTIVE_DOMAIN_CONSISTENCY_GATE": "PASS",
+      "PATENT_TRANSFER_QUALITY_GATE": "NOT_APPLICABLE",
+      "PRODUCTION_FACT_POLARITY_GATE": "PASS",
+      "ADVERSE_POLARITY_AUDIT_GATE": "PASS",
+      "RECOMMENDATION_SOURCE_UNMAPPED": "PASS",
+      "RECOMMENDATION_ELEMENT_LEAKAGE": "PASS",
+      "RECOMMENDATION_COVERED_ELEMENT_REINTRODUCED": "PASS",
+      "RECOMMENDATION_PLACEHOLDER_TEXT": "PASS",
+      "RECOMMENDATION_FINAL_DISPOSITION_MISMATCH": "PASS",
+      "CLIENT_INTEREST_GATE": "PASS",
+      "RISK_STATISTICS_INVARIANT": "PASS",
+      "FINAL_DISPOSITION_INVARIANT": "PASS",
+      "FORMAL_RECOMMENDATION_FINAL_DISPOSITION_INVARIANT": "PASS",
+      "RECOMMENDATION_OWNERSHIP_INVARIANT": "PASS",
+      "HIGH_NON_MUST_CHANGE_REASON_INVARIANT": "PASS",
+      "OPTIONAL_IMPROVEMENT_VISIBILITY_INVARIANT": "PASS",
+      "ACTIONABLE_RECOMMENDATION_COMPLETENESS_INVARIANT": "PASS",
+      "LEGAL_AUTHORITY_DEDUP_GATE": "PASS",
+      "LEGAL_AUTHORITY_SELECTION_GATE": "PASS",
+      "CITATION_ENTAILMENT_GATE": "PASS",
+      "LEGAL_DEFAULT_LAW_CONSISTENCY_GATE": "PASS",
+      "ATOMIC_LEGAL_ELEMENT_GATE": "PASS",
+      "DEFAULT_LAW_NARRATIVE_TRUTH_GATE": "PASS",
+      "NOT_APPLICABLE_NARRATIVE_GATE": "PASS",
+      "NOT_APPLICABLE_GAP_GATE": "PASS",
+      "REVIEW_POLARITY_NARRATIVE_GATE": "PASS",
+      "NEGATIVE_CHECK_PASS_GATE": "PASS",
+      "CROSS_REVIEW_SHARED_CLAIM_GATE": "PASS",
+      "NARRATIVE_EVIDENCE_GATE": "PASS",
+      "CANONICAL_SEMANTIC_PROOF_GATE": "PASS",
+      "VERIFIED_PASS_ORIGINAL_GATE": "PASS",
+      "EXACT_ELEMENT_REPORT_INVARIANT": "PASS",
+      "PRODUCTION_INTERNAL_TOKEN_GATE": "PASS",
+      "DEFAULT_LAW_PROVENANCE_GATE": "PASS",
+      "RECOMMENDATION_SINGLE_SOURCE_GATE": "PASS",
+      "RECOMMENDATION_CROSS_RENDERER_CONSISTENCY_GATE": "PASS",
+      "REPORT_TEXT_VALIDATION": "PASS",
+      "REPORT_DISPOSITION_PROJECTION_INVARIANT": "PASS",
+      "EVIDENCE_BUNDLE_ENTAILMENT_GATE": "PASS",
+      "RECOMMENDATION_SEMANTIC_BINDING_GATE": "PASS",
+      "SUMMARY_DETAIL_RISK_ID_GATE": "PASS",
+      "ISSUE_TYPE_NARRATIVE_GATE": "PASS",
+      "OPTIONAL_REPORT_COUNT_GATE": "PASS",
+      "REPORT_ROLE_PLACEHOLDER_GATE": "PASS",
+      "ACTIONABLE_RECOMMENDATION_VISIBILITY_GATE": "PASS",
+      "CLAIM_EVIDENCE_COVERAGE_GATE": "PASS",
+      "EVIDENCE_FACT_ROLE_GATE": "PASS",
+      "SINGLE_EVIDENCE_SOURCE_GATE": "PASS",
+      "EVIDENCE_BUNDLE_RENDER_GATE": "PASS",
+      "APPLICABILITY_DISPLAY_CONSISTENCY_GATE": "PASS",
+      "ISSUE_TYPE_CONSISTENCY_GATE": "PASS",
+      "PARTIAL_MISSING_ELEMENT_GATE": "PASS",
+      "SUMMARY_TRUNCATION_DISCLOSURE_GATE": "PASS",
+      "TECHNICAL_REPORT_PLACEHOLDER_GATE": "PASS",
+      "FINAL_RISK_EVIDENCE_BUNDLE_GATE": "PASS",
+      "EVIDENCE_ITEM_UNIQUENESS_GATE": "PASS",
+      "CLAUSE_NODE_CONSISTENCY_GATE": "PASS",
+      "MISSING_RISK_ABSENCE_EVIDENCE_GATE": "PASS",
+      "COVERAGE_RISK_ACTION_CONSISTENCY_GATE": "PASS",
+      "PATENT_ROLE_TERMINOLOGY_GATE": "PASS",
+      "DUPLICATE_TEMPLATE_PHRASE_GATE": "PASS",
+      "EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+      "PASS_EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+      "CANONICAL_RISK_COVERAGE_INVARIANT": "PASS",
+      "CONSULTING_REPORT_CONTEXT_GATE": "PASS",
+      "TERMINOLOGY_CONSISTENCY_GATE": "PASS",
+      "APPLICABILITY_AND_EVIDENCE_BOUNDARY": "PASS"
+    },
+    "blocking_rules": [],
+    "blocking_stage": "",
+    "blocking_entities": [],
+    "blocking_reasons": [],
+    "post_render_status": "REPORT_READY"
+  },
+  "common_fixed_amounts": [
+    {
+      "base": "工期延期",
+      "kind": "FIXED_RATE",
+      "amount": "20000",
+      "unit": "天",
+      "rate": null,
+      "quote": "工期延期：20,000元/天",
+      "start": 4153,
+      "end": 4167,
+      "definitions": [
+        "工期延期：20,000元/天"
+      ],
+      "status": "DETERMINABLE",
+      "fact_concept": "delay"
+    },
+    {
+      "base": "擅自停工",
+      "kind": "FIXED_RATE",
+      "amount": "50000",
+      "unit": "次",
+      "rate": null,
+      "quote": "擅自停工：50,000元/次",
+      "start": 4236,
+      "end": 4250,
+      "definitions": [
+        "擅自停工：50,000元/次"
+      ],
+      "status": "DETERMINABLE",
+      "fact_concept": "other_breach"
+    },
+    {
+      "base": "擅自撤离施工人员",
+      "kind": "FIXED_RATE",
+      "amount": "100000",
+      "unit": "次",
+      "rate": null,
+      "quote": "擅自撤离施工人员：100,000元/次",
+      "start": 4252,
+      "end": 4271,
+      "definitions": [
+        "擅自撤离施工人员：100,000元/次"
+      ],
+      "status": "DETERMINABLE",
+      "fact_concept": "other_breach"
+    },
+    {
+      "base": "合同总价",
+      "rate": 20.0,
+      "quote": "合同总价20%的违约金",
+      "start": 4179,
+      "end": 4190,
+      "definitions": [],
+      "status": "UNDEFINED"
+    },
+    {
+      "base": "合同总价",
+      "rate": 10.0,
+      "quote": "合同总价10%的违约金",
+      "start": 4201,
+      "end": 4212,
+      "definitions": [],
+      "status": "UNDEFINED"
+    },
+    {
+      "base": "合同总价",
+      "rate": 10.0,
+      "quote": "合同总价10%的违约金",
+      "start": 4223,
+      "end": 4234,
+      "definitions": [],
+      "status": "UNDEFINED"
+    }
+  ],
+  "delay_evidence": [
+    {
+      "clause_id": "C0032",
+      "location": "十三、违约责任",
+      "title": "违约责任",
+      "text": "十三、违约责任\n甲方违约\n甲方无正当理由逾期支付已到期且无争议的工程款超过30日的，自第31日起按照全国银行间同业拆借中心公布的一年期贷款市场报价利率计算逾期利息。\n乙方违约\n出现以下情形之一的，乙方承担违约责任：\n工期延期：20,000元/天；\n擅自转包或者再分包：合同总价20%的违约金；\n发生重大质量事故：合同总价10%的违约金；\n发生重大安全事故：合同总价10%的违约金；\n擅自停工：50,000元/次；\n擅自撤离施工人员：100,000元/次。\n违约金不足以赔偿甲方实际损失的，乙方还应赔偿差额。\n甲方有权直接从任何一期应付乙方的工程款中扣除上述违约金或者赔偿款，无需取得乙方另行同意。",
+      "original_excerpt": "十三、违约责任\n甲方违约\n甲方无正当理由逾期支付已到期且无争议的工程款超过30日的，自第31日起按照全国银行间同业拆借中心公布的一年期贷款市场报价利率计算逾期利息。\n乙方违约\n出现以下情形之一的，乙方承担违约责任：\n工期延期：20,000元/天；\n擅自转包或者再分包：合同总价20%的违约金；\n发生重大质量事故：合同总价10%的违约金；\n发生重大安全事故：合同总价10%的违约金；\n擅自停工：50,000元/次；\n擅自撤离施工人员：100,000元/次。\n违约金不足以赔偿甲方实际损失的，乙方还应赔偿差额。\n甲方有权直接从任何一期应付乙方的工程款中扣除上述违约金或者赔偿款，无需取得乙方另行同意。",
+      "section_type": "正式合同条款",
+      "block_type": "OPERATIVE_CLAUSE",
+      "construction_element_ids": [
+        "delay"
+      ],
+      "construction_blank": false,
+      "monetary_facts": [
+        {
+          "concept": "delay",
+          "event": "工期延期",
+          "quote": "工期延期：20,000元/天",
+          "start": 108,
+          "end": 122,
+          "amount": "20000",
+          "unit": "天",
+          "context": "BREACH_TARIFF"
+        }
+      ],
+      "document_id": "contract_package/main",
+      "document_type": "MAIN_CONTRACT",
+      "source_document_type": "MAIN_CONTRACT",
+      "evidence_block_type": "OPERATIVE_CLAUSE",
+      "document_name": "合同正文",
+      "section": "十三、违约责任",
+      "sentence_index": 1,
+      "quote": "十三、违约责任\n甲方违约\n甲方无正当理由逾期支付已到期且无争议的工程款超过30日的，自第31日起按照全国银行间同业拆借中心公布的一年期贷款市场报价利率计算逾期利息。\n乙方违约\n出现以下情形之一的，乙方承担违约责任：\n工期延期：20,000元/天；\n擅自转包或者再分包：合同总价20%的违约金；\n发生重大质量事故：合同总价10%的违约金；\n发生重大安全事故：合同总价10%的违约金；\n擅自停工：50,000元/次；\n擅自撤离施工人员：100,000元/次。\n违约金不足以赔偿甲方实际损失的，乙方还应赔偿差额。\n甲方有权直接从任何一期应付乙方的工程款中扣除上述违约金或者赔偿款，无需取得乙方另行同意。",
+      "confidence": "high",
+      "evidence_type": "CONTRACT_TEXT",
+      "raw_text": "十三、违约责任\n甲方违约\n甲方无正当理由逾期支付已到期且无争议的工程款超过30日的，自第31日起按照全国银行间同业拆借中心公布的一年期贷款市场报价利率计算逾期利息。\n乙方违约\n出现以下情形之一的，乙方承担违约责任：\n工期延期：20,000元/天；\n擅自转包或者再分包：合同总价20%的违约金；\n发生重大质量事故：合同总价10%的违约金；\n发生重大安全事故：合同总价10%的违约金；\n擅自停工：50,000元/次；\n擅自撤离施工人员：100,000元/次。\n违约金不足以赔偿甲方实际损失的，乙方还应赔偿差额。\n甲方有权直接从任何一期应付乙方的工程款中扣除上述违约金或者赔偿款，无需取得乙方另行同意。",
+      "source_span": {
+        "start_offset": 4045,
+        "end_offset": 4343,
+        "raw_text": "十三、违约责任\n甲方违约\n甲方无正当理由逾期支付已到期且无争议的工程款超过30日的，自第31日起按照全国银行间同业拆借中心公布的一年期贷款市场报价利率计算逾期利息。\n乙方违约\n出现以下情形之一的，乙方承担违约责任：\n工期延期：20,000元/天；\n擅自转包或者再分包：合同总价20%的违约金；\n发生重大质量事故：合同总价10%的违约金；\n发生重大安全事故：合同总价10%的违约金；\n擅自停工：50,000元/次；\n擅自撤离施工人员：100,000元/次。\n违约金不足以赔偿甲方实际损失的，乙方还应赔偿差额。\n甲方有权直接从任何一期应付乙方的工程款中扣除上述违约金或者赔偿款，无需取得乙方另行同意。",
+        "coordinate_system": "DOCUMENT_TEXT"
+      },
+      "source_start": 4045,
+      "source_end": 4343,
+      "source_document": "contract_package/main",
+      "original_document_reference": "contract_package/main",
+      "derived_or_original": "ORIGINAL",
+      "evidence_source": {
+        "document_id": "contract_package/main",
+        "document_type": "MAIN_CONTRACT",
+        "document_name": "合同正文",
+        "clause_id": "C0032",
+        "section": "十三、违约责任",
+        "sentence_index": 1,
+        "quote": "十三、违约责任\n甲方违约\n甲方无正当理由逾期支付已到期且无争议的工程款超过30日的，自第31日起按照全国银行间同业拆借中心公布的一年期贷款市场报价利率计算逾期利息。\n乙方违约\n出现以下情形之一的，乙方承担违约责任：\n工期延期：20,000元/天；\n擅自转包或者再分包：合同总价20%的违约金；\n发生重大质量事故：合同总价10%的违约金；\n发生重大安全事故：合同总价10%的违约金；\n擅自停工：50,000元/次；\n擅自撤离施工人员：100,000元/次。\n违约金不足以赔偿甲方实际损失的，乙方还应赔偿差额。\n甲方有权直接从任何一期应付乙方的工程款中扣除上述违约金或者赔偿款，无需取得乙方另行同意。",
+        "confidence": "high",
+        "evidence_block_type": "OPERATIVE_CLAUSE",
+        "evidence_type": "CONTRACT_TEXT",
+        "source_span": {
+          "start_offset": 4045,
+          "end_offset": 4343,
+          "raw_text": "十三、违约责任\n甲方违约\n甲方无正当理由逾期支付已到期且无争议的工程款超过30日的，自第31日起按照全国银行间同业拆借中心公布的一年期贷款市场报价利率计算逾期利息。\n乙方违约\n出现以下情形之一的，乙方承担违约责任：\n工期延期：20,000元/天；\n擅自转包或者再分包：合同总价20%的违约金；\n发生重大质量事故：合同总价10%的违约金；\n发生重大安全事故：合同总价10%的违约金；\n擅自停工：50,000元/次；\n擅自撤离施工人员：100,000元/次。\n违约金不足以赔偿甲方实际损失的，乙方还应赔偿差额。\n甲方有权直接从任何一期应付乙方的工程款中扣除上述违约金或者赔偿款，无需取得乙方另行同意。",
+          "coordinate_system": "DOCUMENT_TEXT"
+        },
+        "derived_or_original": "ORIGINAL",
+        "source_ref": {
+          "document_id": "contract_package/main",
+          "clause_id": "C0032",
+          "clause_sha256": "134ad8db595cf14f8a392cfaccfb1daac32b071b7ce69eb44c5a505289cea80f",
+          "local_start": 0,
+          "local_end": 298,
+          "locator": "十三、违约责任"
+        },
+        "verified_original": true
+      },
+      "evidence_polarity": "SUPPORTS_COVERAGE",
+      "evidence_claim_id": "CE-07-04-EC-01",
+      "entailment_status": "SUPPORTS",
+      "semantic_score": 0.25,
+      "entity_match": false,
+      "obligation_match": false,
+      "consequence_match": true,
+      "polarity_match": true,
+      "supporting_element_ids": [
+        "delay"
+      ],
+      "canonical_fact_keys": [],
+      "relevance_score": 0.25,
+      "selection_reason": "Contextual retrieval evidence does not directly support a resolved ReviewElementTruth.",
+      "review_id": "CE-07-04",
+      "element_ids": [],
+      "support_type": "CONTEXTUAL",
+      "verified_original": true,
+      "source_verification": {
+        "status": "PASS",
+        "errors": [],
+        "method": "EXACT_PARSER_SOURCE_SPAN"
+      },
+      "evidence_id": "SRC-7731dcdd378978b9db13",
+      "quoted_text": "十三、违约责任\n甲方违约\n甲方无正当理由逾期支付已到期且无争议的工程款超过30日的，自第31日起按照全国银行间同业拆借中心公布的一年期贷款市场报价利率计算逾期利息。\n乙方违约\n出现以下情形之一的，乙方承担违约责任：\n工期延期：20,000元/天；\n擅自转包或者再分包：合同总价20%的违约金；\n发生重大质量事故：合同总价10%的违约金；\n发生重大安全事故：合同总价10%的违约金；\n擅自停工：50,000元/次；\n擅自撤离施工人员：100,000元/次。\n违约金不足以赔偿甲方实际损失的，乙方还应赔偿差额。\n甲方有权直接从任何一期应付乙方的工程款中扣除上述违约金或者赔偿款，无需取得乙方另行同意。",
+      "source_ref": {
+        "document_id": "contract_package/main",
+        "clause_id": "C0032",
+        "clause_sha256": "134ad8db595cf14f8a392cfaccfb1daac32b071b7ce69eb44c5a505289cea80f",
+        "local_start": 0,
+        "local_end": 298,
+        "locator": "十三、违约责任"
+      },
+      "provenance_validation": {
+        "status": "PASS",
+        "evidence_type": "CONTRACT_TEXT",
+        "errors": []
+      },
+      "source_semantic_verification": {
+        "status": "PASS",
+        "element_ids": [
+          "delay"
+        ]
+      },
+      "supports_element_ids": [
+        "delay"
+      ]
+    }
+  ],
+  "review_id": null,
+  "report_sha256": "f982a1f4f90e5ba03b6addc968672239b291200907825122199f8b84c5a0d231"
+}

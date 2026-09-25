@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import os
+import model_settings  # Load the same environment as model transports.
 import re
 from dataclasses import replace
 from typing import Any, Dict, List, Sequence
@@ -123,17 +124,13 @@ def _batch_size() -> int:
 def _has_configured_model() -> bool:
     return any(
         os.getenv(key, "").strip()
-        for key in ("DASHSCOPE_API_KEY", "ARK_API_KEY", "DEEPSEEK_API_KEY")
+        for key in ("DEEPSEEK_API_KEY",)
     )
 
 
 def get_llm_review_status() -> Dict[str, Any]:
     enabled_by_env = llm_review_enabled()
     configured_models = []
-    if os.getenv("DASHSCOPE_API_KEY", "").strip():
-        configured_models.append("qwen")
-    if os.getenv("ARK_API_KEY", "").strip():
-        configured_models.append("doubao")
     if os.getenv("DEEPSEEK_API_KEY", "").strip():
         configured_models.append("deepseek")
 
@@ -149,7 +146,7 @@ def get_llm_review_status() -> Dict[str, Any]:
         "has_model_key": bool(configured_models),
         "available": enabled_by_env and bool(configured_models),
         "configured_models": configured_models,
-        "priority": os.getenv("LLM_PRIORITY", "doubao,qwen,deepseek"),
+        "priority": "deepseek",
         "message": message,
     }
 
@@ -381,7 +378,6 @@ def _build_prompt(
 - 语义问题：{checkpoint.semantic_question}
 - 通过标准：{checkpoint.pass_criteria}{_specialized_requirement_hint(checkpoint)}
 - 部分覆盖标准：{checkpoint.partial_criteria}
-- 法律依据索引：{checkpoint.legal_basis}
 
 候选原文条款 JSON：
 {json.dumps(candidate_payload, ensure_ascii=False)}
@@ -421,7 +417,6 @@ def _build_batch_prompt(entries: Sequence[Dict[str, Any]]) -> str:
                 "pass_criteria": checkpoint.pass_criteria,
                 "strict_pass_hint": _specialized_requirement_hint(checkpoint),
                 "partial_criteria": checkpoint.partial_criteria,
-                "legal_basis": checkpoint.legal_basis,
                 "candidate_clauses": [
                     {
                         "clause_id": clause.clause_id,

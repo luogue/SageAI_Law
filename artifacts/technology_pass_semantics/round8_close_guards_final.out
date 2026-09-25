@@ -1,0 +1,69 @@
+...........................E............................                 [100%]
+=================================== ERRORS ====================================
+_ ERROR at setup of test_completed_negative_check_does_not_leave_an_obsolete_manual_review _
+backend\tests\test_entrusted_development_production_closure.py:31: in report
+    assert response.status_code == 200, response.text
+E   AssertionError: {"detail":"审查后端已加载旧代码，请重启本地服务后重新审查。"}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+---------------------------- Captured stderr setup ----------------------------
+2026-09-14 11:59:26 - security.sensitive_filter - INFO - [unknown] - 已清理 0 条超过 90 天的拦截日志
+2026-09-14 11:59:26 - main - INFO - [unknown] - 启动时清理了 0 条过期拦截日志
+2026-09-14 11:59:26 - main - INFO - [unknown] - Redis连接失败，已切换到内存模式，后续请求无延迟
+2026-09-14 11:59:26 - security.output_guard - INFO - [unknown] - [OUTPUT_GUARD] 初始化完成: 系统提示词长度=4633, 片段哈希数量=4584, 完整哈希=13c9684b6d3e79c1...
+2026-09-14 11:59:26 - main - INFO - [unknown] - [STARTUP] 输出安全守卫初始化完成: 片段哈希数=4584
+2026-09-14 11:59:26 - main - INFO - [unknown] - [STARTUP] 注入检测器初始化完成
+2026-09-14 11:59:26 - layers.legal_check_layer - INFO - [unknown] - [MCP_ADAPTER] MCP 客户端已初始化
+2026-09-14 11:59:26 - main - INFO - [unknown] - [STARTUP] 法条校验层初始化完成
+2026-09-14 11:59:26 - routers.review_v2 - CRITICAL - [048c5689] - [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=12460
+2026-09-14 11:59:26 - sageai - INFO - [048c5689] - {"type": "request", "request_id": "048c5689", "user_id": "anoxxx", "ip": "unknown", "path": "/review-v2/file", "method": "POST", "duration_ms": 255.67, "status_code": 503, "error": null}
+2026-09-14 11:59:26 - httpx - INFO - [unknown] - HTTP Request: POST http://testserver/review-v2/file "HTTP/1.1 503 Service Unavailable"
+----------------------------- Captured log setup ------------------------------
+INFO     security.sensitive_filter:sensitive_filter.py:223 已清理 0 条超过 90 天的拦截日志
+INFO     main:main.py:163 启动时清理了 0 条过期拦截日志
+INFO     main:main.py:172 Redis连接失败，已切换到内存模式，后续请求无延迟
+INFO     security.output_guard:output_guard.py:141 [OUTPUT_GUARD] 初始化完成: 系统提示词长度=4633, 片段哈希数量=4584, 完整哈希=13c9684b6d3e79c1...
+INFO     main:main.py:182 [STARTUP] 输出安全守卫初始化完成: 片段哈希数=4584
+INFO     main:main.py:189 [STARTUP] 注入检测器初始化完成
+INFO     layers.legal_check_layer:legal_check_layer.py:171 [MCP_ADAPTER] MCP 客户端已初始化
+INFO     main:main.py:209 [STARTUP] 法条校验层初始化完成
+CRITICAL routers.review_v2:review_v2.py:1402 [STALE_REVIEW_RUNTIME] dependencies=['engine', 'claim_projection', 'license_evaluation', 'secret_proof_evaluation', 'element_search', 'recommendations'] process_id=12460
+INFO     sageai:logging_utils.py:133 {"type": "request", "request_id": "048c5689", "user_id": "anoxxx", "ip": "unknown", "path": "/review-v2/file", "method": "POST", "duration_ms": 255.67, "status_code": 503, "error": null}
+INFO     httpx:_client.py:1038 HTTP Request: POST http://testserver/review-v2/file "HTTP/1.1 503 Service Unavailable"
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+backend/tests/test_technical_consulting_contract_review.py::test_production_file_endpoint_uses_active_consulting_evidence_implementation
+backend/tests/test_entrusted_cross_rule_consistency.py::test_completed_negative_check_does_not_leave_an_obsolete_manual_review
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+ERROR backend/tests/test_entrusted_cross_rule_consistency.py::test_completed_negative_check_does_not_leave_an_obsolete_manual_review
+55 passed, 7 warnings, 1 error in 391.46s (0:06:31)

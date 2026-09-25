@@ -58,6 +58,7 @@ async function handleResponse(response) {
   if (!response.ok) {
     // 创建一个包含response信息的错误对象
     const error = new Error(data?.detail?.message || data?.detail || `服务请求失败（HTTP ${response.status}）`)
+    error.diagnosticsPayload = data?.detail || data
     error.response = {
       status: response.status,
       data: data?.detail || data
@@ -142,13 +143,14 @@ export async function batchReviewContracts(files, additionalInstructions) {
 const REVIEW_V2_BASE = isAbsoluteBase ? API_BASE.replace(/\/$/, '') : ''
 
 // 合同审查第二版：清单式文件审查
-export async function reviewContractV2File(file, contractType = 'house_lease', includeLowRisk = true, useLlm = true, profile = {}) {
+export async function reviewContractV2File(file, contractType = 'house_lease', includeLowRisk = true, useLlm = true, profile = {}, reviewTaskId = '') {
   const formData = new FormData()
   formData.append('file', file)
   formData.append('contract_type', contractType)
   formData.append('include_low_risk', includeLowRisk ? 'true' : 'false')
   formData.append('use_llm', useLlm ? 'true' : 'false')
   formData.append('profile_json', JSON.stringify(profile))
+  if (reviewTaskId) formData.append('review_task_id', reviewTaskId)
 
   const response = await fetch(`${REVIEW_V2_BASE}/review-v2/file`, {
     method: 'POST',
@@ -162,6 +164,7 @@ export async function reviewContractV2File(file, contractType = 'house_lease', i
     // No contract text or credentials are included in this diagnostic.
     console.info('[review-v2 runtime]', JSON.stringify({
       trace: result.production_path_trace,
+      final_review_snapshot: result.final_review_snapshot,
       release_quality_gate: result.release_quality_gate,
       element_states: (result.items || []).map(item => ({
         rule: item.item_id,
@@ -236,12 +239,19 @@ export async function reviewV2JurisdictionPrediction(contractText, contractType 
 }
 
 // 合同审查第二版：大模型语义复核状态
-export async function getReviewV2LlmStatus() {
-  const response = await fetch(`${REVIEW_V2_BASE}/review-v2/llm-status`, {
+export async function getReviewV2LlmStatus(contractType = '') {
+  const response = await fetch(`${REVIEW_V2_BASE}/review-v2/llm-status?contract_type=${encodeURIComponent(contractType)}`, {
     method: 'GET',
     headers: { ...getAuthHeaders() }
   })
 
+  return handleResponse(response)
+}
+
+export async function getReviewV2ProfileOptions() {
+  const response = await fetch(`${REVIEW_V2_BASE}/review-v2/profile-options`, {
+    headers: { ...getAuthHeaders() }
+  })
   return handleResponse(response)
 }
 
@@ -271,6 +281,11 @@ async function exportReviewV2Report(report, format) {
       // 非 JSON 错误响应时保留默认提示
     }
     throw new Error(message)
+  }
+  const binding = report.final_review_snapshot
+  if (!binding || ['review_run_id', 'report_version', 'gate_version', 'snapshot_hash'].some((field, index) =>
+    response.headers.get(['X-Review-Run-Id', 'X-Report-Version', 'X-Gate-Version', 'X-Snapshot-Hash'][index]) !== binding[field])) {
+    throw new Error('EXPORT_BLOCKED_STALE_REPORT：导出文件版本与当前最终报告不一致。')
   }
 
   const blob = await response.blob()

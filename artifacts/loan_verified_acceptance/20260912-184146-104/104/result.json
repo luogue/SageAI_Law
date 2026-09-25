@@ -1,0 +1,319 @@
+{
+  "file": "F:\\ai\\Sage\\test_data\\104 企业借款.docx",
+  "file_sha256": "751a007d57090d24fa73e341f7f3ab2fcb8da546d26ca372a8050c88b15454ef",
+  "source_sha256": "1060919d4848c79dbe839a2b67aab4a970d488d0b31460083fd5628f2025818c",
+  "source_characters": 2921,
+  "code_sha256": {
+    "backend\\review_v2\\unified_facts\\__init__.py": "12c1cfefdc5ad94d0c224dc5df189009ecea19dfb8c16c5072228f5b11917af4",
+    "backend\\review_v2\\unified_facts\\certificates.py": "86650744df87f0226ac4b6c3462cd214be81835d3c15d2f233f630e8a7e931ea",
+    "backend\\review_v2\\unified_facts\\loan.py": "3e14cadac840ec98982142f41ca47837bd4598b5423caf0522b53ffc5d00a208",
+    "backend\\review_v2\\unified_facts\\loan_bindings.py": "dcaa90bf61a91cffdb6d1b3ff13472ddfeacc3a5eeb9e7f565ad1e4358d0eff4",
+    "backend\\review_v2\\unified_facts\\loan_costs.py": "13d80e0775ddd3fb05a8a327b53254ba75b9f8464ee070d8a318282c828dadfa",
+    "backend\\review_v2\\unified_facts\\loan_formulas.py": "a8f21df6a86e9bff2ea3edd0b80e800980316cee89f22731555926ecb1ce510e",
+    "backend\\review_v2\\unified_facts\\loan_pipeline.py": "2dc44befc2801f3ddc7cc33054dac2b62de77f44cd40c1afa6047f8a860a31ae",
+    "backend\\review_v2\\unified_facts\\loan_rules.py": "cb8678312100908a9e535b289486cbe0f5d783600f6612f93a01ddefdf411bb6",
+    "backend\\review_v2\\unified_facts\\normalization.py": "31953671189c9af73d922a1774952829f737bedb784c462e87b595220f31c310",
+    "backend\\review_v2\\unified_facts\\ontology.py": "137bc1c40fcf82a1af60db096468d902a3bcc382e353d4bba018998f5e0e3538",
+    "backend\\review_v2\\unified_facts\\pipeline.py": "a901a2b2bcefa268b4f5502deb2341340db58567068a2d9e1e0e3df295407831",
+    "backend\\review_v2\\unified_facts\\schema.py": "3532060bf1af1de433ab080b58ad69b055b8302f447b34678727c2d20e101a75",
+    "backend\\review_v2\\unified_facts\\store.py": "ed1d18b7fe14ed06680f649ad31bea32ffb984d29ec3e49b4e55129c8e5b5b5c"
+  },
+  "sample_origin": "EXISTING_DOCX",
+  "status": "BLOCKED",
+  "error": "FactExtractionError: VERIFICATION_RESPONSE_INVALID:SNAPSHOT_MISMATCH",
+  "diagnostics": [
+    {
+      "failed_stage": "UNIFIED_FACT_VALIDATION",
+      "fact_id": null,
+      "field": "certificate",
+      "validation_rule": "VERIFICATION_RESPONSE_INVALID:SNAPSHOT_MISMATCH",
+      "model_raw_value": null,
+      "evidence": null,
+      "expected": null,
+      "actual": null,
+      "disposition": "BLOCK"
+    }
+  ],
+  "attempts": [
+    {
+      "raw_extraction": {
+        "schema_version": "contract-facts-1.0",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019"
+        ],
+        "searched_concepts": [
+          "common.parties",
+          "common.signing_date",
+          "common.effective_date",
+          "common.effective_condition",
+          "common.term",
+          "common.amounts",
+          "common.liability",
+          "common.dispute_method",
+          "common.dispute_institution",
+          "loan.lender_kind",
+          "loan.borrower_kind",
+          "loan.guarantee"
+        ],
+        "observations": [
+          {
+            "concept": "common.parties",
+            "state": "PRESENT",
+            "value": {
+              "name": "杭州启辰智能设备有限公司",
+              "role": "甲方（出借人）",
+              "kind": "ENTERPRISE"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0002",
+                "quote": "甲方（出借人）：杭州启辰智能设备有限公司统一社会信用代码：91330105MA8K7X2R6P住所：浙江省杭州市拱墅区祥园路88号法定代表人：周明远联系电话：0571-8652XXXX"
+              },
+              {
+                "clause_id": "C0019",
+                "quote": "甲方：杭州启辰智能设备有限公司（盖章）"
+              }
+            ]
+          },
+          {
+            "concept": "common.parties",
+            "state": "PRESENT",
+            "value": {
+              "name": "宁波海岳供应链管理有限公司",
+              "role": "乙方（借款人）",
+              "kind": "ENTERPRISE"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0003",
+                "quote": "乙方（借款人）：宁波海岳供应链管理有限公司统一社会信用代码：91330206MA2J9Q5T4N住所：浙江省宁波市北仑区新碶街道长江路518号法定代表人：陈嘉诚联系电话：0574-8726XXXX"
+              }
+            ]
+          },
+          {
+            "concept": "common.signing_date",
+            "state": "PRESENT",
+            "value": "2026-09-10",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0019",
+                "quote": "签署日期：2026年9月10日"
+              }
+            ]
+          },
+          {
+            "concept": "common.effective_date",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "common.effective_condition",
+            "state": "PRESENT",
+            "value": "本合同自双方盖章并经法定代表人或授权代表签字之日起生效。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0019",
+                "quote": "本合同自双方盖章并经法定代表人或授权代表签字之日起生效。"
+              }
+            ]
+          },
+          {
+            "concept": "common.term",
+            "state": "PRESENT",
+            "value": {
+              "amount": "10",
+              "unit": "MONTH"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0006",
+                "quote": "借款期限为10个月，自2026年9月18日起至2027年7月17日止。"
+              }
+            ]
+          },
+          {
+            "concept": "common.amounts",
+            "state": "PRESENT",
+            "value": {
+              "amount": "3200000",
+              "currency": "CNY",
+              "role": "借款本金"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0004",
+                "quote": "甲方向乙方提供借款人民币叁佰贰拾万元整（¥3,200,000.00）。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "乙方未按照约定期限偿还借款本金的，自逾期之日起，对逾期本金按照本合同正常借款利率的1.5倍计收逾期利息，直至实际清偿之日。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0014",
+                "quote": "乙方未按照约定期限偿还借款本金的，自逾期之日起，对逾期本金按照本合同正常借款利率的1.5倍计收逾期利息，直至实际清偿之日。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "因乙方违约导致甲方通过诉讼、仲裁或者其他方式实现债权的，乙方应承担甲方为实现债权实际发生且合理的律师费、诉讼费、保全费、保全保险费、执行费、公证费、评估费、差旅费等费用。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0014",
+                "quote": "因乙方违约导致甲方通过诉讼、仲裁或者其他方式实现债权的，乙方应承担甲方为实现债权实际发生且合理的律师费、诉讼费、保全费、保全保险费、执行费、公证费、评估费、差旅费等费用。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "甲方无正当理由未按约定提供借款，并导致乙方遭受实际损失的，应赔偿乙方能够证明的直接损失。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0014",
+                "quote": "甲方无正当理由未按约定提供借款，并导致乙方遭受实际损失的，应赔偿乙方能够证明的直接损失。"
+              }
+            ]
+          },
+          {
+            "concept": "common.dispute_method",
+            "state": "PRESENT",
+            "value": "NEGOTIATION",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0018",
+                "quote": "因本合同订立、履行、变更、解除或者终止产生的任何争议，双方应首先协商解决。"
+              }
+            ]
+          },
+          {
+            "concept": "common.dispute_method",
+            "state": "PRESENT",
+            "value": "LITIGATION",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0018",
+                "quote": "协商不成的，任何一方均可向乙方住所地有管辖权的人民法院提起诉讼。"
+              }
+            ]
+          },
+          {
+            "concept": "common.dispute_institution",
+            "state": "PRESENT",
+            "value": "乙方住所地有管辖权的人民法院",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0018",
+                "quote": "协商不成的，任何一方均可向乙方住所地有管辖权的人民法院提起诉讼。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.lender_kind",
+            "state": "PRESENT",
+            "value": "enterprise",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0002",
+                "quote": "甲方（出借人）：杭州启辰智能设备有限公司统一社会信用代码：91330105MA8K7X2R6P住所：浙江省杭州市拱墅区祥园路88号法定代表人：周明远联系电话：0571-8652XXXX"
+              },
+              {
+                "clause_id": "C0015",
+                "quote": "均为依法设立并有效存续的企业法人；"
+              }
+            ]
+          },
+          {
+            "concept": "loan.borrower_kind",
+            "state": "PRESENT",
+            "value": "enterprise",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0003",
+                "quote": "乙方（借款人）：宁波海岳供应链管理有限公司统一社会信用代码：91330206MA2J9Q5T4N住所：浙江省宁波市北仑区新碶街道长江路518号法定代表人：陈嘉诚联系电话：0574-8726XXXX"
+              },
+              {
+                "clause_id": "C0015",
+                "quote": "均为依法设立并有效存续的企业法人；"
+              }
+            ]
+          },
+          {
+            "concept": "loan.guarantee",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          }
+        ]
+      },
+      "verification": null,
+      "diagnostics": [
+        {
+          "failed_stage": "UNIFIED_FACT_VALIDATION",
+          "fact_id": null,
+          "field": "certificate",
+          "validation_rule": "VERIFICATION_RESPONSE_INVALID:SNAPSHOT_MISMATCH",
+          "model_raw_value": null,
+          "evidence": null,
+          "expected": null,
+          "actual": null,
+          "disposition": "BLOCK"
+        }
+      ]
+    }
+  ],
+  "calls": 4
+}

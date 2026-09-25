@@ -32,3 +32,22 @@ logs/
 *.log
 .pytest_cache/
 .tox/
+
+# Runtime databases, recovery evidence and backups must never enter an image.
+**/*.db
+**/*.db-*
+**/*.db.*
+**/*.sqlite
+**/*.sqlite3
+**/*.sqlite-*
+**/*.sqlite3-*
+**/*.sqlite.*
+**/*.sqlite3.*
+**/*.bak*
+**/backups/
+artifacts/
+backups/
+.runtime-logs/
+backend/data/
+backend/logs/
+**/.env*

@@ -1,0 +1,1377 @@
+{
+  "status": "BLOCKED",
+  "contract_type": "technology",
+  "selected_contract_type": "service",
+  "raw_failure_count": 8,
+  "blocker_tuple_count": 16,
+  "blockers": [
+    {
+      "error_code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+      "rule_id": "TC-09-01",
+      "element_id": "core_contract_arrangement",
+      "fact_id": null,
+      "detected_stage": "Review Evidence Projection",
+      "reject_reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership.",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-6013520ca0feda019418",
+          "clause_id": "C0002",
+          "quote": "一、服务内容、方式和要求\n乙方利用专业技术知识为甲方工业生产设备提供预测性维护技术服务，包括设备数据分析与建模、故障诊断、状态监测系统部署、模型训练、参数调试、技术优化和远程技术支持，并对甲方人员提供系统使用培训。",
+          "source_span": {
+            "start_offset": 61,
+            "end_offset": 168,
+            "raw_text": "一、服务内容、方式和要求\n乙方利用专业技术知识为甲方工业生产设备提供预测性维护技术服务，包括设备数据分析与建模、故障诊断、状态监测系统部署、模型训练、参数调试、技术优化和远程技术支持，并对甲方人员提供系统使用培训。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "core_contract_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-09-01",
+          "element_id": "core_contract_arrangement",
+          "proposition": "合同存在可验证的“技术服务内容”实质条款内容。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-6013520ca0feda019418"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "一、服务内容、方式和要求\n乙方利用专业技术知识为甲方工业生产设备提供预测性维护技术服务，包括设备数据分析与建模、故障诊断、状态监测系统部署、模型训练、参数调试、技术优化和远程技术支持，并对甲方人员提供系统使用培训。\n乙方应提交部署程序、预测模型、操作手册、项目实施报告和培训材料。\n项目实施过程中形成的新模型、新算法、新程序及其他技术成果均由乙方所有。甲方仅享有在本项目生产场地内部永久使用的权利。"
+          ],
+          "source_locations": [
+            "一、服务内容、方式和要求"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-6013520ca0feda019418"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-6013520ca0feda019418"
+          ],
+          "bound_evidence_ids": [
+            "SRC-6013520ca0feda019418"
+          ]
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+        "failure_stage": "Review Evidence Projection",
+        "root_cause": "Review evidence is not exactly bound to covered elements: 1 mismatch(es).",
+        "current_status": "FAIL",
+        "review_id": "TC-09-01",
+        "element_id": "core_contract_arrangement",
+        "status": "COVERED",
+        "evidence_refs": [
+          "SRC-6013520ca0feda019418"
+        ],
+        "direct_evidence_refs": [],
+        "selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership."
+      }
+    },
+    {
+      "error_code": "MISSING_WITH_POSITIVE_EVIDENCE",
+      "rule_id": "TC-13-03",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Technology Coverage Consistency",
+      "reject_reason": "TC-13-03 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+      "source_spans": [
+        {
+          "evidence_id": "C0004",
+          "clause_id": "C0004",
+          "quote": "设备故障预警准确率应达到90%以上。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 316,
+            "end_offset": 443,
+            "raw_text": "三、验收标准和方式\n设备故障预警准确率应达到90%以上。\n乙方完成系统部署后，应向甲方提交验收申请。\n甲方应在收到验收申请后5个工作日内完成验收。甲方未在该期限内提出书面异议的，视为项目验收合格。\n如验收未通过，乙方应在10个工作日内整改后重新提交验收。"
+          },
+          "supporting_element_ids": []
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-13-03",
+          "element_id": "quantitative_performance_targets",
+          "claim_id": "TC-13-03-quantitative_performance_targets",
+          "proposition": "现有证据不足以确认相关合同要素的覆盖状态。",
+          "status": "UNCERTAIN",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "现有证据不足以确认相关合同要素的覆盖状态。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "internal_meta": true,
+          "user_visible": false,
+          "internal_reason": "no supporting evidence was bound to the asserted covered element"
+        },
+        {
+          "review_id": "TC-13-03",
+          "element_id": "test_environment",
+          "claim_id": "TC-13-03-test_environment",
+          "proposition": "未明确可复现的测试环境和硬件条件",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "未明确可复现的测试环境和硬件条件",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        },
+        {
+          "review_id": "TC-13-03",
+          "element_id": "test_equipment",
+          "claim_id": "TC-13-03-test_equipment",
+          "proposition": "未明确测试设备的型号或具体配置",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "未明确测试设备的型号或具体配置",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        },
+        {
+          "review_id": "TC-13-03",
+          "element_id": "test_dataset",
+          "claim_id": "TC-13-03-test_dataset",
+          "proposition": "未明确验收测试数据范围",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "未明确验收测试数据范围",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        },
+        {
+          "review_id": "TC-13-03",
+          "element_id": "test_method",
+          "claim_id": "TC-13-03-test_method",
+          "proposition": "未明确测试方法、次数和统计口径",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "未明确测试方法、次数和统计口径",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        },
+        {
+          "review_id": "TC-13-03",
+          "element_id": "acceptance_dispute_retest",
+          "claim_id": "TC-13-03-acceptance_dispute_retest",
+          "proposition": "未明确测试结果争议时的复测机制",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "未明确测试结果争议时的复测机制",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        },
+        {
+          "review_id": "TC-13-03",
+          "element_id": "test_attachment_arrangement",
+          "claim_id": "TC-13-03-test_attachment_arrangement",
+          "proposition": "未约定验收测试附件",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "未约定验收测试附件",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false
+        },
+        {
+          "review_id": "TC-13-03",
+          "element_id": "actual_test_attachment",
+          "claim_id": "TC-13-03-actual_test_attachment",
+          "proposition": "验收测试附件正文已随审查材料提供并可核验",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "验收测试附件正文已随审查材料提供并可核验",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "验收测试附件正文已随审查材料提供并可核验。",
+          "search_targets": [
+            "合同约定验收测试附件"
+          ],
+          "presence_status": "MISSING",
+          "document_state": "NOT_REFERENCED",
+          "external_material_required": false
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+        "failure_stage": "Technology Coverage Consistency",
+        "root_cause": "TC-13-03 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+        "entity_type": "review",
+        "entity_id": "TC-13-03",
+        "source_clause_ids": [
+          "C0004"
+        ],
+        "severity": "blocking"
+      }
+    },
+    {
+      "error_code": "CROSS_RULE_CANONICAL_FACT_CONSISTENCY",
+      "rule_id": null,
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Cross-rule Canonical Fact Audit",
+      "reject_reason": "同一事实已被其他规则或统一事实层确认，但下游消费者仍输出完全缺失。",
+      "source_spans": [],
+      "current_elements": [],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "CROSS_RULE_CANONICAL_FACT_CONSISTENCY",
+        "failure_stage": "Cross-rule Canonical Fact Audit",
+        "root_cause": "同一事实已被其他规则或统一事实层确认，但下游消费者仍输出完全缺失。",
+        "entity_type": "review_group",
+        "entity_id": "technology_shared_facts",
+        "conflicts": [
+          {
+            "subject": "ACCEPTANCE",
+            "consumer": "TC-13-03"
+          }
+        ],
+        "severity": "blocking"
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "GEN-PAY-01",
+      "element_id": "payment_formula_inconsistency_adverse_arrangement",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-2340027c251bbc479628",
+          "clause_id": "C0005",
+          "quote": "服务报酬总额为人民币1,000,000元",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 460,
+            "end_offset": 480,
+            "raw_text": "服务报酬总额为人民币1,000,000元",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "payment_formula_inconsistency_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-ae678b59d9a1e6dd5af6",
+          "clause_id": "C0005",
+          "quote": "合同签订后5个工作日内，甲方向乙方支付合同总金额的30%，即人民币300,000元",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 482,
+            "end_offset": 523,
+            "raw_text": "合同签订后5个工作日内，甲方向乙方支付合同总金额的30%，即人民币300,000元",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "payment_formula_inconsistency_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-684d54e990253e3b3781",
+          "clause_id": "C0005",
+          "quote": "系统部署完成后5个工作日内，甲方向乙方支付合同总金额的40%，即人民币400,000元",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 525,
+            "end_offset": 568,
+            "raw_text": "系统部署完成后5个工作日内，甲方向乙方支付合同总金额的40%，即人民币400,000元",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "payment_formula_inconsistency_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-a56e28e4aed702d1d212",
+          "clause_id": "C0005",
+          "quote": "项目验收合格后5个工作日内，甲方向乙方支付人民币350,000元",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 570,
+            "end_offset": 602,
+            "raw_text": "项目验收合格后5个工作日内，甲方向乙方支付人民币350,000元",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "payment_formula_inconsistency_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "EV-a94e1707a1acd448",
+          "clause_id": "",
+          "quote": "合同总价：1000000 CNY；付款比例：30% + 40% + 35% = 105%；付款金额：300000 + 400000 + 350000 = 1050000 CNY；差额：50000 CNY。",
+          "source_type": "CALCULATION",
+          "source_span": {
+            "start_offset": 0,
+            "end_offset": 102,
+            "raw_text": "合同总价：1000000 CNY；付款比例：30% + 40% + 35% = 105%；付款金额：300000 + 400000 + 350000 = 1050000 CNY；差额：50000 CNY。"
+          },
+          "supporting_element_ids": [
+            "payment_formula_inconsistency_adverse_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "GEN-PAY-01",
+          "element_id": "payment_formula_inconsistency_adverse_arrangement",
+          "claim_id": "GEN-PAY-01-ADVERSE-CLAIM",
+          "proposition": "付款节点比例合计为105%，金额合计为1,050,000元，与合同总价1,000,000元相差50,000元。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-2340027c251bbc479628",
+            "SRC-ae678b59d9a1e6dd5af6",
+            "SRC-684d54e990253e3b3781",
+            "SRC-a56e28e4aed702d1d212",
+            "EV-a94e1707a1acd448"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-2340027c251bbc479628",
+            "SRC-ae678b59d9a1e6dd5af6",
+            "SRC-684d54e990253e3b3781",
+            "SRC-a56e28e4aed702d1d212",
+            "EV-a94e1707a1acd448"
+          ],
+          "source_clause_ids": [
+            "C0005",
+            "C0005",
+            "C0005",
+            "C0005"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "确定性结构化规则与原始合同条款直接对应。"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-012",
+        "element_id": "payment_formula_inconsistency_adverse_arrangement",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "GEN-PAY-01",
+        "finding_id": "RF-012",
+        "fact_key": "payment_formula_inconsistency_adverse_arrangement",
+        "fact_value": "付款节点比例合计为105%，金额合计为1,050,000元，与合同总价1,000,000元相差50,000元。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "GEN-PAY-01",
+            "finding_id": "RF-012",
+            "fact_key": "payment_formula_inconsistency_adverse_arrangement",
+            "fact_value": "付款节点比例合计为105%，金额合计为1,050,000元，与合同总价1,000,000元相差50,000元。",
+            "current_evidence_refs": [
+              "SRC-2340027c251bbc479628",
+              "SRC-ae678b59d9a1e6dd5af6",
+              "SRC-684d54e990253e3b3781",
+              "SRC-a56e28e4aed702d1d212",
+              "EV-a94e1707a1acd448"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": "EV-a94e1707a1acd448",
+            "support_target": [],
+            "supporting_review_ids": [],
+            "source_type": "CALCULATION",
+            "conditions": {
+              "element_target_matches": false,
+              "review_owner_matches": false,
+              "positive_source": true,
+              "exact_span_matches": true,
+              "assertion_supported": true
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TECH-GEN-02",
+      "element_id": "dispute_resolution_choice_conflict_adverse_arrangement",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-55e0fee904f2eab4076e",
+          "clause_id": "C0010",
+          "quote": "协商不成的，双方同意提交上海仲裁委员会仲裁。\n同时，任何一方也可以向甲方住所地人民法院提起诉讼。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1061,
+            "end_offset": 1109,
+            "raw_text": "协商不成的，双方同意提交上海仲裁委员会仲裁。\n同时，任何一方也可以向甲方住所地人民法院提起诉讼。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "dispute_resolution_choice_conflict_adverse_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TECH-GEN-02",
+          "element_id": "dispute_resolution_choice_conflict_adverse_arrangement",
+          "claim_id": "TECH-GEN-02-ADVERSE-CLAIM",
+          "proposition": "同一争议解决条款同时选择仲裁和普通法院诉讼，且未限定法院仅处理保全、执行等仲裁辅助事项。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-55e0fee904f2eab4076e"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-55e0fee904f2eab4076e"
+          ],
+          "source_clause_ids": [
+            "C0010"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "确定性结构化规则与原始合同条款直接对应。"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-DISPUTE-CONFLICT-001",
+        "element_id": "dispute_resolution_choice_conflict_adverse_arrangement",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "TECH-GEN-02",
+        "finding_id": "RF-DISPUTE-CONFLICT-001",
+        "fact_key": "dispute_resolution_choice_conflict_adverse_arrangement",
+        "fact_value": "同一争议解决条款同时选择仲裁和普通法院诉讼，且未限定法院仅处理保全、执行等仲裁辅助事项。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TECH-GEN-02",
+            "finding_id": "RF-DISPUTE-CONFLICT-001",
+            "fact_key": "dispute_resolution_choice_conflict_adverse_arrangement",
+            "fact_value": "同一争议解决条款同时选择仲裁和普通法院诉讼，且未限定法院仅处理保全、执行等仲裁辅助事项。",
+            "current_evidence_refs": [
+              "SRC-55e0fee904f2eab4076e"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "GEN-LIAB-02",
+      "element_id": "generic_liability_cap_validity_adverse_arrangement",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-caef2ef0825ab139116a",
+          "clause_id": "C0006",
+          "quote": "五、违约责任\n因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 625,
+            "end_offset": 672,
+            "raw_text": "五、违约责任\n因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_liability_cap_validity_adverse_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "GEN-LIAB-02",
+          "element_id": "generic_liability_cap_validity_adverse_arrangement",
+          "claim_id": "GEN-LIAB-02-ADVERSE-CLAIM",
+          "proposition": "合同明确约定前述责任上限适用于人身损害责任以及因乙方故意或者重大过失造成的损失。重大过失仍受责任上限保护的约定存在效力风险。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-caef2ef0825ab139116a"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-caef2ef0825ab139116a"
+          ],
+          "source_clause_ids": [
+            "C0006"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "确定性结构化规则与原始合同条款直接对应。"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-013",
+        "element_id": "generic_liability_cap_validity_adverse_arrangement",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "GEN-LIAB-02",
+        "finding_id": "RF-013",
+        "fact_key": "generic_liability_cap_validity_adverse_arrangement",
+        "fact_value": "合同明确约定前述责任上限适用于人身损害责任以及因乙方故意或者重大过失造成的损失。重大过失仍受责任上限保护的约定存在效力风险。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "GEN-LIAB-02",
+            "finding_id": "RF-013",
+            "fact_key": "generic_liability_cap_validity_adverse_arrangement",
+            "fact_value": "合同明确约定前述责任上限适用于人身损害责任以及因乙方故意或者重大过失造成的损失。重大过失仍受责任上限保护的约定存在效力风险。",
+            "current_evidence_refs": [
+              "SRC-caef2ef0825ab139116a"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "GEN-LIAB-03",
+      "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-caef2ef0825ab139116a",
+          "clause_id": "C0006",
+          "quote": "五、违约责任\n因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 625,
+            "end_offset": 672,
+            "raw_text": "五、违约责任\n因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "claim_id": "GEN-LIAB-03-ADVERSE-CLAIM",
+          "proposition": "尚未完成责任方向映射的异常违约金包括因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。合同价比例仅用于识别异常，不等同于实际损失比例。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-caef2ef0825ab139116a",
+            "C0006"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-caef2ef0825ab139116a",
+            "C0006"
+          ],
+          "source_clause_ids": [
+            "C0006"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "确定性结构化规则与原始合同条款直接对应。"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-014",
+        "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "GEN-LIAB-03",
+        "finding_id": "RF-014",
+        "fact_key": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+        "fact_value": "尚未完成责任方向映射的异常违约金包括因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。合同价比例仅用于识别异常，不等同于实际损失比例。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "GEN-LIAB-03",
+            "finding_id": "RF-014",
+            "fact_key": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+            "fact_value": "尚未完成责任方向映射的异常违约金包括因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。合同价比例仅用于识别异常，不等同于实际损失比例。",
+            "current_evidence_refs": [
+              "SRC-caef2ef0825ab139116a",
+              "C0006"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "GEN-PAY-01",
+      "element_id": "payment_formula_inconsistency_adverse_arrangement",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-2340027c251bbc479628",
+          "clause_id": "C0005",
+          "quote": "服务报酬总额为人民币1,000,000元",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 460,
+            "end_offset": 480,
+            "raw_text": "服务报酬总额为人民币1,000,000元",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "payment_formula_inconsistency_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-ae678b59d9a1e6dd5af6",
+          "clause_id": "C0005",
+          "quote": "合同签订后5个工作日内，甲方向乙方支付合同总金额的30%，即人民币300,000元",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 482,
+            "end_offset": 523,
+            "raw_text": "合同签订后5个工作日内，甲方向乙方支付合同总金额的30%，即人民币300,000元",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "payment_formula_inconsistency_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-684d54e990253e3b3781",
+          "clause_id": "C0005",
+          "quote": "系统部署完成后5个工作日内，甲方向乙方支付合同总金额的40%，即人民币400,000元",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 525,
+            "end_offset": 568,
+            "raw_text": "系统部署完成后5个工作日内，甲方向乙方支付合同总金额的40%，即人民币400,000元",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "payment_formula_inconsistency_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-a56e28e4aed702d1d212",
+          "clause_id": "C0005",
+          "quote": "项目验收合格后5个工作日内，甲方向乙方支付人民币350,000元",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 570,
+            "end_offset": 602,
+            "raw_text": "项目验收合格后5个工作日内，甲方向乙方支付人民币350,000元",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "payment_formula_inconsistency_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "EV-a94e1707a1acd448",
+          "clause_id": "",
+          "quote": "合同总价：1000000 CNY；付款比例：30% + 40% + 35% = 105%；付款金额：300000 + 400000 + 350000 = 1050000 CNY；差额：50000 CNY。",
+          "source_type": "CALCULATION",
+          "source_span": {
+            "start_offset": 0,
+            "end_offset": 102,
+            "raw_text": "合同总价：1000000 CNY；付款比例：30% + 40% + 35% = 105%；付款金额：300000 + 400000 + 350000 = 1050000 CNY；差额：50000 CNY。"
+          },
+          "supporting_element_ids": [
+            "payment_formula_inconsistency_adverse_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "GEN-PAY-01",
+          "element_id": "payment_formula_inconsistency_adverse_arrangement",
+          "claim_id": "GEN-PAY-01-ADVERSE-CLAIM",
+          "proposition": "付款节点比例合计为105%，金额合计为1,050,000元，与合同总价1,000,000元相差50,000元。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-2340027c251bbc479628",
+            "SRC-ae678b59d9a1e6dd5af6",
+            "SRC-684d54e990253e3b3781",
+            "SRC-a56e28e4aed702d1d212",
+            "EV-a94e1707a1acd448"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-2340027c251bbc479628",
+            "SRC-ae678b59d9a1e6dd5af6",
+            "SRC-684d54e990253e3b3781",
+            "SRC-a56e28e4aed702d1d212",
+            "EV-a94e1707a1acd448"
+          ],
+          "source_clause_ids": [
+            "C0005",
+            "C0005",
+            "C0005",
+            "C0005"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "确定性结构化规则与原始合同条款直接对应。"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-012",
+        "element_id": "payment_formula_inconsistency_adverse_arrangement",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "GEN-PAY-01",
+        "finding_id": "RF-012",
+        "fact_key": "payment_formula_inconsistency_adverse_arrangement",
+        "fact_value": "付款节点比例合计为105%，金额合计为1,050,000元，与合同总价1,000,000元相差50,000元。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "GEN-PAY-01",
+            "finding_id": "RF-012",
+            "fact_key": "payment_formula_inconsistency_adverse_arrangement",
+            "fact_value": "付款节点比例合计为105%，金额合计为1,050,000元，与合同总价1,000,000元相差50,000元。",
+            "current_evidence_refs": [
+              "SRC-2340027c251bbc479628",
+              "SRC-ae678b59d9a1e6dd5af6",
+              "SRC-684d54e990253e3b3781",
+              "SRC-a56e28e4aed702d1d212",
+              "EV-a94e1707a1acd448"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": "EV-a94e1707a1acd448",
+            "support_target": [],
+            "supporting_review_ids": [],
+            "source_type": "CALCULATION",
+            "conditions": {
+              "element_target_matches": false,
+              "review_owner_matches": false,
+              "positive_source": true,
+              "exact_span_matches": true,
+              "assertion_supported": true
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TECH-GEN-02",
+      "element_id": "dispute_resolution_choice_conflict_adverse_arrangement",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-55e0fee904f2eab4076e",
+          "clause_id": "C0010",
+          "quote": "协商不成的，双方同意提交上海仲裁委员会仲裁。\n同时，任何一方也可以向甲方住所地人民法院提起诉讼。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1061,
+            "end_offset": 1109,
+            "raw_text": "协商不成的，双方同意提交上海仲裁委员会仲裁。\n同时，任何一方也可以向甲方住所地人民法院提起诉讼。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "dispute_resolution_choice_conflict_adverse_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TECH-GEN-02",
+          "element_id": "dispute_resolution_choice_conflict_adverse_arrangement",
+          "claim_id": "TECH-GEN-02-ADVERSE-CLAIM",
+          "proposition": "同一争议解决条款同时选择仲裁和普通法院诉讼，且未限定法院仅处理保全、执行等仲裁辅助事项。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-55e0fee904f2eab4076e"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-55e0fee904f2eab4076e"
+          ],
+          "source_clause_ids": [
+            "C0010"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "确定性结构化规则与原始合同条款直接对应。"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-DISPUTE-CONFLICT-001",
+        "element_id": "dispute_resolution_choice_conflict_adverse_arrangement",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "TECH-GEN-02",
+        "finding_id": "RF-DISPUTE-CONFLICT-001",
+        "fact_key": "dispute_resolution_choice_conflict_adverse_arrangement",
+        "fact_value": "同一争议解决条款同时选择仲裁和普通法院诉讼，且未限定法院仅处理保全、执行等仲裁辅助事项。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TECH-GEN-02",
+            "finding_id": "RF-DISPUTE-CONFLICT-001",
+            "fact_key": "dispute_resolution_choice_conflict_adverse_arrangement",
+            "fact_value": "同一争议解决条款同时选择仲裁和普通法院诉讼，且未限定法院仅处理保全、执行等仲裁辅助事项。",
+            "current_evidence_refs": [
+              "SRC-55e0fee904f2eab4076e"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "GEN-LIAB-02",
+      "element_id": "generic_liability_cap_validity_adverse_arrangement",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-caef2ef0825ab139116a",
+          "clause_id": "C0006",
+          "quote": "五、违约责任\n因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 625,
+            "end_offset": 672,
+            "raw_text": "五、违约责任\n因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_liability_cap_validity_adverse_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "GEN-LIAB-02",
+          "element_id": "generic_liability_cap_validity_adverse_arrangement",
+          "claim_id": "GEN-LIAB-02-ADVERSE-CLAIM",
+          "proposition": "合同明确约定前述责任上限适用于人身损害责任以及因乙方故意或者重大过失造成的损失。重大过失仍受责任上限保护的约定存在效力风险。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-caef2ef0825ab139116a"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-caef2ef0825ab139116a"
+          ],
+          "source_clause_ids": [
+            "C0006"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "确定性结构化规则与原始合同条款直接对应。"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-013",
+        "element_id": "generic_liability_cap_validity_adverse_arrangement",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "GEN-LIAB-02",
+        "finding_id": "RF-013",
+        "fact_key": "generic_liability_cap_validity_adverse_arrangement",
+        "fact_value": "合同明确约定前述责任上限适用于人身损害责任以及因乙方故意或者重大过失造成的损失。重大过失仍受责任上限保护的约定存在效力风险。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "GEN-LIAB-02",
+            "finding_id": "RF-013",
+            "fact_key": "generic_liability_cap_validity_adverse_arrangement",
+            "fact_value": "合同明确约定前述责任上限适用于人身损害责任以及因乙方故意或者重大过失造成的损失。重大过失仍受责任上限保护的约定存在效力风险。",
+            "current_evidence_refs": [
+              "SRC-caef2ef0825ab139116a"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "GEN-LIAB-03",
+      "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-caef2ef0825ab139116a",
+          "clause_id": "C0006",
+          "quote": "五、违约责任\n因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 625,
+            "end_offset": 672,
+            "raw_text": "五、违约责任\n因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "claim_id": "GEN-LIAB-03-ADVERSE-CLAIM",
+          "proposition": "尚未完成责任方向映射的异常违约金包括因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。合同价比例仅用于识别异常，不等同于实际损失比例。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-caef2ef0825ab139116a",
+            "C0006"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-caef2ef0825ab139116a",
+            "C0006"
+          ],
+          "source_clause_ids": [
+            "C0006"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "确定性结构化规则与原始合同条款直接对应。"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-014",
+        "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "GEN-LIAB-03",
+        "finding_id": "RF-014",
+        "fact_key": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+        "fact_value": "尚未完成责任方向映射的异常违约金包括因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。合同价比例仅用于识别异常，不等同于实际损失比例。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "GEN-LIAB-03",
+            "finding_id": "RF-014",
+            "fact_key": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+            "fact_value": "尚未完成责任方向映射的异常违约金包括因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。合同价比例仅用于识别异常，不等同于实际损失比例。",
+            "current_evidence_refs": [
+              "SRC-caef2ef0825ab139116a",
+              "C0006"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-03-04",
+      "element_id": "third_party_component_inventory",
+      "fact_id": null,
+      "detected_stage": "Final Evidence Projection",
+      "reject_reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH",
+      "source_spans": [
+        {
+          "evidence_id": "EV-9334d8bd22b7a4eb",
+          "clause_id": "C0008",
+          "quoted_text": "七、第三方软件及知识产权",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 891,
+            "end_offset": 903,
+            "raw_text": "七、第三方软件及知识产权"
+          }
+        },
+        {
+          "evidence_id": "EV-12e2947bf6f56cb8",
+          "clause_id": "C0008",
+          "quoted_text": "七、第三方软件及知识产权\n乙方可以根据项目需要使用第三方开源软件、算法库或者其他第三方技术，且无需披露具体清单。\n因第三方软件、开源软件或者其他第三方技术产生的知识产权纠纷，由甲方自行承担责任。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 891,
+            "end_offset": 988,
+            "raw_text": "七、第三方软件及知识产权\n乙方可以根据项目需要使用第三方开源软件、算法库或者其他第三方技术，且无需披露具体清单。\n因第三方软件、开源软件或者其他第三方技术产生的知识产权纠纷，由甲方自行承担责任。"
+          },
+          "supporting_element_ids": [
+            "third_party_component_dependency"
+          ]
+        },
+        {
+          "evidence_id": "EV-40e4893c3b0bbbe1",
+          "clause_id": "",
+          "quoted_text": "已检索合同正文及全部已提供附件，未找到以下正向事实：对应许可证、授权文件、使用范围及持续合规义务的可核验材料。",
+          "source_type": "SEARCH_AUDIT",
+          "source_span": {
+            "start_offset": 0,
+            "end_offset": 55,
+            "raw_text": "已检索合同正文及全部已提供附件，未找到以下正向事实：对应许可证、授权文件、使用范围及持续合规义务的可核验材料。"
+          }
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-03-04",
+          "element_id": "third_party_component_inventory",
+          "claim_id": "TC-03-04-third_party_component_inventory",
+          "proposition": "尚未完整披露第三方软件、开源组件及其他第三方技术的名称、版本和来源清单",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "尚未完整披露第三方软件、开源组件及其他第三方技术的名称、版本和来源清单",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "risk_id": "RF-001",
+        "review_id": "TC-03-04",
+        "element_id": "third_party_component_inventory",
+        "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+      }
+    },
+    {
+      "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-03-04",
+      "element_id": "third_party_component_inventory",
+      "fact_id": null,
+      "detected_stage": "Final Evidence Projection",
+      "reject_reason": "INVALID_ABSENCE_SEARCH_TARGET",
+      "source_spans": [],
+      "current_elements": [
+        {
+          "review_id": "TC-03-04",
+          "element_id": "third_party_component_inventory",
+          "claim_id": "TC-03-04-third_party_component_inventory",
+          "proposition": "尚未完整披露第三方软件、开源组件及其他第三方技术的名称、版本和来源清单",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "尚未完整披露第三方软件、开源组件及其他第三方技术的名称、版本和来源清单",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "review_id": "TC-03-04",
+        "evidence_owner": "ELEMENT_SEARCH",
+        "element_id": "third_party_component_inventory",
+        "reason": "INVALID_ABSENCE_SEARCH_TARGET",
+        "target_fields": [
+          "search_targets"
+        ],
+        "search_targets": []
+      }
+    },
+    {
+      "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-13-02",
+      "element_id": "third_party_component_inventory",
+      "fact_id": null,
+      "detected_stage": "Final Evidence Projection",
+      "reject_reason": "INVALID_ABSENCE_SEARCH_TARGET",
+      "source_spans": [],
+      "current_elements": [
+        {
+          "review_id": "TC-13-02",
+          "element_id": "third_party_component_inventory",
+          "claim_id": "TC-13-02-third_party_component_inventory",
+          "proposition": "尚未完整披露第三方软件、开源组件及其他第三方技术的名称、版本和来源清单",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "尚未完整披露第三方软件、开源组件及其他第三方技术的名称、版本和来源清单",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "review_id": "TC-13-02",
+        "evidence_owner": "ELEMENT_SEARCH",
+        "element_id": "third_party_component_inventory",
+        "reason": "INVALID_ABSENCE_SEARCH_TARGET",
+        "target_fields": [
+          "search_targets"
+        ],
+        "search_targets": []
+      }
+    },
+    {
+      "error_code": "REPORT_TEXT_VALIDATION",
+      "rule_id": null,
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Report Rendering",
+      "reject_reason": "INTERNAL_ENUM_LEAK",
+      "source_spans": [],
+      "current_elements": [],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "REPORT_TEXT_VALIDATION",
+        "failure_stage": "Report Rendering",
+        "root_cause": "INTERNAL_ENUM_LEAK",
+        "count": 1,
+        "current_status": "FAIL"
+      }
+    },
+    {
+      "error_code": "CLAUSE_NODE_CONSISTENCY_GATE",
+      "rule_id": "COMMON-20-01",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": null,
+      "reject_reason": null,
+      "source_spans": [
+        {
+          "evidence_id": "SRC-caef2ef0825ab139116a",
+          "clause_id": "C0006",
+          "quote": "五、违约责任\n因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。",
+          "source_type": "CONTRACT_TEXT",
+          "source_span": {
+            "start_offset": 625,
+            "end_offset": 672,
+            "raw_text": "五、违约责任\n因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "common_penalty_base_determinability_ratio"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "COMMON-20-01",
+          "element_id": "common_penalty_base_determinability_ratio",
+          "proposition": "违约金比例及对应基数约定",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-caef2ef0825ab139116a"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0006"
+          ],
+          "source_spans": [
+            "五、违约责任\n因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。"
+          ],
+          "source_locations": [
+            "五、违约责任"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0006"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-caef2ef0825ab139116a"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element."
+        },
+        {
+          "review_id": "COMMON-20-01",
+          "element_id": "common_penalty_base_determinability_definition",
+          "proposition": "违约金基数（合同总金额）的金额或可验证确定方法",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "entailment": "NOT_RELEVANT",
+          "verifier_confidence": "medium",
+          "reason": "未找到可支撑该元素的合同证据。",
+          "claim_id": "",
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "MISSING",
+          "fact_value": null,
+          "fact_evidence_refs": [],
+          "requirement_status": "NOT_SATISFIED",
+          "requirement_reason": "未找到可支撑该元素的合同证据。",
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "risk_id": "RF-010",
+        "bundle_id": "EB-4e1da2af7e03",
+        "invalid_clause_node_ids": [
+          "C0006"
+        ],
+        "requirement": "CLAUSE_NODE_CONSISTENCY_GATE"
+      }
+    }
+  ],
+  "note": "Null IDs/stages mean the existing gate did not publish them; none are fabricated."
+}

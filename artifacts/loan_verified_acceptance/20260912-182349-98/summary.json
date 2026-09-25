@@ -1,0 +1,63 @@
+[
+  {
+    "file": "F:\\ai\\Sage\\test_data\\98 借款合同.docx",
+    "file_sha256": "b0add44adf035d4025d62b511645cb2cc324eab094a3511a27c9cc7129c2b809",
+    "source_sha256": "53b70b7ac320a8fd97d6601625c3ee1cea32f196094c1d131a4b9b0a7f7962ba",
+    "source_characters": 2183,
+    "code_sha256": {
+      "backend\\review_v2\\unified_facts\\__init__.py": "12c1cfefdc5ad94d0c224dc5df189009ecea19dfb8c16c5072228f5b11917af4",
+      "backend\\review_v2\\unified_facts\\loan.py": "18e4d2d5eb155c627a308a41fe65a5165d554a8ced2d317dcb78451ec86f3ec5",
+      "backend\\review_v2\\unified_facts\\loan_bindings.py": "945a44cb653049eaea670963a732c28763a58e56da665bb3144fc257fa99e368",
+      "backend\\review_v2\\unified_facts\\loan_costs.py": "13d80e0775ddd3fb05a8a327b53254ba75b9f8464ee070d8a318282c828dadfa",
+      "backend\\review_v2\\unified_facts\\loan_pipeline.py": "dcbdb65ff2ccbfddf8fcf595985dfe4c74df5391e8b3e182fe39e61b04688a04",
+      "backend\\review_v2\\unified_facts\\loan_rules.py": "cb8678312100908a9e535b289486cbe0f5d783600f6612f93a01ddefdf411bb6",
+      "backend\\review_v2\\unified_facts\\normalization.py": "370bfea9d2f66b111d0da674b3efcbe114bb5d4fba2c54371658855efbc7c7f8",
+      "backend\\review_v2\\unified_facts\\pipeline.py": "a20d8dc9544c775c9b9afbda7c9cc11b899e817f13e7d8e61cd5b36cbfe4d360",
+      "backend\\review_v2\\unified_facts\\schema.py": "ae490c84afc74a784ccd89de58d6b75dd50953679be8d09bc48bbf66e5a0262b",
+      "backend\\review_v2\\unified_facts\\store.py": "ffcc899fd7257025e2fe073567d8e3b3fcb4b88be2833a3ceda0f95b7d426306"
+    },
+    "status": "BLOCKED",
+    "error": "FactExtractionError: INCOMPLETE_FACT_SCOPE",
+    "diagnostics": [
+      {
+        "failed_stage": "UNIFIED_FACT_VALIDATION",
+        "fact_id": null,
+        "field": "checks.fact_id",
+        "validation_rule": "INCOMPLETE_FACT_SCOPE",
+        "model_raw_value": null,
+        "evidence": null,
+        "expected": [
+          "CF-05fca50a108488cdb8d51a36",
+          "CF-2a106284bf35e3e36cbd00a5",
+          "CF-2a6bfbea8ab25f0713acb9e6",
+          "CF-35700ef3a93b460071a9b2d6",
+          "CF-5570c43f1d48e798f5aa3fe6",
+          "CF-67fcf425bafb02c74be558c3",
+          "CF-748d5778e607b1d432bb8be5",
+          "CF-b9bb947ebeb0f3921ba1d4c1",
+          "CF-ce7ddf7d68d98e0db34302d9",
+          "CF-dfa09982f5f89df7eaa75b02",
+          "CF-e0c10160ffece87565505e0e",
+          "CF-f23e45921be31d13596e9a98"
+        ],
+        "actual": [
+          "CF-67fcf425bafb02c74be558c3",
+          "CF-5570c43f1d48e798f5aa3fe6",
+          "CF-2a106284bf35e3e36cbd00a5",
+          "CF-35700ef3a93b460071a9b2d6",
+          "CF-e0c10160ffece87565505e0e",
+          "CF-748d5778e607b1d432bb8be5",
+          "CF-2a6bfbea8ab25f0713acb9e6",
+          "CF-dfa09982f5f89df7eaa75b02",
+          "CF-b9bb947ebeb0f3921ba1d4c1",
+          "CF-05fca50a108488cdb8d51a36",
+          "CF-a3d6fac2f1e1c17b8710b12b",
+          "CF-e8301aa3c2a31a0f3085ea24"
+        ],
+        "disposition": "BLOCK"
+      }
+    ],
+    "attempts": [],
+    "calls": 23
+  }
+]

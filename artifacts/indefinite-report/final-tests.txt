@@ -1,0 +1,61 @@
+....F...............................................                     [100%]
+================================== FAILURES ===================================
+________________ test_multiple_obligation_amounts_not_borrowed ________________
+
+    def test_multiple_obligation_amounts_not_borrowed():
+     q='工资9000元。单位支付2000元补贴替代社保。'
+>    s=store_for(q,[('social_insurance.cash_replacement',True,q)])
+
+backend\tests\test_indefinite_report_projection.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\tests\test_employment_dispatch.py:11: in store_for
+    fs=[fact(clauses,c,v,q) for c,v,q in values]
+backend\tests\test_employment_dispatch.py:11: in <listcomp>
+    fs=[fact(clauses,c,v,q) for c,v,q in values]
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+clauses = [ParsedClause(clause_id='C0001', location='第1段', title='工资9000元。', text='工资9000元。', section_type='正式合同条款', level=0, ra...number='', item_number='', sentence_index=1, start_offset=8, end_offset=24, source_type='BODY', party_obligation=True)]
+concept = 'social_insurance.cash_replacement', value = True
+quote = '工资9000元。单位支付2000元补贴替代社保。'
+
+    def fact(clauses, concept, value, quote):
+>       c = next(c for c in clauses if quote in c.text)
+E       StopIteration
+
+backend\tests\test_employment_fact_pipeline.py:25: StopIteration
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_indefinite_report_projection.py::test_multiple_obligation_amounts_not_borrowed
+1 failed, 51 passed, 6 warnings in 37.28s

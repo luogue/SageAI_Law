@@ -682,11 +682,14 @@ def _extract_house_lease_facts_from_clauses(clauses: list[ParsedClause]) -> Hous
                 _set_evidence(evidence, nodes, "repair.natural_wear", natural_wear, clause)
 
         if tenant_fault == UNSPECIFIED_PARTY:
-            has_tenant = "乙方" in text or "承租人" in text
-            has_fault = any(term in text for term in ("使用不当", "人为", "过错", "故意", "重大过失", "擅自"))
-            has_liability = any(term in text for term in ("赔偿", "承担", "负责维修", "修复", "负责修复"))
-            negated_tenant_cause = any(term in text for term in ("非乙方原因", "非承租人原因", "非因乙方原因", "非因承租人原因"))
-            if has_tenant and has_fault and has_liability and not negated_tenant_cause:
+            from .lease_semantics import PROFILES, supports
+            # A generic breach (e.g. unauthorised sublease) proves no damage.
+            # Use the same causal relationship as the coverage evaluator.
+            direct_fault = any(supports(PROFILES['tenant_fault_damage'][0], {
+                'clause_id': clause.clause_id, 'location': clause.location, 'text': sentence,
+            }) for sentence in re.split(r'[。\n]', text)
+                if not re.search(r'非(?:因)?(?:乙方|承租人)原因', sentence))
+            if direct_fault:
                 tenant_fault = TENANT
                 _set_evidence(evidence, nodes, "repair.tenant_fault", tenant_fault, clause)
 

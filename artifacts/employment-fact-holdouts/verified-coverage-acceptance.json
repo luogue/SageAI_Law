@@ -1,0 +1,59 @@
+[
+  {
+    "case": "financial_numerals",
+    "source_sha256": "1e5723c7144ce7e8175fefc186f2e759f1ba987ae272a46f15bb11db708ec2f7",
+    "source_unchanged": true,
+    "fresh_deepseek": true,
+    "status": "PASS",
+    "release_quality_gate": "REPORT_READY",
+    "fact_count": 35,
+    "expected_rule_statuses": {
+      "EMP-03-01": "通过",
+      "EMP-06-01": "通过",
+      "EMP-07-01": "通过",
+      "EMP-08-01": "通过",
+      "EMP-11-01": "通过"
+    },
+    "report": "artifacts\\employment-fact-holdouts\\financial_numerals-verified-targeted\\report.md",
+    "result": "artifacts\\employment-fact-holdouts\\financial_numerals-verified-targeted\\result.json"
+  },
+  {
+    "case": "distributed_partial",
+    "source_sha256": "665dd5864724606f35ba82d6e2adb5b35c5d355875592ec60fd9a8dd25d5b011",
+    "source_unchanged": true,
+    "fresh_deepseek": true,
+    "status": "PASS",
+    "release_quality_gate": "REPORT_READY",
+    "fact_count": 27,
+    "expected_rule_statuses": {
+      "EMP-03-01": "通过",
+      "EMP-06-01": "通过",
+      "EMP-07-01": "通过",
+      "EMP-08-01": "部分覆盖",
+      "EMP-11-01": "部分覆盖",
+      "NC-01-01": "通过",
+      "NC-02-01": "部分覆盖"
+    },
+    "report": "artifacts\\employment-fact-holdouts\\distributed_partial-verified-acceptance\\report.md",
+    "result": "artifacts\\employment-fact-holdouts\\distributed_partial-verified-acceptance\\result.json"
+  },
+  {
+    "case": "conflicting_duties",
+    "source_sha256": "744c70281d3d6392d9081dad191e4f452ecc0373a57663b4333be595cdd70cff",
+    "source_unchanged": true,
+    "fresh_deepseek": true,
+    "status": "PASS",
+    "release_quality_gate": "REPORT_READY",
+    "fact_count": 34,
+    "expected_rule_statuses": {
+      "EMP-13-01": "风险条款",
+      "EMP-14-01": "风险条款",
+      "EMP-15-01": "风险条款",
+      "EMP-05-01": "风险条款",
+      "EMP-11-01": "缺失",
+      "NC-02-01": "通过"
+    },
+    "report": "artifacts\\employment-fact-holdouts\\conflicting_duties-verified-targeted\\report.md",
+    "result": "artifacts\\employment-fact-holdouts\\conflicting_duties-verified-targeted\\result.json"
+  }
+]

@@ -8,7 +8,7 @@ def main():
     sage = SageEngine()
     
     print("=== Sage AI Agent ===")
-    print("基于千问4B模型的逻辑推理系统")
+    print("基于 DeepSeek 云端模型的逻辑推理系统")
     print("核心流程: 输入问题→抽象本质→抓主要矛盾→逻辑推导→输出结论")
     print("封装方法: abstract、main_contradiction、boundary、verify")
     print("实践循环: 理论→验证→反馈→迭代")

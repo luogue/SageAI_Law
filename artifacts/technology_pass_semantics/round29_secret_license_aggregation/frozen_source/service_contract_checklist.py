@@ -1,0 +1,189 @@
+"""服务合同审查清单（第二版）。
+
+本文件只定义审查检查点，不输出裁判结论。检查点由服务合同裁判树节点反向映射而来，
+重点覆盖预付式消费退款、格式条款效力、服务质量瑕疵、服务方资质、健康原因解除、
+单方变更、惩罚性赔偿和互联网平台条款变更。
+"""
+
+from __future__ import annotations
+
+from typing import Tuple
+
+from review_v2.house_lease_checklist import ReviewCheckpoint
+
+
+def _required(
+    item_id: str,
+    node_id: str,
+    title: str,
+    risk_level: str,
+    terms: Tuple[str, ...],
+    risk_point: str,
+    suggested_clause: str,
+    legal_basis: str,
+    legal_consequence_if_missing: str | None = None,
+    semantic_question: str | None = None,
+    pass_criteria: str | None = None,
+    partial_criteria: str | None = None,
+    applicable_if: str = "始终适用",
+    review_nature: str = "CONTRACTUAL_REQUIREMENT",
+    requirement_medium: str = "CONTRACT_TEXT",
+    legal_requirement_strength: str = "RISK_CONTROL",
+    action_type: str = "CONTRACT_EDIT",
+) -> ReviewCheckpoint:
+    return ReviewCheckpoint(
+        item_id=item_id,
+        node_id=node_id,
+        title=title,
+        kind="required",
+        risk_level=risk_level,
+        terms=terms,
+        risk_point_missing=risk_point,
+        risk_point_present=f"合同已覆盖“{title}”相关安排，建议继续核对服务内容、服务期限、预付款、退费、资质和违约责任是否完整、合法、可执行。",
+        suggested_clause=suggested_clause,
+        legal_basis=legal_basis,
+        legal_consequence_if_missing=legal_consequence_if_missing or risk_point,
+        semantic_question=semantic_question or f"合同是否已明确约定“{title}”，并能覆盖服务合同裁判树中对应的核心风险？",
+        evidence_scope="正式合同条款及附件",
+        pass_criteria=pass_criteria or f"正式合同条款或附件中存在与“{title}”相关的明确、可执行约定，且关键服务项目、金额、期限、流程、责任或附件已填写完整。",
+        partial_criteria=partial_criteria or f"正式合同条款或附件中已有与“{title}”相关安排，但存在空白、未勾选、金额期限不完整、服务标准不明确、退款公式不清或附件缺失。",
+        applicable_if=applicable_if,
+        review_nature=review_nature,
+        requirement_medium=requirement_medium,
+        legal_requirement_strength=legal_requirement_strength,
+        action_type=action_type,
+    )
+
+
+def _forbidden(
+    item_id: str,
+    node_id: str,
+    title: str,
+    risk_level: str,
+    terms: Tuple[str, ...],
+    risk_point: str,
+    suggested_clause: str,
+    legal_basis: str,
+    legal_consequence_if_missing: str | None = None,
+    semantic_question: str | None = None,
+    pass_criteria: str | None = None,
+    partial_criteria: str | None = None,
+    applicable_if: str = "始终适用",
+    review_nature: str = "NEGATIVE_PROHIBITION",
+    requirement_medium: str = "CONTRACT_TEXT",
+    legal_requirement_strength: str = "MANDATORY",
+    action_type: str = "CONTRACT_EDIT",
+) -> ReviewCheckpoint:
+    return ReviewCheckpoint(
+        item_id=item_id,
+        node_id=node_id,
+        title=title,
+        kind="forbidden",
+        risk_level=risk_level,
+        terms=terms,
+        risk_point_missing=f"合同暂未发现“{title}”类明显不利或违法表述，建议仍按公平、明确、可协商的方式约定服务和退费安排。",
+        risk_point_present=risk_point,
+        suggested_clause=suggested_clause,
+        legal_basis=legal_basis,
+        legal_consequence_if_missing=legal_consequence_if_missing or risk_point,
+        semantic_question=semantic_question or f"合同中是否存在“{title}”类可能限制消费者主要权利、免除经营者责任或允许单方变更的风险表述？",
+        evidence_scope="正式合同条款及附件",
+        pass_criteria=pass_criteria or f"正式合同条款及附件中未发现“{title}”类风险表述。",
+        partial_criteria=partial_criteria or f"正式合同条款或附件中存在接近“{title}”的表述，需要人工复核其是否已充分提示说明、是否公平合理、是否保留法定退费或解除权。",
+        applicable_if=applicable_if,
+        polarity="NEGATIVE_CLAUSE_CHECK",
+        review_nature=review_nature,
+        requirement_medium=requirement_medium,
+        legal_requirement_strength=legal_requirement_strength,
+        action_type=action_type,
+    )
+
+
+SERVICE_REVIEW_CHECKLIST: Tuple[ReviewCheckpoint, ...] = (
+    # ===== SVC-01 合同性质认定 =====
+    _required("SVC-01-01", "service_contract_type_identification", "服务合同性质", "高", ("服务合同", "服务提供方", "服务接受方", "服务费", "提供服务", "接受服务"), "未明确合同性质为服务合同，可能与承揽、委托、中介或买卖关系混同，影响服务质量、解除退款和违约责任规则适用。", "双方确认本合同为服务合同，由服务提供方向服务接受方提供约定服务，服务接受方按约支付服务费；本合同不以交付特定工作成果或代为处理事务为主要目的。", "《民法典》第509条及合同编通则"),
+    _required("SVC-01-02", "service_contract_vs_work_contract", "服务与承揽区分", "中", ("承揽", "工作成果", "交付成果", "服务过程", "服务行为"), "未区分服务过程和工作成果，可能导致质量救济、验收、任意解除等规则适用混乱。", "本合同核心为持续或阶段性提供服务行为；如需交付报告、照片、方案等成果，该成果仅作为服务履行证明，除另有约定外不改变服务合同性质。", "《民法典》第509条、第770条", review_nature="INTERNAL_CLASSIFICATION", requirement_medium="LEGAL_CHARACTERIZATION", legal_requirement_strength="OPTIONAL", action_type="NO_ACTION"),
+    _required("SVC-01-03", "service_contract_vs_agency_contract", "服务与委托区分", "中", ("委托", "受托", "代办", "处理事务", "代理"), "未区分服务合同和委托合同，可能导致转委托、报告义务、任意解除赔偿范围发生争议。", "服务提供方按本合同约定提供专业服务，不以服务接受方名义对外处理法律事务；确需代办事项的，应另行明确授权范围。", "《民法典》第509条、第919条", review_nature="INTERNAL_CLASSIFICATION", requirement_medium="LEGAL_CHARACTERIZATION", legal_requirement_strength="OPTIONAL", action_type="NO_ACTION"),
+    _required("SVC-01-04", "service_contract_subtype", "服务类型细分", "中", ("培训", "健身", "美容", "旅游", "咨询", "摄影", "婚庆", "互联网服务"), "未明确具体服务类型和场景，预付式消费、平台服务、培训退费、会员卡规则等专项风险难以审查。", "本合同服务类型为__，服务场景为□培训 □健身 □美容 □旅游 □咨询 □互联网平台 □其他__；涉及预付式消费的，适用本合同退费和消费者保护条款。", "《民法典》第509条、《消费者权益保护法》第53条", review_nature="INTERNAL_CLASSIFICATION", requirement_medium="LEGAL_CHARACTERIZATION", legal_requirement_strength="OPTIONAL", action_type="NO_ACTION"),
+
+    # ===== SVC-02 服务方资质 =====
+    _required("SVC-02-01", "provider_legal_qualification", "服务方法定资质", "高", ("资质", "许可证", "办学许可证", "营业执照", "执业资格", "备案"), "未约定服务方应具备法定资质或许可，教育培训、医疗美容、旅游、养老等行业可能存在无证经营风险。", "服务提供方承诺具备提供本合同服务所需的营业执照、许可证、备案、执业资格或其他法定资质，并应在签约时向服务接受方出示或提供复印件作为附件。", "《民法典》第509条、第577条"),
+    _required("SVC-02-02", "service_staff_qualification", "服务人员资质", "高", ("老师", "教练", "医师", "咨询师", "服务人员", "资格证"), "未约定实际服务人员资质，服务人员更换或不具备资格时，服务质量和合同目的容易受影响。", "实际提供服务的人员应具备__资质/经验；更换核心服务人员的，应提前通知服务接受方并提供同等或更高资质人员，经服务接受方确认后实施。", "《民法典》第509条、第577条"),
+    _required("SVC-02-03", "provider_qualification_attachment", "资质证明附件", "中", ("资质证明", "证照复印件", "附件", "备案证明", "许可证"), "未将资质证明列为附件，后续难以证明服务方签约时具备合法履约能力。", "服务提供方的营业执照、许可证、备案证明、人员资格证书等作为本合同附件，与合同正文具有同等效力。", "《民法典》第509条"),
+    _forbidden("SVC-02-04", "provider_no_qualification_risk", "无资质仍提供服务", "高", ("无资质", "无证", "无需资质", "没有许可证", "不提供证照"), "合同允许服务方在缺少法定资质、许可证或执业资格的情况下提供服务，可能导致合同履行违法或合同目的无法实现。", "建议改为：服务方未取得或丧失提供服务所需资质的，应立即停止相关服务并按未提供服务部分退费；因此造成损失的，应承担相应责任。", "《民法典》第509条、第577条、第153条"),
+
+    # ===== SVC-03 服务内容与标准 =====
+    _required("SVC-03-01", "service_content_standard", "服务内容清单", "高", ("服务内容", "服务项目", "课程", "课时", "项目清单", "服务范围"), "未明确服务项目、频次、课时或服务范围，用户难以判断服务是否按约提供。", "服务提供方应按附件《服务项目清单》提供服务，具体包括：服务项目__、服务次数/课时__、每次时长__、服务地点/方式__、服务期限__。", "《民法典》第509条"),
+    _required("SVC-03-02", "service_quality_standard", "服务质量标准", "高", ("服务标准", "质量标准", "行业标准", "效果标准", "验收标准"), "未约定服务质量标准，服务是否达标只能依赖通常标准或行业标准，争议空间较大。", "服务质量按以下顺序确定：本合同明确标准、附件服务说明、适用行业标准、通常服务标准和交易习惯；服务不符合标准的，按本合同违约责任处理。", "《民法典》第509条、第577条、第582条"),
+    _required("SVC-03-03", "service_schedule_and_place", "服务时间地点方式", "高", ("服务时间", "服务地点", "线上", "线下", "预约", "排课"), "未明确服务时间、地点和提供方式，可能导致迟延服务、预约冲突或线上线下变更争议。", "服务时间为__，服务地点/方式为__；需预约的，应提前__日预约；服务方调整时间、地点或方式的，应经服务接受方同意。", "《民法典》第509条"),
+    _forbidden("SVC-03-04", "service_result_commitment", "保过包过承诺边界", "中", ("保过", "包过", "不过全退", "保证效果", "保证录用", "承诺结果"), "合同存在培训、咨询、美容等结果承诺但未明确边界，可能引发目标未实现时的退费和违约争议。", "如服务方确需作出“保过、包过、不过全退、保证效果”等承诺，应明确目标、衡量标准、服务接受方配合义务、未实现目标时的退费或补救方式；未作出该类承诺时，不建议主动新增结果保证。", "《民法典》第509条、第577条、第582条", legal_requirement_strength="RISK_CONTROL"),
+
+    # ===== SVC-04 预付式消费 =====
+    _required("SVC-04-01", "prepaid_consumption_identification", "预付式消费识别", "高", ("预付式消费", "预付款", "会员卡", "储值卡", "充值", "课包"), "服务接受方预先付款但合同未识别预付式消费属性，未提供服务或停业时退款规则可能缺失。", "服务接受方预先支付服务费__元，服务方按约持续或分次提供服务；双方确认本合同涉及预付式消费的，服务方应按约提供服务，未按约提供的按本合同退费。", "《消费者权益保护法》第53条"),
+    _required("SVC-04-02", "prepaid_amount_and_balance", "预付款金额和余额", "高", ("预付款金额", "充值金额", "余额", "课时余额", "会员费"), "未明确预付款金额、单价、服务次数和余额计算方式，退款金额无法计算。", "预付款金额为__元，对应服务__次/课时；单次/单课时价格为__元。系统或台账应记录已消费次数、剩余次数和剩余金额，并向服务接受方开放查询。", "《消费者权益保护法》第53条、《民法典》第509条"),
+    _required("SVC-04-03", "prepaid_refund_condition_process", "退费条件和流程", "高", ("退费", "退款", "退卡", "解除", "剩余金额", "退费流程"), "未约定退费条件、申请材料、办理期限和计算方式，培训退费、会员卡取消等场景会直接产生争议。", "服务方未按约提供服务、服务质量严重不符合约定、停业或双方依法解除合同的，服务接受方有权申请退费。退费金额=已付款-已实际提供服务价值-依法可扣除的合理损失；服务方应在__日内退还。", "《消费者权益保护法》第53条、《民法典》第509条、第577条"),
+    _required("SVC-04-04", "prepaid_partly_provided_refund", "部分履行退款公式", "高", ("部分提供", "剩余课时", "未消费", "按比例退款", "扣除已使用"), "未约定部分服务已提供时如何计算退款，容易出现已上课时、赠送课时、优惠价格是否扣除的争议。", "合同解除或退费时，已提供服务按合同约定单价或通常价格结算；赠送服务不单独计入已提供服务价值，另有公平合理约定的除外。剩余未提供服务对应款项应退还。", "《消费者权益保护法》第53条、《民法典》第509条"),
+
+    # ===== SVC-05 格式条款效力 =====
+    _forbidden("SVC-05-01", "format_no_refund_clause", "不退不换格式条款", "高", ("不退不换", "概不退款", "一经售出不退", "费用不退", "不予退费"), "合同存在“一经付款概不退款、不退不换、费用不退”等格式条款，可能不合理限制消费者主要权利。", "建议改为：退费应区分服务是否提供、解除原因和双方过错；服务方未按约提供服务或依法应退费的，不得以格式条款排除消费者退款权利。", "《民法典》第496条、第497条、第498条"),
+    _required("SVC-05-02", "format_clause_prompt_explain", "格式条款提示说明", "高", ("格式条款", "提示说明", "加粗", "单独确认", "重要条款"), "对免除或限制责任、退费限制、违约金、单方变更等格式条款未作提示说明，条款可能不被纳入或不发生效力。", "服务方对免除或限制其责任、限制退费、违约金、自动续费、单方变更等重要条款，应以加粗、弹窗、单独签名或勾选方式作合理提示和说明。", "《民法典》第496条", review_nature="CONDITIONAL_REQUIREMENT", requirement_medium="SIGNING_PROCESS", legal_requirement_strength="MANDATORY", action_type="SIGNING_PROCESS", applicable_if="存在一方预先拟定、重复使用且限制责任、加重对方责任或排除对方主要权利的格式条款"),
+    _forbidden("SVC-05-03", "format_unfair_liability_shift", "不合理加重消费者责任", "高", ("自行承担全部责任", "服务方免责", "不得主张", "放弃权利", "单方解释权"), "合同通过格式条款不合理免除服务方责任、加重消费者责任或排除消费者主要权利，存在条款效力风险。", "建议改为：任何免责、限责、退费限制、违约金或争议解决条款均应公平合理，不得排除消费者依法享有的解除、退费、赔偿和投诉权利。", "《民法典》第497条"),
+    _forbidden("SVC-05-04", "format_final_interpretation_clause", "最终解释权条款", "中", ("最终解释权", "解释权归服务方", "单方解释", "服务方有权解释"), "合同约定服务方享有最终解释权，可能导致合同解释明显偏向服务方并引发格式条款争议。", "建议改为：合同条款发生争议时，双方应按文义、合同目的、交易习惯和诚信原则解释；格式条款有两种以上解释的，按法律规定处理。", "《民法典》第498条"),
+
+    # ===== SVC-06 消费者解除权 =====
+    _required("SVC-06-01", "health_change_termination", "健康原因解除机制", "高", ("健康原因", "疾病", "受伤", "医疗证明", "无法继续", "解除"), "预付式消费合同未约定消费者因健康原因无法继续接受服务时的解除和退费机制，可能不合理限制合法解约权。", "消费者因身体健康状况发生订约时无法预见的重大变化，继续接受服务明显不公平的，可凭医疗机构证明申请解除合同；服务方按未提供服务部分退还费用，不得收取不合理违约金。", "预付式消费司法解释第13条、《民法典》第533条"),
+    _required("SVC-06-02", "consumer_termination_notice", "消费者解除通知", "中", ("解除通知", "退费申请", "书面通知", "申请材料", "办理期限"), "未约定消费者解除通知方式和材料，退费流程容易被拖延或反复补材料。", "消费者申请解除或退费的，可通过书面、电子邮件、平台工单、微信或合同约定渠道提交；服务方应一次性告知所需材料，并在__日内完成审核。", "《民法典》第509条"),
+    _forbidden("SVC-06-03", "waive_legal_termination_right", "排除法定解除权", "高", ("不得解除", "任何原因不得退费", "放弃解除权", "永久有效不退"), "合同排除消费者依法解除合同或退费的权利，可能因限制主要权利而无效。", "建议改为：本合同不排除服务接受方依法享有的解除、退费、赔偿等权利；双方可对合理损失扣除和办理流程作公平约定。", "《民法典》第497条、第563条、预付式消费司法解释第13条"),
+    _required("SVC-06-04", "indefinite_service_termination", "不定期继续性服务解除", "中", ("不定期服务", "长期服务", "随时解除", "提前通知", "合理期限"), "长期持续服务未约定期限或解除通知期，用户取消会员、平台服务或长期服务时退款和通知义务不清。", "未约定固定服务期限或属于持续性服务的，任一方可在合理期限前通知解除；双方按实际接受服务情况结算，未提供部分依法退还。", "《民法典》第563条第2款", review_nature="CONDITIONAL_REQUIREMENT", legal_requirement_strength="DEFAULT_RULE", applicable_if="无固定服务期限、长期持续履行且不存在明确完成节点的继续性服务"),
+
+    # ===== SVC-07 服务方变更权 =====
+    _required("SVC-07-01", "provider_change_requires_consent", "服务内容变更需同意", "中", ("变更服务内容", "调整课程", "更换服务", "消费者同意", "协商一致"), "未约定服务方变更服务内容、方式、标准需经消费者同意，可能出现单方降级服务。", "服务方调整服务内容、地点、时间、人员、方式或标准的，应提前通知服务接受方；涉及主要权益或实质降低服务质量的，应取得服务接受方明确同意。", "《民法典》第509条、第577条"),
+    _forbidden("SVC-07-02", "provider_unilateral_change_right", "服务方单方变更权", "中", ("服务方有权单方变更", "无需通知", "自行调整", "以服务方安排为准"), "合同允许服务方不经同意单方调整服务内容、方式或标准，可能构成违约或格式条款风险。", "建议改为：服务方因合理原因需调整服务的，应提供同等质量替代方案；消费者不同意的，可选择继续履行原约定、延期、换课或按未提供部分退费。", "《民法典》第509条、第577条"),
+    _required("SVC-07-03", "platform_terms_change_consent", "平台条款重大变更同意", "中", ("平台条款", "用户协议", "重大权益", "变更规则", "用户同意"), "互联网平台服务条款涉及用户重大权益时未约定提示和同意机制，变更可能对用户不发生效力。", "平台变更用户协议、收费规则、账号权益、服务范围、自动续费或退费规则等重大权益条款的，应提前合理期限通知并取得用户明确同意。", "《民法典》第496条、第509条", review_nature="CONDITIONAL_REQUIREMENT", legal_requirement_strength="MANDATORY", applicable_if="存在互联网平台、用户协议、平台规则或平台单方更新机制"),
+    _required("SVC-07-04", "change_record_and_confirmation", "变更留痕确认", "低", ("变更记录", "确认", "签字", "电子确认", "通知记录"), "服务变更未约定留痕方式，后续难以证明消费者是否同意变更。", "双方通过补充协议、短信、邮件、平台确认、微信记录等方式确认服务变更，相关记录作为合同附件或履行凭证保存。", "《民法典》第509条"),
+
+    # ===== SVC-08 服务方违约责任 =====
+    _required("SVC-08-01", "service_nonperformance_remedy", "未提供服务的补救", "高", ("未提供服务", "停止服务", "不能提供", "继续履行", "退款"), "未约定服务方未提供服务时的补救和退款责任，预付款退还缺少合同依据。", "服务方未按约提供服务的，服务接受方可选择要求继续履行、补救、延期、替代服务、解除合同并退还未提供服务对应费用；造成损失的，服务方应赔偿。", "《民法典》第577条、第582条、《消费者权益保护法》第53条"),
+    _required("SVC-08-02", "service_quality_nonconform_remedy", "服务质量瑕疵救济", "高", ("服务不达标", "质量瑕疵", "补救", "减少费用", "赔偿损失"), "未约定服务质量不达标时的修正、补救、减少费用或赔偿机制，用户只能依赖笼统违约规则。", "服务质量不符合合同约定、行业标准或通常标准的，服务接受方有权要求服务方限期补救、重新提供、减少服务费、退还相应费用或赔偿损失。", "《民法典》第577条、第582条"),
+    _required("SVC-08-03", "operator_closure_refund", "停业关店退款责任", "高", ("停业", "关店", "闭店", "终止营业", "无法继续服务"), "未约定服务方停业、关店、停止营业时的退款责任，会员卡和预付费资金回收风险较高。", "服务方停业、关店、停止营业或无法继续提供约定服务的，应提前通知服务接受方，并在__日内退还未提供服务对应款项；不得以门店转让、内部调整为由拒绝退费。", "《消费者权益保护法》第53条、《民法典》第577条"),
+    _required("SVC-08-04", "business_transfer_continuity", "经营业务转让责任", "中", ("转让", "换老板", "受让方", "新店", "继续履行"), "服务方转让业务后未约定受让方继续履行或退款责任，消费者可能被要求重新付费或无法继续消费。", "服务方转让经营业务的，应提前告知服务接受方并确保受让方继续履行原合同；受让方拒绝履行或服务标准降低的，服务接受方可按未提供部分申请退费。", "预付式消费司法解释及合同编通则"),
+
+    # ===== SVC-09 消费者违约责任 =====
+    _required("SVC-09-01", "consumer_personal_reason_termination", "消费者自身原因解除", "中", ("个人原因", "不再需要", "搬家", "提前解约", "退费"), "未约定消费者自身原因提前解除时的合理损失扣除，容易出现全额不退或全额退款两端争议。", "服务方无违约时，服务接受方因个人原因解除合同的，服务方可扣除已实际提供服务价值和已发生的合理必要成本，剩余未提供服务费用应予退还。", "《民法典》第509条、第584条"),
+    _required("SVC-09-02", "consumer_cooperation_obligation", "消费者配合义务", "中", ("配合", "预约", "按时参加", "提交资料", "缺课"), "未约定消费者配合义务，目标未实现或服务无法提供时难以判断原因。", "服务接受方应按约预约、到场、提交资料、遵守服务规则并配合服务实施；因其无正当理由拒不配合导致服务无法提供的，按双方过错和实际损失结算。", "《民法典》第509条"),
+    _required("SVC-09-03", "reasonable_loss_deduction", "合理损失扣除范围", "中", ("合理损失", "成本", "违约金", "扣费", "损失赔偿"), "未限定消费者提前解约时可扣费用范围，可能出现过高违约金或笼统扣款。", "可扣除的合理损失限于服务方已实际提供服务价值、已发生且不可退的第三方成本、合理准备成本；服务方应提供相应凭证，不得重复扣费。", "《民法典》第584条、第585条"),
+    _forbidden("SVC-09-04", "consumer_excessive_penalty_clause", "过高解约违约金", "中", ("高额违约金", "全部费用不退", "扣除全部", "违约金100%", "不退余额"), "合同约定消费者提前解约即扣除全部剩余费用或明显高额违约金，可能因过分高于实际损失而被调减。", "建议改为：提前解约违约金或扣款应以实际损失为基础；如约定固定比例，应允许结合已履行比例、服务方成本和实际损失调整。", "《民法典》第585条"),
+
+    # ===== SVC-10 惩罚性赔偿 =====
+    _forbidden("SVC-10-01", "punitive_damages_closure", "恶意逃避退款责任", "中", ("恶意逃避退款", "失联", "跑路", "拒不退款", "惩罚性赔偿"), "合同存在经营者终止营业、失联或恶意逃避退款责任的风险表述，预付式消费资金安全缺少威慑机制。", "发现服务方终止营业、转移资产、变更联系方式、拒不处理退费或恶意逃避退款安排时，应改为依法退还未提供服务对应款项；构成欺诈或法律规定情形的，按法律承担惩罚性赔偿。", "《消费者权益保护法》第55条、预付式消费司法解释第23条", legal_requirement_strength="MANDATORY"),
+    _required("SVC-10-02", "prepaid_fund_security", "预付资金安全提示", "中", ("资金安全", "预付款管理", "专用账户", "余额查询", "风险提示"), "未约定预付资金管理或余额查询，消费者难以及时发现资金和履约风险。", "服务方应建立预付费台账并向服务接受方提供余额、消费记录和剩余服务查询；法律或监管要求资金存管的，应按规定办理。", "《消费者权益保护法》第53条"),
+    _required("SVC-10-03", "refund_service_contact", "退款联系人和渠道", "低", ("退款联系人", "客服电话", "投诉", "售后", "退款渠道"), "未约定退款联系人和渠道，消费者维权成本上升。", "服务方指定退款和售后联系人：__，电话/邮箱/平台渠道：__；服务方变更联系方式的，应提前通知服务接受方。", "《民法典》第509条"),
+    _required("SVC-10-04", "closure_notice_obligation", "停业提前通知", "中", ("停业通知", "关店通知", "提前通知", "终止营业", "公告"), "未约定停业或迁址提前通知义务，消费者可能无法及时安排转课、退款或证据保全。", "服务方拟停业、迁址、转让或重大调整经营的，应提前__日通知服务接受方，并同步提供继续履行、转店、延期或退费方案。", "《民法典》第509条、《消费者权益保护法》第53条"),
+
+    # ===== SVC-11 服务合同解除 =====
+    _required("SVC-11-01", "termination_basis", "合同解除事由", "中", ("解除合同", "终止合同", "解除条件", "根本违约", "不可抗力"), "未约定解除事由，服务未提供、质量严重不达标、停业或不可抗力时解除基础不清。", "出现服务方未按约提供服务、服务质量严重不符合约定、停业无法履行、双方协商一致、不可抗力或法律规定的其他情形时，守约方可解除合同。", "《民法典》第563条、第577条"),
+    _required("SVC-11-02", "termination_refund_calculation", "解除后的退款计算", "高", ("解除后退款", "退款计算", "未提供部分", "扣除", "余额"), "合同解除后未约定退款计算公式，预付款、已服务部分、赠送权益和合理损失无法结算。", "合同解除后，双方按实际履行情况结算：应退金额=已付款-已提供服务价值-依法可扣除的合理损失；赠送服务、优惠折扣和已使用权益按公平原则处理。", "《民法典》第566条、第584条、《消费者权益保护法》第53条"),
+    _required("SVC-11-03", "termination_notice_period", "解除通知期限", "中", ("提前通知", "通知期限", "书面通知", "解除申请", "合理期限"), "未约定解除通知期限和方式，可能导致一方突然停止服务或拖延处理。", "一方主张解除合同的，应通过合同约定渠道通知对方；除法律允许立即解除的情形外，应提前__日通知。收到解除通知后，双方应在__日内完成结算。", "《民法典》第509条、第565条"),
+    _required("SVC-11-04", "force_majeure_service_adjustment", "不可抗力服务调整", "低", ("不可抗力", "疫情", "封控", "自然灾害", "延期", "变更"), "未约定不可抗力或政策限制下的延期、转线上、退费规则，突发事件时履行方案不清。", "因不可抗力、政府管制或其他不可归责于双方的原因导致服务暂时不能提供的，双方可协商延期、转线上、替代服务或按未提供部分退费。", "《民法典》第563条、第590条"),
+
+    # ===== SVC-12 附件完整性 =====
+    _required("SVC-12-01", "service_item_attachment", "服务项目清单附件", "中", ("服务项目清单", "课程表", "项目表", "服务说明", "附件"), "未附服务项目清单，服务内容、频次、价格和履行标准难以核对。", "《服务项目清单》作为本合同附件，列明服务项目、次数/课时、单价、总价、服务人员、服务地点、服务期限和服务标准。", "《民法典》第509条"),
+    _required("SVC-12-02", "fee_standard_attachment", "收费标准附件", "中", ("收费标准", "价目表", "优惠", "赠送", "套餐", "附件"), "未附收费标准，优惠套餐、赠送服务、单次价格和退款单价容易争议。", "《收费标准及套餐说明》作为合同附件，列明原价、优惠价、赠送服务、单次服务价格、退款计价规则和有效期。", "《民法典》第509条、《消费者权益保护法》第53条"),
+    _required("SVC-12-03", "qualification_attachment", "证照资质附件", "中", ("营业执照", "许可证", "资质证书", "人员证书", "附件"), "未附证照资质材料，服务方资质和人员资格难以证明。", "服务方营业执照、许可证、备案证明、核心服务人员资格证书等应作为附件，与合同正文具有同等效力。", "《民法典》第509条"),
+    _required("SVC-12-04", "performance_record_attachment", "履行记录和确认附件", "低", ("签到记录", "消费记录", "课时记录", "服务确认", "评价记录"), "未约定履行记录保存方式，已服务次数、剩余次数、服务质量和退费金额难以证明。", "双方应保存签到、预约、课时、消费、服务确认、评价、沟通和退款记录；电子记录可作为确认服务履行和结算的依据。", "《民法典》第509条"),
+)
+
+
+from dataclasses import replace
+from review_v2.service_scenarios import CONDITIONS
+
+SERVICE_REVIEW_CHECKLIST = tuple(replace(rule,
+    prerequisite_facts=(CONDITIONS[rule.item_id],),
+    applicable_if='仅在已确认' + {'consumer':'个人生活消费','prepaid_consumer':'消费者身份且有预付式消费',
+        'training':'课程教学服务','platform':'互联网平台服务','indefinite':'不定期服务',
+        'qualified_staff':'法定或合同约定的人员执业资格要求',
+        'qualification_documents':'明确约定提供资质证明材料'}[CONDITIONS[rule.item_id]] + '时适用。')
+    if rule.item_id in CONDITIONS else rule for rule in SERVICE_REVIEW_CHECKLIST)
+
+def get_service_checklist() -> Tuple[ReviewCheckpoint, ...]:
+    return SERVICE_REVIEW_CHECKLIST

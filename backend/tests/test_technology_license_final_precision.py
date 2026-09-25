@@ -260,7 +260,9 @@ def test_tc_12_04_requires_same_loss_general_remedy_before_activation():
 
     assert item["coverage_status"] == "不适用"
     assert item["evidence_clauses"] == []
-    assert "同一侵权损失" in item["reasoning_summary"]
+    # The prerequisite is the same loss covered by both infringement and
+    # general remedies; their order in a Chinese sentence is not a fact key.
+    assert all(term in item["reasoning_summary"] for term in ("同一", "损失", "侵权", "一般救济"))
     assert not any(row["risk_group"] == "indemnity_and_liability_cap" for row in output["risk_findings"])
 
 

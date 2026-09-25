@@ -1,0 +1,326 @@
+{
+  "baseline": {
+    "PASS": 824,
+    "FAIL": 280,
+    "SKIP": 0
+  },
+  "current": {
+    "PASS": 862,
+    "FAIL": 258,
+    "SKIP": 0
+  },
+  "recovered": [
+    "backend.tests.test_current_patent_license_evidence_recall::test_patent_identity_and_support_reuse_direct_source_facts",
+    "backend.tests.test_entrusted_development_fact_direction_regressions::test_confidentiality_positive_facts_survive_search_audit",
+    "backend.tests.test_patent_application_transfer_consistency::test_claim_liability_reuses_seller_responsibility",
+    "backend.tests.test_patent_application_transfer_consistency::test_completed_core_becomes_pass_without_fabricated_gap_or_exposure",
+    "backend.tests.test_patent_application_transfer_consistency::test_duty_and_non_duty_have_separate_triggers",
+    "backend.tests.test_patent_application_transfer_consistency::test_warranty_is_not_demoted_by_missing_proof_documents",
+    "backend.tests.test_patent_license_theme_recommendation_economics::test_all_confirmed_competition_restrictions_have_recommendation_fragments",
+    "backend.tests.test_patent_license_theme_recommendation_economics::test_compound_advice_is_semantic_not_rule_id_or_fixed_duration[GENERIC-RESTRICTION-7]",
+    "backend.tests.test_patent_license_theme_recommendation_economics::test_compound_advice_is_semantic_not_rule_id_or_fixed_duration[OTHER-REVIEW-2]",
+    "backend.tests.test_technical_consulting_contract_review::test_complete_consulting_data_provision_is_pass",
+    "backend.tests.test_technical_consulting_contract_review::test_consulting_elements_and_evidence_are_status_separated_and_contract_grounded",
+    "backend.tests.test_technical_consulting_contract_review::test_consulting_signing_law_context_is_not_false_positive",
+    "backend.tests.test_technical_consulting_contract_review::test_consulting_subtype_is_inferred_from_transaction_substance_without_explicit_title",
+    "backend.tests.test_technical_consulting_contract_review::test_consulting_tc08_rules_and_direct_evidence",
+    "backend.tests.test_technical_consulting_contract_review::test_production_file_endpoint_uses_active_consulting_evidence_implementation",
+    "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_compliant_use_infringement_liability_is_covered",
+    "backend.tests.test_technical_secret_transfer_contract_review::test_service_fee_and_confidentiality_use_only_direct_operational_clauses",
+    "backend.tests.test_technical_service_latest_shared_fact_regressions::test_party_direction_and_finding_consistency_are_enforced",
+    "backend.tests.test_technology_license_final_precision::test_tc_12_04_requires_same_loss_general_remedy_before_activation",
+    "backend.tests.test_technology_license_scenario_interest_isolation::test_d_party_interest_check_distinguishes_uncapped_and_low_capped_licensor_liability",
+    "backend.tests.test_technology_pass_semantic_sources::test_negative_rule_requires_reproduced_complete_adverse_search[\\u7b2c\\u4e09\\u65b9\\u63d0\\u51fa\\u4fb5\\u6743\\u4e3b\\u5f20\\u65f6\\uff0c\\u4e59\\u65b9\\u5e94\\u5904\\u7406\\u7ea0\\u7eb7\\u3002-True-REPORT_READY]",
+    "backend.tests.test_technology_subject_identity_consistency::test_current_application_identity_uses_basic_information_and_definition"
+  ],
+  "newly_failing": [],
+  "added": {
+    "backend.tests.test_consulting_verified_fact_projection::test_application_representations_are_not_inferred_from_future_materials[\\u5356\\u65b9\\u4fdd\\u8bc1\\u5df2\\u7ecf\\u53d6\\u5f97\\u5168\\u90e8\\u7814\\u53d1\\u4eba\\u5458\\u804c\\u52a1\\u6210\\u679c\\u5f52\\u5c5e\\u7684\\u5185\\u90e8\\u6587\\u4ef6\\u3002-True]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_consulting_verified_fact_projection::test_application_representations_are_not_inferred_from_future_materials[\\u5356\\u65b9\\u5e94\\u5f53\\u4eca\\u540e\\u63d0\\u4f9b\\u7814\\u53d1\\u4eba\\u5458\\u8eab\\u4efd\\u6750\\u6599\\u3002-False]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_consulting_verified_fact_projection::test_canonical_sources_survive_projection_and_independent_verification[consulting_inputs-\\u7532\\u65b9\\u63d0\\u4f9b\\u7cfb\\u7edf\\u67b6\\u6784\\u56fe\\u548c\\u6027\\u80fd\\u6570\\u636e\\uff0c\\u5b89\\u6392\\u4eba\\u5458\\u8bbf\\u8c08\\u53ca\\u6d4b\\u8bd5\\u73af\\u5883\\u3002\\u7532\\u65b9\\u4fdd\\u8bc1\\u8d44\\u6599\\u771f\\u5b9e\\u3001\\u5b8c\\u6574\\uff0c\\u5e76\\u901a\\u8fc7\\u52a0\\u5bc6\\u7535\\u5b50\\u6587\\u4ef6\\u65b9\\u5f0f\\u63d0\\u4ea4\\u3002-4]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_consulting_verified_fact_projection::test_canonical_sources_survive_projection_and_independent_verification[consulting_quality-\\u4e59\\u65b9\\u5bf9\\u7cfb\\u7edf\\u67b6\\u6784\\u8fdb\\u884c\\u5206\\u6790\\u8bc4\\u4f30\\u3002\\u54a8\\u8be2\\u62a5\\u544a\\u5e94\\u5305\\u62ec\\u98ce\\u9669\\u5206\\u6790\\u3002\\u4e59\\u65b9\\u63d0\\u4ea4\\u7eb8\\u8d28\\u54a8\\u8be2\\u62a5\\u544a\\u3002\\u54a8\\u8be2\\u62a5\\u544a\\u5e94\\u5b8c\\u6574\\u8986\\u76d6\\u7ea6\\u5b9a\\u5185\\u5bb9\\u3002-4]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_consulting_verified_fact_projection::test_canonical_sources_survive_projection_and_independent_verification[consulting_remedy-\\u54a8\\u8be2\\u6210\\u679c\\u4e0d\\u7b26\\u5408\\u7ea6\\u5b9a\\u7684\\uff0c\\u4e59\\u65b9\\u5e94\\u5728\\u5408\\u7406\\u671f\\u9650\\u5185\\u514d\\u8d39\\u4fee\\u6539\\u3002-3]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_consulting_verified_fact_projection::test_exact_report_id_does_not_get_shadowed_by_clause_id_in_advice": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_consulting_verified_fact_projection::test_explicit_mutual_undertaking_is_not_an_unidentified_party_group": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_consulting_verified_fact_projection::test_inline_article_payload_reaches_the_same_fact_predicate": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_consulting_verified_fact_projection::test_multiple_sources_for_one_element_do_not_expand_verified_quotes": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_consulting_verified_fact_projection::test_named_object_of_confidentiality_duty_is_scope_not_remedy": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_consulting_verified_fact_projection::test_related_heading_and_other_obligation_do_not_prove_consulting_elements[consulting_inputs]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_consulting_verified_fact_projection::test_related_heading_and_other_obligation_do_not_prove_consulting_elements[consulting_quality]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_consulting_verified_fact_projection::test_related_heading_and_other_obligation_do_not_prove_consulting_elements[consulting_remedy]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_consulting_verified_fact_projection::test_response_projection_uses_original_not_reparsed_clause_identity": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_consulting_verified_fact_projection::test_service_subject_candidates_retain_performance_not_remedy_sources[\\u4e59\\u65b9\\u901a\\u8fc7\\u7cfb\\u7edf\\u5206\\u6790\\u548c\\u53c2\\u6570\\u8c03\\u8bd5\\u63d0\\u4f9b\\u6280\\u672f\\u670d\\u52a1\\uff0c\\u5e76\\u63d0\\u4ea4\\u6280\\u672f\\u4f18\\u5316\\u62a5\\u544a\\u3002-True]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_consulting_verified_fact_projection::test_service_subject_candidates_retain_performance_not_remedy_sources[\\u7532\\u65b9\\u652f\\u4ed8\\u6280\\u672f\\u670d\\u52a1\\u8d39\\u7528\\u3002\\u4e59\\u65b9\\u8fdd\\u7ea6\\u8d54\\u507f\\u4ee5\\u6280\\u672f\\u670d\\u52a1\\u8d39\\u7528\\u4e3a\\u4e0a\\u9650\\u3002-False]": {
+      "status": "PASS",
+      "message": ""
+    }
+  },
+  "removed": [],
+  "changes": {
+    "backend.tests.test_current_patent_license_evidence_recall::test_patent_identity_and_support_reuse_direct_source_facts": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert {'C0057'} == {'C0003', 'C0057'}\n  \n  Extra items in the right set:\n  'C0003'\n  Use -v to get more diff"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_entrusted_development_fact_direction_regressions::test_confidentiality_positive_facts_survive_search_audit": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert 'MISSING' == 'COVERED'\n  \n  - COVERED\n  + MISSING"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_patent_application_transfer_consistency::test_claim_liability_reuses_seller_responsibility": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' in {'通过', '部分覆盖'}"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_patent_application_transfer_consistency::test_completed_core_becomes_pass_without_fabricated_gap_or_exposure": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_patent_application_transfer_consistency::test_duty_and_non_duty_have_separate_triggers": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' in {'通过', '部分覆盖'}"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_patent_application_transfer_consistency::test_warranty_is_not_demoted_by_missing_proof_documents": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' in {'通过', '部分覆盖'}"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_patent_license_theme_recommendation_economics::test_all_confirmed_competition_restrictions_have_recommendation_fragments": {
+      "before": {
+        "status": "FAIL",
+        "message": "assert False\n +  where False = all(<generator object test_all_confirmed_competition_restrictions_have_recommendation_fragments.<locals>.<genexpr> at 0x000002AC63AD45F0>)"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_patent_license_theme_recommendation_economics::test_compound_advice_is_semantic_not_rule_id_or_fixed_duration[GENERIC-RESTRICTION-7]": {
+      "before": {
+        "status": "FAIL",
+        "message": "assert False\n +  where False = all(<generator object test_compound_advice_is_semantic_not_rule_id_or_fixed_duration.<locals>.<genexpr> at 0x000002AC5B64AB90>)"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_patent_license_theme_recommendation_economics::test_compound_advice_is_semantic_not_rule_id_or_fixed_duration[OTHER-REVIEW-2]": {
+      "before": {
+        "status": "FAIL",
+        "message": "assert False\n +  where False = all(<generator object test_compound_advice_is_semantic_not_rule_id_or_fixed_duration.<locals>.<genexpr> at 0x000002AC63AD5770>)"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_technical_consulting_contract_review::test_complete_consulting_data_provision_is_pass": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_technical_consulting_contract_review::test_consulting_elements_and_evidence_are_status_separated_and_contract_grounded": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_technical_consulting_contract_review::test_consulting_signing_law_context_is_not_false_positive": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '签署时法律依据：《中华人民共和国合同法》第359条（技术咨询合同决策风险承担规则）；现行对应规则：《中华人民共和国民法典》第881条；具体争议适用法律仍应结合履行时间、争议事实及相关法律适用规则判断。' in '# 技术咨询合同审查报告\\n\\n\\n## 一、合同总体评价\\n\\n- 审查立场：甲方 / 委托方\\n- 使用场景：技术咨询\\n- 合同类型：技术合同—技术咨询合同\\n- 总体可签署性：建议修改后签署\\n- 风险主题数（聚合后）：1\\n...人民共和国民法典》第466条\\n\\n【证据定位】\\n- 支持要素：第一条引用核验\\n- 条款编号：第七条第2项\\n- 原文片段：2、咨询报告应完整覆盖第一条约定内容，并就架构、性能瓶颈、改造路线和主要风险提出明确意见。\\n\\n---\\n'"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_technical_consulting_contract_review::test_consulting_subtype_is_inferred_from_transaction_substance_without_explicit_title": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_technical_consulting_contract_review::test_consulting_tc08_rules_and_direct_evidence": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert ['待核验', '待核验', '待核验', '待核验'] == ['通过', '通过', '通过', '通过']\n  \n  At index 0 diff: '待核验' != '通过'\n  Use -v to get more diff"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_technical_consulting_contract_review::test_production_file_endpoint_uses_active_consulting_evidence_implementation": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_compliant_use_infringement_liability_is_covered": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '缺失' == '通过'\n  \n  - 通过\n  + 缺失"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_technical_secret_transfer_contract_review::test_service_fee_and_confidentiality_use_only_direct_operational_clauses": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert [] == ['C0009']\n  \n  Right contains one more item: 'C0009'\n  Use -v to get more diff"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_technical_service_latest_shared_fact_regressions::test_party_direction_and_finding_consistency_are_enforced": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_technology_license_final_precision::test_tc_12_04_requires_same_loss_general_remedy_before_activation": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '同一侵权损失' in '合同未形成侵权专项责任与同一损失一般救济并存的事实，本项不适用。'"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_technology_license_scenario_interest_isolation::test_d_party_interest_check_distinguishes_uncapped_and_low_capped_licensor_liability": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '同一侵权损失' in '合同未形成侵权专项责任与同一损失一般救济并存的事实，本项不适用。'"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_technology_pass_semantic_sources::test_negative_rule_requires_reproduced_complete_adverse_search[\\u7b2c\\u4e09\\u65b9\\u63d0\\u51fa\\u4fb5\\u6743\\u4e3b\\u5f20\\u65f6\\uff0c\\u4e59\\u65b9\\u5e94\\u5904\\u7406\\u7ea0\\u7eb7\\u3002-True-REPORT_READY]": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_technology_subject_identity_consistency::test_current_application_identity_uses_basic_information_and_definition": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert {'全文', '第一条第3...4项', '第一条第5项'} <= {'全文', '第一条第5项', '第十七条第1项'}\n  \n  Extra items in the left set:\n  '第一条第3项'\n  '第一条第4项'"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    }
+  }
+}

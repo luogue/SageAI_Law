@@ -1,0 +1,44 @@
+{
+  "backup_time": "2026-09-11T10:28:15.609557+08:00",
+  "files": [
+    {
+      "path": "F:\\ai\\Sage\\backend\\app.db",
+      "backup": "F:\\ai\\Sage\\artifacts\\database-switch\\original-final-backup\\app.db",
+      "size": 344064,
+      "sha256": "f5e6d39909b67672e881815e1669486d93984ad895cb2f18246c9b5c36f2eb9e"
+    },
+    {
+      "path": "F:\\ai\\Sage\\backend\\app.db-wal",
+      "backup": "F:\\ai\\Sage\\artifacts\\database-switch\\original-final-backup\\app.db-wal",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "F:\\ai\\Sage\\backend\\app.db-shm",
+      "backup": "F:\\ai\\Sage\\artifacts\\database-switch\\original-final-backup\\app.db-shm",
+      "size": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "path": "F:\\ai\\Sage\\backend\\.env",
+      "backup": "F:\\ai\\Sage\\artifacts\\database-switch\\original-final-backup\\.env",
+      "size": 2576,
+      "sha256": "fcf1d89740cdb88372a247b024527aa17666a6677d3faac2f96333675acc6259"
+    }
+  ],
+  "old_database": "F:\\ai\\Sage\\backend\\app.db",
+  "new_database": "F:\\ai\\Sage\\backend\\data\\recovered-production-20260911.sqlite",
+  "staged_sha256": "a641999d6c1ea9e61fc4baaa17f6091a68deeb13e40ccff944c8f4aa6673d254",
+  "pre_health": {
+    "time": "2026-09-11T10:27:43.442922+08:00",
+    "http_status": 503,
+    "body": {
+      "status": "unhealthy",
+      "database": {
+        "status": "unhealthy",
+        "reason": "database_query_failed"
+      }
+    }
+  },
+  "switch_time": "2026-09-11T10:28:24.717336+08:00"
+}

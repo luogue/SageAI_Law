@@ -1,0 +1,107 @@
+.F.FF.........F.FFFFFF..................................                 [100%]
+================================== FAILURES ===================================
+______________ test_claim_liability_reuses_seller_responsibility ______________
+backend\tests\test_patent_application_transfer_consistency.py:55: in test_claim_liability_reuses_seller_responsibility
+    assert liability["coverage_status"] in {"通过", "部分覆盖"}
+E   AssertionError: assert '待核验' in {'通过', '部分覆盖'}
+________________ test_duty_and_non_duty_have_separate_triggers ________________
+backend\tests\test_patent_application_transfer_consistency.py:49: in test_duty_and_non_duty_have_separate_triggers
+    assert item(result, "TC-03-01")["coverage_status"] in {"通过", "部分覆盖"}
+E   AssertionError: assert '待核验' in {'通过', '部分覆盖'}
+___________ test_warranty_is_not_demoted_by_missing_proof_documents ___________
+backend\tests\test_patent_application_transfer_consistency.py:42: in test_warranty_is_not_demoted_by_missing_proof_documents
+    assert warranty["coverage_status"] in {"通过", "部分覆盖"}
+E   AssertionError: assert '待核验' in {'通过', '部分覆盖'}
+____________ test_case_i_j_confidentiality_balance_is_directional _____________
+backend\tests\test_technical_secret_license_contract_review.py:145: in test_case_i_j_confidentiality_balance_is_directional
+    assert balanced["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+___ test_latest_secret_license_confidentiality_consumes_cross_article_facts ___
+backend\tests\test_technical_secret_license_contract_review.py:381: in test_latest_secret_license_confidentiality_consumes_cross_article_facts
+    assert confidentiality["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+_________ test_over_scope_liability_b_existing_clause_is_not_missing __________
+backend\tests\test_technical_secret_license_contract_review.py:238: in test_over_scope_liability_b_existing_clause_is_not_missing
+    assert any(
+E   assert False
+E    +  where False = any(<generator object test_over_scope_liability_b_existing_clause_is_not_missing.<locals>.<genexpr> at 0x000001CA43802810>)
+_ test_ancillary_service_fee_keeps_covered_base_and_only_reports_excess_fee_gaps _
+backend\tests\test_technical_secret_transfer_contract_review.py:173: in test_ancillary_service_fee_keeps_covered_base_and_only_reports_excess_fee_gaps
+    assert item["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '缺失' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 缺失
+__ test_service_fee_and_confidentiality_use_only_direct_operational_clauses ___
+backend\tests\test_technical_secret_transfer_contract_review.py:326: in test_service_fee_and_confidentiality_use_only_direct_operational_clauses
+    assert [row["clause_id"] for row in confidentiality["evidence_clauses"]] == ["C0009"]
+E   AssertionError: assert [] == ['C0009']
+E     
+E     Right contains one more item: 'C0009'
+E     Use -v to get more diff
+___ test_service_provider_does_not_receive_counterparty_liability_cap_risk ____
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:450: in test_service_provider_does_not_receive_counterparty_liability_cap_risk
+    assert item["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+__________ test_party_direction_and_finding_consistency_are_enforced __________
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:167: in test_party_direction_and_finding_consistency_are_enforced
+    assert subject["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+backend/tests/test_technical_consulting_contract_review.py::test_production_file_endpoint_uses_active_consulting_evidence_implementation
+backend/tests/test_entrusted_cross_rule_consistency.py::test_completed_negative_check_does_not_leave_an_obsolete_manual_review
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_patent_application_transfer_consistency.py::test_claim_liability_reuses_seller_responsibility
+FAILED backend/tests/test_patent_application_transfer_consistency.py::test_duty_and_non_duty_have_separate_triggers
+FAILED backend/tests/test_patent_application_transfer_consistency.py::test_warranty_is_not_demoted_by_missing_proof_documents
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_case_i_j_confidentiality_balance_is_directional
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_secret_license_confidentiality_consumes_cross_article_facts
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_over_scope_liability_b_existing_clause_is_not_missing
+FAILED backend/tests/test_technical_secret_transfer_contract_review.py::test_ancillary_service_fee_keeps_covered_base_and_only_reports_excess_fee_gaps
+FAILED backend/tests/test_technical_secret_transfer_contract_review.py::test_service_fee_and_confidentiality_use_only_direct_operational_clauses
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_service_provider_does_not_receive_counterparty_liability_cap_risk
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_party_direction_and_finding_consistency_are_enforced
+10 failed, 46 passed, 7 warnings in 432.19s (0:07:12)

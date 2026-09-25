@@ -157,6 +157,87 @@ def _without_negated_rights_disposals(text: str) -> str:
     )
 
 
+def _structured_entrusted_development(text: str) -> Dict[str, Any]:
+    """Recognize a research commission expressed across form-contract articles.
+
+    A client/developer relationship, a funded research programme, its developer's
+    performance and delivery of research results must all be present. Ordinary
+    deployment, model-training and support vocabulary is not enough.
+    """
+    compact = re.sub(r"\s+", "", text or "")
+    articles = re.split(r"(?=第[一二三四五六七八九十百\d]+条)", compact)
+    roles = bool(
+        re.search(r"(?:委托方|委托人)[（(]?甲方|甲方[（(]?(?:委托方|委托人)", compact)
+        and re.search(
+            r"(?:受托方|研究开发人|开发方)[（(]?乙方|乙方[（(]?(?:受托方|研究开发人|开发方)",
+            compact,
+        )
+    )
+    objectives = any(
+        re.search(r"(?:研究开发要求|研究开发目标|研发目标|开发目标|技术目标)[：:]?", article)
+        and re.search(r"(?:研发|研究开发|开发)(?:一[套种项个])?[^。；]{2,100}(?:系统|算法|技术|产品|工艺|装置|材料)", article)
+        for article in articles
+    )
+    funding = any(
+        re.search(r"(?:研究开发经费|研发经费|研发费用|开发费用|开发费)(?:和|及|与)?(?:报酬)?", article)
+        and re.search(r"(?:总额|总价|费用|经费|报酬)[：:]?(?:人民币)?[\d,]+(?:\.\d+)?(?:万)?元", article)
+        and any(term in article for term in ("支付", "付款", "结算"))
+        for article in articles
+    )
+    # Do not interpret a prohibition on outsourcing as the developer's positive
+    # undertaking; this check stays within the same sentence and party.
+    performance = bool(re.search(
+        r"(?:乙方|受托方|研究开发人|开发方)(?:(?!甲方|不得|禁止|无须|不承担)[^。；]){0,65}"
+        r"(?:负责|承担|开展|实施|完成|提交)[^。；]{0,35}(?:研究开发|研发|开发工作)",
+        compact,
+    ))
+    schedule = bool(
+        re.search(r"研究开发计划|研发计划|研发进度|开发进度|开发里程碑", compact)
+    )
+    results = bool(re.search(
+        r"(?:提交|交付)[^。；]{0,35}(?:研究开发成果|研发成果|开发成果)|"
+        r"(?:研究开发成果|研发成果|开发成果)[^。；]{0,45}(?:交付|提交|形成并向甲方)",
+        compact,
+    ))
+    bilateral_tasks = all(bool(re.search(
+        rf"{party}(?:(?!{'乙方' if party == '甲方' else '甲方'})[^。；]){{0,65}}"
+        r"(?:负责|承担)[^。；]{0,30}(?:研发|研究开发|开发)",
+        compact,
+    )) for party in ("甲方", "乙方"))
+    facts = {
+        "client_and_developer_roles": roles,
+        "research_objectives": bool(objectives),
+        "research_consideration": bool(funding),
+        "developer_research_performance": performance,
+        "research_schedule": schedule,
+        "research_result_delivery": results,
+    }
+    return {
+        **facts,
+        "is_primary_commission": all(facts.values()) and not bilateral_tasks,
+    }
+
+
+def cooperative_research_structure(text: str) -> Dict[str, Any]:
+    """Bilateral research performance, funding and results establish development.
+
+    A heading or incidental procurement/license vocabulary cannot establish it.
+    """
+    compact = re.sub(r"\s+", "", text or "")
+    from review_v2.clause_parser import parse_contract_clauses
+    articles = [re.sub(r"\s+", "", c.text) for c in parse_contract_clauses(text)]
+    tasks = all(any(re.search(rf"{party}(?:(?!{other}|[。；]).){{0,35}}(?:负责|承担)(?:(?!{other}|[。]).){{0,80}}(?:研发|研究|算法|模块|接口|架构|控制)", a)
+                    for a in articles) for party, other in (("甲方", "乙方"), ("乙方", "甲方")))
+    funding = any(re.search(r"研发(?:预算|投入|经费|费用)|研究开发(?:经费|投入)", a)
+                  and all(re.search(rf"{party}[^。；]{{0,12}}(?:承担|投入|出资)[^。；]{{0,15}}(?:人民币|[\d,]+元|研发经费|研发费用)", a) for party in ("甲方", "乙方")) for a in articles)
+    target = bool(re.search(r"研发目标|研究开发目标|共同(?:开展|进行).{0,100}(?:研发|研究开发)|双方共同(?:研发|开发)", compact))
+    results = bool(re.search(r"共同成果.{0,30}(?:共有|共同所有)|双方.{0,20}共同申请专利|共同享有.{0,25}(?:成果|权利)", compact))
+    risk = bool(re.search(r"研发失败|正常技术风险|共同承担开发风险", compact))
+    return dict(research_division=tasks, joint_investment=funding, development_target=target,
+                joint_result=results, research_failure_risk=risk,
+                established=bool(tasks and target and (funding or results) and (results or risk)))
+
+
 def analyze_primary_transaction(text: str) -> Dict[str, Any]:
     """Classify the exchanged legal/economic performance, not word frequency."""
     source = text or ""
@@ -165,6 +246,8 @@ def analyze_primary_transaction(text: str) -> Dict[str, Any]:
     operative_sentences = [row for row in sentences if not any(term in row for term in ("另行购买", "另行采购", "另行签署", "另行订立", "具体供货另行"))]
     operative = re.sub(r"\s+", "", "。".join(operative_sentences))
     affirmative_operative = _without_negated_rights_disposals(operative)
+    development_semantics = _structured_entrusted_development(source)
+    cooperative_semantics = cooperative_research_structure(source)
 
     license_grant = bool(re.search(
         r"(?:许可|授予)[^。；]{0,45}(?:技术|技术资料|制造工艺|源程序|软件|专利)[^。；]{0,45}(?:使用|实施|设计|制造|销售|出口)?|"
@@ -283,10 +366,15 @@ def analyze_primary_transaction(text: str) -> Dict[str, Any]:
         or ("卖方" in operative and "买方" in operative)
         or ("供方" in operative and "需方" in operative)
     )
+    sale_operative = '。'.join(row for row in operative_sentences if not (
+        re.search(r'(?:不承担|不负责|不包含|不涉及)[^。；]{0,80}(?:采购|购买|销售|供货|设备)', row)
+        or (re.search(r'(?:拟采购|设备|产品)[^。；]{0,45}(?:分析|评价|评估|论证|建议)', row)
+            and not re.search(r'(?:应|须|负责)[^。；]{0,20}(?:采购|购买|销售|供货|交货)', row))
+    ))
     goods_purchase = bool(re.search(
         r"(?:购买|采购)[^。；]{0,30}(?:货物|设备|产品|材料)|"
         r"(?:出售|销售|供应|交付)[^。；]{0,30}\d+\s*(?:台|套|件|吨|批)",
-        operative,
+        sale_operative,
     ))
     purchase_price = bool(re.search(
         r"(?:设备|货物|产品)[^。；]{0,60}(?:购买价款|采购价款|总价|货款|单价)|"
@@ -322,7 +410,11 @@ def analyze_primary_transaction(text: str) -> Dict[str, Any]:
     )
     if software_is_ancillary:
         independent_license_value = False
-    if technology_ownership_transfer:
+    if cooperative_semantics["established"]:
+        transaction_type = "COOPERATIVE_DEVELOPMENT"
+        dominant_family = "TECHNOLOGY"
+        confidence = "high"
+    elif technology_ownership_transfer:
         transaction_type = "TECHNOLOGY_TRANSFER"
         dominant_family = "TECHNOLOGY"
         confidence = "high"
@@ -337,6 +429,10 @@ def analyze_primary_transaction(text: str) -> Dict[str, Any]:
     elif independent_sale_value and sale_score >= 14:
         transaction_type = "GOODS_SALE"
         dominant_family = "SALE"
+        confidence = "high"
+    elif development_semantics["is_primary_commission"]:
+        transaction_type = "ENTRUSTED_DEVELOPMENT"
+        dominant_family = "TECHNOLOGY"
         confidence = "high"
     else:
         transaction_type = "UNKNOWN"
@@ -365,6 +461,8 @@ def analyze_primary_transaction(text: str) -> Dict[str, Any]:
             else "patent or technical-result ownership" if transaction_type == "TECHNOLOGY_TRANSFER"
             else "technology / know-how / technical materials" if transaction_type == "TECHNOLOGY_LICENSE"
             else "goods and technology license" if transaction_type.startswith("MIXED_")
+            else "joint research and development results" if transaction_type == "COOPERATIVE_DEVELOPMENT"
+            else "new research and development results" if transaction_type == "ENTRUSTED_DEVELOPMENT"
             else "goods" if transaction_type == "GOODS_SALE" else "undetermined"
         ),
         "rights_change": (
@@ -372,19 +470,27 @@ def analyze_primary_transaction(text: str) -> Dict[str, Any]:
              ["ownership of patent or technical result transfers"] if technology_ownership_transfer else [])
             + (["license to use technology"] if independent_license_value and not technology_ownership_transfer else [])
         ) + (["ownership of goods transfers to buyer"] if independent_sale_value else []),
-        "primary_obligation_grantor": license_obligations + sale_obligations,
-        "primary_obligation_grantee": grantee_obligations + sale_buyer_obligations,
+        "primary_obligation_grantor": (
+            ["perform agreed research tasks and contribute research resources"] if transaction_type == "COOPERATIVE_DEVELOPMENT" else ["perform commissioned research and deliver development results"]
+            if transaction_type == "ENTRUSTED_DEVELOPMENT" else license_obligations + sale_obligations
+        ),
+        "primary_obligation_grantee": (
+            ["perform agreed research tasks and contribute research resources"] if transaction_type == "COOPERATIVE_DEVELOPMENT" else ["fund research and pay development remuneration"]
+            if transaction_type == "ENTRUSTED_DEVELOPMENT" else grantee_obligations + sale_buyer_obligations
+        ),
         "primary_consideration": (
             (["entry fee"] if entry_fee else [])
             + (["sales royalty"] if royalty else [])
             + (["goods purchase price"] if independent_sale_value else [])
+            + (["research funding and development remuneration"] if transaction_type == "ENTRUSTED_DEVELOPMENT" else [])
         ),
         "transaction_purpose": (
-            "acquire ownership or control of technical secret/non-patent technology"
+            "jointly develop new technical results" if transaction_type == "COOPERATIVE_DEVELOPMENT" else "acquire ownership or control of technical secret/non-patent technology"
             if technology_ownership_transfer and technical_secret_disposal
             else "acquire ownership of patent or technical result"
             if technology_ownership_transfer
             else "use licensed technology to manufacture or operate products" if independent_license_value
+            else "commission research and obtain new development results" if transaction_type == "ENTRUSTED_DEVELOPMENT"
             else "acquire ownership of goods" if independent_sale_value else "undetermined"
         ),
         "secondary_transactions": ["ANCILLARY_FUTURE_GOODS_SUPPLY"] if ancillary_goods_supply else [],
@@ -411,7 +517,12 @@ def analyze_primary_transaction(text: str) -> Dict[str, Any]:
             "independent_economic_value": independent_sale_value,
             "ancillary_future_supply": ancillary_goods_supply,
         },
-        "family_scores": {"TECHNOLOGY": license_score, "SALE": sale_score},
+        "development_semantics": development_semantics,
+        "cooperative_semantics": cooperative_semantics,
+        "family_scores": {
+            "TECHNOLOGY": license_score + (24 if transaction_type == "COOPERATIVE_DEVELOPMENT" else 18 if transaction_type == "ENTRUSTED_DEVELOPMENT" else 0),
+            "SALE": sale_score,
+        },
         "decision_basis": "operative rights change + primary obligations + consideration + economic independence",
     }
 
@@ -474,14 +585,13 @@ def _classify_technology_transaction_uncached(text: str) -> Dict[str, Any]:
     )
     technology_transfer_title = "合同" in title_compact and "技术转让" in title_compact
     technical_secret_transfer_title = (
-        technology_transfer_title
-        and any(term in title_compact for term in ("技术秘密", "专有技术", "非公开技术", "非专利技术"))
+        "合同" in title_compact
+        and bool(re.search(r"(?:技术秘密|专有技术|非公开技术|非专利技术)(?:权利)?(?:转让|让与)|"
+                           r"技术转让(?:合同)?[（(](?:技术秘密|专有技术|非公开技术|非专利技术)[）)]", title_compact))
     )
     patent_license_title = (
         "合同" in title_compact
-        and any(term in title_compact for term in (
-            "专利实施许可", "专利技术许可", "技术许可（专利实施）", "技术许可(专利实施)",
-        ))
+        and bool(re.search(r'(?<!非)专利(?:实施|技术)许可|技术许可[（(]专利实施[）)]', title_compact))
     )
     technology_license_title = "合同" in title_compact and any(
         term in title_compact for term in ("技术许可", "技术秘密许可", "专有技术许可", "非专利技术许可")
@@ -496,14 +606,26 @@ def _classify_technology_transaction_uncached(text: str) -> Dict[str, Any]:
         "合同" in title_compact
         and any(term in title_compact for term in ("技术秘密许可", "专有技术许可", "非专利技术许可"))
     ) or technical_secret_license_fields
-    consulting_title = "合同" in title_compact and "技术咨询" in title_compact
-    service_title = "合同" in title_compact and "技术服务" in title_compact
-
-    patent_license_grant = bool(re.search(
-        r"(?:许可人|许可方|卖方|乙方).{0,60}(?:许可|授予).{0,80}(?:被许可人|被许可方|接受方|受许可方|买方|甲方).{0,80}(?:实施|使用|制造|销售).{0,30}专利"
-        r"|(?:许可|授予).{0,50}(?:专利实施许可|实施其所拥有的.{0,40}专利)",
-        compact,
+    consulting_title = bool(re.search(r'技术咨询(?:服务)?(?:合同|协议)$', title_compact))
+    service_title = bool(re.search(r'(?<!咨询)技术服务(?:合同|协议)$', title_compact))
+    entrusted_title = bool(re.search(
+        r"委托(?:研究)?开发|技术开发[（(]委托[）)]|技术开发(?:合同|协议)[（(]委托[）)]",
+        title_compact,
     ))
+
+    # A grant is an operative proposition, never text assembled across
+    # warranty/remedy/third-party-claim sentences or article boundaries.
+    from review_v2.proposition_scope import arrangement_matches
+    patent_grant_pattern = (
+        r"(?:许可人|许可方|卖方|乙方)[^。；;\n]{0,60}(?:许可|授予)[^。；;\n]{0,80}"
+        r"(?:被许可人|被许可方|接受方|受许可方|买方|甲方)[^。；;\n]{0,80}"
+        r"(?:实施|使用|制造|销售)[^。；;\n]{0,30}专利|"
+        r"(?:许可|授予)[^。；;\n]{0,50}(?:专利实施许可|实施其所拥有的[^。；;\n]{0,40}专利)"
+    )
+    patent_license_grant = any(
+        not re.search(r"第三方.{0,12}(?:主张|声称)|无权许可|未获授权", row['quote'])
+        for row in arrangement_matches(patent_grant_pattern, re.sub(r'[^\S\n]+', '', source_text))
+    )
     license_consideration = any(term in compact for term in (
         "专利许可费", "实施许可使用费", "许可使用费", "许可费总额", "许可使用费总额",
     ))
@@ -514,6 +636,13 @@ def _classify_technology_transaction_uncached(text: str) -> Dict[str, Any]:
         r"(?:转让|让与).{0,30}(?:专利权|专利申请权)|(?:专利权|专利申请权).{0,30}(?:转让|让与|转移至|归受让方所有)",
         affirmative_compact,
     ))
+    if patent_ownership_transfer:
+        from review_v2.proposition_scope import arrangement_matches, predicate_is_operative
+        pattern = r'(?:转让|让与)[^。；;\n]{0,30}(?:专利权|专利申请权)|(?:专利权|专利申请权)[^。；;\n]{0,30}(?:转让|让与|转移至|归受让方所有)'
+        patent_ownership_transfer = any(
+            not re.search(r'擅自|未经[^。；]{0,25}同意|违约金', row['quote'])
+            and predicate_is_operative(row['quote'],row['match_start'],row['match_end'])
+            for row in arrangement_matches(pattern,source_text))
     transfer_registration = bool(re.search(
         r"(?:专利权.{0,30}(?:转让登记|变更登记|登记至受让方|登记转移)|(?:申请人|专利申请权).{0,30}(?:变更登记|变更))",
         compact,
@@ -550,6 +679,12 @@ def _classify_technology_transaction_uncached(text: str) -> Dict[str, Any]:
             and any(term in compact for term in ("专利申请权转让价款", "专利申请权转让总价"))
         )
     )
+    from review_v2.technology_asset_identity import transfer_assets
+    transfer_asset_facts = transfer_assets(text)
+    registered_patent_transfer = bool(patent_ownership_transfer
+        and transfer_asset_facts['patent_identifier']
+        and (transfer_asset_facts['patent_grant'] or transfer_asset_facts['patent_registration']))
+    granted_patent_asset = granted_patent_asset or registered_patent_transfer
     if patent_application_asset and "转让价款" in compact:
         transfer_consideration = True
 
@@ -574,6 +709,11 @@ def _classify_technology_transaction_uncached(text: str) -> Dict[str, Any]:
             compact,
         )
     )
+
+    if registered_patent_transfer or patent_application_asset:
+        # Confidential supporting documents cannot displace an operative,
+        # identified registered patent. A distinct secret grant remains a module.
+        technical_secret_transfer = bool(transfer_asset_facts['secret_transaction'])
 
     add("TECHNOLOGY_TRANSFER", 12, "title:patent_right_transfer", patent_transfer_title)
     add("TECHNOLOGY_TRANSFER", 8, "title:technology_transfer", technology_transfer_title and not patent_transfer_title)
@@ -648,7 +788,11 @@ def _classify_technology_transaction_uncached(text: str) -> Dict[str, Any]:
     add("COOPERATIVE_DEVELOPMENT", 4, "joint_development_results", joint_results)
     add("COOPERATIVE_DEVELOPMENT", 3, "joint_development_risk", joint_risk)
     add("COOPERATIVE_DEVELOPMENT", 2, "cooperative_wording", any(signal in compact for signal in cooperative_signals))
-    add("ENTRUSTED_DEVELOPMENT", 4, "title:entrusted_development", "委托开发" in heading)
+    add("ENTRUSTED_DEVELOPMENT", 4, "title:entrusted_development", entrusted_title or "委托开发" in heading)
+    add(
+        "ENTRUSTED_DEVELOPMENT", 18, "primary_transaction:funded_research_and_result_delivery",
+        primary_transaction_model["type"] == "ENTRUSTED_DEVELOPMENT",
+    )
     add("ENTRUSTED_DEVELOPMENT", 8, "directed_research_commission", directed_commission)
     add("ENTRUSTED_DEVELOPMENT", 6, "asymmetric_development_funding", one_party_funds and not (party_a_invests and party_b_invests))
     add("ENTRUSTED_DEVELOPMENT", 6, "asymmetric_research_performance", one_party_develops and not (party_a_develops and party_b_develops))
@@ -681,6 +825,7 @@ def _classify_technology_transaction_uncached(text: str) -> Dict[str, Any]:
     consulting_analysis_terms = (
         "可行性分析", "可行性论证", "技术分析", "技术论证", "分析评价",
         "技术评价", "技术预测", "架构评估", "技术风险分析", "提出技术建议",
+        "进行分析", "进行评价", "方案论证", "提出建议", "诊断表",
     )
     consulting_deliverable = bool(re.search(
         r"(?:提交|出具|形成|提供).{0,24}(?:技术)?(?:咨询|分析|论证|评价|可行性).{0,12}(?:报告|意见|建议|方案)",
@@ -693,9 +838,12 @@ def _classify_technology_transaction_uncached(text: str) -> Dict[str, Any]:
     )
     consulting_analysis = sum(term in compact for term in consulting_analysis_terms) >= 2
     consulting_consideration = any(term in compact for term in (
-        "技术咨询报酬", "咨询报酬", "咨询费用", "咨询服务费",
+        "技术咨询报酬", "咨询报酬", "咨询费用", "咨询服务费", "顾问服务报酬",
     ))
-    implementation_disclaimer = any(term in compact for term in (
+    implementation_disclaimer = bool(
+        re.search(r'(?:仅|只)(?:负责|提供)?[^。；]{0,35}(?:调查|分析|评价|论证|技术建议|咨询意见)', compact)
+        and re.search(r'(?:不承担|不负责|不包含)[^。；]{0,80}(?:采购|安装|施工|软件开发|项目总承包|技术实施|成果制造)', compact)
+    ) or any(term in compact for term in (
         "不承担软件开发", "不承担技术实施", "不承担成果制造", "仅提供咨询意见",
     ))
     add("TECHNICAL_CONSULTING", 4, "roles:consulting_client_and_consultant", consulting_parties)
@@ -710,21 +858,29 @@ def _classify_technology_transaction_uncached(text: str) -> Dict[str, Any]:
         else "TECHNICAL_CONSULTING" if consulting_title
         else "TECHNICAL_SERVICE" if service_title
         else "COOPERATIVE_DEVELOPMENT" if "合作开发" in title_compact
-        else "ENTRUSTED_DEVELOPMENT" if "委托开发" in title_compact
+        else "ENTRUSTED_DEVELOPMENT" if entrusted_title
         else ""
     )
     ranked = sorted(scores, key=lambda key: scores[key], reverse=True)
-    if patent_ownership_transfer or explicit_technology_rights_transfer or primary_transaction_model["type"] == "TECHNOLOGY_TRANSFER":
+    if primary_transaction_model["type"] == "COOPERATIVE_DEVELOPMENT":
+        subtype = "COOPERATIVE_DEVELOPMENT"
+        add(subtype, 24, "operative:bilateral_research_funding_and_results", True)
+    elif patent_ownership_transfer or explicit_technology_rights_transfer or primary_transaction_model["type"] == "TECHNOLOGY_TRANSFER":
         subtype = "TECHNOLOGY_TRANSFER"
     elif primary_transaction_model["type"] in {"TECHNOLOGY_LICENSE", "MIXED_SALE_TECHNOLOGY_LICENSE"}:
         subtype = "TECHNOLOGY_LICENSE"
     elif primary_transaction_model["type"] == "GOODS_SALE":
         subtype = "GENERAL_TECHNOLOGY"
+    elif primary_transaction_model["type"] == "ENTRUSTED_DEVELOPMENT":
+        subtype = "ENTRUSTED_DEVELOPMENT"
     else:
         subtype = explicit_title_subtype or (ranked[0] if scores[ranked[0]] >= 6 else "GENERAL_TECHNOLOGY")
     tertiary_subtype = (
+        "PATENT_RIGHT_TRANSFER"
+        if subtype == "TECHNOLOGY_TRANSFER" and registered_patent_transfer and not patent_application_asset
+        else
         "TECHNICAL_SECRET_TRANSFER"
-        if subtype == "TECHNOLOGY_TRANSFER" and technical_secret_transfer
+        if subtype == "TECHNOLOGY_TRANSFER" and technical_secret_transfer and not patent_application_asset
         else "MIXED_PATENT_RIGHT_AND_APPLICATION_TRANSFER"
         if subtype == "TECHNOLOGY_TRANSFER" and granted_patent_asset and patent_application_asset
         else "PATENT_APPLICATION_RIGHT_TRANSFER"
@@ -805,6 +961,15 @@ def _classify_technology_transaction_uncached(text: str) -> Dict[str, Any]:
 
     secondary_modules: List[str] = []
     module_evidence: Dict[str, List[str]] = {}
+    operative_service_subtransaction = bool(re.search(
+        r'(?:乙方|服务方|受托方)[^。；]{0,20}(?:应|须|负责|完成|提供)[^。；]{0,45}'
+        r'(?:系统部署|参数调试|设备维护|故障诊断|技术支持|性能优化)', compact,
+    )) and not bool(re.search(
+        r'(?:不承担|不负责|不包含)[^。；]{0,60}(?:系统部署|参数调试|设备维护|技术支持)', compact,
+    ))
+    if subtype != 'TECHNICAL_SERVICE' and scores['TECHNICAL_SERVICE'] >= 8 and operative_service_subtransaction:
+        secondary_modules.append('TECHNICAL_SERVICE')
+        module_evidence['TECHNICAL_SERVICE'] = list(technical_service_activity_hits)
     if has_commissioned_development and subtype != "ENTRUSTED_DEVELOPMENT":
         secondary_modules.append("COMMISSIONED_DEVELOPMENT")
         module_evidence["COMMISSIONED_DEVELOPMENT"] = commissioned_development_evidence
@@ -814,6 +979,15 @@ def _classify_technology_transaction_uncached(text: str) -> Dict[str, Any]:
     subtransaction_analysis = analyze_technology_subtransactions(text)
     structured_subfacts = dict(subtransaction_analysis.get("structured_facts") or {})
     sub_transactions = list(subtransaction_analysis.get("sub_transactions") or [])
+    patent_layers=[]
+    if tertiary_subtype=='PATENT_RIGHT_TRANSFER':
+        from review_v2.patent_transfer_elements import transaction_layers
+        from review_v2.clause_parser import parse_contract_clauses
+        patent_layers=transaction_layers(parse_contract_clauses(text))
+        for layer in patent_layers:
+            key=layer['type'].lower()
+            if key not in sub_transactions:sub_transactions.append(key)
+            structured_subfacts[key]=layer
     if tertiary_subtype in {"TECHNICAL_SECRET_TRANSFER", "TECHNICAL_SECRET_LICENSE"}:
         if "technical_secret" not in sub_transactions:
             sub_transactions.append("technical_secret")
@@ -830,6 +1004,7 @@ def _classify_technology_transaction_uncached(text: str) -> Dict[str, Any]:
         structured_subfacts["technical_secret"] = secret_facts
     if (
         subtype != "TECHNICAL_SERVICE"
+        and "TECHNICAL_SERVICE" not in secondary_modules
         and (structured_subfacts.get("technical_service") or {}).get("content")
     ):
         secondary_modules.append("TECHNICAL_SERVICE")
@@ -837,6 +1012,14 @@ def _classify_technology_transaction_uncached(text: str) -> Dict[str, Any]:
             (structured_subfacts.get("technical_service") or {}).get("activities") or []
         )
 
+    if subtype == 'COOPERATIVE_DEVELOPMENT':
+        from review_v2.cooperative_arrangements import transaction_layers
+        from review_v2.clause_parser import parse_contract_clauses
+        patent_layers = transaction_layers(parse_contract_clauses(text))
+        if any('BACKGROUND_PATENT_LICENSE' in layer['type'] for layer in patent_layers):
+            secondary_modules.append('TECHNOLOGY_LICENSE')
+            module_evidence['TECHNOLOGY_LICENSE'] = [layer['type'] for layer in patent_layers if 'BACKGROUND' in layer['type']]
+        sub_transactions.extend(layer['type'].lower() for layer in patent_layers)
     ancillary_obligations: List[str] = []
     ancillary_terms = {
         "TRAINING": ("培训", "人员培训"),
@@ -928,6 +1111,7 @@ def _classify_technology_transaction_uncached(text: str) -> Dict[str, Any]:
             patent_license_grant and (license_consideration or license_scope)
             or primary_transaction_model["type"] in {"TECHNOLOGY_LICENSE", "MIXED_SALE_TECHNOLOGY_LICENSE"}
         )
+        else "ENTRUSTED_DEVELOPMENT" if primary_transaction_model["type"] == "ENTRUSTED_DEVELOPMENT"
         else ""
     )
     contract_type_conflict = bool(
@@ -942,9 +1126,9 @@ def _classify_technology_transaction_uncached(text: str) -> Dict[str, Any]:
     classification_evidence_details = {
         "contract_title": document_title,
         "subject_matter": snippets(("专利名称", "项目名称", "合同标的", "许可实施的专利权", "转让的专利权", "技术秘密", "非公开技术", "专有技术", "非专利技术")),
-        "core_performance_obligations": snippets(("许可买方实施", "授予本专利实施许可", "转让给受让方", "向受让方提供", "技术秘密交付", "转移至受让方", "完整技术转让", "取得本合同技术相关权利", "共同研究开发", "委托研究开发", "解决特定技术问题", "可行性分析", "技术论证", "分析评价", "技术咨询报告")),
+        "core_performance_obligations": snippets(("许可买方实施", "授予本专利实施许可", "转让给受让方", "向受让方提供", "技术秘密交付", "转移至受让方", "完整技术转让", "取得本合同技术相关权利", "共同研究开发", "委托研究开发", "研究开发要求", "提交研究开发计划", "研究开发成果", "解决特定技术问题", "可行性分析", "技术论证", "分析评价", "技术咨询报告")),
         "rights_transfer_method": snippets(("排他许可", "独占许可", "普通实施许可", "专利权转让", "技术秘密转让", "非专利技术转让", "完整技术转让", "取得本合同技术相关权利", "技术秘密交付", "转让登记", "变更登记")),
-        "consideration_nature": snippets(("许可使用费", "实施许可使用费", "专利权转让价款", "固定技术转让费", "技术转让费", "技术转让价款", "技术交易额", "成交总额", "技术服务费用", "研发费用", "咨询报酬")),
+        "consideration_nature": snippets(("许可使用费", "实施许可使用费", "专利权转让价款", "固定技术转让费", "技术转让费", "技术转让价款", "技术交易额", "成交总额", "技术服务费用", "研究开发经费", "研发经费", "研发费用", "咨询报酬")),
         "key_clauses": snippets(("许可范围", "许可期限", "专利权登记", "权利瑕疵", "开发成果", "咨询报告", "咨询内容", "咨询要求", "技术服务内容"), 8),
     }
 
@@ -1052,6 +1236,8 @@ def _classify_technology_transaction_uncached(text: str) -> Dict[str, Any]:
         "primary_category": "TECHNICAL_CONTRACT",
         "primary_subtype": subtype,
         "tertiary_subtype": tertiary_subtype,
+        "transfer_asset_facts": transfer_asset_facts,
+        "independent_secret_transaction": bool(transfer_asset_facts['secret_transaction']),
         "confidence": "high" if scores.get(subtype, 0) >= 12 else "medium" if scores.get(subtype, 0) >= 6 else "low",
         "classification_score": scores.get(subtype, 0),
         "evidence_node_ids": evidence.get(subtype, []),
@@ -1068,6 +1254,7 @@ def _classify_technology_transaction_uncached(text: str) -> Dict[str, Any]:
             "subtype": tertiary_subtype.lower() if tertiary_subtype else subtype.lower(),
         },
         "primary_transaction_model": primary_transaction_model,
+        "transaction_layers": {'main_transaction':tertiary_subtype or subtype,'sub_transactions':patent_layers},
         "secondary_transactions": list(secondary_contract_types),
         "sub_transactions": sub_transactions,
         "structured_facts": structured_subfacts,
@@ -1138,17 +1325,28 @@ def analyze_technology_subtransactions(text: str) -> Dict[str, Any]:
     ))
 
     service_heading = bool(re.search(
+        r'第[一二三四五六七八九十百\d]+条技术服务(?=[甲乙丙丁]方|服务内容|提供内容)|'
         r"(?:第[一二三四五六七八九十\d]+条)?技术服务(?:和|及|与)?(?:技术)?(?:指导|培训)|"
+        r"第[一二三四五六七八九十\d]+条技术(?:指导(?:和|及|与)?培训|支持)|"
         r"技术服务[：:](?:需要|包含|提供)",
         compact,
     ))
+    service_articles = [
+        article for article in re.split(r"(?=第[一二三四五六七八九十百\d]+条)", compact)
+        if re.match(
+            r"第[一二三四五六七八九十百\d]+条技术(?:服务|指导|支持|培训)",
+            article,
+        )
+    ]
+    service_scope = "。".join(service_articles) if service_articles else compact
     service_activities = [
         term for term in (
             "实施说明", "部署指导", "参数配置培训", "故障排查指导", "部署支持",
             "现场技术指导", "技术培训", "安装调试支持", "技术咨询",
             "系统部署", "模型训练", "生产环境调试", "技术人员培训", "远程技术支持",
             "软件部署", "参数标定", "系统调试", "现场技术支持", "人员培训",
-        ) if term in compact
+            "线上培训", "远程技术答疑", "现场部署",
+        ) if term in service_scope
     ]
     service_content = bool(service_heading and len(service_activities) >= 2)
     structured_training = bool(
@@ -1161,8 +1359,13 @@ def analyze_technology_subtransactions(text: str) -> Dict[str, Any]:
         service_activities.append("约定人数、培训时长及服务期限的技术培训")
     service_fee = bool(re.search(r"技术服务(?:和|及|与)?(?:技术)?(?:指导|培训)?费(?:用)?[：:]?(?:人民币)?[\d,]+(?:\.\d+)?(?:万|亿)?元", compact))
     service_fee_included = bool(re.search(
+        r'(?:上述|本项|前述)服务费(?:用)?包含在[^。；]{0,20}(?:价款|总价)|'
         r"技术服务(?:和|及|与)?(?:技术)?(?:指导|培训)?费(?:用)?.{0,24}(?:已)?包含在.{0,12}(?:转让费|许可费|合同价款|总价).{0,12}(?:不另行收费|不另收费)?",
         compact,
+    )) or bool(re.search(
+        r"(?:合同总价|合同价款|转让费|许可费)[^。；]{0,12}(?:已)?包含[^。；]{0,20}"
+        r"(?:技术服务|技术支持|技术指导|培训)(?:费|费用)",
+        service_scope,
     ))
     # A scoped service allowance followed by an express charge only for work
     # beyond that allowance is strong evidence that the baseline service is
@@ -1261,9 +1464,10 @@ def analyze_technology_subtransactions(text: str) -> Dict[str, Any]:
         final_failure_scope
         and any(term in final_failure_scope for term in ("解除合同", "终止合同", "拒绝接受"))
     )
+    from review_v2.technology_fact_ontology import matches_action
     refund_remedy = bool(
         final_failure_scope
-        and any(term in final_failure_scope for term in ("返还已支付", "退还已支付", "退款", "返还转让费", "返还价款"))
+        and matches_action('payment_refund', final_failure_scope)
     )
     damage_remedy = bool(final_failure_scope and any(term in final_failure_scope for term in ("赔偿损失", "损失赔偿")))
     material_delivery = bool(
@@ -1325,7 +1529,7 @@ def analyze_technical_secret_loss_arrangement(text: str) -> Dict[str, Any]:
     source = str(text or "")
     compact = re.sub(r"\s+", "", source)
     trigger_pattern = re.compile(
-        r"(?:技术秘密|秘密性|秘密信息|know-?how).{0,50}(?:进入公开领域|成为公知|丧失秘密性|"
+        r"(?:核心技术|许可技术|技术秘密|秘密性|秘密信息|know-?how).{0,50}(?:进入公开领域|成为公知|丧失秘密性|"
         r"被(?:第三方|他人)公开|第三方(?:合法)?公开|主动公开|申请专利.{0,20}公开)|"
         r"(?:进入公开领域|成为公知|丧失秘密性).{0,50}(?:技术秘密|秘密信息|know-?how)",
         re.I,
@@ -1344,7 +1548,7 @@ def analyze_technical_secret_loss_arrangement(text: str) -> Dict[str, Any]:
         source,
     )
     candidate_scopes = [
-        re.sub(r"\s+", "", part)
+        part
         for part in section_parts
         if part.strip()
         and (
@@ -1363,6 +1567,7 @@ def analyze_technical_secret_loss_arrangement(text: str) -> Dict[str, Any]:
                 candidate_scopes.append("".join(sentences[index:index + 5]))
 
     def _scope_score(value: str) -> tuple[int, int]:
+        value = re.sub(r"\s+", "", value)
         consequence_hits = sum(
             bool(re.search(pattern, value, re.I))
             for pattern in (
@@ -1379,81 +1584,52 @@ def analyze_technical_secret_loss_arrangement(text: str) -> Dict[str, Any]:
         return consequence_hits, -len(value)
 
     scope = max(candidate_scopes, key=_scope_score) if candidate_scopes else ""
-    third_party_disclosure = bool(re.search(r"(?:第三方|他人).{0,30}(?:公开|披露)", scope))
-    public_domain_entry = bool(re.search(r"(?:进入|成为).{0,16}(?:公共领域|公开领域|公知技术)", scope))
-    licensor_patent_disclosure = bool(re.search(
-        r"(?:许可方|卖方|出让方|转让方|甲方|乙方).{0,35}(?:申请专利|公开).{0,35}(?:导致|使).{0,20}(?:公开|丧失秘密性)|"
-        r"(?:许可方|卖方|出让方|转让方|甲方|乙方)申请专利导致.{0,30}公开",
-        scope,
-    ))
-    partial_disclosure = bool(re.search(r"(?:全部或者部分|全部或部分|部分).{0,20}(?:公开|丧失秘密性)", scope))
-    secret_loss_trigger = any((third_party_disclosure, public_domain_entry, licensor_patent_disclosure))
-    future_license_fee_continues = bool(re.search(
-        r"(?:不得|仍须|继续).{0,35}(?:停止支付|支付).{0,35}(?:尚未到期的?)?"
-        r"(?:技术秘密)?(?:许可使用费|许可费|使用费|转让费)", scope,
-    ))
-    future_service_fee_continues = bool(re.search(
-        r"(?:不得|仍须|继续).{0,45}(?:停止支付|支付).{0,35}技术服务费", scope,
-    ))
-    royalty_continues = bool(re.search(
-        r"(?:不得|仍须|继续).{0,45}(?:停止支付|支付).{0,35}(?:提成费用|提成费)|"
-        r"(?:提成费用|提成费).{0,30}(?:仍须|继续)支付", scope,
-    ))
-    termination_restricted = bool(re.search(
-        r"(?:不得|无权).{0,45}(?:以技术秘密.{0,25}(?:公开|丧失秘密性).{0,20}为由)?"
-        r"(?:单方面|单方)?解除合同", scope,
-    ))
-    paid_fee_nonrefundable = bool(re.search(
-        r"(?:已经|已)支付.{0,25}(?:不予退还|不退)|"
-        r"(?:无需|不予|不得).{0,12}(?:退还|返还).{0,25}(?:已经|已)支付",
-        scope,
-    ))
-    fee_adjustment_matches = list(re.finditer(
-        r"(?:停止支付|不再支付|调减|减少|调整).{0,35}(?:未到期|未来|尚未履行)?.{0,20}"
-        r"(?:许可使用费|许可费|使用费|技术服务费|提成)", scope,
-    ))
-    # "不得停止支付" is a continuation obligation, not an available fee
-    # adjustment.  Preserve proposition polarity before treating the phrase as
-    # a protective stop/reduction mechanism.
-    fee_stop_or_reduction = any(
-        not re.search(r"(?:不得|不应|无权|不可).{0,8}$", scope[max(0, match.start() - 12):match.start()])
-        for match in fee_adjustment_matches
-    )
-    termination_available = bool(re.search(
-        r"(?:被许可方|买方|受让方).{0,30}(?:有权|可以).{0,20}解除合同|"
-        r"(?:公开|丧失秘密性).{0,40}(?:可以|有权)解除合同",
-        scope,
-    ))
-    secret_loss_context = bool(
-        trigger_pattern.search(scope) or secret_loss_heading_pattern.search(scope)
-    )
-    secret_loss_notification = bool(re.search(
-        r"(?:技术秘密|秘密性|秘密信息).{0,80}(?:公开|丧失秘密性).{0,80}(?:通知|告知)|"
-        r"(?:通知|告知).{0,80}(?:技术秘密|秘密性|秘密信息).{0,80}(?:公开|丧失秘密性)",
-        scope,
-        re.I,
-    )) or bool(
-        secret_loss_context
-        and re.search(
-            r"(?:通知期限|通知义务|应.{0,16}(?:通知|告知)|须.{0,16}(?:通知|告知)|"
-            r"未履行.{0,12}(?:通知|告知))",
-            scope,
-            re.I,
-        )
-    )
-    secret_loss_notification_deadline = bool(
-        secret_loss_notification
-        and re.search(r"(?:\d+|[一二三四五六七八九十]+)日(?:内)?(?:通知|告知)|通知期限[:：]?(?:\d+|[一二三四五六七八九十]+)日", scope)
-    )
-    late_notification_damage = bool(re.search(
-        r"(?:未履行|迟延|迟延|未及时).{0,18}(?:通知|告知).{0,45}(?:赔偿|损失)|"
-        r"(?:通知|告知).{0,28}(?:迟延|迟延|未履行).{0,35}(?:赔偿|损失)",
-        scope,
-        re.I,
-    ))
-    separate_value_settlement = bool(re.search(
-        r"(?:技术服务|其他独立价值|已履行部分).{0,35}(?:分项结算|单独结算|据实结算)", scope,
-    ))
+    from review_v2.proposition_scope import arrangement_matches, component_states
+    patterns = {
+        "third_party_disclosure": r"(?:第三方|他人)[^。；;\n]{0,80}(?:公开|披露)",
+        "public_domain_entry": r"(?:进入|成为)[^。；;\n]{0,16}(?:公共领域|公开领域|公知技术)",
+        "licensor_patent_disclosure": r"(?:许可方|卖方|出让方|转让方|甲方|乙方)[^。；;\n]{0,35}(?:申请专利|公开)[^。；;\n]{0,35}(?:导致|使)[^。；;\n]{0,20}(?:公开|丧失秘密性)",
+        "licensor_active_disclosure": r"(?:许可方|卖方|出让方|转让方|甲方)[^。；;\n]{0,20}主动(?:向[^，。；;\n]{0,15})?公开",
+        "independent_research_disclosure": r"(?:第三方|他人)[^。；;\n]{0,12}独立(?:研究|研发|开发)[^。；;\n]{0,70}(?:公开|丧失秘密性)",
+        "reverse_engineering_disclosure": r"反向工程[^。；;\n]{0,70}(?:公开|丧失秘密性)",
+        "partial_disclosure": r"(?:全部或者部分|全部或部分|部分)[^。；;\n]{0,20}(?:公开|丧失秘密性)",
+        "secret_disclosure": r"(?:技术秘密|秘密信息).{0,35}(?:公开|丧失秘密性)|(?:核心技术|许可技术).{0,35}丧失秘密性",
+        "future_license_fee_continues": r"(?:不得.{0,35}停止支付|(?:仍须|仍应|仍需|继续).{0,35}支付).{0,35}(?:尚未到期的?)?(?:技术秘密)?(?:许可使用费|许可费|使用费|转让费)",
+        "future_service_fee_continues": r"(?:不得.{0,45}停止支付|(?:仍须|仍应|仍需|继续).{0,45}支付).{0,35}技术服务费",
+        "royalty_continues": r"(?:不得.{0,45}停止支付|(?:仍须|仍应|仍需|继续).{0,45}支付).{0,35}(?:提成费用|提成费)|(?:提成费用|提成费).{0,30}(?:仍须|继续)支付",
+        "termination_restricted": r"(?:不得|无权).{0,45}(?:以技术秘密.{0,25}(?:公开|丧失秘密性).{0,20}为由)?(?:单方面|单方)?解除合同",
+        "paid_fee_nonrefundable": r"(?:已经|已)支付.{0,25}(?:不予退还|不退)|(?:无需|无须|不予|不得).{0,12}(?:退还|返还).{0,25}(?:已经|已)(?:支付|收取)",
+        "fee_stop_or_reduction": r"(?:停止支付|不再支付|调减|减少|调整).{0,35}(?:未到期|未来|尚未履行)?.{0,20}(?:许可使用费|许可费|使用费|技术服务费|提成)",
+        "termination_available": r"(?:被许可方|买方|受让方).{0,30}(?:有权|可以).{0,20}解除合同|(?:公开|丧失秘密性).{0,40}(?:可以|有权)解除合同",
+        "secret_loss_notification": r"(?:技术秘密|秘密性|秘密信息).{0,80}(?:公开|丧失秘密性).{0,80}(?:通知|告知)|(?:通知|告知).{0,80}(?:技术秘密|秘密性|秘密信息).{0,80}(?:公开|丧失秘密性)|通知期限|通知义务|应.{0,16}(?:通知|告知)|须.{0,16}(?:通知|告知)|未履行.{0,12}(?:通知|告知)",
+        "secret_loss_notification_deadline": r"(?:\d+|[一二三四五六七八九十]+)个?(?:工作日|日|天)(?:内)?(?:通知|告知)|通知期限[:：]?(?:\d+|[一二三四五六七八九十]+)个?(?:工作日|日|天)",
+        "late_notification_damage": r"(?:未履行|迟延|延迟|未及时).{0,18}(?:通知|告知).{0,45}(?:赔偿|损失)|(?:通知|告知).{0,28}(?:迟延|延迟|未履行).{0,35}(?:赔偿|损失)",
+        "separate_value_settlement": r"(?:技术服务|其他独立价值|已履行部分).{0,35}(?:分项结算|单独结算|据实结算)",
+    }
+    # Every consumer receives the same bounded proposition and condition.
+    # Neither a retrieval hit nor a word in an unspecified question is proof.
+    fact_sources = {key: list(arrangement_matches(pattern, scope)) for key, pattern in patterns.items()}
+    third_party_disclosure = bool(fact_sources['third_party_disclosure'])
+    public_domain_entry = bool(fact_sources['public_domain_entry'])
+    licensor_patent_disclosure = bool(fact_sources['licensor_patent_disclosure'])
+    partial_disclosure = bool(fact_sources['partial_disclosure'])
+    trigger_keys = list(patterns)[:8]
+    secret_loss_trigger = any(fact_sources[key] for key in trigger_keys)
+    future_license_fee_continues = bool(fact_sources['future_license_fee_continues'])
+    future_service_fee_continues = bool(fact_sources['future_service_fee_continues'])
+    royalty_continues = bool(fact_sources['royalty_continues'])
+    termination_restricted = bool(fact_sources['termination_restricted'])
+    paid_fee_nonrefundable = bool(fact_sources['paid_fee_nonrefundable'])
+    fee_stop_or_reduction = bool(fact_sources['fee_stop_or_reduction'])
+    termination_available = bool(fact_sources['termination_available'])
+    secret_loss_notification = bool(fact_sources['secret_loss_notification'])
+    secret_loss_notification_deadline = secret_loss_notification and bool(fact_sources['secret_loss_notification_deadline'])
+    late_notification_damage = bool(fact_sources['late_notification_damage'])
+    separate_value_settlement = bool(fact_sources['separate_value_settlement'])
+    trigger_components = component_states([
+        (key, label, fact_sources[key]) for key, label in zip(trigger_keys,
+            ('第三方公开', '进入公共领域', '许可方申请专利导致公开', '许可方主动公开',
+             '第三方独立研究导致公开', '反向工程导致公开', '部分技术信息公开', '技术秘密公开或丧失秘密性'))])
     unconditional_future_payment = any((
         future_license_fee_continues,
         future_service_fee_continues,
@@ -1462,7 +1638,6 @@ def analyze_technical_secret_loss_arrangement(text: str) -> Dict[str, Any]:
     adverse = bool(
         secret_loss_trigger
         and unconditional_future_payment
-        and termination_restricted
         and not fee_stop_or_reduction
     )
     reasonable = bool(
@@ -1473,6 +1648,8 @@ def analyze_technical_secret_loss_arrangement(text: str) -> Dict[str, Any]:
     )
     return {
         "evidence_scope": scope,
+        "fact_sources": fact_sources,
+        "trigger_components": trigger_components,
         "secret_loss_trigger": secret_loss_trigger,
         "third_party_disclosure": third_party_disclosure,
         "public_domain_entry": public_domain_entry,
@@ -1606,7 +1783,37 @@ def extract_material_disposition_facts(clauses: List[Any]) -> Dict[str, Any]:
                             **source, "quote": sentence.strip(), "action": suffix,
                             "antecedent_quote": source["quote"],
                         })
-    return facts
+
+
+CLAIM_RESPONSE_ELEMENT_FACT_KEYS = {
+    "claim_trigger": "claim_trigger", "notification_requirement": "notification_requirement",
+    "notification_deadline": "notification_deadline", "claim_handling": "claim_handling",
+    "administrative_handling": "administrative_handling", "litigation_handling": "litigation_handling",
+    "licensor_participation": "claim_handling", "licensee_claim_handling": "licensee_claim_handling",
+    "licensor_assistance": "claim_assistance", "liability_responsible_party": "liability_responsible_party",
+    "legal_cost_allocation": "legal_cost_allocation", "attorney_fee": "attorney_fee",
+    "litigation_cost": "litigation_cost", "direct_damage": "direct_damage",
+    "defense_cost_allocation": "defense_cost_scope", "damages_allocation": "damages_allocation",
+    "damages_scope": "damages_scope", "settlement_non_prejudice": "settlement_non_prejudice",
+    "settlement_consultation": "settlement_consultation", "defense_control": "defense_control",
+    "lawyer_selection": "lawyer_selection", "settlement_authority": "settlement_authority",
+    "replacement_remedy": "replacement_remedy", "replacement_or_workaround": "replacement_remedy",
+    "license_cure": "license_cure", "refund_or_termination_remedy": "refund_remedy",
+}
+
+# A duty to lead handling supports the basic component of control, not the
+# separate right to decide the defence. Only PARTIAL consumers may use it.
+CLAIM_RESPONSE_PARTIAL_FACT_KEYS = {'defense_control': 'claim_handling'}
+
+
+_CLAIM_EXPENSE_ITEMS = {
+    "legal_cost_allocation": r"(?:合理)?法律(?:服务)?费用",
+    "attorney_fee": r"律师费(?:用)?", "litigation_cost": r"诉讼费(?:用)?",
+    "defense_fee": r"抗辩费(?:用)?", "arbitration_cost": r"仲裁费(?:用)?",
+    "administrative_cost": r"行政处理费(?:用)?",
+    "claim_handling_cost": r"(?:合理)?(?:争议|索赔|权利主张)处理费(?:用)?",
+}
+_CLAIM_DAMAGE_ITEMS = r"直接经济损失|合理直接损失|直接损失|可得利益(?:损失)?|停产损失|召回损失|业务中断损失|全部损失"
 
 
 def extract_claim_response_facts(clauses: List[Any], provider: str, recipient: str) -> Dict[str, Any]:
@@ -1616,26 +1823,60 @@ def extract_claim_response_facts(clauses: List[Any], provider: str, recipient: s
     are different events. Each fact retains its own source quotation; a duty
     to assist never entails a duty to take charge of the claim.
     """
+    # Generic service/consulting role labels and the conventional party labels
+    # are aliases of the same actor. Final verification can receive either
+    # representation from the shared registry and must replay the same facts.
+    if provider in {'服务方', '服务提供方', '咨询方', '受托方'}:
+        provider = r'(?:服务方|服务提供方|咨询方|受托方|乙方)'
+    if recipient in {'服务接受方', '委托方', '委托人', '客户'}:
+        recipient = r'(?:服务接受方|委托方|委托人|客户|甲方)'
     facts: Dict[str, Any] = {}
     inbound = re.compile(
         r"(?:第三方|第三人|他人).{0,40}(?:主张|指控|索赔|提出.{0,12}(?:权利|侵权))|"
-        r"(?:侵犯|侵害|侵权).{0,18}(?:第三方|第三人|他人)|第三方(?:侵权)?索赔"
+        r"(?:发生|引起|产生).{0,12}(?:第三方|第三人|他人).{0,15}(?:知识产权|权利)(?:争议|纠纷)|"
+        r"(?:第三方|第三人|他人).{0,15}(?:知识产权|权利)(?:争议|纠纷)|"
+        r"(?:侵犯|侵害|侵权).{0,18}(?:第三方|第三人|他人)|第三方(?:侵权)?索赔|"
+        r"(?:受到|遭到|收到|遭受).{0,15}(?:第三方|第三人|他人).{0,15}(?:警告|投诉|诉讼)|"
+        r"权属瑕疵.{0,35}(?:无法|不能)取得.{0,12}(?:专利|权利)"
     )
     outbound = re.compile(r"(?:第三方|第三人|他人)(?:侵犯|侵害).{0,20}(?:合同专利|本专利|本合同|许可专利)")
-    unrelated = re.compile(r"不可抗力|保密义务|改进成果|分许可|资料验收|宣告无效|逾期付款|转让登记")
+    unrelated = re.compile(r"不可抗力|保密义务|改进成果|分许可|资料验收|宣告无效|逾期付款|转让登记|专利(?:权)?登记")
+    claim_roots = set()
+    for clause in clauses:
+        if inbound.search(re.sub(r'\s+', '', clause.text)):
+            claim_roots.add((getattr(clause, 'heading_path', None) or [clause.title])[0])
 
     def add(key: str, clause: Any, quote: str, actor: str = "", **values: Any) -> None:
+        # Retain a fault/knowledge restriction as a condition of the source
+        # obligation, never broaden it into unconditional provider liability.
+        from review_v2.proposition_scope import scoped_propositions
+        restriction = next((row['condition'] for row in scoped_propositions(quote) if row['condition']), '')
         row = {"clause_id": clause.clause_id, "quote": quote.strip(), "location": clause.location,
                "actor": actor, **values}
+        if restriction:
+            limited = bool(row.get("limited") or re.search(r"故意隐瞒|明知|已知|明确知(?:道|悉)|故意未披露", restriction))
+            row.update(condition=restriction, limited=limited, polarity="CONDITIONAL")
+            if limited and key == "damages_allocation":
+                condition_row = dict(row)
+                if condition_row not in facts.setdefault("claim_fault_condition", []):
+                    facts["claim_fault_condition"].append(condition_row)
         if row not in facts.setdefault(key, []):
             facts[key].append(row)
 
     for clause in clauses:
         if getattr(clause, "party_obligation", True) is False:
             continue
-        context = False
-        actor = ""
-        for sentence in re.split(r"[。；;\n]", clause.text):
+        root = (getattr(clause, 'heading_path', None) or [clause.title])[0]
+        context = root in claim_roots
+        actor = "LICENSOR" if context else ""
+        allocation_intro = None
+        from review_v2.proposition_scope import scoped_propositions
+        for scoped in scoped_propositions(clause.text):
+            sentence = scoped['quote'].rstrip('。；;！？')
+            if scoped['polarity'] == 'MISSING' and not scoped['affirmative_tail']:
+                actor = ""
+                allocation_intro = None
+                continue
             s = re.sub(r"\s+", "", sentence)
             if not s:
                 continue
@@ -1648,6 +1889,9 @@ def extract_claim_response_facts(clauses: List[Any], provider: str, recipient: s
                 context, actor = False, ""
                 continue
             explicit = bool(inbound.search(s))
+            if explicit and re.search(r'^(?:尚未|未|没有)(?:收到|遭到|受到|发生)', s):
+                # A disclosed absence of claims is not a present claim event.
+                continue
             if unrelated.search(s) and not explicit:
                 context, actor = False, ""
             if explicit:
@@ -1655,6 +1899,20 @@ def extract_claim_response_facts(clauses: List[Any], provider: str, recipient: s
                 add("claim_trigger", clause, sentence)
             if not context:
                 continue
+            if re.search(r'(?:责任|损失)[：:]$', s):
+                allocation_intro = scoped
+            elif allocation_intro is not None:
+                assigned = re.fullmatch(rf'由(?P<party>{provider}|{recipient})(?:承担|负责)', s)
+                if assigned:
+                    role = 'LICENSOR' if re.fullmatch(provider, assigned['party']) else 'LICENSEE'
+                    span = clause.text[allocation_intro['start']:scoped['end']]
+                    add('liability_responsible_party', clause, span, role)
+                allocation_intro = None
+            if scoped['polarity'] == 'MISSING':
+                # A contrast closes only the preceding absence proposition.
+                # Keep the full exact quote/trigger, but extract duties solely
+                # from the independently affirmed tail.
+                s = re.sub(r"\s+", "", scoped['affirmative_tail'])
             if re.search(r"(?:另行|届时).{0,12}协商.{0,12}(?:承担|责任)|(?:责任|费用|损失).{0,20}(?:另行|届时).{0,8}协商", s):
                 # An enumerated cost followed by future negotiation names a
                 # topic, not a present allocation to the preceding actor.
@@ -1675,32 +1933,70 @@ def extract_claim_response_facts(clauses: List[Any], provider: str, recipient: s
                 # Keep the label and its value together as one direct source.
                 add("notification_requirement", clause, field_source, "LICENSEE")
                 add("notification_deadline", clause, field_source, "LICENSEE", value=field_notice[1])
-            notice = re.search(rf"(?:应当|应|须|必须|及时).{{0,45}}(?:通知|告知|通知给){provider}", s)
-            if notice and not re.search(r"(?:无需|无须|不必|未约定|未明确).{0,20}(?:通知|告知)", s):
-                notice_actor = re.search(recipient, s[:notice.start()])
-                if notice_actor or actor == "LICENSEE":
-                    add("notification_requirement", clause, sentence, "LICENSEE")
-                    deadline = re.search(r"(?:\d+|[一二三四五六七八九十]+)个?(?:工作日|日|天|小时)内", notice.group(0))
-                    if deadline:
-                        add("notification_deadline", clause, sentence, "LICENSEE", value=deadline.group(0))
+            for sender, target, role in ((recipient, provider, "LICENSEE"),
+                                         (provider, recipient, "LICENSOR")):
+                # Match the operative subject, rather than a party mentioned
+                # in the preceding claim's condition or affected object.
+                # Timing/receipt modifiers do not change the acting subject;
+                # an intervening explicit party does. Preserve both layouts:
+                # sender 应在收到…后通知… / sender 收到…后应通知… .
+                parties = rf"(?:{provider}|{recipient})"
+                duty = rf"(?:应当|应|须|必须|及时)[^。；]{{0,45}}?(?:通知|告知)(?:给)?{target}"
+                notice = re.search(rf"{sender}(?:(?!{parties})[^。；]){{0,45}}?{duty}", s)
+                if not notice and actor == role and not re.search(parties, re.split(r"通知|告知", s)[0]):
+                    notice = re.search(duty, s)
+                if not notice:
+                    continue
+                if re.search(r"无需|无须|不必|未约定|未明确|不得", notice[0]):
+                    continue
+                add("notification_requirement", clause, sentence, role)
+                deadline = re.search(r"(?:\d+|[一二三四五六七八九十]+)个?(?:工作日|日|天|小时)内", notice[0])
+                if deadline:
+                    add("notification_deadline", clause, sentence, role, value=deadline[0])
             if "和解" in s and not re.search(r"未约定|未明确|另行协商责任", s):
-                if re.search(rf"(?:不得|不应).{{0,15}}损害.{{0,10}}{recipient}|未经{recipient}.{{0,15}}同意.{{0,20}}不得.{{0,10}}和解", s):
+                if re.search(rf"(?:不得|不应).{{0,15}}损害.{{0,10}}{recipient}|未经{recipient}.{{0,15}}同意.{{0,20}}不得.{{0,10}}和解|未经{recipient}.{{0,15}}同意.{{0,20}}不得以[^。；]{{0,90}}(?:承认侵权|停止[^。；]{{0,10}}生产|额外付款)[^。；]{{0,60}}为条件(?:达成)?和解", s):
                     add("settlement_non_prejudice", clause, sentence)
                 if re.search(r"和解.{0,18}(?:应|须|必须).{0,12}(?:事先)?协商|双方.{0,15}和解.{0,15}事先协商", s):
                     add("settlement_consultation", clause, sentence)
-            for part in re.split(r"[，,：:]", s):
+                if re.search(rf'(?:重大和解|和解方案|达成和解)[^。；]{{0,55}}(?:应|须)[^。；]{{0,18}}(?:事先)?取得{recipient}[^。；]{{0,8}}书面同意|'
+                             rf'(?:应|须)[^。；]{{0,18}}(?:事先)?取得{recipient}[^。；]{{0,8}}书面同意[^。；]{{0,55}}和解', s):
+                    add('settlement_authority', clause, sentence, 'LICENSOR')
+            allocation_text = s
+            from review_v2.proposition_scope import arrangement_matches
+            assistance = rf'{provider}(?:应当|应|须)[^。；]{{0,15}}(?:提供|提交)[^。；]{{0,60}}(?:来源证明|权属证明|研发记录|申请来源证明|研发过程|现有技术检索资料|相关申请文件)'
+            if any(arrangement_matches(assistance, s)):
+                add('claim_assistance', clause, sentence, 'LICENSOR')
+            protected_terms = re.search(r'不得以[^。；]+为条件(?:达成)?和解', s)
+            if protected_terms:
+                # Obligations forbidden as settlement conditions are not
+                # present allocations to the protected party.
+                allocation_text = s[:protected_terms.start()] + s[protected_terms.end():]
+            for part in re.split(r"[，,：:]|但(?:是)?(?=不|无|未)", allocation_text):
+                if re.search(r'(?:导致|致使|造成).{0,55}(?:承担|支付|赔偿).{0,30}(?:的|时)$', part):
+                    # A recipient suffering third-party liability is the
+                    # premise for reimbursement, not the operative allocation.
+                    continue
                 roles = sorted([(m.start(), role) for role, pattern in (("LICENSOR", provider), ("LICENSEE", recipient))
                                 for m in re.finditer(pattern, part)])
-                if roles:
-                    actor = roles[0][1]
+                subjects = [(pos, role) for pos, role in roles if
+                            re.fullmatch(r"(?:并|且|同时)?", part[:pos]) or
+                            re.match(rf"(?:{provider}|{recipient})(?:应当|应|须|负责|自行|仅|承担)", part[pos:])]
+                if subjects:
+                    actor = subjects[0][1]
                 # An explicit passive allocation takes precedence over the
                 # party merely mentioned as the victim or fee basis.
                 assigned = re.search(rf"由(?P<party>{provider}|{recipient}).{{0,8}}(?:承担|负责|处理|负担)", part)
                 if assigned:
                     actor = "LICENSEE" if re.fullmatch(recipient, assigned.group("party")) else "LICENSOR"
+                requested = re.search(rf"(?:{provider}|{recipient})(?:有权|可以)要求(?P<obligor>{provider}|{recipient})", part)
+                if requested:
+                    actor = "LICENSEE" if re.fullmatch(recipient, requested['obligor']) else "LICENSOR"
                 if not actor:
                     continue
                 positive = part.replace("不得拒绝", "应")
+                if re.search(r"未(?:明确)?约定", positive):
+                    # Negation scopes this atom, not a later affirmative duty.
+                    continue
                 if re.search(r"不保证|(?:不|无需|无须|不必|未约定|未明确).{0,8}(?:承担|负责|协助|通知|参与|提供|赔偿|退还|返还|选择|决定)|另行协商|待定", positive):
                     continue
                 # Stop at a new actor. '被许可方...许可方负责' cannot
@@ -1711,34 +2007,200 @@ def extract_claim_response_facts(clauses: List[Any], provider: str, recipient: s
                     if action_roles:
                         pos, actor = action_roles[-1]
                         positive = part[pos:]
-                handling = re.search(r"(?:负责|应当|应|须|自行).{0,12}?(?:交涉|处理|应诉|抗辩)", positive)
+                from review_v2.technology_fact_ontology import claim_action
+                handling = claim_action('handling', positive)
                 if handling and not re.search(r"协助|配合", handling.group(0)):
                     add("claim_handling" if actor == "LICENSOR" else "licensee_claim_handling", clause, sentence, actor)
-                if actor == "LICENSOR" and re.search(r"(?:提供|给予|予以).{0,18}(?:协助|帮助)|(?:应|须).{0,10}(?:协助|配合)", positive):
+                    if actor == "LICENSOR":
+                        # Taking responsibility for communication and handling
+                        # is stronger than merely supplying necessary assistance.
+                        add("claim_assistance", clause, sentence, actor)
+                    if actor == "LICENSOR":
+                        for key, pattern in (
+                            ("administrative_handling", r"(?:负责|应当|应|须|自行).{0,18}(?:行政处理|行政程序|行政应对)(?!费|成本)"),
+                            ("litigation_handling", r"(?:负责|应当|应|须|自行).{0,18}(?:应诉|诉讼|司法程序)(?!费|成本)"),
+                        ):
+                            if re.search(pattern, positive):
+                                add(key, clause, sentence, actor)
+                if actor == "LICENSOR" and re.search(r"(?:提供|给予|予以).{0,18}(?:协助|帮助)|(?:应|须).{0,10}(?:协助|配合)|^(?:并|且|同时)?配合", positive):
                     add("claim_assistance", clause, sentence, actor,
                         limited=bool(re.search(r"仅|根据实际情况|技术协助|技术帮助", positive)))
                 # Legal liability and damages liability identify the same actor;
                 # identifying that actor does not prove any specific cost scope.
-                if re.search(r"(?:承担|负担).{0,25}(?:法律责任|赔偿责任|侵权责任)|(?:法律责任|赔偿责任|侵权责任).{0,30}(?:承担|负担)", positive):
+                cap_only = bool(re.search(r"承担的.{0,16}(?:责任|赔偿).{0,12}(?:不超过|限于|为限|上限)", positive))
+                if (claim_action('liability_party', positive) or re.search(r'承担(?:相应)?责任', positive)) and not cap_only:
                     add("liability_responsible_party", clause, sentence, actor)
                 for key, pattern in (
-                    ("defense_control", r"抗辩控制权|主导抗辩|控制抗辩"),
+                    ("defense_control", r"抗辩控制权|主导抗辩|控制抗辩|负责抗辩"),
                     ("lawyer_selection", r"(?:选择|选聘|委托).{0,6}律师|律师选择权"),
-                    ("settlement_authority", r"和解决策权|和解权限|决定是否和解"),
+                    ("settlement_authority", r"和解决策权|和解权限|和解审批权|和解审批机制|决定是否和解"),
                     ("claim_cost_allocation", r"(?:承担|负担|支付).{0,40}(?:律师费|诉讼费|法律费用|抗辩费用)|(?:律师费|诉讼费|法律费用|抗辩费用).{0,70}(?:承担|负担|支付)"),
                     ("third_party_compensation_allocation", r"(?:赔偿费|赔偿责任|全部损失|全部责任|法律和经济责任).{0,45}(?:承担|负担)|承担.{0,25}(?:赔偿责任|侵权责任|全部责任|损失|法律和经济责任)|赔偿(?:全部|直接|相应|合理)?损失"),
                 ):
                     if re.search(pattern, positive):
                         add(key, clause, sentence, actor)
+                if re.search(r'(?:承担|负担|支付)[^。；]{0,45}(?:合理)?(?:争议|索赔|权利主张)处理费(?:用)?|'
+                             r'(?:合理)?(?:争议|索赔|权利主张)处理费(?:用)?[^。；]{0,45}(?:承担|负担|支付)', positive):
+                    add('claim_cost_allocation', clause, sentence, actor)
+                # General legal expenses and statutory damages identify an
+                # allocation, not the concrete expense or loss categories.
+                # Require each category inside the same actor/action span.
+                expense_items = []
+                excluded_scope = " ".join(re.findall(r"(?:不包括|不含|排除)([^的。；，,]{1,50})", positive))
+                for key, pattern in _CLAIM_EXPENSE_ITEMS.items():
+                    if re.search(pattern, excluded_scope):
+                        continue
+                    allocation = re.search(
+                        rf"(?:承担|负担|支付).{{0,40}}(?:{pattern})|(?:{pattern}).{{0,70}}(?:承担|负担|支付)", positive,
+                    )
+                    if allocation:
+                        values = list(dict.fromkeys(re.findall(pattern, allocation[0])))
+                        add(key, clause, sentence, actor, scope_items=values, allocation_quote=positive)
+                        if key != "legal_cost_allocation":
+                            expense_items.extend(values)
+                if expense_items:
+                    add("defense_cost_scope", clause, sentence, actor,
+                        scope_items=list(dict.fromkeys(expense_items)), allocation_quote=positive)
+                damages_distribution = re.search(
+                    rf"(?:承担|负担|支付|赔偿).{{0,40}}(?:赔偿费(?:用)?|{_CLAIM_DAMAGE_ITEMS})|"
+                    rf"(?:赔偿费(?:用)?|{_CLAIM_DAMAGE_ITEMS}).{{0,70}}(?:承担|负担|支付|赔偿)", positive,
+                )
+                if damages_distribution:
+                    add("damages_allocation", clause, sentence, actor, allocation_quote=positive)
+                damage_allocation = re.search(
+                    rf"(?:承担|负担|赔偿).{{0,40}}(?:{_CLAIM_DAMAGE_ITEMS})|"
+                    rf"(?:{_CLAIM_DAMAGE_ITEMS}).{{0,70}}(?:承担|负担|赔偿)", positive,
+                )
+                if damage_allocation:
+                    values = list(dict.fromkeys(re.findall(_CLAIM_DAMAGE_ITEMS, damage_allocation[0])))
+                    add("damages_scope", clause, sentence, actor, scope_items=values, allocation_quote=positive)
+                    direct = [value for value in values if "直接" in value]
+                    if direct:
+                        add("direct_damage", clause, sentence, actor, scope_items=direct, allocation_quote=positive)
                 if actor == "LICENSOR":
                     for key, pattern in (
-                        ("replacement_remedy", r"(?:提供|采取).{0,20}(?:替代技术|替代方案|绕开侵权)"),
+                        ("replacement_remedy", r"(?:提供|采取).{0,20}(?:替代技术|替代方案|绕开侵权)|(?:使用|提供)[^。；]{0,25}不侵权[^。；]{0,25}(?:等同|等效|基本等同)[^。；]{0,20}(?:替换|替代)|修改[^。；]{0,35}(?:避免|规避)[^。；]{0,12}侵权"),
                         ("license_cure", r"(?:取得|补办|恢复).{0,15}(?:第三方许可|第三方授权|许可权|授权)|修复权利瑕疵"),
                         ("refund_remedy", r"(?:退还|返还|退回).{0,20}(?:款|费)"),
+                        ("termination_remedy", r"(?:无法|不能)[^。；]{0,45}(?:修复|解决|实现)[^。；]{0,80}(?:有权|可以|可)[^。；]{0,12}解除|(?:合同|协议)(?:主要)?目的[^。；]{0,18}无法实现[^。；]{0,20}(?:有权|可以|可)[^。；]{0,12}解除"),
                     ):
                         if re.search(pattern, positive):
                             add(key, clause, sentence, actor)
+    # Reconcile atoms whose trigger and remedy are split into sibling clauses
+    # under one third-party-claim article. Each fact retains its own child span.
+    for clause in clauses:
+        root = (getattr(clause, 'heading_path', None) or [clause.title])[0]
+        if root not in claim_roots:
+            continue
+        sentence = clause.text.strip()
+        compact = re.sub(r'\s+', '', sentence)
+        deadline = re.search(
+            rf'{provider}[^。；]{{0,35}}(?:收到|获悉|知悉)[^。；]{{0,35}}'
+            r'((?:\d+|[一二两三四五六七八九十]+)个?(?:工作日|日|天|小时)内)'
+            rf'[^。；]{{0,20}}(?:通知|告知){recipient}', compact)
+        if deadline:
+            add('notification_requirement', clause, sentence, 'LICENSOR')
+            add('notification_deadline', clause, sentence, 'LICENSOR', value=deadline[1])
+        direct = re.search(
+            rf'(?:因)?{provider}[^。；]{{0,70}}(?:侵犯|侵权)[^。；]{{0,70}}{recipient}'
+            r'[^。；]{0,35}(?:直接经济损失|合理直接损失|直接损失)'
+            rf'[^。；]{{0,45}}(?:由)?{provider}[^。；]{{0,10}}(?:承担|赔偿)', compact)
+        if direct:
+            add('direct_damage', clause, sentence, 'LICENSOR',
+                scope_items=re.findall(_CLAIM_DAMAGE_ITEMS, direct[0]), allocation_quote=direct[0])
+        terminate = re.search(
+            rf'(?:无法|不能)[^。；]{{0,80}}(?:修复|解决|实现)[^。；]{{0,180}}'
+            rf'(?:合同|协议)?(?:主要)?目的[^。；]{{0,25}}无法实现[^。；]{{0,35}}{recipient}[^。；]{{0,12}}(?:有权|可以|可)解除|'
+            rf'(?:影响[^。；]{{0,12}})?(?:合同|协议)(?:主要)?目的[^。；]{{0,25}}无法实现[^。；]{{0,35}}{recipient}[^。；]{{0,12}}(?:有权|可以|可)解除', compact)
+        if terminate:
+            add('termination_remedy', clause, sentence, 'LICENSOR')
     return facts
+
+
+def claim_requirement_entailment(
+    element_id: str, quote: str, context_text: str = "", provider: Optional[str] = None,
+    recipient: Optional[str] = None, support_status: str = "COVERED",
+) -> Optional[bool]:
+    """Recompute one declared evidence edge from source text and a fixed schema.
+
+    Unknown element IDs return None so callers can dispatch other domains.
+    Context supplies the inbound event, but the quoted text itself must contain
+    the actor/action span proving this exact requirement.
+    """
+    fact_key = CLAIM_RESPONSE_ELEMENT_FACT_KEYS.get(str(element_id).lower())
+    if fact_key is None:
+        return None
+    from review_v2.clause_parser import parse_contract_clauses
+
+    text = context_text or quote
+    if provider is None or recipient is None:
+        patterns = build_technology_fact_registry(text)["third_party_claim"]["response_party_patterns"]
+        provider, recipient = provider or patterns["provider"], recipient or patterns["recipient"]
+    facts = extract_claim_response_facts(parse_contract_clauses(text), provider, recipient)
+    compact_quote = re.sub(r"\s+", "", quote or "")
+    compact_source = re.sub(r"\s+", "", text)
+    if not compact_quote or compact_quote not in compact_source:
+        return False
+    candidates = list(facts.get(fact_key, []))
+    if support_status == 'PARTIALLY_COVERED':
+        candidates += facts.get(CLAIM_RESPONSE_PARTIAL_FACT_KEYS.get(element_id), [])
+    return any(
+        re.sub(r"\s+", "", row.get("allocation_quote") or row["quote"]) in compact_quote
+        for row in candidates
+    )
+
+
+def claim_response_entailment_failures(
+    elements: List[Dict[str, Any]], clauses: List[Any], *, provider: Optional[str] = None,
+    recipient: Optional[str] = None,
+) -> List[Dict[str, Any]]:
+    """Validate covered elements using source clauses, never asserted bindings."""
+    from types import SimpleNamespace
+
+    sources = []
+    for row in clauses:
+        if isinstance(row, dict):
+            if row.get("source_type") == "SEARCH_AUDIT":
+                continue
+            row = SimpleNamespace(
+                clause_id=row.get("clause_id") or row.get("evidence_id"),
+                text=row.get("raw_text") or row.get("text") or row.get("quote") or row.get("quoted_text") or "",
+                location=row.get("location") or "", title="", party_obligation=True,
+            )
+        sources.append(row)
+    text = "\n".join(row.text for row in sources)
+    if provider is None or recipient is None:
+        patterns = build_technology_fact_registry(text)["third_party_claim"]["response_party_patterns"]
+        provider, recipient = provider or patterns["provider"], recipient or patterns["recipient"]
+    facts = extract_claim_response_facts(sources, provider, recipient)
+    failures = []
+    for element in elements:
+        key = element.get("element_id")
+        fact_key = CLAIM_RESPONSE_ELEMENT_FACT_KEYS.get(key)
+        partial_key = CLAIM_RESPONSE_PARTIAL_FACT_KEYS.get(key)
+        if element.get('status') == 'PARTIALLY_COVERED' and partial_key == element.get('source_fact_key'):
+            fact_key = partial_key
+        if fact_key is None or element.get("status") not in {"COVERED", "PARTIALLY_COVERED", "ADVERSE"}:
+            continue
+        if element.get("source_fact_key") != fact_key:
+            failures.append({"element_id": key, "reason": "CLAIM_RESPONSE_FACT_KEY_MISMATCH"})
+        actual = facts.get(fact_key, [])
+        if not actual:
+            failures.append({"element_id": key, "reason": "CLAIM_RESPONSE_FACT_NOT_ENTAILED"})
+            continue
+        declared_sources = element.get("supporting_evidence") or []
+        if not declared_sources:
+            failures.append({"element_id": key, "reason": "CLAIM_RESPONSE_SOURCE_BINDING_MISMATCH"})
+        for declared in declared_sources:
+            if not any(
+                declared.get("clause_id") == source.get("clause_id")
+                and declared.get("actor") == source.get("actor")
+                and re.sub(r"\s+", "", declared.get("quote") or "") == re.sub(r"\s+", "", source["quote"])
+                and declared.get("scope_items") == source.get("scope_items")
+                for source in actual
+            ):
+                failures.append({"element_id": key, "reason": "CLAIM_RESPONSE_SOURCE_BINDING_MISMATCH"})
+    return failures
 
 
 def build_technology_fact_registry(text: str) -> Dict[str, Any]:
@@ -1750,6 +2212,13 @@ def build_technology_fact_registry(text: str) -> Dict[str, Any]:
     # ``许可方`` must not match the suffix of ``被许可方``.
     licensor_aliases = {r"(?<!被)许可方", r"(?<!被)许可人", "卖方", "出让方", "让与方", "转让方"}
     licensee_aliases = {"被许可方", "被许可人", "接受方", "买方", "受让方"}
+    # Consulting/service contracts use provider-recipient roles rather than
+    # licensor-licensee labels.  Publish those aliases into the same claim
+    # registry so final verification replays the extractor with identical
+    # actors instead of falling back to licence-only role names.
+    if re.search(r"技术咨询合同|技术服务合同|咨询(?:服务|成果|报告|意见|建议)|服务提供方|咨询方", compact):
+        licensor_aliases.update({"乙方", "服务方", "服务提供方", "咨询方", "受托方"})
+        licensee_aliases.update({"甲方", "委托方", "委托人", "客户"})
     for match in re.finditer(
         r"(?P<party>甲方|乙方)(?:[（(](?:许可方|卖方|出让方|让与方|转让方)[）)]|.{0,8}(?:为|作为|系)(?:许可方|卖方|出让方|让与方|转让方))",
         compact,
@@ -1851,6 +2320,7 @@ def build_technology_fact_registry(text: str) -> Dict[str, Any]:
         or re.search(r"(?:被许可方|买方|受让方).{0,45}(?:按约|依约|按照本合同|授权范围).{0,45}(?:第三方|第三人).{0,35}(?:权利主张|指控|侵犯|侵权)", compact)
         or re.search(r"(?:第三方|第三人).{0,55}(?:被许可方|买方|受让方).{0,45}(?:按约|依约|按照本合同|授权范围).{0,35}(?:权利主张|指控|侵犯|侵权)", compact)
         or bool(re.search(r"第三人侵权责任.{0,120}(?:负责与第三方交涉|负责交涉|应诉)", claim_scope))
+        or bool(re.search(r"(?:发生|引起|产生).{0,12}(?:第三方|第三人).{0,15}(?:知识产权|权利)(?:争议|纠纷)", claim_scope))
     )
     claim_handling = bool(re.search(
         rf"{licensor}[^。；;]{{0,45}}(?:负责|应|须)[^。；;]{{0,30}}(?:交涉|处理|抗辩|应诉)",
@@ -2060,8 +2530,37 @@ def build_technology_fact_registry(text: str) -> Dict[str, Any]:
         "claim_cost_allocation", "liability_responsible_party",
         "replacement_remedy", "license_cure", "refund_remedy",
     ):
-        third_party_claim[key] = bool(response_facts.get(key))
+        rows = response_facts.get(key, [])
+        # In a licence the named notice requirement is specifically the
+        # licensee's notice to the licensor. The shared extractor also records
+        # the opposite direction for service/consulting reviews.
+        transfer_roles = bool(re.search(r'让与方|转让方|受让方|出让方', compact))
+        if key in {'notification_requirement', 'notification_deadline'} and not transfer_roles:
+            rows = [row for row in rows if row.get('actor') == 'LICENSEE']
+        third_party_claim[key] = bool(rows)
     third_party_claim["response_element_evidence"] = response_facts
+    third_party_claim["response_party_patterns"] = {"provider": licensor, "recipient": licensee}
+    # Keep specific registry fields at the same granularity as their source
+    # predicates. The independent broad responsibility model remains intact.
+    for key in ("administrative_handling", "litigation_handling", "attorney_fee", "litigation_cost", "direct_damage"):
+        third_party_claim[key] = any(row.get("actor") == "LICENSOR" for row in response_facts.get(key, []))
+    third_party_claim["attorney_fee_allocation"] = bool(response_facts.get("attorney_fee"))
+    third_party_claim["litigation_cost_allocation"] = bool(response_facts.get("litigation_cost"))
+    third_party_claim["third_party_compensation_allocation"] = bool(response_facts.get("third_party_compensation_allocation"))
+    # Actor-sensitive consumers must use the same scoped response facts. A
+    # recipient in the trigger cannot own the provider's later response verb.
+    third_party_claim["licensee_litigation_handling"] = any(
+        row.get("actor") == "LICENSEE" for row in response_facts.get("litigation_handling", []))
+    responsible_actors = {row["actor"] for row in response_facts.get("liability_responsible_party", [])
+                          if row.get("actor")}
+    if not responsible_actors:
+        responsible_actors = {row["actor"] for key in ("claim_handling", "licensee_claim_handling", "litigation_handling")
+                              for row in response_facts.get(key, []) if row.get("actor")}
+    third_party_claim["responsible_party"] = (
+        next(iter(responsible_actors)) if len(responsible_actors) == 1
+        else "MIXED" if responsible_actors else "UNKNOWN")
+    third_party_claim["general_liability"] = any(
+        row.get("actor") == "LICENSOR" for row in response_facts.get("liability_responsible_party", []))
     cost_actors = {row.get("actor") for row in response_facts.get("claim_cost_allocation", []) if row.get("actor")}
     if cost_actors:
         # A capped provider damages clause cannot reverse the actor of a
@@ -2340,7 +2839,7 @@ def analyze_payment_schedule(text: str) -> Dict[str, Any]:
     # payment or retention).  Such a node remains a first-class fact and must
     # not disappear merely because the clause omits a percentage.
     amount_only_pattern = re.compile(
-        r"(?P<context>[^。；\n]{0,100}?(?:首期|首笔|第[一二三四五六七八九十\d]+(?:期|笔|阶段)|尾款|余款|剩余款项|质保金|保证金|验收|交付|支付条件|合同签订|项目启动|开发项目启动|完成首次量产|首次量产|(?:提交|交付|完成)[^。；\n]{0,40})[^。；\n]{0,80}?)"
+        r"(?P<context>[^。；\n]{0,100}?(?:首期|首笔|第[一二三四五六七八九十\d]+(?:期|笔|阶段)|尾款|余款|剩余款项|质保金|保证金|验收|交付|支付条件|合同(?:签订|签署|生效)|协议生效|双方(?:签字|盖章)|项目启动|开发项目启动|完成首次量产|首次量产|(?:提交|交付|完成)[^。；\n]{0,40})[^。；\n]{0,80}?)"
         r"(?:应|须|将|再|予以|向[^。；\n]{0,12})?(?:支付|付清|给付)\s*(?:剩余|尾款|余款|质保金|保证金|款项)?\s*"
         r"(?:(?P<prefix_currency>EUR|USD|欧元|美元)\s*)?"
         r"(?:人民币)?\s*(?P<amount>[0-9][0-9,]*(?:\.\d+)?)\s*(?P<unit>万)?\s*(?P<currency>EUR|欧元|美元|USD|元)?",
@@ -2591,6 +3090,14 @@ def analyze_payment_schedule(text: str) -> Dict[str, Any]:
         group_amount_complete = bool(effective_group_nodes) and len(known_amounts) == len(effective_group_nodes)
         base_amount_value = group_nodes[0].get("payment_base_amount")
         base_amount = _decimal(str(base_amount_value)) if base_amount_value is not None else None
+        if base_amount and group_percentage_complete:
+            # Aggregate inferred amounts before division. Summing serialized
+            # float thirds invents a percentage discrepancy on exact amounts.
+            inferred_amounts = sum((_decimal(str(n['effective_amount'])) for n in effective_group_nodes
+                                    if n.get('percentage_inferred')), Decimal('0'))
+            declared_percentages = sum((_decimal(str(n['percentage'])) for n in effective_group_nodes
+                                        if not n.get('percentage_inferred') and n.get('percentage') is not None), Decimal('0'))
+            group_percentage_total = declared_percentages + inferred_amounts / base_amount * Decimal('100')
         group_delta = group_amount_total - base_amount if base_amount is not None and group_amount_complete else None
         group_mismatches: List[Dict[str, Any]] = []
         if base_amount is not None:
@@ -3547,10 +4054,8 @@ def analyze_patent_license_consistency(text: str) -> Dict[str, Any]:
         "普通": ("NON_EXCLUSIVE", "普通实施许可"),
         "非独占": ("NON_EXCLUSIVE", "非独占实施许可"),
     }
-    license_type_term = (
-        r"(独占(?:实施)?许可|排他(?:实施)?许可|普通(?:实施)?许可|"
-        r"非独占(?:、[^,，。；;]{0,16})?(?:的)?(?:专利)?(?:实施)?许可)"
-    )
+    from review_v2.license_terms import LICENSE_TYPE_PATTERN, declared_license_type as is_declared_license_type
+    license_type_term = '(' + LICENSE_TYPE_PATTERN + ')'
 
     def license_type_for_term(term: str) -> tuple[str, str]:
         for prefix, resolved in license_type_labels.items():
@@ -3558,6 +4063,8 @@ def analyze_patent_license_consistency(text: str) -> Dict[str, Any]:
                 return resolved
         return "UNKNOWN", ""
     for segment in permission_segments:
+        if not is_declared_license_type(segment):
+            continue
         if re.match(r"^(?:普通实施许可|排他实施许可|独占实施许可)[—－-]{1,2}(?:指|是指)", segment):
             continue
         match = re.search(
@@ -3579,6 +4086,8 @@ def analyze_patent_license_consistency(text: str) -> Dict[str, Any]:
             break
     if declared_license_type == "UNKNOWN":
         for segment in permission_segments:
+            if not is_declared_license_type(segment):
+                continue
             if re.match(r"^(?:普通实施许可|排他实施许可|独占实施许可)[—－-]{1,2}(?:指|是指)", segment):
                 continue
             match = re.search(rf"{license_type_term}(?:合同|方式|。|$)", segment)
@@ -4077,6 +4586,37 @@ def _retention_warranty_relationship(text: str) -> Dict[str, Any]:
     return {"retention_periods": retention, "post_delivery_duty_periods": warranty, "conflicts": conflicts}
 
 
+def declared_service_provider(text: str) -> str:
+    """Resolve role declarations, never role-like substrings in an activity.
+
+    '咨询方案' and '服务方法' name objects; neither declares a party to be
+    '咨询方' or '服务方'. A declaration also cannot cross another actor.
+    """
+    compact = re.sub(r'[^\S\r\n]+', '', text or '')
+    roles = r'(?:技术服务提供方|服务提供方|技术咨询方|咨询方|服务方|受托方|受托人)'
+    boundary = r'(?=[）)】\]：:，,。；;\n]|$)'
+    parties = []
+    patterns = (
+        rf'(甲方|乙方)(?:[（(【\[]{roles}[）)】\]]|(?:为|系|是|作为)(?:本合同)?{roles}{boundary}|[：:]{roles}{boundary})',
+        rf'{roles}(?:[（(](甲方|乙方)[）)]|[：:](甲方|乙方){boundary})',
+        rf'(?:受托人|受托方)[：:]?[^。；\n]{{0,60}}[（(](甲方|乙方)[）)]',
+    )
+    for pattern in patterns:
+        for match in re.finditer(pattern, compact):
+            parties.extend(group for group in match.groups() if group in {'甲方','乙方'})
+    # A commission sentence is an operative role declaration even when the
+    # signature block names only 甲方/乙方. Keep both actors in the same
+    # proposition so an unrelated use of “委托” cannot assign the role.
+    for match in re.finditer(
+        r'(?P<provider>甲方|乙方)(?:接受|受)(?P<recipient>甲方|乙方)(?:的)?委托',
+        compact,
+    ):
+        if match['provider'] != match['recipient']:
+            parties.append(match['provider'])
+    values = set(parties)
+    return next(iter(values)) if len(values) == 1 else ''
+
+
 def analyze_technical_service_core_facts(text: str) -> Dict[str, Any]:
     """Extract atomic technical-service facts without deciding every fact is a risk."""
     compact = re.sub(r"\s+", "", text or "")
@@ -4183,13 +4723,7 @@ def analyze_technical_service_core_facts(text: str) -> Dict[str, Any]:
     workload_determination_unclear = actual_workload_basis and not any(
         term in compact for term in ("工时记录", "工作量确认单", "里程碑完成比例", "核算公式", "计价标准")
     )
-    provider_party = (
-        "甲方" if re.search(r"甲方[^。；\n]{0,15}(?:服务提供方|技术服务提供方|服务方)", compact)
-        else "乙方" if re.search(r"乙方[^。；\n]{0,15}(?:服务提供方|技术服务提供方|服务方)", compact)
-        else "甲方" if re.search(r"(?:受托人|受托方)[：:]?[^。；\n]{0,60}[（(]?甲方[）)]?", compact)
-        else "乙方" if re.search(r"(?:受托人|受托方)[：:]?[^。；\n]{0,60}[（(]?乙方[）)]?", compact)
-        else ""
-    )
+    provider_party = declared_service_provider(text)
     recipient_party = "乙方" if provider_party == "甲方" else "甲方" if provider_party == "乙方" else ""
     deliverable_terms = (
         "诊断报告", "优化建议书", "技术方案", "技术优化报告", "算法参数文件",

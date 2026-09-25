@@ -1,0 +1,146 @@
+........................................................................ [ 63%]
+.....F.F.F..F.F.FF.F.FFFF..F.....FFF.F..F                                [100%]
+================================== FAILURES ===================================
+_______ test_competition_and_improvement_facts_are_shared_across_rules ________
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:62: in test_competition_and_improvement_facts_are_shared_across_rules
+    assert any("不得自行开发" in (row.get("text") or "") for row in competition["evidence_clauses"])
+E   assert False
+E    +  where False = any(<generator object test_competition_and_improvement_facts_are_shared_across_rules.<locals>.<genexpr> at 0x000002A5CFBFAAB0>)
+__ test_acceptance_separates_test_control_authority_from_concrete_parameters __
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:97: in test_acceptance_separates_test_control_authority_from_concrete_parameters
+    assert statuses["quantitative_performance_targets"] == "COVERED"
+E   KeyError: 'quantitative_performance_targets'
+____ test_confidentiality_is_split_by_obligated_party_for_recipient_review ____
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:139: in test_confidentiality_is_split_by_obligated_party_for_recipient_review
+    assert "终止后" in period["risk_point_description"] and "甲方" in period["risk_point_description"]
+E   AssertionError: assert ('终止后' in '双方终止后的保密期限不对等；乙方在合同终止后仍保留数据并用于非履约目的。' and '甲方' in '双方终止后的保密期限不对等；乙方在合同终止后仍保留数据并用于非履约目的。')
+____ test_report_statistics_are_recomputed_from_final_findings_and_themes _____
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:196: in test_report_statistics_are_recomputed_from_final_findings_and_themes
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_ test_counterparty_restrictions_are_projected_as_current_party_enforceability_risk _
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:214: in test_counterparty_restrictions_are_projected_as_current_party_enforceability_risk
+    trace = item["decision_trace"]["risk_to_current_party"]
+E   KeyError: 'risk_to_current_party'
+__ test_third_party_claim_consequence_and_advice_only_consume_residual_gaps ___
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:263: in test_third_party_claim_consequence_and_advice_only_consume_residual_gaps
+    assert "通知期限" in advice and "抗辩控制" in advice and "解除权" in advice
+E   AssertionError: assert ('通知期限' in '建议补充明确服务方对其侵权来源承担责任；补充明确第三方侵权直接损失责任；补充明确第三方索赔通知义务；补充明确第三方索赔通知期限；补充明确第三方索赔必要协助；补充明确权利瑕疵无法修复后的解除救济；补充明确权利瑕疵后的退款救济；补充明确抗辩决策及当前审查方参与机制；补充明确第三方索赔律师选择权；补充明确第三方索赔和解审批权限。' and '抗辩控制' in '建议补充明确服务方对其侵权来源承担责任；补充明确第三方侵权直接损失责任；补充明确第三方索赔通知义务；补充明确第三方索赔通知期限；补充明确第三方索赔必要协助；补充明确权利瑕疵无法修复后的解除救济；补充明确权利瑕疵后的退款救济；补充明确抗辩决策及当前审查方参与机制；补充明确第三方索赔律师选择权；补充明确第三方索赔和解审批权限。')
+_ test_referenced_but_unprovided_attachment_is_not_an_ordinary_missing_clause _
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:270: in test_referenced_but_unprovided_attachment_is_not_an_ordinary_missing_clause
+    attachment = next(
+E   StopIteration
+______ test_na_reason_preserves_confirmed_confidential_information_fact _______
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:323: in test_na_reason_preserves_confirmed_confidential_information_fact
+    assert "虽涉及技术秘密或保密资料" in reason
+E   AssertionError: assert '虽涉及技术秘密或保密资料' in '合同已明确技术秘密范围并设置保密、限制使用或资料处置安排，但未形成以技术秘密秘密性为独立对价基础的持续收费或秘密性丧失后的费用安排，因此本项不适用。'
+______ test_report_actual_exposure_uses_party_aware_finding_consequence _______
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:353: in test_report_actual_exposure_uses_party_aware_finding_consequence
+    assert "影响甲方最终取得权利的稳定性和可执行性" in report
+E   AssertionError: assert '影响甲方最终取得权利的稳定性和可执行性' in '# 技术服务合同审查报告\n\n\n## 一、合同总体评价\n\n- 审查立场：甲方 / 服务接受方\n- 使用场景：技术服务\n- 合同类型：技术合同—技术服务合同\n- 总体可签署性：建议修改后签署\n- 风险主题数（聚合后）：1...期一日，按照合同总额的0.5%支付违约金\n- 第九条 违约责任 [支持：违约金标准偏高及司法调减风险]: 乙方违反保密、知识产权或者数据使用约定的，应向甲方支付人民币300万元违约金，不足以弥补甲方损失的，应继续赔偿\n\n---\n'
+__ test_attachment_finding_only_describes_the_unprovided_referenced_material __
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:361: in test_attachment_finding_only_describes_the_unprovided_referenced_material
+    assert "附件正文未随本次审查材料提供" in finding["issue"]
+E   AssertionError: assert '附件正文未随本次审查材料提供' in '仍需补足：独立验收测试方案附件、固定测试数据集或样本、统计口径、测试记录和签认要求。'
+_____ test_structural_pass_is_linked_to_higher_priority_substantive_risk ______
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:372: in test_structural_pass_is_linked_to_higher_priority_substantive_risk
+    assert ownership["coverage_status"] == "通过"
+E   AssertionError: assert '部分覆盖' == '通过'
+E     
+E     - 通过
+E     + 部分覆盖
+________ test_ip_liability_and_general_remedies_jointly_trigger_tc1204 ________
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:385: in test_ip_liability_and_general_remedies_jointly_trigger_tc1204
+    assert item["applicability"]["status"] == "APPLICABLE"
+E   AssertionError: assert 'NOT_APPLICABLE' == 'APPLICABLE'
+E     
+E     - APPLICABLE
+E     + NOT_APPLICABLE
+E     ? ++++
+_ test_excessive_liquidated_damages_are_flagged_as_adjustment_risk_not_invalidity _
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:448: in test_excessive_liquidated_damages_are_flagged_as_adjustment_risk_not_invalidity
+    assert "每日0.5%" in item["risk_point_description"]
+E   AssertionError: assert '每日0.5%' in '当前审查方承担的高额违约金包括甲方违反保密义务的，应向乙方支付人民币200万元违约金；相对方承担、当前审查方受益的高额违约金包括乙方逾期完成任何阶段技术服务的，每逾期一日，按照合同总额的0.5%支付违约金；乙方违反保密、知识产权或者数据使用约定的，应向甲方支付人民币300万元违约金，不足以弥补甲方损失的，应继续赔偿。合同价比例仅用于识别异常，不等同于实际损失比例。'
+________ test_maintenance_contract_context_and_task_role_are_preserved ________
+backend\tests\test_technical_service_maintenance_contract_review.py:44: in test_maintenance_contract_context_and_task_role_are_preserved
+    assert maintenance_review["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+__________ test_maintenance_contract_uses_service_only_applicability __________
+backend\tests\test_technical_service_maintenance_contract_review.py:52: in test_maintenance_contract_uses_service_only_applicability
+    assert all(items[f"TC-09-0{index}"]["coverage_status"] == "通过" for index in range(1, 5))
+E   assert False
+E    +  where False = all(<generator object test_maintenance_contract_uses_service_only_applicability.<locals>.<genexpr> at 0x000002A5D81E7450>)
+________ test_service_fee_payment_uses_article_four_not_breach_clause _________
+backend\tests\test_technical_service_maintenance_contract_review.py:67: in test_service_fee_payment_uses_article_four_not_breach_clause
+    assert evidence
+E   assert []
+______ test_freeze_closure_uses_subtype_safe_wording_and_direct_evidence ______
+backend\tests\test_technical_service_maintenance_contract_review.py:98: in test_freeze_closure_uses_subtype_safe_wording_and_direct_evidence
+    assert all("第一条" in row["location"] for row in nature["evidence_clauses"])
+E   assert False
+E    +  where False = all(<generator object test_freeze_closure_uses_subtype_safe_wording_and_direct_evidence.<locals>.<genexpr> at 0x000002A5D67F8350>)
+_ test_third_party_actor_does_not_imply_third_party_ip[\u5356\u65b9\u5c65\u884c\u670d\u52a1\u9700\u8981\u4f7f\u7528\u7b2c\u4e09\u65b9\u6570\u636e\u5e93\u7ec4\u4ef6\uff0c\u5e76\u4fdd\u8bc1\u5df2\u53d6\u5f97\u5408\u6cd5\u6388\u6743\u3002-False-True-\u7f3a\u5931] _
+backend\tests\test_technical_service_maintenance_contract_review.py:160: in test_third_party_actor_does_not_imply_third_party_ip
+    assert items[review_id]["coverage_status"] == expected_status
+E   AssertionError: assert '部分覆盖' == '缺失'
+E     
+E     - 缺失
+E     + 部分覆盖
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:159
+  F:\ai\Sage\backend\main.py:159: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_competition_and_improvement_facts_are_shared_across_rules
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_acceptance_separates_test_control_authority_from_concrete_parameters
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_confidentiality_is_split_by_obligated_party_for_recipient_review
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_report_statistics_are_recomputed_from_final_findings_and_themes
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_counterparty_restrictions_are_projected_as_current_party_enforceability_risk
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_third_party_claim_consequence_and_advice_only_consume_residual_gaps
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_referenced_but_unprovided_attachment_is_not_an_ordinary_missing_clause
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_na_reason_preserves_confirmed_confidential_information_fact
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_report_actual_exposure_uses_party_aware_finding_consequence
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_attachment_finding_only_describes_the_unprovided_referenced_material
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_structural_pass_is_linked_to_higher_priority_substantive_risk
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_ip_liability_and_general_remedies_jointly_trigger_tc1204
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_excessive_liquidated_damages_are_flagged_as_adjustment_risk_not_invalidity
+FAILED backend/tests/test_technical_service_maintenance_contract_review.py::test_maintenance_contract_context_and_task_role_are_preserved
+FAILED backend/tests/test_technical_service_maintenance_contract_review.py::test_maintenance_contract_uses_service_only_applicability
+FAILED backend/tests/test_technical_service_maintenance_contract_review.py::test_service_fee_payment_uses_article_four_not_breach_clause
+FAILED backend/tests/test_technical_service_maintenance_contract_review.py::test_freeze_closure_uses_subtype_safe_wording_and_direct_evidence
+FAILED backend/tests/test_technical_service_maintenance_contract_review.py::test_third_party_actor_does_not_imply_third_party_ip[\u5356\u65b9\u5c65\u884c\u670d\u52a1\u9700\u8981\u4f7f\u7528\u7b2c\u4e09\u65b9\u6570\u636e\u5e93\u7ec4\u4ef6\uff0c\u5e76\u4fdd\u8bc1\u5df2\u53d6\u5f97\u5408\u6cd5\u6388\u6743\u3002-False-True-\u7f3a\u5931]
+18 failed, 95 passed, 5 warnings in 87.56s (0:01:27)

@@ -650,6 +650,10 @@ def recall_candidate_clauses(
     fact_graph: ContractFactGraph | None = None,
     max_candidates: int = 4,
 ) -> tuple[List[ParsedClause], List[str]]:
+    if checkpoint.node_id == "loan_hidden_fee_over_cap":
+        from review_v2.loan_facts import financing_charge
+        candidates = [c for c in formal_evidence_clauses(list(clauses)) if financing_charge(c.text)]
+        return candidates[:max_candidates], [t for t in checkpoint.terms if any(t in c.text for c in candidates)]
     if checkpoint.node_id not in _RETRIEVAL_ALIASES and not fact_requirements_for_node(checkpoint.node_id):
         return _legacy_recall_candidate_clauses(checkpoint, clauses, max_candidates=max_candidates)
     candidates, terms, _ = retrieve_evidence_candidates(
@@ -896,6 +900,24 @@ def judge_checkpoint(
     *,
     fact_graph: ContractFactGraph | None = None,
 ) -> ReviewJudgment:
+    from review_v2.construction_evidence import ADVERSE_PREDICATES
+    from review_v2.adverse_evidence import direct_evidence
+    if checkpoint.node_id in ADVERSE_PREDICATES:
+        positive, counter = direct_evidence(clauses, ADVERSE_PREDICATES[checkpoint.node_id])
+        return ReviewJudgment(
+            coverage_status=COVERAGE_RISKY if positive else COVERAGE_PASS,
+            risk_level=checkpoint.risk_level if positive else "低",
+            status="发现风险条款" if positive else "未发现明显风险条款",
+            risk_point_description=checkpoint.risk_point_present if positive else checkpoint.risk_point_missing,
+            evidence_clauses=positive, evidence_location="；".join(dict.fromkeys(row["location"] for row in positive)),
+            reasoning_summary="发现肯定风险行为的直接原文证据。" if positive else "全文检索未发现肯定风险行为的直接证据；禁止、否定与违约防范条款不作为风险证据。",
+            matched_terms=[row["predicate"] for row in positive],
+            issue_type=ISSUE_RISKY if positive else ISSUE_PASS,
+        )
+    from review_v2.priority_contract_review import judge as judge_priority
+    priority_judgment = judge_priority(checkpoint, clauses)
+    if priority_judgment is not None:
+        return priority_judgment
     candidates, terms = recall_candidate_clauses(checkpoint, clauses, fact_graph=fact_graph)
     evidence = _public_evidence(candidates)
     evidence_location = _locations(candidates)

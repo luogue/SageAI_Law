@@ -1,0 +1,172 @@
+..........FFFFFFFFFF................................................     [100%]
+================================== FAILURES ===================================
+_ test_exception_list_keeps_independent_development[\u6b64\u540e\u5e76\u975e\u56e0\u63a5\u6536\u65b9\u8fdd\u7ea6\u800c\u8fdb\u5165\u516c\u5171\u9886\u57df\u7684\u4fe1\u606f\uff1b] _
+
+continuation = '此后并非因接收方违约而进入公共领域的信息；'
+
+    @pytest.mark.parametrize('continuation', ['此后并非因接收方违约而进入公共领域的信息；', '其后合法公开的信息；'])
+    def test_exception_list_keeps_independent_development(continuation):
+        text = '第八条 保密\n下列信息不属于保密信息：\n接收方取得时已经合法公开的信息；\n' + continuation + '\n接收方未使用披露方保密信息而独立开发取得的信息。'
+>       rows = confidentiality_detail_elements(parse_contract_clauses(text))
+E       TypeError: confidentiality_detail_elements() missing 1 required keyword-only argument: 'extract_field'
+
+backend\tests\test_license_source_scope_regressions.py:34: TypeError
+_ test_exception_list_keeps_independent_development[\u5176\u540e\u5408\u6cd5\u516c\u5f00\u7684\u4fe1\u606f\uff1b] _
+
+continuation = '其后合法公开的信息；'
+
+    @pytest.mark.parametrize('continuation', ['此后并非因接收方违约而进入公共领域的信息；', '其后合法公开的信息；'])
+    def test_exception_list_keeps_independent_development(continuation):
+        text = '第八条 保密\n下列信息不属于保密信息：\n接收方取得时已经合法公开的信息；\n' + continuation + '\n接收方未使用披露方保密信息而独立开发取得的信息。'
+>       rows = confidentiality_detail_elements(parse_contract_clauses(text))
+E       TypeError: confidentiality_detail_elements() missing 1 required keyword-only argument: 'extract_field'
+
+backend\tests\test_license_source_scope_regressions.py:34: TypeError
+_____ test_complete_exit_terms_do_not_swallow_adverse_fee[-\u4ecd\u5e94] ______
+
+payment = '仍应', exit_right = ''
+
+    @pytest.mark.parametrize('payment', ['仍应', '仍须', '仍需', '继续'])
+    @pytest.mark.parametrize('exit_right', ['', '如核心技术全部丧失秘密性，乙方有权解除合同。'])
+    def test_complete_exit_terms_do_not_swallow_adverse_fee(payment, exit_right):
+        text = exit_right + f'即使核心技术在许可期限内全部丧失秘密性，乙方{payment}按照原付款计划支付全部尚未到期的固定许可费，甲方无须退还已经收取的任何许可费。'
+        loss = analyze_technical_secret_loss_arrangement(text)
+>       assert loss['adverse']
+E       assert False
+
+backend\tests\test_license_source_scope_regressions.py:46: AssertionError
+_____ test_complete_exit_terms_do_not_swallow_adverse_fee[-\u4ecd\u987b] ______
+
+payment = '仍须', exit_right = ''
+
+    @pytest.mark.parametrize('payment', ['仍应', '仍须', '仍需', '继续'])
+    @pytest.mark.parametrize('exit_right', ['', '如核心技术全部丧失秘密性，乙方有权解除合同。'])
+    def test_complete_exit_terms_do_not_swallow_adverse_fee(payment, exit_right):
+        text = exit_right + f'即使核心技术在许可期限内全部丧失秘密性，乙方{payment}按照原付款计划支付全部尚未到期的固定许可费，甲方无须退还已经收取的任何许可费。'
+        loss = analyze_technical_secret_loss_arrangement(text)
+>       assert loss['adverse']
+E       assert False
+
+backend\tests\test_license_source_scope_regressions.py:46: AssertionError
+_____ test_complete_exit_terms_do_not_swallow_adverse_fee[-\u4ecd\u9700] ______
+
+payment = '仍需', exit_right = ''
+
+    @pytest.mark.parametrize('payment', ['仍应', '仍须', '仍需', '继续'])
+    @pytest.mark.parametrize('exit_right', ['', '如核心技术全部丧失秘密性，乙方有权解除合同。'])
+    def test_complete_exit_terms_do_not_swallow_adverse_fee(payment, exit_right):
+        text = exit_right + f'即使核心技术在许可期限内全部丧失秘密性，乙方{payment}按照原付款计划支付全部尚未到期的固定许可费，甲方无须退还已经收取的任何许可费。'
+        loss = analyze_technical_secret_loss_arrangement(text)
+>       assert loss['adverse']
+E       assert False
+
+backend\tests\test_license_source_scope_regressions.py:46: AssertionError
+_____ test_complete_exit_terms_do_not_swallow_adverse_fee[-\u7ee7\u7eed] ______
+
+payment = '继续', exit_right = ''
+
+    @pytest.mark.parametrize('payment', ['仍应', '仍须', '仍需', '继续'])
+    @pytest.mark.parametrize('exit_right', ['', '如核心技术全部丧失秘密性，乙方有权解除合同。'])
+    def test_complete_exit_terms_do_not_swallow_adverse_fee(payment, exit_right):
+        text = exit_right + f'即使核心技术在许可期限内全部丧失秘密性，乙方{payment}按照原付款计划支付全部尚未到期的固定许可费，甲方无须退还已经收取的任何许可费。'
+        loss = analyze_technical_secret_loss_arrangement(text)
+>       assert loss['adverse']
+E       assert False
+
+backend\tests\test_license_source_scope_regressions.py:46: AssertionError
+_ test_complete_exit_terms_do_not_swallow_adverse_fee[\u5982\u6838\u5fc3\u6280\u672f\u5168\u90e8\u4e27\u5931\u79d8\u5bc6\u6027\uff0c\u4e59\u65b9\u6709\u6743\u89e3\u9664\u5408\u540c\u3002-\u4ecd\u5e94] _
+
+payment = '仍应', exit_right = '如核心技术全部丧失秘密性，乙方有权解除合同。'
+
+    @pytest.mark.parametrize('payment', ['仍应', '仍须', '仍需', '继续'])
+    @pytest.mark.parametrize('exit_right', ['', '如核心技术全部丧失秘密性，乙方有权解除合同。'])
+    def test_complete_exit_terms_do_not_swallow_adverse_fee(payment, exit_right):
+        text = exit_right + f'即使核心技术在许可期限内全部丧失秘密性，乙方{payment}按照原付款计划支付全部尚未到期的固定许可费，甲方无须退还已经收取的任何许可费。'
+        loss = analyze_technical_secret_loss_arrangement(text)
+>       assert loss['adverse']
+E       assert False
+
+backend\tests\test_license_source_scope_regressions.py:46: AssertionError
+_ test_complete_exit_terms_do_not_swallow_adverse_fee[\u5982\u6838\u5fc3\u6280\u672f\u5168\u90e8\u4e27\u5931\u79d8\u5bc6\u6027\uff0c\u4e59\u65b9\u6709\u6743\u89e3\u9664\u5408\u540c\u3002-\u4ecd\u987b] _
+
+payment = '仍须', exit_right = '如核心技术全部丧失秘密性，乙方有权解除合同。'
+
+    @pytest.mark.parametrize('payment', ['仍应', '仍须', '仍需', '继续'])
+    @pytest.mark.parametrize('exit_right', ['', '如核心技术全部丧失秘密性，乙方有权解除合同。'])
+    def test_complete_exit_terms_do_not_swallow_adverse_fee(payment, exit_right):
+        text = exit_right + f'即使核心技术在许可期限内全部丧失秘密性，乙方{payment}按照原付款计划支付全部尚未到期的固定许可费，甲方无须退还已经收取的任何许可费。'
+        loss = analyze_technical_secret_loss_arrangement(text)
+>       assert loss['adverse']
+E       assert False
+
+backend\tests\test_license_source_scope_regressions.py:46: AssertionError
+_ test_complete_exit_terms_do_not_swallow_adverse_fee[\u5982\u6838\u5fc3\u6280\u672f\u5168\u90e8\u4e27\u5931\u79d8\u5bc6\u6027\uff0c\u4e59\u65b9\u6709\u6743\u89e3\u9664\u5408\u540c\u3002-\u4ecd\u9700] _
+
+payment = '仍需', exit_right = '如核心技术全部丧失秘密性，乙方有权解除合同。'
+
+    @pytest.mark.parametrize('payment', ['仍应', '仍须', '仍需', '继续'])
+    @pytest.mark.parametrize('exit_right', ['', '如核心技术全部丧失秘密性，乙方有权解除合同。'])
+    def test_complete_exit_terms_do_not_swallow_adverse_fee(payment, exit_right):
+        text = exit_right + f'即使核心技术在许可期限内全部丧失秘密性，乙方{payment}按照原付款计划支付全部尚未到期的固定许可费，甲方无须退还已经收取的任何许可费。'
+        loss = analyze_technical_secret_loss_arrangement(text)
+>       assert loss['adverse']
+E       assert False
+
+backend\tests\test_license_source_scope_regressions.py:46: AssertionError
+_ test_complete_exit_terms_do_not_swallow_adverse_fee[\u5982\u6838\u5fc3\u6280\u672f\u5168\u90e8\u4e27\u5931\u79d8\u5bc6\u6027\uff0c\u4e59\u65b9\u6709\u6743\u89e3\u9664\u5408\u540c\u3002-\u7ee7\u7eed] _
+
+payment = '继续', exit_right = '如核心技术全部丧失秘密性，乙方有权解除合同。'
+
+    @pytest.mark.parametrize('payment', ['仍应', '仍须', '仍需', '继续'])
+    @pytest.mark.parametrize('exit_right', ['', '如核心技术全部丧失秘密性，乙方有权解除合同。'])
+    def test_complete_exit_terms_do_not_swallow_adverse_fee(payment, exit_right):
+        text = exit_right + f'即使核心技术在许可期限内全部丧失秘密性，乙方{payment}按照原付款计划支付全部尚未到期的固定许可费，甲方无须退还已经收取的任何许可费。'
+        loss = analyze_technical_secret_loss_arrangement(text)
+>       assert loss['adverse']
+E       assert False
+
+backend\tests\test_license_source_scope_regressions.py:46: AssertionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:159
+  F:\ai\Sage\backend\main.py:159: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_license_source_scope_regressions.py::test_exception_list_keeps_independent_development[\u6b64\u540e\u5e76\u975e\u56e0\u63a5\u6536\u65b9\u8fdd\u7ea6\u800c\u8fdb\u5165\u516c\u5171\u9886\u57df\u7684\u4fe1\u606f\uff1b]
+FAILED backend/tests/test_license_source_scope_regressions.py::test_exception_list_keeps_independent_development[\u5176\u540e\u5408\u6cd5\u516c\u5f00\u7684\u4fe1\u606f\uff1b]
+FAILED backend/tests/test_license_source_scope_regressions.py::test_complete_exit_terms_do_not_swallow_adverse_fee[-\u4ecd\u5e94]
+FAILED backend/tests/test_license_source_scope_regressions.py::test_complete_exit_terms_do_not_swallow_adverse_fee[-\u4ecd\u987b]
+FAILED backend/tests/test_license_source_scope_regressions.py::test_complete_exit_terms_do_not_swallow_adverse_fee[-\u4ecd\u9700]
+FAILED backend/tests/test_license_source_scope_regressions.py::test_complete_exit_terms_do_not_swallow_adverse_fee[-\u7ee7\u7eed]
+FAILED backend/tests/test_license_source_scope_regressions.py::test_complete_exit_terms_do_not_swallow_adverse_fee[\u5982\u6838\u5fc3\u6280\u672f\u5168\u90e8\u4e27\u5931\u79d8\u5bc6\u6027\uff0c\u4e59\u65b9\u6709\u6743\u89e3\u9664\u5408\u540c\u3002-\u4ecd\u5e94]
+FAILED backend/tests/test_license_source_scope_regressions.py::test_complete_exit_terms_do_not_swallow_adverse_fee[\u5982\u6838\u5fc3\u6280\u672f\u5168\u90e8\u4e27\u5931\u79d8\u5bc6\u6027\uff0c\u4e59\u65b9\u6709\u6743\u89e3\u9664\u5408\u540c\u3002-\u4ecd\u987b]
+FAILED backend/tests/test_license_source_scope_regressions.py::test_complete_exit_terms_do_not_swallow_adverse_fee[\u5982\u6838\u5fc3\u6280\u672f\u5168\u90e8\u4e27\u5931\u79d8\u5bc6\u6027\uff0c\u4e59\u65b9\u6709\u6743\u89e3\u9664\u5408\u540c\u3002-\u4ecd\u9700]
+FAILED backend/tests/test_license_source_scope_regressions.py::test_complete_exit_terms_do_not_swallow_adverse_fee[\u5982\u6838\u5fc3\u6280\u672f\u5168\u90e8\u4e27\u5931\u79d8\u5bc6\u6027\uff0c\u4e59\u65b9\u6709\u6743\u89e3\u9664\u5408\u540c\u3002-\u7ee7\u7eed]
+10 failed, 58 passed, 5 warnings in 54.87s

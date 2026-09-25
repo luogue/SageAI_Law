@@ -1,0 +1,64 @@
+{
+  "time": {
+    "exit": 0,
+    "stdout": "2026-09-09T15:09:44+08:00\n",
+    "stderr": ""
+  },
+  "memory": {
+    "exit": 0,
+    "stdout": "               total        used        free      shared  buff/cache   available\nMem:            1608         796         172           2         639         646\nSwap:           2047           0        2047\n",
+    "stderr": ""
+  },
+  "cpu": {
+    "exit": 0,
+    "stdout": "procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----\n r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st\n 0  0      0 176956   2644 651964    0    0    32    19    1    2  1  1 98  0  0\n 0  0      0 176956   2644 652064    0    0     0     0 1155 2010  1  1 98  0  0\n",
+    "stderr": ""
+  },
+  "disk": {
+    "exit": 0,
+    "stdout": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/vda3        40G   14G   24G  37% /\n",
+    "stderr": ""
+  },
+  "sshd": {
+    "exit": 0,
+    "stdout": "active\n",
+    "stderr": ""
+  },
+  "containers": {
+    "exit": 0,
+    "stdout": "aab63e61cacd sageai-frontend Up 12 days (unhealthy)\n6e6065d1ba02 sageai-redis Up 12 days\n2689c00511d9 sageai-backend Up 12 days (healthy)\n",
+    "stderr": ""
+  },
+  "kernel_oom": {
+    "exit": 0,
+    "lines": [
+      "Sep 09 15:07:23 iZwz93ayl3kssiq6us30n2Z kernel: gunicorn invoked oom-killer: gfp_mask=0xcc0(GFP_KERNEL), order=0, oom_score_adj=0",
+      "Sep 09 15:07:23 iZwz93ayl3kssiq6us30n2Z kernel:  oom_kill_process.cold+0xb/0x10",
+      "Sep 09 15:07:23 iZwz93ayl3kssiq6us30n2Z kernel: [  pid  ]   uid  tgid total_vm      rss pgtables_bytes swapents oom_score_adj name",
+      "Sep 09 15:07:23 iZwz93ayl3kssiq6us30n2Z kernel: oom-kill:constraint=CONSTRAINT_MEMCG,nodemask=(null),cpuset=docker-3fb943e9335a0de1bb9b909fb23b88276e41c664886a3db9b246b20b554695f4.scope,mems_allowed=0,oom_memcg=/system.slice/docker-3fb943e9335a0de1bb9b909fb23b88276e41c664886a3db9b246b20b554695f4.scope,task_memcg=/system.slice/docker-3fb943e9335a0de1bb9b909fb23b88276e41c664886a3db9b246b20b554695f4.scope,task=gunicorn,pid=2421767,uid=999",
+      "Sep 09 15:07:23 iZwz93ayl3kssiq6us30n2Z kernel: Memory cgroup out of memory: Killed process 2421767 (gunicorn) total-vm:251032kB, anon-rss:192848kB, file-rss:3336kB, shmem-rss:0kB, UID:999 pgtables:532kB oom_score_adj:0",
+      "Sep 09 15:07:36 iZwz93ayl3kssiq6us30n2Z kernel: python invoked oom-killer: gfp_mask=0xcc0(GFP_KERNEL), order=0, oom_score_adj=0",
+      "Sep 09 15:07:36 iZwz93ayl3kssiq6us30n2Z kernel:  oom_kill_process.cold+0xb/0x10",
+      "Sep 09 15:07:37 iZwz93ayl3kssiq6us30n2Z kernel: [  pid  ]   uid  tgid total_vm      rss pgtables_bytes swapents oom_score_adj name",
+      "Sep 09 15:07:37 iZwz93ayl3kssiq6us30n2Z kernel: oom-kill:constraint=CONSTRAINT_MEMCG,nodemask=(null),cpuset=docker-3fb943e9335a0de1bb9b909fb23b88276e41c664886a3db9b246b20b554695f4.scope,mems_allowed=0,oom_memcg=/system.slice/docker-3fb943e9335a0de1bb9b909fb23b88276e41c664886a3db9b246b20b554695f4.scope,task_memcg=/system.slice/docker-3fb943e9335a0de1bb9b909fb23b88276e41c664886a3db9b246b20b554695f4.scope,task=gunicorn,pid=2421768,uid=999",
+      "Sep 09 15:07:37 iZwz93ayl3kssiq6us30n2Z kernel: Memory cgroup out of memory: Killed process 2421768 (gunicorn) total-vm:353740kB, anon-rss:222760kB, file-rss:2796kB, shmem-rss:0kB, UID:999 pgtables:604kB oom_score_adj:0"
+    ],
+    "stderr": ""
+  },
+  "leftover_builds": [],
+  "production_files_still_match_this_round_integrity_checked_copy": true,
+  "production_files": {
+    "app.db": {
+      "size": 4096,
+      "sha256": "352a9bb23c329c5a9bf235baf56917358b5b64b03f1a11d261fadae9c3cdb721"
+    },
+    "app.db-wal": {
+      "size": 1479112,
+      "sha256": "5ff5153940cc033be265312e4cc906a8b84d44cb776123828e038c3eb5e783af"
+    },
+    "app.db-shm": {
+      "size": 32768,
+      "sha256": "76aaa098d2cea96a2e3eeafbf751c14123b211274108cf7602b98cb1aaf69f9e"
+    }
+  }
+}

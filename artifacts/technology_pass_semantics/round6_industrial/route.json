@@ -1,0 +1,1670 @@
+{
+  "fixture_module": "tests.test_industrial_technical_service_routing_regression",
+  "original_text": "\n技术服务合同\n委托人：甲方\n受托人：乙方\n签订日期：2026年9月2日\n有效期限：2026年9月5日至2027年3月4日\n一、服务内容、方式和要求\n乙方利用专业技术知识为甲方工业生产设备提供预测性维护技术服务，包括设备数据分析与建模、故障诊断、状态监测系统部署、模型训练、参数调试、技术优化和远程技术支持，并对甲方人员提供系统使用培训。\n乙方应提交部署程序、预测模型、操作手册、项目实施报告和培训材料。\n项目实施过程中形成的新模型、新算法、新程序及其他技术成果均由乙方所有。甲方仅享有在本项目生产场地内部永久使用的权利。\n二、履行期限\n乙方应于2027年3月15日前提交最终项目实施报告。\n最终验收应于2027年3月31日前完成。\n三、验收标准和方式\n设备故障预警准确率应达到90%以上。\n乙方完成系统部署后，应向甲方提交验收申请。\n甲方应在收到验收申请后5个工作日内完成验收。甲方未在该期限内提出书面异议的，视为项目验收合格。\n如验收未通过，乙方应在10个工作日内整改后重新提交验收。\n四、报酬及其支付方式\n本项目技术服务报酬总额为人民币1,000,000元。\n合同签订后5个工作日内，甲方向乙方支付合同总金额的30%，即人民币300,000元；\n系统部署完成后5个工作日内，甲方向乙方支付合同总金额的40%，即人民币400,000元；\n项目验收合格后5个工作日内，甲方向乙方支付人民币350,000元。\n上述款项合计人民币1,050,000元。\n五、违约责任\n因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。\n乙方承担的全部赔偿责任以甲方已经实际支付给乙方的技术服务费总额的20%为最高限额。\n前述责任上限适用于人身损害责任以及因乙方故意或者重大过失造成的损失。\n六、保密与数据处理\n双方对履行本合同过程中获得的对方技术资料、经营数据、设备参数及其他未公开信息承担保密义务。\n乙方可以将甲方生产设备运行数据用于乙方其他客户项目。\n合同终止后，乙方可以继续保存甲方设备数据及项目数据，用于技术研究和产品改进。\n本合同终止后，双方保密义务同时终止。\n七、第三方软件及知识产权\n乙方可以根据项目需要使用第三方开源软件、算法库或者其他第三方技术，且无需披露具体清单。\n因第三方软件、开源软件或者其他第三方技术产生的知识产权纠纷，由甲方自行承担责任。\n八、服务中新成果\n甲方技术人员根据乙方技术方案提出改进意见并参与形成的成果，也由乙方所有。乙方有权将上述成果提供给其他客户使用。\n九、争议解决\n协商不成的，双方同意提交上海仲裁委员会仲裁。\n同时，任何一方也可以向甲方住所地人民法院提起诉讼。\n",
+  "source_sha256": "00c6213fa71cbd15f694910c9b051b2d1a27535cab152afd35a9787d55215909",
+  "classification": {
+    "family": "TECHNOLOGY",
+    "primary_category": "TECHNICAL_CONTRACT",
+    "primary_subtype": "TECHNICAL_SERVICE",
+    "tertiary_subtype": "",
+    "confidence": "high",
+    "classification_score": 30,
+    "evidence_node_ids": [
+      "title:technical_service",
+      "service_obligation",
+      "core_obligation:technical_operation_and_problem_solving",
+      "deliverable:technical_service_result"
+    ],
+    "classification_evidence": [
+      "title:technical_service",
+      "service_obligation",
+      "core_obligation:technical_operation_and_problem_solving",
+      "deliverable:technical_service_result"
+    ],
+    "classification_evidence_details": {
+      "contract_title": "技术服务合同",
+      "subject_matter": [],
+      "core_performance_obligations": [],
+      "rights_transfer_method": [],
+      "consideration_nature": [],
+      "key_clauses": []
+    },
+    "primary_contract_type": "technology_service",
+    "secondary_contract_types": [],
+    "primary_transaction": {
+      "type": "technology_service",
+      "subtype": "technical_service"
+    },
+    "primary_transaction_model": {
+      "type": "UNKNOWN",
+      "dominant_family": "UNKNOWN",
+      "confidence": "low",
+      "primary_subject": "undetermined",
+      "rights_change": [],
+      "primary_obligation_grantor": [
+        "deliver technical materials",
+        "provide technical assistance or training"
+      ],
+      "primary_obligation_grantee": [],
+      "primary_consideration": [],
+      "transaction_purpose": "undetermined",
+      "secondary_transactions": [],
+      "license_semantics": {
+        "grant": false,
+        "roles": false,
+        "boundaries": {
+          "license_mode": false,
+          "non_transferable": false,
+          "territory": false,
+          "use_scope": true,
+          "post_termination_use": false
+        },
+        "entry_fee": false,
+        "royalty": false,
+        "technical_delivery": true,
+        "independent_economic_value": false
+      },
+      "technology_transfer_semantics": {
+        "ownership_transfer": false,
+        "technical_secret_transfer": false,
+        "explicit_technology_rights_transfer": false
+      },
+      "sale_semantics": {
+        "ownership_transfer": false,
+        "roles": false,
+        "quantity_unit_price": false,
+        "goods_purchase_obligation": false,
+        "purchase_price": false,
+        "independent_economic_value": false,
+        "ancillary_future_supply": false
+      },
+      "development_semantics": {
+        "client_and_developer_roles": false,
+        "research_objectives": false,
+        "research_consideration": false,
+        "developer_research_performance": false,
+        "research_schedule": false,
+        "research_result_delivery": false,
+        "is_primary_commission": false
+      },
+      "family_scores": {
+        "TECHNOLOGY": 5,
+        "SALE": 0
+      },
+      "decision_basis": "operative rights change + primary obligations + consideration + economic independence"
+    },
+    "secondary_transactions": [],
+    "sub_transactions": [
+      "acceptance"
+    ],
+    "structured_facts": {
+      "technical_secret": {
+        "scope": false,
+        "restricted_use": false,
+        "separate_fee": false
+      },
+      "technical_service": {
+        "content": false,
+        "activities": [
+          "系统部署",
+          "模型训练",
+          "远程技术支持"
+        ],
+        "separate_fee": false,
+        "included_in_main_price": false,
+        "included_service_scope": false,
+        "extra_service_charge_trigger": false,
+        "extra_service_pricing_standard": false,
+        "extra_service_billing_method": false,
+        "extra_service_payment_node": false,
+        "technical_guidance": false
+      },
+      "acceptance": {
+        "defined": true,
+        "remedy_deadline": false,
+        "reinspection_procedure": false,
+        "reinspection_count": "",
+        "final_failure_remedy": false,
+        "refund_remedy": false,
+        "damage_remedy": false
+      },
+      "technical_material_delivery": {
+        "defined": false
+      }
+    },
+    "fact_registry": {
+      "third_party_claim": {
+        "authority_warranty": false,
+        "licensor_is_patent_owner": false,
+        "licensor_owner_identity": null,
+        "sublicense_permission": null,
+        "claim_trigger": false,
+        "claim_handling": false,
+        "licensee_claim_handling": false,
+        "claim_assistance": false,
+        "litigation_handling": false,
+        "licensee_litigation_handling": false,
+        "attorney_fee": false,
+        "litigation_cost": false,
+        "legal_cost": false,
+        "attorney_fee_allocation": false,
+        "litigation_cost_allocation": false,
+        "third_party_compensation_allocation": false,
+        "claim_cost_allocation": false,
+        "claim_cost_bearer": "UNKNOWN",
+        "licensee_broad_business_loss_allocation": false,
+        "direct_damage": false,
+        "notification_requirement": false,
+        "notification_deadline": false,
+        "defense_control": false,
+        "lawyer_selection": false,
+        "settlement_authority": false,
+        "settlement_consultation": false,
+        "replacement_remedy": false,
+        "license_cure": false,
+        "refund_remedy": false,
+        "general_liability": false,
+        "licensor_liability_cap": false,
+        "licensor_liability_cap_percentage": null,
+        "licensor_liability_cap_text": "",
+        "licensee_liability_cap": false,
+        "licensee_liability_cap_percentage": null,
+        "licensee_liability_cap_text": "",
+        "liability_cap_balance": "NO_CAPS",
+        "liability_cap_imbalance": false,
+        "liability_cap_exceptions": false,
+        "licensee_open_ended_infringement_liability": false,
+        "explicit_process_gap": false,
+        "responsible_party": "UNKNOWN",
+        "settlement_non_prejudice": false,
+        "liability_responsible_party": false,
+        "response_element_evidence": {},
+        "response_party_patterns": {
+          "provider": "(?:(?<!被)许可人|(?<!被)许可方|出让方|卖方|让与方|转让方)",
+          "recipient": "(?:买方|受让方|接受方|被许可人|被许可方)"
+        },
+        "administrative_handling": false
+      }
+    },
+    "active_transaction_types": [
+      "TECHNICAL_SERVICE"
+    ],
+    "title_transaction_type": "TECHNICAL_SERVICE",
+    "operative_transaction_type": "",
+    "contract_type_conflict": {
+      "exists": false,
+      "title_transaction_type": "TECHNICAL_SERVICE",
+      "operative_transaction_type": "",
+      "resolution": "NO_CONFLICT",
+      "reason": "合同标题与核心给付义务不存在实质类型冲突。"
+    },
+    "excluded_subtypes": [
+      "COOPERATIVE_DEVELOPMENT",
+      "ENTRUSTED_DEVELOPMENT",
+      "TECHNOLOGY_TRANSFER",
+      "TECHNOLOGY_LICENSE",
+      "TECHNICAL_CONSULTING"
+    ],
+    "candidate_scores": {
+      "COOPERATIVE_DEVELOPMENT": 0,
+      "ENTRUSTED_DEVELOPMENT": 0,
+      "TECHNOLOGY_TRANSFER": 0,
+      "TECHNOLOGY_LICENSE": 0,
+      "TECHNICAL_CONSULTING": 0,
+      "TECHNICAL_SERVICE": 30
+    },
+    "subtype": "TECHNICAL_SERVICE",
+    "development_mode": "",
+    "is_technical_service": true,
+    "transaction_structure": "B2B_TECHNICAL_SERVICE",
+    "scenario": "TECHNICAL_SERVICE",
+    "scenario_label": "技术服务",
+    "current_transaction": "TECHNICAL_SERVICE",
+    "secondary_modules": [],
+    "transaction_module_evidence": {},
+    "ancillary_obligations": [
+      "TRAINING",
+      "TECHNICAL_SUPPORT"
+    ],
+    "transitional_arrangements": [],
+    "factual_triggers": [
+      "CONFIDENTIAL_INFORMATION"
+    ],
+    "license_mode": "",
+    "referenced_contracts": [],
+    "involves_personal_information": false,
+    "involves_background_ip": false,
+    "involves_software_or_data": true
+  },
+  "selection": {
+    "selected_contract_type": "service",
+    "document_domain": {
+      "contract_family": "TECHNOLOGY",
+      "subject_matter": "TECHNICAL_SERVICE",
+      "transaction_nature": "TECHNOLOGY_TRANSACTION",
+      "contract_subtype": "TECHNICAL_SERVICE",
+      "asset_usage": "NOT_APPLICABLE",
+      "consideration_type": "TECHNOLOGY_FEE",
+      "ownership_transfer": false,
+      "possession_transfer": false,
+      "transaction_structure": "B2B_TECHNICAL_SERVICE",
+      "product_category": "NOT_APPLICABLE",
+      "transaction_purpose": "technology_service",
+      "jurisdiction": "CN",
+      "primary_subject": "TECHNICAL_SERVICE",
+      "accessory_subjects": [],
+      "selected_domain_packs": [
+        "shared",
+        "technology"
+      ],
+      "rejected_domain_packs": [],
+      "confidence": "high",
+      "evidence": [],
+      "domain_attributes": {
+        "classification_source": "review_v2.technology_service_analysis.classify_technology_transaction",
+        "classification_score": 30,
+        "tertiary_subtype": "",
+        "scenario": "TECHNICAL_SERVICE",
+        "scenario_label": "技术服务",
+        "primary_transaction_model": {
+          "type": "UNKNOWN",
+          "dominant_family": "UNKNOWN",
+          "confidence": "low",
+          "primary_subject": "undetermined",
+          "rights_change": [],
+          "primary_obligation_grantor": [
+            "deliver technical materials",
+            "provide technical assistance or training"
+          ],
+          "primary_obligation_grantee": [],
+          "primary_consideration": [],
+          "transaction_purpose": "undetermined",
+          "secondary_transactions": [],
+          "license_semantics": {
+            "grant": false,
+            "roles": false,
+            "boundaries": {
+              "license_mode": false,
+              "non_transferable": false,
+              "territory": false,
+              "use_scope": true,
+              "post_termination_use": false
+            },
+            "entry_fee": false,
+            "royalty": false,
+            "technical_delivery": true,
+            "independent_economic_value": false
+          },
+          "technology_transfer_semantics": {
+            "ownership_transfer": false,
+            "technical_secret_transfer": false,
+            "explicit_technology_rights_transfer": false
+          },
+          "sale_semantics": {
+            "ownership_transfer": false,
+            "roles": false,
+            "quantity_unit_price": false,
+            "goods_purchase_obligation": false,
+            "purchase_price": false,
+            "independent_economic_value": false,
+            "ancillary_future_supply": false
+          },
+          "development_semantics": {
+            "client_and_developer_roles": false,
+            "research_objectives": false,
+            "research_consideration": false,
+            "developer_research_performance": false,
+            "research_schedule": false,
+            "research_result_delivery": false,
+            "is_primary_commission": false
+          },
+          "family_scores": {
+            "TECHNOLOGY": 5,
+            "SALE": 0
+          },
+          "decision_basis": "operative rights change + primary obligations + consideration + economic independence"
+        }
+      },
+      "family": "TECHNOLOGY",
+      "classification_confidence": "high",
+      "classification_scores": {
+        "SALE": 8,
+        "HOUSE_LEASE": 0,
+        "SERVICE": 13,
+        "TECHNOLOGY": 28,
+        "GUARANTEE": 0,
+        "LABOR": 0,
+        "CONFIDENTIALITY": 8
+      },
+      "primary_contract_type": "technology_service",
+      "primary_subtype": "TECHNICAL_SERVICE",
+      "primary_transaction_model": {
+        "type": "UNKNOWN",
+        "dominant_family": "UNKNOWN",
+        "confidence": "low",
+        "primary_subject": "undetermined",
+        "rights_change": [],
+        "primary_obligation_grantor": [
+          "deliver technical materials",
+          "provide technical assistance or training"
+        ],
+        "primary_obligation_grantee": [],
+        "primary_consideration": [],
+        "transaction_purpose": "undetermined",
+        "secondary_transactions": [],
+        "license_semantics": {
+          "grant": false,
+          "roles": false,
+          "boundaries": {
+            "license_mode": false,
+            "non_transferable": false,
+            "territory": false,
+            "use_scope": true,
+            "post_termination_use": false
+          },
+          "entry_fee": false,
+          "royalty": false,
+          "technical_delivery": true,
+          "independent_economic_value": false
+        },
+        "technology_transfer_semantics": {
+          "ownership_transfer": false,
+          "technical_secret_transfer": false,
+          "explicit_technology_rights_transfer": false
+        },
+        "sale_semantics": {
+          "ownership_transfer": false,
+          "roles": false,
+          "quantity_unit_price": false,
+          "goods_purchase_obligation": false,
+          "purchase_price": false,
+          "independent_economic_value": false,
+          "ancillary_future_supply": false
+        },
+        "development_semantics": {
+          "client_and_developer_roles": false,
+          "research_objectives": false,
+          "research_consideration": false,
+          "developer_research_performance": false,
+          "research_schedule": false,
+          "research_result_delivery": false,
+          "is_primary_commission": false
+        },
+        "family_scores": {
+          "TECHNOLOGY": 5,
+          "SALE": 0
+        },
+        "decision_basis": "operative rights change + primary obligations + consideration + economic independence"
+      }
+    },
+    "compatibility": "CONFLICT",
+    "resolution": "DOCUMENT_OVERRIDE",
+    "selected_domain": "TECHNOLOGY",
+    "rejected_domain": "SERVICE",
+    "confidence": "high",
+    "reasons": [
+      "document family scores: SALE=8, HOUSE_LEASE=0, SERVICE=13, TECHNOLOGY=28, GUARANTEE=0, LABOR=0, CONFIDENTIALITY=8",
+      "document family=TECHNOLOGY, confidence=high",
+      "High-confidence document evidence overrides the incompatible user selection before Review Registry loading."
+    ],
+    "classification_evidence": [
+      {
+        "signal_type": "goods_identity",
+        "signal": "设备、材料",
+        "target_family": "SALE",
+        "weight": 4,
+        "source_clause_ids": [
+          "C0002",
+          "C0004",
+          "C0007"
+        ]
+      },
+      {
+        "signal_type": "goods_performance",
+        "signal": "验收合格",
+        "target_family": "SALE",
+        "weight": 3,
+        "source_clause_ids": [
+          "C0004",
+          "C0005"
+        ]
+      },
+      {
+        "signal_type": "service_obligation",
+        "signal": "服务内容",
+        "target_family": "SERVICE",
+        "weight": 5,
+        "source_clause_ids": [
+          "C0002"
+        ]
+      },
+      {
+        "signal_type": "service_fee",
+        "signal": "服务费、技术服务费、服务报酬",
+        "target_family": "SERVICE",
+        "weight": 5,
+        "source_clause_ids": [
+          "C0005",
+          "C0006"
+        ]
+      },
+      {
+        "signal_type": "service_acceptance",
+        "signal": "验收标准",
+        "target_family": "SERVICE",
+        "weight": 2,
+        "source_clause_ids": [
+          "C0004"
+        ]
+      },
+      {
+        "signal_type": "service_title_hint",
+        "signal": "服务合同、技术服务",
+        "target_family": "SERVICE",
+        "weight": 1,
+        "source_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0005",
+          "C0006"
+        ]
+      },
+      {
+        "signal_type": "technology_technical_service",
+        "signal": "title:technical_service、service_obligation、core_obligation:technical_operation_and_problem_solving、deliverable:technical_service_result",
+        "target_family": "TECHNOLOGY",
+        "weight": 30,
+        "source_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0005",
+          "C0006"
+        ]
+      },
+      {
+        "signal_type": "goods",
+        "signal": "设备",
+        "target_family": "SALE",
+        "weight": 4,
+        "source_clause_ids": [
+          "C0002",
+          "C0004",
+          "C0007"
+        ]
+      },
+      {
+        "signal_type": "delivery",
+        "signal": "验收",
+        "target_family": "SALE",
+        "weight": 4,
+        "source_clause_ids": [
+          "C0003",
+          "C0004",
+          "C0005"
+        ]
+      },
+      {
+        "signal_type": "work",
+        "signal": "技术服务",
+        "target_family": "TECHNOLOGY",
+        "weight": 4,
+        "source_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0005",
+          "C0006"
+        ]
+      },
+      {
+        "signal_type": "obligation",
+        "signal": "委托",
+        "target_family": "TECHNOLOGY",
+        "weight": 4,
+        "source_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0009"
+        ]
+      },
+      {
+        "signal_type": "payment",
+        "signal": "报酬",
+        "target_family": "TECHNOLOGY",
+        "weight": 4,
+        "source_clause_ids": [
+          "C0005",
+          "C0006"
+        ]
+      },
+      {
+        "signal_type": "result",
+        "signal": "技术成果",
+        "target_family": "TECHNOLOGY",
+        "weight": 4,
+        "source_clause_ids": [
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005"
+        ]
+      },
+      {
+        "signal_type": "use_restriction",
+        "signal": "仅享有在本项目生产场地内部永久使用",
+        "target_family": "CONFIDENTIALITY",
+        "weight": 4,
+        "source_clause_ids": [
+          "C0002"
+        ]
+      },
+      {
+        "signal_type": "duration",
+        "signal": "保密义务同时终止",
+        "target_family": "CONFIDENTIALITY",
+        "weight": 4,
+        "source_clause_ids": [
+          "C0007"
+        ]
+      }
+    ],
+    "classification_context": {
+      "effect_review_ids": [],
+      "property_service_structure": false,
+      "business_overlays": [],
+      "overlay_review_ids": [],
+      "settlement_formulas": [],
+      "carriage_scope": {
+        "established": false,
+        "facts": {},
+        "framework": false
+      },
+      "operating_structure": {
+        "established": false,
+        "facts": {},
+        "downstream_contracts": false
+      },
+      "incomplete_obligations": [],
+      "business_domain_tags": [],
+      "primary_contract_type": "TECHNOLOGY",
+      "contract_type_confidence": "high",
+      "secondary_clause_features": [
+        "CONFIDENTIALITY",
+        "DISPUTE_RESOLUTION",
+        "INTELLECTUAL_PROPERTY"
+      ],
+      "guarantee_features_detected": [],
+      "nda_primary_features_detected": [
+        "use_restriction",
+        "duration"
+      ],
+      "classification_conflict": {
+        "detected": true,
+        "selected": "SERVICE",
+        "document": "TECHNOLOGY",
+        "resolved": true
+      },
+      "primary_transaction": {
+        "type": "technology_service",
+        "subtype": "technical_service"
+      },
+      "primary_transaction_model": {
+        "type": "UNKNOWN",
+        "dominant_family": "UNKNOWN",
+        "confidence": "low",
+        "primary_subject": "undetermined",
+        "rights_change": [],
+        "primary_obligation_grantor": [
+          "deliver technical materials",
+          "provide technical assistance or training"
+        ],
+        "primary_obligation_grantee": [],
+        "primary_consideration": [],
+        "transaction_purpose": "undetermined",
+        "secondary_transactions": [],
+        "license_semantics": {
+          "grant": false,
+          "roles": false,
+          "boundaries": {
+            "license_mode": false,
+            "non_transferable": false,
+            "territory": false,
+            "use_scope": true,
+            "post_termination_use": false
+          },
+          "entry_fee": false,
+          "royalty": false,
+          "technical_delivery": true,
+          "independent_economic_value": false
+        },
+        "technology_transfer_semantics": {
+          "ownership_transfer": false,
+          "technical_secret_transfer": false,
+          "explicit_technology_rights_transfer": false
+        },
+        "sale_semantics": {
+          "ownership_transfer": false,
+          "roles": false,
+          "quantity_unit_price": false,
+          "goods_purchase_obligation": false,
+          "purchase_price": false,
+          "independent_economic_value": false,
+          "ancillary_future_supply": false
+        },
+        "development_semantics": {
+          "client_and_developer_roles": false,
+          "research_objectives": false,
+          "research_consideration": false,
+          "developer_research_performance": false,
+          "research_schedule": false,
+          "research_result_delivery": false,
+          "is_primary_commission": false
+        },
+        "family_scores": {
+          "TECHNOLOGY": 5,
+          "SALE": 0
+        },
+        "decision_basis": "operative rights change + primary obligations + consideration + economic independence"
+      },
+      "secondary_transactions": [],
+      "ancillary_obligations": [
+        "TRAINING",
+        "TECHNICAL_SUPPORT"
+      ],
+      "post_delivery_obligations": [
+        "TRAINING",
+        "TECHNICAL_SUPPORT"
+      ],
+      "consumer_service_context": {
+        "is_consumer_transaction": false,
+        "is_prepaid_service": false,
+        "is_training_primary_transaction": false,
+        "consumer_signals": [],
+        "prepaid_signals": [],
+        "training_signals": [
+          "培训"
+        ],
+        "gate_status": "NOT_APPLICABLE"
+      },
+      "candidate_scores": {
+        "SALE": 8,
+        "HOUSE_LEASE": 0,
+        "SERVICE": 13,
+        "TECHNOLOGY": 28,
+        "GUARANTEE": 0,
+        "LABOR": 0,
+        "CONFIDENTIALITY": 8
+      },
+      "technology_candidate_scores": {
+        "COOPERATIVE_DEVELOPMENT": 0,
+        "ENTRUSTED_DEVELOPMENT": 0,
+        "TECHNOLOGY_TRANSFER": 0,
+        "TECHNOLOGY_LICENSE": 0,
+        "TECHNICAL_CONSULTING": 0,
+        "TECHNICAL_SERVICE": 30
+      },
+      "primary_transaction_reason": "Operative rights change, primary obligations, consideration and economic independence control before Review Registry loading.",
+      "document_candidate": {
+        "selected_contract_type": "service",
+        "document_domain": {
+          "contract_family": "TECHNOLOGY",
+          "subject_matter": "TECHNICAL_SERVICE",
+          "transaction_nature": "TECHNOLOGY_TRANSACTION",
+          "contract_subtype": "TECHNICAL_SERVICE",
+          "asset_usage": "NOT_APPLICABLE",
+          "consideration_type": "TECHNOLOGY_FEE",
+          "ownership_transfer": false,
+          "possession_transfer": false,
+          "transaction_structure": "B2B_TECHNICAL_SERVICE",
+          "product_category": "NOT_APPLICABLE",
+          "transaction_purpose": "technology_service",
+          "jurisdiction": "CN",
+          "primary_subject": "TECHNICAL_SERVICE",
+          "accessory_subjects": [],
+          "selected_domain_packs": [
+            "shared",
+            "technology"
+          ],
+          "rejected_domain_packs": [],
+          "confidence": "high",
+          "evidence": [],
+          "domain_attributes": {
+            "classification_source": "review_v2.technology_service_analysis.classify_technology_transaction",
+            "classification_score": 30,
+            "tertiary_subtype": "",
+            "scenario": "TECHNICAL_SERVICE",
+            "scenario_label": "技术服务",
+            "primary_transaction_model": {
+              "type": "UNKNOWN",
+              "dominant_family": "UNKNOWN",
+              "confidence": "low",
+              "primary_subject": "undetermined",
+              "rights_change": [],
+              "primary_obligation_grantor": [
+                "deliver technical materials",
+                "provide technical assistance or training"
+              ],
+              "primary_obligation_grantee": [],
+              "primary_consideration": [],
+              "transaction_purpose": "undetermined",
+              "secondary_transactions": [],
+              "license_semantics": {
+                "grant": false,
+                "roles": false,
+                "boundaries": {
+                  "license_mode": false,
+                  "non_transferable": false,
+                  "territory": false,
+                  "use_scope": true,
+                  "post_termination_use": false
+                },
+                "entry_fee": false,
+                "royalty": false,
+                "technical_delivery": true,
+                "independent_economic_value": false
+              },
+              "technology_transfer_semantics": {
+                "ownership_transfer": false,
+                "technical_secret_transfer": false,
+                "explicit_technology_rights_transfer": false
+              },
+              "sale_semantics": {
+                "ownership_transfer": false,
+                "roles": false,
+                "quantity_unit_price": false,
+                "goods_purchase_obligation": false,
+                "purchase_price": false,
+                "independent_economic_value": false,
+                "ancillary_future_supply": false
+              },
+              "development_semantics": {
+                "client_and_developer_roles": false,
+                "research_objectives": false,
+                "research_consideration": false,
+                "developer_research_performance": false,
+                "research_schedule": false,
+                "research_result_delivery": false,
+                "is_primary_commission": false
+              },
+              "family_scores": {
+                "TECHNOLOGY": 5,
+                "SALE": 0
+              },
+              "decision_basis": "operative rights change + primary obligations + consideration + economic independence"
+            }
+          },
+          "family": "TECHNOLOGY",
+          "classification_confidence": "high",
+          "classification_scores": {
+            "SALE": 8,
+            "HOUSE_LEASE": 0,
+            "SERVICE": 13,
+            "TECHNOLOGY": 28,
+            "GUARANTEE": 0,
+            "LABOR": 0,
+            "CONFIDENTIALITY": 8
+          },
+          "primary_contract_type": "technology_service",
+          "primary_subtype": "TECHNICAL_SERVICE",
+          "primary_transaction_model": {
+            "type": "UNKNOWN",
+            "dominant_family": "UNKNOWN",
+            "confidence": "low",
+            "primary_subject": "undetermined",
+            "rights_change": [],
+            "primary_obligation_grantor": [
+              "deliver technical materials",
+              "provide technical assistance or training"
+            ],
+            "primary_obligation_grantee": [],
+            "primary_consideration": [],
+            "transaction_purpose": "undetermined",
+            "secondary_transactions": [],
+            "license_semantics": {
+              "grant": false,
+              "roles": false,
+              "boundaries": {
+                "license_mode": false,
+                "non_transferable": false,
+                "territory": false,
+                "use_scope": true,
+                "post_termination_use": false
+              },
+              "entry_fee": false,
+              "royalty": false,
+              "technical_delivery": true,
+              "independent_economic_value": false
+            },
+            "technology_transfer_semantics": {
+              "ownership_transfer": false,
+              "technical_secret_transfer": false,
+              "explicit_technology_rights_transfer": false
+            },
+            "sale_semantics": {
+              "ownership_transfer": false,
+              "roles": false,
+              "quantity_unit_price": false,
+              "goods_purchase_obligation": false,
+              "purchase_price": false,
+              "independent_economic_value": false,
+              "ancillary_future_supply": false
+            },
+            "development_semantics": {
+              "client_and_developer_roles": false,
+              "research_objectives": false,
+              "research_consideration": false,
+              "developer_research_performance": false,
+              "research_schedule": false,
+              "research_result_delivery": false,
+              "is_primary_commission": false
+            },
+            "family_scores": {
+              "TECHNOLOGY": 5,
+              "SALE": 0
+            },
+            "decision_basis": "operative rights change + primary obligations + consideration + economic independence"
+          }
+        },
+        "compatibility": "CONFLICT",
+        "resolution": "DOCUMENT_OVERRIDE",
+        "selected_domain": "TECHNOLOGY",
+        "rejected_domain": "SERVICE",
+        "confidence": "high",
+        "reasons": [
+          "document family scores: SALE=8, HOUSE_LEASE=0, SERVICE=13, TECHNOLOGY=28, GUARANTEE=0, LABOR=0, CONFIDENTIALITY=8",
+          "document family=TECHNOLOGY, confidence=high",
+          "High-confidence document evidence overrides the incompatible user selection before Review Registry loading."
+        ],
+        "classification_evidence": [
+          {
+            "signal_type": "goods_identity",
+            "signal": "设备、材料",
+            "target_family": "SALE",
+            "weight": 4,
+            "source_clause_ids": [
+              "C0002",
+              "C0004",
+              "C0007"
+            ]
+          },
+          {
+            "signal_type": "goods_performance",
+            "signal": "验收合格",
+            "target_family": "SALE",
+            "weight": 3,
+            "source_clause_ids": [
+              "C0004",
+              "C0005"
+            ]
+          },
+          {
+            "signal_type": "service_obligation",
+            "signal": "服务内容",
+            "target_family": "SERVICE",
+            "weight": 5,
+            "source_clause_ids": [
+              "C0002"
+            ]
+          },
+          {
+            "signal_type": "service_fee",
+            "signal": "服务费、技术服务费、服务报酬",
+            "target_family": "SERVICE",
+            "weight": 5,
+            "source_clause_ids": [
+              "C0005",
+              "C0006"
+            ]
+          },
+          {
+            "signal_type": "service_acceptance",
+            "signal": "验收标准",
+            "target_family": "SERVICE",
+            "weight": 2,
+            "source_clause_ids": [
+              "C0004"
+            ]
+          },
+          {
+            "signal_type": "service_title_hint",
+            "signal": "服务合同、技术服务",
+            "target_family": "SERVICE",
+            "weight": 1,
+            "source_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0005",
+              "C0006"
+            ]
+          },
+          {
+            "signal_type": "technology_technical_service",
+            "signal": "title:technical_service、service_obligation、core_obligation:technical_operation_and_problem_solving、deliverable:technical_service_result",
+            "target_family": "TECHNOLOGY",
+            "weight": 30,
+            "source_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0005",
+              "C0006"
+            ]
+          },
+          {
+            "signal_type": "goods",
+            "signal": "设备",
+            "target_family": "SALE",
+            "weight": 4,
+            "source_clause_ids": [
+              "C0002",
+              "C0004",
+              "C0007"
+            ]
+          },
+          {
+            "signal_type": "delivery",
+            "signal": "验收",
+            "target_family": "SALE",
+            "weight": 4,
+            "source_clause_ids": [
+              "C0003",
+              "C0004",
+              "C0005"
+            ]
+          },
+          {
+            "signal_type": "work",
+            "signal": "技术服务",
+            "target_family": "TECHNOLOGY",
+            "weight": 4,
+            "source_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0005",
+              "C0006"
+            ]
+          },
+          {
+            "signal_type": "obligation",
+            "signal": "委托",
+            "target_family": "TECHNOLOGY",
+            "weight": 4,
+            "source_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0009"
+            ]
+          },
+          {
+            "signal_type": "payment",
+            "signal": "报酬",
+            "target_family": "TECHNOLOGY",
+            "weight": 4,
+            "source_clause_ids": [
+              "C0005",
+              "C0006"
+            ]
+          },
+          {
+            "signal_type": "result",
+            "signal": "技术成果",
+            "target_family": "TECHNOLOGY",
+            "weight": 4,
+            "source_clause_ids": [
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005"
+            ]
+          },
+          {
+            "signal_type": "use_restriction",
+            "signal": "仅享有在本项目生产场地内部永久使用",
+            "target_family": "CONFIDENTIALITY",
+            "weight": 4,
+            "source_clause_ids": [
+              "C0002"
+            ]
+          },
+          {
+            "signal_type": "duration",
+            "signal": "保密义务同时终止",
+            "target_family": "CONFIDENTIALITY",
+            "weight": 4,
+            "source_clause_ids": [
+              "C0007"
+            ]
+          }
+        ],
+        "classification_context": {
+          "effect_review_ids": [],
+          "property_service_structure": false,
+          "business_overlays": [],
+          "overlay_review_ids": [],
+          "settlement_formulas": [],
+          "carriage_scope": {
+            "established": false,
+            "facts": {},
+            "framework": false
+          },
+          "operating_structure": {
+            "established": false,
+            "facts": {},
+            "downstream_contracts": false
+          },
+          "incomplete_obligations": [],
+          "business_domain_tags": [],
+          "primary_contract_type": "TECHNOLOGY",
+          "contract_type_confidence": "high",
+          "secondary_clause_features": [
+            "CONFIDENTIALITY",
+            "DISPUTE_RESOLUTION",
+            "INTELLECTUAL_PROPERTY"
+          ],
+          "guarantee_features_detected": [],
+          "nda_primary_features_detected": [
+            "use_restriction",
+            "duration"
+          ],
+          "classification_conflict": {
+            "detected": true,
+            "selected": "SERVICE",
+            "document": "TECHNOLOGY",
+            "resolved": true
+          },
+          "primary_transaction": {
+            "type": "technology_service",
+            "subtype": "technical_service"
+          },
+          "primary_transaction_model": {
+            "type": "UNKNOWN",
+            "dominant_family": "UNKNOWN",
+            "confidence": "low",
+            "primary_subject": "undetermined",
+            "rights_change": [],
+            "primary_obligation_grantor": [
+              "deliver technical materials",
+              "provide technical assistance or training"
+            ],
+            "primary_obligation_grantee": [],
+            "primary_consideration": [],
+            "transaction_purpose": "undetermined",
+            "secondary_transactions": [],
+            "license_semantics": {
+              "grant": false,
+              "roles": false,
+              "boundaries": {
+                "license_mode": false,
+                "non_transferable": false,
+                "territory": false,
+                "use_scope": true,
+                "post_termination_use": false
+              },
+              "entry_fee": false,
+              "royalty": false,
+              "technical_delivery": true,
+              "independent_economic_value": false
+            },
+            "technology_transfer_semantics": {
+              "ownership_transfer": false,
+              "technical_secret_transfer": false,
+              "explicit_technology_rights_transfer": false
+            },
+            "sale_semantics": {
+              "ownership_transfer": false,
+              "roles": false,
+              "quantity_unit_price": false,
+              "goods_purchase_obligation": false,
+              "purchase_price": false,
+              "independent_economic_value": false,
+              "ancillary_future_supply": false
+            },
+            "development_semantics": {
+              "client_and_developer_roles": false,
+              "research_objectives": false,
+              "research_consideration": false,
+              "developer_research_performance": false,
+              "research_schedule": false,
+              "research_result_delivery": false,
+              "is_primary_commission": false
+            },
+            "family_scores": {
+              "TECHNOLOGY": 5,
+              "SALE": 0
+            },
+            "decision_basis": "operative rights change + primary obligations + consideration + economic independence"
+          },
+          "secondary_transactions": [],
+          "ancillary_obligations": [
+            "TRAINING",
+            "TECHNICAL_SUPPORT"
+          ],
+          "post_delivery_obligations": [
+            "TRAINING",
+            "TECHNICAL_SUPPORT"
+          ],
+          "consumer_service_context": {
+            "is_consumer_transaction": false,
+            "is_prepaid_service": false,
+            "is_training_primary_transaction": false,
+            "consumer_signals": [],
+            "prepaid_signals": [],
+            "training_signals": [
+              "培训"
+            ],
+            "gate_status": "NOT_APPLICABLE"
+          },
+          "candidate_scores": {
+            "SALE": 8,
+            "HOUSE_LEASE": 0,
+            "SERVICE": 13,
+            "TECHNOLOGY": 28,
+            "GUARANTEE": 0,
+            "LABOR": 0,
+            "CONFIDENTIALITY": 8
+          },
+          "technology_candidate_scores": {
+            "COOPERATIVE_DEVELOPMENT": 0,
+            "ENTRUSTED_DEVELOPMENT": 0,
+            "TECHNOLOGY_TRANSFER": 0,
+            "TECHNOLOGY_LICENSE": 0,
+            "TECHNICAL_CONSULTING": 0,
+            "TECHNICAL_SERVICE": 30
+          },
+          "primary_transaction_reason": "Operative rights change, primary obligations, consideration and economic independence control before Review Registry loading."
+        }
+      }
+    }
+  },
+  "resolved_type": "technology",
+  "clauses": [
+    {
+      "clause_id": "C0001",
+      "location": "全文",
+      "title": "全文",
+      "text": "技术服务合同\n委托人：甲方\n受托人：乙方\n签订日期：2026年9月2日\n有效期限：2026年9月5日至2027年3月4日",
+      "section_type": "正式合同条款",
+      "level": 0,
+      "raw_text": "技术服务合同\n委托人：甲方\n受托人：乙方\n签订日期：2026年9月2日\n有效期限：2026年9月5日至2027年3月4日",
+      "normalized_text": "技术服务合同委托人：甲方受托人：乙方签订日期：2026年9月2日有效期限：2026年9月5日至2027年3月4日",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "全文"
+      ],
+      "heading": "全文",
+      "clause_number": "",
+      "paragraph_index": 0,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [
+        "甲方",
+        "乙方"
+      ],
+      "dates": [
+        "2026年9月2日",
+        "2026年9月5日",
+        "2027年3月4日"
+      ],
+      "amounts": [],
+      "percentages": [],
+      "durations": [
+        "2026年",
+        "9月",
+        "2日",
+        "2026年",
+        "9月",
+        "5日",
+        "2027年",
+        "3月",
+        "4日"
+      ],
+      "cross_references": [],
+      "node_id": "C0001",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "全文"
+      ],
+      "article_number": "",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 0,
+      "end_offset": 60,
+      "source_type": "BODY",
+      "party_obligation": true
+    },
+    {
+      "clause_id": "C0002",
+      "location": "一、服务内容、方式和要求",
+      "title": "服务内容、方式和要求",
+      "text": "一、服务内容、方式和要求\n乙方利用专业技术知识为甲方工业生产设备提供预测性维护技术服务，包括设备数据分析与建模、故障诊断、状态监测系统部署、模型训练、参数调试、技术优化和远程技术支持，并对甲方人员提供系统使用培训。\n乙方应提交部署程序、预测模型、操作手册、项目实施报告和培训材料。\n项目实施过程中形成的新模型、新算法、新程序及其他技术成果均由乙方所有。甲方仅享有在本项目生产场地内部永久使用的权利。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "一、服务内容、方式和要求\n乙方利用专业技术知识为甲方工业生产设备提供预测性维护技术服务，包括设备数据分析与建模、故障诊断、状态监测系统部署、模型训练、参数调试、技术优化和远程技术支持，并对甲方人员提供系统使用培训。\n乙方应提交部署程序、预测模型、操作手册、项目实施报告和培训材料。\n项目实施过程中形成的新模型、新算法、新程序及其他技术成果均由乙方所有。甲方仅享有在本项目生产场地内部永久使用的权利。",
+      "normalized_text": "一、服务内容、方式和要求乙方利用专业技术知识为甲方工业生产设备提供预测性维护技术服务，包括设备数据分析与建模、故障诊断、状态监测系统部署、模型训练、参数调试、技术优化和远程技术支持，并对甲方人员提供系统使用培训。乙方应提交部署程序、预测模型、操作手册、项目实施报告和培训材料。项目实施过程中形成的新模型、新算法、新程序及其他技术成果均由乙方所有。甲方仅享有在本项目生产场地内部永久使用的权利。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "一、服务内容、方式和要求"
+      ],
+      "heading": "服务内容、方式和要求",
+      "clause_number": "",
+      "paragraph_index": 1,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [
+        "乙方",
+        "甲方"
+      ],
+      "dates": [],
+      "amounts": [],
+      "percentages": [],
+      "durations": [],
+      "cross_references": [],
+      "node_id": "C0002",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "一、服务内容、方式和要求"
+      ],
+      "article_number": "",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 61,
+      "end_offset": 260,
+      "source_type": "BODY",
+      "party_obligation": true
+    },
+    {
+      "clause_id": "C0003",
+      "location": "二、履行期限",
+      "title": "履行期限",
+      "text": "二、履行期限\n乙方应于2027年3月15日前提交最终项目实施报告。\n最终验收应于2027年3月31日前完成。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "二、履行期限\n乙方应于2027年3月15日前提交最终项目实施报告。\n最终验收应于2027年3月31日前完成。",
+      "normalized_text": "二、履行期限乙方应于2027年3月15日前提交最终项目实施报告。最终验收应于2027年3月31日前完成。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "二、履行期限"
+      ],
+      "heading": "履行期限",
+      "clause_number": "",
+      "paragraph_index": 2,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [
+        "乙方"
+      ],
+      "dates": [
+        "2027年3月15日",
+        "2027年3月31日"
+      ],
+      "amounts": [],
+      "percentages": [],
+      "durations": [
+        "2027年",
+        "3月",
+        "15日",
+        "2027年",
+        "3月",
+        "31日"
+      ],
+      "cross_references": [],
+      "node_id": "C0003",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "二、履行期限"
+      ],
+      "article_number": "",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 261,
+      "end_offset": 315,
+      "source_type": "BODY",
+      "party_obligation": true
+    },
+    {
+      "clause_id": "C0004",
+      "location": "三、验收标准和方式",
+      "title": "验收标准和方式",
+      "text": "三、验收标准和方式\n设备故障预警准确率应达到90%以上。\n乙方完成系统部署后，应向甲方提交验收申请。\n甲方应在收到验收申请后5个工作日内完成验收。甲方未在该期限内提出书面异议的，视为项目验收合格。\n如验收未通过，乙方应在10个工作日内整改后重新提交验收。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "三、验收标准和方式\n设备故障预警准确率应达到90%以上。\n乙方完成系统部署后，应向甲方提交验收申请。\n甲方应在收到验收申请后5个工作日内完成验收。甲方未在该期限内提出书面异议的，视为项目验收合格。\n如验收未通过，乙方应在10个工作日内整改后重新提交验收。",
+      "normalized_text": "三、验收标准和方式设备故障预警准确率应达到90%以上。乙方完成系统部署后，应向甲方提交验收申请。甲方应在收到验收申请后5个工作日内完成验收。甲方未在该期限内提出书面异议的，视为项目验收合格。如验收未通过，乙方应在10个工作日内整改后重新提交验收。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "三、验收标准和方式"
+      ],
+      "heading": "验收标准和方式",
+      "clause_number": "",
+      "paragraph_index": 3,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [
+        "乙方",
+        "甲方"
+      ],
+      "dates": [],
+      "amounts": [],
+      "percentages": [
+        "90%"
+      ],
+      "durations": [
+        "5个工作日",
+        "10个工作日"
+      ],
+      "cross_references": [],
+      "node_id": "C0004",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "三、验收标准和方式"
+      ],
+      "article_number": "",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 316,
+      "end_offset": 443,
+      "source_type": "BODY",
+      "party_obligation": true
+    },
+    {
+      "clause_id": "C0005",
+      "location": "四、报酬及其支付方式",
+      "title": "报酬及其支付方式",
+      "text": "四、报酬及其支付方式\n本项目技术服务报酬总额为人民币1,000,000元。\n合同签订后5个工作日内，甲方向乙方支付合同总金额的30%，即人民币300,000元；\n系统部署完成后5个工作日内，甲方向乙方支付合同总金额的40%，即人民币400,000元；\n项目验收合格后5个工作日内，甲方向乙方支付人民币350,000元。\n上述款项合计人民币1,050,000元。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "四、报酬及其支付方式\n本项目技术服务报酬总额为人民币1,000,000元。\n合同签订后5个工作日内，甲方向乙方支付合同总金额的30%，即人民币300,000元；\n系统部署完成后5个工作日内，甲方向乙方支付合同总金额的40%，即人民币400,000元；\n项目验收合格后5个工作日内，甲方向乙方支付人民币350,000元。\n上述款项合计人民币1,050,000元。",
+      "normalized_text": "四、报酬及其支付方式本项目技术服务报酬总额为人民币1,000,000元。合同签订后5个工作日内，甲方向乙方支付合同总金额的30%，即人民币300,000元；系统部署完成后5个工作日内，甲方向乙方支付合同总金额的40%，即人民币400,000元；项目验收合格后5个工作日内，甲方向乙方支付人民币350,000元。上述款项合计人民币1,050,000元。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "四、报酬及其支付方式"
+      ],
+      "heading": "报酬及其支付方式",
+      "clause_number": "",
+      "paragraph_index": 4,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [
+        "甲方",
+        "乙方"
+      ],
+      "dates": [],
+      "amounts": [
+        "人民币1,000,000元",
+        "人民币300,000元",
+        "人民币400,000元",
+        "人民币350,000元",
+        "人民币1,050,000元"
+      ],
+      "percentages": [
+        "30%",
+        "40%"
+      ],
+      "durations": [
+        "5个工作日",
+        "5个工作日",
+        "5个工作日"
+      ],
+      "cross_references": [],
+      "node_id": "C0005",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "四、报酬及其支付方式"
+      ],
+      "article_number": "",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 444,
+      "end_offset": 624,
+      "source_type": "BODY",
+      "party_obligation": true
+    },
+    {
+      "clause_id": "C0006",
+      "location": "五、违约责任",
+      "title": "违约责任",
+      "text": "五、违约责任\n因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。\n乙方承担的全部赔偿责任以甲方已经实际支付给乙方的技术服务费总额的20%为最高限额。\n前述责任上限适用于人身损害责任以及因乙方故意或者重大过失造成的损失。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "五、违约责任\n因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。\n乙方承担的全部赔偿责任以甲方已经实际支付给乙方的技术服务费总额的20%为最高限额。\n前述责任上限适用于人身损害责任以及因乙方故意或者重大过失造成的损失。",
+      "normalized_text": "五、违约责任因乙方原因迟延完成系统部署的，每迟延一日，按照合同总金额的1%向甲方支付违约金。乙方承担的全部赔偿责任以甲方已经实际支付给乙方的技术服务费总额的20%为最高限额。前述责任上限适用于人身损害责任以及因乙方故意或者重大过失造成的损失。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "五、违约责任"
+      ],
+      "heading": "违约责任",
+      "clause_number": "",
+      "paragraph_index": 5,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [
+        "乙方",
+        "甲方"
+      ],
+      "dates": [],
+      "amounts": [],
+      "percentages": [
+        "1%",
+        "20%"
+      ],
+      "durations": [
+        "一日"
+      ],
+      "cross_references": [],
+      "node_id": "C0006",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "五、违约责任"
+      ],
+      "article_number": "",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 625,
+      "end_offset": 749,
+      "source_type": "BODY",
+      "party_obligation": true
+    },
+    {
+      "clause_id": "C0007",
+      "location": "六、保密与数据处理",
+      "title": "保密与数据处理",
+      "text": "六、保密与数据处理\n双方对履行本合同过程中获得的对方技术资料、经营数据、设备参数及其他未公开信息承担保密义务。\n乙方可以将甲方生产设备运行数据用于乙方其他客户项目。\n合同终止后，乙方可以继续保存甲方设备数据及项目数据，用于技术研究和产品改进。\n本合同终止后，双方保密义务同时终止。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "六、保密与数据处理\n双方对履行本合同过程中获得的对方技术资料、经营数据、设备参数及其他未公开信息承担保密义务。\n乙方可以将甲方生产设备运行数据用于乙方其他客户项目。\n合同终止后，乙方可以继续保存甲方设备数据及项目数据，用于技术研究和产品改进。\n本合同终止后，双方保密义务同时终止。",
+      "normalized_text": "六、保密与数据处理双方对履行本合同过程中获得的对方技术资料、经营数据、设备参数及其他未公开信息承担保密义务。乙方可以将甲方生产设备运行数据用于乙方其他客户项目。合同终止后，乙方可以继续保存甲方设备数据及项目数据，用于技术研究和产品改进。本合同终止后，双方保密义务同时终止。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "六、保密与数据处理"
+      ],
+      "heading": "保密与数据处理",
+      "clause_number": "",
+      "paragraph_index": 6,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [
+        "乙方",
+        "甲方"
+      ],
+      "dates": [],
+      "amounts": [],
+      "percentages": [],
+      "durations": [],
+      "cross_references": [],
+      "node_id": "C0007",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "六、保密与数据处理"
+      ],
+      "article_number": "",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 750,
+      "end_offset": 890,
+      "source_type": "BODY",
+      "party_obligation": true
+    },
+    {
+      "clause_id": "C0008",
+      "location": "七、第三方软件及知识产权",
+      "title": "第三方软件及知识产权",
+      "text": "七、第三方软件及知识产权\n乙方可以根据项目需要使用第三方开源软件、算法库或者其他第三方技术，且无需披露具体清单。\n因第三方软件、开源软件或者其他第三方技术产生的知识产权纠纷，由甲方自行承担责任。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "七、第三方软件及知识产权\n乙方可以根据项目需要使用第三方开源软件、算法库或者其他第三方技术，且无需披露具体清单。\n因第三方软件、开源软件或者其他第三方技术产生的知识产权纠纷，由甲方自行承担责任。",
+      "normalized_text": "七、第三方软件及知识产权乙方可以根据项目需要使用第三方开源软件、算法库或者其他第三方技术，且无需披露具体清单。因第三方软件、开源软件或者其他第三方技术产生的知识产权纠纷，由甲方自行承担责任。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "七、第三方软件及知识产权"
+      ],
+      "heading": "第三方软件及知识产权",
+      "clause_number": "",
+      "paragraph_index": 7,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [
+        "乙方",
+        "甲方"
+      ],
+      "dates": [],
+      "amounts": [],
+      "percentages": [],
+      "durations": [],
+      "cross_references": [],
+      "node_id": "C0008",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "七、第三方软件及知识产权"
+      ],
+      "article_number": "",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 891,
+      "end_offset": 988,
+      "source_type": "BODY",
+      "party_obligation": true
+    },
+    {
+      "clause_id": "C0009",
+      "location": "八、服务中新成果",
+      "title": "服务中新成果",
+      "text": "八、服务中新成果\n甲方技术人员根据乙方技术方案提出改进意见并参与形成的成果，也由乙方所有。乙方有权将上述成果提供给其他客户使用。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "八、服务中新成果\n甲方技术人员根据乙方技术方案提出改进意见并参与形成的成果，也由乙方所有。乙方有权将上述成果提供给其他客户使用。",
+      "normalized_text": "八、服务中新成果甲方技术人员根据乙方技术方案提出改进意见并参与形成的成果，也由乙方所有。乙方有权将上述成果提供给其他客户使用。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "八、服务中新成果"
+      ],
+      "heading": "服务中新成果",
+      "clause_number": "",
+      "paragraph_index": 8,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [
+        "甲方",
+        "乙方"
+      ],
+      "dates": [],
+      "amounts": [],
+      "percentages": [],
+      "durations": [],
+      "cross_references": [],
+      "node_id": "C0009",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "八、服务中新成果"
+      ],
+      "article_number": "",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 989,
+      "end_offset": 1053,
+      "source_type": "BODY",
+      "party_obligation": true
+    },
+    {
+      "clause_id": "C0010",
+      "location": "九、争议解决",
+      "title": "争议解决",
+      "text": "九、争议解决\n协商不成的，双方同意提交上海仲裁委员会仲裁。\n同时，任何一方也可以向甲方住所地人民法院提起诉讼。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "九、争议解决\n协商不成的，双方同意提交上海仲裁委员会仲裁。\n同时，任何一方也可以向甲方住所地人民法院提起诉讼。",
+      "normalized_text": "九、争议解决协商不成的，双方同意提交上海仲裁委员会仲裁。同时，任何一方也可以向甲方住所地人民法院提起诉讼。",
+      "option_groups": [
+        {
+          "group_id": "OG0001",
+          "type": "choice_group",
+          "options": [
+            {
+              "text": "提交上海仲裁委员会仲裁",
+              "selected": true,
+              "blank": false,
+              "raw_text": "提交上海仲裁委员会仲裁",
+              "priority": 4
+            },
+            {
+              "text": "向甲方住所地人民法院提起诉讼",
+              "selected": true,
+              "blank": false,
+              "raw_text": "向甲方住所地人民法院提起诉讼",
+              "priority": 4
+            }
+          ],
+          "raw_text": "九、争议解决\n协商不成的，双方同意提交上海仲裁委员会仲裁。\n同时，任何一方也可以向甲方住所地人民法院提起诉讼。",
+          "group_type": "DISPUTE_RESOLUTION",
+          "mutually_exclusive": true,
+          "selected_count": 2
+        }
+      ],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "九、争议解决"
+      ],
+      "heading": "争议解决",
+      "clause_number": "",
+      "paragraph_index": 9,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [
+        "甲方"
+      ],
+      "dates": [],
+      "amounts": [],
+      "percentages": [],
+      "durations": [],
+      "cross_references": [],
+      "node_id": "C0010",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "九、争议解决"
+      ],
+      "article_number": "",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 1054,
+      "end_offset": 1109,
+      "source_type": "BODY",
+      "party_obligation": true
+    }
+  ]
+}

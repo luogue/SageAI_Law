@@ -1,0 +1,177 @@
+def analyze_technical_secret_loss_arrangement(text: str) -> Dict[str, Any]:
+    """Resolve the substance of secret-loss clauses, not only their presence.
+
+    The bounded clause window prevents an unrelated payment or termination
+    clause from being combined with a technical-secret disclosure provision.
+    """
+    source = str(text or "")
+    compact = re.sub(r"\s+", "", source)
+    trigger_pattern = re.compile(
+        r"(?:技术秘密|秘密性|秘密信息|know-?how).{0,50}(?:进入公开领域|成为公知|丧失秘密性|"
+        r"被(?:第三方|他人)公开|第三方(?:合法)?公开|主动公开|申请专利.{0,20}公开)|"
+        r"(?:进入公开领域|成为公知|丧失秘密性).{0,50}(?:技术秘密|秘密信息|know-?how)",
+        re.I,
+    )
+    secret_loss_heading_pattern = re.compile(
+        r"^(?:第[一二三四五六七八九十百\d]+条)?"
+        r"(?:(?:技术秘密|秘密信息).{0,12}(?:公开|丧失秘密性)|秘密性.{0,8}丧失)",
+        re.I,
+    )
+
+    # Never fall back to the entire contract.  That fallback combined an
+    # unrelated secrecy sentence with unrelated payment/termination clauses
+    # and manufactured an adverse arrangement that did not exist in the text.
+    section_parts = re.split(
+        r"(?m)(?=^\s*(?:第[一二三四五六七八九十百\d]+条|[一二三四五六七八九十百\d]+[、.．]))",
+        source,
+    )
+    candidate_scopes = [
+        re.sub(r"\s+", "", part)
+        for part in section_parts
+        if part.strip()
+        and (
+            trigger_pattern.search(re.sub(r"\s+", "", part))
+            or secret_loss_heading_pattern.search(re.sub(r"\s+", "", part))
+        )
+    ]
+    if not candidate_scopes:
+        sentences = [
+            re.sub(r"\s+", "", part)
+            for part in re.split(r"(?<=[。；;！？!?])|\r?\n+", source)
+            if re.sub(r"\s+", "", part)
+        ]
+        for index, sentence in enumerate(sentences):
+            if trigger_pattern.search(sentence):
+                candidate_scopes.append("".join(sentences[index:index + 5]))
+
+    def _scope_score(value: str) -> tuple[int, int]:
+        consequence_hits = sum(
+            bool(re.search(pattern, value, re.I))
+            for pattern in (
+                r"继续(?:履行|有效|支付|缴纳)",
+                r"(?:未到期|未来|后续).{0,24}(?:许可费|使用费|转让费|服务费|提成)",
+                r"(?:已支付|已付).{0,18}(?:不退|不予返还|不予退还)",
+                r"(?:不得|无权|不能).{0,12}(?:解除|终止)",
+                r"(?:调减|停止支付|分项结算|费用调整)",
+                r"(?:有权|可以).{0,18}(?:解除|终止)",
+                r"(?:公开|丧失秘密性).{0,80}(?:通知|告知)",
+                r"(?:迟延|延迟|未及时|未履行).{0,18}(?:通知|告知).{0,45}(?:赔偿|损失)",
+            )
+        )
+        return consequence_hits, -len(value)
+
+    scope = max(candidate_scopes, key=_scope_score) if candidate_scopes else ""
+    third_party_disclosure = bool(re.search(r"(?:第三方|他人).{0,30}(?:公开|披露)", scope))
+    public_domain_entry = bool(re.search(r"(?:进入|成为).{0,16}(?:公共领域|公开领域|公知技术)", scope))
+    licensor_patent_disclosure = bool(re.search(
+        r"(?:许可方|卖方|出让方|转让方|甲方|乙方).{0,35}(?:申请专利|公开).{0,35}(?:导致|使).{0,20}(?:公开|丧失秘密性)|"
+        r"(?:许可方|卖方|出让方|转让方|甲方|乙方)申请专利导致.{0,30}公开",
+        scope,
+    ))
+    partial_disclosure = bool(re.search(r"(?:全部或者部分|全部或部分|部分).{0,20}(?:公开|丧失秘密性)", scope))
+    secret_loss_trigger = any((third_party_disclosure, public_domain_entry, licensor_patent_disclosure))
+    future_license_fee_continues = bool(re.search(
+        r"(?:不得|仍须|继续).{0,35}(?:停止支付|支付).{0,35}(?:尚未到期的?)?"
+        r"(?:技术秘密)?(?:许可使用费|许可费|使用费|转让费)", scope,
+    ))
+    future_service_fee_continues = bool(re.search(
+        r"(?:不得|仍须|继续).{0,45}(?:停止支付|支付).{0,35}技术服务费", scope,
+    ))
+    royalty_continues = bool(re.search(
+        r"(?:不得|仍须|继续).{0,45}(?:停止支付|支付).{0,35}(?:提成费用|提成费)|"
+        r"(?:提成费用|提成费).{0,30}(?:仍须|继续)支付", scope,
+    ))
+    termination_restricted = bool(re.search(
+        r"(?:不得|无权).{0,45}(?:以技术秘密.{0,25}(?:公开|丧失秘密性).{0,20}为由)?"
+        r"(?:单方面|单方)?解除合同", scope,
+    ))
+    paid_fee_nonrefundable = bool(re.search(
+        r"(?:已经|已)支付.{0,25}(?:不予退还|不退)|"
+        r"(?:无需|不予|不得).{0,12}(?:退还|返还).{0,25}(?:已经|已)支付",
+        scope,
+    ))
+    fee_adjustment_matches = list(re.finditer(
+        r"(?:停止支付|不再支付|调减|减少|调整).{0,35}(?:未到期|未来|尚未履行)?.{0,20}"
+        r"(?:许可使用费|许可费|使用费|技术服务费|提成)", scope,
+    ))
+    # "不得停止支付" is a continuation obligation, not an available fee
+    # adjustment.  Preserve proposition polarity before treating the phrase as
+    # a protective stop/reduction mechanism.
+    fee_stop_or_reduction = any(
+        not re.search(r"(?:不得|不应|无权|不可).{0,8}$", scope[max(0, match.start() - 12):match.start()])
+        for match in fee_adjustment_matches
+    )
+    termination_available = bool(re.search(
+        r"(?:被许可方|买方|受让方).{0,30}(?:有权|可以).{0,20}解除合同|"
+        r"(?:公开|丧失秘密性).{0,40}(?:可以|有权)解除合同",
+        scope,
+    ))
+    secret_loss_context = bool(
+        trigger_pattern.search(scope) or secret_loss_heading_pattern.search(scope)
+    )
+    secret_loss_notification = bool(re.search(
+        r"(?:技术秘密|秘密性|秘密信息).{0,80}(?:公开|丧失秘密性).{0,80}(?:通知|告知)|"
+        r"(?:通知|告知).{0,80}(?:技术秘密|秘密性|秘密信息).{0,80}(?:公开|丧失秘密性)",
+        scope,
+        re.I,
+    )) or bool(
+        secret_loss_context
+        and re.search(
+            r"(?:通知期限|通知义务|应.{0,16}(?:通知|告知)|须.{0,16}(?:通知|告知)|"
+            r"未履行.{0,12}(?:通知|告知))",
+            scope,
+            re.I,
+        )
+    )
+    secret_loss_notification_deadline = bool(
+        secret_loss_notification
+        and re.search(r"(?:\d+|[一二三四五六七八九十]+)日(?:内)?(?:通知|告知)|通知期限[:：]?(?:\d+|[一二三四五六七八九十]+)日", scope)
+    )
+    late_notification_damage = bool(re.search(
+        r"(?:未履行|迟延|迟延|未及时).{0,18}(?:通知|告知).{0,45}(?:赔偿|损失)|"
+        r"(?:通知|告知).{0,28}(?:迟延|迟延|未履行).{0,35}(?:赔偿|损失)",
+        scope,
+        re.I,
+    ))
+    separate_value_settlement = bool(re.search(
+        r"(?:技术服务|其他独立价值|已履行部分).{0,35}(?:分项结算|单独结算|据实结算)", scope,
+    ))
+    unconditional_future_payment = any((
+        future_license_fee_continues,
+        future_service_fee_continues,
+        royalty_continues,
+    ))
+    adverse = bool(
+        secret_loss_trigger
+        and unconditional_future_payment
+        and termination_restricted
+        and not fee_stop_or_reduction
+    )
+    reasonable = bool(
+        secret_loss_trigger
+        and fee_stop_or_reduction
+        and termination_available
+        and not unconditional_future_payment
+    )
+    return {
+        "evidence_scope": scope,
+        "secret_loss_trigger": secret_loss_trigger,
+        "third_party_disclosure": third_party_disclosure,
+        "public_domain_entry": public_domain_entry,
+        "licensor_patent_disclosure": licensor_patent_disclosure,
+        "partial_disclosure": partial_disclosure,
+        "future_license_fee_continues": future_license_fee_continues,
+        "future_service_fee_continues": future_service_fee_continues,
+        "royalty_continues": royalty_continues,
+        "termination_restricted": termination_restricted,
+        "paid_fee_nonrefundable": paid_fee_nonrefundable,
+        "fee_stop_or_reduction": fee_stop_or_reduction,
+        "termination_available": termination_available,
+        "secret_loss_notification": secret_loss_notification,
+        "secret_loss_notification_deadline": secret_loss_notification_deadline,
+        "late_notification_damage": late_notification_damage,
+        "separate_value_settlement": separate_value_settlement,
+        "unconditional_future_payment": unconditional_future_payment,
+        "adverse": adverse,
+        "reasonable": reasonable,
+    }

@@ -1,0 +1,570 @@
+--- before/confidentiality_remedies.py
++++ after/confidentiality_remedies.py
+@@ -13,7 +13,7 @@
+ COLLECTIVE = r"任何一方|任一方|违约方|责任方|泄密方|泄露方|双方|各方|(?<!另)一方"
+ REMEDIES = {
+     "breach_damage_liability": ("泄密损失赔偿责任", r"赔偿|损失赔偿责任"),
+-    "stop_disclosure": ("泄密后停止披露", r"停止[^。；]{0,14}(?:披露|泄露)"),
++    "stop_disclosure": ("泄密后停止披露", r"停止[^。；]{0,14}(?:披露|泄露)|停止(?:相关|泄密|违约)行为"),
+     "stop_use": ("泄密后停止使用", r"停止[^。；]{0,14}使用|限制未经授权的?使用"),
+     "mitigation_obligation": ("泄密后采取措施防止继续扩散或损失扩大", r"防止[^。；]{0,16}(?:扩大|扩散|泄露)|采取[^。；]{0,12}(?:补救|合理措施)"),
+     "incident_notification": ("泄密后及时通知受影响方", r"(?:通知|告知)[^。；]{0,20}(?:对方|另一方|受影响方|买方|卖方|甲方|乙方|许可方|被许可方)"),
+--- before/data_use_scope.py
++++ after/data_use_scope.py
+@@ -0,0 +1,35 @@
++"""A data-use permission is the tuple (actor, data object, purpose, condition)."""
++import re
++from review_v2.proposition_scope import arrangement_matches, PERMISSION_MODAL
++
++
++def data_use_permissions(clauses):
++    result = []
++    actor = r'(?:[甲乙丙]方|服务方|服务提供方|受托方|接收方)'
++    # The permission must govern retention/use, not an incidental noun or a
++    # prohibition. A different sentence's object/purpose cannot fill the tuple.
++    pattern = actor + r'\s*' + PERMISSION_MODAL + r'[^。；;]{0,100}(?:使用|保留|保存|用于)'
++    for clause in clauses:
++        for row in arrangement_matches(pattern, clause.text):
++            q = row['quote']
++            if not re.search(r'数据|信息', q):
++                continue
++            purpose = re.search(r'(?:用于|用作|使用于)([^。；;]+)', q)
++            if not purpose:
++                continue
++            obj = q[:purpose.start()]
++            actor_name = re.search(actor, q)[0]
++            anonymous = bool(re.search(r'匿名化(?:的)?统计数据|无法识别[^。；;]{0,55}(?:匿名化|统计数据)', obj))
++            # The sentence actor is not automatically the data's owner. Bind
++            # the possessor inside the object phrase, before its data noun.
++            owned = re.search(r'(?P<owner>甲方|乙方|委托方|客户|对方)(?:的)?'
++                              r'(?:(?:原始|生产|运行|测试|设备|项目|客户|经营|业务|统计|个人|提供的|提供|掌握的|收集的)){0,5}数据', obj)
++            owner = owned['owner'] if owned else None
++            object_type = ('ANONYMOUS_STATISTICS' if anonymous else 'OWN_DATA' if owner == actor_name
++                           else 'COUNTERPARTY_DATA' if owner else 'UNSPECIFIED_DATA')
++            external = bool(re.search(r'模型训练|训练[^。；;]{0,25}模型|算法优化|产品优化|其他客户|其他项目|科研|融资|技术展示', purpose[1]))
++            result.append(dict(clause_id=clause.clause_id, quote=q, location=clause.location,
++                               actor=actor_name, data_object=object_type, data_owner=owner,
++                               purpose=purpose[1], proposition_polarity='AFFIRMATIVE',
++                               external_use=external, condition=row.get('condition','')))
++    return result
+--- before/element_evidence_projection.py
++++ after/element_evidence_projection.py
+@@ -278,9 +278,32 @@
+                 failures.append(dict(**context, reason='EVIDENCE_ELEMENT_SEMANTIC_MISMATCH',
+                                      element_id=element_id, evidence_id=row.get('evidence_id')))
+     for key, item in selected.items():
++        state = item.narrative_state or {}
++        from review_v2.report_statistics import coverage_bucket
++        if (state.get('coverage_status') and
++                coverage_bucket(state['coverage_status']) != coverage_bucket(item.coverage_status)):
++            failures.append(dict(review_id=key, reason='FINAL_COMPONENT_NARRATIVE_STATE_MISMATCH',
++                                 narrative_status=state['coverage_status'], final_status=item.coverage_status))
+         for row in item.evidence_clauses:
+             inspect(row, [key], review_id=key)
+         for e in item.coverage_elements:
++            target = expected[key].get(e['element_id'], {})
++            direct = _sources(e, expected[key], clauses)
++            if e['status'] == 'COVERED' and not direct:
++                failures.append(dict(review_id=key, element_id=e['element_id'], reason='COVERED_WITHOUT_VERIFIED_OPERATIVE_SOURCE'))
++            if e['status'] == 'MISSING' and target.get('supporting_evidence'):
++                failures.append(dict(review_id=key, element_id=e['element_id'], reason='MISSING_WITH_VERIFIED_AFFIRMATIVE_SOURCE'))
++            for source in direct:
++                # Re-evaluate the predicate on the quote. A trusted-looking
++                # AFFIRMATIVE tag cannot override an absent/negated proposition.
++                if pattern := source.get('predicate_pattern'):
++                    from review_v2.proposition_scope import arrangement_matches
++                    if not list(arrangement_matches(pattern, _text(source), inherit_lists=True)):
++                        failures.append(dict(review_id=key, element_id=e['element_id'], reason='NON_OPERATIVE_SOURCE_FOR_COVERED_ELEMENT'))
++            components = e.get('component_coverage') or []
++            if (e['status'] == 'COVERED' and e.get('component_quantifier') != 'ANY'
++                    and any(c.get('status') == 'MISSING' for c in components)):
++                failures.append(dict(review_id=key, element_id=e['element_id'], reason='COVERED_PARENT_WITH_MISSING_COMPONENT'))
+             if e['status'] == 'PARTIALLY_COVERED' and not _sources(e, expected[key], clauses):
+                 failures.append(dict(review_id=key, element_id=e['element_id'], reason='PARTIAL_WITHOUT_DIRECT_POSITIVE_SOURCE'))
+     for finding in findings:
+--- before/engine.py
++++ after/engine.py
+@@ -1370,26 +1370,26 @@
+     audit_specs = [
+         (
+             "attorney_fee_allocation",
+-            rows_for("claim_cost_allocation", "attorney_fee_allocation", "attorney_fee"),
++            "attorney_fee", rows_for("attorney_fee"),
+             "律师费承担方向已有直接证据。",
+             lambda rows: any("律师费" in _compact(str(row.get("quote") or "")) for row in rows),
+         ),
+         (
+             "litigation_cost_allocation",
+-            rows_for("claim_cost_allocation", "litigation_cost_allocation", "litigation_cost"),
++            "litigation_cost", rows_for("litigation_cost"),
+             "诉讼费承担方向已有直接证据。",
+             lambda rows: any("诉讼费" in _compact(str(row.get("quote") or "")) for row in rows),
+         ),
+         (
+             "infringement_damage_items",
+-            rows_for("direct_damage", "damages_scope"),
++            "damages_scope", rows_for("damages_scope"),
+             "第三方主张损失或赔偿项目已有直接证据。",
+             lambda rows: bool(rows),
+         ),
+     ]
+     restored: List[Dict[str, Any]] = []
+     evidence_clauses: List[Dict[str, Any]] = []
+-    for element_id, rows, proposition, predicate in audit_specs:
++    for element_id, fact_key, rows, proposition, predicate in audit_specs:
+         if element_id in existing_ids or not predicate(rows):
+             continue
+         evidence_ids, evidence = evidence_payload(rows, element_id)
+@@ -1402,7 +1402,7 @@
+             "proposition": proposition,
+             "evidence_ids": evidence_ids,
+             "source_clause_ids": [row['clause_id'] for row in evidence],
+-            "source_fact_key": "third_party_claim." + element_id,
++            "source_fact_key": fact_key,
+             "supporting_evidence_ids": evidence_ids,
+             "supporting_evidence": [{"clause_id": row["clause_id"], "quote": row["quote"]}
+                                     for row in rows if row.get("clause_id") and row.get("quote")],
+@@ -18281,6 +18281,9 @@
+ 
+ 
+ def _atomic_requirement_definitions(family: str, clauses: List[ParsedClause]) -> List[Dict[str, Any]]:
++    from review_v2.technology_service_elements import FAMILIES as service_families, elements as service_elements
++    if family in service_families:
++        return service_elements(family, clauses)
+     if family == "secret_loss_arrangements":
+         from review_v2.secret_loss_sources import elements
+         return elements(clauses)
+@@ -18511,6 +18514,10 @@
+     """Bind a modeled requirement family once before all final report projections."""
+     if str(item.applicability.get("status") or "").upper() == "NOT_APPLICABLE":
+         return False
++    if item.risk_status == 'ADVERSE' and item.coverage_presence == 'PRESENT' and item.evidence_clauses:
++        # Arrangement coverage and adverse allocation are independent axes.
++        # Do not turn a sourced adverse decision into a presence-only checklist.
++        return False
+     if any(row.get("status") in {"ADVERSE", "CONFLICTING"} and row.get("evidence_ids")
+            for row in item.coverage_elements):
+         return False  # Presence repair cannot erase an independently supported adverse bargain.
+@@ -18554,6 +18561,14 @@
+     item.needs_manual_review = False
+     item.quality_gate_failure_reason = ""
+     item.decision_trace["atomic_requirement_family"] = family
++    if family == 'service_claims':
++        from review_v2.technology_service_analysis import analyze_technical_service_core_facts
++        liability = analyze_technical_service_core_facts('\n'.join(c.text for c in clauses)).get('liability', {})
++        registry = item.decision_trace.setdefault('fact_registry', {}).setdefault('third_party_claim', {})
++        registry['response_party_patterns'] = {
++            'provider': re.escape(liability.get('service_provider_party') or '服务方'),
++            'recipient': re.escape(liability.get('service_recipient_party') or '委托方'),
++        }
+     # Source-backed adverse terms returned above retain their stance narrative.
+     # A positive/partial projection must not retain an earlier composite-gap template.
+     item.decision_trace.pop("preserve_stance_narrative", None)
+@@ -18666,6 +18681,14 @@
+     if classification.get('primary_subtype') == 'TECHNICAL_SERVICE' and (subject := by_id.get('TC-01-03')):
+         if _project_atomic_requirement_state(subject, 'technical_service_subject', clauses, allow_empty=True):
+             final_projection_ids.add(subject.item_id)
++    if classification.get('primary_subtype') == 'TECHNICAL_SERVICE':
++        from review_v2.technology_service_elements import RULE_FAMILIES
++        for rule_id, family in {**RULE_FAMILIES, 'TC-11-04': 'confidentiality_remedies',
++                                'TC-11-02': 'confidentiality_fields'}.items():
++            # This is a source-to-element repair, not a new applicability or
++            # missing-risk decision for families with no operative source.
++            if (item := by_id.get(rule_id)) and _project_atomic_requirement_state(item, family, clauses):
++                final_projection_ids.add(rule_id)
+     if classification.get('primary_subtype') == 'TECHNICAL_CONSULTING':
+         for rule_id, family in (('TC-01-03', 'consulting_subject'),
+                                 ('TC-08-01', 'consulting_quality'),
+@@ -22534,6 +22557,24 @@
+             "replacement_remedy": any(term in claim_text for term in ("替代技术", "提供替代方案", "修改技术方案", "绕开侵权", "重新设计")),
+             "license_cure": any(term in claim_text for term in ("取得第三方授权", "购买第三方许可", "排除权利瑕疵")),
+         }
++        from review_v2.technology_service_elements import elements as service_elements
++        scoped_claim = {e['element_id']: e['status'] == 'COVERED'
++                        for e in service_elements('service_claims', clauses)}
++        # Status, registry publication and final projection use the identical
++        # proposition resolver, including parallel objects of an absence clause.
++        for flag, element_key in {
++            'claim_trigger': 'third_party_claim_trigger',
++            'claim_handling_responsibility': 'claim_handling_responsibility',
++            'provider_liability': 'provider_infringement_liability',
++            'direct_damage': 'direct_damage', 'defense_cost_allocation': 'defense_cost_allocation',
++            'third_party_compensation': 'third_party_compensation',
++            'notification_requirement': 'notification_requirement', 'notification_deadline': 'notification_deadline',
++            'necessary_assistance': 'necessary_assistance', 'termination_remedy': 'termination_remedy',
++            'refund_remedy': 'refund_remedy', 'explicit_defense_control': 'defense_control',
++            'lawyer_selection': 'lawyer_selection', 'settlement_authority': 'settlement_authority',
++            'replacement_remedy': 'replacement_remedy', 'license_cure': 'license_cure',
++        }.items():
++            service_claim_facts[flag] = scoped_claim[element_key]
+         _set_specialized_requirement_state(
+             item, "PARTIAL", claim_evidence, "third_party_claim_defense",
+             "第三方权利主张处理应区分已有责任分配、基础处理机制和复杂交易中的程序优化。",
+@@ -25110,11 +25151,18 @@
+         base.suggested_clause_example = "保持现有双向保密信息范围安排。"
+         base.action_suggestion = "已覆盖，无需修改。"
+ 
+-    party_b_external_data_use = bool(re.search(
+-        r"乙方.{0,90}(?:甲方|委托方).{0,50}(?:生产数据|运行数据|测试数据|客户信息|设备数据)"
+-        r".{0,100}(?:模型训练|算法优化|产品优化|其他客户|其他项目|科研|融资|技术展示)",
+-        compact,
+-    ))
++    from review_v2.data_use_scope import data_use_permissions
++    data_permissions = data_use_permissions(clauses)
++    external_sources = [s for s in data_permissions if s['actor'] == '乙方'
++                        and s['data_object'] == 'COUNTERPARTY_DATA' and s['external_use']]
++    party_b_external_data_use = bool(external_sources)
++    external_data_proposition = '；'.join(dict.fromkeys(s['quote'].rstrip('。；') for s in external_sources))
++    # The permission's original object, purpose and conditions also own the
++    # narrative. A generic list of other uses would broaden the actual grant.
++    external_clause_ids = {s['clause_id'] for s in external_sources}
++    existing_clause_ids = {s['clause_id'] for s in evidence}
++    evidence.extend(_specialized_evidence(c, 'SERVICE_PARTY_CONFIDENTIALITY', 'DIRECT')
++                    for c in clauses if c.clause_id in external_clause_ids - existing_clause_ids)
+     if (
+         (party_b_post_term_use or party_b_external_data_use)
+         and (period := by_id.get("TC-11-02"))
+@@ -25123,7 +25171,7 @@
+         if party_a_long_term and party_b_term_only:
+             asymmetry_facts.append("双方终止后的保密期限不对等")
+         if party_b_external_data_use:
+-            asymmetry_facts.append("乙方可将甲方数据用于模型、产品优化或其他客户项目")
++            asymmetry_facts.append(external_data_proposition)
+         if party_b_post_term_use:
+             asymmetry_facts.append("乙方在合同终止后仍保留数据并用于非履约目的")
+         _mark_technology_semantic_risk(
+@@ -25139,13 +25187,14 @@
+         _set_multi_element_state(period, [
+             {"element_id": "party_a_confidentiality_duration", "status": "COVERED" if party_a_long_term else "PARTIALLY_COVERED", "risk_relevant": False, "proposition": "甲方终止后的保密义务已有约定。", "evidence_terms": ["甲方", "合同终止后"]},
+             {"element_id": "party_b_confidentiality_duration", "status": "ADVERSE" if party_b_term_only else "PARTIALLY_COVERED", "presence_status": "COVERED" if party_b_term_only else "PARTIAL", "proposition": "乙方对甲方信息的终止后保密期限不足。", "evidence_terms": ["乙方", "本合同有效期"]},
+-            {"element_id": "party_b_external_data_use", "status": "ADVERSE" if party_b_external_data_use else "MISSING", "presence_status": "COVERED" if party_b_external_data_use else "MISSING", "proposition": "乙方可将甲方数据用于模型、产品优化或其他客户项目。", "evidence_terms": ["乙方", "甲方", "数据", "模型训练", "算法优化", "其他客户"]},
++            {"element_id": "party_b_external_data_use", "status": "ADVERSE" if party_b_external_data_use else "MISSING", "presence_status": "COVERED" if party_b_external_data_use else "MISSING", "proposition": external_data_proposition, "supporting_evidence": external_sources, "bound_evidence_ids": sorted(external_clause_ids)},
+             {"element_id": "party_b_post_termination_data_use", "status": "ADVERSE" if party_b_post_term_use else "MISSING", "presence_status": "COVERED" if party_b_post_term_use else "MISSING", "proposition": "乙方在合同终止后仍可保存并多目的使用甲方数据。", "evidence_terms": ["合同终止后", "乙方", "保存", "用于", "项目数据", "技术研究", "产品改进"]},
+         ], evidence)
+         period.decision_trace["service_confidentiality_party_facts"] = {
+             "party_a_long_term": party_a_long_term,
+             "party_b_term_only": party_b_term_only,
+             "party_b_external_data_use": party_b_external_data_use,
++            "data_use_permissions": data_permissions,
+             "party_b_post_term_use": party_b_post_term_use,
+         }
+ 
+@@ -43871,6 +43920,8 @@
+                 if cache_key not in entailment_cache:
+                     entailment_cache[cache_key] = claim_requirement_entailment(
+                         key, quote, contexts[review_id], patterns.get("provider"), patterns.get("recipient"),
++                        support_status=next((e['status'] for e in by_id[review_id].coverage_elements
++                                             if e['element_id'] == key), 'COVERED'),
+                     )
+                 if entailment_cache[cache_key] is False:
+                     failures.append({**owner, "review_id": review_id, "element_id": key,
+@@ -50969,6 +51020,9 @@
+                     _register_atomic_family_facts(generic_fact_graph, family, clauses)
+         if technology_classification.get('primary_subtype') == 'TECHNICAL_SERVICE':
+             _register_atomic_family_facts(generic_fact_graph, 'service_liability', clauses)
++            from review_v2.technology_service_elements import FAMILIES as service_families
++            for family in service_families:
++                _register_atomic_family_facts(generic_fact_graph, family, clauses)
+         if technology_classification.get('primary_subtype') == 'TECHNICAL_CONSULTING':
+             from review_v2.consulting_element_facts import FAMILIES as consulting_families
+             for family in consulting_families:
+@@ -51860,6 +51914,10 @@
+     project_risk_fact_layers(items, risk_findings, generic_fact_graph)
+     from review_v2.element_evidence_projection import project as project_element_report_evidence
+     project_element_report_evidence(items, risk_findings, clauses)
++    # Final consumers may resolve additional atoms after the first snapshot
++    # attachment. Refresh consumption from the same frozen registry, not a new
++    # extraction or a stale intermediate requirement list.
++    _attach_contract_fact_registry_snapshot(items, generic_fact_graph, fact_registry_snapshot_id)
+     legal_freshness_trace = _legal_freshness_trace(review_text, legal_reference_issues, risk_findings)
+     # Risk construction and verification have already consumed every child
+     # ReviewItem.  Collapse only identical rows now, at the report boundary,
+@@ -51929,6 +51987,9 @@
+     system_metadata = _system_metadata(llm_status)
+     _attach_evidence_traceability([i for i in items if i.coverage_status in ('通过','PASS')], clauses, review_text)
+     verified_pass_source_gate = _verified_pass_sources(items, clauses)
++    # Source verification may downgrade a provisional pass. Rebuild parent
++    # prose from that final state before checking narrative consistency.
++    items = _apply_element_level_narratives(items)
+     from review_v2.element_evidence_projection import audit as audit_element_report_evidence
+     element_report_failures = audit_element_report_evidence(items, risk_findings, clauses)
+     verified_pass_source_gate = _combine_quality_gates(verified_pass_source_gate, {
+--- before/obligation_detail_elements.py
++++ after/obligation_detail_elements.py
+@@ -330,7 +330,7 @@
+             exception_header = _fact(clause, quote)
+         elif exception_context and not (
+             re.match(r"(?:\d+[.、．]|[（(]\d+[）)])", compact)
+-            or re.search(r'^(?:已经|此后|其后|接收方|非因|从|根据|依法).{0,60}(?:公开|公共领域|合法|取得|获得|掌握|独立(?:开发|研发|形成)|披露)', compact)
++            or re.search(r'^(?:已经|此后|其后|接收方|接收时|非因|从|根据|依法|(?:未|没有|不曾)使用).{0,60}(?:公开|公共领域|合法|取得|获得|掌握|独立(?:开发|研发|形成)|披露)', compact)
+         ):
+             exception_context = False
+         if exception_context or re.search(r"例外|除外|不适用|不属于保密|不受.{0,8}保密|可以.{0,20}披露|允许披露|有权披露|(?:法律法规|有权机关).{0,25}披露.{0,12}不视为违约", compact):
+--- before/technology_service_analysis.py
++++ after/technology_service_analysis.py
+@@ -1725,6 +1725,10 @@
+     "replacement_remedy": "replacement_remedy", "replacement_or_workaround": "replacement_remedy",
+     "license_cure": "license_cure", "refund_or_termination_remedy": "refund_remedy",
+ }
++
++# A duty to lead handling supports the basic component of control, not the
++# separate right to decide the defence. Only PARTIAL consumers may use it.
++CLAIM_RESPONSE_PARTIAL_FACT_KEYS = {'defense_control': 'claim_handling'}
+ 
+ 
+ _CLAIM_EXPENSE_ITEMS = {
+@@ -1861,6 +1865,9 @@
+                 assigned = re.search(rf"由(?P<party>{provider}|{recipient}).{{0,8}}(?:承担|负责|处理|负担)", part)
+                 if assigned:
+                     actor = "LICENSEE" if re.fullmatch(recipient, assigned.group("party")) else "LICENSOR"
++                requested = re.search(rf"(?:{provider}|{recipient})(?:有权|可以)要求(?P<obligor>{provider}|{recipient})", part)
++                if requested:
++                    actor = "LICENSEE" if re.fullmatch(recipient, requested['obligor']) else "LICENSOR"
+                 if not actor:
+                     continue
+                 positive = part.replace("不得拒绝", "应")
+@@ -1899,7 +1906,7 @@
+                 for key, pattern in (
+                     ("defense_control", r"抗辩控制权|主导抗辩|控制抗辩|负责抗辩"),
+                     ("lawyer_selection", r"(?:选择|选聘|委托).{0,6}律师|律师选择权"),
+-                    ("settlement_authority", r"和解决策权|和解权限|决定是否和解"),
++                    ("settlement_authority", r"和解决策权|和解权限|和解审批权|和解审批机制|决定是否和解"),
+                     ("claim_cost_allocation", r"(?:承担|负担|支付).{0,40}(?:律师费|诉讼费|法律费用|抗辩费用)|(?:律师费|诉讼费|法律费用|抗辩费用).{0,70}(?:承担|负担|支付)"),
+                     ("third_party_compensation_allocation", r"(?:赔偿费|赔偿责任|全部损失|全部责任|法律和经济责任).{0,45}(?:承担|负担)|承担.{0,25}(?:赔偿责任|侵权责任|全部责任|损失|法律和经济责任)|赔偿(?:全部|直接|相应|合理)?损失"),
+                 ):
+@@ -1953,7 +1960,7 @@
+ 
+ def claim_requirement_entailment(
+     element_id: str, quote: str, context_text: str = "", provider: Optional[str] = None,
+-    recipient: Optional[str] = None,
++    recipient: Optional[str] = None, support_status: str = "COVERED",
+ ) -> Optional[bool]:
+     """Recompute one declared evidence edge from source text and a fixed schema.
+ 
+@@ -1975,9 +1982,12 @@
+     compact_source = re.sub(r"\s+", "", text)
+     if not compact_quote or compact_quote not in compact_source:
+         return False
++    candidates = list(facts.get(fact_key, []))
++    if support_status == 'PARTIALLY_COVERED':
++        candidates += facts.get(CLAIM_RESPONSE_PARTIAL_FACT_KEYS.get(element_id), [])
+     return any(
+         re.sub(r"\s+", "", row.get("allocation_quote") or row["quote"]) in compact_quote
+-        for row in facts.get(fact_key, [])
++        for row in candidates
+     )
+ 
+ 
+@@ -2008,6 +2018,9 @@
+     for element in elements:
+         key = element.get("element_id")
+         fact_key = CLAIM_RESPONSE_ELEMENT_FACT_KEYS.get(key)
++        partial_key = CLAIM_RESPONSE_PARTIAL_FACT_KEYS.get(key)
++        if element.get('status') == 'PARTIALLY_COVERED' and partial_key == element.get('source_fact_key'):
++            fact_key = partial_key
+         if fact_key is None or element.get("status") not in {"COVERED", "PARTIALLY_COVERED", "ADVERSE"}:
+             continue
+         if element.get("source_fact_key") != fact_key:
+@@ -4505,11 +4518,14 @@
+     workload_determination_unclear = actual_workload_basis and not any(
+         term in compact for term in ("工时记录", "工作量确认单", "里程碑完成比例", "核算公式", "计价标准")
+     )
++    # A nearby second party's role declaration must not become the first
++    # party's role after whitespace compaction joins two header lines.
++    role_text = re.sub(r'[^\S\r\n]+', '', text or '')
+     provider_party = (
+-        "甲方" if re.search(r"甲方[^。；\n]{0,15}(?:服务提供方|技术服务提供方|服务方)", compact)
+-        else "乙方" if re.search(r"乙方[^。；\n]{0,15}(?:服务提供方|技术服务提供方|服务方)", compact)
+-        else "甲方" if re.search(r"(?:受托人|受托方)[：:]?[^。；\n]{0,60}[（(]?甲方[）)]?", compact)
+-        else "乙方" if re.search(r"(?:受托人|受托方)[：:]?[^。；\n]{0,60}[（(]?乙方[）)]?", compact)
++        "甲方" if re.search(r"甲方(?:(?!乙方)[^。；\n]){0,15}(?:服务提供方|技术服务提供方|服务方)", role_text)
++        else "乙方" if re.search(r"乙方(?:(?!甲方)[^。；\n]){0,15}(?:服务提供方|技术服务提供方|服务方)", role_text)
++        else "甲方" if re.search(r"(?:受托人|受托方)[：:]?[^。；\n]{0,60}[（(]?甲方[）)]?", role_text)
++        else "乙方" if re.search(r"(?:受托人|受托方)[：:]?[^。；\n]{0,60}[（(]?乙方[）)]?", role_text)
+         else ""
+     )
+     recipient_party = "乙方" if provider_party == "甲方" else "甲方" if provider_party == "乙方" else ""
+--- before/technology_service_elements.py
++++ after/technology_service_elements.py
+@@ -0,0 +1,159 @@
++"""Typed technical-service arrangements, with predicate-owned original spans.
++
++The same definitions publish registry facts and resolve final report elements.
++An occurrence/heading is not an obligation; absence and permission keep their
++own objects and list scope. This module does not classify contracts.
++"""
++import re
++from review_v2.obligation_detail_elements import _element, _DURATION
++from review_v2.proposition_scope import arrangement_matches
++from review_v2.verified_source import exact_span
++
++
++FAMILIES = ('service_content', 'service_payment', 'service_quality',
++            'service_results', 'service_claims', 'material_exit', 'component_inventory')
++RULE_FAMILIES = {'TC-09-01': 'service_content', 'TC-09-04': 'service_payment',
++                 'TC-09-02': 'service_quality', 'TC-09-03': 'service_results',
++                 'TC-12-02': 'service_claims', 'TC-11-03': 'material_exit',
++                 'TC-03-04': 'component_inventory', 'TC-13-02': 'component_inventory'}
++PARTY = r'(?:[甲乙丙丁]方|双方|服务方|服务提供方|受托方|委托方|客户|接收方)'
++
++
++def sources(clauses, pattern, *, context=None, inherit_lists=False):
++    result = []
++    for clause in clauses:
++        if getattr(clause, 'block_type', '') in {'TITLE', 'HEADING'}:
++            continue
++        if context and not re.search(context, clause.text):
++            continue
++        for match in arrangement_matches(pattern, clause.text, inherit_lists=inherit_lists):
++            original = getattr(clause, 'raw_text', '') or clause.text
++            span = exact_span(original, match['quote'])
++            if not span:
++                continue
++            row = dict(clause_id=clause.clause_id, quote=original[span[0]:span[1]],
++                       location=clause.location, proposition_polarity='AFFIRMATIVE',
++                       predicate_pattern=pattern, condition=match.get('condition', ''))
++            if row not in result:
++                result.append(row)
++    return result
++
++
++def _rows(family, specs):
++    return [_element(key, label, proof, source_fact_key='technology.' + family + '.' + key)
++            for key, label, proof in specs]
++
++
++def elements(family, clauses):
++    def find(pattern, **kw):
++        return sources(clauses, pattern, **kw)
++    if family == 'service_content':
++        from review_v2.technology_transaction_evidence import extract_elements
++        atoms = extract_elements('technical_service_subject', clauses)
++        proof = [s for e in atoms if e['element_id'] in {'technical_service_scope', 'technical_service_activities'}
++                 for s in e['supporting_evidence']]
++        return _rows(family, [('core_contract_arrangement', '技术服务内容', proof)])
++    if family == 'service_payment':
++        return _rows(family, [('technical_service_remuneration', '技术服务报酬和费用安排',
++            find(r'(?:技术服务费|服务费|服务报酬|服务费用)[^。；;]{0,25}(?:\d[\d.,，]*\s*万?元|[一二三四五六七八九十百千万]+元|免费|无偿)'))])
++    if family == 'service_quality':
++        context = r'服务标准|服务质量|验收|服务成果|技术报告'
++        specs = [
++            ('objective_acceptance_standard', '服务质量和验收标准',
++             find(r'(?:应|按照|依据)[^。；;]{0,25}(?:技术标准|设备运行目标)|验收(?:主要)?(?:检查|标准|依据|内容)[：:]', context=context, inherit_lists=True)),
++            ('acceptance_process', '验收组织程序', find(PARTY + r'[^。；;]{0,45}(?:完成|进行|组织)验收', context=context)),
++            ('acceptance_deadline', '验收期限', find(_DURATION + r'内[^。；;]{0,12}(?:完成|进行)?验收', context=context)),
++            ('written_objection_mechanism', '验收书面异议程序', find(r'(?:应|须)[^。；;]{0,35}书面[^。；;]{0,20}(?:问题|异议|意见)', context=context)),
++            ('rectification_mechanism', '验收不合格后的补充修正', find(r'(?:应|须)[^。；;]{0,50}(?:补充|修正|整改|补正)', context=context)),
++            ('rectification_deadline', '补正期限', find(_DURATION + r'内[^。；;]{0,20}(?:补充|修正|整改|补正)', context=context)),
++            ('reinspection_procedure', '补正后的复验程序', find(r'(?:应|须|可以|有权)[^。；;]{0,35}(?:复验|重新验收|再次验收)', context=context)),
++            ('reinspection_deadline', '复验期限', find(_DURATION + r'内[^。；;]{0,20}(?:复验|重新验收|再次验收)', context=context)),
++        ]
++        return _rows(family, specs)
++    if family == 'service_results':
++        context = r'成果|知识产权|权利归|归属'
++        specs = [
++            ('service_result_scope', '服务中新成果的范围', find(r'(?:本项目|服务过程)[^。；;]{0,80}(?:形成|成果)[^。；;]{0,80}(?:报告|参数|工具|算法|记录)', context=context)),
++            ('background_result_ownership', '背景成果和原有资料的权利归属', find(r'(?:履行本合同前|原有|既有)[^。；;]{0,110}(?:仍归|归[^。；;]{0,10}所有)', context=context)),
++            ('project_result_ownership', '针对委托方形成的项目成果权属', find(r'(?:本项目|服务过程)[^。；;]{0,35}(?:特定|专用)[^。；;]{0,100}(?:所有权|知识产权|权利)[^。；;]{0,20}(?:归|属于)', context=context)),
++            ('general_result_ownership', '可独立使用的通用成果权属', find(r'(?:通用工具|通用算法|通用成果)[^。；;]{0,35}(?:权利|知识产权)?归[^。；;]{0,10}所有', context=context)),
++            ('service_result_use_boundary', '项目成果使用权限和边界', find(r'(?:报告|参数优化清单|测试记录|项目成果)[^。；;]{0,40}(?:有权|可以)[^。；;]{0,35}(?:内部|生产经营)[^。；;]{0,15}使用', context=context)),
++        ]
++        return _rows(family, specs)
++    if family == 'material_exit':
++        context = r'返还|删除|销毁|资料处置'
++        dispose = find(r'(?:终止|解除|届满)[^。；;]{0,50}(?:有权要求|应|须)[^。；;]{0,30}(?:返还|删除|销毁)[^。；;]{0,60}(?:资料|数据|程序|信息)', context=context)
++        deadlines = []
++        if dispose:
++            for clause in clauses:
++                prior = [s for s in dispose if s['clause_id'] == clause.clause_id]
++                if not prior:
++                    continue
++                for s in sources([clause], r'(?:应|须)[^。；;]{0,40}' + _DURATION + r'内(?:完成)?(?:处理|返还|删除|销毁)'):
++                    # "处理" inherits the immediately governing disposal object,
++                    # never a deadline in a different article or legal relation.
++                    original = getattr(clause, 'raw_text', '') or clause.text
++                    a, b = exact_span(original, prior[0]['quote']), exact_span(original, s['quote'])
++                    if a and b and a[0] < b[0]:
++                        deadlines.append(dict(s, quote=original[a[0]:b[1]]))
++        specs = [
++            ('termination_return_or_delete', '终止后的原始资料返还或删除', dispose),
++            ('processing_deadline', '资料返还或删除处理期限', deadlines),
++            ('retained_backup_use_restriction', '暂留备份继续保密且不得用于项目之外',
++             find(r'备份[^。；;]{0,45}(?:应|须)[^。；;]{0,30}保密[^。；;]{0,25}不得[^。；;]{0,25}(?:项目之外|非履约|其他用途)', context=context)),
++            ('confidential_copy_deletion', '复制件删除', find(r'(?:应|须)[^。；;]{0,30}(?:删除|销毁)[^。；;]{0,20}(?:复制件|副本)|(?:复制件|副本)[^。；;]{0,20}(?:应|须)[^。；;]{0,20}(?:删除|销毁)', context=context)),
++            ('confidential_backup_deletion', '备份最终删除期限', find(r'备份[^。；;]{0,30}(?:应|须)[^。；;]{0,25}' + _DURATION + r'内[^。；;]{0,15}删除', context=context)),
++            ('confidential_material_destruction', '资料销毁安排', find(r'(?:应|须)[^。；;]{0,20}销毁[^。；;]{0,20}(?:资料|数据|信息)', context=context)),
++            ('confidential_disposal_confirmation', '资料处置书面确认', find(r'(?:应|须)[^。；;]{0,20}(?:出具|提供)[^。；;]{0,20}(?:书面确认|销毁证明|删除证明)', context=context)),
++        ]
++        return _rows(family, specs)
++    if family == 'component_inventory':
++        return _rows(family, [
++            ('third_party_component_dependency', '第三方软件或组件使用安排', find(r'(?:可以|有权|可)[^。；;]{0,20}使用[^。；;]{0,40}(?:软件|组件|工具)', context=r'第三方|开源')),
++            ('third_party_component_inventory', '第三方软件及开源组件清单', find(r'(?:提供|提交|附有)[^。；;]{0,45}(?:第三方软件|开源组件)[^。；;]{0,20}清单')),
++            ('third_party_license_and_authorization', '第三方软件许可证或授权链材料', find(r'(?:提供|提交|附有)[^。；;]{0,35}(?:许可证|授权证明|授权链)')),
++        ])
++    if family == 'service_claims':
++        from review_v2.technology_service_analysis import extract_claim_response_facts, analyze_technical_service_core_facts
++        facts = analyze_technical_service_core_facts('\n'.join(c.text for c in clauses))
++        liability = facts.get('liability', {})
++        provider = re.escape(liability.get('service_provider_party') or '服务方')
++        recipient = re.escape(liability.get('service_recipient_party') or '委托方')
++        proof = extract_claim_response_facts(clauses, provider, recipient)
++        mapping = [
++            ('third_party_claim_trigger', 'claim_trigger', '第三方权利主张触发情形'),
++            ('claim_handling_responsibility', 'claim_handling', '第三方索赔处理责任主体'),
++            ('provider_infringement_liability', 'liability_responsible_party', '服务方对其侵权来源承担责任'),
++            ('direct_damage', 'direct_damage', '第三方侵权直接损失责任'),
++            ('defense_cost_allocation', 'claim_cost_allocation', '第三方索赔处理费用承担'),
++            ('third_party_compensation', 'third_party_compensation_allocation', '第三方侵权赔偿责任'),
++            ('notification_requirement', 'notification_requirement', '第三方索赔通知义务'),
++            ('notification_deadline', 'notification_deadline', '第三方索赔通知期限'),
++            ('necessary_assistance', 'claim_assistance', '第三方索赔必要协助'),
++            ('termination_remedy', 'termination_remedy', '权利瑕疵无法修复后的解除救济'),
++            ('refund_remedy', 'refund_remedy', '权利瑕疵后的退款救济'),
++            ('defense_control', 'defense_control', '第三方索赔抗辩控制权'),
++            ('lawyer_selection', 'lawyer_selection', '第三方索赔律师选择权'),
++            ('settlement_authority', 'settlement_authority', '第三方索赔和解审批权限'),
++            ('replacement_remedy', 'replacement_remedy', '替代技术或绕开侵权方案'),
++            ('license_cure', 'license_cure', '取得第三方授权的修复机制'),
++        ]
++        from review_v2.technology_service_analysis import CLAIM_RESPONSE_ELEMENT_FACT_KEYS
++        result = [_element(key, label, proof.get(canonical, []), source_fact_key=canonical)
++                for key, source, label in mapping
++                for canonical in [CLAIM_RESPONSE_ELEMENT_FACT_KEYS.get(key, source)]]
++        control = next(e for e in result if e['element_id'] == 'defense_control')
++        if not control['supporting_evidence'] and proof.get('claim_handling'):
++            basic = proof['claim_handling']
++            gap = '抗辩决策及当前审查方参与机制'
++            control.update(_element('defense_control', control['required_fact'], basic,
++                                    source_fact_key='claim_handling'))
++            control.update(status='PARTIALLY_COVERED', source_fact_key='claim_handling',
++                supporting_evidence=basic, residual_gap=gap, search_targets=[gap],
++                proposition='；'.join(s['quote'] for s in basic) + '，形成基础处理主导安排，但' + gap + '仍未完整明确。',
++                component_coverage=[dict(element_id='basic_claim_handling_control', status='COVERED',
++                    required_fact='基础处理主导安排：' + '；'.join(s['quote'] for s in basic), supporting_evidence=basic),
++                    dict(element_id='express_defense_decision_control', status='MISSING',
++                         required_fact=gap, supporting_evidence=[])])
++        return result
++    raise ValueError(family)
+--- before/technology_transaction_evidence.py
++++ after/technology_transaction_evidence.py
+@@ -77,7 +77,7 @@
+ # The service producer already distinguishes activities from outputs. Publish
+ # those predicates with the transaction facts instead of passing retrieval hints.
+ PREDICATES.update({
+-    'service_activities': r'(?:通过|进行|提供|采用|开展|实施).{0,45}(?:技术诊断|系统分析|性能测试|算法优化|参数调试|软件调试|技术支持|性能诊断|数据库分析|SQL优化)',
++    'service_activities': r'(?:通过|进行|提供|采用|开展|实施).{0,45}(?:技术诊断|系统分析|性能测试|算法优化|参数调试|软件调试|技术支持|性能诊断|数据库分析|SQL优化|运行状态检测|现场参数调整|技术培训|远程培训)|分析.{0,45}(?:异常|故障|停机).{0,15}原因|(?:PLC|传感器|运动控制|控制参数).{0,45}(?:提出|提供)优化建议',
+     'service_deliverables': r'(?:提交|提供|交付|出具|形成).{0,100}(?:诊断报告|优化建议书|测试结果记录|技术优化报告|算法参数文件|测试记录|服务记录|故障处理记录|变更记录|操作手册|项目实施报告|培训材料)',
+ })
+ LABELS.update(service_activities='核心技术服务活动', service_deliverables='主要技术服务交付物')
+@@ -87,6 +87,10 @@
+     compact = re.sub(r'\s+', '', text)
+     if not re.search(PREDICATES[key], compact):
+         return False
++    if key == 'service_activities':
++        from review_v2.proposition_scope import arrangement_matches
++        if not list(arrangement_matches(PREDICATES[key], compact)):
++            return False
+     # Do not treat references in a negative/remedial allocation as performance.
+     if key not in ('invoice', 'account') and re.search(LIABILITY, compact):
+         return False

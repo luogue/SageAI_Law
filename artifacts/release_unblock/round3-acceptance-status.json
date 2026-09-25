@@ -1,0 +1,45 @@
+{
+  "measured_at": "2026-09-09T07:22:27.564050+00:00",
+  "independent_docker_host": "UNAVAILABLE; required connection details requested",
+  "fresh_backend_build": {
+    "execution": "NOT_RUN",
+    "previous_result": "PASS"
+  },
+  "fresh_frontend_build": {
+    "execution": "NOT_RUN",
+    "previous_result": "NOT_VERIFIED_ENV_BLOCKED",
+    "reason": "当前没有资源满足要求的 Docker 验收环境，无法完成最终验证；不是已确认的代码失败。"
+  },
+  "backend_image_db_scan": {
+    "previous_result": "PASS",
+    "scope": "previous final image and all 11 layers; no new image this round"
+  },
+  "frontend_image_db_scan": {
+    "execution": "NOT_RUN",
+    "reason": "no completed frontend image"
+  },
+  "docker_business_regression": {
+    "result": "NOT_VERIFIED_ENV_BLOCKED",
+    "reason": "当前没有资源满足要求的 Docker 验收环境，无法完成最终验证；不是已确认的代码失败。"
+  },
+  "PRODUCTION_DB_STATUS": "HEALTHY",
+  "production_db_checked_at": "2026-09-09T07:17:23.709497+00:00",
+  "PRODUCTION_FRONTEND_HEALTH": "CONFIG_ERROR",
+  "frontend_evidence": "healthcheck localhost resolves ::1, connection refused; nginx listens IPv4 only; 127.0.0.1 frontend and proxied /health HTTP 200",
+  "CODE_RELEASE_GATE": "BLOCKED",
+  "DATABASE_SWITCH_GATE": "BLOCKED",
+  "PRODUCTION_DEPLOY_GATE": "BLOCKED",
+  "minimal_blockers": [
+    "adequately resourced independent Docker host access for fresh builds, final image/layer scans, and full container E2E",
+    "database disposition approval remains separate; no switch authorized"
+  ],
+  "source_database_preservation": {
+    "sha256_and_sizes_unchanged": true,
+    "all_metadata_unchanged": false,
+    "note": "All three files have identical SHA256 and sizes; SHM modification time changed. Cause not established. No database write or switch was performed by this acceptance work."
+  },
+  "deployed": false,
+  "database_switched": false,
+  "source_code_changed_this_round": false,
+  "superseded_by": "final-acceptance-status.json"
+}

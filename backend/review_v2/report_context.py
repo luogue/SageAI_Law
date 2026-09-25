@@ -113,6 +113,11 @@ DISPLAY_LABEL_REGISTRY: Tuple[DomainDisplayLabel, ...] = (
         contract_type_label="服务合同",
     ),
     DomainDisplayLabel(
+        family="SERVICE", subject_matter="SERVICE", transaction_structure="SERVICE",
+        subtype="PROPERTY_SERVICE", report_title="物业服务合同审查报告",
+        usage_scenario_label="物业服务", contract_type_label="物业服务合同",
+    ),
+    DomainDisplayLabel(
         family="TECHNOLOGY",
         subject_matter="TECHNICAL_SERVICE",
         transaction_structure="B2B_TECHNICAL_SERVICE",
@@ -223,6 +228,15 @@ DISPLAY_LABEL_REGISTRY: Tuple[DomainDisplayLabel, ...] = (
 )
 
 
+from review_v2.priority_contract_types import PRIORITY_TYPES
+
+DISPLAY_LABEL_REGISTRY += tuple(
+    DomainDisplayLabel(meta.family, meta.subject, key.upper(), key.upper(),
+                       meta.name + "审查报告", meta.name, meta.name)
+    for key, meta in PRIORITY_TYPES.items()
+)
+
+
 def _resolve_display_label(
     family: str,
     subject: str,
@@ -231,6 +245,10 @@ def _resolve_display_label(
 ) -> DomainDisplayLabel:
     # The registry order encodes the display priority: transaction structure,
     # subtype, subject, then family fallback.
+    if subtype.lower() in PRIORITY_TYPES:
+        meta = PRIORITY_TYPES[subtype.lower()]
+        return DomainDisplayLabel(family, subject, transaction_structure, subtype,
+                                  meta.name + "审查报告", meta.name, meta.name)
     for label in DISPLAY_LABEL_REGISTRY:
         if (
             label.family == family
@@ -268,6 +286,11 @@ def build_report_context(contract_context: Dict[str, Any]) -> ReportContext:
     family = str(contract_context.get("contract_family") or contract_context.get("contract_type") or "").upper()
     transaction_structure = str(contract_context.get("transaction_structure") or "SINGLE_TRANSACTION")
     label = _resolve_display_label(family, subject, transaction_structure, subtype)
+    if family == 'EMPLOYMENT':
+        from review_v2.employment_dispatch import LABELS
+        if subtype in LABELS:
+            name = LABELS[subtype]
+            label = DomainDisplayLabel(family,subject,transaction_structure,subtype,name+'审查报告',name,name)
     if family == "TECHNOLOGY" and subtype == "TECHNICAL_SERVICE" and str(contract_context.get("usage_scenario") or "").startswith("UNIVERSITY_RESEARCH_DATA"):
         label = DomainDisplayLabel(
             family=family,

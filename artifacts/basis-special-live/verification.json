@@ -1,0 +1,2166 @@
+{
+  "statistics": {
+    "通过": 39,
+    "部分覆盖": 2,
+    "不适用": 6,
+    "缺失": 3
+  },
+  "source_sha256": "de20c23652e7d1a1e00d78fbd231dfece6ae685db16dde5256e9bb79948742d3",
+  "gate": "REPORT_READY",
+  "tests": "135 passed; final specificity rerun 12 passed",
+  "deterministic_fact_fields_unchanged": true,
+  "all_production_coverage_states_unchanged": true,
+  "legal_basis_trace": {
+    "COMMON-20-01": {
+      "stages": [
+        {
+          "STAGE": "AFTER_COVERAGE_BEFORE_CITATIONS",
+          "SOURCE_FILE": "backend/review_v2/engine.py",
+          "SOURCE_FIELD": "ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《民法典》第510条、第577条、第585条",
+          "VALUE_AFTER": "《民法典》第510条、第577条、第585条",
+          "legal_references": []
+        },
+        {
+          "STAGE": "PROPOSITION_SELECTION",
+          "SOURCE_FILE": "F:\\ai\\Sage\\backend\\review_v2\\legal_basis_selection.py",
+          "SOURCE_FIELD": "ReviewCheckpoint.legal_basis_topics -> ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《民法典》第510条、第577条、第585条",
+          "VALUE_AFTER": "《中华人民共和国民法典》第585条；《中华人民共和国民法典》第577条"
+        },
+        {
+          "STAGE": "AFTER_AUTHORITY_SELECTION",
+          "SOURCE_FILE": "backend/review_v2/engine.py",
+          "SOURCE_FIELD": "ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《中华人民共和国民法典》第585条；《中华人民共和国民法典》第577条",
+          "VALUE_AFTER": "《中华人民共和国民法典》第585条；《中华人民共和国民法典》第577条",
+          "legal_references": [
+            {
+              "article": "第585条",
+              "proposition": "当事人可以约定违约金及因违约产生的损失赔偿额计算方法",
+              "support_type": "DIRECT_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "当事人可以约定一方违约时应当根据违约情况向对方支付一定数额的违约金，也可以约定因违约产生的损失赔偿额的计算方法。约定的违约金低于造成的损失的，人民法院或者仲裁机构可以根据当事人的请求予以增加；约定的违约金过分高于造成的损失的，人民法院或者仲裁机构可以根据当事人的请求予以适当减少。当事人就迟延履行约定违约金的，违约方支付违约金后，还应当履行债务。"
+            },
+            {
+              "article": "第577条",
+              "proposition": "不履行或履行不符合约定时的一般违约责任",
+              "support_type": "PARTIAL_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "当事人一方不履行合同义务或者履行不符合约定的，应当承担继续履行、采取补救措施或者赔偿损失等违约责任。"
+            }
+          ]
+        },
+        {
+          "STAGE": "AFTER_RISK_AGGREGATION_RENDERER_INPUT",
+          "SOURCE_FILE": "backend/review_v2/engine.py",
+          "SOURCE_FIELD": "ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《中华人民共和国民法典》第585条；《中华人民共和国民法典》第577条",
+          "VALUE_AFTER": "《中华人民共和国民法典》第585条；《中华人民共和国民法典》第577条",
+          "legal_references": [
+            {
+              "article": "第585条",
+              "proposition": "当事人可以约定违约金及因违约产生的损失赔偿额计算方法",
+              "support_type": "DIRECT_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "当事人可以约定一方违约时应当根据违约情况向对方支付一定数额的违约金，也可以约定因违约产生的损失赔偿额的计算方法。约定的违约金低于造成的损失的，人民法院或者仲裁机构可以根据当事人的请求予以增加；约定的违约金过分高于造成的损失的，人民法院或者仲裁机构可以根据当事人的请求予以适当减少。当事人就迟延履行约定违约金的，违约方支付违约金后，还应当履行债务。"
+            },
+            {
+              "article": "第577条",
+              "proposition": "不履行或履行不符合约定时的一般违约责任",
+              "support_type": "PARTIAL_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "当事人一方不履行合同义务或者履行不符合约定的，应当承担继续履行、采取补救措施或者赔偿损失等违约责任。"
+            }
+          ]
+        }
+      ],
+      "runtime_rule_metadata": {
+        "item_id": "COMMON-20-01",
+        "node_id": "common_penalty_base_determinability",
+        "title": "违约金计算基数可确定性",
+        "kind": "required",
+        "risk_level": "中",
+        "terms": [
+          "违约金",
+          "计算基数"
+        ],
+        "risk_point_missing": "需核对违约金计算基数可确定性的具体安排；文本未覆盖的要素不等于相关法定权利不存在。",
+        "risk_point_present": "合同已覆盖“违约金计算基数可确定性”相关安排，建议继续核对表述是否具体、附件是否完整、责任边界是否清楚。",
+        "suggested_clause": "明确违约金引用基数的金额、对应交易或可验证计算方法，并与付款及结算条款衔接。",
+        "legal_basis": "《民法典》第510条、第577条、第585条",
+        "legal_consequence_if_missing": "需核对违约金计算基数可确定性的具体安排；文本未覆盖的要素不等于相关法定权利不存在。",
+        "semantic_question": "合同是否已实质约定“违约金计算基数可确定性”，并能覆盖该审查点对应的法律风险？",
+        "evidence_scope": "正式合同条款及附件",
+        "pass_criteria": "全部专项要素均有可定位的合同原文支持。",
+        "partial_criteria": "部分要素有原文支持，其他要素缺失、留有空白或仅待另行协商。",
+        "applicable_if": "合同存在按比例计算的违约金，且计算依赖某一金额基数时适用。",
+        "legal_basis_topics": [
+          "liquidated_damages_calculation",
+          "general_breach_liability",
+          "unclear_contract_terms"
+        ],
+        "allowed_families": [],
+        "allowed_subject_matters": [],
+        "allowed_subtypes": [],
+        "prohibited_subject_matters": [],
+        "domain_owner": "common",
+        "material_group": "GENERAL",
+        "applicability_triggers": [],
+        "claim_requirements": [],
+        "polarity": "POSITIVE_REQUIREMENT",
+        "review_nature": "CONTRACTUAL_REQUIREMENT",
+        "requirement_medium": "CONTRACT_TEXT",
+        "legal_requirement_strength": "RISK_CONTROL",
+        "action_type": "CONTRACT_EDIT",
+        "fact_concepts": [],
+        "optional_trigger_patterns": [],
+        "unless_fact_concepts": [],
+        "prerequisite_facts": [],
+        "linked_adverse_rules": []
+      },
+      "required_elements": [
+        {
+          "review_id": "COMMON-20-01",
+          "element_id": "common_penalty_base_determinability_ratio",
+          "proposition": "违约金比例及对应基数约定",
+          "status": "COVERED",
+          "evidence_ids": [
+            "C0043"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0043"
+          ],
+          "source_spans": [
+            "甲方逾期支付保管费的，每逾期1日按照应付未付金额的0.1%标准支付违约金。",
+            "（二）甲方逾期领取保管物的，每逾期1日按照当月保管费的1%标准支付违约金。"
+          ],
+          "source_locations": [
+            "第十一条（二）"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0043"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "C0043"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0043",
+              "quote": "甲方逾期支付保管费的，每逾期1日按照应付未付金额的0.1%标准支付违约金。"
+            },
+            {
+              "clause_id": "C0043",
+              "quote": "（二）甲方逾期领取保管物的，每逾期1日按照当月保管费的1%标准支付违约金。"
+            }
+          ]
+        },
+        {
+          "review_id": "COMMON-20-01",
+          "element_id": "common_penalty_base_determinability_definition",
+          "proposition": "比例基数有金额或可验证动态计算方法",
+          "status": "COVERED",
+          "evidence_ids": [
+            "C0015"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0015"
+          ],
+          "source_spans": [
+            "（一）保管费计算方式为：按每月人民币2000元计算，不满一个月的按照实际保管天数折算；保管费总额暂定为人民币6000元（大写：陆仟元整），支付时间为：甲方应于每月10日前支付当月保管费，支付方式为：银行转账至乙方指定账户。"
+          ],
+          "source_locations": [
+            "第四条（一）"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0015"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "C0015"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0015",
+              "quote": "（一）保管费计算方式为：按每月人民币2000元计算，不满一个月的按照实际保管天数折算；保管费总额暂定为人民币6000元（大写：陆仟元整），支付时间为：甲方应于每月10日前支付当月保管费，支付方式为：银行转账至乙方指定账户。"
+            }
+          ]
+        }
+      ],
+      "rule_source": {
+        "SOURCE_FILE": [],
+        "SOURCE_FIELD": "ReviewCheckpoint.legal_basis",
+        "VALUE_BEFORE": "《民法典》第510条、第577条、第585条",
+        "VALUE_AFTER": "《民法典》第510条、第577条、第585条"
+      },
+      "candidate_articles": [
+        {
+          "article": "第585条",
+          "matched_propositions": [
+            "liquidated_damages_calculation"
+          ],
+          "metadata": {
+            "article_id": "第585条",
+            "legal_domain": "breach",
+            "contract_type": "general",
+            "proposition_tags": [
+              "liquidated_damages_calculation",
+              "liquidated_damages",
+              "agreed_damages",
+              "damages_calculation_method",
+              "damages_adjustment"
+            ],
+            "normative_object": "当事人可以约定违约金及因违约产生的损失赔偿额计算方法",
+            "trigger_conditions": [],
+            "effect_type": "agreed_damages",
+            "specificity_level": "SPECIAL"
+          },
+          "trigger_satisfied": true,
+          "eligible": true,
+          "relevance_score": 1.0,
+          "score_semantics": "1.0=direct special; 0.6=related general; 0.3=triggered supplementary; 0.1=inactive background; 0=unmatched",
+          "reason": "明确法律命题对应；按直接性及专门性排序，并非词频相似度",
+          "authority_validation": {
+            "status": "CURRENT",
+            "entailment": "SUPPORTS",
+            "support_type": "DIRECT_SUPPORT",
+            "authority": {
+              "authority_id": "CN-CIVIL-CODE-585",
+              "jurisdiction": "CN",
+              "law_name": "中华人民共和国民法典",
+              "article": "第585条",
+              "paragraph": "",
+              "text": "当事人可以约定一方违约时应当根据违约情况向对方支付一定数额的违约金，也可以约定因违约产生的损失赔偿额的计算方法。约定的违约金低于造成的损失的，人民法院或者仲裁机构可以根据当事人的请求予以增加；约定的违约金过分高于造成的损失的，人民法院或者仲裁机构可以根据当事人的请求予以适当减少。当事人就迟延履行约定违约金的，违约方支付违约金后，还应当履行债务。",
+              "authority_level": "法律",
+              "effective_from": "2021-01-01",
+              "effective_to": null,
+              "status": "CURRENT",
+              "replacement": null,
+              "source": "legal_authority_kb_minimal",
+              "last_verified_at": "2026-08-11"
+            }
+          }
+        },
+        {
+          "article": "第577条",
+          "matched_propositions": [
+            "general_breach_liability"
+          ],
+          "metadata": {
+            "article_id": "第577条",
+            "legal_domain": "contract",
+            "contract_type": "general",
+            "proposition_tags": [
+              "general_breach_liability"
+            ],
+            "normative_object": "不履行或履行不符合约定时的一般违约责任",
+            "trigger_conditions": [],
+            "effect_type": "statutory_rule",
+            "specificity_level": "GENERAL"
+          },
+          "trigger_satisfied": true,
+          "eligible": true,
+          "relevance_score": 0.6,
+          "score_semantics": "1.0=direct special; 0.6=related general; 0.3=triggered supplementary; 0.1=inactive background; 0=unmatched",
+          "reason": "明确法律命题对应；按直接性及专门性排序，并非词频相似度",
+          "authority_validation": {
+            "status": "CURRENT",
+            "entailment": "SUPPORTS",
+            "support_type": "DIRECT_SUPPORT",
+            "authority": {
+              "authority_id": "CN-CC-577",
+              "jurisdiction": "CN",
+              "law_name": "中华人民共和国民法典",
+              "article": "第577条",
+              "paragraph": "",
+              "text": "当事人一方不履行合同义务或者履行不符合约定的，应当承担继续履行、采取补救措施或者赔偿损失等违约责任。",
+              "authority_level": "法律",
+              "effective_from": "2021-01-01",
+              "effective_to": null,
+              "status": "CURRENT",
+              "replacement": null,
+              "source": "National Laws and Regulations Database / Civil Code",
+              "last_verified_at": "2026-08-14"
+            }
+          }
+        },
+        {
+          "article": "第510条",
+          "matched_propositions": [
+            "unclear_contract_terms"
+          ],
+          "metadata": {
+            "article_id": "第510条",
+            "legal_domain": "contract",
+            "contract_type": "general",
+            "proposition_tags": [
+              "unclear_contract_terms"
+            ],
+            "normative_object": "报酬、费用承担及履行方式约定不明时通过补充协议、相关条款或交易习惯确定",
+            "trigger_conditions": [
+              "unclear_terms"
+            ],
+            "effect_type": "statutory_rule",
+            "specificity_level": "SUPPLEMENTARY"
+          },
+          "trigger_satisfied": false,
+          "eligible": false,
+          "relevance_score": 0.1,
+          "score_semantics": "1.0=direct special; 0.6=related general; 0.3=triggered supplementary; 0.1=inactive background; 0=unmatched",
+          "reason": "补充规则前提未触发，仅保留候选背景，不进入最终依据",
+          "authority_validation": {
+            "status": "CURRENT",
+            "entailment": "SUPPORTS",
+            "support_type": "DIRECT_SUPPORT",
+            "authority": {
+              "authority_id": "CN-CIVIL-CODE-510",
+              "jurisdiction": "CN",
+              "law_name": "中华人民共和国民法典",
+              "article": "第510条",
+              "paragraph": "",
+              "text": "合同生效后，当事人就质量、价款或者报酬、履行地点等内容没有约定或者约定不明确的，可以协议补充；不能达成补充协议的，按照合同相关条款或者交易习惯确定。",
+              "authority_level": "法律",
+              "effective_from": "2021-01-01",
+              "effective_to": null,
+              "status": "CURRENT",
+              "replacement": null,
+              "source": "https://www.court.gov.cn/zixun/xiangqing/233181.html",
+              "last_verified_at": "2026-09-09"
+            }
+          }
+        }
+      ],
+      "primary_basis": [
+        "第585条"
+      ],
+      "secondary_basis": [
+        "第577条"
+      ],
+      "selected_basis": "《中华人民共和国民法典》第585条；《中华人民共和国民法典》第577条",
+      "legal_propositions": [
+        {
+          "id": "liquidated_damages_calculation",
+          "proposition": "当事人可以约定违约金及因违约产生的损失赔偿额计算方法",
+          "article": "第585条",
+          "support_type": "DIRECT_SUPPORT"
+        },
+        {
+          "id": "general_breach_liability",
+          "proposition": "不履行或履行不符合约定时的一般违约责任",
+          "article": "第577条",
+          "support_type": "PARTIAL_SUPPORT"
+        }
+      ],
+      "supplementary_trigger": {
+        "unclear_terms": false,
+        "source": "existing coverage_status; no fact mutation"
+      },
+      "selection_complete": true,
+      "special_over_general_passed": true,
+      "citation_specs": [
+        {
+          "proposition": "当事人可以约定违约金及因违约产生的损失赔偿额计算方法",
+          "claim_type": "STATUTORY_RULE",
+          "maximum_support_type": "DIRECT_SUPPORT",
+          "references": [
+            {
+              "law_name": "中华人民共和国民法典",
+              "article": "第585条",
+              "paragraph": ""
+            }
+          ]
+        },
+        {
+          "proposition": "不履行或履行不符合约定时的一般违约责任",
+          "claim_type": "STATUTORY_RULE",
+          "maximum_support_type": "PARTIAL_SUPPORT",
+          "references": [
+            {
+              "law_name": "中华人民共和国民法典",
+              "article": "第577条",
+              "paragraph": ""
+            }
+          ]
+        }
+      ],
+      "final_markdown": {
+        "SOURCE_FILE": "backend/review_v2/engine.py::_format_markdown_v2",
+        "SOURCE_FIELD": "Markdown.法律依据",
+        "VALUE_BEFORE": "《中华人民共和国民法典》第585条；《中华人民共和国民法典》第577条",
+        "VALUE_AFTER": "《中华人民共和国民法典》第585条；《中华人民共和国民法典》第577条"
+      }
+    },
+    "D-04-02": {
+      "stages": [
+        {
+          "STAGE": "AFTER_COVERAGE_BEFORE_CITATIONS",
+          "SOURCE_FILE": "backend/review_v2/engine.py",
+          "SOURCE_FIELD": "ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《民法典》第889条、第903条",
+          "VALUE_AFTER": "《民法典》第889条、第903条",
+          "legal_references": []
+        },
+        {
+          "STAGE": "PROPOSITION_SELECTION",
+          "SOURCE_FILE": "F:\\ai\\Sage\\backend\\review_v2\\legal_basis_selection.py",
+          "SOURCE_FIELD": "ReviewCheckpoint.legal_basis_topics -> ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《民法典》第889条、第903条",
+          "VALUE_AFTER": "《中华人民共和国民法典》第889条；《中华人民共和国民法典》第902条；《中华人民共和国民法典》第509条"
+        },
+        {
+          "STAGE": "AFTER_AUTHORITY_SELECTION",
+          "SOURCE_FILE": "backend/review_v2/engine.py",
+          "SOURCE_FIELD": "ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《中华人民共和国民法典》第889条；《中华人民共和国民法典》第902条；《中华人民共和国民法典》第509条",
+          "VALUE_AFTER": "《中华人民共和国民法典》第889条；《中华人民共和国民法典》第902条；《中华人民共和国民法典》第509条",
+          "legal_references": [
+            {
+              "article": "第889条",
+              "proposition": "寄存人应当按照约定向保管人支付保管费",
+              "support_type": "DIRECT_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "寄存人应当按照约定向保管人支付保管费。当事人对保管费没有约定或者约定不明确，依据本法第五百一十条的规定仍不能确定的，视为无偿保管。"
+            },
+            {
+              "article": "第902条",
+              "proposition": "有偿保管费用按约定期限支付；支付期限不明时的处理",
+              "support_type": "DIRECT_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "有偿的保管合同，寄存人应当按照约定的期限向保管人支付保管费。当事人对支付期限没有约定或者约定不明确，依据本法第五百一十条的规定仍不能确定的，应当在领取保管物的同时支付。"
+            },
+            {
+              "article": "第509条",
+              "proposition": "依约全面履行并按诚信原则履行通知、协助等义务；具体费用及凭证安排属于合同细化",
+              "support_type": "PARTIAL_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "当事人应当按照约定全面履行自己的义务，并遵循诚信原则履行通知、协助、保密等义务。"
+            }
+          ]
+        },
+        {
+          "STAGE": "AFTER_RISK_AGGREGATION_RENDERER_INPUT",
+          "SOURCE_FILE": "backend/review_v2/engine.py",
+          "SOURCE_FIELD": "ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《中华人民共和国民法典》第889条；《中华人民共和国民法典》第902条；《中华人民共和国民法典》第509条",
+          "VALUE_AFTER": "《中华人民共和国民法典》第889条；《中华人民共和国民法典》第902条；《中华人民共和国民法典》第509条",
+          "legal_references": [
+            {
+              "article": "第889条",
+              "proposition": "寄存人应当按照约定向保管人支付保管费",
+              "support_type": "DIRECT_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "寄存人应当按照约定向保管人支付保管费。当事人对保管费没有约定或者约定不明确，依据本法第五百一十条的规定仍不能确定的，视为无偿保管。"
+            },
+            {
+              "article": "第902条",
+              "proposition": "有偿保管费用按约定期限支付；支付期限不明时的处理",
+              "support_type": "DIRECT_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "有偿的保管合同，寄存人应当按照约定的期限向保管人支付保管费。当事人对支付期限没有约定或者约定不明确，依据本法第五百一十条的规定仍不能确定的，应当在领取保管物的同时支付。"
+            },
+            {
+              "article": "第509条",
+              "proposition": "依约全面履行并按诚信原则履行通知、协助等义务；具体费用及凭证安排属于合同细化",
+              "support_type": "PARTIAL_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "当事人应当按照约定全面履行自己的义务，并遵循诚信原则履行通知、协助、保密等义务。"
+            }
+          ]
+        }
+      ],
+      "runtime_rule_metadata": {
+        "item_id": "D-04-02",
+        "node_id": "safekeeping_fee_amount_payment",
+        "title": "保管费金额和支付方式",
+        "kind": "required",
+        "risk_level": "高",
+        "terms": [
+          "保管费",
+          "金额",
+          "支付方式",
+          "支付时间",
+          "结算"
+        ],
+        "risk_point_missing": "有偿保管未明确金额、支付节点和方式，保管费是否到期及留置权基础不清。",
+        "risk_point_present": "合同已覆盖“保管费金额和支付方式”相关安排，建议继续核对表述是否具体、保管物信息是否完整、责任边界是否清楚。",
+        "suggested_clause": "保管费为人民币__元/日或__元/月，寄存人应于__日前通过__方式支付至保管人指定账户。",
+        "legal_basis": "《民法典》第889条、第903条",
+        "legal_consequence_if_missing": "有偿保管未明确金额、支付节点和方式，保管费是否到期及留置权基础不清。",
+        "semantic_question": "合同是否已明确约定“保管费金额和支付方式”，并能覆盖保管合同裁判树中对应的核心风险？",
+        "evidence_scope": "正式合同条款及附件",
+        "pass_criteria": "正式合同条款或附件中存在与“保管费金额和支付方式”相关的明确、可执行约定，且关键主体、保管物、期限、金额或选项已填写完整。",
+        "partial_criteria": "正式合同条款或附件中已有与“保管费金额和支付方式”相关安排，但存在空白、未勾选、金额期限不完整、保管物范围不清或责任边界不明。",
+        "applicable_if": "始终适用",
+        "legal_basis_topics": [
+          "custody_fee_obligation",
+          "remuneration_payment",
+          "performance_cooperation",
+          "unclear_contract_terms"
+        ],
+        "allowed_families": [],
+        "allowed_subject_matters": [],
+        "allowed_subtypes": [],
+        "prohibited_subject_matters": [],
+        "domain_owner": "contract/common",
+        "material_group": "GENERAL",
+        "applicability_triggers": [],
+        "claim_requirements": [],
+        "polarity": "POSITIVE_REQUIREMENT",
+        "review_nature": "CONTRACTUAL_REQUIREMENT",
+        "requirement_medium": "CONTRACT_TEXT",
+        "legal_requirement_strength": "RISK_CONTROL",
+        "action_type": "CONTRACT_EDIT",
+        "fact_concepts": [],
+        "optional_trigger_patterns": [],
+        "unless_fact_concepts": [],
+        "prerequisite_facts": [],
+        "linked_adverse_rules": []
+      },
+      "required_elements": [
+        {
+          "review_id": "D-04-02",
+          "element_id": "core_contract_arrangement",
+          "proposition": "合同存在可验证的“保管费金额和支付方式”实质条款内容。",
+          "status": "UNCERTAIN",
+          "evidence_ids": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "low",
+          "reason": "未找到可支撑该元素的合同证据。",
+          "claim_id": "",
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "UNCERTAIN",
+          "fact_value": null,
+          "fact_evidence_refs": [],
+          "requirement_status": "UNCERTAIN",
+          "requirement_reason": "未找到可支撑该元素的合同证据。",
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        }
+      ],
+      "rule_source": {
+        "SOURCE_FILE": [
+          "F:\\ai\\Sage\\backend\\review_v2\\safekeeping_contract_checklist.py"
+        ],
+        "SOURCE_FIELD": "ReviewCheckpoint.legal_basis",
+        "VALUE_BEFORE": "《民法典》第889条、第903条",
+        "VALUE_AFTER": "《民法典》第889条、第903条"
+      },
+      "candidate_articles": [
+        {
+          "article": "第889条",
+          "matched_propositions": [
+            "custody_fee_obligation"
+          ],
+          "metadata": {
+            "article_id": "第889条",
+            "legal_domain": "custody",
+            "contract_type": "custody",
+            "proposition_tags": [
+              "custody_fee_obligation"
+            ],
+            "normative_object": "寄存人应当按照约定向保管人支付保管费",
+            "trigger_conditions": [],
+            "effect_type": "statutory_rule",
+            "specificity_level": "SPECIAL"
+          },
+          "trigger_satisfied": true,
+          "eligible": true,
+          "relevance_score": 1.0,
+          "score_semantics": "1.0=direct special; 0.6=related general; 0.3=triggered supplementary; 0.1=inactive background; 0=unmatched",
+          "reason": "明确法律命题对应；按直接性及专门性排序，并非词频相似度",
+          "authority_validation": {
+            "status": "CURRENT",
+            "entailment": "SUPPORTS",
+            "support_type": "DIRECT_SUPPORT",
+            "authority": {
+              "authority_id": "CN-CIVIL-CODE-889",
+              "jurisdiction": "CN",
+              "law_name": "中华人民共和国民法典",
+              "article": "第889条",
+              "paragraph": "",
+              "text": "寄存人应当按照约定向保管人支付保管费。当事人对保管费没有约定或者约定不明确，依据本法第五百一十条的规定仍不能确定的，视为无偿保管。",
+              "authority_level": "法律",
+              "effective_from": "2021-01-01",
+              "effective_to": null,
+              "status": "CURRENT",
+              "replacement": null,
+              "source": "https://www.court.gov.cn/zixun/xiangqing/233181.html",
+              "last_verified_at": "2026-09-09"
+            }
+          }
+        },
+        {
+          "article": "第902条",
+          "matched_propositions": [
+            "remuneration_payment"
+          ],
+          "metadata": {
+            "article_id": "第902条",
+            "legal_domain": "custody",
+            "contract_type": "custody",
+            "proposition_tags": [
+              "remuneration_payment"
+            ],
+            "normative_object": "有偿保管费用按约定期限支付；支付期限不明时的处理",
+            "trigger_conditions": [],
+            "effect_type": "statutory_rule",
+            "specificity_level": "SPECIAL"
+          },
+          "trigger_satisfied": true,
+          "eligible": true,
+          "relevance_score": 1.0,
+          "score_semantics": "1.0=direct special; 0.6=related general; 0.3=triggered supplementary; 0.1=inactive background; 0=unmatched",
+          "reason": "明确法律命题对应；按直接性及专门性排序，并非词频相似度",
+          "authority_validation": {
+            "status": "CURRENT",
+            "entailment": "SUPPORTS",
+            "support_type": "DIRECT_SUPPORT",
+            "authority": {
+              "authority_id": "CN-CIVIL-CODE-902",
+              "jurisdiction": "CN",
+              "law_name": "中华人民共和国民法典",
+              "article": "第902条",
+              "paragraph": "",
+              "text": "有偿的保管合同，寄存人应当按照约定的期限向保管人支付保管费。当事人对支付期限没有约定或者约定不明确，依据本法第五百一十条的规定仍不能确定的，应当在领取保管物的同时支付。",
+              "authority_level": "法律",
+              "effective_from": "2021-01-01",
+              "effective_to": null,
+              "status": "CURRENT",
+              "replacement": null,
+              "source": "https://www.court.gov.cn/zixun/xiangqing/233181.html",
+              "last_verified_at": "2026-09-09"
+            }
+          }
+        },
+        {
+          "article": "第509条",
+          "matched_propositions": [
+            "performance_cooperation"
+          ],
+          "metadata": {
+            "article_id": "第509条",
+            "legal_domain": "contract",
+            "contract_type": "general",
+            "proposition_tags": [
+              "performance_cooperation"
+            ],
+            "normative_object": "依约全面履行并按诚信原则履行通知、协助等义务；具体费用及凭证安排属于合同细化",
+            "trigger_conditions": [],
+            "effect_type": "statutory_rule",
+            "specificity_level": "GENERAL"
+          },
+          "trigger_satisfied": true,
+          "eligible": true,
+          "relevance_score": 0.6,
+          "score_semantics": "1.0=direct special; 0.6=related general; 0.3=triggered supplementary; 0.1=inactive background; 0=unmatched",
+          "reason": "明确法律命题对应；按直接性及专门性排序，并非词频相似度",
+          "authority_validation": {
+            "status": "CURRENT",
+            "entailment": "SUPPORTS",
+            "support_type": "DIRECT_SUPPORT",
+            "authority": {
+              "authority_id": "CN-CC-509",
+              "jurisdiction": "CN",
+              "law_name": "中华人民共和国民法典",
+              "article": "第509条",
+              "paragraph": "",
+              "text": "当事人应当按照约定全面履行自己的义务，并遵循诚信原则履行通知、协助、保密等义务。",
+              "authority_level": "法律",
+              "effective_from": "2021-01-01",
+              "effective_to": null,
+              "status": "CURRENT",
+              "replacement": null,
+              "source": "National Laws and Regulations Database / Civil Code",
+              "last_verified_at": "2026-08-14"
+            }
+          }
+        },
+        {
+          "article": "第510条",
+          "matched_propositions": [
+            "unclear_contract_terms"
+          ],
+          "metadata": {
+            "article_id": "第510条",
+            "legal_domain": "contract",
+            "contract_type": "general",
+            "proposition_tags": [
+              "unclear_contract_terms"
+            ],
+            "normative_object": "报酬、费用承担及履行方式约定不明时通过补充协议、相关条款或交易习惯确定",
+            "trigger_conditions": [
+              "unclear_terms"
+            ],
+            "effect_type": "statutory_rule",
+            "specificity_level": "SUPPLEMENTARY"
+          },
+          "trigger_satisfied": false,
+          "eligible": false,
+          "relevance_score": 0.1,
+          "score_semantics": "1.0=direct special; 0.6=related general; 0.3=triggered supplementary; 0.1=inactive background; 0=unmatched",
+          "reason": "补充规则前提未触发，仅保留候选背景，不进入最终依据",
+          "authority_validation": {
+            "status": "CURRENT",
+            "entailment": "SUPPORTS",
+            "support_type": "DIRECT_SUPPORT",
+            "authority": {
+              "authority_id": "CN-CIVIL-CODE-510",
+              "jurisdiction": "CN",
+              "law_name": "中华人民共和国民法典",
+              "article": "第510条",
+              "paragraph": "",
+              "text": "合同生效后，当事人就质量、价款或者报酬、履行地点等内容没有约定或者约定不明确的，可以协议补充；不能达成补充协议的，按照合同相关条款或者交易习惯确定。",
+              "authority_level": "法律",
+              "effective_from": "2021-01-01",
+              "effective_to": null,
+              "status": "CURRENT",
+              "replacement": null,
+              "source": "https://www.court.gov.cn/zixun/xiangqing/233181.html",
+              "last_verified_at": "2026-09-09"
+            }
+          }
+        },
+        {
+          "article": "第903条",
+          "matched_propositions": [],
+          "metadata": {
+            "article_id": "第903条",
+            "legal_domain": "custody",
+            "contract_type": "custody",
+            "proposition_tags": [
+              "custody_lien_source"
+            ],
+            "normative_object": "欠付保管费或其他费用时的保管人留置权来源，不直接规定费用项目、金额或凭证",
+            "trigger_conditions": [],
+            "effect_type": "statutory_rule",
+            "specificity_level": "SPECIAL"
+          },
+          "trigger_satisfied": true,
+          "eligible": false,
+          "relevance_score": 0,
+          "score_semantics": "1.0=direct special; 0.6=related general; 0.3=triggered supplementary; 0.1=inactive background; 0=unmatched",
+          "reason": "旧配置候选，但没有目标法律命题对应，不选择",
+          "authority_validation": {
+            "status": "CURRENT",
+            "entailment": "SUPPORTS",
+            "support_type": "DIRECT_SUPPORT",
+            "authority": {
+              "authority_id": "CN-CIVIL-CODE-903",
+              "jurisdiction": "CN",
+              "law_name": "中华人民共和国民法典",
+              "article": "第903条",
+              "paragraph": "",
+              "text": "寄存人未按照约定支付保管费或者其他费用的，保管人对保管物享有留置权，但是当事人另有约定的除外。",
+              "authority_level": "法律",
+              "effective_from": "2021-01-01",
+              "effective_to": null,
+              "status": "CURRENT",
+              "replacement": null,
+              "source": "https://www.court.gov.cn/zixun/xiangqing/233181.html",
+              "last_verified_at": "2026-09-09"
+            }
+          }
+        }
+      ],
+      "primary_basis": [
+        "第889条",
+        "第902条"
+      ],
+      "secondary_basis": [
+        "第509条"
+      ],
+      "selected_basis": "《中华人民共和国民法典》第889条；《中华人民共和国民法典》第902条；《中华人民共和国民法典》第509条",
+      "legal_propositions": [
+        {
+          "id": "custody_fee_obligation",
+          "proposition": "寄存人应当按照约定向保管人支付保管费",
+          "article": "第889条",
+          "support_type": "DIRECT_SUPPORT"
+        },
+        {
+          "id": "remuneration_payment",
+          "proposition": "有偿保管费用按约定期限支付；支付期限不明时的处理",
+          "article": "第902条",
+          "support_type": "DIRECT_SUPPORT"
+        },
+        {
+          "id": "performance_cooperation",
+          "proposition": "依约全面履行并按诚信原则履行通知、协助等义务；具体费用及凭证安排属于合同细化",
+          "article": "第509条",
+          "support_type": "PARTIAL_SUPPORT"
+        }
+      ],
+      "supplementary_trigger": {
+        "unclear_terms": false,
+        "source": "existing coverage_status; no fact mutation"
+      },
+      "selection_complete": true,
+      "special_over_general_passed": true,
+      "citation_specs": [
+        {
+          "proposition": "寄存人应当按照约定向保管人支付保管费",
+          "claim_type": "STATUTORY_RULE",
+          "maximum_support_type": "DIRECT_SUPPORT",
+          "references": [
+            {
+              "law_name": "中华人民共和国民法典",
+              "article": "第889条",
+              "paragraph": ""
+            }
+          ]
+        },
+        {
+          "proposition": "有偿保管费用按约定期限支付；支付期限不明时的处理",
+          "claim_type": "STATUTORY_RULE",
+          "maximum_support_type": "DIRECT_SUPPORT",
+          "references": [
+            {
+              "law_name": "中华人民共和国民法典",
+              "article": "第902条",
+              "paragraph": ""
+            }
+          ]
+        },
+        {
+          "proposition": "依约全面履行并按诚信原则履行通知、协助等义务；具体费用及凭证安排属于合同细化",
+          "claim_type": "STATUTORY_RULE",
+          "maximum_support_type": "PARTIAL_SUPPORT",
+          "references": [
+            {
+              "law_name": "中华人民共和国民法典",
+              "article": "第509条",
+              "paragraph": ""
+            }
+          ]
+        }
+      ],
+      "final_markdown": {
+        "SOURCE_FILE": "backend/review_v2/engine.py::_format_markdown_v2",
+        "SOURCE_FIELD": "Markdown.法律依据",
+        "VALUE_BEFORE": "《中华人民共和国民法典》第889条；《中华人民共和国民法典》第902条；《中华人民共和国民法典》第509条",
+        "VALUE_AFTER": "《中华人民共和国民法典》第889条；《中华人民共和国民法典》第902条；《中华人民共和国民法典》第509条"
+      }
+    },
+    "D-04-03": {
+      "stages": [
+        {
+          "STAGE": "AFTER_COVERAGE_BEFORE_CITATIONS",
+          "SOURCE_FILE": "backend/review_v2/engine.py",
+          "SOURCE_FIELD": "ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《民法典》第509条、第902条、第903条",
+          "VALUE_AFTER": "《民法典》第509条、第902条、第903条",
+          "legal_references": []
+        },
+        {
+          "STAGE": "PROPOSITION_SELECTION",
+          "SOURCE_FILE": "F:\\ai\\Sage\\backend\\review_v2\\legal_basis_selection.py",
+          "SOURCE_FIELD": "ReviewCheckpoint.legal_basis_topics -> ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《民法典》第509条、第902条、第903条",
+          "VALUE_AFTER": "《中华人民共和国民法典》第509条；《中华人民共和国民法典》第510条"
+        },
+        {
+          "STAGE": "AFTER_AUTHORITY_SELECTION",
+          "SOURCE_FILE": "backend/review_v2/engine.py",
+          "SOURCE_FIELD": "ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《中华人民共和国民法典》第509条；《中华人民共和国民法典》第510条",
+          "VALUE_AFTER": "《中华人民共和国民法典》第509条；《中华人民共和国民法典》第510条",
+          "legal_references": [
+            {
+              "article": "第509条",
+              "proposition": "依约全面履行并按诚信原则履行通知、协助等义务；具体费用及凭证安排属于合同细化",
+              "support_type": "PARTIAL_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "当事人应当按照约定全面履行自己的义务，并遵循诚信原则履行通知、协助、保密等义务。"
+            },
+            {
+              "article": "第510条",
+              "proposition": "报酬、费用承担及履行方式约定不明时通过补充协议、相关条款或交易习惯确定",
+              "support_type": "PARTIAL_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "合同生效后，当事人就质量、价款或者报酬、履行地点等内容没有约定或者约定不明确的，可以协议补充；不能达成补充协议的，按照合同相关条款或者交易习惯确定。"
+            }
+          ]
+        },
+        {
+          "STAGE": "AFTER_RISK_AGGREGATION_RENDERER_INPUT",
+          "SOURCE_FILE": "backend/review_v2/engine.py",
+          "SOURCE_FIELD": "ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《中华人民共和国民法典》第509条；《中华人民共和国民法典》第510条",
+          "VALUE_AFTER": "《中华人民共和国民法典》第509条；《中华人民共和国民法典》第510条",
+          "legal_references": [
+            {
+              "article": "第509条",
+              "proposition": "依约全面履行并按诚信原则履行通知、协助等义务；具体费用及凭证安排属于合同细化",
+              "support_type": "PARTIAL_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "当事人应当按照约定全面履行自己的义务，并遵循诚信原则履行通知、协助、保密等义务。"
+            },
+            {
+              "article": "第510条",
+              "proposition": "报酬、费用承担及履行方式约定不明时通过补充协议、相关条款或交易习惯确定",
+              "support_type": "PARTIAL_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "合同生效后，当事人就质量、价款或者报酬、履行地点等内容没有约定或者约定不明确的，可以协议补充；不能达成补充协议的，按照合同相关条款或者交易习惯确定。"
+            }
+          ]
+        }
+      ],
+      "runtime_rule_metadata": {
+        "item_id": "D-04-03",
+        "node_id": "safekeeping_fee_extra_costs",
+        "title": "额外费用承担",
+        "kind": "required",
+        "risk_level": "中",
+        "terms": [
+          "额外费用",
+          "仓储费",
+          "搬运费",
+          "保险费",
+          "逾期费用"
+        ],
+        "risk_point_missing": "未约定额外保管、搬运、保险、逾期领取等费用，后续结算容易争议。",
+        "risk_point_present": "合同已覆盖“额外费用承担”相关安排，建议继续核对表述是否具体、保管物信息是否完整、责任边界是否清楚。",
+        "suggested_clause": "因寄存人特殊保管要求、逾期领取、变更保管方式或第三方收费产生的合理额外费用，由寄存人承担，但保管人应提供费用凭证。",
+        "legal_basis": "《民法典》第509条、第902条、第903条",
+        "legal_consequence_if_missing": "未约定额外保管、搬运、保险、逾期领取等费用，后续结算容易争议。",
+        "semantic_question": "合同是否已明确约定“额外费用承担”，并能覆盖保管合同裁判树中对应的核心风险？",
+        "evidence_scope": "正式合同条款及附件",
+        "pass_criteria": "正式合同条款或附件中存在与“额外费用承担”相关的明确、可执行约定，且关键主体、保管物、期限、金额或选项已填写完整。",
+        "partial_criteria": "正式合同条款或附件中已有与“额外费用承担”相关安排，但存在空白、未勾选、金额期限不完整、保管物范围不清或责任边界不明。",
+        "applicable_if": "始终适用",
+        "legal_basis_topics": [
+          "performance_cooperation",
+          "unclear_contract_terms"
+        ],
+        "allowed_families": [],
+        "allowed_subject_matters": [],
+        "allowed_subtypes": [],
+        "prohibited_subject_matters": [],
+        "domain_owner": "contract/common",
+        "material_group": "GENERAL",
+        "applicability_triggers": [],
+        "claim_requirements": [],
+        "polarity": "POSITIVE_REQUIREMENT",
+        "review_nature": "CONTRACTUAL_REQUIREMENT",
+        "requirement_medium": "CONTRACT_TEXT",
+        "legal_requirement_strength": "RISK_CONTROL",
+        "action_type": "CONTRACT_EDIT",
+        "fact_concepts": [
+          "incidental_service_fees",
+          "overdue_service_fees",
+          "disposal_cost_allocation",
+          "expense_verification"
+        ],
+        "optional_trigger_patterns": [],
+        "unless_fact_concepts": [],
+        "prerequisite_facts": [],
+        "linked_adverse_rules": []
+      },
+      "required_elements": [
+        {
+          "review_id": "D-04-03",
+          "element_id": "incidental_service_fees",
+          "proposition": "附加服务费用项目及计费安排",
+          "status": "COVERED",
+          "evidence_ids": [
+            "C0016"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0016"
+          ],
+          "source_spans": [
+            "（二）乙方 ☑是 ☐否 收取其他费用，其他费用名称为：首次入库装卸及清点服务费；计算方式为：一次性收取；费用总额为：人民币800元（大写：捌佰元整），支付时间为：保管物交付完成后3个工作日内，支付方式为：银行转账。"
+          ],
+          "source_locations": [
+            "第四条（二）"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0016"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "C0016"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0016",
+              "quote": "（二）乙方 ☑是 ☐否 收取其他费用，其他费用名称为：首次入库装卸及清点服务费；计算方式为：一次性收取；费用总额为：人民币800元（大写：捌佰元整），支付时间为：保管物交付完成后3个工作日内，支付方式为：银行转账。"
+            }
+          ]
+        },
+        {
+          "review_id": "D-04-03",
+          "element_id": "overdue_service_fees",
+          "proposition": "逾期费用承担或计算方法",
+          "status": "COVERED",
+          "evidence_ids": [
+            "C0023"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0023"
+          ],
+          "source_spans": [
+            "（二）甲方逾期领取保管物的，除应当按照约定支付保管费及其他费用外，还应当按照每日人民币300元的标准支付逾期期间的保管费及其他费用；给乙方造成其他损失的，应当承担损失赔偿责任。"
+          ],
+          "source_locations": [
+            "第七条（二）"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0023"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "C0023"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0023",
+              "quote": "（二）甲方逾期领取保管物的，除应当按照约定支付保管费及其他费用外，还应当按照每日人民币300元的标准支付逾期期间的保管费及其他费用；给乙方造成其他损失的，应当承担损失赔偿责任。"
+            }
+          ]
+        },
+        {
+          "review_id": "D-04-03",
+          "element_id": "disposal_cost_allocation",
+          "proposition": "处置费用承担或价款扣除安排",
+          "status": "COVERED",
+          "evidence_ids": [
+            "C0024"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0024"
+          ],
+          "source_spans": [
+            "处置所得价款超过甲方应付费用及乙方因此支出的合理处置费用的，剩余部分由乙方返还甲方。"
+          ],
+          "source_locations": [
+            "第七条（三）"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0024"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "C0024"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0024",
+              "quote": "处置所得价款超过甲方应付费用及乙方因此支出的合理处置费用的，剩余部分由乙方返还甲方。"
+            }
+          ]
+        },
+        {
+          "review_id": "D-04-03",
+          "element_id": "expense_verification",
+          "proposition": "额外费用的凭证或核验安排",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "entailment": "NOT_RELEVANT",
+          "verifier_confidence": "medium",
+          "reason": "未找到可支撑该元素的合同证据。",
+          "claim_id": "",
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "MISSING",
+          "fact_value": null,
+          "fact_evidence_refs": [],
+          "requirement_status": "NOT_SATISFIED",
+          "requirement_reason": "未找到可支撑该元素的合同证据。",
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        }
+      ],
+      "rule_source": {
+        "SOURCE_FILE": [
+          "F:\\ai\\Sage\\backend\\review_v2\\safekeeping_contract_checklist.py"
+        ],
+        "SOURCE_FIELD": "ReviewCheckpoint.legal_basis",
+        "VALUE_BEFORE": "《民法典》第509条、第902条、第903条",
+        "VALUE_AFTER": "《民法典》第509条、第902条、第903条"
+      },
+      "candidate_articles": [
+        {
+          "article": "第509条",
+          "matched_propositions": [
+            "performance_cooperation"
+          ],
+          "metadata": {
+            "article_id": "第509条",
+            "legal_domain": "contract",
+            "contract_type": "general",
+            "proposition_tags": [
+              "performance_cooperation"
+            ],
+            "normative_object": "依约全面履行并按诚信原则履行通知、协助等义务；具体费用及凭证安排属于合同细化",
+            "trigger_conditions": [],
+            "effect_type": "statutory_rule",
+            "specificity_level": "GENERAL"
+          },
+          "trigger_satisfied": true,
+          "eligible": true,
+          "relevance_score": 0.6,
+          "score_semantics": "1.0=direct special; 0.6=related general; 0.3=triggered supplementary; 0.1=inactive background; 0=unmatched",
+          "reason": "明确法律命题对应；按直接性及专门性排序，并非词频相似度",
+          "authority_validation": {
+            "status": "CURRENT",
+            "entailment": "SUPPORTS",
+            "support_type": "DIRECT_SUPPORT",
+            "authority": {
+              "authority_id": "CN-CC-509",
+              "jurisdiction": "CN",
+              "law_name": "中华人民共和国民法典",
+              "article": "第509条",
+              "paragraph": "",
+              "text": "当事人应当按照约定全面履行自己的义务，并遵循诚信原则履行通知、协助、保密等义务。",
+              "authority_level": "法律",
+              "effective_from": "2021-01-01",
+              "effective_to": null,
+              "status": "CURRENT",
+              "replacement": null,
+              "source": "National Laws and Regulations Database / Civil Code",
+              "last_verified_at": "2026-08-14"
+            }
+          }
+        },
+        {
+          "article": "第510条",
+          "matched_propositions": [
+            "unclear_contract_terms"
+          ],
+          "metadata": {
+            "article_id": "第510条",
+            "legal_domain": "contract",
+            "contract_type": "general",
+            "proposition_tags": [
+              "unclear_contract_terms"
+            ],
+            "normative_object": "报酬、费用承担及履行方式约定不明时通过补充协议、相关条款或交易习惯确定",
+            "trigger_conditions": [
+              "unclear_terms"
+            ],
+            "effect_type": "statutory_rule",
+            "specificity_level": "SUPPLEMENTARY"
+          },
+          "trigger_satisfied": true,
+          "eligible": true,
+          "relevance_score": 0.3,
+          "score_semantics": "1.0=direct special; 0.6=related general; 0.3=triggered supplementary; 0.1=inactive background; 0=unmatched",
+          "reason": "明确法律命题对应；按直接性及专门性排序，并非词频相似度",
+          "authority_validation": {
+            "status": "CURRENT",
+            "entailment": "SUPPORTS",
+            "support_type": "DIRECT_SUPPORT",
+            "authority": {
+              "authority_id": "CN-CIVIL-CODE-510",
+              "jurisdiction": "CN",
+              "law_name": "中华人民共和国民法典",
+              "article": "第510条",
+              "paragraph": "",
+              "text": "合同生效后，当事人就质量、价款或者报酬、履行地点等内容没有约定或者约定不明确的，可以协议补充；不能达成补充协议的，按照合同相关条款或者交易习惯确定。",
+              "authority_level": "法律",
+              "effective_from": "2021-01-01",
+              "effective_to": null,
+              "status": "CURRENT",
+              "replacement": null,
+              "source": "https://www.court.gov.cn/zixun/xiangqing/233181.html",
+              "last_verified_at": "2026-09-09"
+            }
+          }
+        },
+        {
+          "article": "第902条",
+          "matched_propositions": [],
+          "metadata": {
+            "article_id": "第902条",
+            "legal_domain": "custody",
+            "contract_type": "custody",
+            "proposition_tags": [
+              "remuneration_payment"
+            ],
+            "normative_object": "有偿保管费用按约定期限支付；支付期限不明时的处理",
+            "trigger_conditions": [],
+            "effect_type": "statutory_rule",
+            "specificity_level": "SPECIAL"
+          },
+          "trigger_satisfied": true,
+          "eligible": false,
+          "relevance_score": 0,
+          "score_semantics": "1.0=direct special; 0.6=related general; 0.3=triggered supplementary; 0.1=inactive background; 0=unmatched",
+          "reason": "旧配置候选，但没有目标法律命题对应，不选择",
+          "authority_validation": {
+            "status": "CURRENT",
+            "entailment": "SUPPORTS",
+            "support_type": "DIRECT_SUPPORT",
+            "authority": {
+              "authority_id": "CN-CIVIL-CODE-902",
+              "jurisdiction": "CN",
+              "law_name": "中华人民共和国民法典",
+              "article": "第902条",
+              "paragraph": "",
+              "text": "有偿的保管合同，寄存人应当按照约定的期限向保管人支付保管费。当事人对支付期限没有约定或者约定不明确，依据本法第五百一十条的规定仍不能确定的，应当在领取保管物的同时支付。",
+              "authority_level": "法律",
+              "effective_from": "2021-01-01",
+              "effective_to": null,
+              "status": "CURRENT",
+              "replacement": null,
+              "source": "https://www.court.gov.cn/zixun/xiangqing/233181.html",
+              "last_verified_at": "2026-09-09"
+            }
+          }
+        },
+        {
+          "article": "第903条",
+          "matched_propositions": [],
+          "metadata": {
+            "article_id": "第903条",
+            "legal_domain": "custody",
+            "contract_type": "custody",
+            "proposition_tags": [
+              "custody_lien_source"
+            ],
+            "normative_object": "欠付保管费或其他费用时的保管人留置权来源，不直接规定费用项目、金额或凭证",
+            "trigger_conditions": [],
+            "effect_type": "statutory_rule",
+            "specificity_level": "SPECIAL"
+          },
+          "trigger_satisfied": true,
+          "eligible": false,
+          "relevance_score": 0,
+          "score_semantics": "1.0=direct special; 0.6=related general; 0.3=triggered supplementary; 0.1=inactive background; 0=unmatched",
+          "reason": "旧配置候选，但没有目标法律命题对应，不选择",
+          "authority_validation": {
+            "status": "CURRENT",
+            "entailment": "SUPPORTS",
+            "support_type": "DIRECT_SUPPORT",
+            "authority": {
+              "authority_id": "CN-CIVIL-CODE-903",
+              "jurisdiction": "CN",
+              "law_name": "中华人民共和国民法典",
+              "article": "第903条",
+              "paragraph": "",
+              "text": "寄存人未按照约定支付保管费或者其他费用的，保管人对保管物享有留置权，但是当事人另有约定的除外。",
+              "authority_level": "法律",
+              "effective_from": "2021-01-01",
+              "effective_to": null,
+              "status": "CURRENT",
+              "replacement": null,
+              "source": "https://www.court.gov.cn/zixun/xiangqing/233181.html",
+              "last_verified_at": "2026-09-09"
+            }
+          }
+        }
+      ],
+      "primary_basis": [
+        "第509条"
+      ],
+      "secondary_basis": [
+        "第510条"
+      ],
+      "selected_basis": "《中华人民共和国民法典》第509条；《中华人民共和国民法典》第510条",
+      "legal_propositions": [
+        {
+          "id": "performance_cooperation",
+          "proposition": "依约全面履行并按诚信原则履行通知、协助等义务；具体费用及凭证安排属于合同细化",
+          "article": "第509条",
+          "support_type": "PARTIAL_SUPPORT"
+        },
+        {
+          "id": "unclear_contract_terms",
+          "proposition": "报酬、费用承担及履行方式约定不明时通过补充协议、相关条款或交易习惯确定",
+          "article": "第510条",
+          "support_type": "PARTIAL_SUPPORT"
+        }
+      ],
+      "supplementary_trigger": {
+        "unclear_terms": true,
+        "source": "existing coverage_status; no fact mutation"
+      },
+      "selection_complete": true,
+      "special_over_general_passed": true,
+      "citation_specs": [
+        {
+          "proposition": "依约全面履行并按诚信原则履行通知、协助等义务；具体费用及凭证安排属于合同细化",
+          "claim_type": "STATUTORY_RULE",
+          "maximum_support_type": "PARTIAL_SUPPORT",
+          "references": [
+            {
+              "law_name": "中华人民共和国民法典",
+              "article": "第509条",
+              "paragraph": ""
+            }
+          ]
+        },
+        {
+          "proposition": "报酬、费用承担及履行方式约定不明时通过补充协议、相关条款或交易习惯确定",
+          "claim_type": "STATUTORY_RULE",
+          "maximum_support_type": "PARTIAL_SUPPORT",
+          "references": [
+            {
+              "law_name": "中华人民共和国民法典",
+              "article": "第510条",
+              "paragraph": ""
+            }
+          ]
+        }
+      ],
+      "final_markdown": {
+        "SOURCE_FILE": "backend/review_v2/engine.py::_format_markdown_v2",
+        "SOURCE_FIELD": "Markdown.法律依据",
+        "VALUE_BEFORE": "《中华人民共和国民法典》第509条；《中华人民共和国民法典》第510条",
+        "VALUE_AFTER": "《中华人民共和国民法典》第509条；《中华人民共和国民法典》第510条"
+      }
+    },
+    "D-09-02": {
+      "stages": [
+        {
+          "STAGE": "AFTER_COVERAGE_BEFORE_CITATIONS",
+          "SOURCE_FILE": "backend/review_v2/engine.py",
+          "SOURCE_FIELD": "ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《民法典》第448条、第453条、第903条",
+          "VALUE_AFTER": "《民法典》第448条、第453条、第903条",
+          "legal_references": []
+        },
+        {
+          "STAGE": "PROPOSITION_SELECTION",
+          "SOURCE_FILE": "F:\\ai\\Sage\\backend\\review_v2\\legal_basis_selection.py",
+          "SOURCE_FIELD": "ReviewCheckpoint.legal_basis_topics -> ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《民法典》第448条、第453条、第903条",
+          "VALUE_AFTER": "《中华人民共和国民法典》第450条；《中华人民共和国民法典》第453条；《中华人民共和国民法典》第903条"
+        },
+        {
+          "STAGE": "AFTER_AUTHORITY_SELECTION",
+          "SOURCE_FILE": "backend/review_v2/engine.py",
+          "SOURCE_FIELD": "ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《中华人民共和国民法典》第450条；《中华人民共和国民法典》第453条；《中华人民共和国民法典》第903条",
+          "VALUE_AFTER": "《中华人民共和国民法典》第450条；《中华人民共和国民法典》第453条；《中华人民共和国民法典》第903条",
+          "legal_references": [
+            {
+              "article": "第450条",
+              "proposition": "留置财产为可分物时，其价值应当相当于债务金额",
+              "support_type": "DIRECT_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "留置财产为可分物的，留置财产的价值应当相当于债务的金额。"
+            },
+            {
+              "article": "第453条",
+              "proposition": "留置后的债务履行期限及到期未履行后的折价、拍卖、变卖程序；不等于法定事前通知义务",
+              "support_type": "DIRECT_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "留置权人与债务人应当约定留置财产后的债务履行期限；没有约定或者约定不明确的，留置权人应当给债务人六十日以上履行债务的期限，但是鲜活易腐等不易保管的动产除外。债务人逾期未履行的，留置权人可以与债务人协议以留置财产折价，也可以就拍卖、变卖留置财产所得的价款优先受偿。留置财产折价或者变卖的，应当参照市场价格。"
+            },
+            {
+              "article": "第903条",
+              "proposition": "欠付保管费或其他费用时的保管人留置权来源，不直接规定费用项目、金额或凭证",
+              "support_type": "DIRECT_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "寄存人未按照约定支付保管费或者其他费用的，保管人对保管物享有留置权，但是当事人另有约定的除外。"
+            }
+          ]
+        },
+        {
+          "STAGE": "AFTER_RISK_AGGREGATION_RENDERER_INPUT",
+          "SOURCE_FILE": "backend/review_v2/engine.py",
+          "SOURCE_FIELD": "ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《中华人民共和国民法典》第450条；《中华人民共和国民法典》第453条；《中华人民共和国民法典》第903条",
+          "VALUE_AFTER": "《中华人民共和国民法典》第450条；《中华人民共和国民法典》第453条；《中华人民共和国民法典》第903条",
+          "legal_references": [
+            {
+              "article": "第450条",
+              "proposition": "留置财产为可分物时，其价值应当相当于债务金额",
+              "support_type": "DIRECT_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "留置财产为可分物的，留置财产的价值应当相当于债务的金额。"
+            },
+            {
+              "article": "第453条",
+              "proposition": "留置后的债务履行期限及到期未履行后的折价、拍卖、变卖程序；不等于法定事前通知义务",
+              "support_type": "DIRECT_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "留置权人与债务人应当约定留置财产后的债务履行期限；没有约定或者约定不明确的，留置权人应当给债务人六十日以上履行债务的期限，但是鲜活易腐等不易保管的动产除外。债务人逾期未履行的，留置权人可以与债务人协议以留置财产折价，也可以就拍卖、变卖留置财产所得的价款优先受偿。留置财产折价或者变卖的，应当参照市场价格。"
+            },
+            {
+              "article": "第903条",
+              "proposition": "欠付保管费或其他费用时的保管人留置权来源，不直接规定费用项目、金额或凭证",
+              "support_type": "DIRECT_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "寄存人未按照约定支付保管费或者其他费用的，保管人对保管物享有留置权，但是当事人另有约定的除外。"
+            }
+          ]
+        }
+      ],
+      "runtime_rule_metadata": {
+        "item_id": "D-09-02",
+        "node_id": "safekeeping_lien_notice_scope",
+        "title": "留置通知和范围限制",
+        "kind": "required",
+        "risk_level": "中",
+        "terms": [
+          "留置通知",
+          "范围",
+          "相当价值",
+          "超额留置",
+          "合理期限"
+        ],
+        "risk_point_missing": "未限制留置范围，可能发生超额留置或不当扣留。",
+        "risk_point_present": "合同已覆盖“留置通知和范围限制”相关安排，建议继续核对表述是否具体、保管物信息是否完整、责任边界是否清楚。",
+        "suggested_clause": "保管人行使留置权前应书面通知寄存人，并以欠付费用及合理实现费用相当价值范围为限，不得明显超额留置。",
+        "legal_basis": "《民法典》第448条、第453条、第903条",
+        "legal_consequence_if_missing": "未限制留置范围，可能发生超额留置或不当扣留。",
+        "semantic_question": "合同是否已明确约定“留置通知和范围限制”，并能覆盖保管合同裁判树中对应的核心风险？",
+        "evidence_scope": "正式合同条款及附件",
+        "pass_criteria": "正式合同条款或附件中存在与“留置通知和范围限制”相关的明确、可执行约定，且关键主体、保管物、期限、金额或选项已填写完整。",
+        "partial_criteria": "正式合同条款或附件中已有与“留置通知和范围限制”相关安排，但存在空白、未勾选、金额期限不完整、保管物范围不清或责任边界不明。",
+        "applicable_if": "始终适用",
+        "legal_basis_topics": [
+          "divisible_lien_scope",
+          "lien_realization_period",
+          "custody_lien_source"
+        ],
+        "allowed_families": [],
+        "allowed_subject_matters": [],
+        "allowed_subtypes": [],
+        "prohibited_subject_matters": [],
+        "domain_owner": "contract/common",
+        "material_group": "GENERAL",
+        "applicability_triggers": [],
+        "claim_requirements": [],
+        "polarity": "POSITIVE_REQUIREMENT",
+        "review_nature": "CONTRACTUAL_REQUIREMENT",
+        "requirement_medium": "CONTRACT_TEXT",
+        "legal_requirement_strength": "RISK_CONTROL",
+        "action_type": "CONTRACT_EDIT",
+        "fact_concepts": [],
+        "optional_trigger_patterns": [],
+        "unless_fact_concepts": [],
+        "prerequisite_facts": [],
+        "linked_adverse_rules": []
+      },
+      "required_elements": [
+        {
+          "review_id": "D-09-02",
+          "element_id": "core_contract_arrangement",
+          "proposition": "合同存在可验证的“留置通知和范围限制”实质条款内容。",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "entailment": "NEGATIVE_SEARCH_NOT_FOUND",
+          "verifier_confidence": "high",
+          "reason": "未找到可支撑该元素的合同证据。",
+          "claim_id": "",
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "MISSING",
+          "fact_value": null,
+          "fact_evidence_refs": [],
+          "requirement_status": "NOT_SATISFIED",
+          "requirement_reason": "未找到可支撑该元素的合同证据。",
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        }
+      ],
+      "rule_source": {
+        "SOURCE_FILE": [
+          "F:\\ai\\Sage\\backend\\review_v2\\safekeeping_contract_checklist.py"
+        ],
+        "SOURCE_FIELD": "ReviewCheckpoint.legal_basis",
+        "VALUE_BEFORE": "《民法典》第448条、第453条、第903条",
+        "VALUE_AFTER": "《民法典》第448条、第453条、第903条"
+      },
+      "candidate_articles": [
+        {
+          "article": "第450条",
+          "matched_propositions": [
+            "divisible_lien_scope"
+          ],
+          "metadata": {
+            "article_id": "第450条",
+            "legal_domain": "contract",
+            "contract_type": "general",
+            "proposition_tags": [
+              "divisible_lien_scope"
+            ],
+            "normative_object": "留置财产为可分物时，其价值应当相当于债务金额",
+            "trigger_conditions": [],
+            "effect_type": "statutory_rule",
+            "specificity_level": "SPECIAL"
+          },
+          "trigger_satisfied": true,
+          "eligible": true,
+          "relevance_score": 1.0,
+          "score_semantics": "1.0=direct special; 0.6=related general; 0.3=triggered supplementary; 0.1=inactive background; 0=unmatched",
+          "reason": "明确法律命题对应；按直接性及专门性排序，并非词频相似度",
+          "authority_validation": {
+            "status": "CURRENT",
+            "entailment": "SUPPORTS",
+            "support_type": "DIRECT_SUPPORT",
+            "authority": {
+              "authority_id": "CN-CIVIL-CODE-450",
+              "jurisdiction": "CN",
+              "law_name": "中华人民共和国民法典",
+              "article": "第450条",
+              "paragraph": "",
+              "text": "留置财产为可分物的，留置财产的价值应当相当于债务的金额。",
+              "authority_level": "法律",
+              "effective_from": "2021-01-01",
+              "effective_to": null,
+              "status": "CURRENT",
+              "replacement": null,
+              "source": "https://www.court.gov.cn/zixun/xiangqing/233181.html",
+              "last_verified_at": "2026-09-09"
+            }
+          }
+        },
+        {
+          "article": "第453条",
+          "matched_propositions": [
+            "lien_realization_period"
+          ],
+          "metadata": {
+            "article_id": "第453条",
+            "legal_domain": "contract",
+            "contract_type": "general",
+            "proposition_tags": [
+              "lien_realization_period"
+            ],
+            "normative_object": "留置后的债务履行期限及到期未履行后的折价、拍卖、变卖程序；不等于法定事前通知义务",
+            "trigger_conditions": [],
+            "effect_type": "statutory_rule",
+            "specificity_level": "SPECIAL"
+          },
+          "trigger_satisfied": true,
+          "eligible": true,
+          "relevance_score": 1.0,
+          "score_semantics": "1.0=direct special; 0.6=related general; 0.3=triggered supplementary; 0.1=inactive background; 0=unmatched",
+          "reason": "明确法律命题对应；按直接性及专门性排序，并非词频相似度",
+          "authority_validation": {
+            "status": "CURRENT",
+            "entailment": "SUPPORTS",
+            "support_type": "DIRECT_SUPPORT",
+            "authority": {
+              "authority_id": "CN-CIVIL-CODE-453",
+              "jurisdiction": "CN",
+              "law_name": "中华人民共和国民法典",
+              "article": "第453条",
+              "paragraph": "",
+              "text": "留置权人与债务人应当约定留置财产后的债务履行期限；没有约定或者约定不明确的，留置权人应当给债务人六十日以上履行债务的期限，但是鲜活易腐等不易保管的动产除外。债务人逾期未履行的，留置权人可以与债务人协议以留置财产折价，也可以就拍卖、变卖留置财产所得的价款优先受偿。留置财产折价或者变卖的，应当参照市场价格。",
+              "authority_level": "法律",
+              "effective_from": "2021-01-01",
+              "effective_to": null,
+              "status": "CURRENT",
+              "replacement": null,
+              "source": "https://www.court.gov.cn/zixun/xiangqing/233181.html",
+              "last_verified_at": "2026-09-09"
+            }
+          }
+        },
+        {
+          "article": "第903条",
+          "matched_propositions": [
+            "custody_lien_source"
+          ],
+          "metadata": {
+            "article_id": "第903条",
+            "legal_domain": "custody",
+            "contract_type": "custody",
+            "proposition_tags": [
+              "custody_lien_source"
+            ],
+            "normative_object": "欠付保管费或其他费用时的保管人留置权来源，不直接规定费用项目、金额或凭证",
+            "trigger_conditions": [],
+            "effect_type": "statutory_rule",
+            "specificity_level": "SPECIAL"
+          },
+          "trigger_satisfied": true,
+          "eligible": true,
+          "relevance_score": 1.0,
+          "score_semantics": "1.0=direct special; 0.6=related general; 0.3=triggered supplementary; 0.1=inactive background; 0=unmatched",
+          "reason": "明确法律命题对应；按直接性及专门性排序，并非词频相似度",
+          "authority_validation": {
+            "status": "CURRENT",
+            "entailment": "SUPPORTS",
+            "support_type": "DIRECT_SUPPORT",
+            "authority": {
+              "authority_id": "CN-CIVIL-CODE-903",
+              "jurisdiction": "CN",
+              "law_name": "中华人民共和国民法典",
+              "article": "第903条",
+              "paragraph": "",
+              "text": "寄存人未按照约定支付保管费或者其他费用的，保管人对保管物享有留置权，但是当事人另有约定的除外。",
+              "authority_level": "法律",
+              "effective_from": "2021-01-01",
+              "effective_to": null,
+              "status": "CURRENT",
+              "replacement": null,
+              "source": "https://www.court.gov.cn/zixun/xiangqing/233181.html",
+              "last_verified_at": "2026-09-09"
+            }
+          }
+        },
+        {
+          "article": "第448条",
+          "matched_propositions": [],
+          "metadata": {
+            "article_id": "第448条",
+            "legal_domain": "contract",
+            "contract_type": "general",
+            "proposition_tags": [
+              "lien_same_relationship"
+            ],
+            "normative_object": "留置动产与债权属于同一法律关系，企业之间留置除外",
+            "trigger_conditions": [],
+            "effect_type": "statutory_rule",
+            "specificity_level": "SPECIAL"
+          },
+          "trigger_satisfied": true,
+          "eligible": false,
+          "relevance_score": 0,
+          "score_semantics": "1.0=direct special; 0.6=related general; 0.3=triggered supplementary; 0.1=inactive background; 0=unmatched",
+          "reason": "旧配置候选，但没有目标法律命题对应，不选择",
+          "authority_validation": {
+            "status": "CURRENT",
+            "entailment": "SUPPORTS",
+            "support_type": "DIRECT_SUPPORT",
+            "authority": {
+              "authority_id": "CN-CIVIL-CODE-448",
+              "jurisdiction": "CN",
+              "law_name": "中华人民共和国民法典",
+              "article": "第448条",
+              "paragraph": "",
+              "text": "债权人留置的动产，应当与债权属于同一法律关系，但是企业之间留置的除外。",
+              "authority_level": "法律",
+              "effective_from": "2021-01-01",
+              "effective_to": null,
+              "status": "CURRENT",
+              "replacement": null,
+              "source": "https://www.court.gov.cn/zixun/xiangqing/233181.html",
+              "last_verified_at": "2026-09-09"
+            }
+          }
+        }
+      ],
+      "primary_basis": [
+        "第450条",
+        "第453条",
+        "第903条"
+      ],
+      "secondary_basis": [],
+      "selected_basis": "《中华人民共和国民法典》第450条；《中华人民共和国民法典》第453条；《中华人民共和国民法典》第903条",
+      "legal_propositions": [
+        {
+          "id": "divisible_lien_scope",
+          "proposition": "留置财产为可分物时，其价值应当相当于债务金额",
+          "article": "第450条",
+          "support_type": "DIRECT_SUPPORT"
+        },
+        {
+          "id": "lien_realization_period",
+          "proposition": "留置后的债务履行期限及到期未履行后的折价、拍卖、变卖程序；不等于法定事前通知义务",
+          "article": "第453条",
+          "support_type": "DIRECT_SUPPORT"
+        },
+        {
+          "id": "custody_lien_source",
+          "proposition": "欠付保管费或其他费用时的保管人留置权来源，不直接规定费用项目、金额或凭证",
+          "article": "第903条",
+          "support_type": "DIRECT_SUPPORT"
+        }
+      ],
+      "supplementary_trigger": {
+        "unclear_terms": true,
+        "source": "existing coverage_status; no fact mutation"
+      },
+      "selection_complete": true,
+      "special_over_general_passed": true,
+      "citation_specs": [
+        {
+          "proposition": "留置财产为可分物时，其价值应当相当于债务金额",
+          "claim_type": "STATUTORY_RULE",
+          "maximum_support_type": "DIRECT_SUPPORT",
+          "references": [
+            {
+              "law_name": "中华人民共和国民法典",
+              "article": "第450条",
+              "paragraph": ""
+            }
+          ]
+        },
+        {
+          "proposition": "留置后的债务履行期限及到期未履行后的折价、拍卖、变卖程序；不等于法定事前通知义务",
+          "claim_type": "STATUTORY_RULE",
+          "maximum_support_type": "DIRECT_SUPPORT",
+          "references": [
+            {
+              "law_name": "中华人民共和国民法典",
+              "article": "第453条",
+              "paragraph": ""
+            }
+          ]
+        },
+        {
+          "proposition": "欠付保管费或其他费用时的保管人留置权来源，不直接规定费用项目、金额或凭证",
+          "claim_type": "STATUTORY_RULE",
+          "maximum_support_type": "DIRECT_SUPPORT",
+          "references": [
+            {
+              "law_name": "中华人民共和国民法典",
+              "article": "第903条",
+              "paragraph": ""
+            }
+          ]
+        }
+      ],
+      "final_markdown": {
+        "SOURCE_FILE": "backend/review_v2/engine.py::_format_markdown_v2",
+        "SOURCE_FIELD": "Markdown.法律依据",
+        "VALUE_BEFORE": "《中华人民共和国民法典》第450条；《中华人民共和国民法典》第453条；《中华人民共和国民法典》第903条",
+        "VALUE_AFTER": "《中华人民共和国民法典》第450条；《中华人民共和国民法典》第453条；《中华人民共和国民法典》第903条"
+      }
+    },
+    "D-09-04": {
+      "stages": [
+        {
+          "STAGE": "AFTER_COVERAGE_BEFORE_CITATIONS",
+          "SOURCE_FILE": "backend/review_v2/engine.py",
+          "SOURCE_FIELD": "ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《民法典》第448条、第903条",
+          "VALUE_AFTER": "《民法典》第448条、第903条",
+          "legal_references": []
+        },
+        {
+          "STAGE": "PROPOSITION_SELECTION",
+          "SOURCE_FILE": "F:\\ai\\Sage\\backend\\review_v2\\legal_basis_selection.py",
+          "SOURCE_FIELD": "ReviewCheckpoint.legal_basis_topics -> ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《民法典》第448条、第903条",
+          "VALUE_AFTER": "《中华人民共和国民法典》第450条；《中华人民共和国民法典》第448条；《中华人民共和国民法典》第903条"
+        },
+        {
+          "STAGE": "AFTER_AUTHORITY_SELECTION",
+          "SOURCE_FILE": "backend/review_v2/engine.py",
+          "SOURCE_FIELD": "ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《中华人民共和国民法典》第450条；《中华人民共和国民法典》第448条；《中华人民共和国民法典》第903条",
+          "VALUE_AFTER": "《中华人民共和国民法典》第450条；《中华人民共和国民法典》第448条；《中华人民共和国民法典》第903条",
+          "legal_references": [
+            {
+              "article": "第450条",
+              "proposition": "留置财产为可分物时，其价值应当相当于债务金额",
+              "support_type": "DIRECT_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "留置财产为可分物的，留置财产的价值应当相当于债务的金额。"
+            },
+            {
+              "article": "第448条",
+              "proposition": "留置动产与债权属于同一法律关系，企业之间留置除外",
+              "support_type": "DIRECT_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "债权人留置的动产，应当与债权属于同一法律关系，但是企业之间留置的除外。"
+            },
+            {
+              "article": "第903条",
+              "proposition": "欠付保管费或其他费用时的保管人留置权来源，不直接规定费用项目、金额或凭证",
+              "support_type": "DIRECT_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "寄存人未按照约定支付保管费或者其他费用的，保管人对保管物享有留置权，但是当事人另有约定的除外。"
+            }
+          ]
+        },
+        {
+          "STAGE": "AFTER_RISK_AGGREGATION_RENDERER_INPUT",
+          "SOURCE_FILE": "backend/review_v2/engine.py",
+          "SOURCE_FIELD": "ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《中华人民共和国民法典》第450条；《中华人民共和国民法典》第448条；《中华人民共和国民法典》第903条",
+          "VALUE_AFTER": "《中华人民共和国民法典》第450条；《中华人民共和国民法典》第448条；《中华人民共和国民法典》第903条",
+          "legal_references": [
+            {
+              "article": "第450条",
+              "proposition": "留置财产为可分物时，其价值应当相当于债务金额",
+              "support_type": "DIRECT_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "留置财产为可分物的，留置财产的价值应当相当于债务的金额。"
+            },
+            {
+              "article": "第448条",
+              "proposition": "留置动产与债权属于同一法律关系，企业之间留置除外",
+              "support_type": "DIRECT_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "债权人留置的动产，应当与债权属于同一法律关系，但是企业之间留置的除外。"
+            },
+            {
+              "article": "第903条",
+              "proposition": "欠付保管费或其他费用时的保管人留置权来源，不直接规定费用项目、金额或凭证",
+              "support_type": "DIRECT_SUPPORT",
+              "freshness_status": "CURRENT",
+              "support_scope": "寄存人未按照约定支付保管费或者其他费用的，保管人对保管物享有留置权，但是当事人另有约定的除外。"
+            }
+          ]
+        }
+      ],
+      "runtime_rule_metadata": {
+        "item_id": "D-09-04",
+        "node_id": "safekeeping_improper_lien",
+        "title": "不当或超额留置",
+        "kind": "forbidden",
+        "risk_level": "中",
+        "terms": [
+          "留置全部物品",
+          "价值远超欠费",
+          "任意扣留",
+          "不通知留置",
+          "超额留置"
+        ],
+        "risk_point_missing": "合同暂未发现“不当或超额留置”类明显不利表述，建议仍按公平、具体、可证明的方式约定保管安排。",
+        "risk_point_present": "合同允许保管人不通知、任意或超额留置，可能构成不当留置并产生赔偿风险。",
+        "suggested_clause": "建议改为：留置应限于同一保管关系下到期未付费用及合理实现费用的相当范围，并提前通知寄存人。",
+        "legal_basis": "《民法典》第448条、第903条",
+        "legal_consequence_if_missing": "合同允许保管人不通知、任意或超额留置，可能构成不当留置并产生赔偿风险。",
+        "semantic_question": "合同中是否存在“不当或超额留置”类不当排除法定权利、混淆合同性质或过度加重一方责任的风险表述？",
+        "evidence_scope": "正式合同条款及附件",
+        "pass_criteria": "正式合同条款及附件中未发现“不当或超额留置”类风险表述。",
+        "partial_criteria": "正式合同条款及附件中存在接近“不当或超额留置”的表述，需要人工复核其是否公平、具体、可执行。",
+        "applicable_if": "始终适用",
+        "legal_basis_topics": [
+          "divisible_lien_scope",
+          "lien_same_relationship",
+          "custody_lien_source"
+        ],
+        "allowed_families": [],
+        "allowed_subject_matters": [],
+        "allowed_subtypes": [],
+        "prohibited_subject_matters": [],
+        "domain_owner": "contract/common",
+        "material_group": "GENERAL",
+        "applicability_triggers": [],
+        "claim_requirements": [],
+        "polarity": "POSITIVE_REQUIREMENT",
+        "review_nature": "CONTRACTUAL_REQUIREMENT",
+        "requirement_medium": "CONTRACT_TEXT",
+        "legal_requirement_strength": "RISK_CONTROL",
+        "action_type": "CONTRACT_EDIT",
+        "fact_concepts": [],
+        "optional_trigger_patterns": [],
+        "unless_fact_concepts": [],
+        "prerequisite_facts": [],
+        "linked_adverse_rules": []
+      },
+      "required_elements": [
+        {
+          "review_id": "D-09-04",
+          "element_id": "core_contract_arrangement",
+          "proposition": "合同存在可验证的“不当或超额留置”实质条款内容。",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "entailment": "NOT_RELEVANT",
+          "verifier_confidence": "medium",
+          "reason": "未找到可支撑该元素的合同证据。",
+          "claim_id": "",
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "MISSING",
+          "fact_value": null,
+          "fact_evidence_refs": [],
+          "requirement_status": "NOT_SATISFIED",
+          "requirement_reason": "未找到可支撑该元素的合同证据。",
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        }
+      ],
+      "rule_source": {
+        "SOURCE_FILE": [
+          "F:\\ai\\Sage\\backend\\review_v2\\safekeeping_contract_checklist.py"
+        ],
+        "SOURCE_FIELD": "ReviewCheckpoint.legal_basis",
+        "VALUE_BEFORE": "《民法典》第448条、第903条",
+        "VALUE_AFTER": "《民法典》第448条、第903条"
+      },
+      "candidate_articles": [
+        {
+          "article": "第450条",
+          "matched_propositions": [
+            "divisible_lien_scope"
+          ],
+          "metadata": {
+            "article_id": "第450条",
+            "legal_domain": "contract",
+            "contract_type": "general",
+            "proposition_tags": [
+              "divisible_lien_scope"
+            ],
+            "normative_object": "留置财产为可分物时，其价值应当相当于债务金额",
+            "trigger_conditions": [],
+            "effect_type": "statutory_rule",
+            "specificity_level": "SPECIAL"
+          },
+          "trigger_satisfied": true,
+          "eligible": true,
+          "relevance_score": 1.0,
+          "score_semantics": "1.0=direct special; 0.6=related general; 0.3=triggered supplementary; 0.1=inactive background; 0=unmatched",
+          "reason": "明确法律命题对应；按直接性及专门性排序，并非词频相似度",
+          "authority_validation": {
+            "status": "CURRENT",
+            "entailment": "SUPPORTS",
+            "support_type": "DIRECT_SUPPORT",
+            "authority": {
+              "authority_id": "CN-CIVIL-CODE-450",
+              "jurisdiction": "CN",
+              "law_name": "中华人民共和国民法典",
+              "article": "第450条",
+              "paragraph": "",
+              "text": "留置财产为可分物的，留置财产的价值应当相当于债务的金额。",
+              "authority_level": "法律",
+              "effective_from": "2021-01-01",
+              "effective_to": null,
+              "status": "CURRENT",
+              "replacement": null,
+              "source": "https://www.court.gov.cn/zixun/xiangqing/233181.html",
+              "last_verified_at": "2026-09-09"
+            }
+          }
+        },
+        {
+          "article": "第448条",
+          "matched_propositions": [
+            "lien_same_relationship"
+          ],
+          "metadata": {
+            "article_id": "第448条",
+            "legal_domain": "contract",
+            "contract_type": "general",
+            "proposition_tags": [
+              "lien_same_relationship"
+            ],
+            "normative_object": "留置动产与债权属于同一法律关系，企业之间留置除外",
+            "trigger_conditions": [],
+            "effect_type": "statutory_rule",
+            "specificity_level": "SPECIAL"
+          },
+          "trigger_satisfied": true,
+          "eligible": true,
+          "relevance_score": 1.0,
+          "score_semantics": "1.0=direct special; 0.6=related general; 0.3=triggered supplementary; 0.1=inactive background; 0=unmatched",
+          "reason": "明确法律命题对应；按直接性及专门性排序，并非词频相似度",
+          "authority_validation": {
+            "status": "CURRENT",
+            "entailment": "SUPPORTS",
+            "support_type": "DIRECT_SUPPORT",
+            "authority": {
+              "authority_id": "CN-CIVIL-CODE-448",
+              "jurisdiction": "CN",
+              "law_name": "中华人民共和国民法典",
+              "article": "第448条",
+              "paragraph": "",
+              "text": "债权人留置的动产，应当与债权属于同一法律关系，但是企业之间留置的除外。",
+              "authority_level": "法律",
+              "effective_from": "2021-01-01",
+              "effective_to": null,
+              "status": "CURRENT",
+              "replacement": null,
+              "source": "https://www.court.gov.cn/zixun/xiangqing/233181.html",
+              "last_verified_at": "2026-09-09"
+            }
+          }
+        },
+        {
+          "article": "第903条",
+          "matched_propositions": [
+            "custody_lien_source"
+          ],
+          "metadata": {
+            "article_id": "第903条",
+            "legal_domain": "custody",
+            "contract_type": "custody",
+            "proposition_tags": [
+              "custody_lien_source"
+            ],
+            "normative_object": "欠付保管费或其他费用时的保管人留置权来源，不直接规定费用项目、金额或凭证",
+            "trigger_conditions": [],
+            "effect_type": "statutory_rule",
+            "specificity_level": "SPECIAL"
+          },
+          "trigger_satisfied": true,
+          "eligible": true,
+          "relevance_score": 1.0,
+          "score_semantics": "1.0=direct special; 0.6=related general; 0.3=triggered supplementary; 0.1=inactive background; 0=unmatched",
+          "reason": "明确法律命题对应；按直接性及专门性排序，并非词频相似度",
+          "authority_validation": {
+            "status": "CURRENT",
+            "entailment": "SUPPORTS",
+            "support_type": "DIRECT_SUPPORT",
+            "authority": {
+              "authority_id": "CN-CIVIL-CODE-903",
+              "jurisdiction": "CN",
+              "law_name": "中华人民共和国民法典",
+              "article": "第903条",
+              "paragraph": "",
+              "text": "寄存人未按照约定支付保管费或者其他费用的，保管人对保管物享有留置权，但是当事人另有约定的除外。",
+              "authority_level": "法律",
+              "effective_from": "2021-01-01",
+              "effective_to": null,
+              "status": "CURRENT",
+              "replacement": null,
+              "source": "https://www.court.gov.cn/zixun/xiangqing/233181.html",
+              "last_verified_at": "2026-09-09"
+            }
+          }
+        }
+      ],
+      "primary_basis": [
+        "第450条",
+        "第448条",
+        "第903条"
+      ],
+      "secondary_basis": [],
+      "selected_basis": "《中华人民共和国民法典》第450条；《中华人民共和国民法典》第448条；《中华人民共和国民法典》第903条",
+      "legal_propositions": [
+        {
+          "id": "divisible_lien_scope",
+          "proposition": "留置财产为可分物时，其价值应当相当于债务金额",
+          "article": "第450条",
+          "support_type": "DIRECT_SUPPORT"
+        },
+        {
+          "id": "lien_same_relationship",
+          "proposition": "留置动产与债权属于同一法律关系，企业之间留置除外",
+          "article": "第448条",
+          "support_type": "DIRECT_SUPPORT"
+        },
+        {
+          "id": "custody_lien_source",
+          "proposition": "欠付保管费或其他费用时的保管人留置权来源，不直接规定费用项目、金额或凭证",
+          "article": "第903条",
+          "support_type": "DIRECT_SUPPORT"
+        }
+      ],
+      "supplementary_trigger": {
+        "unclear_terms": false,
+        "source": "existing coverage_status; no fact mutation"
+      },
+      "selection_complete": true,
+      "special_over_general_passed": true,
+      "citation_specs": [
+        {
+          "proposition": "留置财产为可分物时，其价值应当相当于债务金额",
+          "claim_type": "STATUTORY_RULE",
+          "maximum_support_type": "DIRECT_SUPPORT",
+          "references": [
+            {
+              "law_name": "中华人民共和国民法典",
+              "article": "第450条",
+              "paragraph": ""
+            }
+          ]
+        },
+        {
+          "proposition": "留置动产与债权属于同一法律关系，企业之间留置除外",
+          "claim_type": "STATUTORY_RULE",
+          "maximum_support_type": "DIRECT_SUPPORT",
+          "references": [
+            {
+              "law_name": "中华人民共和国民法典",
+              "article": "第448条",
+              "paragraph": ""
+            }
+          ]
+        },
+        {
+          "proposition": "欠付保管费或其他费用时的保管人留置权来源，不直接规定费用项目、金额或凭证",
+          "claim_type": "STATUTORY_RULE",
+          "maximum_support_type": "DIRECT_SUPPORT",
+          "references": [
+            {
+              "law_name": "中华人民共和国民法典",
+              "article": "第903条",
+              "paragraph": ""
+            }
+          ]
+        }
+      ],
+      "final_markdown": {
+        "SOURCE_FILE": "backend/review_v2/engine.py::_format_markdown_v2",
+        "SOURCE_FIELD": "Markdown.法律依据",
+        "VALUE_BEFORE": "《中华人民共和国民法典》第450条；《中华人民共和国民法典》第448条；《中华人民共和国民法典》第903条",
+        "VALUE_AFTER": "《中华人民共和国民法典》第450条；《中华人民共和国民法典》第448条；《中华人民共和国民法典》第903条"
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "release_quality_gate": "BLOCKED",
+  "epc_report_quality_gate": "REPORT_READY",
+  "checks": {
+    "A_52_statuses": true,
+    "B_summary_details": true,
+    "C_cross_clause_recall": true,
+    "D_pass_evidence": true,
+    "API_preserves_audit": true,
+    "E_report_gate": true
+  },
+  "coverage_summary": {
+    "通过": 37,
+    "待核验": 4,
+    "缺失": 3,
+    "法律提示": 7,
+    "部分覆盖": 1
+  },
+  "manual_review_count": 4,
+  "model_sources": {
+    "llm": 43,
+    "rule_fallback": 9
+  },
+  "use_llm": true,
+  "tests_passed": 158,
+  "tests_failed": 2,
+  "blocking_failures": [
+    "backend.tests.test_input_layer_word_compat::test_real_production_report_contract_review",
+    "backend.tests.test_domain_selection_consistency::test_high_confidence_framework_document_overrides_house_lease_selection"
+  ]
+}

@@ -1,0 +1,3081 @@
+{
+  "source": "synthetic-positive-semantic-probe",
+  "characters": 258,
+  "contains_sentences": {
+    "甲方有权要求乙方如实告知与订立合同有关的信息及情况。": true,
+    "乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。": true,
+    "甲方应当对乙方提供必要的协助。": true,
+    "甲方应当向乙方提供自身与订立合同有关的真实信息。": true,
+    "乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。": true
+  },
+  "sentence_chunks": {
+    "甲方有权要求乙方如实告知与订立合同有关的信息及情况。": [
+      {
+        "clause_id": "C0006",
+        "location": "第六条（四）",
+        "text": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+      }
+    ],
+    "乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。": [
+      {
+        "clause_id": "C0009",
+        "location": "第七条（四）",
+        "text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+      }
+    ],
+    "甲方应当对乙方提供必要的协助。": [
+      {
+        "clause_id": "C0007",
+        "location": "第六条（六）",
+        "text": "（六）甲方应当对乙方提供必要的协助。"
+      }
+    ],
+    "甲方应当向乙方提供自身与订立合同有关的真实信息。": [
+      {
+        "clause_id": "C0005",
+        "location": "第六条（二）",
+        "text": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+      }
+    ],
+    "乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。": [
+      {
+        "clause_id": "C0011",
+        "location": "第八条（一）",
+        "text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+      }
+    ]
+  },
+  "rules": {
+    "BR-03-01": {
+      "node": "truthful_report_obligation",
+      "final_status": "通过",
+      "final_evidence": [
+        {
+          "clause_id": "C0006",
+          "location": "第六条（四）",
+          "title": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+          "text": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+          "quote": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+          "original_excerpt": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+          "section_type": "正式合同条款",
+          "heading_path": [
+            "第六条 甲方权利义务",
+            "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+          ],
+          "source_start": 70,
+          "source_end": 99,
+          "supports_element_ids": [
+            "broker_truthful_report"
+          ],
+          "source_type": "CONTRACT_TEXT",
+          "quoted_text": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+          "clause_node_id": "C0006",
+          "clause_number": "第六条（四）",
+          "evidence_id": "SYN-0c493b0813cf8ec8a2fb",
+          "entailment_status": "SUPPORTS",
+          "supporting_element_ids": [
+            "broker_truthful_report"
+          ],
+          "canonical_fact_keys": [],
+          "relevance_score": 1.0,
+          "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+          "review_id": "BR-03-01",
+          "element_ids": [
+            "broker_truthful_report"
+          ],
+          "support_type": "DIRECT",
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "source_document_type": "MAIN_CONTRACT",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "document_name": "合同正文",
+          "section": "第六条（四）",
+          "sentence_index": 1,
+          "confidence": "high",
+          "evidence_type": "CONTRACT_TEXT",
+          "raw_text": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+          "source_span": {
+            "start_offset": 70,
+            "end_offset": 99,
+            "raw_text": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+          },
+          "source_document": "contract_package/main",
+          "original_document_reference": "contract_package/main",
+          "derived_or_original": "ORIGINAL",
+          "evidence_source": {
+            "document_id": "contract_package/main",
+            "document_type": "MAIN_CONTRACT",
+            "document_name": "合同正文",
+            "clause_id": "C0006",
+            "section": "第六条（四）",
+            "sentence_index": 1,
+            "quote": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+            "confidence": "high",
+            "evidence_block_type": "OPERATIVE_CLAUSE",
+            "evidence_type": "CONTRACT_TEXT",
+            "source_span": {
+              "start_offset": -1,
+              "end_offset": -1,
+              "raw_text": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+            },
+            "derived_or_original": "ORIGINAL"
+          },
+          "evidence_polarity": "SUPPORTS_COVERAGE",
+          "provenance_validation": {
+            "status": "PASS",
+            "evidence_type": "CONTRACT_TEXT",
+            "errors": []
+          }
+        },
+        {
+          "clause_id": "C0009",
+          "location": "第七条（四）",
+          "title": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真",
+          "text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。",
+          "quote": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。",
+          "original_excerpt": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。",
+          "section_type": "正式合同条款",
+          "heading_path": [
+            "第七条 乙方义务",
+            "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+          ],
+          "source_start": 128,
+          "source_end": 176,
+          "supports_element_ids": [
+            "broker_truthful_report"
+          ],
+          "source_type": "CONTRACT_TEXT",
+          "quoted_text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。",
+          "clause_node_id": "C0009",
+          "clause_number": "第七条（四）",
+          "evidence_id": "SYN-3875f2bf1f502187db93",
+          "entailment_status": "SUPPORTS",
+          "supporting_element_ids": [],
+          "canonical_fact_keys": [],
+          "relevance_score": 0.0,
+          "selection_reason": "Contextual retrieval evidence does not directly support a resolved ReviewElementTruth.",
+          "review_id": "BR-03-01",
+          "element_ids": [],
+          "support_type": "CONTEXTUAL",
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "source_document_type": "MAIN_CONTRACT",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "document_name": "合同正文",
+          "section": "第七条（四）",
+          "sentence_index": 1,
+          "confidence": "high",
+          "evidence_type": "CONTRACT_TEXT",
+          "raw_text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。",
+          "source_span": {
+            "start_offset": 128,
+            "end_offset": 176,
+            "raw_text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+          },
+          "source_document": "contract_package/main",
+          "original_document_reference": "contract_package/main",
+          "derived_or_original": "ORIGINAL",
+          "evidence_source": {
+            "document_id": "contract_package/main",
+            "document_type": "MAIN_CONTRACT",
+            "document_name": "合同正文",
+            "clause_id": "C0009",
+            "section": "第七条（四）",
+            "sentence_index": 1,
+            "quote": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。",
+            "confidence": "high",
+            "evidence_block_type": "OPERATIVE_CLAUSE",
+            "evidence_type": "CONTRACT_TEXT",
+            "source_span": {
+              "start_offset": -1,
+              "end_offset": -1,
+              "raw_text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+            },
+            "derived_or_original": "ORIGINAL"
+          },
+          "evidence_polarity": "SUPPORTS_COVERAGE",
+          "provenance_validation": {
+            "status": "PASS",
+            "evidence_type": "CONTRACT_TEXT",
+            "errors": []
+          }
+        }
+      ],
+      "search_audit": [
+        {
+          "element_id": "broker_truthful_report",
+          "review_id": "BR-03-01",
+          "search_targets": [
+            "中介人向委托人如实报告订约事项"
+          ],
+          "query_patterns": [
+            "(?:乙方|中介人).{0,30}(?:应|须|有义务).{0,20}如实.{0,10}(?:报告|告知)",
+            "(?:应当|应|须)向(?:甲方|委托人)如实报告.{0,35}(?:订立合同|事项|情况)",
+            "(?:甲方|委托人).{0,20}有权要求(?:乙方|中介人).{0,25}如实告知.{0,35}(?:订立合同|有关信息|有关的?信息|情况)",
+            "(?:乙方|中介人).{0,35}(?:提供|告知|报告).{0,20}(?:完整、?准确、?真实|真实、?准确、?完整).{0,20}(?:信息|情况)"
+          ],
+          "query_semantic_target": "中介人向委托人如实报告订约事项",
+          "query_semantics": "POSITIVE_REQUIRED_FACT",
+          "search_mode": "SEMANTIC_REQUIREMENT",
+          "searched_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011"
+          ],
+          "search_corpus_chunks": [
+            {
+              "clause_id": "C0001",
+              "location": "全文",
+              "title": "全文",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "中介合同"
+            },
+            {
+              "clause_id": "C0002",
+              "location": "甲方（委托人）：客户公司",
+              "title": "甲方（委托人）：客户公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "甲方（委托人）：客户公司"
+            },
+            {
+              "clause_id": "C0003",
+              "location": "乙方（中介人）：咨询公司",
+              "title": "乙方（中介人）：咨询公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "乙方（中介人）：咨询公司"
+            },
+            {
+              "clause_id": "C0004",
+              "location": "第六条 甲方权利义务",
+              "title": "甲方权利义务",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务"
+              ],
+              "text": "第六条 甲方权利义务"
+            },
+            {
+              "clause_id": "C0005",
+              "location": "第六条（二）",
+              "title": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+              ],
+              "text": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+            },
+            {
+              "clause_id": "C0006",
+              "location": "第六条（四）",
+              "title": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+              ],
+              "text": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+            },
+            {
+              "clause_id": "C0007",
+              "location": "第六条（六）",
+              "title": "（六）甲方应当对乙方提供必要的协助。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（六）甲方应当对乙方提供必要的协助。"
+              ],
+              "text": "（六）甲方应当对乙方提供必要的协助。"
+            },
+            {
+              "clause_id": "C0008",
+              "location": "第七条 乙方义务",
+              "title": "乙方义务",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第七条 乙方义务"
+              ],
+              "text": "第七条 乙方义务"
+            },
+            {
+              "clause_id": "C0009",
+              "location": "第七条（四）",
+              "title": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第七条 乙方义务",
+                "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+              ],
+              "text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+            },
+            {
+              "clause_id": "C0010",
+              "location": "第八条 违约责任",
+              "title": "违约责任",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第八条 违约责任"
+              ],
+              "text": "第八条 违约责任"
+            },
+            {
+              "clause_id": "C0011",
+              "location": "第八条（一）",
+              "title": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第八条 违约责任",
+                "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+              ],
+              "text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+            }
+          ],
+          "top_k_candidates": [
+            {
+              "clause_id": "C0006",
+              "location": "第六条（四）",
+              "title": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+              ],
+              "text": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "score": 1.0,
+              "accepted": true,
+              "reject_reason": "ACCEPTED: 候选文本满足语义模式、必备事实组和排除过滤。",
+              "matched_semantic_patterns": [
+                "(?:甲方|委托人).{0,20}有权要求(?:乙方|中介人).{0,25}如实告知.{0,35}(?:订立合同|有关信息|有关的?信息|情况)"
+              ],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=1; semantic_hits=1; contextual_hits=0",
+                "threshold": "PASS",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0009",
+              "location": "第七条（四）",
+              "title": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第七条 乙方义务",
+                "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+              ],
+              "text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。",
+              "score": 1.0,
+              "accepted": true,
+              "reject_reason": "ACCEPTED: 候选文本满足语义模式、必备事实组和排除过滤。",
+              "matched_semantic_patterns": [
+                "(?:乙方|中介人).{0,35}(?:提供|告知|报告).{0,20}(?:完整、?准确、?真实|真实、?准确、?完整).{0,20}(?:信息|情况)"
+              ],
+              "matched_contextual_patterns": [
+                {
+                  "context": "乙方.{0,8}(?:权利|义务|责任)",
+                  "predicate": "(?:应当|应|须).{0,25}(?:如实.{0,10}(?:报告|告知)|提供.{0,15}(?:完整、?准确、?真实|真实、?准确、?完整).{0,12}(?:信息|情况))"
+                }
+              ],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=1; semantic_hits=1; contextual_hits=1",
+                "threshold": "PASS",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0001",
+              "location": "全文",
+              "title": "全文",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "中介合同",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0002",
+              "location": "甲方（委托人）：客户公司",
+              "title": "甲方（委托人）：客户公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "甲方（委托人）：客户公司",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0003",
+              "location": "乙方（中介人）：咨询公司",
+              "title": "乙方（中介人）：咨询公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "乙方（中介人）：咨询公司",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0004",
+              "location": "第六条 甲方权利义务",
+              "title": "甲方权利义务",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务"
+              ],
+              "text": "第六条 甲方权利义务",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0005",
+              "location": "第六条（二）",
+              "title": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+              ],
+              "text": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0007",
+              "location": "第六条（六）",
+              "title": "（六）甲方应当对乙方提供必要的协助。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（六）甲方应当对乙方提供必要的协助。"
+              ],
+              "text": "（六）甲方应当对乙方提供必要的协助。",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            }
+          ],
+          "stage_results": {
+            "normalize": "PASS",
+            "rerank": "PASS",
+            "threshold": "PASS",
+            "contradiction_filter": "PASS"
+          },
+          "searched_document_hash": "3809d2f239a51426b54c061162064a89d053f81276cd6d6904d2c7735dfc5e31",
+          "result": "FOUND",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0006",
+              "location": "第六条（四）",
+              "title": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "text": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "quote": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "original_excerpt": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+              ],
+              "source_start": 0,
+              "source_end": 29,
+              "supports_element_ids": [
+                "broker_truthful_report"
+              ],
+              "source_type": "CONTRACT_TEXT"
+            },
+            {
+              "clause_id": "C0009",
+              "location": "第七条（四）",
+              "title": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真",
+              "text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。",
+              "quote": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。",
+              "original_excerpt": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第七条 乙方义务",
+                "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+              ],
+              "source_start": 0,
+              "source_end": 48,
+              "supports_element_ids": [
+                "broker_truthful_report"
+              ],
+              "source_type": "CONTRACT_TEXT"
+            }
+          ]
+        }
+      ]
+    },
+    "BR-03-02": {
+      "node": "important_fact_disclosure",
+      "final_status": "通过",
+      "final_evidence": [
+        {
+          "clause_id": "C0009",
+          "location": "第七条（四）",
+          "title": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真",
+          "text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。",
+          "quote": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。",
+          "original_excerpt": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。",
+          "section_type": "正式合同条款",
+          "heading_path": [
+            "第七条 乙方义务",
+            "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+          ],
+          "source_start": 128,
+          "source_end": 176,
+          "supports_element_ids": [
+            "broker_material_disclosure"
+          ],
+          "source_type": "CONTRACT_TEXT",
+          "quoted_text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。",
+          "clause_node_id": "C0009",
+          "clause_number": "第七条（四）",
+          "evidence_id": "SYN-3ee2ed9d3c41082548c7",
+          "entailment_status": "SUPPORTS",
+          "supporting_element_ids": [
+            "broker_material_disclosure"
+          ],
+          "canonical_fact_keys": [],
+          "relevance_score": 1.0,
+          "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+          "review_id": "BR-03-02",
+          "element_ids": [
+            "broker_material_disclosure"
+          ],
+          "support_type": "DIRECT",
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "source_document_type": "MAIN_CONTRACT",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "document_name": "合同正文",
+          "section": "第七条（四）",
+          "sentence_index": 1,
+          "confidence": "high",
+          "evidence_type": "CONTRACT_TEXT",
+          "raw_text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。",
+          "source_span": {
+            "start_offset": 128,
+            "end_offset": 176,
+            "raw_text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+          },
+          "source_document": "contract_package/main",
+          "original_document_reference": "contract_package/main",
+          "derived_or_original": "ORIGINAL",
+          "evidence_source": {
+            "document_id": "contract_package/main",
+            "document_type": "MAIN_CONTRACT",
+            "document_name": "合同正文",
+            "clause_id": "C0009",
+            "section": "第七条（四）",
+            "sentence_index": 1,
+            "quote": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。",
+            "confidence": "high",
+            "evidence_block_type": "OPERATIVE_CLAUSE",
+            "evidence_type": "CONTRACT_TEXT",
+            "source_span": {
+              "start_offset": -1,
+              "end_offset": -1,
+              "raw_text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+            },
+            "derived_or_original": "ORIGINAL"
+          },
+          "evidence_polarity": "SUPPORTS_COVERAGE",
+          "provenance_validation": {
+            "status": "PASS",
+            "evidence_type": "CONTRACT_TEXT",
+            "errors": []
+          }
+        },
+        {
+          "clause_id": "C0011",
+          "location": "第八条（一）",
+          "title": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得",
+          "text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+          "quote": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+          "original_excerpt": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+          "section_type": "正式合同条款",
+          "heading_path": [
+            "第八条 违约责任",
+            "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+          ],
+          "source_start": 186,
+          "source_end": 257,
+          "supports_element_ids": [
+            "broker_material_disclosure"
+          ],
+          "source_type": "CONTRACT_TEXT",
+          "quoted_text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+          "clause_node_id": "C0011",
+          "clause_number": "第八条（一）",
+          "evidence_id": "SYN-adb61378cf9500682ca2",
+          "entailment_status": "SUPPORTS",
+          "supporting_element_ids": [],
+          "canonical_fact_keys": [],
+          "relevance_score": 0.0,
+          "selection_reason": "Contextual retrieval evidence does not directly support a resolved ReviewElementTruth.",
+          "review_id": "BR-03-02",
+          "element_ids": [],
+          "support_type": "CONTEXTUAL",
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "source_document_type": "MAIN_CONTRACT",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "document_name": "合同正文",
+          "section": "第八条（一）",
+          "sentence_index": 1,
+          "confidence": "high",
+          "evidence_type": "CONTRACT_TEXT",
+          "raw_text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+          "source_span": {
+            "start_offset": 186,
+            "end_offset": 257,
+            "raw_text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+          },
+          "source_document": "contract_package/main",
+          "original_document_reference": "contract_package/main",
+          "derived_or_original": "ORIGINAL",
+          "evidence_source": {
+            "document_id": "contract_package/main",
+            "document_type": "MAIN_CONTRACT",
+            "document_name": "合同正文",
+            "clause_id": "C0011",
+            "section": "第八条（一）",
+            "sentence_index": 1,
+            "quote": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+            "confidence": "high",
+            "evidence_block_type": "OPERATIVE_CLAUSE",
+            "evidence_type": "CONTRACT_TEXT",
+            "source_span": {
+              "start_offset": -1,
+              "end_offset": -1,
+              "raw_text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+            },
+            "derived_or_original": "ORIGINAL"
+          },
+          "evidence_polarity": "SUPPORTS_COVERAGE",
+          "provenance_validation": {
+            "status": "PASS",
+            "evidence_type": "CONTRACT_TEXT",
+            "errors": []
+          }
+        }
+      ],
+      "search_audit": [
+        {
+          "element_id": "broker_material_disclosure",
+          "review_id": "BR-03-02",
+          "search_targets": [
+            "订约重要事实的披露义务"
+          ],
+          "query_patterns": [
+            "(?:不得|禁止).{0,15}(?:隐瞒|提供虚假).{0,30}(?:重要事实|有关事项|情况)",
+            "(?:如实|披露|告知).{0,45}(?:重要事实|重要情况|履约能力|资信)",
+            "(?:完整、?准确、?真实|真实、?准确、?完整).{0,25}(?:信息|情况)",
+            "(?:故意隐瞒|隐瞒).{0,15}(?:重要事实|重要情况).{0,80}(?:不得请求|赔偿)",
+            "(?:故意隐瞒|提供虚假情况).{0,60}(?:不得请求|赔偿)"
+          ],
+          "query_semantic_target": "订约重要事实的披露义务",
+          "query_semantics": "POSITIVE_REQUIRED_FACT",
+          "search_mode": "SEMANTIC_REQUIREMENT",
+          "searched_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011"
+          ],
+          "search_corpus_chunks": [
+            {
+              "clause_id": "C0001",
+              "location": "全文",
+              "title": "全文",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "中介合同"
+            },
+            {
+              "clause_id": "C0002",
+              "location": "甲方（委托人）：客户公司",
+              "title": "甲方（委托人）：客户公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "甲方（委托人）：客户公司"
+            },
+            {
+              "clause_id": "C0003",
+              "location": "乙方（中介人）：咨询公司",
+              "title": "乙方（中介人）：咨询公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "乙方（中介人）：咨询公司"
+            },
+            {
+              "clause_id": "C0004",
+              "location": "第六条 甲方权利义务",
+              "title": "甲方权利义务",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务"
+              ],
+              "text": "第六条 甲方权利义务"
+            },
+            {
+              "clause_id": "C0005",
+              "location": "第六条（二）",
+              "title": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+              ],
+              "text": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+            },
+            {
+              "clause_id": "C0006",
+              "location": "第六条（四）",
+              "title": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+              ],
+              "text": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+            },
+            {
+              "clause_id": "C0007",
+              "location": "第六条（六）",
+              "title": "（六）甲方应当对乙方提供必要的协助。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（六）甲方应当对乙方提供必要的协助。"
+              ],
+              "text": "（六）甲方应当对乙方提供必要的协助。"
+            },
+            {
+              "clause_id": "C0008",
+              "location": "第七条 乙方义务",
+              "title": "乙方义务",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第七条 乙方义务"
+              ],
+              "text": "第七条 乙方义务"
+            },
+            {
+              "clause_id": "C0009",
+              "location": "第七条（四）",
+              "title": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第七条 乙方义务",
+                "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+              ],
+              "text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+            },
+            {
+              "clause_id": "C0010",
+              "location": "第八条 违约责任",
+              "title": "违约责任",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第八条 违约责任"
+              ],
+              "text": "第八条 违约责任"
+            },
+            {
+              "clause_id": "C0011",
+              "location": "第八条（一）",
+              "title": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第八条 违约责任",
+                "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+              ],
+              "text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+            }
+          ],
+          "top_k_candidates": [
+            {
+              "clause_id": "C0009",
+              "location": "第七条（四）",
+              "title": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第七条 乙方义务",
+                "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+              ],
+              "text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。",
+              "score": 1.0,
+              "accepted": true,
+              "reject_reason": "ACCEPTED: 候选文本满足语义模式、必备事实组和排除过滤。",
+              "matched_semantic_patterns": [
+                "(?:完整、?准确、?真实|真实、?准确、?完整).{0,25}(?:信息|情况)"
+              ],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=1; semantic_hits=1; contextual_hits=0",
+                "threshold": "PASS",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0011",
+              "location": "第八条（一）",
+              "title": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第八条 违约责任",
+                "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+              ],
+              "text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+              "score": 1.0,
+              "accepted": true,
+              "reject_reason": "ACCEPTED: 候选文本满足语义模式、必备事实组和排除过滤。",
+              "matched_semantic_patterns": [
+                "(?:故意隐瞒|隐瞒).{0,15}(?:重要事实|重要情况).{0,80}(?:不得请求|赔偿)",
+                "(?:故意隐瞒|提供虚假情况).{0,60}(?:不得请求|赔偿)"
+              ],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=1; semantic_hits=2; contextual_hits=0",
+                "threshold": "PASS",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0001",
+              "location": "全文",
+              "title": "全文",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "中介合同",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0002",
+              "location": "甲方（委托人）：客户公司",
+              "title": "甲方（委托人）：客户公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "甲方（委托人）：客户公司",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0003",
+              "location": "乙方（中介人）：咨询公司",
+              "title": "乙方（中介人）：咨询公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "乙方（中介人）：咨询公司",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0004",
+              "location": "第六条 甲方权利义务",
+              "title": "甲方权利义务",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务"
+              ],
+              "text": "第六条 甲方权利义务",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0005",
+              "location": "第六条（二）",
+              "title": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+              ],
+              "text": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0006",
+              "location": "第六条（四）",
+              "title": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+              ],
+              "text": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            }
+          ],
+          "stage_results": {
+            "normalize": "PASS",
+            "rerank": "PASS",
+            "threshold": "PASS",
+            "contradiction_filter": "PASS"
+          },
+          "searched_document_hash": "3809d2f239a51426b54c061162064a89d053f81276cd6d6904d2c7735dfc5e31",
+          "result": "FOUND",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0009",
+              "location": "第七条（四）",
+              "title": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真",
+              "text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。",
+              "quote": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。",
+              "original_excerpt": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第七条 乙方义务",
+                "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+              ],
+              "source_start": 0,
+              "source_end": 48,
+              "supports_element_ids": [
+                "broker_material_disclosure"
+              ],
+              "source_type": "CONTRACT_TEXT"
+            },
+            {
+              "clause_id": "C0011",
+              "location": "第八条（一）",
+              "title": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得",
+              "text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+              "quote": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+              "original_excerpt": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第八条 违约责任",
+                "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+              ],
+              "source_start": 0,
+              "source_end": 71,
+              "supports_element_ids": [
+                "broker_material_disclosure"
+              ],
+              "source_type": "CONTRACT_TEXT"
+            }
+          ]
+        }
+      ]
+    },
+    "BR-04-02": {
+      "node": "principal_cooperation_obligation",
+      "final_status": "通过",
+      "final_evidence": [
+        {
+          "clause_id": "C0007",
+          "location": "第六条（六）",
+          "title": "（六）甲方应当对乙方提供必要的协助。",
+          "text": "（六）甲方应当对乙方提供必要的协助。",
+          "quote": "（六）甲方应当对乙方提供必要的协助。",
+          "original_excerpt": "（六）甲方应当对乙方提供必要的协助。",
+          "section_type": "正式合同条款",
+          "heading_path": [
+            "第六条 甲方权利义务",
+            "（六）甲方应当对乙方提供必要的协助。"
+          ],
+          "source_start": 100,
+          "source_end": 118,
+          "supports_element_ids": [
+            "broker_principal_cooperation"
+          ],
+          "source_type": "CONTRACT_TEXT",
+          "quoted_text": "（六）甲方应当对乙方提供必要的协助。",
+          "clause_node_id": "C0007",
+          "clause_number": "第六条（六）",
+          "evidence_id": "SYN-b321e2571be98033c5d4",
+          "entailment_status": "SUPPORTS",
+          "supporting_element_ids": [
+            "broker_principal_cooperation"
+          ],
+          "canonical_fact_keys": [],
+          "relevance_score": 1.0,
+          "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+          "review_id": "BR-04-02",
+          "element_ids": [
+            "broker_principal_cooperation"
+          ],
+          "support_type": "DIRECT",
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "source_document_type": "MAIN_CONTRACT",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "document_name": "合同正文",
+          "section": "第六条（六）",
+          "sentence_index": 1,
+          "confidence": "high",
+          "evidence_type": "CONTRACT_TEXT",
+          "raw_text": "（六）甲方应当对乙方提供必要的协助。",
+          "source_span": {
+            "start_offset": 100,
+            "end_offset": 118,
+            "raw_text": "（六）甲方应当对乙方提供必要的协助。"
+          },
+          "source_document": "contract_package/main",
+          "original_document_reference": "contract_package/main",
+          "derived_or_original": "ORIGINAL",
+          "evidence_source": {
+            "document_id": "contract_package/main",
+            "document_type": "MAIN_CONTRACT",
+            "document_name": "合同正文",
+            "clause_id": "C0007",
+            "section": "第六条（六）",
+            "sentence_index": 1,
+            "quote": "（六）甲方应当对乙方提供必要的协助。",
+            "confidence": "high",
+            "evidence_block_type": "OPERATIVE_CLAUSE",
+            "evidence_type": "CONTRACT_TEXT",
+            "source_span": {
+              "start_offset": -1,
+              "end_offset": -1,
+              "raw_text": "（六）甲方应当对乙方提供必要的协助。"
+            },
+            "derived_or_original": "ORIGINAL"
+          },
+          "evidence_polarity": "SUPPORTS_COVERAGE",
+          "provenance_validation": {
+            "status": "PASS",
+            "evidence_type": "CONTRACT_TEXT",
+            "errors": []
+          }
+        }
+      ],
+      "search_audit": [
+        {
+          "element_id": "broker_principal_cooperation",
+          "review_id": "BR-04-02",
+          "search_targets": [
+            "委托人提供必要协助配合"
+          ],
+          "query_patterns": [
+            "(?:甲方|委托人).{0,25}(?:应|须|承诺).{0,25}(?:配合|协助|提供.{0,8}(?:资料|材料))",
+            "(?:甲方|委托人).{0,25}(?:应当|应|须).{0,20}(?:对|向|为)(?:乙方|中介人).{0,12}提供.{0,8}(?:必要|所需).{0,8}(?:协助|配合|便利)",
+            "(?:为乙方|为中介人).{0,20}提供.{0,15}(?:必要|所需).{0,10}(?:协助|配合|便利)"
+          ],
+          "query_semantic_target": "委托人提供必要协助配合",
+          "query_semantics": "POSITIVE_REQUIRED_FACT",
+          "search_mode": "SEMANTIC_REQUIREMENT",
+          "searched_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011"
+          ],
+          "search_corpus_chunks": [
+            {
+              "clause_id": "C0001",
+              "location": "全文",
+              "title": "全文",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "中介合同"
+            },
+            {
+              "clause_id": "C0002",
+              "location": "甲方（委托人）：客户公司",
+              "title": "甲方（委托人）：客户公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "甲方（委托人）：客户公司"
+            },
+            {
+              "clause_id": "C0003",
+              "location": "乙方（中介人）：咨询公司",
+              "title": "乙方（中介人）：咨询公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "乙方（中介人）：咨询公司"
+            },
+            {
+              "clause_id": "C0004",
+              "location": "第六条 甲方权利义务",
+              "title": "甲方权利义务",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务"
+              ],
+              "text": "第六条 甲方权利义务"
+            },
+            {
+              "clause_id": "C0005",
+              "location": "第六条（二）",
+              "title": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+              ],
+              "text": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+            },
+            {
+              "clause_id": "C0006",
+              "location": "第六条（四）",
+              "title": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+              ],
+              "text": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+            },
+            {
+              "clause_id": "C0007",
+              "location": "第六条（六）",
+              "title": "（六）甲方应当对乙方提供必要的协助。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（六）甲方应当对乙方提供必要的协助。"
+              ],
+              "text": "（六）甲方应当对乙方提供必要的协助。"
+            },
+            {
+              "clause_id": "C0008",
+              "location": "第七条 乙方义务",
+              "title": "乙方义务",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第七条 乙方义务"
+              ],
+              "text": "第七条 乙方义务"
+            },
+            {
+              "clause_id": "C0009",
+              "location": "第七条（四）",
+              "title": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第七条 乙方义务",
+                "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+              ],
+              "text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+            },
+            {
+              "clause_id": "C0010",
+              "location": "第八条 违约责任",
+              "title": "违约责任",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第八条 违约责任"
+              ],
+              "text": "第八条 违约责任"
+            },
+            {
+              "clause_id": "C0011",
+              "location": "第八条（一）",
+              "title": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第八条 违约责任",
+                "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+              ],
+              "text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+            }
+          ],
+          "top_k_candidates": [
+            {
+              "clause_id": "C0007",
+              "location": "第六条（六）",
+              "title": "（六）甲方应当对乙方提供必要的协助。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（六）甲方应当对乙方提供必要的协助。"
+              ],
+              "text": "（六）甲方应当对乙方提供必要的协助。",
+              "score": 1.0,
+              "accepted": true,
+              "reject_reason": "ACCEPTED: 候选文本满足语义模式、必备事实组和排除过滤。",
+              "matched_semantic_patterns": [
+                "(?:甲方|委托人).{0,25}(?:应|须|承诺).{0,25}(?:配合|协助|提供.{0,8}(?:资料|材料))",
+                "(?:甲方|委托人).{0,25}(?:应当|应|须).{0,20}(?:对|向|为)(?:乙方|中介人).{0,12}提供.{0,8}(?:必要|所需).{0,8}(?:协助|配合|便利)"
+              ],
+              "matched_contextual_patterns": [
+                {
+                  "context": "甲方.{0,8}(?:权利|义务|责任)",
+                  "predicate": "(?:应当|应|须).{0,25}(?:提供必要.{0,5}协助|配合|协助)"
+                }
+              ],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=1; semantic_hits=2; contextual_hits=1",
+                "threshold": "PASS",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0001",
+              "location": "全文",
+              "title": "全文",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "中介合同",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0002",
+              "location": "甲方（委托人）：客户公司",
+              "title": "甲方（委托人）：客户公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "甲方（委托人）：客户公司",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0003",
+              "location": "乙方（中介人）：咨询公司",
+              "title": "乙方（中介人）：咨询公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "乙方（中介人）：咨询公司",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0004",
+              "location": "第六条 甲方权利义务",
+              "title": "甲方权利义务",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务"
+              ],
+              "text": "第六条 甲方权利义务",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0005",
+              "location": "第六条（二）",
+              "title": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+              ],
+              "text": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0006",
+              "location": "第六条（四）",
+              "title": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+              ],
+              "text": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0008",
+              "location": "第七条 乙方义务",
+              "title": "乙方义务",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第七条 乙方义务"
+              ],
+              "text": "第七条 乙方义务",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            }
+          ],
+          "stage_results": {
+            "normalize": "PASS",
+            "rerank": "PASS",
+            "threshold": "PASS",
+            "contradiction_filter": "PASS"
+          },
+          "searched_document_hash": "3809d2f239a51426b54c061162064a89d053f81276cd6d6904d2c7735dfc5e31",
+          "result": "FOUND",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0007",
+              "location": "第六条（六）",
+              "title": "（六）甲方应当对乙方提供必要的协助。",
+              "text": "（六）甲方应当对乙方提供必要的协助。",
+              "quote": "（六）甲方应当对乙方提供必要的协助。",
+              "original_excerpt": "（六）甲方应当对乙方提供必要的协助。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（六）甲方应当对乙方提供必要的协助。"
+              ],
+              "source_start": 0,
+              "source_end": 18,
+              "supports_element_ids": [
+                "broker_principal_cooperation"
+              ],
+              "source_type": "CONTRACT_TEXT"
+            }
+          ]
+        }
+      ]
+    },
+    "BR-04-03": {
+      "node": "principal_information_accuracy",
+      "final_status": "通过",
+      "final_evidence": [
+        {
+          "clause_id": "C0005",
+          "location": "第六条（二）",
+          "title": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+          "text": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+          "quote": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+          "original_excerpt": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+          "section_type": "正式合同条款",
+          "heading_path": [
+            "第六条 甲方权利义务",
+            "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+          ],
+          "source_start": 42,
+          "source_end": 69,
+          "supports_element_ids": [
+            "broker_principal_accuracy"
+          ],
+          "source_type": "CONTRACT_TEXT",
+          "quoted_text": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+          "clause_node_id": "C0005",
+          "clause_number": "第六条（二）",
+          "evidence_id": "SYN-a0933b73a96ec1612e99",
+          "entailment_status": "SUPPORTS",
+          "supporting_element_ids": [
+            "broker_principal_accuracy"
+          ],
+          "canonical_fact_keys": [],
+          "relevance_score": 1.0,
+          "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+          "review_id": "BR-04-03",
+          "element_ids": [
+            "broker_principal_accuracy"
+          ],
+          "support_type": "DIRECT",
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "source_document_type": "MAIN_CONTRACT",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "document_name": "合同正文",
+          "section": "第六条（二）",
+          "sentence_index": 1,
+          "confidence": "high",
+          "evidence_type": "CONTRACT_TEXT",
+          "raw_text": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+          "source_span": {
+            "start_offset": 42,
+            "end_offset": 69,
+            "raw_text": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+          },
+          "source_document": "contract_package/main",
+          "original_document_reference": "contract_package/main",
+          "derived_or_original": "ORIGINAL",
+          "evidence_source": {
+            "document_id": "contract_package/main",
+            "document_type": "MAIN_CONTRACT",
+            "document_name": "合同正文",
+            "clause_id": "C0005",
+            "section": "第六条（二）",
+            "sentence_index": 1,
+            "quote": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+            "confidence": "high",
+            "evidence_block_type": "OPERATIVE_CLAUSE",
+            "evidence_type": "CONTRACT_TEXT",
+            "source_span": {
+              "start_offset": -1,
+              "end_offset": -1,
+              "raw_text": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+            },
+            "derived_or_original": "ORIGINAL"
+          },
+          "evidence_polarity": "SUPPORTS_COVERAGE",
+          "provenance_validation": {
+            "status": "PASS",
+            "evidence_type": "CONTRACT_TEXT",
+            "errors": []
+          }
+        }
+      ],
+      "search_audit": [
+        {
+          "element_id": "broker_principal_accuracy",
+          "review_id": "BR-04-03",
+          "search_targets": [
+            "委托人提供的信息真实准确"
+          ],
+          "query_patterns": [
+            "(?:甲方|委托人).{0,40}(?:保证|确保|负责).{0,45}(?:真实|准确|合法)",
+            "(?:甲方|委托人).{0,15}(?:应当|必须|应|须).{0,25}(?:向|对)(?:乙方|中介人).{0,20}提供.{0,20}(?:真实|准确|合法).{0,12}(?:信息|资料|材料)",
+            "(?:甲方|委托人)提供.{0,25}(?:信息|资料|材料).{0,20}(?:应当|必须|应).{0,10}(?:真实|准确)"
+          ],
+          "query_semantic_target": "委托人提供的信息真实准确",
+          "query_semantics": "POSITIVE_REQUIRED_FACT",
+          "search_mode": "SEMANTIC_REQUIREMENT",
+          "searched_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011"
+          ],
+          "search_corpus_chunks": [
+            {
+              "clause_id": "C0001",
+              "location": "全文",
+              "title": "全文",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "中介合同"
+            },
+            {
+              "clause_id": "C0002",
+              "location": "甲方（委托人）：客户公司",
+              "title": "甲方（委托人）：客户公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "甲方（委托人）：客户公司"
+            },
+            {
+              "clause_id": "C0003",
+              "location": "乙方（中介人）：咨询公司",
+              "title": "乙方（中介人）：咨询公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "乙方（中介人）：咨询公司"
+            },
+            {
+              "clause_id": "C0004",
+              "location": "第六条 甲方权利义务",
+              "title": "甲方权利义务",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务"
+              ],
+              "text": "第六条 甲方权利义务"
+            },
+            {
+              "clause_id": "C0005",
+              "location": "第六条（二）",
+              "title": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+              ],
+              "text": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+            },
+            {
+              "clause_id": "C0006",
+              "location": "第六条（四）",
+              "title": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+              ],
+              "text": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+            },
+            {
+              "clause_id": "C0007",
+              "location": "第六条（六）",
+              "title": "（六）甲方应当对乙方提供必要的协助。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（六）甲方应当对乙方提供必要的协助。"
+              ],
+              "text": "（六）甲方应当对乙方提供必要的协助。"
+            },
+            {
+              "clause_id": "C0008",
+              "location": "第七条 乙方义务",
+              "title": "乙方义务",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第七条 乙方义务"
+              ],
+              "text": "第七条 乙方义务"
+            },
+            {
+              "clause_id": "C0009",
+              "location": "第七条（四）",
+              "title": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第七条 乙方义务",
+                "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+              ],
+              "text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+            },
+            {
+              "clause_id": "C0010",
+              "location": "第八条 违约责任",
+              "title": "违约责任",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第八条 违约责任"
+              ],
+              "text": "第八条 违约责任"
+            },
+            {
+              "clause_id": "C0011",
+              "location": "第八条（一）",
+              "title": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第八条 违约责任",
+                "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+              ],
+              "text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+            }
+          ],
+          "top_k_candidates": [
+            {
+              "clause_id": "C0005",
+              "location": "第六条（二）",
+              "title": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+              ],
+              "text": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "score": 1.0,
+              "accepted": true,
+              "reject_reason": "ACCEPTED: 候选文本满足语义模式、必备事实组和排除过滤。",
+              "matched_semantic_patterns": [
+                "(?:甲方|委托人).{0,15}(?:应当|必须|应|须).{0,25}(?:向|对)(?:乙方|中介人).{0,20}提供.{0,20}(?:真实|准确|合法).{0,12}(?:信息|资料|材料)"
+              ],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=1; semantic_hits=1; contextual_hits=0",
+                "threshold": "PASS",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0001",
+              "location": "全文",
+              "title": "全文",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "中介合同",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0002",
+              "location": "甲方（委托人）：客户公司",
+              "title": "甲方（委托人）：客户公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "甲方（委托人）：客户公司",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0003",
+              "location": "乙方（中介人）：咨询公司",
+              "title": "乙方（中介人）：咨询公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "乙方（中介人）：咨询公司",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0004",
+              "location": "第六条 甲方权利义务",
+              "title": "甲方权利义务",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务"
+              ],
+              "text": "第六条 甲方权利义务",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0006",
+              "location": "第六条（四）",
+              "title": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+              ],
+              "text": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0007",
+              "location": "第六条（六）",
+              "title": "（六）甲方应当对乙方提供必要的协助。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（六）甲方应当对乙方提供必要的协助。"
+              ],
+              "text": "（六）甲方应当对乙方提供必要的协助。",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0008",
+              "location": "第七条 乙方义务",
+              "title": "乙方义务",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第七条 乙方义务"
+              ],
+              "text": "第七条 乙方义务",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            }
+          ],
+          "stage_results": {
+            "normalize": "PASS",
+            "rerank": "PASS",
+            "threshold": "PASS",
+            "contradiction_filter": "PASS"
+          },
+          "searched_document_hash": "3809d2f239a51426b54c061162064a89d053f81276cd6d6904d2c7735dfc5e31",
+          "result": "FOUND",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0005",
+              "location": "第六条（二）",
+              "title": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "text": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "quote": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "original_excerpt": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+              ],
+              "source_start": 0,
+              "source_end": 27,
+              "supports_element_ids": [
+                "broker_principal_accuracy"
+              ],
+              "source_type": "CONTRACT_TEXT"
+            }
+          ]
+        }
+      ]
+    },
+    "BR-09-01": {
+      "node": "truthful_report_breach_consequence",
+      "final_status": "通过",
+      "final_evidence": [
+        {
+          "clause_id": "C0011",
+          "location": "第八条（一）",
+          "title": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得",
+          "text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+          "quote": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+          "original_excerpt": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+          "section_type": "正式合同条款",
+          "heading_path": [
+            "第八条 违约责任",
+            "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+          ],
+          "source_start": 186,
+          "source_end": 257,
+          "supports_element_ids": [
+            "broker_dishonesty_no_commission"
+          ],
+          "source_type": "CONTRACT_TEXT",
+          "quoted_text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+          "clause_node_id": "C0011",
+          "clause_number": "第八条（一）",
+          "evidence_id": "SYN-146c9154fed32b5789a8",
+          "entailment_status": "SUPPORTS",
+          "supporting_element_ids": [
+            "broker_dishonesty_no_commission",
+            "broker_dishonesty_damages"
+          ],
+          "canonical_fact_keys": [],
+          "relevance_score": 1.0,
+          "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+          "review_id": "BR-09-01",
+          "element_ids": [
+            "broker_dishonesty_no_commission",
+            "broker_dishonesty_damages"
+          ],
+          "support_type": "DIRECT",
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "source_document_type": "MAIN_CONTRACT",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "document_name": "合同正文",
+          "section": "第八条（一）",
+          "sentence_index": 1,
+          "confidence": "high",
+          "evidence_type": "CONTRACT_TEXT",
+          "raw_text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+          "source_span": {
+            "start_offset": 186,
+            "end_offset": 257,
+            "raw_text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+          },
+          "source_document": "contract_package/main",
+          "original_document_reference": "contract_package/main",
+          "derived_or_original": "ORIGINAL",
+          "evidence_source": {
+            "document_id": "contract_package/main",
+            "document_type": "MAIN_CONTRACT",
+            "document_name": "合同正文",
+            "clause_id": "C0011",
+            "section": "第八条（一）",
+            "sentence_index": 1,
+            "quote": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+            "confidence": "high",
+            "evidence_block_type": "OPERATIVE_CLAUSE",
+            "evidence_type": "CONTRACT_TEXT",
+            "source_span": {
+              "start_offset": -1,
+              "end_offset": -1,
+              "raw_text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+            },
+            "derived_or_original": "ORIGINAL"
+          },
+          "evidence_polarity": "SUPPORTS_COVERAGE",
+          "provenance_validation": {
+            "status": "PASS",
+            "evidence_type": "CONTRACT_TEXT",
+            "errors": []
+          }
+        },
+        {
+          "clause_id": "C0011",
+          "location": "第八条（一）",
+          "title": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得",
+          "text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+          "quote": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+          "original_excerpt": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+          "section_type": "正式合同条款",
+          "heading_path": [
+            "第八条 违约责任",
+            "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+          ],
+          "source_start": 186,
+          "source_end": 257,
+          "supports_element_ids": [
+            "broker_dishonesty_damages"
+          ],
+          "source_type": "CONTRACT_TEXT",
+          "quoted_text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+          "clause_node_id": "C0011",
+          "clause_number": "第八条（一）",
+          "evidence_id": "SYN-d9bced31743bb1941396",
+          "entailment_status": "SUPPORTS",
+          "supporting_element_ids": [
+            "broker_dishonesty_no_commission",
+            "broker_dishonesty_damages"
+          ],
+          "canonical_fact_keys": [],
+          "relevance_score": 1.0,
+          "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+          "review_id": "BR-09-01",
+          "element_ids": [
+            "broker_dishonesty_no_commission",
+            "broker_dishonesty_damages"
+          ],
+          "support_type": "DIRECT",
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "source_document_type": "MAIN_CONTRACT",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "document_name": "合同正文",
+          "section": "第八条（一）",
+          "sentence_index": 1,
+          "confidence": "high",
+          "evidence_type": "CONTRACT_TEXT",
+          "raw_text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+          "source_span": {
+            "start_offset": 186,
+            "end_offset": 257,
+            "raw_text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+          },
+          "source_document": "contract_package/main",
+          "original_document_reference": "contract_package/main",
+          "derived_or_original": "ORIGINAL",
+          "evidence_source": {
+            "document_id": "contract_package/main",
+            "document_type": "MAIN_CONTRACT",
+            "document_name": "合同正文",
+            "clause_id": "C0011",
+            "section": "第八条（一）",
+            "sentence_index": 1,
+            "quote": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+            "confidence": "high",
+            "evidence_block_type": "OPERATIVE_CLAUSE",
+            "evidence_type": "CONTRACT_TEXT",
+            "source_span": {
+              "start_offset": -1,
+              "end_offset": -1,
+              "raw_text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+            },
+            "derived_or_original": "ORIGINAL"
+          },
+          "evidence_polarity": "SUPPORTS_COVERAGE",
+          "provenance_validation": {
+            "status": "PASS",
+            "evidence_type": "CONTRACT_TEXT",
+            "errors": []
+          }
+        }
+      ],
+      "search_audit": [
+        {
+          "element_id": "broker_dishonesty_no_commission",
+          "review_id": "BR-09-01",
+          "search_targets": [
+            "隐瞒或虚假报告的报酬后果"
+          ],
+          "query_patterns": [
+            "(?:隐瞒|虚假情况).{0,80}(?:不得请求|不应支付|无权收取|退还).{0,18}(?:报酬|服务费用|中介费用|佣金)"
+          ],
+          "query_semantic_target": "隐瞒或虚假报告的报酬后果",
+          "query_semantics": "POSITIVE_REQUIRED_FACT",
+          "search_mode": "SEMANTIC_REQUIREMENT",
+          "searched_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011"
+          ],
+          "search_corpus_chunks": [
+            {
+              "clause_id": "C0001",
+              "location": "全文",
+              "title": "全文",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "中介合同"
+            },
+            {
+              "clause_id": "C0002",
+              "location": "甲方（委托人）：客户公司",
+              "title": "甲方（委托人）：客户公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "甲方（委托人）：客户公司"
+            },
+            {
+              "clause_id": "C0003",
+              "location": "乙方（中介人）：咨询公司",
+              "title": "乙方（中介人）：咨询公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "乙方（中介人）：咨询公司"
+            },
+            {
+              "clause_id": "C0004",
+              "location": "第六条 甲方权利义务",
+              "title": "甲方权利义务",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务"
+              ],
+              "text": "第六条 甲方权利义务"
+            },
+            {
+              "clause_id": "C0005",
+              "location": "第六条（二）",
+              "title": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+              ],
+              "text": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+            },
+            {
+              "clause_id": "C0006",
+              "location": "第六条（四）",
+              "title": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+              ],
+              "text": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+            },
+            {
+              "clause_id": "C0007",
+              "location": "第六条（六）",
+              "title": "（六）甲方应当对乙方提供必要的协助。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（六）甲方应当对乙方提供必要的协助。"
+              ],
+              "text": "（六）甲方应当对乙方提供必要的协助。"
+            },
+            {
+              "clause_id": "C0008",
+              "location": "第七条 乙方义务",
+              "title": "乙方义务",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第七条 乙方义务"
+              ],
+              "text": "第七条 乙方义务"
+            },
+            {
+              "clause_id": "C0009",
+              "location": "第七条（四）",
+              "title": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第七条 乙方义务",
+                "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+              ],
+              "text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+            },
+            {
+              "clause_id": "C0010",
+              "location": "第八条 违约责任",
+              "title": "违约责任",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第八条 违约责任"
+              ],
+              "text": "第八条 违约责任"
+            },
+            {
+              "clause_id": "C0011",
+              "location": "第八条（一）",
+              "title": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第八条 违约责任",
+                "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+              ],
+              "text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+            }
+          ],
+          "top_k_candidates": [
+            {
+              "clause_id": "C0011",
+              "location": "第八条（一）",
+              "title": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第八条 违约责任",
+                "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+              ],
+              "text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+              "score": 1.0,
+              "accepted": true,
+              "reject_reason": "ACCEPTED: 候选文本满足语义模式、必备事实组和排除过滤。",
+              "matched_semantic_patterns": [
+                "(?:隐瞒|虚假情况).{0,80}(?:不得请求|不应支付|无权收取|退还).{0,18}(?:报酬|服务费用|中介费用|佣金)"
+              ],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=1; semantic_hits=1; contextual_hits=0",
+                "threshold": "PASS",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0001",
+              "location": "全文",
+              "title": "全文",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "中介合同",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0002",
+              "location": "甲方（委托人）：客户公司",
+              "title": "甲方（委托人）：客户公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "甲方（委托人）：客户公司",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0003",
+              "location": "乙方（中介人）：咨询公司",
+              "title": "乙方（中介人）：咨询公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "乙方（中介人）：咨询公司",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0004",
+              "location": "第六条 甲方权利义务",
+              "title": "甲方权利义务",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务"
+              ],
+              "text": "第六条 甲方权利义务",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0005",
+              "location": "第六条（二）",
+              "title": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+              ],
+              "text": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0006",
+              "location": "第六条（四）",
+              "title": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+              ],
+              "text": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0007",
+              "location": "第六条（六）",
+              "title": "（六）甲方应当对乙方提供必要的协助。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（六）甲方应当对乙方提供必要的协助。"
+              ],
+              "text": "（六）甲方应当对乙方提供必要的协助。",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            }
+          ],
+          "stage_results": {
+            "normalize": "PASS",
+            "rerank": "PASS",
+            "threshold": "PASS",
+            "contradiction_filter": "PASS"
+          },
+          "searched_document_hash": "3809d2f239a51426b54c061162064a89d053f81276cd6d6904d2c7735dfc5e31",
+          "result": "FOUND",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0011",
+              "location": "第八条（一）",
+              "title": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得",
+              "text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+              "quote": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+              "original_excerpt": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第八条 违约责任",
+                "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+              ],
+              "source_start": 0,
+              "source_end": 71,
+              "supports_element_ids": [
+                "broker_dishonesty_no_commission"
+              ],
+              "source_type": "CONTRACT_TEXT"
+            }
+          ]
+        },
+        {
+          "element_id": "broker_dishonesty_damages",
+          "review_id": "BR-09-01",
+          "search_targets": [
+            "隐瞒或虚假报告的损失赔偿"
+          ],
+          "query_patterns": [
+            "(?:隐瞒|虚假情况).{0,120}(?:赔偿|损害赔偿|承担.{0,10}损失赔偿)"
+          ],
+          "query_semantic_target": "隐瞒或虚假报告的损失赔偿",
+          "query_semantics": "POSITIVE_REQUIRED_FACT",
+          "search_mode": "SEMANTIC_REQUIREMENT",
+          "searched_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011"
+          ],
+          "search_corpus_chunks": [
+            {
+              "clause_id": "C0001",
+              "location": "全文",
+              "title": "全文",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "中介合同"
+            },
+            {
+              "clause_id": "C0002",
+              "location": "甲方（委托人）：客户公司",
+              "title": "甲方（委托人）：客户公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "甲方（委托人）：客户公司"
+            },
+            {
+              "clause_id": "C0003",
+              "location": "乙方（中介人）：咨询公司",
+              "title": "乙方（中介人）：咨询公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "乙方（中介人）：咨询公司"
+            },
+            {
+              "clause_id": "C0004",
+              "location": "第六条 甲方权利义务",
+              "title": "甲方权利义务",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务"
+              ],
+              "text": "第六条 甲方权利义务"
+            },
+            {
+              "clause_id": "C0005",
+              "location": "第六条（二）",
+              "title": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+              ],
+              "text": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+            },
+            {
+              "clause_id": "C0006",
+              "location": "第六条（四）",
+              "title": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+              ],
+              "text": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+            },
+            {
+              "clause_id": "C0007",
+              "location": "第六条（六）",
+              "title": "（六）甲方应当对乙方提供必要的协助。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（六）甲方应当对乙方提供必要的协助。"
+              ],
+              "text": "（六）甲方应当对乙方提供必要的协助。"
+            },
+            {
+              "clause_id": "C0008",
+              "location": "第七条 乙方义务",
+              "title": "乙方义务",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第七条 乙方义务"
+              ],
+              "text": "第七条 乙方义务"
+            },
+            {
+              "clause_id": "C0009",
+              "location": "第七条（四）",
+              "title": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第七条 乙方义务",
+                "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+              ],
+              "text": "（四）乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况。"
+            },
+            {
+              "clause_id": "C0010",
+              "location": "第八条 违约责任",
+              "title": "违约责任",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第八条 违约责任"
+              ],
+              "text": "第八条 违约责任"
+            },
+            {
+              "clause_id": "C0011",
+              "location": "第八条（一）",
+              "title": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第八条 违约责任",
+                "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+              ],
+              "text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+            }
+          ],
+          "top_k_candidates": [
+            {
+              "clause_id": "C0011",
+              "location": "第八条（一）",
+              "title": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第八条 违约责任",
+                "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+              ],
+              "text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+              "score": 1.0,
+              "accepted": true,
+              "reject_reason": "ACCEPTED: 候选文本满足语义模式、必备事实组和排除过滤。",
+              "matched_semantic_patterns": [
+                "(?:隐瞒|虚假情况).{0,120}(?:赔偿|损害赔偿|承担.{0,10}损失赔偿)"
+              ],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=1; semantic_hits=1; contextual_hits=0",
+                "threshold": "PASS",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0001",
+              "location": "全文",
+              "title": "全文",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "中介合同",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0002",
+              "location": "甲方（委托人）：客户公司",
+              "title": "甲方（委托人）：客户公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "甲方（委托人）：客户公司",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0003",
+              "location": "乙方（中介人）：咨询公司",
+              "title": "乙方（中介人）：咨询公司",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "全文"
+              ],
+              "text": "乙方（中介人）：咨询公司",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0004",
+              "location": "第六条 甲方权利义务",
+              "title": "甲方权利义务",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务"
+              ],
+              "text": "第六条 甲方权利义务",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0005",
+              "location": "第六条（二）",
+              "title": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。"
+              ],
+              "text": "（二）甲方应当向乙方提供自身与订立合同有关的真实信息。",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0006",
+              "location": "第六条（四）",
+              "title": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。"
+              ],
+              "text": "（四）甲方有权要求乙方如实告知与订立合同有关的信息及情况。",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            },
+            {
+              "clause_id": "C0007",
+              "location": "第六条（六）",
+              "title": "（六）甲方应当对乙方提供必要的协助。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第六条 甲方权利义务",
+                "（六）甲方应当对乙方提供必要的协助。"
+              ],
+              "text": "（六）甲方应当对乙方提供必要的协助。",
+              "score": 0.0,
+              "accepted": false,
+              "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+              "matched_semantic_patterns": [],
+              "matched_contextual_patterns": [],
+              "matched_excluded_patterns": [],
+              "required_fact_groups": {},
+              "stage_trace": {
+                "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+                "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+                "threshold": "REJECT",
+                "contradiction_filter": "PASS"
+              }
+            }
+          ],
+          "stage_results": {
+            "normalize": "PASS",
+            "rerank": "PASS",
+            "threshold": "PASS",
+            "contradiction_filter": "PASS"
+          },
+          "searched_document_hash": "3809d2f239a51426b54c061162064a89d053f81276cd6d6904d2c7735dfc5e31",
+          "result": "FOUND",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0011",
+              "location": "第八条（一）",
+              "title": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得",
+              "text": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+              "quote": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+              "original_excerpt": "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。",
+              "section_type": "正式合同条款",
+              "heading_path": [
+                "第八条 违约责任",
+                "（一）乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况，损害甲方利益的，不得请求支付服务费用；甲方因此受损失的，乙方应当承担损失赔偿责任。"
+              ],
+              "source_start": 0,
+              "source_end": 71,
+              "supports_element_ids": [
+                "broker_dishonesty_damages"
+              ],
+              "source_type": "CONTRACT_TEXT"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "release_quality_gate": {
+    "status": "REPORT_READY",
+    "failures": [],
+    "priority_consistency_verification": {
+      "executed": true,
+      "high_finding_count": 8,
+      "core_priority_count": 8,
+      "consistency": "CONSISTENT",
+      "explanations": [],
+      "needs_recalibration": false
+    },
+    "context_consistency": {
+      "status": "PASS",
+      "failures": [],
+      "contract_type": "brokerage",
+      "domain_pack": "domain-pack-shared-1.0"
+    },
+    "gate_results": {
+      "PASS_EVIDENCE_PROVENANCE_GATE": "PASS",
+      "PARTIAL_ELEMENT_NARRATIVE_GATE": "PASS",
+      "COVERAGE_SENTENCE_CONSISTENCY_GATE": "PASS",
+      "ELEMENT_STATUS_CONTRADICTION": "PASS",
+      "EVIDENCE_MONOTONICITY_VIOLATION": "PASS",
+      "FINDING_EVIDENCE_GATE": "PASS",
+      "CROSS_LAYER_CONSISTENCY_GATE": "PASS",
+      "DEFAULT_LAW_COMPLETENESS_GATE": "PASS",
+      "DEFAULT_LAW_EFFECTIVE_GAP_GATE": "PASS",
+      "NARRATIVE_ELEMENT_CONSISTENCY_GATE": "PASS",
+      "NARRATIVE_TRUTH_GATE": "PASS",
+      "PRIORITY_CONSISTENCY_GATE": "PASS",
+      "SIGNABILITY_GATE": "PASS",
+      "CONFIDENCE_VALIDATION_GATE": "PASS",
+      "DOMAIN_SUBTYPE_GATE": "PASS",
+      "DOMAIN_REVIEW_ISOLATION_GATE": "PASS",
+      "DOMAIN_MATERIAL_COVERAGE_GATE": "PASS",
+      "TRANSACTION_STRUCTURE_GATE": "PASS",
+      "FRAMEWORK_DOMAIN_GATE": "PASS",
+      "ORDER_RELATION_GATE": "PASS",
+      "DYNAMIC_QUANTITY_GATE": "PASS",
+      "PRICE_MECHANISM_GATE": "PASS",
+      "ALTERNATIVE_SATISFACTION_GATE": "PASS",
+      "FALSE_RISK_EXISTENCE_GATE": "PASS",
+      "FACT_REGISTRY_SNAPSHOT_CONSISTENCY": "PASS",
+      "FACT_REGISTRY_CONFLICTING_FACT": "PASS",
+      "CROSS_REVIEW_FACT_CONFLICT": "PASS",
+      "FACT_TRUTH_OVERRIDE_VIOLATION": "PASS",
+      "FACT_CONSUMER_MAPPING_MISSING": "PASS",
+      "RISK_EVIDENCE_MISMATCH": "PASS",
+      "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS",
+      "APPLICABILITY_PRECONDITION_GATE": "PASS",
+      "SHARED_CLAIM_CONSISTENCY_GATE": "PASS",
+      "FINDING_PRECONDITION_GATE": "PASS",
+      "REPORT_CONTEXT_GATE": "PASS",
+      "REPORT_TRANSACTION_TRUTH_GATE": "PASS",
+      "CROSS_REVIEW_CONSISTENCY_GATE": "PASS",
+      "RECOMMENDATION_NON_DEGRADATION_GATE": "PASS",
+      "COMMON_REVIEW_SATISFACTION_GATE": "PASS",
+      "ELEMENT_IDENTITY_CONTRADICTION_GATE": "PASS",
+      "PRODUCT_APPLICABILITY_GATE": "PASS",
+      "SHARED_CLAIM_REUSE_GATE": "PASS",
+      "FINDING_INDEPENDENCE_GATE": "PASS",
+      "TECHNOLOGY_TRANSACTION_CONSISTENCY": "NOT_APPLICABLE",
+      "PERSPECTIVE_DOMAIN_CONSISTENCY_GATE": "PASS",
+      "PATENT_TRANSFER_QUALITY_GATE": "NOT_APPLICABLE",
+      "PRODUCTION_FACT_POLARITY_GATE": "PASS",
+      "RECOMMENDATION_SOURCE_UNMAPPED": "PASS",
+      "RECOMMENDATION_ELEMENT_LEAKAGE": "PASS",
+      "RECOMMENDATION_COVERED_ELEMENT_REINTRODUCED": "PASS",
+      "RECOMMENDATION_PLACEHOLDER_TEXT": "PASS",
+      "RECOMMENDATION_FINAL_DISPOSITION_MISMATCH": "PASS",
+      "CLIENT_INTEREST_GATE": "PASS",
+      "RISK_STATISTICS_INVARIANT": "PASS",
+      "FINAL_DISPOSITION_INVARIANT": "PASS",
+      "FORMAL_RECOMMENDATION_FINAL_DISPOSITION_INVARIANT": "PASS",
+      "RECOMMENDATION_OWNERSHIP_INVARIANT": "PASS",
+      "HIGH_NON_MUST_CHANGE_REASON_INVARIANT": "PASS",
+      "OPTIONAL_IMPROVEMENT_VISIBILITY_INVARIANT": "PASS",
+      "ACTIONABLE_RECOMMENDATION_COMPLETENESS_INVARIANT": "PASS",
+      "LEGAL_AUTHORITY_DEDUP_GATE": "PASS",
+      "LEGAL_AUTHORITY_SELECTION_GATE": "PASS",
+      "CITATION_ENTAILMENT_GATE": "PASS",
+      "LEGAL_DEFAULT_LAW_CONSISTENCY_GATE": "PASS",
+      "ATOMIC_LEGAL_ELEMENT_GATE": "PASS",
+      "DEFAULT_LAW_NARRATIVE_TRUTH_GATE": "PASS",
+      "NOT_APPLICABLE_NARRATIVE_GATE": "PASS",
+      "NOT_APPLICABLE_GAP_GATE": "PASS",
+      "REVIEW_POLARITY_NARRATIVE_GATE": "PASS",
+      "NEGATIVE_CHECK_PASS_GATE": "PASS",
+      "CROSS_REVIEW_SHARED_CLAIM_GATE": "PASS",
+      "NARRATIVE_EVIDENCE_GATE": "PASS",
+      "EXACT_ELEMENT_REPORT_INVARIANT": "PASS",
+      "PRODUCTION_INTERNAL_TOKEN_GATE": "PASS",
+      "DEFAULT_LAW_PROVENANCE_GATE": "PASS",
+      "RECOMMENDATION_SINGLE_SOURCE_GATE": "PASS",
+      "RECOMMENDATION_CROSS_RENDERER_CONSISTENCY_GATE": "PASS",
+      "REPORT_TEXT_VALIDATION": "PASS",
+      "REPORT_DISPOSITION_PROJECTION_INVARIANT": "PASS",
+      "EVIDENCE_BUNDLE_ENTAILMENT_GATE": "PASS",
+      "RECOMMENDATION_SEMANTIC_BINDING_GATE": "PASS",
+      "SUMMARY_DETAIL_RISK_ID_GATE": "PASS",
+      "ISSUE_TYPE_NARRATIVE_GATE": "PASS",
+      "OPTIONAL_REPORT_COUNT_GATE": "PASS",
+      "REPORT_ROLE_PLACEHOLDER_GATE": "PASS",
+      "ACTIONABLE_RECOMMENDATION_VISIBILITY_GATE": "PASS",
+      "CLAIM_EVIDENCE_COVERAGE_GATE": "PASS",
+      "EVIDENCE_FACT_ROLE_GATE": "PASS",
+      "SINGLE_EVIDENCE_SOURCE_GATE": "PASS",
+      "EVIDENCE_BUNDLE_RENDER_GATE": "PASS",
+      "APPLICABILITY_DISPLAY_CONSISTENCY_GATE": "PASS",
+      "ISSUE_TYPE_CONSISTENCY_GATE": "PASS",
+      "PARTIAL_MISSING_ELEMENT_GATE": "PASS",
+      "SUMMARY_TRUNCATION_DISCLOSURE_GATE": "PASS",
+      "TECHNICAL_REPORT_PLACEHOLDER_GATE": "PASS",
+      "FINAL_RISK_EVIDENCE_BUNDLE_GATE": "PASS",
+      "EVIDENCE_ITEM_UNIQUENESS_GATE": "PASS",
+      "CLAUSE_NODE_CONSISTENCY_GATE": "PASS",
+      "MISSING_RISK_ABSENCE_EVIDENCE_GATE": "PASS",
+      "COVERAGE_RISK_ACTION_CONSISTENCY_GATE": "PASS",
+      "PATENT_ROLE_TERMINOLOGY_GATE": "PASS",
+      "DUPLICATE_TEMPLATE_PHRASE_GATE": "PASS",
+      "EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+      "PASS_EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+      "CANONICAL_RISK_COVERAGE_INVARIANT": "PASS",
+      "CONSULTING_REPORT_CONTEXT_GATE": "PASS",
+      "TERMINOLOGY_CONSISTENCY_GATE": "PASS"
+    },
+    "blocking_rules": [],
+    "blocking_stage": "",
+    "blocking_entities": [],
+    "blocking_reasons": [],
+    "post_render_status": "REPORT_READY"
+  }
+}

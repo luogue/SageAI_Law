@@ -1,0 +1,1373 @@
+{
+  "stage": "EXTRACTION",
+  "payload": {
+    "schema_version": "contract-facts-1.0",
+    "family": "credit.loan",
+    "active_concepts": [
+      "loan.element.loan_disbursement_record",
+      "loan.element.loan_voucher_creditor",
+      "loan.element.loan_interest_base",
+      "loan.element.loan_interest_period",
+      "loan.element.loan_repayment_method",
+      "loan.element.loan_repayment_account",
+      "loan.element.loan_collection_records",
+      "loan.element.loan_maturity",
+      "loan.element.loan_agreed_rate",
+      "loan.element.loan_offset_order",
+      "loan.element.loan_repayment_receipt",
+      "loan.element.loan_interruption_record"
+    ],
+    "concepts": {
+      "loan.element.loan_disbursement_record": {
+        "kind": "boolean",
+        "description": "是否存在以下具体合同安排（不是法律裁决或主题词命中）：实际放款或到账凭证及确认",
+        "multiple": false
+      },
+      "loan.element.loan_voucher_creditor": {
+        "kind": "boolean",
+        "description": "是否存在以下具体合同安排（不是法律裁决或主题词命中）：债权凭证载明债权人身份",
+        "multiple": false
+      },
+      "loan.element.loan_interest_base": {
+        "kind": "boolean",
+        "description": "是否存在以下具体合同安排（不是法律裁决或主题词命中）：利息计算基数",
+        "multiple": false
+      },
+      "loan.element.loan_interest_period": {
+        "kind": "boolean",
+        "description": "是否存在以下具体合同安排（不是法律裁决或主题词命中）：利息起止期间",
+        "multiple": false
+      },
+      "loan.element.loan_repayment_method": {
+        "kind": "boolean",
+        "description": "是否存在以下具体合同安排（不是法律裁决或主题词命中）：还款支付方式",
+        "multiple": false
+      },
+      "loan.element.loan_repayment_account": {
+        "kind": "boolean",
+        "description": "是否存在以下具体合同安排（不是法律裁决或主题词命中）：还款收款账户或指定机制",
+        "multiple": false
+      },
+      "loan.element.loan_collection_records": {
+        "kind": "boolean",
+        "description": "是否存在以下具体合同安排（不是法律裁决或主题词命中）：催收或还款记录的保存安排",
+        "multiple": false
+      },
+      "loan.element.loan_maturity": {
+        "kind": "boolean",
+        "description": "是否存在以下具体合同安排（不是法律裁决或主题词命中）：借款到期日或可确定的还款期限",
+        "multiple": false
+      },
+      "loan.element.loan_agreed_rate": {
+        "kind": "boolean",
+        "description": "是否存在以下具体合同安排（不是法律裁决或主题词命中）：明确的借期利率或无息安排",
+        "multiple": false
+      },
+      "loan.element.loan_offset_order": {
+        "kind": "boolean",
+        "description": "是否存在以下具体合同安排（不是法律裁决或主题词命中）：部分还款的抵充顺序",
+        "multiple": false
+      },
+      "loan.element.loan_repayment_receipt": {
+        "kind": "boolean",
+        "description": "是否存在以下具体合同安排（不是法律裁决或主题词命中）：还款到账确认或结清凭证",
+        "multiple": false
+      },
+      "loan.element.loan_interruption_record": {
+        "kind": "boolean",
+        "description": "是否存在以下具体合同安排（不是法律裁决或主题词命中）：催收或债务确认的留痕安排",
+        "multiple": false
+      }
+    },
+    "known_verified_roots": [
+      {
+        "concept": "common.parties",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "name": "山西银行股份有限公司太原迎泽支行",
+          "role": "贷款人",
+          "kind": "FINANCIAL"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0001",
+            "quote": "贷款人：山西银行股份有限公司太原迎泽支行",
+            "section": "全文",
+            "source_start": 74,
+            "source_end": 94,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-2e985edff157adf0cdec1a73",
+        "verified": true
+      },
+      {
+        "concept": "common.parties",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "name": "张明远",
+          "role": "借款人",
+          "kind": "NATURAL"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0001",
+            "quote": "借款人：张明远",
+            "section": "全文",
+            "source_start": 95,
+            "source_end": 102,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-5fed947627af8bcb1cec4b38",
+        "verified": true
+      },
+      {
+        "concept": "common.signing_date",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "2026-09-15",
+        "evidence": [
+          {
+            "clause_id": "C0023",
+            "quote": "签订日期：2026年9月15日",
+            "section": "二十、合同签署",
+            "source_start": 2155,
+            "source_end": 2170,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-d0de5eb422a43413891a8112",
+        "verified": true
+      },
+      {
+        "concept": "common.effective_date",
+        "state": "ABSENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [],
+        "fact_id": "CF-ddd00db4d2221fdd6572ebce",
+        "verified": true
+      },
+      {
+        "concept": "common.effective_condition",
+        "state": "ABSENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [],
+        "fact_id": "CF-b968dd8556f4c5e62ed0fb53",
+        "verified": true
+      },
+      {
+        "concept": "common.term",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "amount": "24",
+          "unit": "MONTH"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0005",
+            "quote": "贷款期限：24个月",
+            "section": "四、贷款期限",
+            "source_start": 424,
+            "source_end": 433,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-9de92ab8a9f32d072acc3e10",
+        "verified": true
+      },
+      {
+        "concept": "common.amounts",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "amount": "120000.00",
+          "currency": "CNY",
+          "role": "贷款金额"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0003",
+            "quote": "贷款金额（大写）：人民币壹拾贰万元整",
+            "section": "二、贷款种类与金额",
+            "source_start": 285,
+            "source_end": 303,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0003",
+            "quote": "贷款金额（小写）：¥120,000.00",
+            "section": "二、贷款种类与金额",
+            "source_start": 304,
+            "source_end": 324,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-df6b884d25e6ea7217d9cb23",
+        "verified": true
+      },
+      {
+        "concept": "common.amounts",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "amount": "120000.00",
+          "currency": "CNY",
+          "role": "支付金额"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0012",
+            "quote": "支付金额：人民币120,000.00元",
+            "section": "十、交易对象信息",
+            "source_start": 972,
+            "source_end": 991,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-71b85e6abc4e55f6f94fce29",
+        "verified": true
+      },
+      {
+        "concept": "common.amounts",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "amount": "136800.00",
+          "currency": "CNY",
+          "role": "交易合同金额"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0013",
+            "quote": "合同金额：人民币136,800.00元",
+            "section": "十一、贷款资金使用材料",
+            "source_start": 1076,
+            "source_end": 1095,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-971cf26e95663c1bd25c1e60",
+        "verified": true
+      },
+      {
+        "concept": "common.amounts",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "amount": "120000.00",
+          "currency": "CNY",
+          "role": "贷款支付金额"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0013",
+            "quote": "贷款支付金额：人民币120,000.00元",
+            "section": "十一、贷款资金使用材料",
+            "source_start": 1096,
+            "source_end": 1117,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-018ac6a938aa7b1faecbceb5",
+        "verified": true
+      },
+      {
+        "concept": "common.amounts",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "amount": "16800.00",
+          "currency": "CNY",
+          "role": "借款人自有资金支付"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0013",
+            "quote": "借款人自有资金支付：人民币16,800.00元",
+            "section": "十一、贷款资金使用材料",
+            "source_start": 1118,
+            "source_end": 1141,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-11aba8dd6f5f91d1559dc876",
+        "verified": true
+      },
+      {
+        "concept": "common.liability",
+        "state": "PRESENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "normalized_value": "借款人未按期偿还贷款本息的，构成违约。",
+        "evidence": [
+          {
+            "clause_id": "C0021",
+            "quote": "借款人未按期偿还贷款本息的，构成违约。",
+            "section": "十八、模拟违约测试条件",
+            "source_start": 1866,
+            "source_end": 1885,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-c556dbbfec2713cfcb2e4489",
+        "verified": true
+      },
+      {
+        "concept": "common.liability",
+        "state": "PRESENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "normalized_value": "借款人改变贷款用途的，构成违约。",
+        "evidence": [
+          {
+            "clause_id": "C0021",
+            "quote": "借款人改变贷款用途的，构成违约。",
+            "section": "十八、模拟违约测试条件",
+            "source_start": 1886,
+            "source_end": 1902,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-dc3b80d3ea4f58ce184d9a7c",
+        "verified": true
+      },
+      {
+        "concept": "common.liability",
+        "state": "PRESENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "normalized_value": "借款人提供虚假贷款资料的，构成违约。",
+        "evidence": [
+          {
+            "clause_id": "C0021",
+            "quote": "借款人提供虚假贷款资料的，构成违约。",
+            "section": "十八、模拟违约测试条件",
+            "source_start": 1903,
+            "source_end": 1921,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-ba9801b894d01eee44f19642",
+        "verified": true
+      },
+      {
+        "concept": "common.liability",
+        "state": "PRESENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "normalized_value": "借款人信用状况或者偿债能力明显恶化的，贷款人可以要求补充担保。",
+        "evidence": [
+          {
+            "clause_id": "C0021",
+            "quote": "借款人信用状况或者偿债能力明显恶化的，贷款人可以要求补充担保。",
+            "section": "十八、模拟违约测试条件",
+            "source_start": 1922,
+            "source_end": 1953,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-7494bbbd68a89063f6d030e1",
+        "verified": true
+      },
+      {
+        "concept": "common.liability",
+        "state": "PRESENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "normalized_value": "发生严重违约时，贷款人有权宣布全部贷款提前到期。",
+        "evidence": [
+          {
+            "clause_id": "C0021",
+            "quote": "发生严重违约时，贷款人有权宣布全部贷款提前到期。",
+            "section": "十八、模拟违约测试条件",
+            "source_start": 1954,
+            "source_end": 1978,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-2129155891ab5234b992d8ff",
+        "verified": true
+      },
+      {
+        "concept": "common.liability",
+        "state": "PRESENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "normalized_value": "贷款人有权要求借款人承担实现债权产生的诉讼费、保全费、执行费、律师费、评估费、拍卖费等费用。",
+        "evidence": [
+          {
+            "clause_id": "C0021",
+            "quote": "贷款人有权要求借款人承担实现债权产生的诉讼费、保全费、执行费、律师费、评估费、拍卖费等费用。",
+            "section": "十八、模拟违约测试条件",
+            "source_start": 1979,
+            "source_end": 2025,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-629495ce2e1d76c347968fb3",
+        "verified": true
+      },
+      {
+        "concept": "common.dispute_method",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "LITIGATION",
+        "evidence": [
+          {
+            "clause_id": "C0022",
+            "quote": "争议解决方式：诉讼",
+            "section": "十九、争议解决",
+            "source_start": 2049,
+            "source_end": 2058,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-fe89e2d709711cfd0abb2633",
+        "verified": true
+      },
+      {
+        "concept": "common.dispute_institution",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "贷款人所在地有管辖权的人民法院",
+        "evidence": [
+          {
+            "clause_id": "C0022",
+            "quote": "管辖法院：贷款人所在地有管辖权的人民法院",
+            "section": "十九、争议解决",
+            "source_start": 2059,
+            "source_end": 2079,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-5db4f82ed096cb5a0ab7b43b",
+        "verified": true
+      },
+      {
+        "concept": "loan.lender_kind",
+        "state": "PRESENT",
+        "confidence": 0.9,
+        "assertion": "INFERRED",
+        "normalized_value": "financial",
+        "evidence": [
+          {
+            "clause_id": "C0001",
+            "quote": "贷款人：山西银行股份有限公司太原迎泽支行",
+            "section": "全文",
+            "source_start": 74,
+            "source_end": 94,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-8f9ebc67d806d248167e589e",
+        "verified": true
+      },
+      {
+        "concept": "loan.borrower_kind",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "natural",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "姓名：张明远",
+            "section": "一、借款人基本信息",
+            "source_start": 113,
+            "source_end": 119,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0002",
+            "quote": "证件类型：居民身份证",
+            "section": "一、借款人基本信息",
+            "source_start": 120,
+            "source_end": 130,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-2af212816f8781ad8e30c19b",
+        "verified": true
+      },
+      {
+        "concept": "loan.guarantee",
+        "state": "ABSENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [],
+        "fact_id": "CF-b10647b921327139b61bb818",
+        "verified": true
+      },
+      {
+        "concept": "loan.security",
+        "state": "ABSENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [],
+        "fact_id": "CF-4022f5fa091db6d564589e14",
+        "verified": true
+      },
+      {
+        "concept": "loan.refinancing",
+        "state": "ABSENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [],
+        "fact_id": "CF-5570c43f1d48e798f5aa3fe6",
+        "verified": true
+      },
+      {
+        "concept": "loan.sale_security",
+        "state": "ABSENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [],
+        "fact_id": "CF-2a106284bf35e3e36cbd00a5",
+        "verified": true
+      },
+      {
+        "concept": "loan.extension",
+        "state": "EXPLICIT_NONE",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0017",
+            "quote": "本贷款不得办理展期。",
+            "section": "十五、贷款展期",
+            "source_start": 1412,
+            "source_end": 1422,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-35700ef3a93b460071a9b2d6",
+        "verified": true
+      },
+      {
+        "concept": "loan.extension_excluded",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": true,
+        "evidence": [
+          {
+            "clause_id": "C0017",
+            "quote": "本贷款不得办理展期。",
+            "section": "十五、贷款展期",
+            "source_start": 1412,
+            "source_end": 1422,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-e0c10160ffece87565505e0e",
+        "verified": true
+      },
+      {
+        "concept": "loan.early_repayment",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": true,
+        "evidence": [
+          {
+            "clause_id": "C0016",
+            "quote": "借款人可以申请提前偿还全部贷款。",
+            "section": "十四、提前还款",
+            "source_start": 1327,
+            "source_end": 1343,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0016",
+            "quote": "提前还款应事先向贷款人提出申请并取得贷款人同意。",
+            "section": "十四、提前还款",
+            "source_start": 1344,
+            "source_end": 1368,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0016",
+            "quote": "提前还款利息按照实际贷款占用天数计算。",
+            "section": "十四、提前还款",
+            "source_start": 1369,
+            "source_end": 1388,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0016",
+            "quote": "不允许提前偿还部分贷款本金。",
+            "section": "十四、提前还款",
+            "source_start": 1389,
+            "source_end": 1403,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-748d5778e607b1d432bb8be5",
+        "verified": true
+      },
+      {
+        "concept": "loan.household",
+        "state": "PRESENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "normalized_value": true,
+        "evidence": [
+          {
+            "clause_id": "C0004",
+            "quote": "贷款用途：家庭住房装修及家用设备购置。",
+            "section": "三、贷款用途",
+            "source_start": 332,
+            "source_end": 351,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-2a6bfbea8ab25f0713acb9e6",
+        "verified": true
+      },
+      {
+        "concept": "loan.joint_business",
+        "state": "ABSENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [],
+        "fact_id": "CF-dfa09982f5f89df7eaa75b02",
+        "verified": true
+      },
+      {
+        "concept": "loan.spouse",
+        "state": "ABSENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [],
+        "fact_id": "CF-b9bb947ebeb0f3921ba1d4c1",
+        "verified": true
+      },
+      {
+        "concept": "loan.compound",
+        "state": "ABSENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [],
+        "fact_id": "CF-e47efcb938d4d841047bcc84",
+        "verified": true
+      },
+      {
+        "concept": "loan.limitation_risk",
+        "state": "ABSENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [],
+        "fact_id": "CF-05fca50a108488cdb8d51a36",
+        "verified": true
+      },
+      {
+        "concept": "loan.voucher_mechanism",
+        "state": "ABSENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [],
+        "fact_id": "CF-af58b7e7fd317ad588532428",
+        "verified": true
+      },
+      {
+        "concept": "loan.debt_instrument",
+        "state": "ABSENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [],
+        "fact_id": "CF-1b2f290e399f3d6ba1a90851",
+        "verified": true
+      },
+      {
+        "concept": "loan.charges",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": true,
+        "evidence": [
+          {
+            "clause_id": "C0006",
+            "quote": "贷款年利率：4.20%",
+            "section": "五、贷款利率",
+            "source_start": 475,
+            "source_end": 486,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0008",
+            "quote": "当期利息＝贷款正常本金余额×执行年利率÷360×计息天数",
+            "section": "六、利息计算 / 计息方式：",
+            "source_start": 596,
+            "source_end": 624,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0009",
+            "quote": "逾期贷款罚息：在合同执行利率基础上加收50%",
+            "section": "七、罚息",
+            "source_start": 679,
+            "source_end": 701,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0009",
+            "quote": "未按约定用途使用贷款罚息：在合同执行利率基础上加收100%",
+            "section": "七、罚息",
+            "source_start": 716,
+            "source_end": 745,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-ac7eb46c581197215f89653e",
+        "verified": true
+      }
+    ],
+    "document": [
+      {
+        "clause_id": "C0001",
+        "section": "全文",
+        "text": "【测试说明：以下主体、证件号码、账号、联系方式均为虚构模拟数据，仅用于合同审查系统测试】\n合同编号：SX-YXD-2026-0915-TEST01\n贷款人：山西银行股份有限公司太原迎泽支行\n借款人：张明远",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 0,
+        "source_end": 102
+      },
+      {
+        "clause_id": "C0002",
+        "section": "一、借款人基本信息",
+        "text": "一、借款人基本信息\n姓名：张明远\n证件类型：居民身份证\n证件号码：140105199203154321\n联系电话：13800001234\n送达地址：山西省太原市迎泽区测试路88号测试小区3号楼2单元801室\n电子邮箱：zhangmingyuan_test@example.com\n微信号：zhangmy_test2026",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 103,
+        "source_end": 263
+      },
+      {
+        "clause_id": "C0003",
+        "section": "二、贷款种类与金额",
+        "text": "二、贷款种类与金额\n贷款种类：消费性贷款\n贷款金额（大写）：人民币壹拾贰万元整\n贷款金额（小写）：¥120,000.00",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 264,
+        "source_end": 324
+      },
+      {
+        "clause_id": "C0004",
+        "section": "三、贷款用途",
+        "text": "三、贷款用途\n贷款用途：家庭住房装修及家用设备购置。\n借款人承诺贷款资金仅用于上述消费用途，不用于购房、股票、基金、股权投资、虚拟货币投资、生产经营禁止领域或其他法律法规禁止的用途。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 325,
+        "source_end": 416
+      },
+      {
+        "clause_id": "C0005",
+        "section": "四、贷款期限",
+        "text": "四、贷款期限\n贷款期限：24个月\n贷款起始日：2026年9月15日\n贷款到期日：2028年9月15日",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 417,
+        "source_end": 467
+      },
+      {
+        "clause_id": "C0006",
+        "section": "五、贷款利率",
+        "text": "五、贷款利率\n贷款年利率：4.20%\n利率类型：固定利率\nLPR类型：一年期贷款市场报价利率（LPR）\nLPR基准值：3.00%（测试模拟值，不代表实际市场报价）\n利率调整方式：LPR加1.20个百分点\n合同期限内利率保持不变。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 468,
+        "source_end": 582
+      },
+      {
+        "clause_id": "C0007",
+        "section": "六、利息计算",
+        "text": "六、利息计算",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 583,
+        "source_end": 589
+      },
+      {
+        "clause_id": "C0008",
+        "section": "六、利息计算 / 计息方式：",
+        "text": "计息方式：\n当期利息＝贷款正常本金余额×执行年利率÷360×计息天数\n结息方式：按月结息\n结息日：每月15日\n付息日：每月15日\n最后一次结息日：2028年9月15日",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 590,
+        "source_end": 673
+      },
+      {
+        "clause_id": "C0009",
+        "section": "七、罚息",
+        "text": "七、罚息\n逾期贷款罚息：在合同执行利率基础上加收50%\n逾期罚息年利率：6.30%\n未按约定用途使用贷款罚息：在合同执行利率基础上加收100%\n挪用贷款罚息年利率：8.40%\n同一笔贷款同时存在逾期和挪用情形的，按较高罚息利率执行。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 674,
+        "source_end": 790
+      },
+      {
+        "clause_id": "C0010",
+        "section": "八、贷款发放",
+        "text": "八、贷款发放\n贷款发放方式：一次性发放\n预计放款日期：2026年9月15日\n支付方式：全额受托支付",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 791,
+        "source_end": 840
+      },
+      {
+        "clause_id": "C0011",
+        "section": "九、借款人贷款账户",
+        "text": "九、借款人贷款账户\n账户名称：张明远\n账号：6217000012345678\n开户行：山西银行股份有限公司太原迎泽支行",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 841,
+        "source_end": 900
+      },
+      {
+        "clause_id": "C0012",
+        "section": "十、交易对象信息",
+        "text": "十、交易对象信息\n交易对象账户名称：山西恒居家装有限公司\n交易对象账号：6230000098765432\n开户行：中国建设银行太原测试路支行\n支付金额：人民币120,000.00元\n支付用途：家庭装修工程款及家用设备采购款",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 901,
+        "source_end": 1012
+      },
+      {
+        "clause_id": "C0013",
+        "section": "十一、贷款资金使用材料",
+        "text": "十一、贷款资金使用材料\n交易合同名称：《家庭装修工程施工及设备采购合同》\n交易合同编号：HJZX-2026-0908-001\n合同金额：人民币136,800.00元\n贷款支付金额：人民币120,000.00元\n借款人自有资金支付：人民币16,800.00元",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 1013,
+        "source_end": 1141
+      },
+      {
+        "clause_id": "C0014",
+        "section": "十二、还款方式",
+        "text": "十二、还款方式\n还款方式：按月等额本息还款\n还款日：每月15日\n首次还款日：2026年10月15日\n最后一期还款日：2028年9月15日\n宽限期：不享有宽限期",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 1142,
+        "source_end": 1221
+      },
+      {
+        "clause_id": "C0015",
+        "section": "十三、还款账户",
+        "text": "十三、还款账户\n户名：张明远\n账号：6217000012345678\n开户行：山西银行股份有限公司太原迎泽支行\n借款人授权贷款人在每期还款日从上述账户自动扣收应偿还的本金、利息及其他应付款项。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 1222,
+        "source_end": 1318
+      },
+      {
+        "clause_id": "C0016",
+        "section": "十四、提前还款",
+        "text": "十四、提前还款\n借款人可以申请提前偿还全部贷款。\n提前还款应事先向贷款人提出申请并取得贷款人同意。\n提前还款利息按照实际贷款占用天数计算。\n不允许提前偿还部分贷款本金。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 1319,
+        "source_end": 1403
+      },
+      {
+        "clause_id": "C0017",
+        "section": "十五、贷款展期",
+        "text": "十五、贷款展期\n本贷款不得办理展期。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 1404,
+        "source_end": 1422
+      },
+      {
+        "clause_id": "C0018",
+        "section": "十六、保险增信信息",
+        "text": "十六、保险增信信息\n增信方式：个人贷款保证保险\n保险公司：晋安财产保险股份有限公司（测试虚构主体）\n保险产品：个人消费贷款履约保证保险\n保险单号：JA-YXD-2026-09150001\n保险期限：2026年9月15日至2028年9月15日\n保费支付方式：按月缴纳\n保费扣划方式：授权贷款人在约定日期代扣",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 1423,
+        "source_end": 1575
+      },
+      {
+        "clause_id": "C0019",
+        "section": "十六、保险增信信息 / 扣款顺序：",
+        "text": "扣款顺序：\n\n保费\n\n\n复利\n\n\n罚息\n\n\n利息\n\n\n本金",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 1576,
+        "source_end": 1605
+      },
+      {
+        "clause_id": "C0020",
+        "section": "十七、借款人承诺",
+        "text": "十七、借款人承诺\n\n借款人具有完全民事行为能力。\n\n\n借款人提交的身份证明、收入证明、交易合同及其他贷款材料真实、完整、有效。\n\n\n借款人严格按照合同约定使用贷款。\n\n\n借款人不得将贷款用于购房、固定资产投资、股权投资、债权投资、证券投资、虚拟货币交易或法律法规禁止的其他用途。\n\n\n借款人接受贷款人对贷款资金使用情况进行检查和监督。\n\n\n借款人的联系方式、住所、工作单位、收入状况或其他可能影响偿债能力的信息发生重大变化时，应及时通知贷款人。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 1607,
+        "source_end": 1829
+      },
+      {
+        "clause_id": "C0021",
+        "section": "十八、模拟违约测试条件",
+        "text": "十八、模拟违约测试条件\n为测试合同审查系统，可假设存在以下合同约定：\n借款人未按期偿还贷款本息的，构成违约。\n借款人改变贷款用途的，构成违约。\n借款人提供虚假贷款资料的，构成违约。\n借款人信用状况或者偿债能力明显恶化的，贷款人可以要求补充担保。\n发生严重违约时，贷款人有权宣布全部贷款提前到期。\n贷款人有权要求借款人承担实现债权产生的诉讼费、保全费、执行费、律师费、评估费、拍卖费等费用。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 1831,
+        "source_end": 2025
+      },
+      {
+        "clause_id": "C0022",
+        "section": "十九、争议解决",
+        "text": "十九、争议解决\n适用法律：中华人民共和国法律\n争议解决方式：诉讼\n管辖法院：贷款人所在地有管辖权的人民法院",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 2026,
+        "source_end": 2079
+      },
+      {
+        "clause_id": "C0023",
+        "section": "二十、合同签署",
+        "text": "二十、合同签署\n签署方式：线上电子签署\n贷款人：山西银行股份有限公司太原迎泽支行\n贷款人签署方式：电子签章\n借款人：张明远\n借款人签署方式：电子签名\n签订日期：2026年9月15日\n签订地点：山西省太原市",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 2080,
+        "source_end": 2182
+      }
+    ],
+    "validation_feedback": {
+      "instruction": "上轮被严格校验拒绝。请修正所有诊断问题并重新输出完整当前active范围。不得原样返回被拒绝的值；类型以concepts.kind为准。不能把不支持的否定证据改成猜测；全文无事实才用ABSENT，有未知用UNKNOWN。",
+      "attempts": [
+        {
+          "raw_extraction": {
+            "schema_version": "contract-facts-1.0",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023"
+            ],
+            "searched_concepts": [
+              "loan.element.loan_disbursement_record",
+              "loan.element.loan_voucher_creditor",
+              "loan.element.loan_interest_base",
+              "loan.element.loan_interest_period",
+              "loan.element.loan_repayment_method",
+              "loan.element.loan_repayment_account",
+              "loan.element.loan_collection_records",
+              "loan.element.loan_maturity",
+              "loan.element.loan_agreed_rate",
+              "loan.element.loan_offset_order",
+              "loan.element.loan_repayment_receipt",
+              "loan.element.loan_interruption_record"
+            ],
+            "observations": [
+              {
+                "concept": "loan.element.loan_disbursement_record",
+                "state": "ABSENT",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": []
+              },
+              {
+                "concept": "loan.element.loan_voucher_creditor",
+                "state": "ABSENT",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": []
+              },
+              {
+                "concept": "loan.element.loan_interest_base",
+                "state": "PRESENT",
+                "value": "贷款正常本金余额",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "当期利息＝贷款正常本金余额×执行年利率÷360×计息天数"
+                  }
+                ]
+              },
+              {
+                "concept": "loan.element.loan_interest_period",
+                "state": "PRESENT",
+                "value": "按实际贷款占用天数计算",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "当期利息＝贷款正常本金余额×执行年利率÷360×计息天数"
+                  },
+                  {
+                    "clause_id": "C0016",
+                    "quote": "提前还款利息按照实际贷款占用天数计算。"
+                  }
+                ]
+              },
+              {
+                "concept": "loan.element.loan_repayment_method",
+                "state": "PRESENT",
+                "value": "按月等额本息还款",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0014",
+                    "quote": "还款方式：按月等额本息还款"
+                  }
+                ]
+              },
+              {
+                "concept": "loan.element.loan_repayment_account",
+                "state": "PRESENT",
+                "value": "户名：张明远，账号：6217000012345678，开户行：山西银行股份有限公司太原迎泽支行",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0015",
+                    "quote": "户名：张明远\n账号：6217000012345678\n开户行：山西银行股份有限公司太原迎泽支行"
+                  }
+                ]
+              },
+              {
+                "concept": "loan.element.loan_collection_records",
+                "state": "ABSENT",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": []
+              },
+              {
+                "concept": "loan.element.loan_maturity",
+                "state": "PRESENT",
+                "value": "2028-09-15",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "贷款到期日：2028年9月15日"
+                  }
+                ]
+              },
+              {
+                "concept": "loan.element.loan_agreed_rate",
+                "state": "PRESENT",
+                "value": "4.20%",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "贷款年利率：4.20%"
+                  }
+                ]
+              },
+              {
+                "concept": "loan.element.loan_offset_order",
+                "state": "PRESENT",
+                "value": "保费、复利、罚息、利息、本金",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0019",
+                    "quote": "扣款顺序：\n\n保费\n\n\n复利\n\n\n罚息\n\n\n利息\n\n\n本金"
+                  }
+                ]
+              },
+              {
+                "concept": "loan.element.loan_repayment_receipt",
+                "state": "ABSENT",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": []
+              },
+              {
+                "concept": "loan.element.loan_interruption_record",
+                "state": "ABSENT",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": []
+              }
+            ]
+          },
+          "verification": null,
+          "diagnostics": [
+            {
+              "failed_stage": "UNIFIED_FACT_VALIDATION",
+              "fact_id": null,
+              "field": "loan.element.loan_interest_base",
+              "validation_rule": "INVALID_TYPED_FACT:EXPECTED_BOOLEAN",
+              "model_raw_value": null,
+              "evidence": null,
+              "expected": null,
+              "actual": "贷款正常本金余额",
+              "disposition": "BLOCK"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response": {
+    "schema_version": "contract-facts-1.0",
+    "reviewed_clause_ids": [
+      "C0001",
+      "C0002",
+      "C0003",
+      "C0004",
+      "C0005",
+      "C0006",
+      "C0007",
+      "C0008",
+      "C0009",
+      "C0010",
+      "C0011",
+      "C0012",
+      "C0013",
+      "C0014",
+      "C0015",
+      "C0016",
+      "C0017",
+      "C0018",
+      "C0019",
+      "C0020",
+      "C0021",
+      "C0022",
+      "C0023"
+    ],
+    "searched_concepts": [
+      "loan.element.loan_disbursement_record",
+      "loan.element.loan_voucher_creditor",
+      "loan.element.loan_interest_base",
+      "loan.element.loan_interest_period",
+      "loan.element.loan_repayment_method",
+      "loan.element.loan_repayment_account",
+      "loan.element.loan_collection_records",
+      "loan.element.loan_maturity",
+      "loan.element.loan_agreed_rate",
+      "loan.element.loan_offset_order",
+      "loan.element.loan_repayment_receipt",
+      "loan.element.loan_interruption_record"
+    ],
+    "observations": [
+      {
+        "concept": "loan.element.loan_disbursement_record",
+        "state": "ABSENT",
+        "assertion": "EXPLICIT",
+        "confidence": 0.9,
+        "evidence": []
+      },
+      {
+        "concept": "loan.element.loan_voucher_creditor",
+        "state": "ABSENT",
+        "assertion": "EXPLICIT",
+        "confidence": 0.9,
+        "evidence": []
+      },
+      {
+        "concept": "loan.element.loan_interest_base",
+        "state": "PRESENT",
+        "value": true,
+        "assertion": "EXPLICIT",
+        "confidence": 0.95,
+        "evidence": [
+          {
+            "clause_id": "C0008",
+            "quote": "当期利息＝贷款正常本金余额×执行年利率÷360×计息天数"
+          }
+        ]
+      },
+      {
+        "concept": "loan.element.loan_interest_period",
+        "state": "PRESENT",
+        "value": true,
+        "assertion": "EXPLICIT",
+        "confidence": 0.95,
+        "evidence": [
+          {
+            "clause_id": "C0008",
+            "quote": "当期利息＝贷款正常本金余额×执行年利率÷360×计息天数"
+          },
+          {
+            "clause_id": "C0016",
+            "quote": "提前还款利息按照实际贷款占用天数计算。"
+          }
+        ]
+      },
+      {
+        "concept": "loan.element.loan_repayment_method",
+        "state": "PRESENT",
+        "value": true,
+        "assertion": "EXPLICIT",
+        "confidence": 0.95,
+        "evidence": [
+          {
+            "clause_id": "C0014",
+            "quote": "还款方式：按月等额本息还款"
+          }
+        ]
+      },
+      {
+        "concept": "loan.element.loan_repayment_account",
+        "state": "PRESENT",
+        "value": true,
+        "assertion": "EXPLICIT",
+        "confidence": 0.95,
+        "evidence": [
+          {
+            "clause_id": "C0015",
+            "quote": "户名：张明远\n账号：6217000012345678\n开户行：山西银行股份有限公司太原迎泽支行"
+          },
+          {
+            "clause_id": "C0015",
+            "quote": "借款人授权贷款人在每期还款日从上述账户自动扣收应偿还的本金、利息及其他应付款项。"
+          }
+        ]
+      },
+      {
+        "concept": "loan.element.loan_collection_records",
+        "state": "ABSENT",
+        "assertion": "EXPLICIT",
+        "confidence": 0.9,
+        "evidence": []
+      },
+      {
+        "concept": "loan.element.loan_maturity",
+        "state": "PRESENT",
+        "value": true,
+        "assertion": "EXPLICIT",
+        "confidence": 0.95,
+        "evidence": [
+          {
+            "clause_id": "C0005",
+            "quote": "贷款到期日：2028年9月15日"
+          },
+          {
+            "clause_id": "C0014",
+            "quote": "最后一期还款日：2028年9月15日"
+          }
+        ]
+      },
+      {
+        "concept": "loan.element.loan_agreed_rate",
+        "state": "PRESENT",
+        "value": true,
+        "assertion": "EXPLICIT",
+        "confidence": 0.95,
+        "evidence": [
+          {
+            "clause_id": "C0006",
+            "quote": "贷款年利率：4.20%"
+          }
+        ]
+      },
+      {
+        "concept": "loan.element.loan_offset_order",
+        "state": "PRESENT",
+        "value": true,
+        "assertion": "EXPLICIT",
+        "confidence": 0.95,
+        "evidence": [
+          {
+            "clause_id": "C0019",
+            "quote": "扣款顺序：\n\n保费\n\n\n复利\n\n\n罚息\n\n\n利息\n\n\n本金"
+          }
+        ]
+      },
+      {
+        "concept": "loan.element.loan_repayment_receipt",
+        "state": "ABSENT",
+        "assertion": "EXPLICIT",
+        "confidence": 0.9,
+        "evidence": []
+      },
+      {
+        "concept": "loan.element.loan_interruption_record",
+        "state": "ABSENT",
+        "assertion": "EXPLICIT",
+        "confidence": 0.9,
+        "evidence": []
+      }
+    ]
+  },
+  "model": "deepseek-flash",
+  "usage": {
+    "prompt_tokens": 10765,
+    "completion_tokens": 959,
+    "total_tokens": 11724,
+    "prompt_tokens_details": {
+      "cached_tokens": 9344
+    },
+    "prompt_cache_hit_tokens": 9344,
+    "prompt_cache_miss_tokens": 1421
+  },
+  "seconds": 3.12
+}

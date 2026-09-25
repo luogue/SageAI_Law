@@ -1,0 +1,859 @@
+[
+  {
+    "field": "coverage_status",
+    "before": null,
+    "after": "缺失",
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50367, in review_contract_v2\n    item = ReviewItemResult(\n",
+      "  File \"<string>\", line 14, in __init__\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": null,
+    "after": [],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50367, in review_contract_v2\n    item = ReviewItemResult(\n",
+      "  File \"<string>\", line 16, in __init__\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": [],
+    "after": [],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50400, in review_contract_v2\n    _apply_checkpoint_metadata(items, checklist, searched_scope)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 2305, in _apply_checkpoint_metadata\n    item.evidence_clauses = []\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "coverage_status",
+    "before": "缺失",
+    "after": "缺失",
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50400, in review_contract_v2\n    _apply_checkpoint_metadata(items, checklist, searched_scope)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 2307, in _apply_checkpoint_metadata\n    item.coverage_status = \"缺失\"\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": [],
+    "after": [],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50401, in review_contract_v2\n    items = _apply_review_nature_outcomes(items)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 2371, in _apply_review_nature_outcomes\n    item.evidence_clauses = []\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "coverage_status",
+    "before": "缺失",
+    "after": "缺失",
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50401, in review_contract_v2\n    items = _apply_review_nature_outcomes(items)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 2373, in _apply_review_nature_outcomes\n    item.coverage_status = \"缺失\"\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "coverage_status",
+    "before": "缺失",
+    "after": "缺失",
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50402, in review_contract_v2\n    items = _apply_contract_specific_post_rules(items, review_text, type_meta.key.value, checklist)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 34444, in _apply_contract_specific_post_rules\n    return apply_priority(items, parse_contract_clauses(contract_text), checklist if checklist is not None else get_checklist(contract_type_key))\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\priority_contract_review.py\", line 469, in apply\n    setattr(item, name, deepcopy(getattr(judgment, name)))\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": [],
+    "after": [],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50402, in review_contract_v2\n    items = _apply_contract_specific_post_rules(items, review_text, type_meta.key.value, checklist)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 34444, in _apply_contract_specific_post_rules\n    return apply_priority(items, parse_contract_clauses(contract_text), checklist if checklist is not None else get_checklist(contract_type_key))\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\priority_contract_review.py\", line 469, in apply\n    setattr(item, name, deepcopy(getattr(judgment, name)))\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": [],
+    "after": [],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50468, in review_contract_v2\n    _apply_checkpoint_metadata(items, checklist, searched_scope)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 2305, in _apply_checkpoint_metadata\n    item.evidence_clauses = []\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "coverage_status",
+    "before": "缺失",
+    "after": "缺失",
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50468, in review_contract_v2\n    _apply_checkpoint_metadata(items, checklist, searched_scope)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 2307, in _apply_checkpoint_metadata\n    item.coverage_status = \"缺失\"\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": [],
+    "after": [],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50469, in review_contract_v2\n    items = _apply_review_nature_outcomes(items)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 2371, in _apply_review_nature_outcomes\n    item.evidence_clauses = []\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "coverage_status",
+    "before": "缺失",
+    "after": "缺失",
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50469, in review_contract_v2\n    items = _apply_review_nature_outcomes(items)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 2373, in _apply_review_nature_outcomes\n    item.coverage_status = \"缺失\"\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": [],
+    "after": [],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50477, in review_contract_v2\n    _apply_checkpoint_metadata(items, checklist, searched_scope)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 2305, in _apply_checkpoint_metadata\n    item.evidence_clauses = []\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "coverage_status",
+    "before": "缺失",
+    "after": "缺失",
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50477, in review_contract_v2\n    _apply_checkpoint_metadata(items, checklist, searched_scope)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 2307, in _apply_checkpoint_metadata\n    item.coverage_status = \"缺失\"\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": [],
+    "after": [],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50478, in review_contract_v2\n    items = _apply_review_nature_outcomes(items)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 2371, in _apply_review_nature_outcomes\n    item.evidence_clauses = []\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "coverage_status",
+    "before": "缺失",
+    "after": "缺失",
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50478, in review_contract_v2\n    items = _apply_review_nature_outcomes(items)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 2373, in _apply_review_nature_outcomes\n    item.coverage_status = \"缺失\"\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": [],
+    "after": [],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50482, in review_contract_v2\n    items = _enrich_evidence_sources(items)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 27021, in _enrich_evidence_sources\n    item.evidence_clauses = enriched_rows\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": [],
+    "after": [],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50487, in review_contract_v2\n    sync_review_semantics()\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50484, in sync_review_semantics\n    _apply_checkpoint_metadata(items, checklist, searched_scope)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 2305, in _apply_checkpoint_metadata\n    item.evidence_clauses = []\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "coverage_status",
+    "before": "缺失",
+    "after": "缺失",
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50487, in review_contract_v2\n    sync_review_semantics()\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50484, in sync_review_semantics\n    _apply_checkpoint_metadata(items, checklist, searched_scope)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 2307, in _apply_checkpoint_metadata\n    item.coverage_status = \"缺失\"\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": [],
+    "after": [],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50487, in review_contract_v2\n    sync_review_semantics()\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50485, in sync_review_semantics\n    _apply_review_nature_outcomes(items)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 2371, in _apply_review_nature_outcomes\n    item.evidence_clauses = []\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "coverage_status",
+    "before": "缺失",
+    "after": "缺失",
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50487, in review_contract_v2\n    sync_review_semantics()\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50485, in sync_review_semantics\n    _apply_review_nature_outcomes(items)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 2373, in _apply_review_nature_outcomes\n    item.coverage_status = \"缺失\"\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": [],
+    "after": [],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50619, in review_contract_v2\n    items = _enrich_evidence_sources(items)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 27021, in _enrich_evidence_sources\n    item.evidence_clauses = enriched_rows\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": [],
+    "after": [],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50620, in review_contract_v2\n    items = _attach_evidence_traceability(items, clauses, review_text)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 27044, in _attach_evidence_traceability\n    item.evidence_clauses = traced\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": [],
+    "after": [],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50633, in review_contract_v2\n    sync_review_semantics()\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50484, in sync_review_semantics\n    _apply_checkpoint_metadata(items, checklist, searched_scope)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 2305, in _apply_checkpoint_metadata\n    item.evidence_clauses = []\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "coverage_status",
+    "before": "缺失",
+    "after": "缺失",
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50633, in review_contract_v2\n    sync_review_semantics()\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50484, in sync_review_semantics\n    _apply_checkpoint_metadata(items, checklist, searched_scope)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 2307, in _apply_checkpoint_metadata\n    item.coverage_status = \"缺失\"\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": [],
+    "after": [],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50633, in review_contract_v2\n    sync_review_semantics()\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50485, in sync_review_semantics\n    _apply_review_nature_outcomes(items)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 2371, in _apply_review_nature_outcomes\n    item.evidence_clauses = []\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "coverage_status",
+    "before": "缺失",
+    "after": "缺失",
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50633, in review_contract_v2\n    sync_review_semantics()\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50485, in sync_review_semantics\n    _apply_review_nature_outcomes(items)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 2373, in _apply_review_nature_outcomes\n    item.coverage_status = \"缺失\"\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": [],
+    "after": [],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50635, in review_contract_v2\n    items = _enrich_evidence_sources(items)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 27021, in _enrich_evidence_sources\n    item.evidence_clauses = enriched_rows\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": [],
+    "after": [
+      {
+        "clause_id": "C0013",
+        "location": "第十条 竞业限制",
+        "title": "竞业限制",
+        "text": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "quote": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "original_excerpt": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第十条 竞业限制"
+        ],
+        "source_start": 2430,
+        "source_end": 2490,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "entailment_score": 95,
+        "selection_reason": "FULL_CORPUS_SEMANTIC_SUPPORT",
+        "quoted_text": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "clause_node_id": "C0013",
+        "clause_number": "第十条 竞业限制",
+        "evidence_id": "SYN-12b02d33b47a17c724e3"
+      }
+    ],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50760, in review_contract_v2\n    _resolve_final_element_searches(items, clauses)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 6591, in _resolve_final_element_searches\n    item.evidence_clauses = [\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "coverage_status",
+    "before": "缺失",
+    "after": "通过",
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50760, in review_contract_v2\n    _resolve_final_element_searches(items, clauses)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 6611, in _resolve_final_element_searches\n    item.coverage_status = item.status = \"通过\"\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": [
+      {
+        "clause_id": "C0013",
+        "location": "第十条 竞业限制",
+        "title": "竞业限制",
+        "text": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "quote": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "original_excerpt": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第十条 竞业限制"
+        ],
+        "source_start": 2430,
+        "source_end": 2490,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "entailment_score": 95,
+        "selection_reason": "FULL_CORPUS_SEMANTIC_SUPPORT",
+        "quoted_text": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "clause_node_id": "C0013",
+        "clause_number": "第十条 竞业限制",
+        "evidence_id": "SYN-12b02d33b47a17c724e3"
+      }
+    ],
+    "after": [
+      {
+        "clause_id": "C0013",
+        "location": "第十条 竞业限制",
+        "title": "竞业限制",
+        "text": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "quote": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "original_excerpt": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第十条 竞业限制"
+        ],
+        "source_start": 2430,
+        "source_end": 2490,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "entailment_score": 95,
+        "selection_reason": "FULL_CORPUS_SEMANTIC_SUPPORT",
+        "quoted_text": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "clause_node_id": "C0013",
+        "clause_number": "第十条 竞业限制",
+        "evidence_id": "SYN-12b02d33b47a17c724e3",
+        "supporting_element_ids": [
+          "employment_compensation_1"
+        ]
+      }
+    ],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50762, in review_contract_v2\n    _canonicalize_requirement_evidence(items)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 36038, in _canonicalize_requirement_evidence\n    setattr(row, field, normalized[field])\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": [
+      {
+        "clause_id": "C0013",
+        "location": "第十条 竞业限制",
+        "title": "竞业限制",
+        "text": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "quote": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "original_excerpt": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第十条 竞业限制"
+        ],
+        "source_start": 2430,
+        "source_end": 2490,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "entailment_score": 95,
+        "selection_reason": "FULL_CORPUS_SEMANTIC_SUPPORT",
+        "quoted_text": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "clause_node_id": "C0013",
+        "clause_number": "第十条 竞业限制",
+        "evidence_id": "SYN-12b02d33b47a17c724e3",
+        "supporting_element_ids": [
+          "employment_compensation_1"
+        ]
+      }
+    ],
+    "after": [
+      {
+        "clause_id": "C0013",
+        "location": "第十条 竞业限制",
+        "title": "竞业限制",
+        "text": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "quote": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "original_excerpt": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第十条 竞业限制"
+        ],
+        "source_start": 2430,
+        "source_end": 2490,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "entailment_score": 95,
+        "selection_reason": "FULL_CORPUS_SEMANTIC_SUPPORT",
+        "quoted_text": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "clause_node_id": "C0013",
+        "clause_number": "第十条 竞业限制",
+        "evidence_id": "SYN-12b02d33b47a17c724e3",
+        "supporting_element_ids": [
+          "employment_compensation_1"
+        ]
+      }
+    ],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50855, in review_contract_v2\n    _canonicalize_requirement_evidence(items, risk_findings)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 36038, in _canonicalize_requirement_evidence\n    setattr(row, field, normalized[field])\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": [
+      {
+        "clause_id": "C0013",
+        "location": "第十条 竞业限制",
+        "title": "竞业限制",
+        "text": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "quote": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "original_excerpt": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第十条 竞业限制"
+        ],
+        "source_start": 2430,
+        "source_end": 2490,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "entailment_score": 95,
+        "selection_reason": "FULL_CORPUS_SEMANTIC_SUPPORT",
+        "quoted_text": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "clause_node_id": "C0013",
+        "clause_number": "第十条 竞业限制",
+        "evidence_id": "SYN-12b02d33b47a17c724e3",
+        "supporting_element_ids": [
+          "employment_compensation_1"
+        ]
+      }
+    ],
+    "after": [
+      {
+        "clause_id": "C0013",
+        "location": "第十条 竞业限制",
+        "title": "竞业限制",
+        "text": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "quote": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "original_excerpt": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第十条 竞业限制"
+        ],
+        "source_start": 2430,
+        "source_end": 2490,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "entailment_score": 95,
+        "selection_reason": "FULL_CORPUS_SEMANTIC_SUPPORT",
+        "quoted_text": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "clause_node_id": "C0013",
+        "clause_number": "第十条 竞业限制",
+        "evidence_id": "SYN-12b02d33b47a17c724e3",
+        "supporting_element_ids": [
+          "employment_compensation_1"
+        ],
+        "element_ids": [
+          "employment_compensation_1"
+        ],
+        "supported_propositions": [
+          "经济补偿依法处理、计算依据或正常结算安排已有明确约定。"
+        ],
+        "support_summary": "证明合同已约定相关合同要素。"
+      }
+    ],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50860, in review_contract_v2\n    _synchronize_evidence_support_to_final_elements(item)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 17702, in _synchronize_evidence_support_to_final_elements\n    item.evidence_clauses = synchronized\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  },
+  {
+    "field": "evidence_clauses",
+    "before": [
+      {
+        "clause_id": "C0013",
+        "location": "第十条 竞业限制",
+        "title": "竞业限制",
+        "text": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "quote": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "original_excerpt": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第十条 竞业限制"
+        ],
+        "source_start": 2430,
+        "source_end": 2490,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "entailment_score": 95,
+        "selection_reason": "FULL_CORPUS_SEMANTIC_SUPPORT",
+        "quoted_text": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "clause_node_id": "C0013",
+        "clause_number": "第十条 竞业限制",
+        "evidence_id": "SYN-12b02d33b47a17c724e3",
+        "supporting_element_ids": [
+          "employment_compensation_1"
+        ],
+        "element_ids": [
+          "employment_compensation_1"
+        ],
+        "supported_propositions": [
+          "经济补偿依法处理、计算依据或正常结算安排已有明确约定。"
+        ],
+        "support_summary": "证明合同已约定相关合同要素。"
+      }
+    ],
+    "after": [
+      {
+        "clause_id": "C0013",
+        "location": "第十条 竞业限制",
+        "title": "竞业限制",
+        "text": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "quote": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "original_excerpt": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第十条 竞业限制"
+        ],
+        "source_start": 2430,
+        "source_end": 2490,
+        "supports_element_ids": [
+          "employment_compensation_1"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "entailment_score": 95,
+        "selection_reason": "FULL_CORPUS_SEMANTIC_SUPPORT",
+        "quoted_text": "经济补偿标准及支付方式由双方离职时另行协商确定。\n乙方违反竞业限制义务的，应一次性向甲方支付违约金人民币300,000元",
+        "clause_node_id": "C0013",
+        "clause_number": "第十条 竞业限制",
+        "evidence_id": "SYN-12b02d33b47a17c724e3",
+        "supporting_element_ids": [
+          "employment_compensation_1"
+        ],
+        "element_ids": [
+          "employment_compensation_1"
+        ],
+        "supported_propositions": [
+          "经济补偿依法处理、计算依据或正常结算安排已有明确约定。"
+        ],
+        "support_summary": "证明合同已约定相关合同要素。",
+        "verified_original": false,
+        "source_verification": {
+          "status": "FAIL",
+          "errors": [
+            "DERIVED_EVIDENCE_ID_IS_NOT_ORIGINAL"
+          ]
+        },
+        "provenance_validation": {
+          "status": "PASS",
+          "evidence_type": "",
+          "errors": []
+        }
+      }
+    ],
+    "object_id": 2891192568656,
+    "stack": [
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 79, in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\_exception_handler.py\", line 53, in wrapped_app\n    await app(scope, receive, sender)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\starlette\\routing.py\", line 74, in app\n    response = await func(request)\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 278, in app\n    raw_response = await run_endpoint_function(\n",
+      "  File \"C:\\Users\\Administrator\\AppData\\Roaming\\Python\\Python310\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n",
+      "  File \"F:\\ai\\Sage\\backend\\routers\\review_v2.py\", line 1387, in review_v2_file\n    result = review_contract_v2(\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 50928, in review_contract_v2\n    _attach_evidence_traceability([i for i in items if i.coverage_status in ('通过','PASS')], clauses, review_text)\n",
+      "  File \"F:\\ai\\Sage\\backend\\review_v2\\engine.py\", line 27044, in _attach_evidence_traceability\n    item.evidence_clauses = traced\n",
+      "  File \"F:\\ai\\Sage\\scripts\\trace_employment_verdict.py\", line 14, in traced\n    'object_id': id(self), 'stack': traceback.format_stack(limit=9)})\n"
+    ]
+  }
+]

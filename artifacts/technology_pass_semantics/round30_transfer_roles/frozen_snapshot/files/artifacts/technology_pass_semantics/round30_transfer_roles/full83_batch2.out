@@ -1,0 +1,1168 @@
+.F....FF...F.F....FFFFFF....F.FFFFFF...FFF.FF.........................F. [ 13%]
+FF..F.....F........................FF.........FF........................ [ 27%]
+................................................FFFF...FFFFFF........... [ 41%]
+..............................................F..........F........F....F [ 55%]
+F.....F.FF.FFF.......................F................F................. [ 69%]
+........................................................................ [ 82%]
+........................................................................ [ 96%]
+.................                                                        [100%]
+================================== FAILURES ===================================
+__ test_service_acceptance_and_new_result_core_facts_are_not_keyword_passes ___
+
+    def test_service_acceptance_and_new_result_core_facts_are_not_keyword_passes():
+        text = _fixture_text()
+        facts = analyze_technical_service_core_facts(text)
+        assert facts["acceptance"]["mechanism_present"] is True
+        assert facts["acceptance"]["standard_deferred"] is True
+        assert facts["acceptance"]["deadline_defined"] is True
+        assert facts["acceptance"]["written_objection"] is True
+        assert facts["acceptance"]["deemed_acceptance"] is True
+        assert facts["acceptance"]["remedy_present"] is True
+        assert facts["acceptance"]["remedy_deadline_specific"] is False
+        assert facts["service_generated_result"]["scope_defined"] is True
+        assert facts["service_generated_result"]["ownership_deferred"] is True
+        assert facts["service_generated_result"]["ownership_finalized"] is False
+    
+        output = _review()
+        by_id = {item["item_id"]: item for item in output["items"]}
+        acceptance = by_id["TC-09-02"]
+        ownership = by_id["TC-09-03"]
+    
+        assert acceptance["coverage_status"] == "閮ㄥ垎瑕嗙洊"
+        acceptance_elements = {row["element_id"]: row["status"] for row in acceptance["coverage_elements"]}
+        assert acceptance_elements["acceptance_process"] == "COVERED"
+        assert acceptance_elements["acceptance_deadline"] == "COVERED"
+>       assert acceptance_elements["written_objection_mechanism"] == "COVERED"
+E       AssertionError: assert 'MISSING' == 'COVERED'
+E         
+E         - COVERED
+E         + MISSING
+
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:98: AssertionError
+___ test_third_party_claim_direction_changes_between_provider_and_recipient ___
+
+    def test_third_party_claim_direction_changes_between_provider_and_recipient():
+        provider = _perspective_review("鐢叉柟")
+        recipient = _perspective_review("涔欐柟")
+        provider_item = next(item for item in provider["items"] if item["item_id"] == "TC-12-02")
+        recipient_item = next(item for item in recipient["items"] if item["item_id"] == "TC-12-02")
+        provider_finding = next(
+            row for row in provider["risk_findings"] if "TC-12-02" in row["source_review_ids"]
+        )
+        recipient_finding = next(
+            row for row in recipient["risk_findings"] if "TC-12-02" in row["source_review_ids"]
+        )
+        provider_disposition = next(
+            row for row in provider["final_dispositions"] if "TC-12-02" in row["review_ids"]
+        )
+        recipient_disposition = next(
+            row for row in recipient["final_dispositions"] if "TC-12-02" in row["review_ids"]
+        )
+    
+        # Coverage is a contract fact and remains the same; risk and drafting
+        # direction change with the reviewed party.
+>       assert provider_item["coverage_status"] == recipient_item["coverage_status"] == "閮ㄥ垎瑕嗙洊"
+E       AssertionError: assert '椋庨櫓鏉℃' == '閮ㄥ垎瑕嗙洊'
+E         
+E         - 閮ㄥ垎瑕嗙洊
+E         + 椋庨櫓鏉℃
+
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:244: AssertionError
+________ test_service_result_consequence_survives_finding_aggregation _________
+
+    def test_service_result_consequence_survives_finding_aggregation():
+        output = _review()
+        finding = next(
+            row for row in output["risk_findings"] if "TC-09-03" in row["source_review_ids"]
+        )
+        assert "鎴愭灉鏉冨睘" in finding["consequence"]
+>       assert "浜や粯浣跨敤鑼冨洿" in finding["consequence"]
+E       AssertionError: assert '浜や粯浣跨敤鑼冨洿' in '鏈嶅姟涓柊鎴愭灉鐨勮寖鍥淬€佸彲鐙珛浣跨敤鐨勯€氱敤鎴愭灉鏉冨睘銆侀」鐩垚鏋滀娇鐢ㄦ潈闄愬拰杈圭晫灏氭湭鏄庣‘鏃讹紝鍙兘瀵圭浉鍏充箟鍔＄殑灞ヨ鍙婃潈鍒╄浣夸骇鐢熶簤璁€?
+
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:274: AssertionError
+__ test_second_service_timeline_is_deterministic_and_binds_only_direct_dates __
+
+    def test_second_service_timeline_is_deterministic_and_binds_only_direct_dates():
+        timeline = analyze_timeline(_second_fixture_text())
+        assert timeline["service_start_date"] == "2026-10-10"
+        assert timeline["contract_sign_date"] == "2026-10-20"
+        assert timeline["effective_date"] is None
+        assert timeline["comparison_basis"] == "SIGNING_DATE"
+>       assert timeline["conflict_types"] == ["SERVICE_BEFORE_SIGNING"]
+E       AssertionError: assert ['VALIDITY_BE...FORE_SIGNING'] == ['SERVICE_BEFORE_SIGNING']
+E         
+E         At index 0 diff: 'VALIDITY_BEFORE_SIGNING' != 'SERVICE_BEFORE_SIGNING'
+E         Left contains one more item: 'SERVICE_BEFORE_SIGNING'
+E         Use -v to get more diff
+
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:336: AssertionError
+_ test_second_service_scene_liability_limit_and_acceptance_disconnect_are_grounded _
+
+    def test_second_service_scene_liability_limit_and_acceptance_disconnect_are_grounded():
+        output = _second_review()
+        assert output["report_context"]["scenario_label"] == "ERP绯荤粺鎬ц兘璇婃柇涓庢暟鎹簱浼樺寲鎶€鏈湇鍔?
+        assert output["contract_context"]["usage_scenario"] == "ENTERPRISE_INFORMATION_SYSTEM_PERFORMANCE_OPTIMIZATION_SERVICE"
+    
+        by_group = {row["risk_group"]: row for row in output["risk_findings"]}
+        liability = by_group["service_provider_liability_cap_exclusion"]
+        acceptance = by_group["service_performance_acceptance_disconnect"]
+        assert liability["severity"] == "MEDIUM"
+>       assert liability["title"] == "鏈嶅姟鏂硅禂鍋胯矗浠讳笂闄愬強鍏嶈矗鑼冨洿杩囧"
+E       AssertionError: assert '璐ｄ换闄愬埗鏈哄埗椋庨櫓' == '鏈嶅姟鏂硅禂鍋胯矗浠讳笂闄愬強鍏嶈矗鑼冨洿杩囧'
+E         
+E         - 鏈嶅姟鏂硅禂鍋胯矗浠讳笂闄愬強鍏嶈矗鑼冨洿杩囧
+E         + 璐ｄ换闄愬埗鏈哄埗椋庨櫓
+
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:400: AssertionError
+_ test_second_service_attachment_acceptance_and_confidentiality_are_scenario_specific _
+
+    def test_second_service_attachment_acceptance_and_confidentiality_are_scenario_specific():
+        output = _second_review()
+        by_id = {row["item_id"]: row for row in output["items"]}
+    
+>       assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:492: AssertionError
+_ test_service_search_audit_and_material_attachment_follow_current_subtype_facts _
+
+    def test_service_search_audit_and_material_attachment_follow_current_subtype_facts():
+        output = _review()
+        items = {item["item_id"]: item for item in output["items"]}
+        liability_projection = str({
+            "item": items["TC-12-04"],
+            "findings": [
+                row for row in output["risk_findings"] if "TC-12-04" in row["source_review_ids"]
+            ],
+        })
+        assert "琚鍙柟" not in liability_projection
+        assert "瓒呰寖鍥村疄鏂? not in liability_projection
+    
+        attachment = items["TC-13-01"]
+        assert attachment["coverage_status"] == "閮ㄥ垎瑕嗙洊"
+        attachment_elements = {row["element_id"]: row["status"] for row in attachment["coverage_elements"]}
+        assert attachment_elements["attachment_formation_mechanism"] == "COVERED"
+        assert attachment_elements["actual_attachment_schedule"] == "MISSING"
+>       assert "鏈樉绀洪檮浠剁骇鎶€鏈祫鏂欐竻鍗曞凡缁忓疄闄呭舰鎴? in attachment["risk_point_description"]
+E       AssertionError: assert '鏈樉绀洪檮浠剁骇鎶€鏈祫鏂欐竻鍗曞凡缁忓疄闄呭舰鎴? in '宸叉湁閮ㄥ垎瀹夋帓锛涗粛闇€琛ヨ冻锛氭暟鎹€佹帴鍙ｄ俊鎭強鐩稿叧鎶€鏈祫鏂欑殑姒傛嫭鎻愪緵鑼冨洿銆佺幇鏈夊悎鍚岃瘉鎹湭鏄剧ず宸茬粡褰㈡垚鍙牳楠岀殑闄勪欢绾ф妧鏈祫鏂欐竻鍗曘€佹妧鏈祫鏂欑殑鏂囦欢鍚嶇О銆佺増鏈垨缂栧彿灏氭湭鐢辩幇鏈夐檮浠跺浐瀹氥€?
+
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:535: AssertionError
+____ test_search_audit_preserves_scalar_scope_and_searches_positive_facts _____
+
+    def test_search_audit_preserves_scalar_scope_and_searches_positive_facts():
+        evidence, audit = _absence_proposition_evidence(
+            risk_group="test_positive_search_audit",
+            searched_scope="鍚堝悓姝ｆ枃鍙婂叏閮ㄩ檮浠?,
+            required_elements=[
+                "閲忓寲鏈嶅姟鐩爣涓庢渶缁堥獙鏀跺悎鏍兼潯浠朵箣闂寸殑琛旀帴涓嶅畬鏁?,
+                "鏈揪鍒伴噺鍖栨寚鏍囨椂鐨勬暣鏀逛箟鍔?,
+            ],
+        )
+    
+        assert audit["searched_scope"] == ["鍚堝悓姝ｆ枃鍙婂叏閮ㄩ檮浠?]
+        assert audit["query_semantics"] == "POSITIVE_REQUIRED_FACT"
+>       assert audit["required_elements"] == [
+            "閲忓寲鏈嶅姟鐩爣涓庢渶缁堥獙鏀跺悎鏍兼潯浠朵箣闂寸殑琛旀帴",
+            "鏈揪鍒伴噺鍖栨寚鏍囨椂鐨勬暣鏀逛箟鍔?,
+        ]
+E       AssertionError: assert ['閲忓寲鏈嶅姟鐩爣涓庢渶缁堥獙鏀跺悎鏍兼潯浠朵箣闂寸殑琛旀帴'] == ['閲忓寲鏈嶅姟鐩爣涓庢渶缁堥獙鏀?..杈惧埌閲忓寲鎸囨爣鏃剁殑鏁存敼涔夊姟']
+E         
+E         Right contains one more item: '鏈揪鍒伴噺鍖栨寚鏍囨椂鐨勬暣鏀逛箟鍔?
+E         Use -v to get more diff
+
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:550: AssertionError
+_ test_second_service_search_audits_classification_and_screening_are_semantically_consistent _
+
+    def test_second_service_search_audits_classification_and_screening_are_semantically_consistent():
+        output = _second_review()
+        by_id = {row["item_id"]: row for row in output["items"]}
+        by_group = {row["risk_group"]: row for row in output["risk_findings"]}
+    
+        assert len(output["risk_findings"]) == 10
+>       assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:565: AssertionError
+_ test_service_confidentiality_period_and_scope_bind_direct_confidentiality_clauses _
+
+    def test_service_confidentiality_period_and_scope_bind_direct_confidentiality_clauses():
+        output = _review()
+        item = next(row for row in output["items"] if row["item_id"] == "TC-11-02")
+        evidence_text = "\n".join(
+            str(row.get("text") or row.get("quote") or "") for row in item["evidence_clauses"]
+        )
+        elements = {row["element_id"]: row["status"] for row in item["coverage_elements"]}
+    
+>       assert item["coverage_status"] == "閫氳繃"
+E       AssertionError: assert '閮ㄥ垎瑕嗙洊' == '閫氳繃'
+E         
+E         - 閫氳繃
+E         + 閮ㄥ垎瑕嗙洊
+
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:646: AssertionError
+_ test_service_provider_confidentiality_breach_narrative_excludes_liability_expansion _
+
+    def test_service_provider_confidentiality_breach_narrative_excludes_liability_expansion():
+        output = _review()
+        item = next(row for row in output["items"] if row["item_id"] == "TC-11-04")
+>       finding = next(row for row in output["risk_findings"] if "TC-11-04" in row["source_review_ids"])
+E       StopIteration
+
+backend\tests\test_technical_service_dynamic_roles_and_grounding.py:668: StopIteration
+______ test_report_uses_final_findings_and_quality_gate_checks_integrity ______
+
+    def test_report_uses_final_findings_and_quality_gate_checks_integrity():
+        output = _review()
+        report = output["result"]
+>       assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_technical_service_report_integrity.py:91: AssertionError
+____________ test_quality_gate_blocks_wrong_recommendation_binding ____________
+
+    def test_quality_gate_blocks_wrong_recommendation_binding():
+        output = _review()
+>       items, findings, recommendations, dispositions = _integrity_inputs(output)
+
+backend\tests\test_technical_service_report_integrity.py:123: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\tests\test_technical_service_report_integrity.py:116: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = <list_iterator object at 0x000001F81D3EFFA0>
+
+>       [Recommendation(**row) for row in output["recommendations"]],
+        [FinalDisposition(**row) for row in output["final_dispositions"]],
+    )
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+
+backend\tests\test_technical_service_report_integrity.py:116: TypeError
+___ test_quality_gate_blocks_incomplete_evidence_bundle_and_missing_detail ____
+
+    def test_quality_gate_blocks_incomplete_evidence_bundle_and_missing_detail():
+        output = _review()
+>       items, findings, recommendations, dispositions = _integrity_inputs(output)
+
+backend\tests\test_technical_service_report_integrity.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\tests\test_technical_service_report_integrity.py:116: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = <list_iterator object at 0x000001F818CF5510>
+
+>       [Recommendation(**row) for row in output["recommendations"]],
+        [FinalDisposition(**row) for row in output["final_dispositions"]],
+    )
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+
+backend\tests\test_technical_service_report_integrity.py:116: TypeError
+____ test_quality_gate_blocks_semantically_invalid_evidence_and_claim_gap _____
+
+    def test_quality_gate_blocks_semantically_invalid_evidence_and_claim_gap():
+        output = _review()
+>       items, findings, recommendations, dispositions = _integrity_inputs(output)
+
+backend\tests\test_technical_service_report_integrity.py:147: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\tests\test_technical_service_report_integrity.py:116: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = <list_iterator object at 0x000001F818825C30>
+
+>       [Recommendation(**row) for row in output["recommendations"]],
+        [FinalDisposition(**row) for row in output["final_dispositions"]],
+    )
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+
+backend\tests\test_technical_service_report_integrity.py:116: TypeError
+_______ test_quality_gate_blocks_review_risk_bundle_projection_mismatch _______
+
+    def test_quality_gate_blocks_review_risk_bundle_projection_mismatch():
+        output = _review()
+>       items, findings, recommendations, dispositions = _integrity_inputs(output)
+
+backend\tests\test_technical_service_report_integrity.py:158: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\tests\test_technical_service_report_integrity.py:116: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = <list_iterator object at 0x000001F81D3EFFA0>
+
+>       [Recommendation(**row) for row in output["recommendations"]],
+        [FinalDisposition(**row) for row in output["final_dispositions"]],
+    )
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+
+backend\tests\test_technical_service_report_integrity.py:116: TypeError
+___ test_quality_gate_blocks_issue_type_partial_and_applicability_conflicts ___
+
+    def test_quality_gate_blocks_issue_type_partial_and_applicability_conflicts():
+        output = _review()
+>       items, findings, recommendations, dispositions = _integrity_inputs(output)
+
+backend\tests\test_technical_service_report_integrity.py:168: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\tests\test_technical_service_report_integrity.py:116: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = <list_iterator object at 0x000001F81D3EFFA0>
+
+>       [Recommendation(**row) for row in output["recommendations"]],
+        [FinalDisposition(**row) for row in output["final_dispositions"]],
+    )
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+
+backend\tests\test_technical_service_report_integrity.py:116: TypeError
+_ test_quality_gate_allows_theme_projection_without_legacy_truncation_banner __
+
+    def test_quality_gate_allows_theme_projection_without_legacy_truncation_banner():
+        output = _review()
+>       items, findings, recommendations, dispositions = _integrity_inputs(output)
+
+backend\tests\test_technical_service_report_integrity.py:186: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\tests\test_technical_service_report_integrity.py:116: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = <list_iterator object at 0x000001F81D3EFFA0>
+
+>       [Recommendation(**row) for row in output["recommendations"]],
+        [FinalDisposition(**row) for row in output["final_dispositions"]],
+    )
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+
+backend\tests\test_technical_service_report_integrity.py:116: TypeError
+______ test_patent_license_granted_transfer_and_application_transfer[27] ______
+
+number = 27
+
+    @pytest.mark.parametrize("number", [27, 43, 44])
+    def test_patent_license_granted_transfer_and_application_transfer(number):
+        result = engine.review_contract_v2(fixture_text(number), "technology", use_llm=False)
+>       assert_consistent_identity(result)
+
+backend\tests\test_technology_subject_identity_consistency.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+result = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def assert_consistent_identity(result):
+        item = subject(result)
+>       assert item["coverage_status"] == "閫氳繃"
+E       AssertionError: assert '缂哄け' == '閫氳繃'
+E         
+E         - 閫氳繃
+E         + 缂哄け
+
+backend\tests\test_technology_subject_identity_consistency.py:34: AssertionError
+______ test_patent_license_granted_transfer_and_application_transfer[43] ______
+
+number = 43
+
+    @pytest.mark.parametrize("number", [27, 43, 44])
+    def test_patent_license_granted_transfer_and_application_transfer(number):
+        result = engine.review_contract_v2(fixture_text(number), "technology", use_llm=False)
+        assert_consistent_identity(result)
+>       assert result["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_technology_subject_identity_consistency.py:92: AssertionError
+______ test_patent_license_granted_transfer_and_application_transfer[44] ______
+
+number = 44
+
+    @pytest.mark.parametrize("number", [27, 43, 44])
+    def test_patent_license_granted_transfer_and_application_transfer(number):
+        result = engine.review_contract_v2(fixture_text(number), "technology", use_llm=False)
+        assert_consistent_identity(result)
+>       assert result["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_technology_subject_identity_consistency.py:92: AssertionError
+_ test_secret_transactions_do_not_acquire_patent_identifier_requirements[38] __
+
+number = 38
+
+    @pytest.mark.parametrize("number", [26, 38, 41])
+    def test_secret_transactions_do_not_acquire_patent_identifier_requirements(number):
+        result = engine.review_contract_v2(fixture_text(number), "technology", use_llm=False)
+        item = subject(result)
+>       assert item["coverage_status"] == "閫氳繃"
+E       AssertionError: assert '寰呮牳楠? == '閫氳繃'
+E         
+E         - 閫氳繃
+E         + 寰呮牳楠?
+
+backend\tests\test_technology_subject_identity_consistency.py:99: AssertionError
+_ test_secret_transactions_do_not_acquire_patent_identifier_requirements[41] __
+
+number = 41
+
+    @pytest.mark.parametrize("number", [26, 38, 41])
+    def test_secret_transactions_do_not_acquire_patent_identifier_requirements(number):
+        result = engine.review_contract_v2(fixture_text(number), "technology", use_llm=False)
+        item = subject(result)
+>       assert item["coverage_status"] == "閫氳繃"
+E       AssertionError: assert '寰呮牳楠? == '閫氳繃'
+E         
+E         - 閫氳繃
+E         + 寰呮牳楠?
+
+backend\tests\test_technology_subject_identity_consistency.py:99: AssertionError
+___________ test_claim_level_bundles_are_complete_and_deduplicated ____________
+
+    def test_claim_level_bundles_are_complete_and_deduplicated():
+        findings = {row["risk_group"]: row for row in _review()["risk_findings"]}
+        for finding in findings.values():
+            bundle = finding.get("evidence_bundle") or {}
+            if not bundle:
+                continue
+            assert bundle["bundle_id"]
+            assert set(bundle["required_claim_ids"]) <= set(bundle["supported_claim_ids"])
+            assert not bundle["unsupported_claim_ids"]
+>           keys = [
+                (row["clause_node_id"], row["start_offset"], row["end_offset"], row["claim_id"])
+                for row in bundle["items"]
+            ]
+
+backend\tests\test_technical_service_single_evidence_source.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = <list_iterator object at 0x000001F81F42D810>
+
+    keys = [
+>       (row["clause_node_id"], row["start_offset"], row["end_offset"], row["claim_id"])
+        for row in bundle["items"]
+    ]
+E   KeyError: 'start_offset'
+
+backend\tests\test_technical_service_single_evidence_source.py:45: KeyError
+_____ test_issue_types_describe_formula_conflict_validity_and_partial_gap _____
+
+    def test_issue_types_describe_formula_conflict_validity_and_partial_gap():
+        findings = {row["risk_group"]: row for row in _review()["risk_findings"]}
+        assert findings["payment_formula_inconsistency"]["issue_type"] == "FORMULA_ERROR"
+        assert findings["technical_background_ip_overtransfer"]["issue_type"] == "CONFLICTING"
+        assert findings["technical_timeline_conflict"]["issue_type"] == "CONFLICTING"
+        assert findings["data_retention_warranty_conflict"]["issue_type"] == "CONFLICTING"
+        assert findings["personal_injury_liability_exclusion"]["issue_type"] == "INVALID_OR_UNENFORCEABLE"
+>       assert findings["personal_information_processing_gap"]["issue_type"] == "PARTIAL"
+E       AssertionError: assert 'MISSING' == 'PARTIAL'
+E         
+E         - PARTIAL
+E         + MISSING
+
+backend\tests\test_technical_service_single_evidence_source.py:88: AssertionError
+________ test_applicability_display_uses_the_resolved_decision_reason _________
+
+    def test_applicability_display_uses_the_resolved_decision_reason():
+        items = {row["item_id"]: row for row in _review()["items"]}
+        for review_id in ("TC-03-01", "TC-03-02", "TC-03-03"):
+            reason = items[review_id]["applicability"]["user_reason"]
+            assert "鑷劧浜? in reason or "鍛樺伐" in reason
+            assert "鎶€鏈悎鍚屽潎閫傜敤" not in reason
+        assert "鍙楄浜烘垨琚鍙汉" in items["TC-12-01"]["applicability"]["user_reason"]
+>       assert "鎶€鏈瀵嗕抚澶辩瀵嗘€у悗鐨勪娇鐢ㄤ笌璐圭敤澶勭悊" in items["TC-12-03"]["applicability"]["user_reason"]
+E       AssertionError: assert '鎶€鏈瀵嗕抚澶辩瀵嗘€у悗鐨勪娇鐢ㄤ笌璐圭敤澶勭悊' in '鍚堝悓铏芥秹鍙婃妧鏈瀵嗘垨淇濆瘑璧勬枡锛屼絾褰撳墠浜ゆ槗涓嶆槸浠ユ棦鏈夋妧鏈瀵嗚浆璁┿€佽鍙垨鐙珛浣跨敤璐逛负鏍稿績鏍囩殑锛屾湭褰㈡垚浠ョ瀵嗘€т负鐙珛瀵逛环鍩虹鐨勬寔缁敹璐规垨绉樺瘑鎬т抚澶卞悗鐨勮垂鐢ㄥ畨鎺掞紝鍥犳鏈」涓嶉€傜敤銆?
+
+backend\tests\test_technical_service_single_evidence_source.py:99: AssertionError
+_________ test_industrial_service_core_risks_survive_route_resolution _________
+
+    def test_industrial_service_core_risks_survive_route_resolution():
+        result = _review()
+        groups = {finding["risk_group"] for finding in result["risk_findings"]}
+>       assert {
+            "payment_formula_inconsistency",
+            "technical_timeline_conflict",
+            "generic_liability_cap_validity",
+            "generic_potential_excessive_liquidated_damages",
+            "confidentiality_duration_data_use_asymmetry",
+            "service_new_result_ownership",
+            "third_party_claim_defense",
+            "dispute_resolution_choice_conflict",
+            "technical_service_quality_acceptance",
+        } <= groups
+E       AssertionError: assert {'confidentia...nership', ...} <= {'acceptance_...alidity', ...}
+E         
+E         Extra items in the left set:
+E         'technical_timeline_conflict'
+
+backend\tests\test_industrial_technical_service_routing_regression.py:72: AssertionError
+____ test_complete_review_rows_are_unique_and_partial_rows_have_real_gaps _____
+
+    def test_complete_review_rows_are_unique_and_partial_rows_have_real_gaps():
+        result = _review()
+        item_ids = [row["item_id"] for row in result["items"]]
+        assert len(item_ids) == len(set(item_ids))
+>       assert item_ids.count("TECH-SHARED-03") == 1
+E       AssertionError: assert 0 == 1
+E        +  where 0 = <built-in method count of list object at 0x000001F81E66CAC0>('TECH-SHARED-03')
+E        +    where <built-in method count of list object at 0x000001F81E66CAC0> = ['TC-01-01', 'TC-01-02', 'TC-01-03', 'TC-01-04', 'TC-02-01', 'TC-02-02', ...].count
+
+backend\tests\test_industrial_technical_service_routing_regression.py:184: AssertionError
+___________ test_file_upload_response_keeps_exact_element_evidence ____________
+
+    def test_file_upload_response_keeps_exact_element_evidence():
+        import asyncio
+        from fastapi import UploadFile
+        from routers.review_v2 import ReviewV2Result, review_v2_file
+        path = next((Path(__file__).resolve().parents[2] / "test_data").glob("27*.docx"))
+        with path.open("rb") as source:
+            response = asyncio.run(review_v2_file(file=UploadFile(filename=path.name, file=source),
+                contract_type="technology", include_low_risk=True, use_llm=False,
+                profile_json='{"user_identity":"鐢叉柟/琚鍙柟"}', current_user={}))
+        payload = ReviewV2Result(**response).model_dump()
+>       assert payload["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_claim_response_exact_evidence_binding.py:166: AssertionError
+---------------------------- Captured stderr call -----------------------------
+2026-09-18 13:40:10 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=source_document used=True chars=5731 compact_chars=5429 paragraphs=254 sha256=1437c31737ddecbff562355c9b29eaa61d869ad18d1f4ad625021827df1477ea head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+2026-09-18 13:40:10 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=extracted_full_text used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+2026-09-18 13:40:10 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=normalized_full_text used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+2026-09-18 13:40:10 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=classifier_input used=False chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+2026-09-18 13:40:10 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=clause_extraction_input used=False chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+2026-09-18 13:40:10 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=rule_engine_input used=False chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+2026-09-18 13:40:10 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=search_audit_input used=False chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+2026-09-18 13:40:10 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY_GATE] trace_id= filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx status=PASS failures=[] anchors={'涓撳埄鎶€鏈?: {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '璁稿彲鏂?: {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '鎺ュ彈鏂?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '闈炵嫭鍗?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '鎻愭垚璐?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓撳埄璧勬枡': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓浗鍥介檯缁忔祹璐告槗浠茶濮斿憳浼?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓嶅彲鎶楀姏': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '涓撳埄澶辨晥': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓撳埄璐圭敤': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '渚垫潈': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}} lineage={'source_to_extracted_retention': 0.999263, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': None, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=source_document used=True chars=5731 compact_chars=5429 paragraphs=254 sha256=1437c31737ddecbff562355c9b29eaa61d869ad18d1f4ad625021827df1477ea head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=extracted_full_text used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=normalized_full_text used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=classifier_input used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=clause_extraction_input used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=rule_engine_input used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=search_audit_input used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=clause_extraction_output used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY_GATE] trace_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx status=PASS failures=[] anchors={'涓撳埄鎶€鏈?: {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '璁稿彲鏂?: {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '鎺ュ彈鏂?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '闈炵嫭鍗?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '鎻愭垚璐?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓撳埄璧勬枡': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓浗鍥介檯缁忔祹璐告槗浠茶濮斿憳浼?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓嶅彲鎶楀姏': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '涓撳埄澶辨晥': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓撳埄璐圭敤': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '渚垫潈': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}} lineage={'source_to_extracted_retention': 0.999263, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': 1.0, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [FACT] review_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx candidate_id= source_rule= source_clause_ids=['C0002', 'C0006', 'C0009', 'C0010', 'C0011', 'C0012', 'C0013', 'C0020', 'C0026', 'C0027', 'C0029', 'C0032', 'C0035'] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total=[60, 30, 20, 50, 40, 30] amount_total=[1800000, 900000, 600000, 900000, 720000, 540000] merged= finding_id= final_present= rendered=
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [RULE_EXECUTED] review_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx candidate_id= source_rule=analyze_payment_schedule source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations=4 arithmetic_status=INCONSISTENT percentage_total=113.75 amount_total=5460000 merged= finding_id= final_present= rendered=
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [CANDIDATE_CREATED] review_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx candidate_id=TECH-SHARED-GEN-PAY-01 source_rule=payment_formula_inconsistency source_clause_ids=['C0009', 'C0010', 'C0011'] scenario=TECHNOLOGY_LICENSE applicability={'status': 'APPLICABLE', 'applicable': True, 'reason': '鍚堝悓涓殑缁撴瀯鍖栦簨瀹炲叧绯诲凡瑙﹀彂銆?, 'depends_on': []} status= filter_reason=arithmetic status is INCONSISTENT invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [CANDIDATE_FILTERED] review_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx candidate_id=TECH-SHARED-GEN-PAY-01 source_rule= source_clause_ids=[] scenario= applicability={} status=NOT_FILTERED filter_reason=candidate survived applicability, aggregation, evidence and final finding filters invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [CANDIDATE_MERGED] review_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx candidate_id=TECH-SHARED-GEN-PAY-01 source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged=True finding_id=RF-020 final_present= rendered=
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [FINAL_RISK] review_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx candidate_id=TECH-SHARED-GEN-PAY-01 source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id=RF-020 final_present=True rendered=True
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [TRACE_REVIEW_V2] pid=22008 pipeline=canonical-review-v2-production-6.4 classifier=technical-transaction-classifier-v3-single-source evaluator=canonical-review-evaluator-6.4-single-classification ruleset=review-v2-rules-quality3-2026-08-11 entry=F:\ai\Sage\backend\routers\review_v2.py:1382 engine=F:\ai\Sage\backend\review_v2\engine.py:52747 subtype=TECHNOLOGY_LICENSE classifier_executions=1 registry_id=2165130602992 evidence_impl=technical-consulting-evidence-v2.1-active-path doc_hash=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c confidentiality=True
+2026-09-18 13:40:30 - routers.review_v2 - INFO - [unknown] - [REVIEW_RELEASE_GATE] review_id=CR-20260918-134010-E35CEA pid=22008 runtime=CURRENT status=BLOCKED failures=['COVERAGE_SENTENCE_CONSISTENCY_GATE', 'REVIEW_EVIDENCE_ELEMENT_MISMATCH', 'RISK_CLAUSE_REQUIRES_AFFIRMATIVE_RISK_EVIDENCE', 'CROSS_RULE_CANONICAL_FACT_CONSISTENCY', 'NARRATIVE_EVIDENCE_GATE', 'REPORT_ELEMENT_EVIDENCE_POLLUTION', 'REPORT_ELEMENT_EVIDENCE_POLLUTION', 'REPORT_ELEMENT_EVIDENCE_POLLUTION', 'REPORT_ELEMENT_EVIDENCE_POLLUTION', 'NARRATIVE_EVIDENCE_GATE', 'EXACT_ELEMENT_REPORT_INVARIANT', 'EVIDENCE_PROPOSITION_MATCH_GATE', 'CLAUSE_NODE_CONSISTENCY_GATE']
+------------------------------ Captured log call ------------------------------
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=source_document used=True chars=5731 compact_chars=5429 paragraphs=254 sha256=1437c31737ddecbff562355c9b29eaa61d869ad18d1f4ad625021827df1477ea head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=extracted_full_text used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=normalized_full_text used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=classifier_input used=False chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=clause_extraction_input used=False chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=rule_engine_input used=False chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=search_audit_input used=False chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+WARNING  routers.review_v2:input_integrity.py:291 [REVIEW_INPUT_INTEGRITY_GATE] trace_id= filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx status=PASS failures=[] anchors={'涓撳埄鎶€鏈?: {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '璁稿彲鏂?: {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '鎺ュ彈鏂?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '闈炵嫭鍗?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '鎻愭垚璐?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓撳埄璧勬枡': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓浗鍥介檯缁忔祹璐告槗浠茶濮斿憳浼?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓嶅彲鎶楀姏': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '涓撳埄澶辨晥': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓撳埄璐圭敤': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '渚垫潈': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}} lineage={'source_to_extracted_retention': 0.999263, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': None, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=source_document used=True chars=5731 compact_chars=5429 paragraphs=254 sha256=1437c31737ddecbff562355c9b29eaa61d869ad18d1f4ad625021827df1477ea head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=extracted_full_text used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=normalized_full_text used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=classifier_input used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=clause_extraction_input used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=rule_engine_input used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=search_audit_input used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx stage=clause_extraction_output used=True chars=5727 compact_chars=5425 paragraphs=254 sha256=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c head='涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃ワ細 2023骞?鏈?0鏃n涓撳埄娉曞畾灞婃弧鏃ワ細 2041骞?鏈?7鏃n璁稿彲鏂瑰悕绉帮細 涓滃崡澶у\n鍦板潃锛?姹熻嫃鐪佸崡浜競鐜勬鍖哄洓鐗屾ゼ2鍙穃n浠ｈ〃浜猴細 鏉庢槑杩淺n琚鍙柟鍚嶇О锛?姹熻嫃鎭掕兘鏂拌兘婧愭苯杞︾鎶€鏈夐檺鍏徃\n鍦板潃锛?姹熻嫃鐪佽嫃宸炲競宸ヤ笟鍥尯鏄熸箹琛?28鍙穃n浠ｈ〃浜猴細 寮犲缓鍥絓n鍚堝悓澶囨鍙凤細 2026-ZL-XK-0826\n绛捐鍦扮偣锛?姹熻嫃鐪佸崡浜競\n绛捐鏃ユ湡锛?2026骞?0鏈?0鏃n鏈夋晥鏈熼檺锛?2' tail='鍙柟鏈粡璁稿彲鏂逛功闈㈠悓鎰忥紝涓嶅緱鑷鐮斿彂涓庢湰鍚堝悓涓撳埄鍏锋湁鐩稿悓鎴栫被浼煎姛鑳界殑鎶€鏈柟妗堛€俓n琚鍙柟涓嶅緱浠庤鍙柟绔炰簤瀵规墜澶勮喘涔拌兘澶熸浛浠ｆ湰鍚堝悓鎶€鏈殑涓撳埄璁稿彲鎴栬€呮妧鏈湇鍔°€俓n涓婅堪闄愬埗鍦ㄦ湰鍚堝悓缁堟鍚庣户缁湁鏁?骞淬€俓n鏈悎鍚岄檮浠跺寘鎷細\n銆婁笓鍒╂潈璇佹槑鏂囦欢銆媆n銆婁笓鍒╂妧鏈祫鏂欐竻鍗曘€媆n銆婃妧鏈瀵嗚祫鏂欐竻鍗曘€媆n銆婂悗缁妧鏈紑鍙戜换鍔′功銆媆n銆婇」鐩祴璇曟柟妗堛€媆n銆婃妧鏈煿璁鍒掋€媆n闄勪欢涓妧鏈枃浠剁殑鏈€缁堢増鏈彿銆佺紪鍙峰拰鏁伴噺浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+WARNING  routers.review_v2:input_integrity.py:291 [REVIEW_INPUT_INTEGRITY_GATE] trace_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx status=PASS failures=[] anchors={'涓撳埄鎶€鏈?: {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '璁稿彲鏂?: {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '鎺ュ彈鏂?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '闈炵嫭鍗?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '鎻愭垚璐?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓撳埄璧勬枡': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓浗鍥介檯缁忔祹璐告槗浠茶濮斿憳浼?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓嶅彲鎶楀姏': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '涓撳埄澶辨晥': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓撳埄璐圭敤': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '渚垫潈': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}} lineage={'source_to_extracted_retention': 0.999263, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': 1.0, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+WARNING  routers.review_v2:review_v2.py:1527 [FACT] review_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx candidate_id= source_rule= source_clause_ids=['C0002', 'C0006', 'C0009', 'C0010', 'C0011', 'C0012', 'C0013', 'C0020', 'C0026', 'C0027', 'C0029', 'C0032', 'C0035'] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total=[60, 30, 20, 50, 40, 30] amount_total=[1800000, 900000, 600000, 900000, 720000, 540000] merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [RULE_EXECUTED] review_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx candidate_id= source_rule=analyze_payment_schedule source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations=4 arithmetic_status=INCONSISTENT percentage_total=113.75 amount_total=5460000 merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [CANDIDATE_CREATED] review_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx candidate_id=TECH-SHARED-GEN-PAY-01 source_rule=payment_formula_inconsistency source_clause_ids=['C0009', 'C0010', 'C0011'] scenario=TECHNOLOGY_LICENSE applicability={'status': 'APPLICABLE', 'applicable': True, 'reason': '鍚堝悓涓殑缁撴瀯鍖栦簨瀹炲叧绯诲凡瑙﹀彂銆?, 'depends_on': []} status= filter_reason=arithmetic status is INCONSISTENT invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [CANDIDATE_FILTERED] review_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx candidate_id=TECH-SHARED-GEN-PAY-01 source_rule= source_clause_ids=[] scenario= applicability={} status=NOT_FILTERED filter_reason=candidate survived applicability, aggregation, evidence and final finding filters invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [CANDIDATE_MERGED] review_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx candidate_id=TECH-SHARED-GEN-PAY-01 source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged=True finding_id=RF-020 final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [FINAL_RISK] review_id=CR-20260918-134010-E35CEA filename=27 涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓.docx candidate_id=TECH-SHARED-GEN-PAY-01 source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id=RF-020 final_present=True rendered=True
+WARNING  routers.review_v2:review_v2.py:1556 [TRACE_REVIEW_V2] pid=22008 pipeline=canonical-review-v2-production-6.4 classifier=technical-transaction-classifier-v3-single-source evaluator=canonical-review-evaluator-6.4-single-classification ruleset=review-v2-rules-quality3-2026-08-11 entry=F:\ai\Sage\backend\routers\review_v2.py:1382 engine=F:\ai\Sage\backend\review_v2\engine.py:52747 subtype=TECHNOLOGY_LICENSE classifier_executions=1 registry_id=2165130602992 evidence_impl=technical-consulting-evidence-v2.1-active-path doc_hash=33dc23cf0f053d812b4aa7df7f470255669d43900a88dc4d949408046cb6211c confidentiality=True
+INFO     routers.review_v2:review_v2.py:1576 [REVIEW_RELEASE_GATE] review_id=CR-20260918-134010-E35CEA pid=22008 runtime=CURRENT status=BLOCKED failures=['COVERAGE_SENTENCE_CONSISTENCY_GATE', 'REVIEW_EVIDENCE_ELEMENT_MISMATCH', 'RISK_CLAUSE_REQUIRES_AFFIRMATIVE_RISK_EVIDENCE', 'CROSS_RULE_CANONICAL_FACT_CONSISTENCY', 'NARRATIVE_EVIDENCE_GATE', 'REPORT_ELEMENT_EVIDENCE_POLLUTION', 'REPORT_ELEMENT_EVIDENCE_POLLUTION', 'REPORT_ELEMENT_EVIDENCE_POLLUTION', 'REPORT_ELEMENT_EVIDENCE_POLLUTION', 'NARRATIVE_EVIDENCE_GATE', 'EXACT_ELEMENT_REPORT_INVARIANT', 'EVIDENCE_PROPOSITION_MATCH_GATE', 'CLAUSE_NODE_CONSISTENCY_GATE']
+_____________ test_current_patent_license_report_and_release_gate _____________
+
+    def test_current_patent_license_report_and_release_gate():
+        fixture = next((Path(__file__).resolve().parents[2] / "test_data").glob("27*.docx"))
+        text = "\n".join(p.text for p in Document(fixture).paragraphs)
+        result = review_contract_v2(text, "technology", use_llm=False, include_low_risk=True,
+                                    profile=UserRiskProfile(user_identity="琚鍙柟"))
+        item = next(row for row in result["items"] if row["item_id"] == "TC-12-02")
+        assert item["coverage_status"] == "閮ㄥ垎瑕嗙洊"
+        assert item["issue_type"] == "PARTIAL"
+        rows = {row["element_id"]: row for row in item["coverage_elements"]}
+        for key in ("notification_requirement", "notification_deadline", "licensor_participation", "defense_control", "lawyer_selection", "settlement_authority", "settlement_non_prejudice", "license_cure"):
+            assert rows[key]["status"] == "MISSING"
+            assert not rows[key]["evidence_ids"]
+        for row in rows.values():
+            if row["status"] == "COVERED":
+                assert row["supporting_evidence"]
+                assert all(fact["location"] == "绗崄鏉＄1椤? for fact in row["supporting_evidence"])
+>       assert result["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_claim_response_exact_evidence_binding.py:189: AssertionError
+_ test_material_list_in_body_preserves_types_and_reports_only_remaining_delivery_metadata _
+
+    def test_material_list_in_body_preserves_types_and_reports_only_remaining_delivery_metadata():
+        output = _review("涔欐柟搴斾互鐢靛瓙鏂囦欢鏂瑰紡鍚戠敳鏂逛氦浠樹笓鍒╄瘉涔︺€佽鏄庝功銆佹潈鍒╄姹備功鍙婂疄鏂芥妧鏈祫鏂欐竻鍗曪紝鐢叉柟绛炬敹纭銆?)
+        item = next(row for row in output["items"] if row["item_id"] == "TC-13-01")
+        assert item["coverage_status"] == "閮ㄥ垎瑕嗙洊"
+        assert "涓昏鎶€鏈祫鏂欐枃浠剁被鍨? not in item["risk_point_description"]
+>       assert "鐗堟湰鍙锋垨鏂囦欢缂栧彿" in item["risk_point_description"]
+E       AssertionError: assert '鐗堟湰鍙锋垨鏂囦欢缂栧彿' in '鏈壘鍒版敮鎸佷换浣曞繀瑕佽绱犵殑鍙畾浣嶆鍚戣瘉鎹紝涓嶈兘璁ゅ畾閮ㄥ垎瑕嗙洊銆?
+
+backend\tests\test_technology_semantic_polarity_and_finding_consistency.py:125: AssertionError
+______ test_vague_material_obligation_reports_specific_missing_elements _______
+
+    def test_vague_material_obligation_reports_specific_missing_elements():
+        output = _review("涔欐柟搴旀彁渚涚浉鍏虫妧鏈祫鏂欍€?)
+        item = next(row for row in output["items"] if row["item_id"] == "TC-13-01")
+        assert item["coverage_status"] == "閮ㄥ垎瑕嗙洊"
+>       assert "鏈垪涓句富瑕佹妧鏈祫鏂欐枃浠剁被鍨? in item["risk_point_description"]
+E       AssertionError: assert '鏈垪涓句富瑕佹妧鏈祫鏂欐枃浠剁被鍨? in '鏈壘鍒版敮鎸佷换浣曞繀瑕佽绱犵殑鍙畾浣嶆鍚戣瘉鎹紝涓嶈兘璁ゅ畾閮ㄥ垎瑕嗙洊銆?
+
+backend\tests\test_technology_semantic_polarity_and_finding_consistency.py:133: AssertionError
+____ test_follow_on_improvement_clauses_are_recalled_and_split_by_element _____
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_follow_on_improvement_clauses_are_recalled_and_split_by_element(review: dict):
+        by_id = {row["item_id"]: row for row in review["items"]}
+    
+>       assert by_id["TC-10-01"]["coverage_status"] == "閫氳繃"
+E       AssertionError: assert '寰呮牳楠? == '閫氳繃'
+E         
+E         - 閫氳繃
+E         + 寰呮牳楠?
+
+backend\tests\test_current_patent_license_evidence_recall.py:74: AssertionError
+_____ test_material_schedule_and_handover_confirmation_are_positive_facts _____
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_material_schedule_and_handover_confirmation_are_positive_facts(review: dict):
+        item = next(row for row in review["items"] if row["item_id"] == "TC-13-01")
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+    
+        assert item["coverage_status"] == "閮ㄥ垎瑕嗙洊"
+>       assert elements["closed_attachment_schedule"]["status"] == "COVERED"
+E       AssertionError: assert 'MISSING' == 'COVERED'
+E         
+E         - COVERED
+E         + MISSING
+
+backend\tests\test_current_patent_license_evidence_recall.py:96: AssertionError
+_______ test_patent_proof_search_audit_uses_atomic_positive_fact_names ________
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_patent_proof_search_audit_uses_atomic_positive_fact_names(review: dict):
+        by_id = {row["item_id"]: row for row in review["items"]}
+        expected_keys = {
+            "patent_name", "patent_number", "patent_owner", "application_date",
+            "authorization_date", "co_owner", "existing_license", "pledge", "seizure",
+            "annual_fee_status",
+        }
+        for review_id in ("TC-03-04", "TC-13-02"):
+            item = by_id[review_id]
+            elements = {row["element_id"]: row for row in item["coverage_elements"]}
+            objective = item["decision_trace"]["objective_patent_fact_search"]
+            assert item["coverage_status"] == "閮ㄥ垎瑕嗙洊"
+>           assert elements["patent_identity_in_contract"]["status"] == "COVERED"
+E           KeyError: 'patent_identity_in_contract'
+
+backend\tests\test_current_patent_license_evidence_recall.py:128: KeyError
+________ test_patent_proof_partial_summary_lists_only_unresolved_gaps _________
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_patent_proof_partial_summary_lists_only_unresolved_gaps(review: dict):
+        by_id = {row["item_id"]: row for row in review["items"]}
+    
+        for review_id in ("TC-03-04", "TC-13-02"):
+            item = by_id[review_id]
+            assert item["coverage_status"] == "閮ㄥ垎瑕嗙洊"
+>           assert "姝ｆ枃宸茬害瀹氳鍙柟鎸夋椂缂寸撼" not in item["reasoning_summary"]
+E           AssertionError: assert '姝ｆ枃宸茬害瀹氳鍙柟鎸夋椂缂寸撼' not in '宸叉湁閮ㄥ垎瀹夋帓锛涗粛闇€琛ヨ冻...鍙婂畬鏁存潈鍒╃姸鎬佹牳楠屾潗鏂欍€?
+E             
+E             '姝ｆ枃宸茬害瀹氳鍙柟鎸夋椂缂寸撼' is contained here:
+E               宸叉湁閮ㄥ垎瀹夋帓锛涗粛闇€琛ヨ冻锛氫笓鍒╃敵璇锋棩鏈熴€佹鏂囧凡绾﹀畾璁稿彲鏂规寜鏃剁即绾充笓鍒╄垂鐢ㄣ€佺淮鎸佷笓鍒╂湁鏁堝苟灏辨硶寰嬬姸鎬佸彉鍖栦功闈㈤€氱煡锛涘綋鍓嶆湭鎻愪緵瀹為檯缂磋垂鐘舵€佹垨涓撳埄鐧昏鐘舵€佽瘉鏄庛€佸叡鍚屼笓鍒╂潈浜轰俊鎭€佷笓鍒╄川鎶肩櫥璁般€佷笓鍒╂煡灏佷繚鍏ㄣ€併€婁笓鍒╂潈璇佹槑鏂囦欢銆嬮檮浠剁殑瀹為檯鍐呭鍙婂畬鏁存潈鍒╃姸鎬佹牳楠屾潗鏂欍€?
+E             ?                    ++++++++++++
+
+backend\tests\test_current_patent_license_evidence_recall.py:155: AssertionError
+__ test_audit_confidentiality_does_not_cover_general_technical_secret_rules ___
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_audit_confidentiality_does_not_cover_general_technical_secret_rules(review: dict):
+        by_id = {row["item_id"]: row for row in review["items"]}
+    
+        for review_id in ("TC-11-01", "TC-11-02"):
+            item = by_id[review_id]
+>           assert item["coverage_status"] == "INSUFFICIENT_CONTEXT"
+E           AssertionError: assert '寰呮牳楠? == 'INSUFFICIENT_CONTEXT'
+E             
+E             - INSUFFICIENT_CONTEXT
+E             + 寰呮牳楠?
+
+backend\tests\test_current_patent_license_evidence_recall.py:208: AssertionError
+__________ test_major_risks_and_action_counts_share_the_final_result __________
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_major_risks_and_action_counts_share_the_final_result(review: dict):
+        overview = review["final_overview_summary"]
+        findings = review["risk_findings"]
+        dispositions = review["final_dispositions"]
+    
+        assert overview["major_risk"] == sum(row["severity"] in {"HIGH", "CRITICAL"} for row in findings)
+        assert overview["priority_action"] == sum(row["final_action"] == "MUST_CHANGE" for row in dispositions)
+>       assert overview["major_risk"] == 0
+E       assert 1 == 0
+
+backend\tests\test_current_patent_license_evidence_recall.py:230: AssertionError
+_____ test_major_missing_rules_have_transaction_specific_recommendations ______
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_major_missing_rules_have_transaction_specific_recommendations(review: dict):
+        by_id = {row["item_id"]: row for row in review["items"]}
+        over_scope = by_id["TC-07-03"]
+>       assert over_scope["risk_level"] == "浣?
+E       AssertionError: assert '楂? == '浣?
+E         
+E         - 浣?
+E         + 楂?
+
+backend\tests\test_current_patent_license_evidence_recall.py:242: AssertionError
+___ test_confidentiality_liability_inherits_unresolved_family_applicability ___
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_confidentiality_liability_inherits_unresolved_family_applicability(review: dict):
+        item = next(row for row in review["items"] if row["item_id"] == "TC-11-04")
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+        propagation = item["decision_trace"]["confidentiality_family_applicability_propagation"]
+    
+>       assert item["coverage_status"] == "INSUFFICIENT_CONTEXT"
+E       AssertionError: assert '寰呮牳楠? == 'INSUFFICIENT_CONTEXT'
+E         
+E         - INSUFFICIENT_CONTEXT
+E         + 寰呮牳楠?
+
+backend\tests\test_current_patent_license_evidence_recall.py:261: AssertionError
+_______ test_third_party_claim_core_and_advanced_elements_are_separated _______
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_third_party_claim_core_and_advanced_elements_are_separated(review: dict):
+        item = next(row for row in review["items"] if row["item_id"] == "TC-12-02")
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+    
+        assert elements["licensor_participation"]["status"] == "COVERED"
+        assert elements["licensor_participation"]["supporting_evidence"]
+        # An umbrella legal/economic responsibility clause does not separately
+        # enumerate the allocation of claim-handling and defence expenses.
+>       assert elements["damages_allocation"]["status"] == "COVERED"
+E       AssertionError: assert 'MISSING' == 'COVERED'
+E         
+E         - COVERED
+E         + MISSING
+
+backend\tests\test_current_patent_license_evidence_recall.py:278: AssertionError
+________ test_cross_border_patent_license_uses_ordered_import_analysis ________
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_cross_border_patent_license_uses_ordered_import_analysis(review: dict):
+        item = next(row for row in review["items"] if row["item_id"] == "TC-13-04")
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+        evidence_ids = {row["clause_id"] for row in item["evidence_clauses"]}
+    
+        assert elements["cross_border_transaction_direction"]["status"] == "COVERED"
+        assert elements["technology_import_characterization"]["status"] == "COVERED"
+        assert elements["cross_border_transaction_type"]["status"] == "COVERED"
+        assert elements["royalty_payment_method"]["status"] == "COVERED"
+        assert {"C0019", "C0020"} <= evidence_ids
+        trace = item["decision_trace"]["regulatory_reasoning_chain"]
+        assert trace["steps"] == [
+            "璺ㄥ鏂瑰悜", "鎶€鏈繘鍙ｆ垨鍑哄彛", "鍏蜂綋浜ゆ槗绫诲瀷", "鑷敱/闄愬埗/绂佹灞炴€?, "瀵瑰簲绠＄悊璺緞",
+        ]
+        rendered = " ".join((item["reasoning_summary"], item["risk_point_description"], item["suggested_clause_example"]))
+        assert "鎶€鏈繘鍙? in rendered
+>       assert "涓撳埄瀹炴柦璁稿彲" in rendered
+E       AssertionError: assert '涓撳埄瀹炴柦璁稿彲' in '宸茶鐩栵細澧冨璁稿彲鏂瑰悜涓浗琚鍙柟鎻愪緵鎶€鏈殑璺ㄥ鏂瑰悜銆佹妧鏈繘鍙ｄ氦鏄撴柟鍚戙€佽法澧冩妧鏈鍙氦鏄撶被鍨嬶紱灏氶渶鏍搁獙鎴栬ˉ鍏咃細闇€鏌ヨ鐜拌鎶€鏈繘鍑哄彛鐩綍纭鑷敱銆侀檺鍒舵垨绂佹灞炴€с€佺洰褰曞睘鎬у搴旂殑绂佹灞ヨ銆佽繘鍙ｈ鍙垨鍚堝悓鐧昏璺緞銆佹彁鎴愬悎鍚岄娆＄櫥璁板強鍚庣画鍙樻洿鐧?..锛涜ˉ鍏呮槑纭妧鏈繘鍙ｅ悎鍚岀櫥璁板強鍙樻洿鐧昏鐨勫叿浣撳姙鐞嗚矗浠绘柟锛涜ˉ鍏呮槑纭妧鏈繘鍙ｇ浉鍏虫墜缁殑鍔炵悊鍗忎綔涔夊姟锛涜ˉ鍏呮槑纭強鏃舵彁渚涘姙鐞嗘墍闇€鏂囦欢鍜岃祫鏂欑殑涔夊姟锛涜ˉ鍏呮槑纭妧鏈繘鍙ｇ浉鍏虫墜缁殑鍔炵悊鏈熼檺鎴栬妭鐐癸紱琛ュ厖鏄庣‘鍚堝悓涓昏鍐呭鍙樻洿鍚庣殑閲嶆柊鐧昏銆佸妗堟垨璁稿彲鍔炵悊鏈哄埗銆?
+
+backend\tests\test_current_patent_license_evidence_recall.py:303: AssertionError
+____ test_shared_disposal_is_one_canonical_issue_in_the_production_report _____
+
+report = {'contract_type_flow': {'stages': {'request': 'technology', 'canonical': 'technology', 'facts_pipeline': 'technology',...ore_only': False, 'family_status': 'NOT_MIGRATED'}, 'structured_fact_debug': {}, 'employment_rule_adaptation': {}, ...}
+
+    def test_shared_disposal_is_one_canonical_issue_in_the_production_report(report):
+        sources = {"TC-05-03", "TC-11-03"}
+        matches = [f for f in report["risk_findings"] if sources.intersection(f["source_review_ids"])]
+>       assert len(matches) == 1
+E       AssertionError: assert 2 == 1
+E        +  where 2 = len([{'finding_id': 'RF-007', 'risk_group': 'technical_secret_result_rights', 'title': '鎶€鏈瀵嗘垚鏋滀娇鐢ㄨ浆璁?, 'severity': 'MEDIUM',...ding_id': 'RF-012', 'risk_group': 'confidential_material_return_destroy', 'title': '淇濆瘑璧勬枡杩旇繕閿€姣?, 'severity': 'LOW', ...}])
+
+backend\tests\test_entrusted_cross_rule_consistency.py:50: AssertionError
+_____________ test_final_report_passes_all_original_and_new_gates _____________
+
+report = {'contract_type_flow': {'stages': {'request': 'technology', 'canonical': 'technology', 'facts_pipeline': 'technology',...ore_only': False, 'family_status': 'NOT_MIGRATED'}, 'structured_fact_debug': {}, 'employment_rule_adaptation': {}, ...}
+
+    def test_final_report_passes_all_original_and_new_gates(report):
+>       assert report["release_quality_gate"]["status"] == "REPORT_READY", report["release_quality_gate"]
+E       AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'REPORT_ELEMENT_EVIDENCE_POLLUTION', 'finding_id': 'RF-015', 'reaso...': {'status': 'PASS', 'failures': [], 'contract_type': 'technology', 'domain_pack': 'domain-pack-technology-1.0'}, ...}
+E       assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_entrusted_cross_rule_consistency.py:190: AssertionError
+____ test_current_contract_reports_asymmetric_caps_instead_of_missing_cap _____
+
+    def test_current_contract_reports_asymmetric_caps_instead_of_missing_cap():
+        document = Document(str(FIXTURE))
+        contract_text = "\n".join(
+            paragraph.text for paragraph in document.paragraphs if paragraph.text.strip()
+        )
+        review = review_contract_v2(
+            contract_text,
+            "technology",
+            include_low_risk=True,
+            use_llm=False,
+            profile=UserRiskProfile(user_identity="鐢叉柟/琚鍙柟"),
+        )
+        item = next(row for row in review["items"] if row["item_id"] == "TC-12-04")
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+    
+        assert item["title"] == "渚垫潈璧斿伩鍜岃矗浠讳笂闄?
+        assert item["risk_level"] == "楂?
+        assert "鍙屾柟璐ｄ换鑼冨洿鍙婅矗浠讳笂闄愭槑鏄句笉瀵圭瓑" in item["risk_point_description"]
+        assert "鏈缃矗浠讳笂闄? not in item["risk_point_description"]
+>       assert "閲嶆柊骞宠　鍙屾柟璐ｄ换涓婇檺" in item["suggested_clause_example"]
+E       AssertionError: assert '閲嶆柊骞宠　鍙屾柟璐ｄ换涓婇檺' in '寤鸿琛ュ厖鏄庣‘绗笁鏂逛镜鏉冪洿鎺ユ崯澶辨垨鐗瑰畾杩囬敊鎹熷け宸叉湁鍒嗛厤锛涜皟鏁翠互涓嬪凡纭鐨勪笉鍒╁畨鎺掞細璁稿彲鏂硅矗浠讳笂闄愬凡鏄庣‘涓哄凡鏀粯璁稿彲璐圭殑20%锛涜ˉ鍏呮槑纭璁稿彲鏂规壙鎷呯殑渚垫潈鎹熷け璐ｄ换鏈缃€婚涓婇檺锛涜皟鏁翠互涓嬪凡纭鐨勪笉鍒╁畨鎺掞細鍙屾柟璐ｄ换鑼冨洿鍜岃矗浠讳笂闄愭槑鏄句笉瀵圭瓑锛涙槑纭晠鎰忋€侀噸澶ц繃澶卞強鏈姭闇叉潈鍒╃憰鐤电瓑渚嬪锛涙槑纭€€娆俱€佹崯澶辫禂鍋垮拰杩濈害閲戜箣闂寸殑鎶垫墸鎴栧苟鐢ㄥ叧绯伙紱鏄庣‘鍚勯」渚垫潈鏁戞祹鏄惁绱閫傜敤銆?
+
+backend\tests\test_patent_license_liability_caps.py:105: AssertionError
+___ test_third_party_claim_registry_preserves_notice_cost_direction_and_cap ___
+
+patent_license_text = '涓撳埄瀹炴柦璁稿彲鍚堝悓\n鍚堝悓缂栧彿锛歅L-2026-1020-01\n璁稿彲鏂癸細涓婃捣鍚景鏅鸿兘瑁呭绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310000XXXXXXXXXX\n浣忔墍鍦帮細涓婃捣甯傛郸涓滄柊鍖哄垱鏂板ぇ閬?8鍙穃n娉曞畾浠ｈ〃浜猴細寮犳槑杩淺n琚鍙柟锛?..鍜岀數瀛愭枃浠舵牸寮忥紝浠ヨ鍙柟瀹為檯鎻愪緵鍐呭涓哄噯銆俓n闄勪欢浜岋細璁稿彲浜у搧鑼冨洿\n浣跨敤璁稿彲涓撳埄鎴栬€呭寘鍚鍙笓鍒╃浉鍏虫妧鏈柟妗堢殑宸ヤ笟瑙嗚妫€娴嬭澶囥€佹櫤鑳借川妫€璁惧鍙婄浉鍏宠蒋纭欢浜у搧銆俓n濡傝璁稿彲鏂规帹鍑虹殑鏂颁骇鍝佸寘鍚鍙笓鍒╃殑鍏ㄩ儴鎴栭儴鍒嗘妧鏈柟妗堬紝涔熷睘浜庤鍙骇鍝併€?
+
+    def test_third_party_claim_registry_preserves_notice_cost_direction_and_cap(patent_license_text: str):
+        claim = build_technology_fact_registry(patent_license_text)["third_party_claim"]
+    
+        assert claim["notification_requirement"] is True
+        assert claim["notification_deadline"] is True
+>       assert claim["attorney_fee_allocation"] is True
+E       assert False is True
+
+backend\tests\test_patent_license_cross_clause_consistency.py:102: AssertionError
+__ test_full_review_projects_cross_clause_risks_without_stale_missing_facts ___
+
+patent_license_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_full_review_projects_cross_clause_risks_without_stale_missing_facts(patent_license_review: dict):
+        by_id = {row["item_id"]: row for row in patent_license_review["items"]}
+    
+>       assert patent_license_review["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_patent_license_cross_clause_consistency.py:112: AssertionError
+_ test_third_party_claim_atomic_states_do_not_relabel_existing_terms_as_missing _
+
+patent_license_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_third_party_claim_atomic_states_do_not_relabel_existing_terms_as_missing(patent_license_review: dict):
+        claim = next(row for row in patent_license_review["items"] if row["item_id"] == "TC-12-02")
+        elements = {row["element_id"]: row for row in claim["coverage_elements"]}
+    
+        assert elements["notification_requirement"]["status"] == "COVERED"
+        assert elements["notification_deadline"]["status"] == "COVERED"
+>       assert elements["licensor_participation"]["status"] == "COVERED"
+E       AssertionError: assert 'MISSING' == 'COVERED'
+E         
+E         - COVERED
+E         + MISSING
+
+backend\tests\test_patent_license_cross_clause_consistency.py:228: AssertionError
+______ test_final_report_consumes_the_same_element_truth_as_review_items ______
+
+patent_license_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_final_report_consumes_the_same_element_truth_as_review_items(patent_license_review: dict):
+        report = patent_license_review["result"]
+    
+        assert "鍚堝悓鎬讳环鍏? not in report
+        assert "鏈槑纭€氱煡鏈熼檺銆佹姉杈╂帶鍒? not in report
+        assert "鏈櫥璁扮殑澶勭悊璐ｄ换" not in report
+        assert "琚鍙柟鐙珛鏀硅繘鎴愭灉褰掑睘灏氭湭瑕嗙洊" not in report
+        assert "琚鍙柟鐙珛鏀硅繘鎴愭灉褰掑睘宸叉湁绾﹀畾" not in report
+        assert "涓嶈閲嶅鎵╁啓宸茬粡鏄庣‘鐨勮祫鏂欑被鍨嬨€佷氦浠樻柟寮忋€佹暟閲忓強绛炬敹鏈哄埗" not in report
+        assert "涓庡悎鍚屾€讳环3,000,000鍏冪浉宸?00,000鍏? in report
+>       assert "琚鍙柟鐙珛褰㈡垚鐨勬敼杩涙垚鏋滃強鐭ヨ瘑浜ф潈琚姹傛棤鍋胯浆褰掕鍙柟" in report
+E       AssertionError: assert '琚鍙柟鐙珛褰㈡垚鐨勬敼杩涙垚鏋滃強鐭ヨ瘑浜ф潈琚姹傛棤鍋胯浆褰掕鍙柟' in '# 涓撳埄瀹炴柦璁稿彲鍚堝悓瀹℃煡鎶ュ憡\n\n\n## 涓€銆佸悎鍚屾€讳綋璇勪环\n\n- 瀹℃煡绔嬪満锛氱敳鏂?/ 璁稿彲鏂筡n- 浣跨敤鍦烘櫙锛氫笓鍒╁疄鏂借鍙痋n- 鍚堝悓绫诲瀷锛氭妧鏈悎鍚屸€旀妧鏈鍙悎鍚屸€斾笓鍒╁疄鏂借鍙痋n- 鎬讳綋鍙缃叉€э細寤鸿涓撲笟娉曞緥澶嶆牳鍚庡喅瀹歕n-...鏂瑰瓨鍦ㄦ晠鎰忔垨鑰呴噸澶ц繃澶辩殑锛屽弻鏂逛粛鎸夌収鏈潯绾﹀畾鐨勮矗浠昏寖鍥村鐞嗐€俓n- 绗崄涓夋潯 杩濈害璐ｄ换 [鏀寔锛氳繚绾﹂噾鏍囧噯鍋忛珮鍙婂徃娉曡皟鍑忛闄: 琚鍙柟閫炬湡鏀粯浠讳綍娆鹃」鐨勶紝姣忛€炬湡涓€鏃ワ紝搴旀寜鐓ч€炬湡鏈粯娆鹃噾棰濈殑0.5%鍚戣鍙柟鏀粯杩濈害閲慭n\n---\n'
+
+backend\tests\test_patent_license_cross_clause_consistency.py:263: AssertionError
+_ test_user_visible_themes_merge_the_same_improvement_fact_without_losing_findings _
+
+patent_license_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_user_visible_themes_merge_the_same_improvement_fact_without_losing_findings(
+        patent_license_review: dict,
+    ):
+        themes = patent_license_review["risk_themes"]
+        improvement_theme = next(
+            theme for theme in themes
+            if theme["risk_fingerprint"]["risk_object"] == "IMPROVEMENT_RESULT_RIGHTS"
+            and theme["risk_fingerprint"]["core_fact"] == "FORCED_FREE_TRANSFER_AND_USE_RESTRICTION"
+        )
+    
+>       assert patent_license_review["finding_count"] == 13
+E       assert 19 == 13
+
+backend\tests\test_patent_license_cross_clause_consistency.py:298: AssertionError
+___ test_report_statistics_and_summary_use_the_aggregated_theme_projection ____
+
+patent_license_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_report_statistics_and_summary_use_the_aggregated_theme_projection(
+        patent_license_review: dict,
+    ):
+        report = patent_license_review["result"]
+        theme_summary = patent_license_review["risk_theme_summary"]
+        core_summary = report.split("鏍稿績椋庨櫓鎽樿", 1)[1].split("寤鸿浼樺厛淇敼", 1)[0]
+    
+>       assert theme_summary == {
+            "total": 13,
+            "must_change": 1,
+            "should_change": 10,
+            "optional_improvement": 2,
+            "manual_review": 0,
+        }
+E       AssertionError: assert {'total': 19,...ment': 6, ...} == {'total': 13,...ment': 2, ...}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         {'must_change': 6} != {'must_change': 1}
+E         {'total': 19} != {'total': 13}
+E         {'should_change': 7} != {'should_change': 10}
+E         {'optional_improvement': 6} != {'optional_improvement': 2}
+E         Use -v to get more diff
+
+backend\tests\test_patent_license_cross_clause_consistency.py:337: AssertionError
+______ test_file_api_response_schema_preserves_user_visible_risk_themes _______
+
+patent_license_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_file_api_response_schema_preserves_user_visible_risk_themes(
+        patent_license_review: dict,
+    ):
+        public_response = ReviewV2Result(**patent_license_review).model_dump()
+    
+>       assert public_response["risk_theme_count"] == 13
+E       assert 19 == 13
+
+backend\tests\test_patent_license_cross_clause_consistency.py:366: AssertionError
+_____________ test_same_contract_baseline_counts_and_release_gate _____________
+
+result = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_same_contract_baseline_counts_and_release_gate(result):
+>       assert result["risk_theme_count"] == 23
+E       assert 24 == 23
+
+backend\tests\test_patent_license_theme_recommendation_economics.py:35: AssertionError
+_____________ test_route_payment_and_partial_facts_do_not_regress _____________
+
+result = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_route_payment_and_partial_facts_do_not_regress(result):
+        context = str(result["report_context"])
+        assert "涓撳埄瀹炴柦璁稿彲" in context and "濮旀墭寮€鍙? in context
+        payment = review(result, "GEN-PAY-01")["reasoning_summary"]
+        assert all(term in payment for term in ("110%", "120%", "5,460,000", "660,000"))
+        material = review(result, "TC-13-01")
+>       method = next(row for row in material["coverage_elements"] if row["element_id"] == "delivery_method")
+E       StopIteration
+
+backend\tests\test_patent_license_theme_recommendation_economics.py:176: StopIteration
+___________ test_production_route_confidentiality_truth_is_covered ____________
+
+uploaded_report = {'contract_type_flow': {'stages': {'request': 'technology', 'canonical': 'technology', 'facts_pipeline': 'technology',...ore_only': False, 'family_status': 'NOT_MIGRATED'}, 'structured_fact_debug': {}, 'employment_rule_adaptation': {}, ...}
+
+    def test_production_route_confidentiality_truth_is_covered(uploaded_report):
+        item = next(i for i in uploaded_report['items'] if i['item_id'] == 'TC-11-02')
+>       assert item['coverage_status'] == '閫氳繃'
+E       AssertionError: assert '閮ㄥ垎瑕嗙洊' == '閫氳繃'
+E         
+E         - 閫氳繃
+E         + 閮ㄥ垎瑕嗙洊
+
+backend\tests\test_technology_exact_truth_pipeline.py:187: AssertionError
+---------------------------- Captured stderr setup ----------------------------
+2026-09-18 13:44:32 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=source_document used=True chars=4165 compact_chars=3954 paragraphs=185 sha256=7661f7e4203174627fd2d874919f99a625b093d97d7f9060fc7df45136d3ea00 head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙锋硶瀹氫唬琛ㄤ汉锛氭灄鑷磋繙\n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙锋硶瀹氫唬琛ㄤ汉锛氳缁碶n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒涓氬悎鍚岄闄╂櫤' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+2026-09-18 13:44:32 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=extracted_full_text used=True chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+2026-09-18 13:44:32 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=normalized_full_text used=True chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+2026-09-18 13:44:32 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=classifier_input used=False chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+2026-09-18 13:44:32 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=clause_extraction_input used=False chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+2026-09-18 13:44:32 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=rule_engine_input used=False chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+2026-09-18 13:44:32 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=search_audit_input used=False chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+2026-09-18 13:44:32 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY_GATE] trace_id= filename=original.docx status=PASS failures=[] anchors={'涓撳埄鎶€鏈?: {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '璁稿彲鏂?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '鎺ュ彈鏂?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '闈炵嫭鍗?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '鎻愭垚璐?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓撳埄璧勬枡': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓浗鍥介檯缁忔祹璐告槗浠茶濮斿憳浼?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓嶅彲鎶楀姏': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '涓撳埄澶辨晥': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓撳埄璐圭敤': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '渚垫潈': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': None, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+2026-09-18 13:44:49 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134432-AED3D9 filename=original.docx stage=source_document used=True chars=4165 compact_chars=3954 paragraphs=185 sha256=7661f7e4203174627fd2d874919f99a625b093d97d7f9060fc7df45136d3ea00 head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙锋硶瀹氫唬琛ㄤ汉锛氭灄鑷磋繙\n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙锋硶瀹氫唬琛ㄤ汉锛氳缁碶n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒涓氬悎鍚岄闄╂櫤' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+2026-09-18 13:44:49 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134432-AED3D9 filename=original.docx stage=extracted_full_text used=True chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+2026-09-18 13:44:49 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134432-AED3D9 filename=original.docx stage=normalized_full_text used=True chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+2026-09-18 13:44:49 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134432-AED3D9 filename=original.docx stage=classifier_input used=True chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+2026-09-18 13:44:49 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134432-AED3D9 filename=original.docx stage=clause_extraction_input used=True chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+2026-09-18 13:44:49 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134432-AED3D9 filename=original.docx stage=rule_engine_input used=True chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+2026-09-18 13:44:49 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134432-AED3D9 filename=original.docx stage=search_audit_input used=True chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+2026-09-18 13:44:49 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134432-AED3D9 filename=original.docx stage=clause_extraction_output used=True chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+2026-09-18 13:44:49 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY_GATE] trace_id=CR-20260918-134432-AED3D9 filename=original.docx status=PASS failures=[] anchors={'涓撳埄鎶€鏈?: {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '璁稿彲鏂?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '鎺ュ彈鏂?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '闈炵嫭鍗?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '鎻愭垚璐?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓撳埄璧勬枡': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓浗鍥介檯缁忔祹璐告槗浠茶濮斿憳浼?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓嶅彲鎶楀姏': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '涓撳埄澶辨晥': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓撳埄璐圭敤': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '渚垫潈': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': 1.0, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+2026-09-18 13:44:49 - routers.review_v2 - WARNING - [unknown] - [FACT] review_id=CR-20260918-134432-AED3D9 filename=original.docx candidate_id= source_rule= source_clause_ids=['C0008', 'C0020', 'C0022'] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total=[30, 40, 25, 5] amount_total=[144000, 192000, 120000, 24000] merged= finding_id= final_present= rendered=
+2026-09-18 13:44:49 - routers.review_v2 - WARNING - [unknown] - [RULE_EXECUTED] review_id=CR-20260918-134432-AED3D9 filename=original.docx candidate_id= source_rule=analyze_payment_schedule source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations=4 arithmetic_status=INSUFFICIENT_DATA percentage_total=100 amount_total=480000 merged= finding_id= final_present= rendered=
+2026-09-18 13:44:49 - routers.review_v2 - WARNING - [unknown] - [CANDIDATE_CREATED] review_id=CR-20260918-134432-AED3D9 filename=original.docx candidate_id=PAYMENT-315a0af4692f source_rule=payment_formula_inconsistency source_clause_ids=['C0008', 'C0020', 'C0022'] scenario=ENTRUSTED_DEVELOPMENT applicability={} status= filter_reason=arithmetic_status=INSUFFICIENT_DATA; payment_formula_inconsistency signal was false invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+2026-09-18 13:44:49 - routers.review_v2 - WARNING - [unknown] - [CANDIDATE_FILTERED] review_id=CR-20260918-134432-AED3D9 filename=original.docx candidate_id=PAYMENT-315a0af4692f source_rule= source_clause_ids=[] scenario= applicability={} status=NOT_APPLICABLE_NO_CANDIDATE filter_reason=arithmetic_status=INSUFFICIENT_DATA; payment_formula_inconsistency signal was false invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+2026-09-18 13:44:49 - routers.review_v2 - WARNING - [unknown] - [CANDIDATE_MERGED] review_id=CR-20260918-134432-AED3D9 filename=original.docx candidate_id=PAYMENT-315a0af4692f source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged=False finding_id= final_present= rendered=
+2026-09-18 13:44:49 - routers.review_v2 - WARNING - [unknown] - [FINAL_RISK] review_id=CR-20260918-134432-AED3D9 filename=original.docx candidate_id=PAYMENT-315a0af4692f source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present=False rendered=False
+2026-09-18 13:44:49 - routers.review_v2 - WARNING - [unknown] - [TRACE_REVIEW_V2] pid=22008 pipeline=canonical-review-v2-production-6.4 classifier=technical-transaction-classifier-v3-single-source evaluator=canonical-review-evaluator-6.4-single-classification ruleset=review-v2-rules-quality3-2026-08-11 entry=F:\ai\Sage\backend\routers\review_v2.py:1382 engine=F:\ai\Sage\backend\review_v2\engine.py:52747 subtype=ENTRUSTED_DEVELOPMENT classifier_executions=1 registry_id=2165130602992 evidence_impl=technical-consulting-evidence-v2.1-active-path doc_hash=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d confidentiality=True
+2026-09-18 13:44:49 - routers.review_v2 - INFO - [unknown] - [REVIEW_RELEASE_GATE] review_id=CR-20260918-134432-AED3D9 pid=22008 runtime=CURRENT status=REPORT_READY failures=[]
+2026-09-18 13:44:49 - httpx - INFO - [unknown] - HTTP Request: POST http://testserver/review-v2/file "HTTP/1.1 200 OK"
+----------------------------- Captured log setup ------------------------------
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=source_document used=True chars=4165 compact_chars=3954 paragraphs=185 sha256=7661f7e4203174627fd2d874919f99a625b093d97d7f9060fc7df45136d3ea00 head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙锋硶瀹氫唬琛ㄤ汉锛氭灄鑷磋繙\n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙锋硶瀹氫唬琛ㄤ汉锛氳缁碶n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒涓氬悎鍚岄闄╂櫤' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=extracted_full_text used=True chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=normalized_full_text used=True chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=classifier_input used=False chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=clause_extraction_input used=False chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=rule_engine_input used=False chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=original.docx stage=search_audit_input used=False chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+WARNING  routers.review_v2:input_integrity.py:291 [REVIEW_INPUT_INTEGRITY_GATE] trace_id= filename=original.docx status=PASS failures=[] anchors={'涓撳埄鎶€鏈?: {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '璁稿彲鏂?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '鎺ュ彈鏂?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '闈炵嫭鍗?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '鎻愭垚璐?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓撳埄璧勬枡': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓浗鍥介檯缁忔祹璐告槗浠茶濮斿憳浼?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓嶅彲鎶楀姏': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '涓撳埄澶辨晥': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓撳埄璐圭敤': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '渚垫潈': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': None, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134432-AED3D9 filename=original.docx stage=source_document used=True chars=4165 compact_chars=3954 paragraphs=185 sha256=7661f7e4203174627fd2d874919f99a625b093d97d7f9060fc7df45136d3ea00 head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙锋硶瀹氫唬琛ㄤ汉锛氭灄鑷磋繙\n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙锋硶瀹氫唬琛ㄤ汉锛氳缁碶n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒涓氬悎鍚岄闄╂櫤' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134432-AED3D9 filename=original.docx stage=extracted_full_text used=True chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134432-AED3D9 filename=original.docx stage=normalized_full_text used=True chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134432-AED3D9 filename=original.docx stage=classifier_input used=True chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134432-AED3D9 filename=original.docx stage=clause_extraction_input used=True chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134432-AED3D9 filename=original.docx stage=rule_engine_input used=True chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134432-AED3D9 filename=original.docx stage=search_audit_input used=True chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134432-AED3D9 filename=original.docx stage=clause_extraction_output used=True chars=4171 compact_chars=3954 paragraphs=191 sha256=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d head='鎶€鏈鎵樺紑鍙戝悎鍚孿n鍚堝悓缂栧彿锛歍D-2026-0914-02\n鐢叉柟锛堝鎵樻柟锛夛細涓婃捣琛＄瓥浼佷笟绠＄悊绉戞妧鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA2XXXXXXX\n浣忔墍锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?88鍙穃n娉曞畾浠ｈ〃浜猴細鏋楄嚧杩淺n涔欐柟锛堝彈鎵樺紑鍙戞柟锛夛細鍗椾含鐭╅樀鏅鸿兘杞欢鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320105MA3XXXXXXX\n浣忔墍锛氭睙鑻忕渷鍗椾含甯傚缓閭哄尯姹熶笢涓矾268鍙穃n娉曞畾浠ｈ〃浜猴細璁哥淮\n閴翠簬鐢叉柟鎷熷缓璁句竴濂椾紒涓氬悎鍚屽鏌ヤ笌椋庨櫓绠＄悊绯荤粺锛屼箼鏂瑰叿澶囦汉宸ユ櫤鑳姐€佽嚜鐒惰瑷€澶勭悊鍙婅蒋浠剁郴缁熺爺鍙戣兘鍔涳紝鍙屾柟渚濇嵁銆婁腑鍗庝汉姘戝叡鍜屽浗姘戞硶鍏搞€嬬瓑娉曞緥娉曡锛屽氨鐢叉柟濮旀墭涔欐柟瀹屾垚鐩稿叧鎶€鏈紑鍙戜簨椤硅揪鎴愬涓嬪崗璁€俓n绗竴鏉?椤圭洰鍚嶇О\n椤圭洰鍚嶇О锛氫紒' tail='浠ヤ綔涓洪渶姹傜‘璁ゃ€佺増鏈‘璁ゅ拰闂鍙嶉渚濇嵁銆俓n浣嗘秹鍙婂悎鍚屼环娆俱€佺煡璇嗕骇鏉冨綊灞炪€佽禂鍋胯矗浠诲強鍚堝悓瑙ｉ櫎鏉′欢鐨勯噸澶у彉鏇达紝搴旂敱鍙屾柟鍙﹁绛剧讲涔﹂潰鏂囦欢銆俓n绗簩鍗佷簩鏉?浜夎瑙ｅ喅\n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍥犳湰鍚堝悓浜х敓浜夎锛屽弻鏂瑰簲棣栧厛鍗忓晢瑙ｅ喅銆俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰彲鍚戠敳鏂逛綇鎵€鍦版湁绠¤緰鏉冪殑浜烘皯娉曢櫌鎻愯捣璇夎銆俓n绗簩鍗佷笁鏉?鍚堝悓鐢熸晥\n鏈悎鍚岃嚜鍙屾柟鐩栫珷涔嬫棩璧风敓鏁堛€俓n鏈悎鍚屼竴寮忚倖浠斤紝鐢蹭箼鍙屾柟鍚勬墽璐颁唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€俓n鐢叉柟锛氫笂娴疯　绛栦紒涓氱鐞嗙鎶€鏈夐檺鍏徃\n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃n涔欐柟锛氬崡浜煩闃垫櫤鑳借蒋浠舵湁闄愬叕鍙竆n鎺堟潈浠ｈ〃锛歘___________\n绛剧讲鏃ユ湡锛?026骞?0鏈?鏃?
+WARNING  routers.review_v2:input_integrity.py:291 [REVIEW_INPUT_INTEGRITY_GATE] trace_id=CR-20260918-134432-AED3D9 filename=original.docx status=PASS failures=[] anchors={'涓撳埄鎶€鏈?: {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '璁稿彲鏂?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '鎺ュ彈鏂?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '闈炵嫭鍗?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '鎻愭垚璐?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓撳埄璧勬枡': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓浗鍥介檯缁忔祹璐告槗浠茶濮斿憳浼?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓嶅彲鎶楀姏': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '涓撳埄澶辨晥': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓撳埄璐圭敤': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '渚垫潈': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': 1.0, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+WARNING  routers.review_v2:review_v2.py:1527 [FACT] review_id=CR-20260918-134432-AED3D9 filename=original.docx candidate_id= source_rule= source_clause_ids=['C0008', 'C0020', 'C0022'] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total=[30, 40, 25, 5] amount_total=[144000, 192000, 120000, 24000] merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [RULE_EXECUTED] review_id=CR-20260918-134432-AED3D9 filename=original.docx candidate_id= source_rule=analyze_payment_schedule source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations=4 arithmetic_status=INSUFFICIENT_DATA percentage_total=100 amount_total=480000 merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [CANDIDATE_CREATED] review_id=CR-20260918-134432-AED3D9 filename=original.docx candidate_id=PAYMENT-315a0af4692f source_rule=payment_formula_inconsistency source_clause_ids=['C0008', 'C0020', 'C0022'] scenario=ENTRUSTED_DEVELOPMENT applicability={} status= filter_reason=arithmetic_status=INSUFFICIENT_DATA; payment_formula_inconsistency signal was false invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [CANDIDATE_FILTERED] review_id=CR-20260918-134432-AED3D9 filename=original.docx candidate_id=PAYMENT-315a0af4692f source_rule= source_clause_ids=[] scenario= applicability={} status=NOT_APPLICABLE_NO_CANDIDATE filter_reason=arithmetic_status=INSUFFICIENT_DATA; payment_formula_inconsistency signal was false invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [CANDIDATE_MERGED] review_id=CR-20260918-134432-AED3D9 filename=original.docx candidate_id=PAYMENT-315a0af4692f source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged=False finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [FINAL_RISK] review_id=CR-20260918-134432-AED3D9 filename=original.docx candidate_id=PAYMENT-315a0af4692f source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present=False rendered=False
+WARNING  routers.review_v2:review_v2.py:1556 [TRACE_REVIEW_V2] pid=22008 pipeline=canonical-review-v2-production-6.4 classifier=technical-transaction-classifier-v3-single-source evaluator=canonical-review-evaluator-6.4-single-classification ruleset=review-v2-rules-quality3-2026-08-11 entry=F:\ai\Sage\backend\routers\review_v2.py:1382 engine=F:\ai\Sage\backend\review_v2\engine.py:52747 subtype=ENTRUSTED_DEVELOPMENT classifier_executions=1 registry_id=2165130602992 evidence_impl=technical-consulting-evidence-v2.1-active-path doc_hash=b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d confidentiality=True
+INFO     routers.review_v2:review_v2.py:1576 [REVIEW_RELEASE_GATE] review_id=CR-20260918-134432-AED3D9 pid=22008 runtime=CURRENT status=REPORT_READY failures=[]
+INFO     httpx:_client.py:1038 HTTP Request: POST http://testserver/review-v2/file "HTTP/1.1 200 OK"
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:159
+  F:\ai\Sage\backend\main.py:159: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+backend/tests/test_entrusted_cross_rule_consistency.py::test_shared_disposal_has_the_same_scope_and_remaining_requirements
+backend/tests/test_technology_exact_truth_pipeline.py::test_production_route_confidentiality_truth_is_covered
+backend/tests/test_registered_patent_asset_routing.py::test_actual_patent_upload_routes_and_keeps_source_bound_report
+backend/tests/test_license_report_evidence_boundaries.py::test_disclosed_facts_are_not_residual_audit_targets[TC-03-04]
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_service_acceptance_and_new_result_core_facts_are_not_keyword_passes
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_third_party_claim_direction_changes_between_provider_and_recipient
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_service_result_consequence_survives_finding_aggregation
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_second_service_timeline_is_deterministic_and_binds_only_direct_dates
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_second_service_scene_liability_limit_and_acceptance_disconnect_are_grounded
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_second_service_attachment_acceptance_and_confidentiality_are_scenario_specific
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_service_search_audit_and_material_attachment_follow_current_subtype_facts
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_search_audit_preserves_scalar_scope_and_searches_positive_facts
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_second_service_search_audits_classification_and_screening_are_semantically_consistent
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_service_confidentiality_period_and_scope_bind_direct_confidentiality_clauses
+FAILED backend/tests/test_technical_service_dynamic_roles_and_grounding.py::test_service_provider_confidentiality_breach_narrative_excludes_liability_expansion
+FAILED backend/tests/test_technical_service_report_integrity.py::test_report_uses_final_findings_and_quality_gate_checks_integrity
+FAILED backend/tests/test_technical_service_report_integrity.py::test_quality_gate_blocks_wrong_recommendation_binding
+FAILED backend/tests/test_technical_service_report_integrity.py::test_quality_gate_blocks_incomplete_evidence_bundle_and_missing_detail
+FAILED backend/tests/test_technical_service_report_integrity.py::test_quality_gate_blocks_semantically_invalid_evidence_and_claim_gap
+FAILED backend/tests/test_technical_service_report_integrity.py::test_quality_gate_blocks_review_risk_bundle_projection_mismatch
+FAILED backend/tests/test_technical_service_report_integrity.py::test_quality_gate_blocks_issue_type_partial_and_applicability_conflicts
+FAILED backend/tests/test_technical_service_report_integrity.py::test_quality_gate_allows_theme_projection_without_legacy_truncation_banner
+FAILED backend/tests/test_technology_subject_identity_consistency.py::test_patent_license_granted_transfer_and_application_transfer[27]
+FAILED backend/tests/test_technology_subject_identity_consistency.py::test_patent_license_granted_transfer_and_application_transfer[43]
+FAILED backend/tests/test_technology_subject_identity_consistency.py::test_patent_license_granted_transfer_and_application_transfer[44]
+FAILED backend/tests/test_technology_subject_identity_consistency.py::test_secret_transactions_do_not_acquire_patent_identifier_requirements[38]
+FAILED backend/tests/test_technology_subject_identity_consistency.py::test_secret_transactions_do_not_acquire_patent_identifier_requirements[41]
+FAILED backend/tests/test_technical_service_single_evidence_source.py::test_claim_level_bundles_are_complete_and_deduplicated
+FAILED backend/tests/test_technical_service_single_evidence_source.py::test_issue_types_describe_formula_conflict_validity_and_partial_gap
+FAILED backend/tests/test_technical_service_single_evidence_source.py::test_applicability_display_uses_the_resolved_decision_reason
+FAILED backend/tests/test_industrial_technical_service_routing_regression.py::test_industrial_service_core_risks_survive_route_resolution
+FAILED backend/tests/test_industrial_technical_service_routing_regression.py::test_complete_review_rows_are_unique_and_partial_rows_have_real_gaps
+FAILED backend/tests/test_claim_response_exact_evidence_binding.py::test_file_upload_response_keeps_exact_element_evidence
+FAILED backend/tests/test_claim_response_exact_evidence_binding.py::test_current_patent_license_report_and_release_gate
+FAILED backend/tests/test_technology_semantic_polarity_and_finding_consistency.py::test_material_list_in_body_preserves_types_and_reports_only_remaining_delivery_metadata
+FAILED backend/tests/test_technology_semantic_polarity_and_finding_consistency.py::test_vague_material_obligation_reports_specific_missing_elements
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_follow_on_improvement_clauses_are_recalled_and_split_by_element
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_material_schedule_and_handover_confirmation_are_positive_facts
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_patent_proof_search_audit_uses_atomic_positive_fact_names
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_patent_proof_partial_summary_lists_only_unresolved_gaps
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_audit_confidentiality_does_not_cover_general_technical_secret_rules
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_major_risks_and_action_counts_share_the_final_result
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_major_missing_rules_have_transaction_specific_recommendations
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_confidentiality_liability_inherits_unresolved_family_applicability
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_third_party_claim_core_and_advanced_elements_are_separated
+FAILED backend/tests/test_current_patent_license_evidence_recall.py::test_cross_border_patent_license_uses_ordered_import_analysis
+FAILED backend/tests/test_entrusted_cross_rule_consistency.py::test_shared_disposal_is_one_canonical_issue_in_the_production_report
+FAILED backend/tests/test_entrusted_cross_rule_consistency.py::test_final_report_passes_all_original_and_new_gates
+FAILED backend/tests/test_patent_license_liability_caps.py::test_current_contract_reports_asymmetric_caps_instead_of_missing_cap
+FAILED backend/tests/test_patent_license_cross_clause_consistency.py::test_third_party_claim_registry_preserves_notice_cost_direction_and_cap
+FAILED backend/tests/test_patent_license_cross_clause_consistency.py::test_full_review_projects_cross_clause_risks_without_stale_missing_facts
+FAILED backend/tests/test_patent_license_cross_clause_consistency.py::test_third_party_claim_atomic_states_do_not_relabel_existing_terms_as_missing
+FAILED backend/tests/test_patent_license_cross_clause_consistency.py::test_final_report_consumes_the_same_element_truth_as_review_items
+FAILED backend/tests/test_patent_license_cross_clause_consistency.py::test_user_visible_themes_merge_the_same_improvement_fact_without_losing_findings
+FAILED backend/tests/test_patent_license_cross_clause_consistency.py::test_report_statistics_and_summary_use_the_aggregated_theme_projection
+FAILED backend/tests/test_patent_license_cross_clause_consistency.py::test_file_api_response_schema_preserves_user_visible_risk_themes
+FAILED backend/tests/test_patent_license_theme_recommendation_economics.py::test_same_contract_baseline_counts_and_release_gate
+FAILED backend/tests/test_patent_license_theme_recommendation_economics.py::test_route_payment_and_partial_facts_do_not_regress
+FAILED backend/tests/test_technology_exact_truth_pipeline.py::test_production_route_confidentiality_truth_is_covered
+55 failed, 466 passed, 10 warnings in 1050.62s (0:17:30)

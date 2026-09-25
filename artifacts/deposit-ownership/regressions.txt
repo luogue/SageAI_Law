@@ -1,0 +1,68 @@
+.................................................F...................... [ 47%]
+........................................................................ [ 94%]
+.........                                                                [100%]
+================================== FAILURES ===================================
+____ test_dispatch_final_report_separates_unproven_comparisons_from_risks _____
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002EF8093B190>
+
+    def test_dispatch_final_report_separates_unproven_comparisons_from_risks(monkeypatch):
+        from review_v2 import employment_fact_pipeline as pipeline
+        from review_v2.engine import review_contract_v2
+        text=('劳动合同\n第一条\n雇主招用后派往客户单位，由客户安排工作。\n'
+              '第二条\n岗位属于持续存在的主营业务职位。\n第三条\n相同工作可以采用比客户员工更低的工资。\n'
+              '第四条\n待派阶段工资停发。\n第五条\n不接受任何另派工作即无补偿解约。')
+        cs=parse_contract_clauses(text)
+        fs=[fact(cs,c,v,q) for c,v,q in [
+            ('contract.employment_form','DISPATCH','雇主招用后派往客户单位，由客户安排工作。'),
+            ('dispatch.position_basis','REGULAR_CORE','岗位属于持续存在的主营业务职位。'),
+            ('dispatch.equal_pay','LOWER_ALLOWED','相同工作可以采用比客户员工更低的工资。'),
+            ('dispatch.idle_pay','NONE','待派阶段工资停发。'),
+            ('dispatch.refusal_termination','ANY_OFFER','不接受任何另派工作即无补偿解约。'),
+            ('dispatch.refusal_compensation_waived',True,'不接受任何另派工作即无补偿解约。')]]
+        monkeypatch.setattr(pipeline,'extract',lambda *a,**k:packet(cs,fs))
+        monkeypatch.setattr(pipeline,'verify',verified_packet)
+        result=review_contract_v2(text,'labor',include_low_risk=True)
+        items={r['item_id']:r for r in result['items']}
+>       assert len(items)==21+len(CHECKLIST)
+E       AssertionError: assert 32 == (21 + 10)
+E        +  where 32 = len({'EMP-01-01': {'item_id': 'EMP-01-01', 'node_id': 'employment_identity', 'title': '用工主体与劳动者身份', 'risk_level': '高', ......_id': 'EMP-15-01', 'node_id': 'employment_probation_limit', 'title': '试用期超过法定上限或重复约定', 'risk_level': 'none', ...}, ...})
+E        +  and   10 = len((ReviewCheckpoint(item_id='DSP-01-01', node_id='employment_dispatch_identity', title='派遣主体、岗位与期限', kind='required', ri...ncepts=(), optional_trigger_patterns=(), unless_fact_concepts=(), prerequisite_facts=(), linked_adverse_rules=()), ...))
+
+backend\tests\test_employment_dispatch.py:81: AssertionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_employment_dispatch.py::test_dispatch_final_report_separates_unproven_comparisons_from_risks
+1 failed, 152 passed, 6 warnings in 111.14s (0:01:51)

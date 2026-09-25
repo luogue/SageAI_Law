@@ -1,0 +1,457 @@
+....F.....FFFF...F......F.......FF.....F...F.FFFFFFFFF.F.F..F..FFF...... [ 28%]
+..............F.F..FF................FFFF.......................FF.F.... [ 56%]
+..FFFF.F..FFF...............FF...F..F.......FF.........F................ [ 84%]
+.......................................                                  [100%]
+================================== FAILURES ===================================
+________________ test_consulting_attachments_and_release_gate _________________
+backend\tests\test_technical_consulting_contract_review.py:187: in test_consulting_attachments_and_release_gate
+    assert consulting_review["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+__________ test_consulting_cross_section_evidence_recall_and_binding __________
+backend\tests\test_technical_consulting_contract_review.py:417: in test_consulting_cross_section_evidence_recall_and_binding
+    assert "第七条" in remedy_locations and "第十条" in remedy_locations
+E   AssertionError: assert ('第七条' in '7.2 7.2 7.2 7.2 10.3 10.3 10.3')
+___ test_consulting_report_projects_seven_atomic_findings_into_three_themes ___
+backend\tests\test_technical_consulting_contract_review.py:502: in test_consulting_report_projects_seven_atomic_findings_into_three_themes
+    assert "底层审查发现数：7" in output["result"]
+E   AssertionError: assert '底层审查发现数：7' in '# 技术咨询合同审查报告\n\n\n## 一、合同总体评价\n\n- 审查立场：甲方 / 委托方\n- 使用场景：技术咨询\n- 合同类型：技术合同—技术咨询合同\n- 总体可签署性：可以签署，建议进一步完善\n- 风险主题数（聚合后...论\n- **处理建议**：不适用。\n- 覆盖状态：不适用\n- 【适用说明】：当前文本识别为技术咨询场景，未触发“技术进出口管制附件”的适用条件：仅在合同涉及技术进口、技术出口、跨境许可、跨境交付或数据出境时适用。\n\n---\n'
+____ test_missing_consulting_data_provision_is_low_risk_but_should_change _____
+backend\tests\test_technical_consulting_contract_review.py:536: in test_missing_consulting_data_provision_is_low_risk_but_should_change
+    assert finding["recommendation"] == (
+E   AssertionError: assert '建议明确委托方的合理资料...、因果证明和实际影响范围。' == '建议将委托方的资料提供和...免责仅限于实际受影响范围。'
+E     
+E     - 建议将委托方的资料提供和协作义务限定于开展咨询工作所合理必要的范围；咨询方发现资料缺失、矛盾或不适用时，应及时书面通知并说明具体影响。咨询方主张工期顺延、费用调整或免责的，应证明资料问题与受影响工作之间的因果关系，且顺延、调整或免责仅限于实际受影响范围。
+E     + 建议明确委托方的合理资料和协作范围，以及咨询方发现资料问题后的书面通知、因果证明和实际影响范围。
+________ test_simple_consulting_data_provision_is_partial_not_missing _________
+backend\tests\test_technical_consulting_contract_review.py:576: in test_simple_consulting_data_provision_is_partial_not_missing
+    assert "及时书面通知" in finding["recommendation"]
+E   AssertionError: assert '及时书面通知' in '建议补充明确委托方的合理资料和协作范围尚未完整明确；明确咨询方发现资料问题后的书面通知、具体影响说明，以及主张顺延、费用调整或免责时的因果关系和实际影响范围。'
+_ test_complete_consulting_confidentiality_produces_no_confidentiality_theme __
+backend\tests\test_technical_consulting_contract_review.py:640: in test_complete_consulting_confidentiality_produces_no_confidentiality_theme
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+___ test_consulting_confidentiality_elements_bind_to_actual_clause_evidence ___
+backend\tests\test_technical_consulting_contract_review.py:723: in test_consulting_confidentiality_elements_bind_to_actual_clause_evidence
+    assert "保密信息仅可用于本合同约定的项目目的" in tc1101_finding["issue"]
+E   AssertionError: assert '保密信息仅可用于本合同约定的项目目的' in '仍需补足：未明确涉密人员范围、True、未明确未经许可不得复制保密资料、未明确访问控制、加密等必要安全措施。'
+_ test_latest_consulting_docx_full_regression_has_no_subtype_or_evidence_regression _
+backend\tests\test_technical_consulting_contract_review.py:1048: in test_latest_consulting_docx_full_regression_has_no_subtype_or_evidence_regression
+    assert "合同解除救济" in by_id["TC-11-04"]["risk_point_description"]
+E   AssertionError: assert '合同解除救济' in '已有部分安排；仍需补足：违反保密义务后的解除或其他补救已经约定，但专项损失赔偿机制仍不完整、未约定立即停止披露、未约定立即停止使用、未约定防止继续扩散的补救措施。'
+_________________ test_cooperative_development_classification _________________
+backend\tests\test_cooperative_development_contract_review.py:63: in test_cooperative_development_classification
+    assert cooperative_review["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_______________ test_single_manual_review_does_not_abort_report _______________
+backend\tests\test_cooperative_development_contract_review.py:208: in test_single_manual_review_does_not_abort_report
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+______ test_cooperative_rules_use_operational_facts_and_direct_evidence _______
+backend\tests\test_cooperative_development_contract_review.py:268: in test_cooperative_rules_use_operational_facts_and_direct_evidence
+    assert investment["coverage_status"] == "通过"
+E   AssertionError: assert '缺失' == '通过'
+E     
+E     - 通过
+E     + 缺失
+________ test_final_evidence_covers_each_cooperative_risk_proposition _________
+backend\tests\test_cooperative_development_contract_review.py:425: in test_final_evidence_covers_each_cooperative_risk_proposition
+    liability_cap = findings["indemnity_and_liability_cap"]["evidence_bundle"]["items"]
+E   KeyError: 'indemnity_and_liability_cap'
+_____ test_cross_rule_and_partial_narratives_are_semantically_consistent ______
+backend\tests\test_cooperative_development_contract_review.py:466: in test_cross_rule_and_partial_narratives_are_semantically_consistent
+    assert acceptance["covered_element_ids"] == ["body_acceptance_metrics", "test_method_and_report"]
+E   AssertionError: assert ['acceptance_...ance_metrics'] == ['body_accept...d_and_report']
+E     
+E     At index 0 diff: 'acceptance_test_scene' != 'body_acceptance_metrics'
+E     Use -v to get more diff
+____ test_minimal_cooperative_development_rules_and_report_are_consistent _____
+backend\tests\test_cooperative_development_contract_review.py:507: in test_minimal_cooperative_development_rules_and_report_are_consistent
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_______ test_existing_failure_allocation_is_covered_adverse_not_missing _______
+backend\tests\test_entrusted_development_fact_direction_regressions.py:59: in test_existing_failure_allocation_is_covered_adverse_not_missing
+    assert item["coverage_status"] == "风险条款"
+E   AssertionError: assert '部分覆盖' == '风险条款'
+E     
+E     - 风险条款
+E     + 部分覆盖
+_____ test_general_foreground_ip_does_not_override_specific_patent_right ______
+backend\tests\test_entrusted_development_fact_direction_regressions.py:73: in test_general_foreground_ip_does_not_override_specific_patent_right
+    assert item["issue_type"] == "CONFLICTING"
+E   AssertionError: assert 'PARTIAL' == 'CONFLICTING'
+E     
+E     - CONFLICTING
+E     + PARTIAL
+__________ test_confidentiality_positive_facts_survive_search_audit ___________
+backend\tests\test_entrusted_development_fact_direction_regressions.py:94: in test_confidentiality_positive_facts_survive_search_audit
+    assert elements[element_id]["status"] == "COVERED"
+E   AssertionError: assert 'MISSING' == 'COVERED'
+E     
+E     - COVERED
+E     + MISSING
+___________ test_secondary_data_use_is_an_independent_adverse_risk ____________
+backend\tests\test_entrusted_development_fact_direction_regressions.py:119: in test_secondary_data_use_is_an_independent_adverse_risk
+    assert elements[element_id]["status"] == "ADVERSE"
+E   KeyError: 'performance_purpose_limitation'
+____ test_complete_source_delivery_is_checked_against_unilateral_carveout _____
+backend\tests\test_entrusted_development_fact_direction_regressions.py:129: in test_complete_source_delivery_is_checked_against_unilateral_carveout
+    assert item["issue_type"] == "CONFLICTING"
+E   AssertionError: assert 'PARTIAL' == 'CONFLICTING'
+E     
+E     - CONFLICTING
+E     + PARTIAL
+_ test_developer_controlled_component_risk_keeps_direction_and_procedure_separate _
+backend\tests\test_entrusted_development_fact_direction_regressions.py:142: in test_developer_controlled_component_risk_keeps_direction_and_procedure_separate
+    assert elements["developer_component_selection_control"]["status"] == "COVERED"
+E   KeyError: 'developer_component_selection_control'
+__________ test_project_contact_material_change_authority_is_adverse __________
+backend\tests\test_entrusted_development_fact_direction_regressions.py:175: in test_project_contact_material_change_authority_is_adverse
+    assert elements["electronic_contact_confirmation"]["status"] == "COVERED"
+E   KeyError: 'electronic_contact_confirmation'
+_ test_major_liability_cap_separates_statutory_validity_and_commercial_recovery_risks _
+backend\tests\test_entrusted_development_fact_direction_regressions.py:214: in test_major_liability_cap_separates_statutory_validity_and_commercial_recovery_risks
+    assert commercial["risk_group"] == "entrusted_major_liability_cap"
+E   AssertionError: assert 'indemnity_and_liability_cap' == 'entrusted_ma...liability_cap'
+E     
+E     - entrusted_major_liability_cap
+E     + indemnity_and_liability_cap
+_ test_complex_project_short_deemed_acceptance_preserves_latent_defect_review _
+backend\tests\test_entrusted_development_fact_direction_regressions.py:281: in test_complex_project_short_deemed_acceptance_preserves_latent_defect_review
+    assert elements["deemed_acceptance_clause"]["status"] == "ADVERSE"
+E   KeyError: 'deemed_acceptance_clause'
+____ test_development_failure_full_price_exposure_is_direct_and_quantified ____
+backend\tests\test_entrusted_development_fact_direction_regressions.py:330: in test_development_failure_full_price_exposure_is_direct_and_quantified
+    assert {row["clause_id"] for row in item["evidence_clauses"]} == {"C0003", "C0004"}
+E   AssertionError: assert {'', 'C0003'} == {'C0003', 'C0004'}
+E     
+E     Extra items in the left set:
+E     ''
+E     Extra items in the right set:
+E     'C0004'
+E     Use -v to get more diff
+_____ test_confidentiality_covered_elements_bind_distinct_direct_evidence _____
+backend\tests\test_entrusted_development_fact_direction_regressions.py:348: in test_confidentiality_covered_elements_bind_distinct_direct_evidence
+    obligation_ids = elements["confidentiality_obligation"]["evidence_ids"]
+E   KeyError: 'confidentiality_obligation'
+__ test_liability_cap_reference_alone_does_not_cover_confidentiality_damages __
+backend\tests\test_entrusted_development_fact_direction_regressions.py:366: in test_liability_cap_reference_alone_does_not_cover_confidentiality_damages
+    assert elements["confidentiality_obligation"]["status"] == "COVERED"
+E   KeyError: 'confidentiality_obligation'
+____ test_current_existing_and_retained_license_reduce_full_scope_coverage ____
+backend\tests\test_patent_transfer_acquisition_and_remedies.py:131: in test_current_existing_and_retained_license_reduce_full_scope_coverage
+    assert scope["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '缺失' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 缺失
+__ test_current_contract_passes_release_without_disabling_consistency_checks __
+backend\tests\test_patent_transfer_acquisition_and_remedies.py:144: in test_current_contract_passes_release_without_disabling_consistency_checks
+    assert result["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_ test_current_proof_disclosures_are_atomic_and_never_independently_verified[TC-03-04] _
+backend\tests\test_patent_transfer_acquisition_and_remedies.py:177: in test_current_proof_disclosures_are_atomic_and_never_independently_verified
+    assert elements["patent_invalidity_proceeding_disclosure"]["evidence_ids"] == ["C0010"]
+E   AssertionError: assert ['C0014', 'EV...b0e9c0874968'] == ['C0010']
+E     
+E     At index 0 diff: 'C0014' != 'C0010'
+E     Left contains one more item: 'EV-5622b0e9c0874968'
+E     Use -v to get more diff
+_ test_current_proof_disclosures_are_atomic_and_never_independently_verified[TC-13-02] _
+backend\tests\test_patent_transfer_acquisition_and_remedies.py:177: in test_current_proof_disclosures_are_atomic_and_never_independently_verified
+    assert elements["patent_invalidity_proceeding_disclosure"]["evidence_ids"] == ["C0010"]
+E   AssertionError: assert ['C0014', 'EV...b0e9c0874968'] == ['C0010']
+E     
+E     At index 0 diff: 'C0014' != 'C0010'
+E     Left contains one more item: 'EV-5622b0e9c0874968'
+E     Use -v to get more diff
+______ test_current_file_upload_and_response_schema_preserve_passed_gate ______
+backend\tests\test_patent_transfer_acquisition_and_remedies.py:266: in test_current_file_upload_and_response_schema_preserve_passed_gate
+    assert payload["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+---------------------------- Captured stderr call -----------------------------
+2026-09-14 06:50:00 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 专利权转让合同.docx stage=source_document used=True chars=1913 compact_chars=1839 paragraphs=75 sha256=14a007a074a79b31c3f86b591ff978877d3aad647d05f77890f4ee127028f841 head='合同名称：专利权转让合同\n签订日期：2026年9月5日签订地点：上海市浦东新区有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司统一社会信用代码：91310115MA1K56789X通讯地址：上海市浦东新区张江路1888号法定代表人：陈志远联系人：刘伟电话：021-58886666邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司统一社会信用代码：91320594MA27X12345通讯地址：江苏省苏州市工业园区星湖街328号法定代表人：王海涛联系人：赵敏电话：0512-68889999邮箱：zhaomin@future-ai.com\n一' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+2026-09-14 06:50:00 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 专利权转让合同.docx stage=extracted_full_text used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+2026-09-14 06:50:00 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 专利权转让合同.docx stage=normalized_full_text used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+2026-09-14 06:50:00 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 专利权转让合同.docx stage=classifier_input used=False chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+2026-09-14 06:50:00 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 专利权转让合同.docx stage=clause_extraction_input used=False chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+2026-09-14 06:50:00 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 专利权转让合同.docx stage=rule_engine_input used=False chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+2026-09-14 06:50:00 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 专利权转让合同.docx stage=search_audit_input used=False chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+2026-09-14 06:50:00 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY_GATE] trace_id= filename=43 专利权转让合同.docx status=PASS failures=[] anchors={'专利技术': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '许可方': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '接受方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '非独占': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '提成费': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '专利资料': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '中国国际经济贸易仲裁委员会': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '不可抗力': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '专利失效': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '专利费用': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '侵权': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': None, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+2026-09-14 06:50:09 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx stage=source_document used=True chars=1913 compact_chars=1839 paragraphs=75 sha256=14a007a074a79b31c3f86b591ff978877d3aad647d05f77890f4ee127028f841 head='合同名称：专利权转让合同\n签订日期：2026年9月5日签订地点：上海市浦东新区有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司统一社会信用代码：91310115MA1K56789X通讯地址：上海市浦东新区张江路1888号法定代表人：陈志远联系人：刘伟电话：021-58886666邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司统一社会信用代码：91320594MA27X12345通讯地址：江苏省苏州市工业园区星湖街328号法定代表人：王海涛联系人：赵敏电话：0512-68889999邮箱：zhaomin@future-ai.com\n一' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+2026-09-14 06:50:09 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx stage=extracted_full_text used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+2026-09-14 06:50:09 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx stage=normalized_full_text used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+2026-09-14 06:50:09 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx stage=classifier_input used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+2026-09-14 06:50:09 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx stage=clause_extraction_input used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+2026-09-14 06:50:09 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx stage=rule_engine_input used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+2026-09-14 06:50:09 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx stage=search_audit_input used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+2026-09-14 06:50:09 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx stage=clause_extraction_output used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+2026-09-14 06:50:09 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY_GATE] trace_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx status=PASS failures=[] anchors={'专利技术': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '许可方': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '接受方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '非独占': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '提成费': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '专利资料': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '中国国际经济贸易仲裁委员会': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '不可抗力': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '专利失效': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '专利费用': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '侵权': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': 1.0, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+2026-09-14 06:50:09 - routers.review_v2 - WARNING - [unknown] - [FACT] review_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx candidate_id= source_rule= source_clause_ids=['C0003', 'C0008', 'C0017'] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total=[None, None] amount_total=[1400000, 600000] merged= finding_id= final_present= rendered=
+2026-09-14 06:50:09 - routers.review_v2 - WARNING - [unknown] - [RULE_EXECUTED] review_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx candidate_id= source_rule=analyze_payment_schedule source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations=6 arithmetic_status=INSUFFICIENT_DATA percentage_total=0 amount_total=2000000 merged= finding_id= final_present= rendered=
+2026-09-14 06:50:09 - routers.review_v2 - WARNING - [unknown] - [CANDIDATE_CREATED] review_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx candidate_id=PAYMENT-c8bf207a0880 source_rule=payment_formula_inconsistency source_clause_ids=['C0003', 'C0008', 'C0017'] scenario=TECHNOLOGY_TRANSFER applicability={} status= filter_reason=arithmetic_status=INSUFFICIENT_DATA; payment_formula_inconsistency signal was false invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+2026-09-14 06:50:09 - routers.review_v2 - WARNING - [unknown] - [CANDIDATE_FILTERED] review_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx candidate_id=PAYMENT-c8bf207a0880 source_rule= source_clause_ids=[] scenario= applicability={} status=NOT_APPLICABLE_NO_CANDIDATE filter_reason=arithmetic_status=INSUFFICIENT_DATA; payment_formula_inconsistency signal was false invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+2026-09-14 06:50:09 - routers.review_v2 - WARNING - [unknown] - [CANDIDATE_MERGED] review_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx candidate_id=PAYMENT-c8bf207a0880 source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged=False finding_id= final_present= rendered=
+2026-09-14 06:50:09 - routers.review_v2 - WARNING - [unknown] - [FINAL_RISK] review_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx candidate_id=PAYMENT-c8bf207a0880 source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present=False rendered=False
+2026-09-14 06:50:09 - routers.review_v2 - WARNING - [unknown] - [TRACE_REVIEW_V2] pid=16664 pipeline=canonical-review-v2-production-6.4 classifier=technical-transaction-classifier-v3-single-source evaluator=canonical-review-evaluator-6.4-single-classification ruleset=review-v2-rules-quality3-2026-08-11 entry=F:\ai\Sage\backend\routers\review_v2.py:1382 engine=F:\ai\Sage\backend\review_v2\engine.py:51991 subtype=TECHNOLOGY_TRANSFER classifier_executions=1 registry_id=1655705639792 evidence_impl=technical-consulting-evidence-v2.1-active-path doc_hash=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 confidentiality=True
+2026-09-14 06:50:09 - routers.review_v2 - INFO - [unknown] - [REVIEW_RELEASE_GATE] review_id=CR-20260914-065000-128108 pid=16664 runtime=CURRENT status=BLOCKED failures=['MISSING_WITH_POSITIVE_EVIDENCE', 'NARRATIVE_EVIDENCE_GATE', 'NARRATIVE_EVIDENCE_GATE', 'EXACT_ELEMENT_REPORT_INVARIANT']
+------------------------------ Captured log call ------------------------------
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 专利权转让合同.docx stage=source_document used=True chars=1913 compact_chars=1839 paragraphs=75 sha256=14a007a074a79b31c3f86b591ff978877d3aad647d05f77890f4ee127028f841 head='合同名称：专利权转让合同\n签订日期：2026年9月5日签订地点：上海市浦东新区有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司统一社会信用代码：91310115MA1K56789X通讯地址：上海市浦东新区张江路1888号法定代表人：陈志远联系人：刘伟电话：021-58886666邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司统一社会信用代码：91320594MA27X12345通讯地址：江苏省苏州市工业园区星湖街328号法定代表人：王海涛联系人：赵敏电话：0512-68889999邮箱：zhaomin@future-ai.com\n一' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 专利权转让合同.docx stage=extracted_full_text used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 专利权转让合同.docx stage=normalized_full_text used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 专利权转让合同.docx stage=classifier_input used=False chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 专利权转让合同.docx stage=clause_extraction_input used=False chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 专利权转让合同.docx stage=rule_engine_input used=False chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 专利权转让合同.docx stage=search_audit_input used=False chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+WARNING  routers.review_v2:input_integrity.py:291 [REVIEW_INPUT_INTEGRITY_GATE] trace_id= filename=43 专利权转让合同.docx status=PASS failures=[] anchors={'专利技术': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '许可方': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '接受方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '非独占': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '提成费': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '专利资料': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '中国国际经济贸易仲裁委员会': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '不可抗力': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '专利失效': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '专利费用': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '侵权': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': None, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx stage=source_document used=True chars=1913 compact_chars=1839 paragraphs=75 sha256=14a007a074a79b31c3f86b591ff978877d3aad647d05f77890f4ee127028f841 head='合同名称：专利权转让合同\n签订日期：2026年9月5日签订地点：上海市浦东新区有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司统一社会信用代码：91310115MA1K56789X通讯地址：上海市浦东新区张江路1888号法定代表人：陈志远联系人：刘伟电话：021-58886666邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司统一社会信用代码：91320594MA27X12345通讯地址：江苏省苏州市工业园区星湖街328号法定代表人：王海涛联系人：赵敏电话：0512-68889999邮箱：zhaomin@future-ai.com\n一' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx stage=extracted_full_text used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx stage=normalized_full_text used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx stage=classifier_input used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx stage=clause_extraction_input used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx stage=rule_engine_input used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx stage=search_audit_input used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx stage=clause_extraction_output used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='合同名称：专利权转让合同\n签订日期：2026年9月5日\n签订地点：上海市浦东新区\n有效期限至：2038年6月20日\n转让方：上海智航机器人科技有限公司\n统一社会信用代码：91310115MA1K56789X\n通讯地址：上海市浦东新区张江路1888号\n法定代表人：陈志远\n联系人：刘伟\n电话：021-58886666\n邮箱：liuwei@zhihang-robot.com\n受让方：苏州未来智能装备有限公司\n统一社会信用代码：91320594MA27X12345\n通讯地址：江苏省苏州市工业园区星湖街328号\n法定代表人：王海涛\n联系人：赵敏\n电话：0512-68889999\n邮箱：zhaomin@f' tail='用由受让方承担。\n十一、不可抗力\n发生不可抗力后，受影响方应及时通知另一方。\n如不可抗力持续超过180日，任何一方均有权解除合同。\n十二、违约责任\n转让方未按期交付技术资料，每逾期一日按照转让费总额的0.01%支付违约金。\n受让方逾期支付转让费，每逾期一日按照应付未付款项的0.1%支付违约金。\n受让方违反保密义务的，应赔偿转让方因此遭受的全部损失。\n十三、争议解决\n本合同适用中华人民共和国法律。\n双方发生争议应首先友好协商。\n协商不成的，任何一方均可向转让方所在地有管辖权的人民法院提起诉讼。\n十四、生效\n本合同自双方签字盖章之日起生效。\n合同一式四份，转让方、受让方各执两份，具有同等法律效力。'
+WARNING  routers.review_v2:input_integrity.py:291 [REVIEW_INPUT_INTEGRITY_GATE] trace_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx status=PASS failures=[] anchors={'专利技术': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '许可方': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '接受方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '非独占': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '提成费': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '专利资料': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '中国国际经济贸易仲裁委员会': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '不可抗力': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '专利失效': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '专利费用': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '侵权': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': 1.0, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+WARNING  routers.review_v2:review_v2.py:1527 [FACT] review_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx candidate_id= source_rule= source_clause_ids=['C0003', 'C0008', 'C0017'] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total=[None, None] amount_total=[1400000, 600000] merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [RULE_EXECUTED] review_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx candidate_id= source_rule=analyze_payment_schedule source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations=6 arithmetic_status=INSUFFICIENT_DATA percentage_total=0 amount_total=2000000 merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [CANDIDATE_CREATED] review_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx candidate_id=PAYMENT-c8bf207a0880 source_rule=payment_formula_inconsistency source_clause_ids=['C0003', 'C0008', 'C0017'] scenario=TECHNOLOGY_TRANSFER applicability={} status= filter_reason=arithmetic_status=INSUFFICIENT_DATA; payment_formula_inconsistency signal was false invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [CANDIDATE_FILTERED] review_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx candidate_id=PAYMENT-c8bf207a0880 source_rule= source_clause_ids=[] scenario= applicability={} status=NOT_APPLICABLE_NO_CANDIDATE filter_reason=arithmetic_status=INSUFFICIENT_DATA; payment_formula_inconsistency signal was false invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [CANDIDATE_MERGED] review_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx candidate_id=PAYMENT-c8bf207a0880 source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged=False finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [FINAL_RISK] review_id=CR-20260914-065000-128108 filename=43 专利权转让合同.docx candidate_id=PAYMENT-c8bf207a0880 source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present=False rendered=False
+WARNING  routers.review_v2:review_v2.py:1556 [TRACE_REVIEW_V2] pid=16664 pipeline=canonical-review-v2-production-6.4 classifier=technical-transaction-classifier-v3-single-source evaluator=canonical-review-evaluator-6.4-single-classification ruleset=review-v2-rules-quality3-2026-08-11 entry=F:\ai\Sage\backend\routers\review_v2.py:1382 engine=F:\ai\Sage\backend\review_v2\engine.py:51991 subtype=TECHNOLOGY_TRANSFER classifier_executions=1 registry_id=1655705639792 evidence_impl=technical-consulting-evidence-v2.1-active-path doc_hash=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 confidentiality=True
+INFO     routers.review_v2:review_v2.py:1576 [REVIEW_RELEASE_GATE] review_id=CR-20260914-065000-128108 pid=16664 runtime=CURRENT status=BLOCKED failures=['MISSING_WITH_POSITIVE_EVIDENCE', 'NARRATIVE_EVIDENCE_GATE', 'NARRATIVE_EVIDENCE_GATE', 'EXACT_ELEMENT_REPORT_INVARIANT']
+_ test_current_claim_elements_reject_unrelated_remedies_and_share_real_evidence _
+backend\tests\test_patent_transfer_acquisition_and_remedies.py:288: in test_current_claim_elements_reject_unrelated_remedies_and_share_real_evidence
+    assert set(element["evidence_ids"]) == {"C0010"}
+E   AssertionError: assert {'C0014'} == {'C0010'}
+E     
+E     Extra items in the left set:
+E     'C0014'
+E     Extra items in the right set:
+E     'C0010'
+E     Use -v to get more diff
+______ test_current_material_types_do_not_depend_on_exhibit_completeness ______
+backend\tests\test_patent_transfer_acquisition_and_remedies.py:307: in test_current_material_types_do_not_depend_on_exhibit_completeness
+    assert elements["major_document_types"]["evidence_ids"] == ["C0004"]
+E   AssertionError: assert ['EV-8a8217b032c5b441'] == ['C0004']
+E     
+E     At index 0 diff: 'EV-8a8217b032c5b441' != 'C0004'
+E     Use -v to get more diff
+___ test_scope_narrative_does_not_invent_missing_territory_term_and_powers ____
+backend\tests\test_patent_transfer_acquisition_and_remedies.py:316: in test_scope_narrative_does_not_invent_missing_territory_term_and_powers
+    assert "商业排他性" in scope["risk_point_description"]
+E   AssertionError: assert '商业排他性' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'
+_____ test_cooperative_investment_and_work_facts_are_atomically_resolved ______
+backend\tests\test_cooperative_development_advanced_regressions.py:63: in test_cooperative_investment_and_work_facts_are_atomically_resolved
+    assert analysis["payment_conflicts"] == [{
+E   AssertionError: assert [{'party': '甲...50000.0, ...}] == [{'party': '甲...: 50000, ...}]
+E     
+E     At index 0 diff: {'party': '甲方', 'nominal_investment': 1200000.0, 'payment_total': 850000.0, 'difference': -350000.0, 'nodes': [400000.0, 450000.0]} != {'party': '甲方', 'nominal_investment': 1200000, 'payment_total': 1250000, 'difference': 50000, 'nodes': [400000, 400000, 450000]}
+E     Use -v to get more diff
+______ test_final_result_patent_license_and_revenue_rights_are_compared _______
+backend\tests\test_cooperative_development_advanced_regressions.py:91: in test_final_result_patent_license_and_revenue_rights_are_compared
+    assert "收益归该许可方单独所有" in item["risk_point_description"]
+E   AssertionError: assert '收益归该许可方单独所有' in '合同存在以下有直接证据支持的不利安排：最终成果虽约定共同所有，但专利申请权归单一合作方，权属层级相互冲突；最终成果虽约定共同所有，但授权后的专利权归单一合作方，权属层级相互冲突；任何一方均可不经其他共有方同意单独对外许可最终成果；共有最终成果由单一合作方许可第三方后，许可收益归该技术提供方单独所有。'
+_ test_governance_deadlock_silence_and_contact_authority_are_one_control_risk _
+backend\tests\test_cooperative_development_advanced_regressions.py:121: in test_governance_deadlock_silence_and_contact_authority_are_one_control_risk
+    assert all(trace.values())
+E   AssertionError: assert False
+E    +  where False = all(dict_values([True, True, True, '乙方', False, True, True]))
+E    +    where dict_values([True, True, True, '乙方', False, True, True]) = <built-in method values of dict object at 0x00000181069B3640>()
+E    +      where <built-in method values of dict object at 0x00000181069B3640> = {'unanimous_major_decisions': True, 'unilateral_deadlock_control': True, 'unilateral_major_matter_control': True, 'unilateral_major_matter_owner': '乙方', ...}.values
+_____ test_attachment_reference_and_attachment_content_are_distinct_facts _____
+backend\tests\test_cooperative_development_advanced_regressions.py:220: in test_attachment_reference_and_attachment_content_are_distinct_facts
+    assert "C0029" in elements["actual_ip_proof_attachment"]["source_clause_ids"]
+E   AssertionError: assert 'C0029' in ['C0034']
+_______ test_confidentiality_evidence_is_not_expanded_beyond_the_quote ________
+backend\tests\test_cooperative_development_advanced_regressions.py:238: in test_confidentiality_evidence_is_not_expanded_beyond_the_quote
+    evidence = next(row for row in item["evidence_clauses"] if row["clause_id"] == "C0015")
+E   StopIteration
+__ test_unrelated_breach_remedies_do_not_activate_infringement_coordination ___
+backend\tests\test_cooperative_development_advanced_regressions.py:253: in test_unrelated_breach_remedies_do_not_activate_infringement_coordination
+    assert item["applicability"]["machine_reason"] == "SAME_LOSS_GENERAL_REMEDY_NOT_FOUND"
+E   AssertionError: assert '合同虽存在侵权专项责任，...责任已排除，故本项不适用。' == 'SAME_LOSS_GE...EDY_NOT_FOUND'
+E     
+E     - SAME_LOSS_GENERAL_REMEDY_NOT_FOUND
+E     + 合同虽存在侵权专项责任，但未同时存在可针对同一侵权损失适用的一般赔偿或违约救济；迟延付款、退出等其他违约责任已排除，故本项不适用。
+________ test_registry_bound_risk_evidence_reuses_final_review_sources ________
+backend\tests\test_cooperative_development_advanced_regressions.py:267: in test_registry_bound_risk_evidence_reuses_final_review_sources
+    assert {row.get("clause_id") for row in body_rows} == {"C0019", "C0020", "C0029"}
+E   AssertionError: assert {'C0022', 'C0023', 'C0034'} == {'C0019', 'C0020', 'C0029'}
+E     
+E     Extra items in the left set:
+E     'C0023'
+E     'C0034'
+E     'C0022'
+E     Extra items in the right set:
+E     'C0020'...
+E     
+E     ...Full output truncated (3 lines hidden), use '-vv' to show
+____ test_referenced_attachments_are_material_pending_not_contract_defects ____
+backend\tests\test_cooperative_development_advanced_regressions.py:289: in test_referenced_attachments_are_material_pending_not_contract_defects
+    assert item["recommended_action"] == "MANUAL_REVIEW"
+E   AssertionError: assert 'RECOMMENDED' == 'MANUAL_REVIEW'
+E     
+E     - MANUAL_REVIEW
+E     + RECOMMENDED
+___________ test_search_audit_queries_are_positive_objective_facts ____________
+backend\tests\test_cooperative_development_advanced_regressions.py:331: in test_search_audit_queries_are_positive_objective_facts
+    assert "非履约使用须取得数据提供方事先书面同意" in targets
+E   AssertionError: assert '非履约使用须取得数据提供方事先书面同意' in ['各方背景技术及既有知识产权的保留和必要许可边界', '项目依赖型成果与各方独立成果的识别和权利承接边界', '其他合作方使用阶段成果的许可和费用', '合作终止后各方继续使用未公开成果的边界', '其余合作方接管项目、继续开发或委托第三方接续开发的权利', '第三方权利主张的通知期限、方式和资料要求', ...]
+__ test_manual_review_records_are_executable_and_have_no_empty_formal_advice __
+backend\tests\test_cooperative_development_advanced_regressions.py:341: in test_manual_review_records_are_executable_and_have_no_empty_formal_advice
+    instruction = records[review_id]["review_instruction"]
+E   KeyError: 'TC-13-01'
+___ test_unprovided_attachment_narrative_does_not_assert_content_is_missing ___
+backend\tests\test_cooperative_development_advanced_regressions.py:358: in test_unprovided_attachment_narrative_does_not_assert_content_is_missing
+    assert judgment == "正文存在部分相关约定，但附件未提供，当前无法核验完整性。"
+E   AssertionError: assert '已覆盖：测试报告交付已有...作资料交付；缺陷记录交付。' == '正文存在部分相关约定，但附件未提供，当前无法核验完整性。'
+E     
+E     - 正文存在部分相关约定，但附件未提供，当前无法核验完整性。
+E     + 已覆盖：测试报告交付已有明确约定；尚未覆盖：源代码或可执行程序交付；技术文档交付；接口文档交付；架构文档交付；安装部署资料交付；用户或操作资料交付；缺陷记录交付。
+____________ test_release_gate_passes_without_skipping_consistency ____________
+backend\tests\test_entrusted_development_production_closure.py:75: in test_release_gate_passes_without_skipping_consistency
+    assert gate["status"] in {"PASSED", "REPORT_READY"}, gate
+E   AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'VERIFIED_PASS_ORIGINAL_GATE', 'root_cause': 'TC-10-04', 'reason': ...': {'status': 'PASS', 'failures': [], 'contract_type': 'technology', 'domain_pack': 'domain-pack-technology-1.0'}, ...}
+E   assert 'BLOCKED' in {'PASSED', 'REPORT_READY'}
+_____ test_newly_active_development_branch_consumes_actual_claim_evidence _____
+backend\tests\test_entrusted_development_production_closure.py:90: in test_newly_active_development_branch_consumes_actual_claim_evidence
+    assert all(e["supporting_evidence"] for e in nature["coverage_elements"])
+E   assert False
+E    +  where False = all(<generator object test_newly_active_development_branch_consumes_actual_claim_evidence.<locals>.<genexpr> at 0x000001810802A3B0>)
+___ test_existing_adverse_third_party_allocation_is_not_treated_as_missing ____
+backend\tests\test_technical_secret_transfer_contract_review.py:85: in test_existing_adverse_third_party_allocation_is_not_treated_as_missing
+    assert claim["claim_assistance"] is True
+E   assert False is True
+__ test_full_report_uses_secret_transfer_role_and_non_patent_proof_semantics __
+backend\tests\test_technical_secret_transfer_contract_review.py:137: in test_full_report_uses_secret_transfer_role_and_non_patent_proof_semantics
+    assert secret_transfer_review["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+__ test_acceptance_test_attachment_is_fact_activated_and_theme_deduplicated ___
+backend\tests\test_technical_secret_transfer_contract_review.py:287: in test_acceptance_test_attachment_is_fact_activated_and_theme_deduplicated
+    assert secret_transfer_review["risk_theme_count"] == 13
+E   assert 17 == 13
+______ test_acceptance_test_attachment_narrative_has_complete_sentences _______
+backend\tests\test_technical_secret_transfer_contract_review.py:301: in test_acceptance_test_attachment_narrative_has_complete_sentences
+    assert "测试争议的复测机制未明确。" in narrative["judgment"]
+E   AssertionError: assert '测试争议的复测机制未明确。' in '已覆盖：合同第十二条已明确验收场景和基本标准；合同第一条和验收条款已列明客观技术指标；测试设备和环境条件；尚未覆盖：独立验收测试方案附件；测试方法和操作步骤；固定测试数据集或样本；统计口径；测试记录和签认要求；争议复测或第三方检测机制。'
+____________ test_report_release_and_positive_evidence_provenance _____________
+backend\tests\test_patent_application_transfer_consistency.py:100: in test_report_release_and_positive_evidence_provenance
+    assert result["release_quality_gate"]["status"] != "BLOCKED", result["release_quality_gate"]["failures"]
+E   AssertionError: [{'requirement': 'CONFIDENCE_VALIDATION_GATE', 'failure_stage': 'Pre-render Confidence Gate', 'root_cause': '存在实质一致性错误...oot_cause': 'TC-06-01', 'element_id': 'core_contract_arrangement', 'reason': 'NO_VERIFIED_SEMANTIC_SUPPORT', ...}, ...]
+E   assert 'BLOCKED' != 'BLOCKED'
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+backend/tests/test_technical_consulting_contract_review.py::test_production_file_endpoint_uses_active_consulting_evidence_implementation
+backend/tests/test_technical_consulting_contract_review.py::test_legacy_batch_entry_rejects_confident_technical_contract
+backend/tests/test_technical_consulting_contract_review.py::test_production_file_endpoint_is_deterministic_across_fresh_no_cache_runs
+backend/tests/test_entrusted_development_production_closure.py::test_primary_and_ancillary_routing
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_consulting_attachments_and_release_gate
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_consulting_cross_section_evidence_recall_and_binding
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_consulting_report_projects_seven_atomic_findings_into_three_themes
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_missing_consulting_data_provision_is_low_risk_but_should_change
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_simple_consulting_data_provision_is_partial_not_missing
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_complete_consulting_confidentiality_produces_no_confidentiality_theme
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_consulting_confidentiality_elements_bind_to_actual_clause_evidence
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_latest_consulting_docx_full_regression_has_no_subtype_or_evidence_regression
+FAILED backend/tests/test_cooperative_development_contract_review.py::test_cooperative_development_classification
+FAILED backend/tests/test_cooperative_development_contract_review.py::test_single_manual_review_does_not_abort_report
+FAILED backend/tests/test_cooperative_development_contract_review.py::test_cooperative_rules_use_operational_facts_and_direct_evidence
+FAILED backend/tests/test_cooperative_development_contract_review.py::test_final_evidence_covers_each_cooperative_risk_proposition
+FAILED backend/tests/test_cooperative_development_contract_review.py::test_cross_rule_and_partial_narratives_are_semantically_consistent
+FAILED backend/tests/test_cooperative_development_contract_review.py::test_minimal_cooperative_development_rules_and_report_are_consistent
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_existing_failure_allocation_is_covered_adverse_not_missing
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_general_foreground_ip_does_not_override_specific_patent_right
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_confidentiality_positive_facts_survive_search_audit
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_secondary_data_use_is_an_independent_adverse_risk
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_complete_source_delivery_is_checked_against_unilateral_carveout
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_developer_controlled_component_risk_keeps_direction_and_procedure_separate
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_project_contact_material_change_authority_is_adverse
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_major_liability_cap_separates_statutory_validity_and_commercial_recovery_risks
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_complex_project_short_deemed_acceptance_preserves_latent_defect_review
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_development_failure_full_price_exposure_is_direct_and_quantified
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_confidentiality_covered_elements_bind_distinct_direct_evidence
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_liability_cap_reference_alone_does_not_cover_confidentiality_damages
+FAILED backend/tests/test_patent_transfer_acquisition_and_remedies.py::test_current_existing_and_retained_license_reduce_full_scope_coverage
+FAILED backend/tests/test_patent_transfer_acquisition_and_remedies.py::test_current_contract_passes_release_without_disabling_consistency_checks
+FAILED backend/tests/test_patent_transfer_acquisition_and_remedies.py::test_current_proof_disclosures_are_atomic_and_never_independently_verified[TC-03-04]
+FAILED backend/tests/test_patent_transfer_acquisition_and_remedies.py::test_current_proof_disclosures_are_atomic_and_never_independently_verified[TC-13-02]
+FAILED backend/tests/test_patent_transfer_acquisition_and_remedies.py::test_current_file_upload_and_response_schema_preserve_passed_gate
+FAILED backend/tests/test_patent_transfer_acquisition_and_remedies.py::test_current_claim_elements_reject_unrelated_remedies_and_share_real_evidence
+FAILED backend/tests/test_patent_transfer_acquisition_and_remedies.py::test_current_material_types_do_not_depend_on_exhibit_completeness
+FAILED backend/tests/test_patent_transfer_acquisition_and_remedies.py::test_scope_narrative_does_not_invent_missing_territory_term_and_powers
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_cooperative_investment_and_work_facts_are_atomically_resolved
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_final_result_patent_license_and_revenue_rights_are_compared
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_governance_deadlock_silence_and_contact_authority_are_one_control_risk
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_attachment_reference_and_attachment_content_are_distinct_facts
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_confidentiality_evidence_is_not_expanded_beyond_the_quote
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_unrelated_breach_remedies_do_not_activate_infringement_coordination
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_registry_bound_risk_evidence_reuses_final_review_sources
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_referenced_attachments_are_material_pending_not_contract_defects
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_search_audit_queries_are_positive_objective_facts
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_manual_review_records_are_executable_and_have_no_empty_formal_advice
+FAILED backend/tests/test_cooperative_development_advanced_regressions.py::test_unprovided_attachment_narrative_does_not_assert_content_is_missing
+FAILED backend/tests/test_entrusted_development_production_closure.py::test_release_gate_passes_without_skipping_consistency
+FAILED backend/tests/test_entrusted_development_production_closure.py::test_newly_active_development_branch_consumes_actual_claim_evidence
+FAILED backend/tests/test_technical_secret_transfer_contract_review.py::test_existing_adverse_third_party_allocation_is_not_treated_as_missing
+FAILED backend/tests/test_technical_secret_transfer_contract_review.py::test_full_report_uses_secret_transfer_role_and_non_patent_proof_semantics
+FAILED backend/tests/test_technical_secret_transfer_contract_review.py::test_acceptance_test_attachment_is_fact_activated_and_theme_deduplicated
+FAILED backend/tests/test_technical_secret_transfer_contract_review.py::test_acceptance_test_attachment_narrative_has_complete_sentences
+FAILED backend/tests/test_patent_application_transfer_consistency.py::test_report_release_and_positive_evidence_provenance
+52 failed, 203 passed, 10 warnings in 603.29s (0:10:03)

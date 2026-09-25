@@ -1,0 +1,60 @@
+{
+  "trace_id": "CR-20260912-115024-5E7BD0",
+  "NC-01": "部分覆盖",
+  "NC-03": "待核验",
+  "actual_access_element": "MISSING",
+  "missing_facts": [
+    "员工已经实际接触、知悉、掌握商业秘密或实际负责具体秘密事项的事实"
+  ],
+  "prerequisites": [
+    {
+      "concept": "non_compete.personnel",
+      "label": "竞业限制适用人员范围",
+      "covered": true,
+      "fact_ids": [
+        "EF-52552a953df1165d"
+      ]
+    },
+    {
+      "concept": "non_compete.actual_access",
+      "label": "员工已经实际接触、知悉、掌握商业秘密或实际负责具体秘密事项的事实",
+      "covered": false,
+      "fact_ids": []
+    },
+    {
+      "concept": "non_compete.businesses",
+      "label": "竞业业务范围",
+      "covered": true,
+      "fact_ids": [
+        "EF-05099f45718c3ae6"
+      ]
+    },
+    {
+      "concept": "non_compete.territories",
+      "label": "竞业地域范围",
+      "covered": true,
+      "fact_ids": [
+        "EF-b05d02d976dca823"
+      ]
+    },
+    {
+      "concept": "non_compete.duration_months",
+      "label": "竞业限制期限",
+      "covered": true,
+      "fact_ids": [
+        "EF-1551026bb1dc62b8"
+      ]
+    },
+    {
+      "concept": "non_compete.compensation",
+      "label": "竞业限制补偿标准",
+      "covered": true,
+      "fact_ids": [
+        "EF-322b3c03f5cf66db"
+      ]
+    }
+  ],
+  "gate": "REPORT_READY",
+  "source_unchanged": true,
+  "tests": "37 passed, 4 new"
+}

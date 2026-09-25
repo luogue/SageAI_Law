@@ -1,0 +1,754 @@
+[
+  {
+    "response": {
+      "schema_version": "employment-facts-1.0",
+      "reviewed_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009",
+        "C0010",
+        "C0011",
+        "C0012",
+        "C0013",
+        "C0014",
+        "C0015",
+        "C0016",
+        "C0017",
+        "C0018",
+        "C0019",
+        "C0020",
+        "C0021",
+        "C0022",
+        "C0023",
+        "C0024",
+        "C0025",
+        "C0026",
+        "C0027",
+        "C0028",
+        "C0029",
+        "C0030",
+        "C0031",
+        "C0032",
+        "C0033",
+        "C0034",
+        "C0035",
+        "C0036",
+        "C0037",
+        "C0038",
+        "C0039"
+      ],
+      "coverage": {
+        "identity.employer_name": "EXTRACTED",
+        "identity.employer_address": "EXTRACTED",
+        "identity.worker_name": "EXTRACTED",
+        "identity.worker_id": "EXTRACTED",
+        "contract.type": "EXTRACTED",
+        "contract.start_date": "EXTRACTED",
+        "contract.end_date": "EXTRACTED",
+        "contract.duration_months": "EXTRACTED",
+        "contract.task": "ABSENT",
+        "contract.task_end": "ABSENT",
+        "probation.arrangement": "EXTRACTED",
+        "probation.start_date": "EXTRACTED",
+        "probation.end_date": "EXTRACTED",
+        "probation.duration_months": "EXTRACTED",
+        "probation.salary": "EXTRACTED",
+        "probation.repeated": "UNCERTAIN",
+        "job.position": "EXTRACTED",
+        "job.duties": "EXTRACTED",
+        "job.locations": "EXTRACTED",
+        "working_hours.system": "EXTRACTED",
+        "working_hours.hours_per_day": "EXTRACTED",
+        "working_hours.hours_per_week": "EXTRACTED",
+        "working_hours.rest": "EXTRACTED",
+        "working_hours.overtime": "EXTRACTED",
+        "salary.regular": "EXTRACTED",
+        "salary.payment_date": "EXTRACTED",
+        "salary.payment_method": "EXTRACTED",
+        "salary.withheld_for_handover": "EXTRACTED",
+        "social_insurance.employer_enrolls": "EXTRACTED",
+        "social_insurance.employer_pays": "EXTRACTED",
+        "social_insurance.employee_withheld": "EXTRACTED",
+        "social_insurance.cash_replacement": "ABSENT",
+        "social_insurance.waived": "ABSENT",
+        "social_insurance.employer_share_shifted": "ABSENT",
+        "labor_protection.measures": "EXTRACTED"
+      },
+      "facts": [
+        {
+          "concept": "identity.employer_name",
+          "value": "杭州澄川智能科技有限公司",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方（用人单位）：杭州澄川智能科技有限公司"
+            }
+          ]
+        },
+        {
+          "concept": "identity.employer_address",
+          "value": "浙江省杭州市西湖区文三路478号澄川科技园2幢8层",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "注册地址：浙江省杭州市西湖区文三路478号澄川科技园2幢8层"
+            }
+          ]
+        },
+        {
+          "concept": "identity.worker_name",
+          "value": "周明远",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "乙方（劳动者）：周明远"
+            }
+          ]
+        },
+        {
+          "concept": "identity.worker_id",
+          "value": "33010619960518XXXX",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "身份证号码：33010619960518XXXX"
+            }
+          ]
+        },
+        {
+          "concept": "contract.type",
+          "value": "FIXED",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "本合同为固定期限劳动合同。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.start_date",
+          "value": "2026-10-01",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "合同期限自2026年10月1日起至2029年9月30日止。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.end_date",
+          "value": "2029-09-30",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "合同期限自2026年10月1日起至2029年9月30日止。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.duration_months",
+          "value": 36,
+          "confidence": 0.95,
+          "assertion": "INFERRED",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "合同期限自2026年10月1日起至2029年9月30日止。"
+            }
+          ]
+        },
+        {
+          "concept": "probation.arrangement",
+          "value": "CURRENT",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "其中试用期自2026年10月1日起至2026年12月31日止，共3个月。"
+            }
+          ]
+        },
+        {
+          "concept": "probation.start_date",
+          "value": "2026-10-01",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "其中试用期自2026年10月1日起至2026年12月31日止，共3个月。"
+            }
+          ]
+        },
+        {
+          "concept": "probation.end_date",
+          "value": "2026-12-31",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "其中试用期自2026年10月1日起至2026年12月31日止，共3个月。"
+            }
+          ]
+        },
+        {
+          "concept": "probation.duration_months",
+          "value": 3,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "其中试用期自2026年10月1日起至2026年12月31日止，共3个月。"
+            }
+          ]
+        },
+        {
+          "concept": "probation.salary",
+          "value": {
+            "amount_text": "13,000",
+            "unit": "CNY/MONTH",
+            "component": "TOTAL"
+          },
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0013",
+              "quote": "乙方试用期税前固定工资为人民币13,000元/月。"
+            }
+          ]
+        },
+        {
+          "concept": "job.position",
+          "value": "产品运营经理",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0005",
+              "quote": "乙方担任甲方产品运营经理岗位。"
+            }
+          ]
+        },
+        {
+          "concept": "job.duties",
+          "value": [
+            "负责公司企业软件产品的运营方案制定及执行；",
+            "负责用户需求收集、数据分析、产品使用反馈整理；",
+            "协助产品、研发、销售及客户成功团队推进产品优化；",
+            "负责运营活动策划、效果跟踪及复盘；",
+            "建立并维护相关运营数据报表；",
+            "完成与本岗位相关的其他合理工作任务。"
+          ],
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0005",
+              "quote": "（1）负责公司企业软件产品的运营方案制定及执行；"
+            },
+            {
+              "clause_id": "C0006",
+              "quote": "（2）负责用户需求收集、数据分析、产品使用反馈整理；"
+            },
+            {
+              "clause_id": "C0007",
+              "quote": "（3）协助产品、研发、销售及客户成功团队推进产品优化；"
+            },
+            {
+              "clause_id": "C0008",
+              "quote": "（4）负责运营活动策划、效果跟踪及复盘；"
+            },
+            {
+              "clause_id": "C0009",
+              "quote": "（5）建立并维护相关运营数据报表；"
+            },
+            {
+              "clause_id": "C0010",
+              "quote": "（6）完成与本岗位相关的其他合理工作任务。"
+            }
+          ]
+        },
+        {
+          "concept": "job.locations",
+          "value": [
+            "浙江省杭州市西湖区文三路478号及甲方在杭州市范围内的其他合法办公场所"
+          ],
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0011",
+              "quote": "乙方主要工作地点为：\n浙江省杭州市西湖区文三路478号及甲方在杭州市范围内的其他合法办公场所。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.system",
+          "value": "STANDARD",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0012",
+              "quote": "乙方实行标准工时制度，每日工作8小时，每周工作40小时。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.hours_per_day",
+          "value": 8,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0012",
+              "quote": "乙方实行标准工时制度，每日工作8小时，每周工作40小时。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.hours_per_week",
+          "value": 40,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0012",
+              "quote": "乙方实行标准工时制度，每日工作8小时，每周工作40小时。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.rest",
+          "value": "周六、周日为休息日。因业务安排需要调整休息日的，甲方依法安排调休或支付相应劳动报酬。乙方依法享有法定节假日、年休假、婚假、产假、陪产假、丧假、病假及其他依法应享有的休息休假。",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0012",
+              "quote": "周六、周日为休息日。因业务安排需要调整休息日的，甲方依法安排调休或支付相应劳动报酬。"
+            },
+            {
+              "clause_id": "C0012",
+              "quote": "乙方依法享有法定节假日、年休假、婚假、产假、陪产假、丧假、病假及其他依法应享有的休息休假。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.overtime",
+          "value": "STATUTORY",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0012",
+              "quote": "因生产经营需要安排乙方加班的，应按照甲方加班审批流程执行，并按照法律法规规定安排补休或支付加班工资。"
+            }
+          ]
+        },
+        {
+          "concept": "salary.regular",
+          "value": {
+            "amount_text": "15,800",
+            "unit": "CNY/MONTH",
+            "component": "TOTAL"
+          },
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0013",
+              "quote": "试用期结束并经考核符合录用条件后，乙方税前固定工资调整为人民币15,800元/月。"
+            }
+          ]
+        },
+        {
+          "concept": "salary.payment_date",
+          "value": "每月10日前",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0013",
+              "quote": "甲方原则上于每月10日前通过银行转账方式支付乙方上一个自然月工资；遇法定节假日可依法提前或顺延。"
+            }
+          ]
+        },
+        {
+          "concept": "salary.payment_method",
+          "value": "BANK",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0013",
+              "quote": "甲方原则上于每月10日前通过银行转账方式支付乙方上一个自然月工资；遇法定节假日可依法提前或顺延。"
+            }
+          ]
+        },
+        {
+          "concept": "salary.withheld_for_handover",
+          "value": false,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0036",
+              "quote": "甲方不得以乙方尚未完成非关键性内部交接手续为由，无合法依据扣留乙方依法应得的工资。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.employer_enrolls",
+          "value": true,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0021",
+              "quote": "甲方按照国家及当地规定为乙方办理养老保险、医疗保险、失业保险、工伤保险、生育保险等社会保险手续，并依法缴纳应由甲方承担的费用。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.employer_pays",
+          "value": true,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0021",
+              "quote": "甲方按照国家及当地规定为乙方办理养老保险、医疗保险、失业保险、工伤保险、生育保险等社会保险手续，并依法缴纳应由甲方承担的费用。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.employee_withheld",
+          "value": true,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0021",
+              "quote": "乙方应承担部分由甲方依法从乙方工资中代扣代缴。"
+            }
+          ]
+        },
+        {
+          "concept": "labor_protection.measures",
+          "value": "甲方应为乙方提供符合国家规定的劳动条件及必要的办公设备。甲方依法建立健全安全生产、职业健康及劳动保护制度。",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0022",
+              "quote": "甲方应为乙方提供符合国家规定的劳动条件及必要的办公设备。"
+            },
+            {
+              "clause_id": "C0022",
+              "quote": "甲方依法建立健全安全生产、职业健康及劳动保护制度。"
+            }
+          ]
+        }
+      ]
+    },
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 4911,
+      "completion_tokens": 3896,
+      "total_tokens": 8807,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 4911
+    },
+    "provider": "deepseek"
+  },
+  {
+    "response": {
+      "schema_version": "employment-facts-1.0",
+      "reviewed_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009",
+        "C0010",
+        "C0011",
+        "C0012",
+        "C0013",
+        "C0014",
+        "C0015",
+        "C0016",
+        "C0017",
+        "C0018",
+        "C0019",
+        "C0020",
+        "C0021",
+        "C0022",
+        "C0023",
+        "C0024",
+        "C0025",
+        "C0026",
+        "C0027",
+        "C0028",
+        "C0029",
+        "C0030",
+        "C0031",
+        "C0032",
+        "C0033",
+        "C0034",
+        "C0035",
+        "C0036",
+        "C0037",
+        "C0038",
+        "C0039"
+      ],
+      "coverage": {
+        "labor_protection.training": "EXTRACTED",
+        "labor_protection.hazard_exists": "UNCERTAIN",
+        "labor_protection.hazard_protection": "EXTRACTED",
+        "training.arrangement": "DEFERRED",
+        "training.cost": "UNCERTAIN",
+        "training.duration_months": "ABSENT",
+        "training.penalty_prorated": "ABSENT",
+        "termination.grounds": "EXTRACTED",
+        "termination.notice": "EXTRACTED",
+        "termination.notice_days": "ABSENT",
+        "termination.approval_required": "ABSENT",
+        "termination.employer_unrestricted": "ABSENT",
+        "termination.handover": "EXTRACTED",
+        "economic_compensation.statutory": "EXTRACTED",
+        "economic_compensation.settlement_deadline": "ABSENT",
+        "economic_compensation.waived": "ABSENT",
+        "economic_compensation.reduced": "ABSENT",
+        "dispute.arbitration": "EXTRACTED",
+        "penalties.obligations": "ABSENT",
+        "non_compete.arrangement": "DEFERRED",
+        "non_compete.personnel": "ABSENT",
+        "non_compete.secret_access": "ABSENT",
+        "non_compete.businesses": "ABSENT",
+        "non_compete.territories": "ABSENT",
+        "non_compete.duration_months": "ABSENT",
+        "non_compete.compensation": "ABSENT",
+        "non_compete.compensation_deferred": "ABSENT",
+        "non_compete.compensation_waived": "ABSENT",
+        "non_compete.all_staff": "ABSENT",
+        "ip.assignment_scope": "UNCERTAIN",
+        "ip.personal_rights_waived": "ABSENT"
+      },
+      "facts": [
+        {
+          "concept": "labor_protection.training",
+          "value": true,
+          "confidence": 0.9,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0022",
+              "quote": "甲方依法建立健全安全生产、职业健康及劳动保护制度。"
+            },
+            {
+              "clause_id": "C0022",
+              "quote": "乙方应遵守甲方有关安全生产、信息安全及办公场所管理规定。"
+            }
+          ]
+        },
+        {
+          "concept": "labor_protection.hazard_protection",
+          "value": "甲方依法建立健全安全生产、职业健康及劳动保护制度；乙方在工作过程中发现可能危害人身、财产或信息安全的情况，应及时向甲方报告。",
+          "confidence": 0.85,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0022",
+              "quote": "甲方依法建立健全安全生产、职业健康及劳动保护制度。"
+            },
+            {
+              "clause_id": "C0022",
+              "quote": "乙方在工作过程中发现可能危害人身、财产或信息安全的情况，应及时向甲方报告。"
+            }
+          ]
+        },
+        {
+          "concept": "training.arrangement",
+          "value": "DEFERRED",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0031",
+              "quote": "对甲方为乙方提供专项培训费用并进行专业技术培训的，双方可依法另行签订培训服务期协议。"
+            },
+            {
+              "clause_id": "C0031",
+              "quote": "服务期、培训费用及违约责任以双方另行签订的合法书面协议为准。"
+            }
+          ]
+        },
+        {
+          "concept": "termination.grounds",
+          "value": [
+            "甲乙双方解除或终止本合同，应按照《中华人民共和国劳动合同法》等有关法律法规执行。",
+            "乙方提前解除劳动合同的，应按照法律规定履行通知义务。",
+            "甲方解除劳动合同的，应具备法律规定的解除条件，并依法履行相应程序。",
+            "本合同期满且不存在依法应当续延的情形时，本合同终止。双方协商一致的，可以续订劳动合同。"
+          ],
+          "confidence": 0.9,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0033",
+              "quote": "甲乙双方解除或终止本合同，应按照《中华人民共和国劳动合同法》等有关法律法规执行。"
+            },
+            {
+              "clause_id": "C0033",
+              "quote": "乙方提前解除劳动合同的，应按照法律规定履行通知义务。"
+            },
+            {
+              "clause_id": "C0033",
+              "quote": "甲方解除劳动合同的，应具备法律规定的解除条件，并依法履行相应程序。"
+            },
+            {
+              "clause_id": "C0033",
+              "quote": "本合同期满且不存在依法应当续延的情形时，本合同终止。双方协商一致的，可以续订劳动合同。"
+            }
+          ]
+        },
+        {
+          "concept": "termination.notice",
+          "value": "乙方提前解除劳动合同的，应按照法律规定履行通知义务；与解除、终止劳动合同以及其他重大事项有关的通知，应尽可能采取能够证明送达情况的方式进行。",
+          "confidence": 0.9,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0033",
+              "quote": "乙方提前解除劳动合同的，应按照法律规定履行通知义务。"
+            },
+            {
+              "clause_id": "C0037",
+              "quote": "与解除、终止劳动合同以及其他重大事项有关的通知，应尽可能采取能够证明送达情况的方式进行。"
+            }
+          ]
+        },
+        {
+          "concept": "termination.handover",
+          "value": "劳动合同解除或终止后，乙方应按照甲方要求办理合理的工作交接。乙方应返还：（1）电脑、手机、门禁卡等办公设备；（2）合同、文件、印章及纸质资料；（3）账号、系统权限及属于甲方管理的数字资产；（4）保存于个人设备或个人存储介质中的甲方工作资料；（5）其他依法属于甲方所有或管理的财物、资料。甲方应依法为乙方出具解除或终止劳动合同证明，并依法办理档案和社会保险关系转移等手续。",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0034",
+              "quote": "劳动合同解除或终止后，乙方应按照甲方要求办理合理的工作交接。"
+            },
+            {
+              "clause_id": "C0034",
+              "quote": "乙方应返还："
+            },
+            {
+              "clause_id": "C0034",
+              "quote": "（1）电脑、手机、门禁卡等办公设备；"
+            },
+            {
+              "clause_id": "C0034",
+              "quote": "（2）合同、文件、印章及纸质资料；"
+            },
+            {
+              "clause_id": "C0034",
+              "quote": "（3）账号、系统权限及属于甲方管理的数字资产；"
+            },
+            {
+              "clause_id": "C0035",
+              "quote": "（4）保存于个人设备或个人存储介质中的甲方工作资料；"
+            },
+            {
+              "clause_id": "C0036",
+              "quote": "（5）其他依法属于甲方所有或管理的财物、资料。"
+            },
+            {
+              "clause_id": "C0036",
+              "quote": "甲方应依法为乙方出具解除或终止劳动合同证明，并依法办理档案和社会保险关系转移等手续。"
+            }
+          ]
+        },
+        {
+          "concept": "economic_compensation.statutory",
+          "value": "符合法律规定需要支付经济补偿或赔偿的，甲方依法支付。",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0033",
+              "quote": "符合法律规定需要支付经济补偿或赔偿的，甲方依法支付。"
+            }
+          ]
+        },
+        {
+          "concept": "dispute.arbitration",
+          "value": true,
+          "confidence": 0.98,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0038",
+              "quote": "甲乙双方因履行本合同发生劳动争议的，应首先协商解决；协商不成的，可以依法申请劳动争议仲裁。"
+            }
+          ]
+        },
+        {
+          "concept": "ip.assignment_scope",
+          "value": "UNCERTAIN",
+          "confidence": 0.5,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0029",
+              "quote": "乙方因履行岗位职责或主要利用甲方提供的资金、设备、技术资料及其他工作条件形成的工作成果，其知识产权归属按照法律法规及双方另行签署的知识产权协议执行。"
+            }
+          ]
+        }
+      ]
+    },
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 4944,
+      "completion_tokens": 1710,
+      "total_tokens": 6654,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 4688
+    },
+    "provider": "deepseek"
+  }
+]

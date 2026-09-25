@@ -18,7 +18,9 @@ from routers.review_v2 import ReviewV2Result, review_v2_file
 
 
 ROOT = Path(__file__).resolve().parents[2]
-FIXTURE = next((ROOT / "test_data").glob("12*.docx"))
+# A numeric prefix also selects 121/122/... and silently changes the contract
+# under test. Keep this suite on its original entrusted-development fixture.
+FIXTURE = ROOT / "test_data" / "12、委托开发.docx"
 
 
 class _UploadFile:
@@ -227,7 +229,12 @@ def test_gap_consequences_are_bound_to_actual_missing_elements(party_a_review):
     assert "第三方提出权利主张" not in patent
     assert all(term in failure for term in ("研发费用", "阶段成果", "资料交接"))
     assert "风险转移、质量异议" not in failure
-    assert all(term in exit_consequence for term in ("接管项目", "继续开发", "既有投入"))
+    exit_elements = items["TC-05-04"]["coverage_elements"]
+    unresolved = [row for row in exit_elements if row["status"] in {"MISSING", "PARTIALLY_COVERED"}]
+    assert unresolved
+    assert all(row["required_fact"] in exit_consequence for row in unresolved)
+    assert all(row["required_fact"] not in exit_consequence
+               for row in exit_elements if row["status"] == "COVERED")
     assert "付款期限、逾期责任" not in exit_consequence
 
 

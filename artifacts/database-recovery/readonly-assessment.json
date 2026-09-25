@@ -1,0 +1,355 @@
+{
+  "database": "F:\\ai\\Sage\\backend\\app.db",
+  "sqlite_version": "3.40.1",
+  "integrity": [
+    "database disk image is malformed"
+  ],
+  "tables": [
+    {
+      "name": "admin_logs",
+      "count": 9,
+      "read_count": 9
+    },
+    {
+      "name": "admins",
+      "count": 1,
+      "read_count": 1
+    },
+    {
+      "name": "blacklist",
+      "count": 0,
+      "read_count": 0
+    },
+    {
+      "name": "bonus_log",
+      "count": 0,
+      "read_count": 0
+    },
+    {
+      "name": "feedback",
+      "count": 1,
+      "read_count": 1
+    },
+    {
+      "name": "file_hash_cache",
+      "count": 0,
+      "read_count": 0
+    },
+    {
+      "name": "intercept_logs",
+      "count": 0,
+      "read_count": 0
+    },
+    {
+      "name": "invite_rewards",
+      "count": 0,
+      "read_count": 0
+    },
+    {
+      "name": "record",
+      "count": 1,
+      "read_count": 1
+    },
+    {
+      "name": "reward_logs",
+      "count": 0,
+      "read_count": 0
+    },
+    {
+      "name": "security_events",
+      "count": 31,
+      "read_count": 31
+    },
+    {
+      "name": "task_record",
+      "error": "database disk image is malformed"
+    },
+    {
+      "name": "user",
+      "count": 1,
+      "read_count": 1
+    }
+  ],
+  "schema": [
+    {
+      "type": "table",
+      "name": "user",
+      "tbl_name": "user",
+      "rootpage": 2,
+      "sql": "CREATE TABLE user (\n\tid INTEGER NOT NULL, \n\tcountry_code VARCHAR(10) NOT NULL, \n\tmobile VARCHAR(20) NOT NULL, \n\tpassword_hash VARCHAR NOT NULL, \n\tbonus_credits INTEGER NOT NULL, \n\tfree_review_quota INTEGER NOT NULL, \n\tinvited_by INTEGER, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), status TEXT DEFAULT \"normal\", last_active_at TEXT, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(invited_by) REFERENCES user (id)\n)"
+    },
+    {
+      "type": "index",
+      "name": "ix_user_mobile",
+      "tbl_name": "user",
+      "rootpage": 3,
+      "sql": "CREATE UNIQUE INDEX ix_user_mobile ON user (mobile)"
+    },
+    {
+      "type": "index",
+      "name": "ix_user_id",
+      "tbl_name": "user",
+      "rootpage": 4,
+      "sql": "CREATE INDEX ix_user_id ON user (id)"
+    },
+    {
+      "type": "table",
+      "name": "blacklist",
+      "tbl_name": "blacklist",
+      "rootpage": 5,
+      "sql": "CREATE TABLE blacklist (\n\tid INTEGER NOT NULL, \n\tblacklist_type VARCHAR NOT NULL, \n\tvalue VARCHAR NOT NULL, \n\treason VARCHAR, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), ban_type TEXT DEFAULT 'manual', input_preview TEXT, trigger_rule TEXT, is_unbanned BOOLEAN DEFAULT 0, unbanned_by TEXT, unban_reason TEXT, unbanned_at TIMESTAMP, \n\tPRIMARY KEY (id)\n)"
+    },
+    {
+      "type": "index",
+      "name": "ix_blacklist_value",
+      "tbl_name": "blacklist",
+      "rootpage": 6,
+      "sql": "CREATE UNIQUE INDEX ix_blacklist_value ON blacklist (value)"
+    },
+    {
+      "type": "index",
+      "name": "ix_blacklist_id",
+      "tbl_name": "blacklist",
+      "rootpage": 7,
+      "sql": "CREATE INDEX ix_blacklist_id ON blacklist (id)"
+    },
+    {
+      "type": "table",
+      "name": "intercept_logs",
+      "tbl_name": "intercept_logs",
+      "rootpage": 8,
+      "sql": "CREATE TABLE intercept_logs (\n\tid INTEGER NOT NULL, \n\ttimestamp DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tuser_id INTEGER, \n\tip VARCHAR(45) NOT NULL, \n\trequest_path VARCHAR(100) NOT NULL, \n\ttrigger_type VARCHAR(50) NOT NULL, \n\ttrigger_word VARCHAR(200) NOT NULL, \n\ttext_preview TEXT, \n\taction VARCHAR(20) NOT NULL, \n\tPRIMARY KEY (id)\n)"
+    },
+    {
+      "type": "index",
+      "name": "ix_intercept_logs_ip",
+      "tbl_name": "intercept_logs",
+      "rootpage": 9,
+      "sql": "CREATE INDEX ix_intercept_logs_ip ON intercept_logs (ip)"
+    },
+    {
+      "type": "index",
+      "name": "ix_intercept_logs_id",
+      "tbl_name": "intercept_logs",
+      "rootpage": 10,
+      "sql": "CREATE INDEX ix_intercept_logs_id ON intercept_logs (id)"
+    },
+    {
+      "type": "index",
+      "name": "ix_intercept_logs_timestamp",
+      "tbl_name": "intercept_logs",
+      "rootpage": 11,
+      "sql": "CREATE INDEX ix_intercept_logs_timestamp ON intercept_logs (timestamp)"
+    },
+    {
+      "type": "table",
+      "name": "record",
+      "tbl_name": "record",
+      "rootpage": 12,
+      "sql": "CREATE TABLE record (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tfilename VARCHAR NOT NULL, \n\treport_markdown TEXT, \n\tmetadata_json TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tupdated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), raw_output TEXT, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+    },
+    {
+      "type": "index",
+      "name": "ix_record_id",
+      "tbl_name": "record",
+      "rootpage": 13,
+      "sql": "CREATE INDEX ix_record_id ON record (id)"
+    },
+    {
+      "type": "table",
+      "name": "feedback",
+      "tbl_name": "feedback",
+      "rootpage": 14,
+      "sql": "CREATE TABLE feedback (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\treport_id VARCHAR(50) NOT NULL, \n\tfeedback_type VARCHAR(20) NOT NULL, \n\tcategories TEXT, \n\tcomment TEXT, \n\tupload_consent BOOLEAN NOT NULL, \n\tcontract_text TEXT, \n\tcontract_hash VARCHAR(64), \n\tquality_score INTEGER NOT NULL, \n\tsuggested_bonus INTEGER NOT NULL, \n\tai_reason TEXT, \n\tbonus_awarded INTEGER NOT NULL, \n\tstatus VARCHAR(20) NOT NULL, \n\treviewed_at DATETIME, \n\treviewer_id INTEGER, \n\treviewed_by VARCHAR(50), \n\treject_reason TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id), \n\tFOREIGN KEY(reviewer_id) REFERENCES user (id)\n)"
+    },
+    {
+      "type": "index",
+      "name": "ix_feedback_id",
+      "tbl_name": "feedback",
+      "rootpage": 15,
+      "sql": "CREATE INDEX ix_feedback_id ON feedback (id)"
+    },
+    {
+      "type": "table",
+      "name": "bonus_log",
+      "tbl_name": "bonus_log",
+      "rootpage": 16,
+      "sql": "CREATE TABLE bonus_log (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tbonus_type VARCHAR(50) NOT NULL, \n\tcontract_hash VARCHAR(64), \n\tawarded_amount INTEGER NOT NULL, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+    },
+    {
+      "type": "index",
+      "name": "ix_bonus_log_id",
+      "tbl_name": "bonus_log",
+      "rootpage": 17,
+      "sql": "CREATE INDEX ix_bonus_log_id ON bonus_log (id)"
+    },
+    {
+      "type": "table",
+      "name": "invite_rewards",
+      "tbl_name": "invite_rewards",
+      "rootpage": 18,
+      "sql": "CREATE TABLE invite_rewards (\n\tid INTEGER NOT NULL, \n\tinviter_id INTEGER NOT NULL, \n\tinvitee_id INTEGER NOT NULL, \n\treward_credits INTEGER NOT NULL, \n\tstatus VARCHAR(20) NOT NULL, \n\tinvitee_first_review_at DATETIME, \n\treward_granted_at DATETIME, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(inviter_id) REFERENCES user (id), \n\tFOREIGN KEY(invitee_id) REFERENCES user (id)\n)"
+    },
+    {
+      "type": "index",
+      "name": "ix_invite_rewards_id",
+      "tbl_name": "invite_rewards",
+      "rootpage": 19,
+      "sql": "CREATE INDEX ix_invite_rewards_id ON invite_rewards (id)"
+    },
+    {
+      "type": "table",
+      "name": "file_hash_cache",
+      "tbl_name": "file_hash_cache",
+      "rootpage": 20,
+      "sql": "CREATE TABLE file_hash_cache (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tfile_hash VARCHAR(64) NOT NULL, \n\tfilename VARCHAR, \n\tfirst_upload_time DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tlast_upload_time DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tupload_count INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+    },
+    {
+      "type": "index",
+      "name": "ix_file_hash_cache_file_hash",
+      "tbl_name": "file_hash_cache",
+      "rootpage": 23,
+      "sql": "CREATE INDEX ix_file_hash_cache_file_hash ON file_hash_cache (file_hash)"
+    },
+    {
+      "type": "index",
+      "name": "ix_file_hash_cache_user_id",
+      "tbl_name": "file_hash_cache",
+      "rootpage": 24,
+      "sql": "CREATE INDEX ix_file_hash_cache_user_id ON file_hash_cache (user_id)"
+    },
+    {
+      "type": "index",
+      "name": "ix_file_hash_cache_id",
+      "tbl_name": "file_hash_cache",
+      "rootpage": 25,
+      "sql": "CREATE INDEX ix_file_hash_cache_id ON file_hash_cache (id)"
+    },
+    {
+      "type": "table",
+      "name": "task_record",
+      "tbl_name": "task_record",
+      "rootpage": 26,
+      "sql": "CREATE TABLE task_record (\n\tid INTEGER NOT NULL, \n\ttask_id VARCHAR(36) NOT NULL, \n\tfilename VARCHAR NOT NULL, \n\tfile_size INTEGER, \n\tstatus VARCHAR(20) NOT NULL, \n\tuser_id INTEGER, \n\tremaining_bonus INTEGER, \n\trecord_id INTEGER, \n\tprogress INTEGER, \n\tresult TEXT, \n\terror TEXT, \n\tmetadata_json TEXT, \n\tvalidation_json TEXT, \n\tsummary_json TEXT, \n\ttrace_id VARCHAR(50), \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tupdated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+    },
+    {
+      "type": "index",
+      "name": "ix_task_record_task_id",
+      "tbl_name": "task_record",
+      "rootpage": 27,
+      "sql": "CREATE UNIQUE INDEX ix_task_record_task_id ON task_record (task_id)"
+    },
+    {
+      "type": "index",
+      "name": "ix_task_record_id",
+      "tbl_name": "task_record",
+      "rootpage": 28,
+      "sql": "CREATE INDEX ix_task_record_id ON task_record (id)"
+    },
+    {
+      "type": "table",
+      "name": "reward_logs",
+      "tbl_name": "reward_logs",
+      "rootpage": 29,
+      "sql": "CREATE TABLE reward_logs (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tamount INTEGER NOT NULL, \n\treason VARCHAR(50) NOT NULL, \n\trelated_feedback_id INTEGER, \n\toperator VARCHAR(50), \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id), \n\tFOREIGN KEY(related_feedback_id) REFERENCES feedback (id)\n)"
+    },
+    {
+      "type": "index",
+      "name": "ix_reward_logs_id",
+      "tbl_name": "reward_logs",
+      "rootpage": 30,
+      "sql": "CREATE INDEX ix_reward_logs_id ON reward_logs (id)"
+    },
+    {
+      "type": "table",
+      "name": "admin_logs",
+      "tbl_name": "admin_logs",
+      "rootpage": 50,
+      "sql": "CREATE TABLE admin_logs (\n\tid INTEGER NOT NULL, \n\tadmin_user VARCHAR(50) NOT NULL, \n\taction VARCHAR(50) NOT NULL, \n\ttarget_type VARCHAR(50) NOT NULL, \n\ttarget_value VARCHAR(200) NOT NULL, \n\tdetail TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+    },
+    {
+      "type": "index",
+      "name": "ix_admin_logs_id",
+      "tbl_name": "admin_logs",
+      "rootpage": 51,
+      "sql": "CREATE INDEX ix_admin_logs_id ON admin_logs (id)"
+    },
+    {
+      "type": "table",
+      "name": "security_events",
+      "tbl_name": "security_events",
+      "rootpage": 52,
+      "sql": "CREATE TABLE security_events (\n\tid INTEGER NOT NULL, \n\tevent_type VARCHAR(50) NOT NULL, \n\tseverity VARCHAR(20) NOT NULL, \n\tsource VARCHAR(50) NOT NULL, \n\tdetail TEXT, \n\tuser_id VARCHAR(50), \n\tip VARCHAR(45), \n\tmeta_json TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+    },
+    {
+      "type": "index",
+      "name": "ix_security_events_id",
+      "tbl_name": "security_events",
+      "rootpage": 53,
+      "sql": "CREATE INDEX ix_security_events_id ON security_events (id)"
+    },
+    {
+      "type": "index",
+      "name": "ix_security_events_created_at",
+      "tbl_name": "security_events",
+      "rootpage": 54,
+      "sql": "CREATE INDEX ix_security_events_created_at ON security_events (created_at)"
+    },
+    {
+      "type": "index",
+      "name": "ix_security_events_event_type",
+      "tbl_name": "security_events",
+      "rootpage": 55,
+      "sql": "CREATE INDEX ix_security_events_event_type ON security_events (event_type)"
+    },
+    {
+      "type": "table",
+      "name": "admins",
+      "tbl_name": "admins",
+      "rootpage": 32,
+      "sql": "CREATE TABLE admins (\n\tid INTEGER NOT NULL, \n\tusername VARCHAR(50) NOT NULL, \n\tpassword_hash VARCHAR NOT NULL, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+    },
+    {
+      "type": "index",
+      "name": "ix_admins_username",
+      "tbl_name": "admins",
+      "rootpage": 36,
+      "sql": "CREATE UNIQUE INDEX ix_admins_username ON admins (username)"
+    },
+    {
+      "type": "index",
+      "name": "ix_admins_id",
+      "tbl_name": "admins",
+      "rootpage": 59,
+      "sql": "CREATE INDEX ix_admins_id ON admins (id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_admin_logs_created",
+      "tbl_name": "admin_logs",
+      "rootpage": 70,
+      "sql": "CREATE INDEX idx_admin_logs_created ON admin_logs(created_at)"
+    },
+    {
+      "type": "index",
+      "name": "idx_admin_logs_admin",
+      "tbl_name": "admin_logs",
+      "rootpage": 71,
+      "sql": "CREATE INDEX idx_admin_logs_admin ON admin_logs(admin_user)"
+    },
+    {
+      "type": "index",
+      "name": "idx_security_events_type",
+      "tbl_name": "security_events",
+      "rootpage": 72,
+      "sql": "CREATE INDEX idx_security_events_type ON security_events(event_type)"
+    },
+    {
+      "type": "index",
+      "name": "idx_security_events_created",
+      "tbl_name": "security_events",
+      "rootpage": 73,
+      "sql": "CREATE INDEX idx_security_events_created ON security_events(created_at)"
+    }
+  ]
+}

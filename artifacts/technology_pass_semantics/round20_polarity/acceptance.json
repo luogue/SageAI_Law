@@ -1,0 +1,1981 @@
+{
+  "source_manifest": "manifest.json",
+  "current_contract": {
+    "licensee": {
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch_checks": {
+        "RISK_EVIDENCE_MISMATCH": "PASS",
+        "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS"
+      },
+      "evidence_mismatch_count": 0,
+      "failures": [],
+      "process_id": 8004,
+      "review_states": {
+        "TC-02-02": "通过",
+        "TC-11-04": "缺失",
+        "TC-12-01": "缺失",
+        "TC-12-02": "部分覆盖"
+      },
+      "tc0202_audit": {
+        "review_id": "TC-02-02",
+        "predicate": "ACTUAL_INFRINGEMENT",
+        "query_semantics": "ADVERSE_CLAUSE_SEARCH",
+        "result": "NO_ADVERSE_CLAUSE_FOUND",
+        "searched_scope": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021"
+        ],
+        "search_coverage": "SUFFICIENT",
+        "adverse_clause_exists": false,
+        "confidence": "high",
+        "producer": "CANONICAL_ADVERSE_PREDICATE_SEARCH"
+      },
+      "tc0202_elements": [
+        {
+          "review_id": "TC-02-02",
+          "element_id": "affirmative_infringement_fact",
+          "claim_id": "TC-02-02-affirmative_infringement_fact",
+          "proposition": "未发现技术已经侵害他人技术成果的肯定性事实。",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "未发现技术已经侵害他人技术成果的肯定性事实。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false
+        }
+      ],
+      "tc1202_elements": [
+        {
+          "review_id": "TC-12-02",
+          "element_id": "claim_trigger",
+          "claim_id": "TC-12-02-claim_trigger",
+          "proposition": "第三方对被许可方实施合同技术提出权利主张；适用条件：如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露；如第三方主张乙方按照本合同约定使用许可技术侵犯其知识产权或者其他合法权利",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-9a51c081b635da91",
+            "EV-0b5e84494ec66f23"
+          ],
+          "supporting_evidence_ids": [
+            "EV-9a51c081b635da91",
+            "EV-0b5e84494ec66f23"
+          ],
+          "source_clause_ids": [
+            "C0015",
+            "C0016"
+          ],
+          "source_spans": [
+            "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露，甲方应赔偿因此给乙方造成的直接经济损失",
+            "如第三方主张乙方按照本合同约定使用许可技术侵犯其知识产权或者其他合法权利，乙方应及时通知甲方"
+          ],
+          "source_locations": [
+            "第十二条 权利保证",
+            "第十三条 第三方权利主张"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "第三方对被许可方实施合同技术提出权利主张；适用条件：如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露；如第三方主张乙方按照本合同约定使用许可技术侵犯其知识产权或者其他合法权利",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "NEUTRAL",
+          "required_fact": "第三方对被许可方实施合同技术提出权利主张",
+          "presence_status": "COVERED",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0015",
+              "quote": "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露，甲方应赔偿因此给乙方造成的直接经济损失",
+              "location": "第十二条 权利保证",
+              "actor": "",
+              "condition": "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露",
+              "limited": true,
+              "polarity": "CONDITIONAL"
+            },
+            {
+              "clause_id": "C0016",
+              "quote": "如第三方主张乙方按照本合同约定使用许可技术侵犯其知识产权或者其他合法权利，乙方应及时通知甲方",
+              "location": "第十三条 第三方权利主张",
+              "actor": "",
+              "condition": "如第三方主张乙方按照本合同约定使用许可技术侵犯其知识产权或者其他合法权利",
+              "limited": false,
+              "polarity": "CONDITIONAL"
+            }
+          ],
+          "source_fact_key": "claim_trigger",
+          "evidence_refs": [
+            "EV-9a51c081b635da91",
+            "EV-0b5e84494ec66f23"
+          ]
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "notification_requirement",
+          "claim_id": "TC-12-02-notification_requirement",
+          "proposition": "被许可方向许可方通知第三方权利主张的义务；适用条件：如第三方主张乙方按照本合同约定使用许可技术侵犯其知识产权或者其他合法权利",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-0b5e84494ec66f23"
+          ],
+          "supporting_evidence_ids": [
+            "EV-0b5e84494ec66f23"
+          ],
+          "source_clause_ids": [
+            "C0016"
+          ],
+          "source_spans": [
+            "如第三方主张乙方按照本合同约定使用许可技术侵犯其知识产权或者其他合法权利，乙方应及时通知甲方"
+          ],
+          "source_locations": [
+            "第十三条 第三方权利主张"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "被许可方向许可方通知第三方权利主张的义务；适用条件：如第三方主张乙方按照本合同约定使用许可技术侵犯其知识产权或者其他合法权利",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "direction": "NEUTRAL",
+          "required_fact": "被许可方向许可方通知第三方权利主张的义务",
+          "presence_status": "COVERED",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0016",
+              "quote": "如第三方主张乙方按照本合同约定使用许可技术侵犯其知识产权或者其他合法权利，乙方应及时通知甲方",
+              "location": "第十三条 第三方权利主张",
+              "actor": "LICENSEE",
+              "condition": "如第三方主张乙方按照本合同约定使用许可技术侵犯其知识产权或者其他合法权利",
+              "limited": false,
+              "polarity": "CONDITIONAL"
+            }
+          ],
+          "source_fact_key": "notification_requirement",
+          "evidence_refs": [
+            "EV-0b5e84494ec66f23"
+          ]
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "notification_deadline",
+          "claim_id": "TC-12-02-notification_deadline",
+          "proposition": "第三方权利主张的具体通知期限",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "第三方权利主张的具体通知期限",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "direction": "UNKNOWN",
+          "required_fact": "第三方权利主张的具体通知期限",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "notification_deadline"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "administrative_handling",
+          "claim_id": "TC-12-02-administrative_handling",
+          "proposition": "许可方负责第三方主张的行政处理",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "许可方负责第三方主张的行政处理",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "许可方负责第三方主张的行政处理",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "administrative_handling"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "litigation_handling",
+          "claim_id": "TC-12-02-litigation_handling",
+          "proposition": "许可方负责第三方主张的诉讼或应诉",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "许可方负责第三方主张的诉讼或应诉",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "许可方负责第三方主张的诉讼或应诉",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "litigation_handling"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "licensor_participation",
+          "claim_id": "TC-12-02-licensor_participation",
+          "proposition": "许可方负责第三方主张的交涉或处理",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "许可方负责第三方主张的交涉或处理",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "direction": "UNKNOWN",
+          "required_fact": "许可方负责第三方主张的交涉或处理",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "claim_handling"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "liability_responsible_party",
+          "claim_id": "TC-12-02-liability_responsible_party",
+          "proposition": "第三方主张相应法律责任承担主体已有约定：由许可方承担；适用条件：如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-b64cdaaee9eeb54a"
+          ],
+          "supporting_evidence_ids": [
+            "EV-b64cdaaee9eeb54a"
+          ],
+          "source_clause_ids": [
+            "C0016"
+          ],
+          "source_spans": [
+            "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项，由甲方承担因此给乙方造成的直接经济损失"
+          ],
+          "source_locations": [
+            "第十三条 第三方权利主张"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "第三方主张相应法律责任承担主体已有约定：由许可方承担；适用条件：如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "direction": "NEUTRAL",
+          "required_fact": "第三方法律责任承担主体",
+          "presence_status": "COVERED",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0016",
+              "quote": "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项，由甲方承担因此给乙方造成的直接经济损失",
+              "location": "第十三条 第三方权利主张",
+              "actor": "LICENSOR",
+              "condition": "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+              "limited": true,
+              "polarity": "CONDITIONAL"
+            }
+          ],
+          "source_fact_key": "liability_responsible_party",
+          "evidence_refs": [
+            "EV-b64cdaaee9eeb54a"
+          ]
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "attorney_fee",
+          "claim_id": "TC-12-02-attorney_fee",
+          "proposition": "律师费承担",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "律师费承担",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "律师费承担",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "attorney_fee"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "litigation_cost",
+          "claim_id": "TC-12-02-litigation_cost",
+          "proposition": "诉讼费承担",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "诉讼费承担",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "诉讼费承担",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "litigation_cost"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "direct_damage",
+          "claim_id": "TC-12-02-direct_damage",
+          "proposition": "直接经济损失承担；适用条件：如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露；如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-9a51c081b635da91",
+            "EV-b64cdaaee9eeb54a"
+          ],
+          "supporting_evidence_ids": [
+            "EV-9a51c081b635da91",
+            "EV-b64cdaaee9eeb54a"
+          ],
+          "source_clause_ids": [
+            "C0015",
+            "C0016"
+          ],
+          "source_spans": [
+            "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露，甲方应赔偿因此给乙方造成的直接经济损失",
+            "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项，由甲方承担因此给乙方造成的直接经济损失"
+          ],
+          "source_locations": [
+            "第十二条 权利保证",
+            "第十三条 第三方权利主张"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "直接经济损失承担；适用条件：如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露；如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "NEUTRAL",
+          "required_fact": "直接经济损失承担",
+          "presence_status": "COVERED",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0015",
+              "quote": "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露，甲方应赔偿因此给乙方造成的直接经济损失",
+              "location": "第十二条 权利保证",
+              "actor": "LICENSOR",
+              "scope_items": [
+                "直接经济损失"
+              ],
+              "allocation_quote": "甲方应赔偿因此给乙方造成的直接经济损失",
+              "condition": "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露",
+              "limited": true,
+              "polarity": "CONDITIONAL"
+            },
+            {
+              "clause_id": "C0016",
+              "quote": "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项，由甲方承担因此给乙方造成的直接经济损失",
+              "location": "第十三条 第三方权利主张",
+              "actor": "LICENSOR",
+              "scope_items": [
+                "直接经济损失"
+              ],
+              "allocation_quote": "由甲方承担因此给乙方造成的直接经济损失",
+              "condition": "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+              "limited": true,
+              "polarity": "CONDITIONAL"
+            }
+          ],
+          "source_fact_key": "direct_damage",
+          "evidence_refs": [
+            "EV-9a51c081b635da91",
+            "EV-b64cdaaee9eeb54a"
+          ]
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "defense_cost_allocation",
+          "claim_id": "TC-12-02-defense_cost_allocation",
+          "proposition": "第三方主张抗辩和程序费用的具体范围及承担",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "第三方主张抗辩和程序费用的具体范围及承担",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "direction": "UNKNOWN",
+          "required_fact": "第三方主张抗辩和程序费用的具体范围及承担",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "defense_cost_scope"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "damages_allocation",
+          "claim_id": "TC-12-02-damages_allocation",
+          "proposition": "第三方赔偿项目及分担规则已有约定：由许可方承担；适用条件：如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露；如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-9a51c081b635da91",
+            "EV-b64cdaaee9eeb54a"
+          ],
+          "supporting_evidence_ids": [
+            "EV-9a51c081b635da91",
+            "EV-b64cdaaee9eeb54a"
+          ],
+          "source_clause_ids": [
+            "C0015",
+            "C0016"
+          ],
+          "source_spans": [
+            "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露，甲方应赔偿因此给乙方造成的直接经济损失",
+            "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项，由甲方承担因此给乙方造成的直接经济损失"
+          ],
+          "source_locations": [
+            "第十二条 权利保证",
+            "第十三条 第三方权利主张"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "第三方赔偿项目及分担规则已有约定：由许可方承担；适用条件：如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露；如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "direction": "NEUTRAL",
+          "required_fact": "第三方赔偿项目及分担规则",
+          "presence_status": "COVERED",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0015",
+              "quote": "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露，甲方应赔偿因此给乙方造成的直接经济损失",
+              "location": "第十二条 权利保证",
+              "actor": "LICENSOR",
+              "allocation_quote": "甲方应赔偿因此给乙方造成的直接经济损失",
+              "condition": "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露",
+              "limited": true,
+              "polarity": "CONDITIONAL"
+            },
+            {
+              "clause_id": "C0016",
+              "quote": "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项，由甲方承担因此给乙方造成的直接经济损失",
+              "location": "第十三条 第三方权利主张",
+              "actor": "LICENSOR",
+              "allocation_quote": "由甲方承担因此给乙方造成的直接经济损失",
+              "condition": "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+              "limited": true,
+              "polarity": "CONDITIONAL"
+            }
+          ],
+          "source_fact_key": "damages_allocation",
+          "evidence_refs": [
+            "EV-9a51c081b635da91",
+            "EV-b64cdaaee9eeb54a"
+          ]
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "damages_scope",
+          "claim_id": "TC-12-02-damages_scope",
+          "proposition": "第三方赔偿责任范围：直接经济损失已有约定：由许可方承担；适用条件：如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露；如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-9a51c081b635da91",
+            "EV-b64cdaaee9eeb54a"
+          ],
+          "supporting_evidence_ids": [
+            "EV-9a51c081b635da91",
+            "EV-b64cdaaee9eeb54a"
+          ],
+          "source_clause_ids": [
+            "C0015",
+            "C0016"
+          ],
+          "source_spans": [
+            "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露，甲方应赔偿因此给乙方造成的直接经济损失",
+            "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项，由甲方承担因此给乙方造成的直接经济损失"
+          ],
+          "source_locations": [
+            "第十二条 权利保证",
+            "第十三条 第三方权利主张"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "第三方赔偿责任范围：直接经济损失已有约定：由许可方承担；适用条件：如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露；如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "direction": "NEUTRAL",
+          "required_fact": "第三方赔偿责任具体范围",
+          "presence_status": "COVERED",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0015",
+              "quote": "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露，甲方应赔偿因此给乙方造成的直接经济损失",
+              "location": "第十二条 权利保证",
+              "actor": "LICENSOR",
+              "scope_items": [
+                "直接经济损失"
+              ],
+              "allocation_quote": "甲方应赔偿因此给乙方造成的直接经济损失",
+              "condition": "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露",
+              "limited": true,
+              "polarity": "CONDITIONAL"
+            },
+            {
+              "clause_id": "C0016",
+              "quote": "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项，由甲方承担因此给乙方造成的直接经济损失",
+              "location": "第十三条 第三方权利主张",
+              "actor": "LICENSOR",
+              "scope_items": [
+                "直接经济损失"
+              ],
+              "allocation_quote": "由甲方承担因此给乙方造成的直接经济损失",
+              "condition": "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+              "limited": true,
+              "polarity": "CONDITIONAL"
+            }
+          ],
+          "source_fact_key": "damages_scope",
+          "evidence_refs": [
+            "EV-9a51c081b635da91",
+            "EV-b64cdaaee9eeb54a"
+          ]
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "settlement_non_prejudice",
+          "claim_id": "TC-12-02-settlement_non_prejudice",
+          "proposition": "和解不得损害被许可方权益",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "和解不得损害被许可方权益",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "direction": "UNKNOWN",
+          "required_fact": "和解不得损害被许可方权益",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "settlement_non_prejudice"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "settlement_consultation",
+          "claim_id": "TC-12-02-settlement_consultation",
+          "proposition": "和解前事先协商",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "和解前事先协商",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "和解前事先协商",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "settlement_consultation"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "defense_control",
+          "claim_id": "TC-12-02-defense_control",
+          "proposition": "抗辩控制权",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "抗辩控制权",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "抗辩控制权",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "defense_control"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "lawyer_selection",
+          "claim_id": "TC-12-02-lawyer_selection",
+          "proposition": "律师选择权",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "律师选择权",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "律师选择权",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "lawyer_selection"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "settlement_authority",
+          "claim_id": "TC-12-02-settlement_authority",
+          "proposition": "和解决策权限",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "和解决策权限",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "和解决策权限",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "settlement_authority"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "replacement_remedy",
+          "claim_id": "TC-12-02-replacement_remedy",
+          "proposition": "替代技术或绕开侵权方案",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "替代技术或绕开侵权方案",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "替代技术或绕开侵权方案",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "replacement_remedy"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "replacement_or_workaround",
+          "claim_id": "TC-12-02-replacement_or_workaround",
+          "proposition": "替代技术或绕开侵权方案",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "替代技术或绕开侵权方案",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "替代技术或绕开侵权方案",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "replacement_remedy"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "license_cure",
+          "claim_id": "TC-12-02-license_cure",
+          "proposition": "取得第三方许可或修复许可权",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "取得第三方许可或修复许可权",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "取得第三方许可或修复许可权",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "license_cure"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "refund_or_termination_remedy",
+          "claim_id": "TC-12-02-refund_or_termination_remedy",
+          "proposition": "无法修复许可时的退款救济",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "无法修复许可时的退款救济",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "无法修复许可时的退款救济",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "refund_remedy"
+        }
+      ]
+    },
+    "licensor": {
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch_checks": {
+        "RISK_EVIDENCE_MISMATCH": "PASS",
+        "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS"
+      },
+      "evidence_mismatch_count": 0,
+      "failures": [],
+      "process_id": 8004,
+      "review_states": {
+        "TC-02-02": "通过",
+        "TC-11-04": "缺失",
+        "TC-12-01": "缺失",
+        "TC-12-02": "部分覆盖"
+      },
+      "tc0202_audit": {
+        "review_id": "TC-02-02",
+        "predicate": "ACTUAL_INFRINGEMENT",
+        "query_semantics": "ADVERSE_CLAUSE_SEARCH",
+        "result": "NO_ADVERSE_CLAUSE_FOUND",
+        "searched_scope": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021"
+        ],
+        "search_coverage": "SUFFICIENT",
+        "adverse_clause_exists": false,
+        "confidence": "high",
+        "producer": "CANONICAL_ADVERSE_PREDICATE_SEARCH"
+      },
+      "tc0202_elements": [
+        {
+          "review_id": "TC-02-02",
+          "element_id": "affirmative_infringement_fact",
+          "claim_id": "TC-02-02-affirmative_infringement_fact",
+          "proposition": "未发现技术已经侵害他人技术成果的肯定性事实。",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "未发现技术已经侵害他人技术成果的肯定性事实。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false
+        }
+      ],
+      "tc1202_elements": [
+        {
+          "review_id": "TC-12-02",
+          "element_id": "claim_trigger",
+          "claim_id": "TC-12-02-claim_trigger",
+          "proposition": "第三方对被许可方实施合同技术提出权利主张；适用条件：如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露；如第三方主张乙方按照本合同约定使用许可技术侵犯其知识产权或者其他合法权利",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-9a51c081b635da91",
+            "EV-0b5e84494ec66f23"
+          ],
+          "supporting_evidence_ids": [
+            "EV-9a51c081b635da91",
+            "EV-0b5e84494ec66f23"
+          ],
+          "source_clause_ids": [
+            "C0015",
+            "C0016"
+          ],
+          "source_spans": [
+            "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露，甲方应赔偿因此给乙方造成的直接经济损失",
+            "如第三方主张乙方按照本合同约定使用许可技术侵犯其知识产权或者其他合法权利，乙方应及时通知甲方"
+          ],
+          "source_locations": [
+            "第十二条 权利保证",
+            "第十三条 第三方权利主张"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "第三方对被许可方实施合同技术提出权利主张；适用条件：如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露；如第三方主张乙方按照本合同约定使用许可技术侵犯其知识产权或者其他合法权利",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "NEUTRAL",
+          "required_fact": "第三方对被许可方实施合同技术提出权利主张",
+          "presence_status": "COVERED",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0015",
+              "quote": "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露，甲方应赔偿因此给乙方造成的直接经济损失",
+              "location": "第十二条 权利保证",
+              "actor": "",
+              "condition": "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露",
+              "limited": true,
+              "polarity": "CONDITIONAL"
+            },
+            {
+              "clause_id": "C0016",
+              "quote": "如第三方主张乙方按照本合同约定使用许可技术侵犯其知识产权或者其他合法权利，乙方应及时通知甲方",
+              "location": "第十三条 第三方权利主张",
+              "actor": "",
+              "condition": "如第三方主张乙方按照本合同约定使用许可技术侵犯其知识产权或者其他合法权利",
+              "limited": false,
+              "polarity": "CONDITIONAL"
+            }
+          ],
+          "source_fact_key": "claim_trigger",
+          "evidence_refs": [
+            "EV-9a51c081b635da91",
+            "EV-0b5e84494ec66f23"
+          ]
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "notification_requirement",
+          "claim_id": "TC-12-02-notification_requirement",
+          "proposition": "被许可方向许可方通知第三方权利主张的义务；适用条件：如第三方主张乙方按照本合同约定使用许可技术侵犯其知识产权或者其他合法权利",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-0b5e84494ec66f23"
+          ],
+          "supporting_evidence_ids": [
+            "EV-0b5e84494ec66f23"
+          ],
+          "source_clause_ids": [
+            "C0016"
+          ],
+          "source_spans": [
+            "如第三方主张乙方按照本合同约定使用许可技术侵犯其知识产权或者其他合法权利，乙方应及时通知甲方"
+          ],
+          "source_locations": [
+            "第十三条 第三方权利主张"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "被许可方向许可方通知第三方权利主张的义务；适用条件：如第三方主张乙方按照本合同约定使用许可技术侵犯其知识产权或者其他合法权利",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "direction": "NEUTRAL",
+          "required_fact": "被许可方向许可方通知第三方权利主张的义务",
+          "presence_status": "COVERED",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0016",
+              "quote": "如第三方主张乙方按照本合同约定使用许可技术侵犯其知识产权或者其他合法权利，乙方应及时通知甲方",
+              "location": "第十三条 第三方权利主张",
+              "actor": "LICENSEE",
+              "condition": "如第三方主张乙方按照本合同约定使用许可技术侵犯其知识产权或者其他合法权利",
+              "limited": false,
+              "polarity": "CONDITIONAL"
+            }
+          ],
+          "source_fact_key": "notification_requirement",
+          "evidence_refs": [
+            "EV-0b5e84494ec66f23"
+          ]
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "notification_deadline",
+          "claim_id": "TC-12-02-notification_deadline",
+          "proposition": "第三方权利主张的具体通知期限",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "第三方权利主张的具体通知期限",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "direction": "UNKNOWN",
+          "required_fact": "第三方权利主张的具体通知期限",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "notification_deadline"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "administrative_handling",
+          "claim_id": "TC-12-02-administrative_handling",
+          "proposition": "许可方负责第三方主张的行政处理",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "许可方负责第三方主张的行政处理",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "许可方负责第三方主张的行政处理",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "administrative_handling"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "litigation_handling",
+          "claim_id": "TC-12-02-litigation_handling",
+          "proposition": "许可方负责第三方主张的诉讼或应诉",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "许可方负责第三方主张的诉讼或应诉",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "许可方负责第三方主张的诉讼或应诉",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "litigation_handling"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "licensor_participation",
+          "claim_id": "TC-12-02-licensor_participation",
+          "proposition": "许可方负责第三方主张的交涉或处理",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "许可方负责第三方主张的交涉或处理",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "direction": "UNKNOWN",
+          "required_fact": "许可方负责第三方主张的交涉或处理",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "claim_handling"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "liability_responsible_party",
+          "claim_id": "TC-12-02-liability_responsible_party",
+          "proposition": "第三方主张相应法律责任承担主体已有约定：由许可方承担；适用条件：如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-b64cdaaee9eeb54a"
+          ],
+          "supporting_evidence_ids": [
+            "EV-b64cdaaee9eeb54a"
+          ],
+          "source_clause_ids": [
+            "C0016"
+          ],
+          "source_spans": [
+            "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项，由甲方承担因此给乙方造成的直接经济损失"
+          ],
+          "source_locations": [
+            "第十三条 第三方权利主张"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "第三方主张相应法律责任承担主体已有约定：由许可方承担；适用条件：如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "direction": "NEUTRAL",
+          "required_fact": "第三方法律责任承担主体",
+          "presence_status": "COVERED",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0016",
+              "quote": "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项，由甲方承担因此给乙方造成的直接经济损失",
+              "location": "第十三条 第三方权利主张",
+              "actor": "LICENSOR",
+              "condition": "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+              "limited": true,
+              "polarity": "CONDITIONAL"
+            }
+          ],
+          "source_fact_key": "liability_responsible_party",
+          "evidence_refs": [
+            "EV-b64cdaaee9eeb54a"
+          ]
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "attorney_fee",
+          "claim_id": "TC-12-02-attorney_fee",
+          "proposition": "律师费承担",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "律师费承担",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "律师费承担",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "attorney_fee"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "litigation_cost",
+          "claim_id": "TC-12-02-litigation_cost",
+          "proposition": "诉讼费承担",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "诉讼费承担",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "诉讼费承担",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "litigation_cost"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "direct_damage",
+          "claim_id": "TC-12-02-direct_damage",
+          "proposition": "直接经济损失承担；适用条件：如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露；如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-9a51c081b635da91",
+            "EV-b64cdaaee9eeb54a"
+          ],
+          "supporting_evidence_ids": [
+            "EV-9a51c081b635da91",
+            "EV-b64cdaaee9eeb54a"
+          ],
+          "source_clause_ids": [
+            "C0015",
+            "C0016"
+          ],
+          "source_spans": [
+            "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露，甲方应赔偿因此给乙方造成的直接经济损失",
+            "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项，由甲方承担因此给乙方造成的直接经济损失"
+          ],
+          "source_locations": [
+            "第十二条 权利保证",
+            "第十三条 第三方权利主张"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "直接经济损失承担；适用条件：如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露；如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "NEUTRAL",
+          "required_fact": "直接经济损失承担",
+          "presence_status": "COVERED",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0015",
+              "quote": "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露，甲方应赔偿因此给乙方造成的直接经济损失",
+              "location": "第十二条 权利保证",
+              "actor": "LICENSOR",
+              "scope_items": [
+                "直接经济损失"
+              ],
+              "allocation_quote": "甲方应赔偿因此给乙方造成的直接经济损失",
+              "condition": "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露",
+              "limited": true,
+              "polarity": "CONDITIONAL"
+            },
+            {
+              "clause_id": "C0016",
+              "quote": "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项，由甲方承担因此给乙方造成的直接经济损失",
+              "location": "第十三条 第三方权利主张",
+              "actor": "LICENSOR",
+              "scope_items": [
+                "直接经济损失"
+              ],
+              "allocation_quote": "由甲方承担因此给乙方造成的直接经济损失",
+              "condition": "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+              "limited": true,
+              "polarity": "CONDITIONAL"
+            }
+          ],
+          "source_fact_key": "direct_damage",
+          "evidence_refs": [
+            "EV-9a51c081b635da91",
+            "EV-b64cdaaee9eeb54a"
+          ]
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "defense_cost_allocation",
+          "claim_id": "TC-12-02-defense_cost_allocation",
+          "proposition": "第三方主张抗辩和程序费用的具体范围及承担",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "第三方主张抗辩和程序费用的具体范围及承担",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "direction": "UNKNOWN",
+          "required_fact": "第三方主张抗辩和程序费用的具体范围及承担",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "defense_cost_scope"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "damages_allocation",
+          "claim_id": "TC-12-02-damages_allocation",
+          "proposition": "第三方赔偿项目及分担规则已有约定：由许可方承担；适用条件：如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露；如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-9a51c081b635da91",
+            "EV-b64cdaaee9eeb54a"
+          ],
+          "supporting_evidence_ids": [
+            "EV-9a51c081b635da91",
+            "EV-b64cdaaee9eeb54a"
+          ],
+          "source_clause_ids": [
+            "C0015",
+            "C0016"
+          ],
+          "source_spans": [
+            "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露，甲方应赔偿因此给乙方造成的直接经济损失",
+            "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项，由甲方承担因此给乙方造成的直接经济损失"
+          ],
+          "source_locations": [
+            "第十二条 权利保证",
+            "第十三条 第三方权利主张"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "第三方赔偿项目及分担规则已有约定：由许可方承担；适用条件：如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露；如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "direction": "NEUTRAL",
+          "required_fact": "第三方赔偿项目及分担规则",
+          "presence_status": "COVERED",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0015",
+              "quote": "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露，甲方应赔偿因此给乙方造成的直接经济损失",
+              "location": "第十二条 权利保证",
+              "actor": "LICENSOR",
+              "allocation_quote": "甲方应赔偿因此给乙方造成的直接经济损失",
+              "condition": "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露",
+              "limited": true,
+              "polarity": "CONDITIONAL"
+            },
+            {
+              "clause_id": "C0016",
+              "quote": "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项，由甲方承担因此给乙方造成的直接经济损失",
+              "location": "第十三条 第三方权利主张",
+              "actor": "LICENSOR",
+              "allocation_quote": "由甲方承担因此给乙方造成的直接经济损失",
+              "condition": "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+              "limited": true,
+              "polarity": "CONDITIONAL"
+            }
+          ],
+          "source_fact_key": "damages_allocation",
+          "evidence_refs": [
+            "EV-9a51c081b635da91",
+            "EV-b64cdaaee9eeb54a"
+          ]
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "damages_scope",
+          "claim_id": "TC-12-02-damages_scope",
+          "proposition": "第三方赔偿责任范围：直接经济损失已有约定：由许可方承担；适用条件：如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露；如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-9a51c081b635da91",
+            "EV-b64cdaaee9eeb54a"
+          ],
+          "supporting_evidence_ids": [
+            "EV-9a51c081b635da91",
+            "EV-b64cdaaee9eeb54a"
+          ],
+          "source_clause_ids": [
+            "C0015",
+            "C0016"
+          ],
+          "source_spans": [
+            "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露，甲方应赔偿因此给乙方造成的直接经济损失",
+            "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项，由甲方承担因此给乙方造成的直接经济损失"
+          ],
+          "source_locations": [
+            "第十二条 权利保证",
+            "第十三条 第三方权利主张"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "第三方赔偿责任范围：直接经济损失已有约定：由许可方承担；适用条件：如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露；如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "direction": "NEUTRAL",
+          "required_fact": "第三方赔偿责任具体范围",
+          "presence_status": "COVERED",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0015",
+              "quote": "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露，甲方应赔偿因此给乙方造成的直接经济损失",
+              "location": "第十二条 权利保证",
+              "actor": "LICENSOR",
+              "scope_items": [
+                "直接经济损失"
+              ],
+              "allocation_quote": "甲方应赔偿因此给乙方造成的直接经济损失",
+              "condition": "如甲方在合同签署前已经明确知道有关技术侵犯第三方合法权利而未向乙方披露",
+              "limited": true,
+              "polarity": "CONDITIONAL"
+            },
+            {
+              "clause_id": "C0016",
+              "quote": "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项，由甲方承担因此给乙方造成的直接经济损失",
+              "location": "第十三条 第三方权利主张",
+              "actor": "LICENSOR",
+              "scope_items": [
+                "直接经济损失"
+              ],
+              "allocation_quote": "由甲方承担因此给乙方造成的直接经济损失",
+              "condition": "如相关权利争议属于甲方签约前已经明确知悉而故意未披露的事项",
+              "limited": true,
+              "polarity": "CONDITIONAL"
+            }
+          ],
+          "source_fact_key": "damages_scope",
+          "evidence_refs": [
+            "EV-9a51c081b635da91",
+            "EV-b64cdaaee9eeb54a"
+          ]
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "settlement_non_prejudice",
+          "claim_id": "TC-12-02-settlement_non_prejudice",
+          "proposition": "和解不得损害被许可方权益",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "和解不得损害被许可方权益",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "direction": "UNKNOWN",
+          "required_fact": "和解不得损害被许可方权益",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "settlement_non_prejudice"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "settlement_consultation",
+          "claim_id": "TC-12-02-settlement_consultation",
+          "proposition": "和解前事先协商",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "和解前事先协商",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "和解前事先协商",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "settlement_consultation"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "defense_control",
+          "claim_id": "TC-12-02-defense_control",
+          "proposition": "抗辩控制权",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "抗辩控制权",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "抗辩控制权",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "defense_control"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "lawyer_selection",
+          "claim_id": "TC-12-02-lawyer_selection",
+          "proposition": "律师选择权",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "律师选择权",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "律师选择权",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "lawyer_selection"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "settlement_authority",
+          "claim_id": "TC-12-02-settlement_authority",
+          "proposition": "和解决策权限",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "和解决策权限",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "和解决策权限",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "settlement_authority"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "replacement_remedy",
+          "claim_id": "TC-12-02-replacement_remedy",
+          "proposition": "替代技术或绕开侵权方案",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "替代技术或绕开侵权方案",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "替代技术或绕开侵权方案",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "replacement_remedy"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "replacement_or_workaround",
+          "claim_id": "TC-12-02-replacement_or_workaround",
+          "proposition": "替代技术或绕开侵权方案",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "替代技术或绕开侵权方案",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "替代技术或绕开侵权方案",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "replacement_remedy"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "license_cure",
+          "claim_id": "TC-12-02-license_cure",
+          "proposition": "取得第三方许可或修复许可权",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "取得第三方许可或修复许可权",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "取得第三方许可或修复许可权",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "license_cure"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "refund_or_termination_remedy",
+          "claim_id": "TC-12-02-refund_or_termination_remedy",
+          "proposition": "无法修复许可时的退款救济",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "无法修复许可时的退款救济",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "direction": "UNKNOWN",
+          "required_fact": "无法修复许可时的退款救济",
+          "presence_status": "MISSING",
+          "arrangement_status": "NEUTRAL",
+          "supporting_evidence": [],
+          "source_fact_key": "refund_remedy"
+        }
+      ]
+    }
+  },
+  "protections": {
+    "patent_closed": {
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch_checks": {
+        "RISK_EVIDENCE_MISMATCH": "PASS",
+        "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS"
+      },
+      "evidence_mismatch_count": 0,
+      "failures": [],
+      "process_id": 8004,
+      "risk_groups_added": [],
+      "risk_groups_removed": []
+    },
+    "cooperative_live": {
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch_checks": {
+        "RISK_EVIDENCE_MISMATCH": "PASS",
+        "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS"
+      },
+      "evidence_mismatch_count": 0,
+      "failures": [],
+      "process_id": 8004,
+      "risk_groups_added": [],
+      "risk_groups_removed": []
+    },
+    "cross_article_live": {
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch_checks": {
+        "RISK_EVIDENCE_MISMATCH": "PASS",
+        "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS"
+      },
+      "evidence_mismatch_count": 0,
+      "failures": [],
+      "process_id": 8004,
+      "risk_groups_added": [],
+      "risk_groups_removed": []
+    },
+    "patent_live": {
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch_checks": {
+        "RISK_EVIDENCE_MISMATCH": "PASS",
+        "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS"
+      },
+      "evidence_mismatch_count": 0,
+      "failures": [],
+      "process_id": 8004,
+      "risk_groups_added": [],
+      "risk_groups_removed": []
+    },
+    "consulting_live": {
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch_checks": {
+        "RISK_EVIDENCE_MISMATCH": "PASS",
+        "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS"
+      },
+      "evidence_mismatch_count": 0,
+      "failures": [],
+      "process_id": 8004,
+      "risk_groups_added": [],
+      "risk_groups_removed": []
+    },
+    "provider_live": {
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch_checks": {
+        "RISK_EVIDENCE_MISMATCH": "PASS",
+        "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS"
+      },
+      "evidence_mismatch_count": 0,
+      "failures": [],
+      "process_id": 8004,
+      "risk_groups_added": [],
+      "risk_groups_removed": []
+    },
+    "balanced_live": {
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch_checks": {
+        "RISK_EVIDENCE_MISMATCH": "PASS",
+        "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS"
+      },
+      "evidence_mismatch_count": 0,
+      "failures": [],
+      "process_id": 8004,
+      "risk_groups_added": [],
+      "risk_groups_removed": []
+    },
+    "ancillary_live": {
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch_checks": {
+        "RISK_EVIDENCE_MISMATCH": "PASS",
+        "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS"
+      },
+      "evidence_mismatch_count": 0,
+      "failures": [],
+      "process_id": 8004,
+      "risk_groups_added": [],
+      "risk_groups_removed": []
+    },
+    "entrusted": {
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch_checks": {
+        "RISK_EVIDENCE_MISMATCH": "PASS",
+        "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS"
+      },
+      "evidence_mismatch_count": 0,
+      "failures": [],
+      "process_id": 8004,
+      "risk_groups_added": [],
+      "risk_groups_removed": []
+    },
+    "prior_patent": {
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch_checks": {
+        "RISK_EVIDENCE_MISMATCH": "PASS",
+        "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS"
+      },
+      "evidence_mismatch_count": 0,
+      "failures": [],
+      "process_id": 8004,
+      "risk_groups_added": [],
+      "risk_groups_removed": []
+    },
+    "transfer": {
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch_checks": {
+        "RISK_EVIDENCE_MISMATCH": "PASS",
+        "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS"
+      },
+      "evidence_mismatch_count": 0,
+      "failures": [],
+      "process_id": 8004,
+      "risk_groups_added": [],
+      "risk_groups_removed": []
+    }
+  },
+  "full_regression": {
+    "baseline": {
+      "PASS": 1001,
+      "FAIL": 249,
+      "SKIP": 0
+    },
+    "current": {
+      "PASS": 1043,
+      "FAIL": 249,
+      "SKIP": 0
+    },
+    "recovered": [],
+    "newly_failing": [],
+    "added": {
+      "backend.tests.test_claim_semantic_scope::test_absence_list_does_not_inherit_previous_actor_or_create_duties": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_actor_named_inside_absence_list_does_not_create_duty": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_affirmative_duty_after_absence_list_still_exists": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_conditional_assistance_retains_its_own_limit": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_conditional_notification_is_not_fault_limited_liability": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u5047\\u5982\\u672c\\u6280\\u672f\\u88ab\\u786e\\u8ba4\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\uff0c\\u7532\\u65b9\\u5e94\\u8d54\\u507f\\u635f\\u5931\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u53cc\\u65b9\\u65e0\\u6cd5\\u786e\\u8ba4\\u672c\\u6280\\u672f\\u5df2\\u7ecf\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u53cc\\u65b9\\u672a\\u53d1\\u73b0\\u5df2\\u7ecf\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\uff0c\\u4f46\\u7532\\u65b9\\u786e\\u8ba4\\u672c\\u6280\\u672f\\u76ee\\u524d\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-True]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u53cc\\u65b9\\u672a\\u53d1\\u73b0\\u672c\\u6280\\u672f\\u5df2\\u7ecf\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u53cc\\u65b9\\u672a\\u660e\\u786e\\u7ea6\\u5b9a\\u4fb5\\u6743\\u5904\\u7406\\u65b9\\u5f0f\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u53cc\\u65b9\\u672a\\u660e\\u786e\\u7ea6\\u5b9a\\u4fb5\\u6743\\u5904\\u7406\\u65b9\\u5f0f\\uff0c\\u4f46\\u7532\\u65b9\\u786e\\u8ba4\\u672c\\u6280\\u672f\\u76ee\\u524d\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-True]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u53cc\\u65b9\\u672a\\u660e\\u786e\\u7ea6\\u5b9a\\u5f8b\\u5e08\\u8d39\\u3001\\u8bc9\\u8bbc\\u8d39\\u627f\\u62c5\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u5728\\u672c\\u6280\\u672f\\u88ab\\u786e\\u8ba4\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u7684\\u60c5\\u51b5\\u4e0b\\uff0c\\u7532\\u65b9\\u5e94\\u8d54\\u507f\\u635f\\u5931\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u5982\\u7532\\u65b9\\u5728\\u5408\\u540c\\u7b7e\\u7f72\\u524d\\u5df2\\u7ecf\\u660e\\u786e\\u77e5\\u9053\\u6709\\u5173\\u6280\\u672f\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u5408\\u6cd5\\u6743\\u5229\\u800c\\u672a\\u5411\\u4e59\\u65b9\\u62ab\\u9732\\uff0c\\u7532\\u65b9\\u5e94\\u8d54\\u507f\\u635f\\u5931\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u5982\\u7b2c\\u4e09\\u65b9\\u4e3b\\u5f20\\u672c\\u6280\\u672f\\u4fb5\\u6743\\uff0c\\u4e59\\u65b9\\u5e94\\u53ca\\u65f6\\u901a\\u77e5\\u7532\\u65b9\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u5f53\\u672c\\u6280\\u672f\\u88ab\\u786e\\u8ba4\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u65f6\\uff0c\\u7532\\u65b9\\u5e94\\u8d54\\u507f\\u635f\\u5931\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u7532\\u65b9\\u4e0d\\u5141\\u8bb8\\u4e59\\u65b9\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u6280\\u672f\\u6210\\u679c\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u7532\\u65b9\\u4e0d\\u5f97\\u5141\\u8bb8\\u4e59\\u65b9\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u6280\\u672f\\u6210\\u679c\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u7532\\u65b9\\u5141\\u8bb8\\u4e59\\u65b9\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u6280\\u672f\\u6210\\u679c\\u3002-True]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u7532\\u65b9\\u672a\\u786e\\u8ba4\\u672c\\u6280\\u672f\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u7532\\u65b9\\u786e\\u8ba4\\u672c\\u6280\\u672f\\u4e0d\\u4f1a\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u7532\\u65b9\\u786e\\u8ba4\\u672c\\u6280\\u672f\\u4e0d\\u518d\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u7532\\u65b9\\u786e\\u8ba4\\u672c\\u6280\\u672f\\u5e76\\u672a\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u7532\\u65b9\\u786e\\u8ba4\\u672c\\u6280\\u672f\\u672a\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u7532\\u65b9\\u786e\\u8ba4\\u672c\\u6280\\u672f\\u76ee\\u524d\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-True]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u7532\\u65b9\\u786e\\u8ba4\\u672c\\u6280\\u672f\\u76ee\\u524d\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\uff0c\\u53cc\\u65b9\\u672a\\u660e\\u786e\\u7ea6\\u5b9a\\u4fb5\\u6743\\u5904\\u7406\\u65b9\\u5f0f\\u3002-True]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u82e5\\u786e\\u8ba4\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\uff0c\\u5e94\\u505c\\u6b62\\u4f7f\\u7528\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u82e5\\u786e\\u8ba4\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\uff0c\\u5e94\\u5f53\\u505c\\u6b62\\u4f7f\\u7528\\u3002\\u7532\\u65b9\\u786e\\u8ba4\\u672c\\u6280\\u672f\\u76ee\\u524d\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-True]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_infringement_polarity_through_final_report[\\u53cc\\u65b9\\u672a\\u53d1\\u73b0\\u7b2c\\u4e09\\u65b9\\u4fb5\\u6743\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_infringement_polarity_through_final_report[\\u53cc\\u65b9\\u672a\\u660e\\u786e\\u7ea6\\u5b9a\\u4fb5\\u6743\\u5904\\u7406\\u65b9\\u5f0f\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_infringement_polarity_through_final_report[\\u5982\\u7b2c\\u4e09\\u65b9\\u4e3b\\u5f20\\u672c\\u6280\\u672f\\u4fb5\\u6743\\uff0c\\u4e59\\u65b9\\u5e94\\u53ca\\u65f6\\u901a\\u77e5\\u7532\\u65b9\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_infringement_polarity_through_final_report[\\u7532\\u65b9\\u786e\\u8ba4\\u8be5\\u6280\\u672f\\u4e0d\\u4f1a\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_infringement_polarity_through_final_report[\\u7532\\u65b9\\u786e\\u8ba4\\u8be5\\u6280\\u672f\\u672a\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_infringement_polarity_through_final_report[\\u7532\\u65b9\\u786e\\u8ba4\\u8be5\\u6280\\u672f\\u76ee\\u524d\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-True]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_infringement_polarity_through_final_report[\\u7532\\u65b9\\u786e\\u8ba4\\u8be5\\u6280\\u672f\\u76ee\\u524d\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\uff0c\\u53cc\\u65b9\\u672a\\u660e\\u786e\\u7ea6\\u5b9a\\u4fb5\\u6743\\u5904\\u7406\\u65b9\\u5f0f\\u3002-True]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_non_actionable_party_gap_remains_visible_without_risk_recommendation": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_report_element_preserves_fault_condition": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_shared_proposition_polarity[\\u53cc\\u65b9\\u65e0\\u6cd5\\u786e\\u8ba4\\u6280\\u672f\\u662f\\u5426\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-MISSING]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_shared_proposition_polarity[\\u53cc\\u65b9\\u672a\\u53d1\\u73b0\\u7b2c\\u4e09\\u65b9\\u4fb5\\u6743\\u3002-NEGATED]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_shared_proposition_polarity[\\u53cc\\u65b9\\u672a\\u660e\\u786e\\u7ea6\\u5b9a\\u4fb5\\u6743\\u5904\\u7406\\u65b9\\u5f0f\\u3002-MISSING]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_shared_proposition_polarity[\\u5982\\u7b2c\\u4e09\\u65b9\\u4e3b\\u5f20\\u672c\\u6280\\u672f\\u4fb5\\u6743\\uff0c\\u4e59\\u65b9\\u5e94\\u901a\\u77e5\\u7532\\u65b9\\u3002-CONDITIONAL]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_shared_proposition_polarity[\\u7532\\u65b9\\u786e\\u8ba4\\u672c\\u6280\\u672f\\u76ee\\u524d\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-AFFIRMATIVE]": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "removed": [],
+    "changes": {}
+  }
+}

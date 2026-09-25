@@ -1,0 +1,66 @@
+# Historical excerpt removed from _apply_technical_secret_transfer_semantic_rules.
+# Evidence of the pre-fix deterministic fabrication; not executable code.
+    claim_evidence = _direct_technology_evidence(clauses, (
+        ("有权签署", "有权提供", "权利保证"),
+        ("不保证", "第三方", "知识产权"),
+        ("自行负责处理", "提供必要技术资料", "协助"),
+        ("律师费", "诉讼费", "和解费用", "赔偿费用", "停产损失"),
+        ("累计赔偿责任", "20%", "责任上限"),
+    ), 12)
+    if claim_registry.get("claim_trigger") and claim_evidence:
+        infringement_item = by_id.get("TC-12-01")
+        if infringement_item:
+            _mark_technology_semantic_risk(
+                infringement_item,
+                title="按约实施技术秘密的第三方侵权责任主要由受让方承担",
+                group="compliant_use_infringement_adverse",
+                description="合同已经分配第三方侵权责任，但由受让方自行处理并承担律师费、诉讼费、赔偿费及停产损失；转让方仅提供有限协助且责任上限为已付转让费的20%。",
+                consequence="即使侵权源于转让方提供的技术，受让方仍可能承担主要抗辩和经济损失，且对转让方的追偿受到低额责任上限限制。",
+                recommendation="明确受让方按合同范围实施技术时，因技术本身权利瑕疵产生的第三方主张由转让方负责处理并承担合理费用和损失；删除或提高不合理责任上限。",
+                evidence=claim_evidence,
+                risk_level="高",
+            )
+            _set_multi_element_state(infringement_item, [
+                {"element_id": "transferor_authority_warranty", "status": "COVERED", "presence_status": "COVERED", "proposition": "转让方签约及提供技术的权限保证已有约定。", "evidence_terms": ["有权签署", "有权提供"]},
+                {"element_id": "compliant_use_liability_allocation", "status": "ADVERSE", "presence_status": "COVERED", "direction": "ADVERSE", "proposition": "按约实施遭第三方主张时由受让方自行处理并承担主要责任。", "evidence_terms": ["自行负责处理", "均由甲方承担"]},
+                {"element_id": "transferor_assistance", "status": "PARTIALLY_COVERED", "presence_status": "COVERED", "proposition": "转让方仅按实际情况提供必要技术资料。", "evidence_terms": ["提供必要技术资料"]},
+                {"element_id": "transferor_liability_cap", "status": "ADVERSE", "presence_status": "COVERED", "direction": "ADVERSE", "proposition": "转让方责任上限为受让方已付转让费的20%。", "evidence_terms": ["累计赔偿责任", "20%"]},
+            ], claim_evidence)
+            infringement_item.fallback_reason = "技术秘密转让第三方责任存在性与利益方向分离审查"
+
+        claim_item = by_id.get("TC-12-02")
+        if claim_item:
+            cost_present = bool(claim_registry.get("claim_cost_allocation"))
+            damages_present = bool(claim_registry.get("third_party_compensation_allocation"))
+            adverse_cost = claim_registry.get("claim_cost_bearer") == "LICENSEE"
+            _mark_technology_semantic_risk(
+                claim_item,
+                title="第三方权利主张程序不完整且费用责任偏向受让方",
+                group="third_party_claim_defense",
+                description=(
+                    "合同已约定第三方主张触发、转让方资料协助、处理费用及赔偿责任承担；其中费用和损失由受让方承担，对其不利。"
+                    "通知义务、抗辩控制、律师选择、和解决策、替代技术、权利修复及退款救济仍未明确。"
+                ),
+                consequence="受让方可能承担主要程序和经济责任，却缺少对抗辩、和解及持续使用救济的控制。",
+                recommendation=(
+                    "明确第三方主张通知期限、转让方参与抗辩的职责、抗辩控制和和解决策权限；"
+                    "将因转让技术本身权利瑕疵产生的合理费用和赔偿分配给转让方，并补充替代技术、权利修复、退款或解除救济。"
+                ),
+                evidence=claim_evidence,
+                risk_level="中",
+            )
+            _set_multi_element_state(claim_item, [
+                {"element_id": "claim_trigger", "status": "COVERED", "presence_status": "COVERED", "proposition": "第三方权利主张触发场景已有约定。", "evidence_terms": ["第三方", "警告", "投诉", "诉讼"]},
+                {"element_id": "notification_requirement", "status": "MISSING", "proposition": "未约定第三方权利主张通知义务。"},
+                {"element_id": "transferor_participation", "status": "PARTIALLY_COVERED" if claim_registry.get("claim_assistance") else "MISSING", "presence_status": "COVERED" if claim_registry.get("claim_assistance") else "MISSING", "proposition": "转让方提供必要技术资料的协助已有原则安排。" if claim_registry.get("claim_assistance") else "未明确转让方参与处理及资料协助。", "evidence_terms": ["提供必要技术资料", "协助"]},
+                {"element_id": "defense_control", "status": "MISSING", "proposition": "未约定抗辩控制权。"},
+                {"element_id": "lawyer_selection", "status": "MISSING", "proposition": "未约定律师选择权。"},
+                {"element_id": "settlement_authority", "status": "MISSING", "proposition": "未约定和解决策权。"},
+                {"element_id": "defense_cost_allocation", "status": "COVERED" if cost_present else "MISSING", "presence_status": "COVERED" if cost_present else "MISSING", "arrangement_status": "ADVERSE" if adverse_cost else "NEUTRAL", "direction": "ADVERSE" if adverse_cost else "NEUTRAL", "proposition": "律师费、诉讼费及和解费用已有明确分配，但由受让方承担。" if cost_present else "未明确处理费用承担。", "evidence_terms": ["律师费", "诉讼费", "和解费用"]},
+                {"element_id": "damages_allocation", "status": "COVERED" if damages_present else "MISSING", "presence_status": "COVERED" if damages_present else "MISSING", "arrangement_status": "ADVERSE" if adverse_cost else "NEUTRAL", "direction": "ADVERSE" if adverse_cost else "NEUTRAL", "proposition": "第三方赔偿费用已有明确分配，但由受让方承担。" if damages_present else "未明确第三方赔偿责任承担。", "evidence_terms": ["赔偿费用", "停产损失"]},
+                {"element_id": "replacement_or_cure", "status": "MISSING", "proposition": "未约定替代技术或权利修复机制。"},
+                {"element_id": "refund_or_termination", "status": "MISSING", "proposition": "未约定无法持续使用时的退款或解除救济。"},
+            ], claim_evidence)
+            claim_item.scenario_analysis = {"third_party_claim_fact_registry": claim_registry}
+            claim_item.decision_trace["fact_registry"] = {"third_party_claim": claim_registry}
+            claim_item.fallback_reason = "技术秘密转让共享第三方权利Fact Registry"

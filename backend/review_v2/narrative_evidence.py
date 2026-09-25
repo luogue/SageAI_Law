@@ -57,9 +57,12 @@ def assertion_supported(assertion, quotes):
     if assertion["kind"] == "creator_attribution":
         return any("署名" in source and not re.search(r"未.{0,8}署名|没有.{0,8}署名", source) for source in sources)
     if assertion["kind"] == "daily_penalty":
-        return any(re.search(r"每日|每天|每逾期一日", source)
-                   and any(Decimal(m[1]) == assertion["rate"] for m in re.finditer(r"(\d+(?:\.\d+)?)%", source))
-                   for source in sources)
+        # Validate the period and rate together within the bound sentence.
+        # An exact source may express a day as "每迟延一天" rather than "每日".
+        daily = r"每日|每天|每(?:逾期|迟延|延迟|延期|延误)?(?:一|1)(?:个)?(?:日|天)"
+        return any(re.search(daily, sentence)
+                   and any(Decimal(m[1]) == assertion["rate"] for m in re.finditer(r"(\d+(?:\.\d+)?)%", sentence))
+                   for source in sources for sentence in re.split(r"[。；;\n]", source))
     if assertion["kind"] == "date_order":
         return False  # Date relations require typed calculation inputs below.
     if assertion["kind"] == "penalty_trigger":
@@ -78,6 +81,7 @@ def assertion_supported(assertion, quotes):
 
 def narrative_evidence_gate(items, findings, report=None):
     failures, claims = [], []
+    layer_diagnostics = []
     for finding in findings:
         sources = list((finding.evidence_bundle or {}).get("items") or [])
         reviews = [item for item in items if item.item_id in finding.source_review_ids]
@@ -86,13 +90,26 @@ def narrative_evidence_gate(items, findings, report=None):
             for element in item.coverage_elements:
                 if element.get("status") not in {"COVERED", "PARTIALLY_COVERED", "ADVERSE", "CONFLICTING"}:
                     continue
+                if element.get('semantic_layer') in {'SOURCE_FACT', 'EVALUATION'}:
+                    from review_v2.risk_fact_layers import validate
+                    errors, diagnostics = validate(item, element, sources)
+                    layer_diagnostics.extend(dict(row, finding_id=finding.finding_id) for row in diagnostics)
+                    for reason in errors:
+                        failures.append({'risk_id': finding.finding_id, 'element_id': element['element_id'],
+                                         'reason': reason})
+                    if element['semantic_layer'] == 'EVALUATION':
+                        continue
                 declared_ids = set(element.get("evidence_ids") or element.get("bound_evidence_ids") or [])
                 rows = [row for row in sources if (
                         element["element_id"] in row.get("supporting_element_ids", [])
-                        and item.item_id in row.get("supporting_review_ids", [])
-                        or not element.get("supporting_evidence") and
-                        (row.get("evidence_id") in declared_ids or row.get("clause_id") in declared_ids))
+                        and item.item_id in row.get("supporting_review_ids", []))
                         and row.get("source_type") != "SEARCH_AUDIT" and row.get("quoted_text")]
+                if "supporting_evidence" in element:
+                    rows = [row for row in rows if any(
+                        row.get("clause_id") == fact.get("clause_id")
+                        and fact.get("quote")
+                        and normalized(row["quoted_text"]) == normalized(fact["quote"])
+                        for fact in element["supporting_evidence"])]
                 claims.append({"risk_id": finding.finding_id, "field": "element_proposition",
                                "fact": element.get("proposition", ""), "element_ids": [element["element_id"]],
                                "supporting_evidence_ids": [row.get("evidence_id") for row in rows if row.get("evidence_id")]})
@@ -165,7 +182,65 @@ def narrative_evidence_gate(items, findings, report=None):
                 if unit not in canonical:
                     failures.append({"field": "rendered_risk_narrative", "fact": unit,
                                      "reason": "RENDERER_ADDED_UNREGISTERED_FACT"})
+    # Publish the exact rejected tuple from this validator, not a second
+    # validator's inferred evidence IDs. Keep the existing report schema.
+    findings_by_id = {finding.finding_id: finding for finding in findings}
+    for failure in failures:
+        finding = findings_by_id.get(failure.get("risk_id"))
+        reviews = [item for item in items if finding and item.item_id in finding.source_review_ids]
+        candidates = []
+        for item in reviews:
+            for element in item.coverage_elements:
+                if failure.get("element_id") and element.get("element_id") != failure["element_id"]:
+                    continue
+                refs = element.get("supporting_evidence") or []
+                declared = element.get("evidence_ids") or element.get("bound_evidence_ids") or []
+                candidate_count = len(candidates)
+                for row in (finding.evidence_bundle or {}).get("items", []):
+                    target_match = element.get("element_id") in (row.get("supporting_element_ids") or [])
+                    if not target_match and row.get("evidence_id") not in declared and not any(
+                        ref.get("clause_id") == row.get("clause_id") for ref in refs
+                    ):
+                        continue
+                    candidates.append({
+                        "rule_id": item.item_id, "finding_id": finding.finding_id,
+                        "fact_key": element.get("element_id"), "fact_value": element.get("proposition"),
+                        "current_evidence_refs": list(declared), "current_supporting_evidence": refs,
+                        "report_evidence_id": row.get("evidence_id"),
+                        "support_target": row.get("supporting_element_ids") or [],
+                        "supporting_review_ids": row.get("supporting_review_ids") or [],
+                        "source_type": row.get("source_type"),
+                        "conditions": {
+                            "element_target_matches": target_match,
+                            "review_owner_matches": item.item_id in (row.get("supporting_review_ids") or []),
+                            "positive_source": row.get("source_type") != "SEARCH_AUDIT",
+                            "exact_span_matches": not refs or any(
+                                ref.get("clause_id") == row.get("clause_id") and ref.get("quote")
+                                and normalized(ref["quote"]) == normalized(row.get("quoted_text")) for ref in refs),
+                            "assertion_supported": all(assertion_supported(a, [row.get("quoted_text", "")])
+                                for a in material_assertions(failure.get("fact", ""))),
+                        },
+                        "reject_reason": failure["reason"],
+                    })
+                if len(candidates) == candidate_count:
+                    candidates.append({
+                        "rule_id": item.item_id, "finding_id": finding.finding_id,
+                        "fact_key": element.get("element_id"), "fact_value": element.get("proposition"),
+                        "current_evidence_refs": list(declared), "current_supporting_evidence": refs,
+                        "report_evidence_id": None, "support_target": [], "source_type": None,
+                        "conditions": {"published_element_evidence_exists": False},
+                        "reject_reason": failure["reason"],
+                    })
+        failure.update({"rule_id": ",".join(item.item_id for item in reviews),
+                        "finding_id": failure.get("risk_id"),
+                        "fact_key": failure.get("element_id") or failure.get("field"),
+                        "fact_value": failure.get("fact") or next((c["fact_value"] for c in candidates), None),
+                        "reject_reason": failure["reason"],
+                        "binding_diagnostics": candidates})
     return {"status": "BLOCKED" if failures else "REPORT_READY", "claims": claims,
+            "risk_fact_layers": layer_diagnostics,
+            "final_risk_fact_count": len({(r['finding_id'], r['risk_fact_id']) for r in layer_diagnostics}),
+            "mismatch_count": len(failures),
             "failures": [{"requirement": "NARRATIVE_EVIDENCE_GATE", "failure_stage": "Narrative Evidence Validation",
                           "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。", "details": failures}] if failures else [],
             "gate_results": {"NARRATIVE_EVIDENCE_GATE": "FAIL" if failures else "PASS"}}

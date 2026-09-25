@@ -1,0 +1,1491 @@
+{
+  "fixture_module": "tests.test_patent_license_input_integrity_routing",
+  "original_text": "涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n\n第四条 支付机制\n接受方应在每个会计年度结束后十个工作日内提交销售报表和提成费计算表，并在收到合法发票后三十日内支付许可使用费。许可方可以委托独立审计机构核验净销售额。\n\n第五条 专利资料交付和后续改进\n许可方应在合同生效后十五日内交付专利资料、设计图纸、控制参数、测试数据和操作手册，并提供技术指导。双方对后续改进应相互书面通知，改进成果归改进方所有，另一方需要使用的应另行协商许可条件。\n\n第六条 权利保证、专利维持和侵权责任\n许可方保证有权授予本合同项下许可，保证专利在签约时合法有效且不存在未披露的权利负担。许可方应按时缴纳专利费用和专利年费并维持专利有效性。接受方按约实施专利遭遇第三方侵权主张时，许可方应负责应诉、排除妨碍并承担相应侵权责任和合理费用。\n\n第七条 保密及出口合规\n双方对履约中知悉的技术秘密承担保密义务；跨境交付专利资料时应依法办理技术进出口审批、登记或备案。\n\n第八条 不可抗力\n不可抗力包括战争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。\n",
+  "source_sha256": "5b829db841e38ad131636d6fda0e772e67180ddcee498052d823f0115163c0fc",
+  "classification": {
+    "family": "TECHNOLOGY",
+    "primary_category": "TECHNICAL_CONTRACT",
+    "primary_subtype": "TECHNOLOGY_LICENSE",
+    "tertiary_subtype": "PATENT_LICENSE",
+    "confidence": "high",
+    "classification_score": 52,
+    "evidence_node_ids": [
+      "title:patent_license",
+      "current_license_transaction",
+      "core_obligation:patent_license_grant",
+      "primary_transaction:technology_license"
+    ],
+    "classification_evidence": [
+      "title:patent_license",
+      "current_license_transaction",
+      "core_obligation:patent_license_grant",
+      "primary_transaction:technology_license"
+    ],
+    "classification_evidence_details": {
+      "contract_title": "涉外专利实施许可合同",
+      "subject_matter": [
+        "双方对履约中知悉的技术秘密承担保密义务；跨境交付专利资料时应依法办理技术进出口审批、登记或备案。"
+      ],
+      "core_performance_obligations": [],
+      "rights_transfer_method": [],
+      "consideration_nature": [
+        "第三条 许可使用费",
+        "接受方应在每个会计年度结束后十个工作日内提交销售报表和提成费计算表，并在收到合法发票后三十日内支付许可使用费。许可方可以委托独立审计机构核验净销售额。",
+        "专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。"
+      ],
+      "key_clauses": []
+    },
+    "primary_contract_type": "technology_license_patent",
+    "secondary_contract_types": [],
+    "primary_transaction": {
+      "type": "technology_license_patent",
+      "subtype": "patent_license"
+    },
+    "primary_transaction_model": {
+      "type": "TECHNOLOGY_LICENSE",
+      "dominant_family": "TECHNOLOGY",
+      "confidence": "high",
+      "primary_subject": "technology / know-how / technical materials",
+      "rights_change": [
+        "license to use technology"
+      ],
+      "primary_obligation_grantor": [
+        "grant technology use right",
+        "deliver technical materials",
+        "provide technical assistance or training"
+      ],
+      "primary_obligation_grantee": [
+        "pay royalty"
+      ],
+      "primary_consideration": [
+        "sales royalty"
+      ],
+      "transaction_purpose": "use licensed technology to manufacture or operate products",
+      "secondary_transactions": [],
+      "license_semantics": {
+        "grant": true,
+        "roles": true,
+        "boundaries": {
+          "license_mode": true,
+          "non_transferable": true,
+          "territory": true,
+          "use_scope": true,
+          "post_termination_use": false
+        },
+        "entry_fee": false,
+        "royalty": true,
+        "technical_delivery": true,
+        "independent_economic_value": true
+      },
+      "technology_transfer_semantics": {
+        "ownership_transfer": false,
+        "technical_secret_transfer": false,
+        "explicit_technology_rights_transfer": false
+      },
+      "sale_semantics": {
+        "ownership_transfer": false,
+        "roles": false,
+        "quantity_unit_price": false,
+        "goods_purchase_obligation": false,
+        "purchase_price": false,
+        "independent_economic_value": false,
+        "ancillary_future_supply": false
+      },
+      "development_semantics": {
+        "client_and_developer_roles": false,
+        "research_objectives": false,
+        "research_consideration": false,
+        "developer_research_performance": false,
+        "research_schedule": false,
+        "research_result_delivery": false,
+        "is_primary_commission": false
+      },
+      "family_scores": {
+        "TECHNOLOGY": 32,
+        "SALE": 0
+      },
+      "decision_basis": "operative rights change + primary obligations + consideration + economic independence"
+    },
+    "secondary_transactions": [],
+    "sub_transactions": [
+      "technical_guidance"
+    ],
+    "structured_facts": {
+      "technical_secret": {
+        "scope": false,
+        "restricted_use": false,
+        "separate_fee": false
+      },
+      "technical_service": {
+        "content": false,
+        "activities": [],
+        "separate_fee": false,
+        "included_in_main_price": false,
+        "included_service_scope": false,
+        "extra_service_charge_trigger": false,
+        "extra_service_pricing_standard": false,
+        "extra_service_billing_method": false,
+        "extra_service_payment_node": false,
+        "technical_guidance": true
+      },
+      "acceptance": {
+        "defined": false,
+        "remedy_deadline": false,
+        "reinspection_procedure": false,
+        "reinspection_count": "",
+        "final_failure_remedy": false,
+        "refund_remedy": false,
+        "damage_remedy": false
+      },
+      "technical_material_delivery": {
+        "defined": false
+      }
+    },
+    "fact_registry": {
+      "third_party_claim": {
+        "authority_warranty": true,
+        "licensor_is_patent_owner": false,
+        "licensor_owner_identity": null,
+        "sublicense_permission": false,
+        "claim_trigger": true,
+        "claim_handling": true,
+        "licensee_claim_handling": false,
+        "claim_assistance": false,
+        "litigation_handling": true,
+        "licensee_litigation_handling": true,
+        "attorney_fee": false,
+        "litigation_cost": false,
+        "legal_cost": false,
+        "attorney_fee_allocation": false,
+        "litigation_cost_allocation": false,
+        "third_party_compensation_allocation": true,
+        "claim_cost_allocation": false,
+        "claim_cost_bearer": "UNKNOWN",
+        "licensee_broad_business_loss_allocation": false,
+        "direct_damage": false,
+        "notification_requirement": false,
+        "notification_deadline": false,
+        "defense_control": false,
+        "lawyer_selection": false,
+        "settlement_authority": false,
+        "settlement_consultation": false,
+        "replacement_remedy": false,
+        "license_cure": false,
+        "refund_remedy": false,
+        "general_liability": false,
+        "licensor_liability_cap": false,
+        "licensor_liability_cap_percentage": null,
+        "licensor_liability_cap_text": "",
+        "licensee_liability_cap": false,
+        "licensee_liability_cap_percentage": null,
+        "licensee_liability_cap_text": "",
+        "liability_cap_balance": "NO_CAPS",
+        "liability_cap_imbalance": false,
+        "liability_cap_exceptions": false,
+        "licensee_open_ended_infringement_liability": false,
+        "explicit_process_gap": false,
+        "responsible_party": "LICENSEE",
+        "settlement_non_prejudice": false,
+        "liability_responsible_party": true,
+        "response_element_evidence": {
+          "claim_trigger": [
+            {
+              "clause_id": "C0007",
+              "quote": "接受方按约实施专利遭遇第三方侵权主张时，许可方应负责应诉、排除妨碍并承担相应侵权责任和合理费用",
+              "location": "第六条 权利保证、专利维持和侵权责任",
+              "actor": ""
+            }
+          ],
+          "claim_handling": [
+            {
+              "clause_id": "C0007",
+              "quote": "接受方按约实施专利遭遇第三方侵权主张时，许可方应负责应诉、排除妨碍并承担相应侵权责任和合理费用",
+              "location": "第六条 权利保证、专利维持和侵权责任",
+              "actor": "LICENSOR"
+            }
+          ],
+          "litigation_handling": [
+            {
+              "clause_id": "C0007",
+              "quote": "接受方按约实施专利遭遇第三方侵权主张时，许可方应负责应诉、排除妨碍并承担相应侵权责任和合理费用",
+              "location": "第六条 权利保证、专利维持和侵权责任",
+              "actor": "LICENSOR"
+            }
+          ],
+          "liability_responsible_party": [
+            {
+              "clause_id": "C0007",
+              "quote": "接受方按约实施专利遭遇第三方侵权主张时，许可方应负责应诉、排除妨碍并承担相应侵权责任和合理费用",
+              "location": "第六条 权利保证、专利维持和侵权责任",
+              "actor": "LICENSOR"
+            }
+          ],
+          "third_party_compensation_allocation": [
+            {
+              "clause_id": "C0007",
+              "quote": "接受方按约实施专利遭遇第三方侵权主张时，许可方应负责应诉、排除妨碍并承担相应侵权责任和合理费用",
+              "location": "第六条 权利保证、专利维持和侵权责任",
+              "actor": "LICENSOR"
+            }
+          ]
+        },
+        "response_party_patterns": {
+          "provider": "(?:(?<!被)许可人|(?<!被)许可方|出让方|卖方|让与方|转让方)",
+          "recipient": "(?:买方|受让方|接受方|被许可人|被许可方)"
+        },
+        "administrative_handling": false
+      }
+    },
+    "active_transaction_types": [
+      "TECHNOLOGY_LICENSE"
+    ],
+    "title_transaction_type": "TECHNOLOGY_LICENSE",
+    "operative_transaction_type": "TECHNOLOGY_LICENSE",
+    "contract_type_conflict": {
+      "exists": false,
+      "title_transaction_type": "TECHNOLOGY_LICENSE",
+      "operative_transaction_type": "TECHNOLOGY_LICENSE",
+      "resolution": "NO_CONFLICT",
+      "reason": "合同标题与核心给付义务不存在实质类型冲突。"
+    },
+    "excluded_subtypes": [
+      "COOPERATIVE_DEVELOPMENT",
+      "ENTRUSTED_DEVELOPMENT",
+      "TECHNOLOGY_TRANSFER",
+      "TECHNICAL_CONSULTING",
+      "TECHNICAL_SERVICE"
+    ],
+    "candidate_scores": {
+      "COOPERATIVE_DEVELOPMENT": 0,
+      "ENTRUSTED_DEVELOPMENT": 0,
+      "TECHNOLOGY_TRANSFER": 0,
+      "TECHNOLOGY_LICENSE": 52,
+      "TECHNICAL_CONSULTING": 0,
+      "TECHNICAL_SERVICE": 0
+    },
+    "subtype": "TECHNOLOGY_LICENSE",
+    "development_mode": "",
+    "is_technical_service": false,
+    "transaction_structure": "B2B_PATENT_LICENSE",
+    "scenario": "PATENT_LICENSE",
+    "scenario_label": "专利实施许可",
+    "current_transaction": "TECHNOLOGY_LICENSE",
+    "secondary_modules": [],
+    "transaction_module_evidence": {},
+    "ancillary_obligations": [
+      "TECHNICAL_GUIDANCE"
+    ],
+    "transitional_arrangements": [],
+    "factual_triggers": [
+      "CONFIDENTIAL_INFORMATION",
+      "FOLLOW_ON_IMPROVEMENTS",
+      "THIRD_PARTY_IP_RISK"
+    ],
+    "license_mode": "",
+    "referenced_contracts": [],
+    "involves_personal_information": false,
+    "involves_background_ip": false,
+    "involves_software_or_data": false
+  },
+  "selection": {
+    "selected_contract_type": "sale",
+    "document_domain": {
+      "contract_family": "TECHNOLOGY",
+      "subject_matter": "PATENT_LICENSE",
+      "transaction_nature": "TECHNOLOGY_TRANSACTION",
+      "contract_subtype": "TECHNOLOGY_LICENSE",
+      "asset_usage": "NOT_APPLICABLE",
+      "consideration_type": "TECHNOLOGY_FEE",
+      "ownership_transfer": false,
+      "possession_transfer": false,
+      "transaction_structure": "B2B_PATENT_LICENSE",
+      "product_category": "NOT_APPLICABLE",
+      "transaction_purpose": "technology_license_patent",
+      "jurisdiction": "CN",
+      "primary_subject": "PATENT_LICENSE",
+      "accessory_subjects": [],
+      "selected_domain_packs": [
+        "shared",
+        "technology"
+      ],
+      "rejected_domain_packs": [],
+      "confidence": "high",
+      "evidence": [],
+      "domain_attributes": {
+        "classification_source": "review_v2.technology_service_analysis.classify_technology_transaction",
+        "classification_score": 52,
+        "tertiary_subtype": "PATENT_LICENSE",
+        "scenario": "PATENT_LICENSE",
+        "scenario_label": "专利实施许可",
+        "primary_transaction_model": {
+          "type": "TECHNOLOGY_LICENSE",
+          "dominant_family": "TECHNOLOGY",
+          "confidence": "high",
+          "primary_subject": "technology / know-how / technical materials",
+          "rights_change": [
+            "license to use technology"
+          ],
+          "primary_obligation_grantor": [
+            "grant technology use right",
+            "deliver technical materials",
+            "provide technical assistance or training"
+          ],
+          "primary_obligation_grantee": [
+            "pay royalty"
+          ],
+          "primary_consideration": [
+            "sales royalty"
+          ],
+          "transaction_purpose": "use licensed technology to manufacture or operate products",
+          "secondary_transactions": [],
+          "license_semantics": {
+            "grant": true,
+            "roles": true,
+            "boundaries": {
+              "license_mode": true,
+              "non_transferable": true,
+              "territory": true,
+              "use_scope": true,
+              "post_termination_use": false
+            },
+            "entry_fee": false,
+            "royalty": true,
+            "technical_delivery": true,
+            "independent_economic_value": true
+          },
+          "technology_transfer_semantics": {
+            "ownership_transfer": false,
+            "technical_secret_transfer": false,
+            "explicit_technology_rights_transfer": false
+          },
+          "sale_semantics": {
+            "ownership_transfer": false,
+            "roles": false,
+            "quantity_unit_price": false,
+            "goods_purchase_obligation": false,
+            "purchase_price": false,
+            "independent_economic_value": false,
+            "ancillary_future_supply": false
+          },
+          "development_semantics": {
+            "client_and_developer_roles": false,
+            "research_objectives": false,
+            "research_consideration": false,
+            "developer_research_performance": false,
+            "research_schedule": false,
+            "research_result_delivery": false,
+            "is_primary_commission": false
+          },
+          "family_scores": {
+            "TECHNOLOGY": 32,
+            "SALE": 0
+          },
+          "decision_basis": "operative rights change + primary obligations + consideration + economic independence"
+        }
+      },
+      "family": "TECHNOLOGY",
+      "classification_confidence": "high",
+      "classification_scores": {
+        "SALE": 4,
+        "HOUSE_LEASE": 0,
+        "SERVICE": 0,
+        "TECHNOLOGY": 52
+      },
+      "primary_contract_type": "technology_license_patent",
+      "primary_subtype": "TECHNOLOGY_LICENSE",
+      "primary_transaction_model": {
+        "type": "TECHNOLOGY_LICENSE",
+        "dominant_family": "TECHNOLOGY",
+        "confidence": "high",
+        "primary_subject": "technology / know-how / technical materials",
+        "rights_change": [
+          "license to use technology"
+        ],
+        "primary_obligation_grantor": [
+          "grant technology use right",
+          "deliver technical materials",
+          "provide technical assistance or training"
+        ],
+        "primary_obligation_grantee": [
+          "pay royalty"
+        ],
+        "primary_consideration": [
+          "sales royalty"
+        ],
+        "transaction_purpose": "use licensed technology to manufacture or operate products",
+        "secondary_transactions": [],
+        "license_semantics": {
+          "grant": true,
+          "roles": true,
+          "boundaries": {
+            "license_mode": true,
+            "non_transferable": true,
+            "territory": true,
+            "use_scope": true,
+            "post_termination_use": false
+          },
+          "entry_fee": false,
+          "royalty": true,
+          "technical_delivery": true,
+          "independent_economic_value": true
+        },
+        "technology_transfer_semantics": {
+          "ownership_transfer": false,
+          "technical_secret_transfer": false,
+          "explicit_technology_rights_transfer": false
+        },
+        "sale_semantics": {
+          "ownership_transfer": false,
+          "roles": false,
+          "quantity_unit_price": false,
+          "goods_purchase_obligation": false,
+          "purchase_price": false,
+          "independent_economic_value": false,
+          "ancillary_future_supply": false
+        },
+        "development_semantics": {
+          "client_and_developer_roles": false,
+          "research_objectives": false,
+          "research_consideration": false,
+          "developer_research_performance": false,
+          "research_schedule": false,
+          "research_result_delivery": false,
+          "is_primary_commission": false
+        },
+        "family_scores": {
+          "TECHNOLOGY": 32,
+          "SALE": 0
+        },
+        "decision_basis": "operative rights change + primary obligations + consideration + economic independence"
+      }
+    },
+    "compatibility": "CONFLICT",
+    "resolution": "DOCUMENT_OVERRIDE",
+    "selected_domain": "TECHNOLOGY",
+    "rejected_domain": "SALE",
+    "confidence": "high",
+    "reasons": [
+      "document family scores: SALE=4, HOUSE_LEASE=0, SERVICE=0, TECHNOLOGY=52",
+      "document family=TECHNOLOGY, confidence=high",
+      "High-confidence document evidence overrides the incompatible user selection before Review Registry loading."
+    ],
+    "classification_evidence": [
+      {
+        "signal_type": "goods_purchase_obligation",
+        "signal": "销售",
+        "target_family": "SALE",
+        "weight": 4,
+        "source_clause_ids": [
+          "C0003",
+          "C0004",
+          "C0005"
+        ]
+      },
+      {
+        "signal_type": "technology_technology_license",
+        "signal": "title:patent_license、current_license_transaction、core_obligation:patent_license_grant、primary_transaction:technology_license",
+        "target_family": "TECHNOLOGY",
+        "weight": 52,
+        "source_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0011",
+          "C0012"
+        ]
+      }
+    ],
+    "classification_context": {
+      "effect_review_ids": [],
+      "property_service_structure": false,
+      "business_overlays": [],
+      "overlay_review_ids": [],
+      "settlement_formulas": [],
+      "carriage_scope": {
+        "established": false,
+        "facts": {},
+        "framework": false
+      },
+      "operating_structure": {
+        "established": false,
+        "facts": {},
+        "downstream_contracts": false
+      },
+      "incomplete_obligations": [],
+      "business_domain_tags": [],
+      "primary_contract_type": "TECHNOLOGY",
+      "contract_type_confidence": "high",
+      "secondary_clause_features": [
+        "CONFIDENTIALITY",
+        "NOTICE",
+        "DISPUTE_RESOLUTION",
+        "INTELLECTUAL_PROPERTY"
+      ],
+      "suppressed_primary_purpose_candidate": null,
+      "guarantee_features_detected": [],
+      "nda_primary_features_detected": [],
+      "classification_conflict": {
+        "detected": true,
+        "selected": "SALE",
+        "document": "TECHNOLOGY",
+        "resolved": true
+      },
+      "primary_transaction": {
+        "type": "technology_license_patent",
+        "subtype": "patent_license"
+      },
+      "primary_transaction_model": {
+        "type": "TECHNOLOGY_LICENSE",
+        "dominant_family": "TECHNOLOGY",
+        "confidence": "high",
+        "primary_subject": "technology / know-how / technical materials",
+        "rights_change": [
+          "license to use technology"
+        ],
+        "primary_obligation_grantor": [
+          "grant technology use right",
+          "deliver technical materials",
+          "provide technical assistance or training"
+        ],
+        "primary_obligation_grantee": [
+          "pay royalty"
+        ],
+        "primary_consideration": [
+          "sales royalty"
+        ],
+        "transaction_purpose": "use licensed technology to manufacture or operate products",
+        "secondary_transactions": [],
+        "license_semantics": {
+          "grant": true,
+          "roles": true,
+          "boundaries": {
+            "license_mode": true,
+            "non_transferable": true,
+            "territory": true,
+            "use_scope": true,
+            "post_termination_use": false
+          },
+          "entry_fee": false,
+          "royalty": true,
+          "technical_delivery": true,
+          "independent_economic_value": true
+        },
+        "technology_transfer_semantics": {
+          "ownership_transfer": false,
+          "technical_secret_transfer": false,
+          "explicit_technology_rights_transfer": false
+        },
+        "sale_semantics": {
+          "ownership_transfer": false,
+          "roles": false,
+          "quantity_unit_price": false,
+          "goods_purchase_obligation": false,
+          "purchase_price": false,
+          "independent_economic_value": false,
+          "ancillary_future_supply": false
+        },
+        "development_semantics": {
+          "client_and_developer_roles": false,
+          "research_objectives": false,
+          "research_consideration": false,
+          "developer_research_performance": false,
+          "research_schedule": false,
+          "research_result_delivery": false,
+          "is_primary_commission": false
+        },
+        "family_scores": {
+          "TECHNOLOGY": 32,
+          "SALE": 0
+        },
+        "decision_basis": "operative rights change + primary obligations + consideration + economic independence"
+      },
+      "secondary_transactions": [],
+      "ancillary_obligations": [
+        "TECHNICAL_GUIDANCE"
+      ],
+      "post_delivery_obligations": [
+        "TECHNICAL_GUIDANCE"
+      ],
+      "consumer_service_context": {
+        "is_consumer_transaction": false,
+        "is_prepaid_service": false,
+        "is_training_primary_transaction": false,
+        "consumer_signals": [],
+        "prepaid_signals": [],
+        "training_signals": [],
+        "gate_status": "NOT_APPLICABLE"
+      },
+      "candidate_scores": {
+        "SALE": 4,
+        "HOUSE_LEASE": 0,
+        "SERVICE": 0,
+        "TECHNOLOGY": 52
+      },
+      "technology_candidate_scores": {
+        "COOPERATIVE_DEVELOPMENT": 0,
+        "ENTRUSTED_DEVELOPMENT": 0,
+        "TECHNOLOGY_TRANSFER": 0,
+        "TECHNOLOGY_LICENSE": 52,
+        "TECHNICAL_CONSULTING": 0,
+        "TECHNICAL_SERVICE": 0
+      },
+      "primary_transaction_reason": "Operative rights change, primary obligations, consideration and economic independence control before Review Registry loading.",
+      "document_candidate": {
+        "selected_contract_type": "sale",
+        "document_domain": {
+          "contract_family": "TECHNOLOGY",
+          "subject_matter": "PATENT_LICENSE",
+          "transaction_nature": "TECHNOLOGY_TRANSACTION",
+          "contract_subtype": "TECHNOLOGY_LICENSE",
+          "asset_usage": "NOT_APPLICABLE",
+          "consideration_type": "TECHNOLOGY_FEE",
+          "ownership_transfer": false,
+          "possession_transfer": false,
+          "transaction_structure": "B2B_PATENT_LICENSE",
+          "product_category": "NOT_APPLICABLE",
+          "transaction_purpose": "technology_license_patent",
+          "jurisdiction": "CN",
+          "primary_subject": "PATENT_LICENSE",
+          "accessory_subjects": [],
+          "selected_domain_packs": [
+            "shared",
+            "technology"
+          ],
+          "rejected_domain_packs": [],
+          "confidence": "high",
+          "evidence": [],
+          "domain_attributes": {
+            "classification_source": "review_v2.technology_service_analysis.classify_technology_transaction",
+            "classification_score": 52,
+            "tertiary_subtype": "PATENT_LICENSE",
+            "scenario": "PATENT_LICENSE",
+            "scenario_label": "专利实施许可",
+            "primary_transaction_model": {
+              "type": "TECHNOLOGY_LICENSE",
+              "dominant_family": "TECHNOLOGY",
+              "confidence": "high",
+              "primary_subject": "technology / know-how / technical materials",
+              "rights_change": [
+                "license to use technology"
+              ],
+              "primary_obligation_grantor": [
+                "grant technology use right",
+                "deliver technical materials",
+                "provide technical assistance or training"
+              ],
+              "primary_obligation_grantee": [
+                "pay royalty"
+              ],
+              "primary_consideration": [
+                "sales royalty"
+              ],
+              "transaction_purpose": "use licensed technology to manufacture or operate products",
+              "secondary_transactions": [],
+              "license_semantics": {
+                "grant": true,
+                "roles": true,
+                "boundaries": {
+                  "license_mode": true,
+                  "non_transferable": true,
+                  "territory": true,
+                  "use_scope": true,
+                  "post_termination_use": false
+                },
+                "entry_fee": false,
+                "royalty": true,
+                "technical_delivery": true,
+                "independent_economic_value": true
+              },
+              "technology_transfer_semantics": {
+                "ownership_transfer": false,
+                "technical_secret_transfer": false,
+                "explicit_technology_rights_transfer": false
+              },
+              "sale_semantics": {
+                "ownership_transfer": false,
+                "roles": false,
+                "quantity_unit_price": false,
+                "goods_purchase_obligation": false,
+                "purchase_price": false,
+                "independent_economic_value": false,
+                "ancillary_future_supply": false
+              },
+              "development_semantics": {
+                "client_and_developer_roles": false,
+                "research_objectives": false,
+                "research_consideration": false,
+                "developer_research_performance": false,
+                "research_schedule": false,
+                "research_result_delivery": false,
+                "is_primary_commission": false
+              },
+              "family_scores": {
+                "TECHNOLOGY": 32,
+                "SALE": 0
+              },
+              "decision_basis": "operative rights change + primary obligations + consideration + economic independence"
+            }
+          },
+          "family": "TECHNOLOGY",
+          "classification_confidence": "high",
+          "classification_scores": {
+            "SALE": 4,
+            "HOUSE_LEASE": 0,
+            "SERVICE": 0,
+            "TECHNOLOGY": 52
+          },
+          "primary_contract_type": "technology_license_patent",
+          "primary_subtype": "TECHNOLOGY_LICENSE",
+          "primary_transaction_model": {
+            "type": "TECHNOLOGY_LICENSE",
+            "dominant_family": "TECHNOLOGY",
+            "confidence": "high",
+            "primary_subject": "technology / know-how / technical materials",
+            "rights_change": [
+              "license to use technology"
+            ],
+            "primary_obligation_grantor": [
+              "grant technology use right",
+              "deliver technical materials",
+              "provide technical assistance or training"
+            ],
+            "primary_obligation_grantee": [
+              "pay royalty"
+            ],
+            "primary_consideration": [
+              "sales royalty"
+            ],
+            "transaction_purpose": "use licensed technology to manufacture or operate products",
+            "secondary_transactions": [],
+            "license_semantics": {
+              "grant": true,
+              "roles": true,
+              "boundaries": {
+                "license_mode": true,
+                "non_transferable": true,
+                "territory": true,
+                "use_scope": true,
+                "post_termination_use": false
+              },
+              "entry_fee": false,
+              "royalty": true,
+              "technical_delivery": true,
+              "independent_economic_value": true
+            },
+            "technology_transfer_semantics": {
+              "ownership_transfer": false,
+              "technical_secret_transfer": false,
+              "explicit_technology_rights_transfer": false
+            },
+            "sale_semantics": {
+              "ownership_transfer": false,
+              "roles": false,
+              "quantity_unit_price": false,
+              "goods_purchase_obligation": false,
+              "purchase_price": false,
+              "independent_economic_value": false,
+              "ancillary_future_supply": false
+            },
+            "development_semantics": {
+              "client_and_developer_roles": false,
+              "research_objectives": false,
+              "research_consideration": false,
+              "developer_research_performance": false,
+              "research_schedule": false,
+              "research_result_delivery": false,
+              "is_primary_commission": false
+            },
+            "family_scores": {
+              "TECHNOLOGY": 32,
+              "SALE": 0
+            },
+            "decision_basis": "operative rights change + primary obligations + consideration + economic independence"
+          }
+        },
+        "compatibility": "CONFLICT",
+        "resolution": "DOCUMENT_OVERRIDE",
+        "selected_domain": "TECHNOLOGY",
+        "rejected_domain": "SALE",
+        "confidence": "high",
+        "reasons": [
+          "document family scores: SALE=4, HOUSE_LEASE=0, SERVICE=0, TECHNOLOGY=52",
+          "document family=TECHNOLOGY, confidence=high",
+          "High-confidence document evidence overrides the incompatible user selection before Review Registry loading."
+        ],
+        "classification_evidence": [
+          {
+            "signal_type": "goods_purchase_obligation",
+            "signal": "销售",
+            "target_family": "SALE",
+            "weight": 4,
+            "source_clause_ids": [
+              "C0003",
+              "C0004",
+              "C0005"
+            ]
+          },
+          {
+            "signal_type": "technology_technology_license",
+            "signal": "title:patent_license、current_license_transaction、core_obligation:patent_license_grant、primary_transaction:technology_license",
+            "target_family": "TECHNOLOGY",
+            "weight": 52,
+            "source_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0011",
+              "C0012"
+            ]
+          }
+        ],
+        "classification_context": {
+          "effect_review_ids": [],
+          "property_service_structure": false,
+          "business_overlays": [],
+          "overlay_review_ids": [],
+          "settlement_formulas": [],
+          "carriage_scope": {
+            "established": false,
+            "facts": {},
+            "framework": false
+          },
+          "operating_structure": {
+            "established": false,
+            "facts": {},
+            "downstream_contracts": false
+          },
+          "incomplete_obligations": [],
+          "business_domain_tags": [],
+          "primary_contract_type": "TECHNOLOGY",
+          "contract_type_confidence": "high",
+          "secondary_clause_features": [
+            "CONFIDENTIALITY",
+            "NOTICE",
+            "DISPUTE_RESOLUTION",
+            "INTELLECTUAL_PROPERTY"
+          ],
+          "suppressed_primary_purpose_candidate": null,
+          "guarantee_features_detected": [],
+          "nda_primary_features_detected": [],
+          "classification_conflict": {
+            "detected": true,
+            "selected": "SALE",
+            "document": "TECHNOLOGY",
+            "resolved": true
+          },
+          "primary_transaction": {
+            "type": "technology_license_patent",
+            "subtype": "patent_license"
+          },
+          "primary_transaction_model": {
+            "type": "TECHNOLOGY_LICENSE",
+            "dominant_family": "TECHNOLOGY",
+            "confidence": "high",
+            "primary_subject": "technology / know-how / technical materials",
+            "rights_change": [
+              "license to use technology"
+            ],
+            "primary_obligation_grantor": [
+              "grant technology use right",
+              "deliver technical materials",
+              "provide technical assistance or training"
+            ],
+            "primary_obligation_grantee": [
+              "pay royalty"
+            ],
+            "primary_consideration": [
+              "sales royalty"
+            ],
+            "transaction_purpose": "use licensed technology to manufacture or operate products",
+            "secondary_transactions": [],
+            "license_semantics": {
+              "grant": true,
+              "roles": true,
+              "boundaries": {
+                "license_mode": true,
+                "non_transferable": true,
+                "territory": true,
+                "use_scope": true,
+                "post_termination_use": false
+              },
+              "entry_fee": false,
+              "royalty": true,
+              "technical_delivery": true,
+              "independent_economic_value": true
+            },
+            "technology_transfer_semantics": {
+              "ownership_transfer": false,
+              "technical_secret_transfer": false,
+              "explicit_technology_rights_transfer": false
+            },
+            "sale_semantics": {
+              "ownership_transfer": false,
+              "roles": false,
+              "quantity_unit_price": false,
+              "goods_purchase_obligation": false,
+              "purchase_price": false,
+              "independent_economic_value": false,
+              "ancillary_future_supply": false
+            },
+            "development_semantics": {
+              "client_and_developer_roles": false,
+              "research_objectives": false,
+              "research_consideration": false,
+              "developer_research_performance": false,
+              "research_schedule": false,
+              "research_result_delivery": false,
+              "is_primary_commission": false
+            },
+            "family_scores": {
+              "TECHNOLOGY": 32,
+              "SALE": 0
+            },
+            "decision_basis": "operative rights change + primary obligations + consideration + economic independence"
+          },
+          "secondary_transactions": [],
+          "ancillary_obligations": [
+            "TECHNICAL_GUIDANCE"
+          ],
+          "post_delivery_obligations": [
+            "TECHNICAL_GUIDANCE"
+          ],
+          "consumer_service_context": {
+            "is_consumer_transaction": false,
+            "is_prepaid_service": false,
+            "is_training_primary_transaction": false,
+            "consumer_signals": [],
+            "prepaid_signals": [],
+            "training_signals": [],
+            "gate_status": "NOT_APPLICABLE"
+          },
+          "candidate_scores": {
+            "SALE": 4,
+            "HOUSE_LEASE": 0,
+            "SERVICE": 0,
+            "TECHNOLOGY": 52
+          },
+          "technology_candidate_scores": {
+            "COOPERATIVE_DEVELOPMENT": 0,
+            "ENTRUSTED_DEVELOPMENT": 0,
+            "TECHNOLOGY_TRANSFER": 0,
+            "TECHNOLOGY_LICENSE": 52,
+            "TECHNICAL_CONSULTING": 0,
+            "TECHNICAL_SERVICE": 0
+          },
+          "primary_transaction_reason": "Operative rights change, primary obligations, consideration and economic independence control before Review Registry loading."
+        }
+      }
+    }
+  },
+  "resolved_type": "technology",
+  "clauses": [
+    {
+      "clause_id": "C0001",
+      "location": "全文",
+      "title": "全文",
+      "text": "涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司",
+      "section_type": "正式合同条款",
+      "level": 0,
+      "raw_text": "涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司",
+      "normalized_text": "涉外专利实施许可合同许可方：MeyerIndustrialTechnologiesGmbH接受方：中国华科智能装备有限公司",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "全文"
+      ],
+      "heading": "全文",
+      "clause_number": "",
+      "paragraph_index": 0,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [],
+      "dates": [],
+      "amounts": [],
+      "percentages": [],
+      "durations": [],
+      "cross_references": [],
+      "node_id": "C0001",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "全文"
+      ],
+      "article_number": "",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 0,
+      "end_offset": 66,
+      "source_type": "BODY",
+      "party_obligation": true
+    },
+    {
+      "clause_id": "C0002",
+      "location": "第一条 专利技术",
+      "title": "专利技术",
+      "text": "第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。",
+      "normalized_text": "第一条专利技术许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "第一条 专利技术"
+      ],
+      "heading": "专利技术",
+      "clause_number": "第一条",
+      "paragraph_index": 1,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [],
+      "dates": [],
+      "amounts": [],
+      "percentages": [],
+      "durations": [],
+      "cross_references": [
+        "第一条"
+      ],
+      "node_id": "C0002",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "第一条 专利技术"
+      ],
+      "article_number": "第一条",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 68,
+      "end_offset": 139,
+      "source_type": "BODY",
+      "party_obligation": true
+    },
+    {
+      "clause_id": "C0003",
+      "location": "第二条 许可性质和实施范围",
+      "title": "许可性质和实施范围",
+      "text": "第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。",
+      "normalized_text": "第二条许可性质和实施范围许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "第二条 许可性质和实施范围"
+      ],
+      "heading": "许可性质和实施范围",
+      "clause_number": "第二条",
+      "paragraph_index": 2,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [],
+      "dates": [],
+      "amounts": [],
+      "percentages": [],
+      "durations": [],
+      "cross_references": [
+        "第二条"
+      ],
+      "node_id": "C0003",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "第二条 许可性质和实施范围"
+      ],
+      "article_number": "第二条",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 141,
+      "end_offset": 231,
+      "source_type": "BODY",
+      "party_obligation": true
+    },
+    {
+      "clause_id": "C0004",
+      "location": "第三条 许可使用费",
+      "title": "许可使用费",
+      "text": "第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。",
+      "normalized_text": "第三条许可使用费接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "第三条 许可使用费"
+      ],
+      "heading": "许可使用费",
+      "clause_number": "第三条",
+      "paragraph_index": 3,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [],
+      "dates": [],
+      "amounts": [],
+      "percentages": [
+        "5%"
+      ],
+      "durations": [],
+      "cross_references": [
+        "第三条"
+      ],
+      "node_id": "C0004",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "第三条 许可使用费"
+      ],
+      "article_number": "第三条",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 233,
+      "end_offset": 297,
+      "source_type": "BODY",
+      "party_obligation": true
+    },
+    {
+      "clause_id": "C0005",
+      "location": "第四条 支付机制",
+      "title": "支付机制",
+      "text": "第四条 支付机制\n接受方应在每个会计年度结束后十个工作日内提交销售报表和提成费计算表，并在收到合法发票后三十日内支付许可使用费。许可方可以委托独立审计机构核验净销售额。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "第四条 支付机制\n接受方应在每个会计年度结束后十个工作日内提交销售报表和提成费计算表，并在收到合法发票后三十日内支付许可使用费。许可方可以委托独立审计机构核验净销售额。",
+      "normalized_text": "第四条支付机制接受方应在每个会计年度结束后十个工作日内提交销售报表和提成费计算表，并在收到合法发票后三十日内支付许可使用费。许可方可以委托独立审计机构核验净销售额。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "第四条 支付机制"
+      ],
+      "heading": "支付机制",
+      "clause_number": "第四条",
+      "paragraph_index": 4,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [],
+      "dates": [],
+      "amounts": [],
+      "percentages": [],
+      "durations": [
+        "十个工作日",
+        "三十日"
+      ],
+      "cross_references": [
+        "第四条"
+      ],
+      "node_id": "C0005",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "第四条 支付机制"
+      ],
+      "article_number": "第四条",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 299,
+      "end_offset": 383,
+      "source_type": "BODY",
+      "party_obligation": true
+    },
+    {
+      "clause_id": "C0006",
+      "location": "第五条 专利资料交付和后续改进",
+      "title": "专利资料交付和后续改进",
+      "text": "第五条 专利资料交付和后续改进\n许可方应在合同生效后十五日内交付专利资料、设计图纸、控制参数、测试数据和操作手册，并提供技术指导。双方对后续改进应相互书面通知，改进成果归改进方所有，另一方需要使用的应另行协商许可条件。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "第五条 专利资料交付和后续改进\n许可方应在合同生效后十五日内交付专利资料、设计图纸、控制参数、测试数据和操作手册，并提供技术指导。双方对后续改进应相互书面通知，改进成果归改进方所有，另一方需要使用的应另行协商许可条件。",
+      "normalized_text": "第五条专利资料交付和后续改进许可方应在合同生效后十五日内交付专利资料、设计图纸、控制参数、测试数据和操作手册，并提供技术指导。双方对后续改进应相互书面通知，改进成果归改进方所有，另一方需要使用的应另行协商许可条件。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "第五条 专利资料交付和后续改进"
+      ],
+      "heading": "专利资料交付和后续改进",
+      "clause_number": "第五条",
+      "paragraph_index": 5,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [],
+      "dates": [],
+      "amounts": [],
+      "percentages": [],
+      "durations": [
+        "十五日"
+      ],
+      "cross_references": [
+        "第五条"
+      ],
+      "node_id": "C0006",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "第五条 专利资料交付和后续改进"
+      ],
+      "article_number": "第五条",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 385,
+      "end_offset": 494,
+      "source_type": "BODY",
+      "party_obligation": true
+    },
+    {
+      "clause_id": "C0007",
+      "location": "第六条 权利保证、专利维持和侵权责任",
+      "title": "权利保证、专利维持和侵权责任",
+      "text": "第六条 权利保证、专利维持和侵权责任\n许可方保证有权授予本合同项下许可，保证专利在签约时合法有效且不存在未披露的权利负担。许可方应按时缴纳专利费用和专利年费并维持专利有效性。接受方按约实施专利遭遇第三方侵权主张时，许可方应负责应诉、排除妨碍并承担相应侵权责任和合理费用。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "第六条 权利保证、专利维持和侵权责任\n许可方保证有权授予本合同项下许可，保证专利在签约时合法有效且不存在未披露的权利负担。许可方应按时缴纳专利费用和专利年费并维持专利有效性。接受方按约实施专利遭遇第三方侵权主张时，许可方应负责应诉、排除妨碍并承担相应侵权责任和合理费用。",
+      "normalized_text": "第六条权利保证、专利维持和侵权责任许可方保证有权授予本合同项下许可，保证专利在签约时合法有效且不存在未披露的权利负担。许可方应按时缴纳专利费用和专利年费并维持专利有效性。接受方按约实施专利遭遇第三方侵权主张时，许可方应负责应诉、排除妨碍并承担相应侵权责任和合理费用。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "第六条 权利保证、专利维持和侵权责任"
+      ],
+      "heading": "权利保证、专利维持和侵权责任",
+      "clause_number": "第六条",
+      "paragraph_index": 6,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [],
+      "dates": [],
+      "amounts": [],
+      "percentages": [],
+      "durations": [],
+      "cross_references": [
+        "第六条"
+      ],
+      "node_id": "C0007",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "第六条 权利保证、专利维持和侵权责任"
+      ],
+      "article_number": "第六条",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 496,
+      "end_offset": 631,
+      "source_type": "BODY",
+      "party_obligation": true
+    },
+    {
+      "clause_id": "C0008",
+      "location": "第七条 保密及出口合规",
+      "title": "保密及出口合规",
+      "text": "第七条 保密及出口合规\n双方对履约中知悉的技术秘密承担保密义务；跨境交付专利资料时应依法办理技术进出口审批、登记或备案。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "第七条 保密及出口合规\n双方对履约中知悉的技术秘密承担保密义务；跨境交付专利资料时应依法办理技术进出口审批、登记或备案。",
+      "normalized_text": "第七条保密及出口合规双方对履约中知悉的技术秘密承担保密义务；跨境交付专利资料时应依法办理技术进出口审批、登记或备案。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "第七条 保密及出口合规"
+      ],
+      "heading": "保密及出口合规",
+      "clause_number": "第七条",
+      "paragraph_index": 7,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [],
+      "dates": [],
+      "amounts": [],
+      "percentages": [],
+      "durations": [],
+      "cross_references": [
+        "第七条"
+      ],
+      "node_id": "C0008",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "第七条 保密及出口合规"
+      ],
+      "article_number": "第七条",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 633,
+      "end_offset": 693,
+      "source_type": "BODY",
+      "party_obligation": true
+    },
+    {
+      "clause_id": "C0009",
+      "location": "第八条 不可抗力",
+      "title": "不可抗力",
+      "text": "第八条 不可抗力\n不可抗力包括战争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "第八条 不可抗力\n不可抗力包括战争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。",
+      "normalized_text": "第八条不可抗力不可抗力包括战争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "第八条 不可抗力"
+      ],
+      "heading": "不可抗力",
+      "clause_number": "第八条",
+      "paragraph_index": 8,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [],
+      "dates": [],
+      "amounts": [],
+      "percentages": [],
+      "durations": [
+        "十四日",
+        "120天"
+      ],
+      "cross_references": [
+        "第八条"
+      ],
+      "node_id": "C0009",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "第八条 不可抗力"
+      ],
+      "article_number": "第八条",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 695,
+      "end_offset": 807,
+      "source_type": "BODY",
+      "party_obligation": true
+    },
+    {
+      "clause_id": "C0010",
+      "location": "第九条 争议解决",
+      "title": "争议解决",
+      "text": "第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。",
+      "normalized_text": "第九条争议解决因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "第九条 争议解决"
+      ],
+      "heading": "争议解决",
+      "clause_number": "第九条",
+      "paragraph_index": 9,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [],
+      "dates": [],
+      "amounts": [],
+      "percentages": [],
+      "durations": [],
+      "cross_references": [
+        "第九条"
+      ],
+      "node_id": "C0010",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "第九条 争议解决"
+      ],
+      "article_number": "第九条",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 809,
+      "end_offset": 881,
+      "source_type": "BODY",
+      "party_obligation": true
+    },
+    {
+      "clause_id": "C0011",
+      "location": "第十条 专利失效和终止后处理",
+      "title": "专利失效和终止后处理",
+      "text": "第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。",
+      "section_type": "正式合同条款",
+      "level": 1,
+      "raw_text": "第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。",
+      "normalized_text": "第十条专利失效和终止后处理专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "第十条 专利失效和终止后处理"
+      ],
+      "heading": "专利失效和终止后处理",
+      "clause_number": "第十条",
+      "paragraph_index": 10,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [],
+      "dates": [],
+      "amounts": [],
+      "percentages": [],
+      "durations": [],
+      "cross_references": [
+        "第十条"
+      ],
+      "node_id": "C0011",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "第十条 专利失效和终止后处理"
+      ],
+      "article_number": "第十条",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 883,
+      "end_offset": 942,
+      "source_type": "BODY",
+      "party_obligation": true
+    },
+    {
+      "clause_id": "C0012",
+      "location": "10.4",
+      "title": "10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。",
+      "text": "10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。",
+      "section_type": "正式合同条款",
+      "level": 2,
+      "raw_text": "10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。",
+      "normalized_text": "10.4专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。",
+      "option_groups": [],
+      "source": "body",
+      "section_path": [
+        "正式合同条款",
+        "10.4"
+      ],
+      "heading": "10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。",
+      "clause_number": "",
+      "paragraph_index": 11,
+      "block_type": "OPERATIVE_CLAUSE",
+      "parties": [],
+      "dates": [],
+      "amounts": [],
+      "percentages": [],
+      "durations": [],
+      "cross_references": [],
+      "node_id": "C0012",
+      "document_id": "contract_package/main",
+      "heading_path": [
+        "10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。"
+      ],
+      "article_number": "",
+      "section_number": "",
+      "item_number": "",
+      "sentence_index": 1,
+      "start_offset": 943,
+      "end_offset": 1013,
+      "source_type": "BODY",
+      "party_obligation": true
+    }
+  ]
+}

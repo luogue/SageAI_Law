@@ -1,0 +1,2400 @@
+[
+  {
+    "path": "F:\\ai\\Sage\\backend\\app.db",
+    "before": {
+      "F:\\ai\\Sage\\backend\\app.db": {
+        "exists": true,
+        "bytes": 344064,
+        "modified_utc": "2026-08-29T00:13:54.907678+00:00",
+        "sha256": "0986b6e7fbda02db9f73213bcea0df75e36458274951101d649a9bfca53e80cf"
+      },
+      "F:\\ai\\Sage\\backend\\app.db-wal": {
+        "exists": true,
+        "bytes": 0,
+        "modified_utc": "2026-09-08T08:03:15.599153+00:00",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "F:\\ai\\Sage\\backend\\app.db-shm": {
+        "exists": true,
+        "bytes": 32768,
+        "modified_utc": "2026-09-09T02:49:38.916351+00:00",
+        "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+      },
+      "F:\\ai\\Sage\\backend\\app.db-journal": {
+        "exists": false
+      }
+    },
+    "sqlite_version": "3.40.1",
+    "connection": "mode=ro&immutable=1; ignores WAL; no application imports",
+    "header": {
+      "sqlite_magic_valid": true,
+      "page_size": 4096,
+      "write_version": 2,
+      "read_version": 2,
+      "change_counter": 54,
+      "declared_pages": 84,
+      "freelist_first": 69,
+      "freelist_count": 7,
+      "schema_cookie": 39,
+      "version_valid_for": 54,
+      "writer_sqlite_version": 3040001
+    },
+    "physical_pages": 84,
+    "trailing_bytes": 0,
+    "zero_pages": [],
+    "integrity_check": {
+      "partial_rows": [],
+      "error": "database disk image is malformed",
+      "error_code": null
+    },
+    "quick_check": {
+      "partial_rows": [],
+      "error": "database disk image is malformed",
+      "error_code": null
+    },
+    "page_count": {
+      "rows": [
+        [
+          84
+        ]
+      ]
+    },
+    "freelist_count": {
+      "rows": [
+        [
+          7
+        ]
+      ]
+    },
+    "journal_mode": {
+      "rows": [
+        [
+          "delete"
+        ]
+      ]
+    },
+    "schema_version": {
+      "rows": [
+        [
+          39
+        ]
+      ]
+    },
+    "user_version": {
+      "rows": [
+        [
+          0
+        ]
+      ]
+    },
+    "schema": {
+      "rows": [
+        [
+          "index",
+          "ix_admin_logs_id",
+          "admin_logs",
+          51,
+          "CREATE INDEX ix_admin_logs_id ON admin_logs (id)"
+        ],
+        [
+          "index",
+          "ix_admins_id",
+          "admins",
+          59,
+          "CREATE INDEX ix_admins_id ON admins (id)"
+        ],
+        [
+          "index",
+          "ix_admins_username",
+          "admins",
+          36,
+          "CREATE UNIQUE INDEX ix_admins_username ON admins (username)"
+        ],
+        [
+          "index",
+          "ix_blacklist_id",
+          "blacklist",
+          7,
+          "CREATE INDEX ix_blacklist_id ON blacklist (id)"
+        ],
+        [
+          "index",
+          "ix_blacklist_value",
+          "blacklist",
+          6,
+          "CREATE UNIQUE INDEX ix_blacklist_value ON blacklist (value)"
+        ],
+        [
+          "index",
+          "ix_bonus_log_id",
+          "bonus_log",
+          17,
+          "CREATE INDEX ix_bonus_log_id ON bonus_log (id)"
+        ],
+        [
+          "index",
+          "ix_feedback_id",
+          "feedback",
+          15,
+          "CREATE INDEX ix_feedback_id ON feedback (id)"
+        ],
+        [
+          "index",
+          "ix_file_hash_cache_file_hash",
+          "file_hash_cache",
+          23,
+          "CREATE INDEX ix_file_hash_cache_file_hash ON file_hash_cache (file_hash)"
+        ],
+        [
+          "index",
+          "ix_file_hash_cache_id",
+          "file_hash_cache",
+          25,
+          "CREATE INDEX ix_file_hash_cache_id ON file_hash_cache (id)"
+        ],
+        [
+          "index",
+          "ix_file_hash_cache_user_id",
+          "file_hash_cache",
+          24,
+          "CREATE INDEX ix_file_hash_cache_user_id ON file_hash_cache (user_id)"
+        ],
+        [
+          "index",
+          "ix_intercept_logs_id",
+          "intercept_logs",
+          10,
+          "CREATE INDEX ix_intercept_logs_id ON intercept_logs (id)"
+        ],
+        [
+          "index",
+          "ix_intercept_logs_ip",
+          "intercept_logs",
+          9,
+          "CREATE INDEX ix_intercept_logs_ip ON intercept_logs (ip)"
+        ],
+        [
+          "index",
+          "ix_intercept_logs_timestamp",
+          "intercept_logs",
+          11,
+          "CREATE INDEX ix_intercept_logs_timestamp ON intercept_logs (timestamp)"
+        ],
+        [
+          "index",
+          "ix_invite_rewards_id",
+          "invite_rewards",
+          19,
+          "CREATE INDEX ix_invite_rewards_id ON invite_rewards (id)"
+        ],
+        [
+          "index",
+          "ix_record_id",
+          "record",
+          13,
+          "CREATE INDEX ix_record_id ON record (id)"
+        ],
+        [
+          "index",
+          "ix_reward_logs_id",
+          "reward_logs",
+          30,
+          "CREATE INDEX ix_reward_logs_id ON reward_logs (id)"
+        ],
+        [
+          "index",
+          "ix_security_events_created_at",
+          "security_events",
+          54,
+          "CREATE INDEX ix_security_events_created_at ON security_events (created_at)"
+        ],
+        [
+          "index",
+          "ix_security_events_event_type",
+          "security_events",
+          55,
+          "CREATE INDEX ix_security_events_event_type ON security_events (event_type)"
+        ],
+        [
+          "index",
+          "ix_security_events_id",
+          "security_events",
+          53,
+          "CREATE INDEX ix_security_events_id ON security_events (id)"
+        ],
+        [
+          "index",
+          "ix_task_record_id",
+          "task_record",
+          28,
+          "CREATE INDEX ix_task_record_id ON task_record (id)"
+        ],
+        [
+          "index",
+          "ix_task_record_task_id",
+          "task_record",
+          27,
+          "CREATE UNIQUE INDEX ix_task_record_task_id ON task_record (task_id)"
+        ],
+        [
+          "index",
+          "ix_user_id",
+          "user",
+          4,
+          "CREATE INDEX ix_user_id ON user (id)"
+        ],
+        [
+          "index",
+          "ix_user_mobile",
+          "user",
+          3,
+          "CREATE UNIQUE INDEX ix_user_mobile ON user (mobile)"
+        ],
+        [
+          "table",
+          "admin_logs",
+          "admin_logs",
+          50,
+          "CREATE TABLE admin_logs (\n\tid INTEGER NOT NULL, \n\tadmin_user VARCHAR(50) NOT NULL, \n\taction VARCHAR(50) NOT NULL, \n\ttarget_type VARCHAR(50) NOT NULL, \n\ttarget_value VARCHAR(200) NOT NULL, \n\tdetail TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "admins",
+          "admins",
+          32,
+          "CREATE TABLE admins (\n\tid INTEGER NOT NULL, \n\tusername VARCHAR(50) NOT NULL, \n\tpassword_hash VARCHAR NOT NULL, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "blacklist",
+          "blacklist",
+          5,
+          "CREATE TABLE blacklist (\n\tid INTEGER NOT NULL, \n\tblacklist_type VARCHAR NOT NULL, \n\tvalue VARCHAR NOT NULL, \n\treason VARCHAR, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), ban_type TEXT DEFAULT 'manual', input_preview TEXT, trigger_rule TEXT, is_unbanned BOOLEAN DEFAULT 0, unbanned_by TEXT, unban_reason TEXT, unbanned_at TIMESTAMP, \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "bonus_log",
+          "bonus_log",
+          16,
+          "CREATE TABLE bonus_log (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tbonus_type VARCHAR(50) NOT NULL, \n\tcontract_hash VARCHAR(64), \n\tawarded_amount INTEGER NOT NULL, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "feedback",
+          "feedback",
+          14,
+          "CREATE TABLE feedback (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\treport_id VARCHAR(50) NOT NULL, \n\tfeedback_type VARCHAR(20) NOT NULL, \n\tcategories TEXT, \n\tcomment TEXT, \n\tupload_consent BOOLEAN NOT NULL, \n\tcontract_text TEXT, \n\tcontract_hash VARCHAR(64), \n\tquality_score INTEGER NOT NULL, \n\tsuggested_bonus INTEGER NOT NULL, \n\tai_reason TEXT, \n\tbonus_awarded INTEGER NOT NULL, \n\tstatus VARCHAR(20) NOT NULL, \n\treviewed_at DATETIME, \n\treviewer_id INTEGER, \n\treviewed_by VARCHAR(50), \n\treject_reason TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id), \n\tFOREIGN KEY(reviewer_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "file_hash_cache",
+          "file_hash_cache",
+          20,
+          "CREATE TABLE file_hash_cache (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tfile_hash VARCHAR(64) NOT NULL, \n\tfilename VARCHAR, \n\tfirst_upload_time DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tlast_upload_time DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tupload_count INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "intercept_logs",
+          "intercept_logs",
+          8,
+          "CREATE TABLE intercept_logs (\n\tid INTEGER NOT NULL, \n\ttimestamp DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tuser_id INTEGER, \n\tip VARCHAR(45) NOT NULL, \n\trequest_path VARCHAR(100) NOT NULL, \n\ttrigger_type VARCHAR(50) NOT NULL, \n\ttrigger_word VARCHAR(200) NOT NULL, \n\ttext_preview TEXT, \n\taction VARCHAR(20) NOT NULL, \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "invite_rewards",
+          "invite_rewards",
+          18,
+          "CREATE TABLE invite_rewards (\n\tid INTEGER NOT NULL, \n\tinviter_id INTEGER NOT NULL, \n\tinvitee_id INTEGER NOT NULL, \n\treward_credits INTEGER NOT NULL, \n\tstatus VARCHAR(20) NOT NULL, \n\tinvitee_first_review_at DATETIME, \n\treward_granted_at DATETIME, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(inviter_id) REFERENCES user (id), \n\tFOREIGN KEY(invitee_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "record",
+          "record",
+          12,
+          "CREATE TABLE record (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tfilename VARCHAR NOT NULL, \n\treport_markdown TEXT, \n\tmetadata_json TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tupdated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), raw_output TEXT, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "reward_logs",
+          "reward_logs",
+          29,
+          "CREATE TABLE reward_logs (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tamount INTEGER NOT NULL, \n\treason VARCHAR(50) NOT NULL, \n\trelated_feedback_id INTEGER, \n\toperator VARCHAR(50), \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id), \n\tFOREIGN KEY(related_feedback_id) REFERENCES feedback (id)\n)"
+        ],
+        [
+          "table",
+          "security_events",
+          "security_events",
+          52,
+          "CREATE TABLE security_events (\n\tid INTEGER NOT NULL, \n\tevent_type VARCHAR(50) NOT NULL, \n\tseverity VARCHAR(20) NOT NULL, \n\tsource VARCHAR(50) NOT NULL, \n\tdetail TEXT, \n\tuser_id VARCHAR(50), \n\tip VARCHAR(45), \n\tmeta_json TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "task_record",
+          "task_record",
+          26,
+          "CREATE TABLE task_record (\n\tid INTEGER NOT NULL, \n\ttask_id VARCHAR(36) NOT NULL, \n\tfilename VARCHAR NOT NULL, \n\tfile_size INTEGER, \n\tstatus VARCHAR(20) NOT NULL, \n\tuser_id INTEGER, \n\tremaining_bonus INTEGER, \n\trecord_id INTEGER, \n\tprogress INTEGER, \n\tresult TEXT, \n\terror TEXT, \n\tmetadata_json TEXT, \n\tvalidation_json TEXT, \n\tsummary_json TEXT, \n\ttrace_id VARCHAR(50), \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tupdated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "user",
+          "user",
+          2,
+          "CREATE TABLE user (\n\tid INTEGER NOT NULL, \n\tcountry_code VARCHAR(10) NOT NULL, \n\tmobile VARCHAR(20) NOT NULL, \n\tpassword_hash VARCHAR NOT NULL, \n\tbonus_credits INTEGER NOT NULL, \n\tfree_review_quota INTEGER NOT NULL, \n\tinvited_by INTEGER, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), status TEXT DEFAULT \"normal\", last_active_at TEXT, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(invited_by) REFERENCES user (id)\n)"
+        ]
+      ]
+    },
+    "table_scans": {
+      "admin_logs": {
+        "rootpage": 50,
+        "rows_read": 9,
+        "status": "readable"
+      },
+      "admins": {
+        "rootpage": 32,
+        "rows_read": 1,
+        "status": "readable"
+      },
+      "blacklist": {
+        "rootpage": 5,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "bonus_log": {
+        "rootpage": 16,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "feedback": {
+        "rootpage": 14,
+        "rows_read": 1,
+        "status": "readable"
+      },
+      "file_hash_cache": {
+        "rootpage": 20,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "intercept_logs": {
+        "rootpage": 8,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "invite_rewards": {
+        "rootpage": 18,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "record": {
+        "rootpage": 12,
+        "rows_read": 1,
+        "status": "readable"
+      },
+      "reward_logs": {
+        "rootpage": 29,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "security_events": {
+        "rootpage": 52,
+        "rows_read": 31,
+        "status": "readable"
+      },
+      "task_record": {
+        "rootpage": 26,
+        "rows_read": 32,
+        "status": "error",
+        "error": "database disk image is malformed"
+      },
+      "user": {
+        "rootpage": 2,
+        "rows_read": 1,
+        "status": "readable"
+      }
+    },
+    "dbstat": {
+      "partial_rows": [],
+      "error": "no such table: dbstat",
+      "error_code": null
+    },
+    "foreign_key_check": {
+      "partial_rows": [],
+      "error": "database disk image is malformed",
+      "error_code": null
+    },
+    "after": {
+      "F:\\ai\\Sage\\backend\\app.db": {
+        "exists": true,
+        "bytes": 344064,
+        "modified_utc": "2026-08-29T00:13:54.907678+00:00",
+        "sha256": "0986b6e7fbda02db9f73213bcea0df75e36458274951101d649a9bfca53e80cf"
+      },
+      "F:\\ai\\Sage\\backend\\app.db-wal": {
+        "exists": true,
+        "bytes": 0,
+        "modified_utc": "2026-09-08T08:03:15.599153+00:00",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "F:\\ai\\Sage\\backend\\app.db-shm": {
+        "exists": true,
+        "bytes": 32768,
+        "modified_utc": "2026-09-09T02:49:38.916351+00:00",
+        "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+      },
+      "F:\\ai\\Sage\\backend\\app.db-journal": {
+        "exists": false
+      }
+    },
+    "files_unchanged": true
+  },
+  {
+    "path": "F:\\ai\\Sage\\app.db",
+    "before": {
+      "F:\\ai\\Sage\\app.db": {
+        "exists": true,
+        "bytes": 172032,
+        "modified_utc": "2026-09-08T11:48:23.220474+00:00",
+        "sha256": "3a0c130a900ef6ebbac38cc86050bcb59cfb5298eefb9b6623349168c6bf6ab8"
+      },
+      "F:\\ai\\Sage\\app.db-wal": {
+        "exists": true,
+        "bytes": 0,
+        "modified_utc": "2026-09-09T02:49:43.958987+00:00",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "F:\\ai\\Sage\\app.db-shm": {
+        "exists": true,
+        "bytes": 32768,
+        "modified_utc": "2026-09-09T02:49:43.959956+00:00",
+        "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+      },
+      "F:\\ai\\Sage\\app.db-journal": {
+        "exists": false
+      }
+    },
+    "sqlite_version": "3.40.1",
+    "connection": "mode=ro&immutable=1; ignores WAL; no application imports",
+    "header": {
+      "sqlite_magic_valid": true,
+      "page_size": 4096,
+      "write_version": 2,
+      "read_version": 2,
+      "change_counter": 4,
+      "declared_pages": 42,
+      "freelist_first": 0,
+      "freelist_count": 0,
+      "schema_cookie": 36,
+      "version_valid_for": 4,
+      "writer_sqlite_version": 3040001
+    },
+    "physical_pages": 42,
+    "trailing_bytes": 0,
+    "zero_pages": [],
+    "integrity_check": {
+      "rows": [
+        [
+          "ok"
+        ]
+      ]
+    },
+    "quick_check": {
+      "rows": [
+        [
+          "ok"
+        ]
+      ]
+    },
+    "page_count": {
+      "rows": [
+        [
+          42
+        ]
+      ]
+    },
+    "freelist_count": {
+      "rows": [
+        [
+          0
+        ]
+      ]
+    },
+    "journal_mode": {
+      "rows": [
+        [
+          "delete"
+        ]
+      ]
+    },
+    "schema_version": {
+      "rows": [
+        [
+          36
+        ]
+      ]
+    },
+    "user_version": {
+      "rows": [
+        [
+          0
+        ]
+      ]
+    },
+    "schema": {
+      "rows": [
+        [
+          "index",
+          "ix_admin_logs_id",
+          "admin_logs",
+          13,
+          "CREATE INDEX ix_admin_logs_id ON admin_logs (id)"
+        ],
+        [
+          "index",
+          "ix_admins_id",
+          "admins",
+          15,
+          "CREATE INDEX ix_admins_id ON admins (id)"
+        ],
+        [
+          "index",
+          "ix_admins_username",
+          "admins",
+          16,
+          "CREATE UNIQUE INDEX ix_admins_username ON admins (username)"
+        ],
+        [
+          "index",
+          "ix_blacklist_id",
+          "blacklist",
+          6,
+          "CREATE INDEX ix_blacklist_id ON blacklist (id)"
+        ],
+        [
+          "index",
+          "ix_blacklist_value",
+          "blacklist",
+          7,
+          "CREATE UNIQUE INDEX ix_blacklist_value ON blacklist (value)"
+        ],
+        [
+          "index",
+          "ix_bonus_log_id",
+          "bonus_log",
+          28,
+          "CREATE INDEX ix_bonus_log_id ON bonus_log (id)"
+        ],
+        [
+          "index",
+          "ix_feedback_id",
+          "feedback",
+          26,
+          "CREATE INDEX ix_feedback_id ON feedback (id)"
+        ],
+        [
+          "index",
+          "ix_file_hash_cache_file_hash",
+          "file_hash_cache",
+          32,
+          "CREATE INDEX ix_file_hash_cache_file_hash ON file_hash_cache (file_hash)"
+        ],
+        [
+          "index",
+          "ix_file_hash_cache_id",
+          "file_hash_cache",
+          34,
+          "CREATE INDEX ix_file_hash_cache_id ON file_hash_cache (id)"
+        ],
+        [
+          "index",
+          "ix_file_hash_cache_user_id",
+          "file_hash_cache",
+          33,
+          "CREATE INDEX ix_file_hash_cache_user_id ON file_hash_cache (user_id)"
+        ],
+        [
+          "index",
+          "ix_intercept_logs_id",
+          "intercept_logs",
+          10,
+          "CREATE INDEX ix_intercept_logs_id ON intercept_logs (id)"
+        ],
+        [
+          "index",
+          "ix_intercept_logs_ip",
+          "intercept_logs",
+          9,
+          "CREATE INDEX ix_intercept_logs_ip ON intercept_logs (ip)"
+        ],
+        [
+          "index",
+          "ix_intercept_logs_timestamp",
+          "intercept_logs",
+          11,
+          "CREATE INDEX ix_intercept_logs_timestamp ON intercept_logs (timestamp)"
+        ],
+        [
+          "index",
+          "ix_invite_rewards_id",
+          "invite_rewards",
+          30,
+          "CREATE INDEX ix_invite_rewards_id ON invite_rewards (id)"
+        ],
+        [
+          "index",
+          "ix_record_id",
+          "record",
+          22,
+          "CREATE INDEX ix_record_id ON record (id)"
+        ],
+        [
+          "index",
+          "ix_reward_logs_id",
+          "reward_logs",
+          39,
+          "CREATE INDEX ix_reward_logs_id ON reward_logs (id)"
+        ],
+        [
+          "index",
+          "ix_security_events_created_at",
+          "security_events",
+          20,
+          "CREATE INDEX ix_security_events_created_at ON security_events (created_at)"
+        ],
+        [
+          "index",
+          "ix_security_events_event_type",
+          "security_events",
+          19,
+          "CREATE INDEX ix_security_events_event_type ON security_events (event_type)"
+        ],
+        [
+          "index",
+          "ix_security_events_id",
+          "security_events",
+          18,
+          "CREATE INDEX ix_security_events_id ON security_events (id)"
+        ],
+        [
+          "index",
+          "ix_task_record_id",
+          "task_record",
+          36,
+          "CREATE INDEX ix_task_record_id ON task_record (id)"
+        ],
+        [
+          "index",
+          "ix_task_record_task_id",
+          "task_record",
+          37,
+          "CREATE UNIQUE INDEX ix_task_record_task_id ON task_record (task_id)"
+        ],
+        [
+          "index",
+          "ix_user_id",
+          "user",
+          3,
+          "CREATE INDEX ix_user_id ON user (id)"
+        ],
+        [
+          "index",
+          "ix_user_mobile",
+          "user",
+          4,
+          "CREATE UNIQUE INDEX ix_user_mobile ON user (mobile)"
+        ],
+        [
+          "table",
+          "admin_logs",
+          "admin_logs",
+          12,
+          "CREATE TABLE admin_logs (\n\tid INTEGER NOT NULL, \n\tadmin_user VARCHAR(50) NOT NULL, \n\taction VARCHAR(50) NOT NULL, \n\ttarget_type VARCHAR(50) NOT NULL, \n\ttarget_value VARCHAR(200) NOT NULL, \n\tdetail TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "admins",
+          "admins",
+          14,
+          "CREATE TABLE admins (\n\tid INTEGER NOT NULL, \n\tusername VARCHAR(50) NOT NULL, \n\tpassword_hash VARCHAR NOT NULL, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "blacklist",
+          "blacklist",
+          5,
+          "CREATE TABLE blacklist (\n\tid INTEGER NOT NULL, \n\tblacklist_type VARCHAR NOT NULL, \n\tvalue VARCHAR NOT NULL, \n\treason VARCHAR, \n\tban_type VARCHAR, \n\tinput_preview TEXT, \n\ttrigger_rule VARCHAR, \n\tis_unbanned BOOLEAN, \n\tunbanned_by VARCHAR, \n\tunban_reason TEXT, \n\tunbanned_at DATETIME, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "bonus_log",
+          "bonus_log",
+          27,
+          "CREATE TABLE bonus_log (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tbonus_type VARCHAR(50) NOT NULL, \n\tcontract_hash VARCHAR(64), \n\tawarded_amount INTEGER NOT NULL, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "feedback",
+          "feedback",
+          23,
+          "CREATE TABLE feedback (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\treport_id VARCHAR(50) NOT NULL, \n\tfeedback_type VARCHAR(20) NOT NULL, \n\tcategories TEXT, \n\tcomment TEXT, \n\tupload_consent BOOLEAN NOT NULL, \n\tcontract_text TEXT, \n\tcontract_hash VARCHAR(64), \n\tquality_score INTEGER NOT NULL, \n\tsuggested_bonus INTEGER NOT NULL, \n\tai_reason TEXT, \n\tbonus_awarded INTEGER NOT NULL, \n\tstatus VARCHAR(20) NOT NULL, \n\treviewed_at DATETIME, \n\treviewer_id INTEGER, \n\treviewed_by VARCHAR(50), \n\treject_reason TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id), \n\tFOREIGN KEY(reviewer_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "file_hash_cache",
+          "file_hash_cache",
+          31,
+          "CREATE TABLE file_hash_cache (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tfile_hash VARCHAR(64) NOT NULL, \n\tfilename VARCHAR, \n\tfirst_upload_time DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tlast_upload_time DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tupload_count INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "intercept_logs",
+          "intercept_logs",
+          8,
+          "CREATE TABLE intercept_logs (\n\tid INTEGER NOT NULL, \n\ttimestamp DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tuser_id INTEGER, \n\tip VARCHAR(45) NOT NULL, \n\trequest_path VARCHAR(100) NOT NULL, \n\ttrigger_type VARCHAR(50) NOT NULL, \n\ttrigger_word VARCHAR(200) NOT NULL, \n\ttext_preview TEXT, \n\taction VARCHAR(20) NOT NULL, \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "invite_rewards",
+          "invite_rewards",
+          29,
+          "CREATE TABLE invite_rewards (\n\tid INTEGER NOT NULL, \n\tinviter_id INTEGER NOT NULL, \n\tinvitee_id INTEGER NOT NULL, \n\treward_credits INTEGER NOT NULL, \n\tstatus VARCHAR(20) NOT NULL, \n\tinvitee_first_review_at DATETIME, \n\treward_granted_at DATETIME, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(inviter_id) REFERENCES user (id), \n\tFOREIGN KEY(invitee_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "record",
+          "record",
+          21,
+          "CREATE TABLE record (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tfilename VARCHAR NOT NULL, \n\treport_markdown TEXT, \n\tmetadata_json TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tupdated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "reward_logs",
+          "reward_logs",
+          38,
+          "CREATE TABLE reward_logs (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tamount INTEGER NOT NULL, \n\treason VARCHAR(50) NOT NULL, \n\trelated_feedback_id INTEGER, \n\toperator VARCHAR(50), \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id), \n\tFOREIGN KEY(related_feedback_id) REFERENCES feedback (id)\n)"
+        ],
+        [
+          "table",
+          "security_events",
+          "security_events",
+          17,
+          "CREATE TABLE security_events (\n\tid INTEGER NOT NULL, \n\tevent_type VARCHAR(50) NOT NULL, \n\tseverity VARCHAR(20) NOT NULL, \n\tsource VARCHAR(50) NOT NULL, \n\tdetail TEXT, \n\tuser_id VARCHAR(50), \n\tip VARCHAR(45), \n\tmeta_json TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "task_record",
+          "task_record",
+          35,
+          "CREATE TABLE task_record (\n\tid INTEGER NOT NULL, \n\ttask_id VARCHAR(36) NOT NULL, \n\tfilename VARCHAR NOT NULL, \n\tfile_size INTEGER, \n\tstatus VARCHAR(20) NOT NULL, \n\tuser_id INTEGER, \n\tremaining_bonus INTEGER, \n\trecord_id INTEGER, \n\tprogress INTEGER, \n\tresult TEXT, \n\terror TEXT, \n\tmetadata_json TEXT, \n\tvalidation_json TEXT, \n\tsummary_json TEXT, \n\ttrace_id VARCHAR(50), \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tupdated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "user",
+          "user",
+          2,
+          "CREATE TABLE user (\n\tid INTEGER NOT NULL, \n\tcountry_code VARCHAR(10) NOT NULL, \n\tmobile VARCHAR(20) NOT NULL, \n\tpassword_hash VARCHAR NOT NULL, \n\tbonus_credits INTEGER NOT NULL, \n\tfree_review_quota INTEGER NOT NULL, \n\tinvited_by INTEGER, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(invited_by) REFERENCES user (id)\n)"
+        ]
+      ]
+    },
+    "table_scans": {
+      "admin_logs": {
+        "rootpage": 12,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "admins": {
+        "rootpage": 14,
+        "rows_read": 1,
+        "status": "readable"
+      },
+      "blacklist": {
+        "rootpage": 5,
+        "rows_read": 2,
+        "status": "readable"
+      },
+      "bonus_log": {
+        "rootpage": 27,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "feedback": {
+        "rootpage": 23,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "file_hash_cache": {
+        "rootpage": 31,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "intercept_logs": {
+        "rootpage": 8,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "invite_rewards": {
+        "rootpage": 29,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "record": {
+        "rootpage": 21,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "reward_logs": {
+        "rootpage": 38,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "security_events": {
+        "rootpage": 17,
+        "rows_read": 2,
+        "status": "readable"
+      },
+      "task_record": {
+        "rootpage": 35,
+        "rows_read": 5,
+        "status": "readable"
+      },
+      "user": {
+        "rootpage": 2,
+        "rows_read": 0,
+        "status": "readable"
+      }
+    },
+    "dbstat": {
+      "partial_rows": [],
+      "error": "no such table: dbstat",
+      "error_code": null
+    },
+    "foreign_key_check": {
+      "rows": []
+    },
+    "after": {
+      "F:\\ai\\Sage\\app.db": {
+        "exists": true,
+        "bytes": 172032,
+        "modified_utc": "2026-09-08T11:48:23.220474+00:00",
+        "sha256": "3a0c130a900ef6ebbac38cc86050bcb59cfb5298eefb9b6623349168c6bf6ab8"
+      },
+      "F:\\ai\\Sage\\app.db-wal": {
+        "exists": true,
+        "bytes": 0,
+        "modified_utc": "2026-09-09T02:49:43.958987+00:00",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "F:\\ai\\Sage\\app.db-shm": {
+        "exists": true,
+        "bytes": 32768,
+        "modified_utc": "2026-09-09T02:49:43.959956+00:00",
+        "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+      },
+      "F:\\ai\\Sage\\app.db-journal": {
+        "exists": false
+      }
+    },
+    "files_unchanged": true
+  },
+  {
+    "path": "F:\\ai\\Sage\\backend\\data\\app.db",
+    "before": {
+      "F:\\ai\\Sage\\backend\\data\\app.db": {
+        "exists": true,
+        "bytes": 32768,
+        "modified_utc": "2026-06-12T00:30:47.091711+00:00",
+        "sha256": "40c7541284c698b7d8cf9e4d8ee9cf9b3399c4f3b02e09f0ae8032d3ff0502a5"
+      },
+      "F:\\ai\\Sage\\backend\\data\\app.db-wal": {
+        "exists": false
+      },
+      "F:\\ai\\Sage\\backend\\data\\app.db-shm": {
+        "exists": false
+      },
+      "F:\\ai\\Sage\\backend\\data\\app.db-journal": {
+        "exists": false
+      }
+    },
+    "sqlite_version": "3.40.1",
+    "connection": "mode=ro&immutable=1; ignores WAL; no application imports",
+    "header": {
+      "sqlite_magic_valid": true,
+      "page_size": 4096,
+      "write_version": 1,
+      "read_version": 1,
+      "change_counter": 6,
+      "declared_pages": 8,
+      "freelist_first": 0,
+      "freelist_count": 0,
+      "schema_cookie": 6,
+      "version_valid_for": 6,
+      "writer_sqlite_version": 3040001
+    },
+    "physical_pages": 8,
+    "trailing_bytes": 0,
+    "zero_pages": [],
+    "integrity_check": {
+      "rows": [
+        [
+          "ok"
+        ]
+      ]
+    },
+    "quick_check": {
+      "rows": [
+        [
+          "ok"
+        ]
+      ]
+    },
+    "page_count": {
+      "rows": [
+        [
+          8
+        ]
+      ]
+    },
+    "freelist_count": {
+      "rows": [
+        [
+          0
+        ]
+      ]
+    },
+    "journal_mode": {
+      "rows": [
+        [
+          "delete"
+        ]
+      ]
+    },
+    "schema_version": {
+      "rows": [
+        [
+          6
+        ]
+      ]
+    },
+    "user_version": {
+      "rows": [
+        [
+          0
+        ]
+      ]
+    },
+    "schema": {
+      "rows": [
+        [
+          "index",
+          "idx_admin_logs_admin",
+          "admin_logs",
+          5,
+          "CREATE INDEX idx_admin_logs_admin ON admin_logs(admin_user)"
+        ],
+        [
+          "index",
+          "idx_admin_logs_created",
+          "admin_logs",
+          4,
+          "CREATE INDEX idx_admin_logs_created ON admin_logs(created_at)"
+        ],
+        [
+          "index",
+          "idx_security_events_created",
+          "security_events",
+          8,
+          "CREATE INDEX idx_security_events_created ON security_events(created_at)"
+        ],
+        [
+          "index",
+          "idx_security_events_type",
+          "security_events",
+          7,
+          "CREATE INDEX idx_security_events_type ON security_events(event_type)"
+        ],
+        [
+          "table",
+          "admin_logs",
+          "admin_logs",
+          2,
+          "CREATE TABLE admin_logs (\n                id INTEGER PRIMARY KEY AUTOINCREMENT,\n                admin_user VARCHAR(50) NOT NULL,\n                action VARCHAR(50) NOT NULL,\n                target_type VARCHAR(50) NOT NULL,\n                target_value VARCHAR(200) NOT NULL,\n                detail TEXT,\n                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n            )"
+        ],
+        [
+          "table",
+          "security_events",
+          "security_events",
+          6,
+          "CREATE TABLE security_events (\n                id INTEGER PRIMARY KEY AUTOINCREMENT,\n                event_type VARCHAR(50) NOT NULL,\n                severity VARCHAR(20) NOT NULL DEFAULT 'warning',\n                source VARCHAR(50) NOT NULL DEFAULT 'system',\n                detail TEXT,\n                user_id VARCHAR(50),\n                ip VARCHAR(45),\n                meta_json TEXT,\n                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n            )"
+        ],
+        [
+          "table",
+          "sqlite_sequence",
+          "sqlite_sequence",
+          3,
+          "CREATE TABLE sqlite_sequence(name,seq)"
+        ]
+      ]
+    },
+    "table_scans": {
+      "admin_logs": {
+        "rootpage": 2,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "security_events": {
+        "rootpage": 6,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "sqlite_sequence": {
+        "rootpage": 3,
+        "rows_read": 0,
+        "status": "readable"
+      }
+    },
+    "dbstat": {
+      "partial_rows": [],
+      "error": "no such table: dbstat",
+      "error_code": null
+    },
+    "foreign_key_check": {
+      "rows": []
+    },
+    "after": {
+      "F:\\ai\\Sage\\backend\\data\\app.db": {
+        "exists": true,
+        "bytes": 32768,
+        "modified_utc": "2026-06-12T00:30:47.091711+00:00",
+        "sha256": "40c7541284c698b7d8cf9e4d8ee9cf9b3399c4f3b02e09f0ae8032d3ff0502a5"
+      },
+      "F:\\ai\\Sage\\backend\\data\\app.db-wal": {
+        "exists": false
+      },
+      "F:\\ai\\Sage\\backend\\data\\app.db-shm": {
+        "exists": false
+      },
+      "F:\\ai\\Sage\\backend\\data\\app.db-journal": {
+        "exists": false
+      }
+    },
+    "files_unchanged": true
+  },
+  {
+    "path": "F:\\ai\\Sage\\backend\\pipeline_test.db",
+    "before": {
+      "F:\\ai\\Sage\\backend\\pipeline_test.db": {
+        "exists": true,
+        "bytes": 159744,
+        "modified_utc": "2026-08-28T01:30:02.832772+00:00",
+        "sha256": "c45556e92cce0571beeda77523af79fb8dcc8b7ec4b1e1767b95dcb81f1ee689"
+      },
+      "F:\\ai\\Sage\\backend\\pipeline_test.db-wal": {
+        "exists": true,
+        "bytes": 0,
+        "modified_utc": "2026-09-09T01:28:06.502840+00:00",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "F:\\ai\\Sage\\backend\\pipeline_test.db-shm": {
+        "exists": true,
+        "bytes": 32768,
+        "modified_utc": "2026-09-09T01:28:06.502840+00:00",
+        "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+      },
+      "F:\\ai\\Sage\\backend\\pipeline_test.db-journal": {
+        "exists": false
+      }
+    },
+    "sqlite_version": "3.40.1",
+    "connection": "mode=ro&immutable=1; ignores WAL; no application imports",
+    "header": {
+      "sqlite_magic_valid": true,
+      "page_size": 4096,
+      "write_version": 2,
+      "read_version": 2,
+      "change_counter": 2,
+      "declared_pages": 39,
+      "freelist_first": 0,
+      "freelist_count": 0,
+      "schema_cookie": 36,
+      "version_valid_for": 2,
+      "writer_sqlite_version": 3040001
+    },
+    "physical_pages": 39,
+    "trailing_bytes": 0,
+    "zero_pages": [],
+    "integrity_check": {
+      "rows": [
+        [
+          "ok"
+        ]
+      ]
+    },
+    "quick_check": {
+      "rows": [
+        [
+          "ok"
+        ]
+      ]
+    },
+    "page_count": {
+      "rows": [
+        [
+          39
+        ]
+      ]
+    },
+    "freelist_count": {
+      "rows": [
+        [
+          0
+        ]
+      ]
+    },
+    "journal_mode": {
+      "rows": [
+        [
+          "delete"
+        ]
+      ]
+    },
+    "schema_version": {
+      "rows": [
+        [
+          36
+        ]
+      ]
+    },
+    "user_version": {
+      "rows": [
+        [
+          0
+        ]
+      ]
+    },
+    "schema": {
+      "rows": [
+        [
+          "index",
+          "ix_admin_logs_id",
+          "admin_logs",
+          13,
+          "CREATE INDEX ix_admin_logs_id ON admin_logs (id)"
+        ],
+        [
+          "index",
+          "ix_admins_id",
+          "admins",
+          16,
+          "CREATE INDEX ix_admins_id ON admins (id)"
+        ],
+        [
+          "index",
+          "ix_admins_username",
+          "admins",
+          15,
+          "CREATE UNIQUE INDEX ix_admins_username ON admins (username)"
+        ],
+        [
+          "index",
+          "ix_blacklist_id",
+          "blacklist",
+          6,
+          "CREATE INDEX ix_blacklist_id ON blacklist (id)"
+        ],
+        [
+          "index",
+          "ix_blacklist_value",
+          "blacklist",
+          7,
+          "CREATE UNIQUE INDEX ix_blacklist_value ON blacklist (value)"
+        ],
+        [
+          "index",
+          "ix_bonus_log_id",
+          "bonus_log",
+          28,
+          "CREATE INDEX ix_bonus_log_id ON bonus_log (id)"
+        ],
+        [
+          "index",
+          "ix_feedback_id",
+          "feedback",
+          26,
+          "CREATE INDEX ix_feedback_id ON feedback (id)"
+        ],
+        [
+          "index",
+          "ix_file_hash_cache_file_hash",
+          "file_hash_cache",
+          34,
+          "CREATE INDEX ix_file_hash_cache_file_hash ON file_hash_cache (file_hash)"
+        ],
+        [
+          "index",
+          "ix_file_hash_cache_id",
+          "file_hash_cache",
+          33,
+          "CREATE INDEX ix_file_hash_cache_id ON file_hash_cache (id)"
+        ],
+        [
+          "index",
+          "ix_file_hash_cache_user_id",
+          "file_hash_cache",
+          32,
+          "CREATE INDEX ix_file_hash_cache_user_id ON file_hash_cache (user_id)"
+        ],
+        [
+          "index",
+          "ix_intercept_logs_id",
+          "intercept_logs",
+          11,
+          "CREATE INDEX ix_intercept_logs_id ON intercept_logs (id)"
+        ],
+        [
+          "index",
+          "ix_intercept_logs_ip",
+          "intercept_logs",
+          9,
+          "CREATE INDEX ix_intercept_logs_ip ON intercept_logs (ip)"
+        ],
+        [
+          "index",
+          "ix_intercept_logs_timestamp",
+          "intercept_logs",
+          10,
+          "CREATE INDEX ix_intercept_logs_timestamp ON intercept_logs (timestamp)"
+        ],
+        [
+          "index",
+          "ix_invite_rewards_id",
+          "invite_rewards",
+          30,
+          "CREATE INDEX ix_invite_rewards_id ON invite_rewards (id)"
+        ],
+        [
+          "index",
+          "ix_record_id",
+          "record",
+          22,
+          "CREATE INDEX ix_record_id ON record (id)"
+        ],
+        [
+          "index",
+          "ix_reward_logs_id",
+          "reward_logs",
+          39,
+          "CREATE INDEX ix_reward_logs_id ON reward_logs (id)"
+        ],
+        [
+          "index",
+          "ix_security_events_created_at",
+          "security_events",
+          19,
+          "CREATE INDEX ix_security_events_created_at ON security_events (created_at)"
+        ],
+        [
+          "index",
+          "ix_security_events_event_type",
+          "security_events",
+          18,
+          "CREATE INDEX ix_security_events_event_type ON security_events (event_type)"
+        ],
+        [
+          "index",
+          "ix_security_events_id",
+          "security_events",
+          20,
+          "CREATE INDEX ix_security_events_id ON security_events (id)"
+        ],
+        [
+          "index",
+          "ix_task_record_id",
+          "task_record",
+          36,
+          "CREATE INDEX ix_task_record_id ON task_record (id)"
+        ],
+        [
+          "index",
+          "ix_task_record_task_id",
+          "task_record",
+          37,
+          "CREATE UNIQUE INDEX ix_task_record_task_id ON task_record (task_id)"
+        ],
+        [
+          "index",
+          "ix_user_id",
+          "user",
+          4,
+          "CREATE INDEX ix_user_id ON user (id)"
+        ],
+        [
+          "index",
+          "ix_user_mobile",
+          "user",
+          3,
+          "CREATE UNIQUE INDEX ix_user_mobile ON user (mobile)"
+        ],
+        [
+          "table",
+          "admin_logs",
+          "admin_logs",
+          12,
+          "CREATE TABLE admin_logs (\n\tid INTEGER NOT NULL, \n\tadmin_user VARCHAR(50) NOT NULL, \n\taction VARCHAR(50) NOT NULL, \n\ttarget_type VARCHAR(50) NOT NULL, \n\ttarget_value VARCHAR(200) NOT NULL, \n\tdetail TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "admins",
+          "admins",
+          14,
+          "CREATE TABLE admins (\n\tid INTEGER NOT NULL, \n\tusername VARCHAR(50) NOT NULL, \n\tpassword_hash VARCHAR NOT NULL, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "blacklist",
+          "blacklist",
+          5,
+          "CREATE TABLE blacklist (\n\tid INTEGER NOT NULL, \n\tblacklist_type VARCHAR NOT NULL, \n\tvalue VARCHAR NOT NULL, \n\treason VARCHAR, \n\tban_type VARCHAR, \n\tinput_preview TEXT, \n\ttrigger_rule VARCHAR, \n\tis_unbanned BOOLEAN, \n\tunbanned_by VARCHAR, \n\tunban_reason TEXT, \n\tunbanned_at DATETIME, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "bonus_log",
+          "bonus_log",
+          27,
+          "CREATE TABLE bonus_log (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tbonus_type VARCHAR(50) NOT NULL, \n\tcontract_hash VARCHAR(64), \n\tawarded_amount INTEGER NOT NULL, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "feedback",
+          "feedback",
+          23,
+          "CREATE TABLE feedback (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\treport_id VARCHAR(50) NOT NULL, \n\tfeedback_type VARCHAR(20) NOT NULL, \n\tcategories TEXT, \n\tcomment TEXT, \n\tupload_consent BOOLEAN NOT NULL, \n\tcontract_text TEXT, \n\tcontract_hash VARCHAR(64), \n\tquality_score INTEGER NOT NULL, \n\tsuggested_bonus INTEGER NOT NULL, \n\tai_reason TEXT, \n\tbonus_awarded INTEGER NOT NULL, \n\tstatus VARCHAR(20) NOT NULL, \n\treviewed_at DATETIME, \n\treviewer_id INTEGER, \n\treviewed_by VARCHAR(50), \n\treject_reason TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id), \n\tFOREIGN KEY(reviewer_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "file_hash_cache",
+          "file_hash_cache",
+          31,
+          "CREATE TABLE file_hash_cache (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tfile_hash VARCHAR(64) NOT NULL, \n\tfilename VARCHAR, \n\tfirst_upload_time DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tlast_upload_time DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tupload_count INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "intercept_logs",
+          "intercept_logs",
+          8,
+          "CREATE TABLE intercept_logs (\n\tid INTEGER NOT NULL, \n\ttimestamp DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tuser_id INTEGER, \n\tip VARCHAR(45) NOT NULL, \n\trequest_path VARCHAR(100) NOT NULL, \n\ttrigger_type VARCHAR(50) NOT NULL, \n\ttrigger_word VARCHAR(200) NOT NULL, \n\ttext_preview TEXT, \n\taction VARCHAR(20) NOT NULL, \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "invite_rewards",
+          "invite_rewards",
+          29,
+          "CREATE TABLE invite_rewards (\n\tid INTEGER NOT NULL, \n\tinviter_id INTEGER NOT NULL, \n\tinvitee_id INTEGER NOT NULL, \n\treward_credits INTEGER NOT NULL, \n\tstatus VARCHAR(20) NOT NULL, \n\tinvitee_first_review_at DATETIME, \n\treward_granted_at DATETIME, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(inviter_id) REFERENCES user (id), \n\tFOREIGN KEY(invitee_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "record",
+          "record",
+          21,
+          "CREATE TABLE record (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tfilename VARCHAR NOT NULL, \n\treport_markdown TEXT, \n\traw_output TEXT, \n\tmetadata_json TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tupdated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "reward_logs",
+          "reward_logs",
+          38,
+          "CREATE TABLE reward_logs (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tamount INTEGER NOT NULL, \n\treason VARCHAR(50) NOT NULL, \n\trelated_feedback_id INTEGER, \n\toperator VARCHAR(50), \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id), \n\tFOREIGN KEY(related_feedback_id) REFERENCES feedback (id)\n)"
+        ],
+        [
+          "table",
+          "security_events",
+          "security_events",
+          17,
+          "CREATE TABLE security_events (\n\tid INTEGER NOT NULL, \n\tevent_type VARCHAR(50) NOT NULL, \n\tseverity VARCHAR(20) NOT NULL, \n\tsource VARCHAR(50) NOT NULL, \n\tdetail TEXT, \n\tuser_id VARCHAR(50), \n\tip VARCHAR(45), \n\tmeta_json TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "task_record",
+          "task_record",
+          35,
+          "CREATE TABLE task_record (\n\tid INTEGER NOT NULL, \n\ttask_id VARCHAR(36) NOT NULL, \n\tfilename VARCHAR NOT NULL, \n\tfile_size INTEGER, \n\tstatus VARCHAR(20) NOT NULL, \n\tuser_id INTEGER, \n\tremaining_bonus INTEGER, \n\trecord_id INTEGER, \n\tprogress INTEGER, \n\tresult TEXT, \n\terror TEXT, \n\tmetadata_json TEXT, \n\tvalidation_json TEXT, \n\tsummary_json TEXT, \n\ttrace_id VARCHAR(50), \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tupdated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "user",
+          "user",
+          2,
+          "CREATE TABLE user (\n\tid INTEGER NOT NULL, \n\tcountry_code VARCHAR(10) NOT NULL, \n\tmobile VARCHAR(20) NOT NULL, \n\tpassword_hash VARCHAR NOT NULL, \n\tbonus_credits INTEGER NOT NULL, \n\tfree_review_quota INTEGER NOT NULL, \n\tinvited_by INTEGER, \n\tstatus VARCHAR(20) NOT NULL, \n\tlast_active_at DATETIME, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(invited_by) REFERENCES user (id)\n)"
+        ]
+      ]
+    },
+    "table_scans": {
+      "admin_logs": {
+        "rootpage": 12,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "admins": {
+        "rootpage": 14,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "blacklist": {
+        "rootpage": 5,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "bonus_log": {
+        "rootpage": 27,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "feedback": {
+        "rootpage": 23,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "file_hash_cache": {
+        "rootpage": 31,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "intercept_logs": {
+        "rootpage": 8,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "invite_rewards": {
+        "rootpage": 29,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "record": {
+        "rootpage": 21,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "reward_logs": {
+        "rootpage": 38,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "security_events": {
+        "rootpage": 17,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "task_record": {
+        "rootpage": 35,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "user": {
+        "rootpage": 2,
+        "rows_read": 0,
+        "status": "readable"
+      }
+    },
+    "dbstat": {
+      "partial_rows": [],
+      "error": "no such table: dbstat",
+      "error_code": null
+    },
+    "foreign_key_check": {
+      "rows": []
+    },
+    "after": {
+      "F:\\ai\\Sage\\backend\\pipeline_test.db": {
+        "exists": true,
+        "bytes": 159744,
+        "modified_utc": "2026-08-28T01:30:02.832772+00:00",
+        "sha256": "c45556e92cce0571beeda77523af79fb8dcc8b7ec4b1e1767b95dcb81f1ee689"
+      },
+      "F:\\ai\\Sage\\backend\\pipeline_test.db-wal": {
+        "exists": true,
+        "bytes": 0,
+        "modified_utc": "2026-09-09T01:28:06.502840+00:00",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "F:\\ai\\Sage\\backend\\pipeline_test.db-shm": {
+        "exists": true,
+        "bytes": 32768,
+        "modified_utc": "2026-09-09T01:28:06.502840+00:00",
+        "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+      },
+      "F:\\ai\\Sage\\backend\\pipeline_test.db-journal": {
+        "exists": false
+      }
+    },
+    "files_unchanged": true
+  },
+  {
+    "path": "F:\\ai\\Sage\\artifacts\\company_formation\\baseline\\backend\\app.db",
+    "before": {
+      "F:\\ai\\Sage\\artifacts\\company_formation\\baseline\\backend\\app.db": {
+        "exists": true,
+        "bytes": 159744,
+        "modified_utc": "2026-09-08T22:39:50.080367+00:00",
+        "sha256": "589ed6c64fa3dd10bdbee2d20f5c4f0bc49acd4149a5aa57e5b354256a5ff043"
+      },
+      "F:\\ai\\Sage\\artifacts\\company_formation\\baseline\\backend\\app.db-wal": {
+        "exists": false
+      },
+      "F:\\ai\\Sage\\artifacts\\company_formation\\baseline\\backend\\app.db-shm": {
+        "exists": false
+      },
+      "F:\\ai\\Sage\\artifacts\\company_formation\\baseline\\backend\\app.db-journal": {
+        "exists": false
+      }
+    },
+    "sqlite_version": "3.40.1",
+    "connection": "mode=ro&immutable=1; ignores WAL; no application imports",
+    "header": {
+      "sqlite_magic_valid": true,
+      "page_size": 4096,
+      "write_version": 2,
+      "read_version": 2,
+      "change_counter": 2,
+      "declared_pages": 39,
+      "freelist_first": 0,
+      "freelist_count": 0,
+      "schema_cookie": 36,
+      "version_valid_for": 2,
+      "writer_sqlite_version": 3040001
+    },
+    "physical_pages": 39,
+    "trailing_bytes": 0,
+    "zero_pages": [],
+    "integrity_check": {
+      "rows": [
+        [
+          "ok"
+        ]
+      ]
+    },
+    "quick_check": {
+      "rows": [
+        [
+          "ok"
+        ]
+      ]
+    },
+    "page_count": {
+      "rows": [
+        [
+          39
+        ]
+      ]
+    },
+    "freelist_count": {
+      "rows": [
+        [
+          0
+        ]
+      ]
+    },
+    "journal_mode": {
+      "rows": [
+        [
+          "delete"
+        ]
+      ]
+    },
+    "schema_version": {
+      "rows": [
+        [
+          36
+        ]
+      ]
+    },
+    "user_version": {
+      "rows": [
+        [
+          0
+        ]
+      ]
+    },
+    "schema": {
+      "rows": [
+        [
+          "index",
+          "ix_admin_logs_id",
+          "admin_logs",
+          13,
+          "CREATE INDEX ix_admin_logs_id ON admin_logs (id)"
+        ],
+        [
+          "index",
+          "ix_admins_id",
+          "admins",
+          15,
+          "CREATE INDEX ix_admins_id ON admins (id)"
+        ],
+        [
+          "index",
+          "ix_admins_username",
+          "admins",
+          16,
+          "CREATE UNIQUE INDEX ix_admins_username ON admins (username)"
+        ],
+        [
+          "index",
+          "ix_blacklist_id",
+          "blacklist",
+          6,
+          "CREATE INDEX ix_blacklist_id ON blacklist (id)"
+        ],
+        [
+          "index",
+          "ix_blacklist_value",
+          "blacklist",
+          7,
+          "CREATE UNIQUE INDEX ix_blacklist_value ON blacklist (value)"
+        ],
+        [
+          "index",
+          "ix_bonus_log_id",
+          "bonus_log",
+          28,
+          "CREATE INDEX ix_bonus_log_id ON bonus_log (id)"
+        ],
+        [
+          "index",
+          "ix_feedback_id",
+          "feedback",
+          26,
+          "CREATE INDEX ix_feedback_id ON feedback (id)"
+        ],
+        [
+          "index",
+          "ix_file_hash_cache_file_hash",
+          "file_hash_cache",
+          32,
+          "CREATE INDEX ix_file_hash_cache_file_hash ON file_hash_cache (file_hash)"
+        ],
+        [
+          "index",
+          "ix_file_hash_cache_id",
+          "file_hash_cache",
+          34,
+          "CREATE INDEX ix_file_hash_cache_id ON file_hash_cache (id)"
+        ],
+        [
+          "index",
+          "ix_file_hash_cache_user_id",
+          "file_hash_cache",
+          33,
+          "CREATE INDEX ix_file_hash_cache_user_id ON file_hash_cache (user_id)"
+        ],
+        [
+          "index",
+          "ix_intercept_logs_id",
+          "intercept_logs",
+          10,
+          "CREATE INDEX ix_intercept_logs_id ON intercept_logs (id)"
+        ],
+        [
+          "index",
+          "ix_intercept_logs_ip",
+          "intercept_logs",
+          9,
+          "CREATE INDEX ix_intercept_logs_ip ON intercept_logs (ip)"
+        ],
+        [
+          "index",
+          "ix_intercept_logs_timestamp",
+          "intercept_logs",
+          11,
+          "CREATE INDEX ix_intercept_logs_timestamp ON intercept_logs (timestamp)"
+        ],
+        [
+          "index",
+          "ix_invite_rewards_id",
+          "invite_rewards",
+          30,
+          "CREATE INDEX ix_invite_rewards_id ON invite_rewards (id)"
+        ],
+        [
+          "index",
+          "ix_record_id",
+          "record",
+          22,
+          "CREATE INDEX ix_record_id ON record (id)"
+        ],
+        [
+          "index",
+          "ix_reward_logs_id",
+          "reward_logs",
+          39,
+          "CREATE INDEX ix_reward_logs_id ON reward_logs (id)"
+        ],
+        [
+          "index",
+          "ix_security_events_created_at",
+          "security_events",
+          20,
+          "CREATE INDEX ix_security_events_created_at ON security_events (created_at)"
+        ],
+        [
+          "index",
+          "ix_security_events_event_type",
+          "security_events",
+          18,
+          "CREATE INDEX ix_security_events_event_type ON security_events (event_type)"
+        ],
+        [
+          "index",
+          "ix_security_events_id",
+          "security_events",
+          19,
+          "CREATE INDEX ix_security_events_id ON security_events (id)"
+        ],
+        [
+          "index",
+          "ix_task_record_id",
+          "task_record",
+          36,
+          "CREATE INDEX ix_task_record_id ON task_record (id)"
+        ],
+        [
+          "index",
+          "ix_task_record_task_id",
+          "task_record",
+          37,
+          "CREATE UNIQUE INDEX ix_task_record_task_id ON task_record (task_id)"
+        ],
+        [
+          "index",
+          "ix_user_id",
+          "user",
+          3,
+          "CREATE INDEX ix_user_id ON user (id)"
+        ],
+        [
+          "index",
+          "ix_user_mobile",
+          "user",
+          4,
+          "CREATE UNIQUE INDEX ix_user_mobile ON user (mobile)"
+        ],
+        [
+          "table",
+          "admin_logs",
+          "admin_logs",
+          12,
+          "CREATE TABLE admin_logs (\n\tid INTEGER NOT NULL, \n\tadmin_user VARCHAR(50) NOT NULL, \n\taction VARCHAR(50) NOT NULL, \n\ttarget_type VARCHAR(50) NOT NULL, \n\ttarget_value VARCHAR(200) NOT NULL, \n\tdetail TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "admins",
+          "admins",
+          14,
+          "CREATE TABLE admins (\n\tid INTEGER NOT NULL, \n\tusername VARCHAR(50) NOT NULL, \n\tpassword_hash VARCHAR NOT NULL, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "blacklist",
+          "blacklist",
+          5,
+          "CREATE TABLE blacklist (\n\tid INTEGER NOT NULL, \n\tblacklist_type VARCHAR NOT NULL, \n\tvalue VARCHAR NOT NULL, \n\treason VARCHAR, \n\tban_type VARCHAR, \n\tinput_preview TEXT, \n\ttrigger_rule VARCHAR, \n\tis_unbanned BOOLEAN, \n\tunbanned_by VARCHAR, \n\tunban_reason TEXT, \n\tunbanned_at DATETIME, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "bonus_log",
+          "bonus_log",
+          27,
+          "CREATE TABLE bonus_log (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tbonus_type VARCHAR(50) NOT NULL, \n\tcontract_hash VARCHAR(64), \n\tawarded_amount INTEGER NOT NULL, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "feedback",
+          "feedback",
+          23,
+          "CREATE TABLE feedback (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\treport_id VARCHAR(50) NOT NULL, \n\tfeedback_type VARCHAR(20) NOT NULL, \n\tcategories TEXT, \n\tcomment TEXT, \n\tupload_consent BOOLEAN NOT NULL, \n\tcontract_text TEXT, \n\tcontract_hash VARCHAR(64), \n\tquality_score INTEGER NOT NULL, \n\tsuggested_bonus INTEGER NOT NULL, \n\tai_reason TEXT, \n\tbonus_awarded INTEGER NOT NULL, \n\tstatus VARCHAR(20) NOT NULL, \n\treviewed_at DATETIME, \n\treviewer_id INTEGER, \n\treviewed_by VARCHAR(50), \n\treject_reason TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id), \n\tFOREIGN KEY(reviewer_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "file_hash_cache",
+          "file_hash_cache",
+          31,
+          "CREATE TABLE file_hash_cache (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tfile_hash VARCHAR(64) NOT NULL, \n\tfilename VARCHAR, \n\tfirst_upload_time DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tlast_upload_time DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tupload_count INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "intercept_logs",
+          "intercept_logs",
+          8,
+          "CREATE TABLE intercept_logs (\n\tid INTEGER NOT NULL, \n\ttimestamp DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tuser_id INTEGER, \n\tip VARCHAR(45) NOT NULL, \n\trequest_path VARCHAR(100) NOT NULL, \n\ttrigger_type VARCHAR(50) NOT NULL, \n\ttrigger_word VARCHAR(200) NOT NULL, \n\ttext_preview TEXT, \n\taction VARCHAR(20) NOT NULL, \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "invite_rewards",
+          "invite_rewards",
+          29,
+          "CREATE TABLE invite_rewards (\n\tid INTEGER NOT NULL, \n\tinviter_id INTEGER NOT NULL, \n\tinvitee_id INTEGER NOT NULL, \n\treward_credits INTEGER NOT NULL, \n\tstatus VARCHAR(20) NOT NULL, \n\tinvitee_first_review_at DATETIME, \n\treward_granted_at DATETIME, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(inviter_id) REFERENCES user (id), \n\tFOREIGN KEY(invitee_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "record",
+          "record",
+          21,
+          "CREATE TABLE record (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tfilename VARCHAR NOT NULL, \n\treport_markdown TEXT, \n\traw_output TEXT, \n\tmetadata_json TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tupdated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "reward_logs",
+          "reward_logs",
+          38,
+          "CREATE TABLE reward_logs (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tamount INTEGER NOT NULL, \n\treason VARCHAR(50) NOT NULL, \n\trelated_feedback_id INTEGER, \n\toperator VARCHAR(50), \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id), \n\tFOREIGN KEY(related_feedback_id) REFERENCES feedback (id)\n)"
+        ],
+        [
+          "table",
+          "security_events",
+          "security_events",
+          17,
+          "CREATE TABLE security_events (\n\tid INTEGER NOT NULL, \n\tevent_type VARCHAR(50) NOT NULL, \n\tseverity VARCHAR(20) NOT NULL, \n\tsource VARCHAR(50) NOT NULL, \n\tdetail TEXT, \n\tuser_id VARCHAR(50), \n\tip VARCHAR(45), \n\tmeta_json TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "task_record",
+          "task_record",
+          35,
+          "CREATE TABLE task_record (\n\tid INTEGER NOT NULL, \n\ttask_id VARCHAR(36) NOT NULL, \n\tfilename VARCHAR NOT NULL, \n\tfile_size INTEGER, \n\tstatus VARCHAR(20) NOT NULL, \n\tuser_id INTEGER, \n\tremaining_bonus INTEGER, \n\trecord_id INTEGER, \n\tprogress INTEGER, \n\tresult TEXT, \n\terror TEXT, \n\tmetadata_json TEXT, \n\tvalidation_json TEXT, \n\tsummary_json TEXT, \n\ttrace_id VARCHAR(50), \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tupdated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "user",
+          "user",
+          2,
+          "CREATE TABLE user (\n\tid INTEGER NOT NULL, \n\tcountry_code VARCHAR(10) NOT NULL, \n\tmobile VARCHAR(20) NOT NULL, \n\tpassword_hash VARCHAR NOT NULL, \n\tbonus_credits INTEGER NOT NULL, \n\tfree_review_quota INTEGER NOT NULL, \n\tinvited_by INTEGER, \n\tstatus VARCHAR(20) NOT NULL, \n\tlast_active_at DATETIME, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(invited_by) REFERENCES user (id)\n)"
+        ]
+      ]
+    },
+    "table_scans": {
+      "admin_logs": {
+        "rootpage": 12,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "admins": {
+        "rootpage": 14,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "blacklist": {
+        "rootpage": 5,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "bonus_log": {
+        "rootpage": 27,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "feedback": {
+        "rootpage": 23,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "file_hash_cache": {
+        "rootpage": 31,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "intercept_logs": {
+        "rootpage": 8,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "invite_rewards": {
+        "rootpage": 29,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "record": {
+        "rootpage": 21,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "reward_logs": {
+        "rootpage": 38,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "security_events": {
+        "rootpage": 17,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "task_record": {
+        "rootpage": 35,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "user": {
+        "rootpage": 2,
+        "rows_read": 0,
+        "status": "readable"
+      }
+    },
+    "dbstat": {
+      "partial_rows": [],
+      "error": "no such table: dbstat",
+      "error_code": null
+    },
+    "foreign_key_check": {
+      "rows": []
+    },
+    "after": {
+      "F:\\ai\\Sage\\artifacts\\company_formation\\baseline\\backend\\app.db": {
+        "exists": true,
+        "bytes": 159744,
+        "modified_utc": "2026-09-08T22:39:50.080367+00:00",
+        "sha256": "589ed6c64fa3dd10bdbee2d20f5c4f0bc49acd4149a5aa57e5b354256a5ff043"
+      },
+      "F:\\ai\\Sage\\artifacts\\company_formation\\baseline\\backend\\app.db-wal": {
+        "exists": false
+      },
+      "F:\\ai\\Sage\\artifacts\\company_formation\\baseline\\backend\\app.db-shm": {
+        "exists": false
+      },
+      "F:\\ai\\Sage\\artifacts\\company_formation\\baseline\\backend\\app.db-journal": {
+        "exists": false
+      }
+    },
+    "files_unchanged": true
+  },
+  {
+    "path": "F:\\ai\\Sage\\artifacts\\employment_round2_snapshot\\app.db",
+    "before": {
+      "F:\\ai\\Sage\\artifacts\\employment_round2_snapshot\\app.db": {
+        "exists": true,
+        "bytes": 159744,
+        "modified_utc": "2026-09-07T22:50:15.188358+00:00",
+        "sha256": "c763521b833eca7c9ae7ebf68ba818a154d2e330e7221b884c4b144b4cf7b8be"
+      },
+      "F:\\ai\\Sage\\artifacts\\employment_round2_snapshot\\app.db-wal": {
+        "exists": false
+      },
+      "F:\\ai\\Sage\\artifacts\\employment_round2_snapshot\\app.db-shm": {
+        "exists": false
+      },
+      "F:\\ai\\Sage\\artifacts\\employment_round2_snapshot\\app.db-journal": {
+        "exists": false
+      }
+    },
+    "sqlite_version": "3.40.1",
+    "connection": "mode=ro&immutable=1; ignores WAL; no application imports",
+    "header": {
+      "sqlite_magic_valid": true,
+      "page_size": 4096,
+      "write_version": 2,
+      "read_version": 2,
+      "change_counter": 2,
+      "declared_pages": 39,
+      "freelist_first": 0,
+      "freelist_count": 0,
+      "schema_cookie": 36,
+      "version_valid_for": 2,
+      "writer_sqlite_version": 3040001
+    },
+    "physical_pages": 39,
+    "trailing_bytes": 0,
+    "zero_pages": [],
+    "integrity_check": {
+      "rows": [
+        [
+          "ok"
+        ]
+      ]
+    },
+    "quick_check": {
+      "rows": [
+        [
+          "ok"
+        ]
+      ]
+    },
+    "page_count": {
+      "rows": [
+        [
+          39
+        ]
+      ]
+    },
+    "freelist_count": {
+      "rows": [
+        [
+          0
+        ]
+      ]
+    },
+    "journal_mode": {
+      "rows": [
+        [
+          "delete"
+        ]
+      ]
+    },
+    "schema_version": {
+      "rows": [
+        [
+          36
+        ]
+      ]
+    },
+    "user_version": {
+      "rows": [
+        [
+          0
+        ]
+      ]
+    },
+    "schema": {
+      "rows": [
+        [
+          "index",
+          "ix_admin_logs_id",
+          "admin_logs",
+          13,
+          "CREATE INDEX ix_admin_logs_id ON admin_logs (id)"
+        ],
+        [
+          "index",
+          "ix_admins_id",
+          "admins",
+          15,
+          "CREATE INDEX ix_admins_id ON admins (id)"
+        ],
+        [
+          "index",
+          "ix_admins_username",
+          "admins",
+          16,
+          "CREATE UNIQUE INDEX ix_admins_username ON admins (username)"
+        ],
+        [
+          "index",
+          "ix_blacklist_id",
+          "blacklist",
+          6,
+          "CREATE INDEX ix_blacklist_id ON blacklist (id)"
+        ],
+        [
+          "index",
+          "ix_blacklist_value",
+          "blacklist",
+          7,
+          "CREATE UNIQUE INDEX ix_blacklist_value ON blacklist (value)"
+        ],
+        [
+          "index",
+          "ix_bonus_log_id",
+          "bonus_log",
+          28,
+          "CREATE INDEX ix_bonus_log_id ON bonus_log (id)"
+        ],
+        [
+          "index",
+          "ix_feedback_id",
+          "feedback",
+          26,
+          "CREATE INDEX ix_feedback_id ON feedback (id)"
+        ],
+        [
+          "index",
+          "ix_file_hash_cache_file_hash",
+          "file_hash_cache",
+          33,
+          "CREATE INDEX ix_file_hash_cache_file_hash ON file_hash_cache (file_hash)"
+        ],
+        [
+          "index",
+          "ix_file_hash_cache_id",
+          "file_hash_cache",
+          32,
+          "CREATE INDEX ix_file_hash_cache_id ON file_hash_cache (id)"
+        ],
+        [
+          "index",
+          "ix_file_hash_cache_user_id",
+          "file_hash_cache",
+          34,
+          "CREATE INDEX ix_file_hash_cache_user_id ON file_hash_cache (user_id)"
+        ],
+        [
+          "index",
+          "ix_intercept_logs_id",
+          "intercept_logs",
+          10,
+          "CREATE INDEX ix_intercept_logs_id ON intercept_logs (id)"
+        ],
+        [
+          "index",
+          "ix_intercept_logs_ip",
+          "intercept_logs",
+          11,
+          "CREATE INDEX ix_intercept_logs_ip ON intercept_logs (ip)"
+        ],
+        [
+          "index",
+          "ix_intercept_logs_timestamp",
+          "intercept_logs",
+          9,
+          "CREATE INDEX ix_intercept_logs_timestamp ON intercept_logs (timestamp)"
+        ],
+        [
+          "index",
+          "ix_invite_rewards_id",
+          "invite_rewards",
+          30,
+          "CREATE INDEX ix_invite_rewards_id ON invite_rewards (id)"
+        ],
+        [
+          "index",
+          "ix_record_id",
+          "record",
+          22,
+          "CREATE INDEX ix_record_id ON record (id)"
+        ],
+        [
+          "index",
+          "ix_reward_logs_id",
+          "reward_logs",
+          39,
+          "CREATE INDEX ix_reward_logs_id ON reward_logs (id)"
+        ],
+        [
+          "index",
+          "ix_security_events_created_at",
+          "security_events",
+          18,
+          "CREATE INDEX ix_security_events_created_at ON security_events (created_at)"
+        ],
+        [
+          "index",
+          "ix_security_events_event_type",
+          "security_events",
+          20,
+          "CREATE INDEX ix_security_events_event_type ON security_events (event_type)"
+        ],
+        [
+          "index",
+          "ix_security_events_id",
+          "security_events",
+          19,
+          "CREATE INDEX ix_security_events_id ON security_events (id)"
+        ],
+        [
+          "index",
+          "ix_task_record_id",
+          "task_record",
+          37,
+          "CREATE INDEX ix_task_record_id ON task_record (id)"
+        ],
+        [
+          "index",
+          "ix_task_record_task_id",
+          "task_record",
+          36,
+          "CREATE UNIQUE INDEX ix_task_record_task_id ON task_record (task_id)"
+        ],
+        [
+          "index",
+          "ix_user_id",
+          "user",
+          3,
+          "CREATE INDEX ix_user_id ON user (id)"
+        ],
+        [
+          "index",
+          "ix_user_mobile",
+          "user",
+          4,
+          "CREATE UNIQUE INDEX ix_user_mobile ON user (mobile)"
+        ],
+        [
+          "table",
+          "admin_logs",
+          "admin_logs",
+          12,
+          "CREATE TABLE admin_logs (\n\tid INTEGER NOT NULL, \n\tadmin_user VARCHAR(50) NOT NULL, \n\taction VARCHAR(50) NOT NULL, \n\ttarget_type VARCHAR(50) NOT NULL, \n\ttarget_value VARCHAR(200) NOT NULL, \n\tdetail TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "admins",
+          "admins",
+          14,
+          "CREATE TABLE admins (\n\tid INTEGER NOT NULL, \n\tusername VARCHAR(50) NOT NULL, \n\tpassword_hash VARCHAR NOT NULL, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "blacklist",
+          "blacklist",
+          5,
+          "CREATE TABLE blacklist (\n\tid INTEGER NOT NULL, \n\tblacklist_type VARCHAR NOT NULL, \n\tvalue VARCHAR NOT NULL, \n\treason VARCHAR, \n\tban_type VARCHAR, \n\tinput_preview TEXT, \n\ttrigger_rule VARCHAR, \n\tis_unbanned BOOLEAN, \n\tunbanned_by VARCHAR, \n\tunban_reason TEXT, \n\tunbanned_at DATETIME, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "bonus_log",
+          "bonus_log",
+          27,
+          "CREATE TABLE bonus_log (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tbonus_type VARCHAR(50) NOT NULL, \n\tcontract_hash VARCHAR(64), \n\tawarded_amount INTEGER NOT NULL, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "feedback",
+          "feedback",
+          23,
+          "CREATE TABLE feedback (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\treport_id VARCHAR(50) NOT NULL, \n\tfeedback_type VARCHAR(20) NOT NULL, \n\tcategories TEXT, \n\tcomment TEXT, \n\tupload_consent BOOLEAN NOT NULL, \n\tcontract_text TEXT, \n\tcontract_hash VARCHAR(64), \n\tquality_score INTEGER NOT NULL, \n\tsuggested_bonus INTEGER NOT NULL, \n\tai_reason TEXT, \n\tbonus_awarded INTEGER NOT NULL, \n\tstatus VARCHAR(20) NOT NULL, \n\treviewed_at DATETIME, \n\treviewer_id INTEGER, \n\treviewed_by VARCHAR(50), \n\treject_reason TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id), \n\tFOREIGN KEY(reviewer_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "file_hash_cache",
+          "file_hash_cache",
+          31,
+          "CREATE TABLE file_hash_cache (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tfile_hash VARCHAR(64) NOT NULL, \n\tfilename VARCHAR, \n\tfirst_upload_time DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tlast_upload_time DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tupload_count INTEGER NOT NULL, \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "intercept_logs",
+          "intercept_logs",
+          8,
+          "CREATE TABLE intercept_logs (\n\tid INTEGER NOT NULL, \n\ttimestamp DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tuser_id INTEGER, \n\tip VARCHAR(45) NOT NULL, \n\trequest_path VARCHAR(100) NOT NULL, \n\ttrigger_type VARCHAR(50) NOT NULL, \n\ttrigger_word VARCHAR(200) NOT NULL, \n\ttext_preview TEXT, \n\taction VARCHAR(20) NOT NULL, \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "invite_rewards",
+          "invite_rewards",
+          29,
+          "CREATE TABLE invite_rewards (\n\tid INTEGER NOT NULL, \n\tinviter_id INTEGER NOT NULL, \n\tinvitee_id INTEGER NOT NULL, \n\treward_credits INTEGER NOT NULL, \n\tstatus VARCHAR(20) NOT NULL, \n\tinvitee_first_review_at DATETIME, \n\treward_granted_at DATETIME, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(inviter_id) REFERENCES user (id), \n\tFOREIGN KEY(invitee_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "record",
+          "record",
+          21,
+          "CREATE TABLE record (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tfilename VARCHAR NOT NULL, \n\treport_markdown TEXT, \n\traw_output TEXT, \n\tmetadata_json TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tupdated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "reward_logs",
+          "reward_logs",
+          38,
+          "CREATE TABLE reward_logs (\n\tid INTEGER NOT NULL, \n\tuser_id INTEGER NOT NULL, \n\tamount INTEGER NOT NULL, \n\treason VARCHAR(50) NOT NULL, \n\trelated_feedback_id INTEGER, \n\toperator VARCHAR(50), \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id), \n\tFOREIGN KEY(related_feedback_id) REFERENCES feedback (id)\n)"
+        ],
+        [
+          "table",
+          "security_events",
+          "security_events",
+          17,
+          "CREATE TABLE security_events (\n\tid INTEGER NOT NULL, \n\tevent_type VARCHAR(50) NOT NULL, \n\tseverity VARCHAR(20) NOT NULL, \n\tsource VARCHAR(50) NOT NULL, \n\tdetail TEXT, \n\tuser_id VARCHAR(50), \n\tip VARCHAR(45), \n\tmeta_json TEXT, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id)\n)"
+        ],
+        [
+          "table",
+          "task_record",
+          "task_record",
+          35,
+          "CREATE TABLE task_record (\n\tid INTEGER NOT NULL, \n\ttask_id VARCHAR(36) NOT NULL, \n\tfilename VARCHAR NOT NULL, \n\tfile_size INTEGER, \n\tstatus VARCHAR(20) NOT NULL, \n\tuser_id INTEGER, \n\tremaining_bonus INTEGER, \n\trecord_id INTEGER, \n\tprogress INTEGER, \n\tresult TEXT, \n\terror TEXT, \n\tmetadata_json TEXT, \n\tvalidation_json TEXT, \n\tsummary_json TEXT, \n\ttrace_id VARCHAR(50), \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tupdated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(user_id) REFERENCES user (id)\n)"
+        ],
+        [
+          "table",
+          "user",
+          "user",
+          2,
+          "CREATE TABLE user (\n\tid INTEGER NOT NULL, \n\tcountry_code VARCHAR(10) NOT NULL, \n\tmobile VARCHAR(20) NOT NULL, \n\tpassword_hash VARCHAR NOT NULL, \n\tbonus_credits INTEGER NOT NULL, \n\tfree_review_quota INTEGER NOT NULL, \n\tinvited_by INTEGER, \n\tstatus VARCHAR(20) NOT NULL, \n\tlast_active_at DATETIME, \n\tcreated_at DATETIME DEFAULT (CURRENT_TIMESTAMP), \n\tPRIMARY KEY (id), \n\tFOREIGN KEY(invited_by) REFERENCES user (id)\n)"
+        ]
+      ]
+    },
+    "table_scans": {
+      "admin_logs": {
+        "rootpage": 12,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "admins": {
+        "rootpage": 14,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "blacklist": {
+        "rootpage": 5,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "bonus_log": {
+        "rootpage": 27,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "feedback": {
+        "rootpage": 23,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "file_hash_cache": {
+        "rootpage": 31,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "intercept_logs": {
+        "rootpage": 8,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "invite_rewards": {
+        "rootpage": 29,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "record": {
+        "rootpage": 21,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "reward_logs": {
+        "rootpage": 38,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "security_events": {
+        "rootpage": 17,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "task_record": {
+        "rootpage": 35,
+        "rows_read": 0,
+        "status": "readable"
+      },
+      "user": {
+        "rootpage": 2,
+        "rows_read": 0,
+        "status": "readable"
+      }
+    },
+    "dbstat": {
+      "partial_rows": [],
+      "error": "no such table: dbstat",
+      "error_code": null
+    },
+    "foreign_key_check": {
+      "rows": []
+    },
+    "after": {
+      "F:\\ai\\Sage\\artifacts\\employment_round2_snapshot\\app.db": {
+        "exists": true,
+        "bytes": 159744,
+        "modified_utc": "2026-09-07T22:50:15.188358+00:00",
+        "sha256": "c763521b833eca7c9ae7ebf68ba818a154d2e330e7221b884c4b144b4cf7b8be"
+      },
+      "F:\\ai\\Sage\\artifacts\\employment_round2_snapshot\\app.db-wal": {
+        "exists": false
+      },
+      "F:\\ai\\Sage\\artifacts\\employment_round2_snapshot\\app.db-shm": {
+        "exists": false
+      },
+      "F:\\ai\\Sage\\artifacts\\employment_round2_snapshot\\app.db-journal": {
+        "exists": false
+      }
+    },
+    "files_unchanged": true
+  }
+]

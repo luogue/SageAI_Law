@@ -1,0 +1,149 @@
+..................................................................F..... [ 39%]
+.............F.F.......................F................................ [ 78%]
+...................F...................                                  [100%]
+================================== FAILURES ===================================
+___________________ test_shared_fact_has_identical_evidence ___________________
+
+report = {'success': True, 'contract_type': 'house_lease', 'selected_contract_type': 'house_lease', 'domain_selection_resolutio...GRANT', 'contract_subtype': 'RESIDENTIAL_LEASE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_shared_fact_has_identical_evidence(report):
+        rows = [r for r in report['items'] if r['node_id'] in {'agreed_termination', 'termination_notice'}]
+>       elements = [next(e for e in r['coverage_elements'] if e['element_id'] == 'termination_trigger') for r in rows]
+
+backend\tests\test_lease_semantic_consistency.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = <list_iterator object at 0x00000208BF5B2020>
+
+>   elements = [next(e for e in r['coverage_elements'] if e['element_id'] == 'termination_trigger') for r in rows]
+E   StopIteration
+
+backend\tests\test_lease_semantic_consistency.py:41: StopIteration
+_________________ test_summary_detail_statistics_and_release __________________
+
+report = {'success': True, 'contract_type': 'house_lease', 'selected_contract_type': 'house_lease', 'domain_selection_resolutio...GRANT', 'contract_subtype': 'RESIDENTIAL_LEASE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_summary_detail_statistics_and_release(report):
+        assert Counter(r['coverage_status'] for r in report['items']) == report['coverage_summary']
+>       assert sum(report['coverage_summary'].values()) == 50
+E       AssertionError: assert 51 == 50
+E        +  where 51 = sum(dict_values([28, 12, 6, 5]))
+E        +    where dict_values([28, 12, 6, 5]) = <built-in method values of dict object at 0x00000208C59A6E40>()
+E        +      where <built-in method values of dict object at 0x00000208C59A6E40> = {'通过': 28, '缺失': 12, '不适用': 6, '部分覆盖': 5}.values
+
+backend\tests\test_lease_semantic_consistency.py:291: AssertionError
+_______________ test_evaluator_does_not_depend_on_review_number _______________
+
+report = {'success': True, 'contract_type': 'house_lease', 'selected_contract_type': 'house_lease', 'domain_selection_resolutio...GRANT', 'contract_subtype': 'RESIDENTIAL_LEASE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_evaluator_does_not_depend_on_review_number(report):
+        row = deepcopy(next(r for r in report['items'] if r['node_id'] == 'termination_notice'))
+        row['item_id'] = 'CUSTOM-RENUMBERED'
+        obj = SimpleNamespace(**row)
+        text = '99.8 解除\n乙方逾期不付款的，甲方有权解除本合同。'
+        apply([obj], parse_contract_clauses(text), text, _set_item_not_applicable)
+>       assert obj.coverage_status == '部分覆盖'
+E       AssertionError: assert '不适用' == '部分覆盖'
+E         
+E         - 部分覆盖
+E         + 不适用
+
+backend\tests\test_lease_semantic_consistency.py:316: AssertionError
+____________________ test_unchanged_67_file_final_evidence ____________________
+
+    def test_unchanged_67_file_final_evidence():
+        import io
+        import hashlib
+        from pathlib import Path
+        from types import SimpleNamespace
+        from layers.input_layer import InputLayer
+        from review_v2.engine import review_contract_v2, _search_final_element
+        source=Path(__file__).resolve().parents[2]/'test_data/67 中介.docx'
+        data=source.read_bytes()
+        assert hashlib.sha256(data).hexdigest() == '646cce04dca0b0920c152eb8a288d6bb28094759c531054335c83af80600e5ae'
+        text,_=InputLayer().extract_text_with_diagnostics(SimpleNamespace(filename=source.name,file=io.BytesIO(data)))
+        report=review_contract_v2(text,'brokerage',use_llm=False)
+        items={r['item_id']:r for r in report['items']}
+        for code in ('BR-04-02','BR-09-01','BR-05-02','BR-05-01','BR-05-03',
+                     'BR-01-01','BR-01-03','BR-02-02','BR-06-01','BR-06-03','BR-06-04',
+                     'BR-04-04','BR-02-03','BR-03-03'):
+            row=items[code]
+            assert row['coverage_status']=='通过'
+            for trace in row['decision_trace'].get('concept_search_audits', []):
+                assert trace['result']=='FOUND'
+                assert any(c['accepted'] for c in trace['top_k_candidates'])
+            for spec in row['decision_trace']['semantic_requirements']:
+                item=SimpleNamespace(item_id=code,node_id=row['node_id'],decision_trace=row['decision_trace'])
+                audit=_search_final_element(item,{**spec,'status':'MISSING'},parse_contract_clauses(text))
+                assert audit['result']=='FOUND'
+                assert all(e['text'] in text for e in audit['supporting_evidence'])
+        assert items['BR-02-03']['decision_trace']['brokerage_canonical_coverage']['missing']==[]
+        assert items['BR-11-02']['coverage_status']=='部分覆盖'
+        for code in ('BR-03-04','BR-04-03','BR-07-02','BR-07-04','BR-08-01','BR-08-02',
+                     'BR-08-03','BR-08-04','BR-09-02','BR-09-03','BR-09-04','BR-11-03'):
+>           assert items[code]['coverage_status']=='缺失'
+E           AssertionError: assert '不适用' == '缺失'
+E             
+E             - 缺失
+E             + 不适用
+
+backend\tests\test_brokerage_prose_recall.py:61: AssertionError
+________________ test_current_file_locations_and_applicability ________________
+
+    def test_current_file_locations_and_applicability():
+        result = review_contract_v2(document('56 承揽合同.docx'), 'work_contract', use_llm=False)
+        assert result['release_quality_gate']['status'] == 'REPORT_READY'
+        rows = {i['item_id']: i for i in result['items']}
+        assert rows['W-02-02']['coverage_status'] == '不适用'
+        assert rows['W-03-04']['coverage_status'] == '通过'
+        for row in result['items']:
+            if row['evidence_clauses']:
+                assert row['evidence_location'] == '；'.join(dict.fromkeys(e['location'] for e in row['evidence_clauses']))
+            if row['coverage_status'] == '不适用':
+                assert row['applicable_if'] != '始终适用'
+                assert row['applicability'].get('condition') != 'ALWAYS_APPLICABLE'
+                assert '始终适用' not in str(row['applicability'])
+            if row['coverage_status'] == '通过' and row['decision_trace']['review_mode'] == 'ABSENCE_REQUIRED':
+>               narrative = _judgment_text(ReviewItemResult(**row), {'clause_number': '无对应条款'})
+E               TypeError: ReviewItemResult.__init__() got an unexpected keyword argument 'presentation'
+
+backend\tests\test_work_remedy_semantics.py:71: TypeError
+============================== warnings summary ===============================
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\storage\database.py:41
+  F:\ai\Sage\backend\storage\database.py:41: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+backend\main.py:145
+  F:\ai\Sage\backend\main.py:145: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_lease_semantic_consistency.py::test_shared_fact_has_identical_evidence
+FAILED backend/tests/test_lease_semantic_consistency.py::test_summary_detail_statistics_and_release
+FAILED backend/tests/test_lease_semantic_consistency.py::test_evaluator_does_not_depend_on_review_number
+FAILED backend/tests/test_brokerage_prose_recall.py::test_unchanged_67_file_final_evidence
+FAILED backend/tests/test_work_remedy_semantics.py::test_current_file_locations_and_applicability
+5 failed, 178 passed, 5 warnings in 63.21s (0:01:03)

@@ -1,0 +1,6 @@
+{
+  "command": "python3 -c 'import subprocess,json\nfrom pathlib import Path\nroot=Path('\"'\"'/var/tmp/sageai-release-verify-20260909'\"'\"')\nwith (root/'\"'\"'runner-fixed.log'\"'\"').open('\"'\"'wb'\"'\"') as log:\n p=subprocess.Popen(['\"'\"'python3'\"'\"',str(root/'\"'\"'build_runner_fixed.py'\"'\"')],cwd=root,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)\nprint(json.dumps({'\"'\"'pid'\"'\"':p.pid,'\"'\"'directory'\"'\"':str(root)}))\n'",
+  "exit": 0,
+  "stdout": "{\"pid\": 2407193, \"directory\": \"/var/tmp/sageai-release-verify-20260909\"}\n",
+  "stderr": ""
+}

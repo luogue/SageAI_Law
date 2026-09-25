@@ -67,10 +67,13 @@ def _claim_where(
     *,
     confidence: str = "high",
 ) -> CanonicalClaim:
-    sources = [
-        clause for clause in formal_evidence_clauses(list(clauses))
-        if matcher(clause.text.replace("\n", ""))
+    sentence_bound = bool(consumers) and all(rule.startswith("S-") for rule in consumers)
+    matched = [
+        (clause, span) for clause in formal_evidence_clauses(list(clauses))
+        for span in (re.split(r"(?<=[。；;])|\n", clause.text) if sentence_bound else [clause.text])
+        if matcher(span.replace("\n", ""))
     ]
+    sources = [clause for clause, _ in matched]
     return CanonicalClaim(
         claim_id=claim_id,
         subject=subject,
@@ -82,7 +85,7 @@ def _claim_where(
         fact_ids=[],
         evidence_ids=[f"CCE-{clause.clause_id}" for clause in sources],
         source_clause_ids=[clause.clause_id for clause in sources],
-        source_spans=[clause.text for clause in sources],
+        source_spans=[span for _, span in matched],
         source_locations=[clause.location for clause in sources],
         extraction_method="shared_claim_rule",
         normalization="semantic_predicate",
@@ -91,10 +94,19 @@ def _claim_where(
     )
 
 
+def _has_termination_trigger(text: str) -> bool:
+    text = re.sub(r"\s+", "", text)
+    if not re.search(r"(?:有权|可以|可|得以)解除|解除.{0,8}(?:条件|情形)", text):
+        return False
+    # A right to terminate is not itself a triggering event. Require an
+    # antecedent breach/event, in the same sentence, before that remedy.
+    return bool(re.search(r"(?:逾期|迟延|违法|擅自|严重违约|合同目的无法实现|不履行主要义务|丧失履约能力|未履行|未能履行).+解除", text))
+
+
 def _build_goods_claims(clauses: Sequence[ParsedClause]) -> Dict[str, CanonicalClaim]:
     definitions = (
-        ("contract.termination.trigger", "contract", "termination_trigger", ["S-00-02"], lambda t: "解除" in t and any(x in t for x in ("严重违约", "合同目的无法实现", "不履行主要义务", "丧失履约能力"))),
-        ("contract.termination.notice_or_demand", "contract", "termination_notice_or_demand", ["S-00-02"], lambda t: any(x in t for x in ("书面催告", "书面终止通知", "书面通知")) and any(x in t for x in ("解除", "终止", "补救"))),
+        ("contract.termination.trigger", "contract", "termination_trigger", ["S-00-02"], _has_termination_trigger),
+        ("contract.termination.notice_or_demand", "contract", "termination_notice_or_demand", ["S-00-02"], lambda t: any(x in t for x in ("解除通知", "终止通知", "书面通知")) and any(x in t for x in ("解除", "终止"))),
         ("contract.termination.cure_period", "contract", "termination_cure_period", ["S-00-02"], lambda t: any(x in t for x in ("催告后", "补救措施", "履约保障")) and any(x in t for x in ("工作日内", "日内"))),
         ("contract.termination.right", "contract", "termination_right", ["S-00-02"], lambda t: any(x in t for x in ("有权解除合同", "有权解除本合同", "均可解除本合同"))),
         ("contract.termination.convenience_notice", "contract", "convenience_termination_notice", ["S-00-02"], lambda t: "提前终止" in t and "通知" in t),

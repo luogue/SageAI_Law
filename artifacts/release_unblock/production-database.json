@@ -1,0 +1,117 @@
+{
+  "PRODUCTION_DB_STATUS": "VERIFIED_HEALTHY",
+  "actual_host_path": "/var/lib/docker/volumes/sageai-db-data/_data/app.db",
+  "actual_container_path": "/app/data/app.db",
+  "acquisition": "SFTP read only; two full byte/metadata passes; SQLite checks on local copies including WAL",
+  "stable_acquisition": true,
+  "files": {
+    "app.db": {
+      "bytes": 4096,
+      "sha256": "352a9bb23c329c5a9bf235baf56917358b5b64b03f1a11d261fadae9c3cdb721",
+      "mtime": 1781142846
+    },
+    "app.db-wal": {
+      "bytes": 1479112,
+      "sha256": "5ff5153940cc033be265312e4cc906a8b84d44cb776123828e038c3eb5e783af",
+      "mtime": 1785196509
+    },
+    "app.db-shm": {
+      "bytes": 32768,
+      "sha256": "76aaa098d2cea96a2e3eeafbf751c14123b211274108cf7602b98cb1aaf69f9e",
+      "mtime": 1787890000
+    }
+  },
+  "sqlite_header_valid": true,
+  "checks": {
+    "integrity_check": [
+      [
+        "ok"
+      ]
+    ],
+    "quick_check": [
+      [
+        "ok"
+      ]
+    ],
+    "foreign_key_check": []
+  },
+  "tables": {
+    "user": {
+      "fully_readable": true,
+      "count": 4
+    },
+    "blacklist": {
+      "fully_readable": true,
+      "count": 0
+    },
+    "intercept_logs": {
+      "fully_readable": true,
+      "count": 0
+    },
+    "record": {
+      "fully_readable": true,
+      "count": 2
+    },
+    "feedback": {
+      "fully_readable": true,
+      "count": 0
+    },
+    "bonus_log": {
+      "fully_readable": true,
+      "count": 0
+    },
+    "invite_rewards": {
+      "fully_readable": true,
+      "count": 0
+    },
+    "file_hash_cache": {
+      "fully_readable": true,
+      "count": 0
+    },
+    "task_record": {
+      "fully_readable": true,
+      "count": 11
+    },
+    "reward_logs": {
+      "fully_readable": true,
+      "count": 0
+    },
+    "admin_logs": {
+      "fully_readable": true,
+      "count": 1
+    },
+    "admins": {
+      "fully_readable": true,
+      "count": 1
+    },
+    "security_events": {
+      "fully_readable": true,
+      "count": 0
+    }
+  },
+  "task_report_orphan_count": 0,
+  "damaged_local_tasks_in_production": {
+    "35": {
+      "exists": false,
+      "columns": []
+    },
+    "36": {
+      "exists": false,
+      "columns": []
+    },
+    "34": {
+      "exists": false,
+      "columns": []
+    },
+    "37": {
+      "exists": false,
+      "columns": []
+    }
+  },
+  "version_and_packaged_db_probe": {
+    "command": "python3 -c 'import json,subprocess\ncode=\"\"\"import hashlib,json,re,os\nfrom pathlib import Path\np=Path('\"'\"'/app/main.py'\"'\"');s=p.read_text(encoding='\"'\"'utf-8'\"'\"')\nr={'\"'\"'main_sha256'\"'\"':hashlib.sha256(p.read_bytes()).hexdigest(),'\"'\"'app_version'\"'\"':re.search(r'\"'\"'FastAPI\\([^\\n]*version=[\\\"\\'\"'\"']([^\\\"\\'\"'\"']+)'\"'\"',s).group(1),'\"'\"'packaged_databases'\"'\"':[]}\nfor p in Path('\"'\"'/app'\"'\"').rglob('\"'\"'*.db'\"'\"'):\n if str(p).startswith('\"'\"'/app/data/'\"'\"'):continue\n r['\"'\"'packaged_databases'\"'\"'].append({'\"'\"'path'\"'\"':str(p),'\"'\"'bytes'\"'\"':p.stat().st_size,'\"'\"'sha256'\"'\"':hashlib.sha256(p.read_bytes()).hexdigest()})\nprint(json.dumps(r))\n\"\"\"\np=subprocess.run(['\"'\"'docker'\"'\"','\"'\"'exec'\"'\"','\"'\"'sageai-backend'\"'\"','\"'\"'python'\"'\"','\"'\"'-c'\"'\"',code],capture_output=True,text=True)\nprint(json.dumps({'\"'\"'exit'\"'\"':p.returncode,'\"'\"'stdout'\"'\"':p.stdout,'\"'\"'stderr'\"'\"':p.stderr}))\n'",
+    "exit": 0,
+    "stdout": "{\"exit\": 1, \"stdout\": \"\", \"stderr\": \"  File \\\"<string>\\\", line 4\\n    r={'main_sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'app_version':re.search(r'FastAPI\\\\([^\\n                                                                                        ^\\nSyntaxError: unterminated string literal (detected at line 4)\\n\"}\n",
+    "stderr": ""
+  }
+}

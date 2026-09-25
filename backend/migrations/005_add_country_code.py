@@ -2,14 +2,13 @@
 import sqlite3
 import os
 
-# 获取数据库路径
-db_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'app.db')
-db_path = os.path.abspath(db_path)
-
-# 确保数据目录存在
-os.makedirs(os.path.dirname(db_path), exist_ok=True)
-
 def migrate():
+    from storage.database import engine
+    if engine.dialect.name != 'sqlite':
+        raise RuntimeError('This migration requires SQLite')
+    db_path = engine.url.database
+    if not os.path.isfile(db_path):
+        raise RuntimeError('Configured database does not exist; refusing to create an empty one')
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     

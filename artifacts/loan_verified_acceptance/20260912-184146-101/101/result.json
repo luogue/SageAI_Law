@@ -1,0 +1,322 @@
+{
+  "file": "F:\\ai\\Sage\\test_data\\101 企业之间借款合同.docx",
+  "file_sha256": "24ee8a64dc775e20b1fe5ccf538298290e419e674b5b1737e00a5dd1057be973",
+  "source_sha256": "f9c21ad3b976d3d4d2a53ce19ce3887652c38e20c1e60836ce0d8fa4f16a5c77",
+  "source_characters": 3069,
+  "code_sha256": {
+    "backend\\review_v2\\unified_facts\\__init__.py": "12c1cfefdc5ad94d0c224dc5df189009ecea19dfb8c16c5072228f5b11917af4",
+    "backend\\review_v2\\unified_facts\\certificates.py": "86650744df87f0226ac4b6c3462cd214be81835d3c15d2f233f630e8a7e931ea",
+    "backend\\review_v2\\unified_facts\\loan.py": "3e14cadac840ec98982142f41ca47837bd4598b5423caf0522b53ffc5d00a208",
+    "backend\\review_v2\\unified_facts\\loan_bindings.py": "dcaa90bf61a91cffdb6d1b3ff13472ddfeacc3a5eeb9e7f565ad1e4358d0eff4",
+    "backend\\review_v2\\unified_facts\\loan_costs.py": "13d80e0775ddd3fb05a8a327b53254ba75b9f8464ee070d8a318282c828dadfa",
+    "backend\\review_v2\\unified_facts\\loan_formulas.py": "a8f21df6a86e9bff2ea3edd0b80e800980316cee89f22731555926ecb1ce510e",
+    "backend\\review_v2\\unified_facts\\loan_pipeline.py": "2dc44befc2801f3ddc7cc33054dac2b62de77f44cd40c1afa6047f8a860a31ae",
+    "backend\\review_v2\\unified_facts\\loan_rules.py": "cb8678312100908a9e535b289486cbe0f5d783600f6612f93a01ddefdf411bb6",
+    "backend\\review_v2\\unified_facts\\normalization.py": "31953671189c9af73d922a1774952829f737bedb784c462e87b595220f31c310",
+    "backend\\review_v2\\unified_facts\\ontology.py": "137bc1c40fcf82a1af60db096468d902a3bcc382e353d4bba018998f5e0e3538",
+    "backend\\review_v2\\unified_facts\\pipeline.py": "a901a2b2bcefa268b4f5502deb2341340db58567068a2d9e1e0e3df295407831",
+    "backend\\review_v2\\unified_facts\\schema.py": "3532060bf1af1de433ab080b58ad69b055b8302f447b34678727c2d20e101a75",
+    "backend\\review_v2\\unified_facts\\store.py": "ed1d18b7fe14ed06680f649ad31bea32ffb984d29ec3e49b4e55129c8e5b5b5c"
+  },
+  "sample_origin": "EXISTING_DOCX",
+  "status": "BLOCKED",
+  "error": "FactExtractionError: VERIFICATION_RESPONSE_INVALID:SNAPSHOT_MISMATCH",
+  "diagnostics": [
+    {
+      "failed_stage": "UNIFIED_FACT_VALIDATION",
+      "fact_id": null,
+      "field": "certificate",
+      "validation_rule": "VERIFICATION_RESPONSE_INVALID:SNAPSHOT_MISMATCH",
+      "model_raw_value": null,
+      "evidence": null,
+      "expected": null,
+      "actual": null,
+      "disposition": "BLOCK"
+    }
+  ],
+  "attempts": [
+    {
+      "raw_extraction": {
+        "schema_version": "contract-facts-1.0",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021"
+        ],
+        "searched_concepts": [
+          "common.parties",
+          "common.signing_date",
+          "common.effective_date",
+          "common.effective_condition",
+          "common.term",
+          "common.amounts",
+          "common.liability",
+          "common.dispute_method",
+          "common.dispute_institution",
+          "loan.lender_kind",
+          "loan.borrower_kind",
+          "loan.guarantee"
+        ],
+        "observations": [
+          {
+            "concept": "common.parties",
+            "state": "PRESENT",
+            "value": {
+              "name": "南京启衡供应链管理有限公司",
+              "role": "甲方（出借方）",
+              "kind": "ENTERPRISE"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0002",
+                "quote": "甲方（出借方）：南京启衡供应链管理有限公司统一社会信用代码：91320105MA2X7K8P3R法定代表人：赵文博住所：江苏省南京市建邺区江东中路188号联系电话：025-86581236"
+              }
+            ]
+          },
+          {
+            "concept": "common.parties",
+            "state": "PRESENT",
+            "value": {
+              "name": "苏州辰岳智能装备有限公司",
+              "role": "乙方（借款方）",
+              "kind": "ENTERPRISE"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0003",
+                "quote": "乙方（借款方）：苏州辰岳智能装备有限公司统一社会信用代码：91320594MA2W9F6N7T法定代表人：韩志成住所：江苏省苏州市工业园区星湖街328号联系电话：0512-67293518"
+              }
+            ]
+          },
+          {
+            "concept": "common.signing_date",
+            "state": "PRESENT",
+            "value": "2026-09-22",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0021",
+                "quote": "甲方：南京启衡供应链管理有限公司法定代表人或授权代表：赵文博签署日期：2026年9月22日盖章：\n乙方：苏州辰岳智能装备有限公司法定代表人或授权代表：韩志成签署日期：2026年9月22日盖章："
+              }
+            ]
+          },
+          {
+            "concept": "common.effective_date",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "common.effective_condition",
+            "state": "PRESENT",
+            "value": "本合同自双方加盖公章或者合同专用章之日起生效。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0021",
+                "quote": "本合同自双方加盖公章或者合同专用章之日起生效。"
+              }
+            ]
+          },
+          {
+            "concept": "common.term",
+            "state": "PRESENT",
+            "value": {
+              "amount": "9",
+              "unit": "MONTH"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0006",
+                "quote": "借款期限为9个月，自2026年9月25日起至2027年6月24日止。"
+              }
+            ]
+          },
+          {
+            "concept": "common.amounts",
+            "state": "PRESENT",
+            "value": {
+              "amount": "1200000",
+              "currency": "CNY",
+              "role": "借款本金"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0004",
+                "quote": "甲方向乙方提供借款人民币壹佰贰拾万元整（¥1,200,000.00）。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "乙方逾期偿还本金的，自逾期之日起，对逾期本金按照年利率10.8%计算逾期利息，直至该部分本金实际清偿之日止。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0015",
+                "quote": "乙方逾期偿还本金的，自逾期之日起，对逾期本金按照年利率10.8%计算逾期利息，直至该部分本金实际清偿之日止。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "乙方逾期支付应付利息的，自逾期之日起至实际支付之日止，按照应付未付利息每日0.02%的标准支付违约金。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0015",
+                "quote": "乙方逾期支付应付利息的，自逾期之日起至实际支付之日止，按照应付未付利息每日0.02%的标准支付违约金。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "乙方逾期超过15日的，甲方有权宣布全部剩余借款本金、已产生利息及其他到期款项立即到期。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0015",
+                "quote": "乙方逾期超过15日的，甲方有权宣布全部剩余借款本金、已产生利息及其他到期款项立即到期。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "乙方违约导致甲方通过诉讼、财产保全或者执行程序实现债权的，乙方应承担甲方为实现债权合理发生的诉讼费、保全费、执行费、律师费及其他必要费用。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0015",
+                "quote": "乙方违约导致甲方通过诉讼、财产保全或者执行程序实现债权的，乙方应承担甲方为实现债权合理发生的诉讼费、保全费、执行费、律师费及其他必要费用。"
+              }
+            ]
+          },
+          {
+            "concept": "common.dispute_method",
+            "state": "PRESENT",
+            "value": "NEGOTIATION",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0020",
+                "quote": "因本合同产生或者与本合同有关的任何争议，双方应首先协商解决。"
+              }
+            ]
+          },
+          {
+            "concept": "common.dispute_method",
+            "state": "PRESENT",
+            "value": "LITIGATION",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0020",
+                "quote": "协商不成的，任何一方均可向甲方住所地有管辖权的人民法院提起诉讼。"
+              }
+            ]
+          },
+          {
+            "concept": "common.dispute_institution",
+            "state": "PRESENT",
+            "value": "甲方住所地有管辖权的人民法院",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0020",
+                "quote": "协商不成的，任何一方均可向甲方住所地有管辖权的人民法院提起诉讼。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.lender_kind",
+            "state": "PRESENT",
+            "value": "enterprise",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0002",
+                "quote": "甲方（出借方）：南京启衡供应链管理有限公司统一社会信用代码：91320105MA2X7K8P3R法定代表人：赵文博住所：江苏省南京市建邺区江东中路188号联系电话：025-86581236"
+              }
+            ]
+          },
+          {
+            "concept": "loan.borrower_kind",
+            "state": "PRESENT",
+            "value": "enterprise",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0003",
+                "quote": "乙方（借款方）：苏州辰岳智能装备有限公司统一社会信用代码：91320594MA2W9F6N7T法定代表人：韩志成住所：江苏省苏州市工业园区星湖街328号联系电话：0512-67293518"
+              }
+            ]
+          },
+          {
+            "concept": "loan.guarantee",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          }
+        ]
+      },
+      "verification": null,
+      "diagnostics": [
+        {
+          "failed_stage": "UNIFIED_FACT_VALIDATION",
+          "fact_id": null,
+          "field": "certificate",
+          "validation_rule": "VERIFICATION_RESPONSE_INVALID:SNAPSHOT_MISMATCH",
+          "model_raw_value": null,
+          "evidence": null,
+          "expected": null,
+          "actual": null,
+          "disposition": "BLOCK"
+        }
+      ]
+    }
+  ],
+  "calls": 4
+}

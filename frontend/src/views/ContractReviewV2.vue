@@ -32,10 +32,12 @@
           </el-form-item>
 
           <el-form-item label="语义判定">
+            <div v-if="contractType === 'labor'">DeepSeek 全文事实抽取 → 原文绑定 → 规则判断</div>
             <el-switch
+              v-else
               v-model="useLlmReview"
               :disabled="llmStatusLoaded && !llmStatus?.available"
-              active-text="启用大模型复核"
+              active-text="启用 DeepSeek 复核"
               inactive-text="仅用合同原文审查"
             />
             <div
@@ -60,9 +62,9 @@
           <el-collapse-transition>
             <div v-show="profileExpanded" class="profile-body">
               <div class="preset-row">
-                <el-button size="small" @click="setProfilePreset('conservative_individual')">个人租客-保守</el-button>
-                <el-button size="small" @click="setProfilePreset('standard')">标准</el-button>
-                <el-button size="small" @click="setProfilePreset('aggressive_investor')">投资者-激进</el-button>
+                <el-button size="small" @click="setProfilePreset('conservative')">{{ userIdentity }}-保守</el-button>
+                <el-button size="small" @click="setProfilePreset('standard')">{{ userIdentity }}-标准</el-button>
+                <el-button size="small" @click="setProfilePreset('aggressive')">{{ userIdentity }}-激进</el-button>
               </div>
 
               <el-form label-position="top" size="small" class="profile-form">
@@ -131,6 +133,44 @@
       </aside>
 
       <main class="report-panel">
+        <section v-if="diagnosticUI.current" aria-label="事实抽取/校验诊断" class="fact-diagnostics">
+          <h2><button type="button" :aria-expanded="diagnosticUI.expanded" aria-controls="current-fact-diagnostics" @click="diagnosticUI.toggle()">事实抽取/校验诊断（{{ diagnosticCount }}） {{ diagnosticUI.expanded ? '收起' : '展开' }}</button></h2>
+          <div v-show="diagnosticUI.expanded" id="current-fact-diagnostics">
+          <p>失败记录保存在本浏览器当前审查页面；刷新或重新进入后可查看。失败的审查未生成报告。</p>
+          <details v-for="(failure, index) in currentFailures" :key="failure.trace_id || failure.saved_at" :open="index === 0">
+            <summary>{{ failure.filename }} · {{ formatDiagnosticTime(failure.saved_at) }} · {{ failure.release_quality_gate }}</summary>
+            <p>追踪编号：{{ failure.trace_id || '未提供' }}</p>
+            <article v-for="(diagnostic, n) in failure.diagnostics" :key="n">
+              <dl>
+                <dt>阶段 / 错误码</dt><dd>{{ diagnostic.stage || diagnostic.failed_stage }} / {{ diagnostic.code || diagnostic.validation_rule }}</dd>
+                <dt>事实 / 字段</dt><dd>{{ diagnostic.fact_key || diagnostic.concept || diagnostic.fact_id }} / {{ diagnostic.field }}</dd>
+                <template v-if="diagnostic.validation_rule === 'INCOMPLETE_FACT_VERIFICATION'">
+                  <dt>核验批次 / 应返回 / 实际返回</dt><dd>{{ diagnostic.batch_id }} / {{ diagnostic.expected_count }} / {{ diagnostic.actual_count }}</dd>
+                  <dt>缺失 fact_id</dt><dd><pre>{{ diagnosticValue(diagnostic.missing_fact_ids) }}</pre></dd>
+                  <dt>未知 fact_id</dt><dd><pre>{{ diagnosticValue(diagnostic.unexpected_fact_ids) }}</pre></dd>
+                  <dt>重复 fact_id</dt><dd><pre>{{ diagnosticValue(diagnostic.duplicate_fact_ids) }}</pre></dd>
+                  <dt>缺失事实概念、值及原文证据</dt><dd><pre>{{ diagnosticValue(diagnostic.missing_facts) }}</pre></dd>
+                </template>
+                <template v-if="diagnostic.validation_rule === 'INCOMPLETE_VERIFICATION_SCOPE' && diagnostic.field === 'searched_concepts'">
+                  <dt>核验批次 / 应搜索 / 实际搜索</dt><dd>{{ diagnostic.batch_id }} / {{ diagnostic.expected_count }} / {{ diagnostic.actual_count }}</dd>
+                  <dt>缺失概念</dt><dd><pre>{{ diagnosticValue(diagnostic.missing_concepts) }}</pre></dd>
+                  <dt>多余概念</dt><dd><pre>{{ diagnosticValue(diagnostic.unexpected_concepts) }}</pre></dd>
+                </template>
+                <dt>原始抽取值</dt><dd><pre>{{ diagnosticValue(diagnostic.raw_value ?? diagnostic.model_raw_value) }}</pre></dd>
+                <dt>归一化值</dt><dd><pre>{{ diagnosticValue(diagnostic.normalized_value) }}</pre></dd>
+                <dt>允许值 / 类型要求</dt><dd><pre>{{ diagnosticValue(diagnostic.allowed_values ?? diagnostic.expected) }}</pre></dd>
+                <dt>对应合同原文及条款</dt><dd><pre>{{ diagnosticValue(diagnostic.evidence) }}
+{{ diagnosticValue(diagnostic.clause || diagnostic.source_clause) }}</pre></dd>
+                <dt>失败原因</dt><dd>{{ diagnostic.message || failure.reason }}（{{ diagnostic.validation_rule }}）</dd>
+              </dl>
+            </article>
+          </details>
+          </div>
+        </section>
+        <details v-if="failureHistory.length" class="diagnostic-history">
+          <summary>历史失败任务（{{ failureHistory.length }}）</summary>
+          <button v-for="failure in failureHistory" :key="failure.attempt_id || failure.trace_id || failure.saved_at" type="button" @click="restoreFailure(failure)">{{ failure.filename }} · {{ formatDiagnosticTime(failure.saved_at) }} · 查看诊断</button>
+        </details>
         <template v-if="report">
           <div class="report-toolbar">
             <div>
@@ -213,7 +253,7 @@
               <span>用户画像</span>
             </div>
             <div class="profile-summary-tags">
-              <el-tag size="small" type="info">{{ report.contract_type === 'technology' ? (report.perspective_resolution?.display_role || report.profile.user_identity) : report.profile.user_identity }}</el-tag>
+              <el-tag size="small" type="info">{{ report.perspective_resolution?.display_role || report.profile.user_identity }}</el-tag>
               <el-tag size="small" type="info">{{ report.profile.contract_scenario }}</el-tag>
               <el-tag size="small" :type="report.profile.risk_appetite === '保守' ? 'danger' : report.profile.risk_appetite === '激进' ? 'success' : 'warning'">
                 {{ report.profile.risk_appetite }}
@@ -227,6 +267,10 @@
           <div v-if="report.report_notice" class="format-notice">
             {{ report.report_notice }}
           </div>
+          <details v-if="report.structured_fact_debug?.schema_version" class="fact-debug">
+            <summary>结构化事实调试：抽取 → 归一化 → 证据 → 规则结论</summary>
+            <pre style="white-space: pre-wrap; max-height: 600px; overflow: auto">{{ JSON.stringify(report.structured_fact_debug, null, 2) }}</pre>
+          </details>
           <el-alert
             v-if="exportGateMessage"
             class="export-gate-alert"
@@ -267,21 +311,13 @@
               <span>人工复核</span>
               <strong>{{ overviewStats.manual }}</strong>
             </div>
-            <div class="summary-card high">
-              <span>已覆盖</span>
-              <strong>{{ report.coverage_summary?.通过 || 0 }}</strong>
+            <div v-for="(count, status) in report.coverage_summary" :key="status" class="summary-card source">
+              <span>{{ status === '通过' ? '已覆盖' : status === '风险条款' ? '规则级风险命中' : status }}</span>
+              <strong>{{ count }}</strong>
             </div>
-            <div class="summary-card medium">
-              <span>部分覆盖</span>
-              <strong>{{ report.coverage_summary?.部分覆盖 || 0 }}</strong>
-            </div>
-            <div class="summary-card low">
-              <span>缺失</span>
-              <strong>{{ report.coverage_summary?.缺失 || 0 }}</strong>
-            </div>
-            <div class="summary-card na">
-              <span>不适用</span>
-              <strong>{{ report.coverage_summary?.不适用 || 0 }}</strong>
+            <div v-if="report.risk_clause_count != null" class="summary-card source">
+              <span>风险原文条款数</span>
+              <strong>{{ report.risk_clause_count }}</strong>
             </div>
             <div class="summary-card total">
               <span>审查项</span>
@@ -345,9 +381,9 @@
                 <dd>{{ item.evidence_location || '未召回正式条款' }}</dd>
                 <dt>命中原文</dt>
                 <dd>
-                  <div v-if="item.evidence_clauses?.length" class="evidence-list">
+                  <div v-if="(item.presentation?.evidence_clauses || item.evidence_clauses)?.length" class="evidence-list">
                     <details
-                      v-for="evidence in item.evidence_clauses"
+                      v-for="evidence in (item.presentation?.evidence_clauses || item.evidence_clauses)"
                       :key="evidence.clause_id"
                       class="evidence-item"
                     >
@@ -373,7 +409,17 @@
                     <pre class="reasoning-chain">{{ item.reasoning }}</pre>
                   </dd>
                 </template>
-                <template v-if="item.citation && Object.keys(item.citation).length">
+                <template v-if="item.presentation?.element_citations?.length">
+                  <dt>【证据定位】</dt>
+                  <dd>
+                    <ul v-for="row in item.presentation.element_citations" :key="row.evidence_id" class="citation-list">
+                      <li><strong>支持要素：</strong>{{ (row.support_labels || row.supporting_element_ids || []).join('、') }}</li>
+                      <li><strong>条款编号：</strong>{{ row.clause_number || row.location }}</li>
+                      <li><strong>原文片段：</strong>{{ row.quoted_text || row.quote || row.text }}</li>
+                    </ul>
+                  </dd>
+                </template>
+                <template v-else-if="item.citation && Object.keys(item.citation).length">
                   <dt>【证据定位】</dt>
                   <dd>
                     <ul class="citation-list">
@@ -711,16 +757,31 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import { ArrowDown, DocumentChecked, Download, InfoFilled, RefreshLeft, Search, UploadFilled, User, WarningFilled } from '@element-plus/icons-vue'
-import { exportReviewV2Docx, exportReviewV2Pdf, getReviewV2LlmStatus, reviewContractV2File } from '../utils/api'
+import { exportReviewV2Docx, exportReviewV2Pdf, getReviewV2LlmStatus, getReviewV2ProfileOptions, reviewContractV2File } from '../utils/api'
+import { factFailure, diagnosticKey, readFailures, saveFailure, createDiagnosticSession, formatDiagnosticTime } from '../utils/factDiagnostics.mjs'
+import { useReviewProfile } from '../utils/reviewProfile.mjs'
+import { createRuntimeId } from '../utils/runtimeId.mjs'
 
 defineOptions({
   name: 'ContractReviewV2'
 })
 
 const contractTypeOptions = [
+  { label: '劳动用工 / 劳动合同', value: 'labor' },
+  { label: '劳动用工 / 竞业限制协议', value: 'non_compete' },
+  { label: '劳动用工 / 保密协议', value: 'confidentiality' },
+  { label: '劳动用工 / 劳动关系解除、终止协议', value: 'employment_termination' },
+  { label: '担保物权 / 抵押合同', value: 'mortgage' },
+  { label: '担保物权 / 动产质押合同', value: 'movable_pledge' },
+  { label: '担保物权 / 股权质押合同', value: 'equity_pledge' },
+  { label: '担保物权 / 应收账款等权利质押合同', value: 'rights_pledge' },
+  { label: '股权投资 / 股权转让协议', value: 'equity_transfer' },
+  { label: '股权投资 / 增资扩股协议', value: 'capital_increase' },
+  { label: '股权投资 / 投资协议', value: 'investment' },
+  { label: '股权投资 / 股东协议', value: 'shareholders' },
   { label: '房屋租赁合同', value: 'house_lease' },
   { label: '买卖合同', value: 'sale' },
   { label: '赠与合同', value: 'gift' },
@@ -742,8 +803,8 @@ const contractTypeOptions = [
 ]
 
 const riskFilterOptions = ['全部', 'A_CORE', 'B_PRACTICAL', 'C_OPTIMIZATION', 'NONE', 'NOT_APPLICABLE']
-const coverageFilterOptions = ['全部', '通过', '部分覆盖', '缺失', '风险条款', '不适用']
-const issueTypeFilterOptions = ['全部', '通过', '模板空白', '条款缺陷', '完全缺失', '风险条款', '不适用']
+const coverageFilterOptions = ['全部', '通过', '部分覆盖', '缺失', '风险条款', '不适用', '待核验', '法律提示']
+const issueTypeFilterOptions = ['全部', '通过', '模板空白', '条款缺陷', '完全缺失', '风险条款', '不适用', '外部事实核验', '法律提示']
 const judgeSourceFilterOptions = [
   { label: '全部证据来源', value: '全部' },
   { label: '语义复核', value: 'llm' },
@@ -753,7 +814,15 @@ const judgeSourceFilterOptions = [
 
 const fileInput = ref(null)
 const selectedFile = ref(null)
-const contractType = ref('house_lease')
+// Persist only the user's form choice across navigation to historical reports.
+// Report payloads and historical task values never write this key.
+const selectedTypeStorageKey = `review-v2:selected-type:${localStorage.getItem('user_id') || 'anonymous'}`
+let savedSelectedType
+try { savedSelectedType = sessionStorage.getItem(selectedTypeStorageKey) } catch {}
+const contractType = ref(contractTypeOptions.some(option => option.value === savedSelectedType) ? savedSelectedType : 'house_lease')
+watch(contractType, value => {
+  try { sessionStorage.setItem(selectedTypeStorageKey, value) } catch {}
+}, { flush: 'sync' })
 const includeLowRisk = ref(true)
 const useLlmReview = ref(true)
 const llmStatus = ref(null)
@@ -762,6 +831,22 @@ const isDragging = ref(false)
 const loading = ref(false)
 const exportingType = ref('')
 const report = ref(null)
+const factValidationError = ref(null)
+const failureStorageKey = diagnosticKey(localStorage.getItem('user_id'), window.location.pathname)
+const failureHistory = ref(readFailures(localStorage, failureStorageKey))
+const diagnosticUI = reactive(createDiagnosticSession(localStorage, failureStorageKey))
+const currentFailures = computed(() => diagnosticUI.current ? [diagnosticUI.current] : [])
+const diagnosticCount = computed(() => diagnosticUI.current?.diagnostics?.length || 0)
+function restoreFailure(failure) {
+  activeReviewAttempt = null
+  requestRevision += 1
+  loading.value = false
+  selectedFile.value = null
+  report.value = null
+  factValidationError.value = failure
+  diagnosticUI.restore(failure)
+}
+const diagnosticValue = value => value == null ? '未生成 / 未提供' : (typeof value === 'string' ? value : JSON.stringify(value, null, 2))
 const riskFilter = ref('全部')
 const coverageFilter = ref('全部')
 const issueTypeFilter = ref('全部')
@@ -773,7 +858,11 @@ function gateFailureText(gateName, gate) {
   const status = gate?.status
   if (!status || status === 'REPORT_READY') return ''
   const firstFailure = gate?.failures?.[0]
-  const reason = firstFailure?.root_cause || firstFailure?.failure_stage || '请重新执行审查，使用最新通过质量门的报告后再导出。'
+  const nested = firstFailure?.failures?.[0]
+  const nestedReason = nested?.review_id
+    ? `${nested.review_id}：${nested.status === 'NO_DIRECT_EVIDENCE' ? '原文证据尚未直接支持最终要素' : (nested.reason || nested.status || '要素与证据不一致')}`
+    : ''
+  const reason = firstFailure?.root_cause || nestedReason || firstFailure?.failure_stage || '当前报告尚未通过质量检查，请查看审查诊断。'
   return `${gateName}=${status}，${reason}`
 }
 
@@ -808,64 +897,32 @@ function formatStrategy(text) {
 
 // 用户风险画像
 const profileExpanded = ref(false)
-const userIdentity = ref('个人租客/买方')
-const contractScenario = ref('居住用途')
-const riskAppetite = ref('标准')
-const bargainingPosition = ref('均衡方')
-const jurisdiction = ref('北京')
-
-const identityOptions = computed(() => contractType.value === 'technology'
-  ? ['甲方', '乙方']
-  : ['个人租客/买方', '小微企业（≤50人）', '中型企业（50-500人）', '大型企业/投资者'])
-const scenarioOptions = computed(() => contractType.value === 'sale'
-  ? ['商品买卖', '商业经营']
-  : ['居住用途', '商业经营', '投资/转租'])
+const profileCatalog = ref({})
+const { userIdentity, contractScenario, riskAppetite, bargainingPosition, jurisdiction,
+  identityOptions, scenarioOptions, resetContext, buildProfile,
+  setProfilePreset } = useReviewProfile(contractType, profileCatalog)
 const appetiteOptions = ['保守', '标准', '激进']
 const positionOptions = ['强势方', '均衡方', '弱势方']
 const jurisdictionOptions = ['北京', '上海', '广州', '深圳', '杭州', '成都', '武汉', '南京', '重庆', '天津', '西安', '长沙']
 
-watch(contractType, (value) => {
+let requestRevision = 0
+let activeReviewAttempt = null
+let reviewTaskId = createRuntimeId()
+watch([contractType, selectedFile, userIdentity, contractScenario, riskAppetite,
+  bargainingPosition, jurisdiction, includeLowRisk, useLlmReview], () => {
+  requestRevision += 1
+  factValidationError.value = null
   report.value = null
-  if (value === 'technology' && !['甲方', '乙方'].includes(userIdentity.value)) {
-    userIdentity.value = '甲方'
-  } else if (value !== 'technology' && ['甲方', '乙方'].includes(userIdentity.value)) {
-    userIdentity.value = '个人租客/买方'
-  }
-  if (value === 'sale' && ['居住用途', '投资/转租'].includes(contractScenario.value)) {
-    contractScenario.value = '商品买卖'
-  } else if (value === 'house_lease' && contractScenario.value === '商品买卖') {
-    contractScenario.value = '居住用途'
-  }
-})
+}, { flush: 'sync' })
+watch(contractType, () => loadLlmStatus())
 
-function buildProfile() {
-  return {
-    user_identity: userIdentity.value,
-    contract_scenario: contractScenario.value,
-    risk_appetite: riskAppetite.value,
-    bargaining_position: bargainingPosition.value,
-    jurisdiction: jurisdiction.value,
+let catalogRequest
+async function loadProfileCatalog() {
+  if (!catalogRequest) {
+    catalogRequest = getReviewV2ProfileOptions().then(data => { profileCatalog.value = data })
+      .catch(error => { catalogRequest = null; throw error })
   }
-}
-
-// 画像快捷预设
-function setProfilePreset(preset) {
-  if (preset === 'conservative_individual') {
-    userIdentity.value = '个人租客/买方'
-    contractScenario.value = contractType.value === 'sale' ? '商品买卖' : '居住用途'
-    riskAppetite.value = '保守'
-    bargainingPosition.value = '弱势方'
-  } else if (preset === 'aggressive_investor') {
-    userIdentity.value = '大型企业/投资者'
-    contractScenario.value = '投资/转租'
-    riskAppetite.value = '激进'
-    bargainingPosition.value = '强势方'
-  } else if (preset === 'standard') {
-    userIdentity.value = '个人租客/买方'
-    contractScenario.value = contractType.value === 'sale' ? '商品买卖' : '居住用途'
-    riskAppetite.value = '标准'
-    bargainingPosition.value = '均衡方'
-  }
+  return catalogRequest
 }
 
 const filteredItems = computed(() => {
@@ -977,6 +1034,8 @@ function userFacingText(value) {
 }
 
 function legalConsequenceLabel(item) {
+  if (item.coverage_status === '待核验') return '待核验说明'
+  if (item.coverage_status === '风险条款') return '法律后果'
   if (item.coverage_status === '不适用') return '适用说明'
   if (item.coverage_status === '通过' && item.related_risks?.length) return '关联风险'
   if (item.coverage_status === '通过') return '残余风险'
@@ -984,6 +1043,7 @@ function legalConsequenceLabel(item) {
 }
 
 function legalConsequenceText(item) {
+  if (item.coverage_status === '待核验') return item.reasoning_summary
   if (item.coverage_status === '不适用') {
     return item.applicability?.reason || '本项不适用于当前合同。'
   }
@@ -993,11 +1053,11 @@ function legalConsequenceText(item) {
     }
     return '无明显残余风险'
   }
-  return item.legal_consequence_if_missing
+  return item.presentation?.legal_consequence || item.legal_consequence_if_missing
 }
 
 function suggestedClauseLabel(item) {
-  if (['不适用', '通过'].includes(item.coverage_status)) return ''
+  if (['不适用', '通过', '待核验'].includes(item.coverage_status)) return ''
   if (item.coverage_status === '部分覆盖') return '建议补充'
   if (item.coverage_status === '风险条款') return '建议修改原条款'
   return '建议新增'
@@ -1005,7 +1065,7 @@ function suggestedClauseLabel(item) {
 
 async function loadLlmStatus() {
   try {
-    const status = await getReviewV2LlmStatus()
+    const status = await getReviewV2LlmStatus(contractType.value)
     llmStatus.value = status
     if (!status.available) {
       useLlmReview.value = false
@@ -1014,7 +1074,7 @@ async function loadLlmStatus() {
     llmStatus.value = {
       available: false,
       configured_models: [],
-      message: '无法读取大模型状态，本次默认仅用合同原文审查。'
+      message: contractType.value === 'labor' ? '无法读取 DeepSeek 状态，请检查服务配置；劳动合同不会回退关键词审查。' : '无法读取大模型状态，本次默认仅用合同原文审查。'
     }
     useLlmReview.value = false
   } finally {
@@ -1024,6 +1084,7 @@ async function loadLlmStatus() {
 
 onMounted(() => {
   loadLlmStatus()
+  loadProfileCatalog().catch(() => ElMessage.error('风险画像选项加载失败，请重试审查'))
 })
 
 function handleFileChange(event) {
@@ -1039,6 +1100,14 @@ function handleDrop(event) {
 
 function setFile(file) {
   if (!file) return
+  reviewTaskId = createRuntimeId()
+  activeReviewAttempt = null
+  requestRevision += 1
+  diagnosticUI.reset()
+  loading.value = false
+  report.value = null
+  selectedFile.value = null
+  factValidationError.value = null
   const lowerName = file.name.toLowerCase()
   if (!lowerName.endsWith('.doc') && !lowerName.endsWith('.docx') && !lowerName.endsWith('.pdf')) {
     ElMessage.error('请上传 .doc、.docx 或 .pdf 文件')
@@ -1049,10 +1118,13 @@ function setFile(file) {
     return
   }
   selectedFile.value = file
+  factValidationError.value = null
+  resetContext()
   stepActive.value = 1
 }
 
 async function runReview() {
+  if (loading.value) return
   if (!selectedFile.value) {
     ElMessage.warning('请先上传合同文件')
     return
@@ -1062,19 +1134,32 @@ async function runReview() {
   // visible.  Clear request-scoped output before starting the next review so a
   // blocked/incomplete input cannot look as though it produced the stale result.
   report.value = null
+  factValidationError.value = null
+  const generation = diagnosticUI.reset()
+  const submittedFile = selectedFile.value
+  const attemptId = createRuntimeId()
+  activeReviewAttempt = attemptId
+  requestRevision += 1
   loading.value = true
   stepActive.value = 2
+  let submittedRevision = requestRevision
   try {
+    await loadProfileCatalog()
+    if (generation !== diagnosticUI.generation || selectedFile.value !== submittedFile) return
+    submittedRevision = requestRevision
     const data = await reviewContractV2File(
-      selectedFile.value,
+      submittedFile,
       contractType.value,
       includeLowRisk.value,
       useLlmReview.value,
-      buildProfile()
+      buildProfile(),
+      reviewTaskId
     )
+    if (submittedRevision !== requestRevision) return
+    // Result classification/profile belongs to the report, never the request form.
     report.value = {
       ...data,
-      filename: data.filename || selectedFile.value.name,
+      filename: data.filename || submittedFile.name,
       items: (data.items || []).map(item => ({
         ...item,
         review_status: item.review_status || '待处理',
@@ -1088,16 +1173,31 @@ async function runReview() {
     judgeSourceFilter.value = '全部'
     ElMessage.success('审查报告已生成')
   } catch (error) {
+    const failure = factFailure(error)
+    let saved = null
+    if (failure) {
+      saved = { ...failure, attempt_id: attemptId, document: { name: submittedFile.name, size: submittedFile.size, lastModified: submittedFile.lastModified }, filename: submittedFile.name, saved_at: new Date().toISOString() }
+      try { failureHistory.value = saveFailure(localStorage, failureStorageKey, saved, submittedFile.name); saved = failureHistory.value[0] }
+      catch { failureHistory.value = [saved, ...failureHistory.value]; ElMessage.warning('诊断已显示，但本地存储不可用') }
+    }
+    if (submittedRevision !== requestRevision) return
     report.value = null
+    factValidationError.value = failure
+    if (saved) diagnosticUI.show(saved, generation, true)
     stepActive.value = 1
     ElMessage.error(error.message || '审查失败')
   } finally {
-    loading.value = false
+    if (activeReviewAttempt === attemptId) {
+      activeReviewAttempt = null
+      loading.value = false
+      if (!report.value) stepActive.value = selectedFile.value ? 1 : 0
+    }
   }
 }
 
 function buildExportPayload() {
   return {
+    final_review_snapshot: report.value.final_review_snapshot,
     filename: report.value.filename || '合同审查报告',
     contract_type_name: report.value.contract_type_name,
     result: report.value.result,
@@ -1141,13 +1241,15 @@ function triggerBrowserDownload(blob, filename) {
 
 async function downloadReport(format) {
   if (!report.value) return
+  const exportingReport = report.value
   exportingType.value = format
   try {
     const payload = buildExportPayload()
     const blob = format === 'docx'
       ? await exportReviewV2Docx(payload)
       : await exportReviewV2Pdf(payload)
-    const baseName = (report.value.filename || '合同审查报告').replace(/\.[^/.]+$/, '')
+    if (report.value !== exportingReport) throw new Error('审查结果已更新，请导出当前最终报告。')
+    const baseName = (exportingReport.filename || '合同审查报告').replace(/\.[^/.]+$/, '')
     const extension = format === 'docx' ? 'docx' : 'pdf'
     triggerBrowserDownload(blob, `${baseName}_审查第二版报告.${extension}`)
     ElMessage.success(`${format === 'docx' ? 'Word' : 'PDF'}报告已开始下载`)
@@ -1159,7 +1261,14 @@ async function downloadReport(format) {
 }
 
 function resetAll() {
+  reviewTaskId = createRuntimeId()
+  activeReviewAttempt = null
+  diagnosticUI.reset()
+  loading.value = false
+  requestRevision += 1
+  factValidationError.value = null
   selectedFile.value = null
+  resetContext()
   report.value = null
   riskFilter.value = '全部'
   coverageFilter.value = '全部'
@@ -1216,6 +1325,8 @@ function riskLabel(level) {
 
 .control-panel,
 .report-panel {
+  min-width: 0;
+  overflow-wrap: anywhere;
   background: #fff;
   border: 1px solid #e6eaf2;
   border-radius: 8px;
@@ -1355,6 +1466,7 @@ function riskLabel(level) {
 
 .toolbar-actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 12px;
 }
@@ -1474,7 +1586,7 @@ function riskLabel(level) {
 
 .core-risk-row {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto minmax(0, 1fr);
   align-items: start;
   gap: 10px;
   padding: 10px;
@@ -2080,7 +2192,7 @@ function riskLabel(level) {
 
 @media (max-width: 980px) {
   .review-shell {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .summary-grid {
@@ -2093,5 +2205,23 @@ function riskLabel(level) {
     align-items: stretch;
     flex-direction: column;
   }
+
+  .toolbar-actions > .el-button + .el-button {
+    margin-left: 0;
+  }
 }
+</style>
+
+<style scoped>
+.fact-diagnostics {padding: 20px; border: 1px solid #dca15d; background: #fffaf2; color: #303133; margin-bottom: 20px;}
+.fact-diagnostics pre {white-space: pre-wrap; overflow-wrap: anywhere; margin: 6px 0;}
+.fact-diagnostics dd {margin: 4px 0 14px;}
+.fact-diagnostics dt {font-weight: 600;}
+.fact-diagnostics article {border-top: 1px solid #ddd; margin-top: 12px;}
+</style>
+
+<style scoped>
+.fact-diagnostics h2 button { border: 0; background: transparent; font: inherit; color: inherit; cursor: pointer; text-align: left; }
+.diagnostic-history { margin-bottom: 16px; }
+.diagnostic-history button { display: block; margin: 8px 0; cursor: pointer; }
 </style>

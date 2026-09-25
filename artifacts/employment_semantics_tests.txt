@@ -1,0 +1,33 @@
+..............F............                                              [100%]
+================================== FAILURES ===================================
+_ test_all_employment_prohibitions_share_negative_semantics[EMP-13-01-\u52b3\u52a8\u8005\u81ea\u613f\u653e\u5f03\u793e\u4f1a\u4fdd\u9669\u3002-\u4e0d\u5f97\u8981\u6c42\u52b3\u52a8\u8005\u81ea\u613f\u653e\u5f03\u793e\u4f1a\u4fdd\u9669\u3002] _
+
+rule = 'EMP-13-01', adverse = '劳动者自愿放弃社会保险。', protective = '不得要求劳动者自愿放弃社会保险。'
+
+    @pytest.mark.parametrize('rule,adverse,protective', [
+        ('EMP-13-01', '劳动者自愿放弃社会保险。', '不得要求劳动者自愿放弃社会保险。'),
+        ('EMP-14-01', '劳动者辞职须支付违约金5000元。', '不得约定劳动者辞职须支付违约金5000元。'),
+        ('EMP-15-01', '双方再次约定试用期。', '双方不得再次约定试用期。'),
+        ('EMP-16-01', '甲方可以随时解除劳动合同且无需支付经济补偿。', '不得约定甲方可以随时解除劳动合同且无需支付经济补偿。'),
+    ])
+    def test_all_employment_prohibitions_share_negative_semantics(rule, adverse, protective):
+        cp = checkpoint(rule)
+        assert cp.kind == 'forbidden' and cp.polarity == 'NEGATIVE_CLAUSE_CHECK'
+        for text, status in [('双方依法履行劳动合同。', '通过'), (protective, '通过'), (adverse, '风险条款')]:
+            judgment = judge(cp, parse_contract_clauses(text))
+            assert judgment.coverage_status == status
+            result = review(text)
+            row = item(result, rule)
+            assert row['coverage_status'] == status
+            assert row['decision_trace']['review_polarity'] == 'NEGATIVE_CLAUSE_CHECK'
+>           assert result['release_quality_gate']['status'] == 'REPORT_READY', result['release_quality_gate']['failures']
+E           AssertionError: [{'requirement': 'Finding Traceability', 'failure_stage': 'Report Consistency', 'root_cause': 'EMP-07-01 关联不存在的风险发现。', 'fix_owner': 'Risk Aggregator'}]
+E           assert 'BLOCKED' == 'REPORT_READY'
+E             
+E             - REPORT_READY
+E             + BLOCKED
+
+backend\tests\test_employment_fact_semantics.py:94: AssertionError
+=========================== short test summary info ===========================
+FAILED backend/tests/test_employment_fact_semantics.py::test_all_employment_prohibitions_share_negative_semantics[EMP-13-01-\u52b3\u52a8\u8005\u81ea\u613f\u653e\u5f03\u793e\u4f1a\u4fdd\u9669\u3002-\u4e0d\u5f97\u8981\u6c42\u52b3\u52a8\u8005\u81ea\u613f\u653e\u5f03\u793e\u4f1a\u4fdd\u9669\u3002]
+1 failed, 26 passed, 5 warnings in 17.77s

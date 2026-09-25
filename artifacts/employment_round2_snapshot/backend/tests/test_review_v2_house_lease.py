@@ -1,0 +1,1399 @@
+"""房屋租赁合同审查第二版测试。"""
+
+import json
+from pathlib import Path
+
+import pytest
+from docx import Document
+
+from review_v2.clause_parser import ParsedClause, SECTION_FORMAL, SECTION_SPECIAL_NOTICE, SECTION_USAGE, parse_contract_clauses
+from review_v2.engine import ReviewItemResult, _apply_final_quality_gate, review_contract_v2
+from review_v2.house_lease_checklist import HOUSE_LEASE_REVIEW_CHECKLIST
+from review_v2.house_lease_checklist import get_house_lease_checklist
+from review_v2.lease_contract_facts import extract_house_lease_facts, parse_template_options
+from review_v2.llm_semantic_reviewer import _judgment_from_model_result
+from review_v2.llm_semantic_reviewer import get_llm_review_status
+from review_v2.formula_parser import parse_penalty_formula
+from review_v2.scenario_engine import economic_impact_for_penalty, penalty_scenarios
+from review_v2.semantic_reviewer import classify_evidence_type
+from review_v2.user_profile import UserRiskProfile
+from routers.review_v2 import ReviewV2PdfInput, _build_docx, _build_pdf
+
+
+@pytest.fixture(autouse=True)
+def disable_llm_by_default(monkeypatch):
+    monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "false")
+
+
+def test_house_lease_checklist_has_50_core_points():
+    checklist = get_house_lease_checklist()
+    high_risk_ids = {checkpoint.item_id for checkpoint in checklist if checkpoint.risk_level == "高"}
+
+    assert len(checklist) == 50
+    assert checklist[0].item_id == "HL-001"
+    assert checklist[-1].item_id == "HL-050"
+    assert checklist[37].node_id == "overbroad_damage_clause"
+    assert high_risk_ids == {
+        "HL-010",
+        "HL-039",
+        "HL-043",
+    }
+    natural_wear = next(checkpoint for checkpoint in checklist if checkpoint.item_id == "HL-034")
+    assert natural_wear.risk_level == "低"
+
+
+def test_llm_status_reports_env_and_model_key(monkeypatch):
+    monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "true")
+    monkeypatch.delenv("DASHSCOPE_API_KEY", raising=False)
+    monkeypatch.delenv("ARK_API_KEY", raising=False)
+    monkeypatch.delenv("DEEPSEEK_API_KEY", raising=False)
+
+    status = get_llm_review_status()
+    assert status["enabled_by_env"] is True
+    assert status["has_model_key"] is False
+    assert status["available"] is False
+
+    monkeypatch.setenv("DASHSCOPE_API_KEY", "test-key")
+    status = get_llm_review_status()
+    assert status["has_model_key"] is True
+    assert status["available"] is True
+    assert "qwen" in status["configured_models"]
+
+    monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "false")
+    status = get_llm_review_status()
+    assert status["enabled_by_env"] is False
+    assert status["available"] is False
+
+
+def test_review_v2_returns_fixed_review_format_without_verdict_language():
+    output = review_contract_v2(
+        "出租人将房屋出租给承租人，约定租金每月3000元，押金6000元。",
+        "house_lease",
+    )
+
+    assert output["success"] is True
+    assert output["contract_type"] == "house_lease"
+    assert output["all_items_count"] == 50
+    assert len(output["items"]) == 50
+    first_item = output["items"][0]
+    assert "risk_point_description" in first_item
+    assert "suggested_clause_example" in first_item
+    assert "legal_basis_index" in first_item
+    assert "coverage_status" in first_item
+    assert "issue_type" in first_item
+    assert "legal_consequence_if_missing" in first_item
+    assert "evidence_clauses" in first_item
+    assert "evidence_location" in first_item
+    assert "reasoning_summary" in first_item
+    assert "judge_source" in first_item
+    assert "llm_confidence" in first_item
+    assert "fallback_reason" in first_item
+    assert "judge_source_summary" in output
+    assert output["judge_source_summary"]["rule_fallback"] == 50
+    assert "issue_type_summary" in output
+    assert sum(output["issue_type_summary"].values()) == output["all_items_count"]
+    assert sum(output["summary"].values()) == output["all_items_count"]
+    assert all(item["issue_type"] for item in output["items"])
+    assert all(item["legal_consequence_if_missing"] for item in output["items"])
+    assert "llm_status" in output
+    assert "global_fallback_reason" in output
+    assert "【风险点描述】" in output["result"]
+    assert "【正式建议】" in output["result"]
+    assert "【法律依据】" in output["result"]
+    assert "本报告基于完整合同模板逐项审查" in output["result"]
+    assert output["report_notice"].startswith("本报告基于完整合同模板逐项审查")
+    forbidden_words = ("判决结果", "裁判结论", "驳回请求", "押金全额返还", "扣除维修费后返还余额", "承租方应赔偿")
+    assert not any(word in output["result"] for word in forbidden_words)
+
+
+def test_medium_and_high_risk_items_include_reasoning_chain_and_citation():
+    output = review_contract_v2(
+        "第六条 押金。乙方应向甲方支付押金6000元，甲方收到押金后出具收款凭证。",
+        "house_lease",
+        use_llm=False,
+    )
+
+    traceable_items = [item for item in output["items"] if item["risk_level"] in {"高", "中"}]
+    assert traceable_items
+
+    for item in traceable_items:
+        assert item["reasoning"].startswith("【推理过程】")
+        for marker in ("证据：", "规则：", "判断：", "结论："):
+            assert marker in item["reasoning"]
+        assert item["reasoning"].count("↓") == 3
+        assert item["citation"]["clause_number"]
+        assert item["citation"]["original_excerpt"]
+        assert item["citation"]["position_description"]
+
+    missing = next(item for item in traceable_items if item["coverage_status"] == "缺失")
+    assert missing["citation"]["original_excerpt"] == "无正式条款证据"
+
+    assert "【推理过程】" not in output["result"]
+    assert any(item["reasoning"].startswith("【推理过程】") for item in output["items"])
+    assert "【证据定位】" in output["result"]
+
+
+def test_review_v2_can_filter_low_risk_items():
+    output = review_contract_v2(
+        "出租人和承租人约定房屋所在地法院管辖，押金为6000元，退租交接后七日内退还押金。",
+        "house",
+        include_low_risk=False,
+    )
+
+    assert output["success"] is True
+    assert len(output["items"]) < 50
+    assert output["summary"]["高"] > 0
+    assert all(item["risk_level"] in {"高", "中"} for item in output["items"])
+
+
+def test_review_v2_detects_overbroad_damage_clause_as_risky_clause():
+    output = review_contract_v2(
+        "合同约定：租赁期间任何损坏均由租客赔偿，出租人可直接扣除押金。",
+        "房屋租赁合同",
+    )
+
+    item = next(item for item in output["items"] if item["item_id"] == "HL-038")
+    assert item["risk_level"] == "中"
+    assert item["status"] == "发现风险条款"
+    assert item["coverage_status"] == "风险条款"
+    assert "明显加重承租人责任" in item["risk_point_description"]
+    assert item["evidence_clauses"]
+
+
+def test_review_v2_marks_covered_item_low_risk():
+    output = review_contract_v2(
+        "双方约定租赁期满后承租人继续居住且出租人继续收租、未续签书面合同的，转为不定期租赁，任何一方提前一个月通知。",
+        "house_lease",
+    )
+
+    item = next(item for item in output["items"] if item["item_id"] == "HL-013")
+    assert item["risk_level"] == "低"
+    assert item["coverage_status"] == "通过"
+    assert item["status"] == "已覆盖"
+
+
+def test_conservative_profile_does_not_bulk_promote_medium_house_lease_risks():
+    output = review_contract_v2(
+        "第十一条 争议解决：依法向房屋所在地浦东新区人民法院起诉。"
+        "第九条 乙方逾期不支付租金累计超过1个月的，甲方可以解除本合同。",
+        "house_lease",
+        include_low_risk=True,
+        use_llm=False,
+        profile=UserRiskProfile.conservative_individual_tenant(),
+    )
+    by_id = {item["item_id"]: item for item in output["items"]}
+
+    assert output["summary"]["高"] <= 12
+    assert by_id["HL-001"]["risk_level"] == "低"
+    assert by_id["HL-001"]["coverage_status"] == "通过"
+    assert by_id["HL-015"]["risk_level"] == "低"
+    assert by_id["HL-015"]["coverage_status"] == "通过"
+    for item_id in ("HL-007", "HL-008", "HL-009", "HL-013", "HL-019", "HL-026", "HL-041", "HL-042", "HL-047", "HL-049"):
+        assert by_id[item_id]["risk_level"] != "高"
+    assert "对你而言建议修改" not in by_id["HL-007"]["reasoning_summary"]
+    assert by_id["HL-007"]["review_priority"] == "C_OPTIMIZATION"
+    assert by_id["HL-007"]["action_suggestion"] == "可选优化"
+
+
+def test_real_house_lease_jurisdiction_renewal_and_termination_corrections():
+    output = review_contract_v2(
+        "\n".join(
+            [
+                "第八条 租赁期满，乙方需继续承租的，应提前一个月向甲方提出续租要求，双方另行签订租赁合同。",
+                "第九条 解除条件。甲方未按时交付房屋、乙方擅自改变用途、乙方逾期不支付租金累计超过1个月或者擅自转租的，守约方可以书面通知解除本合同。",
+                "第十一条 争议解决。双方协商不成的，依法向房屋所在地浦东新区人民法院起诉。",
+            ]
+        ),
+        "house_lease",
+        include_low_risk=True,
+        use_llm=False,
+    )
+    by_id = {item["item_id"]: item for item in output["items"]}
+
+    assert by_id["HL-001"]["risk_level"] == "低"
+    assert by_id["HL-001"]["coverage_status"] == "通过"
+    assert "浦东新区人民法院" in by_id["HL-001"]["evidence_clauses"][0]["text"]
+
+    assert by_id["HL-007"]["risk_level"] == "低"
+    assert by_id["HL-007"]["coverage_status"] == "缺失"
+    assert by_id["HL-007"]["decision_trace"]["default_law_status"] == "CLEAR_DEFAULT"
+    assert by_id["HL-007"]["action_priority"] == "C_OPTIMIZATION"
+
+    assert by_id["HL-017"]["risk_level"] == "低"
+    assert by_id["HL-017"]["coverage_status"] == "通过"
+    assert "逾期不支付租金累计超过1个月" in by_id["HL-017"]["evidence_clauses"][0]["text"]
+
+
+def test_indefinite_lease_missing_reason_explains_article_734_and_suggested_risk():
+    output = review_contract_v2(
+        "租赁期限为一年，租期届满后乙方应当交还房屋。",
+        "house_lease",
+        use_llm=False,
+    )
+
+    item = next(item for item in output["items"] if item["item_id"] == "HL-013")
+    assert item["risk_level"] == "中"
+    assert item["coverage_status"] == "缺失"
+    assert "《民法典》第734条" in item["reasoning_summary"]
+    assert "不定期" in item["reasoning_summary"]
+    assert "建议性补充条款" in item["reasoning_summary"]
+
+
+def test_review_v2_rejects_unsupported_type_without_crashing():
+    output = review_contract_v2("测试合同文本", "unknown_contract")
+
+    assert output["success"] is False
+    assert output["items"] == []
+    assert "当前支持" in output["message"]
+    assert "房屋租赁合同" in output["message"]
+    assert "买卖合同" in output["message"]
+    assert "赠与合同" in output["message"]
+
+
+def test_clause_parser_separates_notice_and_formal_terms():
+    text = """
+使用说明
+本说明仅供参考。
+特别提示
+出租人应注意提示承租人不得违法使用。
+甲方（出租人）：
+乙方（承租人）：
+第一条 房屋基本情况
+（一）该房屋坐落于北京市朝阳区。
+第二条 租赁用途
+该房屋的租赁用途为居住。未经甲方同意，乙方不得变更租赁用途。
+附件一 房屋交割单
+水电读数：____。
+"""
+    clauses = parse_contract_clauses(text)
+
+    assert any(clause.section_type == SECTION_USAGE for clause in clauses)
+    assert any(clause.section_type == SECTION_SPECIAL_NOTICE for clause in clauses)
+    assert any(clause.section_type == SECTION_FORMAL for clause in clauses)
+    assert any(clause.location.startswith("第二条") for clause in clauses)
+
+
+def test_clause_parser_splits_unstructured_contract_lines():
+    text = (
+        "2023年3月1日，原告（出租人）与被告（承租人）签订《房屋租赁合同》，约定：\n"
+        "月租金为人民币12,000元，按季度支付，每季度首月5日前支付当季租金；\n"
+        "押金为人民币36,000元，合同终止时结清各项费用后无息返还；"
+    )
+    clauses = parse_contract_clauses(text)
+
+    assert len(clauses) >= 3
+    assert clauses[0].location == "第1段"
+    assert not any(clause.location == "全文" for clause in clauses)
+
+
+def test_negated_phrase_does_not_pollute_later_matches():
+    output = review_contract_v2(
+        "第六条 押金。押金不计息。出租人收到押金后应向承租人出具押金收款凭证。"
+        "第二条 租赁用途。该房屋的租赁用途为居住，乙方不得变更租赁用途。",
+        "house_lease",
+    )
+
+    deposit = next(item for item in output["items"] if item["item_id"] == "HL-028")
+    use_restriction = next(item for item in output["items"] if item["item_id"] == "HL-048")
+    assert deposit["coverage_status"] == "部分覆盖"
+    assert any(e['element_id'] == 'deposit_sum' and e['status'] == 'MISSING' for e in deposit['coverage_elements'])
+    assert any(e['element_id'] == 'deposit_obligation' and e['status'] == 'COVERED' for e in deposit['coverage_elements'])
+    assert use_restriction["coverage_status"] == "通过"
+
+
+def test_blank_values_are_partial_coverage():
+    output = review_contract_v2(
+        "第五条 租金。该房屋月租金为             元。"
+        "第六条 押金。乙方应向甲方支付押金            元，甲方收到押金后出具收款凭证。",
+        "house_lease",
+    )
+
+    item = next(item for item in output["items"] if item["item_id"] == "HL-028")
+    assert item["coverage_status"] == "部分覆盖"
+    assert item["issue_type"] == "模板空白"
+    assert item["risk_level"] == "中"
+    assert "空白" in item["reasoning_summary"]
+
+
+def test_rule_review_does_not_pass_generic_party_or_deposit_deadline():
+    output = review_contract_v2(
+        "2023年3月1日，原告（出租人）与被告（承租人）签订《房屋租赁合同》，约定：\n"
+        "押金为人民币36,000元，合同终止时结清各项费用后无息返还；\n"
+        "租赁期满或合同解除后，承租人应在7日内搬离并交还房屋。",
+        "house_lease",
+        use_llm=False,
+    )
+
+    party = next(item for item in output["items"] if item["item_id"] == "HL-002")
+    deadline = next(item for item in output["items"] if item["item_id"] == "HL-043")
+    sublease = next(item for item in output["items"] if item["item_id"] == "HL-016")
+    demolition = next(item for item in output["items"] if item["item_id"] == "HL-024")
+    repair = next(item for item in output["items"] if item["item_id"] == "HL-026")
+    indefinite = next(item for item in output["items"] if item["item_id"] == "HL-013")
+    offset = next(item for item in output["items"] if item["item_id"] == "HL-042")
+    assert party["coverage_status"] == "通过"
+    assert party["issue_type"] == "通过"
+    assert party["risk_level"] == "低"
+    assert party["fallback_reason"] == "案件文书摘录来源豁免"
+    assert deadline["coverage_status"] == "部分覆盖"
+    assert deadline["risk_level"] == "中"
+    assert deadline["issue_type"] == "条款缺陷"
+    assert sublease["coverage_status"] != "通过"
+    assert sublease["coverage_status"] == "缺失"
+    assert sublease["evidence_clauses"] == []
+    assert demolition["coverage_status"] != "通过"
+    assert repair["coverage_status"] != "通过"
+    assert indefinite["coverage_status"] != "通过"
+    assert offset["coverage_status"] != "通过"
+    assert offset["evidence_clauses"] == []
+    assert offset["decision_trace"]["negative_evidence"]["result"] == "NOT_FOUND"
+    assert party["evidence_location"] != "全文"
+
+
+def test_house_lease_unified_fact_graph_keeps_repair_and_natural_wear_consistent():
+    contract_text = (
+        "甲方（出租人）：张三 身份证号：310101198001010000 联系地址：上海市浦东新区。\n"
+        "乙方（承租人）：李四 身份证号：310101199001010000 联系地址：上海市浦东新区。\n"
+        "第一条 房屋信息。房屋坐落：上海市浦东新区测试路1号，产证编号：沪房地浦字2020第081234号，权利人：张三。\n"
+        "第三条 租赁期限。自2025年1月1日起至2025年12月31日止。\n"
+        "第四条 租金。月租金3852元。乙方应于【每月5日前】☑【________】向甲方支付租金，租金支付方式：☑银行转账 □_____________，收款账户：622200123456789。\n"
+        "第五条 押金。押金3000元，不计息，合同终止时结清费用后返还。\n"
+        "第六条 维修责任。\n"
+        "（一）因房屋及附属设施自然老化、正常损耗或非乙方原因发生损坏的，由甲方负责维修并承担费用。\n"
+        "（二）因乙方使用不当或过错造成损坏的，由乙方赔偿维修费用。\n"
+        "第七条 安全。甲方保证房屋处于安全状态；危险房屋或房屋缺陷危及乙方安全的，乙方可以解除合同；维修不及时造成人身伤害的，甲方承担赔偿责任。\n"
+        "第八条 转租。未经甲方书面同意，乙方不得擅自转租。\n"
+        "第九条 解除。乙方逾期不支付租金累计超过1个月的，甲方可解除合同。因不可抗力导致无法继续履行的，双方可解除并按实际使用期间结算。\n"
+        "第十条 违约责任。乙方中途擅自退租的，应按提前退租天数的租金的2倍向甲方支付违约金。\n"
+        "第十一条 争议解决。\n"
+        "□提交________仲裁委员会仲裁；☑依法向房屋所在地浦东新区人民法院起诉。"
+    )
+
+    facts = extract_house_lease_facts(contract_text)
+    assert facts.repair.natural_wear == "landlord"
+    assert facts.repair.tenant_fault == "tenant"
+    assert facts.early_termination.tenant_formula == "remaining_term_rent × 2"
+    assert facts.deposit.return_deadline is None
+    assert facts.jurisdiction.court == "浦东新区人民法院"
+    assert facts.jurisdiction.type == "court"
+    assert facts.rent.payment_method == "transfer"
+    assert facts.rent.payment_due_day == "5"
+    assert facts.rent.payment_cycle == "monthly"
+    assert facts.rent.payment_account == "622200123456789"
+    assert "□" not in facts.rent.payment_method
+    assert facts.termination.rent_default.exists is True
+    assert facts.termination.rent_default.threshold_value == 1
+    assert facts.termination.rent_default.threshold_unit == "month"
+    assert facts.termination.rent_default.effect == "termination"
+    assert facts.force_majeure.is_defined is True
+    assert facts.safety.dangerous_house_termination is True
+    assert facts.nodes["jurisdiction.court"].selected is True
+    assert facts.nodes["jurisdiction.court"].source_type == "explicit_clause"
+    assert facts.nodes["jurisdiction.court"].evidence[0].clause_id
+    assert facts.nodes["jurisdiction.arbitration_body"].selected is False
+    assert facts.nodes["jurisdiction.arbitration_body"].value is None
+    assert facts.nodes["termination.tenant.rent_default.threshold_value"].value == 1
+    assert facts.nodes["termination.tenant.rent_default.threshold_unit"].value == "month"
+    assert facts.nodes["termination.tenant.rent_default.effect"].value == "termination"
+
+    output = review_contract_v2(contract_text, "house_lease", use_llm=False)
+    assert output["contract_facts"]["repair"]["natural_wear"] == "landlord"
+    assert output["contract_facts"]["fact_nodes"]["rent.payment_due_day"]["value"] == "5"
+    assert output["contract_facts"]["early_termination"]["tenant"]["penalty_formula"]["type"] == "remaining_term_rent_multiplier"
+    by_id = {item["item_id"]: item for item in output["items"]}
+
+    assert by_id["HL-003"]["coverage_status"] != "缺失"
+    assert by_id["HL-014"]["coverage_status"] == "部分覆盖"
+    assert by_id["HL-015"]["coverage_status"] == "通过"
+    assert by_id["HL-015"]["fact_dependencies"] == ["termination.tenant.rent_default.exists"]
+    assert by_id["HL-025"]["coverage_status"] == "部分覆盖"
+    assert by_id["HL-026"]["risk_level"] == "低"
+    assert by_id["HL-026"]["coverage_status"] == "通过"
+    assert any("甲方负责维修" in e["text"] for e in by_id["HL-026"]["evidence_clauses"])
+    assert by_id["HL-036"]["coverage_status"] == "通过"
+    assert by_id["HL-034"]["risk_level"] == "低"
+    assert by_id["HL-034"]["coverage_status"] == "通过"
+    assert any("正常损耗" in e["text"] and "甲方" in e["text"] for e in by_id["HL-034"]["evidence_clauses"])
+    assert by_id["HL-043"]["risk_level"] == "中"
+    assert by_id["HL-043"]["coverage_status"] == "部分覆盖"
+    assert any(e["element_id"] == "return_deadline" and e["status"] == "MISSING" for e in by_id["HL-043"]["coverage_elements"])
+    assert by_id["HL-001"]["coverage_status"] == "通过"
+    assert "浦东新区人民法院" in by_id["HL-001"]["evidence_clauses"][0]["text"]
+    assert by_id["HL-029"]["evidence_clauses"]
+    assert by_id["HL-029"]["applicability"]["applicable"] is True
+    assert by_id["HL-030"]["coverage_status"] == "不适用"
+    assert by_id["HL-030"]["risk_level"] == "none"
+    assert by_id["HL-030"]["risk_level"] == "不适用"
+    assert by_id["HL-030"]["issue_type"] == "不适用"
+    assert by_id["HL-030"]["applicability"]["applicable"] is False
+    assert by_id["HL-030"]["fact_dependencies"] == ["early_termination.exists"]
+    assert output["coverage_summary"]["不适用"] >= 1
+    assert by_id["HL-039"]["scenario_analysis"]["formula"]["base"] == "remaining_term_rent"
+    assert by_id["HL-039"]["scenario_analysis"]["formula"]["party"] == "tenant"
+    assert by_id["HL-039"]["scenario_analysis"]["formula"]["beneficiary"] == "landlord"
+    assert {case["remaining_days"] for case in by_id["HL-039"]["scenario_analysis"]["cases"]} == {30, 90, 180, 300}
+    assert all(case["estimated"] is True for case in by_id["HL-039"]["scenario_analysis"]["cases"])
+    assert all("penalty_monthly_rent_multiple" in case for case in by_id["HL-039"]["scenario_analysis"]["cases"])
+    assert by_id["HL-039"]["economic_impact"] in {"medium", "high"}
+    assert "月租金×2" not in by_id["HL-039"]["reasoning_summary"]
+    assert by_id["HL-049"]["coverage_status"] == "通过"
+    assert "rent.payment_due_day" in by_id["HL-049"]["fact_dependencies"]
+    assert by_id["HL-015"]["claims"][0]["concept"] == "tenant_rent_default_threshold"
+    assert output["quality_gate"]["claims_count"] >= 3
+    assert output["quality_gate"]["flag_count"] == 0
+
+
+def test_house_lease_checkbox_payment_schedule_generalizes_selected_values():
+    monthly = extract_house_lease_facts("第四条 租金。乙方应于【每月5日前】☑【_____】向甲方支付租金，租金支付方式：☑银行转账 □_____。")
+    assert monthly.rent.payment_due_day == "5"
+    assert monthly.rent.payment_cycle == "monthly"
+    assert monthly.rent.payment_method == "transfer"
+
+    quarterly = extract_house_lease_facts("第四条 租金。乙方应于【每季度10日前】☑【_____】向甲方支付租金。")
+    assert quarterly.rent.payment_due_day == "10"
+    assert quarterly.rent.payment_cycle == "quarterly"
+
+    court = extract_house_lease_facts("第十一条 争议解决。□提交________仲裁委员会仲裁；☑依法向房屋所在地浦东新区人民法院起诉。")
+    assert court.jurisdiction.type == "court"
+    assert court.jurisdiction.court == "浦东新区人民法院"
+    assert court.nodes["jurisdiction.arbitration_body"].selected is False
+    assert court.nodes["jurisdiction.arbitration_body"].value is None
+
+    party_options = parse_template_options("维修责任由【甲方】☐【乙方】☑承担。")
+    selected_labels = [option.label for option in party_options if option.selected and not option.blank]
+    assert selected_labels == ["乙方"]
+
+
+def test_house_lease_canonical_clause_model_keeps_template_option_ast():
+    clauses = parse_contract_clauses(
+        "第四条 租金。乙方应于【每月5日前】☑【_____】向甲方支付租金，租金支付方式：☑银行转账 □现金。"
+    )
+    clause = clauses[0]
+
+    assert clause.raw_text == clause.text
+    assert " " not in clause.normalized_text
+    assert clause.source == "body"
+    assert clause.option_groups
+    labels = [option["text"] for option in clause.option_groups[0]["options"] if option["selected"]]
+    assert labels == ["每月5日前", "银行转账"]
+
+
+def test_house_lease_formula_parser_and_scenario_engine_share_one_formula_shape():
+    formula = parse_penalty_formula("乙方中途擅自退租的，应按提前退租天数的租金的2倍向甲方支付违约金。")
+    scenarios = penalty_scenarios(formula, "3852元")
+
+    assert formula["type"] == "remaining_term_rent_multiplier"
+    assert formula["base"] == "remaining_term_rent"
+    assert formula["multiplier"] == 2
+    assert scenarios["scenarios"]["remaining_300_days"] == 77040
+    assert economic_impact_for_penalty(scenarios) == "high"
+    assert scenarios["cases"][-1]["penalty_to_remaining_rent_ratio"] == 2
+
+
+def test_house_lease_production_invariants_generalize_across_sentinel_contracts():
+    contract_a = review_contract_v2(
+        "第四条 租金。月租金3000元。\n第十条 提前退租。乙方中途擅自退租的，应按提前退租天数的租金的2倍支付违约金。",
+        "house_lease",
+        use_llm=False,
+    )
+    by_id_a = {item["item_id"]: item for item in contract_a["items"]}
+    assert contract_a["contract_facts"]["early_termination"]["exists"] is True
+    assert by_id_a["HL-030"]["coverage_status"] == "不适用"
+    assert by_id_a["HL-030"]["applicability"]["applicable"] is False
+
+    contract_b = review_contract_v2(
+        "第四条 租金。月租金3000元，每月5日前支付。\n第九条 解除。乙方逾期不支付租金累计超过1个月的，甲方可解除合同。",
+        "house_lease",
+        use_llm=False,
+    )
+    by_id_b = {item["item_id"]: item for item in contract_b["items"]}
+    assert contract_b["contract_facts"]["early_termination"]["exists"] is False
+    assert by_id_b["HL-030"]["applicability"]["applicable"] is True
+    assert by_id_b["HL-030"]["coverage_status"] != "不适用"
+
+    facts_c = extract_house_lease_facts("第九条 解除。乙方连续两个月未支付租金的，甲方可解除合同。")
+    assert facts_c.termination.rent_default.exists is True
+    assert facts_c.termination.rent_default.threshold_value == 2
+    assert facts_c.termination.rent_default.threshold_unit == "month"
+
+    facts_d = extract_house_lease_facts("第四条 租金。乙方应于【每季度10日前】☑【_____】向甲方支付租金。")
+    assert facts_d.rent.payment_cycle == "quarterly"
+    assert facts_d.rent.payment_due_day == "10"
+
+    formula_e = parse_penalty_formula("乙方提前解除合同的，应向甲方支付2个月租金作为违约金。")
+    formula_f = parse_penalty_formula("乙方提前解除合同的，应按剩余租期租金2倍向甲方支付违约金。")
+    assert formula_e["type"] == "monthly_rent_multiplier"
+    assert formula_f["type"] == "remaining_term_rent_multiplier"
+    assert formula_e["type"] != formula_f["type"]
+
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        ("甲方身份证号310101，乙方联系电话13800000000。", "party_identity"),
+        ("该房屋存在抵押，抵押权人为某银行。", "mortgage"),
+        ("月租金3852元，每月5日前支付至收款账户。", "rent"),
+        ("押金6000元，合同终止后返还。", "deposit"),
+        ("乙方逾期不支付租金累计超过1个月，甲方可解除合同。", "rent_default"),
+        ("因不可抗力导致无法继续履行的，双方可解除。", "force_majeure"),
+        ("危险房屋或房屋缺陷危及乙方安全的，乙方可以解除合同。", "safety"),
+    ],
+)
+def test_house_lease_evidence_classifier_uses_domain_concepts(text, expected):
+    assert classify_evidence_type(text) == expected
+
+
+@pytest.mark.parametrize(
+    ("sentence", "threshold_type", "value", "unit", "requires_notice"),
+    [
+        ("乙方连续两个月未支付租金的，甲方可解除合同。", "duration", 2, "month", False),
+        ("乙方拖欠租金超过30日的，甲方可解除合同。", "duration", 30, "day", False),
+        ("乙方累计欠租达到两期的，甲方可解除合同。", "period_count", 2, "period", False),
+        ("乙方累计欠付租金超过人民币10000元的，甲方可解除合同。", "amount", 10000, "yuan", False),
+        ("经催告后10日仍未支付的，甲方可解除合同。", "notice_grace_period", 10, "day", True),
+        ("乙方逾期支付租金超过一个月的，甲方可解除合同。", "duration", 1, "month", False),
+        ("乙方连续三期未按时支付租金的，甲方可解除合同。", "period_count", 3, "period", False),
+    ],
+)
+def test_house_lease_rent_default_threshold_variants(sentence, threshold_type, value, unit, requires_notice):
+    facts = extract_house_lease_facts(f"第九条 解除。{sentence}")
+    rent_default = facts.termination.rent_default
+    assert rent_default.exists is True
+    assert rent_default.threshold_type == threshold_type
+    assert rent_default.threshold_value == value
+    assert rent_default.threshold_unit == unit
+    assert rent_default.requires_notice is requires_notice
+    assert rent_default.effect == "termination"
+    assert facts.nodes["termination.tenant.rent_default.threshold_type"].value == threshold_type
+
+
+def test_house_lease_mortgage_disclosure_does_not_pass_move_in_defect_notice():
+    output = review_contract_v2(
+        "第一条 房屋信息。该房屋存在抵押，抵押权人为某银行，乙方已知悉。\n"
+        "第三条 租赁期限。自2025年1月1日至2025年12月31日。\n"
+        "第四条 租金。月租金3000元，每月5日前支付。",
+        "house_lease",
+        use_llm=False,
+    )
+    item = next(item for item in output["items"] if item["item_id"] == "HL-040")
+    assert item["coverage_status"] != "通过"
+    assert item["semantic_entailment"] in {False, None}
+    if item["evidence_type"]:
+        assert item["evidence_type"] != "physical_defect"
+
+
+def test_cross_review_consistency_repairs_rent_default_contradiction():
+    hl015 = ReviewItemResult(
+        item_id="HL-015",
+        node_id="rent_default_material_breach",
+        title="欠租重大违约标准",
+        risk_level="中",
+        status="缺失或不明确",
+        risk_point_description="未约定欠租重大违约标准。",
+        suggested_clause_example="",
+        legal_basis_index="《民法典》第563条",
+        legal_consequence_if_missing="",
+        applicable_if="",
+        matched_terms=[],
+        coverage_status="缺失",
+        issue_type="完全缺失",
+        evidence_clauses=[],
+        evidence_location="",
+        reasoning_summary="未发现欠租标准。",
+    )
+    hl017 = ReviewItemResult(
+        item_id="HL-017",
+        node_id="agreed_termination_events",
+        title="约定解除事由",
+        risk_level="低",
+        status="已覆盖",
+        risk_point_description="解除事由已覆盖。",
+        suggested_clause_example="",
+        legal_basis_index="《民法典》第563条",
+        legal_consequence_if_missing="",
+        applicable_if="",
+        matched_terms=["欠租"],
+        coverage_status="通过",
+        issue_type="通过",
+        evidence_clauses=[
+            {
+                "clause_id": "C9",
+                "location": "第九条",
+                "title": "解除",
+                "text": "乙方逾期不支付租金累计超过1个月的，甲方可解除合同。",
+                "section_type": "正式合同条款",
+                "level": 1,
+            }
+        ],
+        evidence_location="第九条",
+        reasoning_summary="合同已约定欠租解除事由。",
+    )
+
+    items, gate = _apply_final_quality_gate([hl015, hl017], None, "lease")
+    by_id = {item.item_id: item for item in items}
+
+    assert any(flag["type"] == "cross_review_contradiction" for flag in gate["flags"])
+    assert by_id["HL-015"].coverage_status == "通过"
+    assert by_id["HL-015"].evidence_location == "第九条"
+
+
+def test_case_document_excerpt_exempts_party_identity_details():
+    output = review_contract_v2(
+        "2023年3月1日，原告（出租人）与被告（承租人）签订《房屋租赁合同》，约定月租金12000元、押金36000元。"
+        "原告诉称被告退租后未结清费用，被告辩称押金应予返还。",
+        "house_lease",
+        use_llm=False,
+    )
+
+    party = next(item for item in output["items"] if item["item_id"] == "HL-002")
+    assert party["coverage_status"] == "通过"
+    assert party["issue_type"] == "通过"
+    assert party["risk_level"] == "低"
+    assert party["fallback_reason"] == "案件文书摘录来源豁免"
+
+
+def test_third_party_tort_does_not_recall_fee_or_decoration_terms():
+    output = review_contract_v2(
+        "第七条 费用。甲方承担物业费、水费、电费；乙方承担网络使用费、燃气费。\n"
+        "第九条 装修。乙方装修过程中不得破坏房屋主体结构，并遵守物业管理规定。",
+        "house_lease",
+        use_llm=False,
+    )
+
+    item = next(item for item in output["items"] if item["item_id"] == "HL-006")
+    assert item["coverage_status"] == "缺失"
+    assert item["issue_type"] == "完全缺失"
+    assert item["evidence_clauses"] == []
+
+    defect = next(item for item in output["items"] if item["item_id"] == "HL-023")
+    assert defect["risk_level"] == "低"
+    assert defect["coverage_status"] == "缺失"
+    assert defect["issue_type"] == "完全缺失"
+    assert defect["evidence_clauses"] == []
+
+
+def test_notice_delivery_does_not_recall_advance_notice_only():
+    output = review_contract_v2(
+        "第十五条 提前解除。乙方提前退租的，应提前30日书面通知甲方，并按实际使用期间结算费用。",
+        "house_lease",
+        use_llm=False,
+    )
+
+    item = next(item for item in output["items"] if item["item_id"] == "HL-005")
+    assert item["risk_level"] == "中"
+    assert item["coverage_status"] == "缺失"
+    assert item["issue_type"] == "完全缺失"
+    assert item["evidence_clauses"] == []
+
+
+def test_expropriation_demolition_requires_direct_clause_not_generic_termination():
+    output = review_contract_v2(
+        "第五条 押金。合同终止时，乙方结清费用后，甲方无息返还押金。\n"
+        "第十五条 合同解除。任何一方提前解除合同的，应提前30日书面通知对方。",
+        "house_lease",
+        use_llm=False,
+    )
+
+    item = next(item for item in output["items"] if item["item_id"] == "HL-024")
+    assert item["risk_level"] == "中"
+    assert item["coverage_status"] == "缺失"
+    assert item["issue_type"] == "完全缺失"
+    assert item["evidence_clauses"] == []
+
+
+def test_llm_selected_surface_keyword_evidence_is_downgraded_to_missing():
+    by_id = {checkpoint.item_id: checkpoint for checkpoint in HOUSE_LEASE_REVIEW_CHECKLIST}
+    cases = [
+        ("HL-005", "第十五条 提前解除。乙方提前退租的，应提前30日书面通知甲方。"),
+        ("HL-023", "第七条 费用。水费、电费、燃气费、物业管理费由乙方承担。"),
+        ("HL-024", "第五条 押金。合同终止时，乙方结清费用后，甲方无息返还押金。"),
+    ]
+
+    for item_id, text in cases:
+        clause = ParsedClause(
+            clause_id=f"{item_id}-C1",
+            location="测试条款",
+            title=text[:20],
+            text=text,
+            section_type=SECTION_FORMAL,
+            level=1,
+        )
+        judgment = _judgment_from_model_result(
+            by_id[item_id],
+            [clause],
+            [],
+            {
+                "coverage_status": "部分覆盖",
+                "risk_level": by_id[item_id].risk_level,
+                "reasoning_summary": "模型认为表面关键词可部分覆盖。",
+                "evidence_clause_ids": [clause.clause_id],
+                "confidence": "high",
+                "needs_human_review": False,
+            },
+        )
+
+        assert judgment.coverage_status == "缺失"
+        assert judgment.issue_type == "完全缺失"
+        assert judgment.evidence_clauses == []
+        assert judgment.evidence_location == ""
+        assert judgment.reasoning_summary == "未在正式合同条款中找到能覆盖该审查点的有效约定。"
+
+
+def test_substantive_notice_and_expropriation_clauses_remain_valid_evidence():
+    output = review_contract_v2(
+        "第十八条 通知、送达。双方保证在本合同中记载的联系电话、联系地址、电子邮箱等信息均真实有效，"
+        "作为本合同履行以及争议解决时的有效联系方式和送达地址。任何一方变更联系电话、联系地址、电子邮箱的，"
+        "应当书面通知对方；未及时通知的，对方按照本合同约定的联系方式和送达地址进行送达的，视为有效送达。\n"
+        "第十六条 合同解除。该房屋被依法征收征用的，本合同解除，双方按实际使用期间结算费用。",
+        "house_lease",
+        use_llm=False,
+    )
+    by_id = {item["item_id"]: item for item in output["items"]}
+
+    assert by_id["HL-005"]["coverage_status"] == "通过"
+    assert by_id["HL-005"]["evidence_clauses"]
+    assert by_id["HL-024"]["coverage_status"] == "通过"
+    assert by_id["HL-024"]["evidence_clauses"]
+
+
+def test_term_expiry_settlement_prefers_deposit_evidence_over_breach_clause():
+    output = review_contract_v2(
+        "第五条 押金。合同终止时，乙方结清各项费用后，甲方无息返还押金。\n"
+        "第十二条 违约责任。任何一方违约的，应按实际损失承担违约责任。",
+        "house_lease",
+        use_llm=False,
+    )
+
+    item = next(item for item in output["items"] if item["item_id"] == "HL-031")
+    assert item["risk_level"] == "中"
+    assert item["coverage_status"] == "部分覆盖"
+    assert item["issue_type"] == "条款缺陷"
+    assert any("押金" in clause["text"] for clause in item["evidence_clauses"])
+    assert not any("违约责任" in clause["text"] for clause in item["evidence_clauses"])
+
+
+def test_blank_early_surrender_and_penalty_terms_are_not_passed():
+    output = review_contract_v2(
+        "第十五条 提前解除。甲方提前收回该房屋的，或者乙方提前退租的，应当提前   日书面通知对方，"
+        "并经对方同意后，应当按照           的标准向对方支付违约金。",
+        "house_lease",
+        use_llm=False,
+    )
+
+    early = next(item for item in output["items"] if item["item_id"] == "HL-029")
+    deduction = next(item for item in output["items"] if item["item_id"] == "HL-039")
+    assert early["coverage_status"] == "部分覆盖"
+    assert early["issue_type"] in {"模板空白", "条款缺陷"}
+    assert early["risk_level"] == "低"
+    assert any(e["status"] == "COVERED" and e["source_spans"] for e in early["coverage_elements"])
+    assert any(e["status"] == "MISSING" for e in early["coverage_elements"])
+    # A blank fee is not evidence of a high fee or a loss-adjustment mechanism.
+    assert deduction["coverage_status"] == "缺失"
+    assert deduction["issue_type"] == "完全缺失"
+    assert deduction["risk_severity"] != "HIGH"
+
+
+def test_termination_notice_distinguishes_early_surrender_notice():
+    output = review_contract_v2(
+        "第十五条 提前解除。乙方提前退租的，应提前30日书面通知甲方，并按实际使用期间结算费用。",
+        "house_lease",
+        use_llm=False,
+    )
+
+    item = next(item for item in output["items"] if item["item_id"] == "HL-019")
+    assert item["risk_level"] == "中"
+    assert item["coverage_status"] == "部分覆盖"
+    elements = {e["element_id"]: e for e in item["coverage_elements"]}
+    assert elements["termination_notice_delivery"]["status"] == "COVERED"
+    assert elements["termination_effective_time"]["status"] == "MISSING"
+    assert "提前退租" in elements["termination_notice_delivery"]["source_spans"][0]
+
+
+def test_loss_based_penalty_adjustment_can_pass_when_complete():
+    output = review_contract_v2(
+        "押金扣款、违约金或赔偿金额应以实际损失为基础；约定金额明显高于实际损失的，双方可协商按实际损失及合理费用调整。"
+        "承租人提前退租的，应提前30日书面通知出租人，并按实际使用期间、未结费用和合理空置损失结算。",
+        "house_lease",
+        use_llm=False,
+    )
+
+    early = next(item for item in output["items"] if item["item_id"] == "HL-029")
+    deduction = next(item for item in output["items"] if item["item_id"] == "HL-039")
+    assert early["coverage_status"] == "通过"
+    assert deduction["coverage_status"] == "通过"
+
+
+def test_formal_contract_still_requires_party_identity_details():
+    output = review_contract_v2(
+        "出租人与承租人签订《房屋租赁合同》，约定月租金12000元、押金36000元。",
+        "house_lease",
+        use_llm=False,
+    )
+
+    party = next(item for item in output["items"] if item["item_id"] == "HL-002")
+    assert party["coverage_status"] != "通过"
+    assert party["risk_level"] == "中"
+
+
+def test_missing_item_reports_clause_absence_and_legal_consequence():
+    output = review_contract_v2(
+        "第六条 押金。乙方应向甲方支付押金6000元，甲方收到押金后出具收款凭证。",
+        "house_lease",
+    )
+
+    item = next(item for item in output["items"] if item["item_id"] == "HL-020")
+    assert item["coverage_status"] == "缺失"
+    assert item["issue_type"] == "完全缺失"
+    assert item["legal_consequence_if_missing"]
+    assert "新房主" in item["legal_consequence_if_missing"] or "接续义务" in item["legal_consequence_if_missing"]
+
+
+def test_demo_house_lease_contract_has_evidence_and_no_verdict_words():
+    source = Path("test_data")
+    files = list(source.glob("*2614*.docx"))
+    if not files:
+        return
+
+    doc = Document(str(files[0]))
+    text = "\n".join(paragraph.text for paragraph in doc.paragraphs if paragraph.text.strip())
+    output = review_contract_v2(text, "house_lease")
+
+    assert output["all_items_count"] == 50
+    assert output["clause_count"] > 20
+    assert output["formal_clause_count"] > 10
+    assert any(item["evidence_clauses"] for item in output["items"])
+    assert any(item["coverage_status"] == "部分覆盖" for item in output["items"])
+    assert not any(word in output["result"] for word in ("判决结果", "裁判结论", "驳回请求", "应赔偿"))
+
+
+def test_llm_judgment_is_used_when_model_returns_valid_json(monkeypatch):
+    monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "true")
+    monkeypatch.setenv("DASHSCOPE_API_KEY", "test-key")
+
+    def fake_call_llm(prompt, response_format="text", max_retries=3):
+        assert response_format == "json"
+        return json.dumps(
+            {
+                "reviews": [
+                    {
+                        "item_id": "HL-028",
+                        "coverage_status": "通过",
+                        "risk_level": "低",
+                        "reasoning_summary": "正式条款已经明确约定押金金额和收款凭证，能够覆盖该审查点。",
+                        "evidence_clause_ids": ["C0001"],
+                        "confidence": "high",
+                        "needs_human_review": False,
+                    }
+                ]
+            },
+            ensure_ascii=False,
+        )
+
+    monkeypatch.setattr("reasoning.llm_client.call_llm", fake_call_llm)
+    output = review_contract_v2(
+        "第六条 押金。乙方应向甲方支付押金6000元，甲方收到押金后出具收款凭证。",
+        "house_lease",
+    )
+
+    item = next(item for item in output["items"] if item["item_id"] == "HL-028")
+    assert item["judge_source"] == "llm"
+    assert item["llm_confidence"] == "high"
+    assert item["fallback_reason"] == ""
+    assert item["coverage_status"] == "通过"
+
+
+def test_llm_pass_is_downgraded_when_evidence_has_blank_values(monkeypatch):
+    monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "true")
+    monkeypatch.setenv("DASHSCOPE_API_KEY", "test-key")
+    monkeypatch.setenv("REVIEW_V2_LLM_BATCH_SIZE", "50")
+
+    def fake_call_llm(prompt, response_format="text", max_retries=3):
+        payload_text = prompt.split("审查点和候选条款 JSON：", 1)[1].split("请输出严格 JSON", 1)[0].strip()
+        payload = json.loads(payload_text)
+        reviews = []
+        for item in payload:
+            candidate_ids = [clause["clause_id"] for clause in item["candidate_clauses"]]
+            reviews.append(
+                {
+                    "item_id": item["item_id"],
+                    "coverage_status": "通过" if item["item_id"] == "HL-028" else item["rule_judgment"]["coverage_status"],
+                    "risk_level": "低" if item["item_id"] == "HL-028" else item["rule_judgment"]["risk_level"],
+                    "reasoning_summary": "正式条款已经覆盖该审查点。",
+                    "evidence_clause_ids": candidate_ids[:1],
+                    "confidence": "high",
+                    "needs_human_review": False,
+                }
+            )
+        return json.dumps({"reviews": reviews}, ensure_ascii=False)
+
+    monkeypatch.setattr("reasoning.llm_client.call_llm", fake_call_llm)
+    output = review_contract_v2(
+        "第六条 押金。乙方应向甲方支付押金            元，甲方收到押金后出具收款凭证。",
+        "house_lease",
+    )
+
+    item = next(item for item in output["items"] if item["item_id"] == "HL-028")
+    assert item["judge_source"] == "llm"
+    assert item["coverage_status"] == "部分覆盖"
+    assert item["issue_type"] == "模板空白"
+    assert item["risk_level"] == "中"
+    assert item["llm_confidence"] == "low"
+
+
+def test_llm_cannot_override_risk_whitelist_or_pass_generic_deposit_deadline(monkeypatch):
+    monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "true")
+    monkeypatch.setenv("DASHSCOPE_API_KEY", "test-key")
+    monkeypatch.setenv("REVIEW_V2_LLM_BATCH_SIZE", "50")
+
+    def fake_call_llm(prompt, response_format="text", max_retries=3):
+        payload_text = prompt.split("审查点和候选条款 JSON：", 1)[1].split("请输出严格 JSON", 1)[0].strip()
+        payload = json.loads(payload_text)
+        reviews = []
+        for item in payload:
+            candidate_ids = [clause["clause_id"] for clause in item["candidate_clauses"]]
+            if item["item_id"] == "HL-042":
+                reviews.append(
+                    {
+                        "item_id": "HL-042",
+                        "coverage_status": "部分覆盖",
+                        "risk_level": "高",
+                        "reasoning_summary": "模型认为押金抵扣顺序存在高风险。",
+                        "evidence_clause_ids": candidate_ids[:1],
+                        "confidence": "high",
+                        "needs_human_review": False,
+                    }
+                )
+            elif item["item_id"] == "HL-013":
+                reviews.append(
+                    {
+                        "item_id": "HL-013",
+                        "coverage_status": "通过",
+                        "risk_level": "低",
+                        "reasoning_summary": "模型认为期满搬离交房条款已经覆盖不定期租赁安排。",
+                        "evidence_clause_ids": candidate_ids[:1],
+                        "confidence": "high",
+                        "needs_human_review": False,
+                    }
+                )
+            elif item["item_id"] == "HL-043":
+                reviews.append(
+                    {
+                        "item_id": "HL-043",
+                        "coverage_status": "通过",
+                        "risk_level": "低",
+                        "reasoning_summary": "模型认为押金返还已有约定。",
+                        "evidence_clause_ids": candidate_ids[:1],
+                        "confidence": "high",
+                        "needs_human_review": False,
+                    }
+                )
+            else:
+                reviews.append(
+                    {
+                        "item_id": item["item_id"],
+                        "coverage_status": item["rule_judgment"]["coverage_status"],
+                        "risk_level": item["rule_judgment"]["risk_level"],
+                        "reasoning_summary": "批量语义复核已完成该审查点判断。",
+                        "evidence_clause_ids": candidate_ids[:1],
+                        "confidence": "medium",
+                        "needs_human_review": False,
+                    }
+                )
+        return json.dumps({"reviews": reviews}, ensure_ascii=False)
+
+    monkeypatch.setattr("reasoning.llm_client.call_llm", fake_call_llm)
+    output = review_contract_v2(
+        "第六条 押金。押金为36000元，合同终止时结清各项费用后无息返还。"
+        "押金可用于抵扣租金、水电费、维修费。"
+        "租赁期满或合同解除后，承租人应在7日内搬离并交还房屋。",
+        "house_lease",
+    )
+
+    offset_order = next(item for item in output["items"] if item["item_id"] == "HL-042")
+    indefinite = next(item for item in output["items"] if item["item_id"] == "HL-013")
+    deadline = next(item for item in output["items"] if item["item_id"] == "HL-043")
+    assert offset_order["coverage_status"] == "部分覆盖"
+    assert offset_order["risk_level"] == "中"
+    assert indefinite["coverage_status"] != "通过"
+    assert indefinite["risk_level"] == "中"
+    assert indefinite["llm_confidence"] == "low"
+    assert deadline["coverage_status"] == "部分覆盖"
+    assert deadline["risk_level"] == "中"
+    assert deadline["llm_confidence"] == "low"
+    assert any(e["element_id"] == "return_deadline" and e["status"] == "MISSING" for e in deadline["coverage_elements"])
+
+
+def test_llm_review_uses_batches_instead_of_one_call_per_checkpoint(monkeypatch):
+    monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "true")
+    monkeypatch.setenv("DASHSCOPE_API_KEY", "test-key")
+    monkeypatch.setenv("REVIEW_V2_LLM_BATCH_SIZE", "20")
+    calls = []
+
+    def fake_call_llm(prompt, response_format="text", max_retries=3):
+        calls.append(prompt)
+        payload_text = prompt.split("审查点和候选条款 JSON：", 1)[1].split("请输出严格 JSON", 1)[0].strip()
+        payload = json.loads(payload_text)
+        return json.dumps(
+            {
+                "reviews": [
+                    {
+                        "item_id": item["item_id"],
+                        "coverage_status": item["rule_judgment"]["coverage_status"],
+                        "risk_level": item["rule_judgment"]["risk_level"],
+                        "reasoning_summary": "批量语义复核已完成该审查点判断。",
+                        "evidence_clause_ids": [
+                            item["candidate_clauses"][0]["clause_id"]
+                        ] if item["candidate_clauses"] else [],
+                        "confidence": "medium",
+                        "needs_human_review": False,
+                    }
+                    for item in payload
+                ]
+            },
+            ensure_ascii=False,
+        )
+
+    monkeypatch.setattr("reasoning.llm_client.call_llm", fake_call_llm)
+    output = review_contract_v2(
+        "第一条 房屋基本情况。该房屋坐落于北京市朝阳区。"
+        "第五条 租金。该房屋月租金为3000元。"
+        "第六条 押金。乙方应向甲方支付押金6000元，甲方收到押金后出具收款凭证。"
+        "第二条 租赁用途。该房屋的租赁用途为居住，乙方不得变更租赁用途。",
+        "house_lease",
+    )
+
+    assert output["judge_source_summary"]["llm"] > 0
+    assert 0 < len(calls) < 50
+
+
+def test_llm_generic_breach_clause_cannot_pass_specialized_successor_review(monkeypatch):
+    monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "true")
+    monkeypatch.setenv("DASHSCOPE_API_KEY", "test-key")
+    monkeypatch.setenv("REVIEW_V2_LLM_BATCH_SIZE", "50")
+
+    def fake_call_llm(prompt, response_format="text", max_retries=3):
+        payload_text = prompt.split("审查点和候选条款 JSON：", 1)[1].split("请输出严格 JSON", 1)[0].strip()
+        payload = json.loads(payload_text)
+        reviews = []
+        for item in payload:
+            candidate_ids = [clause["clause_id"] for clause in item["candidate_clauses"]]
+            if item["item_id"] == "HL-012":
+                reviews.append(
+                    {
+                        "item_id": "HL-012",
+                        "coverage_status": "通过",
+                        "risk_level": "低",
+                        "reasoning_summary": "条款约定继续履行责任，可以覆盖出租人死亡或权利继受安排。",
+                        "evidence_clause_ids": candidate_ids[:1],
+                        "confidence": "high",
+                        "needs_human_review": False,
+                    }
+                )
+            else:
+                reviews.append(
+                    {
+                        "item_id": item["item_id"],
+                        "coverage_status": item["rule_judgment"]["coverage_status"],
+                        "risk_level": item["rule_judgment"]["risk_level"],
+                        "reasoning_summary": "批量语义复核已完成该审查点判断。",
+                        "evidence_clause_ids": candidate_ids[:1],
+                        "confidence": "medium",
+                        "needs_human_review": False,
+                    }
+                )
+        return json.dumps({"reviews": reviews}, ensure_ascii=False)
+
+    monkeypatch.setattr("reasoning.llm_client.call_llm", fake_call_llm)
+    output = review_contract_v2(
+        "第十五条 违约责任。任何一方有其他违约行为的，应当承担继续履行、采取补救措施或者赔偿损失等违约责任。",
+        "house_lease",
+    )
+
+    item = next(item for item in output["items"] if item["item_id"] == "HL-012")
+    assert item["judge_source"] == "llm"
+    assert item["coverage_status"] == "缺失"
+    assert item["risk_level"] == "低"
+    assert item["llm_confidence"] == "low"
+    assert not item["evidence_clauses"]
+
+
+def test_use_llm_false_skips_model_call_even_when_key_exists(monkeypatch):
+    monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "true")
+    monkeypatch.setenv("DASHSCOPE_API_KEY", "test-key")
+
+    def fake_call_llm(prompt, response_format="text", max_retries=3):
+        raise AssertionError("LLM should not be called when use_llm is false")
+
+    monkeypatch.setattr("reasoning.llm_client.call_llm", fake_call_llm)
+    output = review_contract_v2(
+        "第六条 押金。乙方应向甲方支付押金6000元，甲方收到押金后出具收款凭证。",
+        "house_lease",
+        use_llm=False,
+    )
+
+    item = next(item for item in output["items"] if item["item_id"] == "HL-028")
+    assert item["judge_source"] == "rule_fallback"
+    assert "本次审查未启用大模型语义复核" in item["fallback_reason"]
+    assert output["global_fallback_reason"] == item["fallback_reason"]
+    assert output["llm_enabled"] is False
+
+
+def test_llm_invalid_json_falls_back_to_rule(monkeypatch):
+    monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "true")
+    monkeypatch.setenv("DASHSCOPE_API_KEY", "test-key")
+
+    def fake_call_llm(prompt, response_format="text", max_retries=3):
+        return "不是 JSON"
+
+    monkeypatch.setattr("reasoning.llm_client.call_llm", fake_call_llm)
+    output = review_contract_v2(
+        "第六条 押金。乙方应向甲方支付押金6000元，甲方收到押金后出具收款凭证。",
+        "house_lease",
+    )
+
+    item = next(item for item in output["items"] if item["item_id"] == "HL-028")
+    assert item["judge_source"] == "rule_fallback"
+    assert "模型判定不可用" in item["fallback_reason"]
+    assert item["coverage_status"] == "通过"
+
+
+def test_llm_verdict_language_falls_back_to_rule(monkeypatch):
+    monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "true")
+    monkeypatch.setenv("DASHSCOPE_API_KEY", "test-key")
+
+    def fake_call_llm(prompt, response_format="text", max_retries=3):
+        return json.dumps(
+            {
+                "reviews": [
+                    {
+                        "item_id": "HL-028",
+                        "coverage_status": "通过",
+                        "risk_level": "低",
+                        "reasoning_summary": "承租方应赔偿，押金应按判决结果处理。",
+                        "evidence_clause_ids": ["C0001"],
+                        "confidence": "high",
+                        "needs_human_review": False,
+                    }
+                ]
+            },
+            ensure_ascii=False,
+        )
+
+    monkeypatch.setattr("reasoning.llm_client.call_llm", fake_call_llm)
+    output = review_contract_v2(
+        "第六条 押金。乙方应向甲方支付押金6000元，甲方收到押金后出具收款凭证。",
+        "house_lease",
+    )
+
+    item = next(item for item in output["items"] if item["item_id"] == "HL-028")
+    assert item["judge_source"] == "rule_fallback"
+    assert "裁判式表述" in item["fallback_reason"] or "未返回该审查点" in item["fallback_reason"]
+    assert "应赔偿" not in output["result"]
+
+
+def test_review_v2_exports_pdf_and_docx_bytes(tmp_path):
+    output = review_contract_v2(
+        "2023年3月1日，原告（出租人）与被告（承租人）签订《房屋租赁合同》，约定押金36000元。",
+        "house_lease",
+        use_llm=False,
+    )
+    payload = ReviewV2PdfInput(
+        filename="房屋租赁合同测试.docx",
+        contract_type_name=output["contract_type_name"],
+        result=output["result"],
+        summary=output["summary"],
+        risk_finding_summary=output["risk_finding_summary"],
+        coverage_summary=output["coverage_summary"],
+        issue_type_summary=output["issue_type_summary"],
+        judge_source_summary=output["judge_source_summary"],
+        llm_status=output["llm_status"],
+        global_fallback_reason=output["global_fallback_reason"],
+        report_notice=output["report_notice"],
+        risk_findings=output["risk_findings"],
+        recommendations=output["recommendations"],
+        overall_assessment=output["overall_assessment"],
+        release_quality_gate=output["release_quality_gate"],
+        quality4_gate=output["quality4_gate"],
+        items=output["items"],
+    )
+
+    pdf_content = _build_pdf(payload)
+    assert pdf_content.startswith(b"%PDF")
+    assert len(pdf_content) > 1000
+
+    docx_content = _build_docx(payload)
+    docx_path = tmp_path / "review_v2.docx"
+    docx_path.write_bytes(docx_content)
+    exported = Document(str(docx_path))
+    full_text = "\n".join(paragraph.text for paragraph in exported.paragraphs)
+    assert "房屋租赁合同审查报告" in full_text
+    assert "核心风险摘要" in full_text
+    assert "出租人与承租人身份信息" in full_text
+
+
+def test_review_v2_exports_blocked_report_with_quality_warning():
+    payload = ReviewV2PdfInput(
+        filename="blocked-review.docx",
+        result="# Contract review\n\nQuality gate warning is preserved in the report metadata.",
+        release_quality_gate={
+            "status": "BLOCKED",
+            "failures": [{"root_cause": "Independent validation needs attention."}],
+        },
+        quality4_gate={"status": "BLOCKED"},
+    )
+
+    assert _build_pdf(payload).startswith(b"%PDF")
+    assert _build_docx(payload).startswith(b"PK")
+
+
+def test_formula_parser_supports_capped_and_min_max_formulas():
+    capped = parse_penalty_formula("乙方逾期付款的，应按未付款的10%支付违约金，最高不超过5000元。")
+    ranged = parse_penalty_formula("乙方违约的，违约金最低1000元，最高5000元。")
+
+    assert capped["type"] == "capped_amount"
+    assert capped["cap_amount"] == 5000
+    assert capped["rate"] == 0.1
+    assert ranged["type"] == "min_max_formula"
+    assert ranged["min_amount"] == 1000
+    assert ranged["max_amount"] == 5000
+
+
+def test_rent_default_grace_period_and_daily_rent_are_fact_backed():
+    output = review_contract_v2(
+        "第一条 房屋面积为85.6平方米。第五条 租金标准为每月3852元，日租金按1.5元/平方米/日计算。"
+        "第九条 乙方经甲方催告7日仍未付租金的，甲方有权解除合同。"
+        "第十条 乙方提前退租的，应按剩余租期租金2倍支付违约金。",
+        "house_lease",
+        use_llm=False,
+    )
+    facts = output["contract_facts"]
+    hl039 = next(item for item in output["items"] if item["item_id"] == "HL-039")
+
+    assert facts["rent"]["daily_amount"] == "128.4"
+    assert facts["termination"]["rent_default"]["exists"] is True
+    assert facts["termination"]["rent_default"]["threshold_type"] == "grace_period"
+    assert facts["termination"]["rent_default"]["grace_period"] == 7
+    assert facts["termination"]["rent_default"]["effect"] == "termination"
+    assert {case["calculation_basis"] for case in hl039["scenario_analysis"]["cases"]} == {"contract_daily_rent"}
+    assert all(case["estimated"] is False for case in hl039["scenario_analysis"]["cases"])
+
+
+def test_markdown_report_groups_core_risks_and_hides_pass_suggestion_noise():
+    output = review_contract_v2(
+        "第一条 房屋坐落于上海市浦东新区，产证编号沪房地浦字第123号。"
+        "第五条 月租金为3852元，支付方式为银行转账，【每月5日前】☑【________】。"
+        "第九条 乙方逾期不支付租金累计超过1个月的，甲方有权解除合同。"
+        "第十条 乙方中途擅自退租的，应按提前退租天数的租金的2倍支付违约金。"
+        "第十一条 双方协商不成的，向浦东新区人民法院起诉。",
+        "house_lease",
+        use_llm=False,
+    )
+    markdown = output["result"]
+
+    assert "## 二、核心风险摘要" in markdown
+    assert "## 六、完整审查明细" in markdown
+    assert "覆盖状态：通过" in markdown
+    assert "已覆盖，无需修改" in markdown
+    assert "【残余风险】：无明显残余风险" not in markdown
+    assert "## 30. 无提前退租条款时的协商机制（HL-030）" in markdown
+    hl030_section = markdown.split("## 30. 无提前退租条款时的协商机制（HL-030）", 1)[1].split("---", 1)[0]
+    assert "【建议新增】" not in hl030_section
+    assert "房屋租赁真实合同条款专项校正" not in markdown
+    assert "房屋租赁确定性条款规则" not in markdown
+    assert "Scenario Engine" not in markdown
+    assert "统一事实图谱" not in markdown
+
+
+def test_quality_phase_two_separates_coverage_risk_priority_and_findings():
+    output = review_contract_v2(
+        "上海市房屋租赁合同。签订日期：2024年1月1日。"
+        "根据《中华人民共和国合同法》及有关规定，双方订立本合同。"
+        "第一条 房屋坐落于上海市浦东新区，产证编号沪房地浦字第123号。"
+        "第五条 月租金为3852元，支付方式为银行转账，【每月5日前】☑【________】。"
+        "第九条 乙方逾期不支付租金累计超过1个月的，甲方有权解除合同。"
+        "第十条 乙方中途擅自退租的，应按提前退租天数的租金的2倍支付违约金。"
+        "第十一条 双方协商不成的，向浦东新区人民法院起诉。",
+        "house_lease",
+        use_llm=False,
+    )
+    by_id = {item["item_id"]: item for item in output["items"]}
+    findings = output["risk_findings"]
+    finding_groups = [finding["risk_group"] for finding in findings]
+
+    assert by_id["HL-001"]["coverage_status"] == "通过"
+    assert by_id["HL-001"]["risk_severity"] == "NONE"
+    assert by_id["HL-001"]["review_importance"] == "CORE"
+    assert by_id["HL-001"]["action_priority"] == "NONE"
+    assert by_id["HL-030"]["risk_severity"] == "NONE"
+    assert by_id["HL-029"]["coverage_status"] == "通过"
+    assert by_id["HL-029"]["related_risks"]
+    assert by_id["HL-039"]["scenario_analysis"]["formula"]["type"] == "remaining_term_rent_multiplier"
+    assert any(finding["risk_group"] == "early_termination_financial_exposure" for finding in findings)
+    assert len(finding_groups) == len(set(finding_groups))
+    assert any(issue["status"] == "OUTDATED_REFERENCE" for issue in output["legal_reference_issues"])
+    assert any(finding["risk_group"] == "legal_reference" for finding in findings)
+    early_finding = next(finding for finding in findings if finding["risk_group"] == "early_termination_financial_exposure")
+    assert early_finding["finding_id"] == "RF-EARLY-TERM-001"
+    assert set(early_finding["source_review_ids"]) >= {"HL-029", "HL-039"}
+    assert early_finding["economic_impact"]["monthly_payment_multiple"] >= 2
+    assert early_finding["impact"]["financial"] in {"MEDIUM", "HIGH", "SEVERE"}
+    assert early_finding["probability"] in {"RARE", "LOW", "MEDIUM", "HIGH", "VERY_HIGH", "UNKNOWN"}
+    assert early_finding["verification"]["status"] == "PASS"
+    assert early_finding["agreement"]["status"] == "AGREE"
+    assert early_finding["recommendation_ids"]
+    assert output["recommendations"]
+    assert len([rec for rec in output["recommendations"] if "RF-EARLY-TERM-001" in rec["target_risk_ids"]]) == 1
+    assert output["legal_authority_validation"]["dataset_version"]
+    assert output["risk_finding_summary"]["中等风险"] >= 1
+    assert "重大风险数量" in output["result"]
+    assert "审查覆盖统计" in output["result"]
+    assert "合同总体评价" in output["result"]
+    assert "核心风险摘要" in output["result"]
+    assert "建议优先修改" in output["result"]
+    assert "可选优化事项" in output["result"]
+    assert "已覆盖关键事项" in output["result"]
+    assert "用户风险偏好已纳入" not in output["result"]
+    assert output["quality4_gate"]["status"] == "REPORT_READY"
+    assert "RF-EARLY-TERM-001" not in output["result"]
+    assert "A_CORE" not in output["result"]
+    assert "C_OPTIMIZATION" not in output["result"]
+    assert "rule_fallback" not in output["result"]
+    assert "Legacy" not in output["result"]
+    assert "原始风险等级" not in output["result"]
+    assert "风险等级：" not in output["result"]
+    assert "风险评级为" not in output["result"]
+    assert "建议重点完善" not in output["result"]
+    assert "建议继续核对表述是否具体、附件是否完整、责任边界是否清楚" not in output["result"]
+    if not any(item["needs_manual_review"] for item in output["items"]):
+        assert "建议人工复核" not in output["result"]
+    assert output["benchmark_metrics"]["sample_status"] == "INSUFFICIENT SAMPLE SIZE"
+    assert output["benchmark_metrics"]["confidence_calibration_error"] is None
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+    assert output["system_metadata"]["system_version"] == "contract-review-quality-6.4"
+    assert output["system_metadata"]["cross_type_generalization_stage"] == "CONVERGED"
+    assert output["system_metadata"]["ontology_version"]
+    assert output["observability"]["total_latency_ms"] >= 0
+
+
+def test_quality_phase_two_mutation_changes_facts_and_formula_types():
+    due_5 = extract_house_lease_facts("第五条 租金为每月3000元，【每月5日前】☑【其他____】支付。")
+    due_10 = extract_house_lease_facts("第五条 租金为每月3000元，【每月10日前】☑【其他____】支付。")
+    arrears_1 = extract_house_lease_facts("第九条 乙方欠租超过1个月的，甲方可解除合同。")
+    arrears_2 = extract_house_lease_facts("第九条 乙方欠租超过2个月的，甲方可解除合同。")
+    remaining = parse_penalty_formula("乙方提前退租的，应按剩余租期租金2倍支付违约金。")
+    monthly = parse_penalty_formula("乙方提前退租的，应支付2个月租金作为违约金。")
+    tenant_to_landlord = parse_penalty_formula("乙方提前退租的，应按剩余租期租金2倍支付违约金。")
+    landlord_to_tenant = parse_penalty_formula("甲方提前收回房屋的，应按剩余租期租金2倍支付违约金。")
+    court = extract_house_lease_facts("争议解决：向浦东新区人民法院起诉。")
+    arbitration = extract_house_lease_facts("争议解决：提交上海仲裁委员会仲裁。")
+
+    assert due_5.rent.payment_due_day == "5"
+    assert due_10.rent.payment_due_day == "10"
+    assert arrears_1.termination.rent_default.threshold_value == 1
+    assert arrears_2.termination.rent_default.threshold_value == 2
+    assert remaining["type"] == "remaining_term_rent_multiplier"
+    assert monthly["type"] == "monthly_rent_multiplier"
+    assert tenant_to_landlord["direction"] == "tenant_to_landlord"
+    assert landlord_to_tenant["direction"] == "landlord_to_tenant"
+    assert court.jurisdiction.type == "court"
+    assert arbitration.jurisdiction.type == "arbitration"

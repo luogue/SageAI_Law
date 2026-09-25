@@ -1,0 +1,57 @@
+FFFF...                                                                  [100%]
+================================== FAILURES ===================================
+_ test_canonical_sources_survive_projection_and_independent_verification[consulting_quality-\u4e59\u65b9\u5bf9\u7cfb\u7edf\u67b6\u6784\u8fdb\u884c\u5206\u6790\u8bc4\u4f30\u3002\u54a8\u8be2\u62a5\u544a\u5e94\u5305\u62ec\u98ce\u9669\u5206\u6790\u3002\u4e59\u65b9\u63d0\u4ea4\u7eb8\u8d28\u54a8\u8be2\u62a5\u544a\u3002\u54a8\u8be2\u62a5\u544a\u5e94\u5b8c\u6574\u8986\u76d6\u7ea6\u5b9a\u5185\u5bb9\u3002-4] _
+backend\tests\test_consulting_verified_fact_projection.py:22: in test_canonical_sources_survive_projection_and_independent_verification
+    engine._enrich_evidence_sources([item], clauses)
+E   TypeError: _enrich_evidence_sources() takes 1 positional argument but 2 were given
+_ test_canonical_sources_survive_projection_and_independent_verification[consulting_inputs-\u7532\u65b9\u63d0\u4f9b\u7cfb\u7edf\u67b6\u6784\u56fe\u548c\u6027\u80fd\u6570\u636e\uff0c\u5b89\u6392\u4eba\u5458\u8bbf\u8c08\u53ca\u6d4b\u8bd5\u73af\u5883\u3002\u7532\u65b9\u4fdd\u8bc1\u8d44\u6599\u771f\u5b9e\u3001\u5b8c\u6574\uff0c\u5e76\u901a\u8fc7\u52a0\u5bc6\u7535\u5b50\u6587\u4ef6\u65b9\u5f0f\u63d0\u4ea4\u3002-4] _
+backend\tests\test_consulting_verified_fact_projection.py:22: in test_canonical_sources_survive_projection_and_independent_verification
+    engine._enrich_evidence_sources([item], clauses)
+E   TypeError: _enrich_evidence_sources() takes 1 positional argument but 2 were given
+_ test_canonical_sources_survive_projection_and_independent_verification[consulting_remedy-\u54a8\u8be2\u6210\u679c\u4e0d\u7b26\u5408\u7ea6\u5b9a\u7684\uff0c\u4e59\u65b9\u5e94\u5728\u5408\u7406\u671f\u9650\u5185\u514d\u8d39\u4fee\u6539\u3002-3] _
+backend\tests\test_consulting_verified_fact_projection.py:22: in test_canonical_sources_survive_projection_and_independent_verification
+    engine._enrich_evidence_sources([item], clauses)
+E   TypeError: _enrich_evidence_sources() takes 1 positional argument but 2 were given
+_ test_related_heading_and_other_obligation_do_not_prove_consulting_elements[consulting_quality] _
+backend\tests\test_consulting_verified_fact_projection.py:41: in test_related_heading_and_other_obligation_do_not_prove_consulting_elements
+    assert not any(e['status'] == 'COVERED' for e in elements(family, clauses))
+E   assert not True
+E    +  where True = any(<generator object test_related_heading_and_other_obligation_do_not_prove_consulting_elements.<locals>.<genexpr> at 0x000001CABF2ECBA0>)
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_consulting_verified_fact_projection.py::test_canonical_sources_survive_projection_and_independent_verification[consulting_quality-\u4e59\u65b9\u5bf9\u7cfb\u7edf\u67b6\u6784\u8fdb\u884c\u5206\u6790\u8bc4\u4f30\u3002\u54a8\u8be2\u62a5\u544a\u5e94\u5305\u62ec\u98ce\u9669\u5206\u6790\u3002\u4e59\u65b9\u63d0\u4ea4\u7eb8\u8d28\u54a8\u8be2\u62a5\u544a\u3002\u54a8\u8be2\u62a5\u544a\u5e94\u5b8c\u6574\u8986\u76d6\u7ea6\u5b9a\u5185\u5bb9\u3002-4]
+FAILED backend/tests/test_consulting_verified_fact_projection.py::test_canonical_sources_survive_projection_and_independent_verification[consulting_inputs-\u7532\u65b9\u63d0\u4f9b\u7cfb\u7edf\u67b6\u6784\u56fe\u548c\u6027\u80fd\u6570\u636e\uff0c\u5b89\u6392\u4eba\u5458\u8bbf\u8c08\u53ca\u6d4b\u8bd5\u73af\u5883\u3002\u7532\u65b9\u4fdd\u8bc1\u8d44\u6599\u771f\u5b9e\u3001\u5b8c\u6574\uff0c\u5e76\u901a\u8fc7\u52a0\u5bc6\u7535\u5b50\u6587\u4ef6\u65b9\u5f0f\u63d0\u4ea4\u3002-4]
+FAILED backend/tests/test_consulting_verified_fact_projection.py::test_canonical_sources_survive_projection_and_independent_verification[consulting_remedy-\u54a8\u8be2\u6210\u679c\u4e0d\u7b26\u5408\u7ea6\u5b9a\u7684\uff0c\u4e59\u65b9\u5e94\u5728\u5408\u7406\u671f\u9650\u5185\u514d\u8d39\u4fee\u6539\u3002-3]
+FAILED backend/tests/test_consulting_verified_fact_projection.py::test_related_heading_and_other_obligation_do_not_prove_consulting_elements[consulting_quality]
+4 failed, 3 passed, 5 warnings in 6.84s

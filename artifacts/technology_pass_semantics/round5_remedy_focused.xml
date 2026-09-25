@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="14.150" timestamp="2026-09-14T06:10:15.598894+08:00" hostname="PC-202411042018"><testcase classname="backend.tests.test_patent_right_transfer_contract_review" name="test_generic_payment_and_delivery_liability_do_not_satisfy_confidentiality_liability" time="3.424" /><testcase classname="backend.tests.test_patent_right_transfer_contract_review" name="test_explicit_confidentiality_breach_liability_is_present_with_dedicated_fact_type" time="3.480"><failure message="AssertionError: assert 'PARTIAL' == 'PRESENT'&#10;  &#10;  - PRESENT&#10;  + PARTIAL">backend\tests\test_patent_right_transfer_contract_review.py:446: in test_explicit_confidentiality_breach_liability_is_present_with_dedicated_fact_type
+    assert item["coverage_presence"] == "PRESENT"
+E   AssertionError: assert 'PARTIAL' == 'PRESENT'
+E     
+E     - PRESENT
+E     + PARTIAL</failure></testcase><testcase classname="backend.tests.test_patent_right_transfer_contract_review" name="test_general_any_breach_liability_is_partial_without_confidentiality_link" time="3.471"><failure message="AssertionError: assert 'MISSING' == 'PARTIAL'&#10;  &#10;  - PARTIAL&#10;  + MISSING">backend\tests\test_patent_right_transfer_contract_review.py:456: in test_general_any_breach_liability_is_partial_without_confidentiality_link
+    assert item["coverage_presence"] == "PARTIAL"
+E   AssertionError: assert 'MISSING' == 'PARTIAL'
+E     
+E     - PARTIAL
+E     + MISSING</failure></testcase></testsuite></testsuites>

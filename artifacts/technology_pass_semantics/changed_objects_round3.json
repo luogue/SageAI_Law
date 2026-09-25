@@ -1,0 +1,2105 @@
+{
+  "test_cooperative_development_latest_regressions": [
+    {
+      "rule_id": "TC-02-02",
+      "coverage": "待核验",
+      "elements": [
+        {
+          "review_id": "TC-02-02",
+          "element_id": "affirmative_infringement_fact",
+          "claim_id": "TC-02-02-affirmative_infringement_fact",
+          "proposition": "未发现技术已经侵害他人技术成果的肯定性事实。",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "未发现技术已经侵害他人技术成果的肯定性事实。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false
+        }
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0012",
+          "evidence_id": "C0012",
+          "quote": "第十一条 第三方权利主张\n如第三方主张本项目软件、算法或其他技术侵犯其知识产权：\n由乙方负责处理全部争议；\n律师费、诉讼费、鉴定费、和解费用、赔偿费用及其他损失均由乙方承担；\n即使相关技术方案由甲方指定或者由甲方提供，乙方仍承担全部责任。\n甲方因第三方知识产权纠纷承担的全部赔偿责任不超过人民币10万元。",
+          "location": "第十一条 第三方权利主张",
+          "supporting_element_ids": []
+        },
+        {
+          "clause_id": "C0006",
+          "evidence_id": "C0006",
+          "quote": "第五条 知识产权\n双方共同开发形成的软件源代码、技术文档及完整程序，其著作权由双方共同享有。\n甲方有权自行决定将合作成果许可第三方使用或进行商业化，无需另行取得乙方同意。\n合作成果商业化取得的收益，甲方享有80%，乙方享有20%。\n双方基于合作成果共同申请专利的，专利申请权及专利权由甲乙双方共同享有。\n乙方自行基于本项目成果进一步开发形成的算法、模型、软件模块、技术改进及其他成果，其知识产权无偿归甲方所有。\n未经甲方书面同意，乙方不得将合作开发成果许可、转让或提供给任何第三方。\n双方在软件开发过程中不得侵犯第三方知识产权。因乙方开发内容产生的第三方知识产权纠纷，由乙方承担全部责任。",
+          "location": "第五条 知识产权",
+          "supporting_element_ids": []
+        },
+        {
+          "clause_id": "C0007",
+          "evidence_id": "C0007",
+          "quote": "如双方对验收结果存在争议，由甲方指定第三方检测机构进行复测，相关费用由乙方承担。",
+          "location": "第六条 研发进度和验收",
+          "supporting_element_ids": []
+        },
+        {
+          "clause_id": "C0009",
+          "evidence_id": "C0009",
+          "quote": "第八条 研发失败风险承担\n如因现有技术水平、算法限制、第三方平台调整或其他技术原因导致合作开发项目不能完成：\n甲方不承担由此产生的损失；\n乙方已经投入的资金和人员成本自行承担；\n乙方仍应继续承担尚未完成部分的开发费用；",
+          "location": "第八条 研发失败风险承担",
+          "supporting_element_ids": []
+        }
+      ],
+      "gate": {
+        "status": "BLOCKED",
+        "failures": [
+          {
+            "reason": "NO_VERIFIABLE_REQUIREMENTS"
+          }
+        ],
+        "element_evidence_ids": {},
+        "rejected_decision": "PASS",
+        "resolution": "NEEDS_REVIEW"
+      },
+      "reason": "现有摘录尚不足以形成经原文与语义双重验证的通过结论，需要核对合同证据；不据此推断存在不利条款。",
+      "predicate_metadata": {
+        "review_polarity": "NEGATIVE_CLAUSE_CHECK",
+        "review_nature": "CONTRACTUAL_REQUIREMENT",
+        "atomic_requirement_family": null,
+        "negative_check_basis": null,
+        "original_source_review_required": true,
+        "specialized_coverage": {
+          "review_id": "TC-02-02",
+          "coverage": "PRESENT",
+          "required_fact_type": "AFFIRMATIVE_INFRINGEMENT_SCREEN",
+          "evidence_clause_ids": [
+            "C0012",
+            "C0006",
+            "C0007",
+            "C0009"
+          ],
+          "reason": "未发现未经授权使用、已被认定侵权或其他实际侵害他人技术成果的正向事实；第三方索赔程序及责任分配由 TC-12 系列规则独立审查。"
+        }
+      },
+      "negative": {
+        "negative_clause_check": {
+          "review_id": "TC-02-02",
+          "query_semantics": "ADVERSE_CLAUSE_SEARCH",
+          "result": "NO_ADVERSE_CLAUSE_FOUND",
+          "description": "未发现对应禁止性/不利约定。",
+          "searched_scope": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011",
+            "C0012",
+            "C0013",
+            "C0014",
+            "C0015"
+          ],
+          "candidate_adverse_clauses": [],
+          "counter_evidence": [],
+          "search_coverage": "SUFFICIENT",
+          "adverse_clause_exists": false,
+          "confidence": "high",
+          "coverage_result": "INSUFFICIENT_CONTEXT"
+        }
+      },
+      "family": null
+    }
+  ],
+  "test_technical_service_latest_shared_fact_regressions": [
+    {
+      "rule_id": "TC-09-03",
+      "coverage": "待核验",
+      "elements": [
+        {
+          "review_id": "TC-09-03",
+          "element_id": "service_result_scope",
+          "claim_id": "TC-09-03-service_result_scope",
+          "proposition": "服务中新形成的方法、经验、报告或其他成果范围已有明确约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-52904e04e8da52ce",
+            "EV-72b5601d24416b96",
+            "EV-522dcac1d499831a",
+            "EV-d3b947d64fcc3723",
+            "EV-d3c1abc6d57ff55d",
+            "EV-329012ee19bb1b15"
+          ],
+          "supporting_evidence_ids": [
+            "EV-52904e04e8da52ce",
+            "EV-72b5601d24416b96",
+            "EV-522dcac1d499831a",
+            "EV-d3b947d64fcc3723",
+            "EV-d3c1abc6d57ff55d",
+            "EV-329012ee19bb1b15"
+          ],
+          "source_clause_ids": [
+            "C0030",
+            "C0029",
+            "C0033",
+            "C0034",
+            "C0035",
+            "C0037"
+          ],
+          "source_spans": [
+            "在本合同有效期内，甲方利用乙方提交的技术服务成果进一步形成的新技术成果，全部归甲方所有。\n乙方利用甲方提供的技术资料、数据、设备或者其他工作条件形成的新技术成果，其知识产权亦全部归甲方所有。\n乙方在提供技术服务过程中独立形成的算法、模型、软件模块、技术方案、改进成果及专利申请权，均无偿归甲方所有。",
+            "甲方认为技术服务成果未达到要求的，乙方应无条件进行整改，直至甲方认为符合要求。",
+            "乙方技术服务成果连续两次未通过甲方验收；",
+            "乙方保证其提供的全部技术服务成果不存在侵犯任何第三方知识产权的情形。\n如第三方主张乙方技术服务成果侵犯其专利权、著作权、技术秘密或其他权利：\n由乙方负责处理全部争议；",
+            "技术服务成果：乙方为履行本合同形成的技术报告、算法参数、测试记录及其他交付成果。\n新技术成果：任何一方基于本项目技术、资料、数据或服务成果形成的改进、优化、算法、软件、模型及其他技术成果。",
+            "乙方不得采购、使用或者向第三方推荐可以替代本项目技术服务成果的解决方案。"
+          ],
+          "source_locations": [
+            "第八条 新技术成果归属",
+            "第七条 验收",
+            "第十一条 合同解除",
+            "第十二条 第三方知识产权",
+            "第十三条 名词和技术术语",
+            "第十五条 其他事项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "服务中新形成的方法、经验、报告或其他成果范围已有明确约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "evidence_refs": [
+            "EV-52904e04e8da52ce",
+            "EV-72b5601d24416b96",
+            "EV-522dcac1d499831a",
+            "EV-d3b947d64fcc3723",
+            "EV-d3c1abc6d57ff55d",
+            "EV-329012ee19bb1b15"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0030",
+              "quote": "在本合同有效期内，甲方利用乙方提交的技术服务成果进一步形成的新技术成果，全部归甲方所有。\n乙方利用甲方提供的技术资料、数据、设备或者其他工作条件形成的新技术成果，其知识产权亦全部归甲方所有。\n乙方在提供技术服务过程中独立形成的算法、模型、软件模块、技术方案、改进成果及专利申请权，均无偿归甲方所有。"
+            },
+            {
+              "clause_id": "C0029",
+              "quote": "甲方认为技术服务成果未达到要求的，乙方应无条件进行整改，直至甲方认为符合要求。"
+            },
+            {
+              "clause_id": "C0033",
+              "quote": "乙方技术服务成果连续两次未通过甲方验收；"
+            },
+            {
+              "clause_id": "C0034",
+              "quote": "乙方保证其提供的全部技术服务成果不存在侵犯任何第三方知识产权的情形。\n如第三方主张乙方技术服务成果侵犯其专利权、著作权、技术秘密或其他权利：\n由乙方负责处理全部争议；"
+            },
+            {
+              "clause_id": "C0035",
+              "quote": "技术服务成果：乙方为履行本合同形成的技术报告、算法参数、测试记录及其他交付成果。\n新技术成果：任何一方基于本项目技术、资料、数据或服务成果形成的改进、优化、算法、软件、模型及其他技术成果。"
+            },
+            {
+              "clause_id": "C0037",
+              "quote": "乙方不得采购、使用或者向第三方推荐可以替代本项目技术服务成果的解决方案。"
+            }
+          ]
+        },
+        {
+          "review_id": "TC-09-03",
+          "element_id": "service_result_ownership_finality",
+          "claim_id": "TC-09-03-service_result_ownership_finality",
+          "proposition": "服务中新成果归属已最终确定为甲方。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-52904e04e8da52ce"
+          ],
+          "supporting_evidence_ids": [
+            "EV-52904e04e8da52ce"
+          ],
+          "source_clause_ids": [
+            "C0030"
+          ],
+          "source_spans": [
+            "在本合同有效期内，甲方利用乙方提交的技术服务成果进一步形成的新技术成果，全部归甲方所有。\n乙方利用甲方提供的技术资料、数据、设备或者其他工作条件形成的新技术成果，其知识产权亦全部归甲方所有。\n乙方在提供技术服务过程中独立形成的算法、模型、软件模块、技术方案、改进成果及专利申请权，均无偿归甲方所有。"
+          ],
+          "source_locations": [
+            "第八条 新技术成果归属"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "服务中新成果归属已最终确定为甲方。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "evidence_refs": [
+            "EV-52904e04e8da52ce"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0030",
+              "quote": "在本合同有效期内，甲方利用乙方提交的技术服务成果进一步形成的新技术成果，全部归甲方所有。\n乙方利用甲方提供的技术资料、数据、设备或者其他工作条件形成的新技术成果，其知识产权亦全部归甲方所有。\n乙方在提供技术服务过程中独立形成的算法、模型、软件模块、技术方案、改进成果及专利申请权，均无偿归甲方所有。"
+            }
+          ]
+        },
+        {
+          "review_id": "TC-09-03",
+          "element_id": "service_result_use_boundary",
+          "claim_id": "TC-09-03-service_result_use_boundary",
+          "proposition": "报告内部使用、对外提供及服务方后续复用边界",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "报告内部使用、对外提供及服务方后续复用边界",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        }
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0030",
+          "evidence_id": "SRC-265c66dad98669dd5730",
+          "quote": "在本合同有效期内，甲方利用乙方提交的技术服务成果进一步形成的新技术成果，全部归甲方所有。\n乙方利用甲方提供的技术资料、数据、设备或者其他工作条件形成的新技术成果，其知识产权亦全部归甲方所有。\n乙方在提供技术服务过程中独立形成的算法、模型、软件模块、技术方案、改进成果及专利申请权，均无偿归甲方所有。",
+          "location": "第八条 新技术成果归属",
+          "supporting_element_ids": [
+            "service_result_scope",
+            "service_result_ownership_finality"
+          ]
+        },
+        {
+          "clause_id": "C0030",
+          "evidence_id": "SRC-265c66dad98669dd5730",
+          "quote": "在本合同有效期内，甲方利用乙方提交的技术服务成果进一步形成的新技术成果，全部归甲方所有。\n乙方利用甲方提供的技术资料、数据、设备或者其他工作条件形成的新技术成果，其知识产权亦全部归甲方所有。\n乙方在提供技术服务过程中独立形成的算法、模型、软件模块、技术方案、改进成果及专利申请权，均无偿归甲方所有。",
+          "location": "第八条 新技术成果归属",
+          "supporting_element_ids": [
+            "service_result_scope",
+            "service_result_ownership_finality"
+          ]
+        },
+        {
+          "clause_id": "C0030",
+          "evidence_id": "SRC-265c66dad98669dd5730",
+          "quote": "在本合同有效期内，甲方利用乙方提交的技术服务成果进一步形成的新技术成果，全部归甲方所有。\n乙方利用甲方提供的技术资料、数据、设备或者其他工作条件形成的新技术成果，其知识产权亦全部归甲方所有。\n乙方在提供技术服务过程中独立形成的算法、模型、软件模块、技术方案、改进成果及专利申请权，均无偿归甲方所有。",
+          "location": "第八条 新技术成果归属",
+          "supporting_element_ids": [
+            "service_result_scope",
+            "service_result_ownership_finality"
+          ]
+        },
+        {
+          "clause_id": "C0029",
+          "evidence_id": "SRC-5559debdf7f8d210bdc0",
+          "quote": "甲方认为技术服务成果未达到要求的，乙方应无条件进行整改，直至甲方认为符合要求。",
+          "location": "第七条 验收",
+          "supporting_element_ids": [
+            "service_result_scope"
+          ]
+        },
+        {
+          "clause_id": "C0029",
+          "evidence_id": "SRC-5559debdf7f8d210bdc0",
+          "quote": "甲方认为技术服务成果未达到要求的，乙方应无条件进行整改，直至甲方认为符合要求。",
+          "location": "第七条 验收",
+          "supporting_element_ids": [
+            "service_result_scope"
+          ]
+        },
+        {
+          "clause_id": "C0033",
+          "evidence_id": "SRC-0bfbb1dc2cd73f7df66b",
+          "quote": "乙方技术服务成果连续两次未通过甲方验收；",
+          "location": "第十一条 合同解除",
+          "supporting_element_ids": [
+            "service_result_scope"
+          ]
+        },
+        {
+          "clause_id": "C0033",
+          "evidence_id": "SRC-0bfbb1dc2cd73f7df66b",
+          "quote": "乙方技术服务成果连续两次未通过甲方验收；",
+          "location": "第十一条 合同解除",
+          "supporting_element_ids": [
+            "service_result_scope"
+          ]
+        },
+        {
+          "clause_id": "C0035",
+          "evidence_id": "SRC-34287356252d2a6bbadc",
+          "quote": "技术服务成果：乙方为履行本合同形成的技术报告、算法参数、测试记录及其他交付成果。\n新技术成果：任何一方基于本项目技术、资料、数据或服务成果形成的改进、优化、算法、软件、模型及其他技术成果。",
+          "location": "第十三条 名词和技术术语",
+          "supporting_element_ids": [
+            "service_result_scope"
+          ]
+        },
+        {
+          "clause_id": "C0035",
+          "evidence_id": "SRC-34287356252d2a6bbadc",
+          "quote": "技术服务成果：乙方为履行本合同形成的技术报告、算法参数、测试记录及其他交付成果。\n新技术成果：任何一方基于本项目技术、资料、数据或服务成果形成的改进、优化、算法、软件、模型及其他技术成果。",
+          "location": "第十三条 名词和技术术语",
+          "supporting_element_ids": [
+            "service_result_scope"
+          ]
+        },
+        {
+          "clause_id": "C0034",
+          "evidence_id": "SRC-ff491caf1d06c5b40b9c",
+          "quote": "乙方保证其提供的全部技术服务成果不存在侵犯任何第三方知识产权的情形。\n如第三方主张乙方技术服务成果侵犯其专利权、著作权、技术秘密或其他权利：\n由乙方负责处理全部争议；",
+          "location": "第十二条 第三方知识产权",
+          "supporting_element_ids": [
+            "service_result_scope"
+          ]
+        },
+        {
+          "clause_id": "C0034",
+          "evidence_id": "SRC-ff491caf1d06c5b40b9c",
+          "quote": "乙方保证其提供的全部技术服务成果不存在侵犯任何第三方知识产权的情形。\n如第三方主张乙方技术服务成果侵犯其专利权、著作权、技术秘密或其他权利：\n由乙方负责处理全部争议；",
+          "location": "第十二条 第三方知识产权",
+          "supporting_element_ids": [
+            "service_result_scope"
+          ]
+        },
+        {
+          "clause_id": "C0037",
+          "evidence_id": "SRC-4030bc3b5b34e7472f22",
+          "quote": "乙方不得采购、使用或者向第三方推荐可以替代本项目技术服务成果的解决方案。",
+          "location": "第十五条 其他事项",
+          "supporting_element_ids": [
+            "service_result_scope"
+          ]
+        },
+        {
+          "clause_id": "C0037",
+          "evidence_id": "SRC-4030bc3b5b34e7472f22",
+          "quote": "乙方不得采购、使用或者向第三方推荐可以替代本项目技术服务成果的解决方案。",
+          "location": "第十五条 其他事项",
+          "supporting_element_ids": [
+            "service_result_scope"
+          ]
+        },
+        {
+          "clause_id": "C0012",
+          "evidence_id": "SRC-518fcf96b86752529499",
+          "quote": "（1）现有BMS系统技术文档；",
+          "location": "第三条（1）",
+          "supporting_element_ids": []
+        },
+        {
+          "clause_id": "C0027",
+          "evidence_id": "SRC-416797eb396c55b41beb",
+          "quote": "保密内容：\n乙方提供的算法方案、技术报告、参数、技术文档及其他未公开技术资料。",
+          "location": "第五条 保密义务",
+          "supporting_element_ids": []
+        },
+        {
+          "clause_id": "C0036",
+          "evidence_id": "SRC-336b945d2ce6d3f52ee4",
+          "quote": "《项目成果交付清单》。",
+          "location": "第十四条 技术文件",
+          "supporting_element_ids": []
+        }
+      ],
+      "gate": {
+        "status": "BLOCKED",
+        "failures": [
+          {
+            "evidence_id": "SRC-265c66dad98669dd5730",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-265c66dad98669dd5730",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-265c66dad98669dd5730",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-5559debdf7f8d210bdc0",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-5559debdf7f8d210bdc0",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-0bfbb1dc2cd73f7df66b",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-0bfbb1dc2cd73f7df66b",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-34287356252d2a6bbadc",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-34287356252d2a6bbadc",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-ff491caf1d06c5b40b9c",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-ff491caf1d06c5b40b9c",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-4030bc3b5b34e7472f22",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-4030bc3b5b34e7472f22",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-518fcf96b86752529499",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-416797eb396c55b41beb",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-336b945d2ce6d3f52ee4",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "element_id": "service_result_scope",
+            "reason": "NO_VERIFIED_SEMANTIC_SUPPORT"
+          },
+          {
+            "element_id": "service_result_ownership_finality",
+            "reason": "NO_VERIFIED_SEMANTIC_SUPPORT"
+          },
+          {
+            "element_id": "service_result_use_boundary",
+            "reason": "NO_VERIFIED_SEMANTIC_SUPPORT"
+          }
+        ],
+        "element_evidence_ids": {
+          "service_result_scope": [],
+          "service_result_ownership_finality": [],
+          "service_result_use_boundary": []
+        }
+      },
+      "reason": "合同文本已覆盖：服务中新形成的方法、经验、报告或其他成果范围已有明确约定。、服务中新成果归属已最终确定为甲方。。仍需人工核验：需结合实际履行事实人工核验。",
+      "predicate_metadata": {
+        "review_polarity": "POSITIVE_REQUIREMENT",
+        "review_nature": "CONTRACTUAL_REQUIREMENT",
+        "atomic_requirement_family": null,
+        "negative_check_basis": null,
+        "original_source_review_required": true,
+        "specialized_coverage": {
+          "review_id": "TC-09-03",
+          "coverage": "PRESENT",
+          "required_fact_type": "SERVICE_GENERATED_RESULT_OWNERSHIP",
+          "evidence_clause_ids": [
+            "C0030",
+            "C0012",
+            "C0027",
+            "C0029",
+            "C0033",
+            "C0034",
+            "C0035",
+            "C0036",
+            "C0037"
+          ],
+          "reason": "合同已明确服务中新成果归属及双方后续使用边界。"
+        }
+      },
+      "negative": {},
+      "family": null
+    },
+    {
+      "rule_id": "TC-09-04",
+      "coverage": "通过",
+      "elements": [
+        {
+          "review_id": "TC-09-04",
+          "element_id": "technical_service_remuneration",
+          "proposition": "技术服务报酬和费用安排",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-33bfc1b7ee99ebe9"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0023"
+          ],
+          "source_spans": [
+            "第四条 技术服务报酬及支付方式\n本项目技术服务费总额为人民币 120万元。\n技术服务费由甲方分期支付：\n（1）合同签订后5个工作日内支付人民币50万元；"
+          ],
+          "source_locations": [
+            "第四条 技术服务报酬及支付方式"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0023"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "EV-33bfc1b7ee99ebe9"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0023",
+              "quote": "第四条 技术服务报酬及支付方式\n本项目技术服务费总额为人民币 120万元。\n技术服务费由甲方分期支付：\n（1）合同签订后5个工作日内支付人民币50万元；"
+            }
+          ],
+          "supporting_evidence_ids": [
+            "EV-33bfc1b7ee99ebe9"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0001",
+          "evidence_id": null,
+          "quote": "技术服务合同 （模拟测试数据） 合同登记编号：JS2026-JSFW-0816 项目名称：新能源汽车电池管理系统技术优化服务项目 委托方（甲方）：江苏恒驰新能源汽车有限公司 受托方（乙方）：南京智控技术有限公司 签订时间：2026年10月15日 签订地点：江苏省南京市 有效期限：2026年10月1日至2027年9月30日 技术服务合同 委托方（甲方）：江苏恒驰新能源汽车有限公司 住所地：江苏省苏州市工业园区星湖街588号 法定代表人：张建国 项目联系人：王伟 通讯地址：江苏省苏州市工业园区星湖街588号 电话：0512-88886666 电子信箱：wangwei@example.com 受托方（乙方）：南京智控技术有限公司 住所地：江苏省南京市江宁区创新大道168号 法定代表人：李明远 项目联系人：陈浩 通讯地址：江苏省南京市江宁区创新大道168号 电话：025-86668888 电子信箱：chenhao@example.com...",
+          "location": "全文",
+          "supporting_element_ids": []
+        },
+        {
+          "clause_id": "C0023",
+          "evidence_id": "SRC-b2387da55adc449a1f32",
+          "quote": "第四条 技术服务报酬及支付方式\n本项目技术服务费总额为人民币 120万元。",
+          "location": "第四条 技术服务报酬及支付方式",
+          "supporting_element_ids": []
+        }
+      ],
+      "gate": {
+        "status": "BLOCKED",
+        "failures": [
+          {
+            "evidence_id": null,
+            "reason": "INVALID_ORIGINAL",
+            "errors": [
+              "QUOTE_NOT_IN_ORIGINAL"
+            ]
+          }
+        ],
+        "element_evidence_ids": {
+          "technical_service_remuneration": [
+            "SRC-b2387da55adc449a1f32"
+          ]
+        }
+      },
+      "reason": "现有摘录尚不足以形成经原文与语义双重验证的通过结论，需要核对合同证据；不据此推断存在不利条款。",
+      "predicate_metadata": {
+        "review_polarity": "POSITIVE_REQUIREMENT",
+        "review_nature": "CONTRACTUAL_REQUIREMENT",
+        "atomic_requirement_family": null,
+        "negative_check_basis": null,
+        "original_source_review_required": true,
+        "specialized_coverage": null
+      },
+      "negative": {},
+      "family": null
+    }
+  ],
+  "test_patent_application_transfer_consistency": [
+    {
+      "rule_id": "TC-06-04",
+      "coverage": "通过",
+      "elements": [
+        {
+          "review_id": "TC-06-04",
+          "element_id": "registration_responsible_party",
+          "claim_id": "TC-06-04-registration_responsible_party",
+          "proposition": "专利申请权转让登记的具体办理主体",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-29b1f509845c5d887aa1"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-29b1f509845c5d887aa1"
+          ],
+          "source_clause_ids": [
+            "C0015"
+          ],
+          "source_spans": [
+            "第十一条 专利申请权转让登记 本合同签署后，由卖方负责在10个工作日内向国家知识产权局办理专利申请权转让相关手续。"
+          ],
+          "source_locations": [
+            "第十一条 专利申请权转让登记"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "专利申请权转让登记的具体办理主体",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "evidence_level": "CONTRACTUAL_REPRESENTATION",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0015",
+              "quote": "第十一条 专利申请权转让登记 本合同签署后，由卖方负责在10个工作日内向国家知识产权局办理专利申请权转让相关手续。"
+            }
+          ]
+        },
+        {
+          "review_id": "TC-06-04",
+          "element_id": "registration_deadline",
+          "claim_id": "TC-06-04-registration_deadline",
+          "proposition": "专利申请权转让登记的提交期限",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-29b1f509845c5d887aa1"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-29b1f509845c5d887aa1"
+          ],
+          "source_clause_ids": [
+            "C0015"
+          ],
+          "source_spans": [
+            "第十一条 专利申请权转让登记 本合同签署后，由卖方负责在10个工作日内向国家知识产权局办理专利申请权转让相关手续。"
+          ],
+          "source_locations": [
+            "第十一条 专利申请权转让登记"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "专利申请权转让登记的提交期限",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "evidence_level": "CONTRACTUAL_REPRESENTATION",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0015",
+              "quote": "第十一条 专利申请权转让登记 本合同签署后，由卖方负责在10个工作日内向国家知识产权局办理专利申请权转让相关手续。"
+            }
+          ]
+        },
+        {
+          "review_id": "TC-06-04",
+          "element_id": "registration_cooperation",
+          "claim_id": "TC-06-04-registration_cooperation",
+          "proposition": "申请人变更及申请权转让登记材料配合义务",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-29b1f509845c5d887aa1"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-29b1f509845c5d887aa1"
+          ],
+          "source_clause_ids": [
+            "C0015"
+          ],
+          "source_spans": [
+            "第十一条 专利申请权转让登记 本合同签署后，由卖方负责在10个工作日内向国家知识产权局办理专利申请权转让相关手续。"
+          ],
+          "source_locations": [
+            "第十一条 专利申请权转让登记"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "申请人变更及申请权转让登记材料配合义务",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "evidence_level": "CONTRACTUAL_REPRESENTATION",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0015",
+              "quote": "第十一条 专利申请权转让登记 本合同签署后，由卖方负责在10个工作日内向国家知识产权局办理专利申请权转让相关手续。"
+            }
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0015",
+          "evidence_id": "SRC-29b1f509845c5d887aa1",
+          "quote": "第十一条 专利申请权转让登记\n本合同签署后，由卖方负责在10个工作日内向国家知识产权局办理专利申请权转让相关手续。",
+          "location": "第十一条 专利申请权转让登记",
+          "supporting_element_ids": [
+            "registration_responsible_party",
+            "registration_deadline",
+            "registration_cooperation"
+          ]
+        }
+      ],
+      "gate": {
+        "status": "BLOCKED",
+        "failures": [
+          {
+            "evidence_id": "SRC-29b1f509845c5d887aa1",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "element_id": "registration_responsible_party",
+            "reason": "NO_VERIFIED_SEMANTIC_SUPPORT"
+          },
+          {
+            "element_id": "registration_deadline",
+            "reason": "NO_VERIFIED_SEMANTIC_SUPPORT"
+          },
+          {
+            "element_id": "registration_cooperation",
+            "reason": "NO_VERIFIED_SEMANTIC_SUPPORT"
+          }
+        ],
+        "element_evidence_ids": {
+          "registration_responsible_party": [],
+          "registration_deadline": [],
+          "registration_cooperation": []
+        }
+      },
+      "reason": "现有摘录尚不足以形成经原文与语义双重验证的通过结论，需要核对合同证据；不据此推断存在不利条款。",
+      "predicate_metadata": {
+        "review_polarity": "POSITIVE_REQUIREMENT",
+        "review_nature": "CONTRACTUAL_REQUIREMENT",
+        "atomic_requirement_family": null,
+        "negative_check_basis": null,
+        "original_source_review_required": true,
+        "specialized_coverage": {
+          "review_id": "TC-06-04",
+          "coverage": "PRESENT",
+          "required_fact_type": "TRANSFER_REGISTRATION_OR_RECORDAL",
+          "evidence_clause_ids": [
+            "C0015"
+          ],
+          "reason": "已覆盖：专利申请权转让登记的具体办理主体、专利申请权转让登记的提交期限、申请人变更及申请权转让登记材料配合义务。"
+        }
+      },
+      "negative": {},
+      "family": null
+    }
+  ],
+  "test_current_patent_license_evidence_recall": [
+    {
+      "rule_id": "TC-07-01",
+      "coverage": "通过",
+      "elements": [
+        {
+          "review_id": "TC-07-01",
+          "element_id": "licensed_patent_subject",
+          "claim_id": "TC-07-01-licensed_patent_subject",
+          "proposition": "许可标的已有明确约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-1b44cd3abce97ead245b",
+            "SRC-23ef175c873861c1f30a",
+            "SRC-97aaf122508bbd6fd6c9",
+            "SRC-0079b2c2646b270ab8ed",
+            "SRC-1d25a03efb1a3a399649"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-1b44cd3abce97ead245b",
+            "SRC-23ef175c873861c1f30a",
+            "SRC-97aaf122508bbd6fd6c9",
+            "SRC-0079b2c2646b270ab8ed",
+            "SRC-1d25a03efb1a3a399649"
+          ],
+          "source_clause_ids": [
+            "C0057",
+            "C0003",
+            "C0014",
+            "C0001",
+            "C0033"
+          ],
+          "source_spans": [
+            "专利名称：工业机器人高精度视觉定位与自适应控制技术\n专利编号：ZL201910876543.2\n专利权人：Meyer Industrial Technologies GmbH\n专利批准日期：2022年6月15日\n许可类型：非独占实施许可\n许可地域：中国境内制造，可在中国境内销售并允许合同产品出口。",
+            "1.1 “专利技术”是指本合同附件一中所列的工业机器人高精度视觉定位与自适应控制技术，该技术已于2022年6月15日经中国专利主管机关批准获得专利权，专利编号为ZL201910876543.2。",
+            "2.3 许可方负责向接受方提供合同产品的专利资料，包括专利名称、内容、申请情况和专利编号等，具体资料详见本合同附件一。",
+            "鉴于许可方有权，并且也同意将工业机器人高精度视觉定位与自适应控制专利技术的使用权、制造权和产品的销售权授权接受方；\n鉴于接受方希望利用许可方的专利技术制造和销售产品；",
+            "6.1 许可方保证是本合同涉及的一切专利技术和专利资料的合法持有者，并且有权向接受方授予本合同约定的许可权。"
+          ],
+          "source_locations": [
+            "一、专利基本信息",
+            "1.1",
+            "2.3",
+            "全文",
+            "6.1"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "许可标的已有明确约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "专利技术名称及专利号（或专利编号）",
+          "search_targets": [
+            "专利技术名称及专利号（或专利编号）"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0057",
+              "quote": "专利名称：工业机器人高精度视觉定位与自适应控制技术\n专利编号：ZL201910876543.2\n专利权人：Meyer Industrial Technologies GmbH\n专利批准日期：2022年6月15日\n许可类型：非独占实施许可\n许可地域：中国境内制造，可在中国境内销售并允许合同产品出口。"
+            },
+            {
+              "clause_id": "C0003",
+              "quote": "1.1 “专利技术”是指本合同附件一中所列的工业机器人高精度视觉定位与自适应控制技术，该技术已于2022年6月15日经中国专利主管机关批准获得专利权，专利编号为ZL201910876543.2。"
+            },
+            {
+              "clause_id": "C0014",
+              "quote": "2.3 许可方负责向接受方提供合同产品的专利资料，包括专利名称、内容、申请情况和专利编号等，具体资料详见本合同附件一。"
+            },
+            {
+              "clause_id": "C0001",
+              "quote": "鉴于许可方有权，并且也同意将工业机器人高精度视觉定位与自适应控制专利技术的使用权、制造权和产品的销售权授权接受方；\n鉴于接受方希望利用许可方的专利技术制造和销售产品；"
+            },
+            {
+              "clause_id": "C0033",
+              "quote": "6.1 许可方保证是本合同涉及的一切专利技术和专利资料的合法持有者，并且有权向接受方授予本合同约定的许可权。"
+            }
+          ]
+        },
+        {
+          "review_id": "TC-07-01",
+          "element_id": "permitted_implementation_acts",
+          "claim_id": "TC-07-01-permitted_implementation_acts",
+          "proposition": "实施方式及制造、使用、销售等权利已有明确约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-3337e1cc6c009099c58f",
+            "SRC-1b44cd3abce97ead245b",
+            "SRC-0079b2c2646b270ab8ed",
+            "SRC-589513af640fb73b83a1"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-3337e1cc6c009099c58f",
+            "SRC-1b44cd3abce97ead245b",
+            "SRC-0079b2c2646b270ab8ed",
+            "SRC-589513af640fb73b83a1"
+          ],
+          "source_clause_ids": [
+            "C0013",
+            "C0057",
+            "C0001",
+            "C0030"
+          ],
+          "source_spans": [
+            "2.2 许可方授予接受方在中国设计制造合同产品，使用、销售和出口合同产品的许可权，该许可权为非独占许可权，并且不可转让。",
+            "专利名称：工业机器人高精度视觉定位与自适应控制技术\n专利编号：ZL201910876543.2\n专利权人：Meyer Industrial Technologies GmbH\n专利批准日期：2022年6月15日\n许可类型：非独占实施许可\n许可地域：中国境内制造，可在中国境内销售并允许合同产品出口。",
+            "鉴于许可方有权，并且也同意将工业机器人高精度视觉定位与自适应控制专利技术的使用权、制造权和产品的销售权授权接受方；\n鉴于接受方希望利用许可方的专利技术制造和销售产品；",
+            "5.3 在合同有效期内，双方对合同产品涉及的技术如有改进和发展，应相互免费将改进和发展的技术资料提供给对方使用。"
+          ],
+          "source_locations": [
+            "2.2",
+            "一、专利基本信息",
+            "全文",
+            "5.3"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "实施方式及制造、使用、销售等权利已有明确约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "许可实施方式及制造、使用、销售等具体权利",
+          "search_targets": [
+            "许可实施方式及制造、使用、销售等具体权利"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0013",
+              "quote": "2.2 许可方授予接受方在中国设计制造合同产品，使用、销售和出口合同产品的许可权，该许可权为非独占许可权，并且不可转让。"
+            },
+            {
+              "clause_id": "C0057",
+              "quote": "专利名称：工业机器人高精度视觉定位与自适应控制技术\n专利编号：ZL201910876543.2\n专利权人：Meyer Industrial Technologies GmbH\n专利批准日期：2022年6月15日\n许可类型：非独占实施许可\n许可地域：中国境内制造，可在中国境内销售并允许合同产品出口。"
+            },
+            {
+              "clause_id": "C0001",
+              "quote": "鉴于许可方有权，并且也同意将工业机器人高精度视觉定位与自适应控制专利技术的使用权、制造权和产品的销售权授权接受方；\n鉴于接受方希望利用许可方的专利技术制造和销售产品；"
+            },
+            {
+              "clause_id": "C0030",
+              "quote": "5.3 在合同有效期内，双方对合同产品涉及的技术如有改进和发展，应相互免费将改进和发展的技术资料提供给对方使用。"
+            }
+          ]
+        },
+        {
+          "review_id": "TC-07-01",
+          "element_id": "license_territory",
+          "claim_id": "TC-07-01-license_territory",
+          "proposition": "许可地域已有明确约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-3337e1cc6c009099c58f",
+            "SRC-1b44cd3abce97ead245b",
+            "SRC-637e0da81002927ba2bc"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-3337e1cc6c009099c58f",
+            "SRC-1b44cd3abce97ead245b",
+            "SRC-637e0da81002927ba2bc"
+          ],
+          "source_clause_ids": [
+            "C0013",
+            "C0057",
+            "C0048"
+          ],
+          "source_spans": [
+            "2.2 许可方授予接受方在中国设计制造合同产品，使用、销售和出口合同产品的许可权，该许可权为非独占许可权，并且不可转让。",
+            "专利名称：工业机器人高精度视觉定位与自适应控制技术\n专利编号：ZL201910876543.2\n专利权人：Meyer Industrial Technologies GmbH\n专利批准日期：2022年6月15日\n许可类型：非独占实施许可\n许可地域：中国境内制造，可在中国境内销售并允许合同产品出口。",
+            "10.1 本合同由双方授权代表于2026年9月3日在中国上海市签字。"
+          ],
+          "source_locations": [
+            "2.2",
+            "一、专利基本信息",
+            "10.1"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "许可地域已有明确约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "许可地域",
+          "search_targets": [
+            "许可地域"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0013",
+              "quote": "2.2 许可方授予接受方在中国设计制造合同产品，使用、销售和出口合同产品的许可权，该许可权为非独占许可权，并且不可转让。"
+            },
+            {
+              "clause_id": "C0057",
+              "quote": "专利名称：工业机器人高精度视觉定位与自适应控制技术\n专利编号：ZL201910876543.2\n专利权人：Meyer Industrial Technologies GmbH\n专利批准日期：2022年6月15日\n许可类型：非独占实施许可\n许可地域：中国境内制造，可在中国境内销售并允许合同产品出口。"
+            },
+            {
+              "clause_id": "C0048",
+              "quote": "10.1 本合同由双方授权代表于2026年9月3日在中国上海市签字。"
+            }
+          ]
+        },
+        {
+          "review_id": "TC-07-01",
+          "element_id": "license_term",
+          "claim_id": "TC-07-01-license_term",
+          "proposition": "许可期限已有明确约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-589513af640fb73b83a1",
+            "SRC-b1844582fbf55e667cb0",
+            "SRC-62b93a6f3b405070f38c",
+            "SRC-04b11c3a872084b9b93c",
+            "SRC-67805f7f3b49e33160fc"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-589513af640fb73b83a1",
+            "SRC-b1844582fbf55e667cb0",
+            "SRC-62b93a6f3b405070f38c",
+            "SRC-04b11c3a872084b9b93c",
+            "SRC-67805f7f3b49e33160fc"
+          ],
+          "source_clause_ids": [
+            "C0030",
+            "C0035",
+            "C0036",
+            "C0050",
+            "C0055"
+          ],
+          "source_spans": [
+            "5.3 在合同有效期内，双方对合同产品涉及的技术如有改进和发展，应相互免费将改进和发展的技术资料提供给对方使用。",
+            "6.3 在合同有效期内，许可方应根据中国专利主管机关有关规定按时缴纳专利费用，以维持专利有效性。",
+            "6.4 在合同有效期内，如果本合同涉及专利的法律状态发生变化，许可方应立即将有关情况以书面形式通知接受方，然后双方协商本合同后续执行问题。",
+            "10.3 本合同有效期自合同生效日起共8年，有效期满后本合同自动失效。",
+            "双方在合同有效期内的正式通讯应采用书面形式。"
+          ],
+          "source_locations": [
+            "5.3",
+            "6.3",
+            "6.4",
+            "10.3",
+            "10.8"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "许可期限已有明确约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "许可期限或明确适用于许可权的合同有效期",
+          "search_targets": [
+            "许可期限或明确适用于许可权的合同有效期"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0030",
+              "quote": "5.3 在合同有效期内，双方对合同产品涉及的技术如有改进和发展，应相互免费将改进和发展的技术资料提供给对方使用。"
+            },
+            {
+              "clause_id": "C0035",
+              "quote": "6.3 在合同有效期内，许可方应根据中国专利主管机关有关规定按时缴纳专利费用，以维持专利有效性。"
+            },
+            {
+              "clause_id": "C0036",
+              "quote": "6.4 在合同有效期内，如果本合同涉及专利的法律状态发生变化，许可方应立即将有关情况以书面形式通知接受方，然后双方协商本合同后续执行问题。"
+            },
+            {
+              "clause_id": "C0050",
+              "quote": "10.3 本合同有效期自合同生效日起共8年，有效期满后本合同自动失效。"
+            },
+            {
+              "clause_id": "C0055",
+              "quote": "双方在合同有效期内的正式通讯应采用书面形式。"
+            }
+          ]
+        },
+        {
+          "review_id": "TC-07-01",
+          "element_id": "license_type",
+          "claim_id": "TC-07-01-license_type",
+          "proposition": "许可类型已有明确约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-3337e1cc6c009099c58f",
+            "SRC-1b44cd3abce97ead245b"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-3337e1cc6c009099c58f",
+            "SRC-1b44cd3abce97ead245b"
+          ],
+          "source_clause_ids": [
+            "C0013",
+            "C0057"
+          ],
+          "source_spans": [
+            "2.2 许可方授予接受方在中国设计制造合同产品，使用、销售和出口合同产品的许可权，该许可权为非独占许可权，并且不可转让。",
+            "专利名称：工业机器人高精度视觉定位与自适应控制技术\n专利编号：ZL201910876543.2\n专利权人：Meyer Industrial Technologies GmbH\n专利批准日期：2022年6月15日\n许可类型：非独占实施许可\n许可地域：中国境内制造，可在中国境内销售并允许合同产品出口。"
+          ],
+          "source_locations": [
+            "2.2",
+            "一、专利基本信息"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "许可类型已有明确约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "普通、排他、独占或非独占等许可类型",
+          "search_targets": [
+            "普通、排他、独占或非独占等许可类型"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0013",
+              "quote": "2.2 许可方授予接受方在中国设计制造合同产品，使用、销售和出口合同产品的许可权，该许可权为非独占许可权，并且不可转让。"
+            },
+            {
+              "clause_id": "C0057",
+              "quote": "专利名称：工业机器人高精度视觉定位与自适应控制技术\n专利编号：ZL201910876543.2\n专利权人：Meyer Industrial Technologies GmbH\n专利批准日期：2022年6月15日\n许可类型：非独占实施许可\n许可地域：中国境内制造，可在中国境内销售并允许合同产品出口。"
+            }
+          ]
+        },
+        {
+          "review_id": "TC-07-01",
+          "element_id": "transfer_or_sublicense_boundary",
+          "claim_id": "TC-07-01-transfer_or_sublicense_boundary",
+          "proposition": "许可权转让或再许可边界已有明确约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-3337e1cc6c009099c58f"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-3337e1cc6c009099c58f"
+          ],
+          "source_clause_ids": [
+            "C0013"
+          ],
+          "source_spans": [
+            "2.2 许可方授予接受方在中国设计制造合同产品，使用、销售和出口合同产品的许可权，该许可权为非独占许可权，并且不可转让。"
+          ],
+          "source_locations": [
+            "2.2"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "许可权转让或再许可边界已有明确约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "许可权转让或再许可边界",
+          "search_targets": [
+            "许可权转让或再许可边界"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0013",
+              "quote": "2.2 许可方授予接受方在中国设计制造合同产品，使用、销售和出口合同产品的许可权，该许可权为非独占许可权，并且不可转让。"
+            }
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0013",
+          "evidence_id": "SRC-3337e1cc6c009099c58f",
+          "quote": "2.2 许可方授予接受方在中国设计制造合同产品，使用、销售和出口合同产品的许可权，该许可权为非独占许可权，并且不可转让。",
+          "location": "2.2",
+          "supporting_element_ids": [
+            "permitted_implementation_acts",
+            "license_territory",
+            "license_type",
+            "transfer_or_sublicense_boundary"
+          ]
+        },
+        {
+          "clause_id": "C0057",
+          "evidence_id": "SRC-1b44cd3abce97ead245b",
+          "quote": "专利名称：工业机器人高精度视觉定位与自适应控制技术\n专利编号：ZL201910876543.2\n专利权人：Meyer Industrial Technologies GmbH\n专利批准日期：2022年6月15日\n许可类型：非独占实施许可\n许可地域：中国境内制造，可在中国境内销售并允许合同产品出口。",
+          "location": "一、专利基本信息",
+          "supporting_element_ids": [
+            "licensed_patent_subject",
+            "permitted_implementation_acts",
+            "license_territory",
+            "license_type"
+          ]
+        },
+        {
+          "clause_id": "C0003",
+          "evidence_id": "SRC-23ef175c873861c1f30a",
+          "quote": "1.1 “专利技术”是指本合同附件一中所列的工业机器人高精度视觉定位与自适应控制技术，该技术已于2022年6月15日经中国专利主管机关批准获得专利权，专利编号为ZL201910876543.2。",
+          "location": "1.1",
+          "supporting_element_ids": [
+            "licensed_patent_subject"
+          ]
+        },
+        {
+          "clause_id": "C0014",
+          "evidence_id": "SRC-97aaf122508bbd6fd6c9",
+          "quote": "2.3 许可方负责向接受方提供合同产品的专利资料，包括专利名称、内容、申请情况和专利编号等，具体资料详见本合同附件一。",
+          "location": "2.3",
+          "supporting_element_ids": [
+            "licensed_patent_subject"
+          ]
+        },
+        {
+          "clause_id": "C0001",
+          "evidence_id": "SRC-0079b2c2646b270ab8ed",
+          "quote": "鉴于许可方有权，并且也同意将工业机器人高精度视觉定位与自适应控制专利技术的使用权、制造权和产品的销售权授权接受方；\n鉴于接受方希望利用许可方的专利技术制造和销售产品；",
+          "location": "全文",
+          "supporting_element_ids": [
+            "licensed_patent_subject",
+            "permitted_implementation_acts"
+          ]
+        },
+        {
+          "clause_id": "C0030",
+          "evidence_id": "SRC-589513af640fb73b83a1",
+          "quote": "5.3 在合同有效期内，双方对合同产品涉及的技术如有改进和发展，应相互免费将改进和发展的技术资料提供给对方使用。",
+          "location": "5.3",
+          "supporting_element_ids": [
+            "permitted_implementation_acts",
+            "license_term"
+          ]
+        },
+        {
+          "clause_id": "C0033",
+          "evidence_id": "SRC-1d25a03efb1a3a399649",
+          "quote": "6.1 许可方保证是本合同涉及的一切专利技术和专利资料的合法持有者，并且有权向接受方授予本合同约定的许可权。",
+          "location": "6.1",
+          "supporting_element_ids": [
+            "licensed_patent_subject"
+          ]
+        },
+        {
+          "clause_id": "C0035",
+          "evidence_id": "SRC-b1844582fbf55e667cb0",
+          "quote": "6.3 在合同有效期内，许可方应根据中国专利主管机关有关规定按时缴纳专利费用，以维持专利有效性。",
+          "location": "6.3",
+          "supporting_element_ids": [
+            "license_term"
+          ]
+        },
+        {
+          "clause_id": "C0036",
+          "evidence_id": "SRC-62b93a6f3b405070f38c",
+          "quote": "6.4 在合同有效期内，如果本合同涉及专利的法律状态发生变化，许可方应立即将有关情况以书面形式通知接受方，然后双方协商本合同后续执行问题。",
+          "location": "6.4",
+          "supporting_element_ids": [
+            "license_term"
+          ]
+        },
+        {
+          "clause_id": "C0048",
+          "evidence_id": "SRC-637e0da81002927ba2bc",
+          "quote": "10.1 本合同由双方授权代表于2026年9月3日在中国上海市签字。",
+          "location": "10.1",
+          "supporting_element_ids": [
+            "license_territory"
+          ]
+        },
+        {
+          "clause_id": "C0050",
+          "evidence_id": "SRC-04b11c3a872084b9b93c",
+          "quote": "10.3 本合同有效期自合同生效日起共8年，有效期满后本合同自动失效。",
+          "location": "10.3",
+          "supporting_element_ids": [
+            "license_term"
+          ]
+        },
+        {
+          "clause_id": "C0055",
+          "evidence_id": "SRC-67805f7f3b49e33160fc",
+          "quote": "双方在合同有效期内的正式通讯应采用书面形式。",
+          "location": "10.8",
+          "supporting_element_ids": [
+            "license_term"
+          ]
+        }
+      ],
+      "gate": {
+        "status": "BLOCKED",
+        "failures": [
+          {
+            "evidence_id": "SRC-3337e1cc6c009099c58f",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-1b44cd3abce97ead245b",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-23ef175c873861c1f30a",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-97aaf122508bbd6fd6c9",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-0079b2c2646b270ab8ed",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-589513af640fb73b83a1",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-1d25a03efb1a3a399649",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-b1844582fbf55e667cb0",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-62b93a6f3b405070f38c",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-637e0da81002927ba2bc",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-04b11c3a872084b9b93c",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "evidence_id": "SRC-67805f7f3b49e33160fc",
+            "reason": "IRRELEVANT_PASS_EVIDENCE"
+          },
+          {
+            "element_id": "licensed_patent_subject",
+            "reason": "NO_VERIFIED_SEMANTIC_SUPPORT"
+          },
+          {
+            "element_id": "permitted_implementation_acts",
+            "reason": "NO_VERIFIED_SEMANTIC_SUPPORT"
+          },
+          {
+            "element_id": "license_territory",
+            "reason": "NO_VERIFIED_SEMANTIC_SUPPORT"
+          },
+          {
+            "element_id": "license_term",
+            "reason": "NO_VERIFIED_SEMANTIC_SUPPORT"
+          },
+          {
+            "element_id": "license_type",
+            "reason": "NO_VERIFIED_SEMANTIC_SUPPORT"
+          },
+          {
+            "element_id": "transfer_or_sublicense_boundary",
+            "reason": "NO_VERIFIED_SEMANTIC_SUPPORT"
+          }
+        ],
+        "element_evidence_ids": {
+          "licensed_patent_subject": [],
+          "permitted_implementation_acts": [],
+          "license_territory": [],
+          "license_term": [],
+          "license_type": [],
+          "transfer_or_sublicense_boundary": []
+        }
+      },
+      "reason": "现有摘录尚不足以形成经原文与语义双重验证的通过结论，需要核对合同证据；不据此推断存在不利条款。",
+      "predicate_metadata": {
+        "review_polarity": "POSITIVE_REQUIREMENT",
+        "review_nature": "CONTRACTUAL_REQUIREMENT",
+        "atomic_requirement_family": null,
+        "negative_check_basis": null,
+        "original_source_review_required": true,
+        "specialized_coverage": {
+          "review_id": "TC-07-01",
+          "coverage": "PRESENT",
+          "required_fact_type": "PATENT_LICENSE_SCOPE_ATOMIC_ELEMENTS",
+          "evidence_clause_ids": [
+            "C0013",
+            "C0057",
+            "C0003",
+            "C0014",
+            "C0001",
+            "C0030",
+            "C0033",
+            "C0035",
+            "C0036",
+            "C0048",
+            "C0050",
+            "C0055"
+          ],
+          "reason": "已覆盖：许可标的、实施方式及制造、使用、销售等权利、许可地域、许可期限、许可类型、许可权转让或再许可边界；未发现核心或增强要素缺口。"
+        }
+      },
+      "negative": {},
+      "family": null
+    }
+  ],
+  "test_entrusted_development_consistency": [
+    {
+      "rule_id": "TC-04-01",
+      "coverage": "部分覆盖",
+      "elements": [
+        {
+          "review_id": "TC-04-01",
+          "element_id": "commissioned_project_and_objective",
+          "claim_id": "TC-04-01-commissioned_project_and_objective",
+          "proposition": "项目及目标已有直接约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-02bc43ad26a4bd67",
+            "EV-a801eed4ae303072"
+          ],
+          "supporting_evidence_ids": [
+            "EV-02bc43ad26a4bd67",
+            "EV-a801eed4ae303072"
+          ],
+          "source_clause_ids": [
+            "C0014",
+            "C0154"
+          ],
+          "source_spans": [
+            "项目名称：智能仓储运营管理平台 V1.0",
+            "项目名称：智能仓储运营管理平台 V1.0"
+          ],
+          "source_locations": [
+            "第一部分 项目与开发费用第2.1项",
+            "一、项目基本情况"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "项目及目标已有直接约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "项目及目标",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0014",
+              "quote": "项目名称：智能仓储运营管理平台 V1.0",
+              "component_key": "project",
+              "fact_id": "F-TECHNOLOGY-TRANSACTION-PROJECT-001"
+            },
+            {
+              "clause_id": "C0154",
+              "quote": "项目名称：智能仓储运营管理平台 V1.0",
+              "component_key": "project",
+              "fact_id": "F-TECHNOLOGY-TRANSACTION-PROJECT-002"
+            }
+          ],
+          "source_fact_key": "technology_transaction_project",
+          "fact_ids": [
+            "F-TECHNOLOGY-TRANSACTION-PROJECT-001",
+            "F-TECHNOLOGY-TRANSACTION-PROJECT-002"
+          ],
+          "evidence_refs": [
+            "EV-02bc43ad26a4bd67",
+            "EV-a801eed4ae303072"
+          ]
+        },
+        {
+          "review_id": "TC-04-01",
+          "element_id": "functional_and_technical_scope",
+          "claim_id": "TC-04-01-functional_and_technical_scope",
+          "proposition": "功能和技术范围已有直接约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-bf10fe0bb41f5b48"
+          ],
+          "supporting_evidence_ids": [
+            "EV-bf10fe0bb41f5b48"
+          ],
+          "source_clause_ids": [
+            "C0014"
+          ],
+          "source_spans": [
+            "主要功能：商品管理、库存管理、订单处理、仓储任务调度、运营数据分析、第三方ERP接口对接。"
+          ],
+          "source_locations": [
+            "第一部分 项目与开发费用第2.1项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "功能和技术范围已有直接约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "功能和技术范围",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0014",
+              "quote": "主要功能：商品管理、库存管理、订单处理、仓储任务调度、运营数据分析、第三方ERP接口对接。",
+              "component_key": "functions",
+              "fact_id": "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-001"
+            }
+          ],
+          "source_fact_key": "technology_transaction_functions",
+          "fact_ids": [
+            "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-001"
+          ],
+          "evidence_refs": [
+            "EV-bf10fe0bb41f5b48"
+          ]
+        },
+        {
+          "review_id": "TC-04-01",
+          "element_id": "schedule_and_milestones",
+          "claim_id": "TC-04-01-schedule_and_milestones",
+          "proposition": "开发期限及里程碑已有直接约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-fb4ff6806002b7ac"
+          ],
+          "supporting_evidence_ids": [
+            "EV-fb4ff6806002b7ac"
+          ],
+          "source_clause_ids": [
+            "C0014"
+          ],
+          "source_spans": [
+            "开发期限：6个月。"
+          ],
+          "source_locations": [
+            "第一部分 项目与开发费用第2.1项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "开发期限及里程碑已有直接约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "开发期限及里程碑",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0014",
+              "quote": "开发期限：6个月。",
+              "component_key": "schedule",
+              "fact_id": "F-TECHNOLOGY-TRANSACTION-SCHEDULE-001"
+            }
+          ],
+          "source_fact_key": "technology_transaction_schedule",
+          "fact_ids": [
+            "F-TECHNOLOGY-TRANSACTION-SCHEDULE-001"
+          ],
+          "evidence_refs": [
+            "EV-fb4ff6806002b7ac"
+          ]
+        },
+        {
+          "review_id": "TC-04-01",
+          "element_id": "deliverables_and_acceptance",
+          "claim_id": "TC-04-01-deliverables_and_acceptance",
+          "proposition": "开发成果交付、验收标准",
+          "status": "PARTIALLY_COVERED",
+          "evidence_ids": [
+            "EV-921fbe2f091c672a"
+          ],
+          "supporting_evidence_ids": [
+            "EV-921fbe2f091c672a"
+          ],
+          "source_clause_ids": [
+            "C0175"
+          ],
+          "source_spans": [
+            "乙方应提供完整可运行的软件、源代码、安装文件及相关文档。"
+          ],
+          "source_locations": [
+            "六、验收要求"
+          ],
+          "entailment": "PARTIAL_SUPPORT",
+          "verifier_confidence": "high",
+          "reason": "开发成果交付、验收标准",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "验收标准",
+          "required_fact": "开发成果交付、验收标准",
+          "search_targets": [
+            "验收标准"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0175",
+              "quote": "乙方应提供完整可运行的软件、源代码、安装文件及相关文档。",
+              "component_key": "deliverables",
+              "fact_id": "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-001"
+            }
+          ],
+          "source_fact_key": "technology_transaction_deliverables_and_acceptance",
+          "fact_ids": [
+            "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-001"
+          ],
+          "evidence_refs": [
+            "EV-921fbe2f091c672a"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0014",
+          "evidence_id": "EV-010ae2a58753ddf5",
+          "quote": "项目名称：智能仓储运营管理平台 V1.0",
+          "location": "第一部分 项目与开发费用第2.1项",
+          "supporting_element_ids": [
+            "commissioned_project_and_objective"
+          ]
+        },
+        {
+          "clause_id": "C0154",
+          "evidence_id": "EV-6953b34611b329eb",
+          "quote": "项目名称：智能仓储运营管理平台 V1.0",
+          "location": "一、项目基本情况",
+          "supporting_element_ids": [
+            "commissioned_project_and_objective"
+          ]
+        },
+        {
+          "clause_id": "C0014",
+          "evidence_id": "EV-490118c88bafb18e",
+          "quote": "主要功能：商品管理、库存管理、订单处理、仓储任务调度、运营数据分析、第三方ERP接口对接。",
+          "location": "第一部分 项目与开发费用第2.1项",
+          "supporting_element_ids": [
+            "functional_and_technical_scope"
+          ]
+        },
+        {
+          "clause_id": "C0014",
+          "evidence_id": "EV-5b37649da1449ac5",
+          "quote": "开发期限：6个月。",
+          "location": "第一部分 项目与开发费用第2.1项",
+          "supporting_element_ids": [
+            "schedule_and_milestones"
+          ]
+        },
+        {
+          "clause_id": "C0175",
+          "evidence_id": "EV-f0ecf243b4690296",
+          "quote": "乙方应提供完整可运行的软件、源代码、安装文件及相关文档。",
+          "location": "六、验收要求",
+          "supporting_element_ids": [
+            "deliverables_and_acceptance"
+          ]
+        }
+      ],
+      "gate": null,
+      "reason": "已覆盖：项目及目标已有直接约定；功能和技术范围已有直接约定；开发期限及里程碑已有直接约定；仅部分明确：验收标准已有部分约定，但完整性仍不足。",
+      "predicate_metadata": {
+        "review_polarity": "POSITIVE_REQUIREMENT",
+        "review_nature": "CONTRACTUAL_REQUIREMENT",
+        "atomic_requirement_family": "development_scope",
+        "negative_check_basis": null,
+        "original_source_review_required": null,
+        "specialized_coverage": {
+          "review_id": "TC-04-01",
+          "coverage": "PARTIAL",
+          "required_fact_type": "DEVELOPMENT_SCOPE",
+          "evidence_clause_ids": [
+            "C0014",
+            "C0154",
+            "C0014",
+            "C0014",
+            "C0175"
+          ],
+          "reason": "依据逐要素直接证据判断覆盖与剩余缺口。"
+        }
+      },
+      "negative": {},
+      "family": "development_scope"
+    }
+  ],
+  "test_cooperative_development_evidence_fact_conclusion_consistency": [
+    {
+      "rule_id": "TC-01-01",
+      "coverage": "通过",
+      "elements": [
+        {
+          "review_id": "TC-01-01",
+          "element_id": "transaction_rd_performance",
+          "claim_id": "TC-01-01-transaction_rd_performance",
+          "proposition": "研究开发核心给付已有直接约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-35bbff6fa24a20dc8c06",
+            "SRC-9495742acb0b19701fb5",
+            "SRC-06dcc8cf0d8abf4fc0f6",
+            "SRC-415adb68f39cf621284f"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-35bbff6fa24a20dc8c06",
+            "SRC-9495742acb0b19701fb5",
+            "SRC-06dcc8cf0d8abf4fc0f6",
+            "SRC-415adb68f39cf621284f"
+          ],
+          "source_clause_ids": [
+            "C0002",
+            "C0003",
+            "C0003",
+            "C0003"
+          ],
+          "source_spans": [
+            "技术方法和路线：\n采用深度学习视觉模型结合工业相机进行图像采集，通过乙方开发算法模型、丙方进行工艺验证、甲方提供生产环境进行联合研发。",
+            "研究开发内容：提供生产线、工业设备、样本数据和实际测试环境。",
+            "研究开发内容：负责AI视觉识别算法、软件平台及接口程序开发。",
+            "研究开发内容：负责工业检测标准、实验设计及技术性能评估。"
+          ],
+          "source_locations": [
+            "第一条 项目要求",
+            "第二条 各方分工",
+            "第二条 各方分工",
+            "第二条 各方分工"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "研究开发核心给付已有直接约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "研究开发核心给付",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "技术方法和路线：\n采用深度学习视觉模型结合工业相机进行图像采集，通过乙方开发算法模型、丙方进行工艺验证、甲方提供生产环境进行联合研发。",
+              "component_key": "rd_performance",
+              "fact_id": "F-TECHNOLOGY-TRANSACTION-RD_PERFORMANCE-001"
+            },
+            {
+              "clause_id": "C0003",
+              "quote": "研究开发内容：提供生产线、工业设备、样本数据和实际测试环境。",
+              "component_key": "rd_performance",
+              "fact_id": "F-TECHNOLOGY-TRANSACTION-RD_PERFORMANCE-002"
+            },
+            {
+              "clause_id": "C0003",
+              "quote": "研究开发内容：负责AI视觉识别算法、软件平台及接口程序开发。",
+              "component_key": "rd_performance",
+              "fact_id": "F-TECHNOLOGY-TRANSACTION-RD_PERFORMANCE-003"
+            },
+            {
+              "clause_id": "C0003",
+              "quote": "研究开发内容：负责工业检测标准、实验设计及技术性能评估。",
+              "component_key": "rd_performance",
+              "fact_id": "F-TECHNOLOGY-TRANSACTION-RD_PERFORMANCE-004"
+            }
+          ],
+          "source_fact_key": "technology_transaction_rd_performance",
+          "fact_ids": [
+            "F-TECHNOLOGY-TRANSACTION-RD_PERFORMANCE-001",
+            "F-TECHNOLOGY-TRANSACTION-RD_PERFORMANCE-002",
+            "F-TECHNOLOGY-TRANSACTION-RD_PERFORMANCE-003",
+            "F-TECHNOLOGY-TRANSACTION-RD_PERFORMANCE-004"
+          ],
+          "evidence_refs": [
+            "SRC-35bbff6fa24a20dc8c06",
+            "SRC-9495742acb0b19701fb5",
+            "SRC-06dcc8cf0d8abf4fc0f6",
+            "SRC-415adb68f39cf621284f"
+          ],
+          "bound_evidence_ids": [
+            "SRC-35bbff6fa24a20dc8c06",
+            "SRC-9495742acb0b19701fb5",
+            "SRC-06dcc8cf0d8abf4fc0f6",
+            "SRC-415adb68f39cf621284f"
+          ]
+        },
+        {
+          "review_id": "TC-01-01",
+          "element_id": "transaction_cooperative_direction",
+          "claim_id": "TC-01-01-transaction_cooperative_direction",
+          "proposition": "共同研发交易结构已有直接约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-35bbff6fa24a20dc8c06"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-35bbff6fa24a20dc8c06"
+          ],
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "技术方法和路线：\n采用深度学习视觉模型结合工业相机进行图像采集，通过乙方开发算法模型、丙方进行工艺验证、甲方提供生产环境进行联合研发。"
+          ],
+          "source_locations": [
+            "第一条 项目要求"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "共同研发交易结构已有直接约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "共同研发交易结构",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "技术方法和路线：\n采用深度学习视觉模型结合工业相机进行图像采集，通过乙方开发算法模型、丙方进行工艺验证、甲方提供生产环境进行联合研发。",
+              "component_key": "cooperative_direction",
+              "fact_id": "F-TECHNOLOGY-TRANSACTION-COOPERATIVE_DIRECTION-001"
+            }
+          ],
+          "source_fact_key": "technology_transaction_cooperative_direction",
+          "fact_ids": [
+            "F-TECHNOLOGY-TRANSACTION-COOPERATIVE_DIRECTION-001"
+          ],
+          "evidence_refs": [
+            "SRC-35bbff6fa24a20dc8c06"
+          ],
+          "bound_evidence_ids": [
+            "SRC-35bbff6fa24a20dc8c06"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0002",
+          "evidence_id": "SRC-35bbff6fa24a20dc8c06",
+          "quote": "技术方法和路线：\n采用深度学习视觉模型结合工业相机进行图像采集，通过乙方开发算法模型、丙方进行工艺验证、甲方提供生产环境进行联合研发。",
+          "location": "第一条 项目要求",
+          "supporting_element_ids": [
+            "transaction_rd_performance",
+            "transaction_cooperative_direction"
+          ]
+        },
+        {
+          "clause_id": "C0003",
+          "evidence_id": "SRC-9495742acb0b19701fb5",
+          "quote": "研究开发内容：提供生产线、工业设备、样本数据和实际测试环境。",
+          "location": "第二条 各方分工",
+          "supporting_element_ids": [
+            "transaction_rd_performance"
+          ]
+        },
+        {
+          "clause_id": "C0003",
+          "evidence_id": "SRC-06dcc8cf0d8abf4fc0f6",
+          "quote": "研究开发内容：负责AI视觉识别算法、软件平台及接口程序开发。",
+          "location": "第二条 各方分工",
+          "supporting_element_ids": [
+            "transaction_rd_performance"
+          ]
+        },
+        {
+          "clause_id": "C0003",
+          "evidence_id": "SRC-415adb68f39cf621284f",
+          "quote": "研究开发内容：负责工业检测标准、实验设计及技术性能评估。",
+          "location": "第二条 各方分工",
+          "supporting_element_ids": [
+            "transaction_rd_performance"
+          ]
+        }
+      ],
+      "gate": {
+        "status": "PASS",
+        "failures": [],
+        "element_evidence_ids": {
+          "transaction_rd_performance": [
+            "SRC-35bbff6fa24a20dc8c06",
+            "SRC-9495742acb0b19701fb5",
+            "SRC-06dcc8cf0d8abf4fc0f6",
+            "SRC-415adb68f39cf621284f"
+          ],
+          "transaction_cooperative_direction": [
+            "SRC-35bbff6fa24a20dc8c06"
+          ]
+        }
+      },
+      "reason": "核心给付事实已识别为合作开发，直接证据覆盖交易类型的全部必要要素。",
+      "predicate_metadata": {
+        "review_polarity": "POSITIVE_REQUIREMENT",
+        "review_nature": "CONTRACTUAL_REQUIREMENT",
+        "atomic_requirement_family": "transaction_classification:COOPERATIVE_DEVELOPMENT",
+        "negative_check_basis": null,
+        "original_source_review_required": null,
+        "specialized_coverage": {
+          "review_id": "TC-01-01",
+          "coverage": "PRESENT",
+          "required_fact_type": "TECHNOLOGY_TRANSACTION_CLASSIFICATION",
+          "evidence_clause_ids": [
+            "C0002",
+            "C0003",
+            "C0003",
+            "C0003"
+          ],
+          "reason": "核心给付事实已识别为合作开发，直接证据覆盖交易类型的全部必要要素。"
+        }
+      },
+      "negative": {},
+      "family": "transaction_classification:COOPERATIVE_DEVELOPMENT"
+    },
+    {
+      "rule_id": "TC-01-02",
+      "coverage": "通过",
+      "elements": [
+        {
+          "review_id": "TC-01-02",
+          "element_id": "transaction_rd_performance",
+          "claim_id": "TC-01-02-transaction_rd_performance",
+          "proposition": "研究开发核心给付已有直接约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-35bbff6fa24a20dc8c06",
+            "SRC-9495742acb0b19701fb5",
+            "SRC-06dcc8cf0d8abf4fc0f6",
+            "SRC-415adb68f39cf621284f"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-35bbff6fa24a20dc8c06",
+            "SRC-9495742acb0b19701fb5",
+            "SRC-06dcc8cf0d8abf4fc0f6",
+            "SRC-415adb68f39cf621284f"
+          ],
+          "source_clause_ids": [
+            "C0002",
+            "C0003",
+            "C0003",
+            "C0003"
+          ],
+          "source_spans": [
+            "技术方法和路线：\n采用深度学习视觉模型结合工业相机进行图像采集，通过乙方开发算法模型、丙方进行工艺验证、甲方提供生产环境进行联合研发。",
+            "研究开发内容：提供生产线、工业设备、样本数据和实际测试环境。",
+            "研究开发内容：负责AI视觉识别算法、软件平台及接口程序开发。",
+            "研究开发内容：负责工业检测标准、实验设计及技术性能评估。"
+          ],
+          "source_locations": [
+            "第一条 项目要求",
+            "第二条 各方分工",
+            "第二条 各方分工",
+            "第二条 各方分工"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "研究开发核心给付已有直接约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "研究开发核心给付",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "技术方法和路线：\n采用深度学习视觉模型结合工业相机进行图像采集，通过乙方开发算法模型、丙方进行工艺验证、甲方提供生产环境进行联合研发。",
+              "component_key": "rd_performance",
+              "fact_id": "F-TECHNOLOGY-TRANSACTION-RD_PERFORMANCE-001"
+            },
+            {
+              "clause_id": "C0003",
+              "quote": "研究开发内容：提供生产线、工业设备、样本数据和实际测试环境。",
+              "component_key": "rd_performance",
+              "fact_id": "F-TECHNOLOGY-TRANSACTION-RD_PERFORMANCE-002"
+            },
+            {
+              "clause_id": "C0003",
+              "quote": "研究开发内容：负责AI视觉识别算法、软件平台及接口程序开发。",
+              "component_key": "rd_performance",
+              "fact_id": "F-TECHNOLOGY-TRANSACTION-RD_PERFORMANCE-003"
+            },
+            {
+              "clause_id": "C0003",
+              "quote": "研究开发内容：负责工业检测标准、实验设计及技术性能评估。",
+              "component_key": "rd_performance",
+              "fact_id": "F-TECHNOLOGY-TRANSACTION-RD_PERFORMANCE-004"
+            }
+          ],
+          "source_fact_key": "technology_transaction_rd_performance",
+          "fact_ids": [
+            "F-TECHNOLOGY-TRANSACTION-RD_PERFORMANCE-001",
+            "F-TECHNOLOGY-TRANSACTION-RD_PERFORMANCE-002",
+            "F-TECHNOLOGY-TRANSACTION-RD_PERFORMANCE-003",
+            "F-TECHNOLOGY-TRANSACTION-RD_PERFORMANCE-004"
+          ],
+          "evidence_refs": [
+            "SRC-35bbff6fa24a20dc8c06",
+            "SRC-9495742acb0b19701fb5",
+            "SRC-06dcc8cf0d8abf4fc0f6",
+            "SRC-415adb68f39cf621284f"
+          ],
+          "bound_evidence_ids": [
+            "SRC-35bbff6fa24a20dc8c06",
+            "SRC-9495742acb0b19701fb5",
+            "SRC-06dcc8cf0d8abf4fc0f6",
+            "SRC-415adb68f39cf621284f"
+          ]
+        },
+        {
+          "review_id": "TC-01-02",
+          "element_id": "transaction_cooperative_direction",
+          "claim_id": "TC-01-02-transaction_cooperative_direction",
+          "proposition": "共同研发交易结构已有直接约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-35bbff6fa24a20dc8c06"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-35bbff6fa24a20dc8c06"
+          ],
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "技术方法和路线：\n采用深度学习视觉模型结合工业相机进行图像采集，通过乙方开发算法模型、丙方进行工艺验证、甲方提供生产环境进行联合研发。"
+          ],
+          "source_locations": [
+            "第一条 项目要求"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "共同研发交易结构已有直接约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "共同研发交易结构",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "技术方法和路线：\n采用深度学习视觉模型结合工业相机进行图像采集，通过乙方开发算法模型、丙方进行工艺验证、甲方提供生产环境进行联合研发。",
+              "component_key": "cooperative_direction",
+              "fact_id": "F-TECHNOLOGY-TRANSACTION-COOPERATIVE_DIRECTION-001"
+            }
+          ],
+          "source_fact_key": "technology_transaction_cooperative_direction",
+          "fact_ids": [
+            "F-TECHNOLOGY-TRANSACTION-COOPERATIVE_DIRECTION-001"
+          ],
+          "evidence_refs": [
+            "SRC-35bbff6fa24a20dc8c06"
+          ],
+          "bound_evidence_ids": [
+            "SRC-35bbff6fa24a20dc8c06"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0002",
+          "evidence_id": "SRC-35bbff6fa24a20dc8c06",
+          "quote": "技术方法和路线：\n采用深度学习视觉模型结合工业相机进行图像采集，通过乙方开发算法模型、丙方进行工艺验证、甲方提供生产环境进行联合研发。",
+          "location": "第一条 项目要求",
+          "supporting_element_ids": [
+            "transaction_rd_performance",
+            "transaction_cooperative_direction"
+          ]
+        },
+        {
+          "clause_id": "C0003",
+          "evidence_id": "SRC-9495742acb0b19701fb5",
+          "quote": "研究开发内容：提供生产线、工业设备、样本数据和实际测试环境。",
+          "location": "第二条 各方分工",
+          "supporting_element_ids": [
+            "transaction_rd_performance"
+          ]
+        },
+        {
+          "clause_id": "C0003",
+          "evidence_id": "SRC-06dcc8cf0d8abf4fc0f6",
+          "quote": "研究开发内容：负责AI视觉识别算法、软件平台及接口程序开发。",
+          "location": "第二条 各方分工",
+          "supporting_element_ids": [
+            "transaction_rd_performance"
+          ]
+        },
+        {
+          "clause_id": "C0003",
+          "evidence_id": "SRC-415adb68f39cf621284f",
+          "quote": "研究开发内容：负责工业检测标准、实验设计及技术性能评估。",
+          "location": "第二条 各方分工",
+          "supporting_element_ids": [
+            "transaction_rd_performance"
+          ]
+        }
+      ],
+      "gate": {
+        "status": "PASS",
+        "failures": [],
+        "element_evidence_ids": {
+          "transaction_rd_performance": [
+            "SRC-35bbff6fa24a20dc8c06",
+            "SRC-9495742acb0b19701fb5",
+            "SRC-06dcc8cf0d8abf4fc0f6",
+            "SRC-415adb68f39cf621284f"
+          ],
+          "transaction_cooperative_direction": [
+            "SRC-35bbff6fa24a20dc8c06"
+          ]
+        }
+      },
+      "reason": "核心给付事实已识别为合作开发，直接证据覆盖交易类型的全部必要要素。",
+      "predicate_metadata": {
+        "review_polarity": "POSITIVE_REQUIREMENT",
+        "review_nature": "CONTRACTUAL_REQUIREMENT",
+        "atomic_requirement_family": "transaction_classification:COOPERATIVE_DEVELOPMENT",
+        "negative_check_basis": null,
+        "original_source_review_required": null,
+        "specialized_coverage": {
+          "review_id": "TC-01-02",
+          "coverage": "PRESENT",
+          "required_fact_type": "TECHNOLOGY_TRANSACTION_CLASSIFICATION",
+          "evidence_clause_ids": [
+            "C0002",
+            "C0003",
+            "C0003",
+            "C0003"
+          ],
+          "reason": "核心给付事实已识别为合作开发，直接证据覆盖交易类型的全部必要要素。"
+        }
+      },
+      "negative": {},
+      "family": "transaction_classification:COOPERATIVE_DEVELOPMENT"
+    }
+  ]
+}

@@ -1,0 +1,334 @@
+FFFFFFFFFFFFFFFFF                                                        [100%]
+================================== FAILURES ===================================
+____ test_latest_improvement_notice_is_partial_with_only_residual_details _____
+
+latest_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_latest_improvement_notice_is_partial_with_only_residual_details(
+        latest_review: dict,
+    ):
+        item = _item(latest_review, "TC-10-03")
+        elements = _element_map(item)
+    
+        assert item["coverage_status"] == "部分覆盖"
+        assert elements["improvement_notice_trigger"]["status"] == "COVERED"
+>       assert elements["improvement_notice_trigger"].get("evidence_ids") == ["C0052"]
+E       AssertionError: assert ['C0055'] == ['C0052']
+E         
+E         At index 0 diff: 'C0055' != 'C0052'
+E         Use -v to get more diff
+
+backend\tests\test_technical_secret_license_contract_review.py:592: AssertionError
+___ test_existing_adverse_third_party_allocation_is_not_treated_as_missing ____
+
+secret_transfer_text = '技术转让（技术秘密）合同\n合同编号：TS-2026-0831-001\n项目名称：新能源汽车电池模组智能热管理控制技术转让项目\n受让方（甲方）：苏州恒锐新能源科技有限公司\n让与方（乙方）：上海凌川智能科技有限公司\n签订时间：2...n本合同自双方签字盖章之日起生效。\n甲方：苏州恒锐新能源科技有限公司\n法定代表人/授权代表：张伟\n签署日期：2026年10月20日\n乙方：上海凌川智能科技有限公司\n法定代表人/授权代表：陈宇\n签署日期：2026年10月20日'
+secret_transfer_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_existing_adverse_third_party_allocation_is_not_treated_as_missing(
+        secret_transfer_text: str,
+        secret_transfer_review: dict,
+    ):
+        claim = build_technology_fact_registry(secret_transfer_text)["third_party_claim"]
+        by_id = {row["item_id"]: row for row in secret_transfer_review["items"]}
+        claim_elements = {
+            row["element_id"]: row for row in by_id["TC-12-02"]["coverage_elements"]
+        }
+    
+        assert claim["authority_warranty"] is True
+        assert claim["claim_trigger"] is True
+>       assert claim["claim_assistance"] is True
+E       assert False is True
+
+backend\tests\test_technical_secret_transfer_contract_review.py:85: AssertionError
+__ test_full_report_uses_secret_transfer_role_and_non_patent_proof_semantics __
+
+secret_transfer_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_full_report_uses_secret_transfer_role_and_non_patent_proof_semantics(
+        secret_transfer_review: dict,
+    ):
+        by_id = {row["item_id"]: row for row in secret_transfer_review["items"]}
+        report = secret_transfer_review["result"]
+    
+>       assert secret_transfer_review["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_technical_secret_transfer_contract_review.py:137: AssertionError
+_ test_ancillary_service_fee_keeps_covered_base_and_only_reports_excess_fee_gaps _
+
+secret_transfer_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_ancillary_service_fee_keeps_covered_base_and_only_reports_excess_fee_gaps(
+        secret_transfer_review: dict,
+    ):
+        item = next(row for row in secret_transfer_review["items"] if row["item_id"] == "TC-09-04")
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+    
+>       assert item["coverage_status"] == "部分覆盖"
+E       AssertionError: assert '缺失' == '部分覆盖'
+E         
+E         - 部分覆盖
+E         + 缺失
+
+backend\tests\test_technical_secret_transfer_contract_review.py:173: AssertionError
+_ test_technical_secret_proof_uses_partial_atomic_facts_not_principle_warranty_pass _
+
+secret_transfer_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_technical_secret_proof_uses_partial_atomic_facts_not_principle_warranty_pass(
+        secret_transfer_review: dict,
+    ):
+        by_id = {row["item_id"]: row for row in secret_transfer_review["items"]}
+        for review_id in ("TC-03-04", "TC-13-02"):
+            item = by_id[review_id]
+            elements = {row["element_id"]: row for row in item["coverage_elements"]}
+    
+>           assert item["coverage_status"] == "部分覆盖"
+E           AssertionError: assert '缺失' == '部分覆盖'
+E             
+E             - 部分覆盖
+E             + 缺失
+
+backend\tests\test_technical_secret_transfer_contract_review.py:213: AssertionError
+__ test_acceptance_test_attachment_is_fact_activated_and_theme_deduplicated ___
+
+secret_transfer_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_acceptance_test_attachment_is_fact_activated_and_theme_deduplicated(
+        secret_transfer_review: dict,
+    ):
+        by_id = {row["item_id"]: row for row in secret_transfer_review["items"]}
+        attachment = by_id["TC-13-03"]
+        theme = next(
+            row for row in secret_transfer_review["risk_themes"]
+            if "TC-13-03" in row["source_rule_ids"]
+        )
+    
+        assert attachment["coverage_status"] == "部分覆盖"
+        assert attachment["risk_level"] == "低"
+        assert attachment["action_priority"] == "C_OPTIMIZATION"
+        assert set(theme["source_rule_ids"]) == {"TC-09-02", "TC-13-03"}
+        # The shared liability-cap validity and excessive-liquidated-damages
+        # screens are independently evidenced in this fixture as well.
+>       assert secret_transfer_review["risk_theme_count"] == 13
+E       assert 15 == 13
+
+backend\tests\test_technical_secret_transfer_contract_review.py:287: AssertionError
+______ test_acceptance_test_attachment_narrative_has_complete_sentences _______
+
+secret_transfer_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_acceptance_test_attachment_narrative_has_complete_sentences(
+        secret_transfer_review: dict,
+    ):
+        attachment = next(
+            row for row in secret_transfer_review["items"]
+            if row["item_id"] == "TC-13-03"
+        )
+        report = secret_transfer_review["result"]
+        narrative = attachment["decision_trace"]["narrative_elements"]
+    
+>       assert "测试争议的复测机制未明确。" in narrative["judgment"]
+E       AssertionError: assert '测试争议的复测机制未明确。' in '已覆盖：合同第十二条已明确验收场景和基本标准；合同第一条和验收条款已列明客观技术指标；测试设备和环境条件；尚未覆盖：独立验收测试方案附件；测试方法和操作步骤；固定测试数据集或样本；统计口径；测试记录和签认要求；争议复测或第三方检测机制。'
+
+backend\tests\test_technical_secret_transfer_contract_review.py:301: AssertionError
+____________ test_fixture_classification_context_and_applicability ____________
+
+    def test_fixture_classification_context_and_applicability():
+        output = _review()
+        context = output["contract_context"]
+        assert context["contract_family"] == "TECHNOLOGY"
+        assert context["contract_subtype"] == "TECHNICAL_SERVICE"
+        assert context["transaction_structure"] == "B2B_TECHNICAL_SERVICE"
+        assert context["user_role"] == "service_provider"
+        assert output["report_context"]["contract_type_label"] == "技术服务合同"
+        assert output["report_context"]["scenario_label"] == "高校科研数据治理技术服务"
+    
+        by_id = {item["item_id"]: item for item in output["items"]}
+        for item_id in ("TC-03-01", "TC-03-02", "TC-03-03", "TC-05-01", "TC-05-02", "TC-05-03", "TC-05-04", "TC-12-01"):
+            assert by_id[item_id]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+>       assert by_id["TC-13-03"]["coverage_status"] == "通过"
+E       AssertionError: assert '部分覆盖' == '通过'
+E         
+E         - 通过
+E         + 部分覆盖
+
+backend\tests\test_technical_service_contract_review.py:90: AssertionError
+__________ test_fixture_formula_timeline_evidence_and_report_quality __________
+
+    def test_fixture_formula_timeline_evidence_and_report_quality():
+        output = _review()
+        formula = output["deterministic_analysis"]["payment_formula"]
+        assert formula["percentage_total"] == 105
+        assert formula["amount_total"] == 504000
+        assert formula["contract_total"] == 480000
+        assert formula["amount_delta"] == 24000
+    
+        conflict_types = {row["type"] for row in output["deterministic_analysis"]["timeline"]["conflicts"]}
+        assert {"SERVICE_BEFORE_EFFECTIVE", "DATA_DUE_BEFORE_EFFECTIVE"} <= conflict_types
+    
+        report = output["result"]
+        assert "附件二" in report
+        assert "出卖人" not in report
+        assert "买受人" not in report
+        assert "可追溯到具体缺失要素" not in report
+        assert "未定位到单一明确条款" not in report
+>       assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_technical_service_contract_review.py:131: AssertionError
+_________________ test_fixture_matches_frozen_gold_semantics __________________
+
+    def test_fixture_matches_frozen_gold_semantics():
+        gold = json.loads(GOLD.read_text(encoding="utf-8"))
+        output = _review()
+        context = output["contract_context"]
+        assert context["contract_family"] == gold["classification"]["contract_family"]
+        assert context["contract_subtype"] == gold["classification"]["contract_subtype"]
+        assert context["transaction_structure"] == gold["classification"]["transaction_structure"]
+        assert context["user_role"] == gold["classification"]["review_role"]
+    
+        groups = {finding["risk_group"] for finding in output["risk_findings"]}
+        assert set(gold["required_risk_groups"]) <= groups
+        assert set(gold["required_secondary_risk_groups"]) <= groups
+        by_id = {item["item_id"]: item for item in output["items"]}
+        assert all(by_id[item_id]["coverage_status"] == COVERAGE_NOT_APPLICABLE for item_id in gold["not_applicable_review_ids"])
+>       assert all(by_id[item_id]["coverage_status"] == "通过" for item_id in gold["required_attachment_review_ids"])
+E       assert False
+E        +  where False = all(<generator object test_fixture_matches_frozen_gold_semantics.<locals>.<genexpr> at 0x0000028AC3936420>)
+
+backend\tests\test_technical_service_contract_review.py:148: AssertionError
+________ test_maintenance_contract_context_and_task_role_are_preserved ________
+
+maintenance_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...CTION', 'contract_subtype': 'TECHNICAL_SERVICE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_maintenance_contract_context_and_task_role_are_preserved(maintenance_review):
+        assert maintenance_review["contract_context"]["contract_subtype"] == "TECHNICAL_SERVICE"
+        assert maintenance_review["perspective_resolution"]["display_role"] == "甲方 / 服务接受方"
+        assert maintenance_review["report_context"]["contract_type_label"] == "技术合同—技术服务合同"
+>       assert maintenance_review["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_technical_service_maintenance_contract_review.py:44: AssertionError
+__________ test_maintenance_contract_uses_service_only_applicability __________
+
+maintenance_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...CTION', 'contract_subtype': 'TECHNICAL_SERVICE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_maintenance_contract_uses_service_only_applicability(maintenance_review):
+        items = {row["item_id"]: row for row in maintenance_review["items"]}
+        assert items["TC-01-04"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+        assert items["TC-03-04"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+        assert all(items[f"TC-08-0{index}"]["coverage_status"] == COVERAGE_NOT_APPLICABLE for index in range(1, 6))
+        assert all(items[f"TC-09-0{index}"]["coverage_status"] == "通过" for index in range(1, 5))
+        assert all(items[f"TC-10-0{index}"]["coverage_status"] == COVERAGE_NOT_APPLICABLE for index in range(1, 5))
+>       assert items["TC-11-01"]["coverage_status"] == "部分覆盖"
+E       AssertionError: assert '缺失' == '部分覆盖'
+E         
+E         - 部分覆盖
+E         + 缺失
+
+backend\tests\test_technical_service_maintenance_contract_review.py:54: AssertionError
+________ test_service_fee_payment_uses_article_four_not_breach_clause _________
+
+maintenance_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...CTION', 'contract_subtype': 'TECHNICAL_SERVICE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_service_fee_payment_uses_article_four_not_breach_clause(maintenance_review):
+        item = next(row for row in maintenance_review["items"] if row["item_id"] == "TC-09-04")
+        evidence = item["evidence_clauses"]
+        assert evidence
+        assert all("第四条" in row["location"] for row in evidence)
+        assert not any("第九条" in row["location"] for row in evidence)
+>       assert "技术服务费总额" in evidence[0]["raw_text"]
+E       AssertionError: assert '技术服务费总额' in '（3）服务期届满并完成最终验收后10个工作日内支付人民币126,000元。\n卖方开户银行名称、地址和账号为：\n开户银行：中国建设银行上海张江支行\n地址：上海市浦东新区张江路500号\n账号：31050123456789001234'
+
+backend\tests\test_technical_service_maintenance_contract_review.py:70: AssertionError
+__________ test_service_confidentiality_has_precise_partial_evidence __________
+
+maintenance_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...CTION', 'contract_subtype': 'TECHNICAL_SERVICE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_service_confidentiality_has_precise_partial_evidence(maintenance_review):
+        items = {row["item_id"]: row for row in maintenance_review["items"]}
+        liability = items["TC-11-04"]
+        assert liability["coverage_status"] == "部分覆盖"
+        assert liability["risk_level"] == "中"
+>       assert "违反保密义务" in liability["evidence_clauses"][0]["raw_text"]
+E       IndexError: list index out of range
+
+backend\tests\test_technical_service_maintenance_contract_review.py:79: IndexError
+______ test_freeze_closure_uses_subtype_safe_wording_and_direct_evidence ______
+
+maintenance_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...CTION', 'contract_subtype': 'TECHNICAL_SERVICE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_freeze_closure_uses_subtype_safe_wording_and_direct_evidence(maintenance_review):
+        items = {row["item_id"]: row for row in maintenance_review["items"]}
+    
+        confidentiality = items["TC-11-02"]
+        confidentiality_text = json.dumps(confidentiality, ensure_ascii=False)
+        assert "非公开咨询方法" not in confidentiality_text
+        assert all(term in confidentiality_text for term in (
+            "系统架构", "源代码", "服务器信息", "数据库资料", "接口资料", "业务数据", "客户数据",
+        ))
+    
+        nature = items["TC-01-01"]
+        subtype = items["TC-01-02"]
+        assert nature["coverage_status"] == "通过"
+        assert subtype["coverage_status"] == "通过"
+        assert all("第一条" in row["location"] for row in nature["evidence_clauses"])
+        assert all("第一条" in row["location"] for row in subtype["evidence_clauses"])
+        assert not any("第九条" in row["location"] for row in [*nature["evidence_clauses"], *subtype["evidence_clauses"]])
+        assert all(row["semantic_support_level"] == "DIRECT" for row in nature["evidence_clauses"])
+>       assert "系统开发" in subtype["evidence_clauses"][0]["raw_text"]
+E       AssertionError: assert '系统开发' in '1．技术服务的目标\n对买方现有智能仓储管理系统进行持续技术维护、性能优化和故障处理，提高系统运行稳定性、响应速度及业务连续性。'
+
+backend\tests\test_technical_service_maintenance_contract_review.py:102: AssertionError
+_____ test_maintenance_contract_summary_is_recomputed_after_applicability _____
+
+maintenance_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...CTION', 'contract_subtype': 'TECHNICAL_SERVICE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_maintenance_contract_summary_is_recomputed_after_applicability(maintenance_review):
+        risks = maintenance_review["risk_finding_summary"]
+        dispositions = maintenance_review["final_disposition_summary"]
+        assert dispositions["total"] == 4
+        assert risks["重大风险"] == 0
+>       assert risks["中等风险"] == 2
+E       assert 0 == 2
+
+backend\tests\test_technical_service_maintenance_contract_review.py:122: AssertionError
+__ test_technology_fixture_entrusted_development_filters_cooperative_points ___
+
+    def test_technology_fixture_entrusted_development_filters_cooperative_points():
+        source = Path(__file__).resolve().parents[2] / "test_data"
+        files = list(source.glob("*.docx"))
+        fixture = next((path for path in files if path.name.startswith("测试合同4")), None)
+>       assert fixture is not None
+E       assert None is not None
+
+backend\tests\test_technology_review_checklist.py:209: AssertionError
+=========================== short test summary info ===========================
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_improvement_notice_is_partial_with_only_residual_details
+FAILED backend/tests/test_technical_secret_transfer_contract_review.py::test_existing_adverse_third_party_allocation_is_not_treated_as_missing
+FAILED backend/tests/test_technical_secret_transfer_contract_review.py::test_full_report_uses_secret_transfer_role_and_non_patent_proof_semantics
+FAILED backend/tests/test_technical_secret_transfer_contract_review.py::test_ancillary_service_fee_keeps_covered_base_and_only_reports_excess_fee_gaps
+FAILED backend/tests/test_technical_secret_transfer_contract_review.py::test_technical_secret_proof_uses_partial_atomic_facts_not_principle_warranty_pass
+FAILED backend/tests/test_technical_secret_transfer_contract_review.py::test_acceptance_test_attachment_is_fact_activated_and_theme_deduplicated
+FAILED backend/tests/test_technical_secret_transfer_contract_review.py::test_acceptance_test_attachment_narrative_has_complete_sentences
+FAILED backend/tests/test_technical_service_contract_review.py::test_fixture_classification_context_and_applicability
+FAILED backend/tests/test_technical_service_contract_review.py::test_fixture_formula_timeline_evidence_and_report_quality
+FAILED backend/tests/test_technical_service_contract_review.py::test_fixture_matches_frozen_gold_semantics
+FAILED backend/tests/test_technical_service_maintenance_contract_review.py::test_maintenance_contract_context_and_task_role_are_preserved
+FAILED backend/tests/test_technical_service_maintenance_contract_review.py::test_maintenance_contract_uses_service_only_applicability
+FAILED backend/tests/test_technical_service_maintenance_contract_review.py::test_service_fee_payment_uses_article_four_not_breach_clause
+FAILED backend/tests/test_technical_service_maintenance_contract_review.py::test_service_confidentiality_has_precise_partial_evidence
+FAILED backend/tests/test_technical_service_maintenance_contract_review.py::test_freeze_closure_uses_subtype_safe_wording_and_direct_evidence
+FAILED backend/tests/test_technical_service_maintenance_contract_review.py::test_maintenance_contract_summary_is_recomputed_after_applicability
+FAILED backend/tests/test_technology_review_checklist.py::test_technology_fixture_entrusted_development_filters_cooperative_points
+17 failed, 5 warnings in 39.26s

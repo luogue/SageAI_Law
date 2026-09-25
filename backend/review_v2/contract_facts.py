@@ -7,6 +7,7 @@ facts and preserves the clause IDs that support each value.
 from __future__ import annotations
 
 import re
+import hashlib
 from dataclasses import asdict, dataclass, field
 from typing import Any, Dict, Iterable, List, Optional
 
@@ -47,7 +48,20 @@ CANONICAL_FACT_ALIASES: Dict[str, str] = {
 
 def canonical_fact_key(fact_type: str) -> str:
     key = str(fact_type or "").strip()
-    return CANONICAL_FACT_ALIASES.get(key, key)
+    from review_v2.technology_fact_ontology import FACT_KEY_ALIASES
+    aliases = {**CANONICAL_FACT_ALIASES, **FACT_KEY_ALIASES}
+    # Fact namespaces are not flat report-element identifiers. Resolve known
+    # spellings/aliases to the registry address without replacing its dots.
+    spellings = {re.sub(r"[\s_.-]+", "_", value).casefold(): value
+                 for value in sorted(set(aliases) | set(aliases.values()))}
+    key = spellings.get(re.sub(r"[\s_.-]+", "_", key).casefold(), key)
+    seen = set()
+    while key in aliases and key not in seen:
+        seen.add(key)
+        key = aliases[key]
+    if re.fullmatch(r"[A-Za-z][A-Za-z0-9_.-]*", key):
+        key = key.casefold().replace('-', '_')
+    return key
 
 
 @dataclass(frozen=True)
@@ -85,12 +99,13 @@ class ContractFactGraph:
             return
         existing.append(
             ContractFact(
-                fact_id=f"F-{fact_type.upper().replace('.', '-')}-{len(existing) + 1:03d}",
+                fact_id=("f_penalty_" + hashlib.sha256((str(getattr(clause, 'document_id', '') or '') + '|' + clause.clause_id + '|' + str(normalized)).encode()).hexdigest()[:20]
+                         if fact_type == "liability.penalty" else f"F-{fact_type.upper().replace('.', '-')}-{len(existing) + 1:03d}"),
                 fact_type=fact_type,
                 value=value,
                 normalized_value=normalized,
                 source_clause_ids=[clause.clause_id],
-                source_spans=[source_span if source_span and source_span in clause.text else clause.text],
+                source_spans=[source_span if source_span and (source_span in clause.text or source_span in (clause.raw_text or '')) else clause.text],
                 source_locations=[clause.location],
             )
         )
@@ -296,10 +311,29 @@ def _add_first_match(graph: ContractFactGraph, clause: ParsedClause, fact_type: 
 
 
 def extract_contract_fact_graph(clauses: List[ParsedClause]) -> ContractFactGraph:
+    from review_v2.unified_facts.store import CURRENT, fail
+    if CURRENT.get() is not None:
+        fail('RAW_FACT_REEXTRACTION_FORBIDDEN', 'extract_contract_fact_graph')
     graph = ContractFactGraph()
     for clause in clauses:
         text = clause.text
         compacted = re.sub(r"\s+", "", text)
+        for sentence in re.split(r"(?<=[。；;])|\n", text):
+            if "违约金" not in sentence:
+                continue
+            formula = re.search(r"按(?:照)?(?P<base>[^，。；%]{2,30}?)(?:的)?(?P<rate>\d+(?:\.\d+)?[%％])向(?P<beneficiary>甲方|乙方|丙方|委托方|受托方|买方|卖方)支付违约金", sentence)
+            period = re.search(r"每(?:逾期|迟延|延期|延迟)?(?:一|1)?(?:个)?(?:天|日)|每日|每天", sentence)
+            actors = re.findall(r"甲方|乙方|丙方|委托方|受托方|买方|卖方", sentence[:formula.start()] if formula else "")
+            trigger = re.search(
+                r"(?:迟延|逾期|延期|延迟)(?:交付|付款|支付)|(?:交付|付款|支付)(?:迟延|逾期|延期|延迟)|"
+                r"未按(?:约定的?)?(?:时间|期限).{0,12}?(?:交付|付款|支付)|未按期(?:交付|付款|支付)",
+                sentence,
+            )
+            if formula and period and actors and trigger:
+                value = {"trigger": trigger[0], "obligor": actors[-1], "beneficiary": formula['beneficiary'],
+                         "period": period[0], "rate": formula['rate'], "base": formula['base'].removesuffix('的'),
+                         "consequence": "支付违约金", "raw_clause": sentence.strip()}
+                graph.add("liability.penalty", value, clause, source_span=sentence.strip())
 
         for role, labels in (("buyer", ("购货单位", "买方", "买受人")), ("seller", ("供货单位", "卖方", "出卖人"))):
             for label in labels:
@@ -471,6 +505,16 @@ def extract_contract_fact_graph(clauses: List[ParsedClause]) -> ContractFactGrap
                     value = match.group(1).strip()
                     if not re.fullmatch(r"[_＿—－\-\s□×xX]+|待填写|待定|另行确定|详见附件", value):
                         graph.add(key, value, clause, source_span=match.group(0))
+            # A contractual ownership declaration identifies the stated owner;
+            # it does not establish that a certificate was actually supplied.
+            for match in re.finditer(
+                r"(?P<owner>许可方|转让方|让与方|接受方|被许可方|[甲乙丙丁]方)"
+                r"(?:确认|声明|保证|承诺)?(?:其)?(?:为|是)"
+                r"[^，,。；;\n]{0,100}?(?:合法)?专利权人", text,
+            ):
+                if not re.search(r"不是|并非|不属于|不再|尚未|可能|如为|若为", match.group(0)):
+                    graph.add("technology.patent.owner", match.group("owner"), clause,
+                              source_span=match.group(0))
         application_date = re.search(
             r"(?:专利)?申请日期?[：为:]?\s*(20\d{2}年\d{1,2}月\d{1,2}日)",
             text,
@@ -478,7 +522,7 @@ def extract_contract_fact_graph(clauses: List[ParsedClause]) -> ContractFactGrap
         if application_date:
             graph.add("technology.patent.application_date", application_date.group(1), clause)
         authorization_date = re.search(
-            r"(?:授权日期?|专利批准日期)[：为:]?\s*(20\d{2}年\d{1,2}月\d{1,2}日)|"
+            r"(?:授权(?:公告)?日期?|专利批准日期)[：为:]?\s*(20\d{2}年\d{1,2}月\d{1,2}日)|"
             r"(?:已于|于)(20\d{2}年\d{1,2}月\d{1,2}日).{0,24}(?:批准获得专利权|获得专利权|授权)",
             text,
         )
@@ -487,6 +531,7 @@ def extract_contract_fact_graph(clauses: List[ParsedClause]) -> ContractFactGrap
                 "technology.patent.authorization_date",
                 authorization_date.group(1) or authorization_date.group(2),
                 clause,
+                source_span=authorization_date.group(0),
             )
         if any(term in compacted for term in ("共同专利权人", "共有权人", "共同权利人")):
             graph.add("technology.patent.co_owner_disclosure", compacted[:800], clause)
@@ -497,30 +542,15 @@ def extract_contract_fact_graph(clauses: List[ParsedClause]) -> ContractFactGrap
         if any(term in compacted for term in ("查封", "保全")):
             graph.add("technology.patent.seizure_disclosure", compacted[:800], clause)
         if re.search(
-            r"(?:专利费用|专利年费|年费).{0,30}(?:按时缴纳|已经缴纳|已缴|缴纳凭证)|"
-            r"(?:按时缴纳|已经缴纳|已缴).{0,18}(?:专利费用|专利年费|年费)",
-            compacted,
-        ):
-            graph.add("technology.patent.annual_fee_maintenance", compacted[:800], clause)
-        if re.search(
             r"(?:专利年费|年费).{0,24}(?:已经缴纳|已缴纳|已缴|缴费正常|缴纳凭证)|"
             r"(?:已经缴纳|已缴纳|已缴).{0,18}(?:专利年费|年费)",
             compacted,
         ):
             graph.add("technology.patent.annual_fee_status", compacted[:800], clause)
-        if re.search(r"(?:维持|保持).{0,12}专利(?:权)?有效|维持专利有效", compacted):
-            graph.add("technology.patent.validity_maintenance", compacted[:800], clause)
-        if (
-            "法律状态" in compacted
-            and any(term in compacted for term in ("立即", "及时", "书面"))
-            and "通知" in compacted
-        ):
-            graph.add("technology.patent.status_change_notice", compacted[:800], clause)
-        if (
-            any(term in compacted for term in ("技术服务", "技术指导", "技术支持"))
-            and any(term in compacted for term in ("有义务", "应当", "应", "负责", "提供"))
-        ):
-            graph.add("technology.license.licensor_support", compacted[:800], clause)
+        from review_v2.technology_fact_ontology import patent_support_sources
+        for support_key, quotes in patent_support_sources(text).items():
+            for quote in quotes:
+                graph.add(support_key, quote, clause, source_span=quote)
 
         improvement_subject = any(term in compacted for term in (
             "改进和发展的技术", "改进技术", "改进成果", "后续改进", "进一步开发成果",
@@ -820,4 +850,8 @@ def extract_contract_fact_graph(clauses: List[ParsedClause]) -> ContractFactGrap
             if any(term in text for term in ("收费标准", "费用明细", "价目表", "课时费", "资料费", "教材费")):
                 graph.add("payment.fee_schedule", compacted[:400], clause)
 
+    from review_v2.technology_transaction_evidence import register_facts as register_transaction_facts
+    register_transaction_facts(graph, clauses)
+    from review_v2.technology_fact_ontology import register_ontology_facts
+    register_ontology_facts(graph, clauses)
     return graph

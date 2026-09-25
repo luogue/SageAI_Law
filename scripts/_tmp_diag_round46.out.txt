@@ -1,0 +1,182 @@
+======================================================================
+Round46 输入固定
+======================================================================
+源样本: 93 技术咨询合同.docx
+docx sha256: e01a8a7fae09a4fb2dd2b555e1e6c4545e4d39c0fe70d858a1a18d64468efefc
+text sha256: b12a7580e7ad98621caddbe48890281627949951d717f407ef0e24ee8b78cc7f
+文本长度: 4612
+复制至: F:\ai\Sage\artifacts\technology_pass_semantics\round46_consulting_generalization\input.docx
+
+======================================================================
+Element 层状态（93 合同）
+======================================================================
+
+[TC-01-03] (source=consulting/consulting_subject)
+   consulting_project: COVERED  evidence=2
+   consulting_scope: COVERED  evidence=6
+
+[TC-08-01] (source=consulting/consulting_quality)
+   acceptance_standard: COVERED  evidence=3
+   consulting_scope: COVERED  evidence=5
+   report_contents: COVERED  evidence=4
+
+[TC-08-02] (source=consulting/consulting_decision)
+   consultant_fault_exception: COVERED  evidence=1
+   qualified_consulting_decision_risk: COVERED  evidence=1
+
+[TC-08-03] (source=consulting/consulting_inputs)
+   truthfulness_completeness: COVERED  evidence=1
+
+[TC-08-04] (source=consulting/consulting_remedy)
+   correction_period: MISSING  evidence=0
+   correction_remedy: COVERED  evidence=1
+   defect_trigger: MISSING  evidence=0
+
+[TC-11-01] (source=technology/confidentiality_controls)
+   security_measures: MISSING  evidence=0
+   third_party_disclosure_restriction: MISSING  evidence=0
+
+[TC-11-02] (source=technology/confidentiality_disclosure)
+   independent_development_exception: MISSING  evidence=0
+
+[TC-11-03] (source=technology/material_exit)
+   confidential_backup_deletion: MISSING  evidence=0
+   confidential_copy_deletion: MISSING  evidence=0
+   confidential_disposal_confirmation: MISSING  evidence=0
+   confidential_material_destruction: MISSING  evidence=0
+   processing_deadline: MISSING  evidence=0
+   retained_backup_use_restriction: MISSING  evidence=0
+
+[TC-11-04] (source=remedies/remedies)
+   breach_damage_liability: COVERED  evidence=2
+   incident_notification: MISSING  evidence=0
+   mitigation_obligation: MISSING  evidence=0
+   stop_disclosure: MISSING  evidence=0
+   stop_use: MISSING  evidence=0
+
+[TC-12-02] (source=technology/service_claims)
+   claim_handling_responsibility: MISSING  evidence=0
+   defense_control: MISSING  evidence=0
+   defense_cost_allocation: MISSING  evidence=0
+   direct_damage: MISSING  evidence=0
+   lawyer_selection: MISSING  evidence=0
+   license_cure: MISSING  evidence=0
+   necessary_assistance: MISSING  evidence=0
+   notification_deadline: MISSING  evidence=0
+   notification_requirement: MISSING  evidence=0
+   provider_infringement_liability: MISSING  evidence=0
+   refund_remedy: MISSING  evidence=0
+   replacement_remedy: MISSING  evidence=0
+   settlement_authority: MISSING  evidence=0
+   termination_remedy: MISSING  evidence=0
+   third_party_claim_trigger: MISSING  evidence=0
+
+======================================================================
+引擎层：coverage COVERED ∩ SEARCH_AUDIT NOT_FOUND（假 MISSING 检测）
+======================================================================
+
+--- 立场 甲方 ---
+  gate=BLOCKED  failures=4
+
+  [TC-01-03] status=已覆盖
+     COVERED(4): ['consulting_deliverable', 'consulting_project', 'consulting_scope', 'technical_question_or_object']
+     NOT_FOUND(0): []
+     明细: consulting_project=COVERED, technical_question_or_object=COVERED, consulting_scope=COVERED, consulting_deliverable=COVERED
+
+  [TC-08-01] status=已覆盖
+     COVERED(4): ['acceptance_standard', 'consulting_scope', 'delivery_form', 'report_contents']
+     NOT_FOUND(0): []
+     明细: consulting_scope=COVERED, report_contents=COVERED, delivery_form=COVERED, acceptance_standard=COVERED
+
+  [TC-08-02] status=已覆盖
+     COVERED(2): ['consultant_fault_exception', 'qualified_consulting_decision_risk']
+     NOT_FOUND(0): []
+     明细: qualified_consulting_decision_risk=COVERED, consultant_fault_exception=COVERED
+
+  [TC-08-03] status=部分覆盖
+     COVERED(3): ['delivery_time_method', 'technical_materials', 'truthfulness_completeness']
+     NOT_FOUND(1): ['cooperation_conditions']
+     明细: technical_materials=COVERED, cooperation_conditions=MISSING, truthfulness_completeness=COVERED, delivery_time_method=COVERED
+
+  [TC-08-04] status=部分覆盖
+     COVERED(1): ['correction_remedy']
+     NOT_FOUND(2): ['correction_period', 'defect_trigger']
+     明细: defect_trigger=MISSING, correction_period=MISSING, correction_remedy=COVERED, termination_remedy=MISSING, refund_remedy=MISSING
+
+  [TC-11-01] status=部分覆盖
+     COVERED(3): ['confidential_information_scope', 'confidentiality_duration', 'need_to_know_personnel']
+     NOT_FOUND(5): ['confidentiality_obligation', 'copying_restriction', 'purpose_limitation', 'security_measures', 'third_party_disclosure_restriction']
+     明细: confidential_information_scope=COVERED, confidentiality_obligation=MISSING, need_to_know_personnel=COVERED, confidentiality_duration=COVERED, purpose_limitation=MISSING, third_party_disclosure_restriction=MISSING, copying_restriction=MISSING, security_measures=MISSING
+
+  [TC-11-02] status=部分覆盖
+     COVERED(2): ['confidential_information_scope', 'confidentiality_period']
+     NOT_FOUND(6): ['compelled_disclosure_exception', 'independent_development_exception', 'lawful_third_party_source_exception', 'post_termination_confidentiality', 'prior_notice_when_legally_permitted', 'public_information_exception']
+     明细: confidential_information_scope=COVERED, confidentiality_period=COVERED, post_termination_confidentiality=MISSING, public_information_exception=MISSING, lawful_third_party_source_exception=MISSING, independent_development_exception=MISSING, compelled_disclosure_exception=MISSING, prior_notice_when_legally_permitted=MISSING
+
+  [TC-11-03] status=缺失
+     COVERED(0): []
+     NOT_FOUND(5): ['confidential_backup_deletion', 'confidential_copy_deletion', 'confidential_disposal_confirmation', 'confidential_material_destruction', 'confidential_material_return']
+     明细: confidential_material_return=MISSING, confidential_copy_deletion=MISSING, confidential_backup_deletion=MISSING, confidential_material_destruction=MISSING, confidential_disposal_confirmation=MISSING
+
+  [TC-11-04] status=部分覆盖
+     COVERED(2): ['breach_damage_liability', 'specific_confidentiality_penalty']
+     NOT_FOUND(4): ['incident_notification', 'mitigation_obligation', 'stop_disclosure', 'stop_use']
+     明细: breach_damage_liability=COVERED, stop_disclosure=MISSING, stop_use=MISSING, mitigation_obligation=MISSING, incident_notification=MISSING, specific_confidentiality_penalty=COVERED, excess_loss_compensation=NOT_APPLICABLE
+
+  [TC-12-02] status=不适用
+     COVERED(0): []
+     NOT_FOUND(0): []
+     明细: 
+
+--- 立场 乙方 ---
+  gate=BLOCKED  failures=4
+
+  [TC-01-03] status=已覆盖
+     COVERED(4): ['consulting_deliverable', 'consulting_project', 'consulting_scope', 'technical_question_or_object']
+     NOT_FOUND(0): []
+     明细: consulting_project=COVERED, technical_question_or_object=COVERED, consulting_scope=COVERED, consulting_deliverable=COVERED
+
+  [TC-08-01] status=已覆盖
+     COVERED(4): ['acceptance_standard', 'consulting_scope', 'delivery_form', 'report_contents']
+     NOT_FOUND(0): []
+     明细: consulting_scope=COVERED, report_contents=COVERED, delivery_form=COVERED, acceptance_standard=COVERED
+
+  [TC-08-02] status=已覆盖
+     COVERED(2): ['consultant_fault_exception', 'qualified_consulting_decision_risk']
+     NOT_FOUND(0): []
+     明细: qualified_consulting_decision_risk=COVERED, consultant_fault_exception=COVERED
+
+  [TC-08-03] status=部分覆盖
+     COVERED(3): ['delivery_time_method', 'technical_materials', 'truthfulness_completeness']
+     NOT_FOUND(1): ['cooperation_conditions']
+     明细: technical_materials=COVERED, cooperation_conditions=MISSING, truthfulness_completeness=COVERED, delivery_time_method=COVERED
+
+  [TC-08-04] status=部分覆盖
+     COVERED(1): ['correction_remedy']
+     NOT_FOUND(2): ['correction_period', 'defect_trigger']
+     明细: defect_trigger=MISSING, correction_period=MISSING, correction_remedy=COVERED, termination_remedy=MISSING, refund_remedy=MISSING
+
+  [TC-11-01] status=部分覆盖
+     COVERED(3): ['confidential_information_scope', 'confidentiality_duration', 'need_to_know_personnel']
+     NOT_FOUND(5): ['confidentiality_obligation', 'copying_restriction', 'purpose_limitation', 'security_measures', 'third_party_disclosure_restriction']
+     明细: confidential_information_scope=COVERED, confidentiality_obligation=MISSING, need_to_know_personnel=COVERED, confidentiality_duration=COVERED, purpose_limitation=MISSING, third_party_disclosure_restriction=MISSING, copying_restriction=MISSING, security_measures=MISSING
+
+  [TC-11-02] status=部分覆盖
+     COVERED(2): ['confidential_information_scope', 'confidentiality_period']
+     NOT_FOUND(6): ['compelled_disclosure_exception', 'independent_development_exception', 'lawful_third_party_source_exception', 'post_termination_confidentiality', 'prior_notice_when_legally_permitted', 'public_information_exception']
+     明细: confidential_information_scope=COVERED, confidentiality_period=COVERED, post_termination_confidentiality=MISSING, public_information_exception=MISSING, lawful_third_party_source_exception=MISSING, independent_development_exception=MISSING, compelled_disclosure_exception=MISSING, prior_notice_when_legally_permitted=MISSING
+
+  [TC-11-03] status=缺失
+     COVERED(0): []
+     NOT_FOUND(5): ['confidential_backup_deletion', 'confidential_copy_deletion', 'confidential_disposal_confirmation', 'confidential_material_destruction', 'confidential_material_return']
+     明细: confidential_material_return=MISSING, confidential_copy_deletion=MISSING, confidential_backup_deletion=MISSING, confidential_material_destruction=MISSING, confidential_disposal_confirmation=MISSING
+
+  [TC-11-04] status=部分覆盖
+     COVERED(2): ['breach_damage_liability', 'specific_confidentiality_penalty']
+     NOT_FOUND(4): ['incident_notification', 'mitigation_obligation', 'stop_disclosure', 'stop_use']
+     明细: breach_damage_liability=COVERED, stop_disclosure=MISSING, stop_use=MISSING, mitigation_obligation=MISSING, incident_notification=MISSING, specific_confidentiality_penalty=COVERED, excess_loss_compensation=NOT_APPLICABLE
+
+  [TC-12-02] status=不适用
+     COVERED(0): []
+     NOT_FOUND(0): []
+     明细: 

@@ -5,17 +5,18 @@ import tarfile, os, subprocess as sp, time, fnmatch
 os.chdir(r'f:\ai\Sage')
 
 # Exclude patterns for tar
-EXCLUDE = {'node_modules', 'dist', '__pycache__', '.git', '*.pyc', '*.tar.gz'}
+EXCLUDE = {'node_modules', 'dist', '__pycache__', '.git', 'data', 'logs', '*.pyc', '*.tar.gz',
+           '*.db', '*.db-*', '*.sqlite', '*.sqlite-*', '*.sqlite3', '*.sqlite3-*', '*.bak'}
 
 def should_exclude(name):
     parts = name.replace('\\', '/').split('/')
     for p in parts:
-        if p in EXCLUDE or p.endswith('.pyc') or p == '__pycache__':
+        if any(fnmatch.fnmatch(p, pattern) for pattern in EXCLUDE):
             return True
     return False
 
 print("=== Building package ===")
-files = ['backend', 'frontend', 'Dockerfile.backend', 'Dockerfile.frontend', 'docker-compose.yml', 'nginx.conf', '.env.production']
+files = ['backend', 'frontend', 'Dockerfile.backend', 'Dockerfile.frontend', '.dockerignore', 'docker-compose.yml', 'nginx.conf', '.env.production']
 tarball = 'sageai-deploy.tar.gz'
 if os.path.exists(tarball):
     os.remove(tarball)
@@ -28,6 +29,8 @@ with tarfile.open(tarball, 'w:gz') as tar:
                     if fn.endswith('.pyc') or fn in EXCLUDE:
                         continue
                     full = os.path.join(root, fn)
+                    if should_exclude(full):
+                        continue
                     # Filter frontend specific
                     if fnmatch.fnmatch(full, '*node_modules*') or fnmatch.fnmatch(full, '*dist*'):
                         continue
@@ -53,7 +56,8 @@ r = sp.run(SSH + ['cd /opt/sageai && docker compose down 2>&1 || true'], capture
 print(r.stdout.strip()[:100] or "done")
 
 print("Extracting...")
-r = sp.run(SSH + ['cd /opt/sageai && rm -rf backend frontend && tar -xzf sageai-deploy.tar.gz 2>&1 && echo OK'], capture_output=True, text=True, timeout=30)
+# Runtime data may still live below backend in older installations: never recursively remove it.
+r = sp.run(SSH + ['cd /opt/sageai && tar -xzf sageai-deploy.tar.gz 2>&1 && echo OK'], capture_output=True, text=True, timeout=30)
 print(r.stdout.strip())
 
 print("Building (wait up to 5min)...")

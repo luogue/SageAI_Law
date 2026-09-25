@@ -1,0 +1,6 @@
+{
+  "command": "python3 -c 'import tarfile,subprocess,json,os\nfrom pathlib import Path\nroot=Path('\"'\"'/var/tmp/sageai-release-verify-20260909'\"'\"');context=root/'\"'\"'context'\"'\"';context.mkdir()\nwith tarfile.open(root/'\"'\"'context.tar.gz'\"'\"') as archive:\n for member in archive.getmembers():\n  if not (context/member.name).resolve().is_relative_to(context.resolve()):raise RuntimeError('\"'\"'Unsafe archive member'\"'\"')\n archive.extractall(context)\nwith (root/'\"'\"'runner.log'\"'\"').open('\"'\"'wb'\"'\"') as log:\n p=subprocess.Popen(['\"'\"'python3'\"'\"',str(root/'\"'\"'build_runner.py'\"'\"')],cwd=root,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)\nprint(json.dumps({'\"'\"'pid'\"'\"':p.pid,'\"'\"'workdir'\"'\"':str(root),'\"'\"'context_bytes'\"'\"':(root/'\"'\"'context.tar.gz'\"'\"').stat().st_size}))\n'",
+  "exit": 0,
+  "stdout": "{\"pid\": 2403924, \"workdir\": \"/var/tmp/sageai-release-verify-20260909\", \"context_bytes\": 2426130}\n",
+  "stderr": ""
+}

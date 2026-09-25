@@ -1,0 +1,1324 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="77" skipped="0" tests="423" time="1062.329" timestamp="2026-09-18T13:27:59.025023+08:00" hostname="PC-202411042018"><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_pure_patent_license_keeps_main_transaction_without_inventing_service_module" time="0.085" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_patent_license_plus_technical_secret_activates_secret_rule_without_reclassification" time="8.066" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_patent_license_plus_technical_service_activates_tc09_without_changing_main_type" time="8.721" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_third_party_claim_partial_uses_concrete_covered_and_missing_elements" time="8.301" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_tc12_rules_share_one_registry_and_do_not_re_report_confirmed_costs" time="8.158" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_patent_license_without_software_facts_does_not_request_software_or_open_source_proof" time="6.400" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_existing_improvement_ownership_and_priority_arrangement_is_partial_not_missing" time="6.619"><failure message="AssertionError: assert '建议补充明确改进成果许可...成果商业使用及分许可条件。' == '建议在现有优先许可和另行...限、商业使用及分许可条件。'&#10;  &#10;  - 建议在现有优先许可和另行协商机制基础上，进一步明确许可费或定价机制、许可地域、期限、商业使用及分许可条件。&#10;  + 建议补充明确改进成果许可费或定价机制；补充明确改进成果许可地域；补充明确改进成果许可期限；补充明确改进成果商业使用及分许可条件。">def test_existing_improvement_ownership_and_priority_arrangement_is_partial_not_missing():
+        text = PATENT_LICENSE_BASE + """
+    第十条 改进成果
+    甲方改进成果归甲方，乙方使用需另行协商；乙方改进成果归乙方，甲方享有优先许可权。
+    """
+        item = _items(_review(text))["TC-10-02"]
+        statuses = _element_statuses(item)
+    
+        assert item["coverage_status"] == "部分覆盖"
+        assert statuses["licensee_improvement_ownership"] == "COVERED"
+        assert statuses["licensor_improvement_ownership"] == "COVERED"
+        assert statuses["priority_or_negotiated_license"] == "PARTIALLY_COVERED"
+        assert statuses["license_fee"] == "MISSING"
+&gt;       assert item["suggested_clause_example"] == "建议在现有优先许可和另行协商机制基础上，进一步明确许可费或定价机制、许可地域、期限、商业使用及分许可条件。"
+E       AssertionError: assert '建议补充明确改进成果许可...成果商业使用及分许可条件。' == '建议在现有优先许可和另行...限、商业使用及分许可条件。'
+E         
+E         - 建议在现有优先许可和另行协商机制基础上，进一步明确许可费或定价机制、许可地域、期限、商业使用及分许可条件。
+E         + 建议补充明确改进成果许可费或定价机制；补充明确改进成果许可地域；补充明确改进成果许可期限；补充明确改进成果商业使用及分许可条件。
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:164: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_coverage_evidence_is_bound_to_over_scope_and_material_delivery_clauses" time="7.715" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_licence_with_secret_service_guidance_and_acceptance_activates_real_applicability_chain" time="9.839"><failure message="KeyError: 'technical_secret_use_boundary'">def test_licence_with_secret_service_guidance_and_acceptance_activates_real_applicability_chain():
+        text = PATENT_LICENSE_BASE + """
+    第六条 技术秘密
+    技术秘密内容包括模型训练参数、数据标注规范和部署优化参数；实施要求：仅限甲方实施许可专利。
+    技术秘密使用费为人民币8万元，保密期限五年。
+    第七条 技术服务和指导
+    技术服务和指导内容：系统部署、模型训练、生产环境调试及技术人员培训。
+    技术服务和指导方式：现场指导与远程技术支持相结合。
+    第八条 验收
+    技术资料完整交付并经甲方书面确认，识别准确率应达到95%。
+    第九条 技术服务和指导费为人民币3万元。
+    """
+        output = _review(text)
+        classification = classify_technology_transaction(text)
+        items = _items(output)
+    
+        assert classification["primary_subtype"] == "TECHNOLOGY_LICENSE"
+        assert {"technical_secret", "technical_service", "technical_guidance", "acceptance"} &lt;= set(
+            classification["sub_transactions"]
+        )
+        assert all(items[f"TC-09-0{index}"]["coverage_status"] != "不适用" for index in (1, 2, 4))
+        assert items["TC-09-03"]["coverage_status"] == "不适用"
+        assert items["TC-09-03"]["decision_trace"]["service_generated_result_applicability"]["improvement_result_reused"] is False
+        assert items["TC-12-03"]["coverage_status"] != "不适用"
+&gt;       assert _element_statuses(items["TC-12-03"])["technical_secret_use_boundary"] == "COVERED"
+E       KeyError: 'technical_secret_use_boundary'
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:207: KeyError</failure></testcase><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_third_person_claim_wording_flows_from_registry_to_all_tc12_consumers" time="6.342"><failure message="AssertionError: assert '缺失' == '部分覆盖'&#10;  &#10;  - 部分覆盖&#10;  + 缺失">def test_third_person_claim_wording_flows_from_registry_to_all_tc12_consumers():
+        text = PATENT_LICENSE_BASE + """
+    第十条 第三人侵权责任
+    乙方负责与第三方交涉、应诉，并承担合理律师费、诉讼费及甲方直接经济损失。
+    """
+        output = _review(text)
+        items = _items(output)
+    
+&gt;       assert items["TC-12-02"]["coverage_status"] == "部分覆盖"
+E       AssertionError: assert '缺失' == '部分覆盖'
+E         
+E         - 部分覆盖
+E         + 缺失
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:218: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_material_registry_recognizes_method_quantity_confirmation_and_versioned_schedule" time="7.589" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_classification_ontology_is_not_a_required_contract_phrase" time="6.962"><failure message="AssertionError: assert '不适用' == '通过'&#10;  &#10;  - 通过&#10;  + 不适用">def test_classification_ontology_is_not_a_required_contract_phrase():
+        output = _review(PATENT_LICENSE_BASE)
+        item = _items(output)["TC-01-04"]
+    
+&gt;       assert item["coverage_status"] == "通过"
+E       AssertionError: assert '不适用' == '通过'
+E         
+E         - 通过
+E         + 不适用
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:251: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_licensor_equal_to_named_patent_owner_does_not_require_upstream_chain" time="7.016"><failure message="AssertionError: assert '无需另行证明上游授权或再许可权限' in '专利名称\n专利号\n专利权人\n专利申请日期\n专利授权日期\n专利证书或专利登记簿副本等独立权属证明附件\n许可方已在合同中作出其有权授予许可的陈述或保证。\n上游授权链证明文件不适用。\n建议核验合同是否允许被许可方分许可或再许可；如允许，再核验相应授权文件及权限。\n许可方为专利权人或已提供必要授权证明；上游授权/再许可证明按适用条件处理。\n专利法律状态、有效期限和年费缴纳情况有文件依据。\n共同专利权人信息、既有许可披露、专利质押登记、专利查封保全'&#10; +  where '专利名称\n专利号\n专利权人\n专利申请日期\n专利授权日期\n专利证书或专利登记簿副本等独立权属证明附件\n许可方已在合同中作出其有权授予许可的陈述或保证。\n上游授权链证明文件不适用。\n建议核验合同是否允许被许可方分许可或再许可；如允许，再核验相应授权文件及权限。\n许可方为专利权人或已提供必要授权证明；上游授权/再许可证明按适用条件处理。\n专利法律状态、有效期限和年费缴纳情况有文件依据。\n共同专利权人信息、既有许可披露、专利质押登记、专利查封保全' = &lt;built-in method join of str object at 0x000002CADBFB4E70&gt;(&lt;generator object test_licensor_equal_to_named_patent_owner_does_not_require_upstream_chain.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002CAE0052340&gt;)&#10; +    where &lt;built-in method join of str object at 0x000002CADBFB4E70&gt; = '\n'.join">def test_licensor_equal_to_named_patent_owner_does_not_require_upstream_chain():
+        text = """
+    专利实施许可合同
+    受让方（甲方）：智能制造有限公司
+    让与方（乙方）：先进技术研究院
+    乙方授予甲方在中国境内实施本专利的许可。
+    专利名称：工业检测技术；专利号：ZL202610000099.9；专利权人：先进技术研究院；授权日：2026年2月1日。
+    专利有效期至2046年2月1日，专利年费已缴纳。
+    许可期限五年。
+    """
+        output = _review(text)
+        item = _items(output)["TC-03-04"]
+        statuses = _element_statuses(item)
+        registry = build_technology_fact_registry(text)["third_party_claim"]
+    
+        assert registry["licensor_is_patent_owner"] is True
+        assert statuses["licensor_authority_and_upstream_authorization"] == "COVERED"
+&gt;       assert "无需另行证明上游授权或再许可权限" in "\n".join(
+            row["proposition"] for row in item["coverage_elements"]
+        )
+E       AssertionError: assert '无需另行证明上游授权或再许可权限' in '专利名称\n专利号\n专利权人\n专利申请日期\n专利授权日期\n专利证书或专利登记簿副本等独立权属证明附件\n许可方已在合同中作出其有权授予许可的陈述或保证。\n上游授权链证明文件不适用。\n建议核验合同是否允许被许可方分许可或再许可；如允许，再核验相应授权文件及权限。\n许可方为专利权人或已提供必要授权证明；上游授权/再许可证明按适用条件处理。\n专利法律状态、有效期限和年费缴纳情况有文件依据。\n共同专利权人信息、既有许可披露、专利质押登记、专利查封保全'
+E        +  where '专利名称\n专利号\n专利权人\n专利申请日期\n专利授权日期\n专利证书或专利登记簿副本等独立权属证明附件\n许可方已在合同中作出其有权授予许可的陈述或保证。\n上游授权链证明文件不适用。\n建议核验合同是否允许被许可方分许可或再许可；如允许，再核验相应授权文件及权限。\n许可方为专利权人或已提供必要授权证明；上游授权/再许可证明按适用条件处理。\n专利法律状态、有效期限和年费缴纳情况有文件依据。\n共同专利权人信息、既有许可披露、专利质押登记、专利查封保全' = &lt;built-in method join of str object at 0x000002CADBFB4E70&gt;(&lt;generator object test_licensor_equal_to_named_patent_owner_does_not_require_upstream_chain.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002CAE0052340&gt;)
+E        +    where &lt;built-in method join of str object at 0x000002CADBFB4E70&gt; = '\n'.join
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:274: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_colon_style_improvement_ownership_is_partial_not_missing" time="6.846" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_service_generated_result_is_distinct_from_follow_on_technical_improvement" time="15.358" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_tc12_final_absence_audit_respects_registry_and_rule_ownership" time="7.795"><failure message="StopIteration">def test_tc12_final_absence_audit_respects_registry_and_rule_ownership():
+        output = _review(PATENT_LICENSE_BASE + THIRD_PARTY_PARTIAL)
+&gt;       infringement = _finding(output, "license_infringement_responsibility")
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:313: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+output = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+group = 'license_infringement_responsibility'
+
+    def _finding(output: dict, group: str) -&gt; dict:
+&gt;       return next(row for row in output["risk_findings"] if row["risk_group"] == group)
+E       StopIteration
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:36: StopIteration</failure></testcase><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_tc1201_combined_licensor_and_out_of_scope_liability_closes_boundary" time="8.549"><failure message="KeyError: 'compliant_use_scope_boundary'">def test_tc1201_combined_licensor_and_out_of_scope_liability_closes_boundary():
+        text = PATENT_LICENSE_BASE + THIRD_PARTY_PARTIAL + """
+    第十六条 超范围实施责任
+    甲方超出许可范围实施、擅自修改许可技术或未经乙方同意擅自再许可的，应立即停止并自行承担相应责任。
+    """
+        output = _review(text)
+        item = _items(output)["TC-12-01"]
+    
+        assert item["coverage_status"] == "通过"
+&gt;       assert _element_statuses(item)["compliant_use_scope_boundary"] == "COVERED"
+E       KeyError: 'compliant_use_scope_boundary'
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:340: KeyError</failure></testcase><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_named_owner_with_only_independent_patent_proof_missing_is_low_optional" time="6.444"><failure message="AssertionError: assert ['technology_...r_attachment'] == ['patent_cert...r_attachment']&#10;  &#10;  At index 0 diff: 'technology_patent_application_date' != 'patent_certificate_or_register_attachment'&#10;  Left contains one more item: 'patent_certificate_or_register_attachment'&#10;  Use -v to get more diff">def test_named_owner_with_only_independent_patent_proof_missing_is_low_optional():
+        text = PATENT_LICENSE_BASE + """
+    专利有效期限至2046年1月10日，年费已按期缴纳。
+    乙方确认不存在共有权人、既有许可、独占或排他许可冲突、质押、查封及其他权利负担。
+    """
+        finding = _finding(_review(text), "technology_ip_rights_provenance")
+    
+&gt;       assert finding["missing_element_ids"] == ["patent_certificate_or_register_attachment"]
+E       AssertionError: assert ['technology_...r_attachment'] == ['patent_cert...r_attachment']
+E         
+E         At index 0 diff: 'technology_patent_application_date' != 'patent_certificate_or_register_attachment'
+E         Left contains one more item: 'patent_certificate_or_register_attachment'
+E         Use -v to get more diff
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:352: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_material_recommendation_only_mentions_identifier_when_it_is_the_only_gap" time="6.943" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_internal_element_keys_never_reach_rendered_report" time="7.849" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_named_patent_owner_recommendation_only_requests_independent_title_proof" time="8.235" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_actionable_secret_and_acceptance_recommendations_use_natural_contract_language" time="9.519"><failure message="AssertionError: assert '因非被许可方原因公开或丧失秘密性' in '建议补充明确技术秘密全部或部分公开、进入公共领域及许可方主动公开等触发情形；补充明确秘密性丧失后的通知义务；补充明确秘密性丧失后的通知期限；补充明确未通知或迟延通知造成损失的赔偿责任；补充明确秘密性丧失后尚未发生许可费的停止或调减规则；补充明确非因被许可方原因丧失秘密性后的解除权；补充明确完成且具有独立价值的技术服务分项结算。'">def test_actionable_secret_and_acceptance_recommendations_use_natural_contract_language():
+        text = PATENT_LICENSE_BASE + """
+    第六条 技术秘密
+    技术秘密内容包括模型训练参数、数据标注规范和部署优化参数；实施要求：仅限甲方实施本合同许可专利使用；技术秘密使用费5万元，保密期限五年。
+    第七条 技术服务
+    技术服务和指导内容：乙方提供系统部署、模型训练和技术人员培训。
+    第八条 验收
+    准确率应达到95%。
+    """
+        output = _review(text)
+        items = _items(output)
+    
+&gt;       assert "因非被许可方原因公开或丧失秘密性" in items["TC-12-03"]["suggested_clause_example"]
+E       AssertionError: assert '因非被许可方原因公开或丧失秘密性' in '建议补充明确技术秘密全部或部分公开、进入公共领域及许可方主动公开等触发情形；补充明确秘密性丧失后的通知义务；补充明确秘密性丧失后的通知期限；补充明确未通知或迟延通知造成损失的赔偿责任；补充明确秘密性丧失后尚未发生许可费的停止或调减规则；补充明确非因被许可方原因丧失秘密性后的解除权；补充明确完成且具有独立价值的技术服务分项结算。'
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:407: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_material_finding_binds_types_delivery_receipt_and_attachment_clauses" time="7.514" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_user_report_distinguishes_cluster_topics_from_underlying_findings" time="7.467"><failure message="AssertionError: assert '- 风险主题数（聚合后）：8' in '# 专利实施许可合同审查报告\n\n\n## 一、合同总体评价\n\n- 审查立场：甲方 / 被许可方\n- 使用场景：专利实施许可\n- 合同类型：技术合同—技术许可合同—专利实施许可\n- 总体可签署性：建议专业法律复核后决定\n...论\n- **处理建议**：不适用。\n- 覆盖状态：不适用\n- 【适用说明】：当前文本识别为技术许可场景，未触发“技术进出口管制附件”的适用条件：仅在合同涉及技术进口、技术出口、跨境许可、跨境交付或数据出境时适用。\n\n---\n'">def test_user_report_distinguishes_cluster_topics_from_underlying_findings():
+        output = _review(PATENT_LICENSE_BASE + THIRD_PARTY_PARTIAL)
+        report = output["result"]
+        raw_count = len(output["risk_findings"])
+        clustered_count = raw_count - 2
+    
+&gt;       assert f"- 风险主题数（聚合后）：{clustered_count}" in report
+E       AssertionError: assert '- 风险主题数（聚合后）：8' in '# 专利实施许可合同审查报告\n\n\n## 一、合同总体评价\n\n- 审查立场：甲方 / 被许可方\n- 使用场景：专利实施许可\n- 合同类型：技术合同—技术许可合同—专利实施许可\n- 总体可签署性：建议专业法律复核后决定\n...论\n- **处理建议**：不适用。\n- 覆盖状态：不适用\n- 【适用说明】：当前文本识别为技术许可场景，未触发“技术进出口管制附件”的适用条件：仅在合同涉及技术进口、技术出口、跨境许可、跨境交付或数据出境时适用。\n\n---\n'
+
+backend\tests\test_patent_license_subtransaction_fact_registry.py:443: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_tc1203_consistently_reviews_loss_of_secrecy_not_contract_invalidity" time="8.045" /><testcase classname="backend.tests.test_patent_license_subtransaction_fact_registry" name="test_final_report_has_no_positive_fact_recommendation_conflict" time="6.998" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_classification_is_canonical_across_report_and_execution" time="25.305" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_party_roles_follow_identity_and_subtype" time="24.373" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_rule_states_and_partial_elements_are_consistent" time="0.001"><failure message="AssertionError: assert {'TC-01-01': ...2': '通过', ...} == {'TC-01-01': ...2': '通过', ...}&#10;  &#10;  Omitting 8 identical items, use -vv to show&#10;  Differing items:&#10;  {'TC-12-04': '不适用'} != {'TC-12-04': '部分覆盖'}&#10;  {'TC-04-03': '缺失'} != {'TC-04-03': '部分覆盖'}&#10;  {'TC-04-04': '缺失'} != {'TC-04-04': '部分覆盖'}&#10;  Use -v to get more diff">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_entrusted_rule_states_and_partial_elements_are_consistent(party_a_review):
+        items = _by_id(party_a_review)
+        expected = {
+            "TC-01-01": "通过",
+            "TC-01-04": "不适用",
+            "TC-04-01": "通过",
+            "TC-04-02": "通过",
+            "TC-04-03": "部分覆盖",
+            "TC-04-04": "部分覆盖",
+            "TC-05-04": "部分覆盖",
+            "TC-12-02": "部分覆盖",
+            "TC-12-04": "部分覆盖",
+            "TC-13-01": "通过",
+            "TC-13-03": "部分覆盖",
+        }
+&gt;       assert {review_id: items[review_id]["coverage_status"] for review_id in expected} == expected
+E       AssertionError: assert {'TC-01-01': ...2': '通过', ...} == {'TC-01-01': ...2': '通过', ...}
+E         
+E         Omitting 8 identical items, use -vv to show
+E         Differing items:
+E         {'TC-12-04': '不适用'} != {'TC-12-04': '部分覆盖'}
+E         {'TC-04-03': '缺失'} != {'TC-04-03': '部分覆盖'}
+E         {'TC-04-04': '缺失'} != {'TC-04-04': '部分覆盖'}
+E         Use -v to get more diff
+
+backend\tests\test_entrusted_development_contract_review.py:111: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_rule_evidence_covers_body_and_attachment_semantics" time="0.001"><failure message="assert False&#10; +  where False = all(&lt;generator object test_entrusted_rule_evidence_covers_body_and_attachment_semantics.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002CAE749A650&gt;)">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_entrusted_rule_evidence_covers_body_and_attachment_semantics(party_a_review):
+        items = _by_id(party_a_review)
+    
+        expected_terms = {
+            "TC-04-01": ("主要功能", "里程碑"),
+            "TC-04-02": ("开发费用", "付款"),
+            "TC-04-03": ("前景知识产权", "申请"),
+            "TC-05-04": ("解除", "开发费用"),
+            "TC-12-02": ("第三方", "许可"),
+            "TC-13-01": ("源代码", "测试报告"),
+            "TC-13-03": ("验收", "测试"),
+        }
+        for review_id, terms in expected_terms.items():
+            evidence_text = " ".join(
+                str(row.get("text") or row.get("quote") or "")
+                for row in items[review_id]["evidence_clauses"]
+            )
+&gt;           assert all(term in evidence_text for term in terms)
+E           assert False
+E            +  where False = all(&lt;generator object test_entrusted_rule_evidence_covers_body_and_attachment_semantics.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002CAE749A650&gt;)
+
+backend\tests\test_entrusted_development_contract_review.py:145: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_report_is_generated_without_fatal_quality_gate" time="0.002"><failure message="AssertionError: assert 'GENERATED_WI...LITY_WARNINGS' == 'GENERATED'&#10;  &#10;  - GENERATED&#10;  + GENERATED_WITH_QUALITY_WARNINGS">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_entrusted_report_is_generated_without_fatal_quality_gate(party_a_review):
+&gt;       assert party_a_review["report_generation_decision"]["status"] == "GENERATED"
+E       AssertionError: assert 'GENERATED_WI...LITY_WARNINGS' == 'GENERATED'
+E         
+E         - GENERATED
+E         + GENERATED_WITH_QUALITY_WARNINGS
+
+backend\tests\test_entrusted_development_contract_review.py:149: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_unsubstantiated_generic_missing_is_local_manual_review" time="0.001" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_acceptance_evidence_does_not_invent_third_party_testing" time="0.001"><failure message="KeyError: 'test_method_and_report'">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_acceptance_evidence_does_not_invent_third_party_testing(party_a_review):
+        item = _by_id(party_a_review)["TC-13-03"]
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+    
+        assert item["coverage_status"] == "部分覆盖"
+        assert elements["acceptance_metrics"]["status"] == "COVERED"
+&gt;       assert elements["test_method_and_report"]["status"] == "COVERED"
+E       KeyError: 'test_method_and_report'
+
+backend\tests\test_entrusted_development_contract_review.py:176: KeyError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_explicit_third_party_testing_clause_is_covered" time="24.482"><failure message="AssertionError: assert '部分覆盖' == '通过'&#10;  &#10;  - 通过&#10;  + 部分覆盖">def test_explicit_third_party_testing_clause_is_covered():
+        text = _fixture_text() + "\n如双方对测试结果存在争议，共同委托有资质的第三方检测机构进行检测，检测结果作为验收依据。"
+        review = review_contract_v2(
+            text,
+            "technology",
+            use_llm=False,
+            profile=UserRiskProfile(user_identity="甲方"),
+        )
+        item = _by_id(review)["TC-13-03"]
+        element = next(row for row in item["coverage_elements"] if row["element_id"] == "acceptance_dispute_verification")
+    
+&gt;       assert item["coverage_status"] == "通过"
+E       AssertionError: assert '部分覆盖' == '通过'
+E         
+E         - 通过
+E         + 部分覆盖
+
+backend\tests\test_entrusted_development_contract_review.py:194: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_post_termination_confidentiality_is_directly_covered" time="0.001"><failure message="AssertionError: assert '部分覆盖' == '通过'&#10;  &#10;  - 通过&#10;  + 部分覆盖">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_post_termination_confidentiality_is_directly_covered(party_a_review):
+        item = _by_id(party_a_review)["TC-11-02"]
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+    
+&gt;       assert item["coverage_status"] == "通过"
+E       AssertionError: assert '部分覆盖' == '通过'
+E         
+E         - 通过
+E         + 部分覆盖
+
+backend\tests\test_entrusted_development_contract_review.py:203: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_recommendation_normalization_removes_negative_prefixes" time="0.001" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_gap_consequences_are_bound_to_actual_missing_elements" time="0.001"><failure message="assert False&#10; +  where False = all(&lt;generator object test_gap_consequences_are_bound_to_actual_missing_elements.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002CAE67E8970&gt;)">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_gap_consequences_are_bound_to_actual_missing_elements(party_a_review):
+        items = _by_id(party_a_review)
+        patent = items["TC-04-03"]["narrative_state"]["consequence"]
+        failure = items["TC-04-04"]["narrative_state"]["consequence"]
+        exit_consequence = items["TC-05-04"]["narrative_state"]["consequence"]
+    
+&gt;       assert all(term in patent for term in ("申请主体", "文件签署", "权利登记"))
+E       assert False
+E        +  where False = all(&lt;generator object test_gap_consequences_are_bound_to_actual_missing_elements.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002CAE67E8970&gt;)
+
+backend\tests\test_entrusted_development_contract_review.py:228: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_manual_review_and_insufficient_context_states_are_explained" time="0.001" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_semantic_coverage_and_conditional_applicability" time="0.001"><failure message="AssertionError: assert 'MISSING' == 'COVERED'&#10;  &#10;  - COVERED&#10;  + MISSING">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_entrusted_semantic_coverage_and_conditional_applicability(party_a_review):
+        items = _by_id(party_a_review)
+        patent = items["TC-04-03"]
+        patent_elements = {row["element_id"]: row for row in patent["coverage_elements"]}
+    
+        assert patent["decision_trace"]["open_ended_enumeration"] == {
+            "detected": True,
+            "scope": "OPEN",
+            "semantic_result": "SEMANTICALLY_COVERED",
+            "applies_to": ["patent_application_right_ownership", "patent_right_after_grant"],
+        }
+&gt;       assert patent_elements["patent_application_right_ownership"]["status"] == "COVERED"
+E       AssertionError: assert 'MISSING' == 'COVERED'
+E         
+E         - COVERED
+E         + MISSING
+
+backend\tests\test_entrusted_development_contract_review.py:267: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_confidentiality_liability_reuses_semantically_valid_evidence" time="0.001"><failure message="KeyError: 'CONFIDENTIALITY_OBLIGATION'">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_confidentiality_liability_reuses_semantically_valid_evidence(party_a_review):
+        item = _by_id(party_a_review)["TC-11-04"]
+        evidence_by_role = {
+            row.get("evidence_role"): str(row.get("quote") or row.get("text") or "")
+            for row in item["evidence_clauses"]
+        }
+    
+        assert item["applicability"]["status"] == "APPLICABLE"
+        assert item["coverage_status"] == "部分覆盖"
+        assert item["needs_manual_review"] is False
+&gt;       assert "无法自公开渠道" in evidence_by_role["CONFIDENTIALITY_OBLIGATION"]
+E       KeyError: 'CONFIDENTIALITY_OBLIGATION'
+
+backend\tests\test_entrusted_development_contract_review.py:298: KeyError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_general_breach_catch_all_propagates_only_damage_remedies" time="0.001"><failure message="KeyError: 'confidentiality_obligation'">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_general_breach_catch_all_propagates_only_damage_remedies(party_a_review):
+        item = _by_id(party_a_review)["TC-11-04"]
+        elements = {row["element_id"]: row["status"] for row in item["coverage_elements"]}
+        propagation = item["decision_trace"]["general_breach_semantic_propagation"]
+        finding = next(
+            row for row in party_a_review["risk_findings"]
+            if row["risk_group"] == "confidentiality_breach_liability"
+        )
+    
+        assert propagation["classification"] == "GENERAL_BREACH_CATCH_ALL"
+&gt;       assert all(elements[element_id] == "COVERED" for element_id in (
+            "confidentiality_obligation", "breach_damage_liability", "direct_loss",
+            "lost_profit", "attorney_fee", "litigation_cost",
+        ))
+
+backend\tests\test_entrusted_development_contract_review.py:314: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = &lt;tuple_iterator object at 0x000002CAE04D10C0&gt;
+
+&gt;   assert all(elements[element_id] == "COVERED" for element_id in (
+        "confidentiality_obligation", "breach_damage_liability", "direct_loss",
+        "lost_profit", "attorney_fee", "litigation_cost",
+    ))
+E   KeyError: 'confidentiality_obligation'
+
+backend\tests\test_entrusted_development_contract_review.py:314: KeyError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_secret_copy_retention_uses_matching_legal_consequence" time="0.002"><failure message="KeyError: 'legal_consequence_mapping'">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_secret_copy_retention_uses_matching_legal_consequence(party_a_review):
+        item = _by_id(party_a_review)["TC-05-03"]
+        consequence = item["narrative_state"]["consequence"]
+    
+&gt;       assert item["decision_trace"]["legal_consequence_mapping"]["semantic_domain"] == "SECRET_COPY_RETENTION"
+E       KeyError: 'legal_consequence_mapping'
+
+backend\tests\test_entrusted_development_contract_review.py:338: KeyError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_improvement_notification_rendering_respects_development_subtype" time="5.215"><failure message="AssertionError: assert 'GENERAL_TECHNOLOGY' == 'COOPERATIVE_DEVELOPMENT'&#10;  &#10;  - COOPERATIVE_DEVELOPMENT&#10;  + GENERAL_TECHNOLOGY">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_improvement_notification_rendering_respects_development_subtype(party_a_review):
+        commissioned = _by_id(party_a_review)["TC-10-03"]
+        commissioned_rendering = commissioned["decision_trace"]["subtype_rendering"]
+        commissioned_consequence = commissioned["narrative_state"]["consequence"]
+    
+        assert commissioned_rendering["primary_subtype"] == "ENTRUSTED_DEVELOPMENT"
+        assert commissioned_rendering["has_follow_on_entitlement"] is False
+        assert commissioned["coverage_status"] == "不适用"
+        assert commissioned["applicability"]["status"] == "NOT_APPLICABLE"
+        assert commissioned_consequence == ""
+    
+        cooperative_fixture = next((ROOT / "test_data").glob("11*.docx"))
+        cooperative_review = review_contract_v2(
+            _document_text(cooperative_fixture),
+            "technology",
+            use_llm=False,
+            profile=UserRiskProfile(user_identity="甲方"),
+        )
+        cooperative = _by_id(cooperative_review)["TC-10-03"]
+        cooperative_rendering = cooperative["decision_trace"]["subtype_rendering"]
+        cooperative_consequence = cooperative["narrative_state"]["consequence"]
+    
+&gt;       assert cooperative_rendering["primary_subtype"] == "COOPERATIVE_DEVELOPMENT"
+E       AssertionError: assert 'GENERAL_TECHNOLOGY' == 'COOPERATIVE_DEVELOPMENT'
+E         
+E         - COOPERATIVE_DEVELOPMENT
+E         + GENERAL_TECHNOLOGY
+
+backend\tests\test_entrusted_development_contract_review.py:368: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_improvement_boundary_requires_affirmative_restriction" time="26.968" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_commissioning_party_liability_direction_excludes_favorable_no_cap_gap" time="0.001"><failure message="AssertionError: assert '不适用' == '部分覆盖'&#10;  &#10;  - 部分覆盖&#10;  + 不适用">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_commissioning_party_liability_direction_excludes_favorable_no_cap_gap(party_a_review):
+        item = _by_id(party_a_review)["TC-12-04"]
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+        direction = item["risk_direction"]
+    
+&gt;       assert item["coverage_status"] == "部分覆盖"
+E       AssertionError: assert '不适用' == '部分覆盖'
+E         
+E         - 部分覆盖
+E         + 不适用
+
+backend\tests\test_entrusted_development_contract_review.py:396: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_partial_findings_have_positive_and_absence_evidence" time="0.001"><failure message="assert False&#10; +  where False = any(&lt;generator object test_entrusted_partial_findings_have_positive_and_absence_evidence.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002CAE66F37D0&gt;)">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_entrusted_partial_findings_have_positive_and_absence_evidence(party_a_review):
+        findings = {row["risk_group"]: row for row in party_a_review["risk_findings"]}
+        for group in (
+            "entrusted_patent_application_right",
+            "development_failure_risk",
+            "technical_secret_result_rights",
+            "cooperation_breach_and_exit",
+            "confidentiality_breach_liability",
+            "indemnity_and_liability_cap",
+        ):
+            evidence = findings[group]["evidence_bundle"]["items"]
+&gt;           assert any(row["source_type"] != "SEARCH_AUDIT" for row in evidence)
+E           assert False
+E            +  where False = any(&lt;generator object test_entrusted_partial_findings_have_positive_and_absence_evidence.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002CAE66F37D0&gt;)
+
+backend\tests\test_entrusted_development_contract_review.py:427: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_commissioned_development_golden_manifest" time="0.002"><failure message="assert False&#10; +  where False = all(&lt;generator object test_commissioned_development_golden_manifest.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002CAE66F29D0&gt;)">party_a_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_commissioned_development_golden_manifest(party_a_review):
+        manifest_path = Path(__file__).parent / "fixtures" / "technical_contracts" / "commissioned_development.golden.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        items = _by_id(party_a_review)
+        classification = party_a_review["contract_context"]["canonical_classification"]
+    
+        assert manifest["sample_id"] == "TECH_DEV_COMMISSIONED_GOLDEN_001"
+        assert manifest["sample_status"] == "GOLDEN_CANDIDATE"
+        assert party_a_review["technology_transaction_consistency_gate"]["primary_contract_type"] == manifest["primary_contract_type"]
+        assert classification["contract_family"] == manifest["contract_family"]
+        assert classification["contract_category"] == manifest["contract_category"]
+        assert classification["contract_subtype"] == manifest["contract_subtype"]
+        assert party_a_review["perspective_resolution"]["canonical_role"] == manifest["review_position"]
+&gt;       assert all(items[review_id]["coverage_status"] == status for review_id, status in manifest["key_statuses"].items())
+E       assert False
+E        +  where False = all(&lt;generator object test_commissioned_development_golden_manifest.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002CAE66F29D0&gt;)
+
+backend\tests\test_entrusted_development_contract_review.py:451: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_production_file_api_renders_entrusted_development_snapshot" time="29.301"><failure message="AssertionError: assert 'BLOCKED' == 'REPORT_READY'&#10;  &#10;  - REPORT_READY&#10;  + BLOCKED">def test_production_file_api_renders_entrusted_development_snapshot():
+        engine_output = asyncio.run(
+            review_v2_file(
+                file=_UploadFile(FIXTURE.name, FIXTURE.read_bytes()),
+                contract_type="technology",
+                include_low_risk=True,
+                use_llm=False,
+                profile_json=json.dumps({"user_identity": "甲方"}, ensure_ascii=False),
+                current_user={"id": 1},
+            )
+        )
+        output = ReviewV2Result.model_validate(engine_output).model_dump()
+        items = _by_id(output)
+        markdown = output["result"]
+        ownership = {
+            row["final_output"]: row
+            for row in output["observability"]["final_output_ownership_matrix"]
+        }
+    
+        assert output["filename"] == FIXTURE.name
+        assert output["extracted_text_length"] &gt; 1000
+        assert output["report_generation_decision"]["report_generated"] is True
+&gt;       assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_entrusted_development_contract_review.py:512: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_explicit_review_role_is_not_overridden_by_generic_subtype_identity" time="28.031"><failure message="AssertionError: assert 13 == 11&#10; +  where 13 = len([{'finding_id': 'RF-013', 'risk_group': 'generic_potential_excessive_liquidated_damages', 'title': '违约金标准偏高及司法调减风险', '...inding_id': 'RF-008', 'risk_group': 'third_party_claim_defense', 'title': '第三方权利主张处理', 'severity': 'MEDIUM', ...}, ...])">def test_explicit_review_role_is_not_overridden_by_generic_subtype_identity():
+        engine_output = asyncio.run(
+            review_v2_file(
+                file=_UploadFile(FIXTURE.name, FIXTURE.read_bytes()),
+                contract_type="technology",
+                include_low_risk=True,
+                use_llm=False,
+                profile_json=json.dumps(
+                    {
+                        "review_role": "甲方 / 委托方",
+                        "user_identity": "委托开发合同当事人",
+                    },
+                    ensure_ascii=False,
+                ),
+                current_user={"id": 1},
+            )
+        )
+        output = ReviewV2Result.model_validate(engine_output).model_dump()
+        items = _by_id(output)
+    
+        assert output["profile"]["user_identity"] == "甲方 / 委托方"
+        assert output["perspective_resolution"]["canonical_role"] == "COMMISSIONING_PARTY"
+        assert output["perspective_resolution"]["display_role"] == "甲方 / 委托方"
+        assert output["contract_context"]["review_party_identity"] == "PARTY_A"
+        assert "审查立场：甲方 / 委托方" in output["result"]
+        assert "审查立场：委托开发合同当事人" not in output["result"]
+&gt;       assert len(output["risk_findings"]) == 11
+E       AssertionError: assert 13 == 11
+E        +  where 13 = len([{'finding_id': 'RF-013', 'risk_group': 'generic_potential_excessive_liquidated_damages', 'title': '违约金标准偏高及司法调减风险', '...inding_id': 'RF-008', 'risk_group': 'third_party_claim_defense', 'title': '第三方权利主张处理', 'severity': 'MEDIUM', ...}, ...])
+
+backend\tests\test_entrusted_development_contract_review.py:583: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_future_development_warranty_does_not_trigger_existing_ip_proof_attachments" time="9.188"><failure message="assert '技术合同均适用' not in &quot;{'review_id... '技术合同均适用。'}&quot;&#10;  &#10;  '技术合同均适用' is contained here:&#10;    dition': '技术合同均适用。', 'triggered': False, 'condition_text': '技术合同均适用。'}&#10;  ?           +++++++">def test_future_development_warranty_does_not_trigger_existing_ip_proof_attachments():
+        text = """
+        软件委托开发合同。甲方委托乙方开发新的业务系统。
+        开发成果和源代码交付甲方，乙方保证开发成果不侵犯第三方知识产权。
+        """
+        output = review_contract_v2(
+            text,
+            "technology",
+            use_llm=False,
+            profile=UserRiskProfile(user_identity="甲方", contract_scenario="委托开发"),
+        )
+        items = _by_id(output)
+        assert _technology_ip_proof_context(text)["proof_asset_transaction"] is False
+        assert items["TC-03-04"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+        assert items["TC-13-02"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+&gt;       assert "技术合同均适用" not in str(items["TC-03-04"]["applicability"])
+E       assert '技术合同均适用' not in "{'review_id... '技术合同均适用。'}"
+E         
+E         '技术合同均适用' is contained here:
+E           dition': '技术合同均适用。', 'triggered': False, 'condition_text': '技术合同均适用。'}
+E         ?           +++++++
+
+backend\tests\test_entrusted_development_contract_review.py:607: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_existing_patent_transfer_still_triggers_ip_proof_review" time="5.525" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_shared_personal_information_trigger_requires_business_processing_fact" time="0.115" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_current_commissioning_party_liability_overlap_is_an_enforceability_risk" time="0.001" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_technical_material_types_are_positive_evidence_not_a_false_absence" time="6.408" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_vague_material_obligation_can_report_missing_file_types" time="7.697"><failure message="AssertionError: assert '未列举主要技术资料文件类型' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'">def test_vague_material_obligation_can_report_missing_file_types():
+        output = _review(LICENSE_BASE + "\n许可方应提供相关技术资料。")
+        item = _item(output, "TC-13-01")
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+    
+        assert elements["major_document_types"]["status"] == "MISSING"
+&gt;       assert "未列举主要技术资料文件类型" in item["risk_point_description"]
+E       AssertionError: assert '未列举主要技术资料文件类型' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'
+
+backend\tests\test_technology_license_final_precision.py:69: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_license_final_precision" name="test_material_categories_without_version_or_attachment_are_not_overstated" time="7.422" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_permanent_license_rights_are_favorable_to_licensee" time="0.001" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_undefined_post_termination_royalty_is_the_only_lifecycle_risk" time="27.093"><failure message="AssertionError: assert 'LOW' == 'MEDIUM'&#10;  &#10;  - MEDIUM&#10;  + LOW">def test_undefined_post_termination_royalty_is_the_only_lifecycle_risk():
+        output = _review(_gold_text())
+        finding = _finding(output, "license_lifecycle_boundary_gap")
+        item = _item(output, "TECH-SHARED-LICENSE-LIFECYCLE-01")
+        interest = item["decision_trace"]["party_interest_check"]
+    
+        assert finding["title"] == "合同终止后继续销售的提成费义务不明确"
+&gt;       assert finding["severity"] == "MEDIUM"
+E       AssertionError: assert 'LOW' == 'MEDIUM'
+E         
+E         - MEDIUM
+E         + LOW
+
+backend\tests\test_technology_license_final_precision.py:110: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_license_final_precision" name="test_license_timeline_uses_material_delivery_not_service_start" time="7.060" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_cross_border_explicit_gaps_survive_fallback_and_keep_medium_severity" time="7.338"><failure message="AssertionError: assert 'final_missing_elements' == 'structured_missing_elements'&#10;  &#10;  - structured_missing_elements&#10;  + final_missing_elements">def test_cross_border_explicit_gaps_survive_fallback_and_keep_medium_severity():
+        output = _review(
+            LICENSE_BASE
+            + "\n许可方为德国企业，被许可方为中国企业，本合同属于跨境技术交易。"
+            + "\n双方应遵守技术进出口、出口管制、制裁、外汇、税务、知识产权和数据跨境规则，"
+            + "但具体审批、登记、备案、许可文件、办理材料、期限及责任分工未约定，双方未形成专项附件。"
+        )
+        item = _item(output, "TC-13-04")
+        finding = _finding(output, "technology_import_export_control")
+        missing = {row["element_id"] for row in finding["final_missing_elements"]}
+    
+        assert item["coverage_status"] == "部分覆盖"
+        assert finding["severity"] == "MEDIUM"
+&gt;       assert item["decision_trace"]["missing_element_resolution"]["selected_source"] == "structured_missing_elements"
+E       AssertionError: assert 'final_missing_elements' == 'structured_missing_elements'
+E         
+E         - structured_missing_elements
+E         + final_missing_elements
+
+backend\tests\test_technology_license_final_precision.py:148: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_license_final_precision" name="test_generic_compliance_sentence_without_cross_border_fact_does_not_invent_specific_gap" time="6.532" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_open_ended_material_types_do_not_prove_closed_attachment_schedule" time="6.921" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_explicit_attachment_schedule_with_identifiers_and_versions_is_covered" time="6.708" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_material_attachment_gaps_are_aggregated_into_one_low_risk_finding" time="7.007"><failure message="AssertionError: assert '主要类别已经明确' in '仍需补足：技术资料交付义务、技术资料交付形式、技术资料交付数量、技术资料签收或验收确认机制、最终附件级技术资料交付清单、最终交付文件版本号、最终交付文件编号。'">def test_material_attachment_gaps_are_aggregated_into_one_low_risk_finding():
+        output = _review(
+            LICENSE_BASE
+            + "\n技术资料包括但不限于总体设计图、机械零件图、电气原理图、PLC源程序和安装手册。"
+        )
+        findings = [row for row in output["risk_findings"] if row["risk_group"] == "technical_material_attachment"]
+    
+        assert len(findings) == 1
+        assert findings[0]["severity"] == "LOW"
+&gt;       assert "主要类别已经明确" in findings[0]["issue"]
+E       AssertionError: assert '主要类别已经明确' in '仍需补足：技术资料交付义务、技术资料交付形式、技术资料交付数量、技术资料签收或验收确认机制、最终附件级技术资料交付清单、最终交付文件版本号、最终交付文件编号。'
+
+backend\tests\test_technology_license_final_precision.py:205: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_license_final_precision" name="test_high_risks_default_to_core_priority_without_unexplained_downgrade" time="24.971" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_confidentiality_disposal_gap_is_owned_only_by_tc_11_03" time="22.245" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_license_third_party_claim_advanced_only_gap_is_not_a_required_risk" time="7.416"><failure message="AssertionError: assert ['defense_cost_allocation'] == []&#10;  &#10;  Left contains one more item: 'defense_cost_allocation'&#10;  Use -v to get more diff">def test_license_third_party_claim_advanced_only_gap_is_not_a_required_risk():
+        output = _review(
+            LICENSE_BASE
+            + "\n被许可方按本合同约定实施技术时，如收到第三方知识产权权利主张，应在5个工作日内书面通知许可方。"
+            + "\n许可方应负责与第三方交涉、处理和应诉，提供权属证明及技术来源文件，并承担赔偿责任和被许可方的直接经济损失。"
+            + "\n未经被许可方书面同意，许可方不得与第三方达成损害被许可方权益的和解。"
+            + "\n因许可方权利瑕疵导致被许可方无法继续合法实施时，被许可方有权解除合同，许可方应返还全部许可费并赔偿损失。"
+        )
+        item = _item(output, "TC-12-02")
+        tiers = item["decision_trace"]["third_party_claim_element_tiers"]
+    
+&gt;       assert tiers["necessary_protection_gaps"] == []
+E       AssertionError: assert ['defense_cost_allocation'] == []
+E         
+E         Left contains one more item: 'defense_cost_allocation'
+E         Use -v to get more diff
+
+backend\tests\test_technology_license_final_precision.py:249: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_license_final_precision" name="test_tc_12_04_requires_same_loss_general_remedy_before_activation" time="20.775" /><testcase classname="backend.tests.test_technology_license_final_precision" name="test_tc_13_04_uses_cross_border_consequence_mapping_not_ip_claim_fallback" time="6.228"><failure message="assert False&#10; +  where False = all(&lt;generator object test_tc_13_04_uses_cross_border_consequence_mapping_not_ip_claim_fallback.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002CAE66F0580&gt;)">def test_tc_13_04_uses_cross_border_consequence_mapping_not_ip_claim_fallback():
+        output = _review(
+            LICENSE_BASE
+            + "\n许可方为德国企业，被许可方为中国企业，本合同属于跨境技术交易。"
+            + "\n双方遵守技术进出口、出口管制及数据跨境规则，但具体审批、登记、备案、许可和责任分工未约定。"
+        )
+        item = _item(output, "TC-13-04")
+        finding = _finding(output, "technology_import_export_control")
+    
+        assert item["decision_trace"]["field_provenance"]["legal_consequence_source"] == "rule_family:technology_import_export_control"
+&gt;       assert all(term in finding["consequence"] for term in ("跨境交付", "许可履行", "付款结算"))
+E       assert False
+E        +  where False = all(&lt;generator object test_tc_13_04_uses_cross_border_consequence_mapping_not_ip_claim_fallback.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002CAE66F0580&gt;)
+
+backend\tests\test_technology_license_final_precision.py:279: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_license_scenario_interest_isolation" name="test_a_license_role_and_patent_proof_requirements_are_scenario_isolated" time="5.829" /><testcase classname="backend.tests.test_technology_license_scenario_interest_isolation" name="test_b_patent_transfer_keeps_transfer_legal_semantics" time="14.979" /><testcase classname="backend.tests.test_technology_license_scenario_interest_isolation" name="test_c_software_license_facts_enable_software_and_open_source_requirements" time="3.769" /><testcase classname="backend.tests.test_technology_license_scenario_interest_isolation" name="test_d_party_interest_check_distinguishes_uncapped_and_low_capped_licensor_liability" time="28.664" /><testcase classname="backend.tests.test_technology_license_scenario_interest_isolation" name="test_e_missing_special_liability_is_not_mechanically_major_when_protected" time="21.029"><failure message="AssertionError: assert '高' == '低'&#10;  &#10;  - 低&#10;  + 高">def test_e_missing_special_liability_is_not_mechanically_major_when_protected():
+        protected = _review(_docx_text(GOLD), "甲方/被许可方")
+        protected_item = next(row for row in protected["items"] if row["item_id"] == "TC-07-03")
+    
+        assert protected_item["coverage_status"] == "缺失"
+&gt;       assert protected_item["risk_level"] == "低"
+E       AssertionError: assert '高' == '低'
+E         
+E         - 低
+E         + 高
+
+backend\tests\test_technology_license_scenario_interest_isolation.py:167: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_license_scenario_interest_isolation" name="test_f_formal_recommendations_are_actionable_and_not_risk_copies" time="21.153" /><testcase classname="backend.tests.test_technology_transaction_routing_consistency" name="test_patent_license_has_one_primary_type_and_no_keyword_subtype_leakage" time="6.283" /><testcase classname="backend.tests.test_technology_transaction_routing_consistency" name="test_pure_patent_transaction_uses_fact_driven_proof_requirements" time="6.047"><failure message="AssertionError: assert {'license_enc...on_file', ...} == {'license_enc...verification'}&#10;  &#10;  Extra items in the left set:&#10;  'upstream_authorization_file'&#10;  'technology_patent_name'&#10;  'technology_patent_number'&#10;  'technology_patent_authorization_date'&#10;  'technology_patent_application_date'...&#10;  &#10;  ...Full output truncated (5 lines hidden), use '-vv' to show">def test_pure_patent_transaction_uses_fact_driven_proof_requirements():
+        output = review_contract_v2(PATENT_LICENSE_TEXT, "technology", use_llm=False)
+        by_id = {row["item_id"]: row for row in output["items"]}
+        expected_elements = {
+            "patent_identity_in_contract",
+            "patent_certificate_or_register_attachment",
+            "patent_proof_attachment_content_verification",
+            "licensor_authority_and_upstream_authorization",
+            "patent_legal_status_and_annual_fee",
+            "license_encumbrance_and_conflict_disclosure",
+        }
+    
+        for review_id in ("TC-03-04", "TC-13-02"):
+            item = by_id[review_id]
+&gt;           assert {row["element_id"] for row in item["coverage_elements"]} == expected_elements
+E           AssertionError: assert {'license_enc...on_file', ...} == {'license_enc...verification'}
+E             
+E             Extra items in the left set:
+E             'upstream_authorization_file'
+E             'technology_patent_name'
+E             'technology_patent_number'
+E             'technology_patent_authorization_date'
+E             'technology_patent_application_date'...
+E             
+E             ...Full output truncated (5 lines hidden), use '-vv' to show
+
+backend\tests\test_technology_transaction_routing_consistency.py:92: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_transaction_routing_consistency" name="test_title_and_core_transaction_conflict_is_a_finding_not_a_second_rule_pack" time="4.436" /><testcase classname="backend.tests.test_technology_transaction_routing_consistency" name="test_topic_words_without_transaction_evidence_do_not_activate_subtype_rules" time="3.458" /><testcase classname="backend.tests.test_technology_transaction_routing_consistency" name="test_existing_third_party_rights_clause_is_partial_not_missing" time="6.647"><failure message="AssertionError: assert {'ABSENCE_EVI...tion_trigger'} == {'INFRINGING_...ISTANCE_ONLY'}&#10;  &#10;  Extra items in the left set:&#10;  'ABSENCE_EVIDENCE'&#10;  'infringing_implementation_trigger'&#10;  Use -v to get more diff">def test_existing_third_party_rights_clause_is_partial_not_missing():
+        text = PATENT_LICENSE_TEXT + """
+    第五条 第三方权利责任
+    如第三人指控甲方按照本合同约定实施专利侵犯第三方合法权利，甲方应在五个工作日内通知乙方。
+    卖方应配合买方提供专利权属、申请过程及技术来源资料。
+    因乙方无权许可或故意隐瞒已有权利负担造成的损失，由乙方承担。
+    因甲方擅自修改技术方案、超出许可范围或结合其他第三方技术导致的侵权，由甲方自行承担。
+    """
+        output = review_contract_v2(text, "technology", use_llm=False)
+        item = next(row for row in output["items"] if row["item_id"] == "TC-12-01")
+        finding = next(
+            row for row in output["risk_findings"]
+            if row["risk_group"] == "license_infringement_responsibility"
+        )
+    
+        assert item["coverage_status"] == "部分覆盖"
+        assert item["issue_type"] == "PARTIAL"
+        assert "未找到对应约定" not in item["reasoning_summary"]
+        assert {row["element_id"]: row["status"] for row in item["coverage_elements"]} == {
+            "infringing_implementation_trigger": "COVERED",
+            "fault_specific_loss_allocation": "COVERED",
+            "compliant_use_residual_liability": "MISSING",
+        }
+        assert finding["issue_type"] == "PARTIAL"
+        assert finding["evidence_bundle"]["entailment_status"] == "PASSED"
+&gt;       assert {row["fact_type"] for row in finding["evidence_bundle"]["items"]} == {
+            "INFRINGING_IMPLEMENTATION_TRIGGER",
+            "LICENSEE_LOSS_ALLOCATION",
+            "LICENSOR_ASSISTANCE_ONLY",
+        }
+E       AssertionError: assert {'ABSENCE_EVI...tion_trigger'} == {'INFRINGING_...ISTANCE_ONLY'}
+E         
+E         Extra items in the left set:
+E         'ABSENCE_EVIDENCE'
+E         'infringing_implementation_trigger'
+E         Use -v to get more diff
+
+backend\tests\test_technology_transaction_routing_consistency.py:172: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_transaction_routing_consistency" name="test_license_evidence_semantics_and_atomic_elements_are_consistent" time="8.191"><failure message="AssertionError: assert {'claim_trigg...MISSING', ...} == {'notificatio...MISSING', ...}&#10;  &#10;  Omitting 9 identical items, use -vv to show&#10;  Differing items:&#10;  {'licensor_participation': 'MISSING'} != {'licensor_participation': 'COVERED'}&#10;  {'damages_allocation': 'MISSING'} != {'damages_allocation': 'PARTIALLY_COVERED'}&#10;  Left contains 12 more items:&#10;  {'administrative_handling': 'MISSING',...&#10;  &#10;  ...Full output truncated (12 lines hidden), use '-vv' to show">def test_license_evidence_semantics_and_atomic_elements_are_consistent():
+        output = review_contract_v2(EVIDENCE_JUDGMENT_LICENSE_TEXT, "technology", use_llm=False)
+        by_id = {row["item_id"]: row for row in output["items"]}
+    
+        for review_id in ("TC-02-01", "TC-02-02"):
+            item = by_id[review_id]
+            assert item["coverage_status"] == "通过"
+            assert item["decision_trace"]["evidence_judgment"]["evidence_semantics"] == "PROTECTIVE_CLAUSE"
+            assert item["decision_trace"]["evidence_judgment"]["affirmative_risk_evidence_ids"] == []
+    
+        claim_states = {
+            row["element_id"]: row["status"] for row in by_id["TC-12-02"]["coverage_elements"]
+        }
+&gt;       assert claim_states == {
+            "notification_requirement": "COVERED",
+            "notification_deadline": "COVERED",
+            "licensor_participation": "COVERED",
+            "defense_control": "MISSING",
+            "lawyer_selection": "MISSING",
+            "settlement_authority": "MISSING",
+            "defense_cost_allocation": "MISSING",
+            "damages_allocation": "PARTIALLY_COVERED",
+            "replacement_or_workaround": "MISSING",
+            "license_cure": "MISSING",
+            "refund_or_termination_remedy": "COVERED",
+        }
+E       AssertionError: assert {'claim_trigg...MISSING', ...} == {'notificatio...MISSING', ...}
+E         
+E         Omitting 9 identical items, use -vv to show
+E         Differing items:
+E         {'licensor_participation': 'MISSING'} != {'licensor_participation': 'COVERED'}
+E         {'damages_allocation': 'MISSING'} != {'damages_allocation': 'PARTIALLY_COVERED'}
+E         Left contains 12 more items:
+E         {'administrative_handling': 'MISSING',...
+E         
+E         ...Full output truncated (12 lines hidden), use '-vv' to show
+
+backend\tests\test_technology_transaction_routing_consistency.py:212: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_transaction_routing_consistency" name="test_cross_rule_evidence_and_final_consistency_gate_use_classification_truth" time="9.115" /><testcase classname="backend.tests.test_technology_transaction_routing_consistency" name="test_patent_transfer_asset_subtypes_and_transaction_layers_are_semantic" time="0.051" /><testcase classname="backend.tests.test_technology_transaction_routing_consistency" name="test_new_patent_transfer_generalization_sample_routes_without_frozen_risks" time="13.525"><failure message="AssertionError: assert '部分覆盖' == '通过'&#10;  &#10;  - 通过&#10;  + 部分覆盖">def test_new_patent_transfer_generalization_sample_routes_without_frozen_risks():
+        fixture = Path(__file__).resolve().parents[2] / "test_data" / "14、专利转让.docx"
+        document = Document(str(fixture))
+        text = "\n".join(paragraph.text for paragraph in document.paragraphs if paragraph.text.strip())
+        output = review_contract_v2(
+            text, "technology", use_llm=False,
+            profile=UserRiskProfile(user_identity="甲方/专利权受让方"),
+        )
+        classification = output["deterministic_analysis"]["technology_classification"]
+        by_id = {row["item_id"]: row for row in output["items"]}
+    
+        assert classification["primary_subtype"] == "TECHNOLOGY_TRANSFER"
+        assert classification["tertiary_subtype"] == "PATENT_RIGHT_TRANSFER"
+        assert classification["transitional_arrangements"] == ["TEMPORARY_PATENT_LICENSE"]
+        assert output["perspective_resolution"]["canonical_role"] == "PATENT_TRANSFEREE"
+        assert by_id["TC-01-01"]["coverage_status"] == "通过"
+        assert by_id["TC-01-02"]["coverage_status"] == "通过"
+        assert all(by_id[f"TC-06-0{index}"]["coverage_status"] != COVERAGE_NOT_APPLICABLE for index in range(1, 5))
+        assert all(by_id[f"TC-07-0{index}"]["coverage_status"] == COVERAGE_NOT_APPLICABLE for index in range(1, 5))
+        assert all(by_id[f"TC-09-0{index}"]["coverage_status"] == COVERAGE_NOT_APPLICABLE for index in range(1, 5))
+&gt;       assert by_id["TC-11-01"]["coverage_status"] == "通过"
+E       AssertionError: assert '部分覆盖' == '通过'
+E         
+E         - 通过
+E         + 部分覆盖
+
+backend\tests\test_technology_transaction_routing_consistency.py:308: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_transaction_routing_consistency" name="test_liability_cap_evidence_excludes_patent_maintenance_as_core_support" time="8.210"><failure message="StopIteration">def test_liability_cap_evidence_excludes_patent_maintenance_as_core_support():
+        output = review_contract_v2(EVIDENCE_JUDGMENT_LICENSE_TEXT, "technology", use_llm=False)
+        by_id = {row["item_id"]: row for row in output["items"]}
+        item = by_id["TC-12-04"]
+&gt;       finding = next(row for row in output["risk_findings"] if "TC-12-04" in row["source_review_ids"])
+E       StopIteration
+
+backend\tests\test_technology_transaction_routing_consistency.py:363: StopIteration</failure></testcase><testcase classname="backend.tests.test_technology_transaction_routing_consistency" name="test_patent_license_direction_and_provenance_golden_sample" time="20.979"><failure message="AssertionError: assert 'PATENT_LICENSOR' == 'PATENT_LICENSEE'&#10;  &#10;  - PATENT_LICENSEE&#10;  ?              ^^&#10;  + PATENT_LICENSOR&#10;  ?              ^^">def test_patent_license_direction_and_provenance_golden_sample():
+        output = _patent_license_golden_review()
+        by_id = {row["item_id"]: row for row in output["items"]}
+        manifest_path = Path(__file__).parent / "fixtures" / "technical_contracts" / "patent_license.golden.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    
+        assert output["technology_transaction_consistency_gate"]["primary_contract_type"] == "technology_license_patent"
+&gt;       assert output["perspective_resolution"]["canonical_role"] == "PATENT_LICENSEE"
+E       AssertionError: assert 'PATENT_LICENSOR' == 'PATENT_LICENSEE'
+E         
+E         - PATENT_LICENSEE
+E         ?              ^^
+E         + PATENT_LICENSOR
+E         ?              ^^
+
+backend\tests\test_technology_transaction_routing_consistency.py:397: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_transaction_routing_consistency" name="test_semantically_empty_template_fields_do_not_count_as_filled" time="0.006" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_original_cross_article_upload_complete_gate" time="24.757" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_cross_article_sources_remain_separate_and_verbatim" time="0.047" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_each_confidentiality_duration_has_its_own_source" time="0.001" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_remedies_are_not_inferred_from_confidentiality_scope" time="0.001" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_price_component_has_explicit_total_and_instalment_sources" time="0.001" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_product_metrics_do_not_prove_support_service_acceptance" time="0.001" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_removed_element_publication_is_still_blocked" time="0.014" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_repeated_normal_upload_has_idempotent_states_and_spans" time="22.501" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_coordinated_fee_names_share_atomic_price_predicate[\u6280\u672f\u670d\u52a1\u53ca\u6307\u5bfc\u8d39]" time="0.002" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_coordinated_fee_names_share_atomic_price_predicate[\u6280\u672f\u652f\u6301\u548c\u57f9\u8bad\u8d39\u7528]" time="0.001" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_coordinated_fee_names_share_atomic_price_predicate[\u6280\u672f\u6307\u5bfc\u8d39]" time="0.002" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_service_promise_and_separate_price_do_not_imply_inclusion" time="0.001" /><testcase classname="backend.tests.test_cross_article_upload_closure" name="test_historical_grant_does_not_supply_current_scope" time="0.024" /><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_cooperative_investment_and_work_facts_are_atomically_resolved" time="15.729"><failure message="AssertionError: assert [{'party': '甲...50000.0, ...}] == [{'party': '甲...: 50000, ...}]&#10;  &#10;  At index 0 diff: {'party': '甲方', 'nominal_investment': 1200000.0, 'payment_total': 850000.0, 'difference': -350000.0, 'nodes': [400000.0, 450000.0]} != {'party': '甲方', 'nominal_investment': 1200000, 'payment_total': 1250000, 'difference': 50000, 'nodes': [400000, 400000, 450000]}&#10;  Use -v to get more diff">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_cooperative_investment_and_work_facts_are_atomically_resolved(cooperative_review: dict):
+        item = _items(cooperative_review)["TC-05-01"]
+        elements = _elements(item)
+    
+        for element_id in (
+            "research_task_allocation",
+            "development_schedule_and_milestones",
+            "funding_investment",
+            "technical_and_personnel_investment",
+            "data_equipment_environment_investment",
+        ):
+            assert elements[element_id]["status"] == "COVERED"
+    
+        assert elements["party_investment_total_consistency"]["status"] == "COVERED"
+        assert elements["nominal_investment_payment_consistency"]["status"] == "CONFLICTING"
+        assert elements["equity_investment_ratio_basis"]["status"] == "PARTIALLY_COVERED"
+        analysis = item["decision_trace"]["cooperative_investment_consistency"]
+        assert analysis["stated_project_total"] == 2_200_000
+        assert analysis["declared_investment_sum"] == 2_200_000
+&gt;       assert analysis["payment_conflicts"] == [{
+            "party": "甲方",
+            "nominal_investment": 1_200_000,
+            "payment_total": 1_250_000,
+            "difference": 50_000,
+            "nodes": [400_000, 400_000, 450_000],
+        }]
+E       AssertionError: assert [{'party': '甲...50000.0, ...}] == [{'party': '甲...: 50000, ...}]
+E         
+E         At index 0 diff: {'party': '甲方', 'nominal_investment': 1200000.0, 'payment_total': 850000.0, 'difference': -350000.0, 'nodes': [400000.0, 450000.0]} != {'party': '甲方', 'nominal_investment': 1200000, 'payment_total': 1250000, 'difference': 50000, 'nodes': [400000, 400000, 450000]}
+E         Use -v to get more diff
+
+backend\tests\test_cooperative_development_advanced_regressions.py:63: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_final_result_patent_license_and_revenue_rights_are_compared" time="0.001"><failure message="AssertionError: assert '收益归该许可方单独所有' in '合同存在以下有直接证据支持的不利安排：最终成果虽约定共同所有，但专利申请权归单一合作方，权属层级相互冲突；最终成果虽约定共同所有，但授权后的专利权归单一合作方，权属层级相互冲突；任何一方均可不经其他共有方同意单独对外许可最终成果；共有最终成果由单一合作方许可第三方后，许可收益归该技术提供方单独所有。'">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_final_result_patent_license_and_revenue_rights_are_compared(cooperative_review: dict):
+        item = _items(cooperative_review)["TC-05-02"]
+        elements = _elements(item)
+    
+        assert item["coverage_status"] == "风险条款"
+        assert elements["final_result_ownership"]["status"] == "COVERED"
+        assert elements["patent_application_right"]["status"] == "CONFLICTING"
+        assert elements["patent_right_after_grant"]["status"] == "CONFLICTING"
+        assert elements["external_license_right"]["status"] == "ADVERSE"
+        assert elements["external_license_revenue"]["status"] == "ADVERSE"
+        assert "共同所有" in item["risk_point_description"]
+&gt;       assert "收益归该许可方单独所有" in item["risk_point_description"]
+E       AssertionError: assert '收益归该许可方单独所有' in '合同存在以下有直接证据支持的不利安排：最终成果虽约定共同所有，但专利申请权归单一合作方，权属层级相互冲突；最终成果虽约定共同所有，但授权后的专利权归单一合作方，权属层级相互冲突；任何一方均可不经其他共有方同意单独对外许可最终成果；共有最终成果由单一合作方许可第三方后，许可收益归该技术提供方单独所有。'
+
+backend\tests\test_cooperative_development_advanced_regressions.py:91: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_existing_failure_and_exit_terms_are_adverse_not_missing" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_governance_deadlock_silence_and_contact_authority_are_one_control_risk" time="0.001"><failure message="AssertionError: assert False&#10; +  where False = all(dict_values([True, True, True, '乙方', False, True, True]))&#10; +    where dict_values([True, True, True, '乙方', False, True, True]) = &lt;built-in method values of dict object at 0x000002CAEA4DA240&gt;()&#10; +      where &lt;built-in method values of dict object at 0x000002CAEA4DA240&gt; = {'unanimous_major_decisions': True, 'unilateral_deadlock_control': True, 'unilateral_major_matter_control': True, 'unilateral_major_matter_owner': '乙方', ...}.values">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_governance_deadlock_silence_and_contact_authority_are_one_control_risk(cooperative_review: dict):
+        item = _items(cooperative_review)["TECH-SHARED-GOV-01"]
+        elements = _elements(item)
+    
+        assert item["issue_type"] == "CONFLICTING"
+        assert elements["major_matter_voting"]["status"] == "COVERED"
+        assert elements["deadlock_resolution"]["status"] == "CONFLICTING"
+        assert elements["silence_as_major_change_consent"]["status"] == "ADVERSE"
+        assert elements["project_contact_authority"]["status"] == "ADVERSE"
+        trace = item["decision_trace"]["cooperative_governance_analysis"]
+&gt;       assert all(trace.values())
+E       AssertionError: assert False
+E        +  where False = all(dict_values([True, True, True, '乙方', False, True, True]))
+E        +    where dict_values([True, True, True, '乙方', False, True, True]) = &lt;built-in method values of dict object at 0x000002CAEA4DA240&gt;()
+E        +      where &lt;built-in method values of dict object at 0x000002CAEA4DA240&gt; = {'unanimous_major_decisions': True, 'unilateral_deadlock_control': True, 'unilateral_major_matter_control': True, 'unilateral_major_matter_owner': '乙方', ...}.values
+
+backend\tests\test_cooperative_development_advanced_regressions.py:121: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_component_control_and_loss_direction_are_separate_from_claim_procedure" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_result_reuse_data_reuse_and_follow_on_improvement_remain_distinct" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_reviewer_funded_equipment_transfer_is_an_independent_adverse_risk" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_complex_five_day_deemed_acceptance_preserves_latent_defect_rights" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_domestic_cooperation_does_not_trigger_cross_border_or_personal_result_rules" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_shared_governance_and_creator_facts_survive_final_projection" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_attachment_reference_and_attachment_content_are_distinct_facts" time="0.001"><failure message="AssertionError: assert 'C0029' in ['C0034']">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_attachment_reference_and_attachment_content_are_distinct_facts(cooperative_review: dict):
+        by_id = _items(cooperative_review)
+        for review_id in ("TC-03-04", "TC-13-02"):
+            item = by_id[review_id]
+            elements = _elements(item)
+            assert item["coverage_status"] == "部分覆盖"
+            assert elements["ip_proof_attachment_arrangement"]["status"] == "COVERED"
+            assert elements["actual_ip_proof_attachment"]["status"] == "REFERENCED_BUT_NOT_PROVIDED"
+&gt;           assert "C0029" in elements["actual_ip_proof_attachment"]["source_clause_ids"]
+E           AssertionError: assert 'C0029' in ['C0034']
+
+backend\tests\test_cooperative_development_advanced_regressions.py:220: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_confidentiality_evidence_is_not_expanded_beyond_the_quote" time="0.001"><failure message="StopIteration">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_confidentiality_evidence_is_not_expanded_beyond_the_quote(cooperative_review: dict):
+        item = _items(cooperative_review)["TC-11-04"]
+&gt;       evidence = next(row for row in item["evidence_clauses"] if row["clause_id"] == "C0015")
+E       StopIteration
+
+backend\tests\test_cooperative_development_advanced_regressions.py:238: StopIteration</failure></testcase><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_unrelated_breach_remedies_do_not_activate_infringement_coordination" time="0.002"><failure message="AssertionError: assert '合同虽存在侵权专项责任，...责任已排除，故本项不适用。' == 'SAME_LOSS_GE...EDY_NOT_FOUND'&#10;  &#10;  - SAME_LOSS_GENERAL_REMEDY_NOT_FOUND&#10;  + 合同虽存在侵权专项责任，但未同时存在可针对同一侵权损失适用的一般赔偿或违约救济；迟延付款、退出等其他违约责任已排除，故本项不适用。">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_unrelated_breach_remedies_do_not_activate_infringement_coordination(cooperative_review: dict):
+        item = _items(cooperative_review)["TC-12-04"]
+    
+        assert item["coverage_status"] == "不适用"
+        assert item["coverage_presence"] == "NOT_APPLICABLE"
+        assert item["coverage_elements"] == []
+        assert item["evidence_clauses"] == []
+&gt;       assert item["applicability"]["machine_reason"] == "SAME_LOSS_GENERAL_REMEDY_NOT_FOUND"
+E       AssertionError: assert '合同虽存在侵权专项责任，...责任已排除，故本项不适用。' == 'SAME_LOSS_GE...EDY_NOT_FOUND'
+E         
+E         - SAME_LOSS_GENERAL_REMEDY_NOT_FOUND
+E         + 合同虽存在侵权专项责任，但未同时存在可针对同一侵权损失适用的一般赔偿或违约救济；迟延付款、退出等其他违约责任已排除，故本项不适用。
+
+backend\tests\test_cooperative_development_advanced_regressions.py:253: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_registry_bound_risk_evidence_reuses_final_review_sources" time="0.001"><failure message="AssertionError: assert {'C0022', 'C0023', 'C0034'} == {'C0019', 'C0020', 'C0029'}&#10;  &#10;  Extra items in the left set:&#10;  'C0023'&#10;  'C0022'&#10;  'C0034'&#10;  Extra items in the right set:&#10;  'C0019'...&#10;  &#10;  ...Full output truncated (3 lines hidden), use '-vv' to show">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_registry_bound_risk_evidence_reuses_final_review_sources(cooperative_review: dict):
+        provenance = next(
+            finding for finding in cooperative_review["risk_findings"]
+            if finding["risk_group"] == "technology_ip_rights_provenance"
+        )
+        body_rows = [
+            row for row in provenance["evidence_bundle"]["items"]
+            if row.get("source_type") != "SEARCH_AUDIT"
+        ]
+    
+&gt;       assert {row.get("clause_id") for row in body_rows} == {"C0019", "C0020", "C0029"}
+E       AssertionError: assert {'C0022', 'C0023', 'C0034'} == {'C0019', 'C0020', 'C0029'}
+E         
+E         Extra items in the left set:
+E         'C0023'
+E         'C0022'
+E         'C0034'
+E         Extra items in the right set:
+E         'C0019'...
+E         
+E         ...Full output truncated (3 lines hidden), use '-vv' to show
+
+backend\tests\test_cooperative_development_advanced_regressions.py:267: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_creator_reward_is_optional_internal_governance_with_correct_legal_basis" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_referenced_attachments_are_material_pending_not_contract_defects" time="0.001"><failure message="AssertionError: assert 'RECOMMENDED' == 'MANUAL_REVIEW'&#10;  &#10;  - MANUAL_REVIEW&#10;  + RECOMMENDED">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_referenced_attachments_are_material_pending_not_contract_defects(cooperative_review: dict):
+        by_id = _items(cooperative_review)
+        for review_id in ("TC-03-04", "TC-13-01", "TC-13-02", "TC-13-03"):
+            item = by_id[review_id]
+            state = item["decision_trace"]["attachment_material_state"]
+&gt;           assert item["recommended_action"] == "MANUAL_REVIEW"
+E           AssertionError: assert 'RECOMMENDED' == 'MANUAL_REVIEW'
+E             
+E             - MANUAL_REVIEW
+E             + RECOMMENDED
+
+backend\tests\test_cooperative_development_advanced_regressions.py:289: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_retention_clause_is_adverse_not_missing_and_search_audit_stays_factual" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_article_870_is_kept_for_a_license_but_not_for_cooperative_development" time="22.496" /><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_search_audit_queries_are_positive_objective_facts" time="0.001"><failure message="AssertionError: assert '非履约使用须取得数据提供方事先书面同意' in ['各方背景技术及既有知识产权的保留和必要许可边界', '项目依赖型成果与各方独立成果的识别和权利承接边界', '其他合作方使用阶段成果的许可和费用', '合作终止后继续使用成果的边界', '其余合作方接管项目、继续开发或委托第三方接续开发的权利', '第三方权利主张的通知期限、方式和资料要求', ...]">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_search_audit_queries_are_positive_objective_facts(cooperative_review: dict):
+        audit_rows = [
+            row
+            for finding in cooperative_review["risk_findings"]
+            for row in finding.get("evidence_bundle", {}).get("items", [])
+            if row.get("source_type") == "SEARCH_AUDIT"
+        ]
+        targets = [str(value) for row in audit_rows for value in row.get("search_targets") or []]
+    
+&gt;       assert "非履约使用须取得数据提供方事先书面同意" in targets
+E       AssertionError: assert '非履约使用须取得数据提供方事先书面同意' in ['各方背景技术及既有知识产权的保留和必要许可边界', '项目依赖型成果与各方独立成果的识别和权利承接边界', '其他合作方使用阶段成果的许可和费用', '合作终止后继续使用成果的边界', '其余合作方接管项目、继续开发或委托第三方接续开发的权利', '第三方权利主张的通知期限、方式和资料要求', ...]
+
+backend\tests\test_cooperative_development_advanced_regressions.py:331: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_manual_review_records_are_executable_and_have_no_empty_formal_advice" time="0.001"><failure message="KeyError: 'TC-13-01'">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_manual_review_records_are_executable_and_have_no_empty_formal_advice(cooperative_review: dict):
+        records = {row["item_id"]: row for row in cooperative_review["manual_review_items"]}
+        by_id = _items(cooperative_review)
+    
+        for review_id in ("TC-03-04", "TC-13-01", "TC-13-02", "TC-13-03"):
+&gt;           instruction = records[review_id]["review_instruction"]
+E           KeyError: 'TC-13-01'
+
+backend\tests\test_cooperative_development_advanced_regressions.py:341: KeyError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_advanced_regressions" name="test_unprovided_attachment_narrative_does_not_assert_content_is_missing" time="0.002"><failure message="AssertionError: assert '已覆盖：测试报告交付已有...作资料交付；缺陷记录交付。' == '正文存在部分相关约定，但附件未提供，当前无法核验完整性。'&#10;  &#10;  - 正文存在部分相关约定，但附件未提供，当前无法核验完整性。&#10;  + 已覆盖：测试报告交付已有明确约定；尚未覆盖：源代码或可执行程序交付；技术文档交付；接口文档交付；架构文档交付；安装部署资料交付；用户或操作资料交付；缺陷记录交付。">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_unprovided_attachment_narrative_does_not_assert_content_is_missing(cooperative_review: dict):
+        by_id = _items(cooperative_review)
+        for review_id in ("TC-03-04", "TC-13-01", "TC-13-02", "TC-13-03"):
+            judgment = by_id[review_id]["narrative_state"]["judgment"]
+&gt;           assert judgment == "正文存在部分相关约定，但附件未提供，当前无法核验完整性。"
+E           AssertionError: assert '已覆盖：测试报告交付已有...作资料交付；缺陷记录交付。' == '正文存在部分相关约定，但附件未提供，当前无法核验完整性。'
+E             
+E             - 正文存在部分相关约定，但附件未提供，当前无法核验完整性。
+E             + 已覆盖：测试报告交付已有明确约定；尚未覆盖：源代码或可执行程序交付；技术文档交付；接口文档交付；架构文档交付；安装部署资料交付；用户或操作资料交付；缺陷记录交付。
+
+backend\tests\test_cooperative_development_advanced_regressions.py:358: AssertionError</failure></testcase><testcase classname="backend.tests.test_requirement_polarity_components" name="test_license_mode_aliases[-\u666e\u901a]" time="0.015" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_license_mode_aliases[-\u975e\u72ec\u5360]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_license_mode_aliases[-\u6392\u4ed6]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_license_mode_aliases[-\u72ec\u5360]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_license_mode_aliases[\u4f7f\u7528-\u666e\u901a]" time="0.005" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_license_mode_aliases[\u4f7f\u7528-\u975e\u72ec\u5360]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_license_mode_aliases[\u4f7f\u7528-\u6392\u4ed6]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_license_mode_aliases[\u4f7f\u7528-\u72ec\u5360]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_license_mode_aliases[\u5b9e\u65bd-\u666e\u901a]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_license_mode_aliases[\u5b9e\u65bd-\u975e\u72ec\u5360]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_license_mode_aliases[\u5b9e\u65bd-\u6392\u4ed6]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_license_mode_aliases[\u5b9e\u65bd-\u72ec\u5360]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_license_mode_requires_operative_declaration[\u53cc\u65b9\u672a\u660e\u786e\u7ea6\u5b9a\u666e\u901a\u4f7f\u7528\u8bb8\u53ef\u3002]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_license_mode_requires_operative_declaration[\u662f\u5426\u6388\u4e88\u666e\u901a\u4f7f\u7528\u8bb8\u53ef\uff0c\u53cc\u65b9\u672a\u4f5c\u660e\u786e\u7ea6\u5b9a\u3002]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_license_mode_requires_operative_declaration[\u7532\u65b9\u4e0d\u5f97\u6388\u4e88\u666e\u901a\u4f7f\u7528\u8bb8\u53ef\u3002]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_license_mode_requires_operative_declaration[\u666e\u901a\u4f7f\u7528\u8bb8\u53ef\u662f\u6307\u975e\u72ec\u5360\u5730\u4f7f\u7528\u6280\u672f\u3002]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_license_mode_requires_operative_declaration[\u7532\u65b9\u66fe\u5411\u7b2c\u4e09\u65b9\u6388\u4e88\u666e\u901a\u4f7f\u7528\u8bb8\u53ef\u3002]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_nonexclusive_mode_keeps_its_prefix_under_grant_context[\u975e\u72ec\u5360\u5b9e\u65bd\u8bb8\u53ef]" time="0.001" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_nonexclusive_mode_keeps_its_prefix_under_grant_context[\u975e\u72ec\u5360\u4f7f\u7528\u8bb8\u53ef]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_nonexclusive_mode_keeps_its_prefix_under_grant_context[\u975e\u72ec\u5360\u3001\u4e0d\u53ef\u8f6c\u8ba9\u7684\u4e13\u5229\u5b9e\u65bd\u8bb8\u53ef]" time="0.001" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_exception_components_remain_independent[\u4e0b\u5217\u4fe1\u606f\u4e0d\u5c5e\u4e8e\u672c\u5408\u540c\u4fdd\u5bc6\u8303\u56f4\uff1a]" time="0.017" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_exception_components_remain_independent[\u4ee5\u4e0b\u4fe1\u606f\u4e0d\u5c5e\u4e8e\u4fdd\u5bc6\u4fe1\u606f\uff1a]" time="0.003" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_exception_components_remain_independent[\u4e0b\u5217\u4fe1\u606f\u4e0d\u5c5e\u4e8e\u672c\u5408\u540c\u9879\u4e0b\u4fdd\u5bc6\u4fe1\u606f\uff1a]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_arrangement_polarity_at_producer[\u5bf9\u4e8e\u79d8\u5bc6\u6027\u4e27\u5931\u540e\u662f\u5426\u7ee7\u7eed\u652f\u4ed8\u8bb8\u53ef\u8d39\uff0c\u53cc\u65b9\u672a\u4f5c\u660e\u786e\u7ea6\u5b9a\u3002-False]" time="0.014" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_arrangement_polarity_at_producer[\u662f\u5426\u7ee7\u7eed\u652f\u4ed8\u8bb8\u53ef\u8d39\uff0c\u53cc\u65b9\u672a\u7ea6\u5b9a\u3002-False]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_arrangement_polarity_at_producer[\u7ee7\u7eed\u652f\u4ed8\u8bb8\u53ef\u8d39\u7684\u5b89\u6392\uff0c\u53cc\u65b9\u672a\u4f5c\u660e\u786e\u7ea6\u5b9a\u3002-False]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_arrangement_polarity_at_producer[\u4e59\u65b9\u662f\u5426\u7ee7\u7eed\u652f\u4ed8\u8bb8\u53ef\u8d39\u3002-False]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_arrangement_polarity_at_producer[\u53cc\u65b9\u672a\u660e\u786e\u7ea6\u5b9a\u7ee7\u7eed\u652f\u4ed8\u8bb8\u53ef\u8d39\u3002-False]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_arrangement_polarity_at_producer[\u53cc\u65b9\u672a\u4f5c\u7ea6\u5b9a\uff1a\n\u4e59\u65b9\u7ee7\u7eed\u652f\u4ed8\u8bb8\u53ef\u8d39\uff1b\n\u4e59\u65b9\u4e0d\u5f97\u89e3\u9664\u5408\u540c\u3002-False]" time="0.003" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_arrangement_polarity_at_producer[\u4e59\u65b9\u4e0d\u518d\u7ee7\u7eed\u652f\u4ed8\u8bb8\u53ef\u8d39\u3002-False]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_arrangement_polarity_at_producer[\u4e59\u65b9\u65e0\u9700\u7ee7\u7eed\u652f\u4ed8\u8bb8\u53ef\u8d39\u3002-False]" time="0.003" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_arrangement_polarity_at_producer[\u4e59\u65b9\u4e0d\u5f97\u7ee7\u7eed\u652f\u4ed8\u8bb8\u53ef\u8d39\u3002-False]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_arrangement_polarity_at_producer[\u5982\u6280\u672f\u79d8\u5bc6\u516c\u5f00\uff0c\u4e59\u65b9\u7ee7\u7eed\u652f\u4ed8\u8bb8\u53ef\u8d39\u3002-True]" time="0.001" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_arrangement_polarity_at_producer[\u82e5\u6280\u672f\u79d8\u5bc6\u4e27\u5931\u79d8\u5bc6\u6027\uff0c\u4e59\u65b9\u4ecd\u987b\u652f\u4ed8\u5c1a\u672a\u5230\u671f\u8bb8\u53ef\u8d39\u3002-True]" time="0.001" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_arrangement_polarity_at_producer[\u4e59\u65b9\u4e0d\u5f97\u505c\u6b62\u652f\u4ed8\u8bb8\u53ef\u8d39\u3002-True]" time="0.001" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_secret_loss_triggers_each_keep_their_source" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_arrangement_scope_never_imports_neighboring_article_payment" time="0.001" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_current_contract_final_semantic_states[\u7532\u65b9/\u8bb8\u53ef\u65b9]" time="15.408" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_current_contract_final_semantic_states[\u4e59\u65b9/\u88ab\u8bb8\u53ef\u65b9]" time="15.153" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_missing_exception_lists_cannot_create_coverage[\u53cc\u65b9\u672a\u660e\u786e\u7ea6\u5b9a\u516c\u5f00\u4fe1\u606f\u4f8b\u5916\u3002]" time="0.007" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_missing_exception_lists_cannot_create_coverage[\u53cc\u65b9\u672a\u660e\u786e\u7ea6\u5b9a\u4e0b\u5217\u4fdd\u5bc6\u4f8b\u5916\uff1a\n\u5df2\u7ecf\u516c\u5f00\u7684\u4fe1\u606f\uff1b\n\u7b2c\u4e09\u65b9\u5408\u6cd5\u53d6\u5f97\u7684\u4fe1\u606f\u3002]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_missing_exception_lists_cannot_create_coverage[\u53cc\u65b9\u672a\u7ea6\u5b9a\uff1a\n\u5df2\u7ecf\u516c\u5f00\u7684\u4fe1\u606f\u4e0d\u5c5e\u4e8e\u4fdd\u5bc6\u4fe1\u606f\uff1b\n\u72ec\u7acb\u5f00\u53d1\u7684\u4fe1\u606f\u4e0d\u5c5e\u4e8e\u4fdd\u5bc6\u4fe1\u606f\u3002]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_actual_conditional_adverse_bargain_is_preserved[\u5982\u6280\u672f\u79d8\u5bc6\u516c\u5f00\uff0c\u4e59\u65b9\u4ecd\u987b\u7ee7\u7eed\u652f\u4ed8\u8bb8\u53ef\u8d39\uff0c\u4e0d\u5f97\u89e3\u9664\u5408\u540c\u3002]" time="0.015" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_actual_conditional_adverse_bargain_is_preserved[\u6280\u672f\u79d8\u5bc6\u88ab\u7b2c\u4e09\u65b9\u516c\u5f00\u540e\uff0c\u4e59\u65b9\u4e0d\u5f97\u505c\u6b62\u652f\u4ed8\u8bb8\u53ef\u8d39\uff0c\u4e0d\u5f97\u5355\u65b9\u89e3\u9664\u5408\u540c\u3002]" time="0.002" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_conditional_list_preserves_event_scope_and_arrangement_existence" time="0.004" /><testcase classname="backend.tests.test_requirement_polarity_components" name="test_heading_alone_does_not_establish_secret_loss_arrangement" time="0.002" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_claim_cannot_complete_a_patent_grant[\u5982\u7b2c\u4e09\u65b9\u4e3b\u5f20\u4e59\u65b9\u4f7f\u7528\u8bb8\u53ef\u6280\u672f\u4fb5\u72af\u5176\u4e13\u5229\u6743-\u3002]" time="0.058" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_claim_cannot_complete_a_patent_grant[\u5982\u7b2c\u4e09\u65b9\u4e3b\u5f20\u4e59\u65b9\u4f7f\u7528\u8bb8\u53ef\u6280\u672f\u4fb5\u72af\u5176\u4e13\u5229\u6743-\uff1b]" time="0.005" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_claim_cannot_complete_a_patent_grant[\u5982\u7b2c\u4e09\u65b9\u4e3b\u5f20\u4e59\u65b9\u4f7f\u7528\u8bb8\u53ef\u6280\u672f\u4fb5\u72af\u5176\u4e13\u5229\u6743-\n]" time="0.004" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_claim_cannot_complete_a_patent_grant[\u82e5\u7b2c\u4e09\u65b9\u58f0\u79f0\u4e59\u65b9\u4f7f\u7528\u6280\u672f\u4fb5\u72af\u4e13\u5229\u6743-\u3002]" time="0.004" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_claim_cannot_complete_a_patent_grant[\u82e5\u7b2c\u4e09\u65b9\u58f0\u79f0\u4e59\u65b9\u4f7f\u7528\u6280\u672f\u4fb5\u72af\u4e13\u5229\u6743-\uff1b]" time="0.004" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_claim_cannot_complete_a_patent_grant[\u82e5\u7b2c\u4e09\u65b9\u58f0\u79f0\u4e59\u65b9\u4f7f\u7528\u6280\u672f\u4fb5\u72af\u4e13\u5229\u6743-\n]" time="0.005" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_main_fee_does_not_consume_another_relationship[\u5982\u53cc\u65b9\u5e0c\u671b\u4f7f\u7528\u5bf9\u65b9\u540e\u7eed\u6539\u8fdb\u6210\u679c\uff0c\u5e94\u53e6\u884c\u534f\u5546\u8bb8\u53ef\u8d39\u7528\u3002]" time="0.012" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_main_fee_does_not_consume_another_relationship[\u6539\u8fdb\u6210\u679c\u8bb8\u53ef\u8d39\u4eba\u6c11\u5e0130\u4e07\u5143\u3002]" time="0.003" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_main_fee_does_not_consume_another_relationship[\u7532\u65b9\u5e94\u9000\u8fd8\u8bb8\u53ef\u8d39\u4eba\u6c11\u5e0130\u4e07\u5143\u3002]" time="0.003" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_main_fee_does_not_consume_another_relationship[\u53cc\u65b9\u672a\u660e\u786e\u7ea6\u5b9a\u56fa\u5b9a\u8bb8\u53ef\u8d39\u4eba\u6c11\u5e0130\u4e07\u5143\u3002]" time="0.002" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_main_fee_field_value_preserves_amount_and_source[\n-1,800,000\u5143]" time="0.001" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_main_fee_field_value_preserves_amount_and_source[\n-180\u4e07\u5143]" time="0.001" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_main_fee_field_value_preserves_amount_and_source[\n-\uff11\uff0c\uff18\uff10\uff10\uff0c\uff10\uff10\uff10\u5143]" time="0.001" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_main_fee_field_value_preserves_amount_and_source[ -1,800,000\u5143]" time="0.001" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_main_fee_field_value_preserves_amount_and_source[ -180\u4e07\u5143]" time="0.002" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_main_fee_field_value_preserves_amount_and_source[ -\uff11\uff0c\uff18\uff10\uff10\uff0c\uff10\uff10\uff10\u5143]" time="0.002" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_exception_list_keeps_independent_development[\u6b64\u540e\u5e76\u975e\u56e0\u63a5\u6536\u65b9\u8fdd\u7ea6\u800c\u8fdb\u5165\u516c\u5171\u9886\u57df\u7684\u4fe1\u606f\uff1b]" time="0.005" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_exception_list_keeps_independent_development[\u5176\u540e\u5408\u6cd5\u516c\u5f00\u7684\u4fe1\u606f\uff1b]" time="0.002" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_complete_exit_terms_do_not_swallow_adverse_fee[-\u4ecd\u5e94]" time="0.002" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_complete_exit_terms_do_not_swallow_adverse_fee[-\u4ecd\u987b]" time="0.002" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_complete_exit_terms_do_not_swallow_adverse_fee[-\u4ecd\u9700]" time="0.002" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_complete_exit_terms_do_not_swallow_adverse_fee[-\u7ee7\u7eed]" time="0.002" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_complete_exit_terms_do_not_swallow_adverse_fee[\u5982\u6838\u5fc3\u6280\u672f\u5168\u90e8\u4e27\u5931\u79d8\u5bc6\u6027\uff0c\u4e59\u65b9\u6709\u6743\u89e3\u9664\u5408\u540c\u3002-\u4ecd\u5e94]" time="0.002" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_complete_exit_terms_do_not_swallow_adverse_fee[\u5982\u6838\u5fc3\u6280\u672f\u5168\u90e8\u4e27\u5931\u79d8\u5bc6\u6027\uff0c\u4e59\u65b9\u6709\u6743\u89e3\u9664\u5408\u540c\u3002-\u4ecd\u987b]" time="0.002" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_complete_exit_terms_do_not_swallow_adverse_fee[\u5982\u6838\u5fc3\u6280\u672f\u5168\u90e8\u4e27\u5931\u79d8\u5bc6\u6027\uff0c\u4e59\u65b9\u6709\u6743\u89e3\u9664\u5408\u540c\u3002-\u4ecd\u9700]" time="0.003" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_complete_exit_terms_do_not_swallow_adverse_fee[\u5982\u6838\u5fc3\u6280\u672f\u5168\u90e8\u4e27\u5931\u79d8\u5bc6\u6027\uff0c\u4e59\u65b9\u6709\u6743\u89e3\u9664\u5408\u540c\u3002-\u7ee7\u7eed]" time="0.002" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_adverse_description_uses_only_the_asserted_payment_object[\u56fa\u5b9a\u8bb8\u53ef\u8d39-\u5c1a\u672a\u5230\u671f\u7684\u56fa\u5b9a\u8bb8\u53ef\u8d39]" time="0.002" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_adverse_description_uses_only_the_asserted_payment_object[\u6280\u672f\u670d\u52a1\u8d39-\u5c1a\u672a\u5230\u671f\u7684\u6280\u672f\u670d\u52a1\u8d39]" time="0.002" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_adverse_description_uses_only_the_asserted_payment_object[\u63d0\u6210\u8d39-\u5c1a\u672a\u53d1\u751f\u7684\u63d0\u6210\u8d39]" time="0.002" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_technology_object_does_not_change_the_breached_obligation[\u7532\u65b9\u8fdd\u53cd\u5b9e\u65bd\u8303\u56f4\u6216\u8005\u64c5\u81ea\u8f6c\u8ba9\u6280\u672f\u79d8\u5bc6\u7684\uff0c\u652f\u4ed8\u8f6c\u8ba9\u8d3950%\u7684\u8fdd\u7ea6\u91d1\u3002]" time="0.006" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_technology_object_does_not_change_the_breached_obligation[\u4e59\u65b9\u8fdd\u53cd\u4ea4\u4ed8\u6280\u672f\u79d8\u5bc6\u7684\u4e49\u52a1\uff0c\u5e94\u8d54\u507f\u7532\u65b9\u635f\u5931\u3002]" time="0.001" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_technology_object_does_not_change_the_breached_obligation[\u4e59\u65b9\u8fdd\u53cd\u6280\u672f\u79d8\u5bc6\u4f7f\u7528\u8303\u56f4\uff0c\u5e94\u505c\u6b62\u8d85\u8303\u56f4\u5b9e\u65bd\u5e76\u8d54\u507f\u635f\u5931\u3002]" time="0.001" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_scoped_secret_contract_end_to_end[\u7532\u65b9/\u8bb8\u53ef\u65b9]" time="14.075" /><testcase classname="backend.tests.test_license_source_scope_regressions" name="test_scoped_secret_contract_end_to_end[\u4e59\u65b9/\u88ab\u8bb8\u53ef\u65b9]" time="13.767" /><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_payment_fact_identity_and_arithmetic_mutations[percentages0-amounts0-4-100-CONSISTENT]" time="0.004" /><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_payment_fact_identity_and_arithmetic_mutations[percentages1-amounts1-5-100-CONSISTENT]" time="0.004" /><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_payment_fact_identity_and_arithmetic_mutations[percentages2-amounts2-4-100-CONSISTENT]" time="0.004" /><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_payment_fact_identity_and_arithmetic_mutations[percentages3-amounts3-4-105-INCONSISTENT]" time="0.002" /><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_payment_fact_identity_and_arithmetic_mutations[percentages4-amounts4-4-100-INCONSISTENT]" time="0.002" /><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_timeline_mutations" time="0.002" /><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_gold_payment_trace_and_generic_routing" time="23.626" /><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_gold_timeline_shared_facts_and_relationship_risks" time="0.001" /><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_hierarchical_clause_identity_does_not_collapse_repeated_item_numbers" time="0.001" /><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_gold_personal_data_feature_scope_is_not_entrusted_processing" time="0.001" /><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_gold_timeline_evidence_binds_the_two_conflicting_dates" time="0.001"><failure message="AssertionError: assert '第一阶段' in '履行开始日期 = 2026-09-01；合同生效日期 = 2026-09-20；2026-09-01 &lt; 2026-09-20，存在生效前履行事实。 18.4. 本合同经各方签名或盖章后生效。 签订时间：2026年9月20日'">gold_review = {'contract_type_flow': {'stages': {'request': 'technology', 'canonical': 'technology', 'facts_pipeline': 'technology',...ore_only': False, 'family_status': 'NOT_MIGRATED'}, 'structured_fact_debug': {}, 'employment_rule_adaptation': {}, ...}
+
+    def test_gold_timeline_evidence_binds_the_two_conflicting_dates(gold_review):
+        item = next(item for item in gold_review["items"] if item["item_id"] == "TECH-SHARED-03")
+        evidence = item["evidence_clauses"]
+        combined = " ".join(str(row.get("quote") or row.get("text") or "") for row in evidence)
+&gt;       assert "第一阶段" in combined
+E       AssertionError: assert '第一阶段' in '履行开始日期 = 2026-09-01；合同生效日期 = 2026-09-20；2026-09-01 &lt; 2026-09-20，存在生效前履行事实。 18.4. 本合同经各方签名或盖章后生效。 签订时间：2026年9月20日'
+
+backend\tests\test_entrusted_development_consistency.py:157: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_gold_demand_reduction_evidence_stays_on_clause_5_5" time="0.001"><failure message="AssertionError: assert {'第二部分 开发安排第5.5项'} == {'第5.5项'}&#10;  &#10;  Extra items in the left set:&#10;  '第二部分 开发安排第5.5项'&#10;  Extra items in the right set:&#10;  '第5.5项'&#10;  Use -v to get more diff">gold_review = {'contract_type_flow': {'stages': {'request': 'technology', 'canonical': 'technology', 'facts_pipeline': 'technology',...ore_only': False, 'family_status': 'NOT_MIGRATED'}, 'structured_fact_debug': {}, 'employment_rule_adaptation': {}, ...}
+
+    def test_gold_demand_reduction_evidence_stays_on_clause_5_5(gold_review):
+        item = next(item for item in gold_review["items"] if item["item_id"] == "GEN-COMM-01")
+        assert item["decision_trace"]["evidence_consistency_gate"]["status"] == "PASSED"
+&gt;       assert {row["location"] for row in item["evidence_clauses"]} == {"第5.5项"}
+E       AssertionError: assert {'第二部分 开发安排第5.5项'} == {'第5.5项'}
+E         
+E         Extra items in the left set:
+E         '第二部分 开发安排第5.5项'
+E         Extra items in the right set:
+E         '第5.5项'
+E         Use -v to get more diff
+
+backend\tests\test_entrusted_development_consistency.py:169: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_gold_liability_evidence_preserves_multiple_sources" time="0.001"><failure message="AssertionError: assert 'EVIDENCE_INSUFFICIENT' == 'PASSED'&#10;  &#10;  - PASSED&#10;  + EVIDENCE_INSUFFICIENT">gold_review = {'contract_type_flow': {'stages': {'request': 'technology', 'canonical': 'technology', 'facts_pipeline': 'technology',...ore_only': False, 'family_status': 'NOT_MIGRATED'}, 'structured_fact_debug': {}, 'employment_rule_adaptation': {}, ...}
+
+    def test_gold_liability_evidence_preserves_multiple_sources(gold_review):
+        item = next(item for item in gold_review["items"] if item["item_id"] == "GEN-LIAB-01")
+&gt;       assert item["decision_trace"]["evidence_consistency_gate"]["status"] == "PASSED"
+E       AssertionError: assert 'EVIDENCE_INSUFFICIENT' == 'PASSED'
+E         
+E         - PASSED
+E         + EVIDENCE_INSUFFICIENT
+
+backend\tests\test_entrusted_development_consistency.py:177: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_internal_uncertainty_metadata_never_enters_user_report" time="0.007"><failure message="KeyError: 'internal_uncertainty_metadata'">gold_review = {'contract_type_flow': {'stages': {'request': 'technology', 'canonical': 'technology', 'facts_pipeline': 'technology',...ore_only': False, 'family_status': 'NOT_MIGRATED'}, 'structured_fact_debug': {}, 'employment_rule_adaptation': {}, ...}
+
+    def test_internal_uncertainty_metadata_never_enters_user_report(gold_review):
+        forbidden = (
+            "现有证据不足", "当前证据不足", "证据不足以确认", "现有信息不足以确定",
+            "无法确认", "无法可靠判断", "未能确认", "检索结果不足", "模型无法判断",
+            "系统无法确定", "证据质量不足", "evidence insufficient", "cannot confirm",
+            "unable to determine", "not enough evidence",
+        )
+        report = gold_review["result"]
+        assert not any(marker.lower() in report.lower() for marker in forbidden)
+    
+        items = {item["item_id"]: item for item in gold_review["items"]}
+&gt;       assert items["TC-13-03"]["decision_trace"]["internal_uncertainty_metadata"][
+            "excluded_from_user_risk_output"
+        ] is True
+E       KeyError: 'internal_uncertainty_metadata'
+
+backend\tests\test_entrusted_development_consistency.py:206: KeyError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_liability_case_a_builds_party_a_cluster" time="0.003" /><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_liability_case_b_builds_party_b_cluster" time="0.002" /><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_liability_case_c_same_percentage_does_not_merge_opposite_directions" time="0.001" /><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_liability_case_d_different_parties_and_triggers_do_not_form_chain" time="0.001" /><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_unsupported_synthetic_candidate_is_not_given_fallback_evidence" time="0.001" /><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_tc_13_01_does_not_expand_generic_technical_documentation" time="0.001"><failure message="AssertionError: assert 'MISSING' == 'COVERED'&#10;  &#10;  - COVERED&#10;  + MISSING">gold_review = {'contract_type_flow': {'stages': {'request': 'technology', 'canonical': 'technology', 'facts_pipeline': 'technology',...ore_only': False, 'family_status': 'NOT_MIGRATED'}, 'structured_fact_debug': {}, 'employment_rule_adaptation': {}, ...}
+
+    def test_tc_13_01_does_not_expand_generic_technical_documentation(gold_review):
+        item = next(item for item in gold_review["items"] if item["item_id"] == "TC-13-01")
+        elements = {row["element_id"]: row["status"] for row in item["coverage_elements"]}
+        assert item["coverage_status"] == "部分覆盖"
+        assert elements["source_and_executable_delivery"] == "COVERED"
+&gt;       assert elements["generic_technical_documentation"] == "COVERED"
+E       AssertionError: assert 'MISSING' == 'COVERED'
+E         
+E         - COVERED
+E         + MISSING
+
+backend\tests\test_entrusted_development_consistency.py:287: AssertionError</failure></testcase><testcase classname="backend.tests.test_entrusted_development_consistency" name="test_renderer_uses_lineage_evidence_instead_of_keyword_fallback" time="0.003"><failure message="assert False&#10; +  where False = all(&lt;generator object test_renderer_uses_lineage_evidence_instead_of_keyword_fallback.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002CAF03F0190&gt;)">gold_review = {'contract_type_flow': {'stages': {'request': 'technology', 'canonical': 'technology', 'facts_pipeline': 'technology',...ore_only': False, 'family_status': 'NOT_MIGRATED'}, 'structured_fact_debug': {}, 'employment_rule_adaptation': {}, ...}
+
+    def test_renderer_uses_lineage_evidence_instead_of_keyword_fallback(gold_review):
+        report = gold_review["result"]
+    
+        def item_section(item_id: str) -&gt; str:
+            marker = f"（{item_id}）"
+            start = report.index(marker)
+            end = report.find("\n---", start)
+            return report[start:end if end &gt;= 0 else None]
+    
+        timeline = item_section("TECH-SHARED-03")
+        demand = item_section("GEN-COMM-01")
+        liability = item_section("GEN-LIAB-01")
+&gt;       assert all(term in timeline for term in ("第一阶段", "2026年9月1日", "签订时间：2026年9月20日"))
+E       assert False
+E        +  where False = all(&lt;generator object test_renderer_uses_lineage_evidence_instead_of_keyword_fallback.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002CAF03F0190&gt;)
+
+backend\tests\test_entrusted_development_consistency.py:305: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_evidence_claim_ceiling" name="test_case_1_negative_search_audit_cannot_be_reversed_into_a_risk_fact" time="0.001" /><testcase classname="backend.tests.test_technology_evidence_claim_ceiling" name="test_case_2_improvement_transfer_does_not_imply_research_purchase_or_alternative_bans" time="8.178" /><testcase classname="backend.tests.test_technology_evidence_claim_ceiling" name="test_case_3_rule_template_cannot_create_secret_loss_payment_fact_without_clause" time="7.584" /><testcase classname="backend.tests.test_technology_evidence_claim_ceiling" name="test_case_4_pure_technical_secret_transfer_makes_tc_01_04_not_applicable" time="7.554" /><testcase classname="backend.tests.test_technology_evidence_claim_ceiling" name="test_case_5_technical_service_with_equipment_install_activates_tc_01_04" time="4.088" /><testcase classname="backend.tests.test_technology_evidence_claim_ceiling" name="test_case_6_each_proof_element_requires_its_own_direct_evidence" time="0.085"><failure message="AssertionError: assert 'MISSING' == 'COVERED'&#10;  &#10;  - COVERED&#10;  + MISSING">def test_case_6_each_proof_element_requires_its_own_direct_evidence():
+        text = BASE_TRANSFER + """
+    附件一《技术秘密清单》列明技术边界、资料范围和交付内容。
+    附件二为研发记录和形成过程记录。
+    附件三为乙方合法持有该技术秘密的权利归属证明。
+    """
+        elements, _, _ = _technical_secret_transfer_proof_results(
+            _operative_technology_clauses(text)
+        )
+        by_id = {row["element_id"]: row for row in elements}
+    
+        assert by_id["technical_secret_identity_and_delivery_scope"]["status"] == "COVERED"
+&gt;       assert by_id["technical_source"]["status"] == "COVERED"
+E       AssertionError: assert 'MISSING' == 'COVERED'
+E         
+E         - COVERED
+E         + MISSING
+
+backend\tests\test_technology_evidence_claim_ceiling.py:144: AssertionError</failure></testcase><testcase classname="backend.tests.test_technology_evidence_claim_ceiling" name="test_generic_confidentiality_does_not_prove_historical_measures_but_direct_controls_do" time="0.026" /><testcase classname="backend.tests.test_technical_service_maintenance_contract_review" name="test_maintenance_contract_context_and_task_role_are_preserved" time="12.180"><failure message="AssertionError: assert 'BLOCKED' == 'REPORT_READY'&#10;  &#10;  - REPORT_READY&#10;  + BLOCKED">maintenance_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...CTION', 'contract_subtype': 'TECHNICAL_SERVICE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_maintenance_contract_context_and_task_role_are_preserved(maintenance_review):
+        assert maintenance_review["contract_context"]["contract_subtype"] == "TECHNICAL_SERVICE"
+        assert maintenance_review["perspective_resolution"]["display_role"] == "甲方 / 服务接受方"
+        assert maintenance_review["report_context"]["contract_type_label"] == "技术合同—技术服务合同"
+&gt;       assert maintenance_review["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_technical_service_maintenance_contract_review.py:44: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_service_maintenance_contract_review" name="test_maintenance_contract_uses_service_only_applicability" time="0.001"><failure message="assert False&#10; +  where False = all(&lt;generator object test_maintenance_contract_uses_service_only_applicability.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002CAE67CBDF0&gt;)">maintenance_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...CTION', 'contract_subtype': 'TECHNICAL_SERVICE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_maintenance_contract_uses_service_only_applicability(maintenance_review):
+        items = {row["item_id"]: row for row in maintenance_review["items"]}
+        assert items["TC-01-04"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+        assert items["TC-03-04"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+        assert all(items[f"TC-08-0{index}"]["coverage_status"] == COVERAGE_NOT_APPLICABLE for index in range(1, 6))
+&gt;       assert all(items[f"TC-09-0{index}"]["coverage_status"] == "通过" for index in range(1, 5))
+E       assert False
+E        +  where False = all(&lt;generator object test_maintenance_contract_uses_service_only_applicability.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002CAE67CBDF0&gt;)
+
+backend\tests\test_technical_service_maintenance_contract_review.py:52: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_service_maintenance_contract_review" name="test_service_fee_payment_uses_article_four_not_breach_clause" time="0.001"><failure message="assert []">maintenance_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...CTION', 'contract_subtype': 'TECHNICAL_SERVICE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_service_fee_payment_uses_article_four_not_breach_clause(maintenance_review):
+        item = next(row for row in maintenance_review["items"] if row["item_id"] == "TC-09-04")
+        evidence = item["evidence_clauses"]
+&gt;       assert evidence
+E       assert []
+
+backend\tests\test_technical_service_maintenance_contract_review.py:67: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_service_maintenance_contract_review" name="test_service_confidentiality_has_precise_partial_evidence" time="0.001" /><testcase classname="backend.tests.test_technical_service_maintenance_contract_review" name="test_freeze_closure_uses_subtype_safe_wording_and_direct_evidence" time="0.008"><failure message="assert False&#10; +  where False = all(&lt;generator object test_freeze_closure_uses_subtype_safe_wording_and_direct_evidence.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002CAE67CA7A0&gt;)">maintenance_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...CTION', 'contract_subtype': 'TECHNICAL_SERVICE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_freeze_closure_uses_subtype_safe_wording_and_direct_evidence(maintenance_review):
+        items = {row["item_id"]: row for row in maintenance_review["items"]}
+    
+        confidentiality = items["TC-11-02"]
+        confidentiality_text = json.dumps(confidentiality, ensure_ascii=False)
+        assert "非公开咨询方法" not in confidentiality_text
+        assert all(term in confidentiality_text for term in (
+            "系统架构", "源代码", "服务器信息", "数据库资料", "接口资料", "业务数据", "客户数据",
+        ))
+    
+        nature = items["TC-01-01"]
+        subtype = items["TC-01-02"]
+        assert nature["coverage_status"] == "通过"
+        assert subtype["coverage_status"] == "通过"
+&gt;       assert all("第一条" in row["location"] for row in nature["evidence_clauses"])
+E       assert False
+E        +  where False = all(&lt;generator object test_freeze_closure_uses_subtype_safe_wording_and_direct_evidence.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002CAE67CA7A0&gt;)
+
+backend\tests\test_technical_service_maintenance_contract_review.py:98: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_service_maintenance_contract_review" name="test_maintenance_contract_summary_is_recomputed_after_applicability" time="0.001" /><testcase classname="backend.tests.test_technical_service_maintenance_contract_review" name="test_third_party_actor_does_not_imply_third_party_ip[\u672a\u7ecf\u7532\u65b9\u540c\u610f\uff0c\u4e0d\u5f97\u5c06\u670d\u52a1\u8f6c\u59d4\u6258\u7b2c\u4e09\u65b9\u3002-True-False-\u4e0d\u9002\u7528]" time="4.401" /><testcase classname="backend.tests.test_technical_service_maintenance_contract_review" name="test_third_party_actor_does_not_imply_third_party_ip[\u5356\u65b9\u5c65\u884c\u670d\u52a1\u9700\u8981\u4f7f\u7528\u7b2c\u4e09\u65b9\u6570\u636e\u5e93\u7ec4\u4ef6\uff0c\u5e76\u4fdd\u8bc1\u5df2\u53d6\u5f97\u5408\u6cd5\u6388\u6743\u3002-False-True-\u7f3a\u5931]" time="4.551"><failure message="AssertionError: assert '部分覆盖' == '缺失'&#10;  &#10;  - 缺失&#10;  + 部分覆盖">clause = '卖方履行服务需要使用第三方数据库组件，并保证已取得合法授权。', expected_actor = False
+expected_ip = True, expected_status = '缺失'
+
+    @pytest.mark.parametrize(
+        ("clause", "expected_actor", "expected_ip", "expected_status"),
+        [
+            ("未经甲方同意，不得将服务转委托第三方。", True, False, COVERAGE_NOT_APPLICABLE),
+            ("卖方履行服务需要使用第三方数据库组件，并保证已取得合法授权。", False, True, "缺失"),
+        ],
+    )
+    def test_third_party_actor_does_not_imply_third_party_ip(
+        clause,
+        expected_actor,
+        expected_ip,
+        expected_status,
+    ):
+        text = f"""技术服务合同
+    甲方委托乙方提供系统维护服务。
+    服务内容为故障排查、运行监控和技术支持。
+    服务费为人民币10000元，验收后支付。
+    {clause}
+    """
+        context = _technology_third_party_context(text)
+        assert context["third_party_actor"] is expected_actor
+        assert context["third_party_ip_trigger"] is expected_ip
+    
+        output = review_contract_v2(
+            text,
+            "technology",
+            use_llm=False,
+            profile=UserRiskProfile(user_identity="甲方 / 委托人"),
+        )
+        items = {row["item_id"]: row for row in output["items"]}
+        for review_id in ("TC-03-04", "TC-12-02", "TC-13-02"):
+&gt;           assert items[review_id]["coverage_status"] == expected_status
+E           AssertionError: assert '部分覆盖' == '缺失'
+E             
+E             - 缺失
+E             + 部分覆盖
+
+backend\tests\test_technical_service_maintenance_contract_review.py:160: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_classification_prefers_the_core_technical_secret_transfer_transaction" time="0.168" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_payment_consistency_is_shared_by_technical_secret_transfer" time="0.021" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_existing_adverse_third_party_allocation_is_not_treated_as_missing" time="20.235"><failure message="assert False is True">secret_transfer_text = '技术转让（技术秘密）合同\n合同编号：TS-2026-0831-001\n项目名称：新能源汽车电池模组智能热管理控制技术转让项目\n受让方（甲方）：苏州恒锐新能源科技有限公司\n让与方（乙方）：上海凌川智能科技有限公司\n签订时间：2...n本合同自双方签字盖章之日起生效。\n甲方：苏州恒锐新能源科技有限公司\n法定代表人/授权代表：张伟\n签署日期：2026年10月20日\n乙方：上海凌川智能科技有限公司\n法定代表人/授权代表：陈宇\n签署日期：2026年10月20日'
+secret_transfer_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_existing_adverse_third_party_allocation_is_not_treated_as_missing(
+        secret_transfer_text: str,
+        secret_transfer_review: dict,
+    ):
+        claim = build_technology_fact_registry(secret_transfer_text)["third_party_claim"]
+        by_id = {row["item_id"]: row for row in secret_transfer_review["items"]}
+        claim_elements = {
+            row["element_id"]: row for row in by_id["TC-12-02"]["coverage_elements"]
+        }
+    
+        assert claim["authority_warranty"] is True
+        assert claim["claim_trigger"] is True
+&gt;       assert claim["claim_assistance"] is True
+E       assert False is True
+
+backend\tests\test_technical_secret_transfer_contract_review.py:85: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_forced_improvement_transfer_separates_presence_from_direction" time="0.003" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_secret_loss_and_competition_rules_are_active_and_adverse" time="0.001" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_full_report_uses_secret_transfer_role_and_non_patent_proof_semantics" time="0.001" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_improvement_checklist_rows_aggregate_without_losing_auditability" time="0.001" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_ancillary_service_fee_keeps_covered_base_and_only_reports_excess_fee_gaps" time="0.001" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_positive_adverse_evidence_overrides_stale_absence_search" time="0.001" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_technical_secret_proof_uses_partial_atomic_facts_not_principle_warranty_pass" time="0.001" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_no_actual_infringement_fact_does_not_create_tc_02_02_finding" time="0.001" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_secret_proof_consequence_never_uses_patent_registration_or_pledge_language" time="0.001" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_competition_and_forced_improvement_consequences_include_validity_risk_without_overreach" time="0.001" /><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_acceptance_test_attachment_is_fact_activated_and_theme_deduplicated" time="0.001"><failure message="assert 17 == 13">secret_transfer_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_acceptance_test_attachment_is_fact_activated_and_theme_deduplicated(
+        secret_transfer_review: dict,
+    ):
+        by_id = {row["item_id"]: row for row in secret_transfer_review["items"]}
+        attachment = by_id["TC-13-03"]
+        theme = next(
+            row for row in secret_transfer_review["risk_themes"]
+            if "TC-13-03" in row["source_rule_ids"]
+        )
+    
+        assert attachment["coverage_status"] == "部分覆盖"
+        assert attachment["risk_level"] == "低"
+        assert attachment["action_priority"] == "C_OPTIMIZATION"
+        assert set(theme["source_rule_ids"]) == {"TC-09-02", "TC-13-03"}
+        # The shared liability-cap validity and excessive-liquidated-damages
+        # screens are independently evidenced in this fixture as well.
+&gt;       assert secret_transfer_review["risk_theme_count"] == 13
+E       assert 17 == 13
+
+backend\tests\test_technical_secret_transfer_contract_review.py:290: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_acceptance_test_attachment_narrative_has_complete_sentences" time="0.001"><failure message="AssertionError: assert '测试争议的复测机制未明确。' in '已覆盖：合同第十二条已明确验收场景和基本标准；合同第一条和验收条款已列明客观技术指标；测试设备和环境条件；尚未覆盖：独立验收测试方案附件；测试方法和操作步骤；固定测试数据集或样本；统计口径；测试记录和签认要求；争议复测或第三方检测机制。'">secret_transfer_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_acceptance_test_attachment_narrative_has_complete_sentences(
+        secret_transfer_review: dict,
+    ):
+        attachment = next(
+            row for row in secret_transfer_review["items"]
+            if row["item_id"] == "TC-13-03"
+        )
+        report = secret_transfer_review["result"]
+        narrative = attachment["decision_trace"]["narrative_elements"]
+    
+&gt;       assert "测试争议的复测机制未明确。" in narrative["judgment"]
+E       AssertionError: assert '测试争议的复测机制未明确。' in '已覆盖：合同第十二条已明确验收场景和基本标准；合同第一条和验收条款已列明客观技术指标；测试设备和环境条件；尚未覆盖：独立验收测试方案附件；测试方法和操作步骤；固定测试数据集或样本；统计口径；测试记录和签认要求；争议复测或第三方检测机制。'
+
+backend\tests\test_technical_secret_transfer_contract_review.py:304: AssertionError</failure></testcase><testcase classname="backend.tests.test_technical_secret_transfer_contract_review" name="test_service_fee_and_confidentiality_use_only_direct_operational_clauses" time="0.001" /><testcase classname="backend.tests.test_compensation_penalty_disposition" name="test_compensation_disposition[\u89e3\u9664\u540e\u4f9d\u6cd5\u652f\u4ed8\u7ecf\u6d4e\u8865\u507f\u3002-STATUTORY_PAY-True]" time="2.475" /><testcase classname="backend.tests.test_compensation_penalty_disposition" name="test_compensation_disposition[\u7ec8\u6b62\u65f6\u65e0\u9700\u652f\u4ed8\u4efb\u4f55\u7ecf\u6d4e\u8865\u507f\u3002-EXCLUDED-False]" time="2.279" /><testcase classname="backend.tests.test_compensation_penalty_disposition" name="test_compensation_disposition[\u52b3\u52a8\u8005\u81ea\u613f\u653e\u5f03\u7ecf\u6d4e\u8865\u507f\u3002-WAIVED-False]" time="2.326" /><testcase classname="backend.tests.test_compensation_penalty_disposition" name="test_compensation_disposition[\u8865\u507f\u6309\u5de5\u4f5c\u5e74\u9650\u548c\u6708\u5de5\u8d44\u8ba1\u7b97\u3002-CALCULATION_RULE-True]" time="2.321" /><testcase classname="backend.tests.test_compensation_penalty_disposition" name="test_trigger_scope[\u672a\u6309\u671f\u5b8c\u6210\u7814\u53d1\u4efb\u52a1\u652f\u4ed85000\u5143\u8fdd\u7ea6\u91d1\u3002-PROJECT_TASK_PERFORMANCE-5000\u5143-True]" time="2.600" /><testcase classname="backend.tests.test_compensation_penalty_disposition" name="test_trigger_scope[\u8fdf\u5230\u4e09\u6b21\u652f\u4ed8500\u5143\u8fdd\u7ea6\u91d1\u3002-ATTENDANCE-500\u5143-True]" time="2.535" /><testcase classname="backend.tests.test_compensation_penalty_disposition" name="test_trigger_scope[\u79bb\u804c\u672a\u63d0\u524d30\u65e5\u652f\u4ed81000\u5143\u8fdd\u7ea6\u91d1\u3002-RESIGNATION_NOTICE-1000\u5143-True]" time="2.461" /><testcase classname="backend.tests.test_compensation_penalty_disposition" name="test_trigger_scope[\u8fdd\u53cd\u7ade\u4e1a\u9650\u5236\u652f\u4ed85\u4e07\u5143\u8fdd\u7ea6\u91d1\u3002-NON_COMPETE-5\u4e07\u5143-False]" time="2.269" /><testcase classname="backend.tests.test_compensation_penalty_disposition" name="test_trigger_scope[\u8fdd\u53cd\u4e13\u9879\u57f9\u8bad\u670d\u52a1\u671f\u652f\u4ed8\u57f9\u8bad\u8fdd\u7ea6\u91d1\u3002-TRAINING_SERVICE_PERIOD-\u57f9\u8bad\u8d39\u7528-False]" time="2.530" /><testcase classname="backend.tests.test_compensation_penalty_disposition" name="test_incorrect_candidate_still_blocked[economic_compensation.statutory-value0-\u65e0\u9700\u652f\u4ed8\u7ecf\u6d4e\u8865\u507f\u3002]" time="0.006" /><testcase classname="backend.tests.test_compensation_penalty_disposition" name="test_incorrect_candidate_still_blocked[penalties.obligations-value1-\u9879\u76ee\u4efb\u52a1\u903e\u671f\u652f\u4ed85000\u5143\u8fdd\u7ea6\u91d1\u3002]" time="0.005" /><testcase classname="backend.tests.test_compensation_penalty_disposition" name="test_no_default_compensation_disposition" time="0.001" /><testcase classname="backend.tests.test_compensation_penalty_disposition" name="test_extraction_prompt_schema_version_matches_normalizer" time="0.001" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_delivery_list_inherits_predicate_not_number_style[False]" time="0.010" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_delivery_list_inherits_predicate_not_number_style[True]" time="0.003" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_exceptions_keep_independent_development_and_last_member" time="0.015" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_scope_and_acceptance_consume_same_metric_span" time="0.011" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_component_outage_is_not_infringement_remedy" time="0.002" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_third_party_testing_fee_is_not_component_fee" time="0.002" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_improvement_notice_requires_actor_action_and_object" time="0.005" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_software_deliverables_do_not_exclude_embodied_project_samples" time="0.007" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_absent_fee_basis_does_not_deny_secret_scope" time="0.001" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_absent_agreement_differs_from_future_consultation[\u53cc\u65b9\u672a\u53e6\u884c\u7ea6\u5b9a\u4e13\u5229\u7533\u8bf7\u8d39\u7528\u627f\u62c5\u3002-MISSING]" time="0.006" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_absent_agreement_differs_from_future_consultation[\u4e13\u5229\u7533\u8bf7\u8d39\u7528\u7531\u53cc\u65b9\u53e6\u884c\u534f\u5546\u627f\u62c5\u3002-PARTIALLY_COVERED]" time="0.002" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_data_disposal_does_not_invent_backup_deletion" time="0.009" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_added_scope_separate_price_is_fee_adjustment" time="0.004" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_improvement_negative_ownership_not_positive_assignment" time="0.014" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_bounded_use_rights_preserve_actor_object_and_scope" time="0.005" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_explicit_nonagreement_is_not_positive_notice" time="0.002" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_phase_delay_links_termination_without_penalty" time="0.008" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_client_caused_delay_exemption_is_not_developer_remedy" time="0.001" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_positive_gate_requires_exact_element_ownership" time="0.001" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_upload_preserves_partial_component_and_exact_gaps" time="17.735" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_upload_shared_lists_and_acceptance" time="0.001" /><testcase classname="backend.tests.test_development_shared_list_mapping" name="test_whole_upload_gate" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_application_subtype_survives_report_projection" time="16.417" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_warranty_is_not_demoted_by_missing_proof_documents" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_duty_and_non_duty_have_separate_triggers" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_claim_liability_reuses_seller_responsibility" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_improvement_notice_does_not_use_confidentiality" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_improvement_negative_screen_passes_without_restrictive_fact" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_proof_model_uses_application_not_granted_fields" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_registration_effect_is_not_contract_formation" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_report_release_and_positive_evidence_provenance" time="0.001"><failure message="AssertionError: [{'requirement': 'REVIEW_EVIDENCE_ELEMENT_MISMATCH', 'failure_stage': 'Review Evidence Projection', 'root_cause': 'Rev...: 'COMMON-21-01:common_internal_references_4', 'current_status': 'FAIL', 'failure_stage': 'Semantic consistency'}, ...]&#10;assert 'BLOCKED' != 'BLOCKED'">result = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_report_release_and_positive_evidence_provenance(result):
+&gt;       assert result["release_quality_gate"]["status"] != "BLOCKED", result["release_quality_gate"]["failures"]
+E       AssertionError: [{'requirement': 'REVIEW_EVIDENCE_ELEMENT_MISMATCH', 'failure_stage': 'Review Evidence Projection', 'root_cause': 'Rev...: 'COMMON-21-01:common_internal_references_4', 'current_status': 'FAIL', 'failure_stage': 'Semantic consistency'}, ...]
+E       assert 'BLOCKED' != 'BLOCKED'
+
+backend\tests\test_patent_application_transfer_consistency.py:100: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_actual_attachment_list_is_not_absent" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_named_inventors_are_not_missing_with_optional_reward_gap" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_creator_reward_recommendation_is_consistent_across_report_sections" time="0.003" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_completed_core_becomes_pass_without_fabricated_gap_or_exposure" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_improvement_polarity_is_sentence_scoped[\u5356\u65b9\u65e0\u6743\u8981\u6c42\u65e0\u507f\u5171\u6709\u3001\u8f6c\u8ba9\u6216\u8005\u5206\u4eab\u4e70\u65b9\u72ec\u7acb\u5f62\u6210\u7684\u540e\u7eed\u6539\u8fdb\u6210\u679c\u3002-False]" time="0.008" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_improvement_polarity_is_sentence_scoped[\u53cc\u65b9\u5747\u6709\u6743\u81ea\u884c\u8fdb\u884c\u540e\u7eed\u6539\u8fdb\u3002-False]" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_improvement_polarity_is_sentence_scoped[\u4e70\u65b9\u4e0d\u5f97\u81ea\u4e3b\u7814\u7a76\u5f00\u53d1\u6216\u6539\u8fdb\u3002-True]" time="0.002" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_improvement_polarity_is_sentence_scoped[\u5356\u65b9\u4e0d\u5f97\u8981\u6c42\u65e0\u507f\u8f6c\u8ba9\u72ec\u7acb\u6539\u8fdb\u6210\u679c\u3002\u4e70\u65b9\u4e0d\u5f97\u81ea\u4e3b\u6539\u8fdb\u3002-True]" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_granted_patent_model_and_both_party_roles_remain_distinct" time="0.001" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_non_duty_applicability_requires_its_own_positive_fact[\u7533\u8bf7\u4eba\u4e3a\u4f01\u4e1a\uff0c\u53d1\u660e\u4eba\u4e3a\u81ea\u7136\u4eba\u3002\u5356\u65b9\u5df2\u53d6\u5f97\u5458\u5de5\u804c\u52a1\u6210\u679c\u5f52\u5c5e\u5185\u90e8\u6587\u4ef6\u3002-False]" time="0.059" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_non_duty_applicability_requires_its_own_positive_fact[\u672c\u9879\u76ee\u4e0d\u5b58\u5728\u975e\u804c\u52a1\u53d1\u660e\u3002-False]" time="0.017" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_non_duty_applicability_requires_its_own_positive_fact[\u672c\u9879\u76ee\u542b\u975e\u804c\u52a1\u53d1\u660e\uff0c\u53d1\u660e\u4eba\u4ee5\u4e2a\u4eba\u540d\u4e49\u6295\u5165\u3002-True]" time="0.006" /><testcase classname="backend.tests.test_patent_application_transfer_consistency" name="test_non_duty_applicability_requires_its_own_positive_fact[\u5458\u5de5\u4e3b\u5f20\u5176\u4e3a\u6210\u679c\u6240\u6709\u6743\u4eba\uff0c\u4e0e\u5355\u4f4d\u5b58\u5728\u4e89\u8bae\u3002-True]" time="0.006" /><testcase classname="backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency" name="test_cooperative_classification_uses_core_transaction_evidence" time="11.598"><failure message="assert False&#10; +  where False = any(&lt;generator object test_cooperative_classification_uses_core_transaction_evidence.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002CAE71845F0&gt;)">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_cooperative_classification_uses_core_transaction_evidence(cooperative_review: dict):
+        by_id = _items(cooperative_review)
+    
+        for review_id in ("TC-01-01", "TC-01-02"):
+            evidence = by_id[review_id]["evidence_clauses"]
+            locations = [str(row.get("location") or "") for row in evidence]
+            rendered = "\n".join(
+                str(row.get("quoted_text") or row.get("text") or "")
+                for row in evidence
+            )
+            assert evidence
+            assert not any("项目财产" in location for location in locations)
+&gt;           assert any(
+                term in rendered
+                for term in ("项目要求", "各方分工", "货币资金", "阶段性成果", "最终成果")
+            )
+E           assert False
+E            +  where False = any(&lt;generator object test_cooperative_classification_uses_core_transaction_evidence.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002CAE71845F0&gt;)
+
+backend\tests\test_cooperative_development_evidence_fact_conclusion_consistency.py:55: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency" name="test_investment_facts_override_absence_search" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency" name="test_confidentiality_damage_is_covered_without_duplicate_gap" time="0.001"><failure message="KeyError: 'confidentiality_obligation'">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_confidentiality_damage_is_covered_without_duplicate_gap(cooperative_review: dict):
+        by_id = _items(cooperative_review)
+        obligation = _elements(by_id["TC-11-01"])
+        liability_item = by_id["TC-11-04"]
+        liability = _elements(liability_item)
+    
+        assert obligation["confidentiality_obligation"]["status"] == "COVERED"
+&gt;       assert liability["confidentiality_obligation"]["status"] == "COVERED"
+E       KeyError: 'confidentiality_obligation'
+
+backend\tests\test_cooperative_development_evidence_fact_conclusion_consistency.py:99: KeyError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency" name="test_retention_does_not_imply_external_use_or_training" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency" name="test_body_scope_and_allocation_are_not_reintroduced_as_attachment_gaps" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency" name="test_explicit_improvement_and_high_salience_adverse_clauses_are_consumed" time="0.001"><failure message="AssertionError: assert 'UNCERTAIN' == 'COVERED'&#10;  &#10;  - COVERED&#10;  + UNCERTAIN">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_explicit_improvement_and_high_salience_adverse_clauses_are_consumed(cooperative_review: dict):
+        by_id = _items(cooperative_review)
+    
+        patent_rights = _elements(by_id["TC-05-02"])
+&gt;       assert patent_rights["final_result_ownership"]["status"] == "COVERED"
+E       AssertionError: assert 'UNCERTAIN' == 'COVERED'
+E         
+E         - COVERED
+E         + UNCERTAIN
+
+backend\tests\test_cooperative_development_evidence_fact_conclusion_consistency.py:167: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency" name="test_sole_ownership_claim_cost_and_retention_branches_are_consistent" time="0.001"><failure message="AssertionError: assert '费用和赔偿责任承担已经覆盖' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_sole_ownership_claim_cost_and_retention_branches_are_consistent(cooperative_review: dict):
+        by_id = _items(cooperative_review)
+    
+        claim = by_id["TC-12-02"]
+        claim_elements = _elements(claim)
+        assert claim["coverage_status"] == "部分覆盖"
+        for element_id in (
+            "infringement_responsibility",
+            "claim_cost_allocation",
+            "third_party_compensation_allocation",
+            "defense_cost_allocation",
+        ):
+            assert claim_elements[element_id]["status"] == "COVERED"
+&gt;       assert "费用和赔偿责任承担已经覆盖" in claim["risk_point_description"]
+E       AssertionError: assert '费用和赔偿责任承担已经覆盖' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'
+
+backend\tests\test_cooperative_development_evidence_fact_conclusion_consistency.py:214: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency" name="test_duplicate_improvement_and_copy_retention_findings_are_aggregated" time="0.002" /><testcase classname="backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency" name="test_party_a_favorable_rights_and_penalty_rendering_are_preserved" time="0.002"><failure message="AssertionError: assert '对甲方有利' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_party_a_favorable_rights_and_penalty_rendering_are_preserved(cooperative_review: dict):
+        by_id = _items(cooperative_review)
+        result_rights = by_id["TC-05-03"]
+        result_finding = next(
+            row for row in cooperative_review["risk_findings"]
+            if row["risk_group"] == "cooperative_result_rights_and_commercialization"
+        )
+    
+        assert result_rights["title"] == "最终成果归甲方的权利承接边界待完善"
+&gt;       assert "对甲方有利" in result_rights["risk_point_description"]
+E       AssertionError: assert '对甲方有利' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'
+
+backend\tests\test_cooperative_development_evidence_fact_conclusion_consistency.py:270: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency" name="test_attachment_improvements_remain_optional" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency" name="test_report_layers_and_preserved_risks_remain_consistent" time="0.001"><failure message="AssertionError: assert 'BLOCKED' == 'REPORT_READY'&#10;  &#10;  - REPORT_READY&#10;  + BLOCKED">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_report_layers_and_preserved_risks_remain_consistent(cooperative_review: dict):
+&gt;       assert cooperative_review["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_cooperative_development_evidence_fact_conclusion_consistency.py:313: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency" name="test_party_a_failure_allocation_is_favorable_and_article_858_controls" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency" name="test_party_a_ownership_and_final_decision_right_are_not_adverse" time="0.001"><failure message="AssertionError: assert '缺失' == '部分覆盖'&#10;  &#10;  - 部分覆盖&#10;  + 缺失">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_party_a_ownership_and_final_decision_right_are_not_adverse(
+        cooperative_review: dict,
+    ):
+        by_id = _items(cooperative_review)
+        result_rights = by_id["TC-05-03"]
+        result_elements = _elements(result_rights)
+        governance = by_id["TECH-SHARED-GOV-01"]
+        governance_elements = _elements(governance)
+    
+&gt;       assert result_rights["coverage_status"] == "部分覆盖"
+E       AssertionError: assert '缺失' == '部分覆盖'
+E         
+E         - 部分覆盖
+E         + 缺失
+
+backend\tests\test_cooperative_development_evidence_fact_conclusion_consistency.py:392: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency" name="test_universal_independent_improvement_assignment_links_competition_and_deduplicates" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency" name="test_report_deduplicates_basis_and_evidence_and_uses_actual_acceptance_articles" time="0.002"><failure message="AssertionError: assert 5 == 3&#10; +  where 5 = len(['乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金。', '乙方交付成果未通过验收超过30日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '乙方未按期完成研...0日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '已检索合同正文及全部已提供附件，未找到以下正向事实：违约金基数（合同研发总金额、同时支付合同总金额）的金额或可验证确定方法。'])&#10; +  and   3 = len({'乙方交付成果未通过验收超过30日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金。', '已检索合同正文及全部已提供附件，未找到以下正向事实：违约金基数（合同研发总金额、同时支付合同总金额）的金额或可验证确定方法。'})&#10; +    where {'乙方交付成果未通过验收超过30日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金。', '已检索合同正文及全部已提供附件，未找到以下正向事实：违约金基数（合同研发总金额、同时支付合同总金额）的金额或可验证确定方法。'} = set(['乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金。', '乙方交付成果未通过验收超过30日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '乙方未按期完成研...0日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '已检索合同正文及全部已提供附件，未找到以下正向事实：违约金基数（合同研发总金额、同时支付合同总金额）的金额或可验证确定方法。'])">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_report_deduplicates_basis_and_evidence_and_uses_actual_acceptance_articles(
+        cooperative_review: dict,
+    ):
+        by_id = _items(cooperative_review)
+        acceptance = _elements(by_id["TC-13-03"])["acceptance_test_scene"]
+    
+        assert "第十三条、第十四条" in acceptance["proposition"]
+        assert "第十二条" not in acceptance["proposition"]
+        assert "甲乙双方" not in cooperative_review["result"]
+        assert "合同正文已经明确各方的基本研发职责分工" in cooperative_review["result"]
+        for line in cooperative_review["result"].splitlines():
+            assert line.count("第509条") &lt;= 1
+    
+        for finding in cooperative_review["risk_findings"]:
+            quotes = [
+                str(row.get("quoted_text") or "").strip()
+                for row in finding.get("evidence_bundle", {}).get("items", [])
+                if str(row.get("quoted_text") or "").strip()
+            ]
+&gt;           assert len(quotes) == len(set(quotes))
+E           AssertionError: assert 5 == 3
+E            +  where 5 = len(['乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金。', '乙方交付成果未通过验收超过30日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '乙方未按期完成研...0日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '已检索合同正文及全部已提供附件，未找到以下正向事实：违约金基数（合同研发总金额、同时支付合同总金额）的金额或可验证确定方法。'])
+E            +  and   3 = len({'乙方交付成果未通过验收超过30日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金。', '已检索合同正文及全部已提供附件，未找到以下正向事实：违约金基数（合同研发总金额、同时支付合同总金额）的金额或可验证确定方法。'})
+E            +    where {'乙方交付成果未通过验收超过30日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金。', '已检索合同正文及全部已提供附件，未找到以下正向事实：违约金基数（合同研发总金额、同时支付合同总金额）的金额或可验证确定方法。'} = set(['乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金。', '乙方交付成果未通过验收超过30日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '乙方未按期完成研...0日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '已检索合同正文及全部已提供附件，未找到以下正向事实：违约金基数（合同研发总金额、同时支付合同总金额）的金额或可验证确定方法。'])
+
+backend\tests\test_cooperative_development_evidence_fact_conclusion_consistency.py:478: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency" name="test_report_distinguishes_aggregated_themes_from_rule_level_hits" time="0.001"><failure message="AssertionError: assert '规则级审查命中数：20' in '# 合作开发合同审查报告\n\n\n## 一、合同总体评价\n\n- 审查立场：甲方 / 合作开发方\n- 使用场景：合作开发\n- 合同类型：技术合同—技术开发合同—合作开发合同\n- 总体可签署性：建议修改后签署\n- 风险主题数...30%的违约金。 丙方未按照要求完成技术评估的，应赔偿因此给甲方造成的全部损失。\n- 第十九条 违约责任 [支持：违约金标准偏高及司法调减风险]: 乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金\n\n---\n'">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_report_distinguishes_aggregated_themes_from_rule_level_hits(
+        cooperative_review: dict,
+    ):
+        rule_ids = list(dict.fromkeys(
+            review_id
+            for finding in cooperative_review["risk_findings"]
+            for review_id in finding["source_review_ids"]
+        ))
+    
+        assert cooperative_review["risk_theme_count"] == len(cooperative_review["risk_themes"])
+        assert cooperative_review["aggregated_finding_count"] == len(cooperative_review["risk_findings"])
+        assert cooperative_review["finding_count"] == cooperative_review["aggregated_finding_count"]
+        assert cooperative_review["finding_count_semantics"] == "AGGREGATED_RISK_FINDINGS"
+        assert cooperative_review["rule_level_finding_count"] == len(rule_ids)
+        assert cooperative_review["rule_level_finding_ids"] == rule_ids
+        assert cooperative_review["rule_level_finding_count"] &gt; cooperative_review["risk_theme_count"]
+    
+        report = cooperative_review["result"]
+        assert f"风险主题数（聚合后）：{cooperative_review['risk_theme_count']}" in report
+&gt;       assert f"规则级审查命中数：{len(rule_ids)}" in report
+E       AssertionError: assert '规则级审查命中数：20' in '# 合作开发合同审查报告\n\n\n## 一、合同总体评价\n\n- 审查立场：甲方 / 合作开发方\n- 使用场景：合作开发\n- 合同类型：技术合同—技术开发合同—合作开发合同\n- 总体可签署性：建议修改后签署\n- 风险主题数...30%的违约金。 丙方未按照要求完成技术评估的，应赔偿因此给甲方造成的全部损失。\n- 第十九条 违约责任 [支持：违约金标准偏高及司法调减风险]: 乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金\n\n---\n'
+
+backend\tests\test_cooperative_development_evidence_fact_conclusion_consistency.py:500: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency" name="test_result_rights_applicability_matches_actual_review_scope" time="0.001" /><testcase classname="backend.tests.test_patent_license_input_integrity_routing" name="test_current_uploaded_fixture_is_field_page_and_is_blocked_before_review" time="0.170" /><testcase classname="backend.tests.test_patent_license_input_integrity_routing" name="test_anchor_loss_between_raw_classifier_or_rule_input_blocks_pipeline" time="0.003" /><testcase classname="backend.tests.test_patent_license_input_integrity_routing" name="test_diagnostics_cover_every_consumer_and_detect_non_anchor_replacement" time="0.002" /><testcase classname="backend.tests.test_patent_license_input_integrity_routing" name="test_generic_retention_checks_identify_extraction_and_normalization_loss" time="0.003" /><testcase classname="backend.tests.test_patent_license_input_integrity_routing" name="test_structured_short_contract_with_many_fields_is_not_a_field_summary" time="0.044" /><testcase classname="backend.tests.test_patent_license_input_integrity_routing" name="test_ooxml_textbox_body_is_recovered_before_completeness_check" time="0.053" /><testcase classname="backend.tests.test_patent_license_input_integrity_routing" name="test_complete_patent_license_uses_one_full_text_and_never_loads_sale_rules" time="8.153" /><testcase classname="backend.tests.test_patent_license_input_integrity_routing" name="test_acceptance_party_is_a_licensee_role_not_a_sale_role" time="0.038" /><testcase classname="backend.tests.test_entrusted_development_primary_routing" name="test_real_form_contract_uses_research_performance_as_primary_transaction" time="0.071" /><testcase classname="backend.tests.test_entrusted_development_primary_routing" name="test_real_form_contract_overrides_selected_service_domain" time="0.128" /><testcase classname="backend.tests.test_entrusted_development_primary_routing" name="test_form_research_structure_is_not_tied_to_a_project_name_amount_or_title" time="0.008" /><testcase classname="backend.tests.test_entrusted_development_primary_routing" name="test_parenthesized_entrusted_development_title_is_recognized[\u6280\u672f\u5f00\u53d1\uff08\u59d4\u6258\uff09\u5408\u540c]" time="0.010" /><testcase classname="backend.tests.test_entrusted_development_primary_routing" name="test_parenthesized_entrusted_development_title_is_recognized[\u6280\u672f\u5f00\u53d1(\u59d4\u6258)\u5408\u540c]" time="0.006" /><testcase classname="backend.tests.test_entrusted_development_primary_routing" name="test_parenthesized_entrusted_development_title_is_recognized[\u6280\u672f\u5f00\u53d1\u5408\u540c\uff08\u59d4\u6258\uff09]" time="0.007" /><testcase classname="backend.tests.test_entrusted_development_primary_routing" name="test_removing_ancillary_support_does_not_change_research_primary_type" time="0.006" /><testcase classname="backend.tests.test_entrusted_development_primary_routing" name="test_ordinary_technical_service_does_not_become_research_from_development_words" time="0.007" /><testcase classname="backend.tests.test_entrusted_development_primary_routing" name="test_reference_to_research_without_developer_obligation_does_not_trigger_core" time="0.001" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_negative_search_is_not_replaced_by_checkpoint_display_metadata[TC-02-02]" time="0.002" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_negative_search_is_not_replaced_by_checkpoint_display_metadata[TC-10-04]" time="0.004" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_negative_audit_requires_reproducible_predicate_and_full_corpus[incomplete_scope]" time="0.001" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_negative_audit_requires_reproducible_predicate_and_full_corpus[contrary_clause]" time="0.002" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_negative_audit_requires_reproducible_predicate_and_full_corpus[wrong_predicate]" time="0.001" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_trigger_party_does_not_own_later_provider_response[\u63a5\u53d7\u65b9\u6309\u7ea6\u5b9e\u65bd\u906d\u9047\u7b2c\u4e09\u65b9\u4fb5\u6743\u4e3b\u5f20\u65f6\uff0c\u8bb8\u53ef\u65b9\u5e94\u8d1f\u8d23\u5e94\u8bc9\u5e76\u627f\u62c5\u76f8\u5e94\u4fb5\u6743\u8d23\u4efb\u3002]" time="0.014" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_trigger_party_does_not_own_later_provider_response[\u4e70\u65b9\u906d\u5230\u7b2c\u4e09\u4eba\u7d22\u8d54\u7684\uff0c\u5356\u65b9\u5e94\u8d1f\u8d23\u5904\u7406\u5e76\u627f\u62c5\u5408\u7406\u635f\u5931\u3002]" time="0.004" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_confidentiality_undertaking_is_only_applicability_not_breach_liability" time="0.018" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_replaying_completed_negative_search_is_idempotent" time="0.010" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_rejected_positive_element_cannot_be_restored_from_specialized_snapshot" time="0.016" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_patent_identity_absence_query_is_field_specific" time="0.020" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_canonical_penalty_rekey_preserves_exact_binding_contract" time="0.013" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_generic_confidentiality_claim_reuses_scope_and_obligation_sources" time="0.002" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_owner_declaration_is_identity_not_document_availability[\u8bb8\u53ef\u65b9\u786e\u8ba4\u5176\u4e3a\u8bb8\u53ef\u6807\u7684\u7684\u5408\u6cd5\u4e13\u5229\u6743\u4eba\u3002-True]" time="0.005" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_owner_declaration_is_identity_not_document_availability[\u7532\u65b9\u58f0\u660e\u662f\u8be5\u9879\u6280\u672f\u7684\u4e13\u5229\u6743\u4eba\u3002-True]" time="0.004" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_owner_declaration_is_identity_not_document_availability[\u7532\u65b9\u4e0d\u662f\u8be5\u9879\u6280\u672f\u7684\u4e13\u5229\u6743\u4eba\u3002-False]" time="0.004" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_owner_declaration_is_identity_not_document_availability[\u7532\u65b9\u5982\u4e3a\u4e13\u5229\u6743\u4eba\uff0c\u5e94\u63d0\u4f9b\u8bc1\u4e66\u3002-False]" time="0.005" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_material_delivery_uses_same_document_taxonomy_as_scope[\u8bb8\u53ef\u65b9\u5e94\u4ea4\u4ed8\u8bbe\u8ba1\u56fe\u7eb8\u548c\u64cd\u4f5c\u624b\u518c\u3002-True]" time="0.040" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_material_delivery_uses_same_document_taxonomy_as_scope[\u8bb8\u53ef\u65b9\u5e94\u63d0\u4ea4\u7535\u6c14\u539f\u7406\u56fe\u548c\u7ef4\u4fee\u624b\u518c\u3002-True]" time="0.033" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_material_delivery_uses_same_document_taxonomy_as_scope[\u8bb8\u53ef\u65b9\u63d0\u4f9b\u7684\u64cd\u4f5c\u624b\u518c\u53d1\u751f\u9519\u8bef\u65f6\u5e94\u627f\u62c5\u8d54\u507f\u8d23\u4efb\u3002-False]" time="0.011" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_liability_cap_does_not_replace_explicit_claim_handler" time="0.004" /><testcase classname="backend.tests.test_technology_verified_decision_boundary" name="test_general_liability_allocation_does_not_establish_concrete_damage_items" time="0.001" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_confidentiality_siblings_consume_shared_positive_prerequisites[\u53cc\u65b9\u7684\u7ecf\u8425\u6570\u636e\u548c\u975e\u516c\u5f00\u6280\u672f\u8d44\u6599\u5747\u5c5e\u4e8e\u4fdd\u5bc6\u4fe1\u606f\u3002]" time="0.009" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_confidentiality_siblings_consume_shared_positive_prerequisites[\u53cc\u65b9\u4fdd\u5bc6\u4e49\u52a1\u5728\u5408\u540c\u7ec8\u6b62\u540e\u7ee7\u7eed\u6709\u6548\u4e09\u5e74\u3002]" time="0.008" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_confidentiality_siblings_consume_shared_positive_prerequisites[\u4fdd\u5bc6\u4fe1\u606f\u5305\u62ec\u5ba2\u6237\u4fe1\u606f\u53ca\u5546\u4e1a\u8ba1\u5212\u3002]" time="0.007" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_loss_allocation_proves_liability_actor_not_specific_cost_scope[\u4e59\u65b9-\u7532\u65b9]" time="0.003" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_loss_allocation_proves_liability_actor_not_specific_cost_scope[\u8bb8\u53ef\u65b9-\u88ab\u8bb8\u53ef\u65b9]" time="0.003" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_loss_allocation_proves_liability_actor_not_specific_cost_scope[\u5356\u65b9-\u4e70\u65b9]" time="0.002" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_exact_source_adapter_projects_span_without_covering_neighbour" time="0.001" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_requirement_label_is_not_a_registry_key_or_a_missing_fact" time="0.001" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_atomic_projection_replay_keeps_distinct_spans_and_evidence_identity" time="0.014" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_public_review_schema_roundtrip_preserves_gate_inputs" time="0.001" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_source_verification_rekeys_exact_element_edges_without_clause_cross_binding" time="0.001" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_registry_projection_does_not_merge_different_elements_by_clause_id" time="0.001" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_late_fact_registration_updates_snapshot_without_inventing_evidence[\u4e59\u65b9\u8d1f\u8d23\u5904\u7406\u7b2c\u4e09\u65b9\u7d22\u8d54\u3002-COVERED]" time="0.001" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_late_fact_registration_updates_snapshot_without_inventing_evidence[\u4e59\u65b9\u5e94\u5728\u4e09\u65e5\u5185\u5904\u7406\u7b2c\u4e09\u65b9\u7d22\u8d54\u3002-UNCERTAIN]" time="0.001" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_late_registration_preserves_other_explicit_element_edges" time="0.001" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_unresolved_conditional_fact_survives_coverage_adapter[UNKNOWN-CONDITION_UNRESOLVED]" time="0.002" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_unresolved_conditional_fact_survives_coverage_adapter[FALSE-NOT_APPLICABLE]" time="0.001" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_semantic_verification_does_not_borrow_unpublished_neighbouring_sentence" time="0.001" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_evidence_package_projects_the_sentence_it_actually_verified" time="0.001" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_display_alias_gate_verifies_each_actual_alias_not_a_sibling_quote" time="0.001" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_direct_adverse_fact_does_not_turn_into_uncertain_entailment[ADVERSE]" time="0.001" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_direct_adverse_fact_does_not_turn_into_uncertain_entailment[CONFLICTING]" time="0.001" /><testcase classname="backend.tests.test_round8_remaining_fact_adapters" name="test_license_typed_sources_retain_exact_parser_spans[license_scope_remedies-\u53d7\u8ba9\u65b9\u8d85\u51fa\u8bb8\u53ef\u8303\u56f4\uff0c\u5e94\u505c\u6b62\u4f7f\u7528\u5e76\u8d54\u507f\u5b9e\u9645\u635f\u5931\u3002-over_scope_breach_remedy]" time="0.019" /><testcase classname="backend.tests.test_round8_remaining_fact_adapters" name="test_license_typed_sources_retain_exact_parser_spans[license_mutual_confidentiality-\u53cc\u65b9\u5bf9\u7b97\u6cd5\u548c\u5ba2\u6237\u8d44\u6599\u627f\u62c5\u4fdd\u5bc6\u4e49\u52a1\uff1b\u672a\u7ecf\u63d0\u4f9b\u65b9\u4e66\u9762\u540c\u610f\u4e0d\u5f97\u5411\u7b2c\u4e09\u65b9\u62ab\u9732\u3002\u53cc\u65b9\u4fdd\u5bc6\u4e49\u52a1\u5728\u5408\u540c\u7ec8\u6b62\u540e\u4e94\u5e74\u6301\u7eed\u6709\u6548\u3002-mutual_confidentiality_responsibility]" time="0.011" /><testcase classname="backend.tests.test_round8_remaining_fact_adapters" name="test_license_typed_sources_retain_exact_parser_spans[license_secret_controls-\u6280\u672f\u79d8\u5bc6\u4e3a\u672a\u516c\u5f00\u7684\u6e90\u4ee3\u7801\u3002\n\u7b2c\u4e8c\u6761 \u4e3a\u751f\u4ea7\u5408\u540c\u4ea7\u54c1\u4e4b\u76ee\u7684\u53ef\u4ee5\u590d\u5236\u548c\u7f16\u8bd1\u3002\n\u7b2c\u4e09\u6761 \u4e0d\u5f97\u8d85\u51fa\u672c\u5408\u540c\u76ee\u7684\u4f7f\u7528\u3002-purpose_scoped_copying_boundary]" time="0.009" /><testcase classname="backend.tests.test_round8_remaining_fact_adapters" name="test_licence_other_obligations_are_not_control_or_remedy[license_scope_remedies-\u53cc\u65b9\u627f\u62c5\u4fdd\u5bc6\u4e49\u52a1\uff0c\u7532\u65b9\u5e94\u652f\u4ed8\u8bb8\u53ef\u8d39\u3002-over_scope_breach_remedy]" time="0.002" /><testcase classname="backend.tests.test_round8_remaining_fact_adapters" name="test_licence_other_obligations_are_not_control_or_remedy[license_mutual_confidentiality-\u7532\u65b9\u5bf9\u6280\u672f\u79d8\u5bc6\u627f\u62c5\u4fdd\u5bc6\u4e49\u52a1\u3002\u4e59\u65b9\u652f\u4ed8\u670d\u52a1\u8d39\u3002-mutual_confidentiality_responsibility]" time="0.001" /><testcase classname="backend.tests.test_round8_remaining_fact_adapters" name="test_licence_other_obligations_are_not_control_or_remedy[license_secret_controls-\u7532\u65b9\u53ef\u4ee5\u590d\u5236\u6280\u672f\u8d44\u6599\u3002-purpose_scoped_copying_boundary]" time="0.001" /><testcase classname="backend.tests.test_round8_remaining_fact_adapters" name="test_licence_title_price_and_delivery_do_not_define_confidential_scope" time="0.001" /><testcase classname="backend.tests.test_round8_remaining_fact_adapters" name="test_named_confidential_category_with_an_obligation_is_scope_evidence" time="0.001" /><testcase classname="backend.tests.test_round8_remaining_fact_adapters" name="test_general_remedy_in_same_provision_keeps_its_separate_span" time="0.003" /><testcase classname="backend.tests.test_round8_remaining_fact_adapters" name="test_fee_inclusion_requires_a_price_relation_not_a_service_duty[\u6280\u672f\u670d\u52a1\u8d39\u7528\u5df2\u5305\u542b\u5728\u8f6c\u8ba9\u8d39\u4e2d\u3002-COVERED]" time="0.004" /><testcase classname="backend.tests.test_round8_remaining_fact_adapters" name="test_fee_inclusion_requires_a_price_relation_not_a_service_duty[\u6280\u672f\u670d\u52a1\u8d39\u4e3a\u4eba\u6c11\u5e015000\u5143\u3002-COVERED]" time="0.001" /><testcase classname="backend.tests.test_round8_remaining_fact_adapters" name="test_fee_inclusion_requires_a_price_relation_not_a_service_duty[\u4e59\u65b9\u5e94\u63d0\u4f9b\u6280\u672f\u670d\u52a1\u3002-MISSING]" time="0.001" /><testcase classname="backend.tests.test_round8_remaining_fact_adapters" name="test_fee_inclusion_requires_a_price_relation_not_a_service_duty[\u4e59\u65b9\u63d0\u4f9b\u73b0\u573a\u6280\u672f\u670d\u52a1\u4e0d\u8d85\u8fc78\u4e2a\u5de5\u4f5c\u65e5\u3002\u8d85\u8fc7\u7ea6\u5b9a\u5de5\u4f5c\u91cf\u7684\u670d\u52a1\u53e6\u884c\u534f\u5546\u6536\u8d39\u3002-PARTIALLY_COVERED]" time="0.001" /><testcase classname="backend.tests.test_round8_remaining_fact_adapters" name="test_partial_price_arrangement_keeps_fact_presence_separate_from_completeness" time="0.008" /><testcase classname="backend.tests.test_round8_remaining_fact_adapters" name="test_cap_orientation_requires_verified_source_and_matching_review_context[\u7532\u65b9-PASS]" time="0.008" /><testcase classname="backend.tests.test_round8_remaining_fact_adapters" name="test_cap_orientation_requires_verified_source_and_matching_review_context[\u4e59\u65b9-BLOCKED]" time="0.003" /><testcase classname="backend.tests.test_technology_canonical_namespace_and_predicates" name="test_fact_namespace_roundtrip_does_not_become_flat_requirement[major_decision_process]" time="0.005" /><testcase classname="backend.tests.test_technology_canonical_namespace_and_predicates" name="test_fact_namespace_roundtrip_does_not_become_flat_requirement[technology.governance.major_decision]" time="0.003" /><testcase classname="backend.tests.test_technology_canonical_namespace_and_predicates" name="test_fact_namespace_roundtrip_does_not_become_flat_requirement[TECHNOLOGY_GOVERNANCE_MAJOR_DECISION]" time="0.003" /><testcase classname="backend.tests.test_technology_canonical_namespace_and_predicates" name="test_registered_dotted_element_alias_is_not_a_fact_namespace" time="0.002" /><testcase classname="backend.tests.test_technology_canonical_namespace_and_predicates" name="test_alias_chain_resolves_one_document_fact_without_rewriting_raw_text" time="0.001" /><testcase classname="backend.tests.test_technology_canonical_namespace_and_predicates" name="test_recipient_between_modality_and_remedy_is_not_a_missing_obligation[\u4e59\u65b9\u8fdd\u53cd\u4fdd\u5bc6\u4e49\u52a1\u7684\uff0c\u5e94\u5411\u7532\u65b9\u652f\u4ed8\u4eba\u6c11\u5e01\u5341\u4e07\u5143\u8fdd\u7ea6\u91d1\u3002]" time="0.002" /><testcase classname="backend.tests.test_technology_canonical_namespace_and_predicates" name="test_recipient_between_modality_and_remedy_is_not_a_missing_obligation[\u4e70\u65b9\u6cc4\u9732\u6280\u672f\u79d8\u5bc6\u7684\uff0c\u5e94\u5411\u5356\u65b9\u8d54\u507f\u56e0\u6b64\u53d1\u751f\u7684\u635f\u5931\u3002]" time="0.001" /><testcase classname="backend.tests.test_technology_canonical_namespace_and_predicates" name="test_recipient_between_modality_and_remedy_is_not_a_missing_obligation[\u4efb\u4f55\u4e00\u65b9\u8fdd\u80cc\u4fdd\u5bc6\u7ea6\u5b9a\u65f6\uff0c\u5e94\u7acb\u5373\u505c\u6b62\u62ab\u9732\u5e76\u8d54\u507f\u5bf9\u65b9\u635f\u5931\u3002]" time="0.001" /><testcase classname="backend.tests.test_technology_canonical_namespace_and_predicates" name="test_recipient_between_modality_and_remedy_is_not_a_missing_obligation[\u53d7\u8ba9\u65b9\u8fdd\u53cd\u672c\u5408\u540c\u4fdd\u5bc6\u6761\u6b3e\uff0c\u5fc5\u987b\u5411\u8ba9\u4e0e\u65b9\u652f\u4ed8\u7ea6\u5b9a\u8fdd\u7ea6\u91d1\u3002]" time="0.001" /><testcase classname="backend.tests.test_technology_canonical_namespace_and_predicates" name="test_liability_cap_topic_or_other_event_does_not_prove_breach_remedy[\u8fdd\u53cd\u4fdd\u5bc6\u4e49\u52a1\u7684\u8d54\u507f\u8d23\u4efb\u6700\u9ad8\u4e0d\u8d85\u8fc7\u5408\u540c\u603b\u4ef7\u3002]" time="0.001" /><testcase classname="backend.tests.test_technology_canonical_namespace_and_predicates" name="test_liability_cap_topic_or_other_event_does_not_prove_breach_remedy[\u9664\u8fdd\u53cd\u4fdd\u5bc6\u4e49\u52a1\u5916\uff0c\u8d54\u507f\u8d23\u4efb\u4ee5\u5f00\u53d1\u8d39\u4e3a\u4e0a\u9650\u3002]" time="0.001" /><testcase classname="backend.tests.test_technology_canonical_namespace_and_predicates" name="test_liability_cap_topic_or_other_event_does_not_prove_breach_remedy[\u4e59\u65b9\u8fdd\u53cd\u4fdd\u5bc6\u4e49\u52a1\u65f6\u65e0\u9700\u5411\u7532\u65b9\u652f\u4ed8\u8fdd\u7ea6\u91d1\u3002]" time="0.001" /><testcase classname="backend.tests.test_technology_canonical_namespace_and_predicates" name="test_liability_cap_topic_or_other_event_does_not_prove_breach_remedy[\u4e59\u65b9\u5e94\u5411\u7532\u65b9\u652f\u4ed8\u670d\u52a1\u8d39\uff0c\u5e76\u9075\u5b88\u4fdd\u5bc6\u4e49\u52a1\u3002]" time="0.001" /><testcase classname="backend.tests.test_technology_canonical_namespace_and_predicates" name="test_liability_cap_topic_or_other_event_does_not_prove_breach_remedy[\u4fdd\u5bc6\u8303\u56f4\u53e6\u884c\u7ea6\u5b9a\u3002\u4e59\u65b9\u5e94\u627f\u62c5\u903e\u671f\u4ea4\u4ed8\u7684\u8d54\u507f\u8d23\u4efb\u3002]" time="0.001" /><testcase classname="backend.tests.test_technology_canonical_namespace_and_predicates" name="test_recipient_is_not_reclassified_as_obligor_in_registry_projection[\u4e59\u65b9-\u7532\u65b9]" time="0.005" /><testcase classname="backend.tests.test_technology_canonical_namespace_and_predicates" name="test_recipient_is_not_reclassified_as_obligor_in_registry_projection[\u4e70\u65b9-\u5356\u65b9]" time="0.009" /><testcase classname="backend.tests.test_technology_canonical_namespace_and_predicates" name="test_recipient_is_not_reclassified_as_obligor_in_registry_projection[\u88ab\u8bb8\u53ef\u65b9-\u8bb8\u53ef\u65b9]" time="0.001" /><testcase classname="backend.tests.test_technology_canonical_namespace_and_predicates" name="test_recipient_is_not_reclassified_as_obligor_in_registry_projection[\u8bb8\u53ef\u65b9-\u88ab\u8bb8\u53ef\u65b9]" time="0.001" /><testcase classname="backend.tests.test_technology_canonical_namespace_and_predicates" name="test_source_summary_survives_projection_without_copying_another_actors_fact" time="0.009" /></testsuite></testsuites>

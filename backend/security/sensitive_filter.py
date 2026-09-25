@@ -1,4 +1,5 @@
 """敏感词过滤模块 - AC自动机 + 白名单优先机制 + 拦截日志"""
+from storage.paths import sqlite_connection
 import os
 import re
 import json
@@ -14,7 +15,8 @@ logger = logging.getLogger(__name__)
 
 # ========== 配置 ==========
 WHITELIST_FILE = os.path.join(os.path.dirname(__file__), "whitelist.txt")
-INTERCEPT_DB = os.path.join(os.path.dirname(__file__), "intercept_logs.db")
+from storage.paths import auxiliary_db_path
+INTERCEPT_DB = auxiliary_db_path('intercept_logs.db', os.path.join(os.path.dirname(__file__), "intercept_logs.db"))
 
 # ========== 白名单配置 ==========
 BASE_WHITELIST = {
@@ -62,25 +64,24 @@ logger.info(f"白名单已加载，共 {len(WHITELIST)} 个词: {WHITELIST}")
 # ========== 拦截日志数据库初始化 ==========
 def _init_intercept_db():
     """初始化拦截日志数据库"""
-    conn = sqlite3.connect(INTERCEPT_DB)
-    cursor = conn.cursor()
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS intercept_logs (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-            user_id INTEGER,
-            ip VARCHAR(45),
-            request_path VARCHAR(100),
-            trigger_type VARCHAR(50),
-            trigger_word VARCHAR(200),
-            text_preview TEXT,
-            action VARCHAR(20) DEFAULT 'rejected'
-        )
-    """)
-    cursor.execute("CREATE INDEX IF NOT EXISTS idx_trigger_word ON intercept_logs(trigger_word)")
-    cursor.execute("CREATE INDEX IF NOT EXISTS idx_timestamp ON intercept_logs(timestamp)")
-    conn.commit()
-    conn.close()
+    with sqlite_connection(INTERCEPT_DB) as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS intercept_logs (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                user_id INTEGER,
+                ip VARCHAR(45),
+                request_path VARCHAR(100),
+                trigger_type VARCHAR(50),
+                trigger_word VARCHAR(200),
+                text_preview TEXT,
+                action VARCHAR(20) DEFAULT 'rejected'
+            )
+        """)
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_trigger_word ON intercept_logs(trigger_word)")
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_timestamp ON intercept_logs(timestamp)")
+        conn.commit()
 
 _init_intercept_db()
 
@@ -91,23 +92,23 @@ def _write_intercept_log_async(log_data: Dict[str, Any]) -> None:
     """异步写入拦截日志"""
     def _write():
         try:
-            conn = sqlite3.connect(INTERCEPT_DB)
-            cursor = conn.cursor()
-            cursor.execute("""
-                INSERT INTO intercept_logs (user_id, ip, request_path, trigger_type, trigger_word, text_preview, action)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
-            """, (
-                log_data.get("user_id"),
-                log_data.get("ip", ""),
-                log_data.get("request_path", ""),
-                log_data.get("trigger_type", ""),
-                log_data.get("trigger_word", ""),
-                log_data.get("text_preview", ""),
-                log_data.get("action", "rejected")
-            ))
-            conn.commit()
-            conn.close()
-            logger.info(f"[INTERCEPT_LOG] user_id={log_data.get('user_id')}, ip={log_data.get('ip')}, trigger={log_data.get('trigger_word')}")
+            with sqlite_connection(INTERCEPT_DB) as conn:
+                cursor = conn.cursor()
+                cursor.execute("""
+                    INSERT INTO intercept_logs (user_id, ip, request_path, trigger_type, trigger_word, text_preview, action)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    log_data.get("user_id"),
+                    log_data.get("ip", ""),
+                    log_data.get("request_path", ""),
+                    log_data.get("trigger_type", ""),
+                    log_data.get("trigger_word", ""),
+                    log_data.get("text_preview", ""),
+                    log_data.get("action", "rejected")
+                ))
+                conn.commit()
+
+                logger.info(f"[INTERCEPT_LOG] user_id={log_data.get('user_id')}, ip={log_data.get('ip')}, trigger={log_data.get('trigger_word')}")
         except Exception as e:
             logger.error(f"写入拦截日志失败: {e}")
     _executor.submit(_write)
@@ -134,57 +135,57 @@ def log_interception(
 
 def get_frequent_triggers(days: int = 7, limit: int = 50) -> List[Dict[str, Any]]:
     """获取高频触发词统计"""
-    conn = sqlite3.connect(INTERCEPT_DB)
-    cursor = conn.cursor()
-    cutoff = (datetime.now() - timedelta(days=days)).strftime("%Y-%m-%d %H:%M:%S")
-    cursor.execute("""
-        SELECT trigger_word, COUNT(*) as count, MAX(timestamp) as last_trigger_time
-        FROM intercept_logs
-        WHERE timestamp >= ?
-        GROUP BY trigger_word
-        ORDER BY count DESC
-        LIMIT ?
-    """, (cutoff, limit))
-    rows = cursor.fetchall()
-    conn.close()
-    return [
-        {"word": row[0], "count": row[1], "last_trigger_time": row[2]}
-        for row in rows
-    ]
+    with sqlite_connection(INTERCEPT_DB) as conn:
+        cursor = conn.cursor()
+        cutoff = (datetime.now() - timedelta(days=days)).strftime("%Y-%m-%d %H:%M:%S")
+        cursor.execute("""
+            SELECT trigger_word, COUNT(*) as count, MAX(timestamp) as last_trigger_time
+            FROM intercept_logs
+            WHERE timestamp >= ?
+            GROUP BY trigger_word
+            ORDER BY count DESC
+            LIMIT ?
+        """, (cutoff, limit))
+        rows = cursor.fetchall()
+
+        return [
+            {"word": row[0], "count": row[1], "last_trigger_time": row[2]}
+            for row in rows
+        ]
 
 def get_recent_intercept_logs(trigger_word: Optional[str] = None, limit: int = 10) -> List[Dict[str, Any]]:
     """获取最近的拦截日志"""
-    conn = sqlite3.connect(INTERCEPT_DB)
-    cursor = conn.cursor()
-    if trigger_word:
-        cursor.execute("""
-            SELECT id, timestamp, user_id, ip, request_path, trigger_word, text_preview
-            FROM intercept_logs
-            WHERE trigger_word = ?
-            ORDER BY timestamp DESC
-            LIMIT ?
-        """, (trigger_word, limit))
-    else:
-        cursor.execute("""
-            SELECT id, timestamp, user_id, ip, request_path, trigger_word, text_preview
-            FROM intercept_logs
-            ORDER BY timestamp DESC
-            LIMIT ?
-        """, (limit,))
-    rows = cursor.fetchall()
-    conn.close()
-    return [
-        {
-            "id": row[0],
-            "timestamp": row[1],
-            "user_id": row[2],
-            "ip": row[3],
-            "request_path": row[4],
-            "trigger_word": row[5],
-            "text_preview": row[6]
-        }
-        for row in rows
-    ]
+    with sqlite_connection(INTERCEPT_DB) as conn:
+        cursor = conn.cursor()
+        if trigger_word:
+            cursor.execute("""
+                SELECT id, timestamp, user_id, ip, request_path, trigger_word, text_preview
+                FROM intercept_logs
+                WHERE trigger_word = ?
+                ORDER BY timestamp DESC
+                LIMIT ?
+            """, (trigger_word, limit))
+        else:
+            cursor.execute("""
+                SELECT id, timestamp, user_id, ip, request_path, trigger_word, text_preview
+                FROM intercept_logs
+                ORDER BY timestamp DESC
+                LIMIT ?
+            """, (limit,))
+        rows = cursor.fetchall()
+
+        return [
+            {
+                "id": row[0],
+                "timestamp": row[1],
+                "user_id": row[2],
+                "ip": row[3],
+                "request_path": row[4],
+                "trigger_word": row[5],
+                "text_preview": row[6]
+            }
+            for row in rows
+        ]
 
 def add_to_whitelist(word: str) -> bool:
     """添加词到白名单（持久化）"""
@@ -212,15 +213,15 @@ def remove_from_whitelist(word: str) -> bool:
 
 def cleanup_old_logs(days: int = 90) -> int:
     """清理旧日志，返回删除的记录数"""
-    conn = sqlite3.connect(INTERCEPT_DB)
-    cursor = conn.cursor()
-    cutoff = (datetime.now() - timedelta(days=days)).strftime("%Y-%m-%d %H:%M:%S")
-    cursor.execute("DELETE FROM intercept_logs WHERE timestamp < ?", (cutoff,))
-    deleted = cursor.rowcount
-    conn.commit()
-    conn.close()
-    logger.info(f"已清理 {deleted} 条超过 {days} 天的拦截日志")
-    return deleted
+    with sqlite_connection(INTERCEPT_DB) as conn:
+        cursor = conn.cursor()
+        cutoff = (datetime.now() - timedelta(days=days)).strftime("%Y-%m-%d %H:%M:%S")
+        cursor.execute("DELETE FROM intercept_logs WHERE timestamp < ?", (cutoff,))
+        deleted = cursor.rowcount
+        conn.commit()
+
+        logger.info(f"已清理 {deleted} 条超过 {days} 天的拦截日志")
+        return deleted
 
 
 class TrieNode:

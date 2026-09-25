@@ -1,0 +1,1619 @@
+{
+  "status": "BLOCKED",
+  "contract_type": "technology",
+  "selected_contract_type": "technology",
+  "raw_failure_count": 7,
+  "blocker_tuple_count": 14,
+  "blockers": [
+    {
+      "error_code": "MISSING_WITH_POSITIVE_EVIDENCE",
+      "rule_id": "TC-05-02",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Technology Coverage Consistency",
+      "reject_reason": "TC-05-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+      "source_spans": [
+        {
+          "evidence_id": "EV-6ae8439b051bb132",
+          "clause_id": "",
+          "quote": "《合同法》第340条：合作开发完成的发明创造，除另有约定外，申请专利的权利属于合作开发的当事人共有；现行对应《民法典》第860条。",
+          "source_type": "LEGAL_AUTHORITY",
+          "source_span": {
+            "start_offset": 0,
+            "end_offset": 65,
+            "raw_text": "《合同法》第340条：合作开发完成的发明创造，除另有约定外，申请专利的权利属于合作开发的当事人共有；现行对应《民法典》第860条。"
+          },
+          "supporting_element_ids": [
+            "statutory_joint_application_right"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-05-02",
+          "element_id": "statutory_joint_application_right",
+          "claim_id": "TC-05-02-statutory_joint_application_right",
+          "proposition": "合作开发专利申请权的法定默认共有规则。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-6ae8439b051bb132"
+          ],
+          "supporting_evidence_ids": [
+            "EV-6ae8439b051bb132"
+          ],
+          "source_clause_ids": [
+            ""
+          ],
+          "source_spans": [
+            "《合同法》第340条：合作开发完成的发明创造，除另有约定外，申请专利的权利属于合作开发的当事人共有；现行对应《民法典》第860条。"
+          ],
+          "source_locations": [
+            "签署时法律规则及现行对应规则"
+          ],
+          "entailment": "DEFAULT_LAW_SUPPORT",
+          "verifier_confidence": "high",
+          "reason": "《合同法》第340条在签署时提供合作开发专利申请权共有的法定默认规则，现行对应《民法典》第860条。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false
+        },
+        {
+          "review_id": "TC-05-02",
+          "element_id": "contractual_patent_allocation",
+          "claim_id": "TC-05-02-contractual_patent_allocation",
+          "proposition": "合同自行改变或细化专利申请权默认共有安排",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "合同自行改变或细化专利申请权默认共有安排",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false
+        },
+        {
+          "review_id": "TC-05-02",
+          "element_id": "application_decision_and_cooperation",
+          "claim_id": "TC-05-02-application_decision_and_cooperation",
+          "proposition": "专利申请主体、文件签署和共同决策流程",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "专利申请主体、文件签署和共同决策流程",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        },
+        {
+          "review_id": "TC-05-02",
+          "element_id": "application_costs",
+          "claim_id": "TC-05-02-application_costs",
+          "proposition": "专利申请及维持费用承担",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "专利申请及维持费用承担",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        },
+        {
+          "review_id": "TC-05-02",
+          "element_id": "abandonment_and_transfer",
+          "claim_id": "TC-05-02-abandonment_and_transfer",
+          "proposition": "一方放弃申请、申请权转让及其他方优先承接机制",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "一方放弃申请、申请权转让及其他方优先承接机制",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+        "failure_stage": "Technology Coverage Consistency",
+        "root_cause": "TC-05-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+        "entity_type": "review",
+        "entity_id": "TC-05-02",
+        "source_clause_ids": [
+          "EV-6ae8439b051bb132"
+        ],
+        "severity": "blocking"
+      }
+    },
+    {
+      "error_code": "MISSING_WITH_POSITIVE_EVIDENCE",
+      "rule_id": "TC-12-02",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Technology Coverage Consistency",
+      "reject_reason": "TC-12-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-1151ca4bfe0dff77eaae",
+          "clause_id": "C0005",
+          "quote": "其中：\n甲方承担人民币320,000元；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 876,
+            "end_offset": 896,
+            "raw_text": "其中：\n甲方承担人民币320,000元；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "component_selection_control"
+          ]
+        },
+        {
+          "evidence_id": "SRC-9106fd1505b0ca343f5f",
+          "clause_id": "C0008",
+          "quote": "第七条 第三方技术",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1445,
+            "end_offset": 1454,
+            "raw_text": "第七条 第三方技术",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": []
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-12-02",
+          "element_id": "component_selection_control",
+          "claim_id": "TC-12-02-component_selection_control",
+          "proposition": "第三方组件选择主体已有部分安排。",
+          "status": "PARTIALLY_COVERED",
+          "evidence_ids": [
+            "SRC-1151ca4bfe0dff77eaae"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-1151ca4bfe0dff77eaae"
+          ],
+          "source_clause_ids": [
+            "C0005"
+          ],
+          "source_spans": [
+            "其中：\n甲方承担人民币320,000元；"
+          ],
+          "source_locations": [
+            "第四条 项目费用"
+          ],
+          "entailment": "PARTIAL_SUPPORT",
+          "verifier_confidence": "high",
+          "reason": "第三方组件选择主体已有部分安排。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "component_license_cost_allocation",
+          "claim_id": "TC-12-02-component_license_cost_allocation",
+          "proposition": "第三方组件许可费用承担尚未明确",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "第三方组件许可费用承担尚未明确",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "direction": "ADVERSE",
+          "presence_status": "MISSING"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "component_infringement_loss_allocation",
+          "claim_id": "TC-12-02-component_infringement_loss_allocation",
+          "proposition": "第三方组件侵权损失承担尚未明确",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "第三方组件侵权损失承担尚未明确",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "direction": "ADVERSE",
+          "presence_status": "MISSING"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "claim_notice",
+          "claim_id": "TC-12-02-claim_notice",
+          "proposition": "未约定第三方权利主张的通知期限、方式和资料要求",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "未约定第三方权利主张的通知期限、方式和资料要求",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "defense_and_settlement_control",
+          "claim_id": "TC-12-02-defense_and_settlement_control",
+          "proposition": "未约定抗辩控制、律师选择及和解决策",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "未约定抗辩控制、律师选择及和解决策",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        },
+        {
+          "review_id": "TC-12-02",
+          "element_id": "continuity_and_replacement_remedy",
+          "claim_id": "TC-12-02-continuity_and_replacement_remedy",
+          "proposition": "未约定替代技术、取得许可、停止使用后的退款或其他连续性救济",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "未约定替代技术、取得许可、停止使用后的退款或其他连续性救济",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+        "failure_stage": "Technology Coverage Consistency",
+        "root_cause": "TC-12-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+        "entity_type": "review",
+        "entity_id": "TC-12-02",
+        "source_clause_ids": [
+          "C0005",
+          "C0008"
+        ],
+        "severity": "blocking"
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TC-05-03",
+      "element_id": "statutory_default_use_and_transfer",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "EV-d24e50d2f271ce08",
+          "clause_id": "",
+          "quote": "现行《民法典》第861条规定：合作开发完成的技术秘密成果，使用权、转让权和收益分配优先由当事人约定；未约定或约定不明且依法仍不能确定时，在相同技术方案被授予专利权前，当事人均有使用和转让的权利。",
+          "source_type": "LEGAL_AUTHORITY",
+          "source_span": {
+            "start_offset": 0,
+            "end_offset": 97,
+            "raw_text": "现行《民法典》第861条规定：合作开发完成的技术秘密成果，使用权、转让权和收益分配优先由当事人约定；未约定或约定不明且依法仍不能确定时，在相同技术方案被授予专利权前，当事人均有使用和转让的权利。"
+          },
+          "supporting_element_ids": [
+            "statutory_default_use_and_transfer"
+          ]
+        },
+        {
+          "evidence_id": "EV-a0ccb55ad2168e4c",
+          "clause_id": "",
+          "quote": "最高人民法院技术合同司法解释第20条明确：当事人可以不经对方同意自行使用或以普通许可方式许可他人使用，并独占所得利益；将技术秘密成果的转让权让与他人，或作独占、排他许可，则需对方同意或追认。",
+          "source_type": "LEGAL_AUTHORITY",
+          "source_span": {
+            "start_offset": 0,
+            "end_offset": 95,
+            "raw_text": "最高人民法院技术合同司法解释第20条明确：当事人可以不经对方同意自行使用或以普通许可方式许可他人使用，并独占所得利益；将技术秘密成果的转让权让与他人，或作独占、排他许可，则需对方同意或追认。"
+          },
+          "supporting_element_ids": [
+            "statutory_default_use_and_transfer"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-05-03",
+          "element_id": "statutory_default_use_and_transfer",
+          "claim_id": "TC-05-03-statutory_default_use_and_transfer",
+          "proposition": "法定默认规则允许各方自行使用和普通许可，并限制未经同意的转让权让与及独占、排他许可。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-d24e50d2f271ce08",
+            "EV-a0ccb55ad2168e4c"
+          ],
+          "supporting_evidence_ids": [
+            "EV-d24e50d2f271ce08",
+            "EV-a0ccb55ad2168e4c"
+          ],
+          "source_clause_ids": [
+            "",
+            ""
+          ],
+          "source_spans": [
+            "现行《民法典》第861条规定：合作开发完成的技术秘密成果，使用权、转让权和收益分配优先由当事人约定；未约定或约定不明且依法仍不能确定时，在相同技术方案被授予专利权前，当事人均有使用和转让的权利。",
+            "最高人民法院技术合同司法解释第20条明确：当事人可以不经对方同意自行使用或以普通许可方式许可他人使用，并独占所得利益；将技术秘密成果的转让权让与他人，或作独占、排他许可，则需对方同意或追认。"
+          ],
+          "source_locations": [
+            "签署时法律规则及现行对应规则",
+            "签署时法律规则及现行对应规则"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "法定默认规则允许各方自行使用和普通许可，并限制未经同意的转让权让与及独占、排他许可。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-004",
+        "element_id": "statutory_default_use_and_transfer",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "TC-05-03",
+        "finding_id": "RF-004",
+        "fact_key": "statutory_default_use_and_transfer",
+        "fact_value": "法定默认规则允许各方自行使用和普通许可，并限制未经同意的转让权让与及独占、排他许可。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TC-05-03",
+            "finding_id": "RF-004",
+            "fact_key": "statutory_default_use_and_transfer",
+            "fact_value": "法定默认规则允许各方自行使用和普通许可，并限制未经同意的转让权让与及独占、排他许可。",
+            "current_evidence_refs": [
+              "EV-d24e50d2f271ce08",
+              "EV-a0ccb55ad2168e4c"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TC-05-02",
+      "element_id": "statutory_joint_application_right",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "EV-6ae8439b051bb132",
+          "clause_id": "",
+          "quote": "《合同法》第340条：合作开发完成的发明创造，除另有约定外，申请专利的权利属于合作开发的当事人共有；现行对应《民法典》第860条。",
+          "source_type": "LEGAL_AUTHORITY",
+          "source_span": {
+            "start_offset": 0,
+            "end_offset": 65,
+            "raw_text": "《合同法》第340条：合作开发完成的发明创造，除另有约定外，申请专利的权利属于合作开发的当事人共有；现行对应《民法典》第860条。"
+          },
+          "supporting_element_ids": [
+            "statutory_joint_application_right"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-05-02",
+          "element_id": "statutory_joint_application_right",
+          "claim_id": "TC-05-02-statutory_joint_application_right",
+          "proposition": "合作开发专利申请权的法定默认共有规则。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-6ae8439b051bb132"
+          ],
+          "supporting_evidence_ids": [
+            "EV-6ae8439b051bb132"
+          ],
+          "source_clause_ids": [
+            ""
+          ],
+          "source_spans": [
+            "《合同法》第340条：合作开发完成的发明创造，除另有约定外，申请专利的权利属于合作开发的当事人共有；现行对应《民法典》第860条。"
+          ],
+          "source_locations": [
+            "签署时法律规则及现行对应规则"
+          ],
+          "entailment": "DEFAULT_LAW_SUPPORT",
+          "verifier_confidence": "high",
+          "reason": "《合同法》第340条在签署时提供合作开发专利申请权共有的法定默认规则，现行对应《民法典》第860条。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-003",
+        "element_id": "statutory_joint_application_right",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "TC-05-02",
+        "finding_id": "RF-003",
+        "fact_key": "statutory_joint_application_right",
+        "fact_value": "合作开发专利申请权的法定默认共有规则。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TC-05-02",
+            "finding_id": "RF-003",
+            "fact_key": "statutory_joint_application_right",
+            "fact_value": "合作开发专利申请权的法定默认共有规则。",
+            "current_evidence_refs": [
+              "EV-6ae8439b051bb132"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "POSITIVE_FACT_MONOTONICITY",
+      "rule_id": "TC-05-02",
+      "element_id": "statutory_joint_application_right",
+      "fact_id": null,
+      "detected_stage": null,
+      "reject_reason": "TC-05-02",
+      "source_spans": [
+        {
+          "evidence_id": "EV-6ae8439b051bb132",
+          "clause_id": "",
+          "quote": "《合同法》第340条：合作开发完成的发明创造，除另有约定外，申请专利的权利属于合作开发的当事人共有；现行对应《民法典》第860条。",
+          "source_type": "LEGAL_AUTHORITY",
+          "source_span": {
+            "start_offset": 0,
+            "end_offset": 65,
+            "raw_text": "《合同法》第340条：合作开发完成的发明创造，除另有约定外，申请专利的权利属于合作开发的当事人共有；现行对应《民法典》第860条。"
+          },
+          "supporting_element_ids": [
+            "statutory_joint_application_right"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-05-02",
+          "element_id": "statutory_joint_application_right",
+          "claim_id": "TC-05-02-statutory_joint_application_right",
+          "proposition": "合作开发专利申请权的法定默认共有规则。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-6ae8439b051bb132"
+          ],
+          "supporting_evidence_ids": [
+            "EV-6ae8439b051bb132"
+          ],
+          "source_clause_ids": [
+            ""
+          ],
+          "source_spans": [
+            "《合同法》第340条：合作开发完成的发明创造，除另有约定外，申请专利的权利属于合作开发的当事人共有；现行对应《民法典》第860条。"
+          ],
+          "source_locations": [
+            "签署时法律规则及现行对应规则"
+          ],
+          "entailment": "DEFAULT_LAW_SUPPORT",
+          "verifier_confidence": "high",
+          "reason": "《合同法》第340条在签署时提供合作开发专利申请权共有的法定默认规则，现行对应《民法典》第860条。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "POSITIVE_FACT_MONOTONICITY",
+        "root_cause": "TC-05-02",
+        "element_id": "statutory_joint_application_right",
+        "final_element_status": "COVERED",
+        "bound_evidence_ids": [
+          "EV-6ae8439b051bb132"
+        ],
+        "search_audit": null,
+        "current_status": "FAIL"
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TC-05-03",
+      "element_id": "statutory_default_use_and_transfer",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "EV-d24e50d2f271ce08",
+          "clause_id": "",
+          "quote": "现行《民法典》第861条规定：合作开发完成的技术秘密成果，使用权、转让权和收益分配优先由当事人约定；未约定或约定不明且依法仍不能确定时，在相同技术方案被授予专利权前，当事人均有使用和转让的权利。",
+          "source_type": "LEGAL_AUTHORITY",
+          "source_span": {
+            "start_offset": 0,
+            "end_offset": 97,
+            "raw_text": "现行《民法典》第861条规定：合作开发完成的技术秘密成果，使用权、转让权和收益分配优先由当事人约定；未约定或约定不明且依法仍不能确定时，在相同技术方案被授予专利权前，当事人均有使用和转让的权利。"
+          },
+          "supporting_element_ids": [
+            "statutory_default_use_and_transfer"
+          ]
+        },
+        {
+          "evidence_id": "EV-a0ccb55ad2168e4c",
+          "clause_id": "",
+          "quote": "最高人民法院技术合同司法解释第20条明确：当事人可以不经对方同意自行使用或以普通许可方式许可他人使用，并独占所得利益；将技术秘密成果的转让权让与他人，或作独占、排他许可，则需对方同意或追认。",
+          "source_type": "LEGAL_AUTHORITY",
+          "source_span": {
+            "start_offset": 0,
+            "end_offset": 95,
+            "raw_text": "最高人民法院技术合同司法解释第20条明确：当事人可以不经对方同意自行使用或以普通许可方式许可他人使用，并独占所得利益；将技术秘密成果的转让权让与他人，或作独占、排他许可，则需对方同意或追认。"
+          },
+          "supporting_element_ids": [
+            "statutory_default_use_and_transfer"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-05-03",
+          "element_id": "statutory_default_use_and_transfer",
+          "claim_id": "TC-05-03-statutory_default_use_and_transfer",
+          "proposition": "法定默认规则允许各方自行使用和普通许可，并限制未经同意的转让权让与及独占、排他许可。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-d24e50d2f271ce08",
+            "EV-a0ccb55ad2168e4c"
+          ],
+          "supporting_evidence_ids": [
+            "EV-d24e50d2f271ce08",
+            "EV-a0ccb55ad2168e4c"
+          ],
+          "source_clause_ids": [
+            "",
+            ""
+          ],
+          "source_spans": [
+            "现行《民法典》第861条规定：合作开发完成的技术秘密成果，使用权、转让权和收益分配优先由当事人约定；未约定或约定不明且依法仍不能确定时，在相同技术方案被授予专利权前，当事人均有使用和转让的权利。",
+            "最高人民法院技术合同司法解释第20条明确：当事人可以不经对方同意自行使用或以普通许可方式许可他人使用，并独占所得利益；将技术秘密成果的转让权让与他人，或作独占、排他许可，则需对方同意或追认。"
+          ],
+          "source_locations": [
+            "签署时法律规则及现行对应规则",
+            "签署时法律规则及现行对应规则"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "法定默认规则允许各方自行使用和普通许可，并限制未经同意的转让权让与及独占、排他许可。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-004",
+        "element_id": "statutory_default_use_and_transfer",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "TC-05-03",
+        "finding_id": "RF-004",
+        "fact_key": "statutory_default_use_and_transfer",
+        "fact_value": "法定默认规则允许各方自行使用和普通许可，并限制未经同意的转让权让与及独占、排他许可。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TC-05-03",
+            "finding_id": "RF-004",
+            "fact_key": "statutory_default_use_and_transfer",
+            "fact_value": "法定默认规则允许各方自行使用和普通许可，并限制未经同意的转让权让与及独占、排他许可。",
+            "current_evidence_refs": [
+              "EV-d24e50d2f271ce08",
+              "EV-a0ccb55ad2168e4c"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TC-05-02",
+      "element_id": "statutory_joint_application_right",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "EV-6ae8439b051bb132",
+          "clause_id": "",
+          "quote": "《合同法》第340条：合作开发完成的发明创造，除另有约定外，申请专利的权利属于合作开发的当事人共有；现行对应《民法典》第860条。",
+          "source_type": "LEGAL_AUTHORITY",
+          "source_span": {
+            "start_offset": 0,
+            "end_offset": 65,
+            "raw_text": "《合同法》第340条：合作开发完成的发明创造，除另有约定外，申请专利的权利属于合作开发的当事人共有；现行对应《民法典》第860条。"
+          },
+          "supporting_element_ids": [
+            "statutory_joint_application_right"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-05-02",
+          "element_id": "statutory_joint_application_right",
+          "claim_id": "TC-05-02-statutory_joint_application_right",
+          "proposition": "合作开发专利申请权的法定默认共有规则。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-6ae8439b051bb132"
+          ],
+          "supporting_evidence_ids": [
+            "EV-6ae8439b051bb132"
+          ],
+          "source_clause_ids": [
+            ""
+          ],
+          "source_spans": [
+            "《合同法》第340条：合作开发完成的发明创造，除另有约定外，申请专利的权利属于合作开发的当事人共有；现行对应《民法典》第860条。"
+          ],
+          "source_locations": [
+            "签署时法律规则及现行对应规则"
+          ],
+          "entailment": "DEFAULT_LAW_SUPPORT",
+          "verifier_confidence": "high",
+          "reason": "《合同法》第340条在签署时提供合作开发专利申请权共有的法定默认规则，现行对应《民法典》第860条。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-003",
+        "element_id": "statutory_joint_application_right",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "TC-05-02",
+        "finding_id": "RF-003",
+        "fact_key": "statutory_joint_application_right",
+        "fact_value": "合作开发专利申请权的法定默认共有规则。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TC-05-02",
+            "finding_id": "RF-003",
+            "fact_key": "statutory_joint_application_right",
+            "fact_value": "合作开发专利申请权的法定默认共有规则。",
+            "current_evidence_refs": [
+              "EV-6ae8439b051bb132"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-11-04",
+      "element_id": "breach_damage_liability",
+      "fact_id": null,
+      "detected_stage": "Final Evidence Projection",
+      "reject_reason": "REMEDY_OR_PARTY_NOT_ENTAILED",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-d6ffce9dee0c53657b0d",
+          "clause_id": "C0016",
+          "quote": "任何一方承担的累计赔偿责任原则上不超过其在本项目中约定承担的开发成本。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2849,
+            "end_offset": 2884,
+            "raw_text": "任何一方承担的累计赔偿责任原则上不超过其在本项目中约定承担的开发成本。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability"
+          ]
+        },
+        {
+          "evidence_id": "SRC-d9969b53e39d6709eefc",
+          "clause_id": "C0016",
+          "quote": "违约方应支付人民币200,000元违约金。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2774,
+            "end_offset": 2795,
+            "raw_text": "违约方应支付人民币200,000元违约金。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "specific_confidentiality_penalty"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-11-04",
+          "element_id": "breach_damage_liability",
+          "claim_id": "TC-11-04-breach_damage_liability",
+          "proposition": "责任方泄密损失赔偿责任已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-0ee2b8aa649e2ba6"
+          ],
+          "supporting_evidence_ids": [
+            "EV-0ee2b8aa649e2ba6"
+          ],
+          "source_clause_ids": [
+            "C0016"
+          ],
+          "source_spans": [
+            "任何一方承担的累计赔偿责任原则上不超过其在本项目中约定承担的开发成本。"
+          ],
+          "source_locations": [
+            "第十五条 违约责任"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "责任方泄密损失赔偿责任已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "泄密损失赔偿责任",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0016",
+              "quote": "任何一方承担的累计赔偿责任原则上不超过其在本项目中约定承担的开发成本。",
+              "obligated_party": "责任方",
+              "proposition": "责任方泄密损失赔偿责任已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.breach_damage_liability",
+          "party_coverage": [
+            {
+              "obligated_party": "责任方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0016",
+                  "quote": "任何一方承担的累计赔偿责任原则上不超过其在本项目中约定承担的开发成本。",
+                  "obligated_party": "责任方",
+                  "proposition": "责任方泄密损失赔偿责任已有约定。"
+                }
+              ],
+              "required_fact": "责任方泄密损失赔偿责任",
+              "proposition": "责任方泄密损失赔偿责任已有约定。"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-0ee2b8aa649e2ba6"
+          ]
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "review_id": "TC-11-04",
+        "element_id": "breach_damage_liability",
+        "reason": "REMEDY_OR_PARTY_NOT_ENTAILED"
+      }
+    },
+    {
+      "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-11-04",
+      "element_id": "specific_confidentiality_penalty",
+      "fact_id": null,
+      "detected_stage": "Final Evidence Projection",
+      "reject_reason": "REMEDY_OR_PARTY_NOT_ENTAILED",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-d6ffce9dee0c53657b0d",
+          "clause_id": "C0016",
+          "quote": "任何一方承担的累计赔偿责任原则上不超过其在本项目中约定承担的开发成本。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2849,
+            "end_offset": 2884,
+            "raw_text": "任何一方承担的累计赔偿责任原则上不超过其在本项目中约定承担的开发成本。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability"
+          ]
+        },
+        {
+          "evidence_id": "SRC-d9969b53e39d6709eefc",
+          "clause_id": "C0016",
+          "quote": "违约方应支付人民币200,000元违约金。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2774,
+            "end_offset": 2795,
+            "raw_text": "违约方应支付人民币200,000元违约金。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "specific_confidentiality_penalty"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-11-04",
+          "element_id": "specific_confidentiality_penalty",
+          "claim_id": "TC-11-04-specific_confidentiality_penalty",
+          "proposition": "责任方泄密专项违约金已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-adf586459b684f92"
+          ],
+          "supporting_evidence_ids": [
+            "EV-adf586459b684f92"
+          ],
+          "source_clause_ids": [
+            "C0016"
+          ],
+          "source_spans": [
+            "违约方应支付人民币200,000元违约金。"
+          ],
+          "source_locations": [
+            "第十五条 违约责任"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "责任方泄密专项违约金已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "residual_gap": "",
+          "required_fact": "泄密专项违约金",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0016",
+              "quote": "违约方应支付人民币200,000元违约金。",
+              "obligated_party": "责任方",
+              "proposition": "责任方泄密专项违约金已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.specific_confidentiality_penalty",
+          "party_coverage": [
+            {
+              "obligated_party": "责任方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0016",
+                  "quote": "违约方应支付人民币200,000元违约金。",
+                  "obligated_party": "责任方",
+                  "proposition": "责任方泄密专项违约金已有约定。"
+                }
+              ],
+              "required_fact": "责任方泄密专项违约金",
+              "proposition": "责任方泄密专项违约金已有约定。"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-adf586459b684f92"
+          ]
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "review_id": "TC-11-04",
+        "element_id": "specific_confidentiality_penalty",
+        "reason": "REMEDY_OR_PARTY_NOT_ENTAILED"
+      }
+    },
+    {
+      "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-05-01",
+      "element_id": "development_schedule_and_milestones",
+      "fact_id": null,
+      "detected_stage": "Final Evidence Projection",
+      "reject_reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-b3beee9d2f66d68e1052",
+          "clause_id": "C0003",
+          "quote": "第二条 双方分工\n甲方主要负责：\n提供业务需求、审查规则及测试场景；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 462,
+            "end_offset": 496,
+            "raw_text": "第二条 双方分工\n甲方主要负责：\n提供业务需求、审查规则及测试场景；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "research_task_allocation",
+            "development_schedule_and_milestones"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-05-01",
+          "element_id": "development_schedule_and_milestones",
+          "claim_id": "TC-05-01-development_schedule_and_milestones",
+          "proposition": "已有研发计划，但各方期限和阶段节点仍未完整明确。",
+          "status": "PARTIALLY_COVERED",
+          "evidence_ids": [
+            "SRC-b3beee9d2f66d68e1052"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-b3beee9d2f66d68e1052"
+          ],
+          "source_clause_ids": [
+            "C0003"
+          ],
+          "source_spans": [
+            "第二条 双方分工 甲方主要负责： 提供业务需求、审查规则及测试场景；"
+          ],
+          "source_locations": [
+            "第二条 双方分工"
+          ],
+          "entailment": "PARTIAL_SUPPORT",
+          "verifier_confidence": "high",
+          "reason": "已有研发计划，但各方期限和阶段节点仍未完整明确。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "risk_id": "RF-002",
+        "review_id": "TC-05-01",
+        "element_id": "development_schedule_and_milestones",
+        "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+      }
+    },
+    {
+      "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-05-01",
+      "element_id": "development_schedule_and_milestones",
+      "fact_id": null,
+      "detected_stage": "Final Evidence Projection",
+      "reject_reason": "INVALID_ABSENCE_SEARCH_TARGET",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-b3beee9d2f66d68e1052",
+          "clause_id": "C0003",
+          "quote": "第二条 双方分工\n甲方主要负责：\n提供业务需求、审查规则及测试场景；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 462,
+            "end_offset": 496,
+            "raw_text": "第二条 双方分工\n甲方主要负责：\n提供业务需求、审查规则及测试场景；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "research_task_allocation",
+            "development_schedule_and_milestones"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-05-01",
+          "element_id": "development_schedule_and_milestones",
+          "claim_id": "TC-05-01-development_schedule_and_milestones",
+          "proposition": "已有研发计划，但各方期限和阶段节点仍未完整明确。",
+          "status": "PARTIALLY_COVERED",
+          "evidence_ids": [
+            "SRC-b3beee9d2f66d68e1052"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-b3beee9d2f66d68e1052"
+          ],
+          "source_clause_ids": [
+            "C0003"
+          ],
+          "source_spans": [
+            "第二条 双方分工 甲方主要负责： 提供业务需求、审查规则及测试场景；"
+          ],
+          "source_locations": [
+            "第二条 双方分工"
+          ],
+          "entailment": "PARTIAL_SUPPORT",
+          "verifier_confidence": "high",
+          "reason": "已有研发计划，但各方期限和阶段节点仍未完整明确。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "review_id": "TC-05-01",
+        "evidence_owner": "ELEMENT_SEARCH",
+        "element_id": "development_schedule_and_milestones",
+        "reason": "INVALID_ABSENCE_SEARCH_TARGET",
+        "target_fields": [
+          "search_targets"
+        ],
+        "search_targets": []
+      }
+    },
+    {
+      "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-11-02",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Final Evidence Projection",
+      "reject_reason": "CONSEQUENCE_REQUIREMENTS_MISMATCH",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-763b3ee930fae9ea5f7f",
+          "clause_id": "C0011",
+          "quote": "双方对在项目合作过程中知悉的源代码、算法逻辑、客户信息、合同数据、商业计划及其他未公开信息承担保密义务。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1953,
+            "end_offset": 2005,
+            "raw_text": "双方对在项目合作过程中知悉的源代码、算法逻辑、客户信息、合同数据、商业计划及其他未公开信息承担保密义务。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "confidential_information_scope"
+          ]
+        },
+        {
+          "evidence_id": "SRC-f9ddc1852287e5bd6d73",
+          "clause_id": "C0011",
+          "quote": "保密义务自本合同生效之日起持续5年。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2110,
+            "end_offset": 2128,
+            "raw_text": "保密义务自本合同生效之日起持续5年。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "confidentiality_period"
+          ]
+        },
+        {
+          "evidence_id": "SRC-6aad0e4f3109835e08dd",
+          "clause_id": "C0011",
+          "quote": "下列信息不属于保密信息：\n已经公开的信息；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2028,
+            "end_offset": 2049,
+            "raw_text": "下列信息不属于保密信息：\n已经公开的信息；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "confidentiality_exceptions"
+          ]
+        },
+        {
+          "evidence_id": "SRC-066bd17ec024f26796fd",
+          "clause_id": "C0011",
+          "quote": "下列信息不属于保密信息：\n已经公开的信息；\n接收方在披露前已经合法掌握的信息；\n从无保密义务的第三方合法取得的信息；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2028,
+            "end_offset": 2086,
+            "raw_text": "下列信息不属于保密信息：\n已经公开的信息；\n接收方在披露前已经合法掌握的信息；\n从无保密义务的第三方合法取得的信息；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "confidentiality_exceptions"
+          ]
+        },
+        {
+          "evidence_id": "SRC-503fe1c1a8674a65652a",
+          "clause_id": "C0011",
+          "quote": "下列信息不属于保密信息：\n已经公开的信息；\n接收方在披露前已经合法掌握的信息；\n从无保密义务的第三方合法取得的信息；\n根据法律、法院或行政机关要求必须披露的信息。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2028,
+            "end_offset": 2109,
+            "raw_text": "下列信息不属于保密信息：\n已经公开的信息；\n接收方在披露前已经合法掌握的信息；\n从无保密义务的第三方合法取得的信息；\n根据法律、法院或行政机关要求必须披露的信息。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "confidentiality_exceptions"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-11-02",
+          "element_id": "confidential_information_scope",
+          "claim_id": "TC-11-02-confidential_information_scope",
+          "proposition": "保密信息范围的具体对象和边界。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-763b3ee930fae9ea5f7f"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-763b3ee930fae9ea5f7f"
+          ],
+          "source_clause_ids": [
+            "C0011"
+          ],
+          "source_spans": [
+            "双方对在项目合作过程中知悉的源代码、算法逻辑、客户信息、合同数据、商业计划及其他未公开信息承担保密义务。"
+          ],
+          "source_locations": [
+            "第十条 保密义务"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "保密信息范围的具体对象和边界。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "保密信息类别和范围",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0011",
+              "quote": "双方对在项目合作过程中知悉的源代码、算法逻辑、客户信息、合同数据、商业计划及其他未公开信息承担保密义务。",
+              "obligated_party": "双方"
+            }
+          ],
+          "source_fact_key": "confidentiality.confidential_information_scope"
+        },
+        {
+          "review_id": "TC-11-02",
+          "element_id": "confidentiality_period",
+          "claim_id": "TC-11-02-confidentiality_period",
+          "proposition": "保密义务的持续期间已有明确约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-f9ddc1852287e5bd6d73"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-f9ddc1852287e5bd6d73"
+          ],
+          "source_clause_ids": [
+            "C0011"
+          ],
+          "source_spans": [
+            "保密义务自本合同生效之日起持续5年。"
+          ],
+          "source_locations": [
+            "第十条 保密义务"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "保密义务的持续期间已有明确约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "保密义务的持续期间",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0011",
+              "quote": "保密义务自本合同生效之日起持续5年。",
+              "obligated_party": ""
+            }
+          ],
+          "source_fact_key": "confidentiality.confidentiality_duration"
+        },
+        {
+          "review_id": "TC-11-02",
+          "element_id": "confidentiality_exceptions",
+          "claim_id": "TC-11-02-confidentiality_exceptions",
+          "proposition": "公开信息、合法取得、独立开发及依法披露例外已有原则安排，具体条件待明确。",
+          "status": "PARTIALLY_COVERED",
+          "evidence_ids": [
+            "SRC-6aad0e4f3109835e08dd",
+            "SRC-066bd17ec024f26796fd",
+            "SRC-503fe1c1a8674a65652a"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-6aad0e4f3109835e08dd",
+            "SRC-066bd17ec024f26796fd",
+            "SRC-503fe1c1a8674a65652a"
+          ],
+          "source_clause_ids": [
+            "C0011",
+            "C0011",
+            "C0011"
+          ],
+          "source_spans": [
+            "下列信息不属于保密信息：\n已经公开的信息；",
+            "下列信息不属于保密信息：\n已经公开的信息；\n接收方在披露前已经合法掌握的信息；\n从无保密义务的第三方合法取得的信息；",
+            "下列信息不属于保密信息：\n已经公开的信息；\n接收方在披露前已经合法掌握的信息；\n从无保密义务的第三方合法取得的信息；\n根据法律、法院或行政机关要求必须披露的信息。"
+          ],
+          "source_locations": [
+            "第十条 保密义务",
+            "第十条 保密义务",
+            "第十条 保密义务"
+          ],
+          "entailment": "PARTIAL_SUPPORT",
+          "verifier_confidence": "high",
+          "reason": "公开信息、合法取得、独立开发及依法披露例外已有原则安排，具体条件待明确。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "fact_status": "FOUND",
+          "requirement_status": "PARTIALLY_COVERED",
+          "risk_relevant": true,
+          "residual_gap": "独立开发信息例外",
+          "required_fact": "公开信息、合法取得、独立开发及依法披露等保密例外",
+          "search_targets": [
+            "独立开发信息例外"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0011",
+              "quote": "下列信息不属于保密信息：\n已经公开的信息；"
+            },
+            {
+              "clause_id": "C0011",
+              "quote": "下列信息不属于保密信息：\n已经公开的信息；\n接收方在披露前已经合法掌握的信息；\n从无保密义务的第三方合法取得的信息；"
+            },
+            {
+              "clause_id": "C0011",
+              "quote": "下列信息不属于保密信息：\n已经公开的信息；\n接收方在披露前已经合法掌握的信息；\n从无保密义务的第三方合法取得的信息；\n根据法律、法院或行政机关要求必须披露的信息。"
+            }
+          ],
+          "source_fact_key": "confidentiality.exceptions"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "review_id": "TC-11-02",
+        "reason": "CONSEQUENCE_REQUIREMENTS_MISMATCH",
+        "expected": [
+          "confidentiality_exceptions"
+        ],
+        "actual": [
+          "confidentiality_exceptions"
+        ],
+        "omitted": []
+      }
+    },
+    {
+      "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-11-02",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Final Evidence Projection",
+      "reject_reason": "DETAIL_UNRESOLVED_REQUIREMENTS_OMITTED",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-763b3ee930fae9ea5f7f",
+          "clause_id": "C0011",
+          "quote": "双方对在项目合作过程中知悉的源代码、算法逻辑、客户信息、合同数据、商业计划及其他未公开信息承担保密义务。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1953,
+            "end_offset": 2005,
+            "raw_text": "双方对在项目合作过程中知悉的源代码、算法逻辑、客户信息、合同数据、商业计划及其他未公开信息承担保密义务。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "confidential_information_scope"
+          ]
+        },
+        {
+          "evidence_id": "SRC-f9ddc1852287e5bd6d73",
+          "clause_id": "C0011",
+          "quote": "保密义务自本合同生效之日起持续5年。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2110,
+            "end_offset": 2128,
+            "raw_text": "保密义务自本合同生效之日起持续5年。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "confidentiality_period"
+          ]
+        },
+        {
+          "evidence_id": "SRC-6aad0e4f3109835e08dd",
+          "clause_id": "C0011",
+          "quote": "下列信息不属于保密信息：\n已经公开的信息；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2028,
+            "end_offset": 2049,
+            "raw_text": "下列信息不属于保密信息：\n已经公开的信息；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "confidentiality_exceptions"
+          ]
+        },
+        {
+          "evidence_id": "SRC-066bd17ec024f26796fd",
+          "clause_id": "C0011",
+          "quote": "下列信息不属于保密信息：\n已经公开的信息；\n接收方在披露前已经合法掌握的信息；\n从无保密义务的第三方合法取得的信息；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2028,
+            "end_offset": 2086,
+            "raw_text": "下列信息不属于保密信息：\n已经公开的信息；\n接收方在披露前已经合法掌握的信息；\n从无保密义务的第三方合法取得的信息；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "confidentiality_exceptions"
+          ]
+        },
+        {
+          "evidence_id": "SRC-503fe1c1a8674a65652a",
+          "clause_id": "C0011",
+          "quote": "下列信息不属于保密信息：\n已经公开的信息；\n接收方在披露前已经合法掌握的信息；\n从无保密义务的第三方合法取得的信息；\n根据法律、法院或行政机关要求必须披露的信息。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2028,
+            "end_offset": 2109,
+            "raw_text": "下列信息不属于保密信息：\n已经公开的信息；\n接收方在披露前已经合法掌握的信息；\n从无保密义务的第三方合法取得的信息；\n根据法律、法院或行政机关要求必须披露的信息。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "confidentiality_exceptions"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-11-02",
+          "element_id": "confidential_information_scope",
+          "claim_id": "TC-11-02-confidential_information_scope",
+          "proposition": "保密信息范围的具体对象和边界。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-763b3ee930fae9ea5f7f"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-763b3ee930fae9ea5f7f"
+          ],
+          "source_clause_ids": [
+            "C0011"
+          ],
+          "source_spans": [
+            "双方对在项目合作过程中知悉的源代码、算法逻辑、客户信息、合同数据、商业计划及其他未公开信息承担保密义务。"
+          ],
+          "source_locations": [
+            "第十条 保密义务"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "保密信息范围的具体对象和边界。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "保密信息类别和范围",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0011",
+              "quote": "双方对在项目合作过程中知悉的源代码、算法逻辑、客户信息、合同数据、商业计划及其他未公开信息承担保密义务。",
+              "obligated_party": "双方"
+            }
+          ],
+          "source_fact_key": "confidentiality.confidential_information_scope"
+        },
+        {
+          "review_id": "TC-11-02",
+          "element_id": "confidentiality_period",
+          "claim_id": "TC-11-02-confidentiality_period",
+          "proposition": "保密义务的持续期间已有明确约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-f9ddc1852287e5bd6d73"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-f9ddc1852287e5bd6d73"
+          ],
+          "source_clause_ids": [
+            "C0011"
+          ],
+          "source_spans": [
+            "保密义务自本合同生效之日起持续5年。"
+          ],
+          "source_locations": [
+            "第十条 保密义务"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "保密义务的持续期间已有明确约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "保密义务的持续期间",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0011",
+              "quote": "保密义务自本合同生效之日起持续5年。",
+              "obligated_party": ""
+            }
+          ],
+          "source_fact_key": "confidentiality.confidentiality_duration"
+        },
+        {
+          "review_id": "TC-11-02",
+          "element_id": "confidentiality_exceptions",
+          "claim_id": "TC-11-02-confidentiality_exceptions",
+          "proposition": "公开信息、合法取得、独立开发及依法披露例外已有原则安排，具体条件待明确。",
+          "status": "PARTIALLY_COVERED",
+          "evidence_ids": [
+            "SRC-6aad0e4f3109835e08dd",
+            "SRC-066bd17ec024f26796fd",
+            "SRC-503fe1c1a8674a65652a"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-6aad0e4f3109835e08dd",
+            "SRC-066bd17ec024f26796fd",
+            "SRC-503fe1c1a8674a65652a"
+          ],
+          "source_clause_ids": [
+            "C0011",
+            "C0011",
+            "C0011"
+          ],
+          "source_spans": [
+            "下列信息不属于保密信息：\n已经公开的信息；",
+            "下列信息不属于保密信息：\n已经公开的信息；\n接收方在披露前已经合法掌握的信息；\n从无保密义务的第三方合法取得的信息；",
+            "下列信息不属于保密信息：\n已经公开的信息；\n接收方在披露前已经合法掌握的信息；\n从无保密义务的第三方合法取得的信息；\n根据法律、法院或行政机关要求必须披露的信息。"
+          ],
+          "source_locations": [
+            "第十条 保密义务",
+            "第十条 保密义务",
+            "第十条 保密义务"
+          ],
+          "entailment": "PARTIAL_SUPPORT",
+          "verifier_confidence": "high",
+          "reason": "公开信息、合法取得、独立开发及依法披露例外已有原则安排，具体条件待明确。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "fact_status": "FOUND",
+          "requirement_status": "PARTIALLY_COVERED",
+          "risk_relevant": true,
+          "residual_gap": "独立开发信息例外",
+          "required_fact": "公开信息、合法取得、独立开发及依法披露等保密例外",
+          "search_targets": [
+            "独立开发信息例外"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0011",
+              "quote": "下列信息不属于保密信息：\n已经公开的信息；"
+            },
+            {
+              "clause_id": "C0011",
+              "quote": "下列信息不属于保密信息：\n已经公开的信息；\n接收方在披露前已经合法掌握的信息；\n从无保密义务的第三方合法取得的信息；"
+            },
+            {
+              "clause_id": "C0011",
+              "quote": "下列信息不属于保密信息：\n已经公开的信息；\n接收方在披露前已经合法掌握的信息；\n从无保密义务的第三方合法取得的信息；\n根据法律、法院或行政机关要求必须披露的信息。"
+            }
+          ],
+          "source_fact_key": "confidentiality.exceptions"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "review_id": "TC-11-02",
+        "reason": "DETAIL_UNRESOLVED_REQUIREMENTS_OMITTED",
+        "projection": "risk_point_description",
+        "omitted": [
+          "confidentiality_exceptions"
+        ]
+      }
+    },
+    {
+      "error_code": "Legal Freshness Finding",
+      "rule_id": null,
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Legal Freshness Validation",
+      "reject_reason": "报告出现合同法引用但没有形成过时法律引用风险发现。",
+      "source_spans": [],
+      "current_elements": [],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "Legal Freshness Finding",
+        "failure_stage": "Legal Freshness Validation",
+        "root_cause": "报告出现合同法引用但没有形成过时法律引用风险发现。",
+        "fix_owner": "Legal Freshness Checker"
+      }
+    }
+  ],
+  "note": "Null IDs/stages mean the existing gate did not publish them; none are fabricated."
+}

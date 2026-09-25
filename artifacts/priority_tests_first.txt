@@ -1,0 +1,325 @@
+F..FFFFFFFFFFFFFFFFFFFFFF..FFFFFFFFF............FFFFF.......             [100%]
+================================== FAILURES ===================================
+___________________ test_each_type_end_to_end[normal-labor] ___________________
+backend\tests\test_priority_contract_review.py:27: in test_each_type_end_to_end
+    assert result["release_quality_gate"]["status"] == "REPORT_READY", result["release_quality_gate"]["failures"]
+E   AssertionError: [{'requirement': 'Legal Freshness Finding', 'failure_stage': 'Legal Freshness Validation', 'root_cause': '报告出现合同法引用但没有形成过时法律引用风险发现。', 'fix_owner': 'Legal Freshness Checker'}]
+E   assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+__________ test_each_type_end_to_end[normal-employment_termination] ___________
+backend\tests\test_priority_contract_review.py:27: in test_each_type_end_to_end
+    assert result["release_quality_gate"]["status"] == "REPORT_READY", result["release_quality_gate"]["failures"]
+E   AssertionError: [{'requirement': 'Legal Freshness Finding', 'failure_stage': 'Legal Freshness Validation', 'root_cause': '报告出现合同法引用但没有形成过时法律引用风险发现。', 'fix_owner': 'Legal Freshness Checker'}]
+E   assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_________________ test_each_type_end_to_end[normal-mortgage] __________________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+______________ test_each_type_end_to_end[normal-movable_pledge] _______________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+_______________ test_each_type_end_to_end[normal-equity_pledge] _______________
+backend\tests\test_priority_contract_review.py:27: in test_each_type_end_to_end
+    assert result["release_quality_gate"]["status"] == "REPORT_READY", result["release_quality_gate"]["failures"]
+E   AssertionError: [{'requirement': 'NARRATIVE_EVIDENCE_GATE', 'failure_stage': 'Narrative Evidence Validation', 'root_cause': '风险事实未绑定直接...ANT', 'failure_stage': 'Final Evidence Projection', 'root_cause': '最终要素、原文引文与报告事实不一致。', 'current_status': 'FAIL', ...}]
+E   assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_______________ test_each_type_end_to_end[normal-rights_pledge] _______________
+backend\tests\test_priority_contract_review.py:27: in test_each_type_end_to_end
+    assert result["release_quality_gate"]["status"] == "REPORT_READY", result["release_quality_gate"]["failures"]
+E   AssertionError: [{'requirement': 'NARRATIVE_EVIDENCE_GATE', 'failure_stage': 'Narrative Evidence Validation', 'root_cause': '风险事实未绑定直接...ANT', 'failure_stage': 'Final Evidence Projection', 'root_cause': '最终要素、原文引文与报告事实不一致。', 'current_status': 'FAIL', ...}]
+E   assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+______________ test_each_type_end_to_end[normal-equity_transfer] ______________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+_____________ test_each_type_end_to_end[normal-capital_increase] ______________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+________________ test_each_type_end_to_end[normal-investment] _________________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+_______________ test_each_type_end_to_end[normal-shareholders] ________________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+__________________ test_each_type_end_to_end[missing-labor] ___________________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+_______________ test_each_type_end_to_end[missing-non_compete] ________________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+_____________ test_each_type_end_to_end[missing-confidentiality] ______________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+__________ test_each_type_end_to_end[missing-employment_termination] __________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+_________________ test_each_type_end_to_end[missing-mortgage] _________________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+______________ test_each_type_end_to_end[missing-movable_pledge] ______________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+______________ test_each_type_end_to_end[missing-equity_pledge] _______________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+______________ test_each_type_end_to_end[missing-rights_pledge] _______________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+_____________ test_each_type_end_to_end[missing-equity_transfer] ______________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+_____________ test_each_type_end_to_end[missing-capital_increase] _____________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+________________ test_each_type_end_to_end[missing-investment] ________________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+_______________ test_each_type_end_to_end[missing-shareholders] _______________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+___________________ test_each_type_end_to_end[risky-labor] ____________________
+backend\tests\test_priority_contract_review.py:27: in test_each_type_end_to_end
+    assert result["release_quality_gate"]["status"] == "REPORT_READY", result["release_quality_gate"]["failures"]
+E   AssertionError: [{'requirement': 'NARRATIVE_EVIDENCE_GATE', 'failure_stage': 'Narrative Evidence Validation', 'root_cause': '风险事实未绑定直接...age': 'Legal Freshness Validation', 'root_cause': '报告出现合同法引用但没有形成过时法律引用风险发现。', 'fix_owner': 'Legal Freshness Checker'}]
+E   assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+___________ test_each_type_end_to_end[risky-employment_termination] ___________
+backend\tests\test_priority_contract_review.py:27: in test_each_type_end_to_end
+    assert result["release_quality_gate"]["status"] == "REPORT_READY", result["release_quality_gate"]["failures"]
+E   AssertionError: [{'requirement': 'Legal Freshness Finding', 'failure_stage': 'Legal Freshness Validation', 'root_cause': '报告出现合同法引用但没有形成过时法律引用风险发现。', 'fix_owner': 'Legal Freshness Checker'}]
+E   assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+__________________ test_each_type_end_to_end[risky-mortgage] __________________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+_______________ test_each_type_end_to_end[risky-movable_pledge] _______________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+_______________ test_each_type_end_to_end[risky-equity_pledge] ________________
+backend\tests\test_priority_contract_review.py:27: in test_each_type_end_to_end
+    assert result["release_quality_gate"]["status"] == "REPORT_READY", result["release_quality_gate"]["failures"]
+E   AssertionError: [{'requirement': 'NARRATIVE_EVIDENCE_GATE', 'failure_stage': 'Narrative Evidence Validation', 'root_cause': '风险事实未绑定直接...ANT', 'failure_stage': 'Final Evidence Projection', 'root_cause': '最终要素、原文引文与报告事实不一致。', 'current_status': 'FAIL', ...}]
+E   assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_______________ test_each_type_end_to_end[risky-rights_pledge] ________________
+backend\tests\test_priority_contract_review.py:27: in test_each_type_end_to_end
+    assert result["release_quality_gate"]["status"] == "REPORT_READY", result["release_quality_gate"]["failures"]
+E   AssertionError: [{'requirement': 'NARRATIVE_EVIDENCE_GATE', 'failure_stage': 'Narrative Evidence Validation', 'root_cause': '风险事实未绑定直接...ANT', 'failure_stage': 'Final Evidence Projection', 'root_cause': '最终要素、原文引文与报告事实不一致。', 'current_status': 'FAIL', ...}]
+E   assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+______________ test_each_type_end_to_end[risky-equity_transfer] _______________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+______________ test_each_type_end_to_end[risky-capital_increase] ______________
+backend\tests\test_priority_contract_review.py:27: in test_each_type_end_to_end
+    assert result["release_quality_gate"]["status"] == "REPORT_READY", result["release_quality_gate"]["failures"]
+E   AssertionError: [{'requirement': 'NARRATIVE_EVIDENCE_GATE', 'failure_stage': 'Narrative Evidence Validation', 'root_cause': '风险事实未绑定直接...ANT', 'failure_stage': 'Final Evidence Projection', 'root_cause': '最终要素、原文引文与报告事实不一致。', 'current_status': 'FAIL', ...}]
+E   assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_________________ test_each_type_end_to_end[risky-investment] _________________
+backend\tests\test_priority_contract_review.py:27: in test_each_type_end_to_end
+    assert result["release_quality_gate"]["status"] == "REPORT_READY", result["release_quality_gate"]["failures"]
+E   AssertionError: [{'requirement': 'NARRATIVE_EVIDENCE_GATE', 'failure_stage': 'Narrative Evidence Validation', 'root_cause': '风险事实未绑定直接...ANT', 'failure_stage': 'Final Evidence Projection', 'root_cause': '最终要素、原文引文与报告事实不一致。', 'current_status': 'FAIL', ...}]
+E   assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+________________ test_each_type_end_to_end[risky-shareholders] ________________
+backend\tests\test_priority_contract_review.py:42: in test_each_type_end_to_end
+    ids = [f["risk_id"] for f in findings]
+backend\tests\test_priority_contract_review.py:42: in <listcomp>
+    ids = [f["risk_id"] for f in findings]
+E   KeyError: 'risk_id'
+_ test_partial_evidence_does_not_become_full_or_missing[labor-\u6708\u5de5\u8d44\u4e3a10000\u5143\uff0c\u5de5\u8d44\u901a\u8fc7\u94f6\u884c\u8f6c\u8d26\u3002-employment_wage] _
+backend\tests\test_priority_contract_review.py:72: in test_partial_evidence_does_not_become_full_or_missing
+    assert result["release_quality_gate"]["status"] == "REPORT_READY", result["release_quality_gate"]["failures"]
+E   AssertionError: [{'requirement': 'NARRATIVE_EVIDENCE_GATE', 'failure_stage': 'Narrative Evidence Validation', 'root_cause': '风险事实未绑定直接...ANT', 'failure_stage': 'Final Evidence Projection', 'root_cause': '最终要素、原文引文与报告事实不一致。', 'current_status': 'FAIL', ...}]
+E   assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_ test_partial_evidence_does_not_become_full_or_missing[mortgage-\u4e3b\u5408\u540c\u7f16\u53f7\uff1aJK-1\uff0c\u503a\u52a1\u4eba\uff1a\u8fdc\u5c71\u6709\u9650\u516c\u53f8\uff0c\u672c\u91d1\u4e3a100\u4e07\u5143\u3002-security_main_debt] _
+backend\tests\test_priority_contract_review.py:72: in test_partial_evidence_does_not_become_full_or_missing
+    assert result["release_quality_gate"]["status"] == "REPORT_READY", result["release_quality_gate"]["failures"]
+E   AssertionError: [{'requirement': 'NARRATIVE_EVIDENCE_GATE', 'failure_stage': 'Narrative Evidence Validation', 'root_cause': '风险事实未绑定直接...ANT', 'failure_stage': 'Final Evidence Projection', 'root_cause': '最终要素、原文引文与报告事实不一致。', 'current_status': 'FAIL', ...}]
+E   assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_ test_partial_evidence_does_not_become_full_or_missing[movable_pledge-\u7b7e\u7ea6\u540e5\u65e5\u5185\u5c06\u8d28\u7269\u4ea4\u4ed8\u8d28\u6743\u4eba\u5360\u6709\u3002-pledge_movable_delivery] _
+backend\tests\test_priority_contract_review.py:72: in test_partial_evidence_does_not_become_full_or_missing
+    assert result["release_quality_gate"]["status"] == "REPORT_READY", result["release_quality_gate"]["failures"]
+E   AssertionError: [{'requirement': 'NARRATIVE_EVIDENCE_GATE', 'failure_stage': 'Narrative Evidence Validation', 'root_cause': '风险事实未绑定直接...ANT', 'failure_stage': 'Final Evidence Projection', 'root_cause': '最终要素、原文引文与报告事实不一致。', 'current_status': 'FAIL', ...}]
+E   assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_ test_partial_evidence_does_not_become_full_or_missing[equity_transfer-\u76ee\u6807\u516c\u53f8\u66f4\u65b0\u80a1\u4e1c\u540d\u518c\u5e76\u7b7e\u53d1\u51fa\u8d44\u8bc1\u660e\u3002-equity_closing_registration] _
+backend\tests\test_priority_contract_review.py:72: in test_partial_evidence_does_not_become_full_or_missing
+    assert result["release_quality_gate"]["status"] == "REPORT_READY", result["release_quality_gate"]["failures"]
+E   AssertionError: [{'requirement': 'NARRATIVE_EVIDENCE_GATE', 'failure_stage': 'Narrative Evidence Validation', 'root_cause': '风险事实未绑定直接...ANT', 'failure_stage': 'Final Evidence Projection', 'root_cause': '最终要素、原文引文与报告事实不一致。', 'current_status': 'FAIL', ...}]
+E   assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_ test_partial_evidence_does_not_become_full_or_missing[capital_increase-\u65b0\u589e\u6ce8\u518c\u8d44\u672c20\u4e07\u5143\uff0c\u8ba1\u5165\u8d44\u672c\u516c\u79ef80\u4e07\u5143\u3002-equity_capital_increase] _
+backend\tests\test_priority_contract_review.py:72: in test_partial_evidence_does_not_become_full_or_missing
+    assert result["release_quality_gate"]["status"] == "REPORT_READY", result["release_quality_gate"]["failures"]
+E   AssertionError: [{'requirement': 'NARRATIVE_EVIDENCE_GATE', 'failure_stage': 'Narrative Evidence Validation', 'root_cause': '风险事实未绑定直接...ANT', 'failure_stage': 'Final Evidence Projection', 'root_cause': '最终要素、原文引文与报告事实不一致。', 'current_status': 'FAIL', ...}]
+E   assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+============================== warnings summary ===============================
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\storage\database.py:41
+  F:\ai\Sage\backend\storage\database.py:41: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+backend\main.py:145
+  F:\ai\Sage\backend\main.py:145: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[normal-labor]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[normal-employment_termination]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[normal-mortgage]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[normal-movable_pledge]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[normal-equity_pledge]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[normal-rights_pledge]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[normal-equity_transfer]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[normal-capital_increase]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[normal-investment]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[normal-shareholders]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[missing-labor]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[missing-non_compete]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[missing-confidentiality]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[missing-employment_termination]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[missing-mortgage]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[missing-movable_pledge]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[missing-equity_pledge]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[missing-rights_pledge]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[missing-equity_transfer]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[missing-capital_increase]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[missing-investment]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[missing-shareholders]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[risky-labor]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[risky-employment_termination]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[risky-mortgage]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[risky-movable_pledge]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[risky-equity_pledge]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[risky-rights_pledge]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[risky-equity_transfer]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[risky-capital_increase]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[risky-investment]
+FAILED backend/tests/test_priority_contract_review.py::test_each_type_end_to_end[risky-shareholders]
+FAILED backend/tests/test_priority_contract_review.py::test_partial_evidence_does_not_become_full_or_missing[labor-\u6708\u5de5\u8d44\u4e3a10000\u5143\uff0c\u5de5\u8d44\u901a\u8fc7\u94f6\u884c\u8f6c\u8d26\u3002-employment_wage]
+FAILED backend/tests/test_priority_contract_review.py::test_partial_evidence_does_not_become_full_or_missing[mortgage-\u4e3b\u5408\u540c\u7f16\u53f7\uff1aJK-1\uff0c\u503a\u52a1\u4eba\uff1a\u8fdc\u5c71\u6709\u9650\u516c\u53f8\uff0c\u672c\u91d1\u4e3a100\u4e07\u5143\u3002-security_main_debt]
+FAILED backend/tests/test_priority_contract_review.py::test_partial_evidence_does_not_become_full_or_missing[movable_pledge-\u7b7e\u7ea6\u540e5\u65e5\u5185\u5c06\u8d28\u7269\u4ea4\u4ed8\u8d28\u6743\u4eba\u5360\u6709\u3002-pledge_movable_delivery]
+FAILED backend/tests/test_priority_contract_review.py::test_partial_evidence_does_not_become_full_or_missing[equity_transfer-\u76ee\u6807\u516c\u53f8\u66f4\u65b0\u80a1\u4e1c\u540d\u518c\u5e76\u7b7e\u53d1\u51fa\u8d44\u8bc1\u660e\u3002-equity_closing_registration]
+FAILED backend/tests/test_priority_contract_review.py::test_partial_evidence_does_not_become_full_or_missing[capital_increase-\u65b0\u589e\u6ce8\u518c\u8d44\u672c20\u4e07\u5143\uff0c\u8ba1\u5165\u8d44\u672c\u516c\u79ef80\u4e07\u5143\u3002-equity_capital_increase]
+37 failed, 23 passed, 5 warnings in 21.29s

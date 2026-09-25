@@ -37,6 +37,8 @@ class ReviewCheckpoint:
     pass_criteria: str
     partial_criteria: str
     applicable_if: str = "始终适用"
+    legal_basis_topics: Terms = ()
+    legal_basis_domain: str = ""
     allowed_families: Terms = ()
     allowed_subject_matters: Terms = ()
     allowed_subtypes: Terms = ()
@@ -50,6 +52,11 @@ class ReviewCheckpoint:
     requirement_medium: str = "CONTRACT_TEXT"
     legal_requirement_strength: str = "RISK_CONTROL"
     action_type: str = "CONTRACT_EDIT"
+    fact_concepts: Terms = ()
+    optional_trigger_patterns: Terms = ()
+    unless_fact_concepts: Terms = ()
+    prerequisite_facts: Terms = ()
+    linked_adverse_rules: Terms = ()
 
 
 def _required(

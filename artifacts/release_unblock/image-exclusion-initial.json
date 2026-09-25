@@ -1,0 +1,6 @@
+{
+  "command": "python3 -c 'import subprocess,json\ncmd=['\"'\"'docker'\"'\"','\"'\"'run'\"'\"','\"'\"'--rm'\"'\"','\"'\"'--network'\"'\"','\"'\"'none'\"'\"','\"'\"'--memory=128m'\"'\"','\"'\"'--entrypoint'\"'\"','\"'\"'python'\"'\"','\"'\"'sageai-release-verify-20260909:backend'\"'\"','\"'\"'-c'\"'\"',\"import os,json; print(json.dumps([os.path.join(p,n) for p,ds,fs in os.walk('\"'\"'/app'\"'\"') for n in fs if '\"'\"'.db'\"'\"' in n or '\"'\"'.sqlite'\"'\"' in n or n.endswith('\"'\"'.bak'\"'\"')]))\"]\np=subprocess.run(cmd,capture_output=True,text=True,timeout=25);print(json.dumps({'\"'\"'command'\"'\"':cmd,'\"'\"'exit'\"'\"':p.returncode,'\"'\"'stdout'\"'\"':p.stdout,'\"'\"'stderr'\"'\"':p.stderr}))\n'",
+  "exit": 0,
+  "stdout": "{\"command\": [\"docker\", \"run\", \"--rm\", \"--network\", \"none\", \"--memory=128m\", \"--entrypoint\", \"python\", \"sageai-release-verify-20260909:backend\", \"-c\", \"import os,json; print(json.dumps([os.path.join(p,n) for p,ds,fs in os.walk('/app') for n in fs if '.db' in n or '.sqlite' in n or n.endswith('.bak')]))\"], \"exit\": 0, \"stdout\": \"[\\\"/app/release_exclusion_canary/archive.sqlite.gz\\\"]\\n\", \"stderr\": \"\"}\n",
+  "stderr": ""
+}

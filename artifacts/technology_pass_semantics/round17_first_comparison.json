@@ -1,0 +1,75 @@
+{
+  "baseline": {
+    "PASS": 974,
+    "FAIL": 249,
+    "SKIP": 0
+  },
+  "current": {
+    "PASS": 984,
+    "FAIL": 250,
+    "SKIP": 0
+  },
+  "recovered": [],
+  "newly_failing": [
+    "backend.tests.test_patent_license_subtransaction_fact_registry::test_coverage_evidence_is_bound_to_over_scope_and_material_delivery_clauses"
+  ],
+  "added": {
+    "backend.tests.test_license_element_ownership::test_breach_reference_preserves_recipient_responsibility": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_license_element_ownership::test_declared_provider_cannot_supply_recipient_breach_fact[\\u4e59\\u65b9-\\u7532\\u65b9]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_license_element_ownership::test_declared_provider_cannot_supply_recipient_breach_fact[\\u7532\\u65b9-\\u4e59\\u65b9]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_license_element_ownership::test_exclusivity_compensation_is_not_sublicensee_compensation[\\u4e59\\u65b9-\\u7532\\u65b9]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_license_element_ownership::test_exclusivity_compensation_is_not_sublicensee_compensation[\\u7532\\u65b9-\\u4e59\\u65b9]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_license_element_ownership::test_normal_upload_preserves_license_element_ownership": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_license_element_ownership::test_registry_fields_in_same_article_keep_distinct_sources": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_license_element_ownership::test_scope_enumeration_inherits_operative_context[\\u4e2d\\u56fd\\u5927\\u9646\\u5730\\u533a-\\u5236\\u9020\\u3001\\u4f7f\\u7528\\u3001\\u9500\\u552e\\u3001\\u8bb8\\u8bfa\\u9500\\u552e]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_license_element_ownership::test_scope_enumeration_inherits_operative_context[\\u6b27\\u6d32\\u7ecf\\u6d4e\\u533a-\\u5236\\u9020\\u3001\\u4f7f\\u7528\\u3001\\u9500\\u552e]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_license_element_ownership::test_sublicensee_explicit_compensation_is_preserved": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_license_element_ownership::test_unrelated_address_does_not_supply_license_territory": {
+      "status": "PASS",
+      "message": ""
+    }
+  },
+  "removed": [],
+  "changes": {
+    "backend.tests.test_patent_license_subtransaction_fact_registry::test_coverage_evidence_is_bound_to_over_scope_and_material_delivery_clauses": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "KeyError: 'quote'"
+      }
+    }
+  }
+}

@@ -17,9 +17,9 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 # 复制 Nginx 配置
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# 健康检查
+# 使用 IPv4，与 nginx.conf 的 listen 80 一致，避免 localhost 解析到未监听的 ::1。
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:80/ || exit 1
+    CMD wget --no-verbose --tries=1 --spider http://127.0.0.1:80/ || exit 1
 
 EXPOSE 80
 

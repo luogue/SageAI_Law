@@ -1,0 +1,69 @@
+{
+  "sample_status": "GOLDEN_REGRESSION_SAMPLE",
+  "sample_id": "TECH_LICENSE_PATENT_GOLDEN_001",
+  "fixture": "test_data/13、技术许可.docx",
+  "primary_contract_type": "technology_license_patent",
+  "contract_subtype": "PATENT_LICENSE",
+  "review_position": "PATENT_LICENSEE",
+  "coverage_summary": {
+    "通过": 16,
+    "不适用": 25,
+    "缺失": 2,
+    "部分覆盖": 10,
+    "风险条款": 1
+  },
+  "risk_count": 12,
+  "recommendation_count": 12,
+  "key_statuses": {
+    "TC-02-01": "通过",
+    "TC-02-02": "通过",
+    "TC-07-01": "通过",
+    "TC-07-02": "通过",
+    "TC-07-03": "通过",
+    "TC-07-04": "通过",
+    "TC-09-01": "通过",
+    "TC-09-02": "通过",
+    "TC-09-03": "不适用",
+    "TC-09-04": "通过",
+    "TC-10-01": "通过",
+    "TC-10-02": "部分覆盖",
+    "TC-10-04": "通过",
+    "TC-11-01": "通过",
+    "TC-11-02": "通过",
+    "TC-12-01": "部分覆盖",
+    "TC-12-02": "部分覆盖",
+    "TC-12-03": "部分覆盖",
+    "TC-12-04": "部分覆盖"
+  },
+  "expected_applicable_rules": [
+    "TC-01-01", "TC-01-02", "TC-01-03", "TC-02-01", "TC-02-02", "TC-03-04",
+    "TC-07-01", "TC-07-02", "TC-07-03", "TC-07-04",
+    "TC-09-01", "TC-09-02", "TC-09-04",
+    "TC-10-01", "TC-10-02", "TC-10-03", "TC-10-04",
+    "TC-11-01", "TC-11-02", "TC-11-03", "TC-11-04",
+    "TC-12-01", "TC-12-02", "TC-12-03", "TC-12-04", "TC-13-01", "TC-13-02", "TC-13-03",
+    "TECH-SHARED-03"
+  ],
+  "expected_not_applicable_rules": [
+    "TC-01-04", "TC-02-03", "TC-02-04", "TC-03-01", "TC-03-02", "TC-03-03",
+    "TC-04-01", "TC-04-02", "TC-04-03", "TC-04-04",
+    "TC-05-01", "TC-05-02", "TC-05-03", "TC-05-04",
+    "TC-06-01", "TC-06-02", "TC-06-03", "TC-06-04",
+    "TC-08-01", "TC-08-02", "TC-08-03", "TC-08-04", "TC-08-05",
+    "TC-09-03", "TC-13-04"
+  ],
+  "expected_party_direction": {
+    "review_id": "TC-12-04",
+    "review_position_code": "PATENT_LICENSEE",
+    "direction": "UNFAVORABLE",
+    "favorable_missing_element": "licensor_liability_cap",
+    "unfavorable_missing_element": "licensee_liability_cap"
+  },
+  "critical_evidence_provenance": {
+    "evidence_id": "EV-4f3eac082d193d2b",
+    "clause_id": "C0049",
+    "evidence_type": "CONTRACT_TEXT",
+    "derived_or_original": "ORIGINAL",
+    "raw_text_contains": "双方未明确约定第三方索赔诉讼中的律师选择、抗辩控制以及和解决策权限。"
+  }
+}

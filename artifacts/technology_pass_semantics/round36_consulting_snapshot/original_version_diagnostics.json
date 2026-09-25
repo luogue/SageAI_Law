@@ -1,0 +1,1986 @@
+{
+  "party_a": {
+    "review_task_id": null,
+    "review_run_id": null,
+    "fact_snapshot_id": null,
+    "rule_result_version": null,
+    "report_version": null,
+    "gate_version": null,
+    "export_version": null,
+    "created_at": null,
+    "updated_at": null,
+    "trace_id": "CR-20260918-203548-FCAAFB",
+    "gate_status": "BLOCKED",
+    "failures": [
+      {
+        "requirement": "PASS_EVIDENCE_PROPOSITION_MATCH_GATE",
+        "field": "review_evidence",
+        "failures": [
+          {
+            "review_id": "TC-08-05",
+            "status": "NO_DIRECT_EVIDENCE",
+            "repaired": false,
+            "primary_evidence_was_direct": false,
+            "coverage_propositions": [
+              "咨询报酬总额",
+              "咨询报酬支付节点和期限"
+            ],
+            "direct_evidence_ids": [],
+            "missing_element_ids": [
+              "consulting_fee_total",
+              "payment_milestones"
+            ],
+            "synthetic_proposition_only": false
+          }
+        ]
+      }
+    ],
+    "existing_fact_registry": {
+      "snapshot_id": "CFR-2FA3C60411BB",
+      "fact_registry_snapshot_id": "CFR-2FA3C60411BB",
+      "version": "contract-fact-graph-1.0",
+      "frozen": true
+    },
+    "static_engine_metadata": {
+      "system_version": "contract-review-quality-6.4",
+      "pipeline_version": "canonical-review-v2-production-6.4",
+      "classifier_version": "technical-transaction-classifier-v3-single-source",
+      "evaluator_version": "canonical-review-evaluator-6.4-single-classification",
+      "prompt_version": "review-v2-prompt-2026-08-11",
+      "fact_prompt_version": "fact-extraction-v2-2026-08-11",
+      "review_prompt_version": "review-v2-prompt-2026-08-11",
+      "verifier_prompt_version": "independent-verifier-deterministic-2026-08-11",
+      "risk_aggregation_prompt_version": "risk-aggregation-deterministic-2026-08-11",
+      "recommendation_prompt_version": "recommendation-aggregation-deterministic-2026-08-11",
+      "rule_version": "review-v2-rules-quality3-2026-08-11",
+      "legal_dataset_version": "cn-civil-code-minimal-2026-08-11",
+      "ontology_version": "risk-ontology-4.0-2026-08-11",
+      "quality4_version": "contract-review-quality-4.0-target-2026-08-11",
+      "benchmark_version": "quality6.4-final-convergence-2026-08-13",
+      "parser_version": "canonical-clause-parser-6.4",
+      "fact_schema_version": "contract-fact-graph-1.0",
+      "retrieval_version": "hybrid-retrieval-1.0",
+      "domain_pack_version": "domain-pack-sale-1.0",
+      "default_law_version": "sale-default-law-6.4",
+      "perspective_resolver_version": "perspective-resolver-6.7-freeze-1.3",
+      "effective_gap_engine_version": "effective-gap-6.7-freeze-1.0",
+      "recommendation_engine_version": "recommendation-impact-6.7-freeze-1.0",
+      "production_serializer_version": "production-semantic-display-6.7-freeze-1.0",
+      "confidence_version": "confidence-calibration-6.4",
+      "cross_type_generalization_stage": "CONVERGED",
+      "sale_historical_blind_001": "FROZEN_REGRESSION",
+      "sale_historical_blind_002": "FROZEN_REGRESSION",
+      "sale_historical_blind_003": "FROZEN_REGRESSION",
+      "sale_historical_blind_004": "FROZEN_REGRESSION",
+      "technology_cooperative_development": "FROZEN_REGRESSION",
+      "technology_technical_consulting": "FROZEN_REGRESSION",
+      "next_blind_case": "SALE-BLIND-005",
+      "next_blind_status": "READY",
+      "fact_graph_version": "contract-fact-graph-1.0",
+      "domain_packs": {
+        "shared": {
+          "contract_type": "shared",
+          "version": "domain-pack-shared-1.0",
+          "context_defaults": {
+            "jurisdiction": "CN",
+            "business_or_consumer": "unknown",
+            "bargaining_power": "unknown"
+          },
+          "default_law_nodes": {},
+          "default_law_rules": {},
+          "economic_ratio_keys": [
+            "contract_value_ratio",
+            "batch_value_ratio",
+            "unpaid_amount_ratio",
+            "advance_payment_ratio",
+            "replacement_cost_ratio",
+            "delay_loss_ratio"
+          ],
+          "pack_id": "",
+          "parent_pack_ids": [],
+          "subject_matter": ""
+        },
+        "sale": {
+          "contract_type": "sale",
+          "version": "domain-pack-sale-1.0",
+          "context_defaults": {
+            "contract_subtype": "GENERAL_GOODS_SALE",
+            "transaction_purpose": "goods_sale",
+            "usage_scenario": "GENERAL_GOODS_SALE",
+            "delivery_structure": "goods_delivery",
+            "payment_structure": "goods_price_payment"
+          },
+          "default_law_nodes": {
+            "sale_risk_transfer_delivery": "PARTIAL_DEFAULT",
+            "sale_risk_carrier_delivery": "PARTIAL_DEFAULT",
+            "sale_risk_buyer_delay_acceptance": "PARTIAL_DEFAULT",
+            "sale_inspection_period": "PARTIAL_DEFAULT",
+            "sale_quality_liability": "PARTIAL_DEFAULT",
+            "sale_third_party_rights": "PARTIAL_DEFAULT",
+            "sale_title_warranty": "PARTIAL_DEFAULT",
+            "sale_delay_performance": "PARTIAL_DEFAULT",
+            "sale_breach_damages": "PARTIAL_DEFAULT",
+            "sale_expectation_loss": "PARTIAL_DEFAULT",
+            "sale_termination": "PARTIAL_DEFAULT",
+            "common_force_majeure": "PARTIAL_DEFAULT"
+          },
+          "default_law_rules": {
+            "sale_risk_transfer_delivery": {
+              "rule_id": "SALE-DEFAULT-RISK-DELIVERY",
+              "domain": "sale",
+              "proposition": "标的物毁损、灭失风险原则上随交付转移，但合同约定和法定例外优先。",
+              "applicability_conditions": [
+                "买卖合同",
+                "未约定完整风险转移规则"
+              ],
+              "authority_ids": [
+                "CN-CC-604"
+              ],
+              "protection_scope": "提供一般交付场景的风险转移基准，不替代交付节点、验收方式和业务例外约定。",
+              "exceptions": [
+                "当事人另有约定",
+                "法律另有规定",
+                "出卖人原因导致不能按约交付"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_risk_carrier_delivery": {
+              "rule_id": "SALE-DEFAULT-RISK-CARRIER",
+              "domain": "sale",
+              "proposition": "需要运输且未约定交付地点时，风险通常在货交第一承运人后转移。",
+              "applicability_conditions": [
+                "买卖合同",
+                "交易需要运输",
+                "当事人未另行约定交付地点或风险节点"
+              ],
+              "authority_ids": [
+                "CN-CC-607"
+              ],
+              "protection_scope": "仅覆盖法定运输交付场景，不解决承运人选择、保险、包装和具体交接证据。",
+              "exceptions": [
+                "当事人约定交付地点或风险节点",
+                "出卖人未按约包装或交运"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_risk_buyer_delay_acceptance": {
+              "rule_id": "SALE-DEFAULT-DELAYED-ACCEPTANCE",
+              "domain": "sale",
+              "proposition": "买受人无正当理由拒绝或迟延受领时，增加的费用及相应风险依法分配。",
+              "applicability_conditions": [
+                "买卖合同",
+                "买受人迟延或拒绝受领"
+              ],
+              "authority_ids": [
+                "CN-CC-605",
+                "CN-CC-589"
+              ],
+              "protection_scope": "提供迟延受领后的基础责任规则，不替代催告、保管、费用计算和处置流程。",
+              "exceptions": [
+                "买受人有正当拒收理由",
+                "标的物不符合约定"
+              ],
+              "overrideable": true,
+              "confidence": "medium",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_inspection_period": {
+              "rule_id": "SALE-DEFAULT-INSPECTION",
+              "domain": "sale",
+              "proposition": "检验期限未约定或不明确时，买受人仍应在合理期限内检验并通知。",
+              "applicability_conditions": [
+                "买卖合同",
+                "检验期限缺失或不完整"
+              ],
+              "authority_ids": [
+                "CN-CC-620",
+                "CN-CC-621"
+              ],
+              "protection_scope": "提供合理期限和通知的法定补充，不确定具体商品所需检验时长及隐蔽瑕疵流程。",
+              "exceptions": [
+                "当事人约定检验期限",
+                "出卖人知道或应当知道标的物不符合约定"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_quality_liability": {
+              "rule_id": "SALE-DEFAULT-QUALITY-REMEDY",
+              "domain": "sale",
+              "proposition": "标的物不符合质量要求时，买受人可依法主张修理、重作、更换、退货、减价或赔偿。",
+              "applicability_conditions": [
+                "买卖合同",
+                "标的物不符合约定质量"
+              ],
+              "authority_ids": [
+                "CN-CC-582",
+                "CN-CC-617"
+              ],
+              "protection_scope": "提供法定质量救济类型，不替代异议期限、举证标准、操作程序和费用承担约定。",
+              "exceptions": [
+                "标的物性质或当事人约定限制特定救济方式"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_breach_damages": {
+              "rule_id": "SALE-DEFAULT-BREACH-DAMAGES",
+              "domain": "sale",
+              "proposition": "违约造成损失时，损失赔偿适用可预见性、减损和损益相抵等一般规则。",
+              "applicability_conditions": [
+                "合同违约",
+                "存在可证明损失"
+              ],
+              "authority_ids": [
+                "CN-CC-584",
+                "CN-CC-591"
+              ],
+              "protection_scope": "提供损害赔偿基础规则，不自动证明损失金额、因果关系或约定违约金合理性。",
+              "exceptions": [
+                "免责事由成立",
+                "损失不可预见或未履行减损义务"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_expectation_loss": {
+              "rule_id": "SALE-DEFAULT-EXPECTATION-LOSS",
+              "domain": "sale",
+              "proposition": "可得利益损失赔偿受订约时可预见性边界约束。",
+              "applicability_conditions": [
+                "合同违约",
+                "主张可得利益损失"
+              ],
+              "authority_ids": [
+                "CN-CC-584"
+              ],
+              "protection_scope": "现行法律提供可得利益赔偿及可预见性边界，但不替代损失金额、因果关系和证明责任。",
+              "exceptions": [
+                "损失不具有可预见性",
+                "损失或因果关系无法证明"
+              ],
+              "overrideable": false,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "legal.damages.foreseeability_limit",
+              "supplied_element_ids": [
+                "foreseeability_limit"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_termination": {
+              "rule_id": "SALE-DEFAULT-TERMINATION",
+              "domain": "sale",
+              "proposition": "达到法定或约定解除条件时，当事人可依法通知解除并进行清算。",
+              "applicability_conditions": [
+                "合同目的不能实现或其他解除事由",
+                "依法履行通知程序"
+              ],
+              "authority_ids": [
+                "CN-CC-563",
+                "CN-CC-565"
+              ],
+              "protection_scope": "提供法定解除事由和通知框架，不替代合同中的宽限期、证据、返还和结算流程。",
+              "exceptions": [
+                "不具备法定或约定解除事由",
+                "解除通知未有效到达"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            }
+          },
+          "economic_ratio_keys": [
+            "contract_value_ratio",
+            "batch_value_ratio",
+            "unpaid_amount_ratio",
+            "advance_payment_ratio",
+            "replacement_cost_ratio",
+            "delay_loss_ratio"
+          ],
+          "pack_id": "",
+          "parent_pack_ids": [],
+          "subject_matter": ""
+        },
+        "sale_framework_supply": {
+          "contract_type": "sale",
+          "version": "domain-pack-sale-framework-supply-1.0",
+          "context_defaults": {
+            "contract_subtype": "FRAMEWORK_SUPPLY",
+            "transaction_purpose": "goods_sale",
+            "usage_scenario": "LONG_TERM_INDUSTRIAL_SUPPLY",
+            "delivery_structure": "order_driven_recurring_delivery",
+            "payment_structure": "periodic_reconciliation_settlement"
+          },
+          "default_law_nodes": {
+            "sale_risk_transfer_delivery": "PARTIAL_DEFAULT",
+            "sale_risk_carrier_delivery": "PARTIAL_DEFAULT",
+            "sale_risk_buyer_delay_acceptance": "PARTIAL_DEFAULT",
+            "sale_inspection_period": "PARTIAL_DEFAULT",
+            "sale_quality_liability": "PARTIAL_DEFAULT",
+            "sale_third_party_rights": "PARTIAL_DEFAULT",
+            "sale_title_warranty": "PARTIAL_DEFAULT",
+            "sale_delay_performance": "PARTIAL_DEFAULT",
+            "sale_breach_damages": "PARTIAL_DEFAULT",
+            "sale_expectation_loss": "PARTIAL_DEFAULT",
+            "sale_termination": "PARTIAL_DEFAULT",
+            "common_force_majeure": "PARTIAL_DEFAULT"
+          },
+          "default_law_rules": {
+            "sale_risk_transfer_delivery": {
+              "rule_id": "SALE-DEFAULT-RISK-DELIVERY",
+              "domain": "sale",
+              "proposition": "标的物毁损、灭失风险原则上随交付转移，但合同约定和法定例外优先。",
+              "applicability_conditions": [
+                "买卖合同",
+                "未约定完整风险转移规则"
+              ],
+              "authority_ids": [
+                "CN-CC-604"
+              ],
+              "protection_scope": "提供一般交付场景的风险转移基准，不替代交付节点、验收方式和业务例外约定。",
+              "exceptions": [
+                "当事人另有约定",
+                "法律另有规定",
+                "出卖人原因导致不能按约交付"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_risk_carrier_delivery": {
+              "rule_id": "SALE-DEFAULT-RISK-CARRIER",
+              "domain": "sale",
+              "proposition": "需要运输且未约定交付地点时，风险通常在货交第一承运人后转移。",
+              "applicability_conditions": [
+                "买卖合同",
+                "交易需要运输",
+                "当事人未另行约定交付地点或风险节点"
+              ],
+              "authority_ids": [
+                "CN-CC-607"
+              ],
+              "protection_scope": "仅覆盖法定运输交付场景，不解决承运人选择、保险、包装和具体交接证据。",
+              "exceptions": [
+                "当事人约定交付地点或风险节点",
+                "出卖人未按约包装或交运"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_risk_buyer_delay_acceptance": {
+              "rule_id": "SALE-DEFAULT-DELAYED-ACCEPTANCE",
+              "domain": "sale",
+              "proposition": "买受人无正当理由拒绝或迟延受领时，增加的费用及相应风险依法分配。",
+              "applicability_conditions": [
+                "买卖合同",
+                "买受人迟延或拒绝受领"
+              ],
+              "authority_ids": [
+                "CN-CC-605",
+                "CN-CC-589"
+              ],
+              "protection_scope": "提供迟延受领后的基础责任规则，不替代催告、保管、费用计算和处置流程。",
+              "exceptions": [
+                "买受人有正当拒收理由",
+                "标的物不符合约定"
+              ],
+              "overrideable": true,
+              "confidence": "medium",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_inspection_period": {
+              "rule_id": "SALE-DEFAULT-INSPECTION",
+              "domain": "sale",
+              "proposition": "检验期限未约定或不明确时，买受人仍应在合理期限内检验并通知。",
+              "applicability_conditions": [
+                "买卖合同",
+                "检验期限缺失或不完整"
+              ],
+              "authority_ids": [
+                "CN-CC-620",
+                "CN-CC-621"
+              ],
+              "protection_scope": "提供合理期限和通知的法定补充，不确定具体商品所需检验时长及隐蔽瑕疵流程。",
+              "exceptions": [
+                "当事人约定检验期限",
+                "出卖人知道或应当知道标的物不符合约定"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_quality_liability": {
+              "rule_id": "SALE-DEFAULT-QUALITY-REMEDY",
+              "domain": "sale",
+              "proposition": "标的物不符合质量要求时，买受人可依法主张修理、重作、更换、退货、减价或赔偿。",
+              "applicability_conditions": [
+                "买卖合同",
+                "标的物不符合约定质量"
+              ],
+              "authority_ids": [
+                "CN-CC-582",
+                "CN-CC-617"
+              ],
+              "protection_scope": "提供法定质量救济类型，不替代异议期限、举证标准、操作程序和费用承担约定。",
+              "exceptions": [
+                "标的物性质或当事人约定限制特定救济方式"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_breach_damages": {
+              "rule_id": "SALE-DEFAULT-BREACH-DAMAGES",
+              "domain": "sale",
+              "proposition": "违约造成损失时，损失赔偿适用可预见性、减损和损益相抵等一般规则。",
+              "applicability_conditions": [
+                "合同违约",
+                "存在可证明损失"
+              ],
+              "authority_ids": [
+                "CN-CC-584",
+                "CN-CC-591"
+              ],
+              "protection_scope": "提供损害赔偿基础规则，不自动证明损失金额、因果关系或约定违约金合理性。",
+              "exceptions": [
+                "免责事由成立",
+                "损失不可预见或未履行减损义务"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_expectation_loss": {
+              "rule_id": "SALE-DEFAULT-EXPECTATION-LOSS",
+              "domain": "sale",
+              "proposition": "可得利益损失赔偿受订约时可预见性边界约束。",
+              "applicability_conditions": [
+                "合同违约",
+                "主张可得利益损失"
+              ],
+              "authority_ids": [
+                "CN-CC-584"
+              ],
+              "protection_scope": "现行法律提供可得利益赔偿及可预见性边界，但不替代损失金额、因果关系和证明责任。",
+              "exceptions": [
+                "损失不具有可预见性",
+                "损失或因果关系无法证明"
+              ],
+              "overrideable": false,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "legal.damages.foreseeability_limit",
+              "supplied_element_ids": [
+                "foreseeability_limit"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_termination": {
+              "rule_id": "SALE-DEFAULT-TERMINATION",
+              "domain": "sale",
+              "proposition": "达到法定或约定解除条件时，当事人可依法通知解除并进行清算。",
+              "applicability_conditions": [
+                "合同目的不能实现或其他解除事由",
+                "依法履行通知程序"
+              ],
+              "authority_ids": [
+                "CN-CC-563",
+                "CN-CC-565"
+              ],
+              "protection_scope": "提供法定解除事由和通知框架，不替代合同中的宽限期、证据、返还和结算流程。",
+              "exceptions": [
+                "不具备法定或约定解除事由",
+                "解除通知未有效到达"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            }
+          },
+          "economic_ratio_keys": [
+            "contract_value_ratio",
+            "batch_value_ratio",
+            "unpaid_amount_ratio",
+            "advance_payment_ratio",
+            "replacement_cost_ratio",
+            "delay_loss_ratio"
+          ],
+          "pack_id": "sale/goods/framework_supply",
+          "parent_pack_ids": [
+            "shared",
+            "sale/common",
+            "sale/goods/general"
+          ],
+          "subject_matter": "GOODS"
+        },
+        "house_lease": {
+          "contract_type": "house_lease",
+          "version": "domain-pack-house-lease-1.0",
+          "context_defaults": {
+            "contract_subtype": "RESIDENTIAL_LEASE",
+            "transaction_purpose": "residential_lease",
+            "usage_scenario": "residential_living",
+            "payment_structure": "rent_payment"
+          },
+          "default_law_nodes": {
+            "owner_change_no_break_lease": "CLEAR_DEFAULT",
+            "lease_before_sale": "CLEAR_DEFAULT",
+            "normal_wear": "CLEAR_DEFAULT",
+            "tenant_death_successor": "CLEAR_DEFAULT",
+            "lessor_death": "CLEAR_DEFAULT",
+            "indefinite_lease": "CLEAR_DEFAULT",
+            "force_majeure": "PARTIAL_DEFAULT",
+            "changed_circumstances": "PARTIAL_DEFAULT",
+            "pre_delivery_defect": "PARTIAL_DEFAULT",
+            "third_party_tort": "PARTIAL_DEFAULT",
+            "third_party_defect": "PARTIAL_DEFAULT",
+            "housing_safety_emergency": "PARTIAL_DEFAULT",
+            "reasonable_repair_cost": "PARTIAL_DEFAULT",
+            "excessive_deduction": "CLEAR_DEFAULT",
+            "handover_evidence": "PARTIAL_DEFAULT",
+            "deposit_return_timing": "PARTIAL_DEFAULT",
+            "deposit_offset_order": "PARTIAL_DEFAULT",
+            "property_damage_deposit_evidence": "PARTIAL_DEFAULT"
+          },
+          "default_law_rules": {
+            "lease_before_sale": {
+              "rule_id": "LEASE-DEFAULT-SALE-NO-BREAK",
+              "domain": "house_lease",
+              "proposition": "租赁期间租赁物所有权发生变动的，不影响租赁合同效力。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "承租人按租赁合同占有使用期间",
+                "租赁物所有权发生变动"
+              ],
+              "authority_ids": [
+                "CN-CIVIL-CODE-725"
+              ],
+              "protection_scope": "《民法典》第725条提供买卖不破租赁的法定承继保护，所有权变动不影响租赁合同效力。",
+              "exceptions": [
+                "当事人另有有效约定",
+                "承租人未依租赁合同占有租赁物",
+                "法律另有特别规定"
+              ],
+              "overrideable": false,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "lease_ownership_change_no_break",
+              "supplied_element_ids": [
+                "core_contract_arrangement"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "indefinite_lease": {
+              "rule_id": "LEASE-DEFAULT-INDEFINITE-LEASE",
+              "domain": "house_lease",
+              "proposition": "租赁期限届满后承租人继续使用租赁物，出租人没有提出异议的，原租赁合同继续有效但租赁期限转为不定期；不定期租赁解除应在合理期限前通知。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "租赁期限届满",
+                "承租人继续使用",
+                "出租人未提出异议或继续收租"
+              ],
+              "authority_ids": [
+                "CN-CIVIL-CODE-734",
+                "CN-CIVIL-CODE-730"
+              ],
+              "protection_scope": "《民法典》第734条、第730条提供期满继续使用转不定期租赁及合理期限通知解除的法定规则。",
+              "exceptions": [
+                "当事人另有有效约定",
+                "出租人及时提出异议",
+                "租赁关系因其他法定或约定事由终止"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "lease_post_expiry_indefinite_default",
+              "supplied_element_ids": [
+                "post_expiry_continue_use",
+                "no_objection_or_rent_acceptance",
+                "reasonable_notice"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "excessive_deduction": {
+              "rule_id": "LEASE-DEFAULT-LIQUIDATED-DAMAGES-ADJUSTMENT",
+              "domain": "house_lease",
+              "proposition": "约定违约金低于或过分高于造成损失的，当事人可以依法请求增加或适当减少。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "合同约定押金扣款、违约金或赔偿金额",
+                "金额与实际损失存在明显偏离争议"
+              ],
+              "authority_ids": [
+                "CN-CIVIL-CODE-585"
+              ],
+              "protection_scope": "《民法典》第585条提供违约金过高或过低时请求司法调整的救济，合同未写明不等于当然无法调整。",
+              "exceptions": [
+                "不存在约定违约金或约定赔偿额",
+                "当事人未依法主张调整",
+                "法院或仲裁机构结合损失、履行情况和过错程度裁量后不予调整"
+              ],
+              "overrideable": false,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "lease_liquidated_damages_judicial_adjustment",
+              "supplied_element_ids": [
+                "adjustment"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "reasonable_repair_cost": {
+              "rule_id": "LEASE-DEFAULT-REPAIR-COST-ADJUSTMENT",
+              "domain": "house_lease",
+              "proposition": "押金扣款、违约金或约定赔偿额明显偏离实际损失时，当事人可以依法请求调整；该规则不替代维修事实和实际发生金额的证明。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "发生维修费、押金扣款或赔偿金额争议",
+                "约定金额与实际损失存在明显偏离"
+              ],
+              "authority_ids": [
+                "CN-CIVIL-CODE-585"
+              ],
+              "protection_scope": "《民法典》第585条提供约定违约金或赔偿额明显偏离损失时的调整救济，但维修费用是否必要、合理、实际发生仍需证据证明。",
+              "exceptions": [
+                "没有约定违约金或约定赔偿额",
+                "维修事实、原因和金额仍需由主张方举证",
+                "法院或仲裁机构结合个案裁量"
+              ],
+              "overrideable": false,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_repair_cost_reasonableness_statutory_relief",
+              "supplied_element_ids": [
+                "liquidated_damages_adjustment_remedy"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "force_majeure": {
+              "rule_id": "LEASE-DEFAULT-FORCE-MAJEURE",
+              "domain": "house_lease",
+              "proposition": "不可抗力导致合同目的不能实现或影响履行时，可适用法定解除、免责或责任减轻规则。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "发生不可抗力",
+                "不可抗力影响房屋使用或合同履行"
+              ],
+              "authority_ids": [
+                "CN-CC-563",
+                "CN-CIVIL-CODE-590"
+              ],
+              "protection_scope": "《民法典》第563条、第590条提供不可抗力导致合同目的不能实现时的解除及责任减免规则。",
+              "exceptions": [
+                "不可抗力与不能履行无因果关系",
+                "迟延履行后发生不可抗力",
+                "通知、证明、租金结算等操作事项仍需事实证明"
+              ],
+              "overrideable": false,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_force_majeure_statutory_relief",
+              "supplied_element_ids": [
+                "force_majeure_statutory_relief"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "changed_circumstances": {
+              "rule_id": "LEASE-DEFAULT-CHANGE-OF-CIRCUMSTANCES",
+              "domain": "house_lease",
+              "proposition": "合同基础条件发生订约时无法预见且非商业风险的重大变化，继续履行明显不公平的，受不利影响方可以重新协商；合理期限内协商不成，可请求法院或仲裁机构变更或解除合同。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "合同基础条件发生重大变化",
+                "继续履行明显不公平"
+              ],
+              "authority_ids": [
+                "CN-CIVIL-CODE-533"
+              ],
+              "protection_scope": "《民法典》第533条提供情势变更时重新协商，以及合理期限内协商不成时请求人民法院或仲裁机构变更、解除合同的法定救济；合同仍可明确协商流程、通知方式及期限。",
+              "exceptions": [
+                "属于正常商业风险",
+                "变化可预见或已由合同分配",
+                "需结合个案事实及司法裁量"
+              ],
+              "overrideable": false,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_change_of_circumstances_judicial_relief",
+              "supplied_element_ids": [
+                "core_contract_arrangement"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "pre_delivery_defect": {
+              "rule_id": "LEASE-DEFAULT-FITNESS-AND-REPAIR",
+              "domain": "house_lease",
+              "proposition": "出租人应按约交付租赁物并在租赁期限内保持租赁物符合约定用途，承租人可要求维修或依法处理。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "交付前或租期内存在影响使用的瑕疵"
+              ],
+              "authority_ids": [
+                "CN-CIVIL-CODE-708",
+                "CN-CIVIL-CODE-713"
+              ],
+              "protection_scope": "《民法典》第708条、第713条提供出租人适租交付和维修义务的基础规则。",
+              "exceptions": [
+                "瑕疵由承租人造成",
+                "双方依法另有有效约定",
+                "瑕疵披露、交接记录和减租结算仍需合同或证据明确"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_fitness_repair_default",
+              "supplied_element_ids": [
+                "lessor_fitness_and_repair_obligation"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "third_party_tort": {
+              "rule_id": "LEASE-DEFAULT-THIRD-PARTY-TORT-REMEDY",
+              "domain": "house_lease",
+              "proposition": "第三人侵害租赁物或影响使用时，受损方可依据侵权责任规则向责任方主张权利。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "第三方行为影响房屋使用或造成损坏"
+              ],
+              "authority_ids": [
+                "CN-CIVIL-CODE-1165"
+              ],
+              "protection_scope": "侵权责任法定规则提供向实际责任第三方追责的基础救济。",
+              "exceptions": [
+                "第三方责任主体、过错、因果关系和损失范围需另行证明",
+                "出租人与承租人之间的协助、押金和减租流程仍需合同明确"
+              ],
+              "overrideable": false,
+              "confidence": "medium",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_third_party_tort_remedy",
+              "supplied_element_ids": [
+                "third_party_tort_remedy"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "third_party_defect": {
+              "rule_id": "LEASE-DEFAULT-THIRD-PARTY-USE-IMPAIRMENT",
+              "domain": "house_lease",
+              "proposition": "第三方原因影响房屋正常使用时，可结合出租人适租义务、维修义务及侵权责任规则处理。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "第三方原因影响房屋使用"
+              ],
+              "authority_ids": [
+                "CN-CIVIL-CODE-708",
+                "CN-CIVIL-CODE-713",
+                "CN-CIVIL-CODE-1165"
+              ],
+              "protection_scope": "《民法典》第708条、第713条及侵权责任规则提供适租、维修和向责任第三方追责的基础救济。",
+              "exceptions": [
+                "影响程度、减租比例、报修协助和追偿证据仍需事实证明或合同细化"
+              ],
+              "overrideable": true,
+              "confidence": "medium",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_third_party_use_impairment_relief",
+              "supplied_element_ids": [
+                "third_party_use_impairment_relief"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "housing_safety_emergency": {
+              "rule_id": "LEASE-DEFAULT-SAFETY-USE-RELIEF",
+              "domain": "house_lease",
+              "proposition": "租赁房屋不符合约定用途或存在严重安全风险时，承租人可结合出租人维修义务和法定解除规则获得救济。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "房屋存在严重安全隐患或无法正常使用"
+              ],
+              "authority_ids": [
+                "CN-CIVIL-CODE-708",
+                "CN-CIVIL-CODE-713",
+                "CN-CC-563"
+              ],
+              "protection_scope": "《民法典》第708条、第713条、第563条提供适租维修和合同目的不能实现时解除的基础规则。",
+              "exceptions": [
+                "安全风险、影响程度、搬离费用和结算节点仍需证据及合同流程明确"
+              ],
+              "overrideable": true,
+              "confidence": "medium",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_safety_risk_statutory_relief",
+              "supplied_element_ids": [
+                "safety_risk_statutory_relief"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "property_damage_deposit_evidence": {
+              "rule_id": "LEASE-DEFAULT-DAMAGE-DEPOSIT-EVIDENCE",
+              "domain": "house_lease",
+              "proposition": "承租人应妥善保管租赁物，按约定或租赁物性质使用造成的正常损耗不承担赔偿；主张损坏扣款仍需证明损坏事实、原因和金额。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "存在房屋损坏或押金扣款争议"
+              ],
+              "authority_ids": [
+                "CN-CIVIL-CODE-710",
+                "CN-CIVIL-CODE-714"
+              ],
+              "protection_scope": "《民法典》第710条、第714条提供正常损耗排除和承租人保管责任的基础规则；损坏事实、原因和金额仍需证据证明。",
+              "exceptions": [
+                "交接清单、照片视频、维修单据和扣款顺序仍需合同或证据细化",
+                "具体损坏原因和金额需个案证明"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_damage_deposit_evidence_default",
+              "supplied_element_ids": [
+                "normal_wear_exclusion",
+                "tenant_custody_liability"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "deposit_offset_order": {
+              "rule_id": "LEASE-DEFAULT-DEPOSIT-OFFSET-ORDER",
+              "domain": "house_lease",
+              "proposition": "押金抵扣可参照债务履行、抵充顺序和诚实信用规则处理，但具体租金、代垫费用、维修费的业务顺序仍宜合同明确。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "存在多项费用需以押金抵扣"
+              ],
+              "authority_ids": [
+                "CN-CC-509",
+                "CN-CC-561"
+              ],
+              "protection_scope": "《民法典》第509条、第561条提供诚信履行和债务抵充的基础规则，可部分补足押金抵扣顺序争议。",
+              "exceptions": [
+                "押金担保范围、特定费用优先级和双方确认程序仍需合同细化"
+              ],
+              "overrideable": true,
+              "confidence": "medium",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_deposit_offset_order_default",
+              "supplied_element_ids": [
+                "deposit_offset_basic_order"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "deposit_return_timing": {
+              "rule_id": "LEASE-DEFAULT-DEPOSIT-RETURN-TIMING",
+              "domain": "house_lease",
+              "proposition": "租赁期满承租人返还租赁物后，押金返还应结合费用结清、诚信履行和合同约定处理。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "租赁终止或期满",
+                "承租人交还房屋并结清费用"
+              ],
+              "authority_ids": [
+                "CN-CC-509",
+                "CN-CIVIL-CODE-733"
+              ],
+              "protection_scope": "《民法典》第509条、第733条提供诚信履行和租赁物返还后的基础结算规则，但不自动给出具体返还天数。",
+              "exceptions": [
+                "具体返还期限、账户、扣款异议期仍需合同明确"
+              ],
+              "overrideable": true,
+              "confidence": "medium",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_deposit_return_timing_default",
+              "supplied_element_ids": [
+                "deposit_return_after_handover_basic_rule"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "handover_evidence": {
+              "rule_id": "LEASE-DEFAULT-HANDOVER-RETURN-STATE",
+              "domain": "house_lease",
+              "proposition": "租赁期满承租人应返还租赁物，返还状态应符合约定或租赁物性质使用后的状态；双方仍应按诚信原则配合交接。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "租赁期满或终止",
+                "承租人返还房屋"
+              ],
+              "authority_ids": [
+                "CN-CC-509",
+                "CN-CIVIL-CODE-733"
+              ],
+              "protection_scope": "《民法典》第509条、第733条提供诚信协作和返还状态的基础规则，但不自动生成钥匙、表读数、照片视频等交接证据清单。",
+              "exceptions": [
+                "交接清单、照片视频、表读数和设施状态仍需合同或实际留痕证明"
+              ],
+              "overrideable": true,
+              "confidence": "medium",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_handover_return_state_default",
+              "supplied_element_ids": [
+                "return_state_basic_rule"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            }
+          },
+          "economic_ratio_keys": [],
+          "pack_id": "",
+          "parent_pack_ids": [],
+          "subject_matter": ""
+        }
+      },
+      "model_version": "deepseek",
+      "generated_at": "2026-09-18T20:36:00.483722"
+    },
+    "post_render_status": "REPORT_READY",
+    "report_generation_decision": {
+      "status": "GENERATED_WITH_QUALITY_WARNINGS",
+      "report_generated": true,
+      "fatal_rule_ids": [],
+      "quality_status": "BLOCKED",
+      "non_fatal_quality_rule_ids": [
+        "PASS_EVIDENCE_PROPOSITION_MATCH_GATE"
+      ]
+    },
+    "stale_cache_hit_verified": false
+  },
+  "party_b": {
+    "review_task_id": null,
+    "review_run_id": null,
+    "fact_snapshot_id": null,
+    "rule_result_version": null,
+    "report_version": null,
+    "gate_version": null,
+    "export_version": null,
+    "created_at": null,
+    "updated_at": null,
+    "trace_id": "CR-20260918-203607-969A22",
+    "gate_status": "BLOCKED",
+    "failures": [
+      {
+        "requirement": "PASS_EVIDENCE_PROPOSITION_MATCH_GATE",
+        "field": "review_evidence",
+        "failures": [
+          {
+            "review_id": "TC-08-05",
+            "status": "NO_DIRECT_EVIDENCE",
+            "repaired": false,
+            "primary_evidence_was_direct": false,
+            "coverage_propositions": [
+              "咨询报酬总额",
+              "咨询报酬支付节点和期限"
+            ],
+            "direct_evidence_ids": [],
+            "missing_element_ids": [
+              "consulting_fee_total",
+              "payment_milestones"
+            ],
+            "synthetic_proposition_only": false
+          }
+        ]
+      }
+    ],
+    "existing_fact_registry": {
+      "snapshot_id": "CFR-2FA3C60411BB",
+      "fact_registry_snapshot_id": "CFR-2FA3C60411BB",
+      "version": "contract-fact-graph-1.0",
+      "frozen": true
+    },
+    "static_engine_metadata": {
+      "system_version": "contract-review-quality-6.4",
+      "pipeline_version": "canonical-review-v2-production-6.4",
+      "classifier_version": "technical-transaction-classifier-v3-single-source",
+      "evaluator_version": "canonical-review-evaluator-6.4-single-classification",
+      "prompt_version": "review-v2-prompt-2026-08-11",
+      "fact_prompt_version": "fact-extraction-v2-2026-08-11",
+      "review_prompt_version": "review-v2-prompt-2026-08-11",
+      "verifier_prompt_version": "independent-verifier-deterministic-2026-08-11",
+      "risk_aggregation_prompt_version": "risk-aggregation-deterministic-2026-08-11",
+      "recommendation_prompt_version": "recommendation-aggregation-deterministic-2026-08-11",
+      "rule_version": "review-v2-rules-quality3-2026-08-11",
+      "legal_dataset_version": "cn-civil-code-minimal-2026-08-11",
+      "ontology_version": "risk-ontology-4.0-2026-08-11",
+      "quality4_version": "contract-review-quality-4.0-target-2026-08-11",
+      "benchmark_version": "quality6.4-final-convergence-2026-08-13",
+      "parser_version": "canonical-clause-parser-6.4",
+      "fact_schema_version": "contract-fact-graph-1.0",
+      "retrieval_version": "hybrid-retrieval-1.0",
+      "domain_pack_version": "domain-pack-sale-1.0",
+      "default_law_version": "sale-default-law-6.4",
+      "perspective_resolver_version": "perspective-resolver-6.7-freeze-1.3",
+      "effective_gap_engine_version": "effective-gap-6.7-freeze-1.0",
+      "recommendation_engine_version": "recommendation-impact-6.7-freeze-1.0",
+      "production_serializer_version": "production-semantic-display-6.7-freeze-1.0",
+      "confidence_version": "confidence-calibration-6.4",
+      "cross_type_generalization_stage": "CONVERGED",
+      "sale_historical_blind_001": "FROZEN_REGRESSION",
+      "sale_historical_blind_002": "FROZEN_REGRESSION",
+      "sale_historical_blind_003": "FROZEN_REGRESSION",
+      "sale_historical_blind_004": "FROZEN_REGRESSION",
+      "technology_cooperative_development": "FROZEN_REGRESSION",
+      "technology_technical_consulting": "FROZEN_REGRESSION",
+      "next_blind_case": "SALE-BLIND-005",
+      "next_blind_status": "READY",
+      "fact_graph_version": "contract-fact-graph-1.0",
+      "domain_packs": {
+        "shared": {
+          "contract_type": "shared",
+          "version": "domain-pack-shared-1.0",
+          "context_defaults": {
+            "jurisdiction": "CN",
+            "business_or_consumer": "unknown",
+            "bargaining_power": "unknown"
+          },
+          "default_law_nodes": {},
+          "default_law_rules": {},
+          "economic_ratio_keys": [
+            "contract_value_ratio",
+            "batch_value_ratio",
+            "unpaid_amount_ratio",
+            "advance_payment_ratio",
+            "replacement_cost_ratio",
+            "delay_loss_ratio"
+          ],
+          "pack_id": "",
+          "parent_pack_ids": [],
+          "subject_matter": ""
+        },
+        "sale": {
+          "contract_type": "sale",
+          "version": "domain-pack-sale-1.0",
+          "context_defaults": {
+            "contract_subtype": "GENERAL_GOODS_SALE",
+            "transaction_purpose": "goods_sale",
+            "usage_scenario": "GENERAL_GOODS_SALE",
+            "delivery_structure": "goods_delivery",
+            "payment_structure": "goods_price_payment"
+          },
+          "default_law_nodes": {
+            "sale_risk_transfer_delivery": "PARTIAL_DEFAULT",
+            "sale_risk_carrier_delivery": "PARTIAL_DEFAULT",
+            "sale_risk_buyer_delay_acceptance": "PARTIAL_DEFAULT",
+            "sale_inspection_period": "PARTIAL_DEFAULT",
+            "sale_quality_liability": "PARTIAL_DEFAULT",
+            "sale_third_party_rights": "PARTIAL_DEFAULT",
+            "sale_title_warranty": "PARTIAL_DEFAULT",
+            "sale_delay_performance": "PARTIAL_DEFAULT",
+            "sale_breach_damages": "PARTIAL_DEFAULT",
+            "sale_expectation_loss": "PARTIAL_DEFAULT",
+            "sale_termination": "PARTIAL_DEFAULT",
+            "common_force_majeure": "PARTIAL_DEFAULT"
+          },
+          "default_law_rules": {
+            "sale_risk_transfer_delivery": {
+              "rule_id": "SALE-DEFAULT-RISK-DELIVERY",
+              "domain": "sale",
+              "proposition": "标的物毁损、灭失风险原则上随交付转移，但合同约定和法定例外优先。",
+              "applicability_conditions": [
+                "买卖合同",
+                "未约定完整风险转移规则"
+              ],
+              "authority_ids": [
+                "CN-CC-604"
+              ],
+              "protection_scope": "提供一般交付场景的风险转移基准，不替代交付节点、验收方式和业务例外约定。",
+              "exceptions": [
+                "当事人另有约定",
+                "法律另有规定",
+                "出卖人原因导致不能按约交付"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_risk_carrier_delivery": {
+              "rule_id": "SALE-DEFAULT-RISK-CARRIER",
+              "domain": "sale",
+              "proposition": "需要运输且未约定交付地点时，风险通常在货交第一承运人后转移。",
+              "applicability_conditions": [
+                "买卖合同",
+                "交易需要运输",
+                "当事人未另行约定交付地点或风险节点"
+              ],
+              "authority_ids": [
+                "CN-CC-607"
+              ],
+              "protection_scope": "仅覆盖法定运输交付场景，不解决承运人选择、保险、包装和具体交接证据。",
+              "exceptions": [
+                "当事人约定交付地点或风险节点",
+                "出卖人未按约包装或交运"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_risk_buyer_delay_acceptance": {
+              "rule_id": "SALE-DEFAULT-DELAYED-ACCEPTANCE",
+              "domain": "sale",
+              "proposition": "买受人无正当理由拒绝或迟延受领时，增加的费用及相应风险依法分配。",
+              "applicability_conditions": [
+                "买卖合同",
+                "买受人迟延或拒绝受领"
+              ],
+              "authority_ids": [
+                "CN-CC-605",
+                "CN-CC-589"
+              ],
+              "protection_scope": "提供迟延受领后的基础责任规则，不替代催告、保管、费用计算和处置流程。",
+              "exceptions": [
+                "买受人有正当拒收理由",
+                "标的物不符合约定"
+              ],
+              "overrideable": true,
+              "confidence": "medium",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_inspection_period": {
+              "rule_id": "SALE-DEFAULT-INSPECTION",
+              "domain": "sale",
+              "proposition": "检验期限未约定或不明确时，买受人仍应在合理期限内检验并通知。",
+              "applicability_conditions": [
+                "买卖合同",
+                "检验期限缺失或不完整"
+              ],
+              "authority_ids": [
+                "CN-CC-620",
+                "CN-CC-621"
+              ],
+              "protection_scope": "提供合理期限和通知的法定补充，不确定具体商品所需检验时长及隐蔽瑕疵流程。",
+              "exceptions": [
+                "当事人约定检验期限",
+                "出卖人知道或应当知道标的物不符合约定"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_quality_liability": {
+              "rule_id": "SALE-DEFAULT-QUALITY-REMEDY",
+              "domain": "sale",
+              "proposition": "标的物不符合质量要求时，买受人可依法主张修理、重作、更换、退货、减价或赔偿。",
+              "applicability_conditions": [
+                "买卖合同",
+                "标的物不符合约定质量"
+              ],
+              "authority_ids": [
+                "CN-CC-582",
+                "CN-CC-617"
+              ],
+              "protection_scope": "提供法定质量救济类型，不替代异议期限、举证标准、操作程序和费用承担约定。",
+              "exceptions": [
+                "标的物性质或当事人约定限制特定救济方式"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_breach_damages": {
+              "rule_id": "SALE-DEFAULT-BREACH-DAMAGES",
+              "domain": "sale",
+              "proposition": "违约造成损失时，损失赔偿适用可预见性、减损和损益相抵等一般规则。",
+              "applicability_conditions": [
+                "合同违约",
+                "存在可证明损失"
+              ],
+              "authority_ids": [
+                "CN-CC-584",
+                "CN-CC-591"
+              ],
+              "protection_scope": "提供损害赔偿基础规则，不自动证明损失金额、因果关系或约定违约金合理性。",
+              "exceptions": [
+                "免责事由成立",
+                "损失不可预见或未履行减损义务"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_expectation_loss": {
+              "rule_id": "SALE-DEFAULT-EXPECTATION-LOSS",
+              "domain": "sale",
+              "proposition": "可得利益损失赔偿受订约时可预见性边界约束。",
+              "applicability_conditions": [
+                "合同违约",
+                "主张可得利益损失"
+              ],
+              "authority_ids": [
+                "CN-CC-584"
+              ],
+              "protection_scope": "现行法律提供可得利益赔偿及可预见性边界，但不替代损失金额、因果关系和证明责任。",
+              "exceptions": [
+                "损失不具有可预见性",
+                "损失或因果关系无法证明"
+              ],
+              "overrideable": false,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "legal.damages.foreseeability_limit",
+              "supplied_element_ids": [
+                "foreseeability_limit"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_termination": {
+              "rule_id": "SALE-DEFAULT-TERMINATION",
+              "domain": "sale",
+              "proposition": "达到法定或约定解除条件时，当事人可依法通知解除并进行清算。",
+              "applicability_conditions": [
+                "合同目的不能实现或其他解除事由",
+                "依法履行通知程序"
+              ],
+              "authority_ids": [
+                "CN-CC-563",
+                "CN-CC-565"
+              ],
+              "protection_scope": "提供法定解除事由和通知框架，不替代合同中的宽限期、证据、返还和结算流程。",
+              "exceptions": [
+                "不具备法定或约定解除事由",
+                "解除通知未有效到达"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            }
+          },
+          "economic_ratio_keys": [
+            "contract_value_ratio",
+            "batch_value_ratio",
+            "unpaid_amount_ratio",
+            "advance_payment_ratio",
+            "replacement_cost_ratio",
+            "delay_loss_ratio"
+          ],
+          "pack_id": "",
+          "parent_pack_ids": [],
+          "subject_matter": ""
+        },
+        "sale_framework_supply": {
+          "contract_type": "sale",
+          "version": "domain-pack-sale-framework-supply-1.0",
+          "context_defaults": {
+            "contract_subtype": "FRAMEWORK_SUPPLY",
+            "transaction_purpose": "goods_sale",
+            "usage_scenario": "LONG_TERM_INDUSTRIAL_SUPPLY",
+            "delivery_structure": "order_driven_recurring_delivery",
+            "payment_structure": "periodic_reconciliation_settlement"
+          },
+          "default_law_nodes": {
+            "sale_risk_transfer_delivery": "PARTIAL_DEFAULT",
+            "sale_risk_carrier_delivery": "PARTIAL_DEFAULT",
+            "sale_risk_buyer_delay_acceptance": "PARTIAL_DEFAULT",
+            "sale_inspection_period": "PARTIAL_DEFAULT",
+            "sale_quality_liability": "PARTIAL_DEFAULT",
+            "sale_third_party_rights": "PARTIAL_DEFAULT",
+            "sale_title_warranty": "PARTIAL_DEFAULT",
+            "sale_delay_performance": "PARTIAL_DEFAULT",
+            "sale_breach_damages": "PARTIAL_DEFAULT",
+            "sale_expectation_loss": "PARTIAL_DEFAULT",
+            "sale_termination": "PARTIAL_DEFAULT",
+            "common_force_majeure": "PARTIAL_DEFAULT"
+          },
+          "default_law_rules": {
+            "sale_risk_transfer_delivery": {
+              "rule_id": "SALE-DEFAULT-RISK-DELIVERY",
+              "domain": "sale",
+              "proposition": "标的物毁损、灭失风险原则上随交付转移，但合同约定和法定例外优先。",
+              "applicability_conditions": [
+                "买卖合同",
+                "未约定完整风险转移规则"
+              ],
+              "authority_ids": [
+                "CN-CC-604"
+              ],
+              "protection_scope": "提供一般交付场景的风险转移基准，不替代交付节点、验收方式和业务例外约定。",
+              "exceptions": [
+                "当事人另有约定",
+                "法律另有规定",
+                "出卖人原因导致不能按约交付"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_risk_carrier_delivery": {
+              "rule_id": "SALE-DEFAULT-RISK-CARRIER",
+              "domain": "sale",
+              "proposition": "需要运输且未约定交付地点时，风险通常在货交第一承运人后转移。",
+              "applicability_conditions": [
+                "买卖合同",
+                "交易需要运输",
+                "当事人未另行约定交付地点或风险节点"
+              ],
+              "authority_ids": [
+                "CN-CC-607"
+              ],
+              "protection_scope": "仅覆盖法定运输交付场景，不解决承运人选择、保险、包装和具体交接证据。",
+              "exceptions": [
+                "当事人约定交付地点或风险节点",
+                "出卖人未按约包装或交运"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_risk_buyer_delay_acceptance": {
+              "rule_id": "SALE-DEFAULT-DELAYED-ACCEPTANCE",
+              "domain": "sale",
+              "proposition": "买受人无正当理由拒绝或迟延受领时，增加的费用及相应风险依法分配。",
+              "applicability_conditions": [
+                "买卖合同",
+                "买受人迟延或拒绝受领"
+              ],
+              "authority_ids": [
+                "CN-CC-605",
+                "CN-CC-589"
+              ],
+              "protection_scope": "提供迟延受领后的基础责任规则，不替代催告、保管、费用计算和处置流程。",
+              "exceptions": [
+                "买受人有正当拒收理由",
+                "标的物不符合约定"
+              ],
+              "overrideable": true,
+              "confidence": "medium",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_inspection_period": {
+              "rule_id": "SALE-DEFAULT-INSPECTION",
+              "domain": "sale",
+              "proposition": "检验期限未约定或不明确时，买受人仍应在合理期限内检验并通知。",
+              "applicability_conditions": [
+                "买卖合同",
+                "检验期限缺失或不完整"
+              ],
+              "authority_ids": [
+                "CN-CC-620",
+                "CN-CC-621"
+              ],
+              "protection_scope": "提供合理期限和通知的法定补充，不确定具体商品所需检验时长及隐蔽瑕疵流程。",
+              "exceptions": [
+                "当事人约定检验期限",
+                "出卖人知道或应当知道标的物不符合约定"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_quality_liability": {
+              "rule_id": "SALE-DEFAULT-QUALITY-REMEDY",
+              "domain": "sale",
+              "proposition": "标的物不符合质量要求时，买受人可依法主张修理、重作、更换、退货、减价或赔偿。",
+              "applicability_conditions": [
+                "买卖合同",
+                "标的物不符合约定质量"
+              ],
+              "authority_ids": [
+                "CN-CC-582",
+                "CN-CC-617"
+              ],
+              "protection_scope": "提供法定质量救济类型，不替代异议期限、举证标准、操作程序和费用承担约定。",
+              "exceptions": [
+                "标的物性质或当事人约定限制特定救济方式"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_breach_damages": {
+              "rule_id": "SALE-DEFAULT-BREACH-DAMAGES",
+              "domain": "sale",
+              "proposition": "违约造成损失时，损失赔偿适用可预见性、减损和损益相抵等一般规则。",
+              "applicability_conditions": [
+                "合同违约",
+                "存在可证明损失"
+              ],
+              "authority_ids": [
+                "CN-CC-584",
+                "CN-CC-591"
+              ],
+              "protection_scope": "提供损害赔偿基础规则，不自动证明损失金额、因果关系或约定违约金合理性。",
+              "exceptions": [
+                "免责事由成立",
+                "损失不可预见或未履行减损义务"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_expectation_loss": {
+              "rule_id": "SALE-DEFAULT-EXPECTATION-LOSS",
+              "domain": "sale",
+              "proposition": "可得利益损失赔偿受订约时可预见性边界约束。",
+              "applicability_conditions": [
+                "合同违约",
+                "主张可得利益损失"
+              ],
+              "authority_ids": [
+                "CN-CC-584"
+              ],
+              "protection_scope": "现行法律提供可得利益赔偿及可预见性边界，但不替代损失金额、因果关系和证明责任。",
+              "exceptions": [
+                "损失不具有可预见性",
+                "损失或因果关系无法证明"
+              ],
+              "overrideable": false,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "legal.damages.foreseeability_limit",
+              "supplied_element_ids": [
+                "foreseeability_limit"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "sale_termination": {
+              "rule_id": "SALE-DEFAULT-TERMINATION",
+              "domain": "sale",
+              "proposition": "达到法定或约定解除条件时，当事人可依法通知解除并进行清算。",
+              "applicability_conditions": [
+                "合同目的不能实现或其他解除事由",
+                "依法履行通知程序"
+              ],
+              "authority_ids": [
+                "CN-CC-563",
+                "CN-CC-565"
+              ],
+              "protection_scope": "提供法定解除事由和通知框架，不替代合同中的宽限期、证据、返还和结算流程。",
+              "exceptions": [
+                "不具备法定或约定解除事由",
+                "解除通知未有效到达"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "",
+              "supplied_element_ids": [],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            }
+          },
+          "economic_ratio_keys": [
+            "contract_value_ratio",
+            "batch_value_ratio",
+            "unpaid_amount_ratio",
+            "advance_payment_ratio",
+            "replacement_cost_ratio",
+            "delay_loss_ratio"
+          ],
+          "pack_id": "sale/goods/framework_supply",
+          "parent_pack_ids": [
+            "shared",
+            "sale/common",
+            "sale/goods/general"
+          ],
+          "subject_matter": "GOODS"
+        },
+        "house_lease": {
+          "contract_type": "house_lease",
+          "version": "domain-pack-house-lease-1.0",
+          "context_defaults": {
+            "contract_subtype": "RESIDENTIAL_LEASE",
+            "transaction_purpose": "residential_lease",
+            "usage_scenario": "residential_living",
+            "payment_structure": "rent_payment"
+          },
+          "default_law_nodes": {
+            "owner_change_no_break_lease": "CLEAR_DEFAULT",
+            "lease_before_sale": "CLEAR_DEFAULT",
+            "normal_wear": "CLEAR_DEFAULT",
+            "tenant_death_successor": "CLEAR_DEFAULT",
+            "lessor_death": "CLEAR_DEFAULT",
+            "indefinite_lease": "CLEAR_DEFAULT",
+            "force_majeure": "PARTIAL_DEFAULT",
+            "changed_circumstances": "PARTIAL_DEFAULT",
+            "pre_delivery_defect": "PARTIAL_DEFAULT",
+            "third_party_tort": "PARTIAL_DEFAULT",
+            "third_party_defect": "PARTIAL_DEFAULT",
+            "housing_safety_emergency": "PARTIAL_DEFAULT",
+            "reasonable_repair_cost": "PARTIAL_DEFAULT",
+            "excessive_deduction": "CLEAR_DEFAULT",
+            "handover_evidence": "PARTIAL_DEFAULT",
+            "deposit_return_timing": "PARTIAL_DEFAULT",
+            "deposit_offset_order": "PARTIAL_DEFAULT",
+            "property_damage_deposit_evidence": "PARTIAL_DEFAULT"
+          },
+          "default_law_rules": {
+            "lease_before_sale": {
+              "rule_id": "LEASE-DEFAULT-SALE-NO-BREAK",
+              "domain": "house_lease",
+              "proposition": "租赁期间租赁物所有权发生变动的，不影响租赁合同效力。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "承租人按租赁合同占有使用期间",
+                "租赁物所有权发生变动"
+              ],
+              "authority_ids": [
+                "CN-CIVIL-CODE-725"
+              ],
+              "protection_scope": "《民法典》第725条提供买卖不破租赁的法定承继保护，所有权变动不影响租赁合同效力。",
+              "exceptions": [
+                "当事人另有有效约定",
+                "承租人未依租赁合同占有租赁物",
+                "法律另有特别规定"
+              ],
+              "overrideable": false,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "lease_ownership_change_no_break",
+              "supplied_element_ids": [
+                "core_contract_arrangement"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "indefinite_lease": {
+              "rule_id": "LEASE-DEFAULT-INDEFINITE-LEASE",
+              "domain": "house_lease",
+              "proposition": "租赁期限届满后承租人继续使用租赁物，出租人没有提出异议的，原租赁合同继续有效但租赁期限转为不定期；不定期租赁解除应在合理期限前通知。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "租赁期限届满",
+                "承租人继续使用",
+                "出租人未提出异议或继续收租"
+              ],
+              "authority_ids": [
+                "CN-CIVIL-CODE-734",
+                "CN-CIVIL-CODE-730"
+              ],
+              "protection_scope": "《民法典》第734条、第730条提供期满继续使用转不定期租赁及合理期限通知解除的法定规则。",
+              "exceptions": [
+                "当事人另有有效约定",
+                "出租人及时提出异议",
+                "租赁关系因其他法定或约定事由终止"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "lease_post_expiry_indefinite_default",
+              "supplied_element_ids": [
+                "post_expiry_continue_use",
+                "no_objection_or_rent_acceptance",
+                "reasonable_notice"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "excessive_deduction": {
+              "rule_id": "LEASE-DEFAULT-LIQUIDATED-DAMAGES-ADJUSTMENT",
+              "domain": "house_lease",
+              "proposition": "约定违约金低于或过分高于造成损失的，当事人可以依法请求增加或适当减少。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "合同约定押金扣款、违约金或赔偿金额",
+                "金额与实际损失存在明显偏离争议"
+              ],
+              "authority_ids": [
+                "CN-CIVIL-CODE-585"
+              ],
+              "protection_scope": "《民法典》第585条提供违约金过高或过低时请求司法调整的救济，合同未写明不等于当然无法调整。",
+              "exceptions": [
+                "不存在约定违约金或约定赔偿额",
+                "当事人未依法主张调整",
+                "法院或仲裁机构结合损失、履行情况和过错程度裁量后不予调整"
+              ],
+              "overrideable": false,
+              "confidence": "high",
+              "status": "CLEAR_DEFAULT",
+              "proposition_id": "lease_liquidated_damages_judicial_adjustment",
+              "supplied_element_ids": [
+                "adjustment"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "reasonable_repair_cost": {
+              "rule_id": "LEASE-DEFAULT-REPAIR-COST-ADJUSTMENT",
+              "domain": "house_lease",
+              "proposition": "押金扣款、违约金或约定赔偿额明显偏离实际损失时，当事人可以依法请求调整；该规则不替代维修事实和实际发生金额的证明。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "发生维修费、押金扣款或赔偿金额争议",
+                "约定金额与实际损失存在明显偏离"
+              ],
+              "authority_ids": [
+                "CN-CIVIL-CODE-585"
+              ],
+              "protection_scope": "《民法典》第585条提供约定违约金或赔偿额明显偏离损失时的调整救济，但维修费用是否必要、合理、实际发生仍需证据证明。",
+              "exceptions": [
+                "没有约定违约金或约定赔偿额",
+                "维修事实、原因和金额仍需由主张方举证",
+                "法院或仲裁机构结合个案裁量"
+              ],
+              "overrideable": false,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_repair_cost_reasonableness_statutory_relief",
+              "supplied_element_ids": [
+                "liquidated_damages_adjustment_remedy"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "force_majeure": {
+              "rule_id": "LEASE-DEFAULT-FORCE-MAJEURE",
+              "domain": "house_lease",
+              "proposition": "不可抗力导致合同目的不能实现或影响履行时，可适用法定解除、免责或责任减轻规则。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "发生不可抗力",
+                "不可抗力影响房屋使用或合同履行"
+              ],
+              "authority_ids": [
+                "CN-CC-563",
+                "CN-CIVIL-CODE-590"
+              ],
+              "protection_scope": "《民法典》第563条、第590条提供不可抗力导致合同目的不能实现时的解除及责任减免规则。",
+              "exceptions": [
+                "不可抗力与不能履行无因果关系",
+                "迟延履行后发生不可抗力",
+                "通知、证明、租金结算等操作事项仍需事实证明"
+              ],
+              "overrideable": false,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_force_majeure_statutory_relief",
+              "supplied_element_ids": [
+                "force_majeure_statutory_relief"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "changed_circumstances": {
+              "rule_id": "LEASE-DEFAULT-CHANGE-OF-CIRCUMSTANCES",
+              "domain": "house_lease",
+              "proposition": "合同基础条件发生订约时无法预见且非商业风险的重大变化，继续履行明显不公平的，受不利影响方可以重新协商；合理期限内协商不成，可请求法院或仲裁机构变更或解除合同。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "合同基础条件发生重大变化",
+                "继续履行明显不公平"
+              ],
+              "authority_ids": [
+                "CN-CIVIL-CODE-533"
+              ],
+              "protection_scope": "《民法典》第533条提供情势变更时重新协商，以及合理期限内协商不成时请求人民法院或仲裁机构变更、解除合同的法定救济；合同仍可明确协商流程、通知方式及期限。",
+              "exceptions": [
+                "属于正常商业风险",
+                "变化可预见或已由合同分配",
+                "需结合个案事实及司法裁量"
+              ],
+              "overrideable": false,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_change_of_circumstances_judicial_relief",
+              "supplied_element_ids": [
+                "core_contract_arrangement"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "pre_delivery_defect": {
+              "rule_id": "LEASE-DEFAULT-FITNESS-AND-REPAIR",
+              "domain": "house_lease",
+              "proposition": "出租人应按约交付租赁物并在租赁期限内保持租赁物符合约定用途，承租人可要求维修或依法处理。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "交付前或租期内存在影响使用的瑕疵"
+              ],
+              "authority_ids": [
+                "CN-CIVIL-CODE-708",
+                "CN-CIVIL-CODE-713"
+              ],
+              "protection_scope": "《民法典》第708条、第713条提供出租人适租交付和维修义务的基础规则。",
+              "exceptions": [
+                "瑕疵由承租人造成",
+                "双方依法另有有效约定",
+                "瑕疵披露、交接记录和减租结算仍需合同或证据明确"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_fitness_repair_default",
+              "supplied_element_ids": [
+                "lessor_fitness_and_repair_obligation"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "third_party_tort": {
+              "rule_id": "LEASE-DEFAULT-THIRD-PARTY-TORT-REMEDY",
+              "domain": "house_lease",
+              "proposition": "第三人侵害租赁物或影响使用时，受损方可依据侵权责任规则向责任方主张权利。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "第三方行为影响房屋使用或造成损坏"
+              ],
+              "authority_ids": [
+                "CN-CIVIL-CODE-1165"
+              ],
+              "protection_scope": "侵权责任法定规则提供向实际责任第三方追责的基础救济。",
+              "exceptions": [
+                "第三方责任主体、过错、因果关系和损失范围需另行证明",
+                "出租人与承租人之间的协助、押金和减租流程仍需合同明确"
+              ],
+              "overrideable": false,
+              "confidence": "medium",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_third_party_tort_remedy",
+              "supplied_element_ids": [
+                "third_party_tort_remedy"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "third_party_defect": {
+              "rule_id": "LEASE-DEFAULT-THIRD-PARTY-USE-IMPAIRMENT",
+              "domain": "house_lease",
+              "proposition": "第三方原因影响房屋正常使用时，可结合出租人适租义务、维修义务及侵权责任规则处理。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "第三方原因影响房屋使用"
+              ],
+              "authority_ids": [
+                "CN-CIVIL-CODE-708",
+                "CN-CIVIL-CODE-713",
+                "CN-CIVIL-CODE-1165"
+              ],
+              "protection_scope": "《民法典》第708条、第713条及侵权责任规则提供适租、维修和向责任第三方追责的基础救济。",
+              "exceptions": [
+                "影响程度、减租比例、报修协助和追偿证据仍需事实证明或合同细化"
+              ],
+              "overrideable": true,
+              "confidence": "medium",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_third_party_use_impairment_relief",
+              "supplied_element_ids": [
+                "third_party_use_impairment_relief"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "housing_safety_emergency": {
+              "rule_id": "LEASE-DEFAULT-SAFETY-USE-RELIEF",
+              "domain": "house_lease",
+              "proposition": "租赁房屋不符合约定用途或存在严重安全风险时，承租人可结合出租人维修义务和法定解除规则获得救济。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "房屋存在严重安全隐患或无法正常使用"
+              ],
+              "authority_ids": [
+                "CN-CIVIL-CODE-708",
+                "CN-CIVIL-CODE-713",
+                "CN-CC-563"
+              ],
+              "protection_scope": "《民法典》第708条、第713条、第563条提供适租维修和合同目的不能实现时解除的基础规则。",
+              "exceptions": [
+                "安全风险、影响程度、搬离费用和结算节点仍需证据及合同流程明确"
+              ],
+              "overrideable": true,
+              "confidence": "medium",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_safety_risk_statutory_relief",
+              "supplied_element_ids": [
+                "safety_risk_statutory_relief"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "property_damage_deposit_evidence": {
+              "rule_id": "LEASE-DEFAULT-DAMAGE-DEPOSIT-EVIDENCE",
+              "domain": "house_lease",
+              "proposition": "承租人应妥善保管租赁物，按约定或租赁物性质使用造成的正常损耗不承担赔偿；主张损坏扣款仍需证明损坏事实、原因和金额。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "存在房屋损坏或押金扣款争议"
+              ],
+              "authority_ids": [
+                "CN-CIVIL-CODE-710",
+                "CN-CIVIL-CODE-714"
+              ],
+              "protection_scope": "《民法典》第710条、第714条提供正常损耗排除和承租人保管责任的基础规则；损坏事实、原因和金额仍需证据证明。",
+              "exceptions": [
+                "交接清单、照片视频、维修单据和扣款顺序仍需合同或证据细化",
+                "具体损坏原因和金额需个案证明"
+              ],
+              "overrideable": true,
+              "confidence": "high",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_damage_deposit_evidence_default",
+              "supplied_element_ids": [
+                "normal_wear_exclusion",
+                "tenant_custody_liability"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "deposit_offset_order": {
+              "rule_id": "LEASE-DEFAULT-DEPOSIT-OFFSET-ORDER",
+              "domain": "house_lease",
+              "proposition": "押金抵扣可参照债务履行、抵充顺序和诚实信用规则处理，但具体租金、代垫费用、维修费的业务顺序仍宜合同明确。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "存在多项费用需以押金抵扣"
+              ],
+              "authority_ids": [
+                "CN-CC-509",
+                "CN-CC-561"
+              ],
+              "protection_scope": "《民法典》第509条、第561条提供诚信履行和债务抵充的基础规则，可部分补足押金抵扣顺序争议。",
+              "exceptions": [
+                "押金担保范围、特定费用优先级和双方确认程序仍需合同细化"
+              ],
+              "overrideable": true,
+              "confidence": "medium",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_deposit_offset_order_default",
+              "supplied_element_ids": [
+                "deposit_offset_basic_order"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "deposit_return_timing": {
+              "rule_id": "LEASE-DEFAULT-DEPOSIT-RETURN-TIMING",
+              "domain": "house_lease",
+              "proposition": "租赁期满承租人返还租赁物后，押金返还应结合费用结清、诚信履行和合同约定处理。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "租赁终止或期满",
+                "承租人交还房屋并结清费用"
+              ],
+              "authority_ids": [
+                "CN-CC-509",
+                "CN-CIVIL-CODE-733"
+              ],
+              "protection_scope": "《民法典》第509条、第733条提供诚信履行和租赁物返还后的基础结算规则，但不自动给出具体返还天数。",
+              "exceptions": [
+                "具体返还期限、账户、扣款异议期仍需合同明确"
+              ],
+              "overrideable": true,
+              "confidence": "medium",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_deposit_return_timing_default",
+              "supplied_element_ids": [
+                "deposit_return_after_handover_basic_rule"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            },
+            "handover_evidence": {
+              "rule_id": "LEASE-DEFAULT-HANDOVER-RETURN-STATE",
+              "domain": "house_lease",
+              "proposition": "租赁期满承租人应返还租赁物，返还状态应符合约定或租赁物性质使用后的状态；双方仍应按诚信原则配合交接。",
+              "applicability_conditions": [
+                "房屋租赁合同",
+                "租赁期满或终止",
+                "承租人返还房屋"
+              ],
+              "authority_ids": [
+                "CN-CC-509",
+                "CN-CIVIL-CODE-733"
+              ],
+              "protection_scope": "《民法典》第509条、第733条提供诚信协作和返还状态的基础规则，但不自动生成钥匙、表读数、照片视频等交接证据清单。",
+              "exceptions": [
+                "交接清单、照片视频、表读数和设施状态仍需合同或实际留痕证明"
+              ],
+              "overrideable": true,
+              "confidence": "medium",
+              "status": "PARTIAL_DEFAULT",
+              "proposition_id": "lease_handover_return_state_default",
+              "supplied_element_ids": [
+                "return_state_basic_rule"
+              ],
+              "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+            }
+          },
+          "economic_ratio_keys": [],
+          "pack_id": "",
+          "parent_pack_ids": [],
+          "subject_matter": ""
+        }
+      },
+      "model_version": "deepseek",
+      "generated_at": "2026-09-18T20:36:19.502911"
+    },
+    "post_render_status": "REPORT_READY",
+    "report_generation_decision": {
+      "status": "GENERATED_WITH_QUALITY_WARNINGS",
+      "report_generated": true,
+      "fatal_rule_ids": [],
+      "quality_status": "BLOCKED",
+      "non_fatal_quality_rule_ids": [
+        "PASS_EVIDENCE_PROPOSITION_MATCH_GATE"
+      ]
+    },
+    "stale_cache_hit_verified": false
+  }
+}

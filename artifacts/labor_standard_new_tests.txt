@@ -1,0 +1,34 @@
+..............F                                                          [100%]
+================================== FAILURES ===================================
+______________________ test_standard_docx_full_pipeline _______________________
+
+    def test_standard_docx_full_pipeline():
+        from layers.input_layer import InputLayer
+        from starlette.datastructures import UploadFile
+        source = Path(__file__).resolve().parents[2] / 'test_data/61 劳动合同.docx'
+        with source.open('rb') as stream:
+            text = InputLayer().extract_text_from_file(UploadFile(filename=source.name, file=stream))
+        result = review(text)
+        assert len(result['items']) == 19
+        assert result['release_quality_gate']['status'] == 'REPORT_READY'
+        assert not result['release_quality_gate']['failures']
+        for rule in ['EMP-01-01', 'EMP-03-01', 'EMP-04-01', 'EMP-05-01', 'EMP-06-01', 'EMP-07-01', 'EMP-08-01', 'EMP-13-01', 'EMP-14-01', 'EMP-15-01', 'EMP-16-01']:
+            assert item(result, rule)['coverage_status'] == '通过'
+        for rule in ['EMP-09-01', 'NC-01-01', 'NC-02-01', 'NC-03-01']:
+            assert item(result, rule)['coverage_status'] == '不适用'
+        assert item(result, 'EMP-11-01')['coverage_status'] == '部分覆盖'
+        assert '运输损坏' not in result['result']
+>       assert not any(f['risk_severity'] == 'HIGH' for f in result['risk_findings'])
+
+backend\tests\test_employment_standard_contract.py:85: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = <list_iterator object at 0x0000017E233CA1D0>
+
+>   assert not any(f['risk_severity'] == 'HIGH' for f in result['risk_findings'])
+E   KeyError: 'risk_severity'
+
+backend\tests\test_employment_standard_contract.py:85: KeyError
+=========================== short test summary info ===========================
+FAILED backend/tests/test_employment_standard_contract.py::test_standard_docx_full_pipeline
+1 failed, 14 passed, 5 warnings in 12.23s

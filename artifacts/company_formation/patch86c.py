@@ -1,0 +1,7 @@
+from pathlib import Path
+p=Path('backend/review_v2/priority_contract_review.py');s=p.read_text(encoding='utf-8');s=s.replace("    extra = evidence(node, clauses)\n    if extra:\n        return extra\n    if node in {'formation_governance'", "    extra = evidence(node, clauses)\n    if extra and node not in {'formation_governance','formation_capital_increase','equity_governance'}:\n        return extra\n    if node in {'formation_governance'",1)
+s=s.replace("return governance_evidence('formation_governance' if node == 'equity_governance' else node, clauses)", "return extra + governance_evidence('formation_governance' if node == 'equity_governance' else node, clauses)")
+s=s.replace("    from review_v2.nda_semantics import apply_scenario", "    from review_v2.shareholder_transaction_facts import attach_source_assertions\n    attach_source_assertions(items, clauses)\n    from review_v2.nda_semantics import apply_scenario",1);p.write_text(s,encoding='utf-8')
+p=Path('backend/review_v2/lease_semantics.py');s=p.read_text(encoding='utf-8').replace("    failures, shared = [], {}", "    from review_v2.shareholder_transaction_facts import source_consistency_failures\n    failures, shared = source_consistency_failures(items), {}",1);p.write_text(s,encoding='utf-8')
+p=Path('backend/review_v2/company_formation_checklist.py');s=p.read_text(encoding='utf-8');s += "\nPROFILES['formation_contributions'][1]['semantic_patterns'] += (r'(?:作价|折价|估价)[^。\\n]{0,60}出资',)\n"
+p.write_text(s,encoding='utf-8')

@@ -10,6 +10,22 @@ from typing import Any, Dict, List
 PERSPECTIVE_RESOLVER_VERSION = "perspective-resolver-6.7-freeze-1.3"
 
 ROLE_COMPATIBILITY = {
+    "WORK_CONTRACT": ("WORK_CUSTOMER", "WORK_CONTRACTOR"),
+    "TRANSPORTATION": ("CONSIGNOR", "CARRIER", "CONSIGNEE"),
+    "GIFT": ("DONOR", "DONEE"),
+    "DEPOSIT": ("DEPOSITOR", "CUSTODIAN"),
+    "AGENCY": ("PRINCIPAL", "AGENT"),
+    "LOAN": ("BORROWER", "LENDER"),
+    "GUARANTEE": ("GUARANTOR", "CREDITOR"),
+    "FINANCE_LEASE": ("LESSEE", "LESSOR"),
+    "WAREHOUSE": ("WAREHOUSE_DEPOSITOR", "CUSTODIAN"),
+    "CONSTRUCTION": ("EMPLOYER", "CONTRACTOR"),
+    "COMMISSION_AGENCY": ("PRINCIPAL", "COMMISSION_AGENT"),
+    "UTILITY_SUPPLY": ("UTILITY_USER", "UTILITY_SUPPLIER"),
+    "BROKERAGE": ("PRINCIPAL", "BROKER"),
+    "EMPLOYMENT": ("EMPLOYMENT_PARTY", "LABOR_EMPLOYER", "WORKER", "INFORMATION_DISCLOSER", "INFORMATION_RECIPIENT"),
+    "SECURITY_PROPERTY": ("SECURITY_PARTY", "SECURITY_PROVIDER", "SECURED_CREDITOR"),
+    "EQUITY_INVESTMENT": ("EQUITY_PARTY", "INVESTOR", "EQUITY_TRANSFEROR", "EQUITY_TRANSFEREE", "SHAREHOLDER", "TARGET_COMPANY"),
     "SALE": ("BUYER", "SELLER"),
     "HOUSE_LEASE": ("LESSOR", "LESSEE"),
     "LEASE": ("LESSOR", "LESSEE"),
@@ -22,14 +38,35 @@ ROLE_COMPATIBILITY = {
 }
 
 DISPLAY_ROLES = {
+    "WORK_CUSTOMER": "定作方", "WORK_CONTRACTOR": "承揽方",
+    "CONSIGNOR": "托运人", "CARRIER": "承运人", "CONSIGNEE": "收货人",
+    "DONOR": "赠与人", "DONEE": "受赠人", "DEPOSITOR": "寄存人", "CUSTODIAN": "保管人",
+    "PRINCIPAL": "委托人", "AGENT": "受托人", "BORROWER": "借款人", "LENDER": "贷款人",
+    "GUARANTOR": "保证人", "CREDITOR": "债权人", "WAREHOUSE_DEPOSITOR": "存货人",
+    "COMMISSION_AGENT": "行纪人", "UTILITY_USER": "用能人", "UTILITY_SUPPLIER": "供能人",
+    "BROKER": "中介人",
+    "EMPLOYMENT_PARTY": "协议当事人",
+    "LABOR_EMPLOYER": "用人单位",
+    "WORKER": "劳动者",
+    "INFORMATION_DISCLOSER": "信息披露方",
+    "INFORMATION_RECIPIENT": "信息接收方",
+    "SECURITY_PARTY": "担保合同当事人",
+    "SECURITY_PROVIDER": "抵押人 / 出质人",
+    "SECURED_CREDITOR": "抵押权人 / 质权人",
+    "EQUITY_PARTY": "股权协议当事人",
+    "INVESTOR": "投资方",
+    "EQUITY_TRANSFEROR": "股权转让方",
+    "EQUITY_TRANSFEREE": "股权受让方",
+    "SHAREHOLDER": "股东",
+    "TARGET_COMPANY": "目标公司",
     "BUYER": "买方 / 需方",
     "SELLER": "卖方 / 供方",
     "LESSOR": "出租人",
     "LESSEE": "承租人",
     "SERVICE_PROVIDER": "服务提供方",
     "SERVICE_RECIPIENT": "服务接受方",
-    "PATENT_TRANSFEREE": "甲方 / 专利权受让方",
-    "PATENT_TRANSFEROR": "乙方 / 专利权让与方",
+    "PATENT_TRANSFEREE": "专利权受让方",
+    "PATENT_TRANSFEROR": "专利权让与方",
     "PATENT_LICENSEE": "被许可方 / 付款方",
     "PATENT_LICENSOR": "许可方",
     "COOPERATIVE_DEVELOPER": "合作开发方",
@@ -204,6 +241,8 @@ def _contract_defined_role(contract_text: str, party_side: str, contract_subtype
         )
     else:
         mappings = tuple()
+    # A longer declared role (e.g. 被许可方) cannot match its suffix 许可方.
+    mappings = tuple(sorted(mappings, key=lambda row: max(map(len, row[0])), reverse=True))
     for aliases, role in mappings:
         if any(alias in label for alias in aliases):
             return role, label
@@ -213,8 +252,8 @@ def _contract_defined_role(contract_text: str, party_side: str, contract_subtype
 def _compatible_roles(contract_family: str, contract_subtype: str) -> tuple[str, ...]:
     family = (contract_family or "").upper()
     if family == "TECHNOLOGY":
-        return _technology_subtype_roles(contract_subtype)
-    return ROLE_COMPATIBILITY.get(family, ("OTHER",))
+        return (*_technology_subtype_roles(contract_subtype), "OTHER")
+    return tuple(dict.fromkeys((*ROLE_COMPATIBILITY.get(family, ()), "OTHER")))
 
 
 def resolve_perspective(
@@ -228,6 +267,19 @@ def resolve_perspective(
     subtype = (contract_subtype or "").upper()
     compatible = _compatible_roles(family, subtype)
     candidates = _candidate_roles(requested_role)
+    # Exact catalog roles and their party-qualified labels are valid only in
+    # the resolved family. Do not silently discard work/transport roles.
+    candidates = [role for role in compatible if DISPLAY_ROLES.get(role, "\0") in requested_role] + candidates
+    if family in {"EMPLOYMENT", "SECURITY_PROPERTY", "EQUITY_INVESTMENT"}:
+        specific_aliases = {
+            "LABOR_EMPLOYER": ("用人单位", "雇主"), "WORKER": ("劳动者", "员工"),
+            "INFORMATION_DISCLOSER": ("披露方",), "INFORMATION_RECIPIENT": ("接收方",),
+            "SECURED_CREDITOR": ("抵押权人", "质权人", "债权人"), "SECURITY_PROVIDER": ("抵押人", "出质人"),
+            "INVESTOR": ("投资方",), "EQUITY_TRANSFEROR": ("转让方",), "EQUITY_TRANSFEREE": ("受让方",),
+            "SHAREHOLDER": ("股东",), "TARGET_COMPANY": ("目标公司", "融资方", "公司"),
+        }
+        candidates = [role for role, aliases in specific_aliases.items() if role in compatible and
+                      (role in requested_role.upper() or any(alias in requested_role for alias in aliases))] + candidates
     party_side = _requested_party_side(requested_role)
     contract_defined_role, contract_defined_label = _contract_defined_role(
         contract_text, party_side, subtype,
@@ -267,6 +319,8 @@ def resolve_perspective(
         )
     if not accepted:
         accepted = compatible[0] if compatible else "OTHER"
+    if requested_role == "合同当事人":
+        accepted = "OTHER"
     rejected = [role for role in candidates if role != accepted]
     if previous and previous not in compatible and previous not in rejected:
         rejected.append(previous)
@@ -280,8 +334,14 @@ def resolve_perspective(
         reasons.append(f"Rejected incompatible carried roles: {', '.join(rejected)}.")
     reasons.append("Party identity is retained separately from the canonical transaction role.")
     display_role = DISPLAY_ROLES.get(accepted, DISPLAY_ROLES["OTHER"])
+    if accepted == "TARGET_COMPANY" and requested_role in {"融资方", "公司"}:
+        display_role = requested_role
+    elif family == "EQUITY_INVESTMENT" and requested_role in {"转让方", "受让方", "原股东"}:
+        display_role = requested_role
     review_party_label = "甲方" if party_side == "PARTY_A" else "乙方" if party_side == "PARTY_B" else ""
-    if accepted == "COOPERATIVE_DEVELOPER" and party_side in {"PARTY_A", "PARTY_B"}:
+    if accepted in {"PATENT_TRANSFEREE", "PATENT_TRANSFEROR"} and review_party_label:
+        display_role = f"{review_party_label} / {DISPLAY_ROLES[accepted]}"
+    elif accepted == "COOPERATIVE_DEVELOPER" and party_side in {"PARTY_A", "PARTY_B"}:
         display_role = f"{review_party_label} / 合作开发方"
     elif accepted in {"COMMISSIONING_PARTY", "DEVELOPMENT_CONTRACTOR"} and review_party_label:
         display_role = f"{review_party_label} / {DISPLAY_ROLES[accepted]}"

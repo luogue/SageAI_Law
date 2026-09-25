@@ -1,0 +1,702 @@
+{
+  "engine_hash": "80d032e5edc9be2c29882d1cd844194fd9fca26fc210572b3fe72554139f718f",
+  "original_blockers": [
+    {
+      "original_index": 1,
+      "original": {
+        "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+        "failure_stage": "Technology Coverage Consistency",
+        "root_cause": "TC-05-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+        "entity_type": "review",
+        "entity_id": "TC-05-02",
+        "source_clause_ids": [
+          "EV-6ae8439b051bb132"
+        ],
+        "severity": "blocking"
+      },
+      "expanded_count": 1,
+      "root_cause": "法定共有默认规则被标为合同正向事实；移至法律背景，未约定的合同要素保留检索审计。",
+      "remaining": []
+    },
+    {
+      "original_index": 2,
+      "original": {
+        "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+        "failure_stage": "Technology Coverage Consistency",
+        "root_cause": "TC-12-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+        "entity_type": "review",
+        "entity_id": "TC-12-02",
+        "source_clause_ids": [
+          "C0005",
+          "C0008"
+        ],
+        "severity": "blocking"
+      },
+      "expanded_count": 1,
+      "root_cause": "第三方组件候选未完整适配精确要素；后续聚合只认完整覆盖，漏掉部分事实。保留选择/说明及待协商费用，侵权责任缺项独立判断。",
+      "remaining": []
+    },
+    {
+      "original_index": 3,
+      "original": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "details": [
+          {
+            "risk_id": "RF-004",
+            "element_id": "statutory_default_use_and_transfer",
+            "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+            "rule_id": "TC-05-03",
+            "finding_id": "RF-004",
+            "fact_key": "statutory_default_use_and_transfer",
+            "fact_value": "法定默认规则允许各方自行使用和普通许可，并限制未经同意的转让权让与及独占、排他许可。",
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+            "binding_diagnostics": [
+              {
+                "rule_id": "TC-05-03",
+                "finding_id": "RF-004",
+                "fact_key": "statutory_default_use_and_transfer",
+                "fact_value": "法定默认规则允许各方自行使用和普通许可，并限制未经同意的转让权让与及独占、排他许可。",
+                "current_evidence_refs": [
+                  "EV-d24e50d2f271ce08",
+                  "EV-a0ccb55ad2168e4c"
+                ],
+                "current_supporting_evidence": [],
+                "report_evidence_id": null,
+                "support_target": [],
+                "source_type": null,
+                "conditions": {
+                  "published_element_evidence_exists": false
+                },
+                "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+              }
+            ]
+          },
+          {
+            "risk_id": "RF-003",
+            "element_id": "statutory_joint_application_right",
+            "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+            "rule_id": "TC-05-02",
+            "finding_id": "RF-003",
+            "fact_key": "statutory_joint_application_right",
+            "fact_value": "合作开发专利申请权的法定默认共有规则。",
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+            "binding_diagnostics": [
+              {
+                "rule_id": "TC-05-02",
+                "finding_id": "RF-003",
+                "fact_key": "statutory_joint_application_right",
+                "fact_value": "合作开发专利申请权的法定默认共有规则。",
+                "current_evidence_refs": [
+                  "EV-6ae8439b051bb132"
+                ],
+                "current_supporting_evidence": [],
+                "report_evidence_id": null,
+                "support_target": [],
+                "source_type": null,
+                "conditions": {
+                  "published_element_evidence_exists": false
+                },
+                "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+              }
+            ]
+          }
+        ]
+      },
+      "expanded_count": 2,
+      "root_cause": "法律评价被当作合同风险事实要求原文绑定；分离法律背景和合同要素。",
+      "remaining": []
+    },
+    {
+      "original_index": 4,
+      "original": {
+        "requirement": "POSITIVE_FACT_MONOTONICITY",
+        "root_cause": "TC-05-02",
+        "element_id": "statutory_joint_application_right",
+        "final_element_status": "COVERED",
+        "bound_evidence_ids": [
+          "EV-6ae8439b051bb132"
+        ],
+        "search_audit": null,
+        "current_status": "FAIL"
+      },
+      "expanded_count": 1,
+      "root_cause": "同第一项：法定默认事实与合同缺失并存导致单调性冲突。",
+      "remaining": []
+    },
+    {
+      "original_index": 5,
+      "original": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "details": [
+          {
+            "risk_id": "RF-004",
+            "element_id": "statutory_default_use_and_transfer",
+            "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+            "rule_id": "TC-05-03",
+            "finding_id": "RF-004",
+            "fact_key": "statutory_default_use_and_transfer",
+            "fact_value": "法定默认规则允许各方自行使用和普通许可，并限制未经同意的转让权让与及独占、排他许可。",
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+            "binding_diagnostics": [
+              {
+                "rule_id": "TC-05-03",
+                "finding_id": "RF-004",
+                "fact_key": "statutory_default_use_and_transfer",
+                "fact_value": "法定默认规则允许各方自行使用和普通许可，并限制未经同意的转让权让与及独占、排他许可。",
+                "current_evidence_refs": [
+                  "EV-d24e50d2f271ce08",
+                  "EV-a0ccb55ad2168e4c"
+                ],
+                "current_supporting_evidence": [],
+                "report_evidence_id": null,
+                "support_target": [],
+                "source_type": null,
+                "conditions": {
+                  "published_element_evidence_exists": false
+                },
+                "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+              }
+            ]
+          },
+          {
+            "risk_id": "RF-003",
+            "element_id": "statutory_joint_application_right",
+            "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+            "rule_id": "TC-05-02",
+            "finding_id": "RF-003",
+            "fact_key": "statutory_joint_application_right",
+            "fact_value": "合作开发专利申请权的法定默认共有规则。",
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+            "binding_diagnostics": [
+              {
+                "rule_id": "TC-05-02",
+                "finding_id": "RF-003",
+                "fact_key": "statutory_joint_application_right",
+                "fact_value": "合作开发专利申请权的法定默认共有规则。",
+                "current_evidence_refs": [
+                  "EV-6ae8439b051bb132"
+                ],
+                "current_supporting_evidence": [],
+                "report_evidence_id": null,
+                "support_target": [],
+                "source_type": null,
+                "conditions": {
+                  "published_element_evidence_exists": false
+                },
+                "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+              }
+            ]
+          }
+        ]
+      },
+      "expanded_count": 2,
+      "root_cause": "同第三项的重复门禁输出，不重复计作根因。",
+      "remaining": []
+    },
+    {
+      "original_index": 6,
+      "original": {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "details": [
+          {
+            "review_id": "TC-11-04",
+            "element_id": "breach_damage_liability",
+            "reason": "REMEDY_OR_PARTY_NOT_ENTAILED"
+          },
+          {
+            "review_id": "TC-11-04",
+            "element_id": "specific_confidentiality_penalty",
+            "reason": "REMEDY_OR_PARTY_NOT_ENTAILED"
+          },
+          {
+            "risk_id": "RF-002",
+            "review_id": "TC-05-01",
+            "element_id": "development_schedule_and_milestones",
+            "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+          },
+          {
+            "review_id": "TC-05-01",
+            "evidence_owner": "ELEMENT_SEARCH",
+            "element_id": "development_schedule_and_milestones",
+            "reason": "INVALID_ABSENCE_SEARCH_TARGET",
+            "target_fields": [
+              "search_targets"
+            ],
+            "search_targets": []
+          },
+          {
+            "review_id": "TC-11-02",
+            "reason": "CONSEQUENCE_REQUIREMENTS_MISMATCH",
+            "expected": [
+              "confidentiality_exceptions"
+            ],
+            "actual": [
+              "confidentiality_exceptions"
+            ],
+            "omitted": []
+          },
+          {
+            "review_id": "TC-11-02",
+            "reason": "DETAIL_UNRESOLVED_REQUIREMENTS_OMITTED",
+            "projection": "risk_point_description",
+            "omitted": [
+              "confidentiality_exceptions"
+            ]
+          }
+        ]
+      },
+      "expanded_count": 6,
+      "root_cause": "六个展开项：保密条件前缀被截断、一般责任上限例外误作泄密赔偿；进度正向事实未消费导致错误/空目标审计；保密例外真实残余被旧文案覆盖。",
+      "remaining": []
+    },
+    {
+      "original_index": 7,
+      "original": {
+        "requirement": "Legal Freshness Finding",
+        "failure_stage": "Legal Freshness Validation",
+        "root_cause": "报告出现合同法引用但没有形成过时法律引用风险发现。",
+        "fix_owner": "Legal Freshness Checker"
+      },
+      "expanded_count": 1,
+      "root_cause": "现行合作开发报告注入固定旧法/年份；依据真实签署时间选择法律背景，删除固定年份推断。",
+      "remaining": []
+    }
+  ],
+  "original_raw_count": 7,
+  "original_expanded_count": 14,
+  "final_gate": "REPORT_READY",
+  "final_raw_count": 0,
+  "final_expanded_count": 0,
+  "mapping_groups": [
+    {
+      "rule_id": "TC-05-01",
+      "closed": true,
+      "elements": [
+        {
+          "element_id": "development_schedule_and_milestones",
+          "before": "PARTIALLY_COVERED",
+          "after": "COVERED",
+          "evidence": [
+            "项目开发期限自2026年10月1日起至2027年1月31日止。",
+            "开发阶段划分如下：\n第一阶段：2026年10月1日至10月31日，完成需求确认和基础架构；",
+            "第二阶段：2026年11月1日至12月15日，完成核心功能开发；",
+            "第三阶段：2026年12月16日至2027年1月15日，完成集成测试；",
+            "第四阶段：2027年1月16日至1月31日，完成验收及交付。"
+          ],
+          "clauses": [
+            "C0004",
+            "C0004",
+            "C0004",
+            "C0004",
+            "C0004"
+          ],
+          "residual": "",
+          "source_fact_key": "cooperative.development_schedule_and_milestones"
+        },
+        {
+          "element_id": "funding_investment",
+          "before": "MISSING",
+          "after": "COVERED",
+          "evidence": [
+            "其中：\n甲方承担人民币320,000元；",
+            "乙方承担人民币280,000元。"
+          ],
+          "clauses": [
+            "C0005",
+            "C0005"
+          ],
+          "residual": "",
+          "source_fact_key": "cooperative.funding_investment"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-05-03",
+      "closed": true,
+      "elements": [
+        {
+          "element_id": "authorized_internal_users",
+          "before": "MISSING",
+          "after": "PARTIALLY_COVERED",
+          "evidence": [
+            "任何一方均可将共同开发成果用于自身内部经营活动。"
+          ],
+          "clauses": [
+            "C0007"
+          ],
+          "residual": "合作方授权人员的成果使用范围",
+          "source_fact_key": "cooperative.authorized_internal_users"
+        },
+        {
+          "element_id": "independent_use_right",
+          "before": "MISSING",
+          "after": "COVERED",
+          "evidence": [
+            "任何一方均可将共同开发成果用于自身内部经营活动。"
+          ],
+          "clauses": [
+            "C0007"
+          ],
+          "residual": "",
+          "source_fact_key": "cooperative.independent_use_right"
+        },
+        {
+          "element_id": "external_license_transfer_disclosure",
+          "before": "MISSING",
+          "after": "PARTIALLY_COVERED",
+          "evidence": [
+            "未经另一方书面同意，任何一方不得将完整系统整体出售、转让或者独家许可给第三方。"
+          ],
+          "clauses": [
+            "C0007"
+          ],
+          "residual": "第三方普通许可的同意程序、对外披露的同意程序",
+          "source_fact_key": "cooperative.external_license_transfer_disclosure"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-05-04",
+      "closed": true,
+      "elements": [
+        {
+          "element_id": "exit_research_material_handover",
+          "before": "MISSING",
+          "after": "PARTIALLY_COVERED",
+          "evidence": [
+            "合同解除后，双方应在10个工作日内完成项目资料及数据交接"
+          ],
+          "clauses": [
+            "C0015"
+          ],
+          "residual": "提前退出时研发资料交接的具体范围",
+          "source_fact_key": "exit_research_material_handover"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-11-01",
+      "closed": true,
+      "elements": [
+        {
+          "element_id": "confidential_use_restriction",
+          "before": "MISSING",
+          "after": "PARTIALLY_COVERED",
+          "evidence": [
+            "双方不得将项目数据用于本项目以外的用途。"
+          ],
+          "clauses": [
+            "C0006"
+          ],
+          "residual": "其他类别保密信息的项目外使用限制",
+          "source_fact_key": "cooperative.confidential_use_restriction"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-12-02",
+      "closed": true,
+      "elements": [
+        {
+          "element_id": "component_selection_control",
+          "before": "PARTIALLY_COVERED",
+          "after": "PARTIALLY_COVERED",
+          "evidence": [
+            "项目允许使用开源软件、商业模型API以及第三方开发组件。",
+            "引入第三方组件的一方应当说明其名称及主要许可条件。"
+          ],
+          "clauses": [
+            "C0008",
+            "C0008"
+          ],
+          "residual": "第三方组件的具体选型主体和确认程序",
+          "source_fact_key": "cooperative.component_selection_control"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-13-01",
+      "closed": true,
+      "elements": [
+        {
+          "element_id": "deployment_and_operation_documentation",
+          "before": "MISSING",
+          "after": "PARTIALLY_COVERED",
+          "evidence": [
+            "乙方提供算法设计文档、接口文档和部署说明。",
+            "乙方提供算法设计文档、接口文档和部署说明。"
+          ],
+          "clauses": [
+            "C0006",
+            "C0006"
+          ],
+          "residual": "用户或操作资料交付",
+          "source_fact_key": "cooperative.deployment_and_operation_documentation"
+        }
+      ]
+    }
+  ],
+  "samples": [
+    {
+      "reason": "Original 122 source replaced by cooperative input; original SHA256 e5463c90d88b68b07544d560894b0d0487b67aa4e163bb96e817c50206283ef5 not found.",
+      "status": "NOT_VERIFIED",
+      "sample": "guard"
+    },
+    {
+      "sample": "cooperative",
+      "gate": "REPORT_READY",
+      "failures": [],
+      "engine_hash_matches": true,
+      "process_id": 7144,
+      "missing_risk_groups": [],
+      "changed_risk_elements": {
+        "technical_secret_result_rights": {
+          "before": {
+            "rules": [
+              "TC-05-03"
+            ],
+            "missing": [
+              "authorized_internal_users",
+              "external_license_transfer_disclosure",
+              "external_revenue_allocation",
+              "independent_use_right",
+              "material_copy_retention_and_disposal",
+              "post_termination_use_boundary"
+            ],
+            "adverse": []
+          },
+          "after": {
+            "rules": [
+              "TC-05-03"
+            ],
+            "missing": [
+              "authorized_internal_users",
+              "external_license_transfer_disclosure",
+              "external_revenue_allocation",
+              "material_copy_retention_and_disposal",
+              "post_termination_use_boundary"
+            ],
+            "adverse": []
+          }
+        },
+        "cooperative_development_investment": {
+          "before": {
+            "rules": [
+              "TC-05-01"
+            ],
+            "missing": [
+              "budget_overrun_allocation",
+              "data_equipment_environment_investment",
+              "development_schedule_and_milestones",
+              "funding_investment",
+              "investment_shortfall_and_task_default_remedy",
+              "major_decision_process",
+              "technical_and_personnel_investment",
+              "technical_coordination"
+            ],
+            "adverse": []
+          },
+          "after": {
+            "rules": [
+              "TC-05-01"
+            ],
+            "missing": [
+              "budget_overrun_allocation",
+              "data_equipment_environment_investment",
+              "investment_shortfall_and_task_default_remedy",
+              "major_decision_process",
+              "technical_and_personnel_investment",
+              "technical_coordination"
+            ],
+            "adverse": []
+          }
+        }
+      }
+    },
+    {
+      "sample": "cross_article",
+      "gate": "REPORT_READY",
+      "failures": [],
+      "engine_hash_matches": true,
+      "process_id": 7144,
+      "missing_risk_groups": [],
+      "changed_risk_elements": {}
+    },
+    {
+      "sample": "patent",
+      "gate": "REPORT_READY",
+      "failures": [],
+      "engine_hash_matches": true,
+      "process_id": 7144,
+      "missing_risk_groups": [],
+      "changed_risk_elements": {}
+    },
+    {
+      "sample": "consulting",
+      "gate": "REPORT_READY",
+      "failures": [],
+      "engine_hash_matches": true,
+      "process_id": 7144,
+      "missing_risk_groups": [],
+      "changed_risk_elements": {}
+    },
+    {
+      "sample": "provider",
+      "gate": "REPORT_READY",
+      "failures": [],
+      "engine_hash_matches": true,
+      "process_id": 7144,
+      "missing_risk_groups": [],
+      "changed_risk_elements": {}
+    },
+    {
+      "sample": "balanced",
+      "gate": "REPORT_READY",
+      "failures": [],
+      "engine_hash_matches": true,
+      "process_id": 7144,
+      "missing_risk_groups": [],
+      "changed_risk_elements": {}
+    },
+    {
+      "sample": "ancillary",
+      "gate": "REPORT_READY",
+      "failures": [],
+      "engine_hash_matches": true,
+      "process_id": 7144,
+      "missing_risk_groups": [],
+      "changed_risk_elements": {}
+    }
+  ],
+  "new_tests": 0,
+  "migrations": 0,
+  "fixture_change": {
+    "path": "test_data/122 测试2.docx",
+    "previous_sha256": "e5463c90d88b68b07544d560894b0d0487b67aa4e163bb96e817c50206283ef5",
+    "current_sha256": "2360ff47f861b3a626c482581169445a752eac2f7da156db5d34ab27b6a766fc",
+    "affected_module": "backend.tests.test_technology_exact_truth_pipeline",
+    "before_current_input": {
+      "engine_hash": "bdfd6e5470f3be775f5055740a999e6dd23e849d5bc3501e86a05837795a4a83",
+      "confidentiality_coverage": "部分覆盖",
+      "gate": "BLOCKED",
+      "exit_findings": 0
+    },
+    "after_current_input": {
+      "confidentiality_coverage": "部分覆盖",
+      "gate": "BLOCKED",
+      "exit_findings": 0
+    },
+    "note": "Original entrusted source was replaced before this turn; no original test expectations were edited.",
+    "current_upload_observations": {
+      "confidentiality_coverage": "部分覆盖",
+      "gate": "REPORT_READY",
+      "exit_findings": 0
+    }
+  },
+  "business_modules": {
+    "engine.py": "80d032e5edc9be2c29882d1cd844194fd9fca26fc210572b3fe72554139f718f",
+    "cooperative_element_facts.py": "d7fe20c17aafa097570fd201b0e20d4abd705626b7a0e2ee8c8c9be0c2c248a2",
+    "confidentiality_remedies.py": "e9e9d0f20c3102681ae5be9190f4fba2a19753548806f3b2c653f833a915f623",
+    "development_exit.py": "b7831b658b8cfc154d8a825ce6aade0f98dcd07c84dac3a64949ffb2323d6175"
+  },
+  "risk_and_evidence_checks": {
+    "PASS_EVIDENCE_PROVENANCE_GATE": "PASS",
+    "PARTIAL_ELEMENT_NARRATIVE_GATE": "PASS",
+    "ELEMENT_STATUS_CONTRADICTION": "PASS",
+    "EVIDENCE_MONOTONICITY_VIOLATION": "PASS",
+    "FINDING_EVIDENCE_GATE": "PASS",
+    "NARRATIVE_ELEMENT_CONSISTENCY_GATE": "PASS",
+    "ALTERNATIVE_SATISFACTION_GATE": "PASS",
+    "FACT_REGISTRY_SNAPSHOT_CONSISTENCY": "PASS",
+    "FACT_REGISTRY_CONFLICTING_FACT": "PASS",
+    "CROSS_REVIEW_FACT_CONFLICT": "PASS",
+    "FACT_TRUTH_OVERRIDE_VIOLATION": "PASS",
+    "FACT_CONSUMER_MAPPING_MISSING": "PASS",
+    "RISK_EVIDENCE_MISMATCH": "PASS",
+    "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS",
+    "COMMON_REVIEW_SATISFACTION_GATE": "PASS",
+    "ELEMENT_IDENTITY_CONTRADICTION_GATE": "PASS",
+    "EVIDENCE_JUDGMENT_CONSISTENCY": "PASS",
+    "ATOMIC_ELEMENT_CONSISTENCY": "PASS",
+    "CROSS_RULE_EVIDENCE_CONSISTENCY": "PASS",
+    "EVIDENCE_PROVENANCE_CONSISTENCY": "PASS",
+    "REPORT_EVIDENCE_CONSISTENCY": "PASS",
+    "EVIDENCE_POLARITY_CONSISTENCY": "PASS",
+    "PRODUCTION_FACT_POLARITY_GATE": "PASS",
+    "ADVERSE_POLARITY_AUDIT_GATE": "PASS",
+    "RECOMMENDATION_ELEMENT_LEAKAGE": "PASS",
+    "RECOMMENDATION_COVERED_ELEMENT_REINTRODUCED": "PASS",
+    "ATOMIC_LEGAL_ELEMENT_GATE": "PASS",
+    "REVIEW_POLARITY_NARRATIVE_GATE": "PASS",
+    "NARRATIVE_EVIDENCE_GATE": "PASS",
+    "REPORT_ELEMENT_EVIDENCE_POLLUTION": "PASS",
+    "EXACT_ELEMENT_REPORT_INVARIANT": "PASS",
+    "RISK_TITLE_EVIDENCE_CONSISTENCY": "PASS",
+    "EVIDENCE_BUNDLE_ENTAILMENT_GATE": "PASS",
+    "CLAIM_EVIDENCE_COVERAGE_GATE": "PASS",
+    "EVIDENCE_FACT_ROLE_GATE": "PASS",
+    "SINGLE_EVIDENCE_SOURCE_GATE": "PASS",
+    "EVIDENCE_BUNDLE_RENDER_GATE": "PASS",
+    "PARTIAL_MISSING_ELEMENT_GATE": "PASS",
+    "FINAL_RISK_EVIDENCE_BUNDLE_GATE": "PASS",
+    "EVIDENCE_ITEM_UNIQUENESS_GATE": "PASS",
+    "MISSING_RISK_ABSENCE_EVIDENCE_GATE": "PASS",
+    "EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+    "PASS_EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+    "APPLICABILITY_AND_EVIDENCE_BOUNDARY": "PASS"
+  },
+  "versus_918_250": {
+    "before": {
+      "PASS": 918,
+      "FAIL": 250,
+      "SKIP": 0
+    },
+    "after": {
+      "PASS": 925,
+      "FAIL": 252,
+      "SKIP": 0
+    },
+    "recovered": [],
+    "newly_failing": {
+      "backend.tests.test_technology_exact_truth_pipeline::test_production_route_confidentiality_truth_is_covered": "AssertionError: assert '部分覆盖' == '通过'\n  \n  - 通过\n  + 部分覆盖",
+      "backend.tests.test_technology_exact_truth_pipeline::test_production_route_exit_has_exact_positive_and_separate_absence": "StopIteration"
+    },
+    "added": {
+      "backend.tests.test_cooperative_fact_projection_regression::test_delay_termination_and_damages_survive_normal_upload": "PASS",
+      "backend.tests.test_cooperative_fact_projection_regression::test_development_delay_non_penalty_remedies[\\u5b88\\u7ea6\\u65b9\\u6709\\u6743\\u89e3\\u9664\\u5408\\u540c]": "PASS",
+      "backend.tests.test_cooperative_fact_projection_regression::test_development_delay_non_penalty_remedies[\\u8fdd\\u7ea6\\u65b9\\u5e94\\u8d54\\u507f\\u76f4\\u63a5\\u7ecf\\u6d4e\\u635f\\u5931]": "PASS",
+      "backend.tests.test_cooperative_fact_projection_regression::test_fixed_confidentiality_term_survives_normal_upload": "PASS",
+      "backend.tests.test_cooperative_fact_projection_regression::test_fixed_term_does_not_invent_post_termination_survival": "PASS",
+      "backend.tests.test_cooperative_fact_projection_regression::test_linked_delay_remedies_keep_separate_spans": "PASS",
+      "backend.tests.test_cooperative_fact_projection_regression::test_payment_delay_cannot_supply_development_delay_remedy": "PASS",
+      "backend.tests.test_cooperative_fact_projection_regression::test_unnumbered_exception_list_preserves_definition_relation": "PASS",
+      "backend.tests.test_cooperative_fact_projection_regression::test_unrelated_damages_cannot_complete_delay_fact": "PASS"
+    },
+    "removed": []
+  },
+  "versus_turn_start": {
+    "before": {
+      "PASS": 924,
+      "FAIL": 253,
+      "SKIP": 0
+    },
+    "after": {
+      "PASS": 925,
+      "FAIL": 252,
+      "SKIP": 0
+    },
+    "recovered": [
+      "backend.tests.test_technology_exact_truth_pipeline::test_production_release_gate_still_checks_all_layers"
+    ],
+    "newly_failing": {},
+    "added": {},
+    "removed": []
+  }
+}

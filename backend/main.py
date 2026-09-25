@@ -1,15 +1,18 @@
 """AI合同审查系统 - 四层架构实现 + 批量处理 + 多领域推理 + 用户认证 + 安全合规 + 前置防护"""
 from fastapi import FastAPI, File, UploadFile, HTTPException, BackgroundTasks, Depends, Header, Request, Form
-from fastapi.responses import HTMLResponse, StreamingResponse
+from fastapi.responses import HTMLResponse, StreamingResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 from typing import Optional, List, Dict, Any, Tuple
 import os
 import io
+from urllib.parse import quote
 import logging
+from secret_redaction import SecretFormatter
 import asyncio
 from dotenv import load_dotenv
+load_dotenv()  # Resolve configuration before importing database-dependent modules.
 import json
 import re
 
@@ -17,8 +20,9 @@ logger = logging.getLogger(__name__)
 
 # 专门记录任务结果的日志（成功/失败都记录）
 _task_result_log_file = os.path.join(os.getenv("LOG_DIR", "./logs"), "task_result.log")
+os.makedirs(os.path.dirname(_task_result_log_file), exist_ok=True)
 _task_result_handler = logging.FileHandler(_task_result_log_file, encoding="utf-8")
-_task_result_handler.setFormatter(logging.Formatter(
+_task_result_handler.setFormatter(SecretFormatter(
     "%(asctime)s | %(levelname)-8s | %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S"
 ))
@@ -104,6 +108,8 @@ load_dotenv()
 # 初始化数据库 + 从 DB 恢复未完成任务
 init_db()
 init_task_storage()
+from storage.health import database_health
+database_health(force=True)
 
 
 def filter_metadata_for_frontend(metadata: Optional[dict]) -> Optional[dict]:
@@ -142,6 +148,14 @@ def _legacy_technical_pipeline_guard(contract_text: str) -> Optional[Dict[str, A
 
 app = FastAPI(title="AI合同审查系统", version="5.0.0", description="基于四层架构的合同审查系统，支持批量处理、多领域推理、用户认证和安全合规")
 
+from sqlalchemy.exc import SQLAlchemyError
+
+
+@app.exception_handler(SQLAlchemyError)
+async def database_error_handler(request: Request, exc: SQLAlchemyError):
+    logger.error('Database operation failed', exc_info=exc)
+    return JSONResponse(status_code=503, content={'detail': '数据库暂不可用，操作未确认成功'})
+
 @app.on_event("startup")
 async def startup_event():
     """启动时清理过期日志、预初始化Redis、初始化安全模块"""
@@ -177,17 +191,18 @@ async def startup_event():
     except Exception as e:
         logger.error(f"[STARTUP] 注入检测器初始化失败: {e}")
     
-    # ========== 运行安全增强迁移 ==========
-    try:
-        import importlib.util
-        migration_path = os.path.join(os.path.dirname(__file__), "migrations", "006_add_security_enhancements.py")
-        spec = importlib.util.spec_from_file_location("mig_006", migration_path)
-        mig = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(mig)
-        mig.migrate()
-        logger.info("[STARTUP] 安全增强迁移完成")
-    except Exception as e:
-        logger.error(f"[STARTUP] 安全增强迁移失败: {e}")
+    # Historical DDL requires an explicit deployment decision, never implicit startup writes.
+    if os.getenv("RUN_STARTUP_MIGRATIONS", "false").lower() == "true":
+        try:
+            import importlib.util
+            migration_path = os.path.join(os.path.dirname(__file__), "migrations", "006_add_security_enhancements.py")
+            spec = importlib.util.spec_from_file_location("mig_006", migration_path)
+            mig = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mig)
+            mig.migrate()
+            logger.info("[STARTUP] 安全增强迁移完成")
+        except Exception as e:
+            logger.error(f"[STARTUP] 安全增强迁移失败: {e}")
     
     # ========== 初始化法条校验层 ==========
     try:
@@ -1177,16 +1192,16 @@ async def download_report(
             io.BytesIO(content),
             media_type=mime_type,
             headers={
-                "Content-Disposition": f"attachment; filename*=UTF-8''{filename}"
+                "Content-Disposition": f"attachment; filename*=UTF-8''{quote(filename, safe='')}"
             }
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"生成文件失败: {str(e)}")
 
 @app.get("/api/tasks", response_model=List[TaskResponse])
-async def get_all_task_status():
+async def get_all_task_status(user_id: int = Depends(get_current_user)):
     """查询所有任务状态"""
-    tasks = get_all_tasks()
+    tasks = get_all_tasks(user_id=user_id)
     return [
         {
             "task_id": task.task_id,
@@ -1252,7 +1267,7 @@ async def download_record_report(
             io.BytesIO(content),
             media_type=mime_type,
             headers={
-                "Content-Disposition": f"attachment; filename*=UTF-8''{filename}"
+                "Content-Disposition": f"attachment; filename*=UTF-8''{quote(filename, safe='')}"
             }
         )
     except Exception as e:
@@ -1509,21 +1524,22 @@ async def get_admin_dashboard(_: bool = Depends(verify_admin)):
 @app.get("/health")
 async def health_check_root():
     """健康检查接口（根路径，供Docker健康检查使用）- 不依赖psutil"""
-    import time as _time
-    from datetime import datetime as _dt
-    uptime = int(_time.time() - _time.time())  # simplified
-    return {
-        "status": "healthy",
-        "timestamp": _dt.now().isoformat(),
-        "uptime": "running",
-        "system": {"status": "ok"}
-    }
+    database = await asyncio.to_thread(database_health)
+    healthy = database['status'] == 'ok'
+    return JSONResponse(status_code=200 if healthy else 503, content={
+        'status': 'healthy' if healthy else 'unhealthy', 'database': database})
 
 @app.get("/api/health")
 async def health_check():
     """健康检查接口"""
     from monitoring import get_health_status
-    return get_health_status()
+    status = get_health_status()
+    database = await asyncio.to_thread(database_health)
+    status['database'] = database
+    if database['status'] != 'ok':
+        status['status'] = 'unhealthy'
+        return JSONResponse(status_code=503, content=status)
+    return status
 
 @app.get("/api/metrics")
 async def get_metrics():

@@ -1,0 +1,72 @@
+{
+  "trace_id": "CR-20260911-174440-865F7F",
+  "process_id": 16576,
+  "document_sha256": "056491270bb316248d72ca06d1822e4bc61b446c15e5decffbb695862f04ba6b",
+  "release_quality_gate": "REPORT_READY",
+  "risk_theme_count": 5,
+  "risk_theme_severity": {
+    "major": 3,
+    "medium": 0,
+    "low": 2
+  },
+  "rules": {
+    "PT-01-01": {
+      "coverage_status": "风险条款",
+      "risk_level": "高",
+      "action_priority": "A_CORE"
+    },
+    "PT-02-01": {
+      "coverage_status": "风险条款",
+      "risk_level": "高",
+      "action_priority": "A_CORE"
+    },
+    "PT-03-01": {
+      "coverage_status": "风险条款",
+      "risk_level": "高",
+      "action_priority": "A_CORE"
+    },
+    "PT-04-01": {
+      "coverage_status": "部分覆盖",
+      "risk_level": "低",
+      "action_priority": "C_OPTIMIZATION"
+    },
+    "EMP-08-01": {
+      "coverage_status": "待核验",
+      "risk_level": "低",
+      "action_priority": "NONE"
+    },
+    "PT-05-01": {
+      "coverage_status": "通过",
+      "risk_level": "低",
+      "action_priority": "NONE"
+    },
+    "PT-06-01": {
+      "coverage_status": "通过",
+      "risk_level": "低",
+      "action_priority": "NONE"
+    },
+    "PT-07-01": {
+      "coverage_status": "通过",
+      "risk_level": "低",
+      "action_priority": "NONE"
+    }
+  },
+  "manual_review": [
+    {
+      "item_id": "EMP-08-01",
+      "source_rules": [
+        "EMP-08-01"
+      ],
+      "canonical_review_topic": "e394c7f42492beaac8df3137bb0dcb8b8ea92f8c2269ad20232cc6e54080c53c",
+      "title": "劳动保护与职业危害",
+      "reason": "人工复核：核实岗位是否存在职业病危害因素，再确定专项保护义务。",
+      "review_instruction": "人工复核：核实岗位是否存在职业病危害因素，再确定专项保护义务。",
+      "materiality": "LOW",
+      "coverage_status": "通过",
+      "blocking_signability": false,
+      "conditional_element_ids": [
+        "employment_safety_2"
+      ]
+    }
+  ]
+}

@@ -5,9 +5,7 @@ from sqlalchemy.sql import func
 import os
 
 # 获取数据库URL
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./sql_app.db")
-
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+from storage.database import engine
 Base = declarative_base()
 
 

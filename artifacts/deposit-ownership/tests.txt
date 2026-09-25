@@ -1,0 +1,121 @@
+
+=================================== ERRORS ====================================
+_____ ERROR collecting backend/tests/test_employment_deposit_ownership.py _____
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1050: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1027: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:992: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:241: in _call_with_frames_removed
+    ???
+<frozen importlib._bootstrap>:1050: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1027: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1006: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:688: in _load_unlocked
+    ???
+<frozen importlib._bootstrap_external>:883: in exec_module
+    ???
+<frozen importlib._bootstrap>:241: in _call_with_frames_removed
+    ???
+backend\tests\__init__.py:2: in <module>
+    from .test_security import *
+<frozen importlib._bootstrap>:1027: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1006: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:688: in _load_unlocked
+    ???
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\_pytest\assertion\rewrite.py:188: in exec_module
+    exec(co, module.__dict__)
+backend\tests\test_security.py:9: in <module>
+    from main import app
+backend\main.py:91: in <module>
+    from routers import feedback, user, admin, records, adjudicate, review_v2
+backend\routers\review_v2.py:38: in <module>
+    from review_v2.engine import (
+backend\review_v2\engine.py:38: in <module>
+    from review_v2.contract_registry import (
+backend\review_v2\contract_registry.py:441: in <module>
+    _REGISTRY_WARNINGS = validate_all_checklists()
+backend\review_v2\contract_registry.py:435: in validate_all_checklists
+    return {
+backend\review_v2\contract_registry.py:436: in <dictcomp>
+    key: validate_checklist_integrity(checklist, checklist_key=key)
+backend\review_v2\contract_registry.py:427: in validate_checklist_integrity
+    raise ValueError(f"{prefix} 缺少字段：{field_name}")
+E   ValueError: labor:EMP-DEPOSIT-01 缺少字段：terms
+------------------------------- Captured stderr -------------------------------
+2026-09-11 19:27:29 - storage.database - INFO - [unknown] - [DB] SQLite PRAGMA 优化已配置 (WAL/NORMAL/64MB缓存)
+2026-09-11 19:27:29 - reasoning.llm_client - INFO - [unknown] - [LLM] 使用自定义模型优先级: ['qwen', 'doubao', 'deepseek']
+2026-09-11 19:27:29 - reasoning.llm_client - INFO - [unknown] - [CircuitBreaker] 熔断器初始化 - 阈值:3次, 超时:30秒
+_________ ERROR collecting backend/tests/test_penalty_nature_facts.py _________
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1050: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1027: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:992: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:241: in _call_with_frames_removed
+    ???
+<frozen importlib._bootstrap>:1050: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1027: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1006: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:688: in _load_unlocked
+    ???
+<frozen importlib._bootstrap_external>:883: in exec_module
+    ???
+<frozen importlib._bootstrap>:241: in _call_with_frames_removed
+    ???
+backend\tests\__init__.py:2: in <module>
+    from .test_security import *
+<frozen importlib._bootstrap>:1027: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1006: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:688: in _load_unlocked
+    ???
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\_pytest\assertion\rewrite.py:188: in exec_module
+    exec(co, module.__dict__)
+backend\tests\test_security.py:9: in <module>
+    from main import app
+backend\main.py:91: in <module>
+    from routers import feedback, user, admin, records, adjudicate, review_v2
+backend\routers\review_v2.py:38: in <module>
+    from review_v2.engine import (
+backend\review_v2\engine.py:38: in <module>
+    from review_v2.contract_registry import (
+backend\review_v2\contract_registry.py:441: in <module>
+    _REGISTRY_WARNINGS = validate_all_checklists()
+backend\review_v2\contract_registry.py:435: in validate_all_checklists
+    return {
+backend\review_v2\contract_registry.py:436: in <dictcomp>
+    key: validate_checklist_integrity(checklist, checklist_key=key)
+backend\review_v2\contract_registry.py:427: in validate_checklist_integrity
+    raise ValueError(f"{prefix} 缺少字段：{field_name}")
+E   ValueError: labor:EMP-DEPOSIT-01 缺少字段：terms
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+ERROR backend/tests/test_employment_deposit_ownership.py - ValueError: labor:...
+ERROR backend/tests/test_penalty_nature_facts.py - ValueError: labor:EMP-DEPO...
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!
+2 warnings, 2 errors in 17.28s

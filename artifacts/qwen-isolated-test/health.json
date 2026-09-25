@@ -1,0 +1,18 @@
+{
+  "endpoint": "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
+  "key_source": "backend/.env:DASHSCOPE_API_KEY",
+  "key_present": true,
+  "configured_model": "qwen-max",
+  "http_status": 400,
+  "elapsed_seconds": 0.232,
+  "response": {
+    "error": {
+      "message": "Access denied, please make sure your account is in good standing. For details, see: https://help.aliyun.com/zh/model-studio/error-code#overdue-payment",
+      "type": "Arrearage",
+      "param": null,
+      "code": "Arrearage"
+    },
+    "id": "chatcmpl-9093eafb-291c-962d-9d9c-c6c55dcac348",
+    "request_id": "9093eafb-291c-962d-9d9c-c6c55dcac348"
+  }
+}

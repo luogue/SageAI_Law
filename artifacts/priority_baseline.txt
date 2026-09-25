@@ -1,0 +1,53 @@
+FF...................................................................... [ 64%]
+........................................                                 [100%]
+================================== FAILURES ===================================
+_________ test_contract_registry_declares_all_implemented_checklists __________
+backend\tests\test_review_v2_contract_registry.py:37: in test_contract_registry_declares_all_implemented_checklists
+    assert CONTRACT_CHECKLISTS == {
+E   AssertionError: assert {'lease': (Re...'), ...), ...} == {'lease': (Re...'), ...), ...}
+E     
+E     Omitting 16 identical items, use -vv to show
+E     Differing items:
+E     {'construction': (ReviewCheckpoint(item_id='CE-01-01', node_id='construction_contract_nature', title='���蹤�̺�ͬ����', kind=...NT', requirement_medium='CONTRACT_TEXT', legal_requirement_strength='RISK_CONTROL', action_type='CONTRACT_EDIT'), ...)} != {'construction': (ReviewCheckpoint(item_id='CE-01-01', node_id='construction_contract_nature', title='���蹤�̺�ͬ����', kind=...NT', requirement_medium='CONTRACT_TEXT', legal_requirement_strength='RISK_CONTROL', action_type='CONTRACT_EDIT'), ...)}
+E     Use -v to get more diff
+___________ test_get_checklist_supports_canonical_keys_and_aliases ____________
+backend\tests\test_review_v2_contract_registry.py:81: in test_get_checklist_supports_canonical_keys_and_aliases
+    assert get_checklist("construction") is CONSTRUCTION_REVIEW_CHECKLIST
+E   AssertionError: assert (ReviewCheckpoint(item_id='CE-01-01', node_id='construction_contract_nature', title='���蹤�̺�ͬ����', kind='required', risk_...ENT', requirement_medium='CONTRACT_TEXT', legal_requirement_strength='RISK_CONTROL', action_type='CONTRACT_EDIT'), ...) is (ReviewCheckpoint(item_id='CE-01-01', node_id='construction_contract_nature', title='���蹤�̺�ͬ����', kind='required', risk_...ENT', requirement_medium='CONTRACT_TEXT', legal_requirement_strength='RISK_CONTROL', action_type='CONTRACT_EDIT'), ...)
+E    +  where (ReviewCheckpoint(item_id='CE-01-01', node_id='construction_contract_nature', title='���蹤�̺�ͬ����', kind='required', risk_...ENT', requirement_medium='CONTRACT_TEXT', legal_requirement_strength='RISK_CONTROL', action_type='CONTRACT_EDIT'), ...) = get_checklist('construction')
+============================== warnings summary ===============================
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\storage\database.py:41
+  F:\ai\Sage\backend\storage\database.py:41: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+backend\main.py:145
+  F:\ai\Sage\backend\main.py:145: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_review_v2_contract_registry.py::test_contract_registry_declares_all_implemented_checklists
+FAILED backend/tests/test_review_v2_contract_registry.py::test_get_checklist_supports_canonical_keys_and_aliases
+2 failed, 110 passed, 5 warnings in 87.76s (0:01:27)

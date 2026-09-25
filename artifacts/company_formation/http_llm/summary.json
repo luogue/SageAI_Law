@@ -1,0 +1,3231 @@
+{
+  "source": "F:\\ai\\Sage\\test_data\\83 投资协议.docx",
+  "sha256": "8bdcbca80dba56ef998d4511d939bbca4ce4bf514895117042f33a1e3e502f12",
+  "normalized_sha256": "64c9da2ab188f47cb00625c2b9142d3bbad20e5fb9bc04084e36c4bb824311f8",
+  "extracted_length": 3924,
+  "normalized_length": 3924,
+  "transport": "FastAPI multipart /review-v2/file; production handler, input extraction and response model; isolated test authentication",
+  "use_llm_requested": true,
+  "llm_status": {
+    "enabled_by_env": true,
+    "has_model_key": true,
+    "available": true,
+    "configured_models": [
+      "qwen",
+      "doubao",
+      "deepseek"
+    ],
+    "priority": "qwen,doubao,deepseek",
+    "message": "AI语义审查已完成。"
+  },
+  "contract_type": "shareholders",
+  "contract_type_name": "股东合作协议",
+  "report_context": {
+    "family": "EQUITY_INVESTMENT",
+    "subject_matter": "EQUITY",
+    "transaction_structure": "SHAREHOLDERS",
+    "subtype": "SHAREHOLDERS",
+    "product_category": "",
+    "asset_usage": "",
+    "perspective": "equity_party",
+    "user_role": "equity_party",
+    "contract_type_label": "股东合作协议",
+    "scenario_label": "股东合作协议",
+    "usage_scenario_label": "股东合作协议",
+    "report_title": "股东合作协议审查报告",
+    "contract_family": "EQUITY_INVESTMENT",
+    "contract_subtype": "SHAREHOLDERS"
+  },
+  "perspective_resolution": {
+    "requested_role": "个人租客/买方",
+    "previous_context_role": "",
+    "contract_family": "EQUITY_INVESTMENT",
+    "contract_subtype": "SHAREHOLDERS",
+    "party_side": "UNKNOWN",
+    "review_party_identity": "UNKNOWN",
+    "review_party_label": "",
+    "domain_role": "EQUITY_PARTY",
+    "transaction_role": "EQUITY_PARTY",
+    "canonical_role": "EQUITY_PARTY",
+    "display_role": "股权协议当事人",
+    "transaction_type": "SHAREHOLDERS",
+    "review_party": "UNKNOWN",
+    "legal_role": "EQUITY_PARTY",
+    "contract_display_role": "股权协议当事人",
+    "candidate_roles": [
+      "BUYER",
+      "LESSEE"
+    ],
+    "rejected_roles": [
+      "BUYER",
+      "LESSEE"
+    ],
+    "confidence": "high",
+    "reasons": [
+      "Resolved EQUITY_INVESTMENT/SHAREHOLDERS permits roles: EQUITY_PARTY, INVESTOR, EQUITY_TRANSFEROR, EQUITY_TRANSFEREE, SHAREHOLDER, TARGET_COMPANY.",
+      "Rejected incompatible carried roles: BUYER, LESSEE.",
+      "Party identity is retained separately from the canonical transaction role."
+    ]
+  },
+  "release_quality_gate": {
+    "status": "REPORT_READY",
+    "failures": [],
+    "priority_consistency_verification": {
+      "executed": true,
+      "high_finding_count": 8,
+      "core_priority_count": 4,
+      "consistency": "CONSISTENT",
+      "explanations": [],
+      "needs_recalibration": false
+    },
+    "context_consistency": {
+      "status": "PASS",
+      "failures": [],
+      "contract_type": "shareholders",
+      "domain_pack": "priority-domain-1.0"
+    },
+    "gate_results": {
+      "PASS_EVIDENCE_PROVENANCE_GATE": "PASS",
+      "PARTIAL_ELEMENT_NARRATIVE_GATE": "PASS",
+      "COVERAGE_SENTENCE_CONSISTENCY_GATE": "PASS",
+      "ELEMENT_STATUS_CONTRADICTION": "PASS",
+      "EVIDENCE_MONOTONICITY_VIOLATION": "PASS",
+      "FINDING_EVIDENCE_GATE": "PASS",
+      "CROSS_LAYER_CONSISTENCY_GATE": "PASS",
+      "DEFAULT_LAW_COMPLETENESS_GATE": "PASS",
+      "DEFAULT_LAW_EFFECTIVE_GAP_GATE": "PASS",
+      "NARRATIVE_ELEMENT_CONSISTENCY_GATE": "PASS",
+      "NARRATIVE_TRUTH_GATE": "PASS",
+      "PRIORITY_CONSISTENCY_GATE": "PASS",
+      "SIGNABILITY_GATE": "PASS",
+      "CONFIDENCE_VALIDATION_GATE": "PASS",
+      "DOMAIN_SUBTYPE_GATE": "PASS",
+      "DOMAIN_REVIEW_ISOLATION_GATE": "PASS",
+      "DOMAIN_MATERIAL_COVERAGE_GATE": "PASS",
+      "TRANSACTION_STRUCTURE_GATE": "PASS",
+      "FRAMEWORK_DOMAIN_GATE": "PASS",
+      "ORDER_RELATION_GATE": "PASS",
+      "DYNAMIC_QUANTITY_GATE": "PASS",
+      "PRICE_MECHANISM_GATE": "PASS",
+      "ALTERNATIVE_SATISFACTION_GATE": "PASS",
+      "FALSE_RISK_EXISTENCE_GATE": "PASS",
+      "FACT_REGISTRY_SNAPSHOT_CONSISTENCY": "PASS",
+      "FACT_REGISTRY_CONFLICTING_FACT": "PASS",
+      "CROSS_REVIEW_FACT_CONFLICT": "PASS",
+      "FACT_TRUTH_OVERRIDE_VIOLATION": "PASS",
+      "FACT_CONSUMER_MAPPING_MISSING": "PASS",
+      "RISK_EVIDENCE_MISMATCH": "PASS",
+      "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS",
+      "APPLICABILITY_PRECONDITION_GATE": "PASS",
+      "SHARED_CLAIM_CONSISTENCY_GATE": "PASS",
+      "FINDING_PRECONDITION_GATE": "PASS",
+      "REPORT_CONTEXT_GATE": "PASS",
+      "REPORT_TRANSACTION_TRUTH_GATE": "PASS",
+      "CROSS_REVIEW_CONSISTENCY_GATE": "PASS",
+      "RECOMMENDATION_NON_DEGRADATION_GATE": "PASS",
+      "COMMON_REVIEW_SATISFACTION_GATE": "PASS",
+      "ELEMENT_IDENTITY_CONTRADICTION_GATE": "PASS",
+      "PRODUCT_APPLICABILITY_GATE": "PASS",
+      "SHARED_CLAIM_REUSE_GATE": "PASS",
+      "FINDING_INDEPENDENCE_GATE": "PASS",
+      "TECHNOLOGY_TRANSACTION_CONSISTENCY": "NOT_APPLICABLE",
+      "PERSPECTIVE_DOMAIN_CONSISTENCY_GATE": "PASS",
+      "PATENT_TRANSFER_QUALITY_GATE": "NOT_APPLICABLE",
+      "PRODUCTION_FACT_POLARITY_GATE": "PASS",
+      "RECOMMENDATION_SOURCE_UNMAPPED": "PASS",
+      "RECOMMENDATION_ELEMENT_LEAKAGE": "PASS",
+      "RECOMMENDATION_COVERED_ELEMENT_REINTRODUCED": "PASS",
+      "RECOMMENDATION_PLACEHOLDER_TEXT": "PASS",
+      "RECOMMENDATION_FINAL_DISPOSITION_MISMATCH": "PASS",
+      "CLIENT_INTEREST_GATE": "PASS",
+      "RISK_STATISTICS_INVARIANT": "PASS",
+      "FINAL_DISPOSITION_INVARIANT": "PASS",
+      "FORMAL_RECOMMENDATION_FINAL_DISPOSITION_INVARIANT": "PASS",
+      "RECOMMENDATION_OWNERSHIP_INVARIANT": "PASS",
+      "HIGH_NON_MUST_CHANGE_REASON_INVARIANT": "PASS",
+      "OPTIONAL_IMPROVEMENT_VISIBILITY_INVARIANT": "PASS",
+      "ACTIONABLE_RECOMMENDATION_COMPLETENESS_INVARIANT": "PASS",
+      "LEGAL_AUTHORITY_DEDUP_GATE": "PASS",
+      "LEGAL_AUTHORITY_SELECTION_GATE": "PASS",
+      "CITATION_ENTAILMENT_GATE": "PASS",
+      "LEGAL_DEFAULT_LAW_CONSISTENCY_GATE": "PASS",
+      "ATOMIC_LEGAL_ELEMENT_GATE": "PASS",
+      "DEFAULT_LAW_NARRATIVE_TRUTH_GATE": "PASS",
+      "NOT_APPLICABLE_NARRATIVE_GATE": "PASS",
+      "NOT_APPLICABLE_GAP_GATE": "PASS",
+      "REVIEW_POLARITY_NARRATIVE_GATE": "PASS",
+      "NEGATIVE_CHECK_PASS_GATE": "PASS",
+      "CROSS_REVIEW_SHARED_CLAIM_GATE": "PASS",
+      "NARRATIVE_EVIDENCE_GATE": "PASS",
+      "CANONICAL_SEMANTIC_PROOF_GATE": "PASS",
+      "EXACT_ELEMENT_REPORT_INVARIANT": "PASS",
+      "PRODUCTION_INTERNAL_TOKEN_GATE": "PASS",
+      "DEFAULT_LAW_PROVENANCE_GATE": "PASS",
+      "RECOMMENDATION_SINGLE_SOURCE_GATE": "PASS",
+      "RECOMMENDATION_CROSS_RENDERER_CONSISTENCY_GATE": "PASS",
+      "REPORT_TEXT_VALIDATION": "PASS",
+      "REPORT_DISPOSITION_PROJECTION_INVARIANT": "PASS",
+      "EVIDENCE_BUNDLE_ENTAILMENT_GATE": "PASS",
+      "RECOMMENDATION_SEMANTIC_BINDING_GATE": "PASS",
+      "SUMMARY_DETAIL_RISK_ID_GATE": "PASS",
+      "ISSUE_TYPE_NARRATIVE_GATE": "PASS",
+      "OPTIONAL_REPORT_COUNT_GATE": "PASS",
+      "REPORT_ROLE_PLACEHOLDER_GATE": "PASS",
+      "ACTIONABLE_RECOMMENDATION_VISIBILITY_GATE": "PASS",
+      "CLAIM_EVIDENCE_COVERAGE_GATE": "PASS",
+      "EVIDENCE_FACT_ROLE_GATE": "PASS",
+      "SINGLE_EVIDENCE_SOURCE_GATE": "PASS",
+      "EVIDENCE_BUNDLE_RENDER_GATE": "PASS",
+      "APPLICABILITY_DISPLAY_CONSISTENCY_GATE": "PASS",
+      "ISSUE_TYPE_CONSISTENCY_GATE": "PASS",
+      "PARTIAL_MISSING_ELEMENT_GATE": "PASS",
+      "SUMMARY_TRUNCATION_DISCLOSURE_GATE": "PASS",
+      "TECHNICAL_REPORT_PLACEHOLDER_GATE": "PASS",
+      "FINAL_RISK_EVIDENCE_BUNDLE_GATE": "PASS",
+      "EVIDENCE_ITEM_UNIQUENESS_GATE": "PASS",
+      "CLAUSE_NODE_CONSISTENCY_GATE": "PASS",
+      "MISSING_RISK_ABSENCE_EVIDENCE_GATE": "PASS",
+      "COVERAGE_RISK_ACTION_CONSISTENCY_GATE": "PASS",
+      "PATENT_ROLE_TERMINOLOGY_GATE": "PASS",
+      "DUPLICATE_TEMPLATE_PHRASE_GATE": "PASS",
+      "EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+      "PASS_EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+      "CANONICAL_RISK_COVERAGE_INVARIANT": "PASS",
+      "CONSULTING_REPORT_CONTEXT_GATE": "PASS",
+      "TERMINOLOGY_CONSISTENCY_GATE": "PASS",
+      "APPLICABILITY_AND_EVIDENCE_BOUNDARY": "PASS"
+    },
+    "blocking_rules": [],
+    "blocking_stage": "",
+    "blocking_entities": [],
+    "blocking_reasons": [],
+    "post_render_status": "REPORT_READY"
+  },
+  "production_path_trace": {
+    "run_mode": "review",
+    "entrypoint": "routers.review_v2.review_v2_file",
+    "entrypoint_file": "F:\\ai\\Sage\\backend\\routers\\review_v2.py",
+    "entrypoint_line": 1290,
+    "engine_function": "review_v2.engine.review_contract_v2",
+    "engine_file": "F:\\ai\\Sage\\backend\\review_v2\\engine.py",
+    "engine_line": 49543,
+    "process_id": 16956,
+    "working_directory": "F:\\ai\\Sage",
+    "evidence_implementation": "technical-consulting-evidence-v2.1-active-path",
+    "pipeline_id": "canonical-review-v2-production-6.4",
+    "engine_version": "contract-review-quality-6.4",
+    "classifier_version": "technical-transaction-classifier-v3-single-source",
+    "evaluator_version": "canonical-review-evaluator-6.4-single-classification",
+    "ruleset_version": "review-v2-rules-quality3-2026-08-11",
+    "runtime_sources": {
+      "entrypoint": {
+        "module": "routers.review_v2",
+        "function": "review_v2_file",
+        "file": "F:\\ai\\Sage\\backend\\routers\\review_v2.py",
+        "first_line": 1290,
+        "mtime": 1788906729.4678445,
+        "sha256": "862a5f4d3ce060eba707829ddfa721ec85e89d0e6b669bebe20c257e7f80e161"
+      },
+      "company_formation_checklist": {
+        "module": "",
+        "function": "review_v2.company_formation_checklist",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\company_formation_checklist.py",
+        "first_line": null,
+        "mtime": 1788906856.955902,
+        "sha256": "cf68851a7abd7b7d44532ceba6bf927d9223d61baf295b432bf576e8623ed1df"
+      },
+      "transaction_scope": {
+        "module": "",
+        "function": "review_v2.transaction_scope",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\transaction_scope.py",
+        "first_line": null,
+        "mtime": 1788906553.862043,
+        "sha256": "99479b3a16a498ca15beb61ecc171314e9a6ef6d6282cac623f835febcc1c8ca"
+      },
+      "priority_contract_types": {
+        "module": "",
+        "function": "review_v2.priority_contract_types",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\priority_contract_types.py",
+        "first_line": null,
+        "mtime": 1788906553.8630395,
+        "sha256": "9fab6e7ecab4eaec072338568044b7f492aaab24d774749ab0f28b0f99ba3159"
+      },
+      "narrative_composition": {
+        "module": "",
+        "function": "review_v2.narrative_composition",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\narrative_composition.py",
+        "first_line": null,
+        "mtime": 1788853989.9190297,
+        "sha256": "7a1c438156cad034b5586d65f7c7242bd7e787069c9e92452a8ef0cdfd72ff5a"
+      },
+      "guarantee_scenarios": {
+        "module": "",
+        "function": "review_v2.guarantee_scenarios",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_scenarios.py",
+        "first_line": null,
+        "mtime": 1788852246.137577,
+        "sha256": "c0f336b4db65d1a85ae59263871a118fcb510629534c9ab24e62ef291799cfa4"
+      },
+      "guarantee_closure": {
+        "module": "",
+        "function": "review_v2.guarantee_closure",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_closure.py",
+        "first_line": null,
+        "mtime": 1788854358.3779397,
+        "sha256": "acb6e1856dda0ee694c8b5487b11bedf8a7ceaab8b5c12ab0a4237d4480ba985"
+      },
+      "guarantee_facts": {
+        "module": "",
+        "function": "review_v2.guarantee_contract_facts",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_contract_facts.py",
+        "first_line": null,
+        "mtime": 1788857142.4619803,
+        "sha256": "17cc0c585d0ca5d82809bf05fd8ade64a03a312517f54347341791b74b4bd00c"
+      },
+      "guarantee_parties": {
+        "module": "",
+        "function": "review_v2.guarantee_party_facts",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_party_facts.py",
+        "first_line": null,
+        "mtime": 1788851676.8914645,
+        "sha256": "5aa46592873df56f56101a5ca81bbce35552c683fc163e586a4f10764beccb8f"
+      },
+      "guarantee_prerequisites": {
+        "module": "",
+        "function": "review_v2.guarantee_prerequisites",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_prerequisites.py",
+        "first_line": null,
+        "mtime": 1788851761.341369,
+        "sha256": "1b9f6f31334a61d0996c845f5f145a1635f723d80fa7ca0a2ed3d1cc2468a6f8"
+      },
+      "guarantee_mode": {
+        "module": "",
+        "function": "review_v2.guarantee_mode",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_mode.py",
+        "first_line": null,
+        "mtime": 1788849459.3352966,
+        "sha256": "a16c1e11309ed8153f0e319cc0165f97263e7e11601974e14ea1a2f94ff09739"
+      },
+      "guarantee_scope": {
+        "module": "",
+        "function": "review_v2.guarantee_scope",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_scope.py",
+        "first_line": null,
+        "mtime": 1788849459.3362956,
+        "sha256": "244d321a1c8d6fcac23fcac86cdc8bb5f4bd8076c5fd87b7cf8962afd0158b31"
+      },
+      "guarantee_checklist": {
+        "module": "",
+        "function": "review_v2.guarantee_contract_checklist",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_contract_checklist.py",
+        "first_line": null,
+        "mtime": 1788851761.3403707,
+        "sha256": "68fab36d7aa853d6bd72863c0253c96192bcd420201bc17d5b82ec7ab618578d"
+      },
+      "service_scenarios": {
+        "module": "",
+        "function": "review_v2.service_scenarios",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\service_scenarios.py",
+        "first_line": null,
+        "mtime": 1788850342.7265022,
+        "sha256": "7366f80478c11d747fe23a57cf1862f8c6865fc72532aee1ec49923a9678edbd"
+      },
+      "service_checklist": {
+        "module": "",
+        "function": "review_v2.service_contract_checklist",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\service_contract_checklist.py",
+        "first_line": null,
+        "mtime": 1788849319.5429099,
+        "sha256": "e18b2a81824ff3dad181bccd91331a2a921d2b470d84dd353dd035a2d28adb29"
+      },
+      "gift_evidence": {
+        "module": "",
+        "function": "review_v2.gift_evidence",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\gift_evidence.py",
+        "first_line": null,
+        "mtime": 1788845427.2224538,
+        "sha256": "bf18ca398cb1edf00fb90a04f22a43518d0b8c3e77a54fc454bc92fe790bf76c"
+      },
+      "gift_checklist": {
+        "module": "",
+        "function": "review_v2.gift_contract_checklist",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\gift_contract_checklist.py",
+        "first_line": null,
+        "mtime": 1788845389.5607154,
+        "sha256": "64342e92f740728b6e33934315ae056c554573067c8011b571032a903edb3e90"
+      },
+      "brokerage_facts": {
+        "module": "",
+        "function": "review_v2.brokerage_facts",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\brokerage_facts.py",
+        "first_line": null,
+        "mtime": 1788847542.694157,
+        "sha256": "0f20f1da44b59b26c5da1f36a1716ca8853dcd148c4dfd1246cedfe1941df778"
+      },
+      "brokerage_concepts": {
+        "module": "",
+        "function": "review_v2.brokerage_concepts",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\brokerage_concepts.py",
+        "first_line": null,
+        "mtime": 1788848055.389166,
+        "sha256": "906f77b63dfd30635f41ba3485cb2d90c38afe9707151616dba7d48e9c7fbeba"
+      },
+      "brokerage_checklist": {
+        "module": "",
+        "function": "review_v2.brokerage_contract_checklist",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\brokerage_contract_checklist.py",
+        "first_line": null,
+        "mtime": 1788828769.6667237,
+        "sha256": "d2fbf0e0784b71e24d34ec097c0c7a1e26b8d1338e1d0b499630a68b12492c89"
+      },
+      "employment_checklist": {
+        "module": "",
+        "function": "review_v2.employment_contract_checklist",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\employment_contract_checklist.py",
+        "first_line": null,
+        "mtime": 1788857661.847528,
+        "sha256": "d90a717ad378af05d42ed20650efa67a0a65283d72756f0a82007e33e320c4f1"
+      },
+      "employment_facts": {
+        "module": "",
+        "function": "review_v2.employment_facts",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\employment_facts.py",
+        "first_line": null,
+        "mtime": 1788865155.1699557,
+        "sha256": "9ea36c4d88bedb707b5cdc6185e66f7aae9059f82f4a311cd60ce26617714939"
+      },
+      "employment_exit": {
+        "module": "",
+        "function": "review_v2.employment_exit",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\employment_exit.py",
+        "first_line": null,
+        "mtime": 1788832604.2483041,
+        "sha256": "aa3aaae9e3435c202d07b42be337ecf863e213f133e474b0b2fa0ba5fd2b2f93"
+      },
+      "employment_rights": {
+        "module": "",
+        "function": "review_v2.employment_rights",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\employment_rights.py",
+        "first_line": null,
+        "mtime": 1788835673.2196338,
+        "sha256": "888e79f44ca4fc073904e6e517620ab0ab5688c2858e6a6ce44ca9e5aa73c855"
+      },
+      "noncompete_semantics": {
+        "module": "",
+        "function": "review_v2.noncompete_semantics",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\noncompete_semantics.py",
+        "first_line": null,
+        "mtime": 1788857661.8465297,
+        "sha256": "2a1dd2837e09fa74cacad3688cb33b5f0f826eade93231001efc67344e129017"
+      },
+      "noncompete_reasonableness": {
+        "module": "",
+        "function": "review_v2.noncompete_reasonableness",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\noncompete_reasonableness.py",
+        "first_line": null,
+        "mtime": 1788851494.8702493,
+        "sha256": "3a8a40929cda540f5589ab3709609da822550e2211faa05af92491106e77c209"
+      },
+      "nda_semantics": {
+        "module": "",
+        "function": "review_v2.nda_semantics",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\nda_semantics.py",
+        "first_line": null,
+        "mtime": 1788856119.652897,
+        "sha256": "39bf560dd39c35f108b73b155c7c13d25cc7e90828b5ede0e5de0638d7d842e0"
+      },
+      "primary_purpose": {
+        "module": "",
+        "function": "review_v2.primary_purpose",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\primary_purpose.py",
+        "first_line": null,
+        "mtime": 1788856221.1011314,
+        "sha256": "3b63fc3c11fa724898e50a930a44c9f15b4c2a33e4aec7b2d958098c3da72bb9"
+      },
+      "agency_facts": {
+        "module": "",
+        "function": "review_v2.agency_facts",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\agency_facts.py",
+        "first_line": null,
+        "mtime": 1788906608.784636,
+        "sha256": "361c96cdd0bca704cc08e0c8d8c5b70d55bee18c9b69c3502b4afdc91dd564fa"
+      },
+      "semantic_relations": {
+        "module": "",
+        "function": "review_v2.semantic_relations",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\semantic_relations.py",
+        "first_line": null,
+        "mtime": 1788870455.7258177,
+        "sha256": "54fc9856033cb738e458852b38162c9ba37de064125171a31f2387a29bdf7376"
+      },
+      "semantic_consistency": {
+        "module": "",
+        "function": "review_v2.semantic_consistency",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\semantic_consistency.py",
+        "first_line": null,
+        "mtime": 1788870695.8322463,
+        "sha256": "f9b56f3a6994d043c6e7f8764c67fcf66019ae926aff145f4efdf5ad5c2521d4"
+      },
+      "penalty_base": {
+        "module": "",
+        "function": "review_v2.penalty_base",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\penalty_base.py",
+        "first_line": null,
+        "mtime": 1788870333.024309,
+        "sha256": "943b5c2ceb28e51b13a038e732425a116c8befe1110d6418350866959f7ce144"
+      },
+      "equity_checklist": {
+        "module": "",
+        "function": "review_v2.equity_investment_checklist",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\equity_investment_checklist.py",
+        "first_line": null,
+        "mtime": 1788870612.6645427,
+        "sha256": "c34e2ad3bdae70874abac71180cf3b00f460c359811a083e5a4a8a2012becb86"
+      },
+      "equity_transaction_facts": {
+        "module": "",
+        "function": "review_v2.equity_transaction_facts",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\equity_transaction_facts.py",
+        "first_line": null,
+        "mtime": 1788870612.6635456,
+        "sha256": "9e9a5a3a2868bd8d02076150fca1dca8633ea925f578e1423b7c5c69ccdcb90e"
+      },
+      "termination_checklist": {
+        "module": "",
+        "function": "review_v2.termination_checklist",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\termination_checklist.py",
+        "first_line": null,
+        "mtime": 1788857834.3875349,
+        "sha256": "53f288eb83369a25770790aeefa8abc736099a13d3a43577cd4fee55acd586c1"
+      },
+      "template_parser": {
+        "module": "",
+        "function": "review_v2.template_parser",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\template_parser.py",
+        "first_line": null,
+        "mtime": 1788857960.4229753,
+        "sha256": "869748153cea3e34ad37fc7353bff6d1c8e169b8a0f6757de09b2acdd0aea7f3"
+      },
+      "priority_contract_review": {
+        "module": "",
+        "function": "review_v2.priority_contract_review",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\priority_contract_review.py",
+        "first_line": null,
+        "mtime": 1788870681.244007,
+        "sha256": "73850cef79700f9853acd5a002f4dda86937b953493bac93a532c29211227e57"
+      },
+      "commission_agency_evidence": {
+        "module": "review_v2.commission_agency_evidence",
+        "function": "apply",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\commission_agency_evidence.py",
+        "first_line": 36,
+        "mtime": 1788825375.5603652,
+        "sha256": "f9bc4e53ef2b7bf70b5ead6325775d5eeb94bd76a51b3b696d6f1775553b9a8b"
+      },
+      "utility_supply_evidence": {
+        "module": "review_v2.utility_supply_evidence",
+        "function": "apply",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\utility_supply_evidence.py",
+        "first_line": 443,
+        "mtime": 1788837315.0384808,
+        "sha256": "6d5bffd5d7195d40c2742f9f18b88e965b3511e436574bc14df3c5d3a6c3f377"
+      },
+      "utility_supply_consistency_gate": {
+        "module": "review_v2.utility_supply_evidence",
+        "function": "consistency_gate",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\utility_supply_evidence.py",
+        "first_line": 491,
+        "mtime": 1788837315.0384808,
+        "sha256": "6d5bffd5d7195d40c2742f9f18b88e965b3511e436574bc14df3c5d3a6c3f377"
+      },
+      "parameter_validation": {
+        "module": "review_v2.parameter_validation",
+        "function": "extract_parameters",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\parameter_validation.py",
+        "first_line": 29,
+        "mtime": 1788835872.8052294,
+        "sha256": "299fcb849ca24a60e4add4c4383ecd50956545b360550fd9e8daae347ac2abdb"
+      },
+      "prerequisite_resolution": {
+        "module": "review_v2.prerequisite_resolution",
+        "function": "resolve_prerequisites",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\prerequisite_resolution.py",
+        "first_line": 9,
+        "mtime": 1788837163.1486194,
+        "sha256": "d951f2280e2d681d287adcef0892c38a1765862bf0f1835f38c255bc2c143df3"
+      },
+      "evidence_compatibility": {
+        "module": "review_v2.evidence_compatibility",
+        "function": "evidence_compatible",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\evidence_compatibility.py",
+        "first_line": 30,
+        "mtime": 1788837433.2095492,
+        "sha256": "19bf43cee548767db7a3cc680f660955f2236af3a9e2e29fcf605bd742e71681"
+      },
+      "utility_supply_applicability": {
+        "module": "review_v2.utility_supply_applicability",
+        "function": "extract_applicability_facts",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\utility_supply_applicability.py",
+        "first_line": 5,
+        "mtime": 1788837241.4597557,
+        "sha256": "d060f100625f1772dd6051780ff1dd3fcf941e9a13c9444f7b68ac20b5e9624d"
+      },
+      "utility_supply_checklist": {
+        "module": "review_v2.utility_supply_contract_checklist",
+        "function": "get_utility_supply_checklist",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\utility_supply_contract_checklist.py",
+        "first_line": 156,
+        "mtime": 1788837671.6735065,
+        "sha256": "eeeee2721544a3318aa0c82b2479fe64d962c5d7c78380c9cd41762e8714a3df"
+      },
+      "lease_semantics": {
+        "module": "review_v2.lease_semantics",
+        "function": "apply",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\lease_semantics.py",
+        "first_line": 441,
+        "mtime": 1788906517.5833235,
+        "sha256": "ed0722d7e280bca305aa0836c3e3c6755d5103b7a93e3a177cada55181f7a852"
+      },
+      "lease_recommendation_children": {
+        "module": "review_v2.recommendation_children",
+        "function": "child_set_gate",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\recommendation_children.py",
+        "first_line": 9,
+        "mtime": 1788819203.9273765,
+        "sha256": "ea3419cd520f5d990d95e0a7a34f6426a67a82609dfd6e8baef89c745e9f77d4"
+      },
+      "lease_fact_graph": {
+        "module": "review_v2.lease_contract_facts",
+        "function": "extract_house_lease_facts",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\lease_contract_facts.py",
+        "first_line": 828,
+        "mtime": 1788786081.007521,
+        "sha256": "ea07ea224f16a85121f9a734797653327b296fc0aecd06fbd401de54f54eb5a5"
+      },
+      "clause_parser": {
+        "module": "review_v2.clause_parser",
+        "function": "parse_contract_clauses",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\clause_parser.py",
+        "first_line": 367,
+        "mtime": 1788857348.9266596,
+        "sha256": "4de5f79ee1d23f74ec09288eb86db86d6cd7d2fd9b68b37e5d14f8cd23dd8325"
+      },
+      "domain_selection": {
+        "module": "review_v2.domain_selection",
+        "function": "resolve_domain_selection",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\domain_selection.py",
+        "first_line": 247,
+        "mtime": 1788906773.639841,
+        "sha256": "fe57b8c3159634e042f941d893baf981f047415863b3ce48892c12d7a2bb438a"
+      },
+      "source_span_evidence": {
+        "module": "review_v2.sale_evidence",
+        "function": "extract",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\sale_evidence.py",
+        "first_line": 161,
+        "mtime": 1788870364.3211422,
+        "sha256": "3c860485fa5d68d26f0f3577bb67bad12cfc25b8a72fb014dd718ffa9144936f"
+      },
+      "work_evidence": {
+        "module": "review_v2.work_evidence",
+        "function": "apply",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\work_evidence.py",
+        "first_line": 89,
+        "mtime": 1788821258.295441,
+        "sha256": "dd3b53f264659fb2c64b056b6022d06112c1ea503b9b4321a4e796ac3848e722"
+      },
+      "finance_lease_facts": {
+        "module": "review_v2.finance_lease_facts",
+        "function": "FinanceLeaseFacts.__init__",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\finance_lease_facts.py",
+        "first_line": 79,
+        "mtime": 1788785465.5009062,
+        "sha256": "7f0dec23de8a445a35ffca65d24f1c19bca75712f0c04018698e0e6b146981de"
+      },
+      "loan_costs": {
+        "module": "review_v2.loan_costs",
+        "function": "analyze_costs",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\loan_costs.py",
+        "first_line": 31,
+        "mtime": 1788855832.4230525,
+        "sha256": "69d9210842cf41dc5350ad90e142310d2575f647304a3b5876751106efe1a466"
+      },
+      "loan_facts": {
+        "module": "review_v2.loan_facts",
+        "function": "LoanFacts.from_clauses",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\loan_facts.py",
+        "first_line": 178,
+        "mtime": 1788858208.6685238,
+        "sha256": "2b096e41c8d777b34132b08cbd9bb9ef9672d23f2e2ec8814499abb241929708"
+      },
+      "loan_checklist": {
+        "module": "review_v2.loan_contract_checklist",
+        "function": "get_loan_checklist",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\loan_contract_checklist.py",
+        "first_line": 157,
+        "mtime": 1788780797.5639083,
+        "sha256": "f1d92ba95a8b144202c136418a5f2603deed8564b82f64123151c32792880529"
+      },
+      "engine": {
+        "module": "review_v2.engine",
+        "function": "review_contract_v2",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\engine.py",
+        "first_line": 49543,
+        "mtime": 1788907087.1110945,
+        "sha256": "86144616a893646401dff821361c3725ffff05d78208012adadde9f9bdf310a2"
+      },
+      "domain_packs": {
+        "module": "",
+        "function": "review_v2.domain_packs",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\domain_packs.py",
+        "first_line": null,
+        "mtime": 1788836986.7382214,
+        "sha256": "9717c22aa63721aaef52a107df923e54b62cb24761bbc256fe5345c76745cefa"
+      },
+      "quality4": {
+        "module": "",
+        "function": "review_v2.quality4",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\quality4.py",
+        "first_line": null,
+        "mtime": 1788836986.7394044,
+        "sha256": "9a1d1a009c61fe3133894993941503fd7755b7ddf06166a3dc443acdf1d6537b"
+      },
+      "classifier": {
+        "module": "review_v2.technology_service_analysis",
+        "function": "classify_technology_transaction",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\technology_service_analysis.py",
+        "first_line": 2335,
+        "mtime": 1788756455.706642,
+        "sha256": "e2c328722d8d61a374d4bb76c2f371e0a570f8364be1b9c557977b5b277c918e"
+      },
+      "registry": {
+        "module": "review_v2.contract_registry",
+        "function": "get_checklist_for_resolution",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\contract_registry.py",
+        "first_line": 313,
+        "mtime": 1788906688.2449055,
+        "sha256": "3a307b968139710842fe2da7c17dd92a0825c9a9f30d2e7bd6c4d2c9a864d704"
+      },
+      "document_parser": {
+        "module": "layers.input_layer",
+        "function": "InputLayer.extract_text_with_diagnostics",
+        "file": "F:\\ai\\Sage\\backend\\layers\\input_layer.py",
+        "first_line": 26,
+        "mtime": 1788426942.7267408,
+        "sha256": "61b72b38cbb71f2fe74b4c921f0fd68705b82be0a35f80a5a9d2710db2b1f9bf"
+      },
+      "normalization": {
+        "module": "review_v2.clause_parser",
+        "function": "strip_non_contract_tail",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\clause_parser.py",
+        "first_line": 259,
+        "mtime": 1788857348.9266596,
+        "sha256": "4de5f79ee1d23f74ec09288eb86db86d6cd7d2fd9b68b37e5d14f8cd23dd8325"
+      },
+      "conditional_elements": {
+        "module": "review_v2.element_resolution",
+        "function": "conditional_element",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\element_resolution.py",
+        "first_line": 6,
+        "mtime": 1788751740.6019502,
+        "sha256": "cd345b4b766f78cc06d34a1051eb97b0015dc406f711c5024562ccbe286dca3c"
+      },
+      "claim_evidence": {
+        "module": "review_v2.technology_service_analysis",
+        "function": "extract_claim_response_facts",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\technology_service_analysis.py",
+        "first_line": 1741,
+        "mtime": 1788756455.706642,
+        "sha256": "e2c328722d8d61a374d4bb76c2f371e0a570f8364be1b9c557977b5b277c918e"
+      },
+      "claim_projection": {
+        "module": "review_v2.engine",
+        "function": "_apply_exact_claim_response",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\engine.py",
+        "first_line": 14497,
+        "mtime": 1788907087.1110945,
+        "sha256": "86144616a893646401dff821361c3725ffff05d78208012adadde9f9bdf310a2"
+      },
+      "license_evaluation": {
+        "module": "review_v2.engine",
+        "function": "_apply_technology_transaction_evidence_consistency",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\engine.py",
+        "first_line": 15009,
+        "mtime": 1788907087.1110945,
+        "sha256": "86144616a893646401dff821361c3725ffff05d78208012adadde9f9bdf310a2"
+      },
+      "secret_proof_evaluation": {
+        "module": "review_v2.engine",
+        "function": "_technical_secret_transfer_proof_results",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\engine.py",
+        "first_line": 10676,
+        "mtime": 1788907087.1110945,
+        "sha256": "86144616a893646401dff821361c3725ffff05d78208012adadde9f9bdf310a2"
+      },
+      "element_search": {
+        "module": "review_v2.engine",
+        "function": "_resolve_final_element_searches",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\engine.py",
+        "first_line": 6501,
+        "mtime": 1788907087.1110945,
+        "sha256": "86144616a893646401dff821361c3725ffff05d78208012adadde9f9bdf310a2"
+      },
+      "recommendations": {
+        "module": "review_v2.engine",
+        "function": "_finalize_element_recommendation_sources",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\engine.py",
+        "first_line": 41690,
+        "mtime": 1788907087.1110945,
+        "sha256": "86144616a893646401dff821361c3725ffff05d78208012adadde9f9bdf310a2"
+      },
+      "liability_scope_consistency": {
+        "module": "review_v2.claim_scope_consistency",
+        "function": "liability_scope_consistency_failures",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\claim_scope_consistency.py",
+        "first_line": 70,
+        "mtime": 1788755556.2915032,
+        "sha256": "90a28eae6865da40a49a216b3bd27de6505fd6eca2fa39e2f54dfdaf98b6f50e"
+      },
+      "requirement_key_normalization": {
+        "module": "review_v2.requirement_keys",
+        "function": "normalize_requirement_supports",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\requirement_keys.py",
+        "first_line": 133,
+        "mtime": 1788761585.1361108,
+        "sha256": "2aa2a4ecf571e94fd1d687747bb03798eace74b039e1eda44cec7bed0b479a50"
+      },
+      "development_exit_elements": {
+        "module": "review_v2.development_exit",
+        "function": "development_exit_elements",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\development_exit.py",
+        "first_line": 24,
+        "mtime": 1788756749.4534078,
+        "sha256": "04a9d2cde1cbe85638078b8eae4d83880c822fe6c54febbfaa2a102053b1e846"
+      },
+      "entrusted_patent_application_elements": {
+        "module": "review_v2.entrusted_development_elements",
+        "function": "entrusted_patent_application_elements",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\entrusted_development_elements.py",
+        "first_line": 126,
+        "mtime": 1788761865.988057,
+        "sha256": "02dad7f77155f9d497ee6462bf94f51f4657a659277960056a508b64573a8e04"
+      },
+      "development_failure_elements": {
+        "module": "review_v2.entrusted_development_elements",
+        "function": "development_failure_elements",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\entrusted_development_elements.py",
+        "first_line": 190,
+        "mtime": 1788761865.988057,
+        "sha256": "02dad7f77155f9d497ee6462bf94f51f4657a659277960056a508b64573a8e04"
+      },
+      "confidentiality_detail_elements": {
+        "module": "review_v2.obligation_detail_elements",
+        "function": "confidentiality_detail_elements",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\obligation_detail_elements.py",
+        "first_line": 76,
+        "mtime": 1788763626.7827678,
+        "sha256": "34e887eae1be200a9f0ae5d037b4b68847c33c813d25c09936739bc27088ad9c"
+      },
+      "ancillary_service_detail_elements": {
+        "module": "review_v2.obligation_detail_elements",
+        "function": "ancillary_service_detail_elements",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\obligation_detail_elements.py",
+        "first_line": 217,
+        "mtime": 1788763626.7827678,
+        "sha256": "34e887eae1be200a9f0ae5d037b4b68847c33c813d25c09936739bc27088ad9c"
+      },
+      "report_state_consistency_failures": {
+        "module": "review_v2.report_state_consistency",
+        "function": "report_state_consistency_failures",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\report_state_consistency.py",
+        "first_line": 278,
+        "mtime": 1788821147.5972402,
+        "sha256": "29fae79c1c27c36329cf748918601969dbecbbb556706c161f78c984ff124a5a"
+      },
+      "shared_fact_concepts": {
+        "module": "",
+        "function": "review_v2.shared_fact_concepts",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\shared_fact_concepts.py",
+        "first_line": null,
+        "mtime": 1788906827.2503898,
+        "sha256": "868ad2e60e242e203d322cf7b1b0cd04e79490ef29ae1562217c41803b0d322d"
+      },
+      "safekeeping_contract_checklist": {
+        "module": "",
+        "function": "review_v2.safekeeping_contract_checklist",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\safekeeping_contract_checklist.py",
+        "first_line": null,
+        "mtime": 1788906462.329022,
+        "sha256": "fa89a51ccb13e3023e4aa1cfd5e46a191ac7820bfc11ee8f8bab00daf0631327"
+      },
+      "security_property_checklist": {
+        "module": "",
+        "function": "review_v2.security_property_checklist",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\security_property_checklist.py",
+        "first_line": null,
+        "mtime": 1788868073.240675,
+        "sha256": "21a5b0f28029943578190518f8ac62d7453e0d37ccc8679ab88249abd841e039"
+      },
+      "security_context": {
+        "module": "",
+        "function": "review_v2.security_context",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\security_context.py",
+        "first_line": null,
+        "mtime": 1788856863.2362144,
+        "sha256": "30d379659628533ff1bc1956354d84e8017e40a4711f85cb5596d1073bebac53"
+      },
+      "security_semantic_aliases": {
+        "module": "",
+        "function": "review_v2.security_semantic_aliases",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\security_semantic_aliases.py",
+        "first_line": null,
+        "mtime": 1788866800.8139124,
+        "sha256": "4e32941887c63713f1a096afb733f72677cb8f8ce951fedd55c58ed61a562684"
+      },
+      "requirement_kinds": {
+        "module": "",
+        "function": "review_v2.requirement_kinds",
+        "file": "F:\\ai\\Sage\\backend\\review_v2\\requirement_kinds.py",
+        "first_line": null,
+        "mtime": 1788855025.5270722,
+        "sha256": "da2240a4543053a7ad9d419ab24642a92c08ab56e58171726614d39a141381cf"
+      }
+    },
+    "runtime_source_drift": {
+      "status": "CURRENT",
+      "changed_dependencies": [],
+      "checked_dependencies": [
+        "agency_facts",
+        "classifier",
+        "clause_parser",
+        "conditional_elements",
+        "document_parser",
+        "domain_packs",
+        "domain_selection",
+        "element_search",
+        "engine",
+        "equity_checklist",
+        "equity_transaction_facts",
+        "gift_checklist",
+        "gift_evidence",
+        "narrative_composition",
+        "normalization",
+        "penalty_base",
+        "primary_purpose",
+        "quality4",
+        "recommendations",
+        "registry",
+        "report_state_consistency_failures",
+        "requirement_key_normalization",
+        "requirement_kinds",
+        "safekeeping_contract_checklist",
+        "security_context",
+        "security_property_checklist",
+        "security_semantic_aliases",
+        "semantic_consistency",
+        "semantic_relations",
+        "service_checklist",
+        "service_scenarios",
+        "shared_fact_concepts",
+        "template_parser",
+        "termination_checklist"
+      ],
+      "loaded": {
+        "company_formation_checklist": {
+          "module": "",
+          "function": "review_v2.company_formation_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\company_formation_checklist.py",
+          "first_line": null,
+          "mtime": 1788906856.955902,
+          "sha256": "cf68851a7abd7b7d44532ceba6bf927d9223d61baf295b432bf576e8623ed1df"
+        },
+        "transaction_scope": {
+          "module": "",
+          "function": "review_v2.transaction_scope",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\transaction_scope.py",
+          "first_line": null,
+          "mtime": 1788906553.862043,
+          "sha256": "99479b3a16a498ca15beb61ecc171314e9a6ef6d6282cac623f835febcc1c8ca"
+        },
+        "priority_contract_types": {
+          "module": "",
+          "function": "review_v2.priority_contract_types",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\priority_contract_types.py",
+          "first_line": null,
+          "mtime": 1788906553.8630395,
+          "sha256": "9fab6e7ecab4eaec072338568044b7f492aaab24d774749ab0f28b0f99ba3159"
+        },
+        "narrative_composition": {
+          "module": "",
+          "function": "review_v2.narrative_composition",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\narrative_composition.py",
+          "first_line": null,
+          "mtime": 1788853989.9190297,
+          "sha256": "7a1c438156cad034b5586d65f7c7242bd7e787069c9e92452a8ef0cdfd72ff5a"
+        },
+        "guarantee_scenarios": {
+          "module": "",
+          "function": "review_v2.guarantee_scenarios",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_scenarios.py",
+          "first_line": null,
+          "mtime": 1788852246.137577,
+          "sha256": "c0f336b4db65d1a85ae59263871a118fcb510629534c9ab24e62ef291799cfa4"
+        },
+        "guarantee_closure": {
+          "module": "",
+          "function": "review_v2.guarantee_closure",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_closure.py",
+          "first_line": null,
+          "mtime": 1788854358.3779397,
+          "sha256": "acb6e1856dda0ee694c8b5487b11bedf8a7ceaab8b5c12ab0a4237d4480ba985"
+        },
+        "guarantee_facts": {
+          "module": "",
+          "function": "review_v2.guarantee_contract_facts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_contract_facts.py",
+          "first_line": null,
+          "mtime": 1788857142.4619803,
+          "sha256": "17cc0c585d0ca5d82809bf05fd8ade64a03a312517f54347341791b74b4bd00c"
+        },
+        "guarantee_parties": {
+          "module": "",
+          "function": "review_v2.guarantee_party_facts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_party_facts.py",
+          "first_line": null,
+          "mtime": 1788851676.8914645,
+          "sha256": "5aa46592873df56f56101a5ca81bbce35552c683fc163e586a4f10764beccb8f"
+        },
+        "guarantee_prerequisites": {
+          "module": "",
+          "function": "review_v2.guarantee_prerequisites",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_prerequisites.py",
+          "first_line": null,
+          "mtime": 1788851761.341369,
+          "sha256": "1b9f6f31334a61d0996c845f5f145a1635f723d80fa7ca0a2ed3d1cc2468a6f8"
+        },
+        "guarantee_mode": {
+          "module": "",
+          "function": "review_v2.guarantee_mode",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_mode.py",
+          "first_line": null,
+          "mtime": 1788849459.3352966,
+          "sha256": "a16c1e11309ed8153f0e319cc0165f97263e7e11601974e14ea1a2f94ff09739"
+        },
+        "guarantee_scope": {
+          "module": "",
+          "function": "review_v2.guarantee_scope",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_scope.py",
+          "first_line": null,
+          "mtime": 1788849459.3362956,
+          "sha256": "244d321a1c8d6fcac23fcac86cdc8bb5f4bd8076c5fd87b7cf8962afd0158b31"
+        },
+        "guarantee_checklist": {
+          "module": "",
+          "function": "review_v2.guarantee_contract_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_contract_checklist.py",
+          "first_line": null,
+          "mtime": 1788851761.3403707,
+          "sha256": "68fab36d7aa853d6bd72863c0253c96192bcd420201bc17d5b82ec7ab618578d"
+        },
+        "service_scenarios": {
+          "module": "",
+          "function": "review_v2.service_scenarios",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\service_scenarios.py",
+          "first_line": null,
+          "mtime": 1788850342.7265022,
+          "sha256": "7366f80478c11d747fe23a57cf1862f8c6865fc72532aee1ec49923a9678edbd"
+        },
+        "service_checklist": {
+          "module": "",
+          "function": "review_v2.service_contract_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\service_contract_checklist.py",
+          "first_line": null,
+          "mtime": 1788849319.5429099,
+          "sha256": "e18b2a81824ff3dad181bccd91331a2a921d2b470d84dd353dd035a2d28adb29"
+        },
+        "gift_evidence": {
+          "module": "",
+          "function": "review_v2.gift_evidence",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\gift_evidence.py",
+          "first_line": null,
+          "mtime": 1788845427.2224538,
+          "sha256": "bf18ca398cb1edf00fb90a04f22a43518d0b8c3e77a54fc454bc92fe790bf76c"
+        },
+        "gift_checklist": {
+          "module": "",
+          "function": "review_v2.gift_contract_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\gift_contract_checklist.py",
+          "first_line": null,
+          "mtime": 1788845389.5607154,
+          "sha256": "64342e92f740728b6e33934315ae056c554573067c8011b571032a903edb3e90"
+        },
+        "brokerage_facts": {
+          "module": "",
+          "function": "review_v2.brokerage_facts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\brokerage_facts.py",
+          "first_line": null,
+          "mtime": 1788847542.694157,
+          "sha256": "0f20f1da44b59b26c5da1f36a1716ca8853dcd148c4dfd1246cedfe1941df778"
+        },
+        "brokerage_concepts": {
+          "module": "",
+          "function": "review_v2.brokerage_concepts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\brokerage_concepts.py",
+          "first_line": null,
+          "mtime": 1788848055.389166,
+          "sha256": "906f77b63dfd30635f41ba3485cb2d90c38afe9707151616dba7d48e9c7fbeba"
+        },
+        "brokerage_checklist": {
+          "module": "",
+          "function": "review_v2.brokerage_contract_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\brokerage_contract_checklist.py",
+          "first_line": null,
+          "mtime": 1788828769.6667237,
+          "sha256": "d2fbf0e0784b71e24d34ec097c0c7a1e26b8d1338e1d0b499630a68b12492c89"
+        },
+        "employment_checklist": {
+          "module": "",
+          "function": "review_v2.employment_contract_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\employment_contract_checklist.py",
+          "first_line": null,
+          "mtime": 1788857661.847528,
+          "sha256": "d90a717ad378af05d42ed20650efa67a0a65283d72756f0a82007e33e320c4f1"
+        },
+        "employment_facts": {
+          "module": "",
+          "function": "review_v2.employment_facts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\employment_facts.py",
+          "first_line": null,
+          "mtime": 1788865155.1699557,
+          "sha256": "9ea36c4d88bedb707b5cdc6185e66f7aae9059f82f4a311cd60ce26617714939"
+        },
+        "employment_exit": {
+          "module": "",
+          "function": "review_v2.employment_exit",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\employment_exit.py",
+          "first_line": null,
+          "mtime": 1788832604.2483041,
+          "sha256": "aa3aaae9e3435c202d07b42be337ecf863e213f133e474b0b2fa0ba5fd2b2f93"
+        },
+        "employment_rights": {
+          "module": "",
+          "function": "review_v2.employment_rights",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\employment_rights.py",
+          "first_line": null,
+          "mtime": 1788835673.2196338,
+          "sha256": "888e79f44ca4fc073904e6e517620ab0ab5688c2858e6a6ce44ca9e5aa73c855"
+        },
+        "noncompete_semantics": {
+          "module": "",
+          "function": "review_v2.noncompete_semantics",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\noncompete_semantics.py",
+          "first_line": null,
+          "mtime": 1788857661.8465297,
+          "sha256": "2a1dd2837e09fa74cacad3688cb33b5f0f826eade93231001efc67344e129017"
+        },
+        "noncompete_reasonableness": {
+          "module": "",
+          "function": "review_v2.noncompete_reasonableness",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\noncompete_reasonableness.py",
+          "first_line": null,
+          "mtime": 1788851494.8702493,
+          "sha256": "3a8a40929cda540f5589ab3709609da822550e2211faa05af92491106e77c209"
+        },
+        "nda_semantics": {
+          "module": "",
+          "function": "review_v2.nda_semantics",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\nda_semantics.py",
+          "first_line": null,
+          "mtime": 1788856119.652897,
+          "sha256": "39bf560dd39c35f108b73b155c7c13d25cc7e90828b5ede0e5de0638d7d842e0"
+        },
+        "primary_purpose": {
+          "module": "",
+          "function": "review_v2.primary_purpose",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\primary_purpose.py",
+          "first_line": null,
+          "mtime": 1788856221.1011314,
+          "sha256": "3b63fc3c11fa724898e50a930a44c9f15b4c2a33e4aec7b2d958098c3da72bb9"
+        },
+        "agency_facts": {
+          "module": "",
+          "function": "review_v2.agency_facts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\agency_facts.py",
+          "first_line": null,
+          "mtime": 1788906608.784636,
+          "sha256": "361c96cdd0bca704cc08e0c8d8c5b70d55bee18c9b69c3502b4afdc91dd564fa"
+        },
+        "semantic_relations": {
+          "module": "",
+          "function": "review_v2.semantic_relations",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\semantic_relations.py",
+          "first_line": null,
+          "mtime": 1788870455.7258177,
+          "sha256": "54fc9856033cb738e458852b38162c9ba37de064125171a31f2387a29bdf7376"
+        },
+        "semantic_consistency": {
+          "module": "",
+          "function": "review_v2.semantic_consistency",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\semantic_consistency.py",
+          "first_line": null,
+          "mtime": 1788870695.8322463,
+          "sha256": "f9b56f3a6994d043c6e7f8764c67fcf66019ae926aff145f4efdf5ad5c2521d4"
+        },
+        "penalty_base": {
+          "module": "",
+          "function": "review_v2.penalty_base",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\penalty_base.py",
+          "first_line": null,
+          "mtime": 1788870333.024309,
+          "sha256": "943b5c2ceb28e51b13a038e732425a116c8befe1110d6418350866959f7ce144"
+        },
+        "equity_checklist": {
+          "module": "",
+          "function": "review_v2.equity_investment_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\equity_investment_checklist.py",
+          "first_line": null,
+          "mtime": 1788870612.6645427,
+          "sha256": "c34e2ad3bdae70874abac71180cf3b00f460c359811a083e5a4a8a2012becb86"
+        },
+        "equity_transaction_facts": {
+          "module": "",
+          "function": "review_v2.equity_transaction_facts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\equity_transaction_facts.py",
+          "first_line": null,
+          "mtime": 1788870612.6635456,
+          "sha256": "9e9a5a3a2868bd8d02076150fca1dca8633ea925f578e1423b7c5c69ccdcb90e"
+        },
+        "termination_checklist": {
+          "module": "",
+          "function": "review_v2.termination_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\termination_checklist.py",
+          "first_line": null,
+          "mtime": 1788857834.3875349,
+          "sha256": "53f288eb83369a25770790aeefa8abc736099a13d3a43577cd4fee55acd586c1"
+        },
+        "template_parser": {
+          "module": "",
+          "function": "review_v2.template_parser",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\template_parser.py",
+          "first_line": null,
+          "mtime": 1788857960.4229753,
+          "sha256": "869748153cea3e34ad37fc7353bff6d1c8e169b8a0f6757de09b2acdd0aea7f3"
+        },
+        "priority_contract_review": {
+          "module": "",
+          "function": "review_v2.priority_contract_review",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\priority_contract_review.py",
+          "first_line": null,
+          "mtime": 1788870681.244007,
+          "sha256": "73850cef79700f9853acd5a002f4dda86937b953493bac93a532c29211227e57"
+        },
+        "commission_agency_evidence": {
+          "module": "review_v2.commission_agency_evidence",
+          "function": "apply",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\commission_agency_evidence.py",
+          "first_line": 36,
+          "mtime": 1788825375.5603652,
+          "sha256": "f9bc4e53ef2b7bf70b5ead6325775d5eeb94bd76a51b3b696d6f1775553b9a8b"
+        },
+        "utility_supply_evidence": {
+          "module": "review_v2.utility_supply_evidence",
+          "function": "apply",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\utility_supply_evidence.py",
+          "first_line": 443,
+          "mtime": 1788837315.0384808,
+          "sha256": "6d5bffd5d7195d40c2742f9f18b88e965b3511e436574bc14df3c5d3a6c3f377"
+        },
+        "utility_supply_consistency_gate": {
+          "module": "review_v2.utility_supply_evidence",
+          "function": "consistency_gate",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\utility_supply_evidence.py",
+          "first_line": 491,
+          "mtime": 1788837315.0384808,
+          "sha256": "6d5bffd5d7195d40c2742f9f18b88e965b3511e436574bc14df3c5d3a6c3f377"
+        },
+        "parameter_validation": {
+          "module": "review_v2.parameter_validation",
+          "function": "extract_parameters",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\parameter_validation.py",
+          "first_line": 29,
+          "mtime": 1788835872.8052294,
+          "sha256": "299fcb849ca24a60e4add4c4383ecd50956545b360550fd9e8daae347ac2abdb"
+        },
+        "prerequisite_resolution": {
+          "module": "review_v2.prerequisite_resolution",
+          "function": "resolve_prerequisites",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\prerequisite_resolution.py",
+          "first_line": 9,
+          "mtime": 1788837163.1486194,
+          "sha256": "d951f2280e2d681d287adcef0892c38a1765862bf0f1835f38c255bc2c143df3"
+        },
+        "evidence_compatibility": {
+          "module": "review_v2.evidence_compatibility",
+          "function": "evidence_compatible",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\evidence_compatibility.py",
+          "first_line": 30,
+          "mtime": 1788837433.2095492,
+          "sha256": "19bf43cee548767db7a3cc680f660955f2236af3a9e2e29fcf605bd742e71681"
+        },
+        "utility_supply_applicability": {
+          "module": "review_v2.utility_supply_applicability",
+          "function": "extract_applicability_facts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\utility_supply_applicability.py",
+          "first_line": 5,
+          "mtime": 1788837241.4597557,
+          "sha256": "d060f100625f1772dd6051780ff1dd3fcf941e9a13c9444f7b68ac20b5e9624d"
+        },
+        "utility_supply_checklist": {
+          "module": "review_v2.utility_supply_contract_checklist",
+          "function": "get_utility_supply_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\utility_supply_contract_checklist.py",
+          "first_line": 156,
+          "mtime": 1788837671.6735065,
+          "sha256": "eeeee2721544a3318aa0c82b2479fe64d962c5d7c78380c9cd41762e8714a3df"
+        },
+        "lease_semantics": {
+          "module": "review_v2.lease_semantics",
+          "function": "apply",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\lease_semantics.py",
+          "first_line": 441,
+          "mtime": 1788906517.5833235,
+          "sha256": "ed0722d7e280bca305aa0836c3e3c6755d5103b7a93e3a177cada55181f7a852"
+        },
+        "lease_recommendation_children": {
+          "module": "review_v2.recommendation_children",
+          "function": "child_set_gate",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\recommendation_children.py",
+          "first_line": 9,
+          "mtime": 1788819203.9273765,
+          "sha256": "ea3419cd520f5d990d95e0a7a34f6426a67a82609dfd6e8baef89c745e9f77d4"
+        },
+        "lease_fact_graph": {
+          "module": "review_v2.lease_contract_facts",
+          "function": "extract_house_lease_facts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\lease_contract_facts.py",
+          "first_line": 828,
+          "mtime": 1788786081.007521,
+          "sha256": "ea07ea224f16a85121f9a734797653327b296fc0aecd06fbd401de54f54eb5a5"
+        },
+        "clause_parser": {
+          "module": "review_v2.clause_parser",
+          "function": "parse_contract_clauses",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\clause_parser.py",
+          "first_line": 367,
+          "mtime": 1788857348.9266596,
+          "sha256": "4de5f79ee1d23f74ec09288eb86db86d6cd7d2fd9b68b37e5d14f8cd23dd8325"
+        },
+        "domain_selection": {
+          "module": "review_v2.domain_selection",
+          "function": "resolve_domain_selection",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\domain_selection.py",
+          "first_line": 247,
+          "mtime": 1788906773.639841,
+          "sha256": "fe57b8c3159634e042f941d893baf981f047415863b3ce48892c12d7a2bb438a"
+        },
+        "source_span_evidence": {
+          "module": "review_v2.sale_evidence",
+          "function": "extract",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\sale_evidence.py",
+          "first_line": 161,
+          "mtime": 1788870364.3211422,
+          "sha256": "3c860485fa5d68d26f0f3577bb67bad12cfc25b8a72fb014dd718ffa9144936f"
+        },
+        "work_evidence": {
+          "module": "review_v2.work_evidence",
+          "function": "apply",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\work_evidence.py",
+          "first_line": 89,
+          "mtime": 1788821258.295441,
+          "sha256": "dd3b53f264659fb2c64b056b6022d06112c1ea503b9b4321a4e796ac3848e722"
+        },
+        "finance_lease_facts": {
+          "module": "review_v2.finance_lease_facts",
+          "function": "FinanceLeaseFacts.__init__",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\finance_lease_facts.py",
+          "first_line": 79,
+          "mtime": 1788785465.5009062,
+          "sha256": "7f0dec23de8a445a35ffca65d24f1c19bca75712f0c04018698e0e6b146981de"
+        },
+        "loan_costs": {
+          "module": "review_v2.loan_costs",
+          "function": "analyze_costs",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\loan_costs.py",
+          "first_line": 31,
+          "mtime": 1788855832.4230525,
+          "sha256": "69d9210842cf41dc5350ad90e142310d2575f647304a3b5876751106efe1a466"
+        },
+        "loan_facts": {
+          "module": "review_v2.loan_facts",
+          "function": "LoanFacts.from_clauses",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\loan_facts.py",
+          "first_line": 178,
+          "mtime": 1788858208.6685238,
+          "sha256": "2b096e41c8d777b34132b08cbd9bb9ef9672d23f2e2ec8814499abb241929708"
+        },
+        "loan_checklist": {
+          "module": "review_v2.loan_contract_checklist",
+          "function": "get_loan_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\loan_contract_checklist.py",
+          "first_line": 157,
+          "mtime": 1788780797.5639083,
+          "sha256": "f1d92ba95a8b144202c136418a5f2603deed8564b82f64123151c32792880529"
+        },
+        "engine": {
+          "module": "review_v2.engine",
+          "function": "review_contract_v2",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\engine.py",
+          "first_line": 49543,
+          "mtime": 1788907087.1110945,
+          "sha256": "86144616a893646401dff821361c3725ffff05d78208012adadde9f9bdf310a2"
+        },
+        "domain_packs": {
+          "module": "",
+          "function": "review_v2.domain_packs",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\domain_packs.py",
+          "first_line": null,
+          "mtime": 1788836986.7382214,
+          "sha256": "9717c22aa63721aaef52a107df923e54b62cb24761bbc256fe5345c76745cefa"
+        },
+        "quality4": {
+          "module": "",
+          "function": "review_v2.quality4",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\quality4.py",
+          "first_line": null,
+          "mtime": 1788836986.7394044,
+          "sha256": "9a1d1a009c61fe3133894993941503fd7755b7ddf06166a3dc443acdf1d6537b"
+        },
+        "classifier": {
+          "module": "review_v2.technology_service_analysis",
+          "function": "classify_technology_transaction",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\technology_service_analysis.py",
+          "first_line": 2335,
+          "mtime": 1788756455.706642,
+          "sha256": "e2c328722d8d61a374d4bb76c2f371e0a570f8364be1b9c557977b5b277c918e"
+        },
+        "registry": {
+          "module": "review_v2.contract_registry",
+          "function": "get_checklist_for_resolution",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\contract_registry.py",
+          "first_line": 313,
+          "mtime": 1788906688.2449055,
+          "sha256": "3a307b968139710842fe2da7c17dd92a0825c9a9f30d2e7bd6c4d2c9a864d704"
+        },
+        "document_parser": {
+          "module": "layers.input_layer",
+          "function": "InputLayer.extract_text_with_diagnostics",
+          "file": "F:\\ai\\Sage\\backend\\layers\\input_layer.py",
+          "first_line": 26,
+          "mtime": 1788426942.7267408,
+          "sha256": "61b72b38cbb71f2fe74b4c921f0fd68705b82be0a35f80a5a9d2710db2b1f9bf"
+        },
+        "normalization": {
+          "module": "review_v2.clause_parser",
+          "function": "strip_non_contract_tail",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\clause_parser.py",
+          "first_line": 259,
+          "mtime": 1788857348.9266596,
+          "sha256": "4de5f79ee1d23f74ec09288eb86db86d6cd7d2fd9b68b37e5d14f8cd23dd8325"
+        },
+        "conditional_elements": {
+          "module": "review_v2.element_resolution",
+          "function": "conditional_element",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\element_resolution.py",
+          "first_line": 6,
+          "mtime": 1788751740.6019502,
+          "sha256": "cd345b4b766f78cc06d34a1051eb97b0015dc406f711c5024562ccbe286dca3c"
+        },
+        "claim_evidence": {
+          "module": "review_v2.technology_service_analysis",
+          "function": "extract_claim_response_facts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\technology_service_analysis.py",
+          "first_line": 1741,
+          "mtime": 1788756455.706642,
+          "sha256": "e2c328722d8d61a374d4bb76c2f371e0a570f8364be1b9c557977b5b277c918e"
+        },
+        "claim_projection": {
+          "module": "review_v2.engine",
+          "function": "_apply_exact_claim_response",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\engine.py",
+          "first_line": 14497,
+          "mtime": 1788907087.1110945,
+          "sha256": "86144616a893646401dff821361c3725ffff05d78208012adadde9f9bdf310a2"
+        },
+        "license_evaluation": {
+          "module": "review_v2.engine",
+          "function": "_apply_technology_transaction_evidence_consistency",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\engine.py",
+          "first_line": 15009,
+          "mtime": 1788907087.1110945,
+          "sha256": "86144616a893646401dff821361c3725ffff05d78208012adadde9f9bdf310a2"
+        },
+        "secret_proof_evaluation": {
+          "module": "review_v2.engine",
+          "function": "_technical_secret_transfer_proof_results",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\engine.py",
+          "first_line": 10676,
+          "mtime": 1788907087.1110945,
+          "sha256": "86144616a893646401dff821361c3725ffff05d78208012adadde9f9bdf310a2"
+        },
+        "element_search": {
+          "module": "review_v2.engine",
+          "function": "_resolve_final_element_searches",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\engine.py",
+          "first_line": 6501,
+          "mtime": 1788907087.1110945,
+          "sha256": "86144616a893646401dff821361c3725ffff05d78208012adadde9f9bdf310a2"
+        },
+        "recommendations": {
+          "module": "review_v2.engine",
+          "function": "_finalize_element_recommendation_sources",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\engine.py",
+          "first_line": 41690,
+          "mtime": 1788907087.1110945,
+          "sha256": "86144616a893646401dff821361c3725ffff05d78208012adadde9f9bdf310a2"
+        },
+        "liability_scope_consistency": {
+          "module": "review_v2.claim_scope_consistency",
+          "function": "liability_scope_consistency_failures",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\claim_scope_consistency.py",
+          "first_line": 70,
+          "mtime": 1788755556.2915032,
+          "sha256": "90a28eae6865da40a49a216b3bd27de6505fd6eca2fa39e2f54dfdaf98b6f50e"
+        },
+        "requirement_key_normalization": {
+          "module": "review_v2.requirement_keys",
+          "function": "normalize_requirement_supports",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\requirement_keys.py",
+          "first_line": 133,
+          "mtime": 1788761585.1361108,
+          "sha256": "2aa2a4ecf571e94fd1d687747bb03798eace74b039e1eda44cec7bed0b479a50"
+        },
+        "development_exit_elements": {
+          "module": "review_v2.development_exit",
+          "function": "development_exit_elements",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\development_exit.py",
+          "first_line": 24,
+          "mtime": 1788756749.4534078,
+          "sha256": "04a9d2cde1cbe85638078b8eae4d83880c822fe6c54febbfaa2a102053b1e846"
+        },
+        "entrusted_patent_application_elements": {
+          "module": "review_v2.entrusted_development_elements",
+          "function": "entrusted_patent_application_elements",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\entrusted_development_elements.py",
+          "first_line": 126,
+          "mtime": 1788761865.988057,
+          "sha256": "02dad7f77155f9d497ee6462bf94f51f4657a659277960056a508b64573a8e04"
+        },
+        "development_failure_elements": {
+          "module": "review_v2.entrusted_development_elements",
+          "function": "development_failure_elements",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\entrusted_development_elements.py",
+          "first_line": 190,
+          "mtime": 1788761865.988057,
+          "sha256": "02dad7f77155f9d497ee6462bf94f51f4657a659277960056a508b64573a8e04"
+        },
+        "confidentiality_detail_elements": {
+          "module": "review_v2.obligation_detail_elements",
+          "function": "confidentiality_detail_elements",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\obligation_detail_elements.py",
+          "first_line": 76,
+          "mtime": 1788763626.7827678,
+          "sha256": "34e887eae1be200a9f0ae5d037b4b68847c33c813d25c09936739bc27088ad9c"
+        },
+        "ancillary_service_detail_elements": {
+          "module": "review_v2.obligation_detail_elements",
+          "function": "ancillary_service_detail_elements",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\obligation_detail_elements.py",
+          "first_line": 217,
+          "mtime": 1788763626.7827678,
+          "sha256": "34e887eae1be200a9f0ae5d037b4b68847c33c813d25c09936739bc27088ad9c"
+        },
+        "report_state_consistency_failures": {
+          "module": "review_v2.report_state_consistency",
+          "function": "report_state_consistency_failures",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\report_state_consistency.py",
+          "first_line": 278,
+          "mtime": 1788821147.5972402,
+          "sha256": "29fae79c1c27c36329cf748918601969dbecbbb556706c161f78c984ff124a5a"
+        },
+        "shared_fact_concepts": {
+          "module": "",
+          "function": "review_v2.shared_fact_concepts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\shared_fact_concepts.py",
+          "first_line": null,
+          "mtime": 1788906827.2503898,
+          "sha256": "868ad2e60e242e203d322cf7b1b0cd04e79490ef29ae1562217c41803b0d322d"
+        },
+        "safekeeping_contract_checklist": {
+          "module": "",
+          "function": "review_v2.safekeeping_contract_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\safekeeping_contract_checklist.py",
+          "first_line": null,
+          "mtime": 1788906462.329022,
+          "sha256": "fa89a51ccb13e3023e4aa1cfd5e46a191ac7820bfc11ee8f8bab00daf0631327"
+        },
+        "security_property_checklist": {
+          "module": "",
+          "function": "review_v2.security_property_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\security_property_checklist.py",
+          "first_line": null,
+          "mtime": 1788868073.240675,
+          "sha256": "21a5b0f28029943578190518f8ac62d7453e0d37ccc8679ab88249abd841e039"
+        },
+        "security_context": {
+          "module": "",
+          "function": "review_v2.security_context",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\security_context.py",
+          "first_line": null,
+          "mtime": 1788856863.2362144,
+          "sha256": "30d379659628533ff1bc1956354d84e8017e40a4711f85cb5596d1073bebac53"
+        },
+        "security_semantic_aliases": {
+          "module": "",
+          "function": "review_v2.security_semantic_aliases",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\security_semantic_aliases.py",
+          "first_line": null,
+          "mtime": 1788866800.8139124,
+          "sha256": "4e32941887c63713f1a096afb733f72677cb8f8ce951fedd55c58ed61a562684"
+        },
+        "requirement_kinds": {
+          "module": "",
+          "function": "review_v2.requirement_kinds",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\requirement_kinds.py",
+          "first_line": null,
+          "mtime": 1788855025.5270722,
+          "sha256": "da2240a4543053a7ad9d419ab24642a92c08ab56e58171726614d39a141381cf"
+        }
+      },
+      "current": {
+        "company_formation_checklist": {
+          "module": "",
+          "function": "review_v2.company_formation_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\company_formation_checklist.py",
+          "first_line": null,
+          "mtime": 1788906856.955902,
+          "sha256": "cf68851a7abd7b7d44532ceba6bf927d9223d61baf295b432bf576e8623ed1df"
+        },
+        "transaction_scope": {
+          "module": "",
+          "function": "review_v2.transaction_scope",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\transaction_scope.py",
+          "first_line": null,
+          "mtime": 1788906553.862043,
+          "sha256": "99479b3a16a498ca15beb61ecc171314e9a6ef6d6282cac623f835febcc1c8ca"
+        },
+        "priority_contract_types": {
+          "module": "",
+          "function": "review_v2.priority_contract_types",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\priority_contract_types.py",
+          "first_line": null,
+          "mtime": 1788906553.8630395,
+          "sha256": "9fab6e7ecab4eaec072338568044b7f492aaab24d774749ab0f28b0f99ba3159"
+        },
+        "narrative_composition": {
+          "module": "",
+          "function": "review_v2.narrative_composition",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\narrative_composition.py",
+          "first_line": null,
+          "mtime": 1788853989.9190297,
+          "sha256": "7a1c438156cad034b5586d65f7c7242bd7e787069c9e92452a8ef0cdfd72ff5a"
+        },
+        "guarantee_scenarios": {
+          "module": "",
+          "function": "review_v2.guarantee_scenarios",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_scenarios.py",
+          "first_line": null,
+          "mtime": 1788852246.137577,
+          "sha256": "c0f336b4db65d1a85ae59263871a118fcb510629534c9ab24e62ef291799cfa4"
+        },
+        "guarantee_closure": {
+          "module": "",
+          "function": "review_v2.guarantee_closure",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_closure.py",
+          "first_line": null,
+          "mtime": 1788854358.3779397,
+          "sha256": "acb6e1856dda0ee694c8b5487b11bedf8a7ceaab8b5c12ab0a4237d4480ba985"
+        },
+        "guarantee_facts": {
+          "module": "",
+          "function": "review_v2.guarantee_contract_facts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_contract_facts.py",
+          "first_line": null,
+          "mtime": 1788857142.4619803,
+          "sha256": "17cc0c585d0ca5d82809bf05fd8ade64a03a312517f54347341791b74b4bd00c"
+        },
+        "guarantee_parties": {
+          "module": "",
+          "function": "review_v2.guarantee_party_facts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_party_facts.py",
+          "first_line": null,
+          "mtime": 1788851676.8914645,
+          "sha256": "5aa46592873df56f56101a5ca81bbce35552c683fc163e586a4f10764beccb8f"
+        },
+        "guarantee_prerequisites": {
+          "module": "",
+          "function": "review_v2.guarantee_prerequisites",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_prerequisites.py",
+          "first_line": null,
+          "mtime": 1788851761.341369,
+          "sha256": "1b9f6f31334a61d0996c845f5f145a1635f723d80fa7ca0a2ed3d1cc2468a6f8"
+        },
+        "guarantee_mode": {
+          "module": "",
+          "function": "review_v2.guarantee_mode",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_mode.py",
+          "first_line": null,
+          "mtime": 1788849459.3352966,
+          "sha256": "a16c1e11309ed8153f0e319cc0165f97263e7e11601974e14ea1a2f94ff09739"
+        },
+        "guarantee_scope": {
+          "module": "",
+          "function": "review_v2.guarantee_scope",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_scope.py",
+          "first_line": null,
+          "mtime": 1788849459.3362956,
+          "sha256": "244d321a1c8d6fcac23fcac86cdc8bb5f4bd8076c5fd87b7cf8962afd0158b31"
+        },
+        "guarantee_checklist": {
+          "module": "",
+          "function": "review_v2.guarantee_contract_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\guarantee_contract_checklist.py",
+          "first_line": null,
+          "mtime": 1788851761.3403707,
+          "sha256": "68fab36d7aa853d6bd72863c0253c96192bcd420201bc17d5b82ec7ab618578d"
+        },
+        "service_scenarios": {
+          "module": "",
+          "function": "review_v2.service_scenarios",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\service_scenarios.py",
+          "first_line": null,
+          "mtime": 1788850342.7265022,
+          "sha256": "7366f80478c11d747fe23a57cf1862f8c6865fc72532aee1ec49923a9678edbd"
+        },
+        "service_checklist": {
+          "module": "",
+          "function": "review_v2.service_contract_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\service_contract_checklist.py",
+          "first_line": null,
+          "mtime": 1788849319.5429099,
+          "sha256": "e18b2a81824ff3dad181bccd91331a2a921d2b470d84dd353dd035a2d28adb29"
+        },
+        "gift_evidence": {
+          "module": "",
+          "function": "review_v2.gift_evidence",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\gift_evidence.py",
+          "first_line": null,
+          "mtime": 1788845427.2224538,
+          "sha256": "bf18ca398cb1edf00fb90a04f22a43518d0b8c3e77a54fc454bc92fe790bf76c"
+        },
+        "gift_checklist": {
+          "module": "",
+          "function": "review_v2.gift_contract_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\gift_contract_checklist.py",
+          "first_line": null,
+          "mtime": 1788845389.5607154,
+          "sha256": "64342e92f740728b6e33934315ae056c554573067c8011b571032a903edb3e90"
+        },
+        "brokerage_facts": {
+          "module": "",
+          "function": "review_v2.brokerage_facts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\brokerage_facts.py",
+          "first_line": null,
+          "mtime": 1788847542.694157,
+          "sha256": "0f20f1da44b59b26c5da1f36a1716ca8853dcd148c4dfd1246cedfe1941df778"
+        },
+        "brokerage_concepts": {
+          "module": "",
+          "function": "review_v2.brokerage_concepts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\brokerage_concepts.py",
+          "first_line": null,
+          "mtime": 1788848055.389166,
+          "sha256": "906f77b63dfd30635f41ba3485cb2d90c38afe9707151616dba7d48e9c7fbeba"
+        },
+        "brokerage_checklist": {
+          "module": "",
+          "function": "review_v2.brokerage_contract_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\brokerage_contract_checklist.py",
+          "first_line": null,
+          "mtime": 1788828769.6667237,
+          "sha256": "d2fbf0e0784b71e24d34ec097c0c7a1e26b8d1338e1d0b499630a68b12492c89"
+        },
+        "employment_checklist": {
+          "module": "",
+          "function": "review_v2.employment_contract_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\employment_contract_checklist.py",
+          "first_line": null,
+          "mtime": 1788857661.847528,
+          "sha256": "d90a717ad378af05d42ed20650efa67a0a65283d72756f0a82007e33e320c4f1"
+        },
+        "employment_facts": {
+          "module": "",
+          "function": "review_v2.employment_facts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\employment_facts.py",
+          "first_line": null,
+          "mtime": 1788865155.1699557,
+          "sha256": "9ea36c4d88bedb707b5cdc6185e66f7aae9059f82f4a311cd60ce26617714939"
+        },
+        "employment_exit": {
+          "module": "",
+          "function": "review_v2.employment_exit",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\employment_exit.py",
+          "first_line": null,
+          "mtime": 1788832604.2483041,
+          "sha256": "aa3aaae9e3435c202d07b42be337ecf863e213f133e474b0b2fa0ba5fd2b2f93"
+        },
+        "employment_rights": {
+          "module": "",
+          "function": "review_v2.employment_rights",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\employment_rights.py",
+          "first_line": null,
+          "mtime": 1788835673.2196338,
+          "sha256": "888e79f44ca4fc073904e6e517620ab0ab5688c2858e6a6ce44ca9e5aa73c855"
+        },
+        "noncompete_semantics": {
+          "module": "",
+          "function": "review_v2.noncompete_semantics",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\noncompete_semantics.py",
+          "first_line": null,
+          "mtime": 1788857661.8465297,
+          "sha256": "2a1dd2837e09fa74cacad3688cb33b5f0f826eade93231001efc67344e129017"
+        },
+        "noncompete_reasonableness": {
+          "module": "",
+          "function": "review_v2.noncompete_reasonableness",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\noncompete_reasonableness.py",
+          "first_line": null,
+          "mtime": 1788851494.8702493,
+          "sha256": "3a8a40929cda540f5589ab3709609da822550e2211faa05af92491106e77c209"
+        },
+        "nda_semantics": {
+          "module": "",
+          "function": "review_v2.nda_semantics",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\nda_semantics.py",
+          "first_line": null,
+          "mtime": 1788856119.652897,
+          "sha256": "39bf560dd39c35f108b73b155c7c13d25cc7e90828b5ede0e5de0638d7d842e0"
+        },
+        "primary_purpose": {
+          "module": "",
+          "function": "review_v2.primary_purpose",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\primary_purpose.py",
+          "first_line": null,
+          "mtime": 1788856221.1011314,
+          "sha256": "3b63fc3c11fa724898e50a930a44c9f15b4c2a33e4aec7b2d958098c3da72bb9"
+        },
+        "agency_facts": {
+          "module": "",
+          "function": "review_v2.agency_facts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\agency_facts.py",
+          "first_line": null,
+          "mtime": 1788906608.784636,
+          "sha256": "361c96cdd0bca704cc08e0c8d8c5b70d55bee18c9b69c3502b4afdc91dd564fa"
+        },
+        "semantic_relations": {
+          "module": "",
+          "function": "review_v2.semantic_relations",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\semantic_relations.py",
+          "first_line": null,
+          "mtime": 1788870455.7258177,
+          "sha256": "54fc9856033cb738e458852b38162c9ba37de064125171a31f2387a29bdf7376"
+        },
+        "semantic_consistency": {
+          "module": "",
+          "function": "review_v2.semantic_consistency",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\semantic_consistency.py",
+          "first_line": null,
+          "mtime": 1788870695.8322463,
+          "sha256": "f9b56f3a6994d043c6e7f8764c67fcf66019ae926aff145f4efdf5ad5c2521d4"
+        },
+        "penalty_base": {
+          "module": "",
+          "function": "review_v2.penalty_base",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\penalty_base.py",
+          "first_line": null,
+          "mtime": 1788870333.024309,
+          "sha256": "943b5c2ceb28e51b13a038e732425a116c8befe1110d6418350866959f7ce144"
+        },
+        "equity_checklist": {
+          "module": "",
+          "function": "review_v2.equity_investment_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\equity_investment_checklist.py",
+          "first_line": null,
+          "mtime": 1788870612.6645427,
+          "sha256": "c34e2ad3bdae70874abac71180cf3b00f460c359811a083e5a4a8a2012becb86"
+        },
+        "equity_transaction_facts": {
+          "module": "",
+          "function": "review_v2.equity_transaction_facts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\equity_transaction_facts.py",
+          "first_line": null,
+          "mtime": 1788870612.6635456,
+          "sha256": "9e9a5a3a2868bd8d02076150fca1dca8633ea925f578e1423b7c5c69ccdcb90e"
+        },
+        "termination_checklist": {
+          "module": "",
+          "function": "review_v2.termination_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\termination_checklist.py",
+          "first_line": null,
+          "mtime": 1788857834.3875349,
+          "sha256": "53f288eb83369a25770790aeefa8abc736099a13d3a43577cd4fee55acd586c1"
+        },
+        "template_parser": {
+          "module": "",
+          "function": "review_v2.template_parser",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\template_parser.py",
+          "first_line": null,
+          "mtime": 1788857960.4229753,
+          "sha256": "869748153cea3e34ad37fc7353bff6d1c8e169b8a0f6757de09b2acdd0aea7f3"
+        },
+        "priority_contract_review": {
+          "module": "",
+          "function": "review_v2.priority_contract_review",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\priority_contract_review.py",
+          "first_line": null,
+          "mtime": 1788870681.244007,
+          "sha256": "73850cef79700f9853acd5a002f4dda86937b953493bac93a532c29211227e57"
+        },
+        "commission_agency_evidence": {
+          "module": "review_v2.commission_agency_evidence",
+          "function": "apply",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\commission_agency_evidence.py",
+          "first_line": 36,
+          "mtime": 1788825375.5603652,
+          "sha256": "f9bc4e53ef2b7bf70b5ead6325775d5eeb94bd76a51b3b696d6f1775553b9a8b"
+        },
+        "utility_supply_evidence": {
+          "module": "review_v2.utility_supply_evidence",
+          "function": "apply",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\utility_supply_evidence.py",
+          "first_line": 443,
+          "mtime": 1788837315.0384808,
+          "sha256": "6d5bffd5d7195d40c2742f9f18b88e965b3511e436574bc14df3c5d3a6c3f377"
+        },
+        "utility_supply_consistency_gate": {
+          "module": "review_v2.utility_supply_evidence",
+          "function": "consistency_gate",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\utility_supply_evidence.py",
+          "first_line": 491,
+          "mtime": 1788837315.0384808,
+          "sha256": "6d5bffd5d7195d40c2742f9f18b88e965b3511e436574bc14df3c5d3a6c3f377"
+        },
+        "parameter_validation": {
+          "module": "review_v2.parameter_validation",
+          "function": "extract_parameters",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\parameter_validation.py",
+          "first_line": 29,
+          "mtime": 1788835872.8052294,
+          "sha256": "299fcb849ca24a60e4add4c4383ecd50956545b360550fd9e8daae347ac2abdb"
+        },
+        "prerequisite_resolution": {
+          "module": "review_v2.prerequisite_resolution",
+          "function": "resolve_prerequisites",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\prerequisite_resolution.py",
+          "first_line": 9,
+          "mtime": 1788837163.1486194,
+          "sha256": "d951f2280e2d681d287adcef0892c38a1765862bf0f1835f38c255bc2c143df3"
+        },
+        "evidence_compatibility": {
+          "module": "review_v2.evidence_compatibility",
+          "function": "evidence_compatible",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\evidence_compatibility.py",
+          "first_line": 30,
+          "mtime": 1788837433.2095492,
+          "sha256": "19bf43cee548767db7a3cc680f660955f2236af3a9e2e29fcf605bd742e71681"
+        },
+        "utility_supply_applicability": {
+          "module": "review_v2.utility_supply_applicability",
+          "function": "extract_applicability_facts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\utility_supply_applicability.py",
+          "first_line": 5,
+          "mtime": 1788837241.4597557,
+          "sha256": "d060f100625f1772dd6051780ff1dd3fcf941e9a13c9444f7b68ac20b5e9624d"
+        },
+        "utility_supply_checklist": {
+          "module": "review_v2.utility_supply_contract_checklist",
+          "function": "get_utility_supply_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\utility_supply_contract_checklist.py",
+          "first_line": 156,
+          "mtime": 1788837671.6735065,
+          "sha256": "eeeee2721544a3318aa0c82b2479fe64d962c5d7c78380c9cd41762e8714a3df"
+        },
+        "lease_semantics": {
+          "module": "review_v2.lease_semantics",
+          "function": "apply",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\lease_semantics.py",
+          "first_line": 441,
+          "mtime": 1788906517.5833235,
+          "sha256": "ed0722d7e280bca305aa0836c3e3c6755d5103b7a93e3a177cada55181f7a852"
+        },
+        "lease_recommendation_children": {
+          "module": "review_v2.recommendation_children",
+          "function": "child_set_gate",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\recommendation_children.py",
+          "first_line": 9,
+          "mtime": 1788819203.9273765,
+          "sha256": "ea3419cd520f5d990d95e0a7a34f6426a67a82609dfd6e8baef89c745e9f77d4"
+        },
+        "lease_fact_graph": {
+          "module": "review_v2.lease_contract_facts",
+          "function": "extract_house_lease_facts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\lease_contract_facts.py",
+          "first_line": 828,
+          "mtime": 1788786081.007521,
+          "sha256": "ea07ea224f16a85121f9a734797653327b296fc0aecd06fbd401de54f54eb5a5"
+        },
+        "clause_parser": {
+          "module": "review_v2.clause_parser",
+          "function": "parse_contract_clauses",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\clause_parser.py",
+          "first_line": 367,
+          "mtime": 1788857348.9266596,
+          "sha256": "4de5f79ee1d23f74ec09288eb86db86d6cd7d2fd9b68b37e5d14f8cd23dd8325"
+        },
+        "domain_selection": {
+          "module": "review_v2.domain_selection",
+          "function": "resolve_domain_selection",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\domain_selection.py",
+          "first_line": 247,
+          "mtime": 1788906773.639841,
+          "sha256": "fe57b8c3159634e042f941d893baf981f047415863b3ce48892c12d7a2bb438a"
+        },
+        "source_span_evidence": {
+          "module": "review_v2.sale_evidence",
+          "function": "extract",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\sale_evidence.py",
+          "first_line": 161,
+          "mtime": 1788870364.3211422,
+          "sha256": "3c860485fa5d68d26f0f3577bb67bad12cfc25b8a72fb014dd718ffa9144936f"
+        },
+        "work_evidence": {
+          "module": "review_v2.work_evidence",
+          "function": "apply",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\work_evidence.py",
+          "first_line": 89,
+          "mtime": 1788821258.295441,
+          "sha256": "dd3b53f264659fb2c64b056b6022d06112c1ea503b9b4321a4e796ac3848e722"
+        },
+        "finance_lease_facts": {
+          "module": "review_v2.finance_lease_facts",
+          "function": "FinanceLeaseFacts.__init__",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\finance_lease_facts.py",
+          "first_line": 79,
+          "mtime": 1788785465.5009062,
+          "sha256": "7f0dec23de8a445a35ffca65d24f1c19bca75712f0c04018698e0e6b146981de"
+        },
+        "loan_costs": {
+          "module": "review_v2.loan_costs",
+          "function": "analyze_costs",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\loan_costs.py",
+          "first_line": 31,
+          "mtime": 1788855832.4230525,
+          "sha256": "69d9210842cf41dc5350ad90e142310d2575f647304a3b5876751106efe1a466"
+        },
+        "loan_facts": {
+          "module": "review_v2.loan_facts",
+          "function": "LoanFacts.from_clauses",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\loan_facts.py",
+          "first_line": 178,
+          "mtime": 1788858208.6685238,
+          "sha256": "2b096e41c8d777b34132b08cbd9bb9ef9672d23f2e2ec8814499abb241929708"
+        },
+        "loan_checklist": {
+          "module": "review_v2.loan_contract_checklist",
+          "function": "get_loan_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\loan_contract_checklist.py",
+          "first_line": 157,
+          "mtime": 1788780797.5639083,
+          "sha256": "f1d92ba95a8b144202c136418a5f2603deed8564b82f64123151c32792880529"
+        },
+        "engine": {
+          "module": "review_v2.engine",
+          "function": "review_contract_v2",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\engine.py",
+          "first_line": 49543,
+          "mtime": 1788907087.1110945,
+          "sha256": "86144616a893646401dff821361c3725ffff05d78208012adadde9f9bdf310a2"
+        },
+        "domain_packs": {
+          "module": "",
+          "function": "review_v2.domain_packs",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\domain_packs.py",
+          "first_line": null,
+          "mtime": 1788836986.7382214,
+          "sha256": "9717c22aa63721aaef52a107df923e54b62cb24761bbc256fe5345c76745cefa"
+        },
+        "quality4": {
+          "module": "",
+          "function": "review_v2.quality4",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\quality4.py",
+          "first_line": null,
+          "mtime": 1788836986.7394044,
+          "sha256": "9a1d1a009c61fe3133894993941503fd7755b7ddf06166a3dc443acdf1d6537b"
+        },
+        "classifier": {
+          "module": "review_v2.technology_service_analysis",
+          "function": "classify_technology_transaction",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\technology_service_analysis.py",
+          "first_line": 2335,
+          "mtime": 1788756455.706642,
+          "sha256": "e2c328722d8d61a374d4bb76c2f371e0a570f8364be1b9c557977b5b277c918e"
+        },
+        "registry": {
+          "module": "review_v2.contract_registry",
+          "function": "get_checklist_for_resolution",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\contract_registry.py",
+          "first_line": 313,
+          "mtime": 1788906688.2449055,
+          "sha256": "3a307b968139710842fe2da7c17dd92a0825c9a9f30d2e7bd6c4d2c9a864d704"
+        },
+        "document_parser": {
+          "module": "layers.input_layer",
+          "function": "InputLayer.extract_text_with_diagnostics",
+          "file": "F:\\ai\\Sage\\backend\\layers\\input_layer.py",
+          "first_line": 26,
+          "mtime": 1788426942.7267408,
+          "sha256": "61b72b38cbb71f2fe74b4c921f0fd68705b82be0a35f80a5a9d2710db2b1f9bf"
+        },
+        "normalization": {
+          "module": "review_v2.clause_parser",
+          "function": "strip_non_contract_tail",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\clause_parser.py",
+          "first_line": 259,
+          "mtime": 1788857348.9266596,
+          "sha256": "4de5f79ee1d23f74ec09288eb86db86d6cd7d2fd9b68b37e5d14f8cd23dd8325"
+        },
+        "conditional_elements": {
+          "module": "review_v2.element_resolution",
+          "function": "conditional_element",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\element_resolution.py",
+          "first_line": 6,
+          "mtime": 1788751740.6019502,
+          "sha256": "cd345b4b766f78cc06d34a1051eb97b0015dc406f711c5024562ccbe286dca3c"
+        },
+        "claim_evidence": {
+          "module": "review_v2.technology_service_analysis",
+          "function": "extract_claim_response_facts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\technology_service_analysis.py",
+          "first_line": 1741,
+          "mtime": 1788756455.706642,
+          "sha256": "e2c328722d8d61a374d4bb76c2f371e0a570f8364be1b9c557977b5b277c918e"
+        },
+        "claim_projection": {
+          "module": "review_v2.engine",
+          "function": "_apply_exact_claim_response",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\engine.py",
+          "first_line": 14497,
+          "mtime": 1788907087.1110945,
+          "sha256": "86144616a893646401dff821361c3725ffff05d78208012adadde9f9bdf310a2"
+        },
+        "license_evaluation": {
+          "module": "review_v2.engine",
+          "function": "_apply_technology_transaction_evidence_consistency",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\engine.py",
+          "first_line": 15009,
+          "mtime": 1788907087.1110945,
+          "sha256": "86144616a893646401dff821361c3725ffff05d78208012adadde9f9bdf310a2"
+        },
+        "secret_proof_evaluation": {
+          "module": "review_v2.engine",
+          "function": "_technical_secret_transfer_proof_results",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\engine.py",
+          "first_line": 10676,
+          "mtime": 1788907087.1110945,
+          "sha256": "86144616a893646401dff821361c3725ffff05d78208012adadde9f9bdf310a2"
+        },
+        "element_search": {
+          "module": "review_v2.engine",
+          "function": "_resolve_final_element_searches",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\engine.py",
+          "first_line": 6501,
+          "mtime": 1788907087.1110945,
+          "sha256": "86144616a893646401dff821361c3725ffff05d78208012adadde9f9bdf310a2"
+        },
+        "recommendations": {
+          "module": "review_v2.engine",
+          "function": "_finalize_element_recommendation_sources",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\engine.py",
+          "first_line": 41690,
+          "mtime": 1788907087.1110945,
+          "sha256": "86144616a893646401dff821361c3725ffff05d78208012adadde9f9bdf310a2"
+        },
+        "liability_scope_consistency": {
+          "module": "review_v2.claim_scope_consistency",
+          "function": "liability_scope_consistency_failures",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\claim_scope_consistency.py",
+          "first_line": 70,
+          "mtime": 1788755556.2915032,
+          "sha256": "90a28eae6865da40a49a216b3bd27de6505fd6eca2fa39e2f54dfdaf98b6f50e"
+        },
+        "requirement_key_normalization": {
+          "module": "review_v2.requirement_keys",
+          "function": "normalize_requirement_supports",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\requirement_keys.py",
+          "first_line": 133,
+          "mtime": 1788761585.1361108,
+          "sha256": "2aa2a4ecf571e94fd1d687747bb03798eace74b039e1eda44cec7bed0b479a50"
+        },
+        "development_exit_elements": {
+          "module": "review_v2.development_exit",
+          "function": "development_exit_elements",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\development_exit.py",
+          "first_line": 24,
+          "mtime": 1788756749.4534078,
+          "sha256": "04a9d2cde1cbe85638078b8eae4d83880c822fe6c54febbfaa2a102053b1e846"
+        },
+        "entrusted_patent_application_elements": {
+          "module": "review_v2.entrusted_development_elements",
+          "function": "entrusted_patent_application_elements",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\entrusted_development_elements.py",
+          "first_line": 126,
+          "mtime": 1788761865.988057,
+          "sha256": "02dad7f77155f9d497ee6462bf94f51f4657a659277960056a508b64573a8e04"
+        },
+        "development_failure_elements": {
+          "module": "review_v2.entrusted_development_elements",
+          "function": "development_failure_elements",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\entrusted_development_elements.py",
+          "first_line": 190,
+          "mtime": 1788761865.988057,
+          "sha256": "02dad7f77155f9d497ee6462bf94f51f4657a659277960056a508b64573a8e04"
+        },
+        "confidentiality_detail_elements": {
+          "module": "review_v2.obligation_detail_elements",
+          "function": "confidentiality_detail_elements",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\obligation_detail_elements.py",
+          "first_line": 76,
+          "mtime": 1788763626.7827678,
+          "sha256": "34e887eae1be200a9f0ae5d037b4b68847c33c813d25c09936739bc27088ad9c"
+        },
+        "ancillary_service_detail_elements": {
+          "module": "review_v2.obligation_detail_elements",
+          "function": "ancillary_service_detail_elements",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\obligation_detail_elements.py",
+          "first_line": 217,
+          "mtime": 1788763626.7827678,
+          "sha256": "34e887eae1be200a9f0ae5d037b4b68847c33c813d25c09936739bc27088ad9c"
+        },
+        "report_state_consistency_failures": {
+          "module": "review_v2.report_state_consistency",
+          "function": "report_state_consistency_failures",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\report_state_consistency.py",
+          "first_line": 278,
+          "mtime": 1788821147.5972402,
+          "sha256": "29fae79c1c27c36329cf748918601969dbecbbb556706c161f78c984ff124a5a"
+        },
+        "shared_fact_concepts": {
+          "module": "",
+          "function": "review_v2.shared_fact_concepts",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\shared_fact_concepts.py",
+          "first_line": null,
+          "mtime": 1788906827.2503898,
+          "sha256": "868ad2e60e242e203d322cf7b1b0cd04e79490ef29ae1562217c41803b0d322d"
+        },
+        "safekeeping_contract_checklist": {
+          "module": "",
+          "function": "review_v2.safekeeping_contract_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\safekeeping_contract_checklist.py",
+          "first_line": null,
+          "mtime": 1788906462.329022,
+          "sha256": "fa89a51ccb13e3023e4aa1cfd5e46a191ac7820bfc11ee8f8bab00daf0631327"
+        },
+        "security_property_checklist": {
+          "module": "",
+          "function": "review_v2.security_property_checklist",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\security_property_checklist.py",
+          "first_line": null,
+          "mtime": 1788868073.240675,
+          "sha256": "21a5b0f28029943578190518f8ac62d7453e0d37ccc8679ab88249abd841e039"
+        },
+        "security_context": {
+          "module": "",
+          "function": "review_v2.security_context",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\security_context.py",
+          "first_line": null,
+          "mtime": 1788856863.2362144,
+          "sha256": "30d379659628533ff1bc1956354d84e8017e40a4711f85cb5596d1073bebac53"
+        },
+        "security_semantic_aliases": {
+          "module": "",
+          "function": "review_v2.security_semantic_aliases",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\security_semantic_aliases.py",
+          "first_line": null,
+          "mtime": 1788866800.8139124,
+          "sha256": "4e32941887c63713f1a096afb733f72677cb8f8ce951fedd55c58ed61a562684"
+        },
+        "requirement_kinds": {
+          "module": "",
+          "function": "review_v2.requirement_kinds",
+          "file": "F:\\ai\\Sage\\backend\\review_v2\\requirement_kinds.py",
+          "first_line": null,
+          "mtime": 1788855025.5270722,
+          "sha256": "da2240a4543053a7ad9d419ab24642a92c08ab56e58171726614d39a141381cf"
+        }
+      }
+    },
+    "document_hash": "64c9da2ab188f47cb00625c2b9142d3bbad20e5fb9bc04084e36c4bb824311f8",
+    "cache": {
+      "status": "MISS",
+      "reason": "review-v2/file has no rule, evidence, or report result cache"
+    },
+    "input_visibility": {
+      "normalized_text_length": 3924,
+      "confidentiality_terms_present": false
+    },
+    "input_integrity": {
+      "status": "PASS",
+      "failure_count": 0,
+      "failures": [],
+      "stages": {
+        "source_document": {
+          "character_count": 3932,
+          "non_whitespace_character_count": 3808,
+          "nonempty_paragraph_count": 121,
+          "sha256": "5ffe9b2c93d3584224f9e17a53fa2fc5530e0190b2046f1d71bb50bc618912b6",
+          "head_preview": "入股合作协议书\n（有限责任公司）\n【测试用途：以下主体、身份信息、账户、金额等均为虚构模拟数据】\n甲方：张文博\n住址：贵州省贵阳市观山湖区林城东路88号融创商务中心2栋1206室\n身份证号：520102199001019999\n乙方：李思远\n住址：贵州省贵阳市南明区花果园大街66号中央商务区3栋1802室\n身份证号：520102199202029998\n甲、乙双方因共同投资设立贵州云启智能科技有限责任公司（以下简称“公司”）事宜，特在友好协商基础上，根据《中华人民共和国民法典》《公司法》等相关法律规定，达成如下协议：\n一、拟设立的公司基本情况\n1、公司名称：贵州云启智能科技有限责任公司\n2、住",
+          "tail_preview": "mple.com\n本合同项下任何一方的预留手机号码、微信号、电子邮件地址收到以发送短信、彩信、微信、电子邮件等形式发送的任何通知、信件、律师函、法院文书、仲裁文书之日即视为已送达。\n任何一方于本合同项下的预留送达地址、手机号码、微信号、电子邮件地址变更，应在变更后3日内书面通知对方或仲裁机构、人民法院，否则，相关文件向上述地址、电话、电子邮箱、微信号送达后视为送达，由此产生的法律后果由被送达方承担。\n本合同一式两份，甲乙双方各执一份，自双方签字盖章之日起生效。\n（此页无正文）\n甲方（签章）：张文博\n代表人：张文博\n2026年9月10日\n乙方（签章）：李思远\n代表人：李思远\n2026年9月10日",
+          "used_by_stage": true
+        },
+        "extracted_full_text": {
+          "character_count": 3924,
+          "non_whitespace_character_count": 3800,
+          "nonempty_paragraph_count": 121,
+          "sha256": "64c9da2ab188f47cb00625c2b9142d3bbad20e5fb9bc04084e36c4bb824311f8",
+          "head_preview": "入股合作协议书\n（有限责任公司）\n【测试用途：以下主体、身份信息、账户、金额等均为虚构模拟数据】\n甲方：张文博\n住址：贵州省贵阳市观山湖区林城东路88号融创商务中心2栋1206室\n身份证号：520102199001019999\n乙方：李思远\n住址：贵州省贵阳市南明区花果园大街66号中央商务区3栋1802室\n身份证号：520102199202029998\n甲、乙双方因共同投资设立贵州云启智能科技有限责任公司（以下简称“公司”）事宜，特在友好协商基础上，根据《中华人民共和国民法典》《公司法》等相关法律规定，达成如下协议：\n一、拟设立的公司基本情况\n1、公司名称：贵州云启智能科技有限责任公司\n2、住",
+          "tail_preview": "mple.com\n本合同项下任何一方的预留手机号码、微信号、电子邮件地址收到以发送短信、彩信、微信、电子邮件等形式发送的任何通知、信件、律师函、法院文书、仲裁文书之日即视为已送达。\n任何一方于本合同项下的预留送达地址、手机号码、微信号、电子邮件地址变更，应在变更后3日内书面通知对方或仲裁机构、人民法院，否则，相关文件向上述地址、电话、电子邮箱、微信号送达后视为送达，由此产生的法律后果由被送达方承担。\n本合同一式两份，甲乙双方各执一份，自双方签字盖章之日起生效。\n（此页无正文）\n甲方（签章）：张文博\n代表人：张文博\n2026年9月10日\n乙方（签章）：李思远\n代表人：李思远\n2026年9月10日",
+          "used_by_stage": true
+        },
+        "normalized_full_text": {
+          "character_count": 3924,
+          "non_whitespace_character_count": 3800,
+          "nonempty_paragraph_count": 121,
+          "sha256": "64c9da2ab188f47cb00625c2b9142d3bbad20e5fb9bc04084e36c4bb824311f8",
+          "head_preview": "入股合作协议书\n（有限责任公司）\n【测试用途：以下主体、身份信息、账户、金额等均为虚构模拟数据】\n甲方：张文博\n住址：贵州省贵阳市观山湖区林城东路88号融创商务中心2栋1206室\n身份证号：520102199001019999\n乙方：李思远\n住址：贵州省贵阳市南明区花果园大街66号中央商务区3栋1802室\n身份证号：520102199202029998\n甲、乙双方因共同投资设立贵州云启智能科技有限责任公司（以下简称“公司”）事宜，特在友好协商基础上，根据《中华人民共和国民法典》《公司法》等相关法律规定，达成如下协议：\n一、拟设立的公司基本情况\n1、公司名称：贵州云启智能科技有限责任公司\n2、住",
+          "tail_preview": "mple.com\n本合同项下任何一方的预留手机号码、微信号、电子邮件地址收到以发送短信、彩信、微信、电子邮件等形式发送的任何通知、信件、律师函、法院文书、仲裁文书之日即视为已送达。\n任何一方于本合同项下的预留送达地址、手机号码、微信号、电子邮件地址变更，应在变更后3日内书面通知对方或仲裁机构、人民法院，否则，相关文件向上述地址、电话、电子邮箱、微信号送达后视为送达，由此产生的法律后果由被送达方承担。\n本合同一式两份，甲乙双方各执一份，自双方签字盖章之日起生效。\n（此页无正文）\n甲方（签章）：张文博\n代表人：张文博\n2026年9月10日\n乙方（签章）：李思远\n代表人：李思远\n2026年9月10日",
+          "used_by_stage": true
+        },
+        "classifier_input": {
+          "character_count": 3924,
+          "non_whitespace_character_count": 3800,
+          "nonempty_paragraph_count": 121,
+          "sha256": "64c9da2ab188f47cb00625c2b9142d3bbad20e5fb9bc04084e36c4bb824311f8",
+          "head_preview": "入股合作协议书\n（有限责任公司）\n【测试用途：以下主体、身份信息、账户、金额等均为虚构模拟数据】\n甲方：张文博\n住址：贵州省贵阳市观山湖区林城东路88号融创商务中心2栋1206室\n身份证号：520102199001019999\n乙方：李思远\n住址：贵州省贵阳市南明区花果园大街66号中央商务区3栋1802室\n身份证号：520102199202029998\n甲、乙双方因共同投资设立贵州云启智能科技有限责任公司（以下简称“公司”）事宜，特在友好协商基础上，根据《中华人民共和国民法典》《公司法》等相关法律规定，达成如下协议：\n一、拟设立的公司基本情况\n1、公司名称：贵州云启智能科技有限责任公司\n2、住",
+          "tail_preview": "mple.com\n本合同项下任何一方的预留手机号码、微信号、电子邮件地址收到以发送短信、彩信、微信、电子邮件等形式发送的任何通知、信件、律师函、法院文书、仲裁文书之日即视为已送达。\n任何一方于本合同项下的预留送达地址、手机号码、微信号、电子邮件地址变更，应在变更后3日内书面通知对方或仲裁机构、人民法院，否则，相关文件向上述地址、电话、电子邮箱、微信号送达后视为送达，由此产生的法律后果由被送达方承担。\n本合同一式两份，甲乙双方各执一份，自双方签字盖章之日起生效。\n（此页无正文）\n甲方（签章）：张文博\n代表人：张文博\n2026年9月10日\n乙方（签章）：李思远\n代表人：李思远\n2026年9月10日",
+          "used_by_stage": true
+        },
+        "clause_extraction_input": {
+          "character_count": 3924,
+          "non_whitespace_character_count": 3800,
+          "nonempty_paragraph_count": 121,
+          "sha256": "64c9da2ab188f47cb00625c2b9142d3bbad20e5fb9bc04084e36c4bb824311f8",
+          "head_preview": "入股合作协议书\n（有限责任公司）\n【测试用途：以下主体、身份信息、账户、金额等均为虚构模拟数据】\n甲方：张文博\n住址：贵州省贵阳市观山湖区林城东路88号融创商务中心2栋1206室\n身份证号：520102199001019999\n乙方：李思远\n住址：贵州省贵阳市南明区花果园大街66号中央商务区3栋1802室\n身份证号：520102199202029998\n甲、乙双方因共同投资设立贵州云启智能科技有限责任公司（以下简称“公司”）事宜，特在友好协商基础上，根据《中华人民共和国民法典》《公司法》等相关法律规定，达成如下协议：\n一、拟设立的公司基本情况\n1、公司名称：贵州云启智能科技有限责任公司\n2、住",
+          "tail_preview": "mple.com\n本合同项下任何一方的预留手机号码、微信号、电子邮件地址收到以发送短信、彩信、微信、电子邮件等形式发送的任何通知、信件、律师函、法院文书、仲裁文书之日即视为已送达。\n任何一方于本合同项下的预留送达地址、手机号码、微信号、电子邮件地址变更，应在变更后3日内书面通知对方或仲裁机构、人民法院，否则，相关文件向上述地址、电话、电子邮箱、微信号送达后视为送达，由此产生的法律后果由被送达方承担。\n本合同一式两份，甲乙双方各执一份，自双方签字盖章之日起生效。\n（此页无正文）\n甲方（签章）：张文博\n代表人：张文博\n2026年9月10日\n乙方（签章）：李思远\n代表人：李思远\n2026年9月10日",
+          "used_by_stage": true
+        },
+        "rule_engine_input": {
+          "character_count": 3924,
+          "non_whitespace_character_count": 3800,
+          "nonempty_paragraph_count": 121,
+          "sha256": "64c9da2ab188f47cb00625c2b9142d3bbad20e5fb9bc04084e36c4bb824311f8",
+          "head_preview": "入股合作协议书\n（有限责任公司）\n【测试用途：以下主体、身份信息、账户、金额等均为虚构模拟数据】\n甲方：张文博\n住址：贵州省贵阳市观山湖区林城东路88号融创商务中心2栋1206室\n身份证号：520102199001019999\n乙方：李思远\n住址：贵州省贵阳市南明区花果园大街66号中央商务区3栋1802室\n身份证号：520102199202029998\n甲、乙双方因共同投资设立贵州云启智能科技有限责任公司（以下简称“公司”）事宜，特在友好协商基础上，根据《中华人民共和国民法典》《公司法》等相关法律规定，达成如下协议：\n一、拟设立的公司基本情况\n1、公司名称：贵州云启智能科技有限责任公司\n2、住",
+          "tail_preview": "mple.com\n本合同项下任何一方的预留手机号码、微信号、电子邮件地址收到以发送短信、彩信、微信、电子邮件等形式发送的任何通知、信件、律师函、法院文书、仲裁文书之日即视为已送达。\n任何一方于本合同项下的预留送达地址、手机号码、微信号、电子邮件地址变更，应在变更后3日内书面通知对方或仲裁机构、人民法院，否则，相关文件向上述地址、电话、电子邮箱、微信号送达后视为送达，由此产生的法律后果由被送达方承担。\n本合同一式两份，甲乙双方各执一份，自双方签字盖章之日起生效。\n（此页无正文）\n甲方（签章）：张文博\n代表人：张文博\n2026年9月10日\n乙方（签章）：李思远\n代表人：李思远\n2026年9月10日",
+          "used_by_stage": true
+        },
+        "search_audit_input": {
+          "character_count": 3924,
+          "non_whitespace_character_count": 3800,
+          "nonempty_paragraph_count": 121,
+          "sha256": "64c9da2ab188f47cb00625c2b9142d3bbad20e5fb9bc04084e36c4bb824311f8",
+          "head_preview": "入股合作协议书\n（有限责任公司）\n【测试用途：以下主体、身份信息、账户、金额等均为虚构模拟数据】\n甲方：张文博\n住址：贵州省贵阳市观山湖区林城东路88号融创商务中心2栋1206室\n身份证号：520102199001019999\n乙方：李思远\n住址：贵州省贵阳市南明区花果园大街66号中央商务区3栋1802室\n身份证号：520102199202029998\n甲、乙双方因共同投资设立贵州云启智能科技有限责任公司（以下简称“公司”）事宜，特在友好协商基础上，根据《中华人民共和国民法典》《公司法》等相关法律规定，达成如下协议：\n一、拟设立的公司基本情况\n1、公司名称：贵州云启智能科技有限责任公司\n2、住",
+          "tail_preview": "mple.com\n本合同项下任何一方的预留手机号码、微信号、电子邮件地址收到以发送短信、彩信、微信、电子邮件等形式发送的任何通知、信件、律师函、法院文书、仲裁文书之日即视为已送达。\n任何一方于本合同项下的预留送达地址、手机号码、微信号、电子邮件地址变更，应在变更后3日内书面通知对方或仲裁机构、人民法院，否则，相关文件向上述地址、电话、电子邮箱、微信号送达后视为送达，由此产生的法律后果由被送达方承担。\n本合同一式两份，甲乙双方各执一份，自双方签字盖章之日起生效。\n（此页无正文）\n甲方（签章）：张文博\n代表人：张文博\n2026年9月10日\n乙方（签章）：李思远\n代表人：李思远\n2026年9月10日",
+          "used_by_stage": true
+        },
+        "clause_extraction_output": {
+          "character_count": 3924,
+          "non_whitespace_character_count": 3800,
+          "nonempty_paragraph_count": 121,
+          "sha256": "64c9da2ab188f47cb00625c2b9142d3bbad20e5fb9bc04084e36c4bb824311f8",
+          "head_preview": "入股合作协议书\n（有限责任公司）\n【测试用途：以下主体、身份信息、账户、金额等均为虚构模拟数据】\n甲方：张文博\n住址：贵州省贵阳市观山湖区林城东路88号融创商务中心2栋1206室\n身份证号：520102199001019999\n乙方：李思远\n住址：贵州省贵阳市南明区花果园大街66号中央商务区3栋1802室\n身份证号：520102199202029998\n甲、乙双方因共同投资设立贵州云启智能科技有限责任公司（以下简称“公司”）事宜，特在友好协商基础上，根据《中华人民共和国民法典》《公司法》等相关法律规定，达成如下协议：\n一、拟设立的公司基本情况\n1、公司名称：贵州云启智能科技有限责任公司\n2、住",
+          "tail_preview": "mple.com\n本合同项下任何一方的预留手机号码、微信号、电子邮件地址收到以发送短信、彩信、微信、电子邮件等形式发送的任何通知、信件、律师函、法院文书、仲裁文书之日即视为已送达。\n任何一方于本合同项下的预留送达地址、手机号码、微信号、电子邮件地址变更，应在变更后3日内书面通知对方或仲裁机构、人民法院，否则，相关文件向上述地址、电话、电子邮箱、微信号送达后视为送达，由此产生的法律后果由被送达方承担。\n本合同一式两份，甲乙双方各执一份，自双方签字盖章之日起生效。\n（此页无正文）\n甲方（签章）：张文博\n代表人：张文博\n2026年9月10日\n乙方（签章）：李思远\n代表人：李思远\n2026年9月10日",
+          "used_by_stage": true
+        }
+      },
+      "anchor_matrix": {
+        "专利技术": {
+          "source_document": false,
+          "extracted_full_text": false,
+          "normalized_full_text": false,
+          "classifier_input": false,
+          "clause_extraction_input": false,
+          "rule_engine_input": false,
+          "search_audit_input": false,
+          "clause_extraction_output": false
+        },
+        "许可方": {
+          "source_document": false,
+          "extracted_full_text": false,
+          "normalized_full_text": false,
+          "classifier_input": false,
+          "clause_extraction_input": false,
+          "rule_engine_input": false,
+          "search_audit_input": false,
+          "clause_extraction_output": false
+        },
+        "接受方": {
+          "source_document": false,
+          "extracted_full_text": false,
+          "normalized_full_text": false,
+          "classifier_input": false,
+          "clause_extraction_input": false,
+          "rule_engine_input": false,
+          "search_audit_input": false,
+          "clause_extraction_output": false
+        },
+        "非独占": {
+          "source_document": false,
+          "extracted_full_text": false,
+          "normalized_full_text": false,
+          "classifier_input": false,
+          "clause_extraction_input": false,
+          "rule_engine_input": false,
+          "search_audit_input": false,
+          "clause_extraction_output": false
+        },
+        "提成费": {
+          "source_document": false,
+          "extracted_full_text": false,
+          "normalized_full_text": false,
+          "classifier_input": false,
+          "clause_extraction_input": false,
+          "rule_engine_input": false,
+          "search_audit_input": false,
+          "clause_extraction_output": false
+        },
+        "专利资料": {
+          "source_document": false,
+          "extracted_full_text": false,
+          "normalized_full_text": false,
+          "classifier_input": false,
+          "clause_extraction_input": false,
+          "rule_engine_input": false,
+          "search_audit_input": false,
+          "clause_extraction_output": false
+        },
+        "中国国际经济贸易仲裁委员会": {
+          "source_document": false,
+          "extracted_full_text": false,
+          "normalized_full_text": false,
+          "classifier_input": false,
+          "clause_extraction_input": false,
+          "rule_engine_input": false,
+          "search_audit_input": false,
+          "clause_extraction_output": false
+        },
+        "不可抗力": {
+          "source_document": false,
+          "extracted_full_text": false,
+          "normalized_full_text": false,
+          "classifier_input": false,
+          "clause_extraction_input": false,
+          "rule_engine_input": false,
+          "search_audit_input": false,
+          "clause_extraction_output": false
+        },
+        "专利失效": {
+          "source_document": false,
+          "extracted_full_text": false,
+          "normalized_full_text": false,
+          "classifier_input": false,
+          "clause_extraction_input": false,
+          "rule_engine_input": false,
+          "search_audit_input": false,
+          "clause_extraction_output": false
+        },
+        "专利费用": {
+          "source_document": false,
+          "extracted_full_text": false,
+          "normalized_full_text": false,
+          "classifier_input": false,
+          "clause_extraction_input": false,
+          "rule_engine_input": false,
+          "search_audit_input": false,
+          "clause_extraction_output": false
+        },
+        "侵权": {
+          "source_document": false,
+          "extracted_full_text": false,
+          "normalized_full_text": false,
+          "classifier_input": false,
+          "clause_extraction_input": false,
+          "rule_engine_input": false,
+          "search_audit_input": false,
+          "clause_extraction_output": false
+        }
+      },
+      "source_diagnostics": {
+        "filename": "83 投资协议.docx",
+        "format": "docx",
+        "file_byte_length": 18949,
+        "file_sha256": "8bdcbca80dba56ef998d4511d939bbca4ce4bf514895117042f33a1e3e502f12",
+        "source_text_character_count": 3932,
+        "extracted_text_character_count": 3924,
+        "source_part_character_counts": {
+          "word/document.xml": 3932
+        },
+        "source_package": {
+          "word_xml_part_count": 6,
+          "media_part_count": 0,
+          "embedding_part_count": 0,
+          "alt_chunk_count": 0
+        },
+        "completeness": {
+          "status": "PASS",
+          "reason": "",
+          "message": "源文档包含可进入审查链路的正文结构。",
+          "character_count": 3932,
+          "nonempty_line_count": 121,
+          "formal_heading_count": 29,
+          "field_label_count": 36,
+          "field_label_ratio": 0.2975,
+          "sentence_like_count": 51,
+          "long_narrative_count": 16,
+          "substantive_paragraph_count": 52,
+          "max_consecutive_substantive_paragraphs": 6,
+          "structure_category_count": 6,
+          "structure_category_hits": {
+            "definitions_or_subject": false,
+            "rights_and_obligations": true,
+            "payment_or_settlement": true,
+            "delivery_or_acceptance": true,
+            "liability_or_infringement": true,
+            "term_or_termination": true,
+            "dispute_resolution": true,
+            "force_majeure_or_confidentiality": false
+          },
+          "has_continuous_contract_body": true
+        }
+      },
+      "lineage": {
+        "source_to_extracted_retention": 0.997899,
+        "extracted_to_normalized_retention": 1.0,
+        "clause_extraction_output_retention": 1.0,
+        "extracted_to_normalized_same_hash": true,
+        "classifier_rule_same_hash": true,
+        "normalized_classifier_same_hash": true,
+        "normalized_clause_extraction_same_hash": true,
+        "normalized_rule_engine_same_hash": true,
+        "normalized_search_audit_same_hash": true,
+        "single_full_text_source": true
+      }
+    },
+    "classification_lifecycle": {
+      "raw_classification": {
+        "family": "TECHNOLOGY",
+        "primary_subtype": "GENERAL_TECHNOLOGY",
+        "tertiary_subtype": "",
+        "transaction_structure": "B2B_TECHNOLOGY",
+        "scenario": "GENERAL_TECHNOLOGY",
+        "scenario_label": "技术合同",
+        "confidence": "low",
+        "classification_score": 0
+      },
+      "normalized_classification": {},
+      "review_context": {
+        "contract_type": "shareholders",
+        "contract_family": "EQUITY_INVESTMENT",
+        "contract_subtype": "SHAREHOLDERS",
+        "transaction_structure": "SHAREHOLDERS",
+        "scene": "股东合作协议",
+        "classification_source": "review_v2.technology_service_analysis.classify_technology_transaction"
+      },
+      "rule_router": {
+        "contract_subtype": "SHAREHOLDERS",
+        "registry_review_count": 17
+      },
+      "renderer": {
+        "contract_type_label": "股东合作协议",
+        "contract_subtype": "SHAREHOLDERS",
+        "scene": "股东合作协议"
+      }
+    },
+    "classification_runtime": {
+      "classifier_version": "technical-transaction-classifier-v3-single-source",
+      "document_hash": "9e69eb2ba1aafdd5bfb9ef0c1d68dfaf3515f2046a90f1ed6d2ecb89382e7bd6",
+      "cache_key": "technical-transaction-classifier-v3-single-source:9e69eb2ba1aafdd5bfb9ef0c1d68dfaf3515f2046a90f1ed6d2ecb89382e7bd6",
+      "invocation_count": 2,
+      "actual_execution_count": 1,
+      "cache_hit_count": 1,
+      "call_sites": [
+        {
+          "module": "review_v2.engine",
+          "function": "review_contract_v2",
+          "line": 49698,
+          "invocation_count": 1,
+          "cache_hit_count": 0
+        },
+        {
+          "module": "review_v2.domain_selection",
+          "function": "consumer_service_context",
+          "line": 81,
+          "invocation_count": 1,
+          "cache_hit_count": 1
+        }
+      ],
+      "raw_classification": {
+        "family": "TECHNOLOGY",
+        "primary_subtype": "GENERAL_TECHNOLOGY",
+        "tertiary_subtype": "",
+        "transaction_structure": "B2B_TECHNOLOGY",
+        "scenario": "GENERAL_TECHNOLOGY",
+        "scenario_label": "技术合同",
+        "confidence": "low",
+        "classification_score": 0
+      }
+    },
+    "registry_runtime": {
+      "registry_module": "review_v2.contract_registry",
+      "registry_file": "F:\\ai\\Sage\\backend\\review_v2\\contract_registry.py",
+      "registry_type": "tuple",
+      "registry_object_id": 2176132125040,
+      "resolved_subject_matter": "EQUITY",
+      "transaction_structure": "SHAREHOLDERS",
+      "loaded_review_count": 17,
+      "loaded_review_ids": [
+        "CF-01-01",
+        "CF-02-01",
+        "CF-03-01",
+        "CF-04-01",
+        "CF-05-01",
+        "CF-06-01",
+        "CF-07-01",
+        "CF-08-01",
+        "CF-09-01",
+        "CF-10-01",
+        "CF-11-01",
+        "CF-12-01",
+        "CF-13-01",
+        "CF-14-01",
+        "S-00-01",
+        "S-00-03",
+        "S-00-04"
+      ],
+      "domain_owners": [
+        "cf",
+        "contract/common"
+      ],
+      "prohibited_reviews": [],
+      "review_bindings": {}
+    },
+    "payment_risk_lifecycle": {}
+  },
+  "loaded_rules": [
+    "formation_parties_capital",
+    "formation_contributions",
+    "formation_nonmonetary",
+    "formation_fund_safety",
+    "formation_governance",
+    "formation_deadlock",
+    "formation_capital_increase",
+    "formation_profit_loss",
+    "formation_transfer_exit",
+    "formation_articles_alignment",
+    "formation_unsuitable_assets",
+    "formation_unilateral_control",
+    "formation_return_capital",
+    "formation_transfer_effect",
+    "common_effective_clause",
+    "common_notice_delivery",
+    "common_jurisdiction"
+  ],
+  "sale_rule_count": 0,
+  "conditional_sale_audit": [
+    {
+      "node_id": "sale_validity_party_capacity",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_validity_true_intent",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_subject_legality",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_approval_license",
+      "applicable_if": "标的物依法需要行政审批、经营许可、备案、强制认证或特种资质时适用；需核验商品监管属性，普通合格证或软件授权不能替代监管资质证明。",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        false,
+        "暂不确定货物是否涉及行政审批或特殊资质；普通合格证、软件授权及合同生效审批不能替代该前提，需核验商品监管属性。"
+      ]
+    },
+    {
+      "node_id": "sale_subject_name_spec",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_subject_quantity_unit",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_subject_quality_standard",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_packaging_requirement",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_unilateral_price_adjustment",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_delivery_time",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_delivery_place",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_delivery_method",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_delay_delivery_liability",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_risk_transfer_delivery",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_risk_carrier_delivery",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        false,
+        "未发现触发该专项审查点的交易类型表述：始终适用"
+      ]
+    },
+    {
+      "node_id": "sale_risk_goods_in_transit",
+      "applicable_if": "合同中出现“路货买卖”“在途”“运输途中”“已发运”“发运后转卖”等在途货物交易表述时适用。",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        false,
+        "普通运输交付不等于路货买卖；未发现已发运后转卖或运输途中买卖的触发事实。"
+      ]
+    },
+    {
+      "node_id": "sale_risk_buyer_delay_acceptance",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_price_amount_currency",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_payment_schedule",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_payment_method_account",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_invoice_tax",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_quality_standard_basis",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_warranty_period",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_quality_remedy",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_quality_disclaimer_overbroad",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_inspection_period",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_inspection_period_reasonable",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_visible_hidden_defects",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_deemed_acceptance",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_breach_liability_general",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_liquidated_damages_adjustment",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_expectation_loss",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_expectation_loss_exclusion",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_retention_title_clause",
+      "applicable_if": "合同实际约定所有权保留或价款付清前所有权仍归出卖人时适用；仅有分期付款或赊销不触发。",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        false,
+        "未约定所有权保留；分期付款本身不触发所有权保留、登记或取回专项审查。"
+      ]
+    },
+    {
+      "node_id": "sale_retention_registration",
+      "applicable_if": "合同实际约定所有权保留或价款付清前所有权仍归出卖人时适用；仅有分期付款或赊销不触发。",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        false,
+        "未约定所有权保留；分期付款本身不触发所有权保留、登记或取回专项审查。"
+      ]
+    },
+    {
+      "node_id": "sale_retention_retake",
+      "applicable_if": "合同实际约定所有权保留或价款付清前所有权仍归出卖人时适用；仅有分期付款或赊销不触发。",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        false,
+        "未约定所有权保留；分期付款本身不触发所有权保留、登记或取回专项审查。"
+      ]
+    },
+    {
+      "node_id": "sale_retention_redemption",
+      "applicable_if": "合同实际约定所有权保留或价款付清前所有权仍归出卖人时适用；仅有分期付款或赊销不触发。",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        false,
+        "未约定所有权保留；分期付款本身不触发所有权保留、登记或取回专项审查。"
+      ]
+    },
+    {
+      "node_id": "sale_installment_payment",
+      "applicable_if": "合同中出现“分期付款”“分期支付”“分批付款”“分×期”“每期”“首期”“尾期”等分期价款安排时适用。",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        false,
+        "未发现触发该专项审查点的交易类型表述：合同中出现“分期付款”“分期支付”“分批付款”“分×期”“每期”“首期”“尾期”等分期价款安排时适用。"
+      ]
+    },
+    {
+      "node_id": "sale_trial_use_period",
+      "applicable_if": "合同中出现“试用”“试用期”“试运行”“试产”“免费试用”“先试后买”等试用买卖表述时适用。",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        false,
+        "未发现触发该专项审查点的交易类型表述：合同中出现“试用”“试用期”“试运行”“试产”“免费试用”“先试后买”等试用买卖表述时适用。"
+      ]
+    },
+    {
+      "node_id": "sale_trial_risk",
+      "applicable_if": "合同中出现“试用”“试用期”“试运行”“试产”“免费试用”“先试后买”等试用买卖表述时适用。",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        false,
+        "未发现触发该专项审查点的交易类型表述：合同中出现“试用”“试用期”“试运行”“试产”“免费试用”“先试后买”等试用买卖表述时适用。"
+      ]
+    },
+    {
+      "node_id": "sale_sample_quality",
+      "applicable_if": "合同中出现“样品”“样板”“封样”“凭样品”“样品确认”“按样交付”等凭样品买卖表述时适用。",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        false,
+        "技术封样或承认书仅是质量标准证据，不当然构成凭样品买卖。"
+      ]
+    },
+    {
+      "node_id": "sale_right_defect_no_third_party",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_ip_compliance",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_right_defect_notice",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_right_defect_remedy",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_technical_attachment",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_inspection_report_certificate",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_warranty_manual",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    },
+    {
+      "node_id": "sale_attachment_priority",
+      "applicable_if": "始终适用",
+      "equity_scope": [
+        false,
+        "股权出资关系不构成独立货物买卖；未选入独立买卖交易专项。"
+      ],
+      "sale_trigger_only": [
+        true,
+        ""
+      ]
+    }
+  ]
+}

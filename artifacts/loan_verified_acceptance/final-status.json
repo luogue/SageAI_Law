@@ -1,0 +1,184 @@
+{
+  "status": "BLOCKED",
+  "unmigrated_nodes": 0,
+  "verified_factstore_only": true,
+  "legacy_compatibility": false,
+  "automatic_tests": {
+    "total": 339,
+    "failures": 0,
+    "errors": 0
+  },
+  "legacy_baseline": {
+    "passed": 104,
+    "failed": 2,
+    "unchanged_failures": [
+      "L-05-02",
+      "utility_supply"
+    ]
+  },
+  "contracts": [
+    {
+      "contract": "72",
+      "file": "F:\\ai\\Sage\\test_data\\72 无抵押借款.docx",
+      "file_sha256": "6878e648ecd7c983c7103c54a67a43e901cd0ec820ff0ce5da60320c2ea64930",
+      "artifact_directory": "F:\\ai\\Sage\\artifacts\\loan_verified_acceptance\\20260912-182349-72\\72",
+      "pipeline_status": "PASS",
+      "status": "PASS",
+      "semantic_errors": [],
+      "error": null,
+      "rejection_details": [],
+      "live_calls": 32
+    },
+    {
+      "contract": "98",
+      "file": "F:\\ai\\Sage\\test_data\\98 借款合同.docx",
+      "file_sha256": "b0add44adf035d4025d62b511645cb2cc324eab094a3511a27c9cc7129c2b809",
+      "artifact_directory": "F:\\ai\\Sage\\artifacts\\loan_verified_acceptance\\20260912-182349-98\\98",
+      "pipeline_status": "BLOCKED",
+      "status": "BLOCKED",
+      "semantic_errors": [],
+      "error": "FactExtractionError: INCOMPLETE_FACT_SCOPE",
+      "rejection_details": [
+        {
+          "fact_id": "CF-a3d6fac2f1e1c17b8710b12b",
+          "supported": false,
+          "reason": "取值不支持：C0019仅将“复利”列为扣款顺序中的清偿顺位项目，未约定复利计收基数、利率、期间或计收条件；C0008计息方式仅按正常本金余额计息。扣款顺序中出现“复利”不等于存在实际计收复利的安排，故不能支持loan.compound=PRESENT。事实层修正要求：将state改为ABSENT（或EXPLICIT_NONE），除非另有条款明确约定计收复利。"
+        },
+        {
+          "fact_id": "CF-e8301aa3c2a31a0f3085ea24",
+          "supported": false,
+          "reason": "取值不支持：所引C0010（发放方式/预计放款日期/全额受托支付）、C0011（借款人贷款账户）、C0015（还款账户及扣收授权）、C0019（扣款顺序）均未记载借据、放款回单或系统放款记录等债权或支付凭证机制。C0010的“预计放款日期”与“全额受托支付”是发放安排，C0011/C0015是账户信息与扣收授权，均非凭证机制。事实层修正要求：将state改为ABSENT，或补充能证明存在借据/放款回单/系统放款记录机制的原文证据。"
+        }
+      ],
+      "live_calls": 23
+    },
+    {
+      "contract": "101",
+      "file": "F:\\ai\\Sage\\test_data\\101 企业之间借款合同.docx",
+      "file_sha256": "24ee8a64dc775e20b1fe5ccf538298290e419e674b5b1737e00a5dd1057be973",
+      "artifact_directory": "F:\\ai\\Sage\\artifacts\\loan_verified_acceptance\\20260912-182349-101\\101",
+      "pipeline_status": "PASS",
+      "status": "BLOCKED",
+      "semantic_errors": [
+        "interest formula RATE/DAYS has no explicit annual-to-daily conversion or bound daily-rate reference"
+      ],
+      "error": null,
+      "rejection_details": [],
+      "live_calls": 23
+    },
+    {
+      "contract": "49",
+      "file": "F:\\ai\\Sage\\test_data\\49 借款合同.docx",
+      "file_sha256": "f7b6add0014282b759e925776666881db6c971582281b3eb6fc19b2ccc43fa60",
+      "artifact_directory": "F:\\ai\\Sage\\artifacts\\loan_verified_acceptance\\20260912-182349-49\\49",
+      "pipeline_status": "BLOCKED",
+      "status": "BLOCKED",
+      "semantic_errors": [],
+      "error": "FactExtractionError: INCOMPLETE_FACT_SCOPE",
+      "rejection_details": [
+        {
+          "fact_id": "CF-db7e5a9a3541fbdbe0bc8326",
+          "supported": false,
+          "reason": "取值错误：base应为UNPAID_PRINCIPAL而非PRINCIPAL。C0007原文“乙方应按照实际占用借款本金及实际借款期限计算并支付利息”明确以实际占用（未偿）本金为基数，符合UNPAID_PRINCIPAL定义；候选填PRINCIPAL（原始全部借款金额）与原文不符。accrual_window的start_event=FUNDING正确，end_event=UNKNOWN可接受（原文未明示借期利息终止事件）。"
+        }
+      ],
+      "live_calls": 28
+    },
+    {
+      "contract": "99",
+      "file": "F:\\ai\\Sage\\test_data\\99 借款合同.docx",
+      "file_sha256": "99a6249b26492c7a13b3317b7f9af17815b4aa2cc1eab834c3de4264bc13c5b1",
+      "artifact_directory": "F:\\ai\\Sage\\artifacts\\loan_verified_acceptance\\20260912-182349-99\\99",
+      "pipeline_status": "BLOCKED",
+      "status": "BLOCKED",
+      "semantic_errors": [],
+      "error": "FactExtractionError: FACT_VERIFICATION_REJECTED",
+      "rejection_details": [
+        {
+          "fact_id": "CF-7cbce75a09adba01fa456856",
+          "supported": false,
+          "reason": "取值不支持：C0010明确约定提前还款通知渠道（短信、微信、电子邮件或书面方式）及提前五个工作日通知期限，原文为“乙方拟一次性提前归还全部剩余借款的，应提前五个工作日通知甲方”，故loan.element.loan_early_channel应为PRESENT而非ABSENT。"
+        },
+        {
+          "concept": "loan.element.loan_early_channel",
+          "reviewed_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011",
+            "C0012",
+            "C0013",
+            "C0014",
+            "C0015",
+            "C0016",
+            "C0017",
+            "C0018",
+            "C0019",
+            "C0020",
+            "C0021",
+            "C0022"
+          ],
+          "complete": false,
+          "omitted_facts": [
+            {
+              "fact_id": "CF-7cbce75a09adba01fa456856",
+              "concept": "loan.element.loan_early_channel",
+              "state": "PRESENT",
+              "normalized_value": true,
+              "evidence": [
+                {
+                  "clause_id": "C0010",
+                  "quote": "乙方拟一次性提前归还全部剩余借款的，应提前五个工作日通知甲方。",
+                  "section": "第七条 提前还款",
+                  "source_start": 1482,
+                  "source_end": 1513,
+                  "block_type": "OPERATIVE_CLAUSE",
+                  "section_type": "正式合同条款"
+                }
+              ]
+            }
+          ],
+          "reason": "全文核验：C0010明确约定提前还款通知渠道（短信、微信、电子邮件或书面方式）及提前五个工作日通知期限，原候选误判为ABSENT。"
+        }
+      ],
+      "live_calls": 33
+    },
+    {
+      "contract": "104",
+      "file": "F:\\ai\\Sage\\test_data\\104 企业借款.docx",
+      "file_sha256": "751a007d57090d24fa73e341f7f3ab2fcb8da546d26ca372a8050c88b15454ef",
+      "artifact_directory": "F:\\ai\\Sage\\artifacts\\loan_verified_acceptance\\20260912-182349-104\\104",
+      "pipeline_status": "BLOCKED",
+      "status": "BLOCKED",
+      "semantic_errors": [],
+      "error": "FactExtractionError: INCOMPLETE_FACT_SCOPE",
+      "rejection_details": [
+        {
+          "fact_id": "CF-e5bbe3c6a5288acf71334ea3",
+          "supported": false,
+          "reason": "取值错误：借期利息的base应为UNPAID_PRINCIPAL而非UNKNOWN。C0008明确“借款利息按照实际占用本金及实际借款天数计算”，实际占用本金属于尚未清偿的本金余额，符合base_definitions中UNPAID_PRINCIPAL定义；且C0009约定分期偿还本金，进一步印证计息基数为未偿本金余额。accrual_window的start_event=FUNDING、end_event=MATURITY及rate=5.40/YEAR正确，仅base需修正为UNPAID_PRINCIPAL。"
+        }
+      ],
+      "live_calls": 27
+    }
+  ],
+  "current_source_sha256": {
+    "backend\\review_v2\\unified_facts\\__init__.py": "12c1cfefdc5ad94d0c224dc5df189009ecea19dfb8c16c5072228f5b11917af4",
+    "backend\\review_v2\\unified_facts\\loan.py": "18e4d2d5eb155c627a308a41fe65a5165d554a8ced2d317dcb78451ec86f3ec5",
+    "backend\\review_v2\\unified_facts\\loan_bindings.py": "945a44cb653049eaea670963a732c28763a58e56da665bb3144fc257fa99e368",
+    "backend\\review_v2\\unified_facts\\loan_costs.py": "13d80e0775ddd3fb05a8a327b53254ba75b9f8464ee070d8a318282c828dadfa",
+    "backend\\review_v2\\unified_facts\\loan_pipeline.py": "dcbdb65ff2ccbfddf8fcf595985dfe4c74df5391e8b3e182fe39e61b04688a04",
+    "backend\\review_v2\\unified_facts\\loan_rules.py": "cb8678312100908a9e535b289486cbe0f5d783600f6612f93a01ddefdf411bb6",
+    "backend\\review_v2\\unified_facts\\normalization.py": "370bfea9d2f66b111d0da674b3efcbe114bb5d4fba2c54371658855efbc7c7f8",
+    "backend\\review_v2\\unified_facts\\pipeline.py": "a20d8dc9544c775c9b9afbda7c9cc11b899e817f13e7d8e61cd5b36cbfe4d360",
+    "backend\\review_v2\\unified_facts\\schema.py": "ae490c84afc74a784ccd89de58d6b75dd50953679be8d09bc48bbf66e5a0262b",
+    "backend\\review_v2\\unified_facts\\store.py": "ffcc899fd7257025e2fe073567d8e3b3fcb4b88be2833a3ceda0f95b7d426306"
+  }
+}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="4" time="14.885" timestamp="2026-09-12T16:23:27.913328+08:00" hostname="PC-202411042018"><testcase classname="backend.tests.test_review_entry_modes" name="test_normal_upload_generates_report_despite_legacy_diagnostic_env[gift-65 \u8d60\u4e0e\u5408\u540c.docx]" time="3.947" /><testcase classname="backend.tests.test_review_entry_modes" name="test_normal_upload_generates_report_despite_legacy_diagnostic_env[utility_supply-62 \u4f9b\u7528\u6c34\u7535\u6c14\u70ed\u529b\u5408\u540c.docx]" time="5.779"><failure message="AssertionError: assert 'BLOCKED' == 'REPORT_READY'&#10;  &#10;  - REPORT_READY&#10;  + BLOCKED">backend\tests\test_review_entry_modes.py:41: in test_normal_upload_generates_report_despite_legacy_diagnostic_env
+    assert result['release_quality_gate']['status'] == 'REPORT_READY'
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED</failure></testcase><testcase classname="backend.tests.test_review_entry_modes" name="test_explicit_diagnostic_never_calls_report_engine[False]" time="0.304" /><testcase classname="backend.tests.test_review_entry_modes" name="test_explicit_diagnostic_never_calls_report_engine[True]" time="0.302" /></testsuite></testsuites>

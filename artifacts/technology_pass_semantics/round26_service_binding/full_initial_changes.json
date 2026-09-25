@@ -1,0 +1,42 @@
+{
+  "backend.tests.test_technical_service_latest_shared_fact_regressions::test_third_party_claim_uses_article_facts_and_only_marks_real_gaps": {
+    "before": {
+      "status": "PASS",
+      "message": ""
+    },
+    "after": {
+      "status": "FAIL",
+      "message": "AssertionError: assert 'MISSING' == 'COVERED'\n  \n  - COVERED\n  + MISSING"
+    }
+  },
+  "backend.tests.test_patent_component_consistency::test_final_patent_report_consistency[\\u4e59\\u65b9/\\u88ab\\u8bb8\\u53ef\\u65b9]": {
+    "before": {
+      "status": "PASS",
+      "message": ""
+    },
+    "after": {
+      "status": "FAIL",
+      "message": "AssertionError: assert 'MISSING' != 'MISSING'\n +  where 'MISSING' = <built-in method get of dict object at 0x000002986F69EB00>('status')\n +    where <built-in method get of dict object at 0x000002986F69EB00> = {'canonical_fact_key': 'third_party_claim.attorney_fee_allocation', 'status': 'MISSING', 'value': None, 'normalized_value': None, ...}.get\n +      where {'canonical_fact_key': 'third_party_claim.attorney_fee_allocation', 'status': 'MISSING', 'value': None, 'normalized_value': None, ...} = <built-in method get of dict object at 0x000002986F69E640>('third_party_claim.attorney_fee_allocation', {})\n +        where <built-in method get of dict object at 0x000002986F69E640> = {'third_party_claim.attorney_fee_allocation': {'canonical_fact_key': 'third_party_claim.attorney_fee_allocation', 'sta...ey': 'third_party_claim.infringement_damage_items', 'status': 'MISSING', 'value': None, 'normalized_value': None, ...}}.get\n +        and   'third_party_claim.attorney_fee_allocation' = <built-in method get of dict object at 0x0000029874FA2A40>('source_fact_key')\n +          where <built-in method get of dict object at 0x0000029874FA2A40> = {'review_id': 'TC-12-04', 'element_id': 'attorney_fee_allocation', 'status': 'COVERED', 'proposition': '律师费承担方向已有直接证据。', ...}.get"
+    }
+  },
+  "backend.tests.test_technical_service_maintenance_contract_review::test_service_confidentiality_has_precise_partial_evidence": {
+    "before": {
+      "status": "FAIL",
+      "message": "AssertionError: assert '违反保密义务' in '4．任何一方违反第五条保密义务的，应赔偿对方因此遭受的实际损失。'"
+    },
+    "after": {
+      "status": "PASS",
+      "message": ""
+    }
+  },
+  "backend.tests.test_patent_component_consistency::test_final_patent_report_consistency[\\u7532\\u65b9/\\u8bb8\\u53ef\\u65b9]": {
+    "before": {
+      "status": "PASS",
+      "message": ""
+    },
+    "after": {
+      "status": "FAIL",
+      "message": "AssertionError: assert 'MISSING' != 'MISSING'\n +  where 'MISSING' = <built-in method get of dict object at 0x000002986F691940>('status')\n +    where <built-in method get of dict object at 0x000002986F691940> = {'canonical_fact_key': 'third_party_claim.attorney_fee_allocation', 'status': 'MISSING', 'value': None, 'normalized_value': None, ...}.get\n +      where {'canonical_fact_key': 'third_party_claim.attorney_fee_allocation', 'status': 'MISSING', 'value': None, 'normalized_value': None, ...} = <built-in method get of dict object at 0x000002986F691380>('third_party_claim.attorney_fee_allocation', {})\n +        where <built-in method get of dict object at 0x000002986F691380> = {'third_party_claim.attorney_fee_allocation': {'canonical_fact_key': 'third_party_claim.attorney_fee_allocation', 'sta...ey': 'third_party_claim.infringement_damage_items', 'status': 'MISSING', 'value': None, 'normalized_value': None, ...}}.get\n +        and   'third_party_claim.attorney_fee_allocation' = <built-in method get of dict object at 0x000002986F6E9780>('source_fact_key')\n +          where <built-in method get of dict object at 0x000002986F6E9780> = {'review_id': 'TC-12-04', 'element_id': 'attorney_fee_allocation', 'status': 'COVERED', 'proposition': '律师费承担方向已有直接证据。', ...}.get"
+    }
+  }
+}

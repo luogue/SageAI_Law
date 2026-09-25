@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="20.451" timestamp="2026-09-18T12:48:06.010737+08:00" hostname="PC-202411042018"><testcase classname="backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency" name="test_duplicate_improvement_and_copy_retention_findings_are_aggregated" time="8.279"><failure message="AssertionError: assert ['TECH-SHARED-DATA-01'] == ['TC-11-03', ...ARED-DATA-01']&#10;  &#10;  At index 0 diff: 'TECH-SHARED-DATA-01' != 'TC-11-03'&#10;  Right contains one more item: 'TECH-SHARED-DATA-01'&#10;  Use -v to get more diff">cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_duplicate_improvement_and_copy_retention_findings_are_aggregated(cooperative_review: dict):
+        findings = cooperative_review["risk_findings"]
+    
+        improvement = [row for row in findings if row["risk_group"] == "followup_improvement_ownership"]
+        assert len(improvement) == 1
+        assert improvement[0]["source_review_ids"] == [
+            "TC-02-01", "TC-10-01", "TC-10-02", "TC-10-04",
+        ]
+        assert "偏向完成方" not in improvement[0]["title"]
+        assert "甲方无法继续使用" not in str(improvement[0])
+        assert not any(
+            row["risk_group"] in {"improvement_sharing_license", "improvement_no_unlawful_restriction"}
+            for row in findings
+        )
+    
+        retention = [row for row in findings if row["risk_group"] == "technology_data_secondary_use"]
+        assert len(retention) == 1
+&gt;       assert retention[0]["source_review_ids"] == ["TC-11-03", "TECH-SHARED-DATA-01"]
+E       AssertionError: assert ['TECH-SHARED-DATA-01'] == ['TC-11-03', ...ARED-DATA-01']
+E         
+E         At index 0 diff: 'TECH-SHARED-DATA-01' != 'TC-11-03'
+E         Right contains one more item: 'TECH-SHARED-DATA-01'
+E         Use -v to get more diff
+
+backend\tests\test_cooperative_development_evidence_fact_conclusion_consistency.py:258: AssertionError</failure></testcase><testcase classname="backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency" name="test_universal_independent_improvement_assignment_links_competition_and_deduplicates" time="0.001" /><testcase classname="backend.tests.test_cooperative_development_latest_regressions" name="test_competition_and_improvement_rules_reuse_direct_atomic_evidence" time="8.137"><failure message="AssertionError: assert '通过' == '风险条款'&#10;  &#10;  - 风险条款&#10;  + 通过">latest_cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_competition_and_improvement_rules_reuse_direct_atomic_evidence(latest_cooperative_review: dict):
+        by_id = _items(latest_cooperative_review)
+        competition = by_id["TC-02-01"]
+&gt;       assert competition["coverage_status"] == "风险条款"
+E       AssertionError: assert '通过' == '风险条款'
+E         
+E         - 风险条款
+E         + 通过
+
+backend\tests\test_cooperative_development_latest_regressions.py:55: AssertionError</failure></testcase></testsuite></testsuites>

@@ -122,7 +122,10 @@ onMounted(async () => {
       }
     } catch (error) {
       console.error('获取报告失败:', error)
-      renderedMarkdown.value = '<p style="color: #999; text-align: center; padding: 40px;">获取审查结果失败</p>'
+      const message = error.response?.status === 404
+        ? '报告不存在或无权访问。历史缺失报告不会关联其他记录。'
+        : '获取审查结果失败，请稍后重试。'
+      renderedMarkdown.value = `<p style="color: #999; text-align: center; padding: 40px;">${message}</p>`
     }
   } else {
     renderedMarkdown.value = '<p style="color: #999; text-align: center; padding: 40px;">缺少报告ID</p>'

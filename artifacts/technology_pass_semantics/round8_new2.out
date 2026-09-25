@@ -1,0 +1,71 @@
+FFF....F                                                                 [100%]
+================================== FAILURES ===================================
+_ test_canonical_sources_survive_projection_and_independent_verification[consulting_quality-\u4e59\u65b9\u5bf9\u7cfb\u7edf\u67b6\u6784\u8fdb\u884c\u5206\u6790\u8bc4\u4f30\u3002\u54a8\u8be2\u62a5\u544a\u5e94\u5305\u62ec\u98ce\u9669\u5206\u6790\u3002\u4e59\u65b9\u63d0\u4ea4\u7eb8\u8d28\u54a8\u8be2\u62a5\u544a\u3002\u54a8\u8be2\u62a5\u544a\u5e94\u5b8c\u6574\u8986\u76d6\u7ea6\u5b9a\u5185\u5bb9\u3002-4] _
+backend\tests\test_consulting_verified_fact_projection.py:29: in test_canonical_sources_survive_projection_and_independent_verification
+    assert item.coverage_elements == before
+E   AssertionError: assert [{'review_id'...成果验收标准', ...}] == [{'review_id'...成果验收标准', ...}]
+E     
+E     At index 0 diff: {'review_id': 'TC-08-01', 'element_id': 'consulting_scope', 'claim_id': 'TC-08-01-consulting_scope', 'proposition': '咨询事项和范围', 'status': 'COVERED', 'evidence_ids': ['EV-f0b79ce091122bed'], 'supporting_evidence_ids': ['EV-f0b79ce091122bed'], 'source_clause_ids': ['C0001'], 'source_spans': ['乙方对系统架构进行分析评估。'], 'source_locations': ['第一条 咨询'], 'entailment': 'SUPPORTS', 'verifier_confidence': 'high', 'reason': '咨询事项和范围', 'evidence_strength': 'EXPLICIT', 'minimum_evidence_strength': 'UNKNOWN', 'risk_relevant': True, 'residual_gap': '', 'required_fact': '咨询事项和范...
+E     
+E     ...Full output truncated (2 lines hidden), use '-vv' to show
+_ test_canonical_sources_survive_projection_and_independent_verification[consulting_inputs-\u7532\u65b9\u63d0\u4f9b\u7cfb\u7edf\u67b6\u6784\u56fe\u548c\u6027\u80fd\u6570\u636e\uff0c\u5b89\u6392\u4eba\u5458\u8bbf\u8c08\u53ca\u6d4b\u8bd5\u73af\u5883\u3002\u7532\u65b9\u4fdd\u8bc1\u8d44\u6599\u771f\u5b9e\u3001\u5b8c\u6574\uff0c\u5e76\u901a\u8fc7\u52a0\u5bc6\u7535\u5b50\u6587\u4ef6\u65b9\u5f0f\u63d0\u4ea4\u3002-4] _
+backend\tests\test_consulting_verified_fact_projection.py:29: in test_canonical_sources_survive_projection_and_independent_verification
+    assert item.coverage_elements == before
+E   AssertionError: assert [{'review_id'...交时间或方式', ...}] == [{'review_id'...交时间或方式', ...}]
+E     
+E     At index 0 diff: {'review_id': 'TC-08-01', 'element_id': 'technical_materials', 'claim_id': 'TC-08-01-technical_materials', 'proposition': '委托方提供咨询所需技术资料', 'status': 'COVERED', 'evidence_ids': ['EV-68113fbb15332990'], 'supporting_evidence_ids': ['EV-68113fbb15332990'], 'source_clause_ids': ['C0001'], 'source_spans': ['甲方提供系统架构图和性能数据，安排人员访谈及测试环境。'], 'source_locations': ['第一条 咨询'], 'entailment': 'SUPPORTS', 'verifier_confidence': 'high', 'reason': '委托方提供咨询所需技术资料', 'evidence_strength': 'EXPLICIT', 'minimum_evidence_strength': 'UNKNOWN', 'risk_relevant': True, 'residual_gap...
+E     
+E     ...Full output truncated (2 lines hidden), use '-vv' to show
+_ test_canonical_sources_survive_projection_and_independent_verification[consulting_remedy-\u54a8\u8be2\u6210\u679c\u4e0d\u7b26\u5408\u7ea6\u5b9a\u7684\uff0c\u4e59\u65b9\u5e94\u5728\u5408\u7406\u671f\u9650\u5185\u514d\u8d39\u4fee\u6539\u3002-3] _
+backend\tests\test_consulting_verified_fact_projection.py:29: in test_canonical_sources_survive_projection_and_independent_verification
+    assert item.coverage_elements == before
+E   AssertionError: assert [{'review_id'...解除后的返还', ...}] == [{'review_id'...解除后的返还', ...}]
+E     
+E     At index 0 diff: {'review_id': 'TC-08-01', 'element_id': 'defect_trigger', 'claim_id': 'TC-08-01-defect_trigger', 'proposition': '咨询成果瑕疵触发条件', 'status': 'COVERED', 'evidence_ids': ['EV-cccd19345e9ccf48'], 'supporting_evidence_ids': ['EV-cccd19345e9ccf48'], 'source_clause_ids': ['C0001'], 'source_spans': ['咨询成果不符合约定的，乙方应在合理期限内免费修改。'], 'source_locations': ['第一条 咨询'], 'entailment': 'SUPPORTS', 'verifier_confidence': 'high', 'reason': '咨询成果瑕疵触发条件', 'evidence_strength': 'EXPLICIT', 'minimum_evidence_strength': 'UNKNOWN', 'risk_relevant': True, 'residual_gap': '', 'required_f...
+E     
+E     ...Full output truncated (2 lines hidden), use '-vv' to show
+_______________ test_consulting_tc08_rules_and_direct_evidence ________________
+backend\tests\test_technical_consulting_contract_review.py:123: in test_consulting_tc08_rules_and_direct_evidence
+    assert by_id["TC-08-05"]["coverage_status"] == "通过"
+E   AssertionError: assert '部分覆盖' == '通过'
+E     
+E     - 通过
+E     + 部分覆盖
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_consulting_verified_fact_projection.py::test_canonical_sources_survive_projection_and_independent_verification[consulting_quality-\u4e59\u65b9\u5bf9\u7cfb\u7edf\u67b6\u6784\u8fdb\u884c\u5206\u6790\u8bc4\u4f30\u3002\u54a8\u8be2\u62a5\u544a\u5e94\u5305\u62ec\u98ce\u9669\u5206\u6790\u3002\u4e59\u65b9\u63d0\u4ea4\u7eb8\u8d28\u54a8\u8be2\u62a5\u544a\u3002\u54a8\u8be2\u62a5\u544a\u5e94\u5b8c\u6574\u8986\u76d6\u7ea6\u5b9a\u5185\u5bb9\u3002-4]
+FAILED backend/tests/test_consulting_verified_fact_projection.py::test_canonical_sources_survive_projection_and_independent_verification[consulting_inputs-\u7532\u65b9\u63d0\u4f9b\u7cfb\u7edf\u67b6\u6784\u56fe\u548c\u6027\u80fd\u6570\u636e\uff0c\u5b89\u6392\u4eba\u5458\u8bbf\u8c08\u53ca\u6d4b\u8bd5\u73af\u5883\u3002\u7532\u65b9\u4fdd\u8bc1\u8d44\u6599\u771f\u5b9e\u3001\u5b8c\u6574\uff0c\u5e76\u901a\u8fc7\u52a0\u5bc6\u7535\u5b50\u6587\u4ef6\u65b9\u5f0f\u63d0\u4ea4\u3002-4]
+FAILED backend/tests/test_consulting_verified_fact_projection.py::test_canonical_sources_survive_projection_and_independent_verification[consulting_remedy-\u54a8\u8be2\u6210\u679c\u4e0d\u7b26\u5408\u7ea6\u5b9a\u7684\uff0c\u4e59\u65b9\u5e94\u5728\u5408\u7406\u671f\u9650\u5185\u514d\u8d39\u4fee\u6539\u3002-3]
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_consulting_tc08_rules_and_direct_evidence
+4 failed, 4 passed, 5 warnings in 12.06s

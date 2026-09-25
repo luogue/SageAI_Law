@@ -1,0 +1,74 @@
+{
+  "file": "F:\\ai\\Sage\\test_data\\98 借款合同.docx",
+  "file_sha256": "b0add44adf035d4025d62b511645cb2cc324eab094a3511a27c9cc7129c2b809",
+  "source_sha256": "53b70b7ac320a8fd97d6601625c3ee1cea32f196094c1d131a4b9b0a7f7962ba",
+  "source_characters": 2183,
+  "status": "BLOCKED",
+  "error": "FactExtractionError: FACT_VERIFICATION_REJECTED",
+  "diagnostics": [
+    {
+      "failed_stage": "UNIFIED_FACT_VALIDATION",
+      "fact_id": null,
+      "field": "checks",
+      "validation_rule": "FACT_VERIFICATION_REJECTED",
+      "model_raw_value": null,
+      "evidence": null,
+      "expected": null,
+      "actual": [
+        {
+          "fact_id": "CF-0c4059dc0c91cc816d6e3ea7",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-5570c43f1d48e798f5aa3fe6",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-2a106284bf35e3e36cbd00a5",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-35700ef3a93b460071a9b2d6",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-e0c10160ffece87565505e0e",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-748d5778e607b1d432bb8be5",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-2a6bfbea8ab25f0713acb9e6",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-dfa09982f5f89df7eaa75b02",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-b9bb947ebeb0f3921ba1d4c1",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-e47efcb938d4d841047bcc84",
+          "supported": false,
+          "reason": "取值不支持：C0019扣款顺序中明确列有“复利”，表明存在实际计收复利的安排，应认定为PRESENT而非ABSENT。"
+        },
+        {
+          "fact_id": "CF-05fca50a108488cdb8d51a36",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-af58b7e7fd317ad588532428",
+          "supported": false,
+          "reason": "取值不支持：C0010约定“贷款发放方式：一次性发放”“预计放款日期：2026年9月15日”“支付方式：全额受托支付”，C0011约定借款人贷款账户，C0015约定还款账户及自动扣收，C0012约定交易对象账户及支付金额，C0013约定贷款支付金额，C0019约定扣款顺序，已构成系统放款记录或支付凭证机制，应认定为PRESENT而非ABSENT。"
+        }
+      ],
+      "disposition": "BLOCK"
+    }
+  ],
+  "attempts": [],
+  "calls": 33
+}

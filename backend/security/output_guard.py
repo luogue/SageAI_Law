@@ -1,4 +1,5 @@
 """输出检测模块 - 使用SHA256哈希滑动窗口检测系统提示词泄露"""
+from storage.database import session_scope
 import os
 import hashlib
 import logging
@@ -22,19 +23,19 @@ WHITELISTED_HEADERS = [
     "前置步骤：关键前提确认",
     "审查前提",
     "关键前提确认",
-    
+
     # 模块2：风险评估（来自"风险评估与商业可行性评估"）
     "风险评估",
     "风险评估与商业可行性评估",
     "商业可行性评估",
     "风险/问题概率评估",
-    
+
     # 模块3：结论与行动建议
     "结论与行动建议",
     "审查结论与行动建议",
     "应该怎么做",
     "为什么",
-    
+
     # ========== 风险评估内部字段 ==========
     "风险点",
     "发生概率",
@@ -44,42 +45,42 @@ WHITELISTED_HEADERS = [
     "修改建议",
     "法律依据",
     "替代风控措施",
-    
+
     # ========== 用户额外要求部分 ==========
     "二、对用户额外要求",
     "二、对用户额外要求的专项回应",
     "用户额外要求",
-    
+
     # ========== 报告结构元素 ==========
     "合同审查报告",
     "合同基本信息概述",
     "核心风险分级清单",
     "关键风险评估表格",
-    
+
     # ========== 声明部分 ==========
     "声明",
     "本分析报告由AI生成",
     "仅供参考",
     "不构成正式法律意见",
-    
+
     # ========== 法律关系性质（可能在审查前提中出现）==========
     "劳动关系",
     "劳务关系",
     "承揽关系",
     "委托关系",
-    
+
     # ========== 信息来源类型（可能出现在风险评估中）==========
     "事实推断",
     "模型补充",
-    
+
     # ========== 规范性质 ==========
     "强制性",
     "推荐性",
-    
+
     # ========== 法律适用版本 ==========
     "行为时有效",
     "现行有效",
-    
+
     # ========== Markdown 格式化后的章节标题 ==========
     "1. 审查前提",
     "2. 风险评估",
@@ -149,7 +150,7 @@ class OutputGuard:
 
         新版提示词输出顺序：前置步骤 → 逻辑推理 → 风险评估 → 自检 → 结论
         但 DETECT_SECTIONS 当前为空，因此此方法总是返回空字符串，跳过检测。
-        
+
         当需要启用特定章节检测时，将章节标题添加到 DETECT_SECTIONS 即可。
 
         Args:
@@ -256,7 +257,7 @@ class OutputGuard:
 
         # ========== 只提取需要检测的章节内容 ==========
         detect_content = self._extract_detect_sections(output)
-        
+
         if not detect_content or not detect_content.strip():
             # 如果没有找到需要检测的章节，跳过检测
             logger.debug("[OUTPUT_GUARD] 未找到需要检测的章节内容，跳过检测")
@@ -276,12 +277,12 @@ class OutputGuard:
 
         for i in range(content_len - SLIDING_WINDOW_SIZE + 1):
             fragment = detect_content[i:i + SLIDING_WINDOW_SIZE]
-            
+
             # 跳过白名单中的标题内容
             if self._is_whitelisted_fragment(fragment):
                 whitelisted_matches += 1
                 continue
-                
+
             fragment_hash = hashlib.sha256(fragment.encode('utf-8')).hexdigest()
 
             if fragment_hash in self._fragment_hashes:
@@ -371,20 +372,20 @@ class OutputGuard:
             output_preview: 输出预览（前N字符）
         """
         try:
-            from storage.database import get_db
+
             from storage.models import SecurityEvent
 
-            db = next(get_db())
-            event = SecurityEvent(
-                event_type=event_type,
-                severity="critical",
-                source="output_guard",
-                detail=f"{detail} | preview: {output_preview[:200]}",
-                ip="0.0.0.0",  # 输出检测时可能没有IP上下文
-            )
-            db.add(event)
-            db.commit()
-            logger.info(f"[OUTPUT_GUARD] 安全事件已记录: {event_type}")
+            with session_scope() as db:
+                event = SecurityEvent(
+                    event_type=event_type,
+                    severity="critical",
+                    source="output_guard",
+                    detail=f"{detail} | preview: {output_preview[:200]}",
+                    ip="0.0.0.0",  # 输出检测时可能没有IP上下文
+                )
+                db.add(event)
+                db.commit()
+                logger.info(f"[OUTPUT_GUARD] 安全事件已记录: {event_type}")
         except Exception as e:
             logger.error(f"[OUTPUT_GUARD] 记录安全事件失败: {e}")
 

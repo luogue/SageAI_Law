@@ -5,7 +5,12 @@ import pytest
 from review_v2.agency_contract_checklist import AGENCY_REVIEW_CHECKLIST
 from review_v2.brokerage_contract_checklist import BROKERAGE_REVIEW_CHECKLIST
 from review_v2.commission_agency_contract_checklist import COMMISSION_AGENCY_REVIEW_CHECKLIST
-from review_v2.construction_contract_checklist import CONSTRUCTION_REVIEW_CHECKLIST
+from review_v2.construction_contract_checklist import get_construction_checklist
+from review_v2.priority_contract_types import PRIORITY_TYPES
+from review_v2.employment_contract_checklist import LABOR_CHECKLIST, NON_COMPETE_CHECKLIST, CONFIDENTIALITY_CHECKLIST, TERMINATION_CHECKLIST
+from review_v2.security_property_checklist import MORTGAGE_CHECKLIST, MOVABLE_PLEDGE_CHECKLIST, EQUITY_PLEDGE_CHECKLIST, RIGHTS_PLEDGE_CHECKLIST
+from review_v2.equity_investment_checklist import EQUITY_TRANSFER_CHECKLIST, CAPITAL_INCREASE_CHECKLIST, INVESTMENT_CHECKLIST, SHAREHOLDERS_CHECKLIST
+from review_v2.operating_cooperation import CHECKLIST as OPERATING_CHECKLIST
 from review_v2.contract_registry import (
     CONTRACT_CHECKLISTS,
     CONTRACT_TYPE_META,
@@ -33,7 +38,7 @@ from review_v2.engine import review_contract_v2
 
 
 def test_contract_registry_declares_all_implemented_checklists():
-    assert set(supported_contract_types()) == {"lease", "sale", "gift", "deposit", "work_contract", "transportation", "agency", "loan", "service", "guarantee", "finance_lease", "warehouse", "construction", "technology", "commission_agency", "utility_supply", "brokerage"}
+    assert set(supported_contract_types()) == {"lease", "sale", "gift", "deposit", "work_contract", "transportation", "agency", "loan", "service", "guarantee", "finance_lease", "warehouse", "construction", "technology", "commission_agency", "utility_supply", "brokerage"} | set(PRIORITY_TYPES)
     assert CONTRACT_CHECKLISTS == {
         "lease": HOUSE_LEASE_REVIEW_CHECKLIST,
         "sale": SALE_REVIEW_CHECKLIST,
@@ -47,11 +52,24 @@ def test_contract_registry_declares_all_implemented_checklists():
         "guarantee": GUARANTEE_REVIEW_CHECKLIST,
         "finance_lease": FINANCE_LEASE_REVIEW_CHECKLIST,
         "warehouse": WAREHOUSE_REVIEW_CHECKLIST,
-        "construction": CONSTRUCTION_REVIEW_CHECKLIST,
+        "construction": get_construction_checklist(),
         "technology": TECHNOLOGY_REVIEW_CHECKLIST,
         "commission_agency": COMMISSION_AGENCY_REVIEW_CHECKLIST,
         "utility_supply": UTILITY_SUPPLY_REVIEW_CHECKLIST,
         "brokerage": BROKERAGE_REVIEW_CHECKLIST,
+        "labor": LABOR_CHECKLIST,
+        "non_compete": NON_COMPETE_CHECKLIST,
+        "confidentiality": CONFIDENTIALITY_CHECKLIST,
+        "employment_termination": TERMINATION_CHECKLIST,
+        "mortgage": MORTGAGE_CHECKLIST,
+        "movable_pledge": MOVABLE_PLEDGE_CHECKLIST,
+        "equity_pledge": EQUITY_PLEDGE_CHECKLIST,
+        "rights_pledge": RIGHTS_PLEDGE_CHECKLIST,
+        "equity_transfer": EQUITY_TRANSFER_CHECKLIST,
+        "capital_increase": CAPITAL_INCREASE_CHECKLIST,
+        "investment": INVESTMENT_CHECKLIST,
+        "shareholders": SHAREHOLDERS_CHECKLIST,
+        "operating_cooperation": OPERATING_CHECKLIST,
     }
     assert CONTRACT_TYPE_META[ContractType.LEASE].response_key == "house_lease"
 
@@ -78,8 +96,8 @@ def test_get_checklist_supports_canonical_keys_and_aliases():
     assert get_checklist("financial_lease") is FINANCE_LEASE_REVIEW_CHECKLIST
     assert get_checklist("warehouse") is WAREHOUSE_REVIEW_CHECKLIST
     assert get_checklist("storage") is WAREHOUSE_REVIEW_CHECKLIST
-    assert get_checklist("construction") is CONSTRUCTION_REVIEW_CHECKLIST
-    assert get_checklist("construction_contract") is CONSTRUCTION_REVIEW_CHECKLIST
+    assert get_checklist("construction") == get_construction_checklist()
+    assert get_checklist("construction_contract") is get_checklist("construction")
     assert get_checklist("technology") is TECHNOLOGY_REVIEW_CHECKLIST
     assert get_checklist("tech") is TECHNOLOGY_REVIEW_CHECKLIST
     assert get_checklist("commission_agency") is COMMISSION_AGENCY_REVIEW_CHECKLIST
@@ -106,7 +124,7 @@ def test_registered_checklists_share_review_checkpoint_schema():
 def test_registered_checklists_pass_integrity_validation():
     warnings = validate_all_checklists()
 
-    assert set(warnings) == {"lease", "sale", "gift", "deposit", "work_contract", "transportation", "agency", "loan", "service", "guarantee", "finance_lease", "warehouse", "construction", "technology", "commission_agency", "utility_supply", "brokerage"}
+    assert set(warnings) == set(supported_contract_types())
     assert all(isinstance(items, tuple) for items in warnings.values())
 
 

@@ -1,0 +1,46 @@
+{
+  "status": "REPORT_READY",
+  "claims": [
+    {
+      "risk_id": "RF-010",
+      "field": "element_proposition",
+      "fact": "相对方承担、当前审查方受益的高额违约金包括若因乙方原因导致迟延交付，每迟延一天，乙方应按照合同总金额的0.1%向甲方支付违约金。合同价比例仅用于识别异常，不等同于实际损失比例。",
+      "element_ids": [
+        "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+      ],
+      "supporting_evidence_ids": [
+        "EV-ae893fb9ac6fec35",
+        "EV-8a962a085c759034"
+      ]
+    },
+    {
+      "risk_id": "RF-010",
+      "field": "element_proposition",
+      "fact": "若因乙方原因导致迟延交付，每迟延一天，乙方应按照合同总金额的0.1%向甲方支付违约金",
+      "element_ids": [
+        "penalty_obligation_1"
+      ],
+      "supporting_evidence_ids": [
+        "EV-8a962a085c759034"
+      ]
+    },
+    {
+      "risk_id": "RF-010",
+      "field": "review_judgment",
+      "fact": "每日0.1%",
+      "element_ids": [
+        "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+        "penalty_obligation_1"
+      ],
+      "supporting_evidence_ids": [
+        "EV-ae893fb9ac6fec35",
+        "EV-8a962a085c759034"
+      ]
+    }
+  ],
+  "mismatch_count": 0,
+  "failures": [],
+  "gate_results": {
+    "NARRATIVE_EVIDENCE_GATE": "PASS"
+  }
+}

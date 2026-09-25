@@ -1,4 +1,5 @@
 """安全事件日志模块 - 记录封禁、解封、攻击拦截等安全事件"""
+from storage.database import session_scope
 import logging
 from typing import Optional, List, Dict
 from datetime import datetime
@@ -28,26 +29,26 @@ def record_security_event(
         meta: 额外的元数据 (JSON)
     """
     import json
-    from storage.database import get_db
+
     from storage.models import SecurityEvent
 
     try:
-        db = next(get_db())
-        event = SecurityEvent(
-            event_type=event_type,
-            severity=severity,
-            source=source,
-            detail=detail,
-            user_id=str(user_id) if user_id else None,
-            ip=ip or "unknown",
-            meta_json=json.dumps(meta, ensure_ascii=False) if meta else None,
-        )
-        db.add(event)
-        db.commit()
-        logger.info(
-            f"[SEC_EVENT] type={event_type}, severity={severity}, "
-            f"user_id={user_id}, ip={ip}"
-        )
+        with session_scope() as db:
+            event = SecurityEvent(
+                event_type=event_type,
+                severity=severity,
+                source=source,
+                detail=detail,
+                user_id=str(user_id) if user_id else None,
+                ip=ip or "unknown",
+                meta_json=json.dumps(meta, ensure_ascii=False) if meta else None,
+            )
+            db.add(event)
+            db.commit()
+            logger.info(
+                f"[SEC_EVENT] type={event_type}, severity={severity}, "
+                f"user_id={user_id}, ip={ip}"
+            )
     except Exception as e:
         logger.error(f"[SEC_EVENT] 记录安全事件失败: {e}")
 
@@ -69,23 +70,23 @@ def record_admin_log(
         target_value: 目标值
         detail: 操作详情/理由
     """
-    from storage.database import get_db
+
     from storage.models import AdminLog
 
     try:
-        db = next(get_db())
-        log_entry = AdminLog(
-            admin_user=admin_user,
-            action=action,
-            target_type=target_type,
-            target_value=target_value,
-            detail=detail,
-        )
-        db.add(log_entry)
-        db.commit()
-        logger.info(
-            f"[ADMIN_LOG] admin={admin_user}, action={action}, "
-            f"target={target_type}:{target_value}"
-        )
+        with session_scope() as db:
+            log_entry = AdminLog(
+                admin_user=admin_user,
+                action=action,
+                target_type=target_type,
+                target_value=target_value,
+                detail=detail,
+            )
+            db.add(log_entry)
+            db.commit()
+            logger.info(
+                f"[ADMIN_LOG] admin={admin_user}, action={action}, "
+                f"target={target_type}:{target_value}"
+            )
     except Exception as e:
         logger.error(f"[ADMIN_LOG] 记录管理员操作失败: {e}")

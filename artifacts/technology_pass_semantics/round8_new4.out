@@ -1,0 +1,42 @@
+..........F...                                                           [100%]
+================================== FAILURES ===================================
+_ test_application_representations_are_not_inferred_from_future_materials[\u5356\u65b9\u4fdd\u8bc1\u5df2\u7ecf\u53d6\u5f97\u5168\u90e8\u7814\u53d1\u4eba\u5458\u804c\u52a1\u6210\u679c\u5f52\u5c5e\u7684\u5185\u90e8\u6587\u4ef6\u3002-True] _
+backend\tests\test_consulting_verified_fact_projection.py:97: in test_application_representations_are_not_inferred_from_future_materials
+    assert all(s['quote'] in next(c.text for c in clauses if c.clause_id == s['clause_id'])
+E   assert False
+E    +  where False = all(<generator object test_application_representations_are_not_inferred_from_future_materials.<locals>.<genexpr> at 0x00000222635E99A0>)
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_consulting_verified_fact_projection.py::test_application_representations_are_not_inferred_from_future_materials[\u5356\u65b9\u4fdd\u8bc1\u5df2\u7ecf\u53d6\u5f97\u5168\u90e8\u7814\u53d1\u4eba\u5458\u804c\u52a1\u6210\u679c\u5f52\u5c5e\u7684\u5185\u90e8\u6587\u4ef6\u3002-True]
+1 failed, 13 passed, 5 warnings in 4.64s

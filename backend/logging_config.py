@@ -1,6 +1,7 @@
 """生产级日志配置：按天滚动，保留30天，结构化格式"""
 import os
 import logging
+from secret_redaction import SecretFormatter
 import logging.handlers
 import uuid
 from datetime import datetime
@@ -39,7 +40,7 @@ def setup_logging():
         encoding="utf-8"
     )
     file_handler.setLevel(level)
-    file_formatter = logging.Formatter(
+    file_formatter = SecretFormatter(
         "%(asctime)s | %(levelname)-8s | rid=%(request_id)s | "
         "uid=%(user_id)s | ip=%(client_ip)s | "
         "%(name)s:%(funcName)s:%(lineno)d | %(message)s",
@@ -51,7 +52,7 @@ def setup_logging():
     # 控制台处理器
     console_handler = logging.StreamHandler()
     console_handler.setLevel(logging.WARNING)
-    console_formatter = logging.Formatter(
+    console_formatter = SecretFormatter(
         "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S"
     )

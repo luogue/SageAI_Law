@@ -1,0 +1,1498 @@
+.F...F.F....F.......FFFFFFFF..F..F.....F...F.FFF.F...F...F......FF..F.FF [ 14%]
+......................F..FF................FFF.......................... [ 29%]
+.FF..................................................................... [ 43%]
+.................F..FFFFFFFFF....FF..................................... [ 58%]
+............FFFFF.F..................................................... [ 72%]
+......................FFFFF.F.F.F.F..F.F.FF.F.FFFF..F................... [ 87%]
+................................................................         [100%]
+================================== FAILURES ===================================
+___________ test_patent_transfer_golden_matrix_semantic_invariants ____________
+
+    def test_patent_transfer_golden_matrix_semantic_invariants():
+        output = _patent_review()
+        manifest = json.loads(
+            (ROOT / "backend" / "tests" / "fixtures" / "technical_contracts" / "patent_transfer.golden.json")
+            .read_text(encoding="utf-8")
+        )
+        classification = output["deterministic_analysis"]["technology_classification"]
+        by_id = {row["item_id"]: row for row in output["items"]}
+        applicable = {review_id for review_id, row in by_id.items() if row["coverage_status"] != COVERAGE_NOT_APPLICABLE}
+        not_applicable = {review_id for review_id, row in by_id.items() if row["coverage_status"] == COVERAGE_NOT_APPLICABLE}
+    
+        assert manifest["sample_id"] == "TECH_TRANSFER_PATENT_GOLDEN_001"
+        assert classification["primary_contract_type"] == manifest["primary_contract_type"]
+        assert classification["primary_subtype"] == manifest["primary_subtype"]
+        assert classification["tertiary_subtype"] == manifest["contract_subtype"]
+        assert output["perspective_resolution"]["canonical_role"] == manifest["review_position"]
+>       assert output["coverage_summary"] == manifest["coverage_summary"]
+E       AssertionError: assert {'閫氳繃': 8, '涓嶉€?..椋庨櫓鏉℃': 9, ...} == {'閫氳繃': 17, '涓?.. '缂哄け': 2, ...}
+E         
+E         Differing items:
+E         {'缂哄け': 3} != {'缂哄け': 2}
+E         {'閫氳繃': 8} != {'閫氳繃': 17}
+E         {'涓嶉€傜敤': 31} != {'涓嶉€傜敤': 30}
+E         {'椋庨櫓鏉℃': 9} != {'椋庨櫓鏉℃': 8}
+E         {'閮ㄥ垎瑕嗙洊': 7} != {'閮ㄥ垎瑕嗙洊': 1}...
+E         
+E         ...Full output truncated (3 lines hidden), use '-vv' to show
+
+backend\tests\test_patent_right_transfer_contract_review.py:111: AssertionError
+___ test_patent_transfer_coverage_distinguishes_presence_from_adverse_terms ___
+
+    def test_patent_transfer_coverage_distinguishes_presence_from_adverse_terms():
+        output = _patent_review()
+        by_id = {item["item_id"]: item for item in output["items"]}
+        for item_id in ("TC-01-03", "TC-06-02", "TC-06-03", "TC-06-04", "TC-10-01", "TC-11-01", "TC-11-02"):
+>           assert by_id[item_id]["coverage_presence"] == "PRESENT"
+E           AssertionError: assert 'PARTIAL' == 'PRESENT'
+E             
+E             - PRESENT
+E             + PARTIAL
+
+backend\tests\test_patent_right_transfer_contract_review.py:183: AssertionError
+________ test_default_law_and_negative_assertions_for_patent_transfer _________
+
+    def test_default_law_and_negative_assertions_for_patent_transfer():
+        output = _patent_review()
+        findings = {row["risk_group"]: row for row in output["risk_findings"]}
+        infringement = findings["transferee_infringement_liability_shift"]
+        assert infringement["issue_type"] == "DEFAULT_LAW_DEVIATION"
+        assert infringement["default_law_status"] == "CONTRACT_DEVIATES_FROM_DEFAULT"
+        assert infringement["agreement"]["affected_party"] == "PATENT_TRANSFEREE"
+    
+        assert output["deterministic_analysis"]["payment_formula"]["status"] == "CONSISTENT"
+        assert not output["deterministic_analysis"]["patent_transfer"]["timeline"]["conflicts"]
+        groups = set(findings)
+        assert "payment_formula_inconsistency" not in groups
+        assert "legal_reference" not in groups
+        assert "personal_information_processing_gap" not in groups
+        assert "technical_timeline_conflict" not in groups
+>       assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_patent_right_transfer_contract_review.py:228: AssertionError
+_____ test_patent_gold_closure_review_semantics_links_and_economic_impact _____
+
+    def test_patent_gold_closure_review_semantics_links_and_economic_impact():
+        output = _patent_review()
+        by_id = {item["item_id"]: item for item in output["items"]}
+    
+        assert by_id["TC-01-04"]["coverage_presence"] == "NOT_APPLICABLE"
+        assert by_id["TC-01-04"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+        for review_id in ("TC-10-02", "TC-10-03"):
+            assert by_id[review_id]["coverage_presence"] == "PRESENT"
+            assert by_id[review_id]["contract_allocation"] == "NO_OBLIGATION"
+    
+        tc1204 = by_id["TC-12-04"]
+        linked_groups = {
+            row["risk_group"]
+            for row in tc1204["review_risk_links"]
+        }
+>       assert "transferee_infringement_liability_shift" in linked_groups
+E       AssertionError: assert 'transferee_infringement_liability_shift' in set()
+
+backend\tests\test_patent_right_transfer_contract_review.py:304: AssertionError
+_ test_explicit_confidentiality_breach_liability_is_present_with_dedicated_fact_type _
+
+    def test_explicit_confidentiality_breach_liability_is_present_with_dedicated_fact_type():
+        output = _technology_review_with_confidentiality(
+            "浠讳綍涓€鏂硅繚鍙嶆湰鍚堝悓淇濆瘑涔夊姟鐨勶紝搴旂珛鍗冲仠姝㈡姭闇插苟璧斿伩鍥犳缁欏彟涓€鏂归€犳垚鐨勬崯澶便€?
+        )
+        item = next(row for row in output["items"] if row["item_id"] == "TC-11-04")
+>       assert item["coverage_presence"] == "PRESENT"
+E       AssertionError: assert 'PARTIAL' == 'PRESENT'
+E         
+E         - PRESENT
+E         + PARTIAL
+
+backend\tests\test_patent_right_transfer_contract_review.py:446: AssertionError
+__ test_general_any_breach_liability_is_partial_without_confidentiality_link __
+
+    def test_general_any_breach_liability_is_partial_without_confidentiality_link():
+        output = _technology_review_with_confidentiality("浠讳綍涓€鏂硅繚鍙嶅悎鍚屽潎搴旀壙鎷呰繚绾﹁矗浠汇€?)
+        item = next(row for row in output["items"] if row["item_id"] == "TC-11-04")
+>       assert item["coverage_presence"] == "PARTIAL"
+E       AssertionError: assert 'MISSING' == 'PARTIAL'
+E         
+E         - PARTIAL
+E         + MISSING
+
+backend\tests\test_patent_right_transfer_contract_review.py:456: AssertionError
+_ test_partial_without_a_concrete_gap_is_promoted_to_pass_and_cannot_create_a_finding _
+
+    def test_partial_without_a_concrete_gap_is_promoted_to_pass_and_cannot_create_a_finding():
+        item = _synthetic_partial_item("TC-13-01", "鎶€鏈祫鏂欓檮浠?, [{
+            "element_id": "core_contract_arrangement",
+            "proposition": "鍚堝悓瀛樺湪鍙獙璇佺殑鎶€鏈祫鏂欎氦浠樻竻鍗曞強鏉冨埄鏂囦欢瀹夋帓銆?,
+            "status": "COVERED",
+            "source_clause_ids": ["C-TEST-01"],
+        }])
+    
+        _apply_coverage_gap_consistency_guard([item])
+        state = _build_narrative_state(item)
+    
+>       assert item.coverage_status == "閫氳繃"
+E       AssertionError: assert '缂哄け' == '閫氳繃'
+E         
+E         - 閫氳繃
+E         + 缂哄け
+
+backend\tests\test_patent_right_transfer_contract_review.py:505: AssertionError
+_ test_partial_with_a_concrete_missing_element_and_tc_11_04_evidence_remain_unchanged _
+
+    def test_partial_with_a_concrete_missing_element_and_tc_11_04_evidence_remain_unchanged():
+        item = _synthetic_partial_item("TC-11-04", "娉勫瘑璐ｄ换", [
+            {
+                "element_id": "confidentiality_obligation",
+                "proposition": "鍚堝悓宸叉槑纭繚瀵嗕箟鍔°€?,
+                "status": "COVERED",
+                "source_clause_ids": ["C0009"],
+            },
+            {
+                "element_id": "confidentiality_breach_liability",
+                "proposition": "涓€鑸繚绾﹁矗浠婚渶鏄庣‘寤朵几鑷宠繚鍙嶄繚瀵嗕箟鍔★紝骞惰ˉ鍏呭仠姝㈡姭闇层€佽ˉ鏁戝拰鎹熷け璧斿伩鏈哄埗銆?,
+                "status": "PARTIALLY_COVERED",
+                "source_clause_ids": ["C0013"],
+            },
+        ])
+        item.evidence_clauses = [
+            {"clause_id": "C0009", "evidence_role": "CONFIDENTIALITY_OBLIGATION", "quote": "鍚堝悓绾﹀畾淇濆瘑涔夊姟銆?},
+            {"clause_id": "C0013", "evidence_role": "GENERAL_BREACH_LIABILITY", "quote": "鍚堝悓绾﹀畾涓€鑸繚绾﹁矗浠汇€?},
+        ]
+        frozen_evidence = deepcopy(item.evidence_clauses)
+    
+        _apply_coverage_gap_consistency_guard([item])
+    
+>       assert item.coverage_status == "閮ㄥ垎瑕嗙洊"
+E       AssertionError: assert '缂哄け' == '閮ㄥ垎瑕嗙洊'
+E         
+E         - 閮ㄥ垎瑕嗙洊
+E         + 缂哄け
+
+backend\tests\test_patent_right_transfer_contract_review.py:542: AssertionError
+_ test_patent_gold_confidentiality_liability_uses_a_complete_two_clause_evidence_chain _
+
+    def test_patent_gold_confidentiality_liability_uses_a_complete_two_clause_evidence_chain():
+        output = _patent_review()
+        item = next(row for row in output["items"] if row["item_id"] == "TC-11-04")
+    
+>       assert item["action_suggestion"] == "寤鸿澶勭悊"
+E       AssertionError: assert '鍙€変紭鍖? == '寤鸿澶勭悊'
+E         
+E         - 寤鸿澶勭悊
+E         + 鍙€変紭鍖?
+
+backend\tests\test_patent_right_transfer_contract_review.py:552: AssertionError
+_ test_patent_gold_optional_recommendations_and_report_language_close_cleanly _
+
+    def test_patent_gold_optional_recommendations_and_report_language_close_cleanly():
+        output = _patent_review()
+        by_id = {item["item_id"]: item for item in output["items"]}
+        dispositions = {row["risk_id"]: row for row in output["final_dispositions"]}
+    
+        assert by_id["TC-11-03"]["coverage_presence"] == "MISSING"
+        assert by_id["TC-11-04"]["coverage_presence"] in {"MISSING", "PARTIAL"}
+        linked = [row for row in dispositions.values() if "TC-11-03" in row["review_ids"]]
+        assert len(linked) == 1
+        assert linked[0]["final_action"] == "OPTIONAL_IMPROVEMENT"
+        assert linked[0]["recommendation"].strip()
+        assert linked[0]["risk_id"] in output["report_view_model"]["optional_risk_ids"]
+        assert linked[0]["risk_title"] in output["result"].split("## 浜斻€?, 1)[0]
+>       assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_patent_right_transfer_contract_review.py:643: AssertionError
+_ test_current_patent_transfer_registration_feasibility_blocker_is_core_risk __
+
+    def test_current_patent_transfer_registration_feasibility_blocker_is_core_risk():
+        output = _current_patent_transfer_review()
+        classification = output["deterministic_analysis"]["technology_classification"]
+        facts = output["deterministic_analysis"]["patent_transfer"]["patent_pledge"]
+        by_id = {row["item_id"]: row for row in output["items"]}
+        by_group = {row["risk_group"]: row for row in output["risk_findings"]}
+    
+        assert classification["primary_subtype"] == "TECHNOLOGY_TRANSFER"
+        assert classification["tertiary_subtype"] == "PATENT_RIGHT_TRANSFER"
+        assert facts == {
+            **facts,
+            "exists": True,
+            "pledgee_consent_required": True,
+            "pledgee_consent_obtained": False,
+            "pledge_released": False,
+            "registration_feasibility_blocked": True,
+        }
+        registration = by_id["TC-06-04"]
+>       assert registration["coverage_status"] == "閮ㄥ垎瑕嗙洊"
+E       AssertionError: assert '缂哄け' == '閮ㄥ垎瑕嗙洊'
+E         
+E         - 閮ㄥ垎瑕嗙洊
+E         + 缂哄け
+
+backend\tests\test_patent_right_transfer_contract_review.py:672: AssertionError
+_ test_current_patent_transfer_ancillary_service_materials_and_domestic_scope_are_fact_driven _
+
+    def test_current_patent_transfer_ancillary_service_materials_and_domestic_scope_are_fact_driven():
+        output = _current_patent_transfer_review()
+        classification = output["deterministic_analysis"]["technology_classification"]
+        by_id = {row["item_id"]: row for row in output["items"]}
+    
+        assert set(classification["sub_transactions"]) >= {
+            "technical_service", "acceptance", "technical_material_delivery",
+        }
+>       assert by_id["TC-09-01"]["coverage_status"] == "閫氳繃"
+E       AssertionError: assert '閮ㄥ垎瑕嗙洊' == '閫氳繃'
+E         
+E         - 閫氳繃
+E         + 閮ㄥ垎瑕嗙洊
+
+backend\tests\test_patent_right_transfer_contract_review.py:693: AssertionError
+_ test_report_missing_notice_is_conditionally_rendered_from_existing_coverage_summary _
+
+    def test_report_missing_notice_is_conditionally_rendered_from_existing_coverage_summary():
+        current = _current_patent_transfer_review()
+        with_missing = _patent_review()
+    
+>       assert current["coverage_summary"].get("缂哄け", 0) == 0
+E       AssertionError: assert 4 == 0
+E        +  where 4 = <built-in method get of dict object at 0x00000215E548A880>('缂哄け', 0)
+E        +    where <built-in method get of dict object at 0x00000215E548A880> = {'缂哄け': 4, '閫氳繃': 6, '涓嶉€傜敤': 32, '閮ㄥ垎瑕嗙洊': 9, ...}.get
+
+backend\tests\test_patent_right_transfer_contract_review.py:780: AssertionError
+_________________ test_cooperative_development_classification _________________
+
+cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_cooperative_development_classification(cooperative_review: dict):
+        classification = cooperative_review["deterministic_analysis"]["technology_classification"]
+    
+        assert classification["primary_category"] == "TECHNICAL_CONTRACT"
+        assert classification["primary_subtype"] == "COOPERATIVE_DEVELOPMENT"
+        assert classification["development_mode"] == "COOPERATIVE_DEVELOPMENT"
+        assert classification["confidence"] == "high"
+        assert set(classification["classification_evidence"]) >= {
+            "bilateral_research_investment",
+            "bilateral_research_tasks",
+            "joint_development_results",
+            "joint_development_risk",
+        }
+        assert cooperative_review["report_context"]["contract_type_label"] == "鎶€鏈悎鍚屸€旀妧鏈紑鍙戝悎鍚屸€斿悎浣滃紑鍙戝悎鍚?
+        assert cooperative_review["contract_context"]["user_role"] == "cooperative_developer"
+        assert cooperative_review["contract_context"]["counterparty_role"] == "cooperative_developer"
+        assert cooperative_review["contract_context"]["perspective_resolution"]["display_role"] == "鐢叉柟 / 鍚堜綔寮€鍙戞柟"
+    
+        by_id = {row["item_id"]: row for row in cooperative_review["items"]}
+        assert all(by_id[f"TC-05-0{index}"]["coverage_status"] != "涓嶉€傜敤" for index in range(1, 5))
+        assert all(by_id[f"TC-04-0{index}"]["coverage_status"] == "涓嶉€傜敤" for index in range(1, 5))
+>       assert cooperative_review["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_cooperative_development_contract_review.py:63: AssertionError
+_______________ test_single_manual_review_does_not_abort_report _______________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000215DD8CA8C0>
+
+    def test_single_manual_review_does_not_abort_report(monkeypatch):
+        original = engine._applicability_result_for_checkpoint
+    
+        def one_uncertain_item(checkpoint, clauses, applicable, reason, canonical_claims=None, contract_type_key="sale"):
+            result = original(checkpoint, clauses, applicable, reason, canonical_claims, contract_type_key)
+            if checkpoint.item_id == "TC-08-01":
+                result.update({
+                    "status": "UNCERTAIN",
+                    "applicable": None,
+                    "reason": "鍚堝悓鏈檮鍜ㄨ浠诲姟鏉愭枡锛屾棤娉曠‘璁よ灞€閮ㄤ簨椤规槸鍚﹂€傜敤銆?,
+                    "machine_reason": "Missing consulting task attachment.",
+                    "user_reason": "鍚堝悓鏈檮鍜ㄨ浠诲姟鏉愭枡锛岄渶纭鏄惁鍙︽湁鎶€鏈挩璇换鍔″強瀵瑰簲闄勪欢銆?,
+                    "depends_on": ["consulting_task_attachment"],
+                })
+            return result
+    
+        monkeypatch.setattr(engine, "_applicability_result_for_checkpoint", one_uncertain_item)
+        output = review_contract_v2(
+            _fixture_text(),
+            "technology",
+            use_llm=False,
+            profile=UserRiskProfile(user_identity="鐢叉柟/鍚堜綔寮€鍙戞柟"),
+        )
+    
+>       assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_cooperative_development_contract_review.py:208: AssertionError
+______ test_cooperative_rules_use_operational_facts_and_direct_evidence _______
+
+cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_cooperative_rules_use_operational_facts_and_direct_evidence(cooperative_review: dict):
+        by_id = {row["item_id"]: row for row in cooperative_review["items"]}
+    
+        assert by_id["TC-01-01"]["coverage_status"] == "閫氳繃"
+        assert by_id["TC-01-04"]["coverage_status"] == "涓嶉€傜敤"
+    
+        investment = by_id["TC-05-01"]
+>       assert investment["coverage_status"] == "閫氳繃"
+E       AssertionError: assert '閮ㄥ垎瑕嗙洊' == '閫氳繃'
+E         
+E         - 閫氳繃
+E         + 閮ㄥ垎瑕嗙洊
+
+backend\tests\test_cooperative_development_contract_review.py:268: AssertionError
+________ test_final_evidence_covers_each_cooperative_risk_proposition _________
+
+cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_final_evidence_covers_each_cooperative_risk_proposition(cooperative_review: dict):
+        findings = {row["risk_group"]: row for row in cooperative_review["risk_findings"]}
+    
+        liability = {
+            row["fact_type"]: row["quoted_text"]
+            for row in findings["asymmetric_breach_liability"]["evidence_bundle"]["items"]
+        }
+        assert "10涓囧厓" in liability["PARTY_A_COMPARABLE_LIABILITY"]
+        assert "30涓囧厓" not in liability["PARTY_A_COMPARABLE_LIABILITY"]
+        assert "30涓囧厓" in liability["PARTY_B_COMPARABLE_LIABILITY"]
+        assert "10涓囧厓" not in liability["PARTY_B_COMPARABLE_LIABILITY"]
+        assert "ratio=3" in liability["LIABILITY_RATIO_COMPARISON"]
+    
+        dispute = findings["dispute_resolution_choice_conflict"]["evidence_bundle"]["items"]
+        assert any("鍗椾含浠茶濮斿憳浼? in row["quoted_text"] for row in dispute)
+        assert any("浜烘皯娉曢櫌鎻愯捣璇夎" in row["quoted_text"] for row in dispute)
+        assert any(row["source_type"] == "SEARCH_AUDIT" for row in dispute)
+    
+        restriction = findings["technology_restrictive_covenant"]["evidence_bundle"]["items"]
+        restriction_text = "\n".join(row["quoted_text"] for row in restriction)
+        assert all(term in restriction_text for term in ("3骞?, "鐩稿悓鎴栫被浼煎姛鑳?, "200涓囧厓"))
+        assert any(row["source_type"] == "SEARCH_AUDIT" and "鍦板煙鑼冨洿" in row["quoted_text"] for row in restriction)
+    
+        components = findings["open_source_component_governance_gap"]["evidence_bundle"]["items"]
+        component_text = "\n".join(row["quoted_text"] for row in components)
+        assert all(term in component_text for term in (
+            "鑷閫夋嫨", "鏃犻渶浜嬪厛鍙栧緱", "寮€婧愮粍浠剁櫥璁版竻鍗?, "璁稿彲璇佸鏌ユ祦绋?, "SBOM",
+            "鐭ヨ瘑浜ф潈绱㈣禂", "鍏ㄩ儴璐ｄ换鐢卞疄闄呭紩鍏ヨ缁勪欢鐨勪竴鏂规壙鎷?,
+        ))
+    
+        exit_evidence = findings["cooperation_exit_continuity_risk"]["evidence_bundle"]["items"]
+        exit_text = "\n".join(row["quoted_text"] for row in exit_evidence)
+        assert all(term in exit_text for term in ("婧愪唬鐮?, "鑷鍐冲畾鏄惁", "鏃犳潈寮哄埗瑕佹眰"))
+    
+        claims = findings["third_party_claim_defense"]["evidence_bundle"]["items"]
+        assert any("鐭ヨ瘑浜ф潈绱㈣禂" in row["quoted_text"] and "鍏ㄩ儴璐ｄ换" in row["quoted_text"] for row in claims)
+        assert any(row["source_type"] == "SEARCH_AUDIT" and "鎶楄京" in row["quoted_text"] for row in claims)
+    
+>       liability_cap = findings["indemnity_and_liability_cap"]["evidence_bundle"]["items"]
+E       KeyError: 'indemnity_and_liability_cap'
+
+backend\tests\test_cooperative_development_contract_review.py:425: KeyError
+_____ test_cross_rule_and_partial_narratives_are_semantically_consistent ______
+
+cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_cross_rule_and_partial_narratives_are_semantically_consistent(cooperative_review: dict):
+        by_id = {row["item_id"]: row for row in cooperative_review["items"]}
+        findings = {row["risk_group"]: row for row in cooperative_review["risk_findings"]}
+    
+        for review_id in ("TC-03-04", "TC-13-02"):
+            item = by_id[review_id]
+>           assert item["coverage_status"] == "閮ㄥ垎瑕嗙洊"
+E           AssertionError: assert '缂哄け' == '閮ㄥ垎瑕嗙洊'
+E             
+E             - 閮ㄥ垎瑕嗙洊
+E             + 缂哄け
+
+backend\tests\test_cooperative_development_contract_review.py:458: AssertionError
+____ test_minimal_cooperative_development_rules_and_report_are_consistent _____
+
+    def test_minimal_cooperative_development_rules_and_report_are_consistent():
+        output = review_contract_v2(
+            _document_text(MINIMAL_FIXTURE),
+            "technology",
+            use_llm=False,
+            profile=UserRiskProfile(user_identity="鐢叉柟/鍚堜綔寮€鍙戞柟"),
+        )
+        by_id = {row["item_id"]: row for row in output["items"]}
+    
+        assert output["report_context"]["contract_type_label"] == "鎶€鏈悎鍚屸€旀妧鏈紑鍙戝悎鍚屸€斿悎浣滃紑鍙戝悎鍚?
+        assert output["perspective_resolution"]["display_role"] == "鐢叉柟 / 鍚堜綔寮€鍙戞柟"
+>       assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_cooperative_development_contract_review.py:507: AssertionError
+_____ test_general_foreground_ip_does_not_override_specific_patent_right ______
+
+entrusted_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_general_foreground_ip_does_not_override_specific_patent_right(entrusted_review):
+        item = _by_id(entrusted_review)["TC-04-03"]
+        elements = _elements(item)
+    
+        assert item["issue_type"] == "CONFLICTING"
+        assert elements["foreground_ip_general_ownership"]["status"] == "COVERED"
+        assert elements["patent_application_right_ownership"]["status"] == "CONFLICTING"
+        assert elements["patent_application_right_ownership"]["presence_status"] == "COVERED"
+>       assert "鍓嶆櫙鐭ヨ瘑浜ф潈褰掔敳鏂? in item["risk_point_description"]
+E       AssertionError: assert '鍓嶆櫙鐭ヨ瘑浜ф潈褰掔敳鏂? in '鍚堝悓瀛樺湪浠ヤ笅鏈夌洿鎺ヨ瘉鎹敮鎸佺殑涓嶅埄瀹夋帓锛氫笓鍒╃敵璇锋潈涓撻」鏉℃灏嗛儴鍒嗗鎵樺紑鍙戞垚鏋滅殑涓撳埄鐢宠鏉冨綊涔欐柟锛屼笌鎬绘嫭褰掑睘鍐茬獊銆?
+
+backend\tests\test_entrusted_development_fact_direction_regressions.py:77: AssertionError
+_ test_developer_controlled_component_risk_keeps_direction_and_procedure_separate _
+
+entrusted_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...N', 'contract_subtype': 'ENTRUSTED_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_developer_controlled_component_risk_keeps_direction_and_procedure_separate(entrusted_review):
+        item = _by_id(entrusted_review)["TC-12-02"]
+        elements = _elements(item)
+    
+        assert item["issue_type"] == "ADVERSE"
+        assert elements["developer_component_selection_control"]["status"] == "COVERED"
+        assert elements["third_party_component_risk_allocation"]["status"] == "ADVERSE"
+        assert elements["claim_notice"]["status"] == "MISSING"
+        assert elements["defense_control"]["status"] == "MISSING"
+>       assert "寮€鍙戞柟鎺у埗缁勪欢閫夋嫨" in item["risk_point_description"]
+E       AssertionError: assert '寮€鍙戞柟鎺у埗缁勪欢閫夋嫨' in '鍚堝悓瀛樺湪浠ヤ笅鏈夌洿鎺ヨ瘉鎹敮鎸佺殑涓嶅埄瀹夋帓锛氫箼鏂硅嚜琛岄€夋嫨鐨勭涓夋柟缁勪欢鎵€浜х敓鐨勮鍙垂鐢ㄦ垨渚垫潈鎹熷け浠嶇敱鐢叉柟鎵挎媴鎴栧垎鎷呫€?
+
+backend\tests\test_entrusted_development_fact_direction_regressions.py:146: AssertionError
+_ test_major_liability_cap_separates_statutory_validity_and_commercial_recovery_risks _
+
+    def test_major_liability_cap_separates_statutory_validity_and_commercial_recovery_risks():
+        result = _review("""
+        杞欢濮旀墭寮€鍙戝悎鍚?
+        鐢叉柟濮旀墭涔欐柟寮€鍙戝伐涓氳澶囬娴嬬郴缁熷苟浜や粯婧愪唬鐮併€?
+        闄や箼鏂瑰洜鏁呮剰鎴栬€呴噸澶ц繃澶遍€犳垚鐢叉柟鎹熷け澶栵紝涔欐柟绱璧斿伩璐ｄ换鏈€楂樹笉瓒呰繃鐢叉柟宸叉敮浠樺紑鍙戣垂鐨?5%銆?
+        鍓嶈堪璐ｄ换涓婇檺鍚屾椂閫傜敤浜庢暟鎹硠闇层€佷繚瀵嗕箟鍔°€佺涓夋柟鐭ヨ瘑浜ф潈渚垫潈鍜屼汉韬崯瀹宠矗浠汇€?
+        """)
+        items = _by_id(result)
+    
+        commercial = items["TC-12-04"]
+>       assert commercial["risk_group"] == "entrusted_major_liability_cap"
+E       AssertionError: assert 'indemnity_and_liability_cap' == 'entrusted_ma...liability_cap'
+E         
+E         - entrusted_major_liability_cap
+E         + indemnity_and_liability_cap
+
+backend\tests\test_entrusted_development_fact_direction_regressions.py:214: AssertionError
+_____ test_confidentiality_covered_elements_bind_distinct_direct_evidence _____
+
+    def test_confidentiality_covered_elements_bind_distinct_direct_evidence():
+        result = _review("""
+        杞欢濮旀墭寮€鍙戝悎鍚?
+        鐢叉柟濮旀墭涔欐柟寮€鍙戠鐞嗙郴缁熴€?
+        鍙屾柟瀵瑰饱绾︿腑鐭ユ倝鐨勫晢涓氱瀵嗗拰鎶€鏈祫鏂欐壙鎷呬繚瀵嗕箟鍔★紝涓嶅緱鍚戠涓夋柟鎶湶銆?
+        涔欐柟杩濆弽淇濆瘑涔夊姟鐨勶紝搴旇禂鍋跨敳鏂瑰叏閮ㄥ疄闄呮崯澶便€?
+        闄や箼鏂规晠鎰忔垨閲嶅ぇ杩囧け澶栵紝涔欐柟绱璧斿伩璐ｄ换鏈€楂樹笉瓒呰繃宸叉敮浠樺紑鍙戣垂鐨?0%銆?
+        """)
+        item = _by_id(result)["TC-11-04"]
+        elements = _elements(item)
+        evidence_by_id = {
+            str(row.get("clause_id") or row.get("evidence_id")): str(row.get("quote") or row.get("text") or "")
+            for row in item["evidence_clauses"]
+        }
+    
+>       obligation_ids = elements["confidentiality_obligation"]["evidence_ids"]
+E       KeyError: 'confidentiality_obligation'
+
+backend\tests\test_entrusted_development_fact_direction_regressions.py:348: KeyError
+__ test_liability_cap_reference_alone_does_not_cover_confidentiality_damages __
+
+    def test_liability_cap_reference_alone_does_not_cover_confidentiality_damages():
+        result = _review("""
+        杞欢濮旀墭寮€鍙戝悎鍚?
+        鐢叉柟濮旀墭涔欐柟寮€鍙戠鐞嗙郴缁熴€?
+        鍙屾柟瀵瑰饱绾︿腑鐭ユ倝鐨勫晢涓氱瀵嗗拰鎶€鏈祫鏂欐壙鎷呬繚瀵嗕箟鍔°€?
+        涔欐柟绱璧斿伩璐ｄ换鏈€楂樹笉瓒呰繃宸叉敮浠樺紑鍙戣垂鐨?0%锛岃涓婇檺閫傜敤浜庝繚瀵嗕箟鍔″拰鏁版嵁娉勯湶璐ｄ换銆?
+        """)
+        item = _by_id(result)["TC-11-04"]
+        elements = _elements(item)
+    
+>       assert elements["confidentiality_obligation"]["status"] == "COVERED"
+E       KeyError: 'confidentiality_obligation'
+
+backend\tests\test_entrusted_development_fact_direction_regressions.py:366: KeyError
+____________ test_fixture_classification_context_and_applicability ____________
+
+    def test_fixture_classification_context_and_applicability():
+        output = _review()
+        context = output["contract_context"]
+        assert context["contract_family"] == "TECHNOLOGY"
+        assert context["contract_subtype"] == "TECHNICAL_SERVICE"
+        assert context["transaction_structure"] == "B2B_TECHNICAL_SERVICE"
+        assert context["user_role"] == "service_provider"
+        assert output["report_context"]["contract_type_label"] == "鎶€鏈湇鍔″悎鍚?
+        assert output["report_context"]["scenario_label"] == "楂樻牎绉戠爺鏁版嵁娌荤悊鎶€鏈湇鍔?
+    
+        by_id = {item["item_id"]: item for item in output["items"]}
+        for item_id in ("TC-03-01", "TC-03-02", "TC-03-03", "TC-05-01", "TC-05-02", "TC-05-03", "TC-05-04", "TC-12-01"):
+            assert by_id[item_id]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+>       assert by_id["TC-13-03"]["coverage_status"] == "閫氳繃"
+E       AssertionError: assert '閮ㄥ垎瑕嗙洊' == '閫氳繃'
+E         
+E         - 閫氳繃
+E         + 閮ㄥ垎瑕嗙洊
+
+backend\tests\test_technical_service_contract_review.py:90: AssertionError
+__________ test_fixture_formula_timeline_evidence_and_report_quality __________
+
+    def test_fixture_formula_timeline_evidence_and_report_quality():
+        output = _review()
+        formula = output["deterministic_analysis"]["payment_formula"]
+        assert formula["percentage_total"] == 105
+        assert formula["amount_total"] == 504000
+        assert formula["contract_total"] == 480000
+        assert formula["amount_delta"] == 24000
+    
+        conflict_types = {row["type"] for row in output["deterministic_analysis"]["timeline"]["conflicts"]}
+        assert {"SERVICE_BEFORE_EFFECTIVE", "DATA_DUE_BEFORE_EFFECTIVE"} <= conflict_types
+    
+        report = output["result"]
+        assert "闄勪欢浜? in report
+        assert "鍑哄崠浜? not in report
+        assert "涔板彈浜? not in report
+        assert "鍙拷婧埌鍏蜂綋缂哄け瑕佺礌" not in report
+        assert "鏈畾浣嶅埌鍗曚竴鏄庣‘鏉℃" not in report
+>       assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_technical_service_contract_review.py:131: AssertionError
+_________________ test_fixture_matches_frozen_gold_semantics __________________
+
+    def test_fixture_matches_frozen_gold_semantics():
+        gold = json.loads(GOLD.read_text(encoding="utf-8"))
+        output = _review()
+        context = output["contract_context"]
+        assert context["contract_family"] == gold["classification"]["contract_family"]
+        assert context["contract_subtype"] == gold["classification"]["contract_subtype"]
+        assert context["transaction_structure"] == gold["classification"]["transaction_structure"]
+        assert context["user_role"] == gold["classification"]["review_role"]
+    
+        groups = {finding["risk_group"] for finding in output["risk_findings"]}
+        assert set(gold["required_risk_groups"]) <= groups
+        assert set(gold["required_secondary_risk_groups"]) <= groups
+        by_id = {item["item_id"]: item for item in output["items"]}
+        assert all(by_id[item_id]["coverage_status"] == COVERAGE_NOT_APPLICABLE for item_id in gold["not_applicable_review_ids"])
+>       assert all(by_id[item_id]["coverage_status"] == "閫氳繃" for item_id in gold["required_attachment_review_ids"])
+E       assert False
+E        +  where False = all(<generator object test_fixture_matches_frozen_gold_semantics.<locals>.<genexpr> at 0x00000215E5B92DC0>)
+
+backend\tests\test_technical_service_contract_review.py:148: AssertionError
+__ test_current_contract_passes_release_without_disabling_consistency_checks __
+
+result = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_current_contract_passes_release_without_disabling_consistency_checks(result):
+>       assert result["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_patent_transfer_acquisition_and_remedies.py:144: AssertionError
+_ test_current_proof_disclosures_are_atomic_and_never_independently_verified[TC-03-04] _
+
+result = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+review_id = 'TC-03-04'
+
+    @pytest.mark.parametrize("review_id", ["TC-03-04", "TC-13-02"])
+    def test_current_proof_disclosures_are_atomic_and_never_independently_verified(result, review_id):
+        review = item(result, review_id)
+        elements = {e["element_id"]: e for e in review["coverage_elements"]}
+        assert review["coverage_presence"] == "PARTIAL"
+        assert "encumbrance_license_and_dispute_disclosure" not in elements
+        for key in ("patent_pledge_disclosure", "patent_seizure_disclosure", "patent_ownership_dispute_disclosure"):
+            assert elements[key]["status"] == "MISSING"
+            assert elements[key]["evidence_ids"] == []
+        for key in ("patent_existing_license_disclosure", "patent_invalidity_proceeding_disclosure"):
+            assert elements[key]["status"] == "COVERED"
+            assert elements[key]["evidence_level"] == "CONTRACTUAL_REPRESENTATION"
+            assert key not in review["decision_trace"]["final_missing_element_ids"]
+>       assert elements["patent_invalidity_proceeding_disclosure"]["evidence_ids"] == ["C0010"]
+E       AssertionError: assert ['SRC-39812a9920bb6c618c4b'] == ['C0010']
+E         
+E         At index 0 diff: 'SRC-39812a9920bb6c618c4b' != 'C0010'
+E         Use -v to get more diff
+
+backend\tests\test_patent_transfer_acquisition_and_remedies.py:177: AssertionError
+_ test_current_proof_disclosures_are_atomic_and_never_independently_verified[TC-13-02] _
+
+result = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+review_id = 'TC-13-02'
+
+    @pytest.mark.parametrize("review_id", ["TC-03-04", "TC-13-02"])
+    def test_current_proof_disclosures_are_atomic_and_never_independently_verified(result, review_id):
+        review = item(result, review_id)
+        elements = {e["element_id"]: e for e in review["coverage_elements"]}
+        assert review["coverage_presence"] == "PARTIAL"
+        assert "encumbrance_license_and_dispute_disclosure" not in elements
+        for key in ("patent_pledge_disclosure", "patent_seizure_disclosure", "patent_ownership_dispute_disclosure"):
+            assert elements[key]["status"] == "MISSING"
+            assert elements[key]["evidence_ids"] == []
+        for key in ("patent_existing_license_disclosure", "patent_invalidity_proceeding_disclosure"):
+            assert elements[key]["status"] == "COVERED"
+            assert elements[key]["evidence_level"] == "CONTRACTUAL_REPRESENTATION"
+            assert key not in review["decision_trace"]["final_missing_element_ids"]
+>       assert elements["patent_invalidity_proceeding_disclosure"]["evidence_ids"] == ["C0010"]
+E       AssertionError: assert ['SRC-39812a9920bb6c618c4b'] == ['C0010']
+E         
+E         At index 0 diff: 'SRC-39812a9920bb6c618c4b' != 'C0010'
+E         Use -v to get more diff
+
+backend\tests\test_patent_transfer_acquisition_and_remedies.py:177: AssertionError
+______ test_current_file_upload_and_response_schema_preserve_passed_gate ______
+
+    def test_current_file_upload_and_response_schema_preserve_passed_gate():
+        from fastapi import UploadFile
+        from routers.review_v2 import ReviewV2Result, review_v2_file
+    
+        path = next((Path(__file__).resolve().parents[2] / "test_data").glob("43*.docx"))
+        with path.open("rb") as source:
+            response = asyncio.run(review_v2_file(
+                file=UploadFile(filename=path.name, file=source), contract_type="technology",
+                include_low_risk=True, use_llm=False,
+                profile_json='{"user_identity":"鍙楄鏂?}', current_user={},
+            ))
+        payload = ReviewV2Result(**response).model_dump()
+>       assert payload["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_patent_transfer_acquisition_and_remedies.py:266: AssertionError
+---------------------------- Captured stderr call -----------------------------
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=source_document used=True chars=1913 compact_chars=1839 paragraphs=75 sha256=14a007a074a79b31c3f86b591ff978877d3aad647d05f77890f4ee127028f841 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃ョ璁㈠湴鐐癸細涓婃捣甯傛郸涓滄柊鍖烘湁鏁堟湡闄愯嚦锛?038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙锋硶瀹氫唬琛ㄤ汉锛氶檲蹇楄繙鑱旂郴浜猴細鍒樹紵鐢佃瘽锛?21-58886666閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙锋硶瀹氫唬琛ㄤ汉锛氱帇娴锋稕鑱旂郴浜猴細璧垫晱鐢佃瘽锛?512-68889999閭锛歾haomin@future-ai.com\n涓€' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=extracted_full_text used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=normalized_full_text used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=classifier_input used=False chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=clause_extraction_input used=False chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=rule_engine_input used=False chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=search_audit_input used=False chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+2026-09-18 13:40:30 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY_GATE] trace_id= filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx status=PASS failures=[] anchors={'涓撳埄鎶€鏈?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '璁稿彲鏂?: {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '鎺ュ彈鏂?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '闈炵嫭鍗?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '鎻愭垚璐?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓撳埄璧勬枡': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓浗鍥介檯缁忔祹璐告槗浠茶濮斿憳浼?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓嶅彲鎶楀姏': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '涓撳埄澶辨晥': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓撳埄璐圭敤': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '渚垫潈': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': None, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+2026-09-18 13:40:40 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=source_document used=True chars=1913 compact_chars=1839 paragraphs=75 sha256=14a007a074a79b31c3f86b591ff978877d3aad647d05f77890f4ee127028f841 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃ョ璁㈠湴鐐癸細涓婃捣甯傛郸涓滄柊鍖烘湁鏁堟湡闄愯嚦锛?038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙锋硶瀹氫唬琛ㄤ汉锛氶檲蹇楄繙鑱旂郴浜猴細鍒樹紵鐢佃瘽锛?21-58886666閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙锋硶瀹氫唬琛ㄤ汉锛氱帇娴锋稕鑱旂郴浜猴細璧垫晱鐢佃瘽锛?512-68889999閭锛歾haomin@future-ai.com\n涓€' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+2026-09-18 13:40:40 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=extracted_full_text used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+2026-09-18 13:40:40 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=normalized_full_text used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+2026-09-18 13:40:40 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=classifier_input used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+2026-09-18 13:40:40 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=clause_extraction_input used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+2026-09-18 13:40:40 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=rule_engine_input used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+2026-09-18 13:40:40 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=search_audit_input used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+2026-09-18 13:40:40 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=clause_extraction_output used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+2026-09-18 13:40:40 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY_GATE] trace_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx status=PASS failures=[] anchors={'涓撳埄鎶€鏈?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '璁稿彲鏂?: {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '鎺ュ彈鏂?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '闈炵嫭鍗?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '鎻愭垚璐?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓撳埄璧勬枡': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓浗鍥介檯缁忔祹璐告槗浠茶濮斿憳浼?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓嶅彲鎶楀姏': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '涓撳埄澶辨晥': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓撳埄璐圭敤': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '渚垫潈': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': 1.0, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+2026-09-18 13:40:40 - routers.review_v2 - WARNING - [unknown] - [FACT] review_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx candidate_id= source_rule= source_clause_ids=['C0003', 'C0008', 'C0017'] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total=[None, None] amount_total=[1400000, 600000] merged= finding_id= final_present= rendered=
+2026-09-18 13:40:40 - routers.review_v2 - WARNING - [unknown] - [RULE_EXECUTED] review_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx candidate_id= source_rule=analyze_payment_schedule source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations=6 arithmetic_status=INSUFFICIENT_DATA percentage_total=0 amount_total=2000000 merged= finding_id= final_present= rendered=
+2026-09-18 13:40:40 - routers.review_v2 - WARNING - [unknown] - [CANDIDATE_CREATED] review_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx candidate_id=PAYMENT-c8bf207a0880 source_rule=payment_formula_inconsistency source_clause_ids=['C0003', 'C0008', 'C0017'] scenario=TECHNOLOGY_TRANSFER applicability={} status= filter_reason=arithmetic_status=INSUFFICIENT_DATA; payment_formula_inconsistency signal was false invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+2026-09-18 13:40:40 - routers.review_v2 - WARNING - [unknown] - [CANDIDATE_FILTERED] review_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx candidate_id=PAYMENT-c8bf207a0880 source_rule= source_clause_ids=[] scenario= applicability={} status=NOT_APPLICABLE_NO_CANDIDATE filter_reason=arithmetic_status=INSUFFICIENT_DATA; payment_formula_inconsistency signal was false invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+2026-09-18 13:40:40 - routers.review_v2 - WARNING - [unknown] - [CANDIDATE_MERGED] review_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx candidate_id=PAYMENT-c8bf207a0880 source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged=False finding_id= final_present= rendered=
+2026-09-18 13:40:40 - routers.review_v2 - WARNING - [unknown] - [FINAL_RISK] review_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx candidate_id=PAYMENT-c8bf207a0880 source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present=False rendered=False
+2026-09-18 13:40:40 - routers.review_v2 - WARNING - [unknown] - [TRACE_REVIEW_V2] pid=22304 pipeline=canonical-review-v2-production-6.4 classifier=technical-transaction-classifier-v3-single-source evaluator=canonical-review-evaluator-6.4-single-classification ruleset=review-v2-rules-quality3-2026-08-11 entry=F:\ai\Sage\backend\routers\review_v2.py:1382 engine=F:\ai\Sage\backend\review_v2\engine.py:52747 subtype=TECHNOLOGY_TRANSFER classifier_executions=1 registry_id=2292984883696 evidence_impl=technical-consulting-evidence-v2.1-active-path doc_hash=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 confidentiality=True
+2026-09-18 13:40:40 - routers.review_v2 - INFO - [unknown] - [REVIEW_RELEASE_GATE] review_id=CR-20260918-134030-1A0D7D pid=22304 runtime=CURRENT status=BLOCKED failures=['EXACT_ELEMENT_REPORT_INVARIANT', 'PASS_EVIDENCE_PROPOSITION_MATCH_GATE']
+------------------------------ Captured log call ------------------------------
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=source_document used=True chars=1913 compact_chars=1839 paragraphs=75 sha256=14a007a074a79b31c3f86b591ff978877d3aad647d05f77890f4ee127028f841 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃ョ璁㈠湴鐐癸細涓婃捣甯傛郸涓滄柊鍖烘湁鏁堟湡闄愯嚦锛?038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙锋硶瀹氫唬琛ㄤ汉锛氶檲蹇楄繙鑱旂郴浜猴細鍒樹紵鐢佃瘽锛?21-58886666閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙锋硶瀹氫唬琛ㄤ汉锛氱帇娴锋稕鑱旂郴浜猴細璧垫晱鐢佃瘽锛?512-68889999閭锛歾haomin@future-ai.com\n涓€' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=extracted_full_text used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=normalized_full_text used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=classifier_input used=False chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=clause_extraction_input used=False chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=rule_engine_input used=False chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=search_audit_input used=False chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+WARNING  routers.review_v2:input_integrity.py:291 [REVIEW_INPUT_INTEGRITY_GATE] trace_id= filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx status=PASS failures=[] anchors={'涓撳埄鎶€鏈?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '璁稿彲鏂?: {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '鎺ュ彈鏂?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '闈炵嫭鍗?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '鎻愭垚璐?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓撳埄璧勬枡': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓浗鍥介檯缁忔祹璐告槗浠茶濮斿憳浼?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓嶅彲鎶楀姏': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '涓撳埄澶辨晥': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '涓撳埄璐圭敤': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '渚垫潈': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': None, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=source_document used=True chars=1913 compact_chars=1839 paragraphs=75 sha256=14a007a074a79b31c3f86b591ff978877d3aad647d05f77890f4ee127028f841 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃ョ璁㈠湴鐐癸細涓婃捣甯傛郸涓滄柊鍖烘湁鏁堟湡闄愯嚦锛?038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙锋硶瀹氫唬琛ㄤ汉锛氶檲蹇楄繙鑱旂郴浜猴細鍒樹紵鐢佃瘽锛?21-58886666閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙锋硶瀹氫唬琛ㄤ汉锛氱帇娴锋稕鑱旂郴浜猴細璧垫晱鐢佃瘽锛?512-68889999閭锛歾haomin@future-ai.com\n涓€' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=extracted_full_text used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=normalized_full_text used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=classifier_input used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=clause_extraction_input used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=rule_engine_input used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=search_audit_input used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx stage=clause_extraction_output used=True chars=1935 compact_chars=1839 paragraphs=97 sha256=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 head='鍚堝悓鍚嶇О锛氫笓鍒╂潈杞鍚堝悓\n绛捐鏃ユ湡锛?026骞?鏈?鏃n绛捐鍦扮偣锛氫笂娴峰競娴︿笢鏂板尯\n鏈夋晥鏈熼檺鑷筹細2038骞?鏈?0鏃n杞鏂癸細涓婃捣鏅鸿埅鏈哄櫒浜虹鎶€鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1310115MA1K56789X\n閫氳鍦板潃锛氫笂娴峰競娴︿笢鏂板尯寮犳睙璺?888鍙穃n娉曞畾浠ｈ〃浜猴細闄堝織杩淺n鑱旂郴浜猴細鍒樹紵\n鐢佃瘽锛?21-58886666\n閭锛歭iuwei@zhihang-robot.com\n鍙楄鏂癸細鑻忓窞鏈潵鏅鸿兘瑁呭鏈夐檺鍏徃\n缁熶竴绀句細淇＄敤浠ｇ爜锛?1320594MA27X12345\n閫氳鍦板潃锛氭睙鑻忕渷鑻忓窞甯傚伐涓氬洯鍖烘槦婀栬328鍙穃n娉曞畾浠ｈ〃浜猴細鐜嬫捣娑沑n鑱旂郴浜猴細璧垫晱\n鐢佃瘽锛?512-68889999\n閭锛歾haomin@f' tail='鐢ㄧ敱鍙楄鏂规壙鎷呫€俓n鍗佷竴銆佷笉鍙姉鍔沑n鍙戠敓涓嶅彲鎶楀姏鍚庯紝鍙楀奖鍝嶆柟搴斿強鏃堕€氱煡鍙︿竴鏂广€俓n濡備笉鍙姉鍔涙寔缁秴杩?80鏃ワ紝浠讳綍涓€鏂瑰潎鏈夋潈瑙ｉ櫎鍚堝悓銆俓n鍗佷簩銆佽繚绾﹁矗浠籠n杞鏂规湭鎸夋湡浜や粯鎶€鏈祫鏂欙紝姣忛€炬湡涓€鏃ユ寜鐓ц浆璁╄垂鎬婚鐨?.01%鏀粯杩濈害閲戙€俓n鍙楄鏂归€炬湡鏀粯杞璐癸紝姣忛€炬湡涓€鏃ユ寜鐓у簲浠樻湭浠樻椤圭殑0.1%鏀粯杩濈害閲戙€俓n鍙楄鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲璧斿伩杞鏂瑰洜姝ら伃鍙楃殑鍏ㄩ儴鎹熷け銆俓n鍗佷笁銆佷簤璁В鍐砛n鏈悎鍚岄€傜敤涓崕浜烘皯鍏卞拰鍥芥硶寰嬨€俓n鍙屾柟鍙戠敓浜夎搴旈鍏堝弸濂藉崗鍟嗐€俓n鍗忓晢涓嶆垚鐨勶紝浠讳綍涓€鏂瑰潎鍙悜杞鏂规墍鍦ㄥ湴鏈夌杈栨潈鐨勪汉姘戞硶闄㈡彁璧疯瘔璁笺€俓n鍗佸洓銆佺敓鏁圽n鏈悎鍚岃嚜鍙屾柟绛惧瓧鐩栫珷涔嬫棩璧风敓鏁堛€俓n鍚堝悓涓€寮忓洓浠斤紝杞鏂广€佸彈璁╂柟鍚勬墽涓や唤锛屽叿鏈夊悓绛夋硶寰嬫晥鍔涖€?
+WARNING  routers.review_v2:input_integrity.py:291 [REVIEW_INPUT_INTEGRITY_GATE] trace_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx status=PASS failures=[] anchors={'涓撳埄鎶€鏈?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '璁稿彲鏂?: {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '鎺ュ彈鏂?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '闈炵嫭鍗?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '鎻愭垚璐?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓撳埄璧勬枡': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓浗鍥介檯缁忔祹璐告槗浠茶濮斿憳浼?: {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓嶅彲鎶楀姏': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '涓撳埄澶辨晥': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '涓撳埄璐圭敤': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '渚垫潈': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': 1.0, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+WARNING  routers.review_v2:review_v2.py:1527 [FACT] review_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx candidate_id= source_rule= source_clause_ids=['C0003', 'C0008', 'C0017'] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total=[None, None] amount_total=[1400000, 600000] merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [RULE_EXECUTED] review_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx candidate_id= source_rule=analyze_payment_schedule source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations=6 arithmetic_status=INSUFFICIENT_DATA percentage_total=0 amount_total=2000000 merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [CANDIDATE_CREATED] review_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx candidate_id=PAYMENT-c8bf207a0880 source_rule=payment_formula_inconsistency source_clause_ids=['C0003', 'C0008', 'C0017'] scenario=TECHNOLOGY_TRANSFER applicability={} status= filter_reason=arithmetic_status=INSUFFICIENT_DATA; payment_formula_inconsistency signal was false invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [CANDIDATE_FILTERED] review_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx candidate_id=PAYMENT-c8bf207a0880 source_rule= source_clause_ids=[] scenario= applicability={} status=NOT_APPLICABLE_NO_CANDIDATE filter_reason=arithmetic_status=INSUFFICIENT_DATA; payment_formula_inconsistency signal was false invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [CANDIDATE_MERGED] review_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx candidate_id=PAYMENT-c8bf207a0880 source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged=False finding_id= final_present= rendered=
+WARNING  routers.review_v2:review_v2.py:1527 [FINAL_RISK] review_id=CR-20260918-134030-1A0D7D filename=43 涓撳埄鏉冭浆璁╁悎鍚?docx candidate_id=PAYMENT-c8bf207a0880 source_rule= source_clause_ids=[] scenario= applicability={} status= filter_reason= invocations= arithmetic_status= percentage_total= amount_total= merged= finding_id= final_present=False rendered=False
+WARNING  routers.review_v2:review_v2.py:1556 [TRACE_REVIEW_V2] pid=22304 pipeline=canonical-review-v2-production-6.4 classifier=technical-transaction-classifier-v3-single-source evaluator=canonical-review-evaluator-6.4-single-classification ruleset=review-v2-rules-quality3-2026-08-11 entry=F:\ai\Sage\backend\routers\review_v2.py:1382 engine=F:\ai\Sage\backend\review_v2\engine.py:52747 subtype=TECHNOLOGY_TRANSFER classifier_executions=1 registry_id=2292984883696 evidence_impl=technical-consulting-evidence-v2.1-active-path doc_hash=55db90f0817db338d039c776d529e099253c760a76e3f9824c5277f3a51f57c2 confidentiality=True
+INFO     routers.review_v2:review_v2.py:1576 [REVIEW_RELEASE_GATE] review_id=CR-20260918-134030-1A0D7D pid=22304 runtime=CURRENT status=BLOCKED failures=['EXACT_ELEMENT_REPORT_INVARIANT', 'PASS_EVIDENCE_PROPOSITION_MATCH_GATE']
+_ test_current_claim_elements_reject_unrelated_remedies_and_share_real_evidence _
+
+result = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_current_claim_elements_reject_unrelated_remedies_and_share_real_evidence(result):
+        for review_id in ("TC-12-01", "TC-12-02"):
+            review = item(result, review_id)
+            assert review["coverage_presence"] == "PARTIAL"
+            for element in review["coverage_elements"]:
+                if element["status"] in {"COVERED", "PARTIALLY_COVERED"}:
+>                   assert set(element["evidence_ids"]) == {"C0010"}
+E                   AssertionError: assert {'EV-ea852d074e076a96'} == {'C0010'}
+E                     
+E                     Extra items in the left set:
+E                     'EV-ea852d074e076a96'
+E                     Extra items in the right set:
+E                     'C0010'
+E                     Use -v to get more diff
+
+backend\tests\test_patent_transfer_acquisition_and_remedies.py:288: AssertionError
+______ test_current_material_types_do_not_depend_on_exhibit_completeness ______
+
+result = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...ION', 'contract_subtype': 'TECHNOLOGY_TRANSFER', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_current_material_types_do_not_depend_on_exhibit_completeness(result):
+        review = item(result, "TC-13-01")
+        elements = {e["element_id"]: e for e in review["coverage_elements"]}
+        assert elements["major_document_types"]["status"] == "COVERED"
+>       assert elements["major_document_types"]["evidence_ids"] == ["C0004"]
+E       AssertionError: assert ['EV-0556771c...6cbbc30aa8c4'] == ['C0004']
+E         
+E         At index 0 diff: 'EV-0556771c0328c9fa' != 'C0004'
+E         Left contains one more item: 'EV-dc066cbbc30aa8c4'
+E         Use -v to get more diff
+
+backend\tests\test_patent_transfer_acquisition_and_remedies.py:307: AssertionError
+_ test_uncertain_parent_confidentiality_applicability_propagates_to_children __
+
+foreign_patent_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_uncertain_parent_confidentiality_applicability_propagates_to_children(
+        foreign_patent_review: dict,
+    ):
+        for review_id in ("TC-11-01", "TC-11-02", "TC-11-03", "TC-11-04"):
+            item = _item(foreign_patent_review, review_id)
+>           assert item["coverage_status"] == INSUFFICIENT_CONTEXT
+E           AssertionError: assert '寰呮牳楠? == 'INSUFFICIENT_CONTEXT'
+E             
+E             - INSUFFICIENT_CONTEXT
+E             + 寰呮牳楠?
+
+backend\tests\test_foreign_patent_license_status_consistency.py:144: AssertionError
+____ test_direct_child_trigger_can_override_uncertain_parent_applicability ____
+
+    def test_direct_child_trigger_can_override_uncertain_parent_applicability():
+        output = _review(
+            """
+            涓涓撳埄鎶€鏈鍙悎鍚?
+            寰峰浗璁稿彲鏂瑰皢鍚嶇О涓虹簿瀵嗘帶鍒惰缃€佷笓鍒╁彿涓篋E-2026-1001鐨勪笓鍒╀互鏅€氳鍙柟寮忚鍙腑鍥借璁稿彲鏂瑰疄鏂姐€?
+            璁稿彲鍦板煙涓轰腑鍥藉鍐咃紝璁稿彲鏈熼檺浜斿勾锛岃璁稿彲鏂规敮浠樹笓鍒╄鍙娇鐢ㄨ垂浜烘皯甯?00涓囧厓銆?
+            璁稿彲鏂逛繚璇佸叾鏈夋潈鎺堜簣鏈悎鍚岄」涓嬭鍙€?
+            瀵规槑纭爣璁颁负淇濆瘑鐨勮祫鏂欙紝鍚堝悓缁堟鍚庡崄鏃ュ唴搴旇繑杩樻垨閿€姣佸叏閮ㄨ浇浣撳拰澶嶅埗浠讹紝骞朵功闈㈢‘璁ゅ缃粨鏋溿€?
+            鍙戠敓娉勫瘑鍚庯紝璐ｄ换鏂瑰簲绔嬪嵆鍋滄鎶湶鍜屼娇鐢紝閲囧彇鎺柦闃叉缁х画鎵╂暎锛岃禂鍋挎崯澶卞苟閫氱煡鍙楀奖鍝嶆柟銆?
+            """
+        )
+    
+>       assert _item(output, "TC-11-01")["coverage_status"] == INSUFFICIENT_CONTEXT
+E       AssertionError: assert '缂哄け' == 'INSUFFICIENT_CONTEXT'
+E         
+E         - INSUFFICIENT_CONTEXT
+E         + 缂哄け
+
+backend\tests\test_foreign_patent_license_status_consistency.py:170: AssertionError
+_ test_material_delivery_method_is_covered_but_version_and_schedule_gaps_remain _
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_material_delivery_method_is_covered_but_version_and_schedule_gaps_remain(review: dict):
+        item = next(row for row in review["items"] if row["item_id"] == "TC-13-01")
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+    
+>       assert elements["delivery_method"]["status"] == "COVERED"
+E       KeyError: 'delivery_method'
+
+backend\tests\test_patent_license_latest_report_regressions.py:85: KeyError
+_____ test_cross_reference_subject_mismatch_is_bound_to_source_and_target _____
+
+contract_text = '涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n锛堟ā鎷熸祴璇曟暟鎹級\n涓撳埄鍚嶇О锛氭柊鑳芥簮姹借溅鐢垫睜鐑鐞嗘櫤鑳芥帶鍒舵柟娉曞強绯荤粺\n涓撳埄鍙凤細ZL201911234567.8\n璁稿彲鏂瑰悕绉帮細鍗椾含鏅烘簮鏂拌兘婧愭妧鏈湁闄愬叕鍙竆n鍦板潃锛氭睙鑻忕渷鍗椾含甯傛睙瀹佸尯鍒涙柊澶ч亾188鍙穃...妗堟槸鍚﹀畬鎴愶紝鍧囦笉褰卞搷琚鍙柟鎸夌収鏈悎鍚屾敮浠樺叏閮ㄥ悎鍚屼环娆俱€俓n璁稿彲鏂圭绔狅細鍗椾含鏅烘簮鏂拌兘婧愭妧鏈湁闄愬叕鍙竆n琚鍙柟绛剧珷锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n璁稿彲鏂规硶浜轰唬琛細鏉庢槑杩淺n琚鍙柟娉曚汉浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_cross_reference_subject_mismatch_is_bound_to_source_and_target(contract_text: str, review: dict):
+        mismatches = _analyze_clause_cross_reference_consistency(parse_contract_clauses(contract_text))
+        acceptance = next(row for row in review["items"] if row["item_id"] == "TC-13-03")
+    
+        assert [(row["expected_subject"], row["referenced_article"], row["target_subject"]) for row in mismatches] == [
+            ("楠屾敹", 7, "淇濆瘑")
+        ]
+        assert acceptance["decision_trace"]["cross_reference_consistency"]["status"] == "MISMATCH"
+>       assert "鎸夌収绗竷鏉＄害瀹氭墽琛? in acceptance["risk_point_description"]
+E       AssertionError: assert '鎸夌収绗竷鏉＄害瀹氭墽琛? in '缂哄け锛氶獙鏀舵爣鍑嗭紱楠屾敹鏂规硶锛涙祴璇曠敤渚嬭姹傦紱娴嬭瘯鎶ュ憡浜や粯锛涢獙鏀惰褰曡姹傦紱楠屾敹浜夎鐨勭涓夋柟妫€娴嬫垨澶嶆祴鏈哄埗銆?
+
+backend\tests\test_patent_license_latest_report_regressions.py:117: AssertionError
+_____ test_tc1303_positive_elements_have_element_specific_direct_evidence _____
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_tc1303_positive_elements_have_element_specific_direct_evidence(review: dict):
+        item = next(row for row in review["items"] if row["item_id"] == "TC-13-03")
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+        evidence_by_clause = {
+            str(row.get("clause_id") or row.get("evidence_id") or ""): row
+            for row in item["evidence_clauses"]
+        }
+    
+>       assert elements["quantitative_metrics"]["status"] == "MISSING"
+E       KeyError: 'quantitative_metrics'
+
+backend\tests\test_patent_license_latest_report_regressions.py:134: KeyError
+______ test_tc1303_cross_reference_bundle_and_issue_type_are_consistent _______
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_tc1303_cross_reference_bundle_and_issue_type_are_consistent(review: dict):
+        item = next(row for row in review["items"] if row["item_id"] == "TC-13-03")
+        finding = next(row for row in review["risk_findings"] if "TC-13-03" in row["source_review_ids"])
+        evidence = {row["fact_type"]: row for row in finding["evidence_bundle"]["items"]}
+    
+>       assert item["issue_type"] == "CONFLICTING"
+E       AssertionError: assert 'MISSING' == 'CONFLICTING'
+E         
+E         - CONFLICTING
+E         + MISSING
+
+backend\tests\test_patent_license_latest_report_regressions.py:151: AssertionError
+________ test_tc1303_recommendation_does_not_invent_a_named_attachment ________
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_tc1303_recommendation_does_not_invent_a_named_attachment(review: dict):
+        finding = next(row for row in review["risk_findings"] if "TC-13-03" in row["source_review_ids"])
+    
+>       assert "楠屾敹娴嬭瘯闄勪欢鎴栦笓椤规祴璇曟柟妗? in finding["recommendation"]
+E       AssertionError: assert '楠屾敹娴嬭瘯闄勪欢鎴栦笓椤规祴璇曟柟妗? in '寤鸿琛ュ厖鏄庣‘楠屾敹鏍囧噯锛涜ˉ鍏呮槑纭獙鏀舵柟娉曪紱琛ュ厖鏄庣‘娴嬭瘯鐢ㄤ緥瑕佹眰锛涜ˉ鍏呮槑纭祴璇曟姤鍛婁氦浠橈紱琛ュ厖鏄庣‘楠屾敹璁板綍瑕佹眰锛涚害瀹氭祴璇曠粨鏋滀簤璁椂鍏卞悓濮旀墭鏈夎祫璐ㄧ殑绗笁鏂规娴嬫満鏋勫娴嬶紝骞舵槑纭娴嬬粨鏋滅殑鏁堝姏鍜岃垂鐢ㄦ壙鎷呫€?
+
+backend\tests\test_patent_license_latest_report_regressions.py:165: AssertionError
+___________ test_tc0201_final_claims_do_not_exceed_direct_evidence ____________
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_tc0201_final_claims_do_not_exceed_direct_evidence(review: dict):
+        item = next(row for row in review["items"] if row["item_id"] == "TC-02-01")
+        finding = next(row for row in review["risk_findings"] if "TC-02-01" in row["source_review_ids"])
+        elements = {row["element_id"]: row for row in item["coverage_elements"]}
+    
+        assert elements["forced_free_improvement_transfer"]["status"] == "ADVERSE"
+>       assert elements["forced_free_improvement_transfer"]["evidence_ids"] == ["C0019"]
+E       AssertionError: assert ['SRC-657c1d71716548cd0046'] == ['C0019']
+E         
+E         At index 0 diff: 'SRC-657c1d71716548cd0046' != 'C0019'
+E         Use -v to get more diff
+
+backend\tests\test_patent_license_latest_report_regressions.py:176: AssertionError
+_ test_improvement_claims_bind_the_actual_forced_transfer_clause[TC-10-01-licensee_independent_improvement_ownership] _
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+review_id = 'TC-10-01'
+element_id = 'licensee_independent_improvement_ownership'
+
+    @pytest.mark.parametrize(
+        "review_id, element_id",
+        [
+            ("TC-10-01", "licensee_independent_improvement_ownership"),
+            ("TC-10-02", "licensee_improvement_ownership"),
+            ("TC-10-04", "forced_free_ownership_transfer"),
+        ],
+    )
+    def test_improvement_claims_bind_the_actual_forced_transfer_clause(review: dict, review_id: str, element_id: str):
+        item = next(row for row in review["items"] if row["item_id"] == review_id)
+        element = next(row for row in item["coverage_elements"] if row["element_id"] == element_id)
+>       source = next(row for row in item["evidence_clauses"] if row.get("clause_id") == "C0019")
+E       StopIteration
+
+backend\tests\test_patent_license_latest_report_regressions.py:207: StopIteration
+_ test_improvement_claims_bind_the_actual_forced_transfer_clause[TC-10-02-licensee_improvement_ownership] _
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+review_id = 'TC-10-02', element_id = 'licensee_improvement_ownership'
+
+    @pytest.mark.parametrize(
+        "review_id, element_id",
+        [
+            ("TC-10-01", "licensee_independent_improvement_ownership"),
+            ("TC-10-02", "licensee_improvement_ownership"),
+            ("TC-10-04", "forced_free_ownership_transfer"),
+        ],
+    )
+    def test_improvement_claims_bind_the_actual_forced_transfer_clause(review: dict, review_id: str, element_id: str):
+        item = next(row for row in review["items"] if row["item_id"] == review_id)
+        element = next(row for row in item["coverage_elements"] if row["element_id"] == element_id)
+>       source = next(row for row in item["evidence_clauses"] if row.get("clause_id") == "C0019")
+E       StopIteration
+
+backend\tests\test_patent_license_latest_report_regressions.py:207: StopIteration
+_ test_improvement_claims_bind_the_actual_forced_transfer_clause[TC-10-04-forced_free_ownership_transfer] _
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+review_id = 'TC-10-04', element_id = 'forced_free_ownership_transfer'
+
+    @pytest.mark.parametrize(
+        "review_id, element_id",
+        [
+            ("TC-10-01", "licensee_independent_improvement_ownership"),
+            ("TC-10-02", "licensee_improvement_ownership"),
+            ("TC-10-04", "forced_free_ownership_transfer"),
+        ],
+    )
+    def test_improvement_claims_bind_the_actual_forced_transfer_clause(review: dict, review_id: str, element_id: str):
+        item = next(row for row in review["items"] if row["item_id"] == review_id)
+        element = next(row for row in item["coverage_elements"] if row["element_id"] == element_id)
+>       source = next(row for row in item["evidence_clauses"] if row.get("clause_id") == "C0019")
+E       StopIteration
+
+backend\tests\test_patent_license_latest_report_regressions.py:207: StopIteration
+__ test_aggregated_improvement_finding_has_a_complete_direct_evidence_bundle __
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_aggregated_improvement_finding_has_a_complete_direct_evidence_bundle(review: dict):
+        finding = next(
+            row for row in review["risk_findings"]
+            if row["risk_group"] == "improvement_no_unlawful_restriction"
+        )
+        fact_types = {row["fact_type"] for row in finding["evidence_bundle"]["items"]}
+    
+>       assert fact_types == {
+            "LICENSEE_IMPROVEMENT_OWNERSHIP_TRANSFER",
+            "FREE_TRANSFER_OBLIGATION",
+        }
+E       AssertionError: assert {'FREE_TRANSF...ship_written'} == {'FREE_TRANSF...HIP_TRANSFER'}
+E         
+E         Extra items in the left set:
+E         'improvement_ownership_written'
+E         Use -v to get more diff
+
+backend\tests\test_patent_license_latest_report_regressions.py:223: AssertionError
+_____ test_gold_generic_calculations_and_relationship_risks_remain_active _____
+
+gold_review = {'contract_type_flow': {'stages': {'request': 'sale', 'canonical': 'technology', 'facts_pipeline': 'technology', 'chec...ore_only': False, 'family_status': 'NOT_MIGRATED'}, 'structured_fact_debug': {}, 'employment_rule_adaptation': {}, ...}
+
+    def test_gold_generic_calculations_and_relationship_risks_remain_active(gold_review: dict):
+        deterministic = gold_review["deterministic_analysis"]
+        payment = deterministic["payment_formula"]
+        royalty = deterministic["royalty_calculation"]
+        timeline = deterministic["timeline"]
+        findings = {row["risk_group"]: row for row in gold_review["risk_findings"]}
+        items = {row["item_id"]: row for row in gold_review["items"]}
+    
+        assert payment["status"] == "INCONSISTENT"
+        assert payment["contract_total"] == 300_000
+        assert payment["percentage_total"] == 105
+        assert payment["amount_total"] == 315_000
+        assert payment["amount_delta"] == 15_000
+        assert {row["currency"] for row in payment["nodes"]} == {"USD"}
+        assert findings["payment_formula_inconsistency"]["evidence_bundle"]["entailment_status"] == "PASSED"
+    
+        assert royalty["status"] == "CONSISTENT"
+        assert royalty["sales"] == 10_000_000
+        assert royalty["deduction_total"] == 2_000_000
+        assert royalty["net_sales"] == 8_000_000
+        assert royalty["royalty_rate"] == 4
+        assert royalty["royalty_fee"] == 320_000
+        assert "royalty_calculation_inconsistency" not in findings
+    
+        assert timeline["effective_date"] == "2026-12-20"
+        assert timeline["earliest_performance_date"] == "2026-11-20"
+        assert timeline["performance_before_effective_date"] is True
+        assert "technical_timeline_conflict" in findings
+        assert "improvement_no_unlawful_restriction" in findings
+        assert items["TC-12-02"]["coverage_status"] == "閮ㄥ垎瑕嗙洊"
+>       assert gold_review["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_technology_license_primary_transaction.py:134: AssertionError
+____________ test_gold_semantic_facts_and_rendering_are_consistent ____________
+
+gold_review = {'contract_type_flow': {'stages': {'request': 'sale', 'canonical': 'technology', 'facts_pipeline': 'technology', 'chec...ore_only': False, 'family_status': 'NOT_MIGRATED'}, 'structured_fact_debug': {}, 'employment_rule_adaptation': {}, ...}
+
+    def test_gold_semantic_facts_and_rendering_are_consistent(gold_review: dict):
+        deterministic = gold_review["deterministic_analysis"]
+        items = {row["item_id"]: row for row in gold_review["items"]}
+        findings = {row["risk_group"]: row for row in gold_review["risk_findings"]}
+    
+        improvement = deterministic["improvement_license"]
+        assert improvement["asymmetric_improvement_license"] is True
+        by_direction = {(row["grantor"], row["grantee"]): row for row in improvement["facts"]}
+        assert by_direction[("LICENSEE", "LICENSOR")]["license_fee"] == "ZERO"
+        assert by_direction[("LICENSEE", "LICENSOR")]["license_duration"] == "PERPETUAL"
+        assert by_direction[("LICENSEE", "LICENSOR")]["territory"] == "WORLDWIDE"
+        assert by_direction[("LICENSEE", "LICENSOR")]["revocability"] == "IRREVOCABLE"
+        assert by_direction[("LICENSOR", "LICENSEE")]["license_fee"] == "NEGOTIATED"
+        assert items["TC-10-02"]["coverage_status"] == "椋庨櫓鏉℃"
+        assert items["TC-10-04"]["coverage_status"] == "椋庨櫓鏉℃"
+    
+        assert items["TC-11-03"]["coverage_status"] != "閫氳繃"
+        disposal_evidence = items["TC-11-03"]["evidence_clauses"][0]
+        assert disposal_evidence["polarity_analysis"]["polarity"] == "NEGATED"
+        assert disposal_evidence["polarity_analysis"]["fact_value"] is False
+>       assert items["TC-12-01"]["coverage_status"] == "閮ㄥ垎瑕嗙洊"
+E       AssertionError: assert '缂哄け' == '閮ㄥ垎瑕嗙洊'
+E         
+E         - 閮ㄥ垎瑕嗙洊
+E         + 缂哄け
+
+backend\tests\test_technology_license_primary_transaction.py:158: AssertionError
+______________ test_payment_formula_is_partitioned_by_price_base ______________
+
+contract_text = '涓撳埄瀹炴柦璁稿彲锛堝惈鍚庣画寮€鍙戯級鍚堝悓\n鍩烘湰淇℃伅\n涓撳埄鍚嶇О锛?鏂拌兘婧愭苯杞﹀姩鍔涚數姹犳恫鍐风郴缁熸櫤鑳芥帶鍒惰缃強鎺у埗鏂规硶\n涓撳埄鍙凤細 ZL202110287654.3\n鍏紑鍙凤細 CN113456789A\n鐢宠鏃ワ細 2021骞?鏈?8鏃n鎺堟潈鏃?..浠ヨ鍙柟瀹為檯浜や粯涓哄噯銆俓n璁稿彲鏂癸細涓滃崡澶у\n璁稿彲鏂规硶瀹氫唬琛ㄤ汉鎴栨巿鏉冧唬琛細鏉庢槑杩淺n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃n琚鍙柟锛氭睙鑻忔亽鑳芥柊鑳芥簮姹借溅绉戞妧鏈夐檺鍏徃\n琚鍙柟娉曞畾浠ｈ〃浜烘垨鎺堟潈浠ｈ〃锛氬紶寤哄浗\n绛剧讲鏃ユ湡锛?026骞?0鏈?0鏃?
+
+    def test_payment_formula_is_partitioned_by_price_base(contract_text: str):
+        payment = analyze_payment_schedule(contract_text)
+        groups = {row["label"]: row for row in payment["payment_groups"]}
+    
+        assert payment["status"] == "INCONSISTENT"
+        assert payment["contract_total"] == 4_800_000
+>       assert payment["percentage_total"] is None
+E       assert 113.75 is None
+
+backend\tests\test_patent_license_with_follow_on_development.py:66: AssertionError
+________ test_license_scope_invalidity_notice_and_competition_results _________
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_license_scope_invalidity_notice_and_competition_results(review: dict):
+        by_id = {row["item_id"]: row for row in review["items"]}
+    
+        assert by_id["TC-07-01"]["coverage_status"] == "椋庨櫓鏉℃"
+>       assert "鎺掍粬璁稿彲" in by_id["TC-07-01"]["risk_point_description"]
+E       AssertionError: assert '鎺掍粬璁稿彲' in '鍚堝悓绾﹀畾鎺掍粬瀹炴柦璁稿彲锛屼絾璁稿彲鏂逛粛鍙悜閮ㄥ垎绗笁鏂规巿浜堟櫘閫氳鍙紱琚鍙柟鏈揪鍒板疄鏂芥潯浠舵椂锛岃鍙柟鍙棤闇€琚鍙柟鍚屾剰鍗曟柟灏嗘帓浠栧疄鏂借鍙檷绾т负鏅€氳鍙紝涓旀湭璁剧疆閫氱煡銆佸闄愭暣鏀瑰強鎺掍粬瀹炴柦璁稿彲瀵逛环璋冩暣鏈哄埗銆?
+
+backend\tests\test_patent_license_with_follow_on_development.py:89: AssertionError
+__ test_acceptance_and_ip_proof_attachment_are_partial_without_manual_review __
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_acceptance_and_ip_proof_attachment_are_partial_without_manual_review(review: dict):
+        by_id = {row["item_id"]: row for row in review["items"]}
+    
+        acceptance = by_id["TC-13-03"]
+        acceptance_elements = {row["element_id"]: row for row in acceptance["coverage_elements"]}
+>       assert acceptance["coverage_status"] == "閮ㄥ垎瑕嗙洊"
+E       AssertionError: assert '缂哄け' == '閮ㄥ垎瑕嗙洊'
+E         
+E         - 閮ㄥ垎瑕嗙洊
+E         + 缂哄け
+
+backend\tests\test_patent_license_with_follow_on_development.py:124: AssertionError
+_ test_unilateral_acceptance_and_confidentiality_asymmetry_are_distinct_risks _
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_unilateral_acceptance_and_confidentiality_asymmetry_are_distinct_risks(review: dict):
+        by_id = {row["item_id"]: row for row in review["items"]}
+    
+        acceptance = by_id["TC-04-01"]
+        assert acceptance["coverage_status"] == "椋庨櫓鏉℃"
+        assert acceptance["risk_level"] == "涓?
+        assert "鐢卞鏂瑰崟鏂瑰喅瀹? in acceptance["title"]
+>       assert "鍙屾柟鍦ㄦ祴璇曞墠涔﹂潰纭" in acceptance["suggested_clause_example"]
+E       AssertionError: assert '鍙屾柟鍦ㄦ祴璇曞墠涔﹂潰纭' in '寤鸿璋冩暣浠ヤ笅宸茬‘璁ょ殑涓嶅埄瀹夋帓锛氬奖鍝嶉獙鏀剁粨璁虹殑娴嬭瘯鐜銆佹祴璇曟暟鎹€佹€ц兘鎸囨爣鍙婇獙鏀舵柟娉曠敱瀵规柟鍗曟柟纭畾锛涜ˉ鍏呮槑纭弻鏂逛簨鍏堜功闈㈢‘璁ゆ祴璇曟柟妗堝強鍏跺彉鏇寸殑鏈哄埗銆?
+
+backend\tests\test_patent_license_with_follow_on_development.py:150: AssertionError
+_____ test_not_applicable_secret_rule_acknowledges_existing_secret_facts ______
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_not_applicable_secret_rule_acknowledges_existing_secret_facts(review: dict):
+        item = next(row for row in review["items"] if row["item_id"] == "TC-12-03")
+        assert item["coverage_status"] == "涓嶉€傜敤"
+>       assert "宸叉槑纭妧鏈瀵嗚寖鍥? in item["applicability"]["reason"]
+E       AssertionError: assert '宸叉槑纭妧鏈瀵嗚寖鍥? in '鍚堝悓铏芥秹鍙婃妧鏈瀵嗘垨淇濆瘑璧勬枡锛屼絾褰撳墠浜ゆ槗涓嶆槸浠ユ棦鏈夋妧鏈瀵嗚浆璁┿€佽鍙垨鐙珛浣跨敤璐逛负鏍稿績鏍囩殑锛屾湭褰㈡垚浠ョ瀵嗘€т负鐙珛瀵逛环鍩虹鐨勬寔缁敹璐规垨绉樺瘑鎬т抚澶卞悗鐨勮垂鐢ㄥ畨鎺掞紝鍥犳鏈」涓嶉€傜敤銆?
+
+backend\tests\test_patent_license_with_follow_on_development.py:164: AssertionError
+____ test_full_report_uses_grouped_calculation_and_aggregated_risk_themes _____
+
+review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_full_report_uses_grouped_calculation_and_aggregated_risk_themes(review: dict):
+        report = review["result"]
+        payment = next(row for row in review["items"] if row["item_id"] == "GEN-PAY-01")
+    
+        assert "涓撳埄璁稿彲璐圭殑鑺傜偣姣斾緥鍚堣涓?10%" in payment["risk_point_description"]
+        assert "鍚庣画鎶€鏈紑鍙戣垂鐨勮妭鐐规瘮渚嬪悎璁′负120%" in payment["risk_point_description"]
+        assert "5,460,000鍏? in payment["risk_point_description"]
+        assert "4,800,000鍏冪浉宸?60,000鍏? in payment["risk_point_description"]
+        assert "230%" not in report
+    
+        improvement_themes = [
+            theme for theme in review["risk_themes"]
+            if {"TC-02-01", "TC-10-01"} <= set(theme["source_rule_ids"])
+        ]
+>       assert len(improvement_themes) == 1
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+backend\tests\test_patent_license_with_follow_on_development.py:196: AssertionError
+_____ test_composite_contract_recovers_development_and_infringement_truth _____
+
+composite_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_composite_contract_recovers_development_and_infringement_truth(composite_review: dict):
+        by_id = {row["item_id"]: row for row in composite_review["items"]}
+    
+>       assert by_id["TC-04-02"]["coverage_status"] == "閫氳繃"
+E       AssertionError: assert '寰呮牳楠? == '閫氳繃'
+E         
+E         - 閫氳繃
+E         + 寰呮牳楠?
+
+backend\tests\test_patent_license_composite_contract_review.py:71: AssertionError
+_ test_license_and_confidentiality_reviews_stay_covered_and_report_context_is_specific _
+
+composite_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_license_and_confidentiality_reviews_stay_covered_and_report_context_is_specific(composite_review: dict):
+        by_id = {row["item_id"]: row for row in composite_review["items"]}
+    
+>       assert all(by_id[f"TC-07-0{index}"]["coverage_status"] == "閫氳繃" for index in range(1, 5))
+E       assert False
+E        +  where False = all(<generator object test_license_and_confidentiality_reviews_stay_covered_and_report_context_is_specific.<locals>.<genexpr> at 0x00000215E3093220>)
+
+backend\tests\test_patent_license_composite_contract_review.py:99: AssertionError
+____ test_composite_gap_reviews_use_contract_specific_states_and_evidence _____
+
+composite_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_composite_gap_reviews_use_contract_specific_states_and_evidence(composite_review: dict):
+        by_id = {row["item_id"]: row for row in composite_review["items"]}
+    
+>       assert by_id["TC-05-04"]["coverage_status"] == "閮ㄥ垎瑕嗙洊"
+E       AssertionError: assert '椋庨櫓鏉℃' == '閮ㄥ垎瑕嗙洊'
+E         
+E         - 閮ㄥ垎瑕嗙洊
+E         + 椋庨櫓鏉℃
+
+backend\tests\test_patent_license_composite_contract_review.py:110: AssertionError
+__________ test_final_disposition_is_the_single_report_action_source __________
+
+composite_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_final_disposition_is_the_single_report_action_source(composite_review: dict):
+        report = composite_review["result"]
+        dispositions = composite_review["final_dispositions"]
+        visible = [row for row in dispositions if row["report_visibility"] == "VISIBLE"]
+        recommended = [row for row in visible if row["final_action"] in {"MUST_CHANGE", "SHOULD_CHANGE"}]
+        optional = [row for row in visible if row["final_action"] == "OPTIONAL_IMPROVEMENT"]
+    
+        assert composite_review["report_view_model"]["recommended_total"] == len(recommended)
+        assert composite_review["report_view_model"]["optional_total"] == len(optional)
+        assert composite_review["report_disposition_projection_gate"]["status"] == "REPORT_READY"
+        assert all(row["recommendation"].strip() for row in recommended + optional)
+    
+>       priority_section = report.split("銆佸缓璁慨鏀逛簨椤?, 1)[1].split("\n## ", 1)[0]
+E       IndexError: list index out of range
+
+backend\tests\test_patent_license_composite_contract_review.py:139: IndexError
+____________ test_final_evidence_matches_each_adverse_proposition _____________
+
+composite_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_final_evidence_matches_each_adverse_proposition(composite_review: dict):
+        findings = {row["risk_group"]: row for row in composite_review["risk_findings"]}
+    
+        infringement = findings["license_infringement_responsibility"]["evidence_bundle"]["items"]
+        infringement_by_type = {row["fact_type"]: row for row in infringement}
+        assert "鍧囩敱琚鍙柟鎵挎媴" in infringement_by_type["LICENSEE_LOSS_ALLOCATION"]["quoted_text"]
+>       assert all(term in infringement_by_type["LICENSEE_LOSS_ALLOCATION"]["quoted_text"] for term in (
+            "鍋滀骇鎹熷け", "浜у搧鍙洖鎹熷け", "瀵圭涓夋柟鐨勮禂鍋?, "寰嬪笀璐?, "璇夎璐?,
+        ))
+E       assert False
+E        +  where False = all(<generator object test_final_evidence_matches_each_adverse_proposition.<locals>.<genexpr> at 0x00000215E79D6030>)
+
+backend\tests\test_patent_license_composite_contract_review.py:160: AssertionError
+____________ test_pass_evidence_is_bound_to_coverage_propositions _____________
+
+composite_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'...TION', 'contract_subtype': 'TECHNOLOGY_LICENSE', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_pass_evidence_is_bound_to_coverage_propositions(composite_review: dict):
+        by_id = {row["item_id"]: row for row in composite_review["items"]}
+        secret_result = by_id["TC-05-03"]
+    
+>       assert secret_result["coverage_status"] == "閫氳繃"
+E       AssertionError: assert '閮ㄥ垎瑕嗙洊' == '閫氳繃'
+E         
+E         - 閫氳繃
+E         + 閮ㄥ垎瑕嗙洊
+
+backend\tests\test_patent_license_composite_contract_review.py:210: AssertionError
+_______ test_competition_and_improvement_facts_are_shared_across_rules ________
+
+    def test_competition_and_improvement_facts_are_shared_across_rules():
+        items = _items()
+        competition = items["TC-02-01"]
+        boundary = items["TC-10-04"]
+        assert competition["coverage_status"] == "椋庨櫓鏉℃"
+        assert boundary["coverage_status"] == "椋庨櫓鏉℃"
+>       assert any("涓嶅緱鑷寮€鍙? in (row.get("text") or "") for row in competition["evidence_clauses"])
+E       assert False
+E        +  where False = any(<generator object test_competition_and_improvement_facts_are_shared_across_rules.<locals>.<genexpr> at 0x00000215E3093AE0>)
+
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:62: AssertionError
+__ test_acceptance_separates_test_control_authority_from_concrete_parameters __
+
+    def test_acceptance_separates_test_control_authority_from_concrete_parameters():
+        item = _items()["TC-13-03"]
+        statuses = {row["element_id"]: row["status"] for row in item["coverage_elements"]}
+>       assert statuses["quantitative_performance_targets"] == "COVERED"
+E       KeyError: 'quantitative_performance_targets'
+
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:97: KeyError
+____ test_confidentiality_is_split_by_obligated_party_for_recipient_review ____
+
+    def test_confidentiality_is_split_by_obligated_party_for_recipient_review():
+        items = _items()
+        period = items["TC-11-02"]
+        liability = items["TC-11-04"]
+        assert period["coverage_status"] == "椋庨櫓鏉℃"
+>       assert "缁堟鍚? in period["risk_point_description"] and "鐢叉柟" in period["risk_point_description"]
+E       AssertionError: assert ('缁堟鍚? in '鍙屾柟缁堟鍚庣殑淇濆瘑鏈熼檺涓嶅绛夛紱涔欐柟鍦ㄥ悎鍚岀粓姝㈠悗浠嶄繚鐣欐暟鎹苟鐢ㄤ簬闈炲饱绾︾洰鐨勩€? and '鐢叉柟' in '鍙屾柟缁堟鍚庣殑淇濆瘑鏈熼檺涓嶅绛夛紱涔欐柟鍦ㄥ悎鍚岀粓姝㈠悗浠嶄繚鐣欐暟鎹苟鐢ㄤ簬闈炲饱绾︾洰鐨勩€?)
+
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:139: AssertionError
+____ test_report_statistics_are_recomputed_from_final_findings_and_themes _____
+
+    def test_report_statistics_are_recomputed_from_final_findings_and_themes():
+        output = _review()
+        findings = output["risk_findings"]
+        themes = output.get("risk_themes") or []
+        assert output["finding_count"] == len(findings)
+        assert output["risk_theme_count"] == len(themes)
+        theme_counts = output["risk_theme_severity_summary"]
+        assert sum(theme_counts[level] for level in ("major", "medium", "low")) == len(themes)
+        assert output["risk_theme_summary"]["total"] == len(themes)
+        assert output["manual_review_summary"]["manual_review_count"] == len(output["manual_review_items"])
+>       assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:196: AssertionError
+_ test_counterparty_restrictions_are_projected_as_current_party_enforceability_risk _
+
+    def test_counterparty_restrictions_are_projected_as_current_party_enforceability_risk():
+        items = _items()
+        for review_id in ("TC-02-01", "TC-10-01", "TC-10-02", "TC-10-04"):
+            item = items[review_id]
+>           trace = item["decision_trace"]["risk_to_current_party"]
+E           KeyError: 'risk_to_current_party'
+
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:214: KeyError
+__ test_third_party_claim_consequence_and_advice_only_consume_residual_gaps ___
+
+    def test_third_party_claim_consequence_and_advice_only_consume_residual_gaps():
+        item = _items()["TC-12-02"]
+        residual = item["decision_trace"]["residual_uncovered_elements"]
+        assert set(residual["element_ids"]) == {
+            "notification_requirement", "notification_deadline", "defense_control",
+            "lawyer_selection", "settlement_authority", "termination_remedy", "refund_remedy",
+        }
+        advice = item["suggested_clause_example"]
+>       assert "閫氱煡鏈熼檺" in advice and "鎶楄京鎺у埗" in advice and "瑙ｉ櫎鏉? in advice
+E       AssertionError: assert ('閫氱煡鏈熼檺' in '寤鸿琛ュ厖鏄庣‘鏈嶅姟鏂瑰鍏朵镜鏉冩潵婧愭壙鎷呰矗浠伙紱琛ュ厖鏄庣‘绗笁鏂逛镜鏉冪洿鎺ユ崯澶辫矗浠伙紱琛ュ厖鏄庣‘绗笁鏂圭储璧旈€氱煡涔夊姟锛涜ˉ鍏呮槑纭涓夋柟绱㈣禂閫氱煡鏈熼檺锛涜ˉ鍏呮槑纭涓夋柟绱㈣禂蹇呰鍗忓姪锛涜ˉ鍏呮槑纭潈鍒╃憰鐤垫棤娉曚慨澶嶅悗鐨勮В闄ゆ晳娴庯紱琛ュ厖鏄庣‘鏉冨埄鐟曠柕鍚庣殑閫€娆炬晳娴庯紱琛ュ厖鏄庣‘鎶楄京鍐崇瓥鍙婂綋鍓嶅鏌ユ柟鍙備笌鏈哄埗锛涜ˉ鍏呮槑纭涓夋柟绱㈣禂寰嬪笀閫夋嫨鏉冿紱琛ュ厖鏄庣‘绗笁鏂圭储璧斿拰瑙ｅ鎵规潈闄愩€? and '鎶楄京鎺у埗' in '寤鸿琛ュ厖鏄庣‘鏈嶅姟鏂瑰鍏朵镜鏉冩潵婧愭壙鎷呰矗浠伙紱琛ュ厖鏄庣‘绗笁鏂逛镜鏉冪洿鎺ユ崯澶辫矗浠伙紱琛ュ厖鏄庣‘绗笁鏂圭储璧旈€氱煡涔夊姟锛涜ˉ鍏呮槑纭涓夋柟绱㈣禂閫氱煡鏈熼檺锛涜ˉ鍏呮槑纭涓夋柟绱㈣禂蹇呰鍗忓姪锛涜ˉ鍏呮槑纭潈鍒╃憰鐤垫棤娉曚慨澶嶅悗鐨勮В闄ゆ晳娴庯紱琛ュ厖鏄庣‘鏉冨埄鐟曠柕鍚庣殑閫€娆炬晳娴庯紱琛ュ厖鏄庣‘鎶楄京鍐崇瓥鍙婂綋鍓嶅鏌ユ柟鍙備笌鏈哄埗锛涜ˉ鍏呮槑纭涓夋柟绱㈣禂寰嬪笀閫夋嫨鏉冿紱琛ュ厖鏄庣‘绗笁鏂圭储璧斿拰瑙ｅ鎵规潈闄愩€?)
+
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:263: AssertionError
+_ test_referenced_but_unprovided_attachment_is_not_an_ordinary_missing_clause _
+
+    def test_referenced_but_unprovided_attachment_is_not_an_ordinary_missing_clause():
+        item = _items()["TC-13-03"]
+>       attachment = next(
+            row for row in item["coverage_elements"]
+            if row["element_id"] == "actual_test_attachment"
+        )
+E       StopIteration
+
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:270: StopIteration
+______ test_na_reason_preserves_confirmed_confidential_information_fact _______
+
+    def test_na_reason_preserves_confirmed_confidential_information_fact():
+        item = _items()["TC-12-03"]
+        assert item["coverage_status"] == COVERAGE_NOT_APPLICABLE
+        reason = item["applicability"]["reason"]
+>       assert "铏芥秹鍙婃妧鏈瀵嗘垨淇濆瘑璧勬枡" in reason
+E       AssertionError: assert '铏芥秹鍙婃妧鏈瀵嗘垨淇濆瘑璧勬枡' in '鍚堝悓宸叉槑纭妧鏈瀵嗚寖鍥村苟璁剧疆淇濆瘑銆侀檺鍒朵娇鐢ㄦ垨璧勬枡澶勭疆瀹夋帓锛屼絾鏈舰鎴愪互鎶€鏈瀵嗙瀵嗘€т负鐙珛瀵逛环鍩虹鐨勬寔缁敹璐规垨绉樺瘑鎬т抚澶卞悗鐨勮垂鐢ㄥ畨鎺掞紝鍥犳鏈」涓嶉€傜敤銆?
+
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:323: AssertionError
+______ test_report_actual_exposure_uses_party_aware_finding_consequence _______
+
+    def test_report_actual_exposure_uses_party_aware_finding_consequence():
+        report = _review()["result"]
+        assert "璇ユ潯娆惧褰撳墠瀹℃煡鏂瑰舰鎴愪笉鍒╂垨闄愬埗鎬у畨鎺? not in report
+        assert "杩囧闄愬埗鍙兘鍦ㄤ簤璁腑琚檺缂╅€傜敤鎴栬瀹氶儴鍒嗘潯娆鹃毦浠ユ墽琛? in report
+>       assert "褰卞搷鐢叉柟鏈€缁堝彇寰楁潈鍒╃殑绋冲畾鎬у拰鍙墽琛屾€? in report
+E       AssertionError: assert '褰卞搷鐢叉柟鏈€缁堝彇寰楁潈鍒╃殑绋冲畾鎬у拰鍙墽琛屾€? in '# 鎶€鏈湇鍔″悎鍚屽鏌ユ姤鍛奬n\n\n## 涓€銆佸悎鍚屾€讳綋璇勪环\n\n- 瀹℃煡绔嬪満锛氱敳鏂?/ 鏈嶅姟鎺ュ彈鏂筡n- 浣跨敤鍦烘櫙锛氭妧鏈湇鍔n- 鍚堝悓绫诲瀷锛氭妧鏈悎鍚屸€旀妧鏈湇鍔″悎鍚孿n- 鎬讳綋鍙缃叉€э細寤鸿淇敼鍚庣缃瞈n- 椋庨櫓涓婚鏁帮紙鑱氬悎鍚庯級锛?...鏈熶竴鏃ワ紝鎸夌収鍚堝悓鎬婚鐨?.5%鏀粯杩濈害閲慭n- 绗節鏉?杩濈害璐ｄ换 [鏀寔锛氳繚绾﹂噾鏍囧噯鍋忛珮鍙婂徃娉曡皟鍑忛闄: 涔欐柟杩濆弽淇濆瘑銆佺煡璇嗕骇鏉冩垨鑰呮暟鎹娇鐢ㄧ害瀹氱殑锛屽簲鍚戠敳鏂规敮浠樹汉姘戝竵300涓囧厓杩濈害閲戯紝涓嶈冻浠ュ讥琛ョ敳鏂规崯澶辩殑锛屽簲缁х画璧斿伩\n\n---\n'
+
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:353: AssertionError
+__ test_attachment_finding_only_describes_the_unprovided_referenced_material __
+
+    def test_attachment_finding_only_describes_the_unprovided_referenced_material():
+        finding = next(
+            row for row in _review()["risk_findings"]
+            if "TC-13-03" in row["source_review_ids"]
+        )
+>       assert "闄勪欢姝ｆ枃鏈殢鏈瀹℃煡鏉愭枡鎻愪緵" in finding["issue"]
+E       AssertionError: assert '闄勪欢姝ｆ枃鏈殢鏈瀹℃煡鏉愭枡鎻愪緵' in '浠嶉渶琛ヨ冻锛氱嫭绔嬮獙鏀舵祴璇曟柟妗堥檮浠躲€佸浐瀹氭祴璇曟暟鎹泦鎴栨牱鏈€佺粺璁″彛寰勩€佹祴璇曡褰曞拰绛捐瑕佹眰銆?
+
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:361: AssertionError
+_____ test_structural_pass_is_linked_to_higher_priority_substantive_risk ______
+
+    def test_structural_pass_is_linked_to_higher_priority_substantive_risk():
+        items = _items()
+        ownership = items["TC-09-03"]
+        payment = items["TC-09-04"]
+>       assert ownership["coverage_status"] == "閫氳繃"
+E       AssertionError: assert '閮ㄥ垎瑕嗙洊' == '閫氳繃'
+E         
+E         - 閫氳繃
+E         + 閮ㄥ垎瑕嗙洊
+
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:372: AssertionError
+________ test_ip_liability_and_general_remedies_jointly_trigger_tc1204 ________
+
+    def test_ip_liability_and_general_remedies_jointly_trigger_tc1204():
+        item = _items()["TC-12-04"]
+>       assert item["applicability"]["status"] == "APPLICABLE"
+E       AssertionError: assert 'NOT_APPLICABLE' == 'APPLICABLE'
+E         
+E         - APPLICABLE
+E         + NOT_APPLICABLE
+E         ? ++++
+
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:385: AssertionError
+_ test_excessive_liquidated_damages_are_flagged_as_adjustment_risk_not_invalidity _
+
+    def test_excessive_liquidated_damages_are_flagged_as_adjustment_risk_not_invalidity():
+        signals = analyze_technical_service_risks(_text())
+        penalty = signals["potential_excessive_liquidated_damages"]
+        assert penalty["present"] is True
+        analysis = penalty["analysis"]
+        assert any(row["rate_percent_per_day"] == 0.5 for row in analysis["high_daily_penalties"])
+        assert any(row["amount"] == 3_000_000 for row in analysis["high_fixed_penalties"])
+        assert analysis["contract_total"] == 1_200_000
+        assert analysis["contract_price_ratio_is_not_actual_loss_ratio"] is True
+    
+        item = _items()["GEN-LIAB-03"]
+>       assert "姣忔棩0.5%" in item["risk_point_description"]
+E       AssertionError: assert '姣忔棩0.5%' in '褰撳墠瀹℃煡鏂规壙鎷呯殑楂橀杩濈害閲戝寘鎷敳鏂硅繚鍙嶄繚瀵嗕箟鍔＄殑锛屽簲鍚戜箼鏂规敮浠樹汉姘戝竵200涓囧厓杩濈害閲戯紱鐩稿鏂规壙鎷呫€佸綋鍓嶅鏌ユ柟鍙楃泭鐨勯珮棰濊繚绾﹂噾鍖呮嫭涔欐柟閫炬湡瀹屾垚浠讳綍闃舵鎶€鏈湇鍔＄殑锛屾瘡閫炬湡涓€鏃ワ紝鎸夌収鍚堝悓鎬婚鐨?.5%鏀粯杩濈害閲戯紱涔欐柟杩濆弽淇濆瘑銆佺煡璇嗕骇鏉冩垨鑰呮暟鎹娇鐢ㄧ害瀹氱殑锛屽簲鍚戠敳鏂规敮浠樹汉姘戝竵300涓囧厓杩濈害閲戯紝涓嶈冻浠ュ讥琛ョ敳鏂规崯澶辩殑锛屽簲缁х画璧斿伩銆傚悎鍚屼环姣斾緥浠呯敤浜庤瘑鍒紓甯革紝涓嶇瓑鍚屼簬瀹為檯鎹熷け姣斾緥銆?
+
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:448: AssertionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:159
+  F:\ai\Sage\backend\main.py:159: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+backend/tests/test_technology_license_primary_transaction.py::test_gold_routes_raw_docx_to_technology_license_not_sale
+backend/tests/test_cooperative_fact_projection_regression.py::test_fixed_confidentiality_term_survives_normal_upload
+backend/tests/test_license_element_ownership.py::test_normal_upload_preserves_license_element_ownership
+backend/tests/test_license_term_upload_closure.py::test_balanced_secret_license_authenticated_upload_is_publishable_with_real_gaps
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_patent_transfer_golden_matrix_semantic_invariants
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_patent_transfer_coverage_distinguishes_presence_from_adverse_terms
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_default_law_and_negative_assertions_for_patent_transfer
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_patent_gold_closure_review_semantics_links_and_economic_impact
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_explicit_confidentiality_breach_liability_is_present_with_dedicated_fact_type
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_general_any_breach_liability_is_partial_without_confidentiality_link
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_partial_without_a_concrete_gap_is_promoted_to_pass_and_cannot_create_a_finding
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_partial_with_a_concrete_missing_element_and_tc_11_04_evidence_remain_unchanged
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_patent_gold_confidentiality_liability_uses_a_complete_two_clause_evidence_chain
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_patent_gold_optional_recommendations_and_report_language_close_cleanly
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_current_patent_transfer_registration_feasibility_blocker_is_core_risk
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_current_patent_transfer_ancillary_service_materials_and_domestic_scope_are_fact_driven
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_report_missing_notice_is_conditionally_rendered_from_existing_coverage_summary
+FAILED backend/tests/test_cooperative_development_contract_review.py::test_cooperative_development_classification
+FAILED backend/tests/test_cooperative_development_contract_review.py::test_single_manual_review_does_not_abort_report
+FAILED backend/tests/test_cooperative_development_contract_review.py::test_cooperative_rules_use_operational_facts_and_direct_evidence
+FAILED backend/tests/test_cooperative_development_contract_review.py::test_final_evidence_covers_each_cooperative_risk_proposition
+FAILED backend/tests/test_cooperative_development_contract_review.py::test_cross_rule_and_partial_narratives_are_semantically_consistent
+FAILED backend/tests/test_cooperative_development_contract_review.py::test_minimal_cooperative_development_rules_and_report_are_consistent
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_general_foreground_ip_does_not_override_specific_patent_right
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_developer_controlled_component_risk_keeps_direction_and_procedure_separate
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_major_liability_cap_separates_statutory_validity_and_commercial_recovery_risks
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_confidentiality_covered_elements_bind_distinct_direct_evidence
+FAILED backend/tests/test_entrusted_development_fact_direction_regressions.py::test_liability_cap_reference_alone_does_not_cover_confidentiality_damages
+FAILED backend/tests/test_technical_service_contract_review.py::test_fixture_classification_context_and_applicability
+FAILED backend/tests/test_technical_service_contract_review.py::test_fixture_formula_timeline_evidence_and_report_quality
+FAILED backend/tests/test_technical_service_contract_review.py::test_fixture_matches_frozen_gold_semantics
+FAILED backend/tests/test_patent_transfer_acquisition_and_remedies.py::test_current_contract_passes_release_without_disabling_consistency_checks
+FAILED backend/tests/test_patent_transfer_acquisition_and_remedies.py::test_current_proof_disclosures_are_atomic_and_never_independently_verified[TC-03-04]
+FAILED backend/tests/test_patent_transfer_acquisition_and_remedies.py::test_current_proof_disclosures_are_atomic_and_never_independently_verified[TC-13-02]
+FAILED backend/tests/test_patent_transfer_acquisition_and_remedies.py::test_current_file_upload_and_response_schema_preserve_passed_gate
+FAILED backend/tests/test_patent_transfer_acquisition_and_remedies.py::test_current_claim_elements_reject_unrelated_remedies_and_share_real_evidence
+FAILED backend/tests/test_patent_transfer_acquisition_and_remedies.py::test_current_material_types_do_not_depend_on_exhibit_completeness
+FAILED backend/tests/test_foreign_patent_license_status_consistency.py::test_uncertain_parent_confidentiality_applicability_propagates_to_children
+FAILED backend/tests/test_foreign_patent_license_status_consistency.py::test_direct_child_trigger_can_override_uncertain_parent_applicability
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_material_delivery_method_is_covered_but_version_and_schedule_gaps_remain
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_cross_reference_subject_mismatch_is_bound_to_source_and_target
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_tc1303_positive_elements_have_element_specific_direct_evidence
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_tc1303_cross_reference_bundle_and_issue_type_are_consistent
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_tc1303_recommendation_does_not_invent_a_named_attachment
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_tc0201_final_claims_do_not_exceed_direct_evidence
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_improvement_claims_bind_the_actual_forced_transfer_clause[TC-10-01-licensee_independent_improvement_ownership]
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_improvement_claims_bind_the_actual_forced_transfer_clause[TC-10-02-licensee_improvement_ownership]
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_improvement_claims_bind_the_actual_forced_transfer_clause[TC-10-04-forced_free_ownership_transfer]
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_aggregated_improvement_finding_has_a_complete_direct_evidence_bundle
+FAILED backend/tests/test_technology_license_primary_transaction.py::test_gold_generic_calculations_and_relationship_risks_remain_active
+FAILED backend/tests/test_technology_license_primary_transaction.py::test_gold_semantic_facts_and_rendering_are_consistent
+FAILED backend/tests/test_patent_license_with_follow_on_development.py::test_payment_formula_is_partitioned_by_price_base
+FAILED backend/tests/test_patent_license_with_follow_on_development.py::test_license_scope_invalidity_notice_and_competition_results
+FAILED backend/tests/test_patent_license_with_follow_on_development.py::test_acceptance_and_ip_proof_attachment_are_partial_without_manual_review
+FAILED backend/tests/test_patent_license_with_follow_on_development.py::test_unilateral_acceptance_and_confidentiality_asymmetry_are_distinct_risks
+FAILED backend/tests/test_patent_license_with_follow_on_development.py::test_not_applicable_secret_rule_acknowledges_existing_secret_facts
+FAILED backend/tests/test_patent_license_with_follow_on_development.py::test_full_report_uses_grouped_calculation_and_aggregated_risk_themes
+FAILED backend/tests/test_patent_license_composite_contract_review.py::test_composite_contract_recovers_development_and_infringement_truth
+FAILED backend/tests/test_patent_license_composite_contract_review.py::test_license_and_confidentiality_reviews_stay_covered_and_report_context_is_specific
+FAILED backend/tests/test_patent_license_composite_contract_review.py::test_composite_gap_reviews_use_contract_specific_states_and_evidence
+FAILED backend/tests/test_patent_license_composite_contract_review.py::test_final_disposition_is_the_single_report_action_source
+FAILED backend/tests/test_patent_license_composite_contract_review.py::test_final_evidence_matches_each_adverse_proposition
+FAILED backend/tests/test_patent_license_composite_contract_review.py::test_pass_evidence_is_bound_to_coverage_propositions
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_competition_and_improvement_facts_are_shared_across_rules
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_acceptance_separates_test_control_authority_from_concrete_parameters
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_confidentiality_is_split_by_obligated_party_for_recipient_review
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_report_statistics_are_recomputed_from_final_findings_and_themes
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_counterparty_restrictions_are_projected_as_current_party_enforceability_risk
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_third_party_claim_consequence_and_advice_only_consume_residual_gaps
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_referenced_but_unprovided_attachment_is_not_an_ordinary_missing_clause
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_na_reason_preserves_confirmed_confidential_information_fact
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_report_actual_exposure_uses_party_aware_finding_consequence
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_attachment_finding_only_describes_the_unprovided_referenced_material
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_structural_pass_is_linked_to_higher_priority_substantive_risk
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_ip_liability_and_general_remedies_jointly_trigger_tc1204
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_excessive_liquidated_damages_are_flagged_as_adjustment_risk_not_invalidity
+72 failed, 424 passed, 10 warnings in 1048.92s (0:17:28)

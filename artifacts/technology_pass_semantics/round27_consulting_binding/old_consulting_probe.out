@@ -1,0 +1,102 @@
+....F....FFFFF...F......F.......F                                        [100%]
+================================== FAILURES ===================================
+________________ test_consulting_attachments_and_release_gate _________________
+backend\tests\test_technical_consulting_contract_review.py:184: in test_consulting_attachments_and_release_gate
+    assert attachment["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+_ test_consulting_elements_and_evidence_are_status_separated_and_contract_grounded _
+backend\tests\test_technical_consulting_contract_review.py:307: in test_consulting_elements_and_evidence_are_status_separated_and_contract_grounded
+    assert remedy_elements == {
+E   AssertionError: assert {'defect_trig...COVERED', ...} == {'defect_trig...COVERED', ...}
+E     
+E     Omitting 5 identical items, use -vv to show
+E     Left contains 1 more item:
+E     {'reinspection_deadline': 'MISSING'}
+E     Use -v to get more diff
+__________ test_consulting_cross_section_evidence_recall_and_binding __________
+backend\tests\test_technical_consulting_contract_review.py:417: in test_consulting_cross_section_evidence_recall_and_binding
+    assert "第七条" in remedy_locations and "第十条" in remedy_locations
+E   AssertionError: assert ('第七条' in '10.3 7.2')
+___ test_consulting_report_projects_seven_atomic_findings_into_three_themes ___
+backend\tests\test_technical_consulting_contract_review.py:502: in test_consulting_report_projects_seven_atomic_findings_into_three_themes
+    assert "底层审查发现数：7" in output["result"]
+E   AssertionError: assert '底层审查发现数：7' in '# 技术咨询合同审查报告\n\n\n## 一、合同总体评价\n\n- 审查立场：甲方 / 委托方\n- 使用场景：技术咨询\n- 合同类型：技术合同—技术咨询合同\n- 总体可签署性：可以签署，建议进一步完善\n- 风险主题数（聚合后...论\n- **处理建议**：不适用。\n- 覆盖状态：不适用\n- 【适用说明】：当前文本识别为技术咨询场景，未触发“技术进出口管制附件”的适用条件：仅在合同涉及技术进口、技术出口、跨境许可、跨境交付或数据出境时适用。\n\n---\n'
+____ test_missing_consulting_data_provision_is_low_risk_but_should_change _____
+backend\tests\test_technical_consulting_contract_review.py:531: in test_missing_consulting_data_provision_is_low_risk_but_should_change
+    assert item["risk_point_description"] == (
+E   AssertionError: assert '委托人提供资料的真实性、...告偏差和损失原因难以划分。' == '当前未完整明确委托方应提...仅限实际受影响范围的边界。'
+E     
+E     - 当前未完整明确委托方应提供的合理资料和协作范围，以及咨询方发现资料缺陷后的书面通知、影响说明、因果关系证明和顺延、费用调整或免责仅限实际受影响范围的边界。
+E     + 委托人提供资料的真实性、完整性责任不明，报告偏差和损失原因难以划分。
+________ test_simple_consulting_data_provision_is_partial_not_missing _________
+backend\tests\test_technical_consulting_contract_review.py:569: in test_simple_consulting_data_provision_is_partial_not_missing
+    assert truthfulness["risk_relevant"] is False
+E   assert True is False
+_ test_complete_consulting_confidentiality_produces_no_confidentiality_theme __
+backend\tests\test_technical_consulting_contract_review.py:632: in test_complete_consulting_confidentiality_produces_no_confidentiality_theme
+    assert all(by_id[item_id]["coverage_status"] == "通过" for item_id in (
+E   assert False
+E    +  where False = all(<generator object test_complete_consulting_confidentiality_produces_no_confidentiality_theme.<locals>.<genexpr> at 0x0000023A88871E70>)
+___ test_consulting_confidentiality_elements_bind_to_actual_clause_evidence ___
+backend\tests\test_technical_consulting_contract_review.py:715: in test_consulting_confidentiality_elements_bind_to_actual_clause_evidence
+    assert tc1101_elements[element_id]["status"] == "COVERED"
+E   AssertionError: assert 'MISSING' == 'COVERED'
+E     
+E     - COVERED
+E     + MISSING
+_ test_latest_consulting_docx_full_regression_has_no_subtype_or_evidence_regression _
+backend\tests\test_technical_consulting_contract_review.py:1042: in test_latest_consulting_docx_full_regression_has_no_subtype_or_evidence_regression
+    assert by_id["TC-01-03"]["coverage_status"] == "通过"
+E   AssertionError: assert '部分覆盖' == '通过'
+E     
+E     - 通过
+E     + 部分覆盖
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:159
+  F:\ai\Sage\backend\main.py:159: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+backend/tests/test_technical_consulting_contract_review.py::test_production_file_endpoint_uses_active_consulting_evidence_implementation
+backend/tests/test_technical_consulting_contract_review.py::test_legacy_batch_entry_rejects_confident_technical_contract
+backend/tests/test_technical_consulting_contract_review.py::test_production_file_endpoint_is_deterministic_across_fresh_no_cache_runs
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_consulting_attachments_and_release_gate
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_consulting_elements_and_evidence_are_status_separated_and_contract_grounded
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_consulting_cross_section_evidence_recall_and_binding
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_consulting_report_projects_seven_atomic_findings_into_three_themes
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_missing_consulting_data_provision_is_low_risk_but_should_change
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_simple_consulting_data_provision_is_partial_not_missing
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_complete_consulting_confidentiality_produces_no_confidentiality_theme
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_consulting_confidentiality_elements_bind_to_actual_clause_evidence
+FAILED backend/tests/test_technical_consulting_contract_review.py::test_latest_consulting_docx_full_regression_has_no_subtype_or_evidence_regression
+9 failed, 24 passed, 8 warnings in 143.51s (0:02:23)

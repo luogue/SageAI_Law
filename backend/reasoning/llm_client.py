@@ -1,18 +1,4 @@
-"""
-LLM 客户端封装：多模型支持，智能降级与重试
-
-模型优先级（默认）：
-    1. 千问 (Qwen)     —— DashScope API
-    2. 火山方舟 (Doubao) —— Ark API
-    3. DeepSeek          —— DeepSeek API
-
-特性：
-    - 指数退避重试（1s, 2s, 4s，最多3次/模型）
-    - 不可重试错误立即切换模型（401 无效密钥、429 配额不足、4xx 参数错误）
-    - 所有模型失败后返回兜底文本
-    - 熔断器保护（跨模型共享）
-    - 可通过 LLM_PRIORITY 环境变量自定义模型顺序
-"""
+"""DeepSeek client with bounded retries and circuit protection; no provider fallback."""
 import os
 import json
 import requests
@@ -29,61 +15,8 @@ logger = logging.getLogger(__name__)
 CIRCUIT_BREAKER_THRESHOLD = int(os.getenv('CIRCUIT_BREAKER_THRESHOLD', '3'))
 CIRCUIT_BREAKER_TIMEOUT = int(os.getenv('CIRCUIT_BREAKER_TIMEOUT_SECONDS', '30'))
 
-# ========== 模型配置 ==========
-# 注意：以下所有配置均可通过环境变量覆盖
-MODEL_DEFINITIONS = {
-    "qwen": {
-        "name": "千问(Qwen)",
-        "provider": "dashscope",
-        "api_key_env": "DASHSCOPE_API_KEY",
-        "url": "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
-        "model_env": "QWEN_MODEL",
-        "default_model": "qwen-max",
-        "max_tokens": 8192,  # qwen-max 最大输出 8192 tokens
-        "temperature": 0.1,
-    },
-    "doubao": {
-        "name": "火山方舟(Doubao)",
-        "provider": "ark",
-        "api_key_env": "ARK_API_KEY",
-        "url": "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
-        "model_env": "ARK_ENDPOINT_ID",
-        "default_model": "doubao-pro-32k",
-        "max_tokens": 16384,  # 豆包 doubao-pro-32k 最大输出 16384 tokens
-        "temperature": 0.1,
-    },
-    "deepseek": {
-        "name": "DeepSeek",
-        "provider": "deepseek",
-        "api_key_env": "DEEPSEEK_API_KEY",
-        "url": "https://api.deepseek.com/v1/chat/completions",
-        "model_env": "DEEPSEEK_MODEL",
-        "default_model": "deepseek-chat",
-        "max_tokens": 8192,  # deepseek-chat 最大输出 8192 tokens
-        "temperature": 0.1,
-    },
-}
-
-# 默认模型优先级：千问(Qwen) -> 火山方舟(豆包) -> DeepSeek（千问优先）
-DEFAULT_PRIORITY = ["qwen", "doubao", "deepseek"]
-
-# 从环境变量读取自定义优先级（可选）
-# 格式: LLM_PRIORITY=qwen,doubao,deepseek （逗号分隔）
-_priority_env = os.getenv("LLM_PRIORITY", "").strip()
-if _priority_env:
-    LLM_PRIORITY = [p.strip().lower() for p in _priority_env.split(",") if p.strip()]
-    # 验证所有指定的模型都在定义中
-    for p in LLM_PRIORITY:
-        if p not in MODEL_DEFINITIONS:
-            logger.warning(f"[LLM] 未知的模型标识: '{p}'，将忽略。可用: {list(MODEL_DEFINITIONS.keys())}")
-            LLM_PRIORITY.remove(p)
-    if not LLM_PRIORITY:
-        LLM_PRIORITY = DEFAULT_PRIORITY
-        logger.warning("[LLM] LLM_PRIORITY 配置无效，使用默认顺序")
-    else:
-        logger.info(f"[LLM] 使用自定义模型优先级: {LLM_PRIORITY}")
-else:
-    LLM_PRIORITY = DEFAULT_PRIORITY
+from model_settings import MODEL_DEFINITIONS, configuration
+from secret_redaction import redact_secrets
 
 # 重试配置
 MAX_RETRIES_PER_MODEL = 1   # 仅对瞬时网络错误重试1次（总耗时<5秒）
@@ -104,12 +37,12 @@ def _is_retryable_error(response_or_error) -> bool:
     """
     判断是否可重试
     可重试: 连接超时(ConnectTimeout)、连接错误(ConnectionError)、5xx 状态码
-    不可重试: 读取超时(ReadTimeout)-模型处理慢直接降级、401(无效密钥)、429(配额不足)、4xx(参数错误)
+    不可重试: 读取超时(ReadTimeout)-模型处理慢时停止调用、401(无效密钥)、429(配额不足)、4xx(参数错误)
     """
     if isinstance(response_or_error, requests.exceptions.ConnectTimeout):
         return True  # 连接超时-网络闪断，可重试
     if isinstance(response_or_error, requests.exceptions.ReadTimeout):
-        return False  # 读取超时-模型处理慢，不可重试，直接降级
+        return False  # 读取超时-模型处理慢，不可重试，停止调用
     if isinstance(response_or_error, requests.exceptions.Timeout):
         return False  # 通用Timeout默认不可重试（应具体区分）
     if isinstance(response_or_error, requests.exceptions.ConnectionError):
@@ -146,28 +79,14 @@ def _get_error_category(response_or_error) -> str:
                 return f"请求参数错误({status})"
             if 500 <= status < 600:
                 return f"服务器错误({status})"
-        return f"网络异常: {str(response_or_error)[:100]}"
+        return f"网络异常: {type(response_or_error).__name__}"
     if isinstance(response_or_error, ValueError):
-        return f"响应格式错误: {str(response_or_error)[:100]}"
-    return f"未知错误: {str(response_or_error)[:100]}"
+        return f"响应格式错误: {type(response_or_error).__name__}"
+    return f"未知错误: {type(response_or_error).__name__}"
 
 
 def _current_llm_priority() -> List[str]:
-    """运行时读取模型优先级，避免 main.py 在 load_dotenv 前导入本模块导致配置锁死。"""
-    priority_env = os.getenv("LLM_PRIORITY", "").strip()
-    if not priority_env:
-        return DEFAULT_PRIORITY
-
-    priority = []
-    for item in priority_env.split(","):
-        model_id = item.strip().lower()
-        if not model_id:
-            continue
-        if model_id not in MODEL_DEFINITIONS:
-            logger.warning(f"[LLM] 未知的模型标识: '{model_id}'，将忽略。可用: {list(MODEL_DEFINITIONS.keys())}")
-            continue
-        priority.append(model_id)
-    return priority or DEFAULT_PRIORITY
+    return ['deepseek']
 
 
 def _get_model_config(model_id: str) -> Optional[Dict]:
@@ -204,7 +123,7 @@ def _build_available_models() -> List[Tuple[str, Dict]]:
         available.append((model_id, config))
     
     if not available:
-        logger.error("[LLM] 没有配置任何可用的模型 API Key！所有调用将返回兜底消息。")
+        logger.error("[LLM] 没有配置任何可用的模型 API Key！调用将报告服务不可用。")
     else:
         names = [cfg['name'] for _, cfg in available]
         logger.info(f"[LLM] 可用模型（按优先级）: {names}")
@@ -304,196 +223,44 @@ class AllModelsFailedError(Exception):
 # ========== 核心调用函数 ==========
 
 def call_llm(prompt: str, response_format: str = "text", max_retries: int = 3) -> str:
-    """
-    调用 LLM API（多模型优先级 + 智能降级 + 重试）
-    
-    调用流程：
-        1. 按优先级依次尝试每个可用模型
-        2. 每个模型最多重试 max_retries 次（指数退避）
-        3. 遇到不可重试错误（401/429/4xx）立即切换模型
-        4. 所有模型均失败则返回兜底消息
-    
-    :param prompt: 提示词
-    :param response_format: 响应格式，"json"或"text"
-    :param max_retries: 每个模型最大重试次数
-    :return: API 响应内容（或兜底消息）
-    :raises AllModelsFailedError: 所有模型均失败
-    :raises CircuitBreakerOpenError: 熔断器打开
-    """
-    # ========== 熔断器检查 ==========
+    """Call DeepSeek only. Failures raise; no provider substitution."""
     if not circuit_breaker.allow_request():
-        logger.warning("[CircuitBreaker] 请求被熔断拦截")
-        raise CircuitBreakerOpenError("服务暂时不可用，AI 请求过于频繁或出现临时故障，请稍后重试")
-
-    # ========== 构建可用模型列表 ==========
-    available_models = _build_available_models()
-    if not available_models:
-        logger.error("[LLM] 没有可用的模型，直接返回兜底消息")
+        raise CircuitBreakerOpenError("服务暂时不可用，请稍后重试")
+    config = configuration()
+    if not config['key']:
         circuit_breaker.record_failure()
         raise AllModelsFailedError(FALLBACK_MESSAGE)
-
-    # ========== JSON 格式包装 ==========
-    if response_format == "json":
-        prompt = f"""\
-你现在是一个JSON格式输出助手。请严格按照JSON格式输出，不要添加任何额外内容。
-
-:{prompt}
-
-请输出严格的JSON格式，不要包含任何JSON以外的文本。
-"""
-
-    # ========== [调试] 打印完整prompt ==========
-    try:
-        print("\n" + "=" * 120)
-        print("[DEBUG] 即将调用 LLM API，完整prompt内容如下：")
-        print("=" * 120)
-        import sys
-        sys.stdout.buffer.write((prompt[:2000] + "..." if len(prompt) > 2000 else prompt).encode('utf-8'))
-        print("")
-        print("=" * 120)
-        print(f"[DEBUG] prompt长度: {len(prompt)} 字符")
-        print(f"[DEBUG] 可用模型: {[cfg['name'] for _, cfg in available_models]}")
-        print("=" * 120 + "\n")
-    except Exception as e:
-        logger.error(f"[DEBUG] 打印prompt失败: {e}")
-
-    # ========== 按优先级依次尝试模型 ==========
-    all_errors = []  # 记录所有模型的所有错误
-
-    for model_idx, (model_id, model_config) in enumerate(available_models):
-        model_name = model_config["name"]
-        api_key = os.getenv(model_config["api_key_env"], "").strip()
-        url = model_config["url"]
-        model_str = model_config["model"]
-
-        logger.info(f"[LLM] ===== 尝试模型 [{model_idx + 1}/{len(available_models)}]: {model_name} ({model_str}) =====")
-
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {api_key}"
-        }
-
-        data = {
-            "model": model_str,
-            "messages": [{"role": "user", "content": prompt}],
-            "max_tokens": model_config.get("max_tokens", 4096),
-            "temperature": model_config.get("temperature", 0.1),
-            "top_p": 0.95,
-            "stream": False
-        }
-
-        # ========== 单模型重试循环（指数退避） ==========
-        last_error = None
-        model_success = False
-
-        for attempt in range(max_retries):
-            try:
-                if attempt > 0:
-                    wait_seconds = RETRY_BACKOFF_BASE * (RETRY_BACKOFF_MULTIPLIER ** (attempt - 1))
-                    logger.info(f"[LLM] {model_name} 第 {attempt + 1}/{max_retries} 次尝试，等待 {wait_seconds} 秒...")
-                    time.sleep(wait_seconds)
-
-                response = requests.post(
-                    url, headers=headers, json=data,
-                    timeout=(API_CONNECT_TIMEOUT, API_READ_TIMEOUT)
-                )
-
-                if response.status_code == 200:
-                    result = response.json()
-                    content = _extract_content(result)
-                    if content:
-                        circuit_breaker.record_success()
-                        logger.info(f"[LLM] ✅ {model_name} 调用成功（第 {attempt + 1} 次尝试），"
-                                    f"返回长度: {len(content)} 字符")
-                        return content
-                    else:
-                        raise ValueError(f"API 响应中未找到有效内容: {json.dumps(result, ensure_ascii=False)[:500]}")
-
-                # HTTP 非 200 响应
-                error_msg = f"HTTP {response.status_code}: {response.text[:300]}"
-                logger.error(f"[LLM] {model_name} 返回错误（第 {attempt + 1} 次尝试）: {error_msg}")
-                
-                # 判断是否可重试
+    if response_format == 'json':
+        prompt = '请严格输出JSON，不要添加额外内容。\n' + prompt
+    data = {'model': config['model'], 'messages': [{'role': 'user', 'content': prompt}],
+            'max_tokens': 8192, 'temperature': 0.1, 'top_p': 0.95, 'stream': False}
+    attempts = max(1, max_retries)
+    for attempt in range(attempts):
+        if attempt:
+            time.sleep(RETRY_BACKOFF_BASE * RETRY_BACKOFF_MULTIPLIER ** (attempt - 1))
+        try:
+            response = requests.post(config['url'],
+                headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + config['key']},
+                json=data, timeout=(API_CONNECT_TIMEOUT, API_READ_TIMEOUT))
+            if response.status_code != 200:
+                # Provider error bodies may echo credentials; never publish them.
+                logger.warning('[LLM] DeepSeek HTTP %s', response.status_code)
                 if _is_retryable_for_status(response.status_code):
-                    last_error = requests.exceptions.HTTPError(
-                        error_msg, response=response
-                    )
-                    continue  # 重试
-                else:
-                    # 不可重试的 HTTP 错误（401, 429, 4xx）→ 立即切换模型
-                    http_err = requests.exceptions.HTTPError(error_msg, response=response)
-                    logger.warning(
-                        f"[LLM] ❌ {model_name} 返回不可重试错误 "
-                        f"({_get_error_category(http_err)})，"
-                        f"立即切换模型"
-                    )
-                    all_errors.append(f"[{model_name}] {_get_error_category(http_err)}: {error_msg}")
-                    model_success = False
-                    break  # 跳出重试循环，进入下一个模型
-
-            except requests.exceptions.Timeout as e:
-                last_error = e
-                error_cat = _get_error_category(e)
-                
-                # 区分连接超时和读取超时
-                if isinstance(e, requests.exceptions.ReadTimeout):
-                    # 读取超时-模型处理慢，不重试，直接切换模型
-                    logger.warning(f"[LLM] ❌ {model_name} {error_cat}，不重试，立即切换模型")
-                    all_errors.append(f"[{model_name}] {error_cat}")
-                    model_success = False
-                    break
-                else:
-                    # 连接超时或其他超时，可重试
-                    logger.warning(f"[LLM] {model_name} {error_cat}（第 {attempt + 1}/{max_retries} 次尝试）")
-                    if attempt < max_retries - 1:
-                        continue  # 可重试
-                    all_errors.append(f"[{model_name}] {error_cat}（{max_retries}次重试后失败）")
-
-            except requests.exceptions.ConnectionError as e:
-                last_error = e
-                error_cat = _get_error_category(e)
-                logger.warning(f"[LLM] {model_name} {error_cat}（第 {attempt + 1}/{max_retries} 次尝试）")
-                if attempt < max_retries - 1:
-                    continue  # 可重试
-                all_errors.append(f"[{model_name}] {error_cat}（{max_retries}次重试后失败）")
-
-            except requests.exceptions.RequestException as e:
-                last_error = e
-                error_cat = _get_error_category(e)
-                
-                if _is_retryable_error(e):
-                    logger.warning(f"[LLM] {model_name} {error_cat}（第 {attempt + 1}/{max_retries} 次尝试）")
-                    if attempt < max_retries - 1:
-                        continue  # 可重试
-                    all_errors.append(f"[{model_name}] {error_cat}（{max_retries}次重试后失败）")
-                else:
-                    # 不可重试 → 立即切换
-                    logger.warning(f"[LLM] ❌ {model_name} {error_cat}，不可重试，立即切换模型")
-                    all_errors.append(f"[{model_name}] {error_cat}")
-                    model_success = False
-                    break
-
-            except ValueError as e:
-                last_error = e
-                logger.warning(f"[LLM] {model_name} {_get_error_category(e)}（第 {attempt + 1}/{max_retries} 次尝试）")
-                if attempt < max_retries - 1:
                     continue
-                all_errors.append(f"[{model_name}] {_get_error_category(e)}（{max_retries}次重试后失败）")
-
-        # 当前模型的所有重试都失败了
-        if not model_success:
-            logger.warning(
-                f"[LLM] ❌ {model_name} 不可用（{'不可重试错误' if last_error and not _is_retryable_error(last_error) else f'{max_retries}次重试后失败'}），"
-                f"切换到下一个模型"
-            )
-
-    # ========== 所有模型均失败 ==========
+                break
+            content = _extract_content(response.json())
+            if not content:
+                raise ValueError('Missing response content')
+            circuit_breaker.record_success()
+            logger.info('[LLM] DeepSeek succeeded model=%s', redact_secrets(config['model']))
+            return redact_secrets(content)
+        except requests.RequestException as exc:
+            logger.warning('[LLM] DeepSeek request failed: %s', type(exc).__name__)
+            if not _is_retryable_error(exc):
+                break
+        except (ValueError, TypeError, AttributeError):
+            logger.warning('[LLM] DeepSeek returned an invalid response')
     circuit_breaker.record_failure()
-    
-    error_summary = "; ".join(all_errors) if all_errors else "未知错误"
-    logger.error(f"[LLM] ❌❌❌ 所有模型均失败！错误汇总: {error_summary}")
-    logger.error(f"[LLM] 🔄 返回兜底消息: {FALLBACK_MESSAGE}")
-    
     raise AllModelsFailedError(FALLBACK_MESSAGE)
 
 
@@ -511,7 +278,7 @@ def _is_retryable_for_status(status_code: int) -> bool:
 def _extract_content(response_json: dict) -> Optional[str]:
     """
     从 API 响应中提取文本内容
-    支持多种 API 响应格式（OpenAI 兼容、DashScope 等）
+    解析当前 API 的响应格式
     """
     # OpenAI 兼容格式
     if "choices" in response_json and len(response_json["choices"]) > 0:
@@ -520,16 +287,6 @@ def _extract_content(response_json: dict) -> Optional[str]:
             return choice["message"]["content"].strip()
         if "text" in choice:
             return choice["text"].strip()
-
-    # DashScope 旧版格式
-    if "output" in response_json:
-        output = response_json["output"]
-        if "choices" in output and len(output["choices"]) > 0:
-            choice = output["choices"][0]
-            if "message" in choice and "content" in choice["message"]:
-                return choice["message"]["content"].strip()
-        if "text" in output:
-            return output["text"].strip()
 
     # 直接文本字段
     if "content" in response_json:

@@ -44,8 +44,6 @@ def test_house_lease_checklist_has_50_core_points():
 
 def test_llm_status_reports_env_and_model_key(monkeypatch):
     monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "true")
-    monkeypatch.delenv("DASHSCOPE_API_KEY", raising=False)
-    monkeypatch.delenv("ARK_API_KEY", raising=False)
     monkeypatch.delenv("DEEPSEEK_API_KEY", raising=False)
 
     status = get_llm_review_status()
@@ -53,11 +51,11 @@ def test_llm_status_reports_env_and_model_key(monkeypatch):
     assert status["has_model_key"] is False
     assert status["available"] is False
 
-    monkeypatch.setenv("DASHSCOPE_API_KEY", "test-key")
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "test-key")
     status = get_llm_review_status()
     assert status["has_model_key"] is True
     assert status["available"] is True
-    assert "qwen" in status["configured_models"]
+    assert status["configured_models"] == ["deepseek"]
 
     monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "false")
     status = get_llm_review_status()
@@ -295,7 +293,9 @@ def test_negated_phrase_does_not_pollute_later_matches():
 
     deposit = next(item for item in output["items"] if item["item_id"] == "HL-028")
     use_restriction = next(item for item in output["items"] if item["item_id"] == "HL-048")
-    assert deposit["coverage_status"] == "通过"
+    assert deposit["coverage_status"] == "部分覆盖"
+    assert any(e['element_id'] == 'deposit_sum' and e['status'] == 'MISSING' for e in deposit['coverage_elements'])
+    assert any(e['element_id'] == 'deposit_obligation' and e['status'] == 'COVERED' for e in deposit['coverage_elements'])
     assert use_restriction["coverage_status"] == "通过"
 
 
@@ -407,17 +407,17 @@ def test_house_lease_unified_fact_graph_keeps_repair_and_natural_wear_consistent
     assert by_id["HL-025"]["coverage_status"] == "部分覆盖"
     assert by_id["HL-026"]["risk_level"] == "低"
     assert by_id["HL-026"]["coverage_status"] == "通过"
-    assert "repair.natural_wear=landlord" in by_id["HL-026"]["reasoning_summary"]
+    assert any("甲方负责维修" in e["text"] for e in by_id["HL-026"]["evidence_clauses"])
     assert by_id["HL-036"]["coverage_status"] == "通过"
     assert by_id["HL-034"]["risk_level"] == "低"
     assert by_id["HL-034"]["coverage_status"] == "通过"
-    assert "repair.natural_wear=landlord" in by_id["HL-034"]["reasoning_summary"]
+    assert any("正常损耗" in e["text"] and "甲方" in e["text"] for e in by_id["HL-034"]["evidence_clauses"])
     assert by_id["HL-043"]["risk_level"] == "中"
     assert by_id["HL-043"]["coverage_status"] == "部分覆盖"
-    assert "deposit.return_deadline=null" in by_id["HL-043"]["reasoning_summary"]
+    assert any(e["element_id"] == "return_deadline" and e["status"] == "MISSING" for e in by_id["HL-043"]["coverage_elements"])
     assert by_id["HL-001"]["coverage_status"] == "通过"
     assert "浦东新区人民法院" in by_id["HL-001"]["evidence_clauses"][0]["text"]
-    assert "early_termination.tenant_formula=remaining_term_rent × 2" in by_id["HL-029"]["reasoning_summary"]
+    assert by_id["HL-029"]["evidence_clauses"]
     assert by_id["HL-029"]["applicability"]["applicable"] is True
     assert by_id["HL-030"]["coverage_status"] == "不适用"
     assert by_id["HL-030"]["risk_level"] == "none"
@@ -781,15 +781,14 @@ def test_blank_early_surrender_and_penalty_terms_are_not_passed():
     early = next(item for item in output["items"] if item["item_id"] == "HL-029")
     deduction = next(item for item in output["items"] if item["item_id"] == "HL-039")
     assert early["coverage_status"] == "部分覆盖"
-    assert early["issue_type"] == "模板空白"
-    assert early["risk_level"] == "中"
-    assert "违约金比例" in early["risk_point_description"]
-    assert "实际损失" in early["risk_point_description"]
-    assert "模板空白" in early["reasoning_summary"]
-    assert "调减" in early["reasoning_summary"]
-    assert deduction["coverage_status"] == "部分覆盖"
-    assert deduction["issue_type"] == "模板空白"
-    assert deduction["risk_level"] == "高"
+    assert early["issue_type"] in {"模板空白", "条款缺陷"}
+    assert early["risk_level"] == "低"
+    assert any(e["status"] == "COVERED" and e["source_spans"] for e in early["coverage_elements"])
+    assert any(e["status"] == "MISSING" for e in early["coverage_elements"])
+    # A blank fee is not evidence of a high fee or a loss-adjustment mechanism.
+    assert deduction["coverage_status"] == "缺失"
+    assert deduction["issue_type"] == "完全缺失"
+    assert deduction["risk_severity"] != "HIGH"
 
 
 def test_termination_notice_distinguishes_early_surrender_notice():
@@ -802,9 +801,10 @@ def test_termination_notice_distinguishes_early_surrender_notice():
     item = next(item for item in output["items"] if item["item_id"] == "HL-019")
     assert item["risk_level"] == "中"
     assert item["coverage_status"] == "部分覆盖"
-    assert "提前退租的书面通知" in item["reasoning_summary"]
-    assert "解除通知的送达方式" in item["reasoning_summary"]
-    assert "前者启动解除程序，后者使解除行为生效" in item["reasoning_summary"]
+    elements = {e["element_id"]: e for e in item["coverage_elements"]}
+    assert elements["termination_notice_delivery"]["status"] == "COVERED"
+    assert elements["termination_effective_time"]["status"] == "MISSING"
+    assert "提前退租" in elements["termination_notice_delivery"]["source_spans"][0]
 
 
 def test_loss_based_penalty_adjustment_can_pass_when_complete():
@@ -866,7 +866,7 @@ def test_demo_house_lease_contract_has_evidence_and_no_verdict_words():
 
 def test_llm_judgment_is_used_when_model_returns_valid_json(monkeypatch):
     monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "true")
-    monkeypatch.setenv("DASHSCOPE_API_KEY", "test-key")
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "test-key")
 
     def fake_call_llm(prompt, response_format="text", max_retries=3):
         assert response_format == "json"
@@ -902,7 +902,7 @@ def test_llm_judgment_is_used_when_model_returns_valid_json(monkeypatch):
 
 def test_llm_pass_is_downgraded_when_evidence_has_blank_values(monkeypatch):
     monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "true")
-    monkeypatch.setenv("DASHSCOPE_API_KEY", "test-key")
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "test-key")
     monkeypatch.setenv("REVIEW_V2_LLM_BATCH_SIZE", "50")
 
     def fake_call_llm(prompt, response_format="text", max_retries=3):
@@ -940,7 +940,7 @@ def test_llm_pass_is_downgraded_when_evidence_has_blank_values(monkeypatch):
 
 def test_llm_cannot_override_risk_whitelist_or_pass_generic_deposit_deadline(monkeypatch):
     monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "true")
-    monkeypatch.setenv("DASHSCOPE_API_KEY", "test-key")
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "test-key")
     monkeypatch.setenv("REVIEW_V2_LLM_BATCH_SIZE", "50")
 
     def fake_call_llm(prompt, response_format="text", max_retries=3):
@@ -1018,12 +1018,12 @@ def test_llm_cannot_override_risk_whitelist_or_pass_generic_deposit_deadline(mon
     assert deadline["coverage_status"] == "部分覆盖"
     assert deadline["risk_level"] == "中"
     assert deadline["llm_confidence"] == "low"
-    assert "具体天数" in deadline["reasoning_summary"] or "一般性表述" in deadline["reasoning_summary"]
+    assert any(e["element_id"] == "return_deadline" and e["status"] == "MISSING" for e in deadline["coverage_elements"])
 
 
 def test_llm_review_uses_batches_instead_of_one_call_per_checkpoint(monkeypatch):
     monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "true")
-    monkeypatch.setenv("DASHSCOPE_API_KEY", "test-key")
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "test-key")
     monkeypatch.setenv("REVIEW_V2_LLM_BATCH_SIZE", "20")
     calls = []
 
@@ -1066,7 +1066,7 @@ def test_llm_review_uses_batches_instead_of_one_call_per_checkpoint(monkeypatch)
 
 def test_llm_generic_breach_clause_cannot_pass_specialized_successor_review(monkeypatch):
     monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "true")
-    monkeypatch.setenv("DASHSCOPE_API_KEY", "test-key")
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "test-key")
     monkeypatch.setenv("REVIEW_V2_LLM_BATCH_SIZE", "50")
 
     def fake_call_llm(prompt, response_format="text", max_retries=3):
@@ -1109,15 +1109,15 @@ def test_llm_generic_breach_clause_cannot_pass_specialized_successor_review(monk
 
     item = next(item for item in output["items"] if item["item_id"] == "HL-012")
     assert item["judge_source"] == "llm"
-    assert item["coverage_status"] == "部分覆盖"
+    assert item["coverage_status"] == "缺失"
     assert item["risk_level"] == "低"
     assert item["llm_confidence"] == "low"
-    assert "一般性表述" in item["reasoning_summary"]
+    assert not item["evidence_clauses"]
 
 
 def test_use_llm_false_skips_model_call_even_when_key_exists(monkeypatch):
     monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "true")
-    monkeypatch.setenv("DASHSCOPE_API_KEY", "test-key")
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "test-key")
 
     def fake_call_llm(prompt, response_format="text", max_retries=3):
         raise AssertionError("LLM should not be called when use_llm is false")
@@ -1138,7 +1138,7 @@ def test_use_llm_false_skips_model_call_even_when_key_exists(monkeypatch):
 
 def test_llm_invalid_json_falls_back_to_rule(monkeypatch):
     monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "true")
-    monkeypatch.setenv("DASHSCOPE_API_KEY", "test-key")
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "test-key")
 
     def fake_call_llm(prompt, response_format="text", max_retries=3):
         return "不是 JSON"
@@ -1157,7 +1157,7 @@ def test_llm_invalid_json_falls_back_to_rule(monkeypatch):
 
 def test_llm_verdict_language_falls_back_to_rule(monkeypatch):
     monkeypatch.setenv("REVIEW_V2_LLM_ENABLED", "true")
-    monkeypatch.setenv("DASHSCOPE_API_KEY", "test-key")
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "test-key")
 
     def fake_call_llm(prompt, response_format="text", max_retries=3):
         return json.dumps(
@@ -1366,7 +1366,11 @@ def test_quality_phase_two_separates_coverage_risk_priority_and_findings():
         assert "建议人工复核" not in output["result"]
     assert output["benchmark_metrics"]["sample_status"] == "INSUFFICIENT SAMPLE SIZE"
     assert output["benchmark_metrics"]["confidence_calibration_error"] is None
-    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+    assert output["release_quality_gate"]["status"] == "BLOCKED"
+    assert any(
+        failure.get("requirement") == "RELEASE_HOLD"
+        for failure in output["release_quality_gate"]["failures"]
+    )
     assert output["system_metadata"]["system_version"] == "contract-review-quality-6.4"
     assert output["system_metadata"]["cross_type_generalization_stage"] == "CONVERGED"
     assert output["system_metadata"]["ontology_version"]

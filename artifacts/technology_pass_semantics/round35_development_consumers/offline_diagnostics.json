@@ -1,0 +1,3711 @@
+{
+  "gate": "REPORT_READY",
+  "states": {
+    "TC-01-03": [
+      {
+        "review_id": "TC-01-03",
+        "element_id": "project_identity",
+        "claim_id": "TC-01-03-project_identity",
+        "proposition": "项目及目标已有直接约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-b944bb4d414bf007c94f",
+          "SRC-526aebb445306bd39fcb"
+        ],
+        "supporting_evidence_ids": [
+          "SRC-b944bb4d414bf007c94f",
+          "SRC-526aebb445306bd39fcb"
+        ],
+        "source_clause_ids": [
+          "C0004",
+          "C0022"
+        ],
+        "source_spans": [
+          "甲方委托乙方开发：\n“新能源电池表面缺陷AI视觉检测系统”",
+          "如乙方已经按照约定投入合理研发资源，但因现有技术水平客观上无法达到部分研发目标：\n双方应共同评估。"
+        ],
+        "source_locations": [
+          "第一条 项目名称",
+          "第十五条 正常研发失败风险"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "项目及目标已有直接约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "研发项目身份",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0004",
+            "quote": "甲方委托乙方开发：\n“新能源电池表面缺陷AI视觉检测系统”",
+            "component_key": "project",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-PROJECT-001"
+          },
+          {
+            "clause_id": "C0022",
+            "quote": "如乙方已经按照约定投入合理研发资源，但因现有技术水平客观上无法达到部分研发目标：\n双方应共同评估。",
+            "component_key": "project",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-PROJECT-002"
+          }
+        ],
+        "source_fact_key": "technology.transaction.project",
+        "fact_ids": [
+          "F-TECHNOLOGY-TRANSACTION-PROJECT-001",
+          "F-TECHNOLOGY-TRANSACTION-PROJECT-002"
+        ],
+        "evidence_refs": [
+          "SRC-b944bb4d414bf007c94f",
+          "SRC-526aebb445306bd39fcb"
+        ],
+        "bound_evidence_ids": [
+          "SRC-b944bb4d414bf007c94f",
+          "SRC-526aebb445306bd39fcb"
+        ]
+      },
+      {
+        "review_id": "TC-01-03",
+        "element_id": "functional_scope",
+        "claim_id": "TC-01-03-functional_scope",
+        "proposition": "功能和技术范围已有直接约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-a79e85012e272cc3679e",
+          "SRC-0fa0d88a93e732820534",
+          "SRC-8749c393849fb7104d0e",
+          "SRC-8a89bb08e7141e1e7a63",
+          "SRC-7abf4d5f0563a8f49638",
+          "SRC-fa3b153ff8b239170b3a",
+          "SRC-cd5b6d214339a616dcdf"
+        ],
+        "supporting_evidence_ids": [
+          "SRC-a79e85012e272cc3679e",
+          "SRC-0fa0d88a93e732820534",
+          "SRC-8749c393849fb7104d0e",
+          "SRC-8a89bb08e7141e1e7a63",
+          "SRC-7abf4d5f0563a8f49638",
+          "SRC-fa3b153ff8b239170b3a",
+          "SRC-cd5b6d214339a616dcdf"
+        ],
+        "source_clause_ids": [
+          "C0005",
+          "C0005",
+          "C0005",
+          "C0005",
+          "C0005",
+          "C0005",
+          "C0005"
+        ],
+        "source_spans": [
+          "乙方应完成：\n电池表面缺陷图像识别模型；",
+          "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；",
+          "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；\n图像预处理模块；",
+          "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；\n图像预处理模块；\n工业相机接口模块；",
+          "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；\n图像预处理模块；\n工业相机接口模块；\n推理服务程序；\n检测结果可视化模块；",
+          "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；\n图像预处理模块；\n工业相机接口模块；\n推理服务程序；\n检测结果可视化模块；\n模型训练及部署工具；",
+          "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；\n图像预处理模块；\n工业相机接口模块；\n推理服务程序；\n检测结果可视化模块；\n模型训练及部署工具；\n项目技术文档。"
+        ],
+        "source_locations": [
+          "第二条 项目目标",
+          "第二条 项目目标",
+          "第二条 项目目标",
+          "第二条 项目目标",
+          "第二条 项目目标",
+          "第二条 项目目标",
+          "第二条 项目目标"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "功能和技术范围已有直接约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "研发功能范围",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0005",
+            "quote": "乙方应完成：\n电池表面缺陷图像识别模型；",
+            "component_key": "functions",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-001"
+          },
+          {
+            "clause_id": "C0005",
+            "quote": "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；",
+            "component_key": "functions",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-002"
+          },
+          {
+            "clause_id": "C0005",
+            "quote": "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；\n图像预处理模块；",
+            "component_key": "functions",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-003"
+          },
+          {
+            "clause_id": "C0005",
+            "quote": "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；\n图像预处理模块；\n工业相机接口模块；",
+            "component_key": "functions",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-004"
+          },
+          {
+            "clause_id": "C0005",
+            "quote": "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；\n图像预处理模块；\n工业相机接口模块；\n推理服务程序；\n检测结果可视化模块；",
+            "component_key": "functions",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-005"
+          },
+          {
+            "clause_id": "C0005",
+            "quote": "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；\n图像预处理模块；\n工业相机接口模块；\n推理服务程序；\n检测结果可视化模块；\n模型训练及部署工具；",
+            "component_key": "functions",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-006"
+          },
+          {
+            "clause_id": "C0005",
+            "quote": "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；\n图像预处理模块；\n工业相机接口模块；\n推理服务程序；\n检测结果可视化模块；\n模型训练及部署工具；\n项目技术文档。",
+            "component_key": "functions",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-007"
+          }
+        ],
+        "source_fact_key": "technology.transaction.functions",
+        "fact_ids": [
+          "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-001",
+          "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-002",
+          "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-003",
+          "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-004",
+          "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-005",
+          "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-006",
+          "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-007"
+        ],
+        "evidence_refs": [
+          "SRC-a79e85012e272cc3679e",
+          "SRC-0fa0d88a93e732820534",
+          "SRC-8749c393849fb7104d0e",
+          "SRC-8a89bb08e7141e1e7a63",
+          "SRC-7abf4d5f0563a8f49638",
+          "SRC-fa3b153ff8b239170b3a",
+          "SRC-cd5b6d214339a616dcdf"
+        ],
+        "bound_evidence_ids": [
+          "SRC-a79e85012e272cc3679e",
+          "SRC-0fa0d88a93e732820534",
+          "SRC-8749c393849fb7104d0e",
+          "SRC-8a89bb08e7141e1e7a63",
+          "SRC-7abf4d5f0563a8f49638",
+          "SRC-fa3b153ff8b239170b3a",
+          "SRC-cd5b6d214339a616dcdf"
+        ]
+      },
+      {
+        "review_id": "TC-01-03",
+        "element_id": "performance_scope",
+        "claim_id": "TC-01-03-performance_scope",
+        "proposition": "开发期限及里程碑已有直接约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-41b46a557c9a39d97743",
+          "SRC-c289f60e64d889a43550",
+          "SRC-878a30f9727f2022745e",
+          "SRC-e681a043c28df15010b7"
+        ],
+        "supporting_evidence_ids": [
+          "SRC-41b46a557c9a39d97743",
+          "SRC-c289f60e64d889a43550",
+          "SRC-878a30f9727f2022745e",
+          "SRC-e681a043c28df15010b7"
+        ],
+        "source_clause_ids": [
+          "C0006",
+          "C0006",
+          "C0006",
+          "C0021"
+        ],
+        "source_spans": [
+          "阶段一：\n2026年10月1日至2026年12月31日。",
+          "阶段二：\n2027年1月1日至2027年4月30日。",
+          "阶段三：\n2027年5月1日至2027年8月31日。",
+          "甲方应在乙方提出最终验收申请后20个工作日内完成验收。"
+        ],
+        "source_locations": [
+          "第三条 开发周期",
+          "第三条 开发周期",
+          "第三条 开发周期",
+          "第十四条 最终验收"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "开发期限及里程碑已有直接约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "研发履行期限或节点",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0006",
+            "quote": "阶段一：\n2026年10月1日至2026年12月31日。",
+            "component_key": "schedule",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-SCHEDULE-001"
+          },
+          {
+            "clause_id": "C0006",
+            "quote": "阶段二：\n2027年1月1日至2027年4月30日。",
+            "component_key": "schedule",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-SCHEDULE-002"
+          },
+          {
+            "clause_id": "C0006",
+            "quote": "阶段三：\n2027年5月1日至2027年8月31日。",
+            "component_key": "schedule",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-SCHEDULE-003"
+          },
+          {
+            "clause_id": "C0021",
+            "quote": "甲方应在乙方提出最终验收申请后20个工作日内完成验收。",
+            "component_key": "schedule",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-SCHEDULE-004"
+          }
+        ],
+        "source_fact_key": "technology.transaction.schedule",
+        "fact_ids": [
+          "F-TECHNOLOGY-TRANSACTION-SCHEDULE-001",
+          "F-TECHNOLOGY-TRANSACTION-SCHEDULE-002",
+          "F-TECHNOLOGY-TRANSACTION-SCHEDULE-003",
+          "F-TECHNOLOGY-TRANSACTION-SCHEDULE-004"
+        ],
+        "evidence_refs": [
+          "SRC-41b46a557c9a39d97743",
+          "SRC-c289f60e64d889a43550",
+          "SRC-878a30f9727f2022745e",
+          "SRC-e681a043c28df15010b7"
+        ],
+        "bound_evidence_ids": [
+          "SRC-41b46a557c9a39d97743",
+          "SRC-c289f60e64d889a43550",
+          "SRC-878a30f9727f2022745e",
+          "SRC-e681a043c28df15010b7"
+        ]
+      }
+    ],
+    "TC-03-03": [
+      {
+        "review_id": "TC-03-03",
+        "element_id": "inventor_contribution_attribution",
+        "claim_id": "TC-03-03-inventor_contribution_attribution",
+        "proposition": "按实际技术贡献确定发明人署名已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-8105ae4672d5dee0"
+        ],
+        "supporting_evidence_ids": [
+          "EV-8105ae4672d5dee0"
+        ],
+        "source_clause_ids": [
+          "C0017"
+        ],
+        "source_spans": [
+          "第十条 发明人署名\n专利申请时应按照实际技术贡献确定发明人。"
+        ],
+        "source_locations": [
+          "第十条 发明人署名"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "按实际技术贡献确定发明人署名已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "按实际技术贡献确定发明人署名",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0017",
+            "quote": "第十条 发明人署名\n专利申请时应按照实际技术贡献确定发明人。",
+            "location": "第十条 发明人署名",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:应|须|按照|根据)[^。；]{0,25}(?:实际|实质)[^。；]{0,8}(?:技术)?贡献[^。；]{0,18}(?:确定|确认|列明)发明人",
+            "condition": ""
+          }
+        ],
+        "source_fact_key": "technology.creator.inventor_contribution_attribution",
+        "evidence_refs": [
+          "EV-8105ae4672d5dee0"
+        ]
+      },
+      {
+        "review_id": "TC-03-03",
+        "element_id": "creator_reward_arrangement",
+        "claim_id": "TC-03-03-creator_reward_arrangement",
+        "proposition": "实际完成人的奖励报酬安排",
+        "status": "MISSING",
+        "evidence_ids": [],
+        "supporting_evidence_ids": [],
+        "source_clause_ids": [],
+        "source_spans": [],
+        "source_locations": [],
+        "entailment": "UNCERTAIN",
+        "verifier_confidence": "high",
+        "reason": "实际完成人的奖励报酬安排",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "实际完成人的奖励报酬安排",
+        "required_fact": "实际完成人的奖励报酬安排",
+        "search_targets": [
+          "实际完成人的奖励报酬安排"
+        ],
+        "supporting_evidence": [],
+        "source_fact_key": "technology.creator.creator_reward_arrangement"
+      }
+    ],
+    "TC-03-04": [
+      {
+        "review_id": "TC-03-04",
+        "element_id": "background_technology_statement",
+        "claim_id": "TC-03-04-background_technology_statement",
+        "proposition": "背景技术范围及归属声明已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-c6269db50b8777df",
+          "EV-688725fae5853925"
+        ],
+        "supporting_evidence_ids": [
+          "EV-c6269db50b8777df",
+          "EV-688725fae5853925"
+        ],
+        "source_clause_ids": [
+          "C0009",
+          "C0013"
+        ],
+        "source_spans": [
+          "乙方在本合同签署前已经拥有以下背景技术：",
+          "第六条所列既有背景技术归乙方所有。"
+        ],
+        "source_locations": [
+          "第六条 乙方既有背景技术",
+          "第六条所列既有背景技术归乙方所有。"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "背景技术范围及归属声明已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "背景技术范围及归属声明",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0009",
+            "quote": "乙方在本合同签署前已经拥有以下背景技术：",
+            "location": "第六条 乙方既有背景技术",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:背景技术|既有技术)[^。；]{0,30}(?:归|包括|所列)|(?:保留|拥有)[^。；]{0,25}背景技术",
+            "condition": ""
+          },
+          {
+            "clause_id": "C0013",
+            "quote": "第六条所列既有背景技术归乙方所有。",
+            "location": "第六条所列既有背景技术归乙方所有。",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:背景技术|既有技术)[^。；]{0,30}(?:归|包括|所列)|(?:保留|拥有)[^。；]{0,25}背景技术",
+            "condition": ""
+          }
+        ],
+        "source_fact_key": "technology.development_proof.background_technology_statement",
+        "evidence_refs": [
+          "EV-c6269db50b8777df",
+          "EV-688725fae5853925"
+        ]
+      },
+      {
+        "review_id": "TC-03-04",
+        "element_id": "project_application_ownership_statement",
+        "claim_id": "TC-03-04-project_application_ownership_statement",
+        "proposition": "项目专利申请权归属声明已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-a8eb4071aa6d3855"
+        ],
+        "supporting_evidence_ids": [
+          "EV-a8eb4071aa6d3855"
+        ],
+        "source_clause_ids": [
+          "C0016"
+        ],
+        "source_spans": [
+          "相关专利申请权归甲方所有。"
+        ],
+        "source_locations": [
+          "第九条 专利申请权"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "项目专利申请权归属声明已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "项目专利申请权归属声明",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0016",
+            "quote": "相关专利申请权归甲方所有。",
+            "location": "第九条 专利申请权",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "专利申请权[^。；]{0,20}归[^。；]{0,15}所有",
+            "condition": "如本项目新开发成果具备申请专利条件："
+          }
+        ],
+        "source_fact_key": "technology.development_proof.project_application_ownership_statement",
+        "evidence_refs": [
+          "EV-a8eb4071aa6d3855"
+        ]
+      },
+      {
+        "review_id": "TC-03-04",
+        "element_id": "employee_ownership_document_obligation",
+        "claim_id": "TC-03-04-employee_ownership_document_obligation",
+        "proposition": "研发人员职务成果归属文件义务已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-b5000430c4ddbe44"
+        ],
+        "supporting_evidence_ids": [
+          "EV-b5000430c4ddbe44"
+        ],
+        "source_clause_ids": [
+          "C0017"
+        ],
+        "source_spans": [
+          "乙方应确保参与本项目的员工与乙方签署职务成果归属文件。"
+        ],
+        "source_locations": [
+          "第十条 发明人署名"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "研发人员职务成果归属文件义务已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "研发人员职务成果归属文件义务",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0017",
+            "quote": "乙方应确保参与本项目的员工与乙方签署职务成果归属文件。",
+            "location": "第十条 发明人署名",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:应|须)[^。；]{0,60}签署[^。；]{0,18}职务成果归属文件",
+            "condition": ""
+          }
+        ],
+        "source_fact_key": "technology.development_proof.employee_ownership_document_obligation",
+        "evidence_refs": [
+          "EV-b5000430c4ddbe44"
+        ]
+      },
+      {
+        "review_id": "TC-03-04",
+        "element_id": "employee_ownership_documents",
+        "claim_id": "TC-03-04-employee_ownership_documents",
+        "proposition": "研发人员职务成果证明链已有明确约定。",
+        "status": "PARTIALLY_COVERED",
+        "evidence_ids": [
+          "EV-04be6d69f8b49024"
+        ],
+        "supporting_evidence_ids": [
+          "EV-04be6d69f8b49024"
+        ],
+        "source_clause_ids": [
+          "C0017"
+        ],
+        "source_spans": [
+          "但乙方目前仅能提供核心研发团队5人的完整职务成果归属文件。"
+        ],
+        "source_locations": [
+          "第十条 发明人署名"
+        ],
+        "entailment": "PARTIAL_SUPPORT",
+        "verifier_confidence": "high",
+        "reason": "研发人员职务成果证明链已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "fact_status": "FOUND",
+        "requirement_status": "PARTIALLY_COVERED",
+        "risk_relevant": true,
+        "residual_gap": "未获完整确认人员的职务成果归属证明材料",
+        "required_fact": "研发人员职务成果证明链",
+        "search_targets": [
+          "研发人员职务成果归属确认材料完整性"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0017",
+            "quote": "但乙方目前仅能提供核心研发团队5人的完整职务成果归属文件。",
+            "location": "第十条 发明人署名",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:目前|已经|已)[^。；]{0,30}(?:提供|持有)[^。；]{0,35}(?:完整|签署)[^。；]{0,18}(?:职务成果|归属)(?:归属)?文件",
+            "condition": ""
+          }
+        ],
+        "source_fact_key": "technology.development_proof.employee_ownership_documents",
+        "explicit_absence_evidence": [
+          {
+            "clause_id": "C0017",
+            "quote": "但目前无法提供该人员单独签署的项目成果归属确认书。"
+          }
+        ],
+        "evidence_refs": [
+          "EV-04be6d69f8b49024"
+        ]
+      },
+      {
+        "review_id": "TC-03-04",
+        "element_id": "third_party_license_documents",
+        "claim_id": "TC-03-04-third_party_license_documents",
+        "proposition": "第三方组件许可证及限制材料义务已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-be472594ae82ac74",
+          "EV-74df2b36545f3d82",
+          "EV-0e381d363959414c",
+          "EV-b56a06b7be02f05b",
+          "EV-fd8476a1e71998f7",
+          "EV-acddf5b9413ba47f",
+          "EV-e6ed1e197863e4f8",
+          "EV-44b80ac5c11e6bc8"
+        ],
+        "supporting_evidence_ids": [
+          "EV-be472594ae82ac74",
+          "EV-74df2b36545f3d82",
+          "EV-0e381d363959414c",
+          "EV-b56a06b7be02f05b",
+          "EV-fd8476a1e71998f7",
+          "EV-acddf5b9413ba47f",
+          "EV-e6ed1e197863e4f8",
+          "EV-44b80ac5c11e6bc8"
+        ],
+        "source_clause_ids": [
+          "C0019",
+          "C0019",
+          "C0019",
+          "C0019",
+          "C0019",
+          "C0030",
+          "C0030",
+          "C0030"
+        ],
+        "source_spans": [
+          "乙方应向甲方提供：\n第三方组件清单；",
+          "乙方应向甲方提供：\n第三方组件清单；\n许可证类型；",
+          "乙方应向甲方提供：\n第三方组件清单；\n许可证类型；\n商业使用限制；",
+          "乙方应向甲方提供：\n第三方组件清单；\n许可证类型；\n商业使用限制；\n是否要求公开源代码；",
+          "乙方应向甲方提供：\n第三方组件清单；\n许可证类型；\n商业使用限制；\n是否要求公开源代码；\n后续费用情况。",
+          "乙方应配合提供：\n研发过程记录；\n第三方组件清单；",
+          "乙方应配合提供：\n研发过程记录；\n第三方组件清单；\n技术来源证明；",
+          "乙方应配合提供：\n研发过程记录；\n第三方组件清单；\n技术来源证明；\n研发人员记录。"
+        ],
+        "source_locations": [
+          "第十二条 开发过程中的第三方组件",
+          "第十二条 开发过程中的第三方组件",
+          "第十二条 开发过程中的第三方组件",
+          "第十二条 开发过程中的第三方组件",
+          "第十二条 开发过程中的第三方组件",
+          "第二十三条 第三方知识产权",
+          "第二十三条 第三方知识产权",
+          "第二十三条 第三方知识产权"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "第三方组件许可证及限制材料义务已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "第三方组件许可证及限制材料义务",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0019",
+            "quote": "乙方应向甲方提供：\n第三方组件清单；",
+            "location": "第十二条 开发过程中的第三方组件",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:许可证类型|商业使用限制|第三方组件清单)",
+            "condition": ""
+          },
+          {
+            "clause_id": "C0019",
+            "quote": "乙方应向甲方提供：\n第三方组件清单；\n许可证类型；",
+            "location": "第十二条 开发过程中的第三方组件",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:许可证类型|商业使用限制|第三方组件清单)",
+            "condition": ""
+          },
+          {
+            "clause_id": "C0019",
+            "quote": "乙方应向甲方提供：\n第三方组件清单；\n许可证类型；\n商业使用限制；",
+            "location": "第十二条 开发过程中的第三方组件",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:许可证类型|商业使用限制|第三方组件清单)",
+            "condition": ""
+          },
+          {
+            "clause_id": "C0019",
+            "quote": "乙方应向甲方提供：\n第三方组件清单；\n许可证类型；\n商业使用限制；\n是否要求公开源代码；",
+            "location": "第十二条 开发过程中的第三方组件",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:许可证类型|商业使用限制|第三方组件清单)",
+            "condition": ""
+          },
+          {
+            "clause_id": "C0019",
+            "quote": "乙方应向甲方提供：\n第三方组件清单；\n许可证类型；\n商业使用限制；\n是否要求公开源代码；\n后续费用情况。",
+            "location": "第十二条 开发过程中的第三方组件",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:许可证类型|商业使用限制|第三方组件清单)",
+            "condition": ""
+          },
+          {
+            "clause_id": "C0030",
+            "quote": "乙方应配合提供：\n研发过程记录；\n第三方组件清单；",
+            "location": "第二十三条 第三方知识产权",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:许可证类型|商业使用限制|第三方组件清单)",
+            "condition": "如第三方主张本项目成果侵犯其知识产权："
+          },
+          {
+            "clause_id": "C0030",
+            "quote": "乙方应配合提供：\n研发过程记录；\n第三方组件清单；\n技术来源证明；",
+            "location": "第二十三条 第三方知识产权",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:许可证类型|商业使用限制|第三方组件清单)",
+            "condition": "如第三方主张本项目成果侵犯其知识产权："
+          },
+          {
+            "clause_id": "C0030",
+            "quote": "乙方应配合提供：\n研发过程记录；\n第三方组件清单；\n技术来源证明；\n研发人员记录。",
+            "location": "第二十三条 第三方知识产权",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:许可证类型|商业使用限制|第三方组件清单)",
+            "condition": "如第三方主张本项目成果侵犯其知识产权："
+          }
+        ],
+        "source_fact_key": "technology.development_proof.third_party_license_documents",
+        "evidence_refs": [
+          "EV-be472594ae82ac74",
+          "EV-74df2b36545f3d82",
+          "EV-0e381d363959414c",
+          "EV-b56a06b7be02f05b",
+          "EV-fd8476a1e71998f7",
+          "EV-acddf5b9413ba47f",
+          "EV-e6ed1e197863e4f8",
+          "EV-44b80ac5c11e6bc8"
+        ]
+      },
+      {
+        "review_id": "TC-03-04",
+        "element_id": "development_source_records",
+        "claim_id": "TC-03-04-development_source_records",
+        "proposition": "研发来源及人员记录提供义务已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-acddf5b9413ba47f",
+          "EV-e6ed1e197863e4f8",
+          "EV-44b80ac5c11e6bc8",
+          "EV-450ccc46cacf69a5"
+        ],
+        "supporting_evidence_ids": [
+          "EV-acddf5b9413ba47f",
+          "EV-e6ed1e197863e4f8",
+          "EV-44b80ac5c11e6bc8",
+          "EV-450ccc46cacf69a5"
+        ],
+        "source_clause_ids": [
+          "C0030",
+          "C0030",
+          "C0030",
+          "C0030"
+        ],
+        "source_spans": [
+          "乙方应配合提供：\n研发过程记录；",
+          "乙方应配合提供：\n研发过程记录；\n第三方组件清单；",
+          "乙方应配合提供：\n研发过程记录；\n第三方组件清单；\n技术来源证明；",
+          "乙方应配合提供：\n研发过程记录；\n第三方组件清单；\n技术来源证明；\n研发人员记录。"
+        ],
+        "source_locations": [
+          "第二十三条 第三方知识产权",
+          "第二十三条 第三方知识产权",
+          "第二十三条 第三方知识产权",
+          "第二十三条 第三方知识产权"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "研发来源及人员记录提供义务已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "研发来源及人员记录提供义务",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0030",
+            "quote": "乙方应配合提供：\n研发过程记录；",
+            "location": "第二十三条 第三方知识产权",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:研发过程记录|技术来源证明|研发人员记录)",
+            "condition": "如第三方主张本项目成果侵犯其知识产权："
+          },
+          {
+            "clause_id": "C0030",
+            "quote": "乙方应配合提供：\n研发过程记录；\n第三方组件清单；",
+            "location": "第二十三条 第三方知识产权",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:研发过程记录|技术来源证明|研发人员记录)",
+            "condition": "如第三方主张本项目成果侵犯其知识产权："
+          },
+          {
+            "clause_id": "C0030",
+            "quote": "乙方应配合提供：\n研发过程记录；\n第三方组件清单；\n技术来源证明；",
+            "location": "第二十三条 第三方知识产权",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:研发过程记录|技术来源证明|研发人员记录)",
+            "condition": "如第三方主张本项目成果侵犯其知识产权："
+          },
+          {
+            "clause_id": "C0030",
+            "quote": "乙方应配合提供：\n研发过程记录；\n第三方组件清单；\n技术来源证明；\n研发人员记录。",
+            "location": "第二十三条 第三方知识产权",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:研发过程记录|技术来源证明|研发人员记录)",
+            "condition": "如第三方主张本项目成果侵犯其知识产权："
+          }
+        ],
+        "source_fact_key": "technology.development_proof.development_source_records",
+        "evidence_refs": [
+          "EV-acddf5b9413ba47f",
+          "EV-e6ed1e197863e4f8",
+          "EV-44b80ac5c11e6bc8",
+          "EV-450ccc46cacf69a5"
+        ]
+      }
+    ],
+    "TC-04-01": [
+      {
+        "review_id": "TC-04-01",
+        "element_id": "commissioned_project_and_objective",
+        "claim_id": "TC-04-01-commissioned_project_and_objective",
+        "proposition": "项目及目标已有直接约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-b944bb4d414bf007c94f",
+          "SRC-526aebb445306bd39fcb"
+        ],
+        "supporting_evidence_ids": [
+          "SRC-b944bb4d414bf007c94f",
+          "SRC-526aebb445306bd39fcb"
+        ],
+        "source_clause_ids": [
+          "C0004",
+          "C0022"
+        ],
+        "source_spans": [
+          "甲方委托乙方开发：\n“新能源电池表面缺陷AI视觉检测系统”",
+          "如乙方已经按照约定投入合理研发资源，但因现有技术水平客观上无法达到部分研发目标：\n双方应共同评估。"
+        ],
+        "source_locations": [
+          "第一条 项目名称",
+          "第十五条 正常研发失败风险"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "项目及目标已有直接约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "项目及目标",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0004",
+            "quote": "甲方委托乙方开发：\n“新能源电池表面缺陷AI视觉检测系统”",
+            "component_key": "project",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-PROJECT-001"
+          },
+          {
+            "clause_id": "C0022",
+            "quote": "如乙方已经按照约定投入合理研发资源，但因现有技术水平客观上无法达到部分研发目标：\n双方应共同评估。",
+            "component_key": "project",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-PROJECT-002"
+          }
+        ],
+        "source_fact_key": "technology.transaction.project",
+        "fact_ids": [
+          "F-TECHNOLOGY-TRANSACTION-PROJECT-001",
+          "F-TECHNOLOGY-TRANSACTION-PROJECT-002"
+        ],
+        "evidence_refs": [
+          "SRC-b944bb4d414bf007c94f",
+          "SRC-526aebb445306bd39fcb"
+        ],
+        "bound_evidence_ids": [
+          "SRC-b944bb4d414bf007c94f",
+          "SRC-526aebb445306bd39fcb"
+        ]
+      },
+      {
+        "review_id": "TC-04-01",
+        "element_id": "functional_and_technical_scope",
+        "claim_id": "TC-04-01-functional_and_technical_scope",
+        "proposition": "功能和技术范围已有直接约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-a79e85012e272cc3679e",
+          "SRC-0fa0d88a93e732820534",
+          "SRC-8749c393849fb7104d0e",
+          "SRC-8a89bb08e7141e1e7a63",
+          "SRC-7abf4d5f0563a8f49638",
+          "SRC-fa3b153ff8b239170b3a",
+          "SRC-cd5b6d214339a616dcdf"
+        ],
+        "supporting_evidence_ids": [
+          "SRC-a79e85012e272cc3679e",
+          "SRC-0fa0d88a93e732820534",
+          "SRC-8749c393849fb7104d0e",
+          "SRC-8a89bb08e7141e1e7a63",
+          "SRC-7abf4d5f0563a8f49638",
+          "SRC-fa3b153ff8b239170b3a",
+          "SRC-cd5b6d214339a616dcdf"
+        ],
+        "source_clause_ids": [
+          "C0005",
+          "C0005",
+          "C0005",
+          "C0005",
+          "C0005",
+          "C0005",
+          "C0005"
+        ],
+        "source_spans": [
+          "乙方应完成：\n电池表面缺陷图像识别模型；",
+          "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；",
+          "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；\n图像预处理模块；",
+          "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；\n图像预处理模块；\n工业相机接口模块；",
+          "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；\n图像预处理模块；\n工业相机接口模块；\n推理服务程序；\n检测结果可视化模块；",
+          "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；\n图像预处理模块；\n工业相机接口模块；\n推理服务程序；\n检测结果可视化模块；\n模型训练及部署工具；",
+          "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；\n图像预处理模块；\n工业相机接口模块；\n推理服务程序；\n检测结果可视化模块；\n模型训练及部署工具；\n项目技术文档。"
+        ],
+        "source_locations": [
+          "第二条 项目目标",
+          "第二条 项目目标",
+          "第二条 项目目标",
+          "第二条 项目目标",
+          "第二条 项目目标",
+          "第二条 项目目标",
+          "第二条 项目目标"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "功能和技术范围已有直接约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "功能和技术范围",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0005",
+            "quote": "乙方应完成：\n电池表面缺陷图像识别模型；",
+            "component_key": "functions",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-001"
+          },
+          {
+            "clause_id": "C0005",
+            "quote": "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；",
+            "component_key": "functions",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-002"
+          },
+          {
+            "clause_id": "C0005",
+            "quote": "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；\n图像预处理模块；",
+            "component_key": "functions",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-003"
+          },
+          {
+            "clause_id": "C0005",
+            "quote": "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；\n图像预处理模块；\n工业相机接口模块；",
+            "component_key": "functions",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-004"
+          },
+          {
+            "clause_id": "C0005",
+            "quote": "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；\n图像预处理模块；\n工业相机接口模块；\n推理服务程序；\n检测结果可视化模块；",
+            "component_key": "functions",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-005"
+          },
+          {
+            "clause_id": "C0005",
+            "quote": "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；\n图像预处理模块；\n工业相机接口模块；\n推理服务程序；\n检测结果可视化模块；\n模型训练及部署工具；",
+            "component_key": "functions",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-006"
+          },
+          {
+            "clause_id": "C0005",
+            "quote": "乙方应完成：\n电池表面缺陷图像识别模型；\n缺陷分类算法；\n图像预处理模块；\n工业相机接口模块；\n推理服务程序；\n检测结果可视化模块；\n模型训练及部署工具；\n项目技术文档。",
+            "component_key": "functions",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-007"
+          }
+        ],
+        "source_fact_key": "technology.transaction.functions",
+        "fact_ids": [
+          "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-001",
+          "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-002",
+          "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-003",
+          "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-004",
+          "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-005",
+          "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-006",
+          "F-TECHNOLOGY-TRANSACTION-FUNCTIONS-007"
+        ],
+        "evidence_refs": [
+          "SRC-a79e85012e272cc3679e",
+          "SRC-0fa0d88a93e732820534",
+          "SRC-8749c393849fb7104d0e",
+          "SRC-8a89bb08e7141e1e7a63",
+          "SRC-7abf4d5f0563a8f49638",
+          "SRC-fa3b153ff8b239170b3a",
+          "SRC-cd5b6d214339a616dcdf"
+        ],
+        "bound_evidence_ids": [
+          "SRC-a79e85012e272cc3679e",
+          "SRC-0fa0d88a93e732820534",
+          "SRC-8749c393849fb7104d0e",
+          "SRC-8a89bb08e7141e1e7a63",
+          "SRC-7abf4d5f0563a8f49638",
+          "SRC-fa3b153ff8b239170b3a",
+          "SRC-cd5b6d214339a616dcdf"
+        ]
+      },
+      {
+        "review_id": "TC-04-01",
+        "element_id": "schedule_and_milestones",
+        "claim_id": "TC-04-01-schedule_and_milestones",
+        "proposition": "开发期限及里程碑已有直接约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-41b46a557c9a39d97743",
+          "SRC-c289f60e64d889a43550",
+          "SRC-878a30f9727f2022745e",
+          "SRC-e681a043c28df15010b7"
+        ],
+        "supporting_evidence_ids": [
+          "SRC-41b46a557c9a39d97743",
+          "SRC-c289f60e64d889a43550",
+          "SRC-878a30f9727f2022745e",
+          "SRC-e681a043c28df15010b7"
+        ],
+        "source_clause_ids": [
+          "C0006",
+          "C0006",
+          "C0006",
+          "C0021"
+        ],
+        "source_spans": [
+          "阶段一：\n2026年10月1日至2026年12月31日。",
+          "阶段二：\n2027年1月1日至2027年4月30日。",
+          "阶段三：\n2027年5月1日至2027年8月31日。",
+          "甲方应在乙方提出最终验收申请后20个工作日内完成验收。"
+        ],
+        "source_locations": [
+          "第三条 开发周期",
+          "第三条 开发周期",
+          "第三条 开发周期",
+          "第十四条 最终验收"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "开发期限及里程碑已有直接约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "开发期限及里程碑",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0006",
+            "quote": "阶段一：\n2026年10月1日至2026年12月31日。",
+            "component_key": "schedule",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-SCHEDULE-001"
+          },
+          {
+            "clause_id": "C0006",
+            "quote": "阶段二：\n2027年1月1日至2027年4月30日。",
+            "component_key": "schedule",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-SCHEDULE-002"
+          },
+          {
+            "clause_id": "C0006",
+            "quote": "阶段三：\n2027年5月1日至2027年8月31日。",
+            "component_key": "schedule",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-SCHEDULE-003"
+          },
+          {
+            "clause_id": "C0021",
+            "quote": "甲方应在乙方提出最终验收申请后20个工作日内完成验收。",
+            "component_key": "schedule",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-SCHEDULE-004"
+          }
+        ],
+        "source_fact_key": "technology.transaction.schedule",
+        "fact_ids": [
+          "F-TECHNOLOGY-TRANSACTION-SCHEDULE-001",
+          "F-TECHNOLOGY-TRANSACTION-SCHEDULE-002",
+          "F-TECHNOLOGY-TRANSACTION-SCHEDULE-003",
+          "F-TECHNOLOGY-TRANSACTION-SCHEDULE-004"
+        ],
+        "evidence_refs": [
+          "SRC-41b46a557c9a39d97743",
+          "SRC-c289f60e64d889a43550",
+          "SRC-878a30f9727f2022745e",
+          "SRC-e681a043c28df15010b7"
+        ],
+        "bound_evidence_ids": [
+          "SRC-41b46a557c9a39d97743",
+          "SRC-c289f60e64d889a43550",
+          "SRC-878a30f9727f2022745e",
+          "SRC-e681a043c28df15010b7"
+        ]
+      },
+      {
+        "review_id": "TC-04-01",
+        "element_id": "deliverables",
+        "claim_id": "TC-04-01-deliverables",
+        "proposition": "开发成果交付",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-3b298be14365d9a4d9ab",
+          "SRC-125362c3ac6869c5a12e",
+          "SRC-cccbefa388066857150d",
+          "SRC-ede3824db7415293a0c9",
+          "SRC-51e361be725f6bf87bdd",
+          "SRC-2beae583385c486c20b3",
+          "SRC-b079691c5a1b075ded16",
+          "SRC-0c199f3473d39a148e67",
+          "SRC-7ce4f6db112902c6726e",
+          "SRC-a77f16b01d6b22687f26"
+        ],
+        "supporting_evidence_ids": [
+          "SRC-3b298be14365d9a4d9ab",
+          "SRC-125362c3ac6869c5a12e",
+          "SRC-cccbefa388066857150d",
+          "SRC-ede3824db7415293a0c9",
+          "SRC-51e361be725f6bf87bdd",
+          "SRC-2beae583385c486c20b3",
+          "SRC-b079691c5a1b075ded16",
+          "SRC-0c199f3473d39a148e67",
+          "SRC-7ce4f6db112902c6726e",
+          "SRC-a77f16b01d6b22687f26"
+        ],
+        "source_clause_ids": [
+          "C0018",
+          "C0018",
+          "C0018",
+          "C0018",
+          "C0018",
+          "C0018",
+          "C0018",
+          "C0018",
+          "C0019",
+          "C0019"
+        ],
+        "source_spans": [
+          "乙方应向甲方交付：\n项目专用源代码；",
+          "乙方应向甲方交付：\n项目专用源代码；\n项目专用模型文件；",
+          "乙方应向甲方交付：\n项目专用源代码；\n项目专用模型文件；\n项目配置文件；",
+          "乙方应向甲方交付：\n项目专用源代码；\n项目专用模型文件；\n项目配置文件；\n部署脚本；",
+          "乙方应向甲方交付：\n项目专用源代码；\n项目专用模型文件；\n项目配置文件；\n部署脚本；\n数据结构说明；",
+          "乙方应向甲方交付：\n项目专用源代码；\n项目专用模型文件；\n项目配置文件；\n部署脚本；\n数据结构说明；\nAPI文档；",
+          "乙方应向甲方交付：\n项目专用源代码；\n项目专用模型文件；\n项目配置文件；\n部署脚本；\n数据结构说明；\nAPI文档；\n编译和部署说明；",
+          "乙方应向甲方交付：\n项目专用源代码；\n项目专用模型文件；\n项目配置文件；\n部署脚本；\n数据结构说明；\nAPI文档；\n编译和部署说明；\n项目专用训练脚本。",
+          "乙方应向甲方提供：\n第三方组件清单；\n许可证类型；\n商业使用限制；\n是否要求公开源代码；",
+          "乙方应向甲方提供：\n第三方组件清单；\n许可证类型；\n商业使用限制；\n是否要求公开源代码；\n后续费用情况。"
+        ],
+        "source_locations": [
+          "第十一条 源代码交付",
+          "第十一条 源代码交付",
+          "第十一条 源代码交付",
+          "第十一条 源代码交付",
+          "第十一条 源代码交付",
+          "第十一条 源代码交付",
+          "第十一条 源代码交付",
+          "第十一条 源代码交付",
+          "第十二条 开发过程中的第三方组件",
+          "第十二条 开发过程中的第三方组件"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "开发成果交付",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "开发成果交付",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0018",
+            "quote": "乙方应向甲方交付：\n项目专用源代码；",
+            "component_key": "deliverables",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-001"
+          },
+          {
+            "clause_id": "C0018",
+            "quote": "乙方应向甲方交付：\n项目专用源代码；\n项目专用模型文件；",
+            "component_key": "deliverables",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-002"
+          },
+          {
+            "clause_id": "C0018",
+            "quote": "乙方应向甲方交付：\n项目专用源代码；\n项目专用模型文件；\n项目配置文件；",
+            "component_key": "deliverables",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-003"
+          },
+          {
+            "clause_id": "C0018",
+            "quote": "乙方应向甲方交付：\n项目专用源代码；\n项目专用模型文件；\n项目配置文件；\n部署脚本；",
+            "component_key": "deliverables",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-004"
+          },
+          {
+            "clause_id": "C0018",
+            "quote": "乙方应向甲方交付：\n项目专用源代码；\n项目专用模型文件；\n项目配置文件；\n部署脚本；\n数据结构说明；",
+            "component_key": "deliverables",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-005"
+          },
+          {
+            "clause_id": "C0018",
+            "quote": "乙方应向甲方交付：\n项目专用源代码；\n项目专用模型文件；\n项目配置文件；\n部署脚本；\n数据结构说明；\nAPI文档；",
+            "component_key": "deliverables",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-006"
+          },
+          {
+            "clause_id": "C0018",
+            "quote": "乙方应向甲方交付：\n项目专用源代码；\n项目专用模型文件；\n项目配置文件；\n部署脚本；\n数据结构说明；\nAPI文档；\n编译和部署说明；",
+            "component_key": "deliverables",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-007"
+          },
+          {
+            "clause_id": "C0018",
+            "quote": "乙方应向甲方交付：\n项目专用源代码；\n项目专用模型文件；\n项目配置文件；\n部署脚本；\n数据结构说明；\nAPI文档；\n编译和部署说明；\n项目专用训练脚本。",
+            "component_key": "deliverables",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-008"
+          },
+          {
+            "clause_id": "C0019",
+            "quote": "乙方应向甲方提供：\n第三方组件清单；\n许可证类型；\n商业使用限制；\n是否要求公开源代码；",
+            "component_key": "deliverables",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-009"
+          },
+          {
+            "clause_id": "C0019",
+            "quote": "乙方应向甲方提供：\n第三方组件清单；\n许可证类型；\n商业使用限制；\n是否要求公开源代码；\n后续费用情况。",
+            "component_key": "deliverables",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-010"
+          }
+        ],
+        "source_fact_key": "technology.transaction.deliverables",
+        "fact_ids": [
+          "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-001",
+          "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-002",
+          "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-003",
+          "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-004",
+          "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-005",
+          "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-006",
+          "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-007",
+          "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-008",
+          "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-009",
+          "F-TECHNOLOGY-TRANSACTION-DELIVERABLES-010"
+        ],
+        "evidence_refs": [
+          "SRC-3b298be14365d9a4d9ab",
+          "SRC-125362c3ac6869c5a12e",
+          "SRC-cccbefa388066857150d",
+          "SRC-ede3824db7415293a0c9",
+          "SRC-51e361be725f6bf87bdd",
+          "SRC-2beae583385c486c20b3",
+          "SRC-b079691c5a1b075ded16",
+          "SRC-0c199f3473d39a148e67",
+          "SRC-7ce4f6db112902c6726e",
+          "SRC-a77f16b01d6b22687f26"
+        ],
+        "bound_evidence_ids": [
+          "SRC-3b298be14365d9a4d9ab",
+          "SRC-125362c3ac6869c5a12e",
+          "SRC-cccbefa388066857150d",
+          "SRC-ede3824db7415293a0c9",
+          "SRC-51e361be725f6bf87bdd",
+          "SRC-2beae583385c486c20b3",
+          "SRC-b079691c5a1b075ded16",
+          "SRC-0c199f3473d39a148e67",
+          "SRC-7ce4f6db112902c6726e",
+          "SRC-a77f16b01d6b22687f26"
+        ]
+      },
+      {
+        "review_id": "TC-04-01",
+        "element_id": "acceptance",
+        "claim_id": "TC-04-01-acceptance",
+        "proposition": "验收标准",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-579585d88956de12e1f5",
+          "SRC-3526443fb0d96d16fc63",
+          "SRC-dc5d4ee92e36efa4e1d6",
+          "SRC-03914f9778f7e10e561b",
+          "SRC-a7f0c3b98977631cfc30"
+        ],
+        "supporting_evidence_ids": [
+          "SRC-579585d88956de12e1f5",
+          "SRC-3526443fb0d96d16fc63",
+          "SRC-dc5d4ee92e36efa4e1d6",
+          "SRC-03914f9778f7e10e561b",
+          "SRC-a7f0c3b98977631cfc30"
+        ],
+        "source_clause_ids": [
+          "C0005",
+          "C0005",
+          "C0005",
+          "C0020",
+          "C0020"
+        ],
+        "source_spans": [
+          "最终系统应达到：\n缺陷识别准确率不低于97%；",
+          "重大缺陷漏检率不高于0.8%；",
+          "连续运行72小时无严重故障。",
+          "原型准确率达到90%以上。",
+          "要求：\n准确率达到95%以上；"
+        ],
+        "source_locations": [
+          "第二条 项目目标",
+          "第二条 项目目标",
+          "第二条 项目目标",
+          "第十三条 阶段验收",
+          "第十三条 阶段验收"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "验收标准",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "验收标准",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0005",
+            "quote": "最终系统应达到：\n缺陷识别准确率不低于97%；",
+            "component_key": "acceptance",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-ACCEPTANCE-001"
+          },
+          {
+            "clause_id": "C0005",
+            "quote": "重大缺陷漏检率不高于0.8%；",
+            "component_key": "acceptance",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-ACCEPTANCE-002"
+          },
+          {
+            "clause_id": "C0005",
+            "quote": "连续运行72小时无严重故障。",
+            "component_key": "acceptance",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-ACCEPTANCE-003"
+          },
+          {
+            "clause_id": "C0020",
+            "quote": "原型准确率达到90%以上。",
+            "component_key": "acceptance",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-ACCEPTANCE-004"
+          },
+          {
+            "clause_id": "C0020",
+            "quote": "要求：\n准确率达到95%以上；",
+            "component_key": "acceptance",
+            "fact_id": "F-TECHNOLOGY-TRANSACTION-ACCEPTANCE-005"
+          }
+        ],
+        "source_fact_key": "technology.transaction.acceptance",
+        "fact_ids": [
+          "F-TECHNOLOGY-TRANSACTION-ACCEPTANCE-001",
+          "F-TECHNOLOGY-TRANSACTION-ACCEPTANCE-002",
+          "F-TECHNOLOGY-TRANSACTION-ACCEPTANCE-003",
+          "F-TECHNOLOGY-TRANSACTION-ACCEPTANCE-004",
+          "F-TECHNOLOGY-TRANSACTION-ACCEPTANCE-005"
+        ],
+        "evidence_refs": [
+          "SRC-579585d88956de12e1f5",
+          "SRC-3526443fb0d96d16fc63",
+          "SRC-dc5d4ee92e36efa4e1d6",
+          "SRC-03914f9778f7e10e561b",
+          "SRC-a7f0c3b98977631cfc30"
+        ],
+        "bound_evidence_ids": [
+          "SRC-579585d88956de12e1f5",
+          "SRC-3526443fb0d96d16fc63",
+          "SRC-dc5d4ee92e36efa4e1d6",
+          "SRC-03914f9778f7e10e561b",
+          "SRC-a7f0c3b98977631cfc30"
+        ]
+      }
+    ],
+    "TC-04-04": [
+      {
+        "review_id": "TC-04-04",
+        "element_id": "no_fault_technical_risk_trigger",
+        "claim_id": "TC-04-04-no_fault_technical_risk_trigger",
+        "proposition": "如乙方已经按照约定投入合理研发资源，但因现有技术水平客观上无法达到部分研发目标：",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-83f57c7494615e9b"
+        ],
+        "supporting_evidence_ids": [
+          "EV-83f57c7494615e9b"
+        ],
+        "source_clause_ids": [
+          "C0022"
+        ],
+        "source_spans": [
+          "如乙方已经按照约定投入合理研发资源，但因现有技术水平客观上无法达到部分研发目标："
+        ],
+        "source_locations": [
+          "第十五条 正常研发失败风险"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "如乙方已经按照约定投入合理研发资源，但因现有技术水平客观上无法达到部分研发目标：",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "无过错技术风险导致研发失败的触发情形",
+        "search_targets": [
+          "无过错技术风险导致研发失败的触发情形"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0022",
+            "quote": "如乙方已经按照约定投入合理研发资源，但因现有技术水平客观上无法达到部分研发目标：",
+            "source_domain": "DEVELOPMENT_FAILURE",
+            "support_strength": "DIRECT"
+          }
+        ],
+        "source_fact_key": "no_fault_technical_risk_trigger",
+        "evidence_refs": [
+          "EV-83f57c7494615e9b"
+        ]
+      },
+      {
+        "review_id": "TC-04-04",
+        "element_id": "no_fault_technical_risk_allocation",
+        "claim_id": "TC-04-04-no_fault_technical_risk_allocation",
+        "proposition": "乙方无需赔偿甲方预期商业收益",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-1153dd9358a9fd8b"
+        ],
+        "supporting_evidence_ids": [
+          "EV-1153dd9358a9fd8b"
+        ],
+        "source_clause_ids": [
+          "C0022"
+        ],
+        "source_spans": [
+          "乙方无需赔偿甲方预期商业收益"
+        ],
+        "source_locations": [
+          "第十五条 正常研发失败风险"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "乙方无需赔偿甲方预期商业收益",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "无过错技术风险损失分担",
+        "search_targets": [
+          "无过错技术风险损失分担"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0022",
+            "quote": "乙方无需赔偿甲方预期商业收益",
+            "source_domain": "DEVELOPMENT_FAILURE",
+            "support_strength": "DIRECT"
+          }
+        ],
+        "source_fact_key": "no_fault_technical_risk_allocation",
+        "evidence_refs": [
+          "EV-1153dd9358a9fd8b"
+        ]
+      },
+      {
+        "review_id": "TC-04-04",
+        "element_id": "failed_development_incurred_cost_settlement",
+        "claim_id": "TC-04-04-failed_development_incurred_cost_settlement",
+        "proposition": "但双方应根据已经完成的有效研发成果及实际工作量结算费用",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-27b48e4c7bea1430"
+        ],
+        "supporting_evidence_ids": [
+          "EV-27b48e4c7bea1430"
+        ],
+        "source_clause_ids": [
+          "C0022"
+        ],
+        "source_spans": [
+          "但双方应根据已经完成的有效研发成果及实际工作量结算费用"
+        ],
+        "source_locations": [
+          "第十五条 正常研发失败风险"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "但双方应根据已经完成的有效研发成果及实际工作量结算费用",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "研发失败时已发生研发费用结算",
+        "search_targets": [
+          "研发失败时已发生研发费用结算"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0022",
+            "quote": "但双方应根据已经完成的有效研发成果及实际工作量结算费用",
+            "source_domain": "DEVELOPMENT_FAILURE",
+            "support_strength": "DIRECT"
+          }
+        ],
+        "source_fact_key": "failed_development_incurred_cost_settlement",
+        "evidence_refs": [
+          "EV-27b48e4c7bea1430"
+        ]
+      },
+      {
+        "review_id": "TC-04-04",
+        "element_id": "paid_fee_refund",
+        "claim_id": "TC-04-04-paid_fee_refund",
+        "proposition": "研发失败时已付款处理",
+        "status": "MISSING",
+        "evidence_ids": [],
+        "supporting_evidence_ids": [],
+        "source_clause_ids": [],
+        "source_spans": [],
+        "source_locations": [],
+        "entailment": "UNCERTAIN",
+        "verifier_confidence": "high",
+        "reason": "研发失败时已付款处理",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "研发失败时已付款处理",
+        "required_fact": "研发失败时已付款处理",
+        "search_targets": [
+          "研发失败时已付款处理"
+        ],
+        "supporting_evidence": [],
+        "source_fact_key": "paid_fee_refund"
+      },
+      {
+        "review_id": "TC-04-04",
+        "element_id": "unpaid_fee_obligation",
+        "claim_id": "TC-04-04-unpaid_fee_obligation",
+        "proposition": "研发失败时未付款处理",
+        "status": "MISSING",
+        "evidence_ids": [],
+        "supporting_evidence_ids": [],
+        "source_clause_ids": [],
+        "source_spans": [],
+        "source_locations": [],
+        "entailment": "UNCERTAIN",
+        "verifier_confidence": "high",
+        "reason": "研发失败时未付款处理",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "研发失败时未付款处理",
+        "required_fact": "研发失败时未付款处理",
+        "search_targets": [
+          "研发失败时未付款处理"
+        ],
+        "supporting_evidence": [],
+        "source_fact_key": "unpaid_fee_obligation"
+      },
+      {
+        "review_id": "TC-04-04",
+        "element_id": "failed_project_stage_result_disposition",
+        "claim_id": "TC-04-04-failed_project_stage_result_disposition",
+        "proposition": "研发失败时阶段成果处置",
+        "status": "MISSING",
+        "evidence_ids": [],
+        "supporting_evidence_ids": [],
+        "source_clause_ids": [],
+        "source_spans": [],
+        "source_locations": [],
+        "entailment": "UNCERTAIN",
+        "verifier_confidence": "high",
+        "reason": "研发失败时阶段成果处置",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "研发失败时阶段成果处置",
+        "required_fact": "研发失败时阶段成果处置",
+        "search_targets": [
+          "研发失败时阶段成果处置"
+        ],
+        "supporting_evidence": [],
+        "source_fact_key": "failed_project_stage_result_disposition"
+      },
+      {
+        "review_id": "TC-04-04",
+        "element_id": "failed_project_source_code_disposition",
+        "claim_id": "TC-04-04-failed_project_source_code_disposition",
+        "proposition": "研发失败时源代码处置",
+        "status": "MISSING",
+        "evidence_ids": [],
+        "supporting_evidence_ids": [],
+        "source_clause_ids": [],
+        "source_spans": [],
+        "source_locations": [],
+        "entailment": "UNCERTAIN",
+        "verifier_confidence": "high",
+        "reason": "研发失败时源代码处置",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "研发失败时源代码处置",
+        "required_fact": "研发失败时源代码处置",
+        "search_targets": [
+          "研发失败时源代码处置"
+        ],
+        "supporting_evidence": [],
+        "source_fact_key": "failed_project_source_code_disposition"
+      },
+      {
+        "review_id": "TC-04-04",
+        "element_id": "failed_project_material_disposition",
+        "claim_id": "TC-04-04-failed_project_material_disposition",
+        "proposition": "研发失败时研发资料处置",
+        "status": "MISSING",
+        "evidence_ids": [],
+        "supporting_evidence_ids": [],
+        "source_clause_ids": [],
+        "source_spans": [],
+        "source_locations": [],
+        "entailment": "UNCERTAIN",
+        "verifier_confidence": "high",
+        "reason": "研发失败时研发资料处置",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "研发失败时研发资料处置",
+        "required_fact": "研发失败时研发资料处置",
+        "search_targets": [
+          "研发失败时研发资料处置"
+        ],
+        "supporting_evidence": [],
+        "source_fact_key": "failed_project_material_disposition"
+      }
+    ],
+    "TC-05-04": [
+      {
+        "review_id": "TC-05-04",
+        "element_id": "development_delay_liability",
+        "claim_id": "TC-05-04-development_delay_liability",
+        "proposition": "开发迟延的违约后果已有明确约定",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-eec868719336e948"
+        ],
+        "supporting_evidence_ids": [
+          "EV-eec868719336e948"
+        ],
+        "source_clause_ids": [
+          "C0029"
+        ],
+        "source_spans": [
+          "甲方未按期支付开发费用：\n每迟延一日，按应付未付金额的0.03%支付违约金。"
+        ],
+        "source_locations": [
+          "第二十二条 甲方违约"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "开发迟延的违约后果已有明确约定",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "开发迟延的违约后果",
+        "search_targets": [
+          "开发迟延的违约后果"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0029",
+            "quote": "甲方未按期支付开发费用：\n每迟延一日，按应付未付金额的0.03%支付违约金。",
+            "source_domain": "DEVELOPMENT_EXIT",
+            "deferred": false,
+            "adverse": false
+          }
+        ],
+        "source_fact_key": "development_delay_liability",
+        "evidence_refs": [
+          "EV-eec868719336e948"
+        ]
+      },
+      {
+        "review_id": "TC-05-04",
+        "element_id": "payment_delay_liability",
+        "claim_id": "TC-05-04-payment_delay_liability",
+        "proposition": "付款迟延的违约后果已有明确约定",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-eec868719336e948"
+        ],
+        "supporting_evidence_ids": [
+          "EV-eec868719336e948"
+        ],
+        "source_clause_ids": [
+          "C0029"
+        ],
+        "source_spans": [
+          "甲方未按期支付开发费用：\n每迟延一日，按应付未付金额的0.03%支付违约金。"
+        ],
+        "source_locations": [
+          "第二十二条 甲方违约"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "付款迟延的违约后果已有明确约定",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "付款迟延的违约后果",
+        "search_targets": [
+          "付款迟延的违约后果"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0029",
+            "quote": "甲方未按期支付开发费用：\n每迟延一日，按应付未付金额的0.03%支付违约金。",
+            "source_domain": "DEVELOPMENT_EXIT",
+            "deferred": false,
+            "adverse": false
+          }
+        ],
+        "source_fact_key": "payment_delay_liability",
+        "evidence_refs": [
+          "EV-eec868719336e948"
+        ]
+      },
+      {
+        "review_id": "TC-05-04",
+        "element_id": "development_termination_mechanism",
+        "claim_id": "TC-05-04-development_termination_mechanism",
+        "proposition": "开发合同解除或终止机制已有明确约定",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-a2cc9c848d1ebebd",
+          "EV-b92714d6528141fe"
+        ],
+        "supporting_evidence_ids": [
+          "EV-a2cc9c848d1ebebd",
+          "EV-b92714d6528141fe"
+        ],
+        "source_clause_ids": [
+          "C0021",
+          "C0028"
+        ],
+        "source_spans": [
+          "甲方有权解除合同",
+          "甲方有权解除合同并要求乙方赔偿损失"
+        ],
+        "source_locations": [
+          "第十四条 最终验收",
+          "第二十一条 乙方违约"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "开发合同解除或终止机制已有明确约定",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "开发合同解除或终止机制",
+        "search_targets": [
+          "开发合同解除或终止机制"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0021",
+            "quote": "甲方有权解除合同",
+            "source_domain": "DEVELOPMENT_EXIT",
+            "deferred": false,
+            "adverse": false
+          },
+          {
+            "clause_id": "C0028",
+            "quote": "甲方有权解除合同并要求乙方赔偿损失",
+            "source_domain": "DEVELOPMENT_EXIT",
+            "deferred": false,
+            "adverse": false
+          }
+        ],
+        "source_fact_key": "development_termination_mechanism",
+        "evidence_refs": [
+          "EV-a2cc9c848d1ebebd",
+          "EV-b92714d6528141fe"
+        ]
+      },
+      {
+        "review_id": "TC-05-04",
+        "element_id": "exit_research_material_handover",
+        "claim_id": "TC-05-04-exit_research_material_handover",
+        "proposition": "提前退出时研发资料交接",
+        "status": "MISSING",
+        "evidence_ids": [],
+        "supporting_evidence_ids": [],
+        "source_clause_ids": [],
+        "source_spans": [],
+        "source_locations": [],
+        "entailment": "UNCERTAIN",
+        "verifier_confidence": "high",
+        "reason": "提前退出时研发资料交接",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "提前退出时研发资料交接",
+        "search_targets": [
+          "提前退出时研发资料交接"
+        ],
+        "supporting_evidence": [],
+        "source_fact_key": "exit_research_material_handover"
+      },
+      {
+        "review_id": "TC-05-04",
+        "element_id": "exit_source_code_handover",
+        "claim_id": "TC-05-04-exit_source_code_handover",
+        "proposition": "提前退出时源代码交接",
+        "status": "MISSING",
+        "evidence_ids": [],
+        "supporting_evidence_ids": [],
+        "source_clause_ids": [],
+        "source_spans": [],
+        "source_locations": [],
+        "entailment": "UNCERTAIN",
+        "verifier_confidence": "high",
+        "reason": "提前退出时源代码交接",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "提前退出时源代码交接",
+        "search_targets": [
+          "提前退出时源代码交接"
+        ],
+        "supporting_evidence": [],
+        "source_fact_key": "exit_source_code_handover"
+      },
+      {
+        "review_id": "TC-05-04",
+        "element_id": "exit_sample_handover",
+        "claim_id": "TC-05-04-exit_sample_handover",
+        "proposition": "提前退出时样品交接",
+        "status": "NOT_APPLICABLE",
+        "evidence_ids": [],
+        "supporting_evidence_ids": [],
+        "source_clause_ids": [],
+        "source_spans": [],
+        "source_locations": [],
+        "entailment": "UNCERTAIN",
+        "verifier_confidence": "high",
+        "reason": "提前退出时样品交接",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": false,
+        "residual_gap": "",
+        "required_fact": "提前退出时样品交接",
+        "search_targets": [],
+        "supporting_evidence": [],
+        "source_fact_key": "exit_sample_handover",
+        "conditional_element": true,
+        "prerequisite_status": "FALSE",
+        "prerequisite_fact": "已明确的软件交付范围内无实物样品/样机交付对象"
+      },
+      {
+        "review_id": "TC-05-04",
+        "element_id": "exit_stage_result_handover",
+        "claim_id": "TC-05-04-exit_stage_result_handover",
+        "proposition": "提前退出时阶段成果交接",
+        "status": "MISSING",
+        "evidence_ids": [],
+        "supporting_evidence_ids": [],
+        "source_clause_ids": [],
+        "source_spans": [],
+        "source_locations": [],
+        "entailment": "UNCERTAIN",
+        "verifier_confidence": "high",
+        "reason": "提前退出时阶段成果交接",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "提前退出时阶段成果交接",
+        "search_targets": [
+          "提前退出时阶段成果交接"
+        ],
+        "supporting_evidence": [],
+        "source_fact_key": "exit_stage_result_handover"
+      },
+      {
+        "review_id": "TC-05-04",
+        "element_id": "exit_unfinished_result_ownership",
+        "claim_id": "TC-05-04-exit_unfinished_result_ownership",
+        "proposition": "提前退出时未完成成果归属",
+        "status": "MISSING",
+        "evidence_ids": [],
+        "supporting_evidence_ids": [],
+        "source_clause_ids": [],
+        "source_spans": [],
+        "source_locations": [],
+        "entailment": "UNCERTAIN",
+        "verifier_confidence": "high",
+        "reason": "提前退出时未完成成果归属",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "提前退出时未完成成果归属",
+        "search_targets": [
+          "提前退出时未完成成果归属"
+        ],
+        "supporting_evidence": [],
+        "source_fact_key": "exit_unfinished_result_ownership"
+      },
+      {
+        "review_id": "TC-05-04",
+        "element_id": "exit_development_cost_settlement",
+        "claim_id": "TC-05-04-exit_development_cost_settlement",
+        "proposition": "提前退出时开发费用结算已有明确约定",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-8c254cb066f8b33c"
+        ],
+        "supporting_evidence_ids": [
+          "EV-8c254cb066f8b33c"
+        ],
+        "source_clause_ids": [
+          "C0022"
+        ],
+        "source_spans": [
+          "但双方应根据已经完成的有效研发成果及实际工作量结算费用"
+        ],
+        "source_locations": [
+          "第十五条 正常研发失败风险"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "提前退出时开发费用结算已有明确约定",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "提前退出时开发费用结算",
+        "search_targets": [
+          "提前退出时开发费用结算"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0022",
+            "quote": "但双方应根据已经完成的有效研发成果及实际工作量结算费用",
+            "source_domain": "DEVELOPMENT_EXIT",
+            "deferred": false,
+            "adverse": false
+          }
+        ],
+        "source_fact_key": "exit_development_cost_settlement",
+        "evidence_refs": [
+          "EV-8c254cb066f8b33c"
+        ]
+      }
+    ],
+    "TC-11-01": [
+      {
+        "review_id": "TC-11-01",
+        "element_id": "confidential_information_scope",
+        "claim_id": "TC-11-01-confidential_information_scope",
+        "proposition": "保密信息类别和范围已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-37d2046ca4660c89fcc3",
+          "SRC-6178e6e7869381a6bb82",
+          "SRC-6fc66a8b2be4df6a0dd6",
+          "SRC-a479d1c0ab77e655b94f"
+        ],
+        "supporting_evidence_ids": [
+          "SRC-37d2046ca4660c89fcc3",
+          "SRC-6178e6e7869381a6bb82",
+          "SRC-6fc66a8b2be4df6a0dd6",
+          "SRC-a479d1c0ab77e655b94f"
+        ],
+        "source_clause_ids": [
+          "C0031",
+          "C0031",
+          "C0031",
+          "C0031"
+        ],
+        "source_spans": [
+          "双方应对以下信息保密：\n甲方生产数据；",
+          "双方应对以下信息保密：\n甲方生产数据；\n产品技术资料；\n项目源代码；",
+          "双方应对以下信息保密：\n甲方生产数据；\n产品技术资料；\n项目源代码；\n模型参数；",
+          "双方应对以下信息保密：\n甲方生产数据；\n产品技术资料；\n项目源代码；\n模型参数；\n未公开项目成果；\n商业计划；\n客户信息。"
+        ],
+        "source_locations": [
+          "第二十四条 保密义务",
+          "第二十四条 保密义务",
+          "第二十四条 保密义务",
+          "第二十四条 保密义务"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "保密信息类别和范围已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "保密信息类别和范围",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0031",
+            "quote": "双方应对以下信息保密：\n甲方生产数据；",
+            "obligated_party": "双方"
+          },
+          {
+            "clause_id": "C0031",
+            "quote": "双方应对以下信息保密：\n甲方生产数据；\n产品技术资料；\n项目源代码；",
+            "obligated_party": "双方"
+          },
+          {
+            "clause_id": "C0031",
+            "quote": "双方应对以下信息保密：\n甲方生产数据；\n产品技术资料；\n项目源代码；\n模型参数；",
+            "obligated_party": "双方"
+          },
+          {
+            "clause_id": "C0031",
+            "quote": "双方应对以下信息保密：\n甲方生产数据；\n产品技术资料；\n项目源代码；\n模型参数；\n未公开项目成果；\n商业计划；\n客户信息。",
+            "obligated_party": "双方"
+          }
+        ],
+        "source_fact_key": "confidentiality.confidential_information_scope",
+        "evidence_refs": [
+          "SRC-37d2046ca4660c89fcc3",
+          "SRC-6178e6e7869381a6bb82",
+          "SRC-6fc66a8b2be4df6a0dd6",
+          "SRC-a479d1c0ab77e655b94f"
+        ],
+        "bound_evidence_ids": [
+          "SRC-37d2046ca4660c89fcc3",
+          "SRC-6178e6e7869381a6bb82",
+          "SRC-6fc66a8b2be4df6a0dd6",
+          "SRC-a479d1c0ab77e655b94f"
+        ]
+      },
+      {
+        "review_id": "TC-11-01",
+        "element_id": "during_contract_confidentiality",
+        "claim_id": "TC-11-01-during_contract_confidentiality",
+        "proposition": "合同履行期间的保密义务已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-37d2046ca4660c89fcc3"
+        ],
+        "supporting_evidence_ids": [
+          "SRC-37d2046ca4660c89fcc3"
+        ],
+        "source_clause_ids": [
+          "C0031"
+        ],
+        "source_spans": [
+          "双方应对以下信息保密：\n甲方生产数据；"
+        ],
+        "source_locations": [
+          "第二十四条 保密义务"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "合同履行期间的保密义务已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "合同履行期间的保密义务",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0031",
+            "quote": "双方应对以下信息保密：\n甲方生产数据；",
+            "obligated_party": "双方"
+          }
+        ],
+        "source_fact_key": "confidentiality.during_contract_confidentiality",
+        "evidence_refs": [
+          "SRC-37d2046ca4660c89fcc3"
+        ],
+        "bound_evidence_ids": [
+          "SRC-37d2046ca4660c89fcc3"
+        ]
+      }
+    ],
+    "TC-11-02": [
+      {
+        "review_id": "TC-11-02",
+        "element_id": "confidential_information_scope",
+        "claim_id": "TC-11-02-confidential_information_scope",
+        "proposition": "保密信息类别和范围已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-b5e305e9847659fa",
+          "EV-9f5683040095459b",
+          "EV-0916716748b1342d",
+          "EV-a15b34374d813fc7"
+        ],
+        "supporting_evidence_ids": [
+          "EV-b5e305e9847659fa",
+          "EV-9f5683040095459b",
+          "EV-0916716748b1342d",
+          "EV-a15b34374d813fc7"
+        ],
+        "source_clause_ids": [
+          "C0031",
+          "C0031",
+          "C0031",
+          "C0031"
+        ],
+        "source_spans": [
+          "双方应对以下信息保密：\n甲方生产数据；",
+          "双方应对以下信息保密：\n甲方生产数据；\n产品技术资料；\n项目源代码；",
+          "双方应对以下信息保密：\n甲方生产数据；\n产品技术资料；\n项目源代码；\n模型参数；",
+          "双方应对以下信息保密：\n甲方生产数据；\n产品技术资料；\n项目源代码；\n模型参数；\n未公开项目成果；\n商业计划；\n客户信息。"
+        ],
+        "source_locations": [
+          "第二十四条 保密义务",
+          "第二十四条 保密义务",
+          "第二十四条 保密义务",
+          "第二十四条 保密义务"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "保密信息类别和范围已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "保密信息类别和范围",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0031",
+            "quote": "双方应对以下信息保密：\n甲方生产数据；",
+            "obligated_party": "双方"
+          },
+          {
+            "clause_id": "C0031",
+            "quote": "双方应对以下信息保密：\n甲方生产数据；\n产品技术资料；\n项目源代码；",
+            "obligated_party": "双方"
+          },
+          {
+            "clause_id": "C0031",
+            "quote": "双方应对以下信息保密：\n甲方生产数据；\n产品技术资料；\n项目源代码；\n模型参数；",
+            "obligated_party": "双方"
+          },
+          {
+            "clause_id": "C0031",
+            "quote": "双方应对以下信息保密：\n甲方生产数据；\n产品技术资料；\n项目源代码；\n模型参数；\n未公开项目成果；\n商业计划；\n客户信息。",
+            "obligated_party": "双方"
+          }
+        ],
+        "source_fact_key": "confidentiality.confidential_information_scope",
+        "evidence_refs": [
+          "EV-b5e305e9847659fa",
+          "EV-9f5683040095459b",
+          "EV-0916716748b1342d",
+          "EV-a15b34374d813fc7"
+        ]
+      },
+      {
+        "review_id": "TC-11-02",
+        "element_id": "during_contract_confidentiality",
+        "claim_id": "TC-11-02-during_contract_confidentiality",
+        "proposition": "合同履行期间的保密义务已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-b5e305e9847659fa"
+        ],
+        "supporting_evidence_ids": [
+          "EV-b5e305e9847659fa"
+        ],
+        "source_clause_ids": [
+          "C0031"
+        ],
+        "source_spans": [
+          "双方应对以下信息保密：\n甲方生产数据；"
+        ],
+        "source_locations": [
+          "第二十四条 保密义务"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "合同履行期间的保密义务已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "合同履行期间的保密义务",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0031",
+            "quote": "双方应对以下信息保密：\n甲方生产数据；",
+            "obligated_party": "双方"
+          }
+        ],
+        "source_fact_key": "confidentiality.during_contract_confidentiality",
+        "evidence_refs": [
+          "EV-b5e305e9847659fa"
+        ]
+      },
+      {
+        "review_id": "TC-11-02",
+        "element_id": "post_termination_confidentiality",
+        "claim_id": "TC-11-02-post_termination_confidentiality",
+        "proposition": "合同终止或解除后的继续保密义务",
+        "status": "MISSING",
+        "evidence_ids": [],
+        "supporting_evidence_ids": [],
+        "source_clause_ids": [],
+        "source_spans": [],
+        "source_locations": [],
+        "entailment": "UNCERTAIN",
+        "verifier_confidence": "high",
+        "reason": "合同终止或解除后的继续保密义务",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "合同终止或解除后的继续保密义务",
+        "required_fact": "合同终止或解除后的继续保密义务",
+        "search_targets": [
+          "合同终止或解除后的继续保密义务"
+        ],
+        "supporting_evidence": [],
+        "source_fact_key": "confidentiality.post_termination_confidentiality"
+      },
+      {
+        "review_id": "TC-11-02",
+        "element_id": "confidentiality_duration",
+        "claim_id": "TC-11-02-confidentiality_duration",
+        "proposition": "保密义务的持续期间已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-2c7945cc78364418",
+          "EV-3cab23747c31a307"
+        ],
+        "supporting_evidence_ids": [
+          "EV-2c7945cc78364418",
+          "EV-3cab23747c31a307"
+        ],
+        "source_clause_ids": [
+          "C0031",
+          "C0032"
+        ],
+        "source_spans": [
+          "保密期限：\n相关信息保持非公开状态期间持续有效。",
+          "双方应在15个工作日内：\n返还对方要求返还的保密资料；"
+        ],
+        "source_locations": [
+          "第二十四条 保密义务",
+          "第二十五条 保密资料返还及删除"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "保密义务的持续期间已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "保密义务的持续期间",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0031",
+            "quote": "保密期限：\n相关信息保持非公开状态期间持续有效。",
+            "obligated_party": "",
+            "field_name": "保密期限",
+            "field_value": "相关信息保持非公开状态期间持续有效。"
+          },
+          {
+            "clause_id": "C0032",
+            "quote": "双方应在15个工作日内：\n返还对方要求返还的保密资料；",
+            "obligated_party": ""
+          }
+        ],
+        "source_fact_key": "confidentiality.confidentiality_duration",
+        "evidence_refs": [
+          "EV-2c7945cc78364418",
+          "EV-3cab23747c31a307"
+        ]
+      },
+      {
+        "review_id": "TC-11-02",
+        "element_id": "confidentiality_exceptions",
+        "claim_id": "TC-11-02-confidentiality_exceptions",
+        "proposition": "已明确：公开信息例外、合法取得信息例外、独立开发信息例外、依法披露例外。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-48a6c0adc7f69260",
+          "EV-7ac8b94c4ab1b729",
+          "EV-6b44d9e237802ee6",
+          "EV-7aebd197066237e0",
+          "EV-261cf52514e560ee"
+        ],
+        "supporting_evidence_ids": [
+          "EV-48a6c0adc7f69260",
+          "EV-7ac8b94c4ab1b729",
+          "EV-6b44d9e237802ee6",
+          "EV-7aebd197066237e0",
+          "EV-261cf52514e560ee"
+        ],
+        "source_clause_ids": [
+          "C0031",
+          "C0031",
+          "C0031",
+          "C0031",
+          "C0031"
+        ],
+        "source_spans": [
+          "以下不属于保密信息：\n接收方披露前已合法知悉的信息；\n非因接收方原因公开的信息；",
+          "以下不属于保密信息：\n接收方披露前已合法知悉的信息；\n非因接收方原因公开的信息；\n从合法第三方取得的信息；",
+          "以下不属于保密信息：\n接收方披露前已合法知悉的信息；\n非因接收方原因公开的信息；\n从合法第三方取得的信息；\n独立开发的信息；",
+          "以下不属于保密信息：\n接收方披露前已合法知悉的信息；\n非因接收方原因公开的信息；\n从合法第三方取得的信息；\n独立开发的信息；\n依法必须披露的信息。",
+          "以下不属于保密信息：\n接收方披露前已合法知悉的信息；\n非因接收方原因公开的信息；\n从合法第三方取得的信息；\n独立开发的信息；\n依法必须披露的信息。\n依法必须披露时：\n接收方应在法律允许范围内提前通知另一方。"
+        ],
+        "source_locations": [
+          "第二十四条 保密义务",
+          "第二十四条 保密义务",
+          "第二十四条 保密义务",
+          "第二十四条 保密义务",
+          "第二十四条 保密义务"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "已明确：公开信息例外、合法取得信息例外、独立开发信息例外、依法披露例外。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "公开信息、合法取得、独立开发及依法披露例外",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0031",
+            "quote": "以下不属于保密信息：\n接收方披露前已合法知悉的信息；\n非因接收方原因公开的信息；"
+          },
+          {
+            "clause_id": "C0031",
+            "quote": "以下不属于保密信息：\n接收方披露前已合法知悉的信息；\n非因接收方原因公开的信息；\n从合法第三方取得的信息；"
+          },
+          {
+            "clause_id": "C0031",
+            "quote": "以下不属于保密信息：\n接收方披露前已合法知悉的信息；\n非因接收方原因公开的信息；\n从合法第三方取得的信息；\n独立开发的信息；"
+          },
+          {
+            "clause_id": "C0031",
+            "quote": "以下不属于保密信息：\n接收方披露前已合法知悉的信息；\n非因接收方原因公开的信息；\n从合法第三方取得的信息；\n独立开发的信息；\n依法必须披露的信息。"
+          },
+          {
+            "clause_id": "C0031",
+            "quote": "以下不属于保密信息：\n接收方披露前已合法知悉的信息；\n非因接收方原因公开的信息；\n从合法第三方取得的信息；\n独立开发的信息；\n依法必须披露的信息。\n依法必须披露时：\n接收方应在法律允许范围内提前通知另一方。"
+          }
+        ],
+        "source_fact_key": "confidentiality.exceptions",
+        "component_coverage": [
+          {
+            "element_id": "confidentiality_exception_public",
+            "required_fact": "公开信息例外",
+            "status": "COVERED",
+            "supporting_evidence": [
+              {
+                "clause_id": "C0031",
+                "quote": "以下不属于保密信息：\n接收方披露前已合法知悉的信息；\n非因接收方原因公开的信息；"
+              }
+            ]
+          },
+          {
+            "element_id": "confidentiality_exception_lawful_acquisition",
+            "required_fact": "合法取得信息例外",
+            "status": "COVERED",
+            "supporting_evidence": [
+              {
+                "clause_id": "C0031",
+                "quote": "以下不属于保密信息：\n接收方披露前已合法知悉的信息；\n非因接收方原因公开的信息；\n从合法第三方取得的信息；"
+              }
+            ]
+          },
+          {
+            "element_id": "confidentiality_exception_independent_development",
+            "required_fact": "独立开发信息例外",
+            "status": "COVERED",
+            "supporting_evidence": [
+              {
+                "clause_id": "C0031",
+                "quote": "以下不属于保密信息：\n接收方披露前已合法知悉的信息；\n非因接收方原因公开的信息；\n从合法第三方取得的信息；\n独立开发的信息；"
+              }
+            ]
+          },
+          {
+            "element_id": "confidentiality_exception_legal_disclosure",
+            "required_fact": "依法披露例外",
+            "status": "COVERED",
+            "supporting_evidence": [
+              {
+                "clause_id": "C0031",
+                "quote": "以下不属于保密信息：\n接收方披露前已合法知悉的信息；\n非因接收方原因公开的信息；\n从合法第三方取得的信息；\n独立开发的信息；\n依法必须披露的信息。"
+              },
+              {
+                "clause_id": "C0031",
+                "quote": "以下不属于保密信息：\n接收方披露前已合法知悉的信息；\n非因接收方原因公开的信息；\n从合法第三方取得的信息；\n独立开发的信息；\n依法必须披露的信息。\n依法必须披露时：\n接收方应在法律允许范围内提前通知另一方。"
+              }
+            ]
+          }
+        ],
+        "evidence_refs": [
+          "EV-48a6c0adc7f69260",
+          "EV-7ac8b94c4ab1b729",
+          "EV-6b44d9e237802ee6",
+          "EV-7aebd197066237e0",
+          "EV-261cf52514e560ee"
+        ]
+      },
+      {
+        "review_id": "TC-11-02",
+        "element_id": "prior_notice_when_legally_permitted",
+        "claim_id": "TC-11-02-prior_notice_when_legally_permitted",
+        "proposition": "依法披露时在法律允许范围内提前通知已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-c789ff206586531b"
+        ],
+        "supporting_evidence_ids": [
+          "EV-c789ff206586531b"
+        ],
+        "source_clause_ids": [
+          "C0031"
+        ],
+        "source_spans": [
+          "接收方应在法律允许范围内提前通知另一方。"
+        ],
+        "source_locations": [
+          "第二十四条 保密义务"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "依法披露时在法律允许范围内提前通知已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "依法披露时在法律允许范围内提前通知",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0031",
+            "quote": "接收方应在法律允许范围内提前通知另一方。",
+            "location": "第二十四条 保密义务",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:应|须)[^。；]{0,25}(?:法律允许|依法允许)[^。；]{0,12}(?:提前|事先)通知[^。；]{0,12}(?:另一方|对方)",
+            "condition": ""
+          }
+        ],
+        "source_fact_key": "confidentiality.prior_notice_when_legally_permitted",
+        "evidence_refs": [
+          "EV-c789ff206586531b"
+        ]
+      }
+    ],
+    "TC-11-03": [
+      {
+        "review_id": "TC-11-03",
+        "element_id": "material_disposition",
+        "claim_id": "TC-11-03-material_disposition",
+        "proposition": "双方在项目结束后的项目资料返还、删除或销毁已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-2a748a69fe5b97f0e2c7"
+        ],
+        "supporting_evidence_ids": [
+          "SRC-2a748a69fe5b97f0e2c7"
+        ],
+        "source_clause_ids": [
+          "C0032"
+        ],
+        "source_spans": [
+          "项目完成、提前终止或一方退出时：\n双方应在15个工作日内：\n返还对方要求返还的保密资料；\n删除电子副本；\n删除可恢复备份；\n销毁无需依法保存的纸质资料；"
+        ],
+        "source_locations": [
+          "第二十五条 保密资料返还及删除"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "双方在项目结束后的项目资料返还、删除或销毁已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "obligated_party": "双方",
+        "residual_gap": "",
+        "required_fact": "双方在项目结束后的项目资料返还、删除或销毁",
+        "search_targets": [
+          "双方在项目结束后的项目资料返还、删除或销毁"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0032",
+            "quote": "项目完成、提前终止或一方退出时：\n双方应在15个工作日内：\n返还对方要求返还的保密资料；\n删除电子副本；\n删除可恢复备份；\n销毁无需依法保存的纸质资料；",
+            "location": "第二十五条 保密资料返还及删除",
+            "source_domain": "MATERIAL_DISPOSITION",
+            "actor": "双方",
+            "material_owner": "UNKNOWN",
+            "object_type": "material",
+            "action": "destroy",
+            "post_contract": true,
+            "storage_scope": "",
+            "scope_limited": false,
+            "deferred": false,
+            "polarity": "AFFIRMATIVE"
+          }
+        ],
+        "source_fact_key": "material_disposition",
+        "fact_identity": {
+          "canonical_fact_key": "material_disposition",
+          "scope": "POST_CONTRACT_ALL_LOCATIONS",
+          "party": "双方",
+          "object": "material"
+        },
+        "material_owner": "UNSPECIFIED",
+        "object_type": "material",
+        "underlying_issue_title": "项目结束后的资料处置机制",
+        "evidence_refs": [
+          "SRC-2a748a69fe5b97f0e2c7"
+        ],
+        "bound_evidence_ids": [
+          "SRC-2a748a69fe5b97f0e2c7"
+        ]
+      },
+      {
+        "review_id": "TC-11-03",
+        "element_id": "copy_disposition",
+        "claim_id": "TC-11-03-copy_disposition",
+        "proposition": "双方在项目结束后的复制件及副本返还、删除或销毁已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-d724083a8dfa2dadedca"
+        ],
+        "supporting_evidence_ids": [
+          "SRC-d724083a8dfa2dadedca"
+        ],
+        "source_clause_ids": [
+          "C0032"
+        ],
+        "source_spans": [
+          "项目完成、提前终止或一方退出时：\n双方应在15个工作日内：\n返还对方要求返还的保密资料；\n删除电子副本；"
+        ],
+        "source_locations": [
+          "第二十五条 保密资料返还及删除"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "双方在项目结束后的复制件及副本返还、删除或销毁已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "obligated_party": "双方",
+        "residual_gap": "",
+        "required_fact": "双方在项目结束后的复制件及副本返还、删除或销毁",
+        "search_targets": [
+          "双方在项目结束后的复制件及副本返还、删除或销毁"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0032",
+            "quote": "项目完成、提前终止或一方退出时：\n双方应在15个工作日内：\n返还对方要求返还的保密资料；\n删除电子副本；",
+            "location": "第二十五条 保密资料返还及删除",
+            "source_domain": "MATERIAL_DISPOSITION",
+            "actor": "双方",
+            "material_owner": "UNKNOWN",
+            "object_type": "copy",
+            "action": "delete",
+            "post_contract": true,
+            "storage_scope": "",
+            "scope_limited": false,
+            "deferred": false,
+            "polarity": "AFFIRMATIVE"
+          }
+        ],
+        "source_fact_key": "copy_disposition",
+        "fact_identity": {
+          "canonical_fact_key": "copy_disposition",
+          "scope": "POST_CONTRACT_ALL_LOCATIONS",
+          "party": "双方",
+          "object": "copy"
+        },
+        "material_owner": "UNSPECIFIED",
+        "object_type": "copy",
+        "underlying_issue_title": "项目结束后的资料处置机制",
+        "evidence_refs": [
+          "SRC-d724083a8dfa2dadedca"
+        ],
+        "bound_evidence_ids": [
+          "SRC-d724083a8dfa2dadedca"
+        ]
+      },
+      {
+        "review_id": "TC-11-03",
+        "element_id": "backup_disposition",
+        "claim_id": "TC-11-03-backup_disposition",
+        "proposition": "双方在项目结束后的备份资料返还、删除或销毁已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-1efbfb1f1fab251e6911"
+        ],
+        "supporting_evidence_ids": [
+          "SRC-1efbfb1f1fab251e6911"
+        ],
+        "source_clause_ids": [
+          "C0032"
+        ],
+        "source_spans": [
+          "项目完成、提前终止或一方退出时：\n双方应在15个工作日内：\n返还对方要求返还的保密资料；\n删除电子副本；\n删除可恢复备份；"
+        ],
+        "source_locations": [
+          "第二十五条 保密资料返还及删除"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "双方在项目结束后的备份资料返还、删除或销毁已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "obligated_party": "双方",
+        "residual_gap": "",
+        "required_fact": "双方在项目结束后的备份资料返还、删除或销毁",
+        "search_targets": [
+          "双方在项目结束后的备份资料返还、删除或销毁"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0032",
+            "quote": "项目完成、提前终止或一方退出时：\n双方应在15个工作日内：\n返还对方要求返还的保密资料；\n删除电子副本；\n删除可恢复备份；",
+            "location": "第二十五条 保密资料返还及删除",
+            "source_domain": "MATERIAL_DISPOSITION",
+            "actor": "双方",
+            "material_owner": "UNKNOWN",
+            "object_type": "backup",
+            "action": "delete",
+            "post_contract": true,
+            "storage_scope": "",
+            "scope_limited": false,
+            "deferred": false,
+            "polarity": "AFFIRMATIVE"
+          }
+        ],
+        "source_fact_key": "backup_disposition",
+        "fact_identity": {
+          "canonical_fact_key": "backup_disposition",
+          "scope": "POST_CONTRACT_ALL_LOCATIONS",
+          "party": "双方",
+          "object": "backup"
+        },
+        "material_owner": "UNSPECIFIED",
+        "object_type": "backup",
+        "underlying_issue_title": "项目结束后的资料处置机制",
+        "evidence_refs": [
+          "SRC-1efbfb1f1fab251e6911"
+        ],
+        "bound_evidence_ids": [
+          "SRC-1efbfb1f1fab251e6911"
+        ]
+      },
+      {
+        "review_id": "TC-11-03",
+        "element_id": "material_disposal_confirmation",
+        "claim_id": "TC-11-03-material_disposal_confirmation",
+        "proposition": "双方完成资料返还、删除或销毁后的书面处置确认已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-ebad3d2b18692f7b9d7c"
+        ],
+        "supporting_evidence_ids": [
+          "SRC-ebad3d2b18692f7b9d7c"
+        ],
+        "source_clause_ids": [
+          "C0032"
+        ],
+        "source_spans": [
+          "项目完成、提前终止或一方退出时：\n双方应在15个工作日内：\n返还对方要求返还的保密资料；\n删除电子副本；\n删除可恢复备份；\n销毁无需依法保存的纸质资料；\n出具书面删除或销毁确认。"
+        ],
+        "source_locations": [
+          "第二十五条 保密资料返还及删除"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "双方完成资料返还、删除或销毁后的书面处置确认已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "obligated_party": "双方",
+        "residual_gap": "",
+        "required_fact": "双方完成资料返还、删除或销毁后的书面处置确认",
+        "search_targets": [
+          "双方完成资料返还、删除或销毁后的书面处置确认"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0032",
+            "quote": "项目完成、提前终止或一方退出时：\n双方应在15个工作日内：\n返还对方要求返还的保密资料；\n删除电子副本；\n删除可恢复备份；\n销毁无需依法保存的纸质资料；\n出具书面删除或销毁确认。",
+            "location": "第二十五条 保密资料返还及删除",
+            "source_domain": "MATERIAL_DISPOSITION",
+            "actor": "双方",
+            "material_owner": "UNKNOWN",
+            "object_type": "material",
+            "action": "confirmation",
+            "post_contract": true,
+            "storage_scope": "",
+            "scope_limited": false,
+            "deferred": false,
+            "polarity": "AFFIRMATIVE",
+            "antecedent_quote": "项目完成、提前终止或一方退出时：\n双方应在15个工作日内：\n返还对方要求返还的保密资料；\n删除电子副本；\n删除可恢复备份；\n销毁无需依法保存的纸质资料；"
+          }
+        ],
+        "source_fact_key": "material_disposal_confirmation",
+        "fact_identity": {
+          "canonical_fact_key": "material_disposal_confirmation",
+          "scope": "POST_CONTRACT_ALL_LOCATIONS",
+          "party": "双方",
+          "object": "disposition_confirmation"
+        },
+        "material_owner": "UNSPECIFIED",
+        "object_type": "disposition_confirmation",
+        "underlying_issue_title": "项目结束后的资料处置机制",
+        "evidence_refs": [
+          "SRC-ebad3d2b18692f7b9d7c"
+        ],
+        "bound_evidence_ids": [
+          "SRC-ebad3d2b18692f7b9d7c"
+        ]
+      },
+      {
+        "review_id": "TC-11-03",
+        "element_id": "material_processing_deadline",
+        "claim_id": "TC-11-03-material_processing_deadline",
+        "proposition": "资料返还删除销毁的处理期限已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-2a748a69fe5b97f0e2c7",
+          "SRC-d724083a8dfa2dadedca",
+          "SRC-1efbfb1f1fab251e6911",
+          "SRC-5a8c705cb7914bcb5b5a"
+        ],
+        "supporting_evidence_ids": [
+          "SRC-2a748a69fe5b97f0e2c7",
+          "SRC-d724083a8dfa2dadedca",
+          "SRC-1efbfb1f1fab251e6911",
+          "SRC-5a8c705cb7914bcb5b5a"
+        ],
+        "source_clause_ids": [
+          "C0032",
+          "C0032",
+          "C0032",
+          "C0032"
+        ],
+        "source_spans": [
+          "项目完成、提前终止或一方退出时：\n双方应在15个工作日内：\n返还对方要求返还的保密资料；\n删除电子副本；\n删除可恢复备份；\n销毁无需依法保存的纸质资料；",
+          "项目完成、提前终止或一方退出时：\n双方应在15个工作日内：\n返还对方要求返还的保密资料；\n删除电子副本；",
+          "项目完成、提前终止或一方退出时：\n双方应在15个工作日内：\n返还对方要求返还的保密资料；\n删除电子副本；\n删除可恢复备份；",
+          "项目完成、提前终止或一方退出时：\n双方应在15个工作日内：\n返还对方要求返还的保密资料；"
+        ],
+        "source_locations": [
+          "第二十五条 保密资料返还及删除",
+          "第二十五条 保密资料返还及删除",
+          "第二十五条 保密资料返还及删除",
+          "第二十五条 保密资料返还及删除"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "资料返还删除销毁的处理期限已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "资料返还删除销毁的处理期限",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0032",
+            "quote": "项目完成、提前终止或一方退出时：\n双方应在15个工作日内：\n返还对方要求返还的保密资料；",
+            "location": "第二十五条 保密资料返还及删除",
+            "source_domain": "MATERIAL_DISPOSITION",
+            "actor": "双方",
+            "material_owner": "UNKNOWN",
+            "object_type": "technical_secret_material",
+            "action": "return",
+            "post_contract": true,
+            "storage_scope": "",
+            "scope_limited": true,
+            "deferred": false,
+            "polarity": "AFFIRMATIVE"
+          },
+          {
+            "clause_id": "C0032",
+            "quote": "项目完成、提前终止或一方退出时：\n双方应在15个工作日内：\n返还对方要求返还的保密资料；\n删除电子副本；",
+            "location": "第二十五条 保密资料返还及删除",
+            "source_domain": "MATERIAL_DISPOSITION",
+            "actor": "双方",
+            "material_owner": "UNKNOWN",
+            "object_type": "copy",
+            "action": "delete",
+            "post_contract": true,
+            "storage_scope": "",
+            "scope_limited": false,
+            "deferred": false,
+            "polarity": "AFFIRMATIVE"
+          },
+          {
+            "clause_id": "C0032",
+            "quote": "项目完成、提前终止或一方退出时：\n双方应在15个工作日内：\n返还对方要求返还的保密资料；\n删除电子副本；\n删除可恢复备份；",
+            "location": "第二十五条 保密资料返还及删除",
+            "source_domain": "MATERIAL_DISPOSITION",
+            "actor": "双方",
+            "material_owner": "UNKNOWN",
+            "object_type": "backup",
+            "action": "delete",
+            "post_contract": true,
+            "storage_scope": "",
+            "scope_limited": false,
+            "deferred": false,
+            "polarity": "AFFIRMATIVE"
+          },
+          {
+            "clause_id": "C0032",
+            "quote": "项目完成、提前终止或一方退出时：\n双方应在15个工作日内：\n返还对方要求返还的保密资料；\n删除电子副本；\n删除可恢复备份；\n销毁无需依法保存的纸质资料；",
+            "location": "第二十五条 保密资料返还及删除",
+            "source_domain": "MATERIAL_DISPOSITION",
+            "actor": "双方",
+            "material_owner": "UNKNOWN",
+            "object_type": "material",
+            "action": "destroy",
+            "post_contract": true,
+            "storage_scope": "",
+            "scope_limited": false,
+            "deferred": false,
+            "polarity": "AFFIRMATIVE"
+          }
+        ],
+        "source_fact_key": "material_processing_deadline",
+        "evidence_refs": [
+          "SRC-2a748a69fe5b97f0e2c7",
+          "SRC-d724083a8dfa2dadedca",
+          "SRC-1efbfb1f1fab251e6911",
+          "SRC-5a8c705cb7914bcb5b5a"
+        ],
+        "bound_evidence_ids": [
+          "SRC-2a748a69fe5b97f0e2c7",
+          "SRC-d724083a8dfa2dadedca",
+          "SRC-1efbfb1f1fab251e6911",
+          "SRC-5a8c705cb7914bcb5b5a"
+        ]
+      }
+    ],
+    "TC-13-02": [
+      {
+        "review_id": "TC-13-02",
+        "element_id": "background_technology_statement",
+        "claim_id": "TC-13-02-background_technology_statement",
+        "proposition": "背景技术范围及归属声明已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-c6269db50b8777df",
+          "EV-688725fae5853925"
+        ],
+        "supporting_evidence_ids": [
+          "EV-c6269db50b8777df",
+          "EV-688725fae5853925"
+        ],
+        "source_clause_ids": [
+          "C0009",
+          "C0013"
+        ],
+        "source_spans": [
+          "乙方在本合同签署前已经拥有以下背景技术：",
+          "第六条所列既有背景技术归乙方所有。"
+        ],
+        "source_locations": [
+          "第六条 乙方既有背景技术",
+          "第六条所列既有背景技术归乙方所有。"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "背景技术范围及归属声明已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "背景技术范围及归属声明",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0009",
+            "quote": "乙方在本合同签署前已经拥有以下背景技术：",
+            "location": "第六条 乙方既有背景技术",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:背景技术|既有技术)[^。；]{0,30}(?:归|包括|所列)|(?:保留|拥有)[^。；]{0,25}背景技术",
+            "condition": ""
+          },
+          {
+            "clause_id": "C0013",
+            "quote": "第六条所列既有背景技术归乙方所有。",
+            "location": "第六条所列既有背景技术归乙方所有。",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:背景技术|既有技术)[^。；]{0,30}(?:归|包括|所列)|(?:保留|拥有)[^。；]{0,25}背景技术",
+            "condition": ""
+          }
+        ],
+        "source_fact_key": "technology.development_proof.background_technology_statement",
+        "evidence_refs": [
+          "EV-c6269db50b8777df",
+          "EV-688725fae5853925"
+        ]
+      },
+      {
+        "review_id": "TC-13-02",
+        "element_id": "project_application_ownership_statement",
+        "claim_id": "TC-13-02-project_application_ownership_statement",
+        "proposition": "项目专利申请权归属声明已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-a8eb4071aa6d3855"
+        ],
+        "supporting_evidence_ids": [
+          "EV-a8eb4071aa6d3855"
+        ],
+        "source_clause_ids": [
+          "C0016"
+        ],
+        "source_spans": [
+          "相关专利申请权归甲方所有。"
+        ],
+        "source_locations": [
+          "第九条 专利申请权"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "项目专利申请权归属声明已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "项目专利申请权归属声明",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0016",
+            "quote": "相关专利申请权归甲方所有。",
+            "location": "第九条 专利申请权",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "专利申请权[^。；]{0,20}归[^。；]{0,15}所有",
+            "condition": "如本项目新开发成果具备申请专利条件："
+          }
+        ],
+        "source_fact_key": "technology.development_proof.project_application_ownership_statement",
+        "evidence_refs": [
+          "EV-a8eb4071aa6d3855"
+        ]
+      },
+      {
+        "review_id": "TC-13-02",
+        "element_id": "employee_ownership_document_obligation",
+        "claim_id": "TC-13-02-employee_ownership_document_obligation",
+        "proposition": "研发人员职务成果归属文件义务已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-b5000430c4ddbe44"
+        ],
+        "supporting_evidence_ids": [
+          "EV-b5000430c4ddbe44"
+        ],
+        "source_clause_ids": [
+          "C0017"
+        ],
+        "source_spans": [
+          "乙方应确保参与本项目的员工与乙方签署职务成果归属文件。"
+        ],
+        "source_locations": [
+          "第十条 发明人署名"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "研发人员职务成果归属文件义务已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "研发人员职务成果归属文件义务",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0017",
+            "quote": "乙方应确保参与本项目的员工与乙方签署职务成果归属文件。",
+            "location": "第十条 发明人署名",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:应|须)[^。；]{0,60}签署[^。；]{0,18}职务成果归属文件",
+            "condition": ""
+          }
+        ],
+        "source_fact_key": "technology.development_proof.employee_ownership_document_obligation",
+        "evidence_refs": [
+          "EV-b5000430c4ddbe44"
+        ]
+      },
+      {
+        "review_id": "TC-13-02",
+        "element_id": "employee_ownership_documents",
+        "claim_id": "TC-13-02-employee_ownership_documents",
+        "proposition": "研发人员职务成果证明链已有明确约定。",
+        "status": "PARTIALLY_COVERED",
+        "evidence_ids": [
+          "EV-04be6d69f8b49024"
+        ],
+        "supporting_evidence_ids": [
+          "EV-04be6d69f8b49024"
+        ],
+        "source_clause_ids": [
+          "C0017"
+        ],
+        "source_spans": [
+          "但乙方目前仅能提供核心研发团队5人的完整职务成果归属文件。"
+        ],
+        "source_locations": [
+          "第十条 发明人署名"
+        ],
+        "entailment": "PARTIAL_SUPPORT",
+        "verifier_confidence": "high",
+        "reason": "研发人员职务成果证明链已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "fact_status": "FOUND",
+        "requirement_status": "PARTIALLY_COVERED",
+        "risk_relevant": true,
+        "residual_gap": "未获完整确认人员的职务成果归属证明材料",
+        "required_fact": "研发人员职务成果证明链",
+        "search_targets": [
+          "研发人员职务成果归属确认材料完整性"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0017",
+            "quote": "但乙方目前仅能提供核心研发团队5人的完整职务成果归属文件。",
+            "location": "第十条 发明人署名",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:目前|已经|已)[^。；]{0,30}(?:提供|持有)[^。；]{0,35}(?:完整|签署)[^。；]{0,18}(?:职务成果|归属)(?:归属)?文件",
+            "condition": ""
+          }
+        ],
+        "source_fact_key": "technology.development_proof.employee_ownership_documents",
+        "explicit_absence_evidence": [
+          {
+            "clause_id": "C0017",
+            "quote": "但目前无法提供该人员单独签署的项目成果归属确认书。"
+          }
+        ],
+        "evidence_refs": [
+          "EV-04be6d69f8b49024"
+        ]
+      },
+      {
+        "review_id": "TC-13-02",
+        "element_id": "third_party_license_documents",
+        "claim_id": "TC-13-02-third_party_license_documents",
+        "proposition": "第三方组件许可证及限制材料义务已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-be472594ae82ac74",
+          "EV-74df2b36545f3d82",
+          "EV-0e381d363959414c",
+          "EV-b56a06b7be02f05b",
+          "EV-fd8476a1e71998f7",
+          "EV-acddf5b9413ba47f",
+          "EV-e6ed1e197863e4f8",
+          "EV-44b80ac5c11e6bc8"
+        ],
+        "supporting_evidence_ids": [
+          "EV-be472594ae82ac74",
+          "EV-74df2b36545f3d82",
+          "EV-0e381d363959414c",
+          "EV-b56a06b7be02f05b",
+          "EV-fd8476a1e71998f7",
+          "EV-acddf5b9413ba47f",
+          "EV-e6ed1e197863e4f8",
+          "EV-44b80ac5c11e6bc8"
+        ],
+        "source_clause_ids": [
+          "C0019",
+          "C0019",
+          "C0019",
+          "C0019",
+          "C0019",
+          "C0030",
+          "C0030",
+          "C0030"
+        ],
+        "source_spans": [
+          "乙方应向甲方提供：\n第三方组件清单；",
+          "乙方应向甲方提供：\n第三方组件清单；\n许可证类型；",
+          "乙方应向甲方提供：\n第三方组件清单；\n许可证类型；\n商业使用限制；",
+          "乙方应向甲方提供：\n第三方组件清单；\n许可证类型；\n商业使用限制；\n是否要求公开源代码；",
+          "乙方应向甲方提供：\n第三方组件清单；\n许可证类型；\n商业使用限制；\n是否要求公开源代码；\n后续费用情况。",
+          "乙方应配合提供：\n研发过程记录；\n第三方组件清单；",
+          "乙方应配合提供：\n研发过程记录；\n第三方组件清单；\n技术来源证明；",
+          "乙方应配合提供：\n研发过程记录；\n第三方组件清单；\n技术来源证明；\n研发人员记录。"
+        ],
+        "source_locations": [
+          "第十二条 开发过程中的第三方组件",
+          "第十二条 开发过程中的第三方组件",
+          "第十二条 开发过程中的第三方组件",
+          "第十二条 开发过程中的第三方组件",
+          "第十二条 开发过程中的第三方组件",
+          "第二十三条 第三方知识产权",
+          "第二十三条 第三方知识产权",
+          "第二十三条 第三方知识产权"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "第三方组件许可证及限制材料义务已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "第三方组件许可证及限制材料义务",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0019",
+            "quote": "乙方应向甲方提供：\n第三方组件清单；",
+            "location": "第十二条 开发过程中的第三方组件",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:许可证类型|商业使用限制|第三方组件清单)",
+            "condition": ""
+          },
+          {
+            "clause_id": "C0019",
+            "quote": "乙方应向甲方提供：\n第三方组件清单；\n许可证类型；",
+            "location": "第十二条 开发过程中的第三方组件",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:许可证类型|商业使用限制|第三方组件清单)",
+            "condition": ""
+          },
+          {
+            "clause_id": "C0019",
+            "quote": "乙方应向甲方提供：\n第三方组件清单；\n许可证类型；\n商业使用限制；",
+            "location": "第十二条 开发过程中的第三方组件",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:许可证类型|商业使用限制|第三方组件清单)",
+            "condition": ""
+          },
+          {
+            "clause_id": "C0019",
+            "quote": "乙方应向甲方提供：\n第三方组件清单；\n许可证类型；\n商业使用限制；\n是否要求公开源代码；",
+            "location": "第十二条 开发过程中的第三方组件",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:许可证类型|商业使用限制|第三方组件清单)",
+            "condition": ""
+          },
+          {
+            "clause_id": "C0019",
+            "quote": "乙方应向甲方提供：\n第三方组件清单；\n许可证类型；\n商业使用限制；\n是否要求公开源代码；\n后续费用情况。",
+            "location": "第十二条 开发过程中的第三方组件",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:许可证类型|商业使用限制|第三方组件清单)",
+            "condition": ""
+          },
+          {
+            "clause_id": "C0030",
+            "quote": "乙方应配合提供：\n研发过程记录；\n第三方组件清单；",
+            "location": "第二十三条 第三方知识产权",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:许可证类型|商业使用限制|第三方组件清单)",
+            "condition": "如第三方主张本项目成果侵犯其知识产权："
+          },
+          {
+            "clause_id": "C0030",
+            "quote": "乙方应配合提供：\n研发过程记录；\n第三方组件清单；\n技术来源证明；",
+            "location": "第二十三条 第三方知识产权",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:许可证类型|商业使用限制|第三方组件清单)",
+            "condition": "如第三方主张本项目成果侵犯其知识产权："
+          },
+          {
+            "clause_id": "C0030",
+            "quote": "乙方应配合提供：\n研发过程记录；\n第三方组件清单；\n技术来源证明；\n研发人员记录。",
+            "location": "第二十三条 第三方知识产权",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:许可证类型|商业使用限制|第三方组件清单)",
+            "condition": "如第三方主张本项目成果侵犯其知识产权："
+          }
+        ],
+        "source_fact_key": "technology.development_proof.third_party_license_documents",
+        "evidence_refs": [
+          "EV-be472594ae82ac74",
+          "EV-74df2b36545f3d82",
+          "EV-0e381d363959414c",
+          "EV-b56a06b7be02f05b",
+          "EV-fd8476a1e71998f7",
+          "EV-acddf5b9413ba47f",
+          "EV-e6ed1e197863e4f8",
+          "EV-44b80ac5c11e6bc8"
+        ]
+      },
+      {
+        "review_id": "TC-13-02",
+        "element_id": "development_source_records",
+        "claim_id": "TC-13-02-development_source_records",
+        "proposition": "研发来源及人员记录提供义务已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-acddf5b9413ba47f",
+          "EV-e6ed1e197863e4f8",
+          "EV-44b80ac5c11e6bc8",
+          "EV-450ccc46cacf69a5"
+        ],
+        "supporting_evidence_ids": [
+          "EV-acddf5b9413ba47f",
+          "EV-e6ed1e197863e4f8",
+          "EV-44b80ac5c11e6bc8",
+          "EV-450ccc46cacf69a5"
+        ],
+        "source_clause_ids": [
+          "C0030",
+          "C0030",
+          "C0030",
+          "C0030"
+        ],
+        "source_spans": [
+          "乙方应配合提供：\n研发过程记录；",
+          "乙方应配合提供：\n研发过程记录；\n第三方组件清单；",
+          "乙方应配合提供：\n研发过程记录；\n第三方组件清单；\n技术来源证明；",
+          "乙方应配合提供：\n研发过程记录；\n第三方组件清单；\n技术来源证明；\n研发人员记录。"
+        ],
+        "source_locations": [
+          "第二十三条 第三方知识产权",
+          "第二十三条 第三方知识产权",
+          "第二十三条 第三方知识产权",
+          "第二十三条 第三方知识产权"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "研发来源及人员记录提供义务已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "研发来源及人员记录提供义务",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0030",
+            "quote": "乙方应配合提供：\n研发过程记录；",
+            "location": "第二十三条 第三方知识产权",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:研发过程记录|技术来源证明|研发人员记录)",
+            "condition": "如第三方主张本项目成果侵犯其知识产权："
+          },
+          {
+            "clause_id": "C0030",
+            "quote": "乙方应配合提供：\n研发过程记录；\n第三方组件清单；",
+            "location": "第二十三条 第三方知识产权",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:研发过程记录|技术来源证明|研发人员记录)",
+            "condition": "如第三方主张本项目成果侵犯其知识产权："
+          },
+          {
+            "clause_id": "C0030",
+            "quote": "乙方应配合提供：\n研发过程记录；\n第三方组件清单；\n技术来源证明；",
+            "location": "第二十三条 第三方知识产权",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:研发过程记录|技术来源证明|研发人员记录)",
+            "condition": "如第三方主张本项目成果侵犯其知识产权："
+          },
+          {
+            "clause_id": "C0030",
+            "quote": "乙方应配合提供：\n研发过程记录；\n第三方组件清单；\n技术来源证明；\n研发人员记录。",
+            "location": "第二十三条 第三方知识产权",
+            "proposition_polarity": "AFFIRMATIVE",
+            "predicate_pattern": "(?:研发过程记录|技术来源证明|研发人员记录)",
+            "condition": "如第三方主张本项目成果侵犯其知识产权："
+          }
+        ],
+        "source_fact_key": "technology.development_proof.development_source_records",
+        "evidence_refs": [
+          "EV-acddf5b9413ba47f",
+          "EV-e6ed1e197863e4f8",
+          "EV-44b80ac5c11e6bc8",
+          "EV-450ccc46cacf69a5"
+        ]
+      }
+    ],
+    "TC-13-03": [
+      {
+        "review_id": "TC-13-03",
+        "element_id": "acceptance_metrics",
+        "claim_id": "TC-13-03-acceptance_metrics",
+        "proposition": "验收标准已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-4cc1987da3eb09bf",
+          "EV-7e43626c1f437903",
+          "EV-d3d8c6c25eb7eeb3",
+          "EV-00416e5a6e6a22ea",
+          "EV-58ba1ba791487036"
+        ],
+        "supporting_evidence_ids": [
+          "EV-4cc1987da3eb09bf",
+          "EV-7e43626c1f437903",
+          "EV-d3d8c6c25eb7eeb3",
+          "EV-00416e5a6e6a22ea",
+          "EV-58ba1ba791487036"
+        ],
+        "source_clause_ids": [
+          "C0005",
+          "C0005",
+          "C0005",
+          "C0020",
+          "C0020"
+        ],
+        "source_spans": [
+          "最终系统应达到：\n缺陷识别准确率不低于97%；",
+          "重大缺陷漏检率不高于0.8%；",
+          "连续运行72小时无严重故障。",
+          "原型准确率达到90%以上。",
+          "要求：\n准确率达到95%以上；"
+        ],
+        "source_locations": [
+          "第二条 项目目标",
+          "第二条 项目目标",
+          "第二条 项目目标",
+          "第十三条 阶段验收",
+          "第十三条 阶段验收"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "验收标准已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "验收标准",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0005",
+            "quote": "最终系统应达到：\n缺陷识别准确率不低于97%；"
+          },
+          {
+            "clause_id": "C0005",
+            "quote": "重大缺陷漏检率不高于0.8%；"
+          },
+          {
+            "clause_id": "C0005",
+            "quote": "连续运行72小时无严重故障。"
+          },
+          {
+            "clause_id": "C0020",
+            "quote": "原型准确率达到90%以上。"
+          },
+          {
+            "clause_id": "C0020",
+            "quote": "要求：\n准确率达到95%以上；"
+          }
+        ],
+        "source_fact_key": "technology.transaction.acceptance",
+        "evidence_refs": [
+          "EV-4cc1987da3eb09bf",
+          "EV-7e43626c1f437903",
+          "EV-d3d8c6c25eb7eeb3",
+          "EV-00416e5a6e6a22ea",
+          "EV-58ba1ba791487036"
+        ]
+      },
+      {
+        "review_id": "TC-13-03",
+        "element_id": "acceptance_method",
+        "claim_id": "TC-13-03-acceptance_method",
+        "proposition": "验收方法",
+        "status": "MISSING",
+        "evidence_ids": [],
+        "supporting_evidence_ids": [],
+        "source_clause_ids": [],
+        "source_spans": [],
+        "source_locations": [],
+        "entailment": "UNCERTAIN",
+        "verifier_confidence": "high",
+        "reason": "验收方法",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "验收方法",
+        "required_fact": "验收方法",
+        "search_targets": [
+          "验收方法"
+        ],
+        "supporting_evidence": [],
+        "source_fact_key": "development_acceptance.acceptance_method"
+      },
+      {
+        "review_id": "TC-13-03",
+        "element_id": "test_case_requirement",
+        "claim_id": "TC-13-03-test_case_requirement",
+        "proposition": "测试用例要求",
+        "status": "MISSING",
+        "evidence_ids": [],
+        "supporting_evidence_ids": [],
+        "source_clause_ids": [],
+        "source_spans": [],
+        "source_locations": [],
+        "entailment": "UNCERTAIN",
+        "verifier_confidence": "high",
+        "reason": "测试用例要求",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "测试用例要求",
+        "required_fact": "测试用例要求",
+        "search_targets": [
+          "测试用例要求"
+        ],
+        "supporting_evidence": [],
+        "source_fact_key": "development_acceptance.test_case_requirement"
+      },
+      {
+        "review_id": "TC-13-03",
+        "element_id": "test_report_delivery",
+        "claim_id": "TC-13-03-test_report_delivery",
+        "proposition": "测试报告交付",
+        "status": "MISSING",
+        "evidence_ids": [],
+        "supporting_evidence_ids": [],
+        "source_clause_ids": [],
+        "source_spans": [],
+        "source_locations": [],
+        "entailment": "UNCERTAIN",
+        "verifier_confidence": "high",
+        "reason": "测试报告交付",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "测试报告交付",
+        "required_fact": "测试报告交付",
+        "search_targets": [
+          "测试报告交付"
+        ],
+        "supporting_evidence": [],
+        "source_fact_key": "development_documents.test_report_delivery"
+      },
+      {
+        "review_id": "TC-13-03",
+        "element_id": "acceptance_record_requirement",
+        "claim_id": "TC-13-03-acceptance_record_requirement",
+        "proposition": "验收记录要求",
+        "status": "MISSING",
+        "evidence_ids": [],
+        "supporting_evidence_ids": [],
+        "source_clause_ids": [],
+        "source_spans": [],
+        "source_locations": [],
+        "entailment": "UNCERTAIN",
+        "verifier_confidence": "high",
+        "reason": "验收记录要求",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "验收记录要求",
+        "required_fact": "验收记录要求",
+        "search_targets": [
+          "验收记录要求"
+        ],
+        "supporting_evidence": [],
+        "source_fact_key": "development_acceptance.acceptance_record_requirement"
+      },
+      {
+        "review_id": "TC-13-03",
+        "element_id": "acceptance_dispute_verification",
+        "claim_id": "TC-13-03-acceptance_dispute_verification",
+        "proposition": "验收争议的第三方检测或复测机制",
+        "status": "MISSING",
+        "evidence_ids": [],
+        "supporting_evidence_ids": [],
+        "source_clause_ids": [],
+        "source_spans": [],
+        "source_locations": [],
+        "entailment": "UNCERTAIN",
+        "verifier_confidence": "high",
+        "reason": "验收争议的第三方检测或复测机制",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "验收争议的第三方检测或复测机制",
+        "required_fact": "验收争议的第三方检测或复测机制",
+        "search_targets": [
+          "验收争议的第三方检测或复测机制"
+        ],
+        "supporting_evidence": [],
+        "source_fact_key": "development_acceptance.acceptance_dispute_verification"
+      },
+      {
+        "review_id": "TC-13-03",
+        "element_id": "acceptance_deadline",
+        "claim_id": "TC-13-03-acceptance_deadline",
+        "proposition": "验收期限已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-a37310ffe785d69f",
+          "EV-8fbee0392c7d3ba6",
+          "EV-b290398c7a78226e"
+        ],
+        "supporting_evidence_ids": [
+          "EV-a37310ffe785d69f",
+          "EV-8fbee0392c7d3ba6",
+          "EV-b290398c7a78226e"
+        ],
+        "source_clause_ids": [
+          "C0020",
+          "C0020",
+          "C0021"
+        ],
+        "source_spans": [
+          "甲方应在收到成果后10个工作日内验收。",
+          "甲方应在收到成果后15个工作日内验收。",
+          "甲方应在乙方提出最终验收申请后20个工作日内完成验收。"
+        ],
+        "source_locations": [
+          "第十三条 阶段验收",
+          "第十三条 阶段验收",
+          "第十四条 最终验收"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "验收期限已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "验收期限",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0020",
+            "quote": "甲方应在收到成果后10个工作日内验收。"
+          },
+          {
+            "clause_id": "C0020",
+            "quote": "甲方应在收到成果后15个工作日内验收。"
+          },
+          {
+            "clause_id": "C0021",
+            "quote": "甲方应在乙方提出最终验收申请后20个工作日内完成验收。"
+          }
+        ],
+        "source_fact_key": "development_acceptance.acceptance_deadline",
+        "evidence_refs": [
+          "EV-a37310ffe785d69f",
+          "EV-8fbee0392c7d3ba6",
+          "EV-b290398c7a78226e"
+        ]
+      },
+      {
+        "review_id": "TC-13-03",
+        "element_id": "rectification_obligation",
+        "claim_id": "TC-13-03-rectification_obligation",
+        "proposition": "验收不合格后的补正义务已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-6f383275eea64d64",
+          "EV-d34ea6052fd2e425"
+        ],
+        "supporting_evidence_ids": [
+          "EV-6f383275eea64d64",
+          "EV-d34ea6052fd2e425"
+        ],
+        "source_clause_ids": [
+          "C0020",
+          "C0021"
+        ],
+        "source_spans": [
+          "验收不合格：\n乙方应在15个工作日内整改。",
+          "验收不通过：\n乙方应在20个工作日内完成整改。"
+        ],
+        "source_locations": [
+          "第十三条 阶段验收",
+          "第十四条 最终验收"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "验收不合格后的补正义务已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "验收不合格后的补正义务",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0020",
+            "quote": "验收不合格：\n乙方应在15个工作日内整改。"
+          },
+          {
+            "clause_id": "C0021",
+            "quote": "验收不通过：\n乙方应在20个工作日内完成整改。"
+          }
+        ],
+        "source_fact_key": "development_acceptance.rectification_obligation",
+        "evidence_refs": [
+          "EV-6f383275eea64d64",
+          "EV-d34ea6052fd2e425"
+        ]
+      },
+      {
+        "review_id": "TC-13-03",
+        "element_id": "rectification_deadline",
+        "claim_id": "TC-13-03-rectification_deadline",
+        "proposition": "验收补正期限已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-6f383275eea64d64",
+          "EV-d34ea6052fd2e425"
+        ],
+        "supporting_evidence_ids": [
+          "EV-6f383275eea64d64",
+          "EV-d34ea6052fd2e425"
+        ],
+        "source_clause_ids": [
+          "C0020",
+          "C0021"
+        ],
+        "source_spans": [
+          "验收不合格：\n乙方应在15个工作日内整改。",
+          "验收不通过：\n乙方应在20个工作日内完成整改。"
+        ],
+        "source_locations": [
+          "第十三条 阶段验收",
+          "第十四条 最终验收"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "验收补正期限已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "验收补正期限",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0020",
+            "quote": "验收不合格：\n乙方应在15个工作日内整改。"
+          },
+          {
+            "clause_id": "C0021",
+            "quote": "验收不通过：\n乙方应在20个工作日内完成整改。"
+          }
+        ],
+        "source_fact_key": "development_acceptance.rectification_deadline",
+        "evidence_refs": [
+          "EV-6f383275eea64d64",
+          "EV-d34ea6052fd2e425"
+        ]
+      },
+      {
+        "review_id": "TC-13-03",
+        "element_id": "reinspection_procedure",
+        "claim_id": "TC-13-03-reinspection_procedure",
+        "proposition": "补正后的复验已有明确约定。",
+        "status": "COVERED",
+        "evidence_ids": [
+          "EV-9d0d5645cc74523e",
+          "EV-ba29deaf5c54872a"
+        ],
+        "supporting_evidence_ids": [
+          "EV-9d0d5645cc74523e",
+          "EV-ba29deaf5c54872a"
+        ],
+        "source_clause_ids": [
+          "C0020",
+          "C0021"
+        ],
+        "source_spans": [
+          "整改后重新验收。",
+          "甲方可以进行第二次验收。"
+        ],
+        "source_locations": [
+          "第十三条 阶段验收",
+          "第十四条 最终验收"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "补正后的复验已有明确约定。",
+        "evidence_strength": "EXPLICIT",
+        "minimum_evidence_strength": "UNKNOWN",
+        "risk_relevant": true,
+        "residual_gap": "",
+        "required_fact": "补正后的复验",
+        "search_targets": [],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0020",
+            "quote": "整改后重新验收。"
+          },
+          {
+            "clause_id": "C0021",
+            "quote": "甲方可以进行第二次验收。"
+          }
+        ],
+        "source_fact_key": "development_acceptance.reinspection_procedure",
+        "evidence_refs": [
+          "EV-9d0d5645cc74523e",
+          "EV-ba29deaf5c54872a"
+        ]
+      }
+    ]
+  }
+}

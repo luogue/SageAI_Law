@@ -1,0 +1,1876 @@
+{
+  "samples": [
+    {
+      "sample": "patent",
+      "gate": "REPORT_READY",
+      "contract_type": "technology",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "process_id": 25100,
+      "engine_hash_matches": true,
+      "runtime_drift": "CURRENT",
+      "target_rule": null,
+      "target_coverage": null,
+      "target_elements": [],
+      "target_verification": null,
+      "remaining_blockers": []
+    },
+    {
+      "sample": "guard",
+      "gate": "REPORT_READY",
+      "contract_type": "technology",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "process_id": 25100,
+      "engine_hash_matches": true,
+      "runtime_drift": "CURRENT",
+      "target_rule": null,
+      "target_coverage": null,
+      "target_elements": [],
+      "target_verification": null,
+      "remaining_blockers": []
+    },
+    {
+      "sample": "consulting",
+      "gate": "REPORT_READY",
+      "contract_type": "technology",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "process_id": 25100,
+      "engine_hash_matches": true,
+      "runtime_drift": "CURRENT",
+      "target_rule": null,
+      "target_coverage": null,
+      "target_elements": [],
+      "target_verification": null,
+      "remaining_blockers": []
+    },
+    {
+      "sample": "industrial",
+      "gate": "BLOCKED",
+      "contract_type": "technology",
+      "raw_blockers": 7,
+      "expanded_blockers": 18,
+      "process_id": 25100,
+      "engine_hash_matches": true,
+      "runtime_drift": "CURRENT",
+      "target_rule": null,
+      "target_coverage": null,
+      "target_elements": [],
+      "target_verification": null,
+      "remaining_blockers": [
+        {
+          "code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+          "rule_id": "TC-09-01",
+          "element_id": "core_contract_arrangement",
+          "fact_id": null,
+          "reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership."
+        },
+        {
+          "code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+          "rule_id": "TC-09-01",
+          "element_id": "PRIMARY_EVIDENCE",
+          "fact_id": null,
+          "reason": "The primary report evidence does not directly support any covered element in this Review."
+        },
+        {
+          "code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+          "rule_id": "GEN-PAY-01",
+          "element_id": "payment_formula_inconsistency_adverse_arrangement",
+          "fact_id": null,
+          "reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership."
+        },
+        {
+          "code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+          "rule_id": "GEN-PAY-01",
+          "element_id": "PRIMARY_EVIDENCE",
+          "fact_id": null,
+          "reason": "The primary report evidence does not directly support any covered element in this Review."
+        },
+        {
+          "code": "MISSING_WITH_POSITIVE_EVIDENCE",
+          "rule_id": "TC-13-03",
+          "element_id": null,
+          "fact_id": null,
+          "reason": "TC-13-03 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。"
+        },
+        {
+          "code": "CROSS_RULE_CANONICAL_FACT_CONSISTENCY",
+          "rule_id": null,
+          "element_id": null,
+          "fact_id": null,
+          "reason": "同一事实已被其他规则或统一事实层确认，但下游消费者仍输出完全缺失。"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-PAY-01",
+          "element_id": "payment_formula_inconsistency_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-GEN-02",
+          "element_id": "dispute_resolution_choice_conflict_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-LIAB-02",
+          "element_id": "generic_liability_cap_validity_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-PAY-01",
+          "element_id": "payment_formula_inconsistency_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-GEN-02",
+          "element_id": "dispute_resolution_choice_conflict_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-LIAB-02",
+          "element_id": "generic_liability_cap_validity_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "rule_id": "TC-03-04",
+          "element_id": "third_party_component_inventory",
+          "fact_id": null,
+          "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+        },
+        {
+          "code": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "rule_id": "TC-03-04",
+          "element_id": "third_party_component_inventory",
+          "fact_id": null,
+          "reason": "INVALID_ABSENCE_SEARCH_TARGET"
+        },
+        {
+          "code": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "rule_id": "TC-13-02",
+          "element_id": "third_party_component_inventory",
+          "fact_id": null,
+          "reason": "INVALID_ABSENCE_SEARCH_TARGET"
+        },
+        {
+          "code": "CLAUSE_NODE_CONSISTENCY_GATE",
+          "rule_id": "COMMON-20-01",
+          "element_id": null,
+          "fact_id": null,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "sample": "over_scope",
+      "gate": "BLOCKED",
+      "contract_type": "technology",
+      "raw_blockers": 10,
+      "expanded_blockers": 44,
+      "process_id": 25100,
+      "engine_hash_matches": true,
+      "runtime_drift": "CURRENT",
+      "target_rule": "TC-07-03",
+      "target_coverage": "通过",
+      "target_elements": [
+        {
+          "review_id": "TC-07-03",
+          "element_id": "over_scope_breach_remedy",
+          "claim_id": "TC-07-03-over_scope_breach_remedy",
+          "proposition": "超范围实施或未经授权再许可的违约金或赔偿责任已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-7f9bbdcded63d6c9dfcb"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-7f9bbdcded63d6c9dfcb"
+          ],
+          "source_clause_ids": [
+            "C0074"
+          ],
+          "source_spans": [
+            "3．买方违反许可范围的，应承担违约责任并赔偿卖方实际直接损失。"
+          ],
+          "source_locations": [
+            "第十七条第3项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "超范围实施或未经授权再许可的违约金或赔偿责任已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "超范围违约责任",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0074",
+              "quote": "3．买方违反许可范围的，应承担违约责任并赔偿卖方实际直接损失。",
+              "location": "第十七条第3项"
+            }
+          ],
+          "source_fact_key": "license_control.over_scope_breach_remedy",
+          "evidence_refs": [
+            "SRC-7f9bbdcded63d6c9dfcb"
+          ],
+          "bound_evidence_ids": [
+            "SRC-7f9bbdcded63d6c9dfcb"
+          ]
+        },
+        {
+          "review_id": "TC-07-03",
+          "element_id": "damage_compensation",
+          "claim_id": "TC-07-03-damage_compensation",
+          "proposition": "许可范围违约后的损失赔偿责任已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-7f9bbdcded63d6c9dfcb"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-7f9bbdcded63d6c9dfcb"
+          ],
+          "source_clause_ids": [
+            "C0074"
+          ],
+          "source_spans": [
+            "3．买方违反许可范围的，应承担违约责任并赔偿卖方实际直接损失。"
+          ],
+          "source_locations": [
+            "第十七条第3项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "许可范围违约后的损失赔偿责任已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "required_fact": "超范围违约损失赔偿",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0074",
+              "quote": "3．买方违反许可范围的，应承担违约责任并赔偿卖方实际直接损失。",
+              "location": "第十七条第3项"
+            }
+          ],
+          "source_fact_key": "license_control.damage_compensation",
+          "evidence_refs": [
+            "SRC-7f9bbdcded63d6c9dfcb"
+          ],
+          "bound_evidence_ids": [
+            "SRC-7f9bbdcded63d6c9dfcb"
+          ]
+        },
+        {
+          "review_id": "TC-07-03",
+          "element_id": "fixed_penalty",
+          "claim_id": "TC-07-03-fixed_penalty",
+          "proposition": "超范围使用的固定违约金已有约定。",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "超范围使用的固定违约金已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "required_fact": "超范围固定违约金",
+          "supporting_evidence": [],
+          "source_fact_key": "license_control.fixed_penalty"
+        },
+        {
+          "review_id": "TC-07-03",
+          "element_id": "cumulative_remedy_boundary",
+          "claim_id": "TC-07-03-cumulative_remedy_boundary",
+          "proposition": "固定违约金与损失赔偿的抵扣、并用及避免重复计算规则。",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "固定违约金与损失赔偿的抵扣、并用及避免重复计算规则。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "违约金与赔偿的抵扣并用",
+          "supporting_evidence": [],
+          "source_fact_key": "license_control.cumulative_remedy_boundary"
+        },
+        {
+          "review_id": "TC-07-03",
+          "element_id": "over_scope_liability_cap",
+          "claim_id": "TC-07-03-over_scope_liability_cap",
+          "proposition": "超范围使用责任的合理总额边界。",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "超范围使用责任的合理总额边界。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "超范围责任总额边界",
+          "supporting_evidence": [],
+          "source_fact_key": "license_control.over_scope_liability_cap"
+        },
+        {
+          "review_id": "TC-07-03",
+          "element_id": "over_scope_breach_differentiation",
+          "claim_id": "TC-07-03-over_scope_breach_differentiation",
+          "proposition": "不同超范围行为的责任区分",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "不同超范围行为的责任区分",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "required_fact": "不同超范围行为的责任区分",
+          "supporting_evidence": [],
+          "source_fact_key": "license_control.over_scope_breach_differentiation",
+          "core": false
+        }
+      ],
+      "target_verification": {
+        "status": "PASS",
+        "failures": [],
+        "element_evidence_ids": {
+          "over_scope_breach_remedy": [
+            "SRC-7f9bbdcded63d6c9dfcb"
+          ],
+          "damage_compensation": [
+            "SRC-7f9bbdcded63d6c9dfcb"
+          ]
+        }
+      },
+      "remaining_blockers": [
+        {
+          "code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+          "rule_id": "TC-03-04",
+          "element_id": "PRIMARY_EVIDENCE",
+          "fact_id": null,
+          "reason": "The primary report evidence does not directly support any covered element in this Review."
+        },
+        {
+          "code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+          "rule_id": "TC-07-01",
+          "element_id": "exclusive_license_unilateral_downgrade",
+          "fact_id": null,
+          "reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership."
+        },
+        {
+          "code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+          "rule_id": "TC-07-01",
+          "element_id": "downgrade_procedural_protection",
+          "fact_id": null,
+          "reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership."
+        },
+        {
+          "code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+          "rule_id": "TC-07-01",
+          "element_id": "PRIMARY_EVIDENCE",
+          "fact_id": null,
+          "reason": "The primary report evidence does not directly support any covered element in this Review."
+        },
+        {
+          "code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+          "rule_id": "TC-09-02",
+          "element_id": "PRIMARY_EVIDENCE",
+          "fact_id": null,
+          "reason": "The primary report evidence does not directly support any covered element in this Review."
+        },
+        {
+          "code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+          "rule_id": "TC-13-02",
+          "element_id": "PRIMARY_EVIDENCE",
+          "fact_id": null,
+          "reason": "The primary report evidence does not directly support any covered element in this Review."
+        },
+        {
+          "code": "MISSING_WITH_POSITIVE_EVIDENCE",
+          "rule_id": "TC-03-04",
+          "element_id": null,
+          "fact_id": null,
+          "reason": "TC-03-04 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。"
+        },
+        {
+          "code": "CROSS_RULE_CANONICAL_FACT_CONSISTENCY",
+          "rule_id": null,
+          "element_id": null,
+          "fact_id": null,
+          "reason": "同一事实已被其他规则或统一事实层确认，但下游消费者仍输出完全缺失。"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-PAY-01",
+          "element_id": "payment_formula_inconsistency_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-LIAB-02",
+          "element_id": "generic_liability_cap_validity_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "fact_id": null,
+          "reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "fact_id": null,
+          "reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TC-11-02",
+          "element_id": "risk_description",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TC-11-02",
+          "element_id": "risk_point_description",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TC-11-02",
+          "element_id": "review_judgment",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TC-11-02",
+          "element_id": "narrative_judgment",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TC-11-03",
+          "element_id": "post_termination_material_retention",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-SHARED-03",
+          "element_id": "technical_timeline_conflict_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-SHARED-03",
+          "element_id": "risk_description",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-SHARED-03",
+          "element_id": "risk_point_description",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-SHARED-03",
+          "element_id": "review_judgment",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-SHARED-03",
+          "element_id": "narrative_judgment",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "POSITIVE_FACT_MONOTONICITY",
+          "rule_id": "TC-03-04",
+          "element_id": "technical_secret_identity_and_delivery_scope",
+          "fact_id": null,
+          "reason": "TC-03-04"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-PAY-01",
+          "element_id": "payment_formula_inconsistency_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-LIAB-02",
+          "element_id": "generic_liability_cap_validity_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "fact_id": null,
+          "reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "fact_id": null,
+          "reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TC-11-02",
+          "element_id": "risk_description",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TC-11-02",
+          "element_id": "risk_point_description",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TC-11-02",
+          "element_id": "review_judgment",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TC-11-02",
+          "element_id": "narrative_judgment",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TC-11-03",
+          "element_id": "post_termination_material_retention",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-SHARED-03",
+          "element_id": "technical_timeline_conflict_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-SHARED-03",
+          "element_id": "risk_description",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-SHARED-03",
+          "element_id": "risk_point_description",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-SHARED-03",
+          "element_id": "review_judgment",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-SHARED-03",
+          "element_id": "narrative_judgment",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "rule_id": "TC-11-04",
+          "element_id": null,
+          "fact_id": null,
+          "reason": "CONSEQUENCE_REQUIREMENTS_MISMATCH"
+        },
+        {
+          "code": "EVIDENCE_PROPOSITION_MATCH_GATE",
+          "rule_id": "TC-10-01,TC-10-02,TC-10-04",
+          "element_id": null,
+          "fact_id": null,
+          "reason": null
+        },
+        {
+          "code": "EVIDENCE_PROPOSITION_MATCH_GATE",
+          "rule_id": "TC-12-01",
+          "element_id": null,
+          "fact_id": null,
+          "reason": null
+        },
+        {
+          "code": "CANONICAL_RISK_COVERAGE_INVARIANT",
+          "rule_id": null,
+          "element_id": null,
+          "fact_id": null,
+          "reason": null
+        },
+        {
+          "code": "CLAUSE_NODE_CONSISTENCY_GATE",
+          "rule_id": "COMMON-20-01",
+          "element_id": null,
+          "fact_id": null,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "sample": "provider",
+      "gate": "REPORT_READY",
+      "contract_type": "technology",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "process_id": 25100,
+      "engine_hash_matches": true,
+      "runtime_drift": "CURRENT",
+      "target_rule": "TECH-SHARED-08",
+      "target_coverage": "通过",
+      "target_elements": [
+        {
+          "review_id": "TECH-SHARED-08",
+          "element_id": "provider_liability_cap",
+          "claim_id": "TECH-SHARED-08-provider_liability_cap",
+          "proposition": "服务方全部赔偿责任以已支付服务费为上限。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-4f8c7d006b134da2c3b9"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-4f8c7d006b134da2c3b9"
+          ],
+          "source_clause_ids": [
+            "C0003"
+          ],
+          "source_spans": [
+            "甲方承担的全部赔偿责任最高不超过乙方已经支付的技术服务费用。"
+          ],
+          "source_locations": [
+            "乙方（服务接受方）：某客户公司"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "服务方全部赔偿责任以已支付服务费为上限。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "fact_status": "FOUND",
+          "requirement_status": "SATISFIED",
+          "risk_relevant": false,
+          "direction": "FAVORABLE",
+          "required_fact": "服务方累计赔偿责任上限",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "甲方承担的全部赔偿责任最高不超过乙方已经支付的技术服务费用。",
+              "location": "乙方（服务接受方）：某客户公司",
+              "actor": "甲方"
+            }
+          ],
+          "source_fact_key": "service_liability.provider_liability_cap",
+          "evidence_refs": [
+            "SRC-4f8c7d006b134da2c3b9"
+          ],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element.",
+          "direction_to_review_party": "FAVORABLE",
+          "bound_evidence_ids": [
+            "SRC-4f8c7d006b134da2c3b9"
+          ]
+        },
+        {
+          "review_id": "TECH-SHARED-08",
+          "element_id": "broad_loss_exclusion",
+          "claim_id": "TECH-SHARED-08-broad_loss_exclusion",
+          "proposition": "合同排除利润或可得利益损失、业务中断损失、第三方索赔、其他间接损失。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-48919287498e294d6116"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-48919287498e294d6116"
+          ],
+          "source_clause_ids": [
+            "C0003"
+          ],
+          "source_spans": [
+            "对于乙方利润损失、业务中断损失、第三方索赔及其他间接损失，甲方不承担责任。"
+          ],
+          "source_locations": [
+            "乙方（服务接受方）：某客户公司"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "合同排除利润或可得利益损失、业务中断损失、第三方索赔、其他间接损失。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "fact_status": "FOUND",
+          "requirement_status": "SATISFIED",
+          "risk_relevant": false,
+          "direction": "FAVORABLE",
+          "required_fact": "服务方排除赔偿的损失项目",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "对于乙方利润损失、业务中断损失、第三方索赔及其他间接损失，甲方不承担责任。",
+              "location": "乙方（服务接受方）：某客户公司",
+              "actor": "甲方"
+            }
+          ],
+          "source_fact_key": "service_liability.broad_loss_exclusion",
+          "evidence_refs": [
+            "SRC-48919287498e294d6116"
+          ],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element.",
+          "direction_to_review_party": "FAVORABLE",
+          "bound_evidence_ids": [
+            "SRC-48919287498e294d6116"
+          ]
+        },
+        {
+          "review_id": "TECH-SHARED-08",
+          "element_id": "high_operational_exposure",
+          "claim_id": "TECH-SHARED-08-high_operational_exposure",
+          "proposition": "合同涉及生产系统、数据库、参数调整或真实数据处理。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-b8a3d0339879c958abf1"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-b8a3d0339879c958abf1"
+          ],
+          "source_clause_ids": [
+            "C0003"
+          ],
+          "source_spans": [
+            "甲方可访问乙方生产数据库并进行数据库参数调整和SQL优化。"
+          ],
+          "source_locations": [
+            "乙方（服务接受方）：某客户公司"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "合同涉及生产系统、数据库、参数调整或真实数据处理。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "required_fact": "生产系统及数据库实际操作",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "甲方可访问乙方生产数据库并进行数据库参数调整和SQL优化。",
+              "location": "乙方（服务接受方）：某客户公司",
+              "actor": "甲方"
+            }
+          ],
+          "source_fact_key": "service_liability.high_operational_exposure",
+          "evidence_refs": [
+            "SRC-b8a3d0339879c958abf1"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "direction": "FAVORABLE",
+          "direction_to_review_party": "FAVORABLE",
+          "bound_evidence_ids": [
+            "SRC-b8a3d0339879c958abf1"
+          ]
+        }
+      ],
+      "target_verification": {
+        "status": "PASS",
+        "failures": [],
+        "element_evidence_ids": {
+          "provider_liability_cap": [
+            "SRC-4f8c7d006b134da2c3b9"
+          ],
+          "broad_loss_exclusion": [
+            "SRC-48919287498e294d6116"
+          ],
+          "high_operational_exposure": [
+            "SRC-b8a3d0339879c958abf1"
+          ]
+        }
+      },
+      "remaining_blockers": []
+    },
+    {
+      "sample": "balanced",
+      "gate": "BLOCKED",
+      "contract_type": "technology",
+      "raw_blockers": 1,
+      "expanded_blockers": 1,
+      "process_id": 25100,
+      "engine_hash_matches": true,
+      "runtime_drift": "CURRENT",
+      "target_rule": "TC-11-02",
+      "target_coverage": "通过",
+      "target_elements": [
+        {
+          "review_id": "TC-11-02",
+          "element_id": "mutual_confidentiality_responsibility",
+          "claim_id": "TC-11-02-mutual_confidentiality_responsibility",
+          "proposition": "双方均承担保密义务。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-edd3bae0980252d3735a"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-edd3bae0980252d3735a"
+          ],
+          "source_clause_ids": [
+            "C0007"
+          ],
+          "source_spans": [
+            "第五条 双方对在履行中取得的对方算法、源代码、控制参数、测试数据、生产数据、销售数据和客户资料承担保密义务，未经信息提供方书面同意不得向第三方披露或用于合同外目的；"
+          ],
+          "source_locations": [
+            "第五条 双方对在履行中取得的对方算法、源代码、控制参数、测试数据、生产数据、销售数据和客户资料承担保密义务，未经信息提供方书面同意不得向第三方披露或用于合同外目的；双方保密义务在合同终止后十年内持续有效。"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "双方均承担保密义务。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "双方均承担保密义务",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0007",
+              "quote": "第五条 双方对在履行中取得的对方算法、源代码、控制参数、测试数据、生产数据、销售数据和客户资料承担保密义务，未经信息提供方书面同意不得向第三方披露或用于合同外目的；",
+              "location": "第五条 双方对在履行中取得的对方算法、源代码、控制参数、测试数据、生产数据、销售数据和客户资料承担保密义务，未经信息提供方书面同意不得向第三方披露或用于合同外目的；双方保密义务在合同终止后十年内持续有效。"
+            }
+          ],
+          "source_fact_key": "license_control.mutual_confidentiality_responsibility",
+          "evidence_refs": [
+            "SRC-edd3bae0980252d3735a"
+          ],
+          "bound_evidence_ids": [
+            "SRC-edd3bae0980252d3735a"
+          ]
+        },
+        {
+          "review_id": "TC-11-02",
+          "element_id": "confidential_information_scope",
+          "claim_id": "TC-11-02-confidential_information_scope",
+          "proposition": "双方商业和技术保密信息范围明确。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-edd3bae0980252d3735a",
+            "SRC-9f81ca0dd0182f242a62"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-edd3bae0980252d3735a",
+            "SRC-9f81ca0dd0182f242a62"
+          ],
+          "source_clause_ids": [
+            "C0003",
+            "C0007"
+          ],
+          "source_spans": [
+            "第一条 技术秘密内容：未公开的控制算法、源代码、控制参数和测试数据。",
+            "第五条 双方对在履行中取得的对方算法、源代码、控制参数、测试数据、生产数据、销售数据和客户资料承担保密义务，未经信息提供方书面同意不得向第三方披露或用于合同外目的；"
+          ],
+          "source_locations": [
+            "第一条 技术秘密内容：未公开的控制算法、源代码、控制参数和测试数据。",
+            "第五条 双方对在履行中取得的对方算法、源代码、控制参数、测试数据、生产数据、销售数据和客户资料承担保密义务，未经信息提供方书面同意不得向第三方披露或用于合同外目的；双方保密义务在合同终止后十年内持续有效。"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "双方商业和技术保密信息范围明确。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "双方商业和技术保密信息范围",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "第一条 技术秘密内容：未公开的控制算法、源代码、控制参数和测试数据。",
+              "location": "第一条 技术秘密内容：未公开的控制算法、源代码、控制参数和测试数据。"
+            },
+            {
+              "clause_id": "C0007",
+              "quote": "第五条 双方对在履行中取得的对方算法、源代码、控制参数、测试数据、生产数据、销售数据和客户资料承担保密义务，未经信息提供方书面同意不得向第三方披露或用于合同外目的；",
+              "location": "第五条 双方对在履行中取得的对方算法、源代码、控制参数、测试数据、生产数据、销售数据和客户资料承担保密义务，未经信息提供方书面同意不得向第三方披露或用于合同外目的；双方保密义务在合同终止后十年内持续有效。"
+            }
+          ],
+          "source_fact_key": "license_control.confidential_information_scope",
+          "evidence_refs": [
+            "SRC-edd3bae0980252d3735a",
+            "SRC-9f81ca0dd0182f242a62"
+          ],
+          "bound_evidence_ids": [
+            "SRC-edd3bae0980252d3735a",
+            "SRC-9f81ca0dd0182f242a62"
+          ]
+        },
+        {
+          "review_id": "TC-11-02",
+          "element_id": "third_party_disclosure_restriction",
+          "claim_id": "TC-11-02-third_party_disclosure_restriction",
+          "proposition": "未经信息提供方书面同意不得披露。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-edd3bae0980252d3735a"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-edd3bae0980252d3735a"
+          ],
+          "source_clause_ids": [
+            "C0007"
+          ],
+          "source_spans": [
+            "第五条 双方对在履行中取得的对方算法、源代码、控制参数、测试数据、生产数据、销售数据和客户资料承担保密义务，未经信息提供方书面同意不得向第三方披露或用于合同外目的；"
+          ],
+          "source_locations": [
+            "第五条 双方对在履行中取得的对方算法、源代码、控制参数、测试数据、生产数据、销售数据和客户资料承担保密义务，未经信息提供方书面同意不得向第三方披露或用于合同外目的；双方保密义务在合同终止后十年内持续有效。"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "未经信息提供方书面同意不得披露。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "未经信息提供方同意不得披露",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0007",
+              "quote": "第五条 双方对在履行中取得的对方算法、源代码、控制参数、测试数据、生产数据、销售数据和客户资料承担保密义务，未经信息提供方书面同意不得向第三方披露或用于合同外目的；",
+              "location": "第五条 双方对在履行中取得的对方算法、源代码、控制参数、测试数据、生产数据、销售数据和客户资料承担保密义务，未经信息提供方书面同意不得向第三方披露或用于合同外目的；双方保密义务在合同终止后十年内持续有效。"
+            }
+          ],
+          "source_fact_key": "license_control.third_party_disclosure_restriction",
+          "evidence_refs": [
+            "SRC-edd3bae0980252d3735a"
+          ],
+          "bound_evidence_ids": [
+            "SRC-edd3bae0980252d3735a"
+          ]
+        },
+        {
+          "review_id": "TC-11-02",
+          "element_id": "post_termination_confidentiality",
+          "claim_id": "TC-11-02-post_termination_confidentiality",
+          "proposition": "双方合同终止后的保密期限明确且对等。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-ff39dd9461a84338bd06"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-ff39dd9461a84338bd06"
+          ],
+          "source_clause_ids": [
+            "C0007"
+          ],
+          "source_spans": [
+            "双方保密义务在合同终止后十年内持续有效。"
+          ],
+          "source_locations": [
+            "第五条 双方对在履行中取得的对方算法、源代码、控制参数、测试数据、生产数据、销售数据和客户资料承担保密义务，未经信息提供方书面同意不得向第三方披露或用于合同外目的；双方保密义务在合同终止后十年内持续有效。"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "双方合同终止后的保密期限明确且对等。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "双方终止后保密期限",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0007",
+              "quote": "双方保密义务在合同终止后十年内持续有效。",
+              "location": "第五条 双方对在履行中取得的对方算法、源代码、控制参数、测试数据、生产数据、销售数据和客户资料承担保密义务，未经信息提供方书面同意不得向第三方披露或用于合同外目的；双方保密义务在合同终止后十年内持续有效。"
+            }
+          ],
+          "source_fact_key": "license_control.post_termination_confidentiality",
+          "evidence_refs": [
+            "SRC-ff39dd9461a84338bd06"
+          ],
+          "bound_evidence_ids": [
+            "SRC-ff39dd9461a84338bd06"
+          ]
+        }
+      ],
+      "target_verification": {
+        "status": "PASS",
+        "failures": [],
+        "element_evidence_ids": {
+          "mutual_confidentiality_responsibility": [
+            "SRC-edd3bae0980252d3735a"
+          ],
+          "confidential_information_scope": [
+            "SRC-edd3bae0980252d3735a",
+            "SRC-9f81ca0dd0182f242a62"
+          ],
+          "third_party_disclosure_restriction": [
+            "SRC-edd3bae0980252d3735a"
+          ],
+          "post_termination_confidentiality": [
+            "SRC-ff39dd9461a84338bd06"
+          ]
+        }
+      },
+      "remaining_blockers": [
+        {
+          "code": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "rule_id": "TC-07-01",
+          "element_id": "license_term",
+          "fact_id": null,
+          "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+        }
+      ]
+    },
+    {
+      "sample": "cross_article",
+      "gate": "BLOCKED",
+      "contract_type": "technology",
+      "raw_blockers": 7,
+      "expanded_blockers": 9,
+      "process_id": 25100,
+      "engine_hash_matches": true,
+      "runtime_drift": "CURRENT",
+      "target_rule": "TC-11-01",
+      "target_coverage": "通过",
+      "target_elements": [
+        {
+          "review_id": "TC-11-01",
+          "element_id": "confidential_information_scope",
+          "claim_id": "TC-11-01-confidential_information_scope",
+          "proposition": "合同已约定受保护的技术秘密范围。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-6386f27b88dd4b3ec82c",
+            "SRC-f685d6280d8587acc1f9",
+            "SRC-f34bf22bca0e07b6a245",
+            "SRC-b7db3731cf4e0334bbad"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-6386f27b88dd4b3ec82c",
+            "SRC-f685d6280d8587acc1f9",
+            "SRC-f34bf22bca0e07b6a245",
+            "SRC-b7db3731cf4e0334bbad"
+          ],
+          "source_clause_ids": [
+            "C0001",
+            "C0003",
+            "C0025",
+            "C0029"
+          ],
+          "source_spans": [
+            "技术秘密名称：\n工业机器人高精度视觉标定与自适应控制参数技术秘密",
+            "1．技术秘密的内容：\n包括尚未公开的工业机器人视觉坐标标定算法、相机与机器人坐标转换方法、自适应控制参数整定方法、误差补偿模型、核心算法源代码模块、参数配置文件以及相关工程实施经验和Know-how。",
+            "1．保密内容：\n包括卖方提供的核心算法源代码、视觉标定算法、控制参数库、设计文件、技术说明、测试数据及其他明确标注或者依其性质应当认定为保密的信息。",
+            "1．保密内容：\n买方在实施本项目过程中向卖方提供的产品设计、生产数据、客户信息、销售数据、价格信息及其他非公开经营信息。"
+          ],
+          "source_locations": [
+            "全文",
+            "第一条第1项",
+            "第八条第1项",
+            "第八条第1项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "合同已约定受保护的技术秘密范围。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "受保护的技术秘密范围",
+          "required_fact_key": "confidential_information_scope",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0001",
+              "quote": "技术秘密名称：\n工业机器人高精度视觉标定与自适应控制参数技术秘密",
+              "location": "全文"
+            },
+            {
+              "clause_id": "C0003",
+              "quote": "1．技术秘密的内容：\n包括尚未公开的工业机器人视觉坐标标定算法、相机与机器人坐标转换方法、自适应控制参数整定方法、误差补偿模型、核心算法源代码模块、参数配置文件以及相关工程实施经验和Know-how。",
+              "location": "第一条第1项"
+            },
+            {
+              "clause_id": "C0025",
+              "quote": "1．保密内容：\n包括卖方提供的核心算法源代码、视觉标定算法、控制参数库、设计文件、技术说明、测试数据及其他明确标注或者依其性质应当认定为保密的信息。",
+              "location": "第八条第1项"
+            },
+            {
+              "clause_id": "C0029",
+              "quote": "1．保密内容：\n买方在实施本项目过程中向卖方提供的产品设计、生产数据、客户信息、销售数据、价格信息及其他非公开经营信息。",
+              "location": "第八条第1项"
+            }
+          ],
+          "source_fact_key": "license_control.confidential_information_scope",
+          "evidence_refs": [
+            "SRC-6386f27b88dd4b3ec82c",
+            "SRC-f685d6280d8587acc1f9",
+            "SRC-f34bf22bca0e07b6a245",
+            "SRC-b7db3731cf4e0334bbad"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "bound_evidence_ids": [
+            "SRC-6386f27b88dd4b3ec82c",
+            "SRC-f685d6280d8587acc1f9",
+            "SRC-f34bf22bca0e07b6a245",
+            "SRC-b7db3731cf4e0334bbad"
+          ]
+        },
+        {
+          "review_id": "TC-11-01",
+          "element_id": "confidential_personnel_control",
+          "claim_id": "TC-11-01-confidential_personnel_control",
+          "proposition": "涉密人员限定为直接参与且确有知悉必要的人员。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-f9322020ef1fe823de9b",
+            "SRC-65ce352d9875ded47cf2"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-f9322020ef1fe823de9b",
+            "SRC-65ce352d9875ded47cf2"
+          ],
+          "source_clause_ids": [
+            "C0026",
+            "C0030"
+          ],
+          "source_spans": [
+            "2．涉密人员范围：\n仅限直接参与本项目研发、测试、生产及技术管理且确有知悉必要的员工。",
+            "2．涉密人员范围：\n卖方直接参与本项目技术服务、指导、验收以及合同管理的人员。"
+          ],
+          "source_locations": [
+            "第八条第2项",
+            "第八条第2项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "涉密人员限定为直接参与且确有知悉必要的人员。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "涉密人员及知悉必要性",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0026",
+              "quote": "2．涉密人员范围：\n仅限直接参与本项目研发、测试、生产及技术管理且确有知悉必要的员工。",
+              "location": "第八条第2项"
+            },
+            {
+              "clause_id": "C0030",
+              "quote": "2．涉密人员范围：\n卖方直接参与本项目技术服务、指导、验收以及合同管理的人员。",
+              "location": "第八条第2项"
+            }
+          ],
+          "source_fact_key": "license_control.confidential_personnel_control",
+          "evidence_refs": [
+            "SRC-f9322020ef1fe823de9b",
+            "SRC-65ce352d9875ded47cf2"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "bound_evidence_ids": [
+            "SRC-f9322020ef1fe823de9b",
+            "SRC-65ce352d9875ded47cf2"
+          ]
+        },
+        {
+          "review_id": "TC-11-01",
+          "element_id": "contract_purpose_use_restriction",
+          "claim_id": "TC-11-01-contract_purpose_use_restriction",
+          "proposition": "技术秘密不得超出本合同目的使用。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-66faf46c66cc05310897",
+            "SRC-7e56281cd8370146b8cc"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-66faf46c66cc05310897",
+            "SRC-7e56281cd8370146b8cc"
+          ],
+          "source_clause_ids": [
+            "C0020",
+            "C0028"
+          ],
+          "source_spans": [
+            "2．实施方式：\n买方可以为生产合同产品之目的复制、编译和使用相关技术资料及源代码。",
+            "4．泄密责任：\n买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；"
+          ],
+          "source_locations": [
+            "第五条第2项",
+            "第八条第4项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "技术秘密不得超出本合同目的使用。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "合同目的使用限制",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0020",
+              "quote": "2．实施方式：\n买方可以为生产合同产品之目的复制、编译和使用相关技术资料及源代码。",
+              "location": "第五条第2项"
+            },
+            {
+              "clause_id": "C0028",
+              "quote": "4．泄密责任：\n买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；",
+              "location": "第八条第4项"
+            }
+          ],
+          "source_fact_key": "license_control.contract_purpose_use_restriction",
+          "evidence_refs": [
+            "SRC-66faf46c66cc05310897",
+            "SRC-7e56281cd8370146b8cc"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "bound_evidence_ids": [
+            "SRC-66faf46c66cc05310897",
+            "SRC-7e56281cd8370146b8cc"
+          ]
+        },
+        {
+          "review_id": "TC-11-01",
+          "element_id": "third_party_transfer_disclosure_restriction",
+          "claim_id": "TC-11-01-third_party_transfer_disclosure_restriction",
+          "proposition": "未经书面同意不得向第三方转让、许可、提供或披露技术秘密。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-040468b54a4d1ad4705e",
+            "SRC-b5401b55a595d4ef88ee",
+            "SRC-1be08011b8ba67253d55"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-040468b54a4d1ad4705e",
+            "SRC-b5401b55a595d4ef88ee",
+            "SRC-1be08011b8ba67253d55"
+          ],
+          "source_clause_ids": [
+            "C0020",
+            "C0062",
+            "C0088"
+          ],
+          "source_spans": [
+            "未经卖方书面同意，买方不得向第三方转让、许可或以其他方式提供本项技术秘密。",
+            "1．买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+            "第二十三条 其他事项：\n未经另一方书面同意，任何一方不得以新闻稿、广告或公开宣传材料披露本合同涉及的技术秘密内容。"
+          ],
+          "source_locations": [
+            "第五条第2项",
+            "第十七条第1项",
+            "第二十三条 其他事项："
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "未经书面同意不得向第三方转让、许可、提供或披露技术秘密。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "第三方转让或披露限制",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0020",
+              "quote": "未经卖方书面同意，买方不得向第三方转让、许可或以其他方式提供本项技术秘密。",
+              "location": "第五条第2项"
+            },
+            {
+              "clause_id": "C0062",
+              "quote": "1．买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+              "location": "第十七条第1项"
+            },
+            {
+              "clause_id": "C0088",
+              "quote": "第二十三条 其他事项：\n未经另一方书面同意，任何一方不得以新闻稿、广告或公开宣传材料披露本合同涉及的技术秘密内容。",
+              "location": "第二十三条 其他事项："
+            }
+          ],
+          "source_fact_key": "license_control.third_party_transfer_disclosure_restriction",
+          "evidence_refs": [
+            "SRC-040468b54a4d1ad4705e",
+            "SRC-b5401b55a595d4ef88ee",
+            "SRC-1be08011b8ba67253d55"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "bound_evidence_ids": [
+            "SRC-040468b54a4d1ad4705e",
+            "SRC-b5401b55a595d4ef88ee",
+            "SRC-1be08011b8ba67253d55"
+          ]
+        },
+        {
+          "review_id": "TC-11-01",
+          "element_id": "purpose_scoped_copying_boundary",
+          "claim_id": "TC-11-01-purpose_scoped_copying_boundary",
+          "proposition": "合同允许为生产合同产品复制和编译资料，同时禁止超出许可目的复制或使用。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-66faf46c66cc05310897",
+            "SRC-7e56281cd8370146b8cc"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-66faf46c66cc05310897",
+            "SRC-7e56281cd8370146b8cc"
+          ],
+          "source_clause_ids": [
+            "C0020",
+            "C0028"
+          ],
+          "source_spans": [
+            "2．实施方式：\n买方可以为生产合同产品之目的复制、编译和使用相关技术资料及源代码。",
+            "4．泄密责任：\n买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；"
+          ],
+          "source_locations": [
+            "第五条第2项",
+            "第八条第4项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "合同允许为生产合同产品复制和编译资料，同时禁止超出许可目的复制或使用。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "目的内复制权限和使用边界",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0020",
+              "quote": "2．实施方式：\n买方可以为生产合同产品之目的复制、编译和使用相关技术资料及源代码。",
+              "location": "第五条第2项"
+            },
+            {
+              "clause_id": "C0028",
+              "quote": "4．泄密责任：\n买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；",
+              "location": "第八条第4项"
+            }
+          ],
+          "source_fact_key": "license_control.purpose_scoped_copying_boundary",
+          "evidence_refs": [
+            "SRC-66faf46c66cc05310897",
+            "SRC-7e56281cd8370146b8cc"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "bound_evidence_ids": [
+            "SRC-66faf46c66cc05310897",
+            "SRC-7e56281cd8370146b8cc"
+          ]
+        }
+      ],
+      "target_verification": {
+        "status": "PASS",
+        "failures": [],
+        "element_evidence_ids": {
+          "confidential_information_scope": [
+            "SRC-6386f27b88dd4b3ec82c",
+            "SRC-f685d6280d8587acc1f9",
+            "SRC-f34bf22bca0e07b6a245",
+            "SRC-b7db3731cf4e0334bbad"
+          ],
+          "confidential_personnel_control": [
+            "SRC-f9322020ef1fe823de9b",
+            "SRC-65ce352d9875ded47cf2"
+          ],
+          "contract_purpose_use_restriction": [
+            "SRC-66faf46c66cc05310897",
+            "SRC-7e56281cd8370146b8cc"
+          ],
+          "third_party_transfer_disclosure_restriction": [
+            "SRC-040468b54a4d1ad4705e",
+            "SRC-b5401b55a595d4ef88ee",
+            "SRC-1be08011b8ba67253d55"
+          ],
+          "purpose_scoped_copying_boundary": [
+            "SRC-66faf46c66cc05310897",
+            "SRC-7e56281cd8370146b8cc"
+          ]
+        }
+      },
+      "remaining_blockers": [
+        {
+          "code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+          "rule_id": "TC-09-02",
+          "element_id": "PRIMARY_EVIDENCE",
+          "fact_id": null,
+          "reason": "The primary report evidence does not directly support any covered element in this Review."
+        },
+        {
+          "code": "MISSING_WITH_POSITIVE_EVIDENCE",
+          "rule_id": "TC-09-02",
+          "element_id": null,
+          "fact_id": null,
+          "reason": "TC-09-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。"
+        },
+        {
+          "code": "CROSS_RULE_CANONICAL_FACT_CONSISTENCY",
+          "rule_id": null,
+          "element_id": null,
+          "fact_id": null,
+          "reason": "同一事实已被其他规则或统一事实层确认，但下游消费者仍输出完全缺失。"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TC-11-02",
+          "element_id": "confidentiality_period",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "POSITIVE_FACT_MONOTONICITY",
+          "rule_id": "TC-09-02",
+          "element_id": "objective_acceptance_standard",
+          "fact_id": null,
+          "reason": "TC-09-02"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TC-11-02",
+          "element_id": "confidentiality_period",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "rule_id": "TC-11-04",
+          "element_id": null,
+          "fact_id": null,
+          "reason": "CONSEQUENCE_REQUIREMENTS_MISMATCH"
+        },
+        {
+          "code": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "rule_id": "TC-11-04",
+          "element_id": null,
+          "fact_id": null,
+          "reason": "DETAIL_UNRESOLVED_REQUIREMENTS_OMITTED"
+        },
+        {
+          "code": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "rule_id": "TC-11-04",
+          "element_id": null,
+          "fact_id": null,
+          "reason": "DETAIL_UNRESOLVED_REQUIREMENTS_OMITTED"
+        }
+      ]
+    },
+    {
+      "sample": "ancillary",
+      "gate": "BLOCKED",
+      "contract_type": "technology",
+      "raw_blockers": 4,
+      "expanded_blockers": 27,
+      "process_id": 25100,
+      "engine_hash_matches": true,
+      "runtime_drift": "CURRENT",
+      "target_rule": "TC-09-04",
+      "target_coverage": "部分覆盖",
+      "target_elements": [
+        {
+          "review_id": "TC-09-04",
+          "element_id": "service_fee_amount",
+          "claim_id": "TC-09-04-service_fee_amount",
+          "proposition": "约定工作量范围内的技术服务费用",
+          "status": "PARTIALLY_COVERED",
+          "evidence_ids": [
+            "EV-8d5144386d90fca4",
+            "EV-d903da5dafce43b8"
+          ],
+          "supporting_evidence_ids": [
+            "EV-8d5144386d90fca4",
+            "EV-d903da5dafce43b8"
+          ],
+          "source_clause_ids": [
+            "C0011",
+            "C0011"
+          ],
+          "source_spans": [
+            "乙方累计提供现场技术服务不超过10个工作日。",
+            "超过10个工作日的服务，由双方另行协商收费。"
+          ],
+          "source_locations": [
+            "第十条 技术服务和技术指导",
+            "第十条 技术服务和技术指导"
+          ],
+          "entailment": "PARTIAL_SUPPORT",
+          "verifier_confidence": "high",
+          "reason": "约定工作量范围内的技术服务费用",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "fact_status": "FOUND",
+          "requirement_status": "PARTIALLY_COVERED",
+          "residual_gap": "约定工作量内费用是否另收或包含于主价款",
+          "required_fact": "约定工作量范围内的技术服务费用",
+          "search_targets": [
+            "约定工作量内费用是否另收或包含于主价款"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0011",
+              "quote": "乙方累计提供现场技术服务不超过10个工作日。",
+              "location": "第十条 技术服务和技术指导"
+            },
+            {
+              "clause_id": "C0011",
+              "quote": "超过10个工作日的服务，由双方另行协商收费。",
+              "location": "第十条 技术服务和技术指导"
+            }
+          ],
+          "source_fact_key": "ancillary_fee.service_fee_amount",
+          "evidence_refs": [
+            "EV-8d5144386d90fca4",
+            "EV-d903da5dafce43b8"
+          ]
+        },
+        {
+          "review_id": "TC-09-04",
+          "element_id": "service_payment_schedule",
+          "claim_id": "TC-09-04-service_payment_schedule",
+          "proposition": "技术服务费用与主价款付款安排的对应关系",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "技术服务费用与主价款付款安排的对应关系",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "residual_gap": "技术服务费用与主价款付款安排的对应关系",
+          "required_fact": "技术服务费用的支付安排",
+          "search_targets": [
+            "技术服务费用与主价款付款安排的对应关系"
+          ],
+          "supporting_evidence": [],
+          "source_fact_key": "ancillary_fee.service_payment_schedule"
+        },
+        {
+          "review_id": "TC-09-04",
+          "element_id": "extra_service_pricing_standard",
+          "claim_id": "TC-09-04-extra_service_pricing_standard",
+          "proposition": "额外技术服务收费标准",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "额外技术服务收费标准",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "residual_gap": "额外技术服务收费标准",
+          "required_fact": "额外技术服务收费标准",
+          "search_targets": [
+            "额外技术服务收费标准"
+          ],
+          "supporting_evidence": [],
+          "source_fact_key": "ancillary_fee.extra_service_pricing_standard"
+        },
+        {
+          "review_id": "TC-09-04",
+          "element_id": "extra_service_billing_method",
+          "claim_id": "TC-09-04-extra_service_billing_method",
+          "proposition": "额外服务计价和工作量确认",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "额外服务计价和工作量确认",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "residual_gap": "额外服务计价和工作量确认",
+          "required_fact": "额外服务计价和工作量确认",
+          "search_targets": [
+            "额外服务计价和工作量确认"
+          ],
+          "supporting_evidence": [],
+          "source_fact_key": "ancillary_fee.extra_service_billing_method"
+        },
+        {
+          "review_id": "TC-09-04",
+          "element_id": "extra_service_payment_node",
+          "claim_id": "TC-09-04-extra_service_payment_node",
+          "proposition": "额外服务付款节点",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "额外服务付款节点",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "residual_gap": "额外服务付款节点",
+          "required_fact": "额外服务付款节点",
+          "search_targets": [
+            "额外服务付款节点"
+          ],
+          "supporting_evidence": [],
+          "source_fact_key": "ancillary_fee.extra_service_payment_node"
+        }
+      ],
+      "target_verification": null,
+      "remaining_blockers": [
+        {
+          "code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+          "rule_id": "TC-06-02",
+          "element_id": "core_contract_arrangement",
+          "fact_id": null,
+          "reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership."
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-PAY-01",
+          "element_id": "payment_formula_inconsistency_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-LIAB-02",
+          "element_id": "generic_liability_cap_validity_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "fact_id": null,
+          "reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "fact_id": null,
+          "reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TC-11-03",
+          "element_id": "post_termination_material_retention",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-SHARED-03",
+          "element_id": "technical_timeline_conflict_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-SHARED-03",
+          "element_id": "risk_description",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-SHARED-03",
+          "element_id": "risk_point_description",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-SHARED-03",
+          "element_id": "review_judgment",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-SHARED-03",
+          "element_id": "narrative_judgment",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-PAY-01",
+          "element_id": "payment_formula_inconsistency_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-LIAB-02",
+          "element_id": "generic_liability_cap_validity_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "fact_id": null,
+          "reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "fact_id": null,
+          "reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TC-11-03",
+          "element_id": "post_termination_material_retention",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-SHARED-03",
+          "element_id": "technical_timeline_conflict_adverse_arrangement",
+          "fact_id": null,
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-SHARED-03",
+          "element_id": "risk_description",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-SHARED-03",
+          "element_id": "risk_point_description",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-SHARED-03",
+          "element_id": "review_judgment",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "NARRATIVE_EVIDENCE_GATE",
+          "rule_id": "TECH-SHARED-03",
+          "element_id": "narrative_judgment",
+          "fact_id": null,
+          "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+        },
+        {
+          "code": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "rule_id": "TC-11-04",
+          "element_id": "breach_damage_liability",
+          "fact_id": null,
+          "reason": "REMEDY_OR_PARTY_NOT_ENTAILED"
+        },
+        {
+          "code": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "rule_id": "TC-11-04",
+          "element_id": null,
+          "fact_id": null,
+          "reason": "CONSEQUENCE_REQUIREMENTS_MISMATCH"
+        },
+        {
+          "code": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "rule_id": "TC-11-04",
+          "element_id": null,
+          "fact_id": null,
+          "reason": "DETAIL_UNRESOLVED_REQUIREMENTS_OMITTED"
+        },
+        {
+          "code": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "rule_id": "TC-11-04",
+          "element_id": null,
+          "fact_id": null,
+          "reason": "DETAIL_UNRESOLVED_REQUIREMENTS_OMITTED"
+        }
+      ]
+    }
+  ],
+  "code_hashes": {
+    "engine.py": "d2daed34abb14fb9d03b66245e3e0f2034764779b2a39aafec3476fb5cc47ea4",
+    "license_control_facts.py": "17997ab2a09cbeaea1a7b93373e650ed24d78e8937794ea986462cd9e38cccfb",
+    "ancillary_fee_facts.py": "e52ac905ece30da956b161af500faa77f5bb6d2eaa83340c15e0e533e993b512",
+    "service_liability_sources.py": "63e4bc43d35bdb469a8ac4866ef2ae089eb35df35f2a47da332a3a239131fe51"
+  }
+}

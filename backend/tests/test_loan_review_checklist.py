@@ -74,7 +74,8 @@ def test_loan_review_checklist_covers_required_special_rules():
     assert expected_nodes <= set(by_node)
     assert "第667条" in by_node["loan_financial_private_distinction"].legal_basis
     assert "第670条" in by_node["loan_deducted_interest_forbidden"].legal_basis
-    assert "第26条" in by_node["loan_interest_lpr_cap"].legal_basis
+    assert "第25条" in by_node["loan_interest_lpr_cap"].legal_basis
+    assert "第29条" in by_node["loan_interest_lpr_cap"].legal_basis
     assert "第561条" in by_node["loan_repayment_offset_order"].legal_basis
     assert "第677条" in by_node["loan_early_repayment_right"].legal_basis
     assert "第678条" in by_node["loan_extension_request"].legal_basis
@@ -106,4 +107,4 @@ def test_review_v2_can_load_loan_checklist():
     assert output["contract_type_name"] == "借款合同"
     assert output["all_items_count"] == 48
     assert len(output["items"]) == 48
-    assert output["summary"]["高"] + output["summary"]["中"] + output["summary"]["低"] == 48
+    assert sum(output["summary"].values()) + output["coverage_summary"].get("不适用", 0) == 48

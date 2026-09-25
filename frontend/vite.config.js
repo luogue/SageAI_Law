@@ -38,22 +38,23 @@ export default defineConfig(({ mode }) => ({
     sourcemap: false,
   }),
   server: {
+    host: '127.0.0.1',
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:8016',
+        target: 'http://127.0.0.1:8016',
         changeOrigin: true
       },
       '/auth': {
-        target: 'http://localhost:8016',
+        target: 'http://127.0.0.1:8016',
         changeOrigin: true
       },
       '/user': {
-        target: 'http://localhost:8016',
+        target: 'http://127.0.0.1:8016',
         changeOrigin: true
       },
       '/review-v2': {
-        target: 'http://localhost:8016',
+        target: 'http://127.0.0.1:8016',
         changeOrigin: true
       }
     }

@@ -1,0 +1,391 @@
+.....F...F...FF.FF.F..FF..F..F...FFFFFFFFFFFFFF.................F..F.... [ 33%]
+...F..................FF..F.F.F..F.F.FF.F.FFFF..F.........F............. [ 67%]
+.....................................................................    [100%]
+================================== FAILURES ===================================
+_________________ test_current_secret_license_full_regression _________________
+backend\tests\test_technical_secret_license_contract_review.py:192: in test_current_secret_license_full_regression
+    assert "技术秘密许可合同" in by_id["TC-01-01"]["risk_point_description"]
+E   AssertionError: assert '技术秘密许可合同' in '现有摘录尚不足以形成经原文与语义双重验证的通过结论，需要核对合同证据；不据此推断存在不利条款。'
+____ test_over_scope_liability_d_reasonable_clause_can_pass_or_be_partial _____
+backend\tests\test_technical_secret_license_contract_review.py:264: in test_over_scope_liability_d_reasonable_clause_can_pass_or_be_partial
+    assert item["coverage_status"] in {"通过", "部分覆盖"}
+E   AssertionError: assert '待核验' in {'通过', '部分覆盖'}
+__________ test_latest_secret_license_route_and_protective_polarity ___________
+backend\tests\test_technical_secret_license_contract_review.py:335: in test_latest_secret_license_route_and_protective_polarity
+    assert {"C0047", "C0048", "C0049"} <= _evidence_ids(competition)
+E   AssertionError: assert {'C0047', 'C0048', 'C0049'} <= {'C0050', 'C0051', 'C0052'}
+E     
+E     Extra items in the left set:
+E     'C0048'
+E     'C0047'
+E     'C0049'
+______ test_latest_secret_license_shared_fee_improvement_and_claim_facts ______
+backend\tests\test_technical_secret_license_contract_review.py:351: in test_latest_secret_license_shared_fee_improvement_and_claim_facts
+    assert improvement["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+_______ test_latest_secret_license_acceptance_evidence_is_subject_bound _______
+backend\tests\test_technical_secret_license_contract_review.py:406: in test_latest_secret_license_acceptance_evidence_is_subject_bound
+    assert acceptance_ids == {"C0004", "C0042", "C0043", "C0044"}
+E   AssertionError: assert {'C0004', 'C0...046', 'C0047'} == {'C0004', 'C0...043', 'C0044'}
+E     
+E     Extra items in the left set:
+E     'C0047'
+E     'C0045'
+E     'C0046'
+E     Extra items in the right set:
+E     'C0042'...
+E     
+E     ...Full output truncated (3 lines hidden), use '-vv' to show
+___ test_latest_secret_license_report_consistency_and_empty_template_gates ____
+backend\tests\test_technical_secret_license_contract_review.py:414: in test_latest_secret_license_report_consistency_and_empty_template_gates
+    assert latest_review["technology_transaction_consistency_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_ test_latest_secret_license_service_acceptance_uses_shared_subject_evidence __
+backend\tests\test_technical_secret_license_contract_review.py:457: in test_latest_secret_license_service_acceptance_uses_shared_subject_evidence
+    assert item["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '缺失' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 缺失
+_____ test_latest_secret_loss_positive_notice_facts_never_reenter_missing _____
+backend\tests\test_technical_secret_license_contract_review.py:566: in test_latest_secret_loss_positive_notice_facts_never_reenter_missing
+    assert elements[element_id].get("evidence_ids") == ["C0023"]
+E   AssertionError: assert ['EV-ea306a4b851ff2a8'] == ['C0023']
+E     
+E     At index 0 diff: 'EV-ea306a4b851ff2a8' != 'C0023'
+E     Use -v to get more diff
+____ test_latest_improvement_notice_is_partial_with_only_residual_details _____
+backend\tests\test_technical_secret_license_contract_review.py:592: in test_latest_improvement_notice_is_partial_with_only_residual_details
+    assert elements["improvement_notice_trigger"].get("evidence_ids") == ["C0052"]
+E   AssertionError: assert ['EV-fa1bdbcc2b8db421'] == ['C0052']
+E     
+E     At index 0 diff: 'EV-fa1bdbcc2b8db421' != 'C0052'
+E     Use -v to get more diff
+____ test_confidentiality_liability_evidence_explanation_is_element_bound _____
+backend\tests\test_technical_secret_license_contract_review.py:668: in test_confidentiality_liability_evidence_explanation_is_element_bound
+    assert "泄密损失赔偿责任" in support_summary
+E   AssertionError: assert '泄密损失赔偿责任' in ''
+_ test_clause_parser_keeps_body_appendix_references_and_signature_page_separate _
+backend\tests\test_technical_service_final_evidence_closure.py:53: in test_clause_parser_keeps_body_appendix_references_and_signature_page_separate
+    assert personal_data.location == "三、（一）"
+E   AssertionError: assert '三、资料的提供 / 甲方...6年9月5日前向乙方提供：' == '三、（一）'
+E     
+E     - 三、（一）
+E     + 三、资料的提供 / 甲方应在2026年9月5日前向乙方提供：
+___ test_every_final_risk_has_bundle_and_missing_risk_has_absence_evidence ____
+backend\tests\test_technical_service_final_evidence_closure.py:131: in test_every_final_risk_has_bundle_and_missing_risk_has_absence_evidence
+    assert absence["related_trigger_clause_ids"]
+E   KeyError: 'related_trigger_clause_ids'
+__________ test_covered_reviews_that_contribute_to_risk_are_not_keep __________
+backend\tests\test_technical_service_final_evidence_closure.py:140: in test_covered_reviews_that_contribute_to_risk_are_not_keep
+    assert item["applicability"]["status"] == "APPLICABLE"
+E   AssertionError: assert 'NOT_APPLICABLE' == 'APPLICABLE'
+E     
+E     - APPLICABLE
+E     + NOT_APPLICABLE
+E     ? ++++
+__________ test_gate_blocks_duplicate_span_and_missing_final_bundle ___________
+backend\tests\test_technical_service_final_evidence_closure.py:163: in test_gate_blocks_duplicate_span_and_missing_final_bundle
+    items, findings, recommendations, dispositions = _integrity_inputs(output)
+backend\tests\test_technical_service_final_evidence_closure.py:41: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+backend\tests\test_technical_service_final_evidence_closure.py:41: in <listcomp>
+    [Recommendation(**row) for row in output["recommendations"]],
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+______ test_gate_blocks_missing_absence_evidence_and_invalid_clause_node ______
+backend\tests\test_technical_service_final_evidence_closure.py:175: in test_gate_blocks_missing_absence_evidence_and_invalid_clause_node
+    items, findings, recommendations, dispositions = _integrity_inputs(output)
+backend\tests\test_technical_service_final_evidence_closure.py:41: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+backend\tests\test_technical_service_final_evidence_closure.py:41: in <listcomp>
+    [Recommendation(**row) for row in output["recommendations"]],
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+____________ test_gate_blocks_material_deadline_fact_role_mismatch ____________
+backend\tests\test_technical_service_final_evidence_closure.py:187: in test_gate_blocks_material_deadline_fact_role_mismatch
+    items, findings, recommendations, dispositions = _integrity_inputs(output)
+backend\tests\test_technical_service_final_evidence_closure.py:41: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+backend\tests\test_technical_service_final_evidence_closure.py:41: in <listcomp>
+    [Recommendation(**row) for row in output["recommendations"]],
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+_________ test_gate_blocks_linked_covered_review_that_reverts_to_keep _________
+backend\tests\test_technical_service_final_evidence_closure.py:198: in test_gate_blocks_linked_covered_review_that_reverts_to_keep
+    items, findings, recommendations, dispositions = _integrity_inputs(output)
+backend\tests\test_technical_service_final_evidence_closure.py:41: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+backend\tests\test_technical_service_final_evidence_closure.py:41: in <listcomp>
+    [Recommendation(**row) for row in output["recommendations"]],
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+_____ test_b2b_industrial_service_uses_technical_service_route_and_roles ______
+backend\tests\test_industrial_technical_service_routing_regression.py:60: in test_b2b_industrial_service_uses_technical_service_route_and_roles
+    assert result["domain_selection_resolution"]["selected_domain"] == "TECHNOLOGY"
+E   AssertionError: assert 'SERVICE' == 'TECHNOLOGY'
+E     
+E     - TECHNOLOGY
+E     + SERVICE
+_________ test_industrial_service_core_risks_survive_route_resolution _________
+backend\tests\test_industrial_technical_service_routing_regression.py:72: in test_industrial_service_core_risks_survive_route_resolution
+    assert {
+E   AssertionError: assert {'confidentia...nership', ...} <= {'change_reco...consent', ...}
+E     
+E     Extra items in the left set:
+E     'confidentiality_duration_data_use_asymmetry'
+E     'generic_liability_cap_validity'
+E     'service_new_result_ownership'
+E     'generic_potential_excessive_liquidated_damages'
+E     'third_party_claim_defense'...
+E     
+E     ...Full output truncated (4 lines hidden), use '-vv' to show
+________ test_payment_and_timeline_are_bound_to_current_contract_facts ________
+backend\tests\test_industrial_technical_service_routing_regression.py:95: in test_payment_and_timeline_are_bound_to_current_contract_facts
+    assert payment["contract_total"] == 1000000
+E   KeyError: 'contract_total'
+____ test_third_party_component_fact_is_shared_by_claim_and_proof_reviews _____
+backend\tests\test_industrial_technical_service_routing_regression.py:111: in test_third_party_component_fact_is_shared_by_claim_and_proof_reviews
+    item = items[review_id]
+E   KeyError: 'TC-03-04'
+_ test_service_current_project_outputs_do_not_activate_follow_on_improvement_rules _
+backend\tests\test_industrial_technical_service_routing_regression.py:133: in test_service_current_project_outputs_do_not_activate_follow_on_improvement_rules
+    assert items[review_id]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+E   KeyError: 'TC-10-01'
+______ test_explicit_service_follow_on_improvement_still_activates_tc10 _______
+backend\tests\test_industrial_technical_service_routing_regression.py:159: in test_explicit_service_follow_on_improvement_still_activates_tc10
+    assert items[review_id]["applicability"]["applicable"] is True
+E   KeyError: 'TC-10-01'
+_____ test_improvement_recommendation_does_not_invent_existing_mechanisms _____
+backend\tests\test_industrial_technical_service_routing_regression.py:170: in test_improvement_recommendation_does_not_invent_existing_mechanisms
+    sharing = next(row for row in result["items"] if row["item_id"] == "TC-10-02")
+E   StopIteration
+____ test_complete_review_rows_are_unique_and_partial_rows_have_real_gaps _____
+backend\tests\test_industrial_technical_service_routing_regression.py:184: in test_complete_review_rows_are_unique_and_partial_rows_have_real_gaps
+    assert item_ids.count("TECH-SHARED-03") == 1
+E   AssertionError: assert 0 == 1
+E    +  where 0 = <built-in method count of list object at 0x00000251E46AC080>('TECH-SHARED-03')
+E    +    where <built-in method count of list object at 0x00000251E46AC080> = ['SVC-01-01', 'SVC-01-02', 'SVC-01-03', 'SVC-01-04', 'SVC-02-01', 'SVC-02-02', ...].count
+____ test_shared_disposal_is_one_canonical_issue_in_the_production_report _____
+backend\tests\test_entrusted_cross_rule_consistency.py:50: in test_shared_disposal_is_one_canonical_issue_in_the_production_report
+    assert len(matches) == 1
+E   AssertionError: assert 2 == 1
+E    +  where 2 = len([{'finding_id': 'RF-007', 'risk_group': 'technical_secret_result_rights', 'title': '技术秘密成果使用转让', 'severity': 'MEDIUM',...ding_id': 'RF-012', 'risk_group': 'confidential_material_return_destroy', 'title': '保密资料返还销毁', 'severity': 'LOW', ...}])
+___ test_completed_negative_check_does_not_leave_an_obsolete_manual_review ____
+backend\tests\test_entrusted_cross_rule_consistency.py:101: in test_completed_negative_check_does_not_leave_an_obsolete_manual_review
+    assert review["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+_____________ test_final_report_passes_all_original_and_new_gates _____________
+backend\tests\test_entrusted_cross_rule_consistency.py:190: in test_final_report_passes_all_original_and_new_gates
+    assert report["release_quality_gate"]["status"] == "REPORT_READY", report["release_quality_gate"]
+E   AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'VERIFIED_PASS_ORIGINAL_GATE', 'root_cause': 'TC-10-04', 'reason': ...': {'status': 'PASS', 'failures': [], 'contract_type': 'technology', 'domain_pack': 'domain-pack-technology-1.0'}, ...}
+E   assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+____________ test_release_gate_passes_without_skipping_consistency ____________
+backend\tests\test_entrusted_development_production_closure.py:75: in test_release_gate_passes_without_skipping_consistency
+    assert gate["status"] in {"PASSED", "REPORT_READY"}, gate
+E   AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'VERIFIED_PASS_ORIGINAL_GATE', 'root_cause': 'TC-10-04', 'reason': ...': {'status': 'PASS', 'failures': [], 'contract_type': 'technology', 'domain_pack': 'domain-pack-technology-1.0'}, ...}
+E   assert 'BLOCKED' in {'PASSED', 'REPORT_READY'}
+_____ test_newly_active_development_branch_consumes_actual_claim_evidence _____
+backend\tests\test_entrusted_development_production_closure.py:90: in test_newly_active_development_branch_consumes_actual_claim_evidence
+    assert all(e["supporting_evidence"] for e in nature["coverage_elements"])
+E   assert False
+E    +  where False = all(<generator object test_newly_active_development_branch_consumes_actual_claim_evidence.<locals>.<genexpr> at 0x00000251E29183C0>)
+_______ test_competition_and_improvement_facts_are_shared_across_rules ________
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:62: in test_competition_and_improvement_facts_are_shared_across_rules
+    assert any("不得自行开发" in (row.get("text") or "") for row in competition["evidence_clauses"])
+E   assert False
+E    +  where False = any(<generator object test_competition_and_improvement_facts_are_shared_across_rules.<locals>.<genexpr> at 0x00000251DDE09620>)
+__ test_acceptance_separates_test_control_authority_from_concrete_parameters __
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:97: in test_acceptance_separates_test_control_authority_from_concrete_parameters
+    assert statuses["quantitative_performance_targets"] == "COVERED"
+E   KeyError: 'quantitative_performance_targets'
+____ test_confidentiality_is_split_by_obligated_party_for_recipient_review ____
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:152: in test_confidentiality_is_split_by_obligated_party_for_recipient_review
+    assert "乙方违反保密、知识产权或者数据使用约定" in evidence_text
+E   AssertionError: assert '乙方违反保密、知识产权或者数据使用约定' in '第九条 违约责任\n甲方逾期支付技术服务费的，每逾期一日，按照应付款金额的0.03%支付违约金。 第九条 违约责任\n甲方逾期支付技术服务费的，每逾期一日，按照应付款金额的0.03%支付违约金。 第九条 违约责任\n甲方逾期支付技术服...未公开技术资料。 第五条 保密义务\n甲方\n保密内容：\n乙方提供的算法方案、技术报告、参数、技术文档及其他未公开技术资料。 第五条 保密义务\n甲方\n保密内容：\n乙方提供的算法方案、技术报告、参数、技术文档及其他未公开技术资料。'
+____ test_report_statistics_are_recomputed_from_final_findings_and_themes _____
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:196: in test_report_statistics_are_recomputed_from_final_findings_and_themes
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_ test_counterparty_restrictions_are_projected_as_current_party_enforceability_risk _
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:214: in test_counterparty_restrictions_are_projected_as_current_party_enforceability_risk
+    trace = item["decision_trace"]["risk_to_current_party"]
+E   KeyError: 'risk_to_current_party'
+__ test_third_party_claim_consequence_and_advice_only_consume_residual_gaps ___
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:263: in test_third_party_claim_consequence_and_advice_only_consume_residual_gaps
+    assert "通知期限" in advice and "抗辩控制" in advice and "解除权" in advice
+E   AssertionError: assert ('通知期限' in '建议补充明确第三方软件或技术引发的知识产权纠纷责任被转由服务接受方承担；补充明确第三方权利主张发生后的通知义务明确；补充明确第三方权利主张通知期限明确；补充明确重大权利瑕疵导致无法继续使用时的解除救济明确；补充明确重大权利瑕疵后的退款或返还价款救济明确；补充明确抗辩决策及当前审查方参与机制仍未完整明确；补充明确第三方索赔律师选择机制明确；补充明确第三方索赔和解决策权限明确。' and '抗辩控制' in '建议补充明确第三方软件或技术引发的知识产权纠纷责任被转由服务接受方承担；补充明确第三方权利主张发生后的通知义务明确；补充明确第三方权利主张通知期限明确；补充明确重大权利瑕疵导致无法继续使用时的解除救济明确；补充明确重大权利瑕疵后的退款或返还价款救济明确；补充明确抗辩决策及当前审查方参与机制仍未完整明确；补充明确第三方索赔律师选择机制明确；补充明确第三方索赔和解决策权限明确。')
+_ test_referenced_but_unprovided_attachment_is_not_an_ordinary_missing_clause _
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:270: in test_referenced_but_unprovided_attachment_is_not_an_ordinary_missing_clause
+    attachment = next(
+E   StopIteration
+______ test_na_reason_preserves_confirmed_confidential_information_fact _______
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:323: in test_na_reason_preserves_confirmed_confidential_information_fact
+    assert "虽涉及技术秘密或保密资料" in reason
+E   AssertionError: assert '虽涉及技术秘密或保密资料' in '当前合同未形成可识别的技术秘密范围、限制使用或独立对价事实，技术秘密丧失秘密性后的使用与费用处理规则不适用。'
+______ test_report_actual_exposure_uses_party_aware_finding_consequence _______
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:353: in test_report_actual_exposure_uses_party_aware_finding_consequence
+    assert "影响甲方最终取得权利的稳定性和可执行性" in report
+E   AssertionError: assert '影响甲方最终取得权利的稳定性和可执行性' in '# 技术服务合同审查报告\n\n\n## 一、合同总体评价\n\n- 审查立场：甲方 / 服务接受方\n- 使用场景：技术服务\n- 合同类型：技术合同—技术服务合同\n- 总体可签署性：建议修改后签署\n- 风险主题数（聚合后）：1...期一日，按照合同总额的0.5%支付违约金\n- 第九条 违约责任 [支持：违约金标准偏高及司法调减风险]: 乙方违反保密、知识产权或者数据使用约定的，应向甲方支付人民币300万元违约金，不足以弥补甲方损失的，应继续赔偿\n\n---\n'
+__ test_attachment_finding_only_describes_the_unprovided_referenced_material __
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:361: in test_attachment_finding_only_describes_the_unprovided_referenced_material
+    assert "附件正文未随本次审查材料提供" in finding["issue"]
+E   AssertionError: assert '附件正文未随本次审查材料提供' in '仍需补足：独立验收测试方案附件、固定测试数据集或样本、统计口径、测试记录和签认要求。'
+_____ test_structural_pass_is_linked_to_higher_priority_substantive_risk ______
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:372: in test_structural_pass_is_linked_to_higher_priority_substantive_risk
+    assert ownership["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+________ test_ip_liability_and_general_remedies_jointly_trigger_tc1204 ________
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:385: in test_ip_liability_and_general_remedies_jointly_trigger_tc1204
+    assert item["applicability"]["status"] == "APPLICABLE"
+E   AssertionError: assert 'NOT_APPLICABLE' == 'APPLICABLE'
+E     
+E     - APPLICABLE
+E     + NOT_APPLICABLE
+E     ? ++++
+_ test_excessive_liquidated_damages_are_flagged_as_adjustment_risk_not_invalidity _
+backend\tests\test_technical_service_latest_shared_fact_regressions.py:448: in test_excessive_liquidated_damages_are_flagged_as_adjustment_risk_not_invalidity
+    assert "每日0.5%" in item["risk_point_description"]
+E   AssertionError: assert '每日0.5%' in '当前审查方承担的高额违约金包括甲方违反保密义务的，应向乙方支付人民币200万元违约金；相对方承担、当前审查方受益的高额违约金包括乙方逾期完成任何阶段技术服务的，每逾期一日，按照合同总额的0.5%支付违约金；乙方违反保密、知识产权或者数据使用约定的，应向甲方支付人民币300万元违约金，不足以弥补甲方损失的，应继续赔偿。合同价比例仅用于识别异常，不等同于实际损失比例。'
+_ test_complete_patent_license_uses_one_full_text_and_never_loads_sale_rules __
+backend\tests\test_patent_license_input_integrity_routing.py:277: in test_complete_patent_license_uses_one_full_text_and_never_loads_sale_rules
+    assert output["contract_type"] == "technology"
+E   AssertionError: assert 'sale' == 'technology'
+E     
+E     - technology
+E     + sale
+---------------------------- Captured stderr call -----------------------------
+2026-09-14 06:37:53 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=patent-license.docx stage=source_document used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+2026-09-14 06:37:53 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=patent-license.docx stage=extracted_full_text used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+2026-09-14 06:37:53 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=patent-license.docx stage=normalized_full_text used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+2026-09-14 06:37:53 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=patent-license.docx stage=classifier_input used=False chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+2026-09-14 06:37:53 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=patent-license.docx stage=clause_extraction_input used=False chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+2026-09-14 06:37:53 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=patent-license.docx stage=rule_engine_input used=False chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+2026-09-14 06:37:53 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=patent-license.docx stage=search_audit_input used=False chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+2026-09-14 06:37:53 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY_GATE] trace_id= filename=patent-license.docx status=PASS failures=[] anchors={'专利技术': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '许可方': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '接受方': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '非独占': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '提成费': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '专利资料': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '中国国际经济贸易仲裁委员会': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '不可抗力': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '专利失效': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '专利费用': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '侵权': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': None, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+2026-09-14 06:38:00 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063753-497088 filename=patent-license.docx stage=source_document used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+2026-09-14 06:38:00 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063753-497088 filename=patent-license.docx stage=extracted_full_text used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+2026-09-14 06:38:00 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063753-497088 filename=patent-license.docx stage=normalized_full_text used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+2026-09-14 06:38:00 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063753-497088 filename=patent-license.docx stage=classifier_input used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+2026-09-14 06:38:00 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063753-497088 filename=patent-license.docx stage=clause_extraction_input used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+2026-09-14 06:38:00 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063753-497088 filename=patent-license.docx stage=rule_engine_input used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+2026-09-14 06:38:00 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063753-497088 filename=patent-license.docx stage=search_audit_input used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+2026-09-14 06:38:00 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063753-497088 filename=patent-license.docx stage=clause_extraction_output used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+2026-09-14 06:38:00 - routers.review_v2 - WARNING - [unknown] - [REVIEW_INPUT_INTEGRITY_GATE] trace_id=CR-20260914-063753-497088 filename=patent-license.docx status=PASS failures=[] anchors={'专利技术': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '许可方': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '接受方': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '非独占': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '提成费': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '专利资料': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '中国国际经济贸易仲裁委员会': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '不可抗力': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '专利失效': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '专利费用': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '侵权': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': 1.0, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+2026-09-14 06:38:00 - routers.review_v2 - WARNING - [unknown] - [TRACE_REVIEW_V2] pid=10448 pipeline=canonical-review-v2-production-6.4 classifier=technical-transaction-classifier-v3-single-source evaluator=canonical-review-evaluator-6.4-single-classification ruleset=review-v2-rules-quality3-2026-08-11 entry=F:\ai\Sage\backend\routers\review_v2.py:1382 engine=F:\ai\Sage\backend\review_v2\engine.py:51991 subtype=GENERAL_GOODS_SALE classifier_executions=1 registry_id=2550563109424 evidence_impl=technical-consulting-evidence-v2.1-active-path doc_hash=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c confidentiality=True
+2026-09-14 06:38:00 - routers.review_v2 - INFO - [unknown] - [REVIEW_RELEASE_GATE] review_id=CR-20260914-063753-497088 pid=10448 runtime=CURRENT status=REPORT_READY failures=[]
+------------------------------ Captured log call ------------------------------
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=patent-license.docx stage=source_document used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=patent-license.docx stage=extracted_full_text used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=patent-license.docx stage=normalized_full_text used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=patent-license.docx stage=classifier_input used=False chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=patent-license.docx stage=clause_extraction_input used=False chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=patent-license.docx stage=rule_engine_input used=False chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=patent-license.docx stage=search_audit_input used=False chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+WARNING  routers.review_v2:input_integrity.py:291 [REVIEW_INPUT_INTEGRITY_GATE] trace_id= filename=patent-license.docx status=PASS failures=[] anchors={'专利技术': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '许可方': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '接受方': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '非独占': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '提成费': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '专利资料': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '中国国际经济贸易仲裁委员会': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '不可抗力': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '专利失效': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '专利费用': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '侵权': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': None, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063753-497088 filename=patent-license.docx stage=source_document used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063753-497088 filename=patent-license.docx stage=extracted_full_text used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063753-497088 filename=patent-license.docx stage=normalized_full_text used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063753-497088 filename=patent-license.docx stage=classifier_input used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063753-497088 filename=patent-license.docx stage=clause_extraction_input used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063753-497088 filename=patent-license.docx stage=rule_engine_input used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063753-497088 filename=patent-license.docx stage=search_audit_input used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063753-497088 filename=patent-license.docx stage=clause_extraction_output used=True chars=1003 compact_chars=966 paragraphs=24 sha256=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c head='涉外专利实施许可合同\n许可方：Meyer Industrial Technologies GmbH\n接受方：中国华科智能装备有限公司\n第一条 专利技术\n许可方确认其为专利号ZL201910876543.2的合法专利权人，许可标的是工业机器人高精度视觉定位与自适应控制专利技术。\n第二条 许可性质和实施范围\n许可方授予接受方在中华人民共和国境内非独占、不可转让的专利实施许可。接受方有权使用该专利技术制造、使用和销售合同产品，但无权转让专利权或向第三方再许可。\n第三条 许可使用费\n接受方按照合同产品年度净销售额乘以5%的提成率向许可方支付提成费，净销售额按照销售收入扣除税费和退货后计算。\n第四条 支' tail='争、严重洪水、火灾、台风、地震及其他不能预见、不能避免且不能克服的事件。受影响方应及时通知对方，并在十四日内提供有效证明。不可抗力持续影响超过120天的，双方应协商继续履行、变更或者终止合同。\n第九条 争议解决\n因本合同产生的争议应先协商解决；协商不成的，提交中国国际经济贸易仲裁委员会仲裁，适用申请仲裁时有效的仲裁规则，仲裁裁决为终局。\n第十条 专利失效和终止后处理\n专利失效后，许可方应立即书面通知接受方，双方按照失效原因和时间停止或调整后续许可使用费。\n10.4 专利失效后的继续使用和费用处理：接受方可以继续使用已经进入公有领域的技术；失效日后不再支付提成费，许可方应返还失效后已收取的费用。'
+WARNING  routers.review_v2:input_integrity.py:291 [REVIEW_INPUT_INTEGRITY_GATE] trace_id=CR-20260914-063753-497088 filename=patent-license.docx status=PASS failures=[] anchors={'专利技术': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '许可方': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '接受方': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '非独占': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '提成费': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '专利资料': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '中国国际经济贸易仲裁委员会': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '不可抗力': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '专利失效': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '专利费用': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '侵权': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': 1.0, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+WARNING  routers.review_v2:review_v2.py:1556 [TRACE_REVIEW_V2] pid=10448 pipeline=canonical-review-v2-production-6.4 classifier=technical-transaction-classifier-v3-single-source evaluator=canonical-review-evaluator-6.4-single-classification ruleset=review-v2-rules-quality3-2026-08-11 entry=F:\ai\Sage\backend\routers\review_v2.py:1382 engine=F:\ai\Sage\backend\review_v2\engine.py:51991 subtype=GENERAL_GOODS_SALE classifier_executions=1 registry_id=2550563109424 evidence_impl=technical-consulting-evidence-v2.1-active-path doc_hash=846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c confidentiality=True
+INFO     routers.review_v2:review_v2.py:1576 [REVIEW_RELEASE_GATE] review_id=CR-20260914-063753-497088 pid=10448 runtime=CURRENT status=REPORT_READY failures=[]
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+backend/tests/test_entrusted_cross_rule_consistency.py::test_shared_disposal_has_the_same_scope_and_remaining_requirements
+backend/tests/test_entrusted_development_production_closure.py::test_primary_and_ancillary_routing
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_current_secret_license_full_regression
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_over_scope_liability_d_reasonable_clause_can_pass_or_be_partial
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_secret_license_route_and_protective_polarity
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_secret_license_shared_fee_improvement_and_claim_facts
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_secret_license_acceptance_evidence_is_subject_bound
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_secret_license_report_consistency_and_empty_template_gates
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_secret_license_service_acceptance_uses_shared_subject_evidence
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_secret_loss_positive_notice_facts_never_reenter_missing
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_latest_improvement_notice_is_partial_with_only_residual_details
+FAILED backend/tests/test_technical_secret_license_contract_review.py::test_confidentiality_liability_evidence_explanation_is_element_bound
+FAILED backend/tests/test_technical_service_final_evidence_closure.py::test_clause_parser_keeps_body_appendix_references_and_signature_page_separate
+FAILED backend/tests/test_technical_service_final_evidence_closure.py::test_every_final_risk_has_bundle_and_missing_risk_has_absence_evidence
+FAILED backend/tests/test_technical_service_final_evidence_closure.py::test_covered_reviews_that_contribute_to_risk_are_not_keep
+FAILED backend/tests/test_technical_service_final_evidence_closure.py::test_gate_blocks_duplicate_span_and_missing_final_bundle
+FAILED backend/tests/test_technical_service_final_evidence_closure.py::test_gate_blocks_missing_absence_evidence_and_invalid_clause_node
+FAILED backend/tests/test_technical_service_final_evidence_closure.py::test_gate_blocks_material_deadline_fact_role_mismatch
+FAILED backend/tests/test_technical_service_final_evidence_closure.py::test_gate_blocks_linked_covered_review_that_reverts_to_keep
+FAILED backend/tests/test_industrial_technical_service_routing_regression.py::test_b2b_industrial_service_uses_technical_service_route_and_roles
+FAILED backend/tests/test_industrial_technical_service_routing_regression.py::test_industrial_service_core_risks_survive_route_resolution
+FAILED backend/tests/test_industrial_technical_service_routing_regression.py::test_payment_and_timeline_are_bound_to_current_contract_facts
+FAILED backend/tests/test_industrial_technical_service_routing_regression.py::test_third_party_component_fact_is_shared_by_claim_and_proof_reviews
+FAILED backend/tests/test_industrial_technical_service_routing_regression.py::test_service_current_project_outputs_do_not_activate_follow_on_improvement_rules
+FAILED backend/tests/test_industrial_technical_service_routing_regression.py::test_explicit_service_follow_on_improvement_still_activates_tc10
+FAILED backend/tests/test_industrial_technical_service_routing_regression.py::test_improvement_recommendation_does_not_invent_existing_mechanisms
+FAILED backend/tests/test_industrial_technical_service_routing_regression.py::test_complete_review_rows_are_unique_and_partial_rows_have_real_gaps
+FAILED backend/tests/test_entrusted_cross_rule_consistency.py::test_shared_disposal_is_one_canonical_issue_in_the_production_report
+FAILED backend/tests/test_entrusted_cross_rule_consistency.py::test_completed_negative_check_does_not_leave_an_obsolete_manual_review
+FAILED backend/tests/test_entrusted_cross_rule_consistency.py::test_final_report_passes_all_original_and_new_gates
+FAILED backend/tests/test_entrusted_development_production_closure.py::test_release_gate_passes_without_skipping_consistency
+FAILED backend/tests/test_entrusted_development_production_closure.py::test_newly_active_development_branch_consumes_actual_claim_evidence
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_competition_and_improvement_facts_are_shared_across_rules
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_acceptance_separates_test_control_authority_from_concrete_parameters
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_confidentiality_is_split_by_obligated_party_for_recipient_review
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_report_statistics_are_recomputed_from_final_findings_and_themes
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_counterparty_restrictions_are_projected_as_current_party_enforceability_risk
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_third_party_claim_consequence_and_advice_only_consume_residual_gaps
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_referenced_but_unprovided_attachment_is_not_an_ordinary_missing_clause
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_na_reason_preserves_confirmed_confidential_information_fact
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_report_actual_exposure_uses_party_aware_finding_consequence
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_attachment_finding_only_describes_the_unprovided_referenced_material
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_structural_pass_is_linked_to_higher_priority_substantive_risk
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_ip_liability_and_general_remedies_jointly_trigger_tc1204
+FAILED backend/tests/test_technical_service_latest_shared_fact_regressions.py::test_excessive_liquidated_damages_are_flagged_as_adjustment_risk_not_invalidity
+FAILED backend/tests/test_patent_license_input_integrity_routing.py::test_complete_patent_license_uses_one_full_text_and_never_loads_sale_rules
+44 failed, 169 passed, 8 warnings in 604.16s (0:10:04)

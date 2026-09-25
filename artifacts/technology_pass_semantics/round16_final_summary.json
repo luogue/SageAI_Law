@@ -1,0 +1,30 @@
+{
+  "contract_subtype": "PATENT_RIGHT_TRANSFER",
+  "source_sha256": "96e835caf28d80698e3b550631d2c657ac3611ba5e587b9e6bf8fe45a1b5a732",
+  "gate": "REPORT_READY",
+  "original_blockers": 0,
+  "expanded_blockers": 0,
+  "real_transferee_report": "round16_final_replay/report.json",
+  "real_transferor_report": "round16_final_transferor/report.json",
+  "backend_pid": 304,
+  "runtime_matches_final_code": true,
+  "engine_sha256": "ac22e335ff9042d088d011a722cbc11d7b21085dac5e491f066fbcc6b231f478",
+  "changes": {
+    "TC-06-03": {"before": "PARTIAL", "after": "PARTIAL", "title_and_authority": "MISSING -> COVERED"},
+    "TC-12-01": {"before": "PASS", "after": "PARTIAL", "reason": "Knowledge/concealment condition cannot prove broader compliant-use liability"},
+    "TC-12-02": {"before": "PARTIAL", "after": "PARTIAL", "refund_remedy": "MISSING -> COVERED"},
+    "TC-11-01": {"before": "INSUFFICIENT_CONTEXT", "after": "PASS"}
+  },
+  "available_protection_samples": 9,
+  "protection_ready": 9,
+  "protection_risk_group_changes": 0,
+  "baseline": {"PASS": 965, "FAIL": 249},
+  "final": {"PASS": 974, "FAIL": 249, "SKIP": 0},
+  "new_tests": 9,
+  "new_tests_passed": 9,
+  "historical_recovered": 0,
+  "newly_failing": 0,
+  "removed_tests": 0,
+  "test_migrations": 0,
+  "comparison": "round16_final_comparison.json"
+}

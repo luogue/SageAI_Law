@@ -1,0 +1,1330 @@
+{
+  "party_a": {
+    "review_run_id": "0bea28da-1d04-478b-ae19-66c16cffab5e",
+    "contract_type": "技术合同—技术咨询合同",
+    "gate": "REPORT_READY",
+    "raw_blockers": 0,
+    "expanded_blockers": 0,
+    "evidence_mismatch": 0,
+    "rules": {
+      "TC-11-01": {
+        "coverage_status": "部分覆盖",
+        "elements": {
+          "purpose_limitation": {
+            "status": "COVERED",
+            "canonical_fact_key": "technology.confidentiality_controls.purpose_limitation",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-d5ab6fb1754d118f3aa2",
+                "clause_id": "C0018",
+                "quote": "接收方不得将保密信息用于履行本合同以外的目的。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          }
+        }
+      },
+      "TC-11-02": {
+        "coverage_status": "通过",
+        "elements": {
+          "prior_notice_when_legally_permitted": {
+            "status": "COVERED",
+            "canonical_fact_key": "technology.confidentiality_disclosure.prior_notice_when_legally_permitted",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-3decb1a2472140ece7c3",
+                "clause_id": "C0020",
+                "quote": "依法必须披露时，接收方应在法律允许范围内提前通知信息提供方。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          }
+        }
+      },
+      "TC-11-03": {
+        "coverage_status": "部分覆盖",
+        "elements": {
+          "termination_return_or_delete": {
+            "status": "COVERED",
+            "canonical_fact_key": "technology.material_exit.termination_return_or_delete",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": [
+              {
+                "element_id": "service_end_disposition_trigger",
+                "required_fact": "项目或服务结束后的资料处置触发",
+                "status": "COVERED",
+                "supporting_evidence": [
+                  {
+                    "clause_id": "C0021",
+                    "condition": "项目完成或合同终止后，",
+                    "location": "第十三条 资料返还和删除",
+                    "predicate_pattern": "(?:(?:合同|项目|服务)[^。；;]{0,8})?(?:终止|解除|届满|结束|完成)后[^。；;]{0,50}(?:有权要求|应|须)[^。；;]{0,30}(?:返还|删除|销毁)[^。；;]{0,60}(?:资料|数据|程序|信息)",
+                    "proposition_polarity": "AFFIRMATIVE",
+                    "quote": "项目完成或合同终止后，乙方应按照甲方书面要求返还甲方提供的纸质资料。"
+                  },
+                  {
+                    "clause_id": "C0021",
+                    "condition": "",
+                    "location": "第十三条 资料返还和删除",
+                    "predicate_pattern": "(?:应|须)[^。；;]{0,25}删除[^。；;]{0,40}(?:可识别复制件|可识别的复制件|复制件|副本)",
+                    "proposition_polarity": "AFFIRMATIVE",
+                    "quote": "乙方应删除其工作设备中保存的甲方原始业务资料及其可识别复制件。"
+                  }
+                ]
+              },
+              {
+                "element_id": "original_data_return",
+                "required_fact": "原始资料或数据返还义务",
+                "status": "COVERED",
+                "supporting_evidence": [
+                  {
+                    "clause_id": "C0021",
+                    "condition": "项目完成或合同终止后，",
+                    "location": "第十三条 资料返还和删除",
+                    "predicate_pattern": "(?:(?:合同|项目|服务)[^。；;]{0,8})?(?:终止|解除|届满|结束|完成)后[^。；;]{0,50}(?:有权要求|应|须)[^。；;]{0,30}(?:返还|删除|销毁)[^。；;]{0,60}(?:资料|数据|程序|信息)",
+                    "proposition_polarity": "AFFIRMATIVE",
+                    "quote": "项目完成或合同终止后，乙方应按照甲方书面要求返还甲方提供的纸质资料。"
+                  }
+                ]
+              },
+              {
+                "element_id": "original_data_deletion",
+                "required_fact": "原始资料或数据删除义务",
+                "status": "COVERED",
+                "supporting_evidence": [
+                  {
+                    "clause_id": "C0021",
+                    "condition": "",
+                    "location": "第十三条 资料返还和删除",
+                    "predicate_pattern": "(?:应|须)[^。；;]{0,20}删除[^。；;]{0,35}(?:原始|业务)[^。；;]{0,15}(?:资料|数据)",
+                    "proposition_polarity": "AFFIRMATIVE",
+                    "quote": "乙方应删除其工作设备中保存的甲方原始业务资料及其可识别复制件。"
+                  }
+                ]
+              },
+              {
+                "element_id": "identifiable_copy_deletion",
+                "required_fact": "可识别复制件删除义务",
+                "status": "COVERED",
+                "supporting_evidence": [
+                  {
+                    "clause_id": "C0021",
+                    "condition": "",
+                    "location": "第十三条 资料返还和删除",
+                    "predicate_pattern": "(?:应|须)[^。；;]{0,25}删除[^。；;]{0,40}(?:可识别复制件|可识别的复制件|复制件|副本)",
+                    "proposition_polarity": "AFFIRMATIVE",
+                    "quote": "乙方应删除其工作设备中保存的甲方原始业务资料及其可识别复制件。"
+                  }
+                ]
+              },
+              {
+                "element_id": "retention_exception",
+                "required_fact": "依法保留必要资料的例外边界",
+                "status": "COVERED",
+                "supporting_evidence": [
+                  {
+                    "clause_id": "C0021",
+                    "condition": "",
+                    "location": "第十三条 资料返还和删除",
+                    "predicate_pattern": "(?:依法|法律规定|内部审计|财务留档)[^。；;]{0,35}(?:必须|可以|可)[^。；;]{0,20}保留[^。；;]{0,35}(?:必要范围|继续保存|资料)",
+                    "proposition_polarity": "AFFIRMATIVE",
+                    "quote": "因内部审计、财务留档或法律规定必须保留的资料可以继续保存，但仅限于必要范围。"
+                  }
+                ]
+              }
+            ],
+            "evidence": [
+              {
+                "evidence_id": "SRC-73ba8cb9fbaeac0b1c53",
+                "clause_id": "C0021",
+                "quote": "项目完成或合同终止后，乙方应按照甲方书面要求返还甲方提供的纸质资料。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-1b0c1c43ee18f3fb1abe",
+                "clause_id": "C0021",
+                "quote": "乙方应删除其工作设备中保存的甲方原始业务资料及其可识别复制件。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "confidential_disposal_confirmation": {
+            "status": "COVERED",
+            "canonical_fact_key": "technology.material_exit.confidential_disposal_confirmation",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-a693694f62bd6ca0aa9e",
+                "clause_id": "C0021",
+                "quote": "甲方要求时，乙方应提供资料删除完成的书面确认。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          }
+        }
+      },
+      "TC-01-03": {
+        "coverage_status": "通过",
+        "elements": {
+          "consulting_project": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_subject.consulting_project",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-4157a1831f5cb582b915",
+                "clause_id": "C0004",
+                "quote": "甲方委托乙方对其现有数据管理体系进行调查分析，并就数据分类分级、访问权限、日志审计、数据备份及第三方数据交互等事项提供技术咨询。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "consulting_deliverable": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_subject.consulting_deliverable",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-21439166d93f83406589",
+                "clause_id": "C0004",
+                "quote": "双方确认，乙方仅提供调查、分析、评价及技术方案建议，不直接承担甲方信息系统开发、设备采购、系统部署或日常运维工作。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-baf046ccaa515c5cd9d0",
+                "clause_id": "C0004",
+                "quote": "（7）形成后续信息系统改造的总体技术路线建议。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-4918afda69cda1b5f6db",
+                "clause_id": "C0008",
+                "quote": "乙方应向甲方提交以下成果：\n《企业数据治理现状评估报告》；",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-f5f73e9a8e23f3d4935f",
+                "clause_id": "C0009",
+                "quote": "双方确认，乙方提供的是专业咨询意见，不保证甲方按照咨询建议实施后必然达到特定经营收益、监管评价或者安全结果。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-157ce13241efa109fd1c",
+                "clause_id": "C0010",
+                "quote": "乙方提交阶段成果后，甲方应在七个工作日内提出书面反馈。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-1fe336d29b2819f50cfd",
+                "clause_id": "C0010",
+                "quote": "乙方提交最终成果后，双方项目负责人签署《项目成果确认单》。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-cec9dffb07298c423f0f",
+                "clause_id": "C0014",
+                "quote": "（3）全部最终成果提交并完成成果确认后十个工作日内支付剩余30%，即126,000元。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-3ed41b6e4c867df95a00",
+                "clause_id": "C0015",
+                "quote": "乙方提供的咨询成果用于为甲方技术和管理决策提供参考。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-970d2eecd8298fe4fb53",
+                "clause_id": "C0008",
+                "quote": "乙方应向甲方提交以下成果：\n《企业数据治理现状评估报告》；\n《数据分类分级建议方案》；",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-c0a189d62cca562159ea",
+                "clause_id": "C0008",
+                "quote": "乙方应向甲方提交以下成果：\n《企业数据治理现状评估报告》；\n《数据分类分级建议方案》；\n《权限与身份管理优化建议书》；",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-c9dcf23de1da8fe95a08",
+                "clause_id": "C0008",
+                "quote": "乙方应向甲方提交以下成果：\n《企业数据治理现状评估报告》；\n《数据分类分级建议方案》；\n《权限与身份管理优化建议书》；\n《日志审计与备份体系改进建议》；",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-df2ebe513e7a6145ad9d",
+                "clause_id": "C0008",
+                "quote": "乙方应向甲方提交以下成果：\n《企业数据治理现状评估报告》；\n《数据分类分级建议方案》；\n《权限与身份管理优化建议书》；\n《日志审计与备份体系改进建议》；\n《数据安全治理总体技术路线报告》。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          }
+        }
+      },
+      "TC-08-01": {
+        "coverage_status": "通过",
+        "elements": {
+          "consulting_scope": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_quality.consulting_scope",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-4157a1831f5cb582b915",
+                "clause_id": "C0004",
+                "quote": "甲方委托乙方对其现有数据管理体系进行调查分析，并就数据分类分级、访问权限、日志审计、数据备份及第三方数据交互等事项提供技术咨询。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-a4b8f4be135ffeeb5ebb",
+                "clause_id": "C0004",
+                "quote": "（3）分析当前数据治理流程中存在的技术风险；",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-21439166d93f83406589",
+                "clause_id": "C0004",
+                "quote": "双方确认，乙方仅提供调查、分析、评价及技术方案建议，不直接承担甲方信息系统开发、设备采购、系统部署或日常运维工作。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-43803e0f01a08cedccda",
+                "clause_id": "C0009",
+                "quote": "咨询成果应与甲方实际业务场景具有对应关系，并能够说明主要问题、分析依据和建议措施。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-0976f237e6ee7102c4ae",
+                "clause_id": "C0009",
+                "quote": "对提出的重大问题，乙方应在报告中说明相应证据来源或分析依据。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-06eca4f7602ba6593577",
+                "clause_id": "C0009",
+                "quote": "对甲方明确提出且属于本合同咨询范围的问题，乙方应在最终报告中作出分析回应。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-d17dafd6ba3e44fd5709",
+                "clause_id": "C0011",
+                "quote": "费用包括人员访谈、资料分析、技术研究、报告编制、内部评审及成果沟通费用。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "report_contents": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_quality.report_contents",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-fd2095d4db0852f81352",
+                "clause_id": "C0009",
+                "quote": "咨询报告不得包含明知不真实的数据或结论。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "delivery_form": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_quality.delivery_form",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-12bcb8af57896ccec96b",
+                "clause_id": "C0008",
+                "quote": "上述成果应以可编辑电子文档及PDF格式提交。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "acceptance_standard": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_quality.acceptance_standard",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-43803e0f01a08cedccda",
+                "clause_id": "C0009",
+                "quote": "咨询成果应与甲方实际业务场景具有对应关系，并能够说明主要问题、分析依据和建议措施。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          }
+        }
+      },
+      "TC-08-02": {
+        "coverage_status": "通过",
+        "elements": {
+          "qualified_consulting_decision_risk": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_decision.qualified_consulting_decision_risk",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-203a9b95d37e4cb106f0",
+                "clause_id": "C0015",
+                "quote": "因甲方改变乙方原建议、仅实施部分建议或在环境发生重大变化后继续使用原建议造成的后果，由甲方自行承担。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "consultant_fault_exception": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_decision.consultant_fault_exception",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-e673eb89da4772d8019c",
+                "clause_id": "C0015",
+                "quote": "因乙方故意提供虚假分析资料或存在重大过失导致咨询结论存在严重错误，并直接造成甲方损失的，乙方应承担相应责任。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          }
+        }
+      },
+      "TC-08-03": {
+        "coverage_status": "部分覆盖",
+        "elements": {
+          "technical_materials": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_inputs.technical_materials",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-413cc99c0035b84aa5fe",
+                "clause_id": "C0003",
+                "quote": "鉴于甲方拟完善其企业数据安全治理体系，并为后续信息系统建设提供决策依据，乙方具备数据治理、信息安全及技术架构咨询能力，双方经协商一致，订立本合同。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-2bb7471546596eec5572",
+                "clause_id": "C0006",
+                "quote": "甲方应根据项目需要向乙方提供：\n（1）信息系统清单；",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-6578efeaac0a822d2f96",
+                "clause_id": "C0006",
+                "quote": "甲方应确保所提供资料真实、完整，并指定项目负责人负责协调有关部门。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-d55523861aa52a162716",
+                "clause_id": "C0006",
+                "quote": "甲方发现已提供资料存在重大错误或遗漏时，应及时通知乙方并提供更正资料。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-73ba8cb9fbaeac0b1c53",
+                "clause_id": "C0021",
+                "quote": "项目完成或合同终止后，乙方应按照甲方书面要求返还甲方提供的纸质资料。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "cooperation_conditions": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_inputs.cooperation_conditions",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-6578efeaac0a822d2f96",
+                "clause_id": "C0006",
+                "quote": "甲方应确保所提供资料真实、完整，并指定项目负责人负责协调有关部门。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "truthfulness_completeness": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_inputs.truthfulness_completeness",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-6578efeaac0a822d2f96",
+                "clause_id": "C0006",
+                "quote": "甲方应确保所提供资料真实、完整，并指定项目负责人负责协调有关部门。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          }
+        }
+      },
+      "TC-08-04": {
+        "coverage_status": "通过",
+        "elements": {
+          "defect_trigger": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_remedy.defect_trigger",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-d49733a7666381613782",
+                "clause_id": "C0010",
+                "quote": "甲方提出的问题属于原约定咨询范围且有合理依据的，乙方应进行修改。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "correction_period": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_remedy.correction_period",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-b9e9381fbf6ee1b3451c",
+                "clause_id": "C0010",
+                "quote": "乙方应在收到甲方书面反馈后十个工作日内提交修改版本。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "correction_remedy": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_remedy.correction_remedy",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-d49733a7666381613782",
+                "clause_id": "C0010",
+                "quote": "甲方提出的问题属于原约定咨询范围且有合理依据的，乙方应进行修改。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-b9e9381fbf6ee1b3451c",
+                "clause_id": "C0010",
+                "quote": "乙方应在收到甲方书面反馈后十个工作日内提交修改版本。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          }
+        }
+      },
+      "TC-08-05": {
+        "coverage_status": "通过",
+        "elements": {
+          "consulting_fee_total": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_payment.consulting_fee_total",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-5b1ff684dbd1eb552ba1",
+                "clause_id": "C0011",
+                "quote": "第八条 咨询费用\n本合同技术咨询费总额为人民币420,000元，含税。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "payment_milestones": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_payment.payment_milestones",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-42dba308aa56297f4868",
+                "clause_id": "C0012",
+                "quote": "（1）合同生效后七个工作日内支付30%，即126,000元；",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-64e3f68e8bfce02413ac",
+                "clause_id": "C0013",
+                "quote": "（2）乙方提交《企业数据治理现状评估报告》后支付40%，即168,000元；",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-cec9dffb07298c423f0f",
+                "clause_id": "C0014",
+                "quote": "（3）全部最终成果提交并完成成果确认后十个工作日内支付剩余30%，即126,000元。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          }
+        }
+      },
+      "TC-11-04": {
+        "coverage_status": "部分覆盖",
+        "force_majeure_evidence": false,
+        "mitigation_status": "MISSING"
+      },
+      "COMMON-20-01": {
+        "coverage_status": "通过",
+        "elements": [
+          {
+            "element_id": "common_penalty_base_determinability_ratio",
+            "status": "COVERED",
+            "source_fact_key": null,
+            "evidence_ids": [
+              "SRC-6dbd91784745afd3b32a",
+              "SRC-bfbe6b22be055bebc9ee",
+              "SRC-bfbe6b22be055bebc9ee"
+            ]
+          },
+          {
+            "element_id": "common_penalty_base_determinability_definition",
+            "status": "COVERED",
+            "source_fact_key": null,
+            "evidence_ids": [
+              "SRC-5b1ff684dbd1eb552ba1",
+              "SRC-bfbe6b22be055bebc9ee",
+              "SRC-bfbe6b22be055bebc9ee"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "party_b": {
+    "review_run_id": "2db420ba-cc9c-4ce8-94cd-2b645a39c474",
+    "contract_type": "技术合同—技术咨询合同",
+    "gate": "REPORT_READY",
+    "raw_blockers": 0,
+    "expanded_blockers": 0,
+    "evidence_mismatch": 0,
+    "rules": {
+      "TC-11-01": {
+        "coverage_status": "部分覆盖",
+        "elements": {
+          "purpose_limitation": {
+            "status": "COVERED",
+            "canonical_fact_key": "technology.confidentiality_controls.purpose_limitation",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-d5ab6fb1754d118f3aa2",
+                "clause_id": "C0018",
+                "quote": "接收方不得将保密信息用于履行本合同以外的目的。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          }
+        }
+      },
+      "TC-11-02": {
+        "coverage_status": "通过",
+        "elements": {
+          "prior_notice_when_legally_permitted": {
+            "status": "COVERED",
+            "canonical_fact_key": "technology.confidentiality_disclosure.prior_notice_when_legally_permitted",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-3decb1a2472140ece7c3",
+                "clause_id": "C0020",
+                "quote": "依法必须披露时，接收方应在法律允许范围内提前通知信息提供方。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          }
+        }
+      },
+      "TC-11-03": {
+        "coverage_status": "部分覆盖",
+        "elements": {
+          "termination_return_or_delete": {
+            "status": "COVERED",
+            "canonical_fact_key": "technology.material_exit.termination_return_or_delete",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": [
+              {
+                "element_id": "service_end_disposition_trigger",
+                "required_fact": "项目或服务结束后的资料处置触发",
+                "status": "COVERED",
+                "supporting_evidence": [
+                  {
+                    "clause_id": "C0021",
+                    "condition": "项目完成或合同终止后，",
+                    "location": "第十三条 资料返还和删除",
+                    "predicate_pattern": "(?:(?:合同|项目|服务)[^。；;]{0,8})?(?:终止|解除|届满|结束|完成)后[^。；;]{0,50}(?:有权要求|应|须)[^。；;]{0,30}(?:返还|删除|销毁)[^。；;]{0,60}(?:资料|数据|程序|信息)",
+                    "proposition_polarity": "AFFIRMATIVE",
+                    "quote": "项目完成或合同终止后，乙方应按照甲方书面要求返还甲方提供的纸质资料。"
+                  },
+                  {
+                    "clause_id": "C0021",
+                    "condition": "",
+                    "location": "第十三条 资料返还和删除",
+                    "predicate_pattern": "(?:应|须)[^。；;]{0,25}删除[^。；;]{0,40}(?:可识别复制件|可识别的复制件|复制件|副本)",
+                    "proposition_polarity": "AFFIRMATIVE",
+                    "quote": "乙方应删除其工作设备中保存的甲方原始业务资料及其可识别复制件。"
+                  }
+                ]
+              },
+              {
+                "element_id": "original_data_return",
+                "required_fact": "原始资料或数据返还义务",
+                "status": "COVERED",
+                "supporting_evidence": [
+                  {
+                    "clause_id": "C0021",
+                    "condition": "项目完成或合同终止后，",
+                    "location": "第十三条 资料返还和删除",
+                    "predicate_pattern": "(?:(?:合同|项目|服务)[^。；;]{0,8})?(?:终止|解除|届满|结束|完成)后[^。；;]{0,50}(?:有权要求|应|须)[^。；;]{0,30}(?:返还|删除|销毁)[^。；;]{0,60}(?:资料|数据|程序|信息)",
+                    "proposition_polarity": "AFFIRMATIVE",
+                    "quote": "项目完成或合同终止后，乙方应按照甲方书面要求返还甲方提供的纸质资料。"
+                  }
+                ]
+              },
+              {
+                "element_id": "original_data_deletion",
+                "required_fact": "原始资料或数据删除义务",
+                "status": "COVERED",
+                "supporting_evidence": [
+                  {
+                    "clause_id": "C0021",
+                    "condition": "",
+                    "location": "第十三条 资料返还和删除",
+                    "predicate_pattern": "(?:应|须)[^。；;]{0,20}删除[^。；;]{0,35}(?:原始|业务)[^。；;]{0,15}(?:资料|数据)",
+                    "proposition_polarity": "AFFIRMATIVE",
+                    "quote": "乙方应删除其工作设备中保存的甲方原始业务资料及其可识别复制件。"
+                  }
+                ]
+              },
+              {
+                "element_id": "identifiable_copy_deletion",
+                "required_fact": "可识别复制件删除义务",
+                "status": "COVERED",
+                "supporting_evidence": [
+                  {
+                    "clause_id": "C0021",
+                    "condition": "",
+                    "location": "第十三条 资料返还和删除",
+                    "predicate_pattern": "(?:应|须)[^。；;]{0,25}删除[^。；;]{0,40}(?:可识别复制件|可识别的复制件|复制件|副本)",
+                    "proposition_polarity": "AFFIRMATIVE",
+                    "quote": "乙方应删除其工作设备中保存的甲方原始业务资料及其可识别复制件。"
+                  }
+                ]
+              },
+              {
+                "element_id": "retention_exception",
+                "required_fact": "依法保留必要资料的例外边界",
+                "status": "COVERED",
+                "supporting_evidence": [
+                  {
+                    "clause_id": "C0021",
+                    "condition": "",
+                    "location": "第十三条 资料返还和删除",
+                    "predicate_pattern": "(?:依法|法律规定|内部审计|财务留档)[^。；;]{0,35}(?:必须|可以|可)[^。；;]{0,20}保留[^。；;]{0,35}(?:必要范围|继续保存|资料)",
+                    "proposition_polarity": "AFFIRMATIVE",
+                    "quote": "因内部审计、财务留档或法律规定必须保留的资料可以继续保存，但仅限于必要范围。"
+                  }
+                ]
+              }
+            ],
+            "evidence": [
+              {
+                "evidence_id": "SRC-73ba8cb9fbaeac0b1c53",
+                "clause_id": "C0021",
+                "quote": "项目完成或合同终止后，乙方应按照甲方书面要求返还甲方提供的纸质资料。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-1b0c1c43ee18f3fb1abe",
+                "clause_id": "C0021",
+                "quote": "乙方应删除其工作设备中保存的甲方原始业务资料及其可识别复制件。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "confidential_disposal_confirmation": {
+            "status": "COVERED",
+            "canonical_fact_key": "technology.material_exit.confidential_disposal_confirmation",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-a693694f62bd6ca0aa9e",
+                "clause_id": "C0021",
+                "quote": "甲方要求时，乙方应提供资料删除完成的书面确认。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          }
+        }
+      },
+      "TC-01-03": {
+        "coverage_status": "通过",
+        "elements": {
+          "consulting_project": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_subject.consulting_project",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-4157a1831f5cb582b915",
+                "clause_id": "C0004",
+                "quote": "甲方委托乙方对其现有数据管理体系进行调查分析，并就数据分类分级、访问权限、日志审计、数据备份及第三方数据交互等事项提供技术咨询。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "consulting_deliverable": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_subject.consulting_deliverable",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-21439166d93f83406589",
+                "clause_id": "C0004",
+                "quote": "双方确认，乙方仅提供调查、分析、评价及技术方案建议，不直接承担甲方信息系统开发、设备采购、系统部署或日常运维工作。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-baf046ccaa515c5cd9d0",
+                "clause_id": "C0004",
+                "quote": "（7）形成后续信息系统改造的总体技术路线建议。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-4918afda69cda1b5f6db",
+                "clause_id": "C0008",
+                "quote": "乙方应向甲方提交以下成果：\n《企业数据治理现状评估报告》；",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-f5f73e9a8e23f3d4935f",
+                "clause_id": "C0009",
+                "quote": "双方确认，乙方提供的是专业咨询意见，不保证甲方按照咨询建议实施后必然达到特定经营收益、监管评价或者安全结果。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-157ce13241efa109fd1c",
+                "clause_id": "C0010",
+                "quote": "乙方提交阶段成果后，甲方应在七个工作日内提出书面反馈。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-1fe336d29b2819f50cfd",
+                "clause_id": "C0010",
+                "quote": "乙方提交最终成果后，双方项目负责人签署《项目成果确认单》。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-cec9dffb07298c423f0f",
+                "clause_id": "C0014",
+                "quote": "（3）全部最终成果提交并完成成果确认后十个工作日内支付剩余30%，即126,000元。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-3ed41b6e4c867df95a00",
+                "clause_id": "C0015",
+                "quote": "乙方提供的咨询成果用于为甲方技术和管理决策提供参考。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-970d2eecd8298fe4fb53",
+                "clause_id": "C0008",
+                "quote": "乙方应向甲方提交以下成果：\n《企业数据治理现状评估报告》；\n《数据分类分级建议方案》；",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-c0a189d62cca562159ea",
+                "clause_id": "C0008",
+                "quote": "乙方应向甲方提交以下成果：\n《企业数据治理现状评估报告》；\n《数据分类分级建议方案》；\n《权限与身份管理优化建议书》；",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-c9dcf23de1da8fe95a08",
+                "clause_id": "C0008",
+                "quote": "乙方应向甲方提交以下成果：\n《企业数据治理现状评估报告》；\n《数据分类分级建议方案》；\n《权限与身份管理优化建议书》；\n《日志审计与备份体系改进建议》；",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-df2ebe513e7a6145ad9d",
+                "clause_id": "C0008",
+                "quote": "乙方应向甲方提交以下成果：\n《企业数据治理现状评估报告》；\n《数据分类分级建议方案》；\n《权限与身份管理优化建议书》；\n《日志审计与备份体系改进建议》；\n《数据安全治理总体技术路线报告》。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          }
+        }
+      },
+      "TC-08-01": {
+        "coverage_status": "通过",
+        "elements": {
+          "consulting_scope": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_quality.consulting_scope",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-4157a1831f5cb582b915",
+                "clause_id": "C0004",
+                "quote": "甲方委托乙方对其现有数据管理体系进行调查分析，并就数据分类分级、访问权限、日志审计、数据备份及第三方数据交互等事项提供技术咨询。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-a4b8f4be135ffeeb5ebb",
+                "clause_id": "C0004",
+                "quote": "（3）分析当前数据治理流程中存在的技术风险；",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-21439166d93f83406589",
+                "clause_id": "C0004",
+                "quote": "双方确认，乙方仅提供调查、分析、评价及技术方案建议，不直接承担甲方信息系统开发、设备采购、系统部署或日常运维工作。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-43803e0f01a08cedccda",
+                "clause_id": "C0009",
+                "quote": "咨询成果应与甲方实际业务场景具有对应关系，并能够说明主要问题、分析依据和建议措施。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-0976f237e6ee7102c4ae",
+                "clause_id": "C0009",
+                "quote": "对提出的重大问题，乙方应在报告中说明相应证据来源或分析依据。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-06eca4f7602ba6593577",
+                "clause_id": "C0009",
+                "quote": "对甲方明确提出且属于本合同咨询范围的问题，乙方应在最终报告中作出分析回应。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-d17dafd6ba3e44fd5709",
+                "clause_id": "C0011",
+                "quote": "费用包括人员访谈、资料分析、技术研究、报告编制、内部评审及成果沟通费用。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "report_contents": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_quality.report_contents",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-fd2095d4db0852f81352",
+                "clause_id": "C0009",
+                "quote": "咨询报告不得包含明知不真实的数据或结论。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "delivery_form": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_quality.delivery_form",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-12bcb8af57896ccec96b",
+                "clause_id": "C0008",
+                "quote": "上述成果应以可编辑电子文档及PDF格式提交。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "acceptance_standard": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_quality.acceptance_standard",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-43803e0f01a08cedccda",
+                "clause_id": "C0009",
+                "quote": "咨询成果应与甲方实际业务场景具有对应关系，并能够说明主要问题、分析依据和建议措施。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          }
+        }
+      },
+      "TC-08-02": {
+        "coverage_status": "通过",
+        "elements": {
+          "qualified_consulting_decision_risk": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_decision.qualified_consulting_decision_risk",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-203a9b95d37e4cb106f0",
+                "clause_id": "C0015",
+                "quote": "因甲方改变乙方原建议、仅实施部分建议或在环境发生重大变化后继续使用原建议造成的后果，由甲方自行承担。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "consultant_fault_exception": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_decision.consultant_fault_exception",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-e673eb89da4772d8019c",
+                "clause_id": "C0015",
+                "quote": "因乙方故意提供虚假分析资料或存在重大过失导致咨询结论存在严重错误，并直接造成甲方损失的，乙方应承担相应责任。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          }
+        }
+      },
+      "TC-08-03": {
+        "coverage_status": "部分覆盖",
+        "elements": {
+          "technical_materials": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_inputs.technical_materials",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-413cc99c0035b84aa5fe",
+                "clause_id": "C0003",
+                "quote": "鉴于甲方拟完善其企业数据安全治理体系，并为后续信息系统建设提供决策依据，乙方具备数据治理、信息安全及技术架构咨询能力，双方经协商一致，订立本合同。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-2bb7471546596eec5572",
+                "clause_id": "C0006",
+                "quote": "甲方应根据项目需要向乙方提供：\n（1）信息系统清单；",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-6578efeaac0a822d2f96",
+                "clause_id": "C0006",
+                "quote": "甲方应确保所提供资料真实、完整，并指定项目负责人负责协调有关部门。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-d55523861aa52a162716",
+                "clause_id": "C0006",
+                "quote": "甲方发现已提供资料存在重大错误或遗漏时，应及时通知乙方并提供更正资料。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-73ba8cb9fbaeac0b1c53",
+                "clause_id": "C0021",
+                "quote": "项目完成或合同终止后，乙方应按照甲方书面要求返还甲方提供的纸质资料。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "cooperation_conditions": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_inputs.cooperation_conditions",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-6578efeaac0a822d2f96",
+                "clause_id": "C0006",
+                "quote": "甲方应确保所提供资料真实、完整，并指定项目负责人负责协调有关部门。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "truthfulness_completeness": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_inputs.truthfulness_completeness",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-6578efeaac0a822d2f96",
+                "clause_id": "C0006",
+                "quote": "甲方应确保所提供资料真实、完整，并指定项目负责人负责协调有关部门。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          }
+        }
+      },
+      "TC-08-04": {
+        "coverage_status": "通过",
+        "elements": {
+          "defect_trigger": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_remedy.defect_trigger",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-d49733a7666381613782",
+                "clause_id": "C0010",
+                "quote": "甲方提出的问题属于原约定咨询范围且有合理依据的，乙方应进行修改。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "correction_period": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_remedy.correction_period",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-b9e9381fbf6ee1b3451c",
+                "clause_id": "C0010",
+                "quote": "乙方应在收到甲方书面反馈后十个工作日内提交修改版本。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "correction_remedy": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_remedy.correction_remedy",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-d49733a7666381613782",
+                "clause_id": "C0010",
+                "quote": "甲方提出的问题属于原约定咨询范围且有合理依据的，乙方应进行修改。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-b9e9381fbf6ee1b3451c",
+                "clause_id": "C0010",
+                "quote": "乙方应在收到甲方书面反馈后十个工作日内提交修改版本。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          }
+        }
+      },
+      "TC-08-05": {
+        "coverage_status": "通过",
+        "elements": {
+          "consulting_fee_total": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_payment.consulting_fee_total",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-5b1ff684dbd1eb552ba1",
+                "clause_id": "C0011",
+                "quote": "第八条 咨询费用\n本合同技术咨询费总额为人民币420,000元，含税。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          },
+          "payment_milestones": {
+            "status": "COVERED",
+            "canonical_fact_key": "consulting_payment.payment_milestones",
+            "canonical_alias_of": null,
+            "missing_audit": false,
+            "components": null,
+            "evidence": [
+              {
+                "evidence_id": "SRC-42dba308aa56297f4868",
+                "clause_id": "C0012",
+                "quote": "（1）合同生效后七个工作日内支付30%，即126,000元；",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-64e3f68e8bfce02413ac",
+                "clause_id": "C0013",
+                "quote": "（2）乙方提交《企业数据治理现状评估报告》后支付40%，即168,000元；",
+                "support_type": "DIRECT",
+                "verified_original": true
+              },
+              {
+                "evidence_id": "SRC-cec9dffb07298c423f0f",
+                "clause_id": "C0014",
+                "quote": "（3）全部最终成果提交并完成成果确认后十个工作日内支付剩余30%，即126,000元。",
+                "support_type": "DIRECT",
+                "verified_original": true
+              }
+            ]
+          }
+        }
+      },
+      "TC-11-04": {
+        "coverage_status": "部分覆盖",
+        "force_majeure_evidence": false,
+        "mitigation_status": "MISSING"
+      },
+      "COMMON-20-01": {
+        "coverage_status": "通过",
+        "elements": [
+          {
+            "element_id": "common_penalty_base_determinability_ratio",
+            "status": "COVERED",
+            "source_fact_key": null,
+            "evidence_ids": [
+              "SRC-6dbd91784745afd3b32a",
+              "SRC-bfbe6b22be055bebc9ee",
+              "SRC-bfbe6b22be055bebc9ee"
+            ]
+          },
+          {
+            "element_id": "common_penalty_base_determinability_definition",
+            "status": "COVERED",
+            "source_fact_key": null,
+            "evidence_ids": [
+              "SRC-5b1ff684dbd1eb552ba1",
+              "SRC-bfbe6b22be055bebc9ee",
+              "SRC-bfbe6b22be055bebc9ee"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

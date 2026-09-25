@@ -1,0 +1,124 @@
+.policy-page,
+.terms-page {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.58);
+  backdrop-filter: blur(2px);
+}
+
+.policy-content,
+.terms-content {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: min(800px, 100%);
+  max-height: min(82vh, 860px);
+  padding: 32px 36px 28px;
+  overflow: hidden;
+  color: #1f2937;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.25);
+}
+
+.policy-content > h1,
+.terms-content > h1 {
+  margin: 0 0 8px;
+  color: #111827;
+  font-size: 26px;
+  line-height: 1.35;
+}
+
+.policy-content > .update-date,
+.terms-content > .update-date {
+  margin: 0 0 20px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.policy-scroll-area,
+.terms-scroll-area {
+  flex: 1;
+  padding: 4px 14px 4px 2px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.policy-scroll-area section,
+.terms-scroll-area section {
+  margin: 0 0 24px;
+}
+
+.policy-scroll-area h2,
+.terms-scroll-area h2 {
+  margin: 0 0 10px;
+  color: #2563eb;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.policy-scroll-area p,
+.terms-scroll-area p,
+.policy-scroll-area ul,
+.terms-scroll-area ul {
+  margin-top: 0;
+  color: #374151;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.policy-scroll-area ul,
+.terms-scroll-area ul {
+  padding-left: 24px;
+}
+
+.policy-scroll-area li,
+.terms-scroll-area li {
+  margin-bottom: 6px;
+}
+
+.policy-scroll-area .highlight-box {
+  padding: 14px 16px;
+  margin: 16px 0;
+  background: #fffbeb;
+  border: 1px solid #fcd34d;
+  border-radius: 8px;
+}
+
+.policy-content > .confirm-btn,
+.terms-content > .confirm-btn {
+  align-self: center;
+  min-width: 128px;
+  padding: 11px 28px;
+  margin-top: 20px;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  background: #2563eb;
+  border: 0;
+  border-radius: 8px;
+}
+
+.policy-content > .confirm-btn:hover,
+.terms-content > .confirm-btn:hover {
+  background: #1d4ed8;
+}
+
+@media (max-width: 640px) {
+  .policy-page,
+  .terms-page {
+    padding: 12px;
+  }
+
+  .policy-content,
+  .terms-content {
+    max-height: 90vh;
+    padding: 24px 20px 20px;
+  }
+}

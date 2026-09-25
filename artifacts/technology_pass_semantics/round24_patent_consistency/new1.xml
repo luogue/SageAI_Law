@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="6" skipped="0" tests="44" time="26.196" timestamp="2026-09-17T08:22:31.353662+08:00" hostname="PC-202411042018"><testcase classname="backend.tests.test_patent_component_consistency" name="test_first_equal_payment_is_not_lost_or_deduplicated[\u672c\u5408\u540c\u751f\u6548]" time="0.013" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_first_equal_payment_is_not_lost_or_deduplicated[\u5408\u540c\u7b7e\u7f72]" time="0.003" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_first_equal_payment_is_not_lost_or_deduplicated[\u5408\u540c\u7b7e\u8ba2]" time="0.003" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_first_equal_payment_is_not_lost_or_deduplicated[\u534f\u8bae\u751f\u6548]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_first_equal_payment_is_not_lost_or_deduplicated[\u53cc\u65b9\u76d6\u7ae0]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_first_equal_payment_is_not_lost_or_deduplicated[\u53cc\u65b9\u7b7e\u5b57]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_real_payment_discrepancy_remains[30]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_real_payment_discrepancy_remains[50]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_territory_declarative_aliases[\u4e3a]" time="0.017" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_territory_declarative_aliases[\uff1a]" time="0.003" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_territory_declarative_aliases[\u9650\u4e8e]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_territory_declarative_aliases[\u5305\u62ec]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_implementation_list_inherits_only_positive_grant[\n]" time="0.005" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_implementation_list_inherits_only_positive_grant[\n\n]" time="0.002"><failure message="assert False&#10; +  where False = all(&lt;generator object test_implementation_list_inherits_only_positive_grant.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002BC36974900&gt;)">separator = '\n\n'
+
+    @pytest.mark.parametrize('separator', ['\n', '\n\n', '\n\n\n'])
+    def test_implementation_list_inherits_only_positive_grant(separator):
+        text = '乙方（被许可方）：乙公司\n第三条 实施范围\n乙方可以实施下列行为：' + separator + ('；'+separator).join(['制造装配设备','使用上述设备','销售、许诺销售上述设备','为售后维修目的更换零部件']) + '。'
+        row = next(e for e in license_scope_elements(parse_contract_clauses(text)) if e['element_id']=='permitted_implementation_acts')
+        assert row['status'] == 'COVERED'
+&gt;       assert all(s['quote'] in text and '可以实施' in s['quote'] for s in row['supporting_evidence'])
+E       assert False
+E        +  where False = all(&lt;generator object test_implementation_list_inherits_only_positive_grant.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002BC36974900&gt;)
+
+backend\tests\test_patent_component_consistency.py:41: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_component_consistency" name="test_implementation_list_inherits_only_positive_grant[\n\n\n]" time="0.002"><failure message="assert False&#10; +  where False = all(&lt;generator object test_implementation_list_inherits_only_positive_grant.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002BC2F7D6180&gt;)">separator = '\n\n\n'
+
+    @pytest.mark.parametrize('separator', ['\n', '\n\n', '\n\n\n'])
+    def test_implementation_list_inherits_only_positive_grant(separator):
+        text = '乙方（被许可方）：乙公司\n第三条 实施范围\n乙方可以实施下列行为：' + separator + ('；'+separator).join(['制造装配设备','使用上述设备','销售、许诺销售上述设备','为售后维修目的更换零部件']) + '。'
+        row = next(e for e in license_scope_elements(parse_contract_clauses(text)) if e['element_id']=='permitted_implementation_acts')
+        assert row['status'] == 'COVERED'
+&gt;       assert all(s['quote'] in text and '可以实施' in s['quote'] for s in row['supporting_evidence'])
+E       assert False
+E        +  where False = all(&lt;generator object test_implementation_list_inherits_only_positive_grant.&lt;locals&gt;.&lt;genexpr&gt; at 0x000002BC2F7D6180&gt;)
+
+backend\tests\test_patent_component_consistency.py:41: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_component_consistency" name="test_absent_territory_is_not_a_declaration[\u53cc\u65b9\u672a\u7ea6\u5b9a\u8bb8\u53ef\u5730\u57df\u4e3a\u4e2d\u56fd\u5927\u9646\u3002]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_absent_territory_is_not_a_declaration[\u8bb8\u53ef\u5730\u57df\u662f\u5426\u4e3a\u4e2d\u56fd\u5927\u9646\uff0c\u53cc\u65b9\u672a\u660e\u786e\u3002]" time="0.002" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_compensation_action_and_loss_order[\u56e0\u4e59\u65b9\u6545\u610f\u8d85\u8303\u56f4\u5b9e\u65bd\u7ed9\u7532\u65b9\u9020\u6210\u53ef\u8bc1\u660e\u5b9e\u9645\u635f\u5931\u7684\uff0c\u4e59\u65b9\u4f9d\u6cd5\u627f\u62c5\u8d54\u507f\u8d23\u4efb\u3002]" time="0.010" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_compensation_action_and_loss_order[\u4e59\u65b9\u8d85\u8303\u56f4\u5b9e\u65bd\u9020\u6210\u7532\u65b9\u635f\u5931\u7684\uff0c\u4e59\u65b9\u8d1f\u8d23\u8d54\u507f\u3002]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_compensation_action_and_loss_order[\u4e59\u65b9\u8d85\u8303\u56f4\u5b9e\u65bd\uff0c\u5e94\u8d54\u507f\u7532\u65b9\u5b9e\u9645\u635f\u5931\u3002]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_limited_support_is_an_existing_obligation[\u5b9e\u65bd\u6307\u5bfc]" time="0.005" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_limited_support_is_an_existing_obligation[\u5b9e\u65bd\u534f\u52a9]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_limited_support_is_an_existing_obligation[\u6280\u672f\u6307\u5bfc]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_limited_support_is_an_existing_obligation[\u6280\u672f\u652f\u6301]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_limited_support_is_an_existing_obligation[\u6280\u672f\u670d\u52a1]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_notice_and_missing_deadline_are_independent[\u653e\u5f03\u4e13\u5229\u6743]" time="0.002"><failure message="assert 0 == 1&#10; +  where 0 = len([])">event = '放弃专利权'
+
+    @pytest.mark.parametrize('event', ['放弃专利权','专利被无效','专利被撤销','专利权终止','专利法律状态变化'])
+    def test_notice_and_missing_deadline_are_independent(event):
+        text=f'如发生{event}，甲方应及时通知乙方。\n双方未约定具体通知期限。'
+&gt;       assert len(patent_support_sources(text)['technology.patent.status_change_notice'])==1
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+backend\tests\test_patent_component_consistency.py:70: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_component_consistency" name="test_notice_and_missing_deadline_are_independent[\u4e13\u5229\u88ab\u65e0\u6548]" time="0.002" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_notice_and_missing_deadline_are_independent[\u4e13\u5229\u88ab\u64a4\u9500]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_notice_and_missing_deadline_are_independent[\u4e13\u5229\u6743\u7ec8\u6b62]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_notice_and_missing_deadline_are_independent[\u4e13\u5229\u6cd5\u5f8b\u72b6\u6001\u53d8\u5316]" time="0.002" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_negative_support_is_not_a_positive_fact[\u7532\u65b9\u65e0\u9700\u63d0\u4f9b\u5b9e\u65bd\u6307\u5bfc\u3002]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_negative_support_is_not_a_positive_fact[\u53cc\u65b9\u672a\u7ea6\u5b9a\u7532\u65b9\u63d0\u4f9b\u5b9e\u65bd\u534f\u52a9\u3002]" time="0.003" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_negative_support_is_not_a_positive_fact[\u5982\u4e13\u5229\u88ab\u65e0\u6548\uff0c\u7532\u65b9\u65e0\u9700\u901a\u77e5\u4e59\u65b9\u3002]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_lawful_third_party_acquisition_component[\u53d6\u5f97]" time="0.008" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_lawful_third_party_acquisition_component[\u83b7\u53d6]" time="0.005" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_lawful_third_party_acquisition_component[\u83b7\u5f97]" time="0.003" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_concrete_settlement_protection_not_an_adverse_allocation[\u627f\u8ba4\u4fb5\u6743]" time="0.011" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_concrete_settlement_protection_not_an_adverse_allocation[\u505c\u6b62\u5168\u90e8\u751f\u4ea7]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_concrete_settlement_protection_not_an_adverse_allocation[\u5411\u7b2c\u4e09\u65b9\u627f\u62c5\u989d\u5916\u4ed8\u6b3e\u4e49\u52a1]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_liability_in_compensation_premise_does_not_reassign_the_duty" time="0.001"><failure message="AssertionError: assert None&#10; +  where None = &lt;built-in method get of dict object at 0x000002BC33663280&gt;('damages_allocation')&#10; +    where &lt;built-in method get of dict object at 0x000002BC33663280&gt; = {}.get">def test_liability_in_compensation_premise_does_not_reassign_the_duty():
+        text='第三方权利主张\n因甲方无权许可，导致乙方承担赔偿责任的，由甲方承担乙方因此产生的合理直接损失。'
+        facts=extract_claim_response_facts(parse_contract_clauses(text),'甲方','乙方')
+        assert not any(s.get('actor')=='LICENSEE' for s in facts.get('liability_responsible_party',[]))
+&gt;       assert facts.get('damages_allocation')
+E       AssertionError: assert None
+E        +  where None = &lt;built-in method get of dict object at 0x000002BC33663280&gt;('damages_allocation')
+E        +    where &lt;built-in method get of dict object at 0x000002BC33663280&gt; = {}.get
+
+backend\tests\test_patent_component_consistency.py:105: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_component_consistency" name="test_excluded_secret_is_not_a_licensed_secret_premise[\u8d44\u6599\u4ea4\u4ed8\u4e0d\u4ee3\u8868\u7532\u65b9\u5411\u4e59\u65b9\u8bb8\u53ef\u4efb\u4f55\u672a\u516c\u5f00\u6280\u672f\u79d8\u5bc6\u3002]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_excluded_secret_is_not_a_licensed_secret_premise[\u4e59\u65b9\u672a\u4f7f\u7528\u7532\u65b9\u989d\u5916\u672a\u516c\u5f00\u6280\u672f\u8d44\u6599\u5f62\u6210\u7684\u72ec\u7acb\u6539\u8fdb\u6210\u679c\u5f52\u4e59\u65b9\u3002]" time="0.001" /><testcase classname="backend.tests.test_patent_component_consistency" name="test_final_patent_report_consistency[\u7532\u65b9/\u8bb8\u53ef\u65b9]" time="10.084"><failure message="AssertionError: assert 'BLOCKED' == 'REPORT_READY'&#10;  &#10;  - REPORT_READY&#10;  + BLOCKED">party = '甲方/许可方'
+
+    @pytest.mark.parametrize('party',['甲方/许可方','乙方/被许可方'])
+    def test_final_patent_report_consistency(party):
+        from review_v2.engine import review_contract_v2
+        from review_v2.user_profile import UserRiskProfile
+        text=Path(__file__).with_name('fixtures').joinpath('patent_license_component_consistency.txt').read_text(encoding='utf-8')
+        report=review_contract_v2(text,'technology',use_llm=False,profile=UserRiskProfile(user_identity=party))
+&gt;       assert report['release_quality_gate']['status']=='REPORT_READY'
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_patent_component_consistency.py:119: AssertionError</failure></testcase><testcase classname="backend.tests.test_patent_component_consistency" name="test_final_patent_report_consistency[\u4e59\u65b9/\u88ab\u8bb8\u53ef\u65b9]" time="10.422"><failure message="AssertionError: assert 'BLOCKED' == 'REPORT_READY'&#10;  &#10;  - REPORT_READY&#10;  + BLOCKED">party = '乙方/被许可方'
+
+    @pytest.mark.parametrize('party',['甲方/许可方','乙方/被许可方'])
+    def test_final_patent_report_consistency(party):
+        from review_v2.engine import review_contract_v2
+        from review_v2.user_profile import UserRiskProfile
+        text=Path(__file__).with_name('fixtures').joinpath('patent_license_component_consistency.txt').read_text(encoding='utf-8')
+        report=review_contract_v2(text,'technology',use_llm=False,profile=UserRiskProfile(user_identity=party))
+&gt;       assert report['release_quality_gate']['status']=='REPORT_READY'
+E       AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_patent_component_consistency.py:119: AssertionError</failure></testcase></testsuite></testsuites>

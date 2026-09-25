@@ -1,0 +1,180 @@
+    """Explain each evidence row only through the elements it actually supports."""
+    supported_statuses = {
+        "COVERED", "PARTIALLY_COVERED", "REFERENCED_BUT_NOT_PROVIDED",
+        "ADVERSE", "CONFLICTING",
+    }
+    element_rows = [
+        row for row in item.coverage_elements or []
+        if str(row.get("status") or "").upper() in supported_statuses
+    ]
+    synchronized: List[Dict[str, Any]] = []
+    for raw in item.evidence_clauses or []:
+        row = dict(raw)
+        if str(row.get("source_type") or "").upper() == "SEARCH_AUDIT":
+            synchronized.append(row)
+            continue
+        evidence_id = str(row.get("evidence_id") or row.get("clause_id") or "")
+        supported = [
+            element for element in element_rows
+            if evidence_id and evidence_id in {
+                str(value) for value in (
+                    element.get("evidence_ids")
+                    or element.get("supporting_evidence_ids")
+                    or element.get("source_clause_ids")
+                    or element.get("bound_evidence_ids")
+                    or []
+                ) if str(value)
+            }
+        ]
+        # Source-backed predicates own exact spans, never all facts in a clause.
+        supported = [element for element in element_rows
+                     if (any(str(fact.get("clause_id") or "") == str(row.get("clause_id") or "")
+                             and _compact(str(fact.get("quote") or ""))
+                             == _compact(str(row.get("quote") or row.get("text") or ""))
+                             and fact.get("quote")
+                             for fact in element.get("supporting_evidence", []))
+                         if "supporting_evidence" in element else (
+                             any(str(cid) == str(row.get("clause_id") or "") and span
+                                 and _compact(str(span)) == _compact(str(row.get("quote") or row.get("text") or ""))
+                                 for cid, span in zip(element.get("source_clause_ids") or [], element.get("source_spans") or []))
+                             if element.get("source_spans") else element in supported))]
+        # Re-evaluate every atomic predicate against this exact source span.
+        # A selected primary quote for one element does not own the span.
+        from review_v2.lease_semantics import supports as supports_atomic
+        specs = {e['element_id']: e for e in item.decision_trace.get('semantic_requirements', [])
+                 if e.get('semantic_patterns') or e.get('fact_concepts')}
+        if specs:
+            candidate = {k:v for k,v in row.items() if k not in {'supports_element_ids','supporting_element_ids'}}
+            candidate['text'] = str(row.get('quote') or row.get('text') or '')
+            supported = [e for e in element_rows if
+                (e.get('element_id') in specs and supports_atomic(specs[e['element_id']], candidate))
+                or (e.get('element_id') not in specs and e in supported)]
+        if supported:
+            exact_quotes = [str(fact["quote"]) for element in supported
+                            for fact in element.get("supporting_evidence", [])
+                            if fact.get("clause_id") == row.get("clause_id") and fact.get("quote")]
+            exact_quotes.extend(str(span) for element in supported
+                for clause_id, span in zip(element.get('source_clause_ids') or [], element.get('source_spans') or [])
+                if clause_id == row.get('clause_id') and span)
+            published_quote = str(row.get("quote") or row.get("text") or "")
+            source_text = str(row.get("raw_text") or row.get("text") or "")
+            if (not row.get("verified_original")
+                    and not any("supporting_evidence" in element for element in supported)
+                    and exact_quotes and any(_compact(quote) not in _compact(published_quote) for quote in exact_quotes)
+                    and all(_compact(quote) in _compact(source_text) for quote in exact_quotes)):
+                # A verified source span is immutable: one element may have
+                # multiple independent source rows, each owning its own quote.
+                # A first-sentence excerpt cannot carry the later sentence's
+                # support tags. Publish the actual source span containing all
+                # independently bound facts instead of inheriting by clause ID.
+                row["quote"] = source_text
+                row["original_excerpt"] = source_text
+                if isinstance(row.get("evidence_source"), dict):
+                    row["evidence_source"] = {**row["evidence_source"], "quote": source_text}
+            element_ids = [str(element.get("element_id") or "") for element in supported]
+            labels = [_display_element_label(element_id) for element_id in element_ids]
+            propositions = [str(element.get("proposition") or "") for element in supported]
+            has_partial_support = any(
+                str(element.get("status") or "").upper() in {
+                    "PARTIALLY_COVERED", "REFERENCED_BUT_NOT_PROVIDED",
+                }
+                for element in supported
+            )
+            row["supports_element_ids"] = element_ids
+            row["supporting_element_ids"] = element_ids
+            row["element_ids"] = element_ids
+            row["supported_propositions"] = propositions
+            row["support_summary"] = (
+                "证明合同已对" + "、".join(labels) + "作出部分约定。"
+                if has_partial_support else
+                "证明合同已约定" + "、".join(labels) + "。"
+            )
+            if any(element.get("party_coverage") for element in supported):
+                # A source row explains only its own actor's atomic duties.
+                propositions = list(dict.fromkeys(
+                    str(fact["proposition"]) for element in supported
+                    for fact in element.get("supporting_evidence", [])
+                    if fact.get("clause_id") == row.get("clause_id") and fact.get("proposition")
+                ))
+                row["supported_propositions"] = propositions
+                row["support_summary"] = "；".join(propositions)
+            elif any(element["element_id"] == SECRET_IDENTITY_REQUIREMENT for element in supported):
+                propositions = list(dict.fromkeys(
+                    proposition for element in supported
+                    for proposition in (
+                        [fact["proposition"] for fact in element.get("supporting_evidence", [])
+                         if fact.get("clause_id") == row.get("clause_id") and fact.get("proposition")]
+                        if element["element_id"] == SECRET_IDENTITY_REQUIREMENT else
+                        [str(element.get("proposition") or "")]
+                    ) if proposition
+                ))
+                row["supported_propositions"] = propositions
+                row["support_summary"] = "；".join(propositions)
+        synchronized.append(row)
+    # The primary quotation must be one of the resolved coverage proofs.
+    # Exact-span projection can leave an earlier whole-clause excerpt first.
+    # Keep that excerpt's adverse/context evidence, but do not present it as
+    # the primary proof of a different covered proposition.
+    # Negative-clause checks own their risk-evidence ordering. Positive
+    # requirements need a coverage proof first even when other atoms conflict.
+    covered_ids = {e['element_id'] for e in element_rows if e['status'] in {'COVERED', 'PARTIALLY_COVERED'}}
+    if (item.decision_trace or {}).get('review_polarity') != 'NEGATIVE_CLAUSE_CHECK':
+        synchronized.sort(key=lambda row: not (row.get('support_type') == 'DIRECT'
+            and covered_ids.intersection(row.get('supporting_element_ids') or row.get('element_ids') or [])))
+    item.evidence_clauses = synchronized
+
+
+def _reconcile_item_search_audit_with_positive_evidence(
+    item: ReviewItemResult,
+    final_missing: Optional[List[Dict[str, Any]]] = None,
+) -> None:
+    """Prune stale absence targets after the final evidence projection."""
+    audit = dict((item.decision_trace or {}).get("specialized_search_audit") or {})
+    if not audit:
+        return
+    positive_facts: List[str] = []
+    for element in item.coverage_elements or []:
+        if str(element.get("status") or "").upper() not in {"COVERED", "ADVERSE", "CONFLICTING"}:
+            continue
+        if not (
+            element.get("evidence_ids")
+            or element.get("supporting_evidence_ids")
+            or element.get("source_clause_ids")
+            or element.get("bound_evidence_ids")
+        ):
+            continue
+        positive_facts.extend(_positive_element_fact_phrasings(element))
+    positive_facts = list(dict.fromkeys(positive_facts))
+
+    existing_targets = _positive_required_facts(
+        audit.get("missing_elements") or audit.get("required_positive_facts") or []
+    )
+    authoritative_elements = final_missing is not None and bool(item.coverage_elements)
+    final_missing = list(final_missing or [])
+    canonical_final_targets = (
+        _missing_search_targets(final_missing) if authoritative_elements else []
+    )
+    before = canonical_final_targets if authoritative_elements else existing_targets
+    # Element identity is stronger than a fuzzy phrase match. A timing gap may
+    # share "registration" with an already covered responsible-party element.
+    removed = [] if authoritative_elements else [target for target in before if _fact_phrasing_conflicts(target, positive_facts)]
+    remaining = [target for target in before if target not in removed]
+    stale_targets = [
+        target for target in existing_targets
+        if authoritative_elements
+        and not any(
+            _fact_phrasing_conflicts(target, [canonical])
+            or _fact_phrasing_conflicts(canonical, [target])
+            for canonical in canonical_final_targets
+        )
+    ]
+    audit["missing_elements"] = remaining
+    audit["required_positive_facts"] = remaining
+    if authoritative_elements:
+        audit["searched_aliases"] = list(remaining)
+        audit["final_missing_element_ids"] = [
+            str(row.get("element_id") or "") for row in final_missing
+        ]
+    audit["removed_conflicting_absence_targets"] = list(dict.fromkeys([
+        *[str(value) for value in audit.get("removed_conflicting_absence_targets") or [] if str(value)],
+        *removed,

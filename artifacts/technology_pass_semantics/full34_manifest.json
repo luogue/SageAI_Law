@@ -1,0 +1,18 @@
+{
+  "module_groups_from": "full33_manifest.json",
+  "baseline": "full31",
+  "batches": [
+    {"group": 0, "pid": 18108, "junit": "full34_batch0.xml"},
+    {"group": 1, "pid": 8868, "junit": "full34_batch1.xml"}
+  ],
+  "backend_pid": 12340,
+  "max_python_processes": 3,
+  "post_full33_changes": [
+    "Require a typed component object for component cost allocation",
+    "Distinguish notice duty from receiving a notice and third-party disclosure",
+    "Do not classify embodied integration projects as software-only from deliverables"
+  ],
+  "target_regression_result": "round14_regression_fix.xml: 24 passed",
+  "new_test_count": 21,
+  "test_migrations": 0
+}

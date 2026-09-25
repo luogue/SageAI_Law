@@ -1,0 +1,42 @@
+{
+  "application_transferee": {
+    "states_equal": true,
+    "risk_groups_equal": true,
+    "gates": [
+      "REPORT_READY",
+      "REPORT_READY"
+    ]
+  },
+  "consulting_client": {
+    "states_equal": false,
+    "risk_groups_equal": true,
+    "gates": [
+      "REPORT_READY",
+      "REPORT_READY"
+    ]
+  },
+  "consulting_provider": {
+    "states_equal": false,
+    "risk_groups_equal": true,
+    "gates": [
+      "REPORT_READY",
+      "REPORT_READY"
+    ]
+  },
+  "secret_licensor": {
+    "states_equal": true,
+    "risk_groups_equal": true,
+    "gates": [
+      "REPORT_READY",
+      "REPORT_READY"
+    ]
+  },
+  "secret_transferor": {
+    "states_equal": true,
+    "risk_groups_equal": true,
+    "gates": [
+      "BLOCKED",
+      "BLOCKED"
+    ]
+  }
+}

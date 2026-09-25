@@ -1,0 +1,375 @@
+--- artifacts\technology_pass_semantics\round31_transfer_consistency\baseline_source\engine.py
++++ backend\review_v2\engine.py
+@@ -5879,7 +5879,7 @@
+             "supporting_evidence", "source_fact_key", "party_coverage", "component_coverage", "component_quantifier", "fact_ids", "explicit_absence_evidence",
+             "conditional_element", "prerequisite_status", "prerequisite_fact", "verification_instruction",
+             "recommendation_action", "core", "fact_identity", "material_owner", "object_type", "source_domain",
+-            "underlying_issue_title",
++            "underlying_issue_title", "fact_value", "fact_polarity", "proof_requirement_level",
+             "terms", "semantic_patterns",
+             "source_requirements",
+         ):
+@@ -10843,24 +10843,39 @@
+             no_existing_license.append(row)
+         if license_stated or negative:
+             bound["existing_license_disclosure"].append(row)
+-        if license_stated and not negative:
++        if license_stated:
+             if re.search(r"(?:向|授予).{2,80}(?:公司|企业|大学|研究院|研究所)|(?:相对方|被许可人)[：:为].{2,60}", text):
+                 bound["existing_license_counterparty"].append(row)
+             if re.search(r"(?:许可期限|许可有效期|许可期间|有效期至).{0,15}(?:\d{4}年|\d{4}[-/.]|[一二三四五六七八九十\d]+年)", text):
+                 bound["existing_license_term"].append(row)
+             if re.search(r"(?:许可地域|许可地区|许可区域|地域范围)[：:为是限于]*[^，。；]{2,40}", text):
+                 bound["existing_license_territory"].append(row)
++        if re.search(r'(?:曾为|此前为|已为)[^。；]{2,65}(?:提供)[^。；]{0,25}(?:检测服务|测试服务)', text):
++            bound['test_use_arrangement'].append(row)
+         # These objects are independently disclosed. A generic company name or
+         # ordinary licence cannot stand in for testing or other third-party use.
+         if re.search(r"(?:用于|应用于|使用于).{0,15}(?:测试项目|试用)|测试使用(?:安排|情况)?[：:]|(?:不存在|没有|无).{0,8}(?:测试使用|测试项目|试用安排)", text):
+             bound["test_use_arrangement"].append(row)
+         if re.search(r"其他第三方使用(?:安排|情况)?[：:]|(?:不存在|没有|无).{0,8}其他第三方使用|(?:曾向|已向|此前向).{2,50}(?:提供|交付).{0,20}(?:测试使用|进行测试|试用|生产使用)", text):
+             bound["other_third_party_use_arrangement"].append(row)
++    from review_v2.disclosure_facts import negative_sources
++    declared_none = [q for q in negative_sources(clauses, r'许可')
++                     if re.search(r'既有|现有|此前|历史|其他|第三方|对外|截至|从未|未曾', q['quote'])
++                     or any(c.clause_id==q['clause_id'] and re.search(r'历史|既有',c.title) for c in clauses)]
++    # A closed list excludes further licences, not a licence actually disclosed.
++    positive_license = any(re.search(r'(?:授予|签订|签署)[^。；]{0,45}(?:普通许可|独占许可|排他许可|实施许可|许可合同)', c.text)
++                           and not re.search(r'(?:未|没有|不曾)[^。；]{0,20}(?:授予|签订|签署)', c.text) for c in clauses)
++    if positive_license:
++        declared_none = []
++    public_by_id = {c.clause_id:_clause_public_dict(c) for c in clauses}
+     rows = []
+     evidence = {}
+     for key, label, _ in _EXISTING_TECHNOLOGY_USE_SPECS:
+         supporting = bound[key]
+-        absent_license = (no_existing_license and not bound["existing_license_counterparty"]
++        none_sources = declared_none if key.startswith('existing_license_') else negative_sources(clauses, r'第三方使用') if key=='other_third_party_use_arrangement' else []
++        if none_sources:
++            supporting = [{**public_by_id[q['clause_id']], **q, 'text':q['quote']} for q in none_sources]
++        absent_license = (no_existing_license and not positive_license and not bound["existing_license_counterparty"]
+                           and key in {"existing_license_counterparty", "existing_license_term", "existing_license_territory"})
+         rows.append({
+             "element_id": key,
+@@ -10870,6 +10885,10 @@
+             "search_targets": [label],
+             "bound_evidence_ids": [r["clause_id"] for r in supporting],
+         })
++        if none_sources:
++            rows[-1].update(fact_value='EXPLICIT_NONE', fact_polarity='NEGATIVE_CONFIRMED',
++                evidence_level='CONTRACTUAL_REPRESENTATION', supporting_evidence=none_sources,
++                proposition=label+'已明确披露为不存在，无需列示不存在的许可之相对方、期限或地域。' if key.startswith('existing_license_') else label+'已明确否定。')
+         evidence.update((r["clause_id"], r) for r in supporting)
+     return rows, list(evidence.values())
+ 
+@@ -10939,10 +10958,13 @@
+         r'(?:技术秘密|合同技术|专有技术)[^。；]{0,25}(?:自行研发|自主研发|独立研发)|'
+         r'(?:自行研发|自主研发)[^。；]{0,20}(?:技术秘密|合同技术|本项技术|专有技术)|'
+         r'(?:已提供|附有|附件包括|提交了)[^。；]{0,25}(?:研发记录|技术来源证明|形成过程记录)|'
+-        r'(?:技术来源|形成过程)[：:][^。；]{2,80}')
++        r'(?:技术来源|形成过程)[：:][^。；]{2,80}|'
++        r'(?:本|该)技术由[^。；]{0,35}(?:研发团队|研发人员)[^。；]{0,25}(?:形成|开发)')
+     authority += exact_arrangements(r'有权处分(?:并|和|及)?转让[^。；]{0,15}(?:技术秘密|合同技术|专有技术)')
+     authority += exact_arrangements(r'有权[^。；]{0,35}(?:技术秘密|合同技术|许可技术)[^。；]{0,20}(?:提供许可|许可给|授予许可)')
+     lawful_possession += exact_arrangements(r'(?:技术秘密|合同技术|专有技术)[^。；]{0,12}(?:来源合法|合法取得)|(?:并非|不是|未通过)[^。；]{0,30}(?:盗窃|欺诈|违反保密义务)[^。；]{0,18}取得')
++    lawful_possession += exact_arrangements(r'合法控制[^。；]{0,12}(?:实际)?持有[^。；]{0,20}(?:技术秘密|专有技术)|未从[^。；]{0,35}非法取得[^。；]{0,15}技术')
++    authority += exact_arrangements(r'(?:同意|有权)[^。；]{0,15}转让[^。；]{0,20}合法控制[^。；]{0,20}(?:技术秘密|专有技术)')
+     historical = evidence_for((("曾向", "合作企业", "展示", "提供部分", "披露内容"),))
+     confidentiality_commitment = [
+         row for row in evidence_for((("保密协议", "保密承诺", "承担保密义务"),))
+@@ -10954,6 +10976,13 @@
+             _compact(str(row.get("text") or "")),
+         )
+     ]
++    commitment_representation = False
++    if not confidentiality_commitment:
++        history_clauses = [c for c in clauses if re.search(r'曾向|曾为|历史披露', c.text)]
++        by_clause = {c.clause_id:c for c in history_clauses}
++        statements = arrangement_sources(history_clauses, r'(?:双方|各方|披露对象)[^。；]{0,10}(?:已签署|已签订)[^。；]{0,15}保密协议')
++        confidentiality_commitment = [{**_clause_public_dict(by_clause[q['clause_id']]),'quote':q['quote'],'text':q['quote']} for q in statements]
++        commitment_representation = bool(statements)
+     existing_use_elements, existing_use = _existing_technology_use_disclosure_results(clauses)
+     joint_holder = [
+         row for row in evidence_for((("共同持有人", "共同研发方", "共有权人", "其他权利人"),))
+@@ -10970,6 +10999,7 @@
+         r'(?:尚未(?:全部)?公开|仍未公开|保持秘密性|仍具秘密性|尚未进入公共领域|已进入公共领域)|'
+         r'(?:已提供|附有|附件包括|提交了)[^。；]{0,25}(?:秘密性评估|未公开证明|秘密状态说明)')
+     secret_status += exact_arrangements(r'(?:上述技术|合同技术|技术秘密)[^。；]{0,8}尚未通过[^。；]{0,45}(?:公开|披露)')
++    secret_status += exact_arrangements(r'(?:技术秘密|合同技术)[^。；]{0,20}未以[^。；]{0,60}(?:披露|公开)')
+     from review_v2.proposition_scope import scoped_propositions
+     secret_status = [row for row in secret_status
+                      if all(p['polarity'] == 'AFFIRMATIVE'
+@@ -11016,11 +11046,23 @@
+         and re.search(r"(?:名称|名单|主体清单)[：:]?.{2,80}(?:公司|企业|机构)", historical_text)
+         and not express_non_disclosure
+     )
++    from review_v2.disclosure_facts import historical_disclosure
++    closed_history = [] if express_non_disclosure else historical_disclosure(clauses)
++    if closed_history:
++        by_clause = {c.clause_id:c for c in clauses}
++        historical = [{**_clause_public_dict(by_clause[q['clause_id']]), **q, 'text':q['quote']} for q in closed_history]
++        objects_complete = True
+     scope_complete = bool(
+         historical
+         and any(term in historical_text for term in ("披露清单", "具体披露内容", "披露范围详见"))
+         and not express_non_disclosure
+     )
++    if closed_history:
++        no_history = all(q.get('fact_value')=='EXPLICIT_NONE' for q in closed_history)
++        disclosed_scope = exact_arrangements(r'(?:演示|展示)[^。；]{0,30}(?:仅|只)(?:包含|包括)[^。；]{1,90}|(?:客户|第三方)[^。；]{0,15}(?:仅|只)(?:取得|获得)[^。；]{1,60}')
++        if no_history or disclosed_scope:
++            historical += disclosed_scope
++            scope_complete = True
+     source_documented = bool(source and any(
+         term in _compact(" ".join(str(row.get("text") or "") for row in source))
+         for term in ("研发记录", "技术来源证明", "形成过程记录", "项目档案")
+@@ -11039,7 +11081,7 @@
+     ))
+     current_status_stated = bool(secret_status and any(
+         term in _compact(" ".join(str(row.get("text") or "") for row in secret_status))
+-        for term in ("尚未公开", "尚未全部公开", "尚未通过", "仍未公开", "保持秘密性", "仍具秘密性", "尚未进入公共领域", "已进入公共领域")
++        for term in ("尚未公开", "尚未全部公开", "尚未通过", "未以", "仍未公开", "保持秘密性", "仍具秘密性", "尚未进入公共领域", "已进入公共领域")
+     ))
+     measures_documented = bool(historical_measures)
+ 
+@@ -11055,7 +11097,7 @@
+         {"element_id": "disposition_authority", "status": "COVERED" if authority_documented else "PARTIALLY_COVERED" if authority else "MISSING", "proposition": "转让方具有处分和转让技术秘密权限的依据可供核验。", "bound_evidence_ids": ids(authority)},
+         {"element_id": "historical_disclosure_objects", "status": "COVERED" if objects_complete else "PARTIALLY_COVERED" if historical else "MISSING", "proposition": "技术秘密的历史披露对象已经完整列明。", "bound_evidence_ids": ids(historical)},
+         {"element_id": "historical_disclosure_scope", "status": "COVERED" if scope_complete else "PARTIALLY_COVERED" if historical else "MISSING", "proposition": "向第三方历史披露的具体技术内容和范围已经完整列明。", "bound_evidence_ids": ids(historical)},
+-        {"element_id": "third_party_confidentiality_obligations", "status": "COVERED" if confidentiality_commitment else "MISSING", "proposition": "历史披露对象承担保密义务的协议或承诺可供核验。", "bound_evidence_ids": ids(confidentiality_commitment)},
++        {"element_id": "third_party_confidentiality_obligations", "status": "PARTIALLY_COVERED" if commitment_representation else "COVERED" if confidentiality_commitment else "MISSING", "proposition": "历史披露对象承担保密义务的协议或承诺可供核验。", "bound_evidence_ids": ids(confidentiality_commitment)},
+         *existing_use_elements,
+         {"element_id": "current_secret_status", "status": "COVERED" if current_status_documented else "PARTIALLY_COVERED" if current_status_stated else "MISSING", "proposition": "技术秘密当前秘密性及既有披露对秘密状态的影响有可核验依据。", "bound_evidence_ids": ids(secret_status) if (current_status_documented or current_status_stated) else []},
+         {
+@@ -11084,6 +11126,7 @@
+                 if element['status'] in {'COVERED', 'PARTIALLY_COVERED'}
+             ]
+     proof_residuals = {
++        "third_party_confidentiality_obligations": ("历史披露对象保密协议或承诺的核验材料", "合同已记载签署保密协议"),
+         "technical_source": ("技术秘密研发来源及形成过程的可核验材料", "合同对研发来源作出说明"),
+         "lawful_possession_basis": ("合法持有技术秘密的权利依据材料", "合同对合法持有技术秘密作出陈述"),
+         "disposition_authority": ("处分或许可技术秘密权限的证明材料", "合同对处分或许可技术秘密权限作出保证"),
+@@ -11100,17 +11143,22 @@
+         if element["status"] == "PARTIALLY_COVERED":
+             element["residual_gap"] = requirement
+             element["proposition"] = observed + "，但" + requirement + "尚不完整。"
++    for element in elements:
++        if element['element_id'] in proof_residuals:
++            element['evidence_level'] = 'CONTRACTUAL_REPRESENTATION' if element.get('supporting_evidence') else 'UNKNOWN'
++            element['proof_requirement_level'] = ('CONTRACTUAL_REPRESENTATION' if element['element_id'].startswith('historical_disclosure') else
++                                                  'INDEPENDENT_VERIFICATION' if element['element_id']=='current_secret_status' else 'DOCUMENTARY_PROOF')
+     # Requirements tied to a source of rights are conditional, not ordinary
+     # missing documents. A source-code deliverable alone proves neither employee
+     # creation, third-party code, open source, nor copyright registration.
+     conditional_specs = (
+         ("joint_holder_disclosure", "共同持有人及共同研发方的权利证明或同意文件",
+          r"(?:技术秘密|合同技术).{0,25}(?:共同持有|共同研发|共有)|(?:共同持有人|共同研发方|共有权人)(?:为|包括|：|:)",
+-         r"(?:不存在|没有|无).{0,8}(?:共同持有人|共同研发方|共有权人)|(?:技术秘密|合同技术).{0,15}(?:单独所有|独立持有)",
++         r"(?:不存在|没有|无).{0,8}(?:共同持有人|共同研发方|共有权人)|(?:技术秘密|合同技术).{0,15}(?:单独所有|独立持有)|(?:不存在|没有).{0,20}共有(?:本|该)?(?:技术秘密|合同技术)",
+          r"(?:共有权人同意书|共同持有人同意|共同研发协议|共有权属证明)",
+          "核验合同技术是否有共同持有人或共同研发方；如有，再核验权利证明及必要同意。"),
+         ("staff_assignment", "员工职务成果归属及成果归集材料",
+-         r"(?:员工|研发人员|职工).{0,15}(?:研发形成|开发形成|完成的技术|职务成果)|职务(?:发明|技术成果)",
++         r"(?:员工|研发人员|职工).{0,15}(?:研发形成|开发形成|完成的技术|职务成果)|职务(?:发明|技术成果)|研发团队.{0,20}履行职务.{0,15}形成",
+          r"(?:不涉及|不存在|没有|无).{0,8}(?:员工成果|职务成果|职务发明)",
+          r"职务成果声明|员工成果归集协议|职务成果归属(?:协议|文件)|员工知识产权转让协议",
+          "核验合同技术是否涉及员工或职务成果；如涉及，再核验成果归属和归集材料。"),
+@@ -18461,7 +18509,7 @@
+             quote = source.get("quote") or ""
+             from review_v2.verified_source import exact_span
+             if clause and quote and exact_span(clause.raw_text or clause.text, quote):
+-                graph.add(key, quote, clause, source_span=quote)
++                graph.add(key, quote, clause, normalized_value=element.get("fact_value"), source_span=quote)
+ 
+ 
+ def _consume_cooperative_element_facts(item, clauses):
+@@ -18806,6 +18854,9 @@
+         if (item := by_id.get('TC-09-01')) and item.coverage_status != COVERAGE_NOT_APPLICABLE:
+             _consume_shared_element_facts(item, clauses, 'ancillary_service_content')
+             final_projection_ids.add(item.item_id)
++        if (item := by_id.get('TC-09-02')) and item.coverage_status != COVERAGE_NOT_APPLICABLE:
++            if _project_atomic_requirement_state(item, 'ancillary_service_quality', clauses):
++                final_projection_ids.add(item.item_id)
+     development_types = {"ENTRUSTED_DEVELOPMENT", "COOPERATIVE_DEVELOPMENT"}
+     active_types = {classification.get("primary_subtype")} | set(classification.get("active_transaction_types") or [])
+     if active_types & development_types and (exit_item := by_id.get("TC-05-04")):
+@@ -35799,6 +35850,7 @@
+ def _user_visible_risk_themes(
+     findings: List[RiskFinding],
+     dispositions: Optional[List[FinalDisposition]] = None,
++    items: Optional[List[ReviewItemResult]] = None,
+ ) -> List[Dict[str, Any]]:
+     """Build a user-facing theme projection while preserving atomic findings."""
+     disposition_by_risk = {
+@@ -35921,6 +35973,11 @@
+                 },
+             },
+         })
++    from review_v2.theme_coverage import project
++    for theme in themes:
++        members = [f for f in findings if f.finding_id in theme['member_finding_ids']]
++        related = [d for d in (dispositions or []) if d.risk_id in theme['member_finding_ids']]
++        project(theme, members, items or [], related)
+     return sorted(
+         themes,
+         key=lambda row: (
+@@ -46866,8 +46923,8 @@
+         if value not in covered and value not in partial and value not in missing
+     ]
+     covered_text = "；".join(_element_narrative_label(value) for value in covered)
+-    partial_text = "；".join(_partial_element_narrative_label(value) for value in partial)
+-    missing_text = "；".join(_missing_element_narrative_label(value) for value in missing)
++    partial_text = "；".join(dict.fromkeys(_partial_element_narrative_label(value) for value in partial))
++    missing_text = "；".join(dict.fromkeys(_missing_element_narrative_label(value) for value in missing))
+     if any(requirement_states(row) for row in item.coverage_elements):
+         # Keep the public per-party array atomic; group only its prose by the
+         # same canonical parent used by the consequence/recommendation views.
+@@ -46878,7 +46935,7 @@
+             if party_gaps:
+                 grouped.append("、".join(party_gaps))
+         grouped += [value for value in missing if not any(value in group for group in grouped)]
+-        missing_text = "；".join(grouped)
++        missing_text = "；".join(dict.fromkeys(grouped))
+     adverse_text = "；".join(_element_narrative_label(value) for value in adverse)
+     applicability = str((item.applicability or {}).get("status") or "APPLICABLE").upper()
+     polarity = str((item.decision_trace or {}).get("review_polarity") or "POSITIVE_REQUIREMENT")
+@@ -46944,7 +47001,10 @@
+             if row.get("status") == "PARTIALLY_COVERED" and row.get("risk_relevant") is not False
+             and not row.get("internal_meta") and row.get("user_visible") is not False
+         ]
+-        incomplete_text = "；".join(dict.fromkeys(partial_gaps + ([missing_text] if missing_text else []) + adverse))
++        incomplete_text = "；".join(dict.fromkeys(
++            label.strip() for group in partial_gaps + ([missing_text] if missing_text else []) + adverse
++            for label in group.split("；") if label.strip()
++        ))
+         if not incomplete_text and not item.decision_trace.get("atomic_requirement_family"):
+             incomplete_text = next(
+                 (
+@@ -50260,7 +50320,7 @@
+     technical_report = any(item.item_id.startswith(("TC-", "PTR-", "SVC-")) for item in items)
+     recs = recommendations or []
+     dispositions = final_dispositions or _build_final_dispositions(findings, recs, [])
+-    risk_themes = _user_visible_risk_themes(findings, dispositions)
++    risk_themes = _user_visible_risk_themes(findings, dispositions, items)
+     rule_level_review_ids = list(dict.fromkeys(
+         review_id
+         for finding in findings
+@@ -50492,7 +50552,9 @@
+                 f"### {theme['canonical_title']}",
+                 f"- 严重程度：{_severity_label(str(theme['severity']))}",
+                 f"- 处理建议：{action}",
+-                f"- 问题类型：{finding.issue_type or 'MISSING'}",
++                f"- 覆盖状态：{theme['status']}",
++                f"- 问题类型：{theme['status'] if theme['status'] in {'PARTIAL', 'MISSING'} else finding.issue_type}",
++                *([f"- 处理等级依据：{theme['action_priority_reason']}"] if theme.get('action_priority_reason') else []),
+                 *([f"- 来源规则：{'、'.join(theme['source_rule_ids'])}"] if theme['source_rule_ids'] else []),
+                 "- 风险说明：" + "；".join(dict.fromkeys(member.issue for member in members)),
+                 *([f"- 法律依据：{legal_basis}"] if legal_basis else []),
+@@ -51035,6 +51097,7 @@
+                 _register_atomic_family_facts(generic_fact_graph, family, clauses)
+             _register_atomic_family_facts(generic_fact_graph, 'ancillary_fee', clauses)
+             _register_atomic_family_facts(generic_fact_graph, 'ancillary_service_content', clauses)
++            _register_atomic_family_facts(generic_fact_graph, 'ancillary_service_quality', clauses)
+             _register_atomic_family_facts(generic_fact_graph, 'secret_loss_arrangements', clauses)
+             for family in ('license_liability_direction', 'claim_response'):
+                 _register_atomic_family_facts(generic_fact_graph, family, clauses)
+@@ -52126,11 +52189,11 @@
+     recommendation_dicts = [recommendation.to_public_dict() for recommendation in recommendations]
+     architecture_status = _architecture_status()
+     finding_provenance = _finding_provenance(risk_findings, visible_items)
+-    risk_theme_dicts = _user_visible_risk_themes(risk_findings, final_dispositions)
++    risk_theme_dicts = _user_visible_risk_themes(risk_findings, final_dispositions, visible_items)
+     from review_v2.report_topic_labels import project as project_topic_labels
+     risk_findings = project_topic_labels(risk_findings, risk_theme_dicts)
+     __import__('review_v2.report_topic_labels', fromlist=['recommendation_topics']).recommendation_topics(recommendation_dicts, risk_theme_dicts)
+-    risk_theme_dicts = _user_visible_risk_themes(risk_findings, final_dispositions)
++    risk_theme_dicts = _user_visible_risk_themes(risk_findings, final_dispositions, visible_items)
+     risk_finding_dicts = [finding.to_public_dict() for finding in risk_findings]
+     rule_level_finding_ids = list(dict.fromkeys(
+         review_id
+--- artifacts\technology_pass_semantics\round31_transfer_consistency\baseline_source\technology_service_elements.py
++++ backend\review_v2\technology_service_elements.py
+@@ -10,7 +10,7 @@
+ from review_v2.verified_source import exact_span
+ 
+ 
+-FAMILIES = ('ancillary_service_content', 'service_content', 'service_payment', 'service_quality',
++FAMILIES = ('ancillary_service_content', 'ancillary_service_quality', 'service_content', 'service_payment', 'service_quality',
+             'service_results', 'service_claims', 'material_exit', 'component_inventory',
+             'confidentiality_controls', 'confidentiality_disclosure', 'confidentiality_scope_controls')
+ RULE_FAMILIES = {'TC-09-01': 'service_content', 'TC-09-04': 'service_payment',
+@@ -43,6 +43,26 @@
+ def _rows(family, specs):
+     return [_element(key, label, proof, source_fact_key='technology.' + family + '.' + key)
+             for key, label, proof in specs]
++
++
++def shared_deployment_acceptance(clauses):
++    """Reuse acceptance only when its deliverable is an actual service activity.
++
++    File delivery/asset metrics alone do not establish deployment service quality.
++    A matching operative deployment requirement links the two legal relations.
++    """
++    service = [c for c in clauses if re.search(r'技术服务|技术支持|实施服务', c.text + c.title)]
++    activities = [a for a in ('部署', '安装', '调试', '配置')
++                  if sources(service, r'(?:应|须|提供)[^。；]{0,50}' + a, inherit_lists=True)]
++    if not activities:
++        return []
++    result = []
++    for c in clauses:
++        if not re.search(r'验收', c.title + c.text):
++            continue
++        if sources([c], r'(?:完成|实现)[^。；]{0,25}(?:' + '|'.join(activities) + r')', inherit_lists=True):
++            result.append(c)
++    return result
+ 
+ 
+ def elements(family, clauses):
+@@ -108,6 +128,23 @@
+             ('service_frequency', '技术服务频次', service_find(r'(?:\d+|[一二三四五六七八九十两]+)次[^。；]{0,15}(?:技术|部署|培训|服务)')),
+         ]
+         result = _rows(family, specs)
++        linked = shared_deployment_acceptance(clauses)
++        if linked:
++            standard = next(e for e in result if e['element_id']=='service_delivery_standard')
++            proof = sources(linked, r'验收标准[：:]|(?:完成|实现)[^。；]{0,25}(?:部署|安装|调试|配置)', inherit_lists=True)
++            if proof and not standard['supporting_evidence']:
++                # Only actual additional service activities can leave residual gaps.
++                other = [label for pattern,label in ((r'培训','培训'), (r'远程[^。；]{0,8}(?:答疑|支持)','远程答疑'),
++                         (r'故障排查','故障排查'), (r'实施说明','实施说明'))
++                         if service_find(pattern)]
++                residuals = ['及'.join(other) + '的交付标准'] if other else []
++                components = [dict(element_id='deployment_standard',status='COVERED',required_fact='部署服务验收标准',supporting_evidence=proof)]
++                if residuals:
++                    components.append(dict(element_id='other_service_standard',status='MISSING',required_fact=residuals[0],supporting_evidence=[]))
++                standard.update(_element('service_delivery_standard', '技术服务交付标准', proof,
++                    status='PARTIALLY_COVERED' if residuals else 'COVERED', residuals=residuals,
++                    source_fact_key='technology.ancillary_service_content.service_delivery_standard',
++                    component_coverage=components))
+         period = next(e for e in result if e['element_id'] == 'service_period')
+         if not period['supporting_evidence']:
+             remote = service_find(_DURATION + r'[^。；]{0,12}(?:远程[^。；]{0,8}(?:答疑|支持))')
+@@ -118,6 +155,23 @@
+                     component_coverage=[dict(element_id='remote_support_period', status='COVERED', required_fact='远程答疑期限', supporting_evidence=remote),
+                                         dict(element_id='other_service_period', status='MISSING', required_fact='现场部署及培训的履行期限', supporting_evidence=[])]))
+         return result
++    if family == 'ancillary_service_quality':
++        linked = shared_deployment_acceptance(clauses)
++        if not linked:
++            return []
++        def acceptance(pattern):
++            return sources(linked, pattern, inherit_lists=True)
++        specs = [
++            ('objective_acceptance_standard','部署服务质量和验收标准',acceptance(r'验收标准[：:]|(?:准确率|误报率)[^。；]{0,18}\d|连续运行[^。；]{0,15}无[^。；]{0,10}故障|完成[^。；]{0,20}部署')),
++            ('acceptance_process','验收组织程序',acceptance(PARTY+r'[^。；]{0,50}(?:完成|组织|进行)验收')),
++            ('acceptance_deadline','验收期限',acceptance(_DURATION+r'内[^。；]{0,12}(?:完成|进行)?验收')),
++            ('written_objection_mechanism','验收书面异议程序',acceptance(r'(?:应|须)[^。；]{0,35}书面[^。；]{0,20}(?:问题|异议|意见)')),
++            ('rectification_mechanism','验收不合格后的补充修正',acceptance(r'(?:应|须)[^。；]{0,50}(?:整改|补正|修正)')),
++            ('rectification_deadline','补正期限',acceptance(_DURATION+r'内[^。；]{0,20}(?:整改|补正|修正)')),
++            ('reinspection_procedure','补正后的复验程序',acceptance(r'(?:有权|应|可)[^。；]{0,20}(?:第二次验收|再次验收|复验|重新验收)')),
++            ('reinspection_deadline','复验期限',acceptance(_DURATION+r'内[^。；]{0,20}(?:第二次验收|再次验收|复验|重新验收)')),
++        ]
++        return _rows(family,specs)
+     if family == 'service_content':
+         from review_v2.technology_transaction_evidence import extract_elements
+         atoms = extract_elements('technical_service_subject', clauses)

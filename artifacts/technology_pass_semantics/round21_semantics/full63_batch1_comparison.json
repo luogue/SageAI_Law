@@ -1,0 +1,52 @@
+{
+  "baseline": {
+    "PASS": 305,
+    "FAIL": 107,
+    "SKIP": 0
+  },
+  "current": {
+    "PASS": 302,
+    "FAIL": 110,
+    "SKIP": 0
+  },
+  "recovered": [],
+  "newly_failing": [
+    "backend.tests.test_cooperative_development_latest_regressions::test_competition_and_improvement_rules_reuse_direct_atomic_evidence",
+    "backend.tests.test_cooperative_development_latest_regressions::test_improvement_boundary_claim_is_limited_to_its_bound_clause",
+    "backend.tests.test_patent_license_input_integrity_routing::test_complete_patent_license_uses_one_full_text_and_never_loads_sale_rules"
+  ],
+  "added": {},
+  "removed": [],
+  "changes": {
+    "backend.tests.test_cooperative_development_latest_regressions::test_competition_and_improvement_rules_reuse_direct_atomic_evidence": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert ['第五条 知识产权', '第七条 禁止行为和保密'] == ['第七条 禁止行为和保密', '第五条 知识产权']\n  \n  At index 0 diff: '第五条 知识产权' != '第七条 禁止行为和保密'\n  Use -v to get more diff"
+      }
+    },
+    "backend.tests.test_cooperative_development_latest_regressions::test_improvement_boundary_claim_is_limited_to_its_bound_clause": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert ['第五条 知识产权', '第七条 禁止行为和保密'] == ['第七条 禁止行为和保密', '第五条 知识产权']\n  \n  At index 0 diff: '第五条 知识产权' != '第七条 禁止行为和保密'\n  Use -v to get more diff"
+      }
+    },
+    "backend.tests.test_patent_license_input_integrity_routing::test_complete_patent_license_uses_one_full_text_and_never_loads_sale_rules": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert 'SOLE_EXCLUSIVE' == 'NON_EXCLUSIVE'\n  \n  - NON_EXCLUSIVE\n  ? ^ ^\n  + SOLE_EXCLUSIVE\n  ? ^ ^^"
+      }
+    }
+  }
+}

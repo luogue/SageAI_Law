@@ -1,0 +1,66 @@
+[
+  {
+    "source": "员工须妥善保护客户资料和企业商业秘密。",
+    "facts": [],
+    "status": "PASS"
+  },
+  {
+    "source": "履行保密责任不得妨碍劳动者依法选择其他工作。",
+    "facts": [],
+    "status": "PASS"
+  },
+  {
+    "source": "劳动关系结束后二十四个月内，不得从事与本企业竞争的业务。",
+    "facts": [
+      {
+        "concept": "non_compete.arrangement",
+        "value": "EXISTS",
+        "confidence": 0.98,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "第一条 约定\n劳动关系结束后二十四个月内，不得从事与本企业竞争的业务。"
+          }
+        ]
+      }
+    ],
+    "status": "PASS"
+  },
+  {
+    "source": "双方明确不设离职竞业限制。",
+    "facts": [
+      {
+        "concept": "non_compete.arrangement",
+        "value": "EXPLICIT_NONE",
+        "confidence": 0.99,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "双方明确不设离职竞业限制。"
+          }
+        ]
+      }
+    ],
+    "status": "PASS"
+  },
+  {
+    "source": "员工应当保守秘密。离职后两年内不得在竞争企业任职。",
+    "facts": [
+      {
+        "concept": "non_compete.arrangement",
+        "value": "EXISTS",
+        "confidence": 0.98,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "离职后两年内不得在竞争企业任职。"
+          }
+        ]
+      }
+    ],
+    "status": "PASS"
+  }
+]

@@ -359,11 +359,16 @@ def test_latest_secret_license_shared_fee_improvement_and_claim_facts(latest_rev
         "notification_requirement",
         "notification_deadline",
         "licensor_participation",
-        "defense_cost_allocation",
+        "legal_cost_allocation",
         "settlement_consultation",
-        "damages_allocation",
+        "liability_responsible_party",
     ):
         assert claim_elements[element_id]["status"] == "COVERED"
+    # Broad legal expenses/statutory damages do not specify cost categories or
+    # the compensation distribution and damage scope.
+    for element_id in ("defense_cost_allocation", "damages_allocation", "damages_scope"):
+        assert claim_elements[element_id]["status"] == "MISSING"
+        assert not claim_elements[element_id]["supporting_evidence"]
     assert str(claim.get("suggested_clause_example") or "").strip() not in {"", "建议。", "。"}
 
 

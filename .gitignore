@@ -47,3 +47,12 @@ build/
 *.so
 *.pyd
 *.whl
+
+# Local recovery evidence contains business rows and password hashes.
+/artifacts/db_recovery/
+/backups/
+*.sqlite
+*.sqlite3
+*.db-wal
+*.db-shm
+*.db-journal

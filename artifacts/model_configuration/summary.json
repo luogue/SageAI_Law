@@ -1,0 +1,78 @@
+{
+  "modified_source_and_template_files": [
+    "AGENTS.md",
+    "README.md",
+    "DEPLOY_CHECKLIST.md",
+    "main.py",
+    "sage_engine.py",
+    ".env.example",
+    ".env.production.example",
+    "backend/.env.example",
+    "backend/config.py",
+    "backend/model_settings.py",
+    "backend/secret_redaction.py",
+    "backend/reasoning/llm_client.py",
+    "backend/review_v2/deepseek_transport.py",
+    "backend/review_v2/llm_semantic_reviewer.py",
+    "backend/layers/inference_layer.py",
+    "backend/layers/output_layer.py",
+    "backend/logging_config.py",
+    "backend/main.py",
+    "backend/requirements.txt",
+    "backend/tests/test_model_provider_configuration.py",
+    "backend/tests/test_review_v2_house_lease.py",
+    "backend/tests/test_input_layer_word_compat.py",
+    "frontend/src/views/ContractReviewV2.vue",
+    "backend/docs/algorithm_safety_self_assessment.md",
+    "backend/docs/security_assessment_report_framework.md",
+    "backend/docs/review_v2_llm_semantic_upgrade_plan.md",
+    "scripts/run_quality6_7_final_release_hotfix.py",
+    "scripts/run_quality6_7_freeze_closure.py"
+  ],
+  "modified_ignored_env_files": [
+    ".env",
+    "backend/.env",
+    ".env.production"
+  ],
+  "key_load": "DEEPSEEK_API_KEY from backend/.env; process environment takes precedence; Docker uses .env.production",
+  "loaded_key_matches_backend_env": true,
+  "runtime_retired_provider_hits": [],
+  "live": {
+    "provider": "deepseek",
+    "model": "deepseek-chat",
+    "configured": true,
+    "primary_call_ok": true,
+    "fact_transport_ok": true,
+    "calls": [
+      {
+        "url": "https://api.deepseek.com/v1/chat/completions",
+        "status": 200,
+        "model": "deepseek-chat"
+      },
+      {
+        "url": "https://api.deepseek.com/v1/chat/completions",
+        "status": 200,
+        "model": "deepseek-chat"
+      }
+    ]
+  },
+  "tests": {
+    "baseline": {
+      "PASS": 156,
+      "FAIL": 10,
+      "SKIP": 0
+    },
+    "current": {
+      "PASS": 165,
+      "FAIL": 10,
+      "SKIP": 0
+    },
+    "added_passed": 9,
+    "newly_failing": 0,
+    "old_status_changes": 0,
+    "technology_protection_passed": 46,
+    "frontend_build": "PASS"
+  },
+  "running_backend_pid": 18000,
+  "current_contract": "REPORT_READY; blockers=0"
+}

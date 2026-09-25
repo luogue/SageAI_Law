@@ -1,0 +1,57 @@
+{
+  "scanned_modeled_rule_count": 12,
+  "unrelated_evidence_count": 6,
+  "false_partial_count": 1,
+  "unrelated_evidence": [
+    {
+      "rule_id": "TC-02-02",
+      "evidence_id": "SRC-2e854ac88f54ab431159",
+      "clause_id": "C0020",
+      "quote": "第十四条 知识产权侵权责任\n乙方保证其自行提供的程序及技术成果不侵犯第三方合法知识产权。\n第三方因乙方自行开发内容向甲方主张侵权的，乙方应负责处理并承担因此给甲方造成的合理损失。\n使用第三方开源软件、甲方指定软件以及甲方提供技术资料产生的纠纷除外。",
+      "reason": "NEGATIVE_SEARCH_CONTEXT_NOT_ELEMENT_PROOF"
+    },
+    {
+      "rule_id": "TC-02-02",
+      "evidence_id": "SRC-795a84856ff86847c8fd",
+      "clause_id": "C0015",
+      "quote": "第九条 第三方软件及开源组件\n乙方可以根据项目需要使用第三方软件、开源组件或公共技术资源。\n乙方应保证其使用方式符合相关许可条件。\n因第三方软件或开源组件产生知识产权纠纷的，由双方根据实际原因协商处理。",
+      "reason": "NEGATIVE_SEARCH_CONTEXT_NOT_ELEMENT_PROOF"
+    },
+    {
+      "rule_id": "TC-02-02",
+      "evidence_id": "SRC-bb07bb78cc9f0bd93505",
+      "clause_id": "C0012",
+      "quote": "未经甲方书面同意，乙方不得将上述数据提供给第三方。",
+      "reason": "NEGATIVE_SEARCH_CONTEXT_NOT_ELEMENT_PROOF"
+    },
+    {
+      "rule_id": "TC-02-02",
+      "evidence_id": "SRC-065880383ec6b10890e5",
+      "clause_id": "C0016",
+      "quote": "未经信息提供方书面同意，接受方不得向无权知悉的第三方披露或用于本合同以外的目的。\n以下信息不属于保密信息：\n1. 已经合法公开的信息；\n2. 接受方在取得前已经合法知悉的信息；\n3. 接受方从有权披露的第三方合法取得的信息；",
+      "reason": "NEGATIVE_SEARCH_CONTEXT_NOT_ELEMENT_PROOF"
+    },
+    {
+      "rule_id": "TC-05-03",
+      "evidence_id": "EV-a84cf834bf23c794",
+      "clause_id": "C0020",
+      "quote": "使用第三方开源软件、甲方指定软件以及甲方提供技术资料产生的纠纷除外。"
+    },
+    {
+      "rule_id": "TC-13-01",
+      "evidence_id": "EV-a84cf834bf23c794",
+      "clause_id": "C0020",
+      "quote": "使用第三方开源软件、甲方指定软件以及甲方提供技术资料产生的纠纷除外。"
+    }
+  ],
+  "false_partials": [
+    {
+      "rule_id": "TC-04-02",
+      "element_id": "invoice_and_account",
+      "reason": "ABSENT_COMPONENT_RENDERED_AS_PARTIAL",
+      "absent_components": [
+        "account"
+      ]
+    }
+  ]
+}

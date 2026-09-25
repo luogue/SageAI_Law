@@ -153,5 +153,17 @@ TRANSPORTATION_REVIEW_CHECKLIST: Tuple[ReviewCheckpoint, ...] = (
 )
 
 
+from dataclasses import replace
+from review_v2.transport_evidence import CONDITIONS
+
+TRANSPORTATION_REVIEW_CHECKLIST = tuple(replace(rule,
+    review_nature='STATUTORY_DEFAULT' if rule.node_id in {
+        'transport_compensation_market_price', 'transport_burden_of_proof',
+        'transport_exemption_causation', 'transport_exemption_nature_reasonable_loss',
+        'transport_exemption_shipper_consignee_fault',
+    } else 'CONDITIONAL_CONTRACT_REQUIRED' if rule.node_id in CONDITIONS else rule.review_nature,
+    applicable_if='识别对应的限额、特殊货物或多式/分段运输前置事实时适用。' if rule.node_id in CONDITIONS else rule.applicable_if,
+) for rule in TRANSPORTATION_REVIEW_CHECKLIST)
+
 def get_transportation_checklist() -> Tuple[ReviewCheckpoint, ...]:
     return TRANSPORTATION_REVIEW_CHECKLIST

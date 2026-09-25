@@ -50,12 +50,14 @@ def analyze_dispute_resolution_options(text: str) -> Dict[str, Any]:
             compact_row = _compact(row)
             if inactive.search(compact_row) or re.search(rf"(?:□|○)\s*[^。；]*{keyword}", row):
                 inactive_rows.append(row)
-            elif operative.search(compact_row):
-                active_rows.append(row)
+            else:
+                from review_v2.proposition_scope import arrangement_matches
+                if any(arrangement_matches(operative.pattern, compact_row)):
+                    active_rows.append(row)
         return bool(active_rows), active_rows, inactive_rows
 
     arbitration, arbitration_evidence, arbitration_inactive = option_state(
-        "仲裁", re.compile(r"(?:提交|申请|争议由|争议应由).{0,30}仲裁(?:委员会)?(?:仲裁)?"),
+        "仲裁", re.compile(r"(?:提交|争议由|争议应由).{0,30}仲裁(?:委员会)?(?:仲裁)?|申请(?:仲裁|[^。；]{2,30}仲裁委员会仲裁)"),
     )
     litigation, litigation_evidence, litigation_inactive = option_state(
         "法院", re.compile(r"(?:向|由).{0,20}(?:人民法院|法院).{0,15}(?:提起诉讼|诉讼|管辖)"),
@@ -259,6 +261,16 @@ def extract_transfer_registration(text: str) -> TransferRegistrationFact:
     )
 
 
+def _declared_party_aliases(text: str, roles: str) -> set[str]:
+    patterns = (
+        rf"(?P<party>[甲乙丙丁]方)\s*[（(][^）)\n]{{0,20}}{roles}[^）)\n]{{0,20}}[）)]",
+        rf"{roles}\s*[（(][^）)\n]{{0,20}}(?P<party>[甲乙丙丁]方)[^）)\n]{{0,20}}[）)]",
+        rf"(?P<party>[甲乙丙丁]方)(?:为|系|作为){roles}",
+        rf"{roles}(?:为|是|即)(?P<party>[甲乙丙丁]方)",
+    )
+    return {m.group("party") for pattern in patterns for m in re.finditer(pattern, text)}
+
+
 def extract_transfer_authority_facts(clauses: List[Any]) -> List[Dict[str, str]]:
     """Resolve the warranting party and its disposition assertion separately.
 
@@ -280,21 +292,35 @@ def extract_transfer_authority_facts(clauses: List[Any]) -> List[Dict[str, str]]
         )
         return {match.group("party") for pattern in patterns for match in re.finditer(pattern, text)}
 
-    providers = declared_aliases(provider_roles)
-    recipients = declared_aliases(recipient_roles)
+    providers = _declared_party_aliases(text, provider_roles)
+    recipients = _declared_party_aliases(text, recipient_roles)
     actor_pattern = re.compile(provider_roles + r"|[甲乙丙丁]方")
     authority = re.compile(
         r"有权(?:依法)?(?:转让|处分)|"
         r"(?:具有|享有|拥有)(?:合法[、，,]?)?(?:完整)?(?:的)?处分权|"
-        r"(?:合法[、，,]?)?完整处分权"
+        r"(?:合法[、，,]?)?完整处分权|有权签订(?:并履行)?本合同|"
+        r"同意将其(?:合法)?拥有的[^。；]{0,20}专利申请权转让"
     )
     asset = re.compile(r"专利申请权|专利权")
     result: List[Dict[str, str]] = []
     for clause in clauses:
         if getattr(clause, "party_obligation", True) is False:
             continue
-        for sentence in re.split(r"[。；;\n]", clause.text):
+        list_actor = ""
+        list_start = 0
+        for sentence_match in re.finditer(r"[^。；;\n]+", clause.text):
+            sentence = sentence_match[0]
             compact = _compact(sentence)
+            header = re.fullmatch(r"([甲乙丙丁]方)(?:保证|确认|声明)[：:]", compact)
+            if header:
+                list_actor, list_start = header[1], sentence_match.start()
+                continue
+            explicit_actors = list(actor_pattern.finditer(compact))
+            if explicit_actors:
+                list_actor = ""  # A new express subject ends list inheritance.
+            inherited = bool(list_actor and not explicit_actors)
+            if inherited:
+                compact = list_actor + re.sub(r"^其", "", compact)
             for actor_match in actor_pattern.finditer(compact):
                 actor = actor_match.group()
                 if actor in recipients or (providers and re.fullmatch(r"[甲乙丙丁]方", actor) and actor not in providers):
@@ -310,7 +336,8 @@ def extract_transfer_authority_facts(clauses: List[Any]) -> List[Dict[str, str]]
                     continue
                 between = (statement[asset_match.end():assertion.start()] if asset_match.end() <= assertion.start()
                            else statement[assertion.end():asset_match.start()])
-                if re.search(r"[，,]", between) and not re.fullmatch(r"[，,](?:并|且|同时|包括)(?:其)?", between):
+                registered_authority = bool(re.search(r"登记专利权人[，,](?:并)?有权签订", statement))
+                if re.search(r"[，,]", between) and not registered_authority and not re.fullmatch(r"[，,](?:并|且|同时|包括)(?:其)?", between):
                     continue
                 prefix = statement[:assertion.end()]
                 if re.search(r"不保证|未保证|无法保证|不能保证|未能保证|不确认|是否|无权|无(?:合法)?(?:完整)?处分权|(?:不|未)(?:具有|享有|拥有)|待核实", prefix):
@@ -318,7 +345,9 @@ def extract_transfer_authority_facts(clauses: List[Any]) -> List[Dict[str, str]]
                 if re.search(r"(?:如果|假如|若|假设|如)(?:其|该方|[甲乙丙丁]方)?(?:保证其|确认其)?(?:有权|具有|享有|拥有)", compact[:actor_match.start()] + prefix):
                     continue
                 result.append({
-                    "clause_id": clause.clause_id, "quote": sentence.strip(), "location": clause.location,
+                    "clause_id": clause.clause_id,
+                    "quote": (clause.text[list_start:sentence_match.end()] if inherited else sentence).strip(),
+                    "location": clause.location,
                     "actor": actor, "evidence_level": "CONTRACTUAL_REPRESENTATION",
                     "asset_type": "PATENT_APPLICATION_RIGHT" if asset_match.group() == "专利申请权" else "PATENT_RIGHT",
                 })
@@ -388,7 +417,7 @@ def extract_transfer_registration_facts(clauses: List[Any]) -> Dict[str, Any]:
     """
     facts: Dict[str, List[Dict[str, str]]] = {}
     event = re.compile(r"(?:专利(?:申请)?权转让|申请人变更|专利权人变更).{0,8}登记")
-    actor = r"(?:[甲乙丙丁]方|受让[方人]|让与[方人]|转让[方人]|出让方|[买卖]方)"
+    actor = r"(?:[甲乙丙丁]方|受让[方人]|让与[方人]|转让[方人]|出让方|[买卖]方|双方|各方)"
 
     def add(key: str, clause: Any, sentence: str) -> None:
         facts.setdefault(key, []).append({
@@ -434,9 +463,16 @@ def extract_third_party_claim_protection_facts(clauses: List[Any]) -> Dict[str, 
     facts: Dict[str, List[Dict[str, str]]] = {}
     provider = r"(?:转让方|让与方|出让方|卖方|让与人|转让人|许可方|许可人)"
     recipient = r"(?:受让方|受让人|买方|被许可方|被许可人)"
+    text = "\n".join(c.text for c in clauses)
+    provider_aliases = _declared_party_aliases(text, provider)
+    recipient_aliases = _declared_party_aliases(text, recipient)
+    if provider_aliases:
+        provider = "(?:" + provider + "|" + "|".join(sorted(provider_aliases)) + ")"
+    if recipient_aliases:
+        recipient = "(?:" + recipient + "|" + "|".join(sorted(recipient_aliases)) + ")"
     claim_event = re.compile(
         r"(?:第三方|第三人|他人).{0,45}(?:侵权|侵害|知识产权|权利主张|索赔)|"
-        r"(?:侵权|侵害).{0,25}(?:第三方|第三人|他人)|权利(?:来源)?瑕疵|无权处分"
+        r"(?:侵权|侵害).{0,25}(?:第三方|第三人|他人)|(?:权利|权属)(?:来源)?瑕疵|无权处分"
     )
     other_event = re.compile(
         r"专利(?:权)?.{0,15}(?:宣告无效|无效程序)|资料验收|登记失败|转让登记|办理.{0,12}登记|"
@@ -466,9 +502,9 @@ def extract_third_party_claim_protection_facts(clauses: List[Any]) -> Dict[str, 
                 add("claim_trigger", clause, sentence)
             if not claim_context:
                 continue
-            if re.search(r"(?:另行|另行再|届时|双方).{0,8}协商.{0,15}责任|责任.{0,12}(?:另行协商|另议|待定)", s):
+            if re.search(r"(?:另行|另行再|届时|双方).{0,8}(?:协商|确定).{0,15}责任|责任.{0,12}(?:另行协商|另议|待定)", s):
                 add("claim_allocation_negotiation", clause, sentence)
-            if re.search(r"(?:应当|应|须|及时).{0,16}(?:通知|告知)", s):
+            if re.search(r"(?:应当|应|须|及时).{0,35}(?:通知|告知)", s) and not re.search(r"(?:应当|应|须)在收到.{0,20}通知后", s):
                 if not re.search(r"(?:无需|无须|不必|未约定).{0,12}(?:通知|告知)", s):
                     add("claim_notice", clause, sentence)
                     if re.search(r"(?:\d+|[一二三四五六七八九十]+)(?:个)?(?:工作日|日|天)内.{0,15}(?:通知|告知)", s):
@@ -476,13 +512,18 @@ def extract_third_party_claim_protection_facts(clauses: List[Any]) -> Dict[str, 
             # Rights belonging to the recipient need their own affirmative text.
             if re.search(recipient + r".{0,15}(?:有权|可以|可|得)解除", s) and not re.search(r"(?:无权|不得|不能|不可)解除", s):
                 add("claim_termination", clause, sentence)
+            # An enforceable recipient right to require a provider refund is
+            # the same remedy as the corresponding provider payment duty.
+            if (re.search(recipient + r".{0,15}(?:有权|可以|可).{0,30}(?:要求|请求)" + provider + r"(?:退还|返还|退回).{0,20}(?:款|费)", s)
+                and not re.search(r"不得要求|无权要求|不可要求", s)):
+                add("claim_refund", clause, sentence)
             if re.search(r"(?:受让方|受让人|买方).{0,18}(?:擅自修改|超范围实施|擅自再许可).{0,45}(?:承担|负责)", s):
                 add("claim_recipient_fault_boundary", clause, sentence)
             if "和解" in s and re.search(r"(?:应|须|需|不得|有权|负责|决定).{0,35}(?:协商|同意|和解)|和解.{0,20}(?:应|须|需|同意)", s):
                 add("claim_settlement", clause, sentence)
             for part in re.split(r"[，,]", s):
-                provider_match = re.search(provider, part)
-                recipient_match = re.search(recipient, part)
+                provider_match = re.search(r"^(?:并|且)?" + provider + r"|由" + provider, part)
+                recipient_match = re.search(r"^(?:并|且)?" + recipient + r"|由" + recipient, part)
                 if provider_match or recipient_match:
                     actor = "provider" if provider_match and (not recipient_match or provider_match.start() < recipient_match.start()) else "recipient"
                 assigned_provider = bool(re.search(r"由" + provider + r".{0,10}(?:承担|负责|赔偿)", part))
@@ -510,6 +551,28 @@ def extract_third_party_claim_protection_facts(clauses: List[Any]) -> Dict[str, 
                     add("claim_replacement", clause, sentence)
                 if re.search(r"取得第三方授权|排除权利瑕疵|修复权利瑕疵|补办授权", positive):
                     add("claim_rights_cure", clause, sentence)
+    # Reuse the shared inbound-event predicate and its exact source schema.
+    from review_v2.technology_service_analysis import extract_claim_response_facts
+    shared = extract_claim_response_facts(clauses, provider, recipient)
+    if shared.get("claim_fault_condition"):
+        facts["claim_fault_condition"] = shared["claim_fault_condition"]
+    if shared.get("claim_trigger"):
+        facts["claim_trigger"] = shared["claim_trigger"]
+    else:
+        facts.pop("claim_trigger", None)
+    for local_key, canonical_key in (
+        ("claim_document_assistance", "claim_assistance"),
+        ("claim_defense_control", "defense_control"),
+        ("claim_damages", "damages_allocation"),
+    ):
+        sources = [row for row in shared.get(canonical_key, []) if row.get("actor") == "LICENSOR"]
+        if local_key == 'claim_document_assistance':
+            sources = [row for row in sources if re.search(
+                r'证明|证据|研发(?:记录|过程)|检索资料|申请文件', row.get('quote', ''))]
+        if sources:
+            facts[local_key] = sources
+        elif local_key == "claim_defense_control":
+            facts.pop(local_key, None)
     return facts
 
 

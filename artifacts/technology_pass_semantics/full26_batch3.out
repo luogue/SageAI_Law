@@ -1,0 +1,256 @@
+....F.FFFFFF...FFFFFF............................F..................F... [ 40%]
+.......F........F......F..F..F.......FF.F.FF...FF...F................... [ 81%]
+.................................                                        [100%]
+================================== FAILURES ===================================
+______ test_report_uses_final_findings_and_quality_gate_checks_integrity ______
+backend\tests\test_technical_service_report_integrity.py:91: in test_report_uses_final_findings_and_quality_gate_checks_integrity
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+____________ test_quality_gate_blocks_wrong_recommendation_binding ____________
+backend\tests\test_technical_service_report_integrity.py:123: in test_quality_gate_blocks_wrong_recommendation_binding
+    items, findings, recommendations, dispositions = _integrity_inputs(output)
+backend\tests\test_technical_service_report_integrity.py:116: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+backend\tests\test_technical_service_report_integrity.py:116: in <listcomp>
+    [Recommendation(**row) for row in output["recommendations"]],
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+___ test_quality_gate_blocks_incomplete_evidence_bundle_and_missing_detail ____
+backend\tests\test_technical_service_report_integrity.py:134: in test_quality_gate_blocks_incomplete_evidence_bundle_and_missing_detail
+    items, findings, recommendations, dispositions = _integrity_inputs(output)
+backend\tests\test_technical_service_report_integrity.py:116: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+backend\tests\test_technical_service_report_integrity.py:116: in <listcomp>
+    [Recommendation(**row) for row in output["recommendations"]],
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+____ test_quality_gate_blocks_semantically_invalid_evidence_and_claim_gap _____
+backend\tests\test_technical_service_report_integrity.py:147: in test_quality_gate_blocks_semantically_invalid_evidence_and_claim_gap
+    items, findings, recommendations, dispositions = _integrity_inputs(output)
+backend\tests\test_technical_service_report_integrity.py:116: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+backend\tests\test_technical_service_report_integrity.py:116: in <listcomp>
+    [Recommendation(**row) for row in output["recommendations"]],
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+_______ test_quality_gate_blocks_review_risk_bundle_projection_mismatch _______
+backend\tests\test_technical_service_report_integrity.py:158: in test_quality_gate_blocks_review_risk_bundle_projection_mismatch
+    items, findings, recommendations, dispositions = _integrity_inputs(output)
+backend\tests\test_technical_service_report_integrity.py:116: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+backend\tests\test_technical_service_report_integrity.py:116: in <listcomp>
+    [Recommendation(**row) for row in output["recommendations"]],
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+___ test_quality_gate_blocks_issue_type_partial_and_applicability_conflicts ___
+backend\tests\test_technical_service_report_integrity.py:168: in test_quality_gate_blocks_issue_type_partial_and_applicability_conflicts
+    items, findings, recommendations, dispositions = _integrity_inputs(output)
+backend\tests\test_technical_service_report_integrity.py:116: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+backend\tests\test_technical_service_report_integrity.py:116: in <listcomp>
+    [Recommendation(**row) for row in output["recommendations"]],
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+_ test_quality_gate_allows_theme_projection_without_legacy_truncation_banner __
+backend\tests\test_technical_service_report_integrity.py:186: in test_quality_gate_allows_theme_projection_without_legacy_truncation_banner
+    items, findings, recommendations, dispositions = _integrity_inputs(output)
+backend\tests\test_technical_service_report_integrity.py:116: in _integrity_inputs
+    [Recommendation(**row) for row in output["recommendations"]],
+backend\tests\test_technical_service_report_integrity.py:116: in <listcomp>
+    [Recommendation(**row) for row in output["recommendations"]],
+E   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'
+______ test_patent_license_granted_transfer_and_application_transfer[27] ______
+backend\tests\test_technology_subject_identity_consistency.py:91: in test_patent_license_granted_transfer_and_application_transfer
+    assert_consistent_identity(result)
+backend\tests\test_technology_subject_identity_consistency.py:34: in assert_consistent_identity
+    assert item["coverage_status"] == "通过"
+E   AssertionError: assert '缺失' == '通过'
+E     
+E     - 通过
+E     + 缺失
+______ test_patent_license_granted_transfer_and_application_transfer[43] ______
+backend\tests\test_technology_subject_identity_consistency.py:92: in test_patent_license_granted_transfer_and_application_transfer
+    assert result["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+______ test_patent_license_granted_transfer_and_application_transfer[44] ______
+backend\tests\test_technology_subject_identity_consistency.py:92: in test_patent_license_granted_transfer_and_application_transfer
+    assert result["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_ test_secret_transactions_do_not_acquire_patent_identifier_requirements[26] __
+backend\tests\test_technology_subject_identity_consistency.py:99: in test_secret_transactions_do_not_acquire_patent_identifier_requirements
+    assert item["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+_ test_secret_transactions_do_not_acquire_patent_identifier_requirements[38] __
+backend\tests\test_technology_subject_identity_consistency.py:99: in test_secret_transactions_do_not_acquire_patent_identifier_requirements
+    assert item["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+_ test_secret_transactions_do_not_acquire_patent_identifier_requirements[41] __
+backend\tests\test_technology_subject_identity_consistency.py:99: in test_secret_transactions_do_not_acquire_patent_identifier_requirements
+    assert item["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+__ test_e_missing_special_liability_is_not_mechanically_major_when_protected __
+backend\tests\test_technology_license_scenario_interest_isolation.py:167: in test_e_missing_special_liability_is_not_mechanically_major_when_protected
+    assert protected_item["risk_level"] == "低"
+E   AssertionError: assert '高' == '低'
+E     
+E     - 低
+E     + 高
+____ test_shared_disposal_is_one_canonical_issue_in_the_production_report _____
+backend\tests\test_entrusted_cross_rule_consistency.py:50: in test_shared_disposal_is_one_canonical_issue_in_the_production_report
+    assert len(matches) == 1
+E   AssertionError: assert 2 == 1
+E    +  where 2 = len([{'finding_id': 'RF-007', 'risk_group': 'technical_secret_result_rights', 'title': '技术秘密成果使用转让', 'severity': 'MEDIUM',...ding_id': 'RF-012', 'risk_group': 'confidential_material_return_destroy', 'title': '保密资料返还销毁', 'severity': 'LOW', ...}])
+_____________ test_final_report_passes_all_original_and_new_gates _____________
+backend\tests\test_entrusted_cross_rule_consistency.py:190: in test_final_report_passes_all_original_and_new_gates
+    assert report["release_quality_gate"]["status"] == "REPORT_READY", report["release_quality_gate"]
+E   AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'REPORT_ELEMENT_EVIDENCE_POLLUTION', 'finding_id': 'RF-015', 'reaso...': {'status': 'PASS', 'failures': [], 'contract_type': 'technology', 'domain_pack': 'domain-pack-technology-1.0'}, ...}
+E   assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_______ test_case_6_each_proof_element_requires_its_own_direct_evidence _______
+backend\tests\test_technology_evidence_claim_ceiling.py:149: in test_case_6_each_proof_element_requires_its_own_direct_evidence
+    assert by_id["joint_holder_disclosure"]["status"] == "MISSING"
+E   AssertionError: assert 'CONDITION_UNRESOLVED' == 'MISSING'
+E     
+E     - MISSING
+E     + CONDITION_UNRESOLVED
+____ test_current_contract_reports_asymmetric_caps_instead_of_missing_cap _____
+backend\tests\test_patent_license_liability_caps.py:105: in test_current_contract_reports_asymmetric_caps_instead_of_missing_cap
+    assert "重新平衡双方责任上限" in item["suggested_clause_example"]
+E   AssertionError: assert '重新平衡双方责任上限' in '建议补充明确第三方侵权直接损失或特定过错损失已有分配；调整以下已确认的不利安排：许可方责任上限已明确为已支付许可费的20%；补充明确被许可方承担的侵权损失责任未设置总额上限；调整以下已确认的不利安排：双方责任范围和责任上限明显不对等；明确故意、重大过失及未披露权利瑕疵等例外；明确退款、损失赔偿和违约金之间的抵扣或并用关系；明确各项侵权救济是否累计适用。'
+___ test_existing_adverse_third_party_allocation_is_not_treated_as_missing ____
+backend\tests\test_technical_secret_transfer_contract_review.py:85: in test_existing_adverse_third_party_allocation_is_not_treated_as_missing
+    assert claim["claim_assistance"] is True
+E   assert False is True
+__ test_full_report_uses_secret_transfer_role_and_non_patent_proof_semantics __
+backend\tests\test_technical_secret_transfer_contract_review.py:137: in test_full_report_uses_secret_transfer_role_and_non_patent_proof_semantics
+    assert secret_transfer_review["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+__ test_acceptance_test_attachment_is_fact_activated_and_theme_deduplicated ___
+backend\tests\test_technical_secret_transfer_contract_review.py:290: in test_acceptance_test_attachment_is_fact_activated_and_theme_deduplicated
+    assert secret_transfer_review["risk_theme_count"] == 13
+E   assert 17 == 13
+______ test_acceptance_test_attachment_narrative_has_complete_sentences _______
+backend\tests\test_technical_secret_transfer_contract_review.py:304: in test_acceptance_test_attachment_narrative_has_complete_sentences
+    assert "测试争议的复测机制未明确。" in narrative["judgment"]
+E   AssertionError: assert '测试争议的复测机制未明确。' in '已覆盖：合同第十二条已明确验收场景和基本标准；合同第一条和验收条款已列明客观技术指标；测试设备和环境条件；尚未覆盖：独立验收测试方案附件；测试方法和操作步骤；固定测试数据集或样本；统计口径；测试记录和签认要求；争议复测或第三方检测机制。'
+____________ test_latest_cooperative_route_and_final_quality_gate _____________
+backend\tests\test_cooperative_development_latest_regressions.py:48: in test_latest_cooperative_route_and_final_quality_gate
+    assert latest_cooperative_review["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+___________ test_tc_05_01_does_not_invent_covered_cooperation_facts ___________
+backend\tests\test_cooperative_development_latest_regressions.py:82: in test_tc_05_01_does_not_invent_covered_cooperation_facts
+    assert item["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '缺失' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 缺失
+___ test_acceptance_metrics_and_internal_reference_are_separately_resolved ____
+backend\tests\test_cooperative_development_latest_regressions.py:97: in test_acceptance_metrics_and_internal_reference_are_separately_resolved
+    assert item["issue_type"] == "CONFLICTING"
+E   AssertionError: assert 'PARTIAL' == 'CONFLICTING'
+E     
+E     - CONFLICTING
+E     + PARTIAL
+___ test_existing_result_license_and_revenue_terms_are_adverse_not_missing ____
+backend\tests\test_cooperative_development_latest_regressions.py:177: in test_existing_result_license_and_revenue_terms_are_adverse_not_missing
+    assert elements["counterparty_license_transfer_restriction"]["status"] == "ADVERSE"
+E   AssertionError: assert 'COVERED' == 'ADVERSE'
+E     
+E     - ADVERSE
+E     + COVERED
+_ test_technical_material_attachment_preserves_body_scope_and_work_allocation _
+backend\tests\test_cooperative_development_latest_regressions.py:187: in test_technical_material_attachment_preserves_body_scope_and_work_allocation
+    assert elements["body_development_scope"]["status"] == "COVERED"
+E   KeyError: 'body_development_scope'
+_________ test_major_decision_recommendation_is_direct_and_actionable _________
+backend\tests\test_cooperative_development_latest_regressions.py:223: in test_major_decision_recommendation_is_direct_and_actionable
+    assert recommendation == "建议约定重大需求变更、技术路线调整、预算增加、项目延期等重大事项须经双方书面确认。"
+E   AssertionError: assert '建议明确技术、人员投入及...时的补足、接管和责任机制。' == '建议约定重大需求变更、技...重大事项须经双方书面确认。'
+E     
+E     - 建议约定重大需求变更、技术路线调整、预算增加、项目延期等重大事项须经双方书面确认。
+E     + 建议明确技术、人员投入及投入标准；明确数据、设备及研发环境等资源投入；调整以下已确认的不利安排：各方名义投资合计1,800,000元与项目总投资1,500,000元不一致；补充明确尚未建立双方书面共同决策程序，决策主体、流程和僵局处理仍不完整；明确投入不足或未完成约定研发分工时的补足、接管和责任机制。
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+backend/tests/test_entrusted_cross_rule_consistency.py::test_shared_disposal_has_the_same_scope_and_remaining_requirements
+backend/tests/test_license_term_upload_closure.py::test_balanced_secret_license_authenticated_upload_is_publishable_with_real_gaps
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_technical_service_report_integrity.py::test_report_uses_final_findings_and_quality_gate_checks_integrity
+FAILED backend/tests/test_technical_service_report_integrity.py::test_quality_gate_blocks_wrong_recommendation_binding
+FAILED backend/tests/test_technical_service_report_integrity.py::test_quality_gate_blocks_incomplete_evidence_bundle_and_missing_detail
+FAILED backend/tests/test_technical_service_report_integrity.py::test_quality_gate_blocks_semantically_invalid_evidence_and_claim_gap
+FAILED backend/tests/test_technical_service_report_integrity.py::test_quality_gate_blocks_review_risk_bundle_projection_mismatch
+FAILED backend/tests/test_technical_service_report_integrity.py::test_quality_gate_blocks_issue_type_partial_and_applicability_conflicts
+FAILED backend/tests/test_technical_service_report_integrity.py::test_quality_gate_allows_theme_projection_without_legacy_truncation_banner
+FAILED backend/tests/test_technology_subject_identity_consistency.py::test_patent_license_granted_transfer_and_application_transfer[27]
+FAILED backend/tests/test_technology_subject_identity_consistency.py::test_patent_license_granted_transfer_and_application_transfer[43]
+FAILED backend/tests/test_technology_subject_identity_consistency.py::test_patent_license_granted_transfer_and_application_transfer[44]
+FAILED backend/tests/test_technology_subject_identity_consistency.py::test_secret_transactions_do_not_acquire_patent_identifier_requirements[26]
+FAILED backend/tests/test_technology_subject_identity_consistency.py::test_secret_transactions_do_not_acquire_patent_identifier_requirements[38]
+FAILED backend/tests/test_technology_subject_identity_consistency.py::test_secret_transactions_do_not_acquire_patent_identifier_requirements[41]
+FAILED backend/tests/test_technology_license_scenario_interest_isolation.py::test_e_missing_special_liability_is_not_mechanically_major_when_protected
+FAILED backend/tests/test_entrusted_cross_rule_consistency.py::test_shared_disposal_is_one_canonical_issue_in_the_production_report
+FAILED backend/tests/test_entrusted_cross_rule_consistency.py::test_final_report_passes_all_original_and_new_gates
+FAILED backend/tests/test_technology_evidence_claim_ceiling.py::test_case_6_each_proof_element_requires_its_own_direct_evidence
+FAILED backend/tests/test_patent_license_liability_caps.py::test_current_contract_reports_asymmetric_caps_instead_of_missing_cap
+FAILED backend/tests/test_technical_secret_transfer_contract_review.py::test_existing_adverse_third_party_allocation_is_not_treated_as_missing
+FAILED backend/tests/test_technical_secret_transfer_contract_review.py::test_full_report_uses_secret_transfer_role_and_non_patent_proof_semantics
+FAILED backend/tests/test_technical_secret_transfer_contract_review.py::test_acceptance_test_attachment_is_fact_activated_and_theme_deduplicated
+FAILED backend/tests/test_technical_secret_transfer_contract_review.py::test_acceptance_test_attachment_narrative_has_complete_sentences
+FAILED backend/tests/test_cooperative_development_latest_regressions.py::test_latest_cooperative_route_and_final_quality_gate
+FAILED backend/tests/test_cooperative_development_latest_regressions.py::test_tc_05_01_does_not_invent_covered_cooperation_facts
+FAILED backend/tests/test_cooperative_development_latest_regressions.py::test_acceptance_metrics_and_internal_reference_are_separately_resolved
+FAILED backend/tests/test_cooperative_development_latest_regressions.py::test_existing_result_license_and_revenue_terms_are_adverse_not_missing
+FAILED backend/tests/test_cooperative_development_latest_regressions.py::test_technical_material_attachment_preserves_body_scope_and_work_allocation
+FAILED backend/tests/test_cooperative_development_latest_regressions.py::test_major_decision_recommendation_is_direct_and_actionable
+28 failed, 149 passed, 7 warnings in 739.80s (0:12:19)

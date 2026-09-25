@@ -1,0 +1,2184 @@
+{
+  "run": "sageai-release-verify-20260909",
+  "remote": "/var/tmp/sageai-release-verify-20260909",
+  "archive_sha256": "524ba975caf2451b75cebf25bd39e19ad83ab55971f1ea6d8929839672163648",
+  "bytes": 2426130,
+  "files": [
+    {
+      "path": "backend/alembic.ini",
+      "sha256": "78246fd32f9adf6d14aff3e69783abc3142c827165a0ce26bff0b02a8898e240"
+    },
+    {
+      "path": "backend/config.py",
+      "sha256": "2283208b4f95533069822660afc3f81d40156a1e633b6c0f3151cb8f3f1f59e1"
+    },
+    {
+      "path": "backend/conftest.py",
+      "sha256": "3242046e0c828d61d17beaa14134748d1bde196b08c073574dbc6f6d32f73413"
+    },
+    {
+      "path": "backend/contract_review_prompt.txt",
+      "sha256": "684051469ad0b380d0c314bd27d84a5b9b989e9d62398229ac06c2ea5b36a1ff"
+    },
+    {
+      "path": "backend/logging_config.py",
+      "sha256": "1a6c7b65f7af072d75b4f3625c3c60c8bed7bd31ba34f64e0abd8d5a9aaec0f4"
+    },
+    {
+      "path": "backend/main.py",
+      "sha256": "32197222fc8a3d41ec0bdac489f335ebedddbc31e08f65ad6c01d96f3f3e0b45"
+    },
+    {
+      "path": "backend/MOCK_MODE_GUIDE.md",
+      "sha256": "d6b462253b41c5df3ca875f85b72d5e629b645b7063f6e260b6c5f7e98143357"
+    },
+    {
+      "path": "backend/monitoring.py",
+      "sha256": "4557eff72d112de1a695376a2c39c516f0627e5fd715087614552f71f98330f7"
+    },
+    {
+      "path": "backend/requirements.txt",
+      "sha256": "6e5d140fc5f6d47d14a2abf471625174915974943cade6088bf9ba1b453dedf0"
+    },
+    {
+      "path": "backend/reset_password.py",
+      "sha256": "05f97e2a68a899a052bbe8420aacddc5ba5b9bef7062e6fe58542ef5e2d23f1e"
+    },
+    {
+      "path": "backend/sqlite_maintenance.py",
+      "sha256": "b39e874fa854e60980027ce74acad8984669f11070296394cc1ca5ded0b53206"
+    },
+    {
+      "path": "backend/tasks.py",
+      "sha256": "48c4e2ff34566d01353137b2d7743ab048dfead3a20410cab77b4347052bbb19"
+    },
+    {
+      "path": "backend/test_database_bootstrap.py",
+      "sha256": "63dba3d2f59a37fa38ca3a8265c5f7ac0a9e5ccd8b93abf4ff8b240cea623c0f"
+    },
+    {
+      "path": "backend/adjudicate/agency_configs.py",
+      "sha256": "a1eb435fed1ada0e0a4b7f48b99bff3303912e5f54d0c3e518be196acb2d2f45"
+    },
+    {
+      "path": "backend/adjudicate/agency_engine.py",
+      "sha256": "5b9c6e37028b86a99cfd4e163b56d37e29d5d4391699d438cb7cadabd44c70e8"
+    },
+    {
+      "path": "backend/adjudicate/brokerage_configs.py",
+      "sha256": "a8f1fedbff60055b7d0d0805f92ae557c5ee62ca09c15b1094fcf1f4f796e515"
+    },
+    {
+      "path": "backend/adjudicate/brokerage_engine.py",
+      "sha256": "15ca940e24750dd368525c333a0e8457cc743521a5dda6789e73ef02043fd961"
+    },
+    {
+      "path": "backend/adjudicate/commission_agency_configs.py",
+      "sha256": "b60fd7080ea48f8f45411a9bb410cee36a2485bb8efb79a4b0e7e92f86cad404"
+    },
+    {
+      "path": "backend/adjudicate/commission_agency_engine.py",
+      "sha256": "678ba467741754ce958a283aab8e3ca8a5b2bd95755071aba34f854ceb57bc99"
+    },
+    {
+      "path": "backend/adjudicate/construction_configs.py",
+      "sha256": "6df3407e41742a200de11686cbc79b5139df23522acb0fc1182cdd2303b18b37"
+    },
+    {
+      "path": "backend/adjudicate/construction_engine.py",
+      "sha256": "fec798e02fdc5683348e74a9003d521d7e73914c31f7bc630c69b094c3f746ef"
+    },
+    {
+      "path": "backend/adjudicate/engine.py",
+      "sha256": "fb67056fc7889afa2fe8959ebaefd7f2f616247c55c3f11a6eebd1ca4200e706"
+    },
+    {
+      "path": "backend/adjudicate/engine_v2.py",
+      "sha256": "4e1820051ad5952dd9842f5e067fc8616fc73357c2264abc55190f6865ae9644"
+    },
+    {
+      "path": "backend/adjudicate/finance_lease_configs.py",
+      "sha256": "71a6a0bd6f2a97e1f900397bb85303b9fff54cabd976509aea133805a257657d"
+    },
+    {
+      "path": "backend/adjudicate/finance_lease_engine.py",
+      "sha256": "235f3fb8afbc5b9fdb44a5e96e8f70a7cb1a95068e2da5918ce22c9eddd00df2"
+    },
+    {
+      "path": "backend/adjudicate/gift_configs.py",
+      "sha256": "2a75a365fc7e0ada6d4f643859bfd8744835de2fbe8d677a9766e2c699ae3c22"
+    },
+    {
+      "path": "backend/adjudicate/gift_engine.py",
+      "sha256": "c8a090f2391908db788882c6ac6b1232e972cb7079a2f45f218754a2b14a42c8"
+    },
+    {
+      "path": "backend/adjudicate/guarantee_configs.py",
+      "sha256": "e6a86242d3147a73c776a2aaa373866b4d7486883ad54d6f79a5fac01b6f5b21"
+    },
+    {
+      "path": "backend/adjudicate/guarantee_engine.py",
+      "sha256": "cc93023983ed2f5159a6f5d32200ec8366b8edcbd1089769ed776c2b939260c7"
+    },
+    {
+      "path": "backend/adjudicate/lease_configs.py",
+      "sha256": "a4d194dcf6f6cee8b4b1dac33683c53276d29f87402df2e01ce47d0dffe1e967"
+    },
+    {
+      "path": "backend/adjudicate/loan_configs.py",
+      "sha256": "54367238fa7f3266513a7764df3655735791340d31ddcb34e606bfedafc9d6b1"
+    },
+    {
+      "path": "backend/adjudicate/loan_engine.py",
+      "sha256": "97d25003232044eb5069031cfcf8e69eb16a0896336f5341ca5c8f54e3452f7e"
+    },
+    {
+      "path": "backend/adjudicate/property_configs.py",
+      "sha256": "1aecfbcd2f282da372bc4a102f2dea8f8712ff3b55549ab8f9540ecab00b9f1c"
+    },
+    {
+      "path": "backend/adjudicate/property_engine.py",
+      "sha256": "1d77c7149d10d78680a7baf005b79a644ef4fbd62d90061fbb3aa9a428ba0edd"
+    },
+    {
+      "path": "backend/adjudicate/safekeeping_configs.py",
+      "sha256": "80d666e26d149bc6c41c4cde87d4708072c5990590acf95774c3973c3c96fab9"
+    },
+    {
+      "path": "backend/adjudicate/safekeeping_engine.py",
+      "sha256": "981558de81a236ca1c95defbf703fa5cb6bf7703aa7b1c2ac1045769e369c731"
+    },
+    {
+      "path": "backend/adjudicate/sale_configs.py",
+      "sha256": "fb7e31c509ff740255948b7ff027fdeb3998548111290b53eb97cd8b1c531f7f"
+    },
+    {
+      "path": "backend/adjudicate/sale_engine.py",
+      "sha256": "b11d2921eff65dae10ebce3e7ff7b09b16635314962c63bdd4f0736ba7c7d15f"
+    },
+    {
+      "path": "backend/adjudicate/service_configs.py",
+      "sha256": "8f1dc4534ddbbe4c37b7c7ad56a61dbb21d9ddca6b6a8ee5c814d5b6abdb16dd"
+    },
+    {
+      "path": "backend/adjudicate/service_engine.py",
+      "sha256": "f32f375f9454b254133531f65c7eb2622e00d70e0c1e660b3a545ebf5760c63c"
+    },
+    {
+      "path": "backend/adjudicate/technology_configs.py",
+      "sha256": "68b7d0094d1669a169579624558a0dd661357de53ae116cd811ab93a1a2e6e96"
+    },
+    {
+      "path": "backend/adjudicate/technology_engine.py",
+      "sha256": "2eb7cb5fcfbb73cc21d524d6a0518e617e5110bb78c50af073ad85bbb36b323d"
+    },
+    {
+      "path": "backend/adjudicate/transport_configs.py",
+      "sha256": "6bb8ed7745ae6afd81137f8f72adf997e2450f42b1ac2d0c0d7475b43072d31c"
+    },
+    {
+      "path": "backend/adjudicate/transport_engine.py",
+      "sha256": "94b0a9a684e4debc2c642c80fab2dc26508bbf2cd15215e6a20c487100dfc842"
+    },
+    {
+      "path": "backend/adjudicate/utility_supply_configs.py",
+      "sha256": "b1a44e5ef9616cba56245ef003ed21b1bf75dccce2641c2b5561b84208367b9b"
+    },
+    {
+      "path": "backend/adjudicate/utility_supply_engine.py",
+      "sha256": "b3732c1dd81872690c620c7e2974f3b5b934ba9741c863f2a46e3015724e513e"
+    },
+    {
+      "path": "backend/adjudicate/warehouse_configs.py",
+      "sha256": "292f4dbf8344ab0e7dcec070208b553124ac9b154cb02e20f0c35df17d89f3fe"
+    },
+    {
+      "path": "backend/adjudicate/warehouse_engine.py",
+      "sha256": "7e85d5a1923125b8c9ab04a3f053edd5e3a3ac0329efef12b7280c98c4f2246d"
+    },
+    {
+      "path": "backend/adjudicate/work_contract_configs.py",
+      "sha256": "169870ff229bb2812a0cfe7846a1ff172817a93c8b5a5bce54d4aeede9ab3219"
+    },
+    {
+      "path": "backend/adjudicate/work_contract_engine.py",
+      "sha256": "ae7057c8f9e87864797fc2668212e1ff3cb791e432b187075bdc12e971387da0"
+    },
+    {
+      "path": "backend/adjudicate/__init__.py",
+      "sha256": "ad2e3ec7fd538cf3cddc46eb3f59b642aa84ad59893adbc8234ee7486713d960"
+    },
+    {
+      "path": "backend/alembic/env.py",
+      "sha256": "3f29ac826202f292ef01b10eceb9ae7cd32566779560200dadee93acf62942f5"
+    },
+    {
+      "path": "backend/alembic/versions/001_initial.py",
+      "sha256": "3e2a940515d745588069336822eca976ef658a1097bf7c0108d12d3fdf85c86e"
+    },
+    {
+      "path": "backend/auth/routes.py",
+      "sha256": "d31e999450b86e104ac0b574c8e0324dbceca42c21a390bd31c4ddeee7b7dda1"
+    },
+    {
+      "path": "backend/auth/utils.py",
+      "sha256": "d527466bc03f87f247e0c75097e9f803e1b86dbe5f2016c6af3a4c0bf1416548"
+    },
+    {
+      "path": "backend/auth/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "backend/docs/algorithm_safety_self_assessment.md",
+      "sha256": "43fc6b0959104fdc4955f491e46905c647547f27da6cfcb23713744053a3d9e0"
+    },
+    {
+      "path": "backend/docs/review_v2_llm_semantic_upgrade_plan.md",
+      "sha256": "8c35c2b8ad4ad044912db67d11081e18fc51f021156fb0f3e31efe5dc1ea7483"
+    },
+    {
+      "path": "backend/docs/review_v2_semantic_upgrade_plan.md",
+      "sha256": "f9b20f070a2b5b26d64388aa432ee7992597fbf0c3ba2168b0ad606ab0f06434"
+    },
+    {
+      "path": "backend/docs/security_assessment_report_framework.md",
+      "sha256": "d4976db92bd782613d31226fcc5acf902d80c776c02f04fba28773abcc0c8d5c"
+    },
+    {
+      "path": "backend/docs/test_questions_template.md",
+      "sha256": "c3601fb641be5c5636a33c50484e50a3a48b5bb9b2232b9b5498e22c3421ad4b"
+    },
+    {
+      "path": "backend/docs/\u5408\u540c\u5ba1\u67e5\u5f15\u64ce\u53ef\u6267\u884c\u9879\u6587\u6863.md",
+      "sha256": "76a44eae11dc27d2bc0b37a34d606e3118c50ea3449625ff167ab2825df2bba3"
+    },
+    {
+      "path": "backend/layers/inference_layer.py",
+      "sha256": "a280c1934225d161621ed90858c0f80e0699c778578bfa8285c125ba427cba1d"
+    },
+    {
+      "path": "backend/layers/input_layer.py",
+      "sha256": "61b72b38cbb71f2fe74b4c921f0fd68705b82be0a35f80a5a9d2710db2b1f9bf"
+    },
+    {
+      "path": "backend/layers/legal_check_layer.py",
+      "sha256": "0e28a11ddd090ff710d979113f06a31f918f475e9c1d939d22853c40a5df4091"
+    },
+    {
+      "path": "backend/layers/output_layer.py",
+      "sha256": "ac3bd595c5b25a06ab3e133ba6a02ebe4860be60c64e4dc9ec115925a718ad2f"
+    },
+    {
+      "path": "backend/layers/validation_layer.py",
+      "sha256": "c86440b9150077ee876cecc902a0a986a0562c3c3dbe05c57efc02ff270ef6ce"
+    },
+    {
+      "path": "backend/migrations/004_add_file_hash_cache.py",
+      "sha256": "2f699234d5c4402170ef5c4f343717ca56cf504686688b892d988126680bb5bf"
+    },
+    {
+      "path": "backend/migrations/005_add_country_code.py",
+      "sha256": "24222ebb6cff0d4f7f8402c25f7c47beb9dd77dbb1e2cf3a548926bf258c8878"
+    },
+    {
+      "path": "backend/migrations/006_add_security_enhancements.py",
+      "sha256": "ef1e3933a480cb3d803c12b317207f61b4d6ee668e92ed581996b06c52441050"
+    },
+    {
+      "path": "backend/migrations/007_add_admin_table.py",
+      "sha256": "0caab9b289cdba8a66e75775fe0da4ce35131cd740d1eed6c5ec9138126ed124"
+    },
+    {
+      "path": "backend/migrations/008_add_raw_output.py",
+      "sha256": "7e220a7c9aaa570404b115e1d983a817b462f8ae6de7b850f2bb2e39172c53ec"
+    },
+    {
+      "path": "backend/migrations/migrate_db.py",
+      "sha256": "7d88e7f727739ef585b343e38d9fd2c0aaba00310be0747fe1fde5157de51819"
+    },
+    {
+      "path": "backend/migrations/__init__.py",
+      "sha256": "cf0595cffc639748246702b676691daaa4881cc857e8b4a8874f4b75f254b5b2"
+    },
+    {
+      "path": "backend/reasoning/llm_client.py",
+      "sha256": "3a1ac5f0ee1c2178fe9ca90e8a67c185f55181b570e7c82ad6dbfc7f67ade5c1"
+    },
+    {
+      "path": "backend/reasoning/__init__.py",
+      "sha256": "7e27da3a56a38ef57d3931175cb5f64bab1a4c240dd4b325032883a44b45f29e"
+    },
+    {
+      "path": "backend/reasoning/contract/comprehensive_prompt.py",
+      "sha256": "050f7cfc7c3bb496c6a193c557bbfd48a215e37855fdcba56c2dc15e7b405faf"
+    },
+    {
+      "path": "backend/reasoning/contract/scheduler.py",
+      "sha256": "72e7476a29745312fc13195e7d28f68374533e46f6cd5d31899dde0acd32c9f4"
+    },
+    {
+      "path": "backend/reasoning/contract/step1_premise.py",
+      "sha256": "47d39d7e574345a40fb02d5fecde0ae25a0db077863e05297e2a7e225cd4dbfb"
+    },
+    {
+      "path": "backend/reasoning/contract/step2_principles.py",
+      "sha256": "11742ad32afb128b76d02361ede842316e2c3465179b556403db4c629aeb5742"
+    },
+    {
+      "path": "backend/reasoning/contract/step3_reasoning.py",
+      "sha256": "bea19ac57a25a5cb3dedc2c8c8a5d5660942295457d7d2e2fb82a8e4370235e6"
+    },
+    {
+      "path": "backend/reasoning/contract/step4_risk.py",
+      "sha256": "18b3aec430487e03b2f2f957b8eb9ddde1c1d5a0fe058fe47ee63234670cd4a3"
+    },
+    {
+      "path": "backend/reasoning/contract/step5_output.py",
+      "sha256": "ae40d2e1a95467fad3f48701d5e6f19ffbff3209cdbd7ad0ef0e8e6825ebc0cd"
+    },
+    {
+      "path": "backend/reasoning/contract/__init__.py",
+      "sha256": "dff4537c2a13df8c246474d3bc00456a5abad6a73a4a2cbe4c81722caea4ac9c"
+    },
+    {
+      "path": "backend/review_v2/acceptance_evidence.py",
+      "sha256": "bfa8d252b501312e81cf56aa94678a4480e5d8015fb07416b596bcadb8687871"
+    },
+    {
+      "path": "backend/review_v2/adverse_evidence.py",
+      "sha256": "c0340b479a79a3fc6015e7e0a3ded1bd542439f79c10a661770e39ad1c976ec4"
+    },
+    {
+      "path": "backend/review_v2/adverse_theme_projection.py",
+      "sha256": "63e5af7179793ad7f1c85de937b4188c2f72de551ee8d121b262ed04623c2091"
+    },
+    {
+      "path": "backend/review_v2/agency_contract_checklist.py",
+      "sha256": "b52be15efaf2ad01dbf5c8e954cd472a017a154904ac63b18e4556d222b4bceb"
+    },
+    {
+      "path": "backend/review_v2/agency_facts.py",
+      "sha256": "361c96cdd0bca704cc08e0c8d8c5b70d55bee18c9b69c3502b4afdc91dd564fa"
+    },
+    {
+      "path": "backend/review_v2/ARCHITECTURE_NOTES.md",
+      "sha256": "62d72e17afba85633be7cb7c02701fd82c7fdeaf8719f6721be0248538374efd"
+    },
+    {
+      "path": "backend/review_v2/benchmark.py",
+      "sha256": "0dccb6fcbdcc0eafebd68c3f39c31e5e59b510b04faba9523e258d84fadc024e"
+    },
+    {
+      "path": "backend/review_v2/blind_runner.py",
+      "sha256": "216b2dbdff8e06d6d56626fe195d8bcd87b3408e1ba657faee1d2db976a24b25"
+    },
+    {
+      "path": "backend/review_v2/brokerage_adverse.py",
+      "sha256": "9b7c159981eee8d6df1078c19cddea7e48e6cf5d455849a82c0b41fcf7fc1bd4"
+    },
+    {
+      "path": "backend/review_v2/brokerage_concepts.py",
+      "sha256": "906f77b63dfd30635f41ba3485cb2d90c38afe9707151616dba7d48e9c7fbeba"
+    },
+    {
+      "path": "backend/review_v2/brokerage_contract_checklist.py",
+      "sha256": "d2fbf0e0784b71e24d34ec097c0c7a1e26b8d1338e1d0b499630a68b12492c89"
+    },
+    {
+      "path": "backend/review_v2/brokerage_facts.py",
+      "sha256": "0f20f1da44b59b26c5da1f36a1716ca8853dcd148c4dfd1246cedfe1941df778"
+    },
+    {
+      "path": "backend/review_v2/business_overlays.py",
+      "sha256": "fc45c7e3b8f12b1c439095b69219ff4ab342ea01045de5c48a8e209fa48a35c9"
+    },
+    {
+      "path": "backend/review_v2/canonical_claims.py",
+      "sha256": "f05f5c85cc22bf7dd03d35ba193c38c0a2035720eaeb3f4d8b551180d2195874"
+    },
+    {
+      "path": "backend/review_v2/carriage_scope.py",
+      "sha256": "0ab32bc71f9312e2a3b31c1406b66c4aebf2f5c10b83edfa4736ac2b99f18fcd"
+    },
+    {
+      "path": "backend/review_v2/claim_scope_consistency.py",
+      "sha256": "90a28eae6865da40a49a216b3bd27de6505fd6eca2fa39e2f54dfdaf98b6f50e"
+    },
+    {
+      "path": "backend/review_v2/clause_completeness.py",
+      "sha256": "b545f97a75f849ce040bfbc900dfc89c6a175e62769e670092b720b105ae07af"
+    },
+    {
+      "path": "backend/review_v2/clause_parser.py",
+      "sha256": "4de5f79ee1d23f74ec09288eb86db86d6cd7d2fd9b68b37e5d14f8cd23dd8325"
+    },
+    {
+      "path": "backend/review_v2/commission_agency_contract_checklist.py",
+      "sha256": "3f1c0bd42c03682c718ff841943a52cfcde264c02979482aec5d344e13513cf1"
+    },
+    {
+      "path": "backend/review_v2/commission_agency_evidence.py",
+      "sha256": "f9bc4e53ef2b7bf70b5ead6325775d5eeb94bd76a51b3b696d6f1775553b9a8b"
+    },
+    {
+      "path": "backend/review_v2/common_sale.py",
+      "sha256": "ff79fa70761d8e5c42f8a3c0a03506224dc34b3fe60f90b1dbe5b1c65d44c865"
+    },
+    {
+      "path": "backend/review_v2/company_formation_checklist.py",
+      "sha256": "c646cbcdc17d3620194e93e85a01d1457773bef02db237350f3a4620d18bba5c"
+    },
+    {
+      "path": "backend/review_v2/company_governance_facts.py",
+      "sha256": "d5423281b7665a3e8ecd78994d3eba6fba9f1f0b34ad1f344f285840e577093e"
+    },
+    {
+      "path": "backend/review_v2/confidentiality_remedies.py",
+      "sha256": "1fed06989f455c6f18c2492529b56d7240f7c5d9a0c928403e6215c6352085d2"
+    },
+    {
+      "path": "backend/review_v2/consistency_verifier.py",
+      "sha256": "83bb0b0a9e1728dead7a10b49f84e903c40ed23f35e1764d26745991009bbca9"
+    },
+    {
+      "path": "backend/review_v2/construction_contract_checklist.py",
+      "sha256": "7be2b5a4c25fd0ac9011c85e400c32a42501bc65b2a81ecb37ae90fb5fd615e2"
+    },
+    {
+      "path": "backend/review_v2/construction_coverage.py",
+      "sha256": "cda0755198392f21b0c9c49ace5217b243cfb3bf23ad1413089340c3ab73a66a"
+    },
+    {
+      "path": "backend/review_v2/construction_evidence.py",
+      "sha256": "6857ae6e652f93477421b7a98d48c9d00e6c1e46d6d41e3838c62fbe5960f1cf"
+    },
+    {
+      "path": "backend/review_v2/contract_facts.py",
+      "sha256": "11e491c10b3a850fddf9c7977d0edbbdb69f4a2f5813fa50f49c1245718f0ce4"
+    },
+    {
+      "path": "backend/review_v2/contract_references.py",
+      "sha256": "ef59ed05705fab322123f6d708279073bf663065e2ec226ead2d0e59e76a013b"
+    },
+    {
+      "path": "backend/review_v2/contract_registry.py",
+      "sha256": "edd7a49f41dc11bdf4eaee8a7dbaecbacf38f93f14d99dd9faa67f3262635bae"
+    },
+    {
+      "path": "backend/review_v2/development_exit.py",
+      "sha256": "04a9d2cde1cbe85638078b8eae4d83880c822fe6c54febbfaa2a102053b1e846"
+    },
+    {
+      "path": "backend/review_v2/domain_packs.py",
+      "sha256": "98254a4ab74133c40e0709750da4143e3534ead65faefa415997a1fc189f2c7b"
+    },
+    {
+      "path": "backend/review_v2/domain_resolution.py",
+      "sha256": "53423a715811f447ecc1c468399ad248c566c7362c27633f3a4cb73858d8ecb6"
+    },
+    {
+      "path": "backend/review_v2/domain_selection.py",
+      "sha256": "449c5c8385fc737189be14e1e6b32c4fd58e4e11a555e0dae415d185806872f7"
+    },
+    {
+      "path": "backend/review_v2/element_resolution.py",
+      "sha256": "c7a3e1262cd045f128bb0ccebec96ea1822e6942389d1d086238551874150504"
+    },
+    {
+      "path": "backend/review_v2/employment_contract_checklist.py",
+      "sha256": "d90a717ad378af05d42ed20650efa67a0a65283d72756f0a82007e33e320c4f1"
+    },
+    {
+      "path": "backend/review_v2/employment_exit.py",
+      "sha256": "aa3aaae9e3435c202d07b42be337ecf863e213f133e474b0b2fa0ba5fd2b2f93"
+    },
+    {
+      "path": "backend/review_v2/employment_facts.py",
+      "sha256": "bf524c289be3f2f6b1ac75fdda5c186bdbf16fbb681a212c57d972245b189c21"
+    },
+    {
+      "path": "backend/review_v2/employment_rights.py",
+      "sha256": "888e79f44ca4fc073904e6e517620ab0ab5688c2858e6a6ce44ca9e5aa73c855"
+    },
+    {
+      "path": "backend/review_v2/engine.py",
+      "sha256": "cc14b582e8db21ec6d077c06bd6a8b84e5c16ac0287655bc45b5952d7000ee95"
+    },
+    {
+      "path": "backend/review_v2/entrusted_development_elements.py",
+      "sha256": "02dad7f77155f9d497ee6462bf94f51f4657a659277960056a508b64573a8e04"
+    },
+    {
+      "path": "backend/review_v2/equity_common_checklist.py",
+      "sha256": "4bd2702a9f22c566c584bb31bfe9e8f3cb7ceadab20cf863cc60e52554a7b875"
+    },
+    {
+      "path": "backend/review_v2/equity_investment_checklist.py",
+      "sha256": "c34e2ad3bdae70874abac71180cf3b00f460c359811a083e5a4a8a2012becb86"
+    },
+    {
+      "path": "backend/review_v2/equity_transaction_facts.py",
+      "sha256": "9e9a5a3a2868bd8d02076150fca1dca8633ea925f578e1423b7c5c69ccdcb90e"
+    },
+    {
+      "path": "backend/review_v2/evidence_compatibility.py",
+      "sha256": "19bf43cee548767db7a3cc680f660955f2236af3a9e2e29fcf605bd742e71681"
+    },
+    {
+      "path": "backend/review_v2/final_context_consistency.py",
+      "sha256": "307cfcabd7c7b3416ad19fdca9bd38426a50655bd339921cc8a37fb9dc12b5f6"
+    },
+    {
+      "path": "backend/review_v2/finance_lease_contract_checklist.py",
+      "sha256": "556d7beebbfa0ddfd019f043a0f0e625a1a35fcbd7d6fd766cd1d19b95d1dd7e"
+    },
+    {
+      "path": "backend/review_v2/finance_lease_facts.py",
+      "sha256": "7f0dec23de8a445a35ffca65d24f1c19bca75712f0c04018698e0e6b146981de"
+    },
+    {
+      "path": "backend/review_v2/formation_rule_semantics.py",
+      "sha256": "bce12e37a3c815ad7b81176a2f54502448f36c8b97198654cfa1e7d37eff81f2"
+    },
+    {
+      "path": "backend/review_v2/formula_parser.py",
+      "sha256": "b043a6542be20f5f6ddb8962d3e17248c601e00c7890b35af436ad443f7e57e6"
+    },
+    {
+      "path": "backend/review_v2/framework_supply.py",
+      "sha256": "063f95430ce884c20e51af2cd3e957ec07f1fd1ff4d0e18a9e19e3bd1daf4109"
+    },
+    {
+      "path": "backend/review_v2/framework_supply_checklist.py",
+      "sha256": "59099603e1c4487b09539161256889ca9d876ed8fbb50f3583fc9f0864cdeca0"
+    },
+    {
+      "path": "backend/review_v2/gift_contract_checklist.py",
+      "sha256": "64342e92f740728b6e33934315ae056c554573067c8011b571032a903edb3e90"
+    },
+    {
+      "path": "backend/review_v2/gift_evidence.py",
+      "sha256": "bf18ca398cb1edf00fb90a04f22a43518d0b8c3e77a54fc454bc92fe790bf76c"
+    },
+    {
+      "path": "backend/review_v2/guarantee_closure.py",
+      "sha256": "acb6e1856dda0ee694c8b5487b11bedf8a7ceaab8b5c12ab0a4237d4480ba985"
+    },
+    {
+      "path": "backend/review_v2/guarantee_contract_checklist.py",
+      "sha256": "68fab36d7aa853d6bd72863c0253c96192bcd420201bc17d5b82ec7ab618578d"
+    },
+    {
+      "path": "backend/review_v2/guarantee_contract_facts.py",
+      "sha256": "17cc0c585d0ca5d82809bf05fd8ade64a03a312517f54347341791b74b4bd00c"
+    },
+    {
+      "path": "backend/review_v2/guarantee_mode.py",
+      "sha256": "a16c1e11309ed8153f0e319cc0165f97263e7e11601974e14ea1a2f94ff09739"
+    },
+    {
+      "path": "backend/review_v2/guarantee_party_facts.py",
+      "sha256": "5aa46592873df56f56101a5ca81bbce35552c683fc163e586a4f10764beccb8f"
+    },
+    {
+      "path": "backend/review_v2/guarantee_prerequisites.py",
+      "sha256": "1b9f6f31334a61d0996c845f5f145a1635f723d80fa7ca0a2ed3d1cc2468a6f8"
+    },
+    {
+      "path": "backend/review_v2/guarantee_scenarios.py",
+      "sha256": "c0f336b4db65d1a85ae59263871a118fcb510629534c9ab24e62ef291799cfa4"
+    },
+    {
+      "path": "backend/review_v2/guarantee_scope.py",
+      "sha256": "244d321a1c8d6fcac23fcac86cdc8bb5f4bd8076c5fd87b7cf8962afd0158b31"
+    },
+    {
+      "path": "backend/review_v2/house_lease_checklist.py",
+      "sha256": "6ffb69847008f654a99c0d04c5fe2f8d2f8f52018875e9f8e5cf1b6562fa7be9"
+    },
+    {
+      "path": "backend/review_v2/house_lease_review_checklist.md",
+      "sha256": "a9b53e4803487c4a435fcdd16fee60433be32811b2727a803ab435a68307edd0"
+    },
+    {
+      "path": "backend/review_v2/input_integrity.py",
+      "sha256": "ec1b1d51ff2249dd5d5608236b9a22644c1f3f78139bff91e9a0bd729f54da0e"
+    },
+    {
+      "path": "backend/review_v2/jurisdiction_analyzer.py",
+      "sha256": "82830bf4c7103d3dc7c124610d83261c226e6810b88c5e100d4e4f522879fb3b"
+    },
+    {
+      "path": "backend/review_v2/lease_contract_facts.py",
+      "sha256": "ea07ea224f16a85121f9a734797653327b296fc0aecd06fbd401de54f54eb5a5"
+    },
+    {
+      "path": "backend/review_v2/lease_semantics.py",
+      "sha256": "1570f530de05bb9a163b474d36d791657281724f9f2f7b22c86718abf0173fc5"
+    },
+    {
+      "path": "backend/review_v2/legal_basis_selection.py",
+      "sha256": "39d80041ebb49e762734e2c96c618d9ec8718311695812261886b8fd118c6f15"
+    },
+    {
+      "path": "backend/review_v2/legal_basis_trace.py",
+      "sha256": "d5f19cbb5da9cab87b7b90cb2ead3c1565126dc09203a26462e547026db8a5ec"
+    },
+    {
+      "path": "backend/review_v2/legal_enrichment_boundary.py",
+      "sha256": "3cfc7d86b466f4a1a350589d4c142d8192ff3cfe9163763921df32ff6ed0b614"
+    },
+    {
+      "path": "backend/review_v2/litigation_analyzer.py",
+      "sha256": "12752d181695c18769eee989cdb8dce397ead71368988a09ae8d3294d8250718"
+    },
+    {
+      "path": "backend/review_v2/llm_semantic_reviewer.py",
+      "sha256": "76a93c490687d55c59b805aecf0380a9b421ad1489c85a8ad51add7e43f7b3f9"
+    },
+    {
+      "path": "backend/review_v2/loan_contract_checklist.py",
+      "sha256": "f1d92ba95a8b144202c136418a5f2603deed8564b82f64123151c32792880529"
+    },
+    {
+      "path": "backend/review_v2/loan_costs.py",
+      "sha256": "69d9210842cf41dc5350ad90e142310d2575f647304a3b5876751106efe1a466"
+    },
+    {
+      "path": "backend/review_v2/loan_facts.py",
+      "sha256": "2b096e41c8d777b34132b08cbd9bb9ef9672d23f2e2ec8814499abb241929708"
+    },
+    {
+      "path": "backend/review_v2/material_disposition.py",
+      "sha256": "4bbcb5002b13f707ee62771a1fef6c04cebcf42c418961d97d926c9ef021e350"
+    },
+    {
+      "path": "backend/review_v2/narrative_composition.py",
+      "sha256": "7a1c438156cad034b5586d65f7c7242bd7e787069c9e92452a8ef0cdfd72ff5a"
+    },
+    {
+      "path": "backend/review_v2/narrative_evidence.py",
+      "sha256": "d0dec72e168b43b3a8f129746b999610c89ee22e7fc6252240bde8d27366d077"
+    },
+    {
+      "path": "backend/review_v2/nda_semantics.py",
+      "sha256": "39bf560dd39c35f108b73b155c7c13d25cc7e90828b5ede0e5de0638d7d842e0"
+    },
+    {
+      "path": "backend/review_v2/negotiation_analyzer.py",
+      "sha256": "12b787e55a868088a600374904df948301305cf580042485aa077ea402edaade"
+    },
+    {
+      "path": "backend/review_v2/noncompete_reasonableness.py",
+      "sha256": "3a8a40929cda540f5589ab3709609da822550e2211faa05af92491106e77c209"
+    },
+    {
+      "path": "backend/review_v2/noncompete_semantics.py",
+      "sha256": "2a1dd2837e09fa74cacad3688cb33b5f0f826eade93231001efc67344e129017"
+    },
+    {
+      "path": "backend/review_v2/obligation_detail_elements.py",
+      "sha256": "34e887eae1be200a9f0ae5d037b4b68847c33c813d25c09936739bc27088ad9c"
+    },
+    {
+      "path": "backend/review_v2/operating_cooperation.py",
+      "sha256": "92534ff11a33dbe0d9d40baa3da61a60c42782cea44d39beaf46988f61adbff6"
+    },
+    {
+      "path": "backend/review_v2/parameter_validation.py",
+      "sha256": "299fcb849ca24a60e4add4c4383ecd50956545b360550fd9e8daae347ac2abdb"
+    },
+    {
+      "path": "backend/review_v2/penalty_base.py",
+      "sha256": "76a31a8a52e2a1993eb7da33159e628d23886b84cc3a69d3156a95ba5a90bd65"
+    },
+    {
+      "path": "backend/review_v2/perspective_resolution.py",
+      "sha256": "bcc9b051ffc645b859cea8c7776f5f305fea001627da88390e1552239a3d4f7f"
+    },
+    {
+      "path": "backend/review_v2/prerequisite_resolution.py",
+      "sha256": "d951f2280e2d681d287adcef0892c38a1765862bf0f1835f38c255bc2c143df3"
+    },
+    {
+      "path": "backend/review_v2/primary_purpose.py",
+      "sha256": "3b63fc3c11fa724898e50a930a44c9f15b4c2a33e4aec7b2d958098c3da72bb9"
+    },
+    {
+      "path": "backend/review_v2/priority_checklist_helpers.py",
+      "sha256": "ededa78e1501d508140ff3fa45979a1166d128dfec737df7388d40b47fc45e61"
+    },
+    {
+      "path": "backend/review_v2/PRIORITY_CONTRACTS.md",
+      "sha256": "3383921083293e73f8fc956c46d650912776b4688f18602ffdeb72104f758206"
+    },
+    {
+      "path": "backend/review_v2/priority_contract_review.py",
+      "sha256": "b4eaf609c701edfeb7e55b32a0a18d049a215fe63491f7ef5ea5939a7ebe8212"
+    },
+    {
+      "path": "backend/review_v2/priority_contract_types.py",
+      "sha256": "8e80ebc1de6b4a8af3516d130e2edf5a84118597715a57629a4b21ddcafc7365"
+    },
+    {
+      "path": "backend/review_v2/production_display.py",
+      "sha256": "ee0ce57a78acc555fd0b3ac971adcfe99de4a6e3e86c6330bc94ec1146aad9c8"
+    },
+    {
+      "path": "backend/review_v2/profile_catalog.py",
+      "sha256": "74a3496bc82ea8586858557e041be28a628242717f5e9baecb7b06df900a7ad4"
+    },
+    {
+      "path": "backend/review_v2/quality4.py",
+      "sha256": "53af893073573a5dfcd71b6cf8c5815483e7ae11d163fc17cc80b7410a8d3a15"
+    },
+    {
+      "path": "backend/review_v2/real_estate_facts.py",
+      "sha256": "419e60cb9bcf3f4350883a0e925172e06eb682ca6ffc6ebbb2bed5fe623a5bed"
+    },
+    {
+      "path": "backend/review_v2/real_estate_sale_checklist.py",
+      "sha256": "f9fbe23e94c6790c6cbdb58537cb194df7555e0f3421e53c0c80c46e7d0c5683"
+    },
+    {
+      "path": "backend/review_v2/recommendation_children.py",
+      "sha256": "ea3419cd520f5d990d95e0a7a34f6426a67a82609dfd6e8baef89c745e9f77d4"
+    },
+    {
+      "path": "backend/review_v2/recommendation_impact.py",
+      "sha256": "76faf4f38596b3ecce947f53f2377ce33eabc2555ea078857dc3e9dde6d26425"
+    },
+    {
+      "path": "backend/review_v2/report_context.py",
+      "sha256": "538f26ffd24b776cdcb0813b468873d1c01bc818d025b893e766e2e7bc3a0069"
+    },
+    {
+      "path": "backend/review_v2/report_presentation.py",
+      "sha256": "fdc95907d901cfc27506737b837184dfd924bd98bb5f6048708168aaaf43482a"
+    },
+    {
+      "path": "backend/review_v2/report_state_consistency.py",
+      "sha256": "29fae79c1c27c36329cf748918601969dbecbbb556706c161f78c984ff124a5a"
+    },
+    {
+      "path": "backend/review_v2/report_statistics.py",
+      "sha256": "11f574a89512661c48d5f851aebab951deaf07889d3f3ad15b7725a63d5cb636"
+    },
+    {
+      "path": "backend/review_v2/requirement_entailment.py",
+      "sha256": "c15f453a127bb55fbb7ba1261b9514434c6901c9ab37185747ca84a31e2d5e31"
+    },
+    {
+      "path": "backend/review_v2/requirement_keys.py",
+      "sha256": "2aa2a4ecf571e94fd1d687747bb03798eace74b039e1eda44cec7bed0b479a50"
+    },
+    {
+      "path": "backend/review_v2/requirement_kinds.py",
+      "sha256": "da2240a4543053a7ad9d419ab24642a92c08ab56e58171726614d39a141381cf"
+    },
+    {
+      "path": "backend/review_v2/runtime_security_audit.py",
+      "sha256": "441abe6f6c7d1527c41ef76c315fb4c5ff3f4a225e9f6d069c30980cefe56b69"
+    },
+    {
+      "path": "backend/review_v2/safekeeping_contract_checklist.py",
+      "sha256": "252095081aa1011cf307d1c10f814084d1216aa8a845998b16b798e1f4943e39"
+    },
+    {
+      "path": "backend/review_v2/sale_contract_checklist.py",
+      "sha256": "c50b9d748f787372866e1ecc1fe9fc0eb4d361fc97caadeb0ba08364c50581f4"
+    },
+    {
+      "path": "backend/review_v2/sale_evidence.py",
+      "sha256": "3c860485fa5d68d26f0f3577bb67bad12cfc25b8a72fb014dd718ffa9144936f"
+    },
+    {
+      "path": "backend/review_v2/scenario_engine.py",
+      "sha256": "d16d1e171a74cad875d7cd1dbf6adde30c6d00bedb3be60453a5a3bb6fe34e3c"
+    },
+    {
+      "path": "backend/review_v2/security_context.py",
+      "sha256": "30d379659628533ff1bc1956354d84e8017e40a4711f85cb5596d1073bebac53"
+    },
+    {
+      "path": "backend/review_v2/security_property_checklist.py",
+      "sha256": "21a5b0f28029943578190518f8ac62d7453e0d37ccc8679ab88249abd841e039"
+    },
+    {
+      "path": "backend/review_v2/security_semantic_aliases.py",
+      "sha256": "4e32941887c63713f1a096afb733f72677cb8f8ce951fedd55c58ed61a562684"
+    },
+    {
+      "path": "backend/review_v2/semantic_consistency.py",
+      "sha256": "f9b56f3a6994d043c6e7f8764c67fcf66019ae926aff145f4efdf5ad5c2521d4"
+    },
+    {
+      "path": "backend/review_v2/semantic_relations.py",
+      "sha256": "54fc9856033cb738e458852b38162c9ba37de064125171a31f2387a29bdf7376"
+    },
+    {
+      "path": "backend/review_v2/semantic_reviewer.py",
+      "sha256": "3ad6fcd84c5794fb57df387dc1f4f282f4de2a157a17cd25c1bf3e5b26376419"
+    },
+    {
+      "path": "backend/review_v2/service_contract_checklist.py",
+      "sha256": "e18b2a81824ff3dad181bccd91331a2a921d2b470d84dd353dd035a2d28adb29"
+    },
+    {
+      "path": "backend/review_v2/service_scenarios.py",
+      "sha256": "7366f80478c11d747fe23a57cf1862f8c6865fc72532aee1ec49923a9678edbd"
+    },
+    {
+      "path": "backend/review_v2/settlement_formula.py",
+      "sha256": "15ba23554ab7de2d628d687ac5de38f77ae4c4ad77d8197db20c187e18c01883"
+    },
+    {
+      "path": "backend/review_v2/shared_fact_concepts.py",
+      "sha256": "5fd088670b04568348354d8f497a5fe3562649ae829c8c7e8761c75cbb6b8fba"
+    },
+    {
+      "path": "backend/review_v2/shareholder_transaction_facts.py",
+      "sha256": "ccaf76190a25a5cf3de25c5e3dd486dd7021b50b0c9066691e0a4780f00ca4a1"
+    },
+    {
+      "path": "backend/review_v2/technology_contract_checklist.py",
+      "sha256": "0f4ce8f310755d31f6d62b89bd464bb0a8104689a481a95940f84aff1ba9140c"
+    },
+    {
+      "path": "backend/review_v2/technology_patent_transfer_analysis.py",
+      "sha256": "e4d933979e51954dca6cfa80f686fbd95cee8fbb816f9e09b2ecfdf598d26654"
+    },
+    {
+      "path": "backend/review_v2/technology_service_analysis.py",
+      "sha256": "e2c328722d8d61a374d4bb76c2f371e0a570f8364be1b9c557977b5b277c918e"
+    },
+    {
+      "path": "backend/review_v2/template_parser.py",
+      "sha256": "869748153cea3e34ad37fc7353bff6d1c8e169b8a0f6757de09b2acdd0aea7f3"
+    },
+    {
+      "path": "backend/review_v2/termination_checklist.py",
+      "sha256": "53f288eb83369a25770790aeefa8abc736099a13d3a43577cd4fee55acd586c1"
+    },
+    {
+      "path": "backend/review_v2/transaction_scope.py",
+      "sha256": "f1a5bb9f14546bc729cbfb5e6cba74bbd6511afd04d466f1d63521522c659c71"
+    },
+    {
+      "path": "backend/review_v2/transportation_contract_checklist.py",
+      "sha256": "3a3498e413fb0631f7de0b9618f6ac54d47dfb39c951ed0d33deb55855a513bc"
+    },
+    {
+      "path": "backend/review_v2/transport_evidence.py",
+      "sha256": "5c9d0af0f18708a44126b70fddd983321f2fa81c2bff2677ec7bc329224e255b"
+    },
+    {
+      "path": "backend/review_v2/underlying_issue.py",
+      "sha256": "6a91c29c7666d644a5dc888e1aef61666678a5122a1c7e82a5ac0548f0ee8da4"
+    },
+    {
+      "path": "backend/review_v2/user_profile.py",
+      "sha256": "148ece1915ee12cf14944b323dcd5650aff4e4e566ed58c7ad2212a34af9e07c"
+    },
+    {
+      "path": "backend/review_v2/utility_supply_applicability.py",
+      "sha256": "d060f100625f1772dd6051780ff1dd3fcf941e9a13c9444f7b68ac20b5e9624d"
+    },
+    {
+      "path": "backend/review_v2/utility_supply_contract_checklist.py",
+      "sha256": "eeeee2721544a3318aa0c82b2479fe64d962c5d7c78380c9cd41762e8714a3df"
+    },
+    {
+      "path": "backend/review_v2/utility_supply_evidence.py",
+      "sha256": "6d5bffd5d7195d40c2742f9f18b88e965b3511e436574bc14df3c5d3a6c3f377"
+    },
+    {
+      "path": "backend/review_v2/warehouse_contract_checklist.py",
+      "sha256": "41bf88defa69288e0f0d9637836dd703914c7baab698a33124933fa2881d0d78"
+    },
+    {
+      "path": "backend/review_v2/warehouse_evidence.py",
+      "sha256": "65a6d33e153e8a4e41f0ea7fb7050268eeab7647f21b7db7fb505fae3d802219"
+    },
+    {
+      "path": "backend/review_v2/work_contract_checklist.py",
+      "sha256": "a3e9497bb8898bcd3426fad7f020e5e2abb7683ebd83ff443e13b6be63520666"
+    },
+    {
+      "path": "backend/review_v2/work_evidence.py",
+      "sha256": "d6d3c9429357c81ab30e867f0b25a2adff6e43fc2c3b9dd2cbc35faa6250c636"
+    },
+    {
+      "path": "backend/review_v2/__init__.py",
+      "sha256": "32fc660256af3375d1cb9081d5dce3bd62de6ce11f21f31595e6c0cd41d20510"
+    },
+    {
+      "path": "backend/routers/adjudicate.py",
+      "sha256": "18ebfba5034c8421ed1e1a2c256b053c298c743a389bbc9cfa9f2256450e1cd4"
+    },
+    {
+      "path": "backend/routers/admin.py",
+      "sha256": "3d99cb56fa1109c8fcc179a273795a45eab6ae180ce990509389e7a04d682d70"
+    },
+    {
+      "path": "backend/routers/feedback.py",
+      "sha256": "aac9fcbebeda0815485c5287bcabbecceadc72ab9b44f73c0a0bc9a6c93eb2ed"
+    },
+    {
+      "path": "backend/routers/records.py",
+      "sha256": "20b6a22d06583c1c3a904cbe28abf913e4ef801d8f3592633dcb674d7cbd7a73"
+    },
+    {
+      "path": "backend/routers/review_v2.py",
+      "sha256": "9fcba71b8cebdfd4fd2524149b846275f8c66eff3269e73d4418f93cfd8e6fec"
+    },
+    {
+      "path": "backend/routers/user.py",
+      "sha256": "381951dbd2e18924739ea0c726f889954116877f830940c51959dcdfcd141e55"
+    },
+    {
+      "path": "backend/routers/__init__.py",
+      "sha256": "24bdf5dbe8eaedd731145c076c26eed456ea5c9d80ef6a0a5ee383cc186eeb0f"
+    },
+    {
+      "path": "backend/scripts/generate_review_v2_batch2_reports.py",
+      "sha256": "94083d307c64f6dc6fef2d1ceb785429cf640fb49a042f4989c22c169d5a963e"
+    },
+    {
+      "path": "backend/security/blacklist.py",
+      "sha256": "10290b33e0ca511efc4ea3dde04f69e47aacda22679ce59a145aeb80802cb1e0"
+    },
+    {
+      "path": "backend/security/content_safety.py",
+      "sha256": "0045185e021bddac6937307561e6adb2b27ed0cd6d2f96f0524d7970b06099e8"
+    },
+    {
+      "path": "backend/security/injection_detector.py",
+      "sha256": "b30032f4b979dfa5ffb05f3b079e561a9a8eb06e933483271285ad82d351f1e4"
+    },
+    {
+      "path": "backend/security/logging_utils.py",
+      "sha256": "e728ec38726ba020c3bc0e3da10c517718d48afbefae0ec8fcae4d62a9c77420"
+    },
+    {
+      "path": "backend/security/malicious_behavior_detector.py",
+      "sha256": "9e3a545e6f97c34f682a3c144d68449b66636eedb525f73bb731a109f89ca0cf"
+    },
+    {
+      "path": "backend/security/middleware.py",
+      "sha256": "277cd0d7fe30a6d8f6d26c534d2995befabf000a222f451e0a07617c30d3219b"
+    },
+    {
+      "path": "backend/security/output_guard.py",
+      "sha256": "2774270ae772c50154bcd8e5819b28fc76b83bc0d751a7b6fc8d27ac6de5240f"
+    },
+    {
+      "path": "backend/security/pre_validation.py",
+      "sha256": "c0ed5a7dda951fa4fd956913dda110b4bf97f0933754943d6cc5ef5b521bbf9c"
+    },
+    {
+      "path": "backend/security/rate_limiter.py",
+      "sha256": "21b47c25585320300d4f788016f6e5131894ac54376a25dda6976d6d86017ed2"
+    },
+    {
+      "path": "backend/security/registration_rate_limiter.py",
+      "sha256": "217826017743dd91349b4138b64c6bda03cc24b2085880e6a93bc7b6ac823ef6"
+    },
+    {
+      "path": "backend/security/security_events.py",
+      "sha256": "8d13f6c37c1fc4deb1e9620b13e8fde20674d6e85cb2f3d3173c0c72bf583967"
+    },
+    {
+      "path": "backend/security/sensitive_filter.py",
+      "sha256": "9c6a74b220c082cb09b0fc7faefedc81db41a7c3aa380c0d6f32eaec316b59b3"
+    },
+    {
+      "path": "backend/security/signature.py",
+      "sha256": "f7d4e11a93c5ed9aed6526136cca1285b69e307746413428d2d1af1f3b2a0465"
+    },
+    {
+      "path": "backend/security/whitelist.txt",
+      "sha256": "82c530b9eb792ad20f08a2ab78d238f293aa4a972d32d320180cd2808fc47f80"
+    },
+    {
+      "path": "backend/security/__init__.py",
+      "sha256": "9bfa977de58bbfe88215e9c7535d27704ba15d516f110bd7c7fdf74d1079af40"
+    },
+    {
+      "path": "backend/storage/crud.py",
+      "sha256": "3342908ebd79d4b6f09b31bd79fa7149931574ea1e6a98399c4d34cf2213d1ee"
+    },
+    {
+      "path": "backend/storage/database.py",
+      "sha256": "eb6e88bd0c109c1655d397b0e3285960ad4760eef9a1cae54cbeaca0ae0f78f7"
+    },
+    {
+      "path": "backend/storage/health.py",
+      "sha256": "abc58de147480fcbe5fce0b1c6d6afa5650e547a8d2e826cbe191003cb0516cb"
+    },
+    {
+      "path": "backend/storage/models.py",
+      "sha256": "c3944bc1ec9bbd07670c546d57651d54df6470c648143dc034d1fd1cf8625ada"
+    },
+    {
+      "path": "backend/storage/paths.py",
+      "sha256": "9be14c4373496a4ea052525da68439f61ddd2e2fd390379fa52fee723291e169"
+    },
+    {
+      "path": "backend/storage/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "backend/tests/priority_contract_fixtures.py",
+      "sha256": "677c29f10c93d50055250d4740b2081a6a563cfd12748fc477bddc5663c57379"
+    },
+    {
+      "path": "backend/tests/test_absence_search_target_integrity.py",
+      "sha256": "bbeee24a8ff66b7cb28f236bdfafba7daadd8bd102524d344dc2cbbab9da09a1"
+    },
+    {
+      "path": "backend/tests/test_acceptance_evidence_domain.py",
+      "sha256": "a8b1a7b105a05c081451e5d2390c12f003447cb1b1f1d6f7c1ffaddd215a638f"
+    },
+    {
+      "path": "backend/tests/test_adjudicate_v2.py",
+      "sha256": "8be72ad01e3d178c5e4245e24caad7366fef604268a5c3b8712660f08e2313f3"
+    },
+    {
+      "path": "backend/tests/test_adverse_theme_projection.py",
+      "sha256": "92cd8cbaae74c17f5412b118624bb733b65a7bc5bf003cbfdd5f166735b68d13"
+    },
+    {
+      "path": "backend/tests/test_agency.py",
+      "sha256": "e7d54417972b901e7bb0e0da3d2e262c7f0052b0f14f3b170e5b53ed4c6ecbca"
+    },
+    {
+      "path": "backend/tests/test_agency_final_boundaries.py",
+      "sha256": "6abff3d19c0f45930524ea077e967b67471e5bc88a1365f6b67b85d54f32a98c"
+    },
+    {
+      "path": "backend/tests/test_agency_generalization.py",
+      "sha256": "ade08504653245bb43a16a3e4d86e181c6268f417341066a1fe0d398f16d4311"
+    },
+    {
+      "path": "backend/tests/test_agency_review_checklist.py",
+      "sha256": "14c3e12fbbcacc7428004be087fcf052cc3b85d0c22f4944e097521dc114c6c2"
+    },
+    {
+      "path": "backend/tests/test_agency_semantic_facts.py",
+      "sha256": "cac56c2d26e845aa79a1230e08b29ec4be5c905d2c3488c16d06b45e785a1081"
+    },
+    {
+      "path": "backend/tests/test_application_rejection_and_theme_closure.py",
+      "sha256": "c7cc6bfe4fa84bf2b130261f957a79b7dc75c1354a26e0c755f3dfe2caf299e2"
+    },
+    {
+      "path": "backend/tests/test_application_transfer_adverse_fact_consistency.py",
+      "sha256": "355e3556f4b5e5220275e2b9f9b22a29c19389c5df1d23508997488c4fd3261a"
+    },
+    {
+      "path": "backend/tests/test_application_transfer_element_report_consistency.py",
+      "sha256": "c5a64a0f01d6550ea933042389dba7a884fadff6a8dcb6e9ca87c8c4d962b586"
+    },
+    {
+      "path": "backend/tests/test_atomic_debt_effectiveness.py",
+      "sha256": "c3feba063873083fef194e7e8e8e0785cf5310e27c2426a45bb42be102af1a81"
+    },
+    {
+      "path": "backend/tests/test_atomic_narrative_and_recommendation_binding.py",
+      "sha256": "a8da20e4ddd34e67c9b0577e3c964ea8469288e48a03aeda0ab2d9a32ba55ed5"
+    },
+    {
+      "path": "backend/tests/test_brokerage.py",
+      "sha256": "df319893e4753657ce20dfe1b9bd01ea4db0cb8a714197f41780e75fb283d97e"
+    },
+    {
+      "path": "backend/tests/test_brokerage_canonical_facts.py",
+      "sha256": "f7242fe9532d2d265b4fb6d64ecd584fb983d4e00df5461aba8f42d97de65764"
+    },
+    {
+      "path": "backend/tests/test_brokerage_final_targeted.py",
+      "sha256": "44a44c9f89188c75760de52c9ef88c34419bd2cc6531a850c6717f802ca0bfe9"
+    },
+    {
+      "path": "backend/tests/test_brokerage_prose_recall.py",
+      "sha256": "6a78761db82cb1c8a55716b7480ac8ed0e52d235d6096571171e03e8e4adce7a"
+    },
+    {
+      "path": "backend/tests/test_brokerage_review_checklist.py",
+      "sha256": "21da519176078b2d8159e9ac2f19dd7bac2a19658f84a87594fa3f04134496fb"
+    },
+    {
+      "path": "backend/tests/test_brokerage_shared_concepts.py",
+      "sha256": "1b036f070a0ce5c1db2190a8b23360e01dc7fac4f2797b44b00c0c6e808a16d8"
+    },
+    {
+      "path": "backend/tests/test_business_overlays.py",
+      "sha256": "877d9a9685c926cd25dc513786dcbbab31f8d382024d7ae6f3c16a654bab82de"
+    },
+    {
+      "path": "backend/tests/test_capital_increase_facts.py",
+      "sha256": "4be337dc560d2ad9ae90f81c6d88a6211909b5200fd769c2c2647c8adaf7fd3a"
+    },
+    {
+      "path": "backend/tests/test_claim_response_exact_evidence_binding.py",
+      "sha256": "9d5c43e198324ef6b867b6d9c78797002f8c80b5d99b263138a9f7665aad24ff"
+    },
+    {
+      "path": "backend/tests/test_claim_response_granular_entailment.py",
+      "sha256": "039bdcea523bd60e19e2bbb9f08cdcd7486b245d36cec47f81d3e1a8fe30234f"
+    },
+    {
+      "path": "backend/tests/test_claim_scope_consistency.py",
+      "sha256": "cd7143c00bc608bfe147ae9cf247c476fc62e216324125b16b11002666a64882"
+    },
+    {
+      "path": "backend/tests/test_client_interest_final_disposition.py",
+      "sha256": "3b7796800a33f09dae7b9c163ac9a9a4a9d7d95d3345828c5499564dc614ddda"
+    },
+    {
+      "path": "backend/tests/test_commission_agency.py",
+      "sha256": "26774b02d9550598dd57b7c84176cac392908b69297bf3ceef3bf4739e99b019"
+    },
+    {
+      "path": "backend/tests/test_commission_agency_direct_evidence.py",
+      "sha256": "1901ccee4da3e6768b39898c380474d37757f111909732522352e6a8f56803e9"
+    },
+    {
+      "path": "backend/tests/test_commission_agency_review_checklist.py",
+      "sha256": "ee21d79a4feed5d07271464e168ae73add560c0787db05cec12a6a031cc0c5b2"
+    },
+    {
+      "path": "backend/tests/test_company_formation_routing.py",
+      "sha256": "10160f9a64bdac636cd7181c7543a7e3cd2ef5b8a4c9d2a7275302a9428eea8d"
+    },
+    {
+      "path": "backend/tests/test_conditional_fruits_and_obligations.py",
+      "sha256": "f559848e71139e1093df0638fea956c6246715734f093ca85ad236a56d939540"
+    },
+    {
+      "path": "backend/tests/test_confidentiality_party_and_unresolved.py",
+      "sha256": "c7beb403e3bbdcdb5cab0aa3857c58ec00fc5710e590911673a85c7a52ef2099"
+    },
+    {
+      "path": "backend/tests/test_construction.py",
+      "sha256": "7a07565aa5f6770c0be98ff4a6e8b2fd4f4b3726286852cd13c0d2ec8bd907c2"
+    },
+    {
+      "path": "backend/tests/test_construction_coverage_statistics.py",
+      "sha256": "2707c2a2c8a9ba15e6386960680c87d4b8d703c4aef94d0d3327fac4a3c872c9"
+    },
+    {
+      "path": "backend/tests/test_construction_final_calibration.py",
+      "sha256": "fbffa7e55787a4d8e127c3a4646c52e6d5066b4ba3030c4d6a4c50fc7fc99d45"
+    },
+    {
+      "path": "backend/tests/test_construction_review_checklist.py",
+      "sha256": "4672bb74f84324b49536945e35e283a9fc02434913ba6ba41f270dd519610825"
+    },
+    {
+      "path": "backend/tests/test_construction_semantic_evidence.py",
+      "sha256": "2c37a8a728619d91da8cbf2298b26c757e5693b991346759e2904d406f8c3c3f"
+    },
+    {
+      "path": "backend/tests/test_contract_scoped_user_profile.py",
+      "sha256": "5119b1b4a22efb8184221fcdb7bb8c20498be2ab2e96dbbb4f11a38cc1a74e87"
+    },
+    {
+      "path": "backend/tests/test_cooperative_development_advanced_regressions.py",
+      "sha256": "1088142aae866fd3140e1a489995fe36146dbe73652eb01ac657d35845090ff4"
+    },
+    {
+      "path": "backend/tests/test_cooperative_development_contract_review.py",
+      "sha256": "1049c0de7beefde18178e17d5f07cc5e5145ae6fb3e107d5ad556a2d111d4677"
+    },
+    {
+      "path": "backend/tests/test_cooperative_development_evidence_fact_conclusion_consistency.py",
+      "sha256": "9a59a987ed9c648944adc83041e9ec9ad3a70013896393e56051bf68d0e77804"
+    },
+    {
+      "path": "backend/tests/test_cooperative_development_latest_regressions.py",
+      "sha256": "ad72cbd8760e9396431ae630f4b18c1b37e5de77f991cb414ad6af68f1c944e8"
+    },
+    {
+      "path": "backend/tests/test_creator_attribution_and_noop_partial_rendering.py",
+      "sha256": "1090b36b53af928901ba75db8b1b6a0ec4a18d597ff1575c8bd9673c6d7ac2c4"
+    },
+    {
+      "path": "backend/tests/test_current_patent_license_evidence_recall.py",
+      "sha256": "b892a137fb90a2d3d0cee2411459ca11ccf235c6f0526df3edb2416f530691b9"
+    },
+    {
+      "path": "backend/tests/test_database_engineering.py",
+      "sha256": "46e059af86e39f8e67fadfc78d6ed7b8a740817403ba2e6d73a7884295e3d989"
+    },
+    {
+      "path": "backend/tests/test_declared_element_closure.py",
+      "sha256": "8e53d5152f7a893263d90505695a54ec1b364664e33007a754b70ced47065646"
+    },
+    {
+      "path": "backend/tests/test_development_exit_atomic.py",
+      "sha256": "b686f07847832d8ab4dfda782a7ea9553dc2b3370f1f89fc018d9c317c8c79a6"
+    },
+    {
+      "path": "backend/tests/test_domain_selection_consistency.py",
+      "sha256": "a05c13bacd47ae16df989695d3562b1bbd51d449854de75b76d051656fc2f2fb"
+    },
+    {
+      "path": "backend/tests/test_employment_complex_prose.py",
+      "sha256": "4e440f7a0377bdcc3f3b15326c6a34b1bdb9ad9d89754391d51ab5214d8eafd3"
+    },
+    {
+      "path": "backend/tests/test_employment_element_severity.py",
+      "sha256": "c3032d1f07462a3942f16461a240dea81be46184e7b6a3436beb22ce392cc12d"
+    },
+    {
+      "path": "backend/tests/test_employment_fact_semantics.py",
+      "sha256": "0c657da6a7bc8918875457b042b3a06d98cb274d2db65b0750bd4438839c44fb"
+    },
+    {
+      "path": "backend/tests/test_employment_hours_threshold.py",
+      "sha256": "13d6da769d36422e1ddea3e877473b92366444b40cc14b3b625fe9f0d0aaf49c"
+    },
+    {
+      "path": "backend/tests/test_employment_report_presentation.py",
+      "sha256": "176e1225b9f0a7bef769aa64d7a90de61b757fe3a18e8fd8d786d64994d3754b"
+    },
+    {
+      "path": "backend/tests/test_employment_rights.py",
+      "sha256": "d193c33e600b3b6d4e9b219afe819981561de7444ea41c2f44c00bc8013ffd66"
+    },
+    {
+      "path": "backend/tests/test_employment_risk_thresholds.py",
+      "sha256": "254b4c1e0d113f2290238bc47ca648306bcf4f83a3f6800a8f1e1f2b1a76520c"
+    },
+    {
+      "path": "backend/tests/test_employment_round2_semantics.py",
+      "sha256": "2b8664ce395e29aa2f38a0dfe58f575ba84147c2e6b7ae8d395c9a5642f3f3ca"
+    },
+    {
+      "path": "backend/tests/test_employment_standard_contract.py",
+      "sha256": "de060a4abf5e5cae6aefc87e68cde298106588a18c5df64cb074067cae34d967"
+    },
+    {
+      "path": "backend/tests/test_employment_task_term.py",
+      "sha256": "e3b896b81b0cc307d01a2faa90c636c20ac75eb024a7a82b19602ea6c5f47a17"
+    },
+    {
+      "path": "backend/tests/test_employment_term_branches.py",
+      "sha256": "adae1b3449080e35ce1f398e18aae869d4a3b4f6b5f69880158ed92ff9d379d4"
+    },
+    {
+      "path": "backend/tests/test_entrusted_cross_rule_consistency.py",
+      "sha256": "49f4623e46bd92467c5f533abce924dc37eb50c42b4fc7234bab5874d9b9ba6a"
+    },
+    {
+      "path": "backend/tests/test_entrusted_development_consistency.py",
+      "sha256": "b4d81301ed8925f22b44f0f9be877d2823e0d62c00a65aad4e09482c60e32077"
+    },
+    {
+      "path": "backend/tests/test_entrusted_development_contract_review.py",
+      "sha256": "69afd0328fb1f68d3237818068f268d368d062de22904c1f8a6128f2fe6207ff"
+    },
+    {
+      "path": "backend/tests/test_entrusted_development_elements.py",
+      "sha256": "a188e25c1ed4ccb14f8db7168c0bb31db78a5bc0066012129d78eaa793f76b6a"
+    },
+    {
+      "path": "backend/tests/test_entrusted_development_fact_direction_regressions.py",
+      "sha256": "8ff369c5c5241e6c2902033468fc6119d46b4df6b9aee022bfb4f23b039dfc71"
+    },
+    {
+      "path": "backend/tests/test_entrusted_development_primary_routing.py",
+      "sha256": "2db9545153dae02ff5c573f1622a2b5aa22d54083d99b6dbce0bad95a495ef50"
+    },
+    {
+      "path": "backend/tests/test_entrusted_development_production_closure.py",
+      "sha256": "0cdbd6793a5cdf98022588dbd9d0378e782392217437487ddae58c414771c7c2"
+    },
+    {
+      "path": "backend/tests/test_entrusted_report_consistency_closure.py",
+      "sha256": "a32dec8fdf0a3c645f8c7ae173635a7fb6439d13d7c2469a98f002e423c1f122"
+    },
+    {
+      "path": "backend/tests/test_equity_element_recall.py",
+      "sha256": "3786d21fd0fa8fbaa815915e5164a5476307d08d88bbc8d69de977fc940642fe"
+    },
+    {
+      "path": "backend/tests/test_equity_pledge_recall.py",
+      "sha256": "fb62d6e7970f930a92d66ddf5cfafc911bc65bba5f5fe0e2b00fdaaa9b1ce435"
+    },
+    {
+      "path": "backend/tests/test_fact_condition_followup.py",
+      "sha256": "cafca6252b5c91720e9c99553d697b42cf41147bcb26cd8cfa815eadfb97a50d"
+    },
+    {
+      "path": "backend/tests/test_final_context_projection.py",
+      "sha256": "2a3d052906056634541ba0101e7f2032cf32df50f16a709b8497280d4ce5fdfe"
+    },
+    {
+      "path": "backend/tests/test_final_coverage_and_review_topics.py",
+      "sha256": "0b220dcc0a06f1fc154624379f4cf463a166bd52c9219b54fb40bb237aa34fe5"
+    },
+    {
+      "path": "backend/tests/test_final_element_recommendations_and_conditions.py",
+      "sha256": "019782aa4872d0e3647e64619eb3ac0e469fcf55e4753750f5009d33123078d8"
+    },
+    {
+      "path": "backend/tests/test_finance_lease.py",
+      "sha256": "cd57db06ab882944c95128c949d5f97b492335376d6de767e0e4f70a7def3f84"
+    },
+    {
+      "path": "backend/tests/test_finance_lease_review_checklist.py",
+      "sha256": "db43bdf72f2f2168f4f457330061e76cb131aae49e8ff8ce797bee0dab9ed472"
+    },
+    {
+      "path": "backend/tests/test_finance_lease_shared_facts.py",
+      "sha256": "c243138af3c101264904841f2c6919d50836016612d84ad35fd31dd7b63ab3d7"
+    },
+    {
+      "path": "backend/tests/test_foreign_patent_license_status_consistency.py",
+      "sha256": "6cbcbbd7d6b4e31d9c15154a449ddd2acb8a8444654cffdfb095171fb4dc78bb"
+    },
+    {
+      "path": "backend/tests/test_foreign_secret_license_evidence_consistency.py",
+      "sha256": "482e41d11f2e4933c89135a2801cd4d13ae126c70c5ea52a7937669743330843"
+    },
+    {
+      "path": "backend/tests/test_formation_rule_semantics.py",
+      "sha256": "18ef7304a82985e29347e0377bc77c03044723620ede452b769266c55e0a41ba"
+    },
+    {
+      "path": "backend/tests/test_framework_supply_quality6_7.py",
+      "sha256": "f7a598bab397c9e8fb47d28d571bffe815584b78dbe5da3c2c5dc4b653f2569f"
+    },
+    {
+      "path": "backend/tests/test_full_legal_basis_audit.py",
+      "sha256": "5246be9d896e680c53c5c01cef41e478288939ad9d75eea239eb51ebbda5e663"
+    },
+    {
+      "path": "backend/tests/test_gift.py",
+      "sha256": "43d9439a1623d5dcbe94ac0859b733e282fd9b79596987529e34ef298d783578"
+    },
+    {
+      "path": "backend/tests/test_gift_review_checklist.py",
+      "sha256": "72a5a59b106575f3fdb1523f83286e18fb424d202d0c3ae103f24d336a158a96"
+    },
+    {
+      "path": "backend/tests/test_gift_semantics.py",
+      "sha256": "a2a422f31b5f349f3831903053dc80feede54b2ae7b6cf011c48ee0a3d119f22"
+    },
+    {
+      "path": "backend/tests/test_gift_statutory_nature.py",
+      "sha256": "2dd53d3ad115ec2d339a7152b9acdc3e2b9562b1cbd1d86cf2d8b3cd8396369b"
+    },
+    {
+      "path": "backend/tests/test_guarantee.py",
+      "sha256": "b269b28fe3a164bac7aaa8f6d061a1a2c306f6b7b4fe399f8fad31ee395952ba"
+    },
+    {
+      "path": "backend/tests/test_guarantee_branch_prerequisites.py",
+      "sha256": "19a95292c185b485d05257275df3a57cfa71fed5cf132a3f7f2d76ff9efd0e74"
+    },
+    {
+      "path": "backend/tests/test_guarantee_closure.py",
+      "sha256": "e20b14dc2bec85763ad5a78bea4c9740c19a8e21a8bc3a4992db8d3e2576e6dd"
+    },
+    {
+      "path": "backend/tests/test_guarantee_evidence_quality.py",
+      "sha256": "eb258bcf9f269f3bbc74200dbebdfeef0b2133b6570d2303e55d6c8a0281bdce"
+    },
+    {
+      "path": "backend/tests/test_guarantee_final_cleanup.py",
+      "sha256": "105f62216e75530df5ca31157bb60ef2cc33101d52185c5f3a7eeeaa1c0e88b3"
+    },
+    {
+      "path": "backend/tests/test_guarantee_mode_consistency.py",
+      "sha256": "aa48a64f79c96d91eb9f35616d771739d5743c045de0d1250d0de12c1583aa3b"
+    },
+    {
+      "path": "backend/tests/test_guarantee_review_checklist.py",
+      "sha256": "36c15a736fdc5376e45bad61b5a8e183e1b362b1ffd1d5c1b7f1a1d2dc2714e8"
+    },
+    {
+      "path": "backend/tests/test_guarantee_scope_boundary.py",
+      "sha256": "4a6b6d28923f5e54e416e2252672e153e7c70edc6aa2cada203ce006f2b0122a"
+    },
+    {
+      "path": "backend/tests/test_guarantee_shared_facts.py",
+      "sha256": "30d1b56631ad994dfdff49eedd80d6f50b3e467729b07749615da9c8ab984ea6"
+    },
+    {
+      "path": "backend/tests/test_industrial_technical_service_routing_regression.py",
+      "sha256": "61482fec7414907bfbf69477003416e6474c4b2ff6abb3db1c9d254d0e28eb09"
+    },
+    {
+      "path": "backend/tests/test_input_layer_word_compat.py",
+      "sha256": "f462417acd20a863c7c134a0a18f14fd5f5367dc694a52544407d58bc619236b"
+    },
+    {
+      "path": "backend/tests/test_lease_composite_evidence.py",
+      "sha256": "6163a14d56be52442153a6b3a0125f1c769c12900a9d4465e17816daf44461a8"
+    },
+    {
+      "path": "backend/tests/test_lease_deadline_and_children.py",
+      "sha256": "55dc1cee8fc111d9f4f720f67267720559dbb6127985450efafa4ce6dd57c30c"
+    },
+    {
+      "path": "backend/tests/test_lease_evidence_alignment.py",
+      "sha256": "8a376497067605cf7a7655f81a247df3e4bf15ca1442ad390f128bcf86f8ca75"
+    },
+    {
+      "path": "backend/tests/test_lease_http_consistency.py",
+      "sha256": "8b7cd85ca39b4324708d112776c78661829e0b1f5cfacbf3b6056a85ede26dba"
+    },
+    {
+      "path": "backend/tests/test_lease_scenario_projection.py",
+      "sha256": "0a1cf5f2069f123c8d7ee8ab09d0214d1aabdd34bd0816ae9294472228c97129"
+    },
+    {
+      "path": "backend/tests/test_lease_semantic_consistency.py",
+      "sha256": "9814097c5c81cdfcc266c47c923e040379b2bc371010a0a3887d9f194ac1d354"
+    },
+    {
+      "path": "backend/tests/test_legacy_review_fallback.py",
+      "sha256": "1f25e8cd1921caba45b48f4ef7f94480b100453a17f993033e566b605475c1d9"
+    },
+    {
+      "path": "backend/tests/test_legal_basis_production_path.py",
+      "sha256": "f894b7ff1b32768df9876df09731610e0ced6761d76297e9cc7e63d31499cf3d"
+    },
+    {
+      "path": "backend/tests/test_legal_fact_boundary.py",
+      "sha256": "97b64f40f62fcaed2044c85a1cd980b13bbf7c7c15795ad1b7c44a003b6f0efc"
+    },
+    {
+      "path": "backend/tests/test_legal_specificity.py",
+      "sha256": "a211b8acb2c2b1e88d4a3391365b4a11c9ab1a2de9fd2ba85c21a00ab178ee04"
+    },
+    {
+      "path": "backend/tests/test_license_report_object_and_package_consistency.py",
+      "sha256": "0a4eb760161dd7c048e5115c01e0564eb6fd23896e79bda6aabfd71e658d324b"
+    },
+    {
+      "path": "backend/tests/test_loan.py",
+      "sha256": "c8254e83b27a395eaff72b8403ca072e8b6fd1e10608624bbbb4916d9264cd09"
+    },
+    {
+      "path": "backend/tests/test_loan_applicability_and_consistency.py",
+      "sha256": "c7d4749acdb02e3dbcdacd6da75d9891c5896276a0f5d6118e0b25719ee6c00c"
+    },
+    {
+      "path": "backend/tests/test_loan_cost_combinations.py",
+      "sha256": "0776361ef5d06eb6f57e047f318da296e22f8c9bb06d93ab13e1754ab87d3246"
+    },
+    {
+      "path": "backend/tests/test_loan_exact_evidence.py",
+      "sha256": "db4bac8807a146c960d6df65bf3eee1f3a9c5fe4c655a5cd65ce24f29362f196"
+    },
+    {
+      "path": "backend/tests/test_loan_review_checklist.py",
+      "sha256": "c068f49ebca256f3c27ac0fba231ecc89ba6518feab23ee32c254404a14d2680"
+    },
+    {
+      "path": "backend/tests/test_manual_review_state.py",
+      "sha256": "7c2900f459c3fd5ada7f893aa27e394c733caee6a1b74305da9f79a0d722eb41"
+    },
+    {
+      "path": "backend/tests/test_material_disposition_scopes.py",
+      "sha256": "56c245ae1ae16cfa1812e42185c852046f7a20d5a6b1d0d96b56728345de3b19"
+    },
+    {
+      "path": "backend/tests/test_mortgage_element_facts.py",
+      "sha256": "ec95870c205a51ad5bcd8ebeb91d62d4cbda4d77b3347c4d626e2b1489741c72"
+    },
+    {
+      "path": "backend/tests/test_mortgage_final_priorities.py",
+      "sha256": "7533907fa3601a0ec002f74c558a6c345de037d715015dee19823f0028cbddb7"
+    },
+    {
+      "path": "backend/tests/test_narrative_source_and_date_semantics.py",
+      "sha256": "d246f7a510345a350cb9724d063348fcefbd408ffa3c92d94b3ef0f634b264c2"
+    },
+    {
+      "path": "backend/tests/test_nda_semantics.py",
+      "sha256": "53054f7c5630160961fc2009db73217d090cf36b17b0a907517b62ad3e7418c4"
+    },
+    {
+      "path": "backend/tests/test_noncompete_closeout.py",
+      "sha256": "3c63319d28c4edbcfa6abd965ff666ec6b80c8042b65e10e979c7b0144061cc8"
+    },
+    {
+      "path": "backend/tests/test_noncompete_semantics.py",
+      "sha256": "c86821009cba1a1dca060eb4edef123bf48299b825382fbf4531d433ca45763f"
+    },
+    {
+      "path": "backend/tests/test_non_patent_technology_transfer_contract_review.py",
+      "sha256": "fc432b7545b94998f3615cedd56bc64219355b4776d9f92a20ba6e2e7c0bdf2c"
+    },
+    {
+      "path": "backend/tests/test_obligation_detail_elements.py",
+      "sha256": "36e988fe4638ccadf40eb37fa38e97f181354fb4b444c5533059daddb35139e9"
+    },
+    {
+      "path": "backend/tests/test_operating_carriage_scope.py",
+      "sha256": "9eb5f5680ce0173da8b062e6d0ae57b328ca0c90d3515fa12ff358218a57ebcb"
+    },
+    {
+      "path": "backend/tests/test_output_layer_optional_markdown.py",
+      "sha256": "6e7d0844fc2e8d06681bac639a9f6d0b1fb19db13962b34c72d8c4b9d27a890f"
+    },
+    {
+      "path": "backend/tests/test_partial_gap_and_transaction_role_projection.py",
+      "sha256": "fc1665e60ae9ec321f83a847ed8a24cf7e531b11559a92aeb64530f5ae3c3b5a"
+    },
+    {
+      "path": "backend/tests/test_patent_application_transfer_consistency.py",
+      "sha256": "f602e23c74facb00492302106346f956ea1c5c6a0e1d0666248d36cdf23c4e5f"
+    },
+    {
+      "path": "backend/tests/test_patent_license_composite_contract_review.py",
+      "sha256": "9ca68b02681d56736bd20ac3cda95424f1e3c02687fb5a6a0b29bd0de4284b99"
+    },
+    {
+      "path": "backend/tests/test_patent_license_cross_clause_consistency.py",
+      "sha256": "e558379258f8dd8d5c18c056cbb5e799816dc22b27be77d1e03143b72f8dd1b3"
+    },
+    {
+      "path": "backend/tests/test_patent_license_input_integrity_routing.py",
+      "sha256": "7849c627573259d09bdb8bb349f4e25b8290dffd2cceab344b211516661fe3fc"
+    },
+    {
+      "path": "backend/tests/test_patent_license_latest_report_regressions.py",
+      "sha256": "860ba8f5f4d37e4e13e633e3dd1d31ce984d3ae64c3360b871b5ca42f88d0e95"
+    },
+    {
+      "path": "backend/tests/test_patent_license_liability_caps.py",
+      "sha256": "afd61d45400a875957d327750057f9f5dd862dc79b27d98ce12ea3cc45613ea0"
+    },
+    {
+      "path": "backend/tests/test_patent_license_subtransaction_fact_registry.py",
+      "sha256": "75ff3ade47b44b9e2564cccdfc5a23071d8644f8064b8e568b04bfa76c362704"
+    },
+    {
+      "path": "backend/tests/test_patent_license_theme_recommendation_economics.py",
+      "sha256": "606c09f45810e2878a691cd164c5420f5696111c62d8d548258dbaa6e89a6a8d"
+    },
+    {
+      "path": "backend/tests/test_patent_license_with_follow_on_development.py",
+      "sha256": "ecf9440d3294c67c57c122fecfb4872208d5f85253ee4e577cdb1ec57a3c07b3"
+    },
+    {
+      "path": "backend/tests/test_patent_right_transfer_contract_review.py",
+      "sha256": "40c4716aa4d9671d7bd278d7f1740f998bd71e4691b9b09db548e6947e2ef293"
+    },
+    {
+      "path": "backend/tests/test_patent_transfer_acquisition_and_remedies.py",
+      "sha256": "2530016c85d4cffc91a55841c259e2fe0ad69df33a9915506f6a471f16b5c19c"
+    },
+    {
+      "path": "backend/tests/test_penalty_base.py",
+      "sha256": "4ea17b410dd92a575835f85603721e9f9f770309ed2b3c556d55c9dc0a126989"
+    },
+    {
+      "path": "backend/tests/test_primary_purpose_routing.py",
+      "sha256": "12d32606570417f9ea7771556e5b19cc8df4cbbb00547d9f51185a3df60cbab2"
+    },
+    {
+      "path": "backend/tests/test_primary_transaction_routing.py",
+      "sha256": "722f8be2da23c47e9e528f6277da450e41ca263d01ad3b69b774c0a091d56969"
+    },
+    {
+      "path": "backend/tests/test_priority_contract_review.py",
+      "sha256": "0b4462d98e412420f0a267d5ba1ef27a030eb54df38f7001b56bf676a4454a8c"
+    },
+    {
+      "path": "backend/tests/test_property_management.py",
+      "sha256": "4732c3cb6ddae02ef1d8e3fd7375091d75220e043340e70a959b28db929ec7dd"
+    },
+    {
+      "path": "backend/tests/test_quality6_7_final_freeze.py",
+      "sha256": "97c37c017eb9325d50e30837b5cb627eae2e839fc8d0ca44beaf8d031ee07fbc"
+    },
+    {
+      "path": "backend/tests/test_quality6_7_final_release_hotfix.py",
+      "sha256": "0414b6fae324275846deb733aab702c0bd3f25aa0f888f2ec51b346d41df45d6"
+    },
+    {
+      "path": "backend/tests/test_quality6_7_freeze_closure.py",
+      "sha256": "93f642d8d2b97a0d64b91b663c588ea3e42a4ca44b1f8c679cb22b4fcd40f49c"
+    },
+    {
+      "path": "backend/tests/test_quality6_7_freeze_hotfix.py",
+      "sha256": "abda93370698342fd875ec61f5d653a312bc3cecde372378882dec8bc6a0ff2c"
+    },
+    {
+      "path": "backend/tests/test_report_state_consistency.py",
+      "sha256": "c737cbf91364616baa938e3823f3630c3efd0c48a7ade6f5f0e2063cca5292e1"
+    },
+    {
+      "path": "backend/tests/test_requirement_key_canonicalization.py",
+      "sha256": "5b5dffb6176d1d4a79c1cf47b2b329d447f53d1b9edd9d28bee96c42fe4ca274"
+    },
+    {
+      "path": "backend/tests/test_requirement_kinds.py",
+      "sha256": "25a46e2208cdc5d6a574587c0b74496063a5f20ba45c1813d84cfbccf975762b"
+    },
+    {
+      "path": "backend/tests/test_requirement_source_entailment.py",
+      "sha256": "a1cc4e1751f0f248cbf947da9021723af4a437c4d2932b5c91f0720381b5b1d1"
+    },
+    {
+      "path": "backend/tests/test_review_entry_modes.py",
+      "sha256": "412097e890a985af691187b2b9866e6dd7de9048690a61b7effea9426172202b"
+    },
+    {
+      "path": "backend/tests/test_review_v2_blind_runner.py",
+      "sha256": "2a962834723cedc5dbc156611ff8c0e6bb55bccb86ed94927fd0e0a474f74fe6"
+    },
+    {
+      "path": "backend/tests/test_review_v2_contract_registry.py",
+      "sha256": "5207ed24d42efc82a59b712e43c22666b07cfa6b6659fee858df2a213b9371fe"
+    },
+    {
+      "path": "backend/tests/test_review_v2_house_lease.py",
+      "sha256": "102fcd8b7d684f0ab5343239cf8f4ee802cbd1b33819160addc89a8459a31bbe"
+    },
+    {
+      "path": "backend/tests/test_review_v2_quality3_benchmark.py",
+      "sha256": "c5b4b8c2aa19340a0eb68f8d695b9064eb4507d88c611187199d065219ac292b"
+    },
+    {
+      "path": "backend/tests/test_review_v2_quality4_architecture.py",
+      "sha256": "e352f56fb64598ce3504fe56930f0e0b8a464a328cca0e908cc7199ab494a7d9"
+    },
+    {
+      "path": "backend/tests/test_review_v2_quality5_1_convergence.py",
+      "sha256": "8d337cd48244d8cc266ff55dea5b4af6a5117446d0600fdecd854c58a54c606e"
+    },
+    {
+      "path": "backend/tests/test_review_v2_quality5_2_convergence.py",
+      "sha256": "9c3e700cebe784c079d963b3fc9b6ec63f19415483b9b42908cfa907dfba4af4"
+    },
+    {
+      "path": "backend/tests/test_review_v2_quality5_3_convergence.py",
+      "sha256": "7ef2796a922d01649386a64a6b6a0e477ed8b9c1020489f626eff95870a97b43"
+    },
+    {
+      "path": "backend/tests/test_review_v2_quality5_4_convergence.py",
+      "sha256": "7a0f2a1b07f1d73ffe504f28d4ae138372d283c197e29e9434b85674d6656869"
+    },
+    {
+      "path": "backend/tests/test_review_v2_quality6_0_generalization.py",
+      "sha256": "5ba35b89d7520f482db63ce44743eaa11341a9b8cbf02f34007ddd885cbf40f3"
+    },
+    {
+      "path": "backend/tests/test_review_v2_quality6_1_production_audit.py",
+      "sha256": "b99794cf2036f365273205bbde1bce2ee25ed70a1670b99e830a40e934398980"
+    },
+    {
+      "path": "backend/tests/test_review_v2_quality6_2_convergence.py",
+      "sha256": "807f0ef9fc144e4321dc0515a31dd719197c0aeaea2eb8f6935a86ee492b9de5"
+    },
+    {
+      "path": "backend/tests/test_review_v2_quality6_3_recall.py",
+      "sha256": "d8bc6df5b237750bc7b12c74fc2fa9d6930c50964fa14cd72490a56a253612b1"
+    },
+    {
+      "path": "backend/tests/test_review_v2_quality6_4_convergence.py",
+      "sha256": "84f7710970127db4cf4034e9bfce93c79cee3677e44fbdb5a059de6c002bf93e"
+    },
+    {
+      "path": "backend/tests/test_review_v2_quality6_5_real_estate.py",
+      "sha256": "cb49726c42e7873b3738b3438bd4ea115936fef3836a8c4668d507ca5768140c"
+    },
+    {
+      "path": "backend/tests/test_review_v2_quality6_6_consistency.py",
+      "sha256": "44809d0f3b2aa1a8e13c8ed19a8ad2d225c106750dc20cfe04080bdb5aa64a14"
+    },
+    {
+      "path": "backend/tests/test_review_v2_quality6_7_final_convergence.py",
+      "sha256": "d42164a7c3c0454d08f17064c683a76f4fbbfb17854755cf90b668c7b7eb57ea"
+    },
+    {
+      "path": "backend/tests/test_rights_pledge_atoms.py",
+      "sha256": "b7ef720d1d85c0e5aaeadb97ffe758cddf7df4997478c37ccff06eb7bdbec651"
+    },
+    {
+      "path": "backend/tests/test_safekeeping.py",
+      "sha256": "b564277bd699f4cc4d4909fe37f800d2b9e24f6bdb69e74094531a3f40877ec2"
+    },
+    {
+      "path": "backend/tests/test_safekeeping_review_checklist.py",
+      "sha256": "c9035123fc48fcd2974ebfc7dfdbc2157442cdccbb0667a696590a8a26ed759a"
+    },
+    {
+      "path": "backend/tests/test_sale.py",
+      "sha256": "476460f6320a02c0f57a43125b2ece30639dfd32e80aa7228d523a24134415d5"
+    },
+    {
+      "path": "backend/tests/test_sale_package_evidence.py",
+      "sha256": "6c930812f8e951bc376aad43df90ac9ca5cc5c9adb9918ea99a9883eddfc429f"
+    },
+    {
+      "path": "backend/tests/test_sale_review_checklist.py",
+      "sha256": "a31ed0742ea573835389ad031e832eb51eb6f3afa564ca4bf823b1d23d180efb"
+    },
+    {
+      "path": "backend/tests/test_secret_license_evidence_display_cleanup.py",
+      "sha256": "e10f8680f614f4e84fbc6d76612d16af58f4bbf177b4c7b761d26b121eb82e97"
+    },
+    {
+      "path": "backend/tests/test_secret_license_production_closure.py",
+      "sha256": "c844e6de3fc39912681b5d746d986ccf59ca8506b87bc206d09fd5192a1e8f60"
+    },
+    {
+      "path": "backend/tests/test_security.py",
+      "sha256": "4d9bb605665030534428a029f2b5d180fe277264a401cd4b72a0a8c521cc64bb"
+    },
+    {
+      "path": "backend/tests/test_security_closeout.py",
+      "sha256": "17a3acb76b61297a5d5a9243cc4a972a262bc4ec5db287c304639c7cbac1f7af"
+    },
+    {
+      "path": "backend/tests/test_security_context_priority.py",
+      "sha256": "470233a73799cd50df0ed90312b103a8aaa92d0cef22bd851864f62b16e0e008"
+    },
+    {
+      "path": "backend/tests/test_security_title_atoms.py",
+      "sha256": "65057c0fdf9f2f0a6cf2564ee5542ac0a39fc3220534da469e1fe20e12a7297b"
+    },
+    {
+      "path": "backend/tests/test_security_title_multi_binding.py",
+      "sha256": "c8beff81d19627e4a294350460d9a85761eed72753c7956438a004700c947265"
+    },
+    {
+      "path": "backend/tests/test_service.py",
+      "sha256": "e59b6c2f452fb1dbc4dd5c8e97ce37b4e7b31856f260d716eeb36e49f9a44428"
+    },
+    {
+      "path": "backend/tests/test_service_qualification_equivalence.py",
+      "sha256": "76760214d6e1d5ba70d8e1719665fa671fac076f051dcdf5000630b071362b15"
+    },
+    {
+      "path": "backend/tests/test_service_report_finishing.py",
+      "sha256": "397d95acf18bc3ebefb26a7a935f1bbe93a1866707a2e1e80dd343dc399c5dab"
+    },
+    {
+      "path": "backend/tests/test_service_review_checklist.py",
+      "sha256": "e4ece73f17ebf38148dee30c1cfab9644a719e706178e22b595533e4288e9d52"
+    },
+    {
+      "path": "backend/tests/test_service_scenario_gating.py",
+      "sha256": "b41a21bce52547454fc9f2ff148a79f41d2c5ff57a3d86472ee1469fe6a11158"
+    },
+    {
+      "path": "backend/tests/test_service_transaction_structure.py",
+      "sha256": "652de07fefb63b5496d69d3ec5c7fe26acc0f4c3546afc40396a25b1206661f7"
+    },
+    {
+      "path": "backend/tests/test_shared_fact_concepts.py",
+      "sha256": "401227fdb6ee5e8a77754c735d19de213cd70bda40e023fa5623e2c00fc235f6"
+    },
+    {
+      "path": "backend/tests/test_shareholder_governance_references.py",
+      "sha256": "a02d58d81e51cc134e4eb96f4f61e7447980c3e82ffac971b4781321d7f72513"
+    },
+    {
+      "path": "backend/tests/test_shareholder_transaction_semantics.py",
+      "sha256": "9007cdde7c3d83c4b616ac2e7d7b22b494c060fd49be944591a8222cb0ac3cd3"
+    },
+    {
+      "path": "backend/tests/test_structured_license_performance_facts.py",
+      "sha256": "945bd9d2f64993b404028078dc1ceaa52d579825faf729802b1999fc48fac2dc"
+    },
+    {
+      "path": "backend/tests/test_technical_consulting_contract_review.py",
+      "sha256": "f5a9d527814f88c22834f028cb127c017b9f234c1e657127ebac543be3a44820"
+    },
+    {
+      "path": "backend/tests/test_technical_secret_license_contract_review.py",
+      "sha256": "c2aa593905ebcbb278e20b607afc2d370050ebc0e34711fd871b4b267c737798"
+    },
+    {
+      "path": "backend/tests/test_technical_secret_transfer_contract_review.py",
+      "sha256": "9fec31a54ba405a29ece7ed5ddfcc6665391b87320acb5b3ba93e038c74f2a8c"
+    },
+    {
+      "path": "backend/tests/test_technical_service_contract_review.py",
+      "sha256": "a34df145e1a1c73eff7feeabadfd9a7457d3b07b6e33160e344d6a2ad61e7b05"
+    },
+    {
+      "path": "backend/tests/test_technical_service_dynamic_roles_and_grounding.py",
+      "sha256": "9e39f6ad55068d62c521ce2a51e7be4488893f48ebd489e2afaef9a4e5c553ef"
+    },
+    {
+      "path": "backend/tests/test_technical_service_final_evidence_closure.py",
+      "sha256": "40ccdd8679e3af79d2a2021e825af5d63860dc0689717ff7ca1b856cc6fbc8b3"
+    },
+    {
+      "path": "backend/tests/test_technical_service_latest_shared_fact_regressions.py",
+      "sha256": "c76820abb643b4b1298f96f52e791b8cb6a9f5f48b24fb452c3cd72c71723fdc"
+    },
+    {
+      "path": "backend/tests/test_technical_service_maintenance_contract_review.py",
+      "sha256": "dcf3944868bd600cbf22ba2220efaa703b0ad5a53c194d0bb661673e5b524cf7"
+    },
+    {
+      "path": "backend/tests/test_technical_service_report_integrity.py",
+      "sha256": "9146b668ee74e699e1c993b2bf5e64ce889d99e72925e1ecf85dfde229350d30"
+    },
+    {
+      "path": "backend/tests/test_technical_service_single_evidence_source.py",
+      "sha256": "c9573aa476fabd1f98c750567d2bf69dab75d920579b4ff7c062f3762e94241d"
+    },
+    {
+      "path": "backend/tests/test_technology.py",
+      "sha256": "120a462223afe155327d62419fdf73de7d5bb036d97f9d2a5c8af7adb3b3ed6a"
+    },
+    {
+      "path": "backend/tests/test_technology_evidence_claim_ceiling.py",
+      "sha256": "1ffb88396341ffbd79750a517f5e2ed84319e6f6926ca86c3bb9663bc5ad9435"
+    },
+    {
+      "path": "backend/tests/test_technology_license_final_precision.py",
+      "sha256": "80c2f50ea64f247a2a22a6871ec01225eb12e72722c3b47ea5450ec00e9ad0d2"
+    },
+    {
+      "path": "backend/tests/test_technology_license_primary_transaction.py",
+      "sha256": "6b33bc8a628d6e452c1cf03d4ba87ce7182dfd0bb8be16ef2b20520b135e4a0e"
+    },
+    {
+      "path": "backend/tests/test_technology_license_scenario_interest_isolation.py",
+      "sha256": "23777d0424bf70ac8e3abe94ded978086ca7bebc81bc51585408fd34a3f0101d"
+    },
+    {
+      "path": "backend/tests/test_technology_relationship_risk_recall.py",
+      "sha256": "1b0f6871a13220ac8f457c09fd78871972476fbbeb8c67e287e65c087b40b394"
+    },
+    {
+      "path": "backend/tests/test_technology_review_checklist.py",
+      "sha256": "9d07ad5728c1788e517d2ce953e39abcb682bc1ebec282de04e6fc8c5851efba"
+    },
+    {
+      "path": "backend/tests/test_technology_semantic_polarity_and_finding_consistency.py",
+      "sha256": "e90755b0b9abbed0ad71ffbc1b236d6fe84e144e1610401d8de327207e08d057"
+    },
+    {
+      "path": "backend/tests/test_technology_subject_identity_consistency.py",
+      "sha256": "de40ab3b8877570c5acd0d860c0621d3583a71bf90385adaf13f3edb996bb4ab"
+    },
+    {
+      "path": "backend/tests/test_technology_transaction_routing_consistency.py",
+      "sha256": "b1f0fbcf600da985935cf2395ef3e52484bc62b93672a8ba0c4da33c8e44c4e6"
+    },
+    {
+      "path": "backend/tests/test_termination_agreement.py",
+      "sha256": "a686257af5617135af90f7ec5a8bacf5ac1678daf8a8c5053b86a704a91e67dd"
+    },
+    {
+      "path": "backend/tests/test_transportation.py",
+      "sha256": "c0c3f01021d81ca5d4cc7646f2ab883225a2e2a19267c52f7437ef31fcef8576"
+    },
+    {
+      "path": "backend/tests/test_transportation_review_checklist.py",
+      "sha256": "5104ac6c5cd67935f1fc0a08cc35223a6ebead4e114299b2bf3c241185ec7e73"
+    },
+    {
+      "path": "backend/tests/test_transport_atomic_evidence.py",
+      "sha256": "2c1ef497314a0d1eab4bfecc98fe4edd6d28eeb746627fb469ba8f5c20c93826"
+    },
+    {
+      "path": "backend/tests/test_underlying_issue.py",
+      "sha256": "3d7d127bbf648e93293e28223ff2f7e8b5f276ee6d4aae4593b7a1e1c352bef4"
+    },
+    {
+      "path": "backend/tests/test_utility_supply.py",
+      "sha256": "0afb32325c1187de90971fe8225dc478143495236f2c7fb2bde90c3ed23a3fb6"
+    },
+    {
+      "path": "backend/tests/test_utility_supply_parameters.py",
+      "sha256": "6b797360b3c856457e97601b7b311a54c1f9db07813d8832cd283bd2d80ff4dd"
+    },
+    {
+      "path": "backend/tests/test_utility_supply_review_checklist.py",
+      "sha256": "e5c2bf5ff944385829ae0ec3c1bbc01894a073b91b6e1d9e49174fa7b139928f"
+    },
+    {
+      "path": "backend/tests/test_utility_supply_semantic_boundaries.py",
+      "sha256": "57f53559ba53fc3901a21851befad817565734d7334a342687b63367d7ca3a57"
+    },
+    {
+      "path": "backend/tests/test_utility_supply_semantic_evidence.py",
+      "sha256": "01abc10d1616499b4e132bf863e771310ad3e0a4fad5bbecec180a06db519d94"
+    },
+    {
+      "path": "backend/tests/test_warehouse.py",
+      "sha256": "58049382fbd1d996a7ff66676415bd30cb1eede3347f093021d045eae7e89a5d"
+    },
+    {
+      "path": "backend/tests/test_warehouse_fee_amount.py",
+      "sha256": "21260c718d3a242e76b0a584975140aa77fa24bddf950bfb4428e945f66227f2"
+    },
+    {
+      "path": "backend/tests/test_warehouse_review_checklist.py",
+      "sha256": "94435a0244195c845d0c446017e1adc5a7e1fa71f4b7dbbfdc247d6c09601a98"
+    },
+    {
+      "path": "backend/tests/test_warehouse_role_gate.py",
+      "sha256": "a6e7ba836bc8abb371dace75423a34e3a10c81fa94903669dd76d1e399ff2ad6"
+    },
+    {
+      "path": "backend/tests/test_warehouse_scope_evidence.py",
+      "sha256": "f28b56a39dda48d47312f9c0ce6d8cbed7dd9e87b22834c888a20337801799cf"
+    },
+    {
+      "path": "backend/tests/test_work_canonical_evidence.py",
+      "sha256": "2940d96fedafa0846394093abbe69a9472117aeea6bdd8ef9a7978e222e44741"
+    },
+    {
+      "path": "backend/tests/test_work_contract.py",
+      "sha256": "3d64db9fbf020e58cc554e2687982515b44064d7289d0754055641444ac2b16f"
+    },
+    {
+      "path": "backend/tests/test_work_contract_review_checklist.py",
+      "sha256": "eec116049333bfeb8e50228f065eb429f8f19b89eb175d4e939157d3311d5c0c"
+    },
+    {
+      "path": "backend/tests/test_work_remedy_semantics.py",
+      "sha256": "5f5bca12d188c710e56a6acf168e9549473e7ca257b674b62ef4f4a0c4522678"
+    },
+    {
+      "path": "backend/tests/test_work_scenario_gates.py",
+      "sha256": "db6de04edaa686a7700b45272ae388f660bb70e73c87b70f297ef693ec2ae600"
+    },
+    {
+      "path": "backend/tests/test_work_search_corpus.py",
+      "sha256": "a1b46241deb479d091580ace4af15fc87ebba7ee2fdb535408ea4be52b4fc930"
+    },
+    {
+      "path": "backend/tests/test_work_semantic_relations.py",
+      "sha256": "221823ee51f9c66d9a8601e6a942bacc6e1f1dddfbd8b068220fe3d6d4e35cc5"
+    },
+    {
+      "path": "backend/tests/__init__.py",
+      "sha256": "0d87feb8590a58b49dcf084f50cc9bbebe0be863f791e7a3ec1f2cca480b6e05"
+    },
+    {
+      "path": "backend/tests/fixtures/technical_contracts/commissioned_development.classification.golden.json",
+      "sha256": "919d602cd05bf9933041044d5c1ef8d0698d2860f4b0e0d42b3e2541a989af05"
+    },
+    {
+      "path": "backend/tests/fixtures/technical_contracts/commissioned_development.golden.json",
+      "sha256": "fcf8c953967de25113ec562cc5a677c06d9bf6d985e8d22017ce5721f0dd5e90"
+    },
+    {
+      "path": "backend/tests/fixtures/technical_contracts/golden_matrix.json",
+      "sha256": "6e93d6340a8d22d9ebdef12270ff0dd4ead9ce1262a289fb6cde9d7977544c35"
+    },
+    {
+      "path": "backend/tests/fixtures/technical_contracts/patent_license.golden.json",
+      "sha256": "20f1c0710acbfaf2644b86a3f93019a284e9171f105759b26e5b137f7bbb9085"
+    },
+    {
+      "path": "backend/tests/fixtures/technical_contracts/patent_transfer.golden.json",
+      "sha256": "2772809ef4d095d4499f4ce5f6827c87949c0d0174a6ac9120b215f09746d842"
+    },
+    {
+      "path": "backend/tests/fixtures/technical_contracts/technical_service_data_governance.gold.json",
+      "sha256": "79ad0cd6a3ab3cfc2970eb79ce93ce131c471d8bcb68859f84b5335cf60b5fb3"
+    },
+    {
+      "path": "backend/utils/chinese_law_mcp_client.py",
+      "sha256": "8ee3d3e61739b42fe4a5ea1bcb9cb07a69c4dcecebc3d9e8c971e4116238c9e3"
+    },
+    {
+      "path": "backend/utils/feedback_scorer.py",
+      "sha256": "604811b1cf92f9d8339d80953c28efc47de93fed1c741418ac8e762175b9475b"
+    },
+    {
+      "path": "backend/utils/redis_client.py",
+      "sha256": "92d72a415776465943317bdfd54fc46c1b7a1310b769e04d8788d9d0746024b8"
+    },
+    {
+      "path": "backend/utils/security.py",
+      "sha256": "d076324cbab0e722f0a37215f364fbd19d7fead86f39a56700aa2aee54e14a2d"
+    },
+    {
+      "path": "backend/utils/__init__.py",
+      "sha256": "f81074239b8b82e6061f8c07400fcc0506a6a2f4a1489c52849f8be659b6e6fb"
+    },
+    {
+      "path": "frontend/index.html",
+      "sha256": "5fa098c0a5afffa47309968bb57db33d3bc1b0697a4c9fb9e9233feb9695253b"
+    },
+    {
+      "path": "frontend/package-lock.json",
+      "sha256": "8c9f986913b9f06ee482e8b2c1ebcd59b206f26bea6c73765b70e8e1539db5db"
+    },
+    {
+      "path": "frontend/package.json",
+      "sha256": "74e506328ab00b9fccc9110ec61339160297079359d0474e77ddd7b1155f6d7b"
+    },
+    {
+      "path": "frontend/vite.config.js",
+      "sha256": "9b5ff22b01a2ef88d4bb480a6ffbc7eec4c2c2bbada9bebc3e7941d505541b2f"
+    },
+    {
+      "path": "frontend/src/App.vue",
+      "sha256": "d52033401cc0774b28c0f9be0421046a6f38c2cac58c8d7287cc8523bdf6a298"
+    },
+    {
+      "path": "frontend/src/main.js",
+      "sha256": "3aa5231829fa85c15972dcbb4328d25a4771d19080949c67a5943c3512a945d2"
+    },
+    {
+      "path": "frontend/src/api/adjudicate.js",
+      "sha256": "35a22cec57e5b6ef6ce42112bc33551fc84016f60d5a83994d61096fcdfabfed"
+    },
+    {
+      "path": "frontend/src/api/admin.js",
+      "sha256": "a9d129ff9afb90498aa4c126205b52d8d0d44b4982ce2a1ec95f3e58bfb61364"
+    },
+    {
+      "path": "frontend/src/components/CreditSupplyModal.vue",
+      "sha256": "52c32a1c9b11aa8152be73b6204c4787ad373726e4c540a73ef678815f1d4234"
+    },
+    {
+      "path": "frontend/src/components/FeedbackModal.vue",
+      "sha256": "fc135ab1e9cedd23417b281e58efaf12df1d5677c64e1bb1a2e5eba3ff03f416"
+    },
+    {
+      "path": "frontend/src/components/MyReports.vue",
+      "sha256": "0311145503efc6b3421a806991a9f6da99f93792f9f35a71bfe327ead48bd786"
+    },
+    {
+      "path": "frontend/src/components/PhoneInput.vue",
+      "sha256": "afabae14306ccb5c3ec7d2a6598088753d58d88e1bf9b74b7c0d0bfcce83898b"
+    },
+    {
+      "path": "frontend/src/components/PrivacyPolicy.vue",
+      "sha256": "6075a184a6d0da1336246ed09c3482516e9f0eedc7b4639eb2e66f6b5a911a6d"
+    },
+    {
+      "path": "frontend/src/components/ResultPage.vue",
+      "sha256": "b859ef184155a5cd5d99f6e0aee06fb9ef767b70ede3bf0572ec4ec942dffc9a"
+    },
+    {
+      "path": "frontend/src/components/SliderCaptcha.vue",
+      "sha256": "4f6feb6afb16819eb7d2d6ca05a17ee343e4c1cfc1f7324ba4e5557a935d9473"
+    },
+    {
+      "path": "frontend/src/components/TermsOfService.vue",
+      "sha256": "d50ae377cb769e2eb3cf2a4e0217005f21fdc02d7acfe53bbab23d8ec365fa31"
+    },
+    {
+      "path": "frontend/src/components/UploadPage.vue",
+      "sha256": "96a21efccb837e88759bed69f6bf52bd57378d6d027def9edfc67019a0824948"
+    },
+    {
+      "path": "frontend/src/constants/countryCodes.js",
+      "sha256": "f7529dcebe48fb96b7c641a882af75d73e78aa0606a026fef0a025ee93254683"
+    },
+    {
+      "path": "frontend/src/router/admin.js",
+      "sha256": "eb528eb628e84d1a9a0ae8feaf1095be6a1ff57ba5f9b7cbafbc13ef594c4e49"
+    },
+    {
+      "path": "frontend/src/router/index.js",
+      "sha256": "f4f159a2bef61d3edae20a09a5f86d2e01d09d32754c1c0c13b56db3be126628"
+    },
+    {
+      "path": "frontend/src/utils/api.js",
+      "sha256": "5c176bf619e607c56d6ad744281d2accbcaab542e188a9015b5db6eabe95d0f5"
+    },
+    {
+      "path": "frontend/src/utils/reviewProfile.mjs",
+      "sha256": "a69fa7202e349f9bd1b737e9cd7f4f9d78af8c990bfbd750b8f3cc41659cc51f"
+    },
+    {
+      "path": "frontend/src/utils/reviewProfile.test.mjs",
+      "sha256": "285d062f383627cae6782a0c41284fc02ef2dc3b0bdffffd00ccec3ae8e0af2e"
+    },
+    {
+      "path": "frontend/src/utils/reviewProfilePage.test.mjs",
+      "sha256": "4ed56a8ade9e99dbc58f2a5f97d539ff62b54cd3714831e44f773d4f8f9a5e30"
+    },
+    {
+      "path": "frontend/src/utils/storage.js",
+      "sha256": "487b6f4d23db2dea7529899cfc938d7d64020ed71ab5c6ade65cf95f86cc0b69"
+    },
+    {
+      "path": "frontend/src/views/AdjudicateDeposit.vue",
+      "sha256": "86f4d8a255ee6b8bbf0f82a9f5d1f4375b84b66e0f2689a555aeb05316e18348"
+    },
+    {
+      "path": "frontend/src/views/AdjudicateDepositV2.vue",
+      "sha256": "c1e498a94e8fd498ed83910a695ffaba5d4c79a78b95fe2703bd3bbd3c1078ad"
+    },
+    {
+      "path": "frontend/src/views/ContractReviewV2.vue",
+      "sha256": "0ddc36c1aa9026cf691c71c6398dd76948472b7bc66a156158f2ece8f4cfa2da"
+    },
+    {
+      "path": "frontend/src/views/Home.vue",
+      "sha256": "8a9bcb715cbcc099503322775456e75743f1db50ca258e123b70bc9111af0bb8"
+    },
+    {
+      "path": "frontend/src/views/Login.vue",
+      "sha256": "1da96977aeb70b4b19cbc1142a741434494a797e9be862ad833fba194943cacc"
+    },
+    {
+      "path": "frontend/src/views/admin/AdminLayout.vue",
+      "sha256": "d8a16d453e89e01a0a522cd9c4e5bc4483027bbe7c5dba82c8faac4f8efa578d"
+    },
+    {
+      "path": "frontend/src/views/admin/Blacklist.vue",
+      "sha256": "142efe69d0b42cdf7e67c6574cb5f9fc1cac96582ab60f93db97e8ec07b224aa"
+    },
+    {
+      "path": "frontend/src/views/admin/Dashboard.vue",
+      "sha256": "8945d7075b73209d3764494d6d7c51e86af205a140d35ba842233718ac98e793"
+    },
+    {
+      "path": "frontend/src/views/admin/FeedbackList.vue",
+      "sha256": "4e5dac7b26962287b6748b907cea240a85cc7af632b219ee39f28109b352e9a0"
+    },
+    {
+      "path": "frontend/src/views/admin/Login.vue",
+      "sha256": "4e2a5c8214efa45acb406a1f69bf1b04a9273025c597df76ac1581389f82cbae"
+    },
+    {
+      "path": "frontend/src/views/admin/Settings.vue",
+      "sha256": "7c3ba527dbbe478145fd5bb14e9adff5310f007793c40802e35bf4d29ace7ebd"
+    },
+    {
+      "path": "frontend/src/views/admin/Usage.vue",
+      "sha256": "57dfc981960267378df905d0056d6b4080048d3c41440896a046df3abec8bb7c"
+    },
+    {
+      "path": "frontend/src/views/admin/UserDetail.vue",
+      "sha256": "cdb4bb6f2d6394abd122a247f7f571e4f913b71819ea03af7b618e9164404b99"
+    },
+    {
+      "path": "frontend/src/views/admin/UserList.vue",
+      "sha256": "c9598ad7d93879129f7a40382c0ee58a611b69d8fac4e85e6c91b579a3232434"
+    },
+    {
+      "path": "Dockerfile.backend",
+      "sha256": "7583718a9b0a63612bc902d18509da800e8268f8a0636cd10499c3f9ffa70890"
+    },
+    {
+      "path": "Dockerfile.frontend",
+      "sha256": "f76115636790a0e07e0e5ce451fd965d79b5b39b285961dca159257e77750821"
+    },
+    {
+      "path": ".dockerignore",
+      "sha256": "859b5d599166f5e2075dcf1e98d44c1190e7078b08de6e0d415a5fdf5cbb2446"
+    },
+    {
+      "path": "nginx.conf",
+      "sha256": "e9dc557051b715377f3532cfb08a069e9aad24ab56af59f11966d5c887fa12ec"
+    }
+  ]
+}

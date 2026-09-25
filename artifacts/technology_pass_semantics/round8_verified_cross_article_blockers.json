@@ -1,0 +1,2205 @@
+{
+  "status": "BLOCKED",
+  "contract_type": "technology",
+  "selected_contract_type": "technology",
+  "raw_failure_count": 11,
+  "blocker_tuple_count": 13,
+  "blockers": [
+    {
+      "error_code": "CONFIDENCE_VALIDATION_GATE",
+      "rule_id": null,
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Pre-render Confidence Gate",
+      "reject_reason": "存在实质一致性错误的审查项仍为 HIGH：TC-11-04。",
+      "source_spans": [],
+      "current_elements": [],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "CONFIDENCE_VALIDATION_GATE",
+        "failure_stage": "Pre-render Confidence Gate",
+        "root_cause": "存在实质一致性错误的审查项仍为 HIGH：TC-11-04。",
+        "responsible_function": "_apply_post_verification_confidence",
+        "current_status": "FAIL"
+      }
+    },
+    {
+      "error_code": "FACT_TRUTH_OVERRIDE_VIOLATION",
+      "rule_id": null,
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Review Post-processing",
+      "reject_reason": "Review post-processing overrode Registry fact truth: 1.",
+      "source_spans": [],
+      "current_elements": [],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "FACT_TRUTH_OVERRIDE_VIOLATION",
+        "failure_stage": "Review Post-processing",
+        "root_cause": "Review post-processing overrode Registry fact truth: 1.",
+        "responsible_function": "_contract_fact_flow_audit",
+        "current_status": "FAIL"
+      }
+    },
+    {
+      "error_code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+      "rule_id": "TC-09-02",
+      "element_id": "PRIMARY_EVIDENCE",
+      "fact_id": null,
+      "detected_stage": "Review Evidence Projection",
+      "reject_reason": "The primary report evidence does not directly support any covered element in this Review.",
+      "source_spans": [],
+      "current_elements": [],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+        "failure_stage": "Review Evidence Projection",
+        "root_cause": "Review evidence is not exactly bound to covered elements: 1 mismatch(es).",
+        "current_status": "FAIL",
+        "review_id": "TC-09-02",
+        "element_id": "PRIMARY_EVIDENCE",
+        "evidence_refs": [
+          "C0004"
+        ],
+        "reason": "The primary report evidence does not directly support any covered element in this Review."
+      }
+    },
+    {
+      "error_code": "MISSING_WITH_POSITIVE_EVIDENCE",
+      "rule_id": "TC-09-02",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Technology Coverage Consistency",
+      "reject_reason": "TC-09-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-30b14858697e48e668c7",
+          "clause_id": "C0047",
+          "quote": "3．测试条件下视觉定位平均误差不高于0.05mm，机器人补偿后重复定位误差不高于±0.08mm。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2290,
+            "end_offset": 2338,
+            "raw_text": "3．测试条件下视觉定位平均误差不高于0.05mm，机器人补偿后重复定位误差不高于±0.08mm。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "objective_acceptance_standard"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-09-02",
+          "element_id": "objective_acceptance_standard",
+          "claim_id": "TC-09-02-objective_acceptance_standard",
+          "proposition": "客观验收指标明确。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-30b14858697e48e668c7"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-30b14858697e48e668c7"
+          ],
+          "source_clause_ids": [
+            "C0047"
+          ],
+          "source_spans": [
+            "3．测试条件下视觉定位平均误差不高于0.05mm，机器人补偿后重复定位误差不高于±0.08mm。"
+          ],
+          "source_locations": [
+            "第十二条第3项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "客观验收指标明确。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        },
+        {
+          "review_id": "TC-09-02",
+          "element_id": "reinspection_procedure",
+          "claim_id": "TC-09-02-reinspection_procedure",
+          "proposition": "再次验收安排",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "再次验收安排",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "再次验收安排"
+        },
+        {
+          "review_id": "TC-09-02",
+          "element_id": "reinspection_deadline",
+          "claim_id": "TC-09-02-reinspection_deadline",
+          "proposition": "再次验收期限",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "再次验收期限",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "再次验收期限"
+        },
+        {
+          "review_id": "TC-09-02",
+          "element_id": "rectification_party",
+          "claim_id": "TC-09-02-rectification_party",
+          "proposition": "整改责任主体",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "整改责任主体",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "整改责任主体"
+        },
+        {
+          "review_id": "TC-09-02",
+          "element_id": "rectification_measures",
+          "claim_id": "TC-09-02-rectification_measures",
+          "proposition": "整改措施",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "整改措施",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "整改措施"
+        },
+        {
+          "review_id": "TC-09-02",
+          "element_id": "rectification_procedure",
+          "claim_id": "TC-09-02-rectification_procedure",
+          "proposition": "整改流程",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "整改流程",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "整改流程"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+        "failure_stage": "Technology Coverage Consistency",
+        "root_cause": "TC-09-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+        "entity_type": "review",
+        "entity_id": "TC-09-02",
+        "source_clause_ids": [
+          "C0047"
+        ],
+        "severity": "blocking"
+      }
+    },
+    {
+      "error_code": "CROSS_RULE_CANONICAL_FACT_CONSISTENCY",
+      "rule_id": null,
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Cross-rule Canonical Fact Audit",
+      "reject_reason": "同一事实已被其他规则或统一事实层确认，但下游消费者仍输出完全缺失。",
+      "source_spans": [],
+      "current_elements": [],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "CROSS_RULE_CANONICAL_FACT_CONSISTENCY",
+        "failure_stage": "Cross-rule Canonical Fact Audit",
+        "root_cause": "同一事实已被其他规则或统一事实层确认，但下游消费者仍输出完全缺失。",
+        "entity_type": "review_group",
+        "entity_id": "technology_shared_facts",
+        "conflicts": [
+          {
+            "subject": "SERVICE_FEE",
+            "consumer": "TC-09-04"
+          },
+          {
+            "subject": "TECHNICAL_SECRET_SUBJECT",
+            "source": "TC-11-01",
+            "source_element": "confidential_information_scope",
+            "consumer": "TC-07-01",
+            "consumer_element": "licensed_secret_subject",
+            "source_status": "COVERED",
+            "consumer_status": "UNCERTAIN"
+          }
+        ],
+        "severity": "blocking"
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TC-11-02",
+      "element_id": "confidentiality_period",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "C0027",
+          "clause_id": "C0027",
+          "quote": "保密期限：自首次接触相关保密信息之日起至本合同终止后5年。 自首次接触相关保密信息之日起至本合同终止后5年。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1581,
+            "end_offset": 1613,
+            "raw_text": "3．保密期限：\n自首次接触相关保密信息之日起至本合同终止后5年。"
+          },
+          "supporting_element_ids": [
+            "confidentiality_period"
+          ]
+        },
+        {
+          "evidence_id": "C0031",
+          "clause_id": "C0031",
+          "quote": "保密期限：自首次接触相关保密信息之日起至本合同终止后3年。 自首次接触相关保密信息之日起至本合同终止后3年。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1800,
+            "end_offset": 1832,
+            "raw_text": "3．保密期限：\n自首次接触相关保密信息之日起至本合同终止后3年。"
+          },
+          "supporting_element_ids": [
+            "confidentiality_period"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-11-02",
+          "element_id": "confidentiality_period",
+          "claim_id": "TC-11-02-confidentiality_period",
+          "proposition": "保密义务持续期限",
+          "status": "COVERED",
+          "evidence_ids": [
+            "C0027",
+            "C0031"
+          ],
+          "supporting_evidence_ids": [
+            "C0027",
+            "C0031"
+          ],
+          "source_clause_ids": [
+            "C0027",
+            "C0031"
+          ],
+          "source_spans": [
+            "保密期限：自首次接触相关保密信息之日起至本合同终止后5年。 自首次接触相关保密信息之日起至本合同终止后5年。",
+            "保密期限：自首次接触相关保密信息之日起至本合同终止后3年。 自首次接触相关保密信息之日起至本合同终止后3年。"
+          ],
+          "source_locations": [
+            "第八条第3项",
+            "第八条第3项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "保密义务持续期限",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-008",
+        "element_id": "confidentiality_period",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "TC-11-02",
+        "finding_id": "RF-008",
+        "fact_key": "confidentiality_period",
+        "fact_value": "保密义务持续期限",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TC-11-02",
+            "finding_id": "RF-008",
+            "fact_key": "confidentiality_period",
+            "fact_value": "保密义务持续期限",
+            "current_evidence_refs": [
+              "C0027",
+              "C0031"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "POSITIVE_FACT_MONOTONICITY",
+      "rule_id": "TC-09-02",
+      "element_id": "objective_acceptance_standard",
+      "fact_id": null,
+      "detected_stage": null,
+      "reject_reason": "TC-09-02",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-30b14858697e48e668c7",
+          "clause_id": "C0047",
+          "quote": "3．测试条件下视觉定位平均误差不高于0.05mm，机器人补偿后重复定位误差不高于±0.08mm。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2290,
+            "end_offset": 2338,
+            "raw_text": "3．测试条件下视觉定位平均误差不高于0.05mm，机器人补偿后重复定位误差不高于±0.08mm。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "objective_acceptance_standard"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-09-02",
+          "element_id": "objective_acceptance_standard",
+          "claim_id": "TC-09-02-objective_acceptance_standard",
+          "proposition": "客观验收指标明确。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-30b14858697e48e668c7"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-30b14858697e48e668c7"
+          ],
+          "source_clause_ids": [
+            "C0047"
+          ],
+          "source_spans": [
+            "3．测试条件下视觉定位平均误差不高于0.05mm，机器人补偿后重复定位误差不高于±0.08mm。"
+          ],
+          "source_locations": [
+            "第十二条第3项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "客观验收指标明确。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "POSITIVE_FACT_MONOTONICITY",
+        "root_cause": "TC-09-02",
+        "element_id": "objective_acceptance_standard",
+        "final_element_status": "COVERED",
+        "bound_evidence_ids": [
+          "SRC-30b14858697e48e668c7"
+        ],
+        "search_audit": null,
+        "current_status": "FAIL"
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TC-11-02",
+      "element_id": "confidentiality_period",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "C0027",
+          "clause_id": "C0027",
+          "quote": "保密期限：自首次接触相关保密信息之日起至本合同终止后5年。 自首次接触相关保密信息之日起至本合同终止后5年。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1581,
+            "end_offset": 1613,
+            "raw_text": "3．保密期限：\n自首次接触相关保密信息之日起至本合同终止后5年。"
+          },
+          "supporting_element_ids": [
+            "confidentiality_period"
+          ]
+        },
+        {
+          "evidence_id": "C0031",
+          "clause_id": "C0031",
+          "quote": "保密期限：自首次接触相关保密信息之日起至本合同终止后3年。 自首次接触相关保密信息之日起至本合同终止后3年。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1800,
+            "end_offset": 1832,
+            "raw_text": "3．保密期限：\n自首次接触相关保密信息之日起至本合同终止后3年。"
+          },
+          "supporting_element_ids": [
+            "confidentiality_period"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-11-02",
+          "element_id": "confidentiality_period",
+          "claim_id": "TC-11-02-confidentiality_period",
+          "proposition": "保密义务持续期限",
+          "status": "COVERED",
+          "evidence_ids": [
+            "C0027",
+            "C0031"
+          ],
+          "supporting_evidence_ids": [
+            "C0027",
+            "C0031"
+          ],
+          "source_clause_ids": [
+            "C0027",
+            "C0031"
+          ],
+          "source_spans": [
+            "保密期限：自首次接触相关保密信息之日起至本合同终止后5年。 自首次接触相关保密信息之日起至本合同终止后5年。",
+            "保密期限：自首次接触相关保密信息之日起至本合同终止后3年。 自首次接触相关保密信息之日起至本合同终止后3年。"
+          ],
+          "source_locations": [
+            "第八条第3项",
+            "第八条第3项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "保密义务持续期限",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-008",
+        "element_id": "confidentiality_period",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "TC-11-02",
+        "finding_id": "RF-008",
+        "fact_key": "confidentiality_period",
+        "fact_value": "保密义务持续期限",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TC-11-02",
+            "finding_id": "RF-008",
+            "fact_key": "confidentiality_period",
+            "fact_value": "保密义务持续期限",
+            "current_evidence_refs": [
+              "C0027",
+              "C0031"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-11-04",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Final Evidence Projection",
+      "reject_reason": "CONSEQUENCE_REQUIREMENTS_MISMATCH",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-fb15a58e696e8ca1dc5a",
+          "clause_id": "C0028",
+          "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1622,
+            "end_offset": 1694,
+            "raw_text": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability",
+            "stop_disclosure",
+            "stop_use",
+            "mitigation_obligation"
+          ]
+        },
+        {
+          "evidence_id": "SRC-b61f6ae08c405ca30933",
+          "clause_id": "C0062",
+          "quote": "买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2786,
+            "end_offset": 2841,
+            "raw_text": "买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability"
+          ]
+        },
+        {
+          "evidence_id": "SRC-77d35af770ff7a4f002e",
+          "clause_id": "C0032",
+          "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1841,
+            "end_offset": 1883,
+            "raw_text": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability",
+            "stop_disclosure",
+            "stop_use"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-11-04",
+          "element_id": "breach_damage_liability",
+          "claim_id": "TC-11-04-breach_damage_liability",
+          "proposition": "买方泄密损失赔偿责任已有约定；卖方泄密损失赔偿责任已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-764c836618bf72a5",
+            "EV-77e5d4af0017b61d",
+            "EV-9b5cf36979c820c8"
+          ],
+          "supporting_evidence_ids": [
+            "EV-764c836618bf72a5",
+            "EV-77e5d4af0017b61d",
+            "EV-9b5cf36979c820c8"
+          ],
+          "source_clause_ids": [
+            "C0028",
+            "C0062",
+            "C0032"
+          ],
+          "source_spans": [
+            "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+            "买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+            "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。"
+          ],
+          "source_locations": [
+            "第八条第4项",
+            "第十七条第1项",
+            "第八条第4项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "买方泄密损失赔偿责任已有约定；卖方泄密损失赔偿责任已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "泄密损失赔偿责任",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0028",
+              "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+              "obligated_party": "买方",
+              "proposition": "买方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "clause_id": "C0062",
+              "quote": "买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+              "obligated_party": "买方",
+              "proposition": "买方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "clause_id": "C0032",
+              "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+              "obligated_party": "卖方",
+              "proposition": "卖方泄密损失赔偿责任已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.breach_damage_liability",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0028",
+                  "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+                  "obligated_party": "买方",
+                  "proposition": "买方泄密损失赔偿责任已有约定。"
+                },
+                {
+                  "clause_id": "C0062",
+                  "quote": "买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+                  "obligated_party": "买方",
+                  "proposition": "买方泄密损失赔偿责任已有约定。"
+                }
+              ],
+              "required_fact": "买方泄密损失赔偿责任",
+              "proposition": "买方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0032",
+                  "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+                  "obligated_party": "卖方",
+                  "proposition": "卖方泄密损失赔偿责任已有约定。"
+                }
+              ],
+              "required_fact": "卖方泄密损失赔偿责任",
+              "proposition": "卖方泄密损失赔偿责任已有约定。"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-764c836618bf72a5",
+            "EV-77e5d4af0017b61d",
+            "EV-9b5cf36979c820c8"
+          ]
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "stop_disclosure",
+          "claim_id": "TC-11-04-stop_disclosure",
+          "proposition": "买方泄密后停止披露已有约定；卖方泄密后停止披露已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-764c836618bf72a5",
+            "EV-9b5cf36979c820c8"
+          ],
+          "supporting_evidence_ids": [
+            "EV-764c836618bf72a5",
+            "EV-9b5cf36979c820c8"
+          ],
+          "source_clause_ids": [
+            "C0028",
+            "C0032"
+          ],
+          "source_spans": [
+            "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+            "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。"
+          ],
+          "source_locations": [
+            "第八条第4项",
+            "第八条第4项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "买方泄密后停止披露已有约定；卖方泄密后停止披露已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "泄密后停止披露",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0028",
+              "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+              "obligated_party": "买方",
+              "proposition": "买方泄密后停止披露已有约定。"
+            },
+            {
+              "clause_id": "C0032",
+              "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+              "obligated_party": "卖方",
+              "proposition": "卖方泄密后停止披露已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.stop_disclosure",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0028",
+                  "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+                  "obligated_party": "买方",
+                  "proposition": "买方泄密后停止披露已有约定。"
+                }
+              ],
+              "required_fact": "买方泄密后停止披露",
+              "proposition": "买方泄密后停止披露已有约定。"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0032",
+                  "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+                  "obligated_party": "卖方",
+                  "proposition": "卖方泄密后停止披露已有约定。"
+                }
+              ],
+              "required_fact": "卖方泄密后停止披露",
+              "proposition": "卖方泄密后停止披露已有约定。"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-764c836618bf72a5",
+            "EV-9b5cf36979c820c8"
+          ]
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "stop_use",
+          "claim_id": "TC-11-04-stop_use",
+          "proposition": "买方泄密后停止使用已有约定；卖方泄密后停止使用已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-764c836618bf72a5",
+            "EV-9b5cf36979c820c8"
+          ],
+          "supporting_evidence_ids": [
+            "EV-764c836618bf72a5",
+            "EV-9b5cf36979c820c8"
+          ],
+          "source_clause_ids": [
+            "C0028",
+            "C0032"
+          ],
+          "source_spans": [
+            "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+            "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。"
+          ],
+          "source_locations": [
+            "第八条第4项",
+            "第八条第4项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "买方泄密后停止使用已有约定；卖方泄密后停止使用已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "泄密后停止使用",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0028",
+              "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+              "obligated_party": "买方",
+              "proposition": "买方泄密后停止使用已有约定。"
+            },
+            {
+              "clause_id": "C0032",
+              "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+              "obligated_party": "卖方",
+              "proposition": "卖方泄密后停止使用已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.stop_use",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0028",
+                  "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+                  "obligated_party": "买方",
+                  "proposition": "买方泄密后停止使用已有约定。"
+                }
+              ],
+              "required_fact": "买方泄密后停止使用",
+              "proposition": "买方泄密后停止使用已有约定。"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0032",
+                  "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+                  "obligated_party": "卖方",
+                  "proposition": "卖方泄密后停止使用已有约定。"
+                }
+              ],
+              "required_fact": "卖方泄密后停止使用",
+              "proposition": "卖方泄密后停止使用已有约定。"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-764c836618bf72a5",
+            "EV-9b5cf36979c820c8"
+          ]
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "mitigation_obligation",
+          "claim_id": "TC-11-04-mitigation_obligation",
+          "proposition": "买方泄密后采取措施防止继续扩散或损失扩大已有约定。",
+          "status": "PARTIALLY_COVERED",
+          "evidence_ids": [
+            "EV-764c836618bf72a5"
+          ],
+          "supporting_evidence_ids": [
+            "EV-764c836618bf72a5"
+          ],
+          "source_clause_ids": [
+            "C0028"
+          ],
+          "source_spans": [
+            "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。"
+          ],
+          "source_locations": [
+            "第八条第4项"
+          ],
+          "entailment": "PARTIAL_SUPPORT",
+          "verifier_confidence": "high",
+          "reason": "买方泄密后采取措施防止继续扩散或损失扩大已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "卖方泄密后采取措施防止继续扩散或损失扩大",
+          "required_fact": "卖方泄密后采取措施防止继续扩散或损失扩大",
+          "search_targets": [
+            "卖方泄密后采取措施防止继续扩散或损失扩大"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0028",
+              "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+              "obligated_party": "买方",
+              "proposition": "买方泄密后采取措施防止继续扩散或损失扩大已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.mitigation_obligation",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0028",
+                  "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+                  "obligated_party": "买方",
+                  "proposition": "买方泄密后采取措施防止继续扩散或损失扩大已有约定。"
+                }
+              ],
+              "required_fact": "买方泄密后采取措施防止继续扩散或损失扩大",
+              "proposition": "买方泄密后采取措施防止继续扩散或损失扩大已有约定。"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "卖方泄密后采取措施防止继续扩散或损失扩大",
+              "proposition": "卖方泄密后采取措施防止继续扩散或损失扩大"
+            }
+          ],
+          "recommendation_action": "明确卖方泄密后采取措施防止继续扩散或损失扩大",
+          "evidence_refs": [
+            "EV-764c836618bf72a5"
+          ]
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "incident_notification",
+          "claim_id": "TC-11-04-incident_notification",
+          "proposition": "买方泄密后及时通知受影响方、卖方泄密后及时通知受影响方",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "买方泄密后及时通知受影响方、卖方泄密后及时通知受影响方",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "买方泄密后及时通知受影响方、卖方泄密后及时通知受影响方",
+          "required_fact": "买方泄密后及时通知受影响方、卖方泄密后及时通知受影响方",
+          "search_targets": [
+            "买方泄密后及时通知受影响方",
+            "卖方泄密后及时通知受影响方"
+          ],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.incident_notification",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "买方泄密后及时通知受影响方",
+              "proposition": "买方泄密后及时通知受影响方"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "卖方泄密后及时通知受影响方",
+              "proposition": "卖方泄密后及时通知受影响方"
+            }
+          ],
+          "recommendation_action": "明确买方泄密后及时通知受影响方、卖方泄密后及时通知受影响方"
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "specific_confidentiality_penalty",
+          "claim_id": "TC-11-04-specific_confidentiality_penalty",
+          "proposition": "泄密专项违约金",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "泄密专项违约金",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "residual_gap": "",
+          "required_fact": "泄密专项违约金",
+          "search_targets": [],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.specific_confidentiality_penalty",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "NOT_APPLICABLE",
+              "supporting_evidence": [],
+              "required_fact": "买方泄密专项违约金",
+              "proposition": "买方泄密专项违约金"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "NOT_APPLICABLE",
+              "supporting_evidence": [],
+              "required_fact": "卖方泄密专项违约金",
+              "proposition": "卖方泄密专项违约金"
+            }
+          ],
+          "recommendation_action": ""
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "excess_loss_compensation",
+          "claim_id": "TC-11-04-excess_loss_compensation",
+          "proposition": "泄密违约金不足部分的继续赔偿",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "泄密违约金不足部分的继续赔偿",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "residual_gap": "",
+          "required_fact": "泄密违约金不足部分的继续赔偿",
+          "search_targets": [],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.excess_loss_compensation",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "NOT_APPLICABLE",
+              "supporting_evidence": [],
+              "required_fact": "买方泄密违约金不足部分的继续赔偿",
+              "proposition": "买方泄密违约金不足部分的继续赔偿"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "NOT_APPLICABLE",
+              "supporting_evidence": [],
+              "required_fact": "卖方泄密违约金不足部分的继续赔偿",
+              "proposition": "卖方泄密违约金不足部分的继续赔偿"
+            }
+          ],
+          "recommendation_action": ""
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "review_id": "TC-11-04",
+        "reason": "CONSEQUENCE_REQUIREMENTS_MISMATCH",
+        "expected": [
+          "incident_notification",
+          "mitigation_obligation"
+        ],
+        "actual": [],
+        "omitted": [
+          "mitigation_obligation",
+          "incident_notification"
+        ]
+      }
+    },
+    {
+      "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-11-04",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Final Evidence Projection",
+      "reject_reason": "DETAIL_UNRESOLVED_REQUIREMENTS_OMITTED",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-fb15a58e696e8ca1dc5a",
+          "clause_id": "C0028",
+          "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1622,
+            "end_offset": 1694,
+            "raw_text": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability",
+            "stop_disclosure",
+            "stop_use",
+            "mitigation_obligation"
+          ]
+        },
+        {
+          "evidence_id": "SRC-b61f6ae08c405ca30933",
+          "clause_id": "C0062",
+          "quote": "买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2786,
+            "end_offset": 2841,
+            "raw_text": "买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability"
+          ]
+        },
+        {
+          "evidence_id": "SRC-77d35af770ff7a4f002e",
+          "clause_id": "C0032",
+          "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1841,
+            "end_offset": 1883,
+            "raw_text": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability",
+            "stop_disclosure",
+            "stop_use"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-11-04",
+          "element_id": "breach_damage_liability",
+          "claim_id": "TC-11-04-breach_damage_liability",
+          "proposition": "买方泄密损失赔偿责任已有约定；卖方泄密损失赔偿责任已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-764c836618bf72a5",
+            "EV-77e5d4af0017b61d",
+            "EV-9b5cf36979c820c8"
+          ],
+          "supporting_evidence_ids": [
+            "EV-764c836618bf72a5",
+            "EV-77e5d4af0017b61d",
+            "EV-9b5cf36979c820c8"
+          ],
+          "source_clause_ids": [
+            "C0028",
+            "C0062",
+            "C0032"
+          ],
+          "source_spans": [
+            "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+            "买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+            "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。"
+          ],
+          "source_locations": [
+            "第八条第4项",
+            "第十七条第1项",
+            "第八条第4项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "买方泄密损失赔偿责任已有约定；卖方泄密损失赔偿责任已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "泄密损失赔偿责任",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0028",
+              "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+              "obligated_party": "买方",
+              "proposition": "买方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "clause_id": "C0062",
+              "quote": "买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+              "obligated_party": "买方",
+              "proposition": "买方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "clause_id": "C0032",
+              "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+              "obligated_party": "卖方",
+              "proposition": "卖方泄密损失赔偿责任已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.breach_damage_liability",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0028",
+                  "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+                  "obligated_party": "买方",
+                  "proposition": "买方泄密损失赔偿责任已有约定。"
+                },
+                {
+                  "clause_id": "C0062",
+                  "quote": "买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+                  "obligated_party": "买方",
+                  "proposition": "买方泄密损失赔偿责任已有约定。"
+                }
+              ],
+              "required_fact": "买方泄密损失赔偿责任",
+              "proposition": "买方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0032",
+                  "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+                  "obligated_party": "卖方",
+                  "proposition": "卖方泄密损失赔偿责任已有约定。"
+                }
+              ],
+              "required_fact": "卖方泄密损失赔偿责任",
+              "proposition": "卖方泄密损失赔偿责任已有约定。"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-764c836618bf72a5",
+            "EV-77e5d4af0017b61d",
+            "EV-9b5cf36979c820c8"
+          ]
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "stop_disclosure",
+          "claim_id": "TC-11-04-stop_disclosure",
+          "proposition": "买方泄密后停止披露已有约定；卖方泄密后停止披露已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-764c836618bf72a5",
+            "EV-9b5cf36979c820c8"
+          ],
+          "supporting_evidence_ids": [
+            "EV-764c836618bf72a5",
+            "EV-9b5cf36979c820c8"
+          ],
+          "source_clause_ids": [
+            "C0028",
+            "C0032"
+          ],
+          "source_spans": [
+            "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+            "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。"
+          ],
+          "source_locations": [
+            "第八条第4项",
+            "第八条第4项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "买方泄密后停止披露已有约定；卖方泄密后停止披露已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "泄密后停止披露",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0028",
+              "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+              "obligated_party": "买方",
+              "proposition": "买方泄密后停止披露已有约定。"
+            },
+            {
+              "clause_id": "C0032",
+              "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+              "obligated_party": "卖方",
+              "proposition": "卖方泄密后停止披露已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.stop_disclosure",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0028",
+                  "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+                  "obligated_party": "买方",
+                  "proposition": "买方泄密后停止披露已有约定。"
+                }
+              ],
+              "required_fact": "买方泄密后停止披露",
+              "proposition": "买方泄密后停止披露已有约定。"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0032",
+                  "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+                  "obligated_party": "卖方",
+                  "proposition": "卖方泄密后停止披露已有约定。"
+                }
+              ],
+              "required_fact": "卖方泄密后停止披露",
+              "proposition": "卖方泄密后停止披露已有约定。"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-764c836618bf72a5",
+            "EV-9b5cf36979c820c8"
+          ]
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "stop_use",
+          "claim_id": "TC-11-04-stop_use",
+          "proposition": "买方泄密后停止使用已有约定；卖方泄密后停止使用已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-764c836618bf72a5",
+            "EV-9b5cf36979c820c8"
+          ],
+          "supporting_evidence_ids": [
+            "EV-764c836618bf72a5",
+            "EV-9b5cf36979c820c8"
+          ],
+          "source_clause_ids": [
+            "C0028",
+            "C0032"
+          ],
+          "source_spans": [
+            "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+            "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。"
+          ],
+          "source_locations": [
+            "第八条第4项",
+            "第八条第4项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "买方泄密后停止使用已有约定；卖方泄密后停止使用已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "泄密后停止使用",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0028",
+              "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+              "obligated_party": "买方",
+              "proposition": "买方泄密后停止使用已有约定。"
+            },
+            {
+              "clause_id": "C0032",
+              "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+              "obligated_party": "卖方",
+              "proposition": "卖方泄密后停止使用已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.stop_use",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0028",
+                  "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+                  "obligated_party": "买方",
+                  "proposition": "买方泄密后停止使用已有约定。"
+                }
+              ],
+              "required_fact": "买方泄密后停止使用",
+              "proposition": "买方泄密后停止使用已有约定。"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0032",
+                  "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+                  "obligated_party": "卖方",
+                  "proposition": "卖方泄密后停止使用已有约定。"
+                }
+              ],
+              "required_fact": "卖方泄密后停止使用",
+              "proposition": "卖方泄密后停止使用已有约定。"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-764c836618bf72a5",
+            "EV-9b5cf36979c820c8"
+          ]
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "mitigation_obligation",
+          "claim_id": "TC-11-04-mitigation_obligation",
+          "proposition": "买方泄密后采取措施防止继续扩散或损失扩大已有约定。",
+          "status": "PARTIALLY_COVERED",
+          "evidence_ids": [
+            "EV-764c836618bf72a5"
+          ],
+          "supporting_evidence_ids": [
+            "EV-764c836618bf72a5"
+          ],
+          "source_clause_ids": [
+            "C0028"
+          ],
+          "source_spans": [
+            "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。"
+          ],
+          "source_locations": [
+            "第八条第4项"
+          ],
+          "entailment": "PARTIAL_SUPPORT",
+          "verifier_confidence": "high",
+          "reason": "买方泄密后采取措施防止继续扩散或损失扩大已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "卖方泄密后采取措施防止继续扩散或损失扩大",
+          "required_fact": "卖方泄密后采取措施防止继续扩散或损失扩大",
+          "search_targets": [
+            "卖方泄密后采取措施防止继续扩散或损失扩大"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0028",
+              "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+              "obligated_party": "买方",
+              "proposition": "买方泄密后采取措施防止继续扩散或损失扩大已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.mitigation_obligation",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0028",
+                  "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+                  "obligated_party": "买方",
+                  "proposition": "买方泄密后采取措施防止继续扩散或损失扩大已有约定。"
+                }
+              ],
+              "required_fact": "买方泄密后采取措施防止继续扩散或损失扩大",
+              "proposition": "买方泄密后采取措施防止继续扩散或损失扩大已有约定。"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "卖方泄密后采取措施防止继续扩散或损失扩大",
+              "proposition": "卖方泄密后采取措施防止继续扩散或损失扩大"
+            }
+          ],
+          "recommendation_action": "明确卖方泄密后采取措施防止继续扩散或损失扩大",
+          "evidence_refs": [
+            "EV-764c836618bf72a5"
+          ]
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "incident_notification",
+          "claim_id": "TC-11-04-incident_notification",
+          "proposition": "买方泄密后及时通知受影响方、卖方泄密后及时通知受影响方",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "买方泄密后及时通知受影响方、卖方泄密后及时通知受影响方",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "买方泄密后及时通知受影响方、卖方泄密后及时通知受影响方",
+          "required_fact": "买方泄密后及时通知受影响方、卖方泄密后及时通知受影响方",
+          "search_targets": [
+            "买方泄密后及时通知受影响方",
+            "卖方泄密后及时通知受影响方"
+          ],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.incident_notification",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "买方泄密后及时通知受影响方",
+              "proposition": "买方泄密后及时通知受影响方"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "卖方泄密后及时通知受影响方",
+              "proposition": "卖方泄密后及时通知受影响方"
+            }
+          ],
+          "recommendation_action": "明确买方泄密后及时通知受影响方、卖方泄密后及时通知受影响方"
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "specific_confidentiality_penalty",
+          "claim_id": "TC-11-04-specific_confidentiality_penalty",
+          "proposition": "泄密专项违约金",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "泄密专项违约金",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "residual_gap": "",
+          "required_fact": "泄密专项违约金",
+          "search_targets": [],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.specific_confidentiality_penalty",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "NOT_APPLICABLE",
+              "supporting_evidence": [],
+              "required_fact": "买方泄密专项违约金",
+              "proposition": "买方泄密专项违约金"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "NOT_APPLICABLE",
+              "supporting_evidence": [],
+              "required_fact": "卖方泄密专项违约金",
+              "proposition": "卖方泄密专项违约金"
+            }
+          ],
+          "recommendation_action": ""
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "excess_loss_compensation",
+          "claim_id": "TC-11-04-excess_loss_compensation",
+          "proposition": "泄密违约金不足部分的继续赔偿",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "泄密违约金不足部分的继续赔偿",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "residual_gap": "",
+          "required_fact": "泄密违约金不足部分的继续赔偿",
+          "search_targets": [],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.excess_loss_compensation",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "NOT_APPLICABLE",
+              "supporting_evidence": [],
+              "required_fact": "买方泄密违约金不足部分的继续赔偿",
+              "proposition": "买方泄密违约金不足部分的继续赔偿"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "NOT_APPLICABLE",
+              "supporting_evidence": [],
+              "required_fact": "卖方泄密违约金不足部分的继续赔偿",
+              "proposition": "卖方泄密违约金不足部分的继续赔偿"
+            }
+          ],
+          "recommendation_action": ""
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "review_id": "TC-11-04",
+        "reason": "DETAIL_UNRESOLVED_REQUIREMENTS_OMITTED",
+        "projection": "judgment",
+        "omitted": [
+          "incident_notification"
+        ]
+      }
+    },
+    {
+      "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-11-04",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Final Evidence Projection",
+      "reject_reason": "DETAIL_UNRESOLVED_REQUIREMENTS_OMITTED",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-fb15a58e696e8ca1dc5a",
+          "clause_id": "C0028",
+          "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1622,
+            "end_offset": 1694,
+            "raw_text": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability",
+            "stop_disclosure",
+            "stop_use",
+            "mitigation_obligation"
+          ]
+        },
+        {
+          "evidence_id": "SRC-b61f6ae08c405ca30933",
+          "clause_id": "C0062",
+          "quote": "买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2786,
+            "end_offset": 2841,
+            "raw_text": "买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability"
+          ]
+        },
+        {
+          "evidence_id": "SRC-77d35af770ff7a4f002e",
+          "clause_id": "C0032",
+          "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1841,
+            "end_offset": 1883,
+            "raw_text": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability",
+            "stop_disclosure",
+            "stop_use"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-11-04",
+          "element_id": "breach_damage_liability",
+          "claim_id": "TC-11-04-breach_damage_liability",
+          "proposition": "买方泄密损失赔偿责任已有约定；卖方泄密损失赔偿责任已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-764c836618bf72a5",
+            "EV-77e5d4af0017b61d",
+            "EV-9b5cf36979c820c8"
+          ],
+          "supporting_evidence_ids": [
+            "EV-764c836618bf72a5",
+            "EV-77e5d4af0017b61d",
+            "EV-9b5cf36979c820c8"
+          ],
+          "source_clause_ids": [
+            "C0028",
+            "C0062",
+            "C0032"
+          ],
+          "source_spans": [
+            "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+            "买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+            "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。"
+          ],
+          "source_locations": [
+            "第八条第4项",
+            "第十七条第1项",
+            "第八条第4项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "买方泄密损失赔偿责任已有约定；卖方泄密损失赔偿责任已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "泄密损失赔偿责任",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0028",
+              "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+              "obligated_party": "买方",
+              "proposition": "买方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "clause_id": "C0062",
+              "quote": "买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+              "obligated_party": "买方",
+              "proposition": "买方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "clause_id": "C0032",
+              "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+              "obligated_party": "卖方",
+              "proposition": "卖方泄密损失赔偿责任已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.breach_damage_liability",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0028",
+                  "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+                  "obligated_party": "买方",
+                  "proposition": "买方泄密损失赔偿责任已有约定。"
+                },
+                {
+                  "clause_id": "C0062",
+                  "quote": "买方违反第五条关于许可范围及禁止擅自向第三方提供技术秘密的约定，应停止违约行为并赔偿卖方因此遭受的可证明损失。",
+                  "obligated_party": "买方",
+                  "proposition": "买方泄密损失赔偿责任已有约定。"
+                }
+              ],
+              "required_fact": "买方泄密损失赔偿责任",
+              "proposition": "买方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0032",
+                  "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+                  "obligated_party": "卖方",
+                  "proposition": "卖方泄密损失赔偿责任已有约定。"
+                }
+              ],
+              "required_fact": "卖方泄密损失赔偿责任",
+              "proposition": "卖方泄密损失赔偿责任已有约定。"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-764c836618bf72a5",
+            "EV-77e5d4af0017b61d",
+            "EV-9b5cf36979c820c8"
+          ]
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "stop_disclosure",
+          "claim_id": "TC-11-04-stop_disclosure",
+          "proposition": "买方泄密后停止披露已有约定；卖方泄密后停止披露已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-764c836618bf72a5",
+            "EV-9b5cf36979c820c8"
+          ],
+          "supporting_evidence_ids": [
+            "EV-764c836618bf72a5",
+            "EV-9b5cf36979c820c8"
+          ],
+          "source_clause_ids": [
+            "C0028",
+            "C0032"
+          ],
+          "source_spans": [
+            "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+            "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。"
+          ],
+          "source_locations": [
+            "第八条第4项",
+            "第八条第4项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "买方泄密后停止披露已有约定；卖方泄密后停止披露已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "泄密后停止披露",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0028",
+              "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+              "obligated_party": "买方",
+              "proposition": "买方泄密后停止披露已有约定。"
+            },
+            {
+              "clause_id": "C0032",
+              "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+              "obligated_party": "卖方",
+              "proposition": "卖方泄密后停止披露已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.stop_disclosure",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0028",
+                  "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+                  "obligated_party": "买方",
+                  "proposition": "买方泄密后停止披露已有约定。"
+                }
+              ],
+              "required_fact": "买方泄密后停止披露",
+              "proposition": "买方泄密后停止披露已有约定。"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0032",
+                  "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+                  "obligated_party": "卖方",
+                  "proposition": "卖方泄密后停止披露已有约定。"
+                }
+              ],
+              "required_fact": "卖方泄密后停止披露",
+              "proposition": "卖方泄密后停止披露已有约定。"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-764c836618bf72a5",
+            "EV-9b5cf36979c820c8"
+          ]
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "stop_use",
+          "claim_id": "TC-11-04-stop_use",
+          "proposition": "买方泄密后停止使用已有约定；卖方泄密后停止使用已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-764c836618bf72a5",
+            "EV-9b5cf36979c820c8"
+          ],
+          "supporting_evidence_ids": [
+            "EV-764c836618bf72a5",
+            "EV-9b5cf36979c820c8"
+          ],
+          "source_clause_ids": [
+            "C0028",
+            "C0032"
+          ],
+          "source_spans": [
+            "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+            "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。"
+          ],
+          "source_locations": [
+            "第八条第4项",
+            "第八条第4项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "买方泄密后停止使用已有约定；卖方泄密后停止使用已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "泄密后停止使用",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0028",
+              "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+              "obligated_party": "买方",
+              "proposition": "买方泄密后停止使用已有约定。"
+            },
+            {
+              "clause_id": "C0032",
+              "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+              "obligated_party": "卖方",
+              "proposition": "卖方泄密后停止使用已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.stop_use",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0028",
+                  "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+                  "obligated_party": "买方",
+                  "proposition": "买方泄密后停止使用已有约定。"
+                }
+              ],
+              "required_fact": "买方泄密后停止使用",
+              "proposition": "买方泄密后停止使用已有约定。"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0032",
+                  "quote": "卖方违反保密义务的，应立即停止披露和使用相关信息，并赔偿因此给买方造成的可证明损失。",
+                  "obligated_party": "卖方",
+                  "proposition": "卖方泄密后停止使用已有约定。"
+                }
+              ],
+              "required_fact": "卖方泄密后停止使用",
+              "proposition": "卖方泄密后停止使用已有约定。"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-764c836618bf72a5",
+            "EV-9b5cf36979c820c8"
+          ]
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "mitigation_obligation",
+          "claim_id": "TC-11-04-mitigation_obligation",
+          "proposition": "买方泄密后采取措施防止继续扩散或损失扩大已有约定。",
+          "status": "PARTIALLY_COVERED",
+          "evidence_ids": [
+            "EV-764c836618bf72a5"
+          ],
+          "supporting_evidence_ids": [
+            "EV-764c836618bf72a5"
+          ],
+          "source_clause_ids": [
+            "C0028"
+          ],
+          "source_spans": [
+            "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。"
+          ],
+          "source_locations": [
+            "第八条第4项"
+          ],
+          "entailment": "PARTIAL_SUPPORT",
+          "verifier_confidence": "high",
+          "reason": "买方泄密后采取措施防止继续扩散或损失扩大已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "卖方泄密后采取措施防止继续扩散或损失扩大",
+          "required_fact": "卖方泄密后采取措施防止继续扩散或损失扩大",
+          "search_targets": [
+            "卖方泄密后采取措施防止继续扩散或损失扩大"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0028",
+              "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+              "obligated_party": "买方",
+              "proposition": "买方泄密后采取措施防止继续扩散或损失扩大已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.mitigation_obligation",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0028",
+                  "quote": "买方未经授权披露或者超出本合同目的使用保密信息的，应立即停止使用和披露，并采取合理措施防止信息进一步扩散；给卖方造成损失的，应承担相应赔偿责任。",
+                  "obligated_party": "买方",
+                  "proposition": "买方泄密后采取措施防止继续扩散或损失扩大已有约定。"
+                }
+              ],
+              "required_fact": "买方泄密后采取措施防止继续扩散或损失扩大",
+              "proposition": "买方泄密后采取措施防止继续扩散或损失扩大已有约定。"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "卖方泄密后采取措施防止继续扩散或损失扩大",
+              "proposition": "卖方泄密后采取措施防止继续扩散或损失扩大"
+            }
+          ],
+          "recommendation_action": "明确卖方泄密后采取措施防止继续扩散或损失扩大",
+          "evidence_refs": [
+            "EV-764c836618bf72a5"
+          ]
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "incident_notification",
+          "claim_id": "TC-11-04-incident_notification",
+          "proposition": "买方泄密后及时通知受影响方、卖方泄密后及时通知受影响方",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "买方泄密后及时通知受影响方、卖方泄密后及时通知受影响方",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "买方泄密后及时通知受影响方、卖方泄密后及时通知受影响方",
+          "required_fact": "买方泄密后及时通知受影响方、卖方泄密后及时通知受影响方",
+          "search_targets": [
+            "买方泄密后及时通知受影响方",
+            "卖方泄密后及时通知受影响方"
+          ],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.incident_notification",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "买方泄密后及时通知受影响方",
+              "proposition": "买方泄密后及时通知受影响方"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "卖方泄密后及时通知受影响方",
+              "proposition": "卖方泄密后及时通知受影响方"
+            }
+          ],
+          "recommendation_action": "明确买方泄密后及时通知受影响方、卖方泄密后及时通知受影响方"
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "specific_confidentiality_penalty",
+          "claim_id": "TC-11-04-specific_confidentiality_penalty",
+          "proposition": "泄密专项违约金",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "泄密专项违约金",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "residual_gap": "",
+          "required_fact": "泄密专项违约金",
+          "search_targets": [],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.specific_confidentiality_penalty",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "NOT_APPLICABLE",
+              "supporting_evidence": [],
+              "required_fact": "买方泄密专项违约金",
+              "proposition": "买方泄密专项违约金"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "NOT_APPLICABLE",
+              "supporting_evidence": [],
+              "required_fact": "卖方泄密专项违约金",
+              "proposition": "卖方泄密专项违约金"
+            }
+          ],
+          "recommendation_action": ""
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "excess_loss_compensation",
+          "claim_id": "TC-11-04-excess_loss_compensation",
+          "proposition": "泄密违约金不足部分的继续赔偿",
+          "status": "NOT_APPLICABLE",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "泄密违约金不足部分的继续赔偿",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "residual_gap": "",
+          "required_fact": "泄密违约金不足部分的继续赔偿",
+          "search_targets": [],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.excess_loss_compensation",
+          "party_coverage": [
+            {
+              "obligated_party": "买方",
+              "status": "NOT_APPLICABLE",
+              "supporting_evidence": [],
+              "required_fact": "买方泄密违约金不足部分的继续赔偿",
+              "proposition": "买方泄密违约金不足部分的继续赔偿"
+            },
+            {
+              "obligated_party": "卖方",
+              "status": "NOT_APPLICABLE",
+              "supporting_evidence": [],
+              "required_fact": "卖方泄密违约金不足部分的继续赔偿",
+              "proposition": "卖方泄密违约金不足部分的继续赔偿"
+            }
+          ],
+          "recommendation_action": ""
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "review_id": "TC-11-04",
+        "reason": "DETAIL_UNRESOLVED_REQUIREMENTS_OMITTED",
+        "projection": "risk_point_description",
+        "omitted": [
+          "incident_notification"
+        ]
+      }
+    },
+    {
+      "error_code": "PENDING_VERIFICATION_COUNT",
+      "rule_id": null,
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Final Summary Projection",
+      "reject_reason": "待核验或需人工复核的规则未计入人工复核明细。",
+      "source_spans": [],
+      "current_elements": [],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "PENDING_VERIFICATION_COUNT",
+        "failure_stage": "Final Summary Projection",
+        "root_cause": "待核验或需人工复核的规则未计入人工复核明细。",
+        "current_status": "FAIL"
+      }
+    },
+    {
+      "error_code": "RENDERED_MANUAL_COUNT",
+      "rule_id": null,
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Final Summary Projection",
+      "reject_reason": "报告人工复核数量与明细不一致。",
+      "source_spans": [],
+      "current_elements": [],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "RENDERED_MANUAL_COUNT",
+        "failure_stage": "Final Summary Projection",
+        "root_cause": "报告人工复核数量与明细不一致。",
+        "current_status": "FAIL"
+      }
+    }
+  ],
+  "note": "Null IDs/stages mean the existing gate did not publish them; none are fabricated."
+}

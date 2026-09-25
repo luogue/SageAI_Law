@@ -203,9 +203,9 @@ def _make_clause(
 
 ARTICLE_RE = re.compile(r"^第[一二三四五六七八九十百零〇\d]+条[\s　]*(.*)$")
 CHINESE_HEADING_RE = re.compile(r"^[一二三四五六七八九十百零〇]+、\s*(.*)$")
-SUBCLAUSE_RE = re.compile(r"^（[一二三四五六七八九十]+）")
+SUBCLAUSE_RE = re.compile(r"^（[一二三四五六七八九十\d]+）")
 NUMBERED_RE = re.compile(r"^(?P<number>\d+(?:\.\d+)*)(?:[\.．、])")
-APPENDIX_RE = re.compile(r"^(附件|附表)[一二三四五六七八九十\d]*?(?=\s|[:：]|$)")
+APPENDIX_RE = re.compile(r"^(?:(?:借\s*条|借\s*据|欠\s*条|收\s*据)\s*$|(附件|附表)[一二三四五六七八九十\d]*?(?=\s|[:：]|$))")
 PARTY_RE = re.compile(r"^(甲方|乙方)[（(].*")
 NON_CONTRACT_META_MARKERS = (
     "测试重点",
@@ -278,6 +278,10 @@ def _clean_lines(contract_text: str) -> List[str]:
         normalized = raw_line.strip()
         if not normalized:
             continue
+        # Unwrap paired emphasis as a unit. Stripping only leading/trailing '*'
+        # turns '**单位**办理手续' into '单位**办理手续' and corrupts source recall.
+        normalized = re.sub(r'\*\*(.+?)\*\*', lambda m:
+            ('\n' if re.match(r'(?:第[一二三四五六七八九十百零〇\d]+条|[一二三四五六七八九十百零〇]+、|附件|补充条款)',m[1]) else '') + m[1], normalized)
         normalized = re.sub(
             r"\*\*(?=(?:第[一二三四五六七八九十百零〇\d]+条|[一二三四五六七八九十百零〇]+、|附件|补充条款))",
             "\n",
@@ -291,12 +295,12 @@ def _clean_lines(contract_text: str) -> List[str]:
         # Do not split inside hierarchical numbers such as ``5.5.``.  The old
         # expression inserted a newline between the two fives and collapsed
         # the source path to the ambiguous display label ``第5项``.
-        normalized = re.sub(r"(?<!^)(?<![\d.．])(?=\d+(?:\.\d+)*[\.．、](?!\d))", "\n", normalized)
+        normalized = re.sub(r"(?<!^)(?<![A-Za-z0-9_.．/-])(?=\d+(?:\.\d+)*[\.．、](?!\d))", "\n", normalized)
         normalized = re.sub(r"(?<!^)(?=本合同双方当事人[:：])", "\n", normalized)
         normalized = re.sub(r"(?<!^)(?=出租方[（(])", "\n", normalized)
         normalized = re.sub(r"(?<!^)(?=承租方[（(])", "\n", normalized)
         for line in normalized.splitlines():
-            line = re.sub(r"^(?:#+|\*\*)\s*", "", line.strip()).rstrip("*").strip()
+            line = re.sub(r"^#+\s*", "", line.strip()).strip()
             if line:
                 lines.append(line)
     return lines
@@ -345,12 +349,29 @@ def _fallback_unstructured_clauses(lines: List[str]) -> List[ParsedClause]:
 def _attach_source_offsets(contract_text: str, clauses: List[ParsedClause]) -> List[ParsedClause]:
     """Attach absolute offsets into the original extracted contract text."""
     source = contract_text or ""
+    marker_mask = [False] * len(source)
+    for marker in re.finditer(r'\*\*|__', source):
+        for index in range(marker.start(), marker.end()):
+            marker_mask[index] = True
+    format_positions = [index for index, hidden in enumerate(marker_mask) if not hidden]
+    format_neutral_source = ''.join(source[index] for index in format_positions)
     cursor = 0
     traced: List[ParsedClause] = []
     for clause in clauses:
         raw = clause.raw_text or clause.text
         start = source.find(raw, cursor)
         end = start + len(raw) if start >= 0 else -1
+        if start < 0 and raw:
+            # DOCX extraction can retain Markdown emphasis around words while
+            # clause normalization removes it. Locate the same contiguous
+            # source envelope without treating presentation markers as legal
+            # text, then retain the actual original substring and offsets.
+            neutral_cursor = next((i for i, pos in enumerate(format_positions) if pos >= cursor), len(format_positions))
+            neutral_raw = re.sub(r'\*\*|__', '', raw)
+            neutral_start = format_neutral_source.find(neutral_raw, neutral_cursor)
+            if neutral_start >= 0:
+                start = format_positions[neutral_start]
+                end = format_positions[neutral_start + len(neutral_raw) - 1] + 1
         if start < 0:
             lines = [line for line in raw.splitlines() if line]
             first = source.find(lines[0], cursor) if lines else -1
@@ -358,7 +379,25 @@ def _attach_source_offsets(contract_text: str, clauses: List[ParsedClause]) -> L
             if first >= 0 and last >= 0:
                 start = first
                 end = last + len(lines[-1])
-        traced.append(replace(clause, start_offset=start, end_offset=end))
+        # Keep matching text separate from the original source envelope. The
+        # parser can strip formatting markers/blank lines, but every retained
+        # line must still occur verbatim and in order inside that envelope.
+        original = source[start:end] if start >= 0 and end >= start else raw
+        line_cursor = 0
+        source_lines_verified = True
+        neutral_original = re.sub(r'\*\*|__', '', original)
+        for line in raw.splitlines():
+            if not line.strip():
+                continue
+            neutral_line = re.sub(r'\*\*|__', '', line)
+            found = neutral_original.find(neutral_line, line_cursor)
+            if found < 0:
+                source_lines_verified = False
+                break
+            line_cursor = found + len(neutral_line)
+        if not source_lines_verified:
+            original = raw
+        traced.append(replace(clause, raw_text=original, start_offset=start, end_offset=end))
         if end >= 0:
             cursor = end
     return traced
@@ -373,7 +412,10 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
     """
 
     lines = _clean_lines(contract_text)
-    field_section_document = not any(ARTICLE_RE.match(line) for line in lines)
+    field_section_document = not any(
+        ARTICLE_RE.match(line) or re.match(r"^\d+(?:\.\d+)+\s+\D", line)
+        for line in lines
+    )
     if not lines:
         return []
 
@@ -388,6 +430,10 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
     current_heading_path = ["全文"]
     formal_started = current_section == SECTION_FORMAL
     seen_structural_marker = False
+    part_heading = ""
+    toc_active = False
+    toc_headings: set[str] = set()
+    short_enumeration = False
 
     def flush() -> None:
         nonlocal current_lines, current_location, current_title, current_section, current_level, current_heading_path
@@ -410,6 +456,81 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
         current_lines = []
 
     for line in lines:
+        # Short enumerated fragments after an explicit colon are a list,
+        # not independent articles. Keep the governing sentence and items
+        # together so order/polarity survives without inventing a cross-source
+        # quote. A full heading or non-list paragraph terminates this context.
+        fragment = re.fullmatch(r'(?:[一二三四五六七八九十]+、|[（(]?\d+[）).、])[^。；;\n]{1,20}[；;。]', line)
+        if fragment and current_lines and (short_enumeration or current_lines[-1].endswith(('：', ':'))):
+            current_lines.append(line)
+            short_enumeration = not line.endswith('。')
+            continue
+        short_enumeration = False
+        normalized_heading = re.sub(r"\s+", "", line)
+        if normalized_heading in {"目录", "编制说明"}:
+            flush()
+            current_section = SECTION_USAGE
+            current_location = line
+            current_lines = [line]
+            toc_active = normalized_heading == "目录"
+            continue
+        part_match = re.match(r"^第[一二三四五六七八九十\d]+部分\s*\S+", line)
+        if toc_active:
+            if part_match and normalized_heading in toc_headings:
+                toc_active = False
+            else:
+                if part_match:
+                    toc_headings.add(normalized_heading)
+                current_lines.append(line)
+                continue
+        if part_match:
+            flush()
+            part_heading = line
+            article_heading = line
+            article_location = line
+            current_section = SECTION_FORMAL
+            formal_started = True
+            seen_structural_marker = True
+            current_location = line
+            current_title = line
+            current_heading_path = [line]
+            current_level = 0
+            current_lines = [line]
+            continue
+        # Consume the entire decimal identifier before the legacy list matcher,
+        # which otherwise reads 14.3 as item 14 and inherits an unrelated heading.
+        decimal = re.match(r"^(\d+(?:\.\d+)+)(?![\d.])\s*([^\d\s].*)$", line)
+        if decimal and current_section in {SECTION_FORMAL, SECTION_APPENDIX}:
+            flush()
+            seen_structural_marker = True
+            current_location = " / ".join(v for v in (part_heading, decimal.group(1)) if v)
+            current_title = line[:80]
+            current_heading_path = [v for v in (part_heading, line[:80]) if v]
+            current_level = 2
+            current_lines = [line]
+            continue
+        # Sections and attached schedules can follow the signature block. They
+        # start a fresh operative domain, rather than inheriting party metadata.
+        section_heading = re.match(r"^第[一二三四五六七八九十百零〇\d]+[章节]\s*\S+", line)
+        attached_heading = re.match(r"^附[：:]\s*\S+", line)
+        field_heading = field_section_document and re.fullmatch(r"[^：:。；;，,！？\n]{2,40}[：:]", line)
+        if section_heading or attached_heading or field_heading:
+            flush()
+            seen_structural_marker = True
+            if attached_heading:
+                current_section = SECTION_APPENDIX
+            elif section_heading or current_section not in {SECTION_FORMAL, SECTION_APPENDIX}:
+                current_section = SECTION_FORMAL
+            formal_started = True
+            if section_heading or attached_heading:
+                article_heading = line
+                article_location = line
+            current_location = " / ".join(dict.fromkeys(v for v in (article_heading, line) if v))
+            current_title = line
+            current_heading_path = list(dict.fromkeys(v for v in (article_heading, line) if v))
+            current_level = 1 if section_heading or attached_heading else 2
+            current_lines = [line]
+            continue
         if re.sub(r"\s+", "", line).startswith(("订立合同双方", "合同双方当事人", "甲乙双方经")):
             formal_started = True
             if current_section != SECTION_FORMAL:
@@ -472,7 +593,8 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
             current_location = line[:40]
             current_title = line[:40]
             current_level = 1
-            current_section = SECTION_FORMAL
+            # Party fields inside an attached agreement belong to that document.
+            current_section = SECTION_APPENDIX if current_section == SECTION_APPENDIX else SECTION_FORMAL
             formal_started = True
             current_lines = [line]
             continue
@@ -485,7 +607,9 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
             current_level = 1
             article_heading = line
             current_heading_path = [line]
-            current_section = SECTION_FORMAL
+            # Article numbering restarts in annexed agreements; it does not
+            # switch their source back to the main contract.
+            current_section = SECTION_APPENDIX if current_section == SECTION_APPENDIX else SECTION_FORMAL
             formal_started = True
             current_lines = [line]
             continue
@@ -538,6 +662,27 @@ def parse_contract_clauses(contract_text: str) -> List[ParsedClause]:
     ):
         return _attach_source_offsets(contract_text, _fallback_unstructured_clauses(lines))
 
+    # Keep unselected alternatives in the parsed source lineage, but outside
+    # operative evidence. Split only affected clauses so sibling text cannot
+    # accidentally reintroduce an inactive option into an evidence bundle.
+    from review_v2.template_parser import inactive_alternative_lines
+    inactive = inactive_alternative_lines(contract_text)
+    if inactive:
+        split = []
+        for clause in clauses:
+            if not any(line.strip() in inactive for line in clause.text.splitlines()):
+                split.append(clause)
+                continue
+            for line in clause.text.splitlines():
+                if not line.strip():
+                    continue
+                excluded = line.strip() in inactive
+                split.append(_make_clause(clause_id='', location=clause.location,
+                    title=clause.title, text=line,
+                    section_type=SECTION_USAGE if excluded else clause.section_type,
+                    level=clause.level, paragraph_index=clause.paragraph_index,
+                    heading_path=clause.heading_path))
+        clauses = [replace(c, clause_id=f'C{i:04d}') for i,c in enumerate(split,1)]
     return _attach_source_offsets(contract_text, clauses)
 
 

@@ -1,0 +1,25 @@
+{
+  "updated_at": "2026-09-09T07:12:55.770847+00:00",
+  "SSH": "RESTORED",
+  "OOM_CONFIRMED": true,
+  "OOM_SCOPE": "Two worker kills in this round isolated test container at 15:07; no evidence explaining prior SSH timeout by OOM.",
+  "BACKEND_DOCKER_BUILD": "PASS",
+  "FRONTEND_DOCKER_BUILD": "FAIL",
+  "BACKEND_IMAGE_DB_SCAN": "PASS",
+  "FRONTEND_IMAGE_DB_SCAN": "FAIL",
+  "DOCKER_BUSINESS_REGRESSION": "FAIL",
+  "PRODUCTION_DB_STATUS": "HEALTHY",
+  "CODE_RELEASE_GATE": "BLOCKED",
+  "DATABASE_SWITCH_GATE": "BLOCKED",
+  "PRODUCTION_DEPLOY_GATE": "BLOCKED",
+  "blockers": [
+    "Resource-sufficient independent Docker host needed for successful frontend build, final frontend scan, and complete OOM-free Docker regression.",
+    "Existing production frontend healthcheck still reports unhealthy (IPv6 probe mismatch); production was not changed.",
+    "Local database switch still lacks user-approved historical-data disposition; no switch authorized in this round."
+  ],
+  "production_db_verified_at": "2026-09-09T07:00:33Z",
+  "production_bytes_reconfirmed_at": "2026-09-09T07:09:44Z",
+  "application_code_modified_this_round": false,
+  "database_switch_performed": false,
+  "deployment_performed": false
+}

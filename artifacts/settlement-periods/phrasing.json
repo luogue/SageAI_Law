@@ -1,0 +1,60 @@
+{
+  "facts": [
+    {
+      "concept": "salary.settlement_period",
+      "value": {
+        "earning_period_start_day": "1",
+        "earning_period_end_day": "10",
+        "payment_deadline_day": "15",
+        "earning_period_end_month_offset": 0,
+        "payment_month_offset": 0
+      },
+      "confidence": 0.98,
+      "assertion": "EXPLICIT",
+      "evidence": [
+        {
+          "clause_id": "C0002",
+          "quote": "当月一日至十日工资在当月十五日前支付；当月十一日至月末工资在次月五日前支付。"
+        }
+      ]
+    },
+    {
+      "concept": "salary.settlement_period",
+      "value": {
+        "earning_period_start_day": "11",
+        "earning_period_end_day": "MONTH_END",
+        "payment_deadline_day": "5",
+        "earning_period_end_month_offset": 0,
+        "payment_month_offset": 1
+      },
+      "confidence": 0.98,
+      "assertion": "EXPLICIT",
+      "evidence": [
+        {
+          "clause_id": "C0002",
+          "quote": "当月一日至十日工资在当月十五日前支付；当月十一日至月末工资在次月五日前支付。"
+        }
+      ]
+    }
+  ],
+  "calculations": [
+    {
+      "status": "PASS",
+      "max_days": 14,
+      "min_days": 14,
+      "earning_period_start": "2000-01-01",
+      "earning_period_end": "2000-01-10",
+      "payment_deadline": "2000-01-15",
+      "calculation_basis": "支付截止日减工资期间起始日的日历日差；覆盖完整格里高利历400年周期"
+    },
+    {
+      "status": "RISK",
+      "max_days": 25,
+      "min_days": 22,
+      "earning_period_start": "2000-01-11",
+      "earning_period_end": "2000-01-31",
+      "payment_deadline": "2000-02-05",
+      "calculation_basis": "支付截止日减工资期间起始日的日历日差；覆盖完整格里高利历400年周期"
+    }
+  ]
+}

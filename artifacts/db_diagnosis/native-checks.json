@@ -1,0 +1,30 @@
+{
+  "native_sqlite_version": "3.44.3 2024-03-24 21:15:01 d68fb8b5dbb8305e00d2dd14d8fe6b3d9f67e2459102ff160d956a6b75ddc18e (32-bit)",
+  "checks": {
+    "PRAGMA integrity_check;": {
+      "returncode": 11,
+      "stdout": "*** in database main ***\nTree 26 page 26 cell 0: invalid page number 94\nTree 26 page 26 cell 7: 2nd reference to page 69\n",
+      "stderr": "Error: stepping, database disk image is malformed (11)\n"
+    },
+    "PRAGMA quick_check;": {
+      "returncode": 11,
+      "stdout": "*** in database main ***\nTree 26 page 26 cell 0: invalid page number 94\nTree 26 page 26 cell 7: 2nd reference to page 69\n",
+      "stderr": "Error: stepping, database disk image is malformed (11)\n"
+    }
+  },
+  "before": {
+    "F:\\ai\\Sage\\backend\\app.db": "0986b6e7fbda02db9f73213bcea0df75e36458274951101d649a9bfca53e80cf",
+    "F:\\ai\\Sage\\backend\\app.db-wal": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "F:\\ai\\Sage\\backend\\app.db-shm": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+  },
+  "after": {
+    "F:\\ai\\Sage\\backend\\app.db": "0986b6e7fbda02db9f73213bcea0df75e36458274951101d649a9bfca53e80cf",
+    "F:\\ai\\Sage\\backend\\app.db-wal": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "F:\\ai\\Sage\\backend\\app.db-shm": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+  },
+  "unchanged": true,
+  "production_verification": {
+    "method": "SSH BatchMode + strict host key; read-only docker inspect",
+    "result": "authentication denied; no remote command executed"
+  }
+}

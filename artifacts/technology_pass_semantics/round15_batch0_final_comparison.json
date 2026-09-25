@@ -1,0 +1,102 @@
+{
+  "baseline": {
+    "PASS": 643,
+    "FAIL": 144,
+    "SKIP": 0
+  },
+  "current": {
+    "PASS": 660,
+    "FAIL": 142,
+    "SKIP": 0
+  },
+  "recovered": [
+    "backend.tests.test_patent_transfer_acquisition_and_remedies::test_current_existing_and_retained_license_reduce_full_scope_coverage",
+    "backend.tests.test_patent_transfer_acquisition_and_remedies::test_scope_narrative_does_not_invent_missing_territory_term_and_powers"
+  ],
+  "newly_failing": [],
+  "added": {
+    "backend.tests.test_registered_patent_asset_routing::test_actual_patent_upload_routes_and_keeps_source_bound_report": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_registered_patent_asset_routing::test_claim_duties_follow_declared_roles_and_preserve_sources[\\u4e59\\u65b9-\\u7532\\u65b9]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_registered_patent_asset_routing::test_claim_duties_follow_declared_roles_and_preserve_sources[\\u7532\\u65b9-\\u4e59\\u65b9]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_registered_patent_asset_routing::test_claim_object_is_not_promoted_to_liability_subject": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_registered_patent_asset_routing::test_confidential_documents_do_not_replace_registered_transfer_asset[\\u4e13\\u6709\\u6280\\u672f\\u8d44\\u6599]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_registered_patent_asset_routing::test_confidential_documents_do_not_replace_registered_transfer_asset[\\u6e90\\u4ee3\\u7801]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_registered_patent_asset_routing::test_confidential_documents_do_not_replace_registered_transfer_asset[\\u7b97\\u6cd5\\u6587\\u6863]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_registered_patent_asset_routing::test_confidential_documents_do_not_replace_registered_transfer_asset[\\u975e\\u516c\\u5f00\\u6280\\u672f\\u8d44\\u6599]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_registered_patent_asset_routing::test_inbound_enforcement_event_owns_following_expense_allocation[\\u6295\\u8bc9]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_registered_patent_asset_routing::test_inbound_enforcement_event_owns_following_expense_allocation[\\u8b66\\u544a]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_registered_patent_asset_routing::test_inbound_enforcement_event_owns_following_expense_allocation[\\u8bc9\\u8bbc]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_registered_patent_asset_routing::test_independent_secret_grant_preserved_beside_patent": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_registered_patent_asset_routing::test_missing_procedure_does_not_erase_neighboring_cost_duty": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_registered_patent_asset_routing::test_recipient_cost_obligation_not_assigned_to_provider": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_registered_patent_asset_routing::test_registered_owner_contract_authority_is_a_representation": {
+      "status": "PASS",
+      "message": ""
+    }
+  },
+  "removed": [],
+  "changes": {
+    "backend.tests.test_patent_transfer_acquisition_and_remedies::test_current_existing_and_retained_license_reduce_full_scope_coverage": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '缺失' == '部分覆盖'\n  \n  - 部分覆盖\n  + 缺失"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_patent_transfer_acquisition_and_remedies::test_scope_narrative_does_not_invent_missing_territory_term_and_powers": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '商业排他性' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    }
+  }
+}

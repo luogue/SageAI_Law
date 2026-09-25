@@ -1,0 +1,1424 @@
+{
+  "stage": "EXTRACTION",
+  "payload": {
+    "schema_version": "contract-facts-1.0",
+    "family": "credit.loan",
+    "active_concepts": [
+      "loan.security",
+      "loan.refinancing",
+      "loan.sale_security",
+      "loan.extension",
+      "loan.extension_excluded",
+      "loan.early_repayment",
+      "loan.household",
+      "loan.joint_business",
+      "loan.spouse",
+      "loan.compound",
+      "loan.limitation_risk",
+      "loan.voucher_mechanism"
+    ],
+    "concepts": {
+      "loan.security": {
+        "kind": "boolean",
+        "description": "当前借款是否实际约定抵押、质押或保证担保；区分未来拟提供担保。",
+        "multiple": false
+      },
+      "loan.refinancing": {
+        "kind": "boolean",
+        "description": "当前借款是否用于归还旧借款，不是禁止借新还旧的表述。",
+        "multiple": false
+      },
+      "loan.sale_security": {
+        "kind": "boolean",
+        "description": "是否用买卖或回购交易担保借款，不把一般担保或用途描述当成买卖担保。",
+        "multiple": false
+      },
+      "loan.extension": {
+        "kind": "boolean",
+        "description": "是否明确约定允许申请展期及相应展期安排。",
+        "multiple": false
+      },
+      "loan.extension_excluded": {
+        "kind": "boolean",
+        "description": "是否明确排除或禁止申请展期。",
+        "multiple": false
+      },
+      "loan.early_repayment": {
+        "kind": "boolean",
+        "description": "是否约定提前归还或结清借款的安排。",
+        "multiple": false
+      },
+      "loan.household": {
+        "kind": "boolean",
+        "description": "借款是否明确用于家庭日常生活。",
+        "multiple": false
+      },
+      "loan.joint_business": {
+        "kind": "boolean",
+        "description": "借款是否明确用于夫妻共同生产经营。",
+        "multiple": false
+      },
+      "loan.spouse": {
+        "kind": "boolean",
+        "description": "借款是否涉及配偶身份、共同意思表示或相应债务承担。",
+        "multiple": false
+      },
+      "loan.compound": {
+        "kind": "boolean",
+        "description": "是否存在实际计收复利的安排；明确不计收为EXPLICIT_NONE，不作为正向复利关系。",
+        "multiple": false
+      },
+      "loan.limitation_risk": {
+        "kind": "boolean",
+        "description": "是否明确记载催收或行权已经超过、临近时效/保证期间等实际时间事实，不作法律时效判断。",
+        "multiple": false
+      },
+      "loan.voucher_mechanism": {
+        "kind": "boolean",
+        "description": "是否有借据、放款回单或系统放款记录等债权或支付凭证机制。",
+        "multiple": false
+      }
+    },
+    "known_verified_roots": [
+      {
+        "concept": "common.parties",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "name": "张明远",
+          "role": "贷款人（甲方）",
+          "kind": "NATURAL"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0001",
+            "quote": "贷款人（甲方）：张明远",
+            "section": "全文",
+            "source_start": 8,
+            "source_end": 19,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0001",
+            "quote": "身份证号：370211198806150017",
+            "section": "全文",
+            "source_start": 66,
+            "source_end": 89,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-4eb27cf83ecff7c9d8eb648b",
+        "verified": true
+      },
+      {
+        "concept": "common.parties",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "name": "李浩然",
+          "role": "借款人（乙方）",
+          "kind": "NATURAL"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0001",
+            "quote": "借款人（乙方）：李浩然",
+            "section": "全文",
+            "source_start": 90,
+            "source_end": 101,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0001",
+            "quote": "身份证号：370211199203220025",
+            "section": "全文",
+            "source_start": 149,
+            "source_end": 172,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-ee52e0c9860ea76e604ed791",
+        "verified": true
+      },
+      {
+        "concept": "common.signing_date",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "2026-09-10",
+        "evidence": [
+          {
+            "clause_id": "C0020",
+            "quote": "签约时间：2026年9月10日",
+            "section": "第五条　其他约定",
+            "source_start": 1073,
+            "source_end": 1088,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-67d4a57db3214fc3ad1479fe",
+        "verified": true
+      },
+      {
+        "concept": "common.effective_date",
+        "state": "ABSENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [],
+        "fact_id": "CF-eabdb93cba1fe28ea9295820",
+        "verified": true
+      },
+      {
+        "concept": "common.effective_condition",
+        "state": "ABSENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [],
+        "fact_id": "CF-b4f5f948c093e2687be79655",
+        "verified": true
+      },
+      {
+        "concept": "common.term",
+        "state": "PRESENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "amount": "1",
+          "unit": "YEAR"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0005",
+            "quote": "1.3 借款期限：自2026年9月10日至2027年9月9日。",
+            "section": "1.3",
+            "source_start": 339,
+            "source_end": 370,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-872eee1f49e03cdbbd3aa5de",
+        "verified": true
+      },
+      {
+        "concept": "common.amounts",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "amount": "150000.00",
+          "currency": "CNY",
+          "role": "借款本金"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0004",
+            "quote": "1.2 借款金额：人民币（大写）壹拾伍万元整（￥150,000.00元）。",
+            "section": "1.2",
+            "source_start": 301,
+            "source_end": 338,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-ab317279ecf2d774c4528261",
+        "verified": true
+      },
+      {
+        "concept": "common.liability",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "乙方违反本合同约定借款用途的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且乙方应按借款总额的20％向甲方支付违约金。",
+        "evidence": [
+          {
+            "clause_id": "C0009",
+            "quote": "2.1 乙方违反本合同约定借款用途的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且乙方应按借款总额的20％向甲方支付违约金。",
+            "section": "2.1",
+            "source_start": 479,
+            "source_end": 554,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-330f64df10a9e2a66d244618",
+        "verified": true
+      },
+      {
+        "concept": "common.liability",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "乙方违反本合同其它相关条款时，若该条款对违约责任没有约定，则乙方应按借款总额的20％向甲方支付违约金。",
+        "evidence": [
+          {
+            "clause_id": "C0010",
+            "quote": "2.2 乙方违反本合同其它相关条款时，若该条款对违约责任没有约定，则乙方应按借款总额的20％向甲方支付违约金。",
+            "section": "2.2",
+            "source_start": 555,
+            "source_end": 610,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-c9518f71891dbc25bb88cfea",
+        "verified": true
+      },
+      {
+        "concept": "common.liability",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "无论何种情形下，乙方按照合同约定支付的违约金不足以弥补甲方全部损失的，乙方应全额赔偿。",
+        "evidence": [
+          {
+            "clause_id": "C0011",
+            "quote": "2.3 无论何种情形下，乙方按照合同约定支付的违约金不足以弥补甲方全部损失的，乙方应全额赔偿。",
+            "section": "2.3",
+            "source_start": 611,
+            "source_end": 658,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-c8cb5c8da1f0b998479b3fe1",
+        "verified": true
+      },
+      {
+        "concept": "common.liability",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "乙方未按合同约定按时偿还本金或利息的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且从逾期之日起乙方应每日按借款总额的0.5%向甲方支付违约金。",
+        "evidence": [
+          {
+            "clause_id": "C0012",
+            "quote": "2.4 乙方未按合同约定按时偿还本金或利息的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且从逾期之日起乙方应每日按借款总额的0.5%向甲方支付违约金。",
+            "section": "2.4",
+            "source_start": 659,
+            "source_end": 747,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-ee396c74c8fab592dc84bdaa",
+        "verified": true
+      },
+      {
+        "concept": "common.liability",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "因乙方违约而产生的诉讼费、公证费、财产保全费、律师服务费等实现债权的各种费用以及可能产生的甲方代垫费用和其他费用均由乙方承担。",
+        "evidence": [
+          {
+            "clause_id": "C0013",
+            "quote": "2.5 因乙方违约而产生的诉讼费、公证费、财产保全费、律师服务费等实现债权的各种费用以及可能产生的甲方代垫费用和其他费用均由乙方承担。",
+            "section": "2.5",
+            "source_start": 748,
+            "source_end": 815,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-2391f1193d5aad9a7710ba43",
+        "verified": true
+      },
+      {
+        "concept": "common.dispute_method",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "NEGOTIATION",
+        "evidence": [
+          {
+            "clause_id": "C0015",
+            "quote": "3.1 甲乙双方因履行本合同发生纠纷，应首先协商解决；协商不成，则向青岛市黄岛区人民法院提起诉讼。",
+            "section": "3.1",
+            "source_start": 825,
+            "source_end": 874,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-c9260fc5d9a81a97729eafc6",
+        "verified": true
+      },
+      {
+        "concept": "common.dispute_method",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "LITIGATION",
+        "evidence": [
+          {
+            "clause_id": "C0015",
+            "quote": "3.1 甲乙双方因履行本合同发生纠纷，应首先协商解决；协商不成，则向青岛市黄岛区人民法院提起诉讼。",
+            "section": "3.1",
+            "source_start": 825,
+            "source_end": 874,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-1546c3ba77332abc9c754d1d",
+        "verified": true
+      },
+      {
+        "concept": "common.dispute_institution",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "青岛市黄岛区人民法院",
+        "evidence": [
+          {
+            "clause_id": "C0015",
+            "quote": "3.1 甲乙双方因履行本合同发生纠纷，应首先协商解决；协商不成，则向青岛市黄岛区人民法院提起诉讼。",
+            "section": "3.1",
+            "source_start": 825,
+            "source_end": 874,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-20d6f5ccc9ca626367250742",
+        "verified": true
+      },
+      {
+        "concept": "loan.lender_kind",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "natural",
+        "evidence": [
+          {
+            "clause_id": "C0001",
+            "quote": "贷款人（甲方）：张明远",
+            "section": "全文",
+            "source_start": 8,
+            "source_end": 19,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0001",
+            "quote": "身份证号：370211198806150017",
+            "section": "全文",
+            "source_start": 66,
+            "source_end": 89,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-fe8f2653b1c37862b85e06b6",
+        "verified": true
+      },
+      {
+        "concept": "loan.borrower_kind",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "natural",
+        "evidence": [
+          {
+            "clause_id": "C0001",
+            "quote": "借款人（乙方）：李浩然",
+            "section": "全文",
+            "source_start": 90,
+            "source_end": 101,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0001",
+            "quote": "身份证号：370211199203220025",
+            "section": "全文",
+            "source_start": 149,
+            "source_end": 172,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-b793602cf9b86cb44c183d9e",
+        "verified": true
+      },
+      {
+        "concept": "loan.guarantee",
+        "state": "ABSENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [],
+        "fact_id": "CF-0a91ce776090d68875f97f90",
+        "verified": true
+      }
+    ],
+    "document": [
+      {
+        "clause_id": "C0001",
+        "section": "全文",
+        "text": "无抵押借款合同\n贷款人（甲方）：张明远\n住址：青岛市黄岛区测试路88号1号楼101室邮编：266500\n电话：13800000001身份证号：370211198806150017\n借款人（乙方）：李浩然\n住址：青岛市黄岛区示范路126号2号楼502室邮编：266500\n电话：13900000002身份证号：370211199203220025\n为明确甲、乙双方权利义务及约束双方的借贷行为，根据相关的法律法规，甲、乙双方遵循自愿、互利、公平和诚实信用的原则，经协商一致，特订立本合同，以资共同遵守。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 0,
+        "source_end": 250
+      },
+      {
+        "clause_id": "C0002",
+        "section": "第一条　借款用途、金额、期限及利息",
+        "text": "第一条　借款用途、金额、期限及利息",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 251,
+        "source_end": 268
+      },
+      {
+        "clause_id": "C0003",
+        "section": "1.1",
+        "text": "1.1 借款用途：用于乙方个人经营资金周转及采购经营所需设备。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 269,
+        "source_end": 300
+      },
+      {
+        "clause_id": "C0004",
+        "section": "1.2",
+        "text": "1.2 借款金额：人民币（大写）壹拾伍万元整（￥150,000.00元）。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 301,
+        "source_end": 338
+      },
+      {
+        "clause_id": "C0005",
+        "section": "1.3",
+        "text": "1.3 借款期限：自2026年9月10日至2027年9月9日。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 339,
+        "source_end": 370
+      },
+      {
+        "clause_id": "C0006",
+        "section": "1.4",
+        "text": "1.4 利息：利率为年利率10.8%，按月计收，每月10日（与借款发放日同一日）支付。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 371,
+        "source_end": 414
+      },
+      {
+        "clause_id": "C0007",
+        "section": "1.5",
+        "text": "1.5 因办理本次借款而发生一切费用，包括但不限于评估、保险、鉴定、登记、公证等费用，皆由乙方独立全部承担。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 415,
+        "source_end": 469
+      },
+      {
+        "clause_id": "C0008",
+        "section": "第二条　违约责任",
+        "text": "第二条　违约责任",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 470,
+        "source_end": 478
+      },
+      {
+        "clause_id": "C0009",
+        "section": "2.1",
+        "text": "2.1 乙方违反本合同约定借款用途的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且乙方应按借款总额的20％向甲方支付违约金。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 479,
+        "source_end": 554
+      },
+      {
+        "clause_id": "C0010",
+        "section": "2.2",
+        "text": "2.2 乙方违反本合同其它相关条款时，若该条款对违约责任没有约定，则乙方应按借款总额的20％向甲方支付违约金。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 555,
+        "source_end": 610
+      },
+      {
+        "clause_id": "C0011",
+        "section": "2.3",
+        "text": "2.3 无论何种情形下，乙方按照合同约定支付的违约金不足以弥补甲方全部损失的，乙方应全额赔偿。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 611,
+        "source_end": 658
+      },
+      {
+        "clause_id": "C0012",
+        "section": "2.4",
+        "text": "2.4 乙方未按合同约定按时偿还本金或利息的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且从逾期之日起乙方应每日按借款总额的0.5%向甲方支付违约金。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 659,
+        "source_end": 747
+      },
+      {
+        "clause_id": "C0013",
+        "section": "2.5",
+        "text": "2.5 因乙方违约而产生的诉讼费、公证费、财产保全费、律师服务费等实现债权的各种费用以及可能产生的甲方代垫费用和其他费用均由乙方承担。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 748,
+        "source_end": 815
+      },
+      {
+        "clause_id": "C0014",
+        "section": "第三条　争议解决",
+        "text": "第三条　争议解决",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 816,
+        "source_end": 824
+      },
+      {
+        "clause_id": "C0015",
+        "section": "3.1",
+        "text": "3.1 甲乙双方因履行本合同发生纠纷，应首先协商解决；协商不成，则向青岛市黄岛区人民法院提起诉讼。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 825,
+        "source_end": 874
+      },
+      {
+        "clause_id": "C0016",
+        "section": "3.2",
+        "text": "3.2 在诉讼期间，本合同不涉及争议部分的条款仍需履行。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 875,
+        "source_end": 903
+      },
+      {
+        "clause_id": "C0017",
+        "section": "第四条　其他",
+        "text": "第四条　其他",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 904,
+        "source_end": 910
+      },
+      {
+        "clause_id": "C0018",
+        "section": "4.1",
+        "text": "4.1 本合同一式二份，具有同等法律效力，甲、乙双方各执一份。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 911,
+        "source_end": 942
+      },
+      {
+        "clause_id": "C0019",
+        "section": "4.2",
+        "text": "4.2 本合同附件或补充协议（若有）为本合同的组成部分，与本合同具有同等法律效力。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 943,
+        "source_end": 984
+      },
+      {
+        "clause_id": "C0020",
+        "section": "第五条　其他约定",
+        "text": "第五条　其他约定\n甲、乙双方提供的住址为现住址，如发生变化必须书面通知对方。如本合同发生争议，诉至法院甲、乙双方提供的现住址可作为法院的送达地址。\n甲方：张明远\n乙方：李浩然\n签约时间：2026年9月10日",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 985,
+        "source_end": 1088
+      }
+    ],
+    "validation_feedback": {
+      "instruction": "上轮被严格校验拒绝。请修正所有诊断问题并重新输出完整当前active范围。不得原样返回被拒绝的值；类型以concepts.kind为准。不能把不支持的否定证据改成猜测；全文无事实才用ABSENT，有未知用UNKNOWN。",
+      "attempts": [
+        {
+          "raw_extraction": {
+            "schema_version": "contract-facts-1.0",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020"
+            ],
+            "searched_concepts": [
+              "loan.security",
+              "loan.refinancing",
+              "loan.sale_security",
+              "loan.extension",
+              "loan.extension_excluded",
+              "loan.early_repayment",
+              "loan.household",
+              "loan.joint_business",
+              "loan.spouse",
+              "loan.compound",
+              "loan.limitation_risk",
+              "loan.voucher_mechanism"
+            ],
+            "observations": [
+              {
+                "concept": "loan.security",
+                "state": "EXPLICIT_NONE",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "无抵押借款合同"
+                  }
+                ]
+              },
+              {
+                "concept": "loan.refinancing",
+                "state": "ABSENT",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": []
+              },
+              {
+                "concept": "loan.sale_security",
+                "state": "ABSENT",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": []
+              },
+              {
+                "concept": "loan.extension",
+                "state": "ABSENT",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": []
+              },
+              {
+                "concept": "loan.extension_excluded",
+                "state": "ABSENT",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": []
+              },
+              {
+                "concept": "loan.early_repayment",
+                "state": "PRESENT",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "value": true,
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款"
+                  },
+                  {
+                    "clause_id": "C0012",
+                    "quote": "甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款"
+                  }
+                ]
+              },
+              {
+                "concept": "loan.household",
+                "state": "ABSENT",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": []
+              },
+              {
+                "concept": "loan.joint_business",
+                "state": "ABSENT",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": []
+              },
+              {
+                "concept": "loan.spouse",
+                "state": "ABSENT",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": []
+              },
+              {
+                "concept": "loan.compound",
+                "state": "ABSENT",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": []
+              },
+              {
+                "concept": "loan.limitation_risk",
+                "state": "ABSENT",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": []
+              },
+              {
+                "concept": "loan.voucher_mechanism",
+                "state": "ABSENT",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": []
+              }
+            ]
+          },
+          "verification": {
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020"
+            ],
+            "searched_concepts": [
+              "loan.security",
+              "loan.refinancing",
+              "loan.sale_security",
+              "loan.extension",
+              "loan.extension_excluded",
+              "loan.early_repayment",
+              "loan.household",
+              "loan.joint_business",
+              "loan.spouse",
+              "loan.compound",
+              "loan.limitation_risk",
+              "loan.voucher_mechanism"
+            ],
+            "checks": [
+              {
+                "fact_id": "CF-49873780e5ba267b46ac6449",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-23171e910fb43af1286f96ab",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-1e37a0cb3281f180e08ea855",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-52845ca4c4af14d96a7f3db4",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-49ee37f6e6ea44ca0f358e75",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-b83004072725147d3222c2aa",
+                "supported": false,
+                "reason": "取值不支持：候选将‘提前收回已发放的借款’认定为loan.early_repayment（提前归还或结清借款的安排）。该表述是贷款人因乙方违约而享有的提前收回借款的救济权利，属于贷款人单方加速到期/收回权，并非约定借款人提前归还或结清借款的安排。C0009、C0012引文本身逐字存在，但引文不能支持该概念的正向取值。事实层修正要求：将loan.early_repayment改为ABSENT，或另立‘贷款人提前收回权/加速到期’概念承载该内容。"
+              },
+              {
+                "fact_id": "CF-aecb142fe2791906e64300d7",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-2cee58be828c80c480405c48",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-4271da4ff9ae7ebf18a66c16",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-f2067a625c383ec6ab411595",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-4806fe84bb1e67931425b076",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-4adeac1496e1ba9f82580c85",
+                "supported": true
+              }
+            ],
+            "audits": [
+              {
+                "concept": "loan.security",
+                "reviewed_clause_ids": [
+                  "C0001",
+                  "C0002",
+                  "C0003",
+                  "C0004",
+                  "C0005",
+                  "C0006",
+                  "C0007",
+                  "C0008",
+                  "C0009",
+                  "C0010",
+                  "C0011",
+                  "C0012",
+                  "C0013",
+                  "C0014",
+                  "C0015",
+                  "C0016",
+                  "C0017",
+                  "C0018",
+                  "C0019",
+                  "C0020"
+                ],
+                "complete": true,
+                "omitted_facts": [],
+                "reason": "全文通读：C0001标题‘无抵押借款合同’明确排除抵押担保；C0007仅涉及评估、保险、鉴定、登记、公证等费用承担，非担保约定；其余条款无抵押、质押或保证担保安排。候选EXPLICIT_NONE与全文一致，无遗漏。"
+              },
+              {
+                "concept": "loan.refinancing",
+                "reviewed_clause_ids": [
+                  "C0001",
+                  "C0002",
+                  "C0003",
+                  "C0004",
+                  "C0005",
+                  "C0006",
+                  "C0007",
+                  "C0008",
+                  "C0009",
+                  "C0010",
+                  "C0011",
+                  "C0012",
+                  "C0013",
+                  "C0014",
+                  "C0015",
+                  "C0016",
+                  "C0017",
+                  "C0018",
+                  "C0019",
+                  "C0020"
+                ],
+                "complete": true,
+                "omitted_facts": [],
+                "reason": "全文通读：C0003借款用途为‘用于乙方个人经营资金周转及采购经营所需设备’，未提及归还旧借款或借新还旧；其余条款亦无再融资安排。ABSENT正确，无遗漏。"
+              },
+              {
+                "concept": "loan.sale_security",
+                "reviewed_clause_ids": [
+                  "C0001",
+                  "C0002",
+                  "C0003",
+                  "C0004",
+                  "C0005",
+                  "C0006",
+                  "C0007",
+                  "C0008",
+                  "C0009",
+                  "C0010",
+                  "C0011",
+                  "C0012",
+                  "C0013",
+                  "C0014",
+                  "C0015",
+                  "C0016",
+                  "C0017",
+                  "C0018",
+                  "C0019",
+                  "C0020"
+                ],
+                "complete": true,
+                "omitted_facts": [],
+                "reason": "全文通读：无买卖、回购、让与担保等以交易形式担保借款的约定；C0001标题‘无抵押’亦排除担保安排。ABSENT正确，无遗漏。"
+              },
+              {
+                "concept": "loan.extension",
+                "reviewed_clause_ids": [
+                  "C0001",
+                  "C0002",
+                  "C0003",
+                  "C0004",
+                  "C0005",
+                  "C0006",
+                  "C0007",
+                  "C0008",
+                  "C0009",
+                  "C0010",
+                  "C0011",
+                  "C0012",
+                  "C0013",
+                  "C0014",
+                  "C0015",
+                  "C0016",
+                  "C0017",
+                  "C0018",
+                  "C0019",
+                  "C0020"
+                ],
+                "complete": true,
+                "omitted_facts": [],
+                "reason": "全文通读：C0005仅约定借款期限自2026年9月10日至2027年9月9日，无展期申请或展期安排条款；其余条款亦无。ABSENT正确，无遗漏。"
+              },
+              {
+                "concept": "loan.extension_excluded",
+                "reviewed_clause_ids": [
+                  "C0001",
+                  "C0002",
+                  "C0003",
+                  "C0004",
+                  "C0005",
+                  "C0006",
+                  "C0007",
+                  "C0008",
+                  "C0009",
+                  "C0010",
+                  "C0011",
+                  "C0012",
+                  "C0013",
+                  "C0014",
+                  "C0015",
+                  "C0016",
+                  "C0017",
+                  "C0018",
+                  "C0019",
+                  "C0020"
+                ],
+                "complete": true,
+                "omitted_facts": [],
+                "reason": "全文通读：无任何排除或禁止申请展期的表述。ABSENT正确，无遗漏。"
+              },
+              {
+                "concept": "loan.early_repayment",
+                "reviewed_clause_ids": [
+                  "C0001",
+                  "C0002",
+                  "C0003",
+                  "C0004",
+                  "C0005",
+                  "C0006",
+                  "C0007",
+                  "C0008",
+                  "C0009",
+                  "C0010",
+                  "C0011",
+                  "C0012",
+                  "C0013",
+                  "C0014",
+                  "C0015",
+                  "C0016",
+                  "C0017",
+                  "C0018",
+                  "C0019",
+                  "C0020"
+                ],
+                "complete": true,
+                "omitted_facts": [],
+                "reason": "全文通读：C0009、C0012中的‘提前收回已发放的借款’系贷款人因乙方违约而享有的提前收回/加速到期救济权，并非约定借款人提前归还或结清借款的安排；C0005仅约定固定借款期限；其余条款无提前还款、提前结清安排。候选将救济权误作提前还款安排，应修正为ABSENT。"
+              },
+              {
+                "concept": "loan.household",
+                "reviewed_clause_ids": [
+                  "C0001",
+                  "C0002",
+                  "C0003",
+                  "C0004",
+                  "C0005",
+                  "C0006",
+                  "C0007",
+                  "C0008",
+                  "C0009",
+                  "C0010",
+                  "C0011",
+                  "C0012",
+                  "C0013",
+                  "C0014",
+                  "C0015",
+                  "C0016",
+                  "C0017",
+                  "C0018",
+                  "C0019",
+                  "C0020"
+                ],
+                "complete": true,
+                "omitted_facts": [],
+                "reason": "全文通读：C0003明确借款用途为‘乙方个人经营资金周转及采购经营所需设备’，非家庭日常生活用途；全文无家庭日常生活用途表述。ABSENT正确，无遗漏。"
+              },
+              {
+                "concept": "loan.joint_business",
+                "reviewed_clause_ids": [
+                  "C0001",
+                  "C0002",
+                  "C0003",
+                  "C0004",
+                  "C0005",
+                  "C0006",
+                  "C0007",
+                  "C0008",
+                  "C0009",
+                  "C0010",
+                  "C0011",
+                  "C0012",
+                  "C0013",
+                  "C0014",
+                  "C0015",
+                  "C0016",
+                  "C0017",
+                  "C0018",
+                  "C0019",
+                  "C0020"
+                ],
+                "complete": true,
+                "omitted_facts": [],
+                "reason": "全文通读：C0003为‘乙方个人经营’，未提及夫妻共同生产经营；全文无配偶或共同经营表述。ABSENT正确，无遗漏。"
+              },
+              {
+                "concept": "loan.spouse",
+                "reviewed_clause_ids": [
+                  "C0001",
+                  "C0002",
+                  "C0003",
+                  "C0004",
+                  "C0005",
+                  "C0006",
+                  "C0007",
+                  "C0008",
+                  "C0009",
+                  "C0010",
+                  "C0011",
+                  "C0012",
+                  "C0013",
+                  "C0014",
+                  "C0015",
+                  "C0016",
+                  "C0017",
+                  "C0018",
+                  "C0019",
+                  "C0020"
+                ],
+                "complete": true,
+                "omitted_facts": [],
+                "reason": "全文通读：当事人仅张明远与李浩然，无配偶身份、共同意思表示或夫妻债务承担条款。ABSENT正确，无遗漏。"
+              },
+              {
+                "concept": "loan.compound",
+                "reviewed_clause_ids": [
+                  "C0001",
+                  "C0002",
+                  "C0003",
+                  "C0004",
+                  "C0005",
+                  "C0006",
+                  "C0007",
+                  "C0008",
+                  "C0009",
+                  "C0010",
+                  "C0011",
+                  "C0012",
+                  "C0013",
+                  "C0014",
+                  "C0015",
+                  "C0016",
+                  "C0017",
+                  "C0018",
+                  "C0019",
+                  "C0020"
+                ],
+                "complete": true,
+                "omitted_facts": [],
+                "reason": "全文通读：C0006仅约定年利率10.8%按月计收；C0012约定逾期每日按借款总额0.5%支付违约金，属违约金而非复利；全文无将利息计入本金计收复利的安排。ABSENT正确，无遗漏。"
+              },
+              {
+                "concept": "loan.limitation_risk",
+                "reviewed_clause_ids": [
+                  "C0001",
+                  "C0002",
+                  "C0003",
+                  "C0004",
+                  "C0005",
+                  "C0006",
+                  "C0007",
+                  "C0008",
+                  "C0009",
+                  "C0010",
+                  "C0011",
+                  "C0012",
+                  "C0013",
+                  "C0014",
+                  "C0015",
+                  "C0016",
+                  "C0017",
+                  "C0018",
+                  "C0019",
+                  "C0020"
+                ],
+                "complete": true,
+                "omitted_facts": [],
+                "reason": "全文通读：无催收或行权已超过、临近时效/保证期间等实际时间事实的记载；C0020仅约定送达地址。ABSENT正确，无遗漏。"
+              },
+              {
+                "concept": "loan.voucher_mechanism",
+                "reviewed_clause_ids": [
+                  "C0001",
+                  "C0002",
+                  "C0003",
+                  "C0004",
+                  "C0005",
+                  "C0006",
+                  "C0007",
+                  "C0008",
+                  "C0009",
+                  "C0010",
+                  "C0011",
+                  "C0012",
+                  "C0013",
+                  "C0014",
+                  "C0015",
+                  "C0016",
+                  "C0017",
+                  "C0018",
+                  "C0019",
+                  "C0020"
+                ],
+                "complete": true,
+                "omitted_facts": [],
+                "reason": "全文通读：无借据、放款回单或系统放款记录等债权或支付凭证机制条款；C0004仅载明借款金额，C0018仅约定合同份数。ABSENT正确，无遗漏。"
+              }
+            ]
+          },
+          "diagnostics": [
+            {
+              "failed_stage": "UNIFIED_FACT_VALIDATION",
+              "fact_id": null,
+              "field": "checks",
+              "validation_rule": "FACT_VERIFICATION_REJECTED",
+              "model_raw_value": null,
+              "evidence": null,
+              "expected": null,
+              "actual": [
+                {
+                  "fact_id": "CF-49873780e5ba267b46ac6449",
+                  "supported": true
+                },
+                {
+                  "fact_id": "CF-23171e910fb43af1286f96ab",
+                  "supported": true
+                },
+                {
+                  "fact_id": "CF-1e37a0cb3281f180e08ea855",
+                  "supported": true
+                },
+                {
+                  "fact_id": "CF-52845ca4c4af14d96a7f3db4",
+                  "supported": true
+                },
+                {
+                  "fact_id": "CF-49ee37f6e6ea44ca0f358e75",
+                  "supported": true
+                },
+                {
+                  "fact_id": "CF-b83004072725147d3222c2aa",
+                  "supported": false,
+                  "reason": "取值不支持：候选将‘提前收回已发放的借款’认定为loan.early_repayment（提前归还或结清借款的安排）。该表述是贷款人因乙方违约而享有的提前收回借款的救济权利，属于贷款人单方加速到期/收回权，并非约定借款人提前归还或结清借款的安排。C0009、C0012引文本身逐字存在，但引文不能支持该概念的正向取值。事实层修正要求：将loan.early_repayment改为ABSENT，或另立‘贷款人提前收回权/加速到期’概念承载该内容。"
+                },
+                {
+                  "fact_id": "CF-aecb142fe2791906e64300d7",
+                  "supported": true
+                },
+                {
+                  "fact_id": "CF-2cee58be828c80c480405c48",
+                  "supported": true
+                },
+                {
+                  "fact_id": "CF-4271da4ff9ae7ebf18a66c16",
+                  "supported": true
+                },
+                {
+                  "fact_id": "CF-f2067a625c383ec6ab411595",
+                  "supported": true
+                },
+                {
+                  "fact_id": "CF-4806fe84bb1e67931425b076",
+                  "supported": true
+                },
+                {
+                  "fact_id": "CF-4adeac1496e1ba9f82580c85",
+                  "supported": true
+                }
+              ],
+              "disposition": "BLOCK"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response": {
+    "schema_version": "contract-facts-1.0",
+    "reviewed_clause_ids": [
+      "C0001",
+      "C0002",
+      "C0003",
+      "C0004",
+      "C0005",
+      "C0006",
+      "C0007",
+      "C0008",
+      "C0009",
+      "C0010",
+      "C0011",
+      "C0012",
+      "C0013",
+      "C0014",
+      "C0015",
+      "C0016",
+      "C0017",
+      "C0018",
+      "C0019",
+      "C0020"
+    ],
+    "searched_concepts": [
+      "loan.security",
+      "loan.refinancing",
+      "loan.sale_security",
+      "loan.extension",
+      "loan.extension_excluded",
+      "loan.early_repayment",
+      "loan.household",
+      "loan.joint_business",
+      "loan.spouse",
+      "loan.compound",
+      "loan.limitation_risk",
+      "loan.voucher_mechanism"
+    ],
+    "observations": [
+      {
+        "concept": "loan.security",
+        "state": "EXPLICIT_NONE",
+        "assertion": "EXPLICIT",
+        "confidence": 0.95,
+        "evidence": [
+          {
+            "clause_id": "C0001",
+            "quote": "无抵押借款合同"
+          }
+        ]
+      },
+      {
+        "concept": "loan.refinancing",
+        "state": "ABSENT",
+        "assertion": "EXPLICIT",
+        "confidence": 0.9,
+        "evidence": []
+      },
+      {
+        "concept": "loan.sale_security",
+        "state": "ABSENT",
+        "assertion": "EXPLICIT",
+        "confidence": 0.9,
+        "evidence": []
+      },
+      {
+        "concept": "loan.extension",
+        "state": "ABSENT",
+        "assertion": "EXPLICIT",
+        "confidence": 0.9,
+        "evidence": []
+      },
+      {
+        "concept": "loan.extension_excluded",
+        "state": "ABSENT",
+        "assertion": "EXPLICIT",
+        "confidence": 0.9,
+        "evidence": []
+      },
+      {
+        "concept": "loan.early_repayment",
+        "state": "ABSENT",
+        "assertion": "EXPLICIT",
+        "confidence": 0.9,
+        "evidence": []
+      },
+      {
+        "concept": "loan.household",
+        "state": "ABSENT",
+        "assertion": "EXPLICIT",
+        "confidence": 0.9,
+        "evidence": []
+      },
+      {
+        "concept": "loan.joint_business",
+        "state": "ABSENT",
+        "assertion": "EXPLICIT",
+        "confidence": 0.9,
+        "evidence": []
+      },
+      {
+        "concept": "loan.spouse",
+        "state": "ABSENT",
+        "assertion": "EXPLICIT",
+        "confidence": 0.9,
+        "evidence": []
+      },
+      {
+        "concept": "loan.compound",
+        "state": "ABSENT",
+        "assertion": "EXPLICIT",
+        "confidence": 0.9,
+        "evidence": []
+      },
+      {
+        "concept": "loan.limitation_risk",
+        "state": "ABSENT",
+        "assertion": "EXPLICIT",
+        "confidence": 0.9,
+        "evidence": []
+      },
+      {
+        "concept": "loan.voucher_mechanism",
+        "state": "ABSENT",
+        "assertion": "EXPLICIT",
+        "confidence": 0.9,
+        "evidence": []
+      }
+    ]
+  },
+  "model": "deepseek-flash",
+  "usage": {
+    "prompt_tokens": 10597,
+    "completion_tokens": 572,
+    "total_tokens": 11169,
+    "prompt_tokens_details": {
+      "cached_tokens": 6272
+    },
+    "prompt_cache_hit_tokens": 6272,
+    "prompt_cache_miss_tokens": 4325
+  },
+  "seconds": 2.75
+}

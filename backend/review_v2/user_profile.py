@@ -10,13 +10,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple
+from review_v2.profile_catalog import NEUTRAL_IDENTITY, NEUTRAL_SCENARIO, PROFILE_OPTIONS, ROLE_ALIASES, profile_options
 
 # ---------------------------------------------------------------------------
 # 画像维度定义
 # ---------------------------------------------------------------------------
 
-USER_IDENTITIES = ("个人租客/买方", "小微企业（≤50人）", "中型企业（50-500人）", "大型企业/投资者")
-CONTRACT_SCENARIOS = ("居住用途", "商业经营", "投资/转租")
+USER_IDENTITIES = (NEUTRAL_IDENTITY,)
+CONTRACT_SCENARIOS = (NEUTRAL_SCENARIO,)
 RISK_APPETITES = ("保守", "标准", "激进")
 BARGAINING_POSITIONS = ("强势方", "均衡方", "弱势方")
 
@@ -25,38 +26,41 @@ BARGAINING_POSITIONS = ("强势方", "均衡方", "弱势方")
 class UserRiskProfile:
     """用户风险画像——在启动审查前填写。"""
 
-    user_identity: str = "个人租客/买方"
-    contract_scenario: str = "居住用途"
+    user_identity: str = NEUTRAL_IDENTITY
+    contract_scenario: str = NEUTRAL_SCENARIO
     risk_appetite: str = "标准"
     bargaining_position: str = "均衡方"
     # 跨地域裁判预判用：案件管辖地/用户所在地
     jurisdiction: str = "北京"  # 如：北京、上海、广州、深圳、杭州、成都 等
+    contract_type: str = ""
 
     # ---------- 快速工厂方法 ----------
 
     @classmethod
     def default(cls) -> UserRiskProfile:
-        """默认画像（标准用户，与旧版行为一致）。"""
+        """无上下文时保持中性，识别合同类型后再生成具体画像。"""
         return cls()
 
     @classmethod
     def conservative_individual_tenant(cls) -> UserRiskProfile:
         """保守个人租客——任何风险都要求修改。"""
         return cls(
-            user_identity="个人租客/买方",
+            user_identity="承租人",
             contract_scenario="居住用途",
             risk_appetite="保守",
             bargaining_position="弱势方",
+            contract_type="house_lease",
         )
 
     @classmethod
     def aggressive_investor(cls) -> UserRiskProfile:
         """激进投资者——仅高风险才要求修改。"""
         return cls(
-            user_identity="大型企业/投资者",
-            contract_scenario="投资/转租",
+            user_identity="投资方",
+            contract_scenario="股权投资",
             risk_appetite="激进",
             bargaining_position="强势方",
+            contract_type="investment",
         )
 
     def to_dict(self) -> Dict[str, str]:
@@ -66,6 +70,7 @@ class UserRiskProfile:
             "risk_appetite": self.risk_appetite,
             "bargaining_position": self.bargaining_position,
             "jurisdiction": self.jurisdiction,
+            "contract_type": self.contract_type,
         }
 
     @classmethod
@@ -73,14 +78,57 @@ class UserRiskProfile:
         # An explicit task review role is authoritative.  Some callers also carry
         # a generic user_identity inferred from the contract subtype; it must not
         # overwrite the party perspective selected for the review.
-        user_identity = d.get("review_role") or d.get("user_identity") or "个人租客/买方"
+        d = d if isinstance(d, dict) else {}
+        user_identity = d.get("review_role") or d.get("user_identity") or NEUTRAL_IDENTITY
         return cls(
             user_identity=user_identity,
-            contract_scenario=d.get("contract_scenario", "居住用途"),
-            risk_appetite=d.get("risk_appetite", "标准"),
-            bargaining_position=d.get("bargaining_position", "均衡方"),
-            jurisdiction=d.get("jurisdiction", "北京"),
+            contract_scenario=d.get("contract_scenario") or NEUTRAL_SCENARIO,
+            risk_appetite=d.get("risk_appetite") if d.get("risk_appetite") in RISK_APPETITES else "标准",
+            bargaining_position=d.get("bargaining_position") if d.get("bargaining_position") in BARGAINING_POSITIONS else "均衡方",
+            jurisdiction=d.get("jurisdiction") or "北京",
+            contract_type=d.get("contract_type") or "",
         )
+
+
+def normalize_profile(profile: Optional[UserRiskProfile], contract_type: str,
+                      previous_type: str = "") -> UserRiskProfile:
+    """Copy and scope contextual fields after classification; retain preferences.
+
+    Old clients may omit ownership. Validate their roles and discard rental
+    defaults outside rental contracts instead of trusting unscoped strings.
+    """
+    key = "house_lease" if contract_type == "lease" else contract_type
+    source = (profile or UserRiskProfile.default()).to_dict()
+    options = profile_options(key)
+    owner = source.get("contract_type") or previous_type
+    owner = "house_lease" if owner == "lease" else owner
+    changed = bool(owner and owner != key)
+    identity = str(source.get("user_identity") or "")
+    scenario = str(source.get("contract_scenario") or "")
+    legacy = {"个人租客/买方", "个人租客", "小微企业（≤50人）", "中型企业（50-500人）", "大型企业/投资者"}
+    if key not in PROFILE_OPTIONS:
+        identity, scenario = NEUTRAL_IDENTITY, NEUTRAL_SCENARIO
+    else:
+        if identity not in legacy and identity not in options["identities"]:
+            identity = next((identity.replace(alias, role) for alias, role in ROLE_ALIASES.get(key, {}).items() if alias in identity), identity)
+        valid_role = identity in options["identities"] or any(
+            role in identity for role in options["identities"] if role != NEUTRAL_IDENTITY
+        )
+        # Technical subtypes resolve party labels against the document later.
+        if key == "technology" and identity not in legacy and not any(s in identity for s in ("租客", "承租", "出租")):
+            valid_role = True
+        if changed or identity in legacy or not valid_role or (identity == NEUTRAL_IDENTITY and not source.get("contract_type")):
+            identity = options["identities"][0]
+        rental_scenario = (any(s in scenario for s in ("居住用途", "投资/转租"))
+                           or ("租赁" in scenario and key != "finance_lease"))
+        foreign_scenario = any(scenario in values[1] for t, values in PROFILE_OPTIONS.items() if t != key)
+        if (changed or not scenario or scenario == NEUTRAL_SCENARIO
+                or (key != "house_lease" and rental_scenario)
+                or (not owner and key != "technology" and scenario not in options["scenarios"])
+                or (foreign_scenario and scenario not in options["scenarios"])):
+            scenario = options["scenarios"][0]
+    return UserRiskProfile.from_dict({**source, "user_identity": identity,
+                                     "contract_scenario": scenario, "contract_type": key})
 
 
 # ---------------------------------------------------------------------------
@@ -153,18 +201,12 @@ def get_modification_tone(risk_level: str, risk_appetite: str) -> str:
 
 # 按用户身份优先激活的审查点 ID 集合
 PRIORITY_CHECKPOINTS: Dict[str, Tuple[str, ...]] = {
-    "个人租客/买方": (
+    "承租人": (
         # 押金、维修、提前解约、隐私安全
         "HL-003", "HL-006", "HL-007", "HL-014", "HL-015", "HL-016",
         "HL-017", "HL-018", "HL-019", "HL-024", "HL-025", "HL-026",
         "HL-029", "HL-030", "HL-031", "HL-032", "HL-034", "HL-036",
         "HL-037",
-    ),
-    "大型企业/投资者": (
-        # 转租限制、租金调整、续租权、违约责任上限
-        "HL-004", "HL-005", "HL-008", "HL-009", "HL-010", "HL-011",
-        "HL-012", "HL-013", "HL-020", "HL-021", "HL-022", "HL-023",
-        "HL-027", "HL-028", "HL-033", "HL-035", "HL-038", "HL-039",
     ),
 }
 
@@ -186,6 +228,8 @@ SCENARIO_CHECKPOINTS: Dict[str, Tuple[str, ...]] = {
 def get_priority_checkpoints(profile: UserRiskProfile) -> set:
     """获取需要优先激活的审查点 ID 集合。"""
     priorities: set = set()
+    if profile.contract_type not in {"house_lease", "lease"}:
+        return priorities
     if profile.user_identity in PRIORITY_CHECKPOINTS:
         priorities.update(PRIORITY_CHECKPOINTS[profile.user_identity])
     if profile.contract_scenario in SCENARIO_CHECKPOINTS:

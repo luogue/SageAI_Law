@@ -1,0 +1,49 @@
+{
+  "trace_id": "CR-20260912-075012-617F96",
+  "process_id": 19700,
+  "document_sha256": "5f146f6469e06288b2d23662631b575d071960fc464311dd65b71ad16fa8ccee",
+  "PT-03-01": {
+    "concepts": [
+      "salary.settlement_period",
+      "salary.cycle_kind",
+      "salary.cycle_days"
+    ],
+    "status": "RISK",
+    "calculation": [
+      {
+        "status": "PASS",
+        "max_days": 14,
+        "min_days": 14,
+        "earning_period_start": "2000-01-01",
+        "earning_period_end": "2000-01-10",
+        "payment_deadline": "2000-01-15",
+        "calculation_basis": "支付截止日减工资期间起始日的日历日差；覆盖完整格里高利历400年周期",
+        "fact_id": "EF-8e7fd0a04f05c23c"
+      },
+      {
+        "status": "RISK",
+        "max_days": 25,
+        "min_days": 22,
+        "earning_period_start": "2000-01-11",
+        "earning_period_end": "2000-01-31",
+        "payment_deadline": "2000-02-05",
+        "calculation_basis": "支付截止日减工资期间起始日的日历日差；覆盖完整格里高利历400年周期",
+        "fact_id": "EF-86886f9c611a1efe"
+      }
+    ],
+    "max_days": 25,
+    "reason": "按各工资期间至最迟支付日分别核验，最长结算支付间隔可达25日，超过十五日；不能用每月支付次数替代期间计算。",
+    "input_fact_ids": [
+      "EF-2ddf2f4e4e871c0b",
+      "EF-86886f9c611a1efe",
+      "EF-8e7fd0a04f05c23c"
+    ]
+  },
+  "EMP-DEPOSIT-01": {
+    "status": "风险条款",
+    "economic_impact": "直接涉及收取或从工资扣收800元；同笔保证金不与工资扣收重复累计，不等同最终损失。"
+  },
+  "other_PT": "PASS",
+  "release_quality_gate": "REPORT_READY",
+  "automated_tests": 101
+}

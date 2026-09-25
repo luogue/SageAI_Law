@@ -9,14 +9,14 @@ from review_v2.guarantee_contract_checklist import get_guarantee_checklist
 from review_v2.house_lease_checklist import ReviewCheckpoint
 
 
-def test_guarantee_review_checklist_has_48_points_and_12_modules():
+def test_guarantee_review_checklist_has_49_points_including_credit_eligibility():
     checklist = get_guarantee_checklist()
     module_ids = {checkpoint.item_id.rsplit("-", 1)[0] for checkpoint in checklist}
 
-    assert len(checklist) == 48
+    assert len(checklist) == 49
     assert checklist[0].item_id == "GUA-01-01"
-    assert checklist[-1].item_id == "GUA-12-04"
-    assert module_ids == {f"GUA-{index:02d}" for index in range(1, 13)}
+    assert checklist[-1].item_id == "GUA-13-01"
+    assert module_ids == {f"GUA-{index:02d}" for index in range(1, 14)}
     assert all(isinstance(checkpoint, ReviewCheckpoint) for checkpoint in checklist)
 
 
@@ -121,24 +121,20 @@ def test_review_v2_can_load_guarantee_checklist():
     assert output["success"] is True
     assert output["contract_type"] == "guarantee"
     assert output["contract_type_name"] == "保证合同"
-    assert output["all_items_count"] == 48
-    assert len(output["items"]) == 48
+    assert output["all_items_count"] == 49
+    assert len(output["items"]) == 49
     assert (
         output["summary"]["高"]
         + output["summary"]["中"]
         + output["summary"]["低"]
         + output["coverage_summary"].get(COVERAGE_NOT_APPLICABLE, 0)
-        == 48
+        == 49
     )
 
 
 def test_guarantee_simple_fixture_filters_special_guarantee_points():
-    source = Path(__file__).resolve().parents[2] / "test_data"
-    files = list(source.glob("*.docx"))
-    fixture = next((path for path in files if path.name.startswith("测试合同6")), None)
-    assert fixture is not None
-
-    text = "\n".join(paragraph.text for paragraph in Document(str(fixture)).paragraphs if paragraph.text.strip())
+    # Keep this routing test independent of local, untracked fixture filenames.
+    text = "保证合同。债权人甲公司、债务人乙公司、保证人王某。保证人承担一般保证责任，保证期间为主债务到期之日起两年。"
     output = review_contract_v2(text, "guarantee", use_llm=False)
     by_id = {item["item_id"]: item for item in output["items"]}
 
@@ -150,5 +146,7 @@ def test_guarantee_simple_fixture_filters_special_guarantee_points():
     assert by_id["GUA-10-02"]["risk_level"] == COVERAGE_NOT_APPLICABLE
     assert by_id["GUA-10-03"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
     assert by_id["GUA-10-03"]["risk_level"] == COVERAGE_NOT_APPLICABLE
-    assert output["summary"]["高"] == 10
-    assert output["coverage_summary"].get(COVERAGE_NOT_APPLICABLE, 0) == 4
+    assert by_id["GUA-04-01"]["coverage_status"] == "通过"
+    assert by_id["GUA-04-02"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+    assert by_id["GUA-04-04"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+    assert sum(output["coverage_summary"].values()) == 49

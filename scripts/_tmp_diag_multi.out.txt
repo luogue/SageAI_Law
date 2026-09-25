@@ -1,0 +1,199 @@
+
+######################################################################
+### 93 技术咨询合同.docx   len=4612  sha256=b12a7580e7ad9862
+######################################################################
+gate=BLOCKED failures=4
+   FAIL: {'requirement': 'REVIEW_EVIDENCE_ELEMENT_MISMATCH', 'failure_stage': 'Review Evidence Projection', 'root_cause': 'Review evidence is not exactly bound to covered elements: 1 mismatch(es).', 'current_status': 'FAIL', 'mismatches': [{'review_id': 'GEN-PAY-01', 'element_id': 'PRIMARY_EVIDENCE', 'evidence_refs': ['EV-cf0689c373be0433'], 'reason': 'The primary report evidence does not directly support any covered element in this Review.'}]}
+   FAIL: {'requirement': 'NARRATIVE_EVIDENCE_GATE', 'failure_stage': 'Narrative Evidence Validation', 'root_cause': '风险事实未绑定直接支持该事实的要素级报告证据。', 'details': [{'risk_id': 'RF-007', 'element_id': 'payment_formula_inconsistency_adverse_arrangement', 'reason': 'FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING', 'rule_id': 'GEN-PAY-01', 'finding_id': 'RF-007', 'fact_key': 'payment_formula_inconsistency_adverse_arrangement', 'fact_value': '付款节点比例合计为105%，金额合计为315,000元，与合同总价300,000元相差15,000元。', 'reject_reason': 'FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING', 'binding_diagnostics': [{'rule_id': 'GEN-PAY-01', 'finding_id': 'RF-007', 'fact_key': 'payment_formula_inconsistency_adverse_arrangement', 'fact_value': '付款节点比例合计为105%，金额合计为315,000元，与合同总价300,000元相差15,000元。', 'current_evidence_refs': ['SRC-8158447ede11f58fe518', 'SRC-922bb63aece999b2e077', 'SRC-ce375700e1f9a94d6d73', 'SRC-08f07073535d96b234dd', 'SRC-5c96d05da95d2c02a239'], 'current_supporting_evidence': [], 'report_evidence_id': None, 'support_target': [], 'source_type': None, 'conditions': {'published_element_evidence_exists': False}, 'reject_reason': 'FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING'}]}]}
+   FAIL: {'requirement': 'NARRATIVE_EVIDENCE_GATE', 'failure_stage': 'Narrative Evidence Validation', 'root_cause': '风险事实未绑定直接支持该事实的要素级报告证据。', 'details': [{'risk_id': 'RF-007', 'element_id': 'payment_formula_inconsistency_adverse_arrangement', 'reason': 'FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING', 'rule_id': 'GEN-PAY-01', 'finding_id': 'RF-007', 'fact_key': 'payment_formula_inconsistency_adverse_arrangement', 'fact_value': '付款节点比例合计为105%，金额合计为315,000元，与合同总价300,000元相差15,000元。', 'reject_reason': 'FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING', 'binding_diagnostics': [{'rule_id': 'GEN-PAY-01', 'finding_id': 'RF-007', 'fact_key': 'payment_formula_inconsistency_adverse_arrangement', 'fact_value': '付款节点比例合计为105%，金额合计为315,000元，与合同总价300,000元相差15,000元。', 'current_evidence_refs': ['SRC-8158447ede11f58fe518', 'SRC-922bb63aece999b2e077', 'SRC-ce375700e1f9a94d6d73', 'SRC-08f07073535d96b234dd', 'SRC-5c96d05da95d2c02a239'], 'current_supporting_evidence': [], 'report_evidence_id': None, 'support_target': [], 'source_type': None, 'conditions': {'published_element_evidence_exists': False}, 'reject_reason': 'FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING'}]}]}
+   FAIL: {'risk_id': 'RF-006', 'bundle_id': 'EB-4e1da2af7e03', 'invalid_clause_node_ids': ['C0028'], 'requirement': 'CLAUSE_NODE_CONSISTENCY_GATE'}
+
+ [TC-01-03] 已覆盖
+    COVERED: ['consulting_deliverable', 'consulting_project', 'consulting_scope', 'technical_question_or_object']
+    NOT_FOUND: []
+
+ [TC-08-01] 已覆盖
+    COVERED: ['acceptance_standard', 'consulting_scope', 'delivery_form', 'report_contents']
+    NOT_FOUND: []
+
+ [TC-08-02] 已覆盖
+    COVERED: ['consultant_fault_exception', 'qualified_consulting_decision_risk']
+    NOT_FOUND: []
+
+ [TC-08-03] 部分覆盖
+    COVERED: ['delivery_time_method', 'technical_materials', 'truthfulness_completeness']
+    NOT_FOUND: ['cooperation_conditions']
+
+ [TC-08-04] 部分覆盖
+    COVERED: ['correction_remedy']
+    NOT_FOUND: ['correction_period', 'defect_trigger']
+
+ [TC-11-01] 部分覆盖
+    COVERED: ['confidential_information_scope', 'confidentiality_duration', 'need_to_know_personnel']
+    NOT_FOUND: ['confidentiality_obligation', 'copying_restriction', 'purpose_limitation', 'security_measures', 'third_party_disclosure_restriction']
+
+ [TC-11-02] 部分覆盖
+    COVERED: ['confidential_information_scope', 'confidentiality_period']
+    NOT_FOUND: ['compelled_disclosure_exception', 'independent_development_exception', 'lawful_third_party_source_exception', 'post_termination_confidentiality', 'prior_notice_when_legally_permitted', 'public_information_exception']
+
+ [TC-11-03] 缺失
+    COVERED: []
+    NOT_FOUND: ['confidential_backup_deletion', 'confidential_copy_deletion', 'confidential_disposal_confirmation', 'confidential_material_destruction', 'confidential_material_return']
+
+ [TC-11-04] 部分覆盖
+    COVERED: ['breach_damage_liability', 'specific_confidentiality_penalty']
+    NOT_FOUND: ['incident_notification', 'mitigation_obligation', 'stop_disclosure', 'stop_use']
+
+ [TC-12-02] 不适用
+    COVERED: []
+    NOT_FOUND: []
+
+ >>> 93 技术咨询合同.docx 假MISSING冲突总数: 0
+
+######################################################################
+### 33 技术咨询服务合同.docx   len=6747  sha256=b349675cb2c28efa
+######################################################################
+gate=BLOCKED failures=3
+   FAIL: {'requirement': 'NARRATIVE_EVIDENCE_GATE', 'failure_stage': 'Narrative Evidence Validation', 'root_cause': '风险事实未绑定直接支持该事实的要素级报告证据。', 'details': [{'risk_id': 'RF-007', 'element_id': 'payment_formula_inconsistency_adverse_arrangement', 'reason': 'FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING', 'rule_id': 'GEN-PAY-01', 'finding_id': 'RF-007', 'fact_key': 'payment_formula_inconsistency_adverse_arrangement', 'fact_value': '合同分项价款合计为EUR 1,200,000，与合同固定总额EUR 1,200,000相差EUR 0；全部固定付款节点金额合计为EUR 1,260,000，相当于合同固定总额的105%，与合同固定总额EUR 1,200,000相差EUR 60,000。 同时，付款节点约定支付给委托方，与其余节点主要收款方咨询方不一致。', 'reject_reason': 'FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING', 'binding_diagnostics': [{'rule_id': 'GEN-PAY-01', 'finding_id': 'RF-007', 'fact_key': 'payment_formula_inconsistency_adverse_arrangement', 'fact_value': '合同分项价款合计为EUR 1,200,000，与合同固定总额EUR 1,200,000相差EUR 0；全部固定付款节点金额合计为EUR 1,260,000，相当于合同固定总额的105%，与合同固定总额EUR 1,200,000相差EUR 60,000。 同时，付款节点约定支付给委托方，与其余节点主要收款方咨询方不一致。', 'current_evidence_refs': ['SRC-d35f208a110909676a99', 'SRC-c41a630a6ad796b256a3', 'SRC-f9567f1e2da1d463d7d2', 'SRC-4f0063be83cf3f086471', 'SRC-9902e76d47e00f753c6a', 'SRC-607bf5223084181a21c0', 'SRC-0337b7aa02a9ab734e59', 'SRC-de1048eddd24cbe4fffa', 'SRC-f69b4fd60c982b9f5fa6', 'SRC-dc10796b7629204b0796', 'SRC-9dab95a6e4d6b7278ede', 'SRC-cbc030f14a53d4266432'], 'current_supporting_evidence': [], 'report_evidence_id': None, 'support_target': [], 'source_type': None, 'conditions': {'published_element_evidence_exists': False}, 'reject_reason': 'FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING'}]}, {'risk_id': 'RF-008', 'element_id': 'technical_timeline_conflict_adverse_arrangement', 'reason': 'FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING', 'rule_id': 'TECH-SHARED-03', 'finding_id': 'RF-008', 'fact_key': 'technical_timeline_conflict_adverse_arrangement', 'fact_value': '合同约定服务在8个月内完成，但最终报告、分项成果或验收节点延至第11个月，履行期限与交付验收安排不一致。', 'reject_reason': 'FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING', 'binding_diagnostics': [{'rule_id': 'TECH-SHARED-03', 'finding_id': 'RF-008', 'fact_key': 'technical_timeline_conflict_adverse_arrangement', 'fact_value': '合同约定服务在8个月内完成，但最终报告、分项成果或验收节点延至第11个月，履行期限与交付验收安排不一致。', 'current_evidence_refs': ['SRC-c5370769e96d68091aa2', 'SRC-7c7321ad316dcfe2eec1', 'SRC-be1c9d5b48b1cfbfddc2', 'SRC-7c7f73ccc96191251231', 'SRC-4b612e8f24cdde20c977', 'SRC-9768ecc7138c87ac7d3e'], 'current_supporting_evidence': [], 'report_evidence_id': None, 'support_target': [], 'source_type': None, 'conditions': {'published_element_evidence_exists': False}, 'reject_reason': 'FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING'}]}]}
+   FAIL: {'requirement': 'NARRATIVE_EVIDENCE_GATE', 'failure_stage': 'Narrative Evidence Validation', 'root_cause': '风险事实未绑定直接支持该事实的要素级报告证据。', 'details': [{'risk_id': 'RF-007', 'element_id': 'payment_formula_inconsistency_adverse_arrangement', 'reason': 'FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING', 'rule_id': 'GEN-PAY-01', 'finding_id': 'RF-007', 'fact_key': 'payment_formula_inconsistency_adverse_arrangement', 'fact_value': '合同分项价款合计为EUR 1,200,000，与合同固定总额EUR 1,200,000相差EUR 0；全部固定付款节点金额合计为EUR 1,260,000，相当于合同固定总额的105%，与合同固定总额EUR 1,200,000相差EUR 60,000。 同时，付款节点约定支付给委托方，与其余节点主要收款方咨询方不一致。', 'reject_reason': 'FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING', 'binding_diagnostics': [{'rule_id': 'GEN-PAY-01', 'finding_id': 'RF-007', 'fact_key': 'payment_formula_inconsistency_adverse_arrangement', 'fact_value': '合同分项价款合计为EUR 1,200,000，与合同固定总额EUR 1,200,000相差EUR 0；全部固定付款节点金额合计为EUR 1,260,000，相当于合同固定总额的105%，与合同固定总额EUR 1,200,000相差EUR 60,000。 同时，付款节点约定支付给委托方，与其余节点主要收款方咨询方不一致。', 'current_evidence_refs': ['SRC-d35f208a110909676a99', 'SRC-c41a630a6ad796b256a3', 'SRC-f9567f1e2da1d463d7d2', 'SRC-4f0063be83cf3f086471', 'SRC-9902e76d47e00f753c6a', 'SRC-607bf5223084181a21c0', 'SRC-0337b7aa02a9ab734e59', 'SRC-de1048eddd24cbe4fffa', 'SRC-f69b4fd60c982b9f5fa6', 'SRC-dc10796b7629204b0796', 'SRC-9dab95a6e4d6b7278ede', 'SRC-cbc030f14a53d4266432'], 'current_supporting_evidence': [], 'report_evidence_id': None, 'support_target': [], 'source_type': None, 'conditions': {'published_element_evidence_exists': False}, 'reject_reason': 'FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING'}]}, {'risk_id': 'RF-008', 'element_id': 'technical_timeline_conflict_adverse_arrangement', 'reason': 'FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING', 'rule_id': 'TECH-SHARED-03', 'finding_id': 'RF-008', 'fact_key': 'technical_timeline_conflict_adverse_arrangement', 'fact_value': '合同约定服务在8个月内完成，但最终报告、分项成果或验收节点延至第11个月，履行期限与交付验收安排不一致。', 'reject_reason': 'FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING', 'binding_diagnostics': [{'rule_id': 'TECH-SHARED-03', 'finding_id': 'RF-008', 'fact_key': 'technical_timeline_conflict_adverse_arrangement', 'fact_value': '合同约定服务在8个月内完成，但最终报告、分项成果或验收节点延至第11个月，履行期限与交付验收安排不一致。', 'current_evidence_refs': ['SRC-c5370769e96d68091aa2', 'SRC-7c7321ad316dcfe2eec1', 'SRC-be1c9d5b48b1cfbfddc2', 'SRC-7c7f73ccc96191251231', 'SRC-4b612e8f24cdde20c977', 'SRC-9768ecc7138c87ac7d3e'], 'current_supporting_evidence': [], 'report_evidence_id': None, 'support_target': [], 'source_type': None, 'conditions': {'published_element_evidence_exists': False}, 'reject_reason': 'FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING'}]}]}
+   FAIL: {'requirement': 'EXACT_ELEMENT_REPORT_INVARIANT', 'failure_stage': 'Final Evidence Projection', 'root_cause': '最终要素、原文引文与报告事实不一致。', 'current_status': 'FAIL', 'details': [{'risk_id': 'RF-005', 'review_id': 'TC-11-04', 'element_id': 'breach_damage_liability', 'reason': 'FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH'}, {'review_id': 'TC-11-04', 'evidence_owner': 'ELEMENT_SEARCH', 'element_id': 'breach_damage_liability', 'reason': 'INVALID_ABSENCE_SEARCH_TARGET', 'target_fields': ['search_targets'], 'search_targets': []}]}
+
+ [TC-01-03] 已覆盖
+    COVERED: ['consulting_deliverable', 'consulting_project', 'consulting_scope', 'technical_question_or_object']
+    NOT_FOUND: []
+
+ [TC-08-01] 部分覆盖
+    COVERED: ['acceptance_standard', 'consulting_scope', 'report_contents']
+    NOT_FOUND: ['delivery_form']
+
+ [TC-08-02] 缺失
+    COVERED: []
+    NOT_FOUND: ['qualified_consulting_decision_risk']
+
+ [TC-08-03] 部分覆盖
+    COVERED: ['cooperation_conditions', 'technical_materials']
+    NOT_FOUND: ['delivery_time_method', 'truthfulness_completeness']
+
+ [TC-08-04] 部分覆盖
+    COVERED: ['correction_remedy']
+    NOT_FOUND: ['correction_period', 'defect_trigger']
+
+ [TC-11-01] 部分覆盖
+    COVERED: ['confidentiality_duration', 'confidentiality_obligation', 'third_party_disclosure_restriction']
+    NOT_FOUND: ['confidential_information_scope', 'copying_restriction', 'need_to_know_personnel', 'purpose_limitation', 'security_measures']
+
+ [TC-11-02] 部分覆盖
+    COVERED: ['confidentiality_period']
+    NOT_FOUND: ['compelled_disclosure_exception', 'confidential_information_scope', 'independent_development_exception', 'lawful_third_party_source_exception', 'post_termination_confidentiality', 'prior_notice_when_legally_permitted', 'public_information_exception']
+
+ [TC-11-03] 缺失
+    COVERED: []
+    NOT_FOUND: ['confidential_backup_deletion', 'confidential_copy_deletion', 'confidential_disposal_confirmation', 'confidential_material_destruction', 'confidential_material_return']
+
+ [TC-11-04] 部分覆盖
+    COVERED: ['confidentiality_obligation', 'termination_remedy']
+    NOT_FOUND: ['mitigation_obligation', 'stop_disclosure', 'stop_use']
+
+ [TC-12-02] 不适用
+    COVERED: []
+    NOT_FOUND: []
+
+ >>> 33 技术咨询服务合同.docx 假MISSING冲突总数: 0
+
+######################################################################
+### 22 技术咨询.docx   len=1965  sha256=23cdc2997c2d435c
+######################################################################
+gate=REPORT_READY failures=0
+
+ [TC-01-03] 已覆盖
+    COVERED: ['consulting_deliverable', 'consulting_project', 'consulting_scope', 'technical_question_or_object']
+    NOT_FOUND: []
+
+ [TC-08-01] 部分覆盖
+    COVERED: ['consulting_scope']
+    NOT_FOUND: ['acceptance_standard', 'delivery_form', 'report_contents']
+
+ [TC-08-02] 缺失
+    COVERED: []
+    NOT_FOUND: ['qualified_consulting_decision_risk']
+
+ [TC-08-03] 缺失
+    COVERED: []
+    NOT_FOUND: ['cooperation_conditions', 'delivery_time_method', 'technical_materials', 'truthfulness_completeness']
+
+ [TC-08-04] 缺失
+    COVERED: []
+    NOT_FOUND: ['correction_period', 'correction_remedy', 'defect_trigger']
+
+ [TC-11-01] 缺失
+    COVERED: []
+    NOT_FOUND: ['breach_damage_liability', 'confidential_information_scope', 'confidential_personnel', 'confidentiality_duration', 'confidentiality_obligation', 'copying_restriction', 'purpose_limitation', 'security_measures', 'third_party_disclosure_restriction']
+
+ [TC-11-02] 缺失
+    COVERED: []
+    NOT_FOUND: ['confidential_information_scope', 'confidentiality_period', 'independent_development_exception', 'lawful_third_party_source_exception', 'public_information_exception', 'required_disclosure_exception']
+
+ [TC-11-03] 缺失
+    COVERED: []
+    NOT_FOUND: ['confidential_backup_deletion', 'confidential_copy_deletion', 'confidential_disposal_confirmation', 'confidential_material_destruction', 'confidential_material_return']
+
+ [TC-11-04] 缺失
+    COVERED: []
+    NOT_FOUND: ['breach_damage_liability', 'confidentiality_obligation', 'mitigation_obligation', 'stop_disclosure', 'stop_use']
+
+ [TC-12-02] 不适用
+    COVERED: []
+    NOT_FOUND: []
+
+ >>> 22 技术咨询.docx 假MISSING冲突总数: 0
+
+######################################################################
+### 16 技术咨询合同.docx   len=4234  sha256=f9b3953f339b4766
+######################################################################
+gate=BLOCKED failures=4
+   FAIL: {'requirement': 'CONFIDENCE_VALIDATION_GATE', 'failure_stage': 'Pre-render Confidence Gate', 'root_cause': '存在实质一致性错误的审查项仍为 HIGH：TC-08-02。', 'responsible_function': '_apply_post_verification_confidence', 'current_status': 'FAIL'}
+   FAIL: {'requirement': 'FACT_TRUTH_OVERRIDE_VIOLATION', 'failure_stage': 'Review Post-processing', 'root_cause': 'Review post-processing overrode Registry fact truth: 1.', 'responsible_function': '_contract_fact_flow_audit', 'current_status': 'FAIL'}
+   FAIL: {'requirement': 'PENDING_VERIFICATION_COUNT', 'failure_stage': 'Final Summary Projection', 'root_cause': '待核验或需人工复核的规则未计入人工复核明细。', 'current_status': 'FAIL'}
+   FAIL: {'requirement': 'RENDERED_MANUAL_COUNT', 'failure_stage': 'Final Summary Projection', 'root_cause': '报告人工复核数量与明细不一致。', 'current_status': 'FAIL'}
+
+ [TC-01-03] 已覆盖
+    COVERED: ['consulting_deliverable', 'consulting_project', 'consulting_scope', 'technical_question_or_object']
+    NOT_FOUND: []
+
+ [TC-08-01] 已覆盖
+    COVERED: ['acceptance_standard', 'consulting_scope', 'delivery_form', 'report_contents']
+    NOT_FOUND: []
+
+ [TC-08-02] 缺失
+    COVERED: []
+    NOT_FOUND: []
+
+ [TC-08-03] 已覆盖
+    COVERED: ['cooperation_conditions', 'delivery_time_method', 'technical_materials', 'truthfulness_completeness']
+    NOT_FOUND: []
+
+ [TC-08-04] 已覆盖
+    COVERED: ['correction_period', 'correction_remedy', 'defect_trigger']
+    NOT_FOUND: []
+
+ [TC-11-01] 部分覆盖
+    COVERED: ['confidentiality_duration', 'confidentiality_obligation', 'need_to_know_personnel']
+    NOT_FOUND: ['confidential_information_scope', 'copying_restriction', 'purpose_limitation', 'security_measures', 'third_party_disclosure_restriction']
+
+ [TC-11-02] 部分覆盖
+    COVERED: ['confidentiality_period', 'post_termination_confidentiality']
+    NOT_FOUND: ['compelled_disclosure_exception', 'confidential_information_scope', 'independent_development_exception', 'lawful_third_party_source_exception', 'prior_notice_when_legally_permitted', 'public_information_exception']
+
+ [TC-11-03] 缺失
+    COVERED: []
+    NOT_FOUND: ['confidential_backup_deletion', 'confidential_copy_deletion', 'confidential_disposal_confirmation', 'confidential_material_destruction', 'confidential_material_return']
+
+ [TC-11-04] 部分覆盖
+    COVERED: ['breach_damage_liability']
+    NOT_FOUND: ['incident_notification', 'mitigation_obligation', 'stop_disclosure', 'stop_use']
+
+ [TC-12-02] 不适用
+    COVERED: []
+    NOT_FOUND: []
+
+ >>> 16 技术咨询合同.docx 假MISSING冲突总数: 0

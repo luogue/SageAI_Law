@@ -22,8 +22,8 @@ class TraceIdFilter(logging.Filter):
 
 
 # 日志目录
-LOG_DIR = Path(__file__).parent.parent / "logs"
-LOG_DIR.mkdir(exist_ok=True)
+LOG_DIR = Path(os.getenv('LOG_DIR', str(Path(__file__).parent.parent / "logs")))
+LOG_DIR.mkdir(parents=True, exist_ok=True)
 
 
 class LogDesensitizer:

@@ -75,6 +75,80 @@ def test_responsible_party_synonyms_cannot_disagree(current_report):
     assert any(row["status"] == "COVERED" and "赔偿" in row["proposition"] for row in rows.values())
 
 
+def test_broad_claim_responsibility_does_not_expand_to_concrete_fields(current_report):
+    item, rows = elements(current_report, "TC-12-02")
+    for key in ("notification_requirement", "notification_deadline", "claim_handling",
+                "liability_responsible_party", "legal_cost_allocation", "settlement_consultation"):
+        assert rows[key]["status"] == "COVERED", rows[key]
+    assert "5个工作日" in rows["notification_deadline"]["proposition"]
+    for key in ("administrative_handling", "litigation_handling", "attorney_fee", "litigation_cost",
+                "direct_damage", "defense_cost_allocation", "damages_allocation", "damages_scope"):
+        assert rows[key]["status"] == "MISSING", rows[key]
+        assert not rows[key]["supporting_evidence"]
+    context = "\n".join(row.get("raw_text") or row.get("text") or "" for row in item["evidence_clauses"])
+    for evidence in item["evidence_clauses"]:
+        if evidence.get("source_type") == "SEARCH_AUDIT":
+            continue
+        for key in evidence.get("supporting_element_ids", []):
+            assert engine.claim_requirement_entailment(key, evidence.get("quote") or evidence.get("text"), context) is not False
+
+
+def test_principle_liability_and_concrete_scope_agree_across_rules(current_report):
+    item, rows = elements(current_report, "TC-12-01")
+    _, detailed = elements(current_report, "TC-12-02")
+    assert item["coverage_status"] == "通过"  # Responsibility direction remains covered.
+    assert "specific_cost_and_compensation_scope" not in rows
+    for key, target in (("defense_cost_scope", "defense_cost_allocation"),
+                        ("damages_allocation", "damages_allocation"), ("damages_scope", "damages_scope")):
+        assert rows[key]["status"] == detailed[target]["status"] == "MISSING"
+        assert not rows[key]["supporting_evidence"]
+    judgment = item["narrative_state"]["judgment"]
+    assert "原则安排" in judgment and "仍需完善" in judgment and "TC-12-02" in judgment
+    assert "赔偿责任范围已有明确约定" not in current_report["result"]
+
+
+@pytest.mark.parametrize("corruption", ["element", "narrative"])
+def test_release_gate_blocks_cross_rule_scope_inflation(current_report, corruption):
+    from review_v2.engine import ReviewItemResult
+    allowed = {f.name for f in fields(ReviewItemResult)}
+    items = [ReviewItemResult(**{k: deepcopy(v) for k, v in data.items() if k in allowed})
+             for data in current_report["items"] if data["item_id"] in {"TC-12-01", "TC-12-02"}]
+    item = next(row for row in items if row.item_id == "TC-12-01")
+    if corruption == "element":
+        next(row for row in item.coverage_elements if row["element_id"] == "damages_scope")["status"] = "COVERED"
+    else:
+        item.narrative_state["judgment"] = "依法应承担的赔偿责任范围已有明确约定。"
+    failures = engine._exact_element_report_invariants(items, [])
+    expected = ("CROSS_RULE_LIABILITY_SCOPE_CONTRADICTION" if corruption == "element"
+                else "CONCRETE_LIABILITY_SCOPE_NARRATIVE_WITHOUT_DIRECT_FACT")
+    assert any(row["reason"] == expected for row in failures)
+    assert engine._release_quality_gate(items, [], current_report["result"])["status"] == "BLOCKED"
+
+
+@pytest.mark.parametrize("owner", ["element", "review", "aggregate", "alias"])
+def test_final_gate_rejects_invented_specific_cost_support(current_report, owner):
+    from review_v2.engine import ReviewItemResult, RiskFinding
+    item_data = deepcopy(next(i for i in current_report["items"] if i["item_id"] == "TC-12-02"))
+    finding_data = deepcopy(next(f for f in current_report["risk_findings"] if "TC-12-02" in f["source_review_ids"]))
+    item = ReviewItemResult(**{k:v for k,v in item_data.items() if k in {f.name for f in fields(ReviewItemResult)}})
+    finding = RiskFinding(**{k:v for k,v in finding_data.items() if k in {f.name for f in fields(RiskFinding)}})
+    broad = next(e for e in item.coverage_elements if e["element_id"] == "legal_cost_allocation")
+    fact = broad["supporting_evidence"][0]
+    if owner == "element":
+        specific = next(e for e in item.coverage_elements if e["element_id"] == "attorney_fee")
+        specific.update(status="COVERED", supporting_evidence=deepcopy(broad["supporting_evidence"]))
+    else:
+        bad = {"source_type":"BODY", "clause_id":fact["clause_id"], "quote":fact["quote"],
+               "quoted_text":fact["quote"], "supporting_element_ids":["attorney_fee"]}
+        if owner == "review":
+            item.evidence_clauses.append(bad)
+        else:
+            finding.evidence_bundle.setdefault("items" if owner == "aggregate" else "evidence_items", []).append(bad)
+    failures = engine._exact_element_report_invariants([item], [finding])
+    assert any(e["reason"] in {"REQUIREMENT_NOT_ENTAILED_BY_SOURCE", "CLAIM_RESPONSE_FACT_NOT_ENTAILED"} for e in failures)
+    assert engine._release_quality_gate([item], [finding], current_report["result"])["status"] == "BLOCKED"
+
+
 def test_each_final_notice_gap_has_its_own_search(current_report):
     item, rows = elements(current_report, "TC-10-03")
     assert rows["improvement_notice_trigger"]["status"] == "COVERED"
@@ -198,12 +272,65 @@ def test_partial_proof_requirements_survive_summary_recommendation_and_evidence(
                 assert current_report["result"].count(gap) >= 3
 
 
+def test_party_remedy_gaps_are_identical_in_all_five_report_layers(current_report):
+    item, rows = elements(current_report, "TC-11-04")
+    expected = {'卖方泄密后采取措施防止继续扩散或损失扩大',
+                '买方泄密后及时通知受影响方', '卖方泄密后及时通知受影响方'}
+    buyer_covered = '买方泄密后采取措施防止继续扩散或损失扩大'
+    narrative = item['narrative_state']
+    assert not narrative['partial_elements']
+    assert set(narrative['missing_elements']) == expected
+    assert any(buyer_covered in value for value in narrative['covered_elements'])
+    assert '仅部分明确' not in narrative['judgment']
+    finding = next(f for f in current_report['risk_findings'] if 'TC-11-04' in f['source_review_ids'])
+    for collection in (finding['final_missing_elements'], finding['evidence_bundle']['unresolved_requirements']):
+        assert {p['required_fact'] for row in collection for p in engine.party_requirement_states(row)
+                if p['status'] == 'MISSING'} == expected
+    for text in (item['risk_point_description'], item['reasoning_summary'], finding['issue'],
+                 finding['recommendation'], item['suggested_clause_example']):
+        assert all(gap in text for gap in expected), text
+        assert buyer_covered not in text, text
+    support = ' '.join(row.get('support_summary', '') for row in item['evidence_clauses']
+                       if row.get('source_type') != 'SEARCH_AUDIT')
+    assert buyer_covered in support
+    assert all(gap not in support for gap in expected)
+    assert '已有约定已有部分约定' not in current_report['result']
+    assert all(current_report['result'].count(gap) >= 4 for gap in expected)
+
+
+def test_secret_identity_tags_have_direct_scope_support_in_production(current_report):
+    key = engine.SECRET_IDENTITY_REQUIREMENT
+    for rule in ("TC-03-04", "TC-13-02"):
+        item, rows = elements(current_report, rule)
+        identity = rows[key]
+        assert identity["status"] == "COVERED"
+        assert identity["supporting_evidence_ids"]
+        for fact in identity["supporting_evidence"]:
+            assert engine.technical_secret_identity_support(fact["quote"])
+            assert "违反第五条" not in fact["quote"]
+        for evidence in item["evidence_clauses"]:
+            if key in evidence.get("supporting_element_ids", []):
+                assert engine.technical_secret_identity_support(evidence.get("quote") or evidence.get("text"))
+        finding = next(f for f in current_report["risk_findings"] if rule in f["source_review_ids"])
+        support_pairs = []
+        for evidence in finding["evidence_bundle"]["items"]:
+            keys = [*evidence.get("supporting_element_ids", []), *evidence.get("fact_types", []),
+                    evidence.get("fact_type") or "", evidence.get("supports") or ""]
+            if key in [str(value).lower() for value in keys]:
+                assert all(value == key for value in keys if str(value).lower() == key)
+                assert engine.technical_secret_identity_support(evidence.get("quoted_text") or evidence.get("quote"))
+                support_pairs.append((evidence.get("clause_id"), evidence.get("quoted_text") or evidence.get("quote")))
+        assert support_pairs
+        assert len(support_pairs) == len(set(support_pairs))
+
+
 @pytest.mark.parametrize("mutation,reason", [
     ("penalty", "PENALTY_NARRATIVE_WITHOUT_PENALTY_EVIDENCE"),
     ("party", "OBLIGATED_PARTY_EVIDENCE_MISMATCH"),
     ("aggregate", "AGGREGATE_UNRESOLVED_ELEMENTS_MISMATCH"),
     ("evidence", "EVIDENCE_UNRESOLVED_ELEMENTS_MISMATCH"),
     ("narrative", "UNRESOLVED_NARRATIVE_OMISSION"),
+    ("party_narrative", "PARTY_NARRATIVE_STATUS_MISMATCH"),
 ])
 def test_release_gate_rejects_party_penalty_or_unresolved_projection_drift(current_report, mutation, reason):
     def load(cls, key):
@@ -221,6 +348,8 @@ def test_release_gate_rejects_party_penalty_or_unresolved_projection_drift(curre
         proof.final_missing_elements = [e for e in proof.final_missing_elements if e["status"] != "PARTIALLY_COVERED"]
     elif mutation == "evidence":
         proof.evidence_bundle["unresolved_requirements"] = []
+    elif mutation == "party_narrative":
+        liability.narrative_state['partial_elements'].append('买方泄密后采取措施防止继续扩散或损失扩大已有约定')
     else:
         proof.issue = "仅需补充完全缺失的文件。"
     failures = engine._exact_element_report_invariants(items, findings)

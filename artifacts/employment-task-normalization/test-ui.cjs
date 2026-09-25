@@ -1,0 +1,24 @@
+const {chromium}=require('C:/Users/Administrator/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const assert=require('node:assert/strict');
+(async()=>{
+ const browser=await chromium.launch({headless:true,channel:'msedge'});
+ const page=await browser.newPage({viewport:{width:1280,height:900}});
+ await page.addInitScript(()=>{localStorage.setItem('token','diagnostic-ui-fixture');localStorage.setItem('user_id','diagnostic-ui-test')});
+ await page.route(/\/(?:api|auth|user)\//,r=>r.fulfill({json:{user_id:'diagnostic-ui-test',credits:100}}));
+ const d={stage:'NORMALIZATION',code:'INVALID_ENUM',validation_rule:'INVALID_ENUM',fact_key:'contract.term_limit_mode',field:'value',raw_value:{mode:'UNSUPPORTED'},normalized_value:null,allowed_values:['NONE','TASK_COMPLETION'],evidence:[{clause_id:'C0099',quote:'任务完成后合同结束。'}],clause:[{section:'期限条款',text:'任务完成后合同结束。'}],message:'枚举值不在允许范围内'};
+ const failure={code:'FACT_EXTRACTION_BLOCKED',message:'事实校验失败',release_quality_gate:'BLOCKED',trace_id:'FACT-UI-TEST',diagnostics:[d]};
+ await page.route('**/review-v2/file',r=>r.fulfill({status:503,contentType:'application/json',body:JSON.stringify({detail:failure})}));
+ await page.route('**/review-v2/profile-options',r=>r.fulfill({json:{house_lease:{identities:['合同当事人'],scenarios:['一般合同']}}}));
+ await page.route('**/review-v2/llm-status*',r=>r.fulfill({json:{available:true,enabled_by_env:true,has_model_key:true}}));
+ await page.route('**/auth/me',r=>r.fulfill({json:{user_id:'diagnostic-ui-test'}}));
+ await page.goto('http://127.0.0.1:5173/contract-review-v2');
+ await page.locator('input[type=file]').setInputFiles({name:'diagnostic-test.docx',mimeType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',buffer:Buffer.from('UI transport fixture')});
+ await page.getByRole('button',{name:'开始审查',exact:true}).click();
+ const panel=page.getByRole('alert',{name:'事实抽取/校验诊断'});
+ await panel.waitFor();
+ for(const word of ['NORMALIZATION','INVALID_ENUM','contract.term_limit_mode','UNSUPPORTED','TASK_COMPLETION','任务完成后合同结束。','FACT-UI-TEST']) assert((await panel.innerText()).includes(word),word);
+ await page.reload();await panel.waitFor();assert((await panel.innerText()).includes('FACT-UI-TEST'));
+ await panel.screenshot({path:'artifacts/employment-task-normalization/diagnostics-ui.png'});
+ console.log('PASS: structured HTTP error, full diagnostics, refresh persistence');
+ await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});

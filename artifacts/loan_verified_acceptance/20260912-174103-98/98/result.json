@@ -1,0 +1,826 @@
+{
+  "file": "F:\\ai\\Sage\\test_data\\98 借款合同.docx",
+  "file_sha256": "b0add44adf035d4025d62b511645cb2cc324eab094a3511a27c9cc7129c2b809",
+  "source_sha256": "53b70b7ac320a8fd97d6601625c3ee1cea32f196094c1d131a4b9b0a7f7962ba",
+  "source_characters": 2183,
+  "status": "BLOCKED",
+  "error": "FactExtractionError: INVALID_TYPED_FACT:INVALID_VALUE_OBJECT_FIELDS",
+  "diagnostics": [
+    {
+      "failed_stage": "UNIFIED_FACT_VALIDATION",
+      "fact_id": null,
+      "field": "loan.cost_components",
+      "validation_rule": "INVALID_TYPED_FACT:INVALID_VALUE_OBJECT_FIELDS",
+      "model_raw_value": null,
+      "evidence": null,
+      "expected": null,
+      "actual": [
+        {
+          "kind": "regular_interest",
+          "charge_key": "借期利息",
+          "base": "UNPAID_PRINCIPAL",
+          "scope": "LOAN_TERM",
+          "rate": {
+            "state": "PRESENT",
+            "percent": 4.2,
+            "period": "YEAR"
+          }
+        },
+        {
+          "kind": "overdue_interest",
+          "charge_key": "逾期罚息",
+          "base": "UNKNOWN",
+          "scope": "OVERDUE",
+          "rate": {
+            "state": "PRESENT",
+            "percent": 6.3,
+            "period": "YEAR"
+          }
+        },
+        {
+          "kind": "penalty",
+          "charge_key": "挪用贷款罚息",
+          "base": "UNKNOWN",
+          "scope": "UNTIL_REPAYMENT",
+          "rate": {
+            "state": "PRESENT",
+            "percent": 8.4,
+            "period": "YEAR"
+          }
+        }
+      ],
+      "disposition": "BLOCK"
+    }
+  ],
+  "attempts": [
+    {
+      "raw_extraction": {
+        "schema_version": "contract-facts-1.0",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021",
+          "C0022",
+          "C0023"
+        ],
+        "searched_concepts": [
+          "loan.bank_relending",
+          "loan.unlicensed_repeated_lending",
+          "loan.known_illegal_use",
+          "loan.upfront_deduction",
+          "loan.financing_fee",
+          "loan.early_permission",
+          "loan.early_prohibited",
+          "loan.early_charge",
+          "loan.family_use",
+          "loan.cost_components",
+          "loan.cost_cumulative",
+          "loan.cost_replacement"
+        ],
+        "observations": [
+          {
+            "concept": "loan.bank_relending",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.unlicensed_repeated_lending",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.known_illegal_use",
+            "state": "EXPLICIT_NONE",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0004",
+                "quote": "借款人承诺贷款资金仅用于上述消费用途，不用于购房、股票、基金、股权投资、虚拟货币投资、生产经营禁止领域或其他法律法规禁止的用途。"
+              },
+              {
+                "clause_id": "C0020",
+                "quote": "借款人不得将贷款用于购房、固定资产投资、股权投资、债权投资、证券投资、虚拟货币交易或法律法规禁止的其他用途。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.upfront_deduction",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.financing_fee",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.early_permission",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0016",
+                "quote": "借款人可以申请提前偿还全部贷款。"
+              }
+            ],
+            "value": true
+          },
+          {
+            "concept": "loan.early_prohibited",
+            "state": "EXPLICIT_NONE",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0016",
+                "quote": "借款人可以申请提前偿还全部贷款。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.early_charge",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.family_use",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0004",
+                "quote": "贷款用途：家庭住房装修及家用设备购置。"
+              }
+            ],
+            "value": "家庭住房装修及家用设备购置"
+          },
+          {
+            "concept": "loan.cost_components",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0006",
+                "quote": "贷款年利率：4.20%"
+              },
+              {
+                "clause_id": "C0008",
+                "quote": "当期利息＝贷款正常本金余额×执行年利率÷360×计息天数"
+              },
+              {
+                "clause_id": "C0009",
+                "quote": "逾期贷款罚息：在合同执行利率基础上加收50%\n逾期罚息年利率：6.30%"
+              },
+              {
+                "clause_id": "C0009",
+                "quote": "未按约定用途使用贷款罚息：在合同执行利率基础上加收100%\n挪用贷款罚息年利率：8.40%"
+              }
+            ],
+            "value": [
+              {
+                "kind": "regular_interest",
+                "charge_key": "借期利息",
+                "base": "UNPAID_PRINCIPAL",
+                "scope": "LOAN_TERM",
+                "rate": {
+                  "state": "PRESENT",
+                  "percent": 4.2,
+                  "period": "YEAR"
+                }
+              },
+              {
+                "kind": "overdue_interest",
+                "charge_key": "逾期罚息",
+                "base": "UNKNOWN",
+                "scope": "OVERDUE",
+                "rate": {
+                  "state": "PRESENT",
+                  "percent": 6.3,
+                  "period": "YEAR"
+                }
+              },
+              {
+                "kind": "penalty",
+                "charge_key": "挪用贷款罚息",
+                "base": "UNKNOWN",
+                "scope": "UNTIL_REPAYMENT",
+                "rate": {
+                  "state": "PRESENT",
+                  "percent": 8.4,
+                  "period": "YEAR"
+                }
+              }
+            ]
+          },
+          {
+            "concept": "loan.cost_cumulative",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.cost_replacement",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          }
+        ]
+      },
+      "verification": null,
+      "diagnostics": [
+        {
+          "failed_stage": "UNIFIED_FACT_VALIDATION",
+          "fact_id": null,
+          "field": "loan.cost_components",
+          "validation_rule": "INVALID_TYPED_FACT:INVALID_VALUE_OBJECT_FIELDS",
+          "model_raw_value": null,
+          "evidence": null,
+          "expected": null,
+          "actual": [
+            {
+              "kind": "regular_interest",
+              "charge_key": "借期利息",
+              "base": "UNPAID_PRINCIPAL",
+              "scope": "LOAN_TERM",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 4.2,
+                "period": "YEAR"
+              }
+            },
+            {
+              "kind": "overdue_interest",
+              "charge_key": "逾期罚息",
+              "base": "UNKNOWN",
+              "scope": "OVERDUE",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 6.3,
+                "period": "YEAR"
+              }
+            },
+            {
+              "kind": "penalty",
+              "charge_key": "挪用贷款罚息",
+              "base": "UNKNOWN",
+              "scope": "UNTIL_REPAYMENT",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 8.4,
+                "period": "YEAR"
+              }
+            }
+          ],
+          "disposition": "BLOCK"
+        }
+      ]
+    },
+    {
+      "raw_extraction": {
+        "schema_version": "contract-facts-1.0",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021",
+          "C0022",
+          "C0023"
+        ],
+        "searched_concepts": [
+          "loan.bank_relending",
+          "loan.unlicensed_repeated_lending",
+          "loan.known_illegal_use",
+          "loan.upfront_deduction",
+          "loan.financing_fee",
+          "loan.early_permission",
+          "loan.early_prohibited",
+          "loan.early_charge",
+          "loan.family_use",
+          "loan.cost_components",
+          "loan.cost_cumulative",
+          "loan.cost_replacement"
+        ],
+        "observations": [
+          {
+            "concept": "loan.bank_relending",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.unlicensed_repeated_lending",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.known_illegal_use",
+            "state": "EXPLICIT_NONE",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0004",
+                "quote": "借款人承诺贷款资金仅用于上述消费用途，不用于购房、股票、基金、股权投资、虚拟货币投资、生产经营禁止领域或其他法律法规禁止的用途。"
+              },
+              {
+                "clause_id": "C0020",
+                "quote": "借款人不得将贷款用于购房、固定资产投资、股权投资、债权投资、证券投资、虚拟货币交易或法律法规禁止的其他用途。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.upfront_deduction",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.financing_fee",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.early_permission",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": true,
+            "evidence": [
+              {
+                "clause_id": "C0016",
+                "quote": "借款人可以申请提前偿还全部贷款。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.early_prohibited",
+            "state": "EXPLICIT_NONE",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0016",
+                "quote": "借款人可以申请提前偿还全部贷款。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.early_charge",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.family_use",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": "家庭住房装修及家用设备购置",
+            "evidence": [
+              {
+                "clause_id": "C0004",
+                "quote": "贷款用途：家庭住房装修及家用设备购置。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.cost_components",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": [
+              {
+                "kind": "regular_interest",
+                "charge_key": "借期利息",
+                "base": "UNPAID_PRINCIPAL",
+                "scope": "LOAN_TERM",
+                "rate": {
+                  "state": "PRESENT",
+                  "percent": 4.2,
+                  "period": "YEAR"
+                }
+              },
+              {
+                "kind": "overdue_interest",
+                "charge_key": "逾期罚息",
+                "base": "UNKNOWN",
+                "scope": "OVERDUE",
+                "rate": {
+                  "state": "PRESENT",
+                  "percent": 6.3,
+                  "period": "YEAR"
+                }
+              },
+              {
+                "kind": "penalty",
+                "charge_key": "挪用贷款罚息",
+                "base": "UNKNOWN",
+                "scope": "UNTIL_REPAYMENT",
+                "rate": {
+                  "state": "PRESENT",
+                  "percent": 8.4,
+                  "period": "YEAR"
+                }
+              }
+            ],
+            "evidence": [
+              {
+                "clause_id": "C0006",
+                "quote": "贷款年利率：4.20%"
+              },
+              {
+                "clause_id": "C0008",
+                "quote": "当期利息＝贷款正常本金余额×执行年利率÷360×计息天数"
+              },
+              {
+                "clause_id": "C0009",
+                "quote": "逾期贷款罚息：在合同执行利率基础上加收50%\n逾期罚息年利率：6.30%"
+              },
+              {
+                "clause_id": "C0009",
+                "quote": "未按约定用途使用贷款罚息：在合同执行利率基础上加收100%\n挪用贷款罚息年利率：8.40%"
+              }
+            ]
+          },
+          {
+            "concept": "loan.cost_cumulative",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.cost_replacement",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          }
+        ]
+      },
+      "verification": null,
+      "diagnostics": [
+        {
+          "failed_stage": "UNIFIED_FACT_VALIDATION",
+          "fact_id": null,
+          "field": "loan.cost_components",
+          "validation_rule": "INVALID_TYPED_FACT:INVALID_VALUE_OBJECT_FIELDS",
+          "model_raw_value": null,
+          "evidence": null,
+          "expected": null,
+          "actual": [
+            {
+              "kind": "regular_interest",
+              "charge_key": "借期利息",
+              "base": "UNPAID_PRINCIPAL",
+              "scope": "LOAN_TERM",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 4.2,
+                "period": "YEAR"
+              }
+            },
+            {
+              "kind": "overdue_interest",
+              "charge_key": "逾期罚息",
+              "base": "UNKNOWN",
+              "scope": "OVERDUE",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 6.3,
+                "period": "YEAR"
+              }
+            },
+            {
+              "kind": "penalty",
+              "charge_key": "挪用贷款罚息",
+              "base": "UNKNOWN",
+              "scope": "UNTIL_REPAYMENT",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 8.4,
+                "period": "YEAR"
+              }
+            }
+          ],
+          "disposition": "BLOCK"
+        }
+      ]
+    },
+    {
+      "raw_extraction": {
+        "schema_version": "contract-facts-1.0",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021",
+          "C0022",
+          "C0023"
+        ],
+        "searched_concepts": [
+          "loan.bank_relending",
+          "loan.unlicensed_repeated_lending",
+          "loan.known_illegal_use",
+          "loan.upfront_deduction",
+          "loan.financing_fee",
+          "loan.early_permission",
+          "loan.early_prohibited",
+          "loan.early_charge",
+          "loan.family_use",
+          "loan.cost_components",
+          "loan.cost_cumulative",
+          "loan.cost_replacement"
+        ],
+        "observations": [
+          {
+            "concept": "loan.bank_relending",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.unlicensed_repeated_lending",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.known_illegal_use",
+            "state": "EXPLICIT_NONE",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0004",
+                "quote": "借款人承诺贷款资金仅用于上述消费用途，不用于购房、股票、基金、股权投资、虚拟货币投资、生产经营禁止领域或其他法律法规禁止的用途。"
+              },
+              {
+                "clause_id": "C0020",
+                "quote": "借款人不得将贷款用于购房、固定资产投资、股权投资、债权投资、证券投资、虚拟货币交易或法律法规禁止的其他用途。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.upfront_deduction",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.financing_fee",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.early_permission",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": true,
+            "evidence": [
+              {
+                "clause_id": "C0016",
+                "quote": "借款人可以申请提前偿还全部贷款。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.early_prohibited",
+            "state": "EXPLICIT_NONE",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0016",
+                "quote": "借款人可以申请提前偿还全部贷款。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.early_charge",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.family_use",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": "家庭住房装修及家用设备购置",
+            "evidence": [
+              {
+                "clause_id": "C0004",
+                "quote": "贷款用途：家庭住房装修及家用设备购置。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.cost_components",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": [
+              {
+                "kind": "regular_interest",
+                "charge_key": "借期利息",
+                "base": "UNPAID_PRINCIPAL",
+                "scope": "LOAN_TERM",
+                "rate": {
+                  "state": "PRESENT",
+                  "percent": 4.2,
+                  "period": "YEAR"
+                }
+              },
+              {
+                "kind": "overdue_interest",
+                "charge_key": "逾期罚息",
+                "base": "UNKNOWN",
+                "scope": "OVERDUE",
+                "rate": {
+                  "state": "PRESENT",
+                  "percent": 6.3,
+                  "period": "YEAR"
+                }
+              },
+              {
+                "kind": "penalty",
+                "charge_key": "挪用贷款罚息",
+                "base": "UNKNOWN",
+                "scope": "UNTIL_REPAYMENT",
+                "rate": {
+                  "state": "PRESENT",
+                  "percent": 8.4,
+                  "period": "YEAR"
+                }
+              }
+            ],
+            "evidence": [
+              {
+                "clause_id": "C0006",
+                "quote": "贷款年利率：4.20%"
+              },
+              {
+                "clause_id": "C0008",
+                "quote": "当期利息＝贷款正常本金余额×执行年利率÷360×计息天数"
+              },
+              {
+                "clause_id": "C0009",
+                "quote": "逾期贷款罚息：在合同执行利率基础上加收50%\n逾期罚息年利率：6.30%"
+              },
+              {
+                "clause_id": "C0009",
+                "quote": "未按约定用途使用贷款罚息：在合同执行利率基础上加收100%\n挪用贷款罚息年利率：8.40%"
+              }
+            ]
+          },
+          {
+            "concept": "loan.cost_cumulative",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.cost_replacement",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          }
+        ]
+      },
+      "verification": null,
+      "diagnostics": [
+        {
+          "failed_stage": "UNIFIED_FACT_VALIDATION",
+          "fact_id": null,
+          "field": "loan.cost_components",
+          "validation_rule": "INVALID_TYPED_FACT:INVALID_VALUE_OBJECT_FIELDS",
+          "model_raw_value": null,
+          "evidence": null,
+          "expected": null,
+          "actual": [
+            {
+              "kind": "regular_interest",
+              "charge_key": "借期利息",
+              "base": "UNPAID_PRINCIPAL",
+              "scope": "LOAN_TERM",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 4.2,
+                "period": "YEAR"
+              }
+            },
+            {
+              "kind": "overdue_interest",
+              "charge_key": "逾期罚息",
+              "base": "UNKNOWN",
+              "scope": "OVERDUE",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 6.3,
+                "period": "YEAR"
+              }
+            },
+            {
+              "kind": "penalty",
+              "charge_key": "挪用贷款罚息",
+              "base": "UNKNOWN",
+              "scope": "UNTIL_REPAYMENT",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 8.4,
+                "period": "YEAR"
+              }
+            }
+          ],
+          "disposition": "BLOCK"
+        }
+      ]
+    }
+  ],
+  "calls": 17
+}

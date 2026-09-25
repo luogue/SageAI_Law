@@ -1,0 +1,501 @@
+{
+  "status": "BLOCKED",
+  "contract_type": "technology",
+  "selected_contract_type": "technology",
+  "raw_failure_count": 6,
+  "blocker_tuple_count": 6,
+  "blockers": [
+    {
+      "error_code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+      "rule_id": "TC-09-02",
+      "element_id": "PRIMARY_EVIDENCE",
+      "fact_id": null,
+      "detected_stage": "Review Evidence Projection",
+      "reject_reason": "The primary report evidence does not directly support any covered element in this Review.",
+      "source_spans": [],
+      "current_elements": [],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+        "failure_stage": "Review Evidence Projection",
+        "root_cause": "Review evidence is not exactly bound to covered elements: 1 mismatch(es).",
+        "current_status": "FAIL",
+        "review_id": "TC-09-02",
+        "element_id": "PRIMARY_EVIDENCE",
+        "evidence_refs": [
+          "C0004"
+        ],
+        "reason": "The primary report evidence does not directly support any covered element in this Review."
+      }
+    },
+    {
+      "error_code": "MISSING_WITH_POSITIVE_EVIDENCE",
+      "rule_id": "TC-09-02",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Technology Coverage Consistency",
+      "reject_reason": "TC-09-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-30b14858697e48e668c7",
+          "clause_id": "C0047",
+          "quote": "3．测试条件下视觉定位平均误差不高于0.05mm，机器人补偿后重复定位误差不高于±0.08mm。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2290,
+            "end_offset": 2338,
+            "raw_text": "3．测试条件下视觉定位平均误差不高于0.05mm，机器人补偿后重复定位误差不高于±0.08mm。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "objective_acceptance_standard"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-09-02",
+          "element_id": "objective_acceptance_standard",
+          "claim_id": "TC-09-02-objective_acceptance_standard",
+          "proposition": "客观验收指标明确。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-30b14858697e48e668c7"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-30b14858697e48e668c7"
+          ],
+          "source_clause_ids": [
+            "C0047"
+          ],
+          "source_spans": [
+            "3．测试条件下视觉定位平均误差不高于0.05mm，机器人补偿后重复定位误差不高于±0.08mm。"
+          ],
+          "source_locations": [
+            "第十二条第3项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "客观验收指标明确。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        },
+        {
+          "review_id": "TC-09-02",
+          "element_id": "reinspection_procedure",
+          "claim_id": "TC-09-02-reinspection_procedure",
+          "proposition": "再次验收安排",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "再次验收安排",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "再次验收安排"
+        },
+        {
+          "review_id": "TC-09-02",
+          "element_id": "reinspection_deadline",
+          "claim_id": "TC-09-02-reinspection_deadline",
+          "proposition": "再次验收期限",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "再次验收期限",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "再次验收期限"
+        },
+        {
+          "review_id": "TC-09-02",
+          "element_id": "rectification_party",
+          "claim_id": "TC-09-02-rectification_party",
+          "proposition": "整改责任主体",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "整改责任主体",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "整改责任主体"
+        },
+        {
+          "review_id": "TC-09-02",
+          "element_id": "rectification_measures",
+          "claim_id": "TC-09-02-rectification_measures",
+          "proposition": "整改措施",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "整改措施",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "整改措施"
+        },
+        {
+          "review_id": "TC-09-02",
+          "element_id": "rectification_procedure",
+          "claim_id": "TC-09-02-rectification_procedure",
+          "proposition": "整改流程",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "整改流程",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "required_fact": "整改流程"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+        "failure_stage": "Technology Coverage Consistency",
+        "root_cause": "TC-09-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+        "entity_type": "review",
+        "entity_id": "TC-09-02",
+        "source_clause_ids": [
+          "C0047"
+        ],
+        "severity": "blocking"
+      }
+    },
+    {
+      "error_code": "CROSS_RULE_CANONICAL_FACT_CONSISTENCY",
+      "rule_id": null,
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Cross-rule Canonical Fact Audit",
+      "reject_reason": "同一事实已被其他规则或统一事实层确认，但下游消费者仍输出完全缺失。",
+      "source_spans": [],
+      "current_elements": [],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "CROSS_RULE_CANONICAL_FACT_CONSISTENCY",
+        "failure_stage": "Cross-rule Canonical Fact Audit",
+        "root_cause": "同一事实已被其他规则或统一事实层确认，但下游消费者仍输出完全缺失。",
+        "entity_type": "review_group",
+        "entity_id": "technology_shared_facts",
+        "conflicts": [
+          {
+            "subject": "SERVICE_FEE",
+            "consumer": "TC-09-04"
+          },
+          {
+            "subject": "TECHNICAL_SECRET_SUBJECT",
+            "source": "TC-11-01",
+            "source_element": "confidential_information_scope",
+            "consumer": "TC-07-01",
+            "consumer_element": "licensed_secret_subject",
+            "source_status": "COVERED",
+            "consumer_status": "UNCERTAIN"
+          }
+        ],
+        "severity": "blocking"
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TC-11-02",
+      "element_id": "confidentiality_period",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "C0027",
+          "clause_id": "C0027",
+          "quote": "保密期限：自首次接触相关保密信息之日起至本合同终止后5年。 自首次接触相关保密信息之日起至本合同终止后5年。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1581,
+            "end_offset": 1613,
+            "raw_text": "3．保密期限：\n自首次接触相关保密信息之日起至本合同终止后5年。"
+          },
+          "supporting_element_ids": [
+            "confidentiality_period"
+          ]
+        },
+        {
+          "evidence_id": "C0031",
+          "clause_id": "C0031",
+          "quote": "保密期限：自首次接触相关保密信息之日起至本合同终止后3年。 自首次接触相关保密信息之日起至本合同终止后3年。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1800,
+            "end_offset": 1832,
+            "raw_text": "3．保密期限：\n自首次接触相关保密信息之日起至本合同终止后3年。"
+          },
+          "supporting_element_ids": [
+            "confidentiality_period"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-11-02",
+          "element_id": "confidentiality_period",
+          "claim_id": "TC-11-02-confidentiality_period",
+          "proposition": "保密义务持续期限",
+          "status": "COVERED",
+          "evidence_ids": [
+            "C0027",
+            "C0031"
+          ],
+          "supporting_evidence_ids": [
+            "C0027",
+            "C0031"
+          ],
+          "source_clause_ids": [
+            "C0027",
+            "C0031"
+          ],
+          "source_spans": [
+            "保密期限：自首次接触相关保密信息之日起至本合同终止后5年。 自首次接触相关保密信息之日起至本合同终止后5年。",
+            "保密期限：自首次接触相关保密信息之日起至本合同终止后3年。 自首次接触相关保密信息之日起至本合同终止后3年。"
+          ],
+          "source_locations": [
+            "第八条第3项",
+            "第八条第3项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "保密义务持续期限",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-008",
+        "element_id": "confidentiality_period",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "TC-11-02",
+        "finding_id": "RF-008",
+        "fact_key": "confidentiality_period",
+        "fact_value": "保密义务持续期限",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TC-11-02",
+            "finding_id": "RF-008",
+            "fact_key": "confidentiality_period",
+            "fact_value": "保密义务持续期限",
+            "current_evidence_refs": [
+              "C0027",
+              "C0031"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "POSITIVE_FACT_MONOTONICITY",
+      "rule_id": "TC-09-02",
+      "element_id": "objective_acceptance_standard",
+      "fact_id": null,
+      "detected_stage": null,
+      "reject_reason": "TC-09-02",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-30b14858697e48e668c7",
+          "clause_id": "C0047",
+          "quote": "3．测试条件下视觉定位平均误差不高于0.05mm，机器人补偿后重复定位误差不高于±0.08mm。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2290,
+            "end_offset": 2338,
+            "raw_text": "3．测试条件下视觉定位平均误差不高于0.05mm，机器人补偿后重复定位误差不高于±0.08mm。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "objective_acceptance_standard"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-09-02",
+          "element_id": "objective_acceptance_standard",
+          "claim_id": "TC-09-02-objective_acceptance_standard",
+          "proposition": "客观验收指标明确。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-30b14858697e48e668c7"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-30b14858697e48e668c7"
+          ],
+          "source_clause_ids": [
+            "C0047"
+          ],
+          "source_spans": [
+            "3．测试条件下视觉定位平均误差不高于0.05mm，机器人补偿后重复定位误差不高于±0.08mm。"
+          ],
+          "source_locations": [
+            "第十二条第3项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "客观验收指标明确。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "POSITIVE_FACT_MONOTONICITY",
+        "root_cause": "TC-09-02",
+        "element_id": "objective_acceptance_standard",
+        "final_element_status": "COVERED",
+        "bound_evidence_ids": [
+          "SRC-30b14858697e48e668c7"
+        ],
+        "search_audit": null,
+        "current_status": "FAIL"
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TC-11-02",
+      "element_id": "confidentiality_period",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "C0027",
+          "clause_id": "C0027",
+          "quote": "保密期限：自首次接触相关保密信息之日起至本合同终止后5年。 自首次接触相关保密信息之日起至本合同终止后5年。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1581,
+            "end_offset": 1613,
+            "raw_text": "3．保密期限：\n自首次接触相关保密信息之日起至本合同终止后5年。"
+          },
+          "supporting_element_ids": [
+            "confidentiality_period"
+          ]
+        },
+        {
+          "evidence_id": "C0031",
+          "clause_id": "C0031",
+          "quote": "保密期限：自首次接触相关保密信息之日起至本合同终止后3年。 自首次接触相关保密信息之日起至本合同终止后3年。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1800,
+            "end_offset": 1832,
+            "raw_text": "3．保密期限：\n自首次接触相关保密信息之日起至本合同终止后3年。"
+          },
+          "supporting_element_ids": [
+            "confidentiality_period"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-11-02",
+          "element_id": "confidentiality_period",
+          "claim_id": "TC-11-02-confidentiality_period",
+          "proposition": "保密义务持续期限",
+          "status": "COVERED",
+          "evidence_ids": [
+            "C0027",
+            "C0031"
+          ],
+          "supporting_evidence_ids": [
+            "C0027",
+            "C0031"
+          ],
+          "source_clause_ids": [
+            "C0027",
+            "C0031"
+          ],
+          "source_spans": [
+            "保密期限：自首次接触相关保密信息之日起至本合同终止后5年。 自首次接触相关保密信息之日起至本合同终止后5年。",
+            "保密期限：自首次接触相关保密信息之日起至本合同终止后3年。 自首次接触相关保密信息之日起至本合同终止后3年。"
+          ],
+          "source_locations": [
+            "第八条第3项",
+            "第八条第3项"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "保密义务持续期限",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-008",
+        "element_id": "confidentiality_period",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "TC-11-02",
+        "finding_id": "RF-008",
+        "fact_key": "confidentiality_period",
+        "fact_value": "保密义务持续期限",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TC-11-02",
+            "finding_id": "RF-008",
+            "fact_key": "confidentiality_period",
+            "fact_value": "保密义务持续期限",
+            "current_evidence_refs": [
+              "C0027",
+              "C0031"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    }
+  ],
+  "note": "Null IDs/stages mean the existing gate did not publish them; none are fabricated."
+}

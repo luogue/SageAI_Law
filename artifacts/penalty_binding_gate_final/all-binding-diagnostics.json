@@ -1,0 +1,454 @@
+{
+  "status": "BLOCKED",
+  "claims": [
+    {
+      "risk_id": "RF-010",
+      "field": "element_proposition",
+      "fact": "相对方承担、当前审查方受益的高额违约金包括若因乙方原因导致迟延交付，每迟延一天，乙方应按照合同总金额的0.1%向甲方支付违约金。合同价比例仅用于识别异常，不等同于实际损失比例。",
+      "element_ids": [
+        "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+      ],
+      "supporting_evidence_ids": [
+        "EV-ae893fb9ac6fec35",
+        "EV-8a962a085c759034"
+      ]
+    },
+    {
+      "risk_id": "RF-010",
+      "field": "element_proposition",
+      "fact": "若因乙方原因导致迟延交付，每迟延一天，乙方应按照合同总金额的0.1%向甲方支付违约金",
+      "element_ids": [
+        "penalty_obligation_1"
+      ],
+      "supporting_evidence_ids": [
+        "EV-8a962a085c759034"
+      ]
+    },
+    {
+      "risk_id": "RF-010",
+      "field": "review_judgment",
+      "fact": "每日0.1%",
+      "element_ids": [
+        "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+        "penalty_obligation_1"
+      ],
+      "supporting_evidence_ids": [
+        "EV-ae893fb9ac6fec35",
+        "EV-8a962a085c759034"
+      ]
+    },
+    {
+      "risk_id": "RF-002",
+      "field": "element_proposition",
+      "fact": "项目开发过程中，如果因现有技术水平限制，经双方确认项目部分技术目标无法实现，双方应协商调整研发目标或者终止相关研发工作",
+      "element_ids": [
+        "no_fault_technical_risk_trigger"
+      ],
+      "supporting_evidence_ids": [
+        "EV-5db255a7ef60cbe5"
+      ]
+    },
+    {
+      "risk_id": "RF-003",
+      "field": "element_proposition",
+      "fact": "乙方不得向第三方披露、许可或转让开发成果。",
+      "element_ids": [
+        "third_party_disclosure_transfer"
+      ],
+      "supporting_evidence_ids": [
+        "EV-3ae452448b4f4950",
+        "EV-ed7ae05f1227ef1d"
+      ]
+    },
+    {
+      "risk_id": "RF-003",
+      "field": "element_proposition",
+      "fact": "源代码、接口、架构及其他必要技术资料应完整交付。",
+      "element_ids": [
+        "source_algorithm_document_delivery"
+      ],
+      "supporting_evidence_ids": [
+        "EV-3ae452448b4f4950",
+        "EV-ed7ae05f1227ef1d"
+      ]
+    },
+    {
+      "risk_id": "RF-003",
+      "field": "element_proposition",
+      "fact": "合同终止后，乙方应将甲方提供的相关技术资料和数据全部删除，并向甲方提交书面删除确认函",
+      "element_ids": [
+        "material_disposition"
+      ],
+      "supporting_evidence_ids": [
+        "EV-ed7ae05f1227ef1d"
+      ]
+    },
+    {
+      "risk_id": "RF-003",
+      "field": "element_proposition",
+      "fact": "合同终止后，乙方应将甲方提供的相关技术资料和数据全部删除，并向甲方提交书面删除确认函",
+      "element_ids": [
+        "material_disposition"
+      ],
+      "supporting_evidence_ids": [
+        "EV-ed7ae05f1227ef1d"
+      ]
+    },
+    {
+      "risk_id": "RF-008",
+      "field": "element_proposition",
+      "fact": "源代码、目标程序或可执行程序交付明确。",
+      "element_ids": [
+        "source_and_executable_delivery"
+      ],
+      "supporting_evidence_ids": []
+    },
+    {
+      "risk_id": "RF-008",
+      "field": "element_proposition",
+      "fact": "一般技术文档或技术文件交付明确。",
+      "element_ids": [
+        "generic_technical_documentation"
+      ],
+      "supporting_evidence_ids": []
+    },
+    {
+      "risk_id": "RF-008",
+      "field": "element_proposition",
+      "fact": "接口、架构和部署文档被逐项明确列为交付物。",
+      "element_ids": [
+        "interface_architecture_deployment_documents"
+      ],
+      "supporting_evidence_ids": []
+    },
+    {
+      "risk_id": "RF-008",
+      "field": "element_proposition",
+      "fact": "用户、操作和安装资料交付明确。",
+      "element_ids": [
+        "operation_and_installation_documents"
+      ],
+      "supporting_evidence_ids": []
+    },
+    {
+      "risk_id": "RF-009",
+      "field": "element_proposition",
+      "fact": "验收标准已有明确约定。",
+      "element_ids": [
+        "acceptance_metrics"
+      ],
+      "supporting_evidence_ids": [
+        "EV-7cafc2aecfbdfae5",
+        "EV-682b32acd2a72467",
+        "EV-3b9fdca6edcae6cf",
+        "EV-1dc913e483a22bad"
+      ]
+    },
+    {
+      "risk_id": "RF-009",
+      "field": "element_proposition",
+      "fact": "验收方法已有明确约定。",
+      "element_ids": [
+        "acceptance_method"
+      ],
+      "supporting_evidence_ids": [
+        "EV-5a6681fa2660f0f9"
+      ]
+    },
+    {
+      "risk_id": "RF-001",
+      "field": "element_proposition",
+      "fact": "本项目开发过程中形成的全部技术成果，包括技术方案、软件源代码、算法模型、数据库结构、技术文档、专利申请权、软件著作权以及相关知识产权，归甲乙双方共同所有",
+      "element_ids": [
+        "patent_application_right_ownership"
+      ],
+      "supporting_evidence_ids": [
+        "EV-d825a18b5cc9cddc"
+      ]
+    },
+    {
+      "risk_id": "RF-001",
+      "field": "element_proposition",
+      "fact": "本项目开发过程中形成的全部技术成果，包括技术方案、软件源代码、算法模型、数据库结构、技术文档、专利申请权、软件著作权以及相关知识产权，归甲乙双方共同所有",
+      "element_ids": [
+        "application_filing_control"
+      ],
+      "supporting_evidence_ids": [
+        "EV-d825a18b5cc9cddc"
+      ]
+    },
+    {
+      "risk_id": "RF-004",
+      "field": "element_proposition",
+      "fact": "开发费用总额明确。",
+      "element_ids": [
+        "development_fee_total"
+      ],
+      "supporting_evidence_ids": [
+        "EV-7f01ba6206eef31f",
+        "EV-13576c2a5025e9df"
+      ]
+    },
+    {
+      "risk_id": "RF-004",
+      "field": "element_proposition",
+      "fact": "首付款及阶段付款金额和期限明确。",
+      "element_ids": [
+        "milestone_payment_schedule"
+      ],
+      "supporting_evidence_ids": [
+        "EV-7f01ba6206eef31f",
+        "EV-13576c2a5025e9df"
+      ]
+    },
+    {
+      "risk_id": "RF-004",
+      "field": "element_proposition",
+      "fact": "需求或项目变更时的费用调整机制明确。",
+      "element_ids": [
+        "fee_adjustment"
+      ],
+      "supporting_evidence_ids": [
+        "EV-7f01ba6206eef31f",
+        "EV-13576c2a5025e9df"
+      ]
+    },
+    {
+      "risk_id": "RF-004",
+      "field": "element_proposition",
+      "fact": "发票和收款账户安排明确。",
+      "element_ids": [
+        "invoice_and_account"
+      ],
+      "supporting_evidence_ids": [
+        "EV-7f01ba6206eef31f",
+        "EV-13576c2a5025e9df"
+      ]
+    },
+    {
+      "risk_id": "RF-004",
+      "field": "element_proposition",
+      "fact": "付款迟延的违约后果已有明确约定",
+      "element_ids": [
+        "payment_delay_liability"
+      ],
+      "supporting_evidence_ids": [
+        "EV-13576c2a5025e9df"
+      ]
+    },
+    {
+      "risk_id": "RF-004",
+      "field": "element_proposition",
+      "fact": "开发合同解除或终止机制已有明确约定",
+      "element_ids": [
+        "development_termination_mechanism"
+      ],
+      "supporting_evidence_ids": [
+        "EV-093865198fc9bd0c",
+        "EV-987de78c155139cf"
+      ]
+    },
+    {
+      "risk_id": "RF-004",
+      "field": "element_proposition",
+      "fact": "提前退出时研发资料交接已有明确约定",
+      "element_ids": [
+        "exit_research_material_handover"
+      ],
+      "supporting_evidence_ids": [
+        "EV-093865198fc9bd0c"
+      ]
+    },
+    {
+      "risk_id": "RF-005",
+      "field": "element_proposition",
+      "fact": "保密信息类别和范围已有明确约定。",
+      "element_ids": [
+        "confidential_information_scope"
+      ],
+      "supporting_evidence_ids": [
+        "EV-74453a9098d8cdfb"
+      ]
+    },
+    {
+      "risk_id": "RF-005",
+      "field": "element_proposition",
+      "fact": "合同履行期间的保密义务已有明确约定。",
+      "element_ids": [
+        "during_contract_confidentiality"
+      ],
+      "supporting_evidence_ids": [
+        "EV-d2bccec39ff7cc5e"
+      ]
+    },
+    {
+      "risk_id": "RF-007",
+      "field": "element_proposition",
+      "fact": "第三方对委托方实施合同技术提出权利主张",
+      "element_ids": [
+        "claim_trigger"
+      ],
+      "supporting_evidence_ids": [
+        "EV-76e5c4caa246c8bb"
+      ]
+    },
+    {
+      "risk_id": "RF-007",
+      "field": "element_proposition",
+      "fact": "开发方负责第三方主张的交涉或处理",
+      "element_ids": [
+        "claim_handling"
+      ],
+      "supporting_evidence_ids": [
+        "EV-76e5c4caa246c8bb"
+      ]
+    },
+    {
+      "risk_id": "RF-007",
+      "field": "element_proposition",
+      "fact": "开发方负责第三方主张的交涉或处理",
+      "element_ids": [
+        "licensor_participation"
+      ],
+      "supporting_evidence_ids": [
+        "EV-76e5c4caa246c8bb"
+      ]
+    }
+  ],
+  "mismatch_count": 4,
+  "failures": [
+    {
+      "requirement": "NARRATIVE_EVIDENCE_GATE",
+      "failure_stage": "Narrative Evidence Validation",
+      "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+      "details": [
+        {
+          "risk_id": "RF-008",
+          "element_id": "source_and_executable_delivery",
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "rule_id": "TC-13-01",
+          "finding_id": "RF-008",
+          "fact_key": "source_and_executable_delivery",
+          "fact_value": "源代码、目标程序或可执行程序交付明确。",
+          "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "binding_diagnostics": [
+            {
+              "rule_id": "TC-13-01",
+              "finding_id": "RF-008",
+              "fact_key": "source_and_executable_delivery",
+              "fact_value": "源代码、目标程序或可执行程序交付明确。",
+              "current_evidence_refs": [
+                "C0006",
+                "C0004",
+                "C0009",
+                "C0011",
+                "C0015",
+                "C0017"
+              ],
+              "current_supporting_evidence": [],
+              "report_evidence_id": null,
+              "support_target": [],
+              "source_type": null,
+              "conditions": {
+                "published_element_evidence_exists": false
+              },
+              "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+            }
+          ]
+        },
+        {
+          "risk_id": "RF-008",
+          "element_id": "generic_technical_documentation",
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "rule_id": "TC-13-01",
+          "finding_id": "RF-008",
+          "fact_key": "generic_technical_documentation",
+          "fact_value": "一般技术文档或技术文件交付明确。",
+          "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "binding_diagnostics": [
+            {
+              "rule_id": "TC-13-01",
+              "finding_id": "RF-008",
+              "fact_key": "generic_technical_documentation",
+              "fact_value": "一般技术文档或技术文件交付明确。",
+              "current_evidence_refs": [
+                "C0004",
+                "C0009",
+                "C0015"
+              ],
+              "current_supporting_evidence": [],
+              "report_evidence_id": null,
+              "support_target": [],
+              "source_type": null,
+              "conditions": {
+                "published_element_evidence_exists": false
+              },
+              "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+            }
+          ]
+        },
+        {
+          "risk_id": "RF-008",
+          "element_id": "interface_architecture_deployment_documents",
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "rule_id": "TC-13-01",
+          "finding_id": "RF-008",
+          "fact_key": "interface_architecture_deployment_documents",
+          "fact_value": "接口、架构和部署文档被逐项明确列为交付物。",
+          "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "binding_diagnostics": [
+            {
+              "rule_id": "TC-13-01",
+              "finding_id": "RF-008",
+              "fact_key": "interface_architecture_deployment_documents",
+              "fact_value": "接口、架构和部署文档被逐项明确列为交付物。",
+              "current_evidence_refs": [
+                "C0006"
+              ],
+              "current_supporting_evidence": [],
+              "report_evidence_id": null,
+              "support_target": [],
+              "source_type": null,
+              "conditions": {
+                "published_element_evidence_exists": false
+              },
+              "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+            }
+          ]
+        },
+        {
+          "risk_id": "RF-008",
+          "element_id": "operation_and_installation_documents",
+          "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "rule_id": "TC-13-01",
+          "finding_id": "RF-008",
+          "fact_key": "operation_and_installation_documents",
+          "fact_value": "用户、操作和安装资料交付明确。",
+          "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+          "binding_diagnostics": [
+            {
+              "rule_id": "TC-13-01",
+              "finding_id": "RF-008",
+              "fact_key": "operation_and_installation_documents",
+              "fact_value": "用户、操作和安装资料交付明确。",
+              "current_evidence_refs": [
+                "C0006"
+              ],
+              "current_supporting_evidence": [],
+              "report_evidence_id": null,
+              "support_target": [],
+              "source_type": null,
+              "conditions": {
+                "published_element_evidence_exists": false
+              },
+              "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "gate_results": {
+    "NARRATIVE_EVIDENCE_GATE": "FAIL"
+  }
+}

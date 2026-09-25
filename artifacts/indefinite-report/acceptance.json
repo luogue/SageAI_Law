@@ -1,0 +1,46 @@
+{
+  "trace_id": "CR-20260912-102527-8E7376",
+  "source_unchanged": true,
+  "counts": {
+    "risk_theme_count": 3,
+    "rule_risk_hit_count": 6,
+    "risk_clause_count": 4
+  },
+  "source_clause_count_note": "按风险判断绑定的原文条款去重，包含用于核验试用期上限的合同期限条款。",
+  "themes": [
+    {
+      "title": "试用期超过法定上限或重复约定",
+      "severity": "HIGH",
+      "priority": "A_CORE",
+      "source_review_ids": [
+        "EMP-15-01"
+      ],
+      "economic_impact": ""
+    },
+    {
+      "title": "社会保险缴纳",
+      "severity": "HIGH",
+      "priority": "A_CORE",
+      "source_review_ids": [
+        "EMP-07-01",
+        "EMP-13-01"
+      ],
+      "economic_impact": "合同明确涉及每月2000元现金补贴替代社保缴费；该金额不等同依法应缴社保金额，实际补缴情形及金额需另行核算；同一责任不重复累计；是否实际发生取决于触发条件，不等同已经产生实际损失。"
+    },
+    {
+      "title": "排除法定经济补偿；用人单位任意解除或终止",
+      "severity": "HIGH",
+      "priority": "A_CORE",
+      "source_review_ids": [
+        "EMP-10-01",
+        "EMP-11-01",
+        "EMP-16-01"
+      ],
+      "economic_impact": ""
+    }
+  ],
+  "release_quality_gate": "REPORT_READY",
+  "tests_passed": 53,
+  "new_tests": 6,
+  "vue_template": "PASS"
+}

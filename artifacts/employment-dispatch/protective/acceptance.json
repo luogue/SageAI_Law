@@ -1,0 +1,2523 @@
+{
+  "source_sha256": "d52c4b129ef0f1b6bf3353bd57e4c440d7c84da551f0cc76ff75df907fd97f29",
+  "transport": "FastAPI multipart business route",
+  "fresh_deepseek": true,
+  "gate": {
+    "status": "REPORT_READY",
+    "failures": [],
+    "priority_consistency_verification": {
+      "executed": true,
+      "high_finding_count": 1,
+      "core_priority_count": 1,
+      "consistency": "CONSISTENT",
+      "explanations": [],
+      "needs_recalibration": false
+    },
+    "context_consistency": {
+      "status": "PASS",
+      "failures": [],
+      "contract_type": "labor",
+      "domain_pack": "priority-domain-1.0"
+    },
+    "gate_results": {
+      "PASS_EVIDENCE_PROVENANCE_GATE": "PASS",
+      "PARTIAL_ELEMENT_NARRATIVE_GATE": "PASS",
+      "COVERAGE_SENTENCE_CONSISTENCY_GATE": "PASS",
+      "ELEMENT_STATUS_CONTRADICTION": "PASS",
+      "EVIDENCE_MONOTONICITY_VIOLATION": "PASS",
+      "FINDING_EVIDENCE_GATE": "PASS",
+      "CROSS_LAYER_CONSISTENCY_GATE": "PASS",
+      "DEFAULT_LAW_COMPLETENESS_GATE": "PASS",
+      "DEFAULT_LAW_EFFECTIVE_GAP_GATE": "PASS",
+      "NARRATIVE_ELEMENT_CONSISTENCY_GATE": "PASS",
+      "NARRATIVE_TRUTH_GATE": "PASS",
+      "PRIORITY_CONSISTENCY_GATE": "PASS",
+      "SIGNABILITY_GATE": "PASS",
+      "CONFIDENCE_VALIDATION_GATE": "PASS",
+      "DOMAIN_SUBTYPE_GATE": "PASS",
+      "DOMAIN_REVIEW_ISOLATION_GATE": "PASS",
+      "DOMAIN_MATERIAL_COVERAGE_GATE": "PASS",
+      "TRANSACTION_STRUCTURE_GATE": "PASS",
+      "FRAMEWORK_DOMAIN_GATE": "PASS",
+      "ORDER_RELATION_GATE": "PASS",
+      "DYNAMIC_QUANTITY_GATE": "PASS",
+      "PRICE_MECHANISM_GATE": "PASS",
+      "ALTERNATIVE_SATISFACTION_GATE": "PASS",
+      "FALSE_RISK_EXISTENCE_GATE": "PASS",
+      "FACT_REGISTRY_SNAPSHOT_CONSISTENCY": "PASS",
+      "FACT_REGISTRY_CONFLICTING_FACT": "PASS",
+      "CROSS_REVIEW_FACT_CONFLICT": "PASS",
+      "FACT_TRUTH_OVERRIDE_VIOLATION": "PASS",
+      "FACT_CONSUMER_MAPPING_MISSING": "PASS",
+      "RISK_EVIDENCE_MISMATCH": "PASS",
+      "CANONICAL_PENALTY_BINDING": "PASS",
+      "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS",
+      "APPLICABILITY_PRECONDITION_GATE": "PASS",
+      "SHARED_CLAIM_CONSISTENCY_GATE": "PASS",
+      "FINDING_PRECONDITION_GATE": "PASS",
+      "REPORT_CONTEXT_GATE": "PASS",
+      "REPORT_TRANSACTION_TRUTH_GATE": "PASS",
+      "CROSS_REVIEW_CONSISTENCY_GATE": "PASS",
+      "RECOMMENDATION_NON_DEGRADATION_GATE": "PASS",
+      "COMMON_REVIEW_SATISFACTION_GATE": "PASS",
+      "ELEMENT_IDENTITY_CONTRADICTION_GATE": "PASS",
+      "PRODUCT_APPLICABILITY_GATE": "PASS",
+      "SHARED_CLAIM_REUSE_GATE": "PASS",
+      "FINDING_INDEPENDENCE_GATE": "PASS",
+      "TECHNOLOGY_TRANSACTION_CONSISTENCY": "NOT_APPLICABLE",
+      "PERSPECTIVE_DOMAIN_CONSISTENCY_GATE": "PASS",
+      "PATENT_TRANSFER_QUALITY_GATE": "NOT_APPLICABLE",
+      "PRODUCTION_FACT_POLARITY_GATE": "PASS",
+      "ADVERSE_POLARITY_AUDIT_GATE": "PASS",
+      "RECOMMENDATION_SOURCE_UNMAPPED": "PASS",
+      "RECOMMENDATION_ELEMENT_LEAKAGE": "PASS",
+      "RECOMMENDATION_COVERED_ELEMENT_REINTRODUCED": "PASS",
+      "RECOMMENDATION_PLACEHOLDER_TEXT": "PASS",
+      "RECOMMENDATION_FINAL_DISPOSITION_MISMATCH": "PASS",
+      "CLIENT_INTEREST_GATE": "PASS",
+      "RISK_STATISTICS_INVARIANT": "PASS",
+      "FINAL_DISPOSITION_INVARIANT": "PASS",
+      "FORMAL_RECOMMENDATION_FINAL_DISPOSITION_INVARIANT": "PASS",
+      "RECOMMENDATION_OWNERSHIP_INVARIANT": "PASS",
+      "HIGH_NON_MUST_CHANGE_REASON_INVARIANT": "PASS",
+      "OPTIONAL_IMPROVEMENT_VISIBILITY_INVARIANT": "PASS",
+      "ACTIONABLE_RECOMMENDATION_COMPLETENESS_INVARIANT": "PASS",
+      "LEGAL_AUTHORITY_DEDUP_GATE": "PASS",
+      "LEGAL_AUTHORITY_SELECTION_GATE": "PASS",
+      "CITATION_ENTAILMENT_GATE": "PASS",
+      "LEGAL_DEFAULT_LAW_CONSISTENCY_GATE": "PASS",
+      "ATOMIC_LEGAL_ELEMENT_GATE": "PASS",
+      "DEFAULT_LAW_NARRATIVE_TRUTH_GATE": "PASS",
+      "NOT_APPLICABLE_NARRATIVE_GATE": "PASS",
+      "NOT_APPLICABLE_GAP_GATE": "PASS",
+      "REVIEW_POLARITY_NARRATIVE_GATE": "PASS",
+      "NEGATIVE_CHECK_PASS_GATE": "PASS",
+      "CROSS_REVIEW_SHARED_CLAIM_GATE": "PASS",
+      "NARRATIVE_EVIDENCE_GATE": "PASS",
+      "CANONICAL_SEMANTIC_PROOF_GATE": "PASS",
+      "VERIFIED_PASS_ORIGINAL_GATE": "PASS",
+      "EXACT_ELEMENT_REPORT_INVARIANT": "PASS",
+      "PRODUCTION_INTERNAL_TOKEN_GATE": "PASS",
+      "DEFAULT_LAW_PROVENANCE_GATE": "PASS",
+      "RECOMMENDATION_SINGLE_SOURCE_GATE": "PASS",
+      "RECOMMENDATION_CROSS_RENDERER_CONSISTENCY_GATE": "PASS",
+      "REPORT_TEXT_VALIDATION": "PASS",
+      "REPORT_DISPOSITION_PROJECTION_INVARIANT": "PASS",
+      "EVIDENCE_BUNDLE_ENTAILMENT_GATE": "PASS",
+      "RECOMMENDATION_SEMANTIC_BINDING_GATE": "PASS",
+      "SUMMARY_DETAIL_RISK_ID_GATE": "PASS",
+      "ISSUE_TYPE_NARRATIVE_GATE": "PASS",
+      "OPTIONAL_REPORT_COUNT_GATE": "PASS",
+      "REPORT_ROLE_PLACEHOLDER_GATE": "PASS",
+      "ACTIONABLE_RECOMMENDATION_VISIBILITY_GATE": "PASS",
+      "CLAIM_EVIDENCE_COVERAGE_GATE": "PASS",
+      "EVIDENCE_FACT_ROLE_GATE": "PASS",
+      "SINGLE_EVIDENCE_SOURCE_GATE": "PASS",
+      "EVIDENCE_BUNDLE_RENDER_GATE": "PASS",
+      "APPLICABILITY_DISPLAY_CONSISTENCY_GATE": "PASS",
+      "ISSUE_TYPE_CONSISTENCY_GATE": "PASS",
+      "PARTIAL_MISSING_ELEMENT_GATE": "PASS",
+      "SUMMARY_TRUNCATION_DISCLOSURE_GATE": "PASS",
+      "TECHNICAL_REPORT_PLACEHOLDER_GATE": "PASS",
+      "FINAL_RISK_EVIDENCE_BUNDLE_GATE": "PASS",
+      "EVIDENCE_ITEM_UNIQUENESS_GATE": "PASS",
+      "CLAUSE_NODE_CONSISTENCY_GATE": "PASS",
+      "MISSING_RISK_ABSENCE_EVIDENCE_GATE": "PASS",
+      "COVERAGE_RISK_ACTION_CONSISTENCY_GATE": "PASS",
+      "PATENT_ROLE_TERMINOLOGY_GATE": "PASS",
+      "DUPLICATE_TEMPLATE_PHRASE_GATE": "PASS",
+      "EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+      "PASS_EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+      "CANONICAL_RISK_COVERAGE_INVARIANT": "PASS",
+      "CONSULTING_REPORT_CONTEXT_GATE": "PASS",
+      "TERMINOLOGY_CONSISTENCY_GATE": "PASS",
+      "APPLICABILITY_AND_EVIDENCE_BOUNDARY": "PASS"
+    },
+    "blocking_rules": [],
+    "blocking_stage": "",
+    "blocking_entities": [],
+    "blocking_reasons": [],
+    "post_render_status": "REPORT_READY"
+  },
+  "items": [
+    {
+      "item_id": "EMP-01-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-01-01",
+          "element_id": "employment_identity_1",
+          "proposition": "用人单位住所",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-2fda45f8dbd93b9fffa4",
+            "SRC-2fda45f8dbd93b9fffa4"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18号。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-2fda45f8dbd93b9fffa4",
+            "SRC-2fda45f8dbd93b9fffa4"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-2fda45f8dbd93b9fffa4",
+            "SRC-2fda45f8dbd93b9fffa4"
+          ],
+          "bound_evidence_ids": [
+            "SRC-2fda45f8dbd93b9fffa4",
+            "SRC-2fda45f8dbd93b9fffa4"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18号。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-01-01",
+          "element_id": "employment_identity_2::identity.worker_name",
+          "proposition": "劳动者姓名",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-b217a6c056e933b7f453",
+            "SRC-b217a6c056e933b7f453"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "乙方：林雨，居民身份证号为510104199610080018。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-b217a6c056e933b7f453",
+            "SRC-b217a6c056e933b7f453"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-b217a6c056e933b7f453",
+            "SRC-b217a6c056e933b7f453"
+          ],
+          "bound_evidence_ids": [
+            "SRC-b217a6c056e933b7f453",
+            "SRC-b217a6c056e933b7f453"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方：林雨，居民身份证号为510104199610080018。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-01-01",
+          "element_id": "employment_identity_2::identity.worker_id",
+          "proposition": "劳动者身份证明号码",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-b217a6c056e933b7f453",
+            "SRC-b217a6c056e933b7f453"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "乙方：林雨，居民身份证号为510104199610080018。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-b217a6c056e933b7f453",
+            "SRC-b217a6c056e933b7f453"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-b217a6c056e933b7f453",
+            "SRC-b217a6c056e933b7f453"
+          ],
+          "bound_evidence_ids": [
+            "SRC-b217a6c056e933b7f453",
+            "SRC-b217a6c056e933b7f453"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方：林雨，居民身份证号为510104199610080018。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-01-01",
+          "element_id": "employment_identity_name",
+          "proposition": "用人单位名称",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-2fda45f8dbd93b9fffa4",
+            "SRC-2fda45f8dbd93b9fffa4"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18号。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-2fda45f8dbd93b9fffa4",
+            "SRC-2fda45f8dbd93b9fffa4"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-2fda45f8dbd93b9fffa4",
+            "SRC-2fda45f8dbd93b9fffa4"
+          ],
+          "bound_evidence_ids": [
+            "SRC-2fda45f8dbd93b9fffa4",
+            "SRC-2fda45f8dbd93b9fffa4"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18号。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-02-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-02-01",
+          "element_id": "employment_term_1",
+          "proposition": "期限类型",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "合同为固定期限，自2027年3月1日起至2030年2月28日止，不设试用期。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe"
+          ],
+          "bound_evidence_ids": [
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "合同为固定期限，自2027年3月1日起至2030年2月28日止，不设试用期。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-02-01",
+          "element_id": "employment_term_start",
+          "proposition": "生效或起始日期",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "合同为固定期限，自2027年3月1日起至2030年2月28日止，不设试用期。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe"
+          ],
+          "bound_evidence_ids": [
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "合同为固定期限，自2027年3月1日起至2030年2月28日止，不设试用期。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-02-01",
+          "element_id": "employment_term_end",
+          "proposition": "终止日期",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "合同为固定期限，自2027年3月1日起至2030年2月28日止，不设试用期。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe"
+          ],
+          "bound_evidence_ids": [
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe",
+            "SRC-95ca781f148df92600fe"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "合同为固定期限，自2027年3月1日起至2030年2月28日止，不设试用期。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-03-01",
+      "coverage_status": "不适用",
+      "coverage_elements": []
+    },
+    {
+      "item_id": "EMP-15-01",
+      "coverage_status": "不适用",
+      "coverage_elements": []
+    },
+    {
+      "item_id": "EMP-04-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-04-01",
+          "element_id": "employment_work_1",
+          "proposition": "具体工作岗位或职责",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-ab4d25d92b5e714796e3",
+            "SRC-ab4d25d92b5e714796e3"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "乙方在接受单位的办公地点从事辅助性档案整理，派出期限与劳动合同期限相同。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-ab4d25d92b5e714796e3",
+            "SRC-ab4d25d92b5e714796e3"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-ab4d25d92b5e714796e3",
+            "SRC-ab4d25d92b5e714796e3"
+          ],
+          "bound_evidence_ids": [
+            "SRC-ab4d25d92b5e714796e3",
+            "SRC-ab4d25d92b5e714796e3"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方在接受单位的办公地点从事辅助性档案整理，派出期限与劳动合同期限相同。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-04-01",
+          "element_id": "employment_work_2",
+          "proposition": "具体工作地点",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-ab4d25d92b5e714796e3",
+            "SRC-ab4d25d92b5e714796e3"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "乙方在接受单位的办公地点从事辅助性档案整理，派出期限与劳动合同期限相同。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-ab4d25d92b5e714796e3",
+            "SRC-ab4d25d92b5e714796e3"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-ab4d25d92b5e714796e3",
+            "SRC-ab4d25d92b5e714796e3"
+          ],
+          "bound_evidence_ids": [
+            "SRC-ab4d25d92b5e714796e3",
+            "SRC-ab4d25d92b5e714796e3"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方在接受单位的办公地点从事辅助性档案整理，派出期限与劳动合同期限相同。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-05-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-05-01",
+          "element_id": "employment_hours_1",
+          "proposition": "工时制度及工作时间",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "采用每日八小时每周四十小时标准工时，依法休假并依法支付加班工资。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af"
+          ],
+          "bound_evidence_ids": [
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "采用每日八小时每周四十小时标准工时，依法休假并依法支付加班工资。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-05-01",
+          "element_id": "employment_hours_2",
+          "proposition": "休息休假安排",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "采用每日八小时每周四十小时标准工时，依法休假并依法支付加班工资。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af"
+          ],
+          "bound_evidence_ids": [
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "采用每日八小时每周四十小时标准工时，依法休假并依法支付加班工资。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-05-01",
+          "element_id": "employment_hours_3",
+          "proposition": "加班报酬或依法调休",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "采用每日八小时每周四十小时标准工时，依法休假并依法支付加班工资。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "recommendation_action": "OPTIONAL",
+          "residual_gap": "法定加班报酬规则无需在合同中重复列明；明确不利约定仍独立审查",
+          "risk_relevant": false,
+          "evidence_refs": [
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af"
+          ],
+          "bound_evidence_ids": [
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af",
+            "SRC-42980ee8a466b910d7af"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "采用每日八小时每周四十小时标准工时，依法休假并依法支付加班工资。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-06-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-06-01",
+          "element_id": "employment_wage_1",
+          "proposition": "工资金额或可计算标准",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "乙方享有与接受单位同岗位劳动者相同的劳动报酬分配办法，不得给予较低工资。月薪为人民币九千元，每月八日通过银行账户发放。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed"
+          ],
+          "bound_evidence_ids": [
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方享有与接受单位同岗位劳动者相同的劳动报酬分配办法，不得给予较低工资。月薪为人民币九千元，每月八日通过银行账户发放。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-06-01",
+          "element_id": "employment_wage_2",
+          "proposition": "工资支付日期",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "乙方享有与接受单位同岗位劳动者相同的劳动报酬分配办法，不得给予较低工资。月薪为人民币九千元，每月八日通过银行账户发放。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed"
+          ],
+          "bound_evidence_ids": [
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方享有与接受单位同岗位劳动者相同的劳动报酬分配办法，不得给予较低工资。月薪为人民币九千元，每月八日通过银行账户发放。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-06-01",
+          "element_id": "employment_wage_3",
+          "proposition": "工资支付方式",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "乙方享有与接受单位同岗位劳动者相同的劳动报酬分配办法，不得给予较低工资。月薪为人民币九千元，每月八日通过银行账户发放。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed"
+          ],
+          "bound_evidence_ids": [
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed",
+            "SRC-76a7ded0e40bd00319ed"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方享有与接受单位同岗位劳动者相同的劳动报酬分配办法，不得给予较低工资。月薪为人民币九千元，每月八日通过银行账户发放。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-07-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-07-01",
+          "element_id": "employment_insurance_1::social_insurance.employer_enrolls",
+          "proposition": "单位承担参保办理义务",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "派出单位办理参保登记，承担单位缴费部分，个人缴费从工资代扣。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c"
+          ],
+          "bound_evidence_ids": [
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "派出单位办理参保登记，承担单位缴费部分，个人缴费从工资代扣。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-07-01",
+          "element_id": "employment_insurance_1::social_insurance.employer_pays",
+          "proposition": "单位承担法定单位缴费部分",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "派出单位办理参保登记，承担单位缴费部分，个人缴费从工资代扣。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c"
+          ],
+          "bound_evidence_ids": [
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "派出单位办理参保登记，承担单位缴费部分，个人缴费从工资代扣。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-07-01",
+          "element_id": "employment_insurance_2",
+          "proposition": "个人应缴部分及代扣代缴",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "派出单位办理参保登记，承担单位缴费部分，个人缴费从工资代扣。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "recommendation_action": "OPTIONAL",
+          "residual_gap": "法定个人缴费及代扣代缴机制无需在普通劳动合同中重复列明",
+          "gap_risk_level": "中",
+          "risk_relevant": false,
+          "evidence_refs": [
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c"
+          ],
+          "bound_evidence_ids": [
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c",
+            "SRC-c26b6986888facbb846c"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "派出单位办理参保登记，承担单位缴费部分，个人缴费从工资代扣。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-08-01",
+      "coverage_status": "待核验",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-08-01",
+          "element_id": "employment_safety_1",
+          "proposition": "劳动保护和安全健康制度",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-35773b0fc8bab70fc1b9",
+            "SRC-35773b0fc8bab70fc1b9"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "接受单位负责劳动条件、安全防护、岗位培训与依法支付加班待遇；派出单位负责工资、社会保险并督促接受单位履行保护义务。双方不得通过责任分工免除法定责任。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-35773b0fc8bab70fc1b9",
+            "SRC-35773b0fc8bab70fc1b9"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-35773b0fc8bab70fc1b9",
+            "SRC-35773b0fc8bab70fc1b9"
+          ],
+          "bound_evidence_ids": [
+            "SRC-35773b0fc8bab70fc1b9",
+            "SRC-35773b0fc8bab70fc1b9"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "接受单位负责劳动条件、安全防护、岗位培训与依法支付加班待遇；派出单位负责工资、社会保险并督促接受单位履行保护义务。双方不得通过责任分工免除法定责任。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-08-01",
+          "element_id": "employment_safety_training",
+          "proposition": "安全培训",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-35773b0fc8bab70fc1b9",
+            "SRC-35773b0fc8bab70fc1b9"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "接受单位负责劳动条件、安全防护、岗位培训与依法支付加班待遇；派出单位负责工资、社会保险并督促接受单位履行保护义务。双方不得通过责任分工免除法定责任。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-35773b0fc8bab70fc1b9",
+            "SRC-35773b0fc8bab70fc1b9"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-35773b0fc8bab70fc1b9",
+            "SRC-35773b0fc8bab70fc1b9"
+          ],
+          "bound_evidence_ids": [
+            "SRC-35773b0fc8bab70fc1b9",
+            "SRC-35773b0fc8bab70fc1b9"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "接受单位负责劳动条件、安全防护、岗位培训与依法支付加班待遇；派出单位负责工资、社会保险并督促接受单位履行保护义务。双方不得通过责任分工免除法定责任。"
+            }
+          ]
+        },
+        {
+          "element_id": "employment_safety_2",
+          "status": "CONDITION_UNRESOLVED",
+          "proposition": "核实岗位是否存在职业病危害因素，再确定专项保护义务。",
+          "required_fact": "职业危害告知和健康保护",
+          "conditional_element": true,
+          "prerequisite_status": "UNKNOWN",
+          "prerequisite_fact": "岗位实际存在职业病危害因素",
+          "verification_instruction": "核实岗位是否存在职业病危害因素，再确定专项保护义务。",
+          "risk_relevant": false,
+          "bound_evidence_ids": [],
+          "prerequisite_evidence": [],
+          "source_clause_ids": [],
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-09-01",
+      "coverage_status": "不适用",
+      "coverage_elements": []
+    },
+    {
+      "item_id": "EMP-10-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-10-01",
+          "element_id": "employment_exit_1",
+          "proposition": "解除终止事由或协商一致",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-6778ce197da8f593d77b",
+            "SRC-fb9f9c40c40a433abdcd",
+            "SRC-fb9f9c40c40a433abdcd"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "接受单位须具备法定事由才可退回劳动者，不得直接解除乙方与甲方的劳动合同。依法退回后甲方另行安排工作；只在维持或提高劳动合同约定条件且符合法定退回条件的情况下，乙方拒绝重新安排的，方可依法解除，并依法支付经济补偿。新安排降低条件时，不得仅因拒绝而解除。",
+            "双方依法办理解除和终止，劳动者依法提前通知。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-6778ce197da8f593d77b",
+            "SRC-fb9f9c40c40a433abdcd",
+            "SRC-fb9f9c40c40a433abdcd"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-6778ce197da8f593d77b",
+            "SRC-fb9f9c40c40a433abdcd",
+            "SRC-fb9f9c40c40a433abdcd"
+          ],
+          "bound_evidence_ids": [
+            "SRC-6778ce197da8f593d77b",
+            "SRC-fb9f9c40c40a433abdcd",
+            "SRC-fb9f9c40c40a433abdcd"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "接受单位须具备法定事由才可退回劳动者，不得直接解除乙方与甲方的劳动合同。依法退回后甲方另行安排工作；只在维持或提高劳动合同约定条件且符合法定退回条件的情况下，乙方拒绝重新安排的，方可依法解除，并依法支付经济补偿。新安排降低条件时，不得仅因拒绝而解除。"
+            },
+            {
+              "clause_id": "C0002",
+              "quote": "双方依法办理解除和终止，劳动者依法提前通知。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-10-01",
+          "element_id": "employment_exit_2",
+          "proposition": "解除通知方式或明确解除日期",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-fb9f9c40c40a433abdcd",
+            "SRC-fb9f9c40c40a433abdcd"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "双方依法办理解除和终止，劳动者依法提前通知。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "recommendation_action": "OPTIONAL",
+          "residual_gap": "可选完善解除通知方式或未来解除日期确认机制",
+          "risk_relevant": false,
+          "evidence_refs": [
+            "SRC-fb9f9c40c40a433abdcd",
+            "SRC-fb9f9c40c40a433abdcd"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-fb9f9c40c40a433abdcd",
+            "SRC-fb9f9c40c40a433abdcd"
+          ],
+          "bound_evidence_ids": [
+            "SRC-fb9f9c40c40a433abdcd",
+            "SRC-fb9f9c40c40a433abdcd"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "双方依法办理解除和终止，劳动者依法提前通知。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-11-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-11-01",
+          "element_id": "employment_compensation_1",
+          "proposition": "经济补偿依法处理、计算依据或正常结算安排",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-f7c5b24e7f77d4603d69",
+            "SRC-7c721313b15451502c99",
+            "SRC-7c721313b15451502c99"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "依法退回后甲方另行安排工作；只在维持或提高劳动合同约定条件且符合法定退回条件的情况下，乙方拒绝重新安排的，方可依法解除，并依法支付经济补偿。",
+            "甲方依法计算经济补偿并于交接结束时结清工资与应付补偿。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-f7c5b24e7f77d4603d69",
+            "SRC-7c721313b15451502c99",
+            "SRC-7c721313b15451502c99"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-f7c5b24e7f77d4603d69",
+            "SRC-7c721313b15451502c99",
+            "SRC-7c721313b15451502c99"
+          ],
+          "bound_evidence_ids": [
+            "SRC-f7c5b24e7f77d4603d69",
+            "SRC-7c721313b15451502c99",
+            "SRC-7c721313b15451502c99"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "依法退回后甲方另行安排工作；只在维持或提高劳动合同约定条件且符合法定退回条件的情况下，乙方拒绝重新安排的，方可依法解除，并依法支付经济补偿。"
+            },
+            {
+              "clause_id": "C0002",
+              "quote": "甲方依法计算经济补偿并于交接结束时结清工资与应付补偿。"
+            }
+          ]
+        },
+        {
+          "review_id": "EMP-11-01",
+          "element_id": "employment_compensation_2",
+          "proposition": "解除终止后工资及补偿结算期限",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-7c721313b15451502c99",
+            "SRC-7c721313b15451502c99"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "甲方依法计算经济补偿并于交接结束时结清工资与应付补偿。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-7c721313b15451502c99",
+            "SRC-7c721313b15451502c99"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-7c721313b15451502c99",
+            "SRC-7c721313b15451502c99"
+          ],
+          "bound_evidence_ids": [
+            "SRC-7c721313b15451502c99",
+            "SRC-7c721313b15451502c99"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方依法计算经济补偿并于交接结束时结清工资与应付补偿。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-12-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-12-01",
+          "element_id": "employment_dispute_1",
+          "proposition": "劳动争议依法申请劳动仲裁",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-f569495249d0bfe65433"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "争议依法申请劳动仲裁。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-f569495249d0bfe65433"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-f569495249d0bfe65433"
+          ],
+          "bound_evidence_ids": [
+            "SRC-f569495249d0bfe65433"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "争议依法申请劳动仲裁。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "EMP-13-01",
+      "coverage_status": "通过",
+      "coverage_elements": []
+    },
+    {
+      "item_id": "EMP-16-01",
+      "coverage_status": "通过",
+      "coverage_elements": []
+    },
+    {
+      "item_id": "EMP-14-01",
+      "coverage_status": "风险条款",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-14-01",
+          "element_id": "employment_general_penalty_adverse",
+          "proposition": "违法约定劳动者违约金",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SYN-7f604513e05f308051e7"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "没有约定离职竞业限制与培训服务期，也不收取普通离职违约金。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SYN-7f604513e05f308051e7"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "没有约定离职竞业限制与培训服务期，也不收取普通离职违约金。"
+            }
+          ],
+          "supporting_evidence_ids": [
+            "SYN-7f604513e05f308051e7"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "NC-01-01",
+      "coverage_status": "不适用",
+      "coverage_elements": []
+    },
+    {
+      "item_id": "NC-02-01",
+      "coverage_status": "不适用",
+      "coverage_elements": []
+    },
+    {
+      "item_id": "NC-03-01",
+      "coverage_status": "不适用",
+      "coverage_elements": []
+    },
+    {
+      "item_id": "EMP-IP-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "EMP-IP-01",
+          "element_id": "employment_ip_ownership_1",
+          "proposition": "劳动成果及知识产权归属安排",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-dcb7b1ee2405f7ddc361"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "职务成果按法律规定确定归属，入职前的个人作品仍归劳动者。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-dcb7b1ee2405f7ddc361"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-dcb7b1ee2405f7ddc361"
+          ],
+          "bound_evidence_ids": [
+            "SRC-dcb7b1ee2405f7ddc361"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "职务成果按法律规定确定归属，入职前的个人作品仍归劳动者。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "DSP-01-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "DSP-01-01",
+          "element_id": "employment_dispatch_identity_1",
+          "proposition": "派遣单位",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-2fda45f8dbd93b9fffa4"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18号。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-2fda45f8dbd93b9fffa4"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-2fda45f8dbd93b9fffa4"
+          ],
+          "bound_evidence_ids": [
+            "SRC-2fda45f8dbd93b9fffa4"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18号。"
+            }
+          ]
+        },
+        {
+          "review_id": "DSP-01-01",
+          "element_id": "employment_dispatch_identity_2",
+          "proposition": "用工单位",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-56929c13cc52a41c63db"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "甲方与乙方建立劳动关系，安排乙方到接受单位澄海制造有限公司工作，由接受单位实施日常岗位管理；本合同实行劳务派遣。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-56929c13cc52a41c63db"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-56929c13cc52a41c63db"
+          ],
+          "bound_evidence_ids": [
+            "SRC-56929c13cc52a41c63db"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方与乙方建立劳动关系，安排乙方到接受单位澄海制造有限公司工作，由接受单位实施日常岗位管理；本合同实行劳务派遣。"
+            }
+          ]
+        },
+        {
+          "review_id": "DSP-01-01",
+          "element_id": "employment_dispatch_identity_3",
+          "proposition": "派遣岗位",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-ab4d25d92b5e714796e3",
+            "SRC-ab4d25d92b5e714796e3"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "乙方在接受单位的办公地点从事辅助性档案整理，派出期限与劳动合同期限相同。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-ab4d25d92b5e714796e3",
+            "SRC-ab4d25d92b5e714796e3"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-ab4d25d92b5e714796e3",
+            "SRC-ab4d25d92b5e714796e3"
+          ],
+          "bound_evidence_ids": [
+            "SRC-ab4d25d92b5e714796e3",
+            "SRC-ab4d25d92b5e714796e3"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方在接受单位的办公地点从事辅助性档案整理，派出期限与劳动合同期限相同。"
+            }
+          ]
+        },
+        {
+          "review_id": "DSP-01-01",
+          "element_id": "employment_dispatch_identity_4",
+          "proposition": "派遣期限",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-ab4d25d92b5e714796e3",
+            "SRC-ab4d25d92b5e714796e3"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "乙方在接受单位的办公地点从事辅助性档案整理，派出期限与劳动合同期限相同。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-ab4d25d92b5e714796e3",
+            "SRC-ab4d25d92b5e714796e3"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-ab4d25d92b5e714796e3",
+            "SRC-ab4d25d92b5e714796e3"
+          ],
+          "bound_evidence_ids": [
+            "SRC-ab4d25d92b5e714796e3",
+            "SRC-ab4d25d92b5e714796e3"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方在接受单位的办公地点从事辅助性档案整理，派出期限与劳动合同期限相同。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "DSP-02-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "DSP-02-01",
+          "element_id": "employment_dispatch_position_1",
+          "proposition": "派遣岗位性质",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-69ad5e0b0e3876b2eb7e"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "该岗位不属于主营业务，经职工讨论、与工会协商并公示。岗位虽长期保留，仍属辅助性岗位。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-69ad5e0b0e3876b2eb7e"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-69ad5e0b0e3876b2eb7e"
+          ],
+          "bound_evidence_ids": [
+            "SRC-69ad5e0b0e3876b2eb7e"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "该岗位不属于主营业务，经职工讨论、与工会协商并公示。岗位虽长期保留，仍属辅助性岗位。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "DSP-03-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "DSP-03-01",
+          "element_id": "employment_dispatch_equal_pay_1",
+          "proposition": "同工同酬安排",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-c8bb9cbd460707121785"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "乙方享有与接受单位同岗位劳动者相同的劳动报酬分配办法，不得给予较低工资。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-c8bb9cbd460707121785"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-c8bb9cbd460707121785"
+          ],
+          "bound_evidence_ids": [
+            "SRC-c8bb9cbd460707121785"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方享有与接受单位同岗位劳动者相同的劳动报酬分配办法，不得给予较低工资。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "DSP-04-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "DSP-04-01",
+          "element_id": "employment_dispatch_idle_pay_1",
+          "proposition": "无工作期间按月报酬",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-04352abc4f7f5e140976"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "派出单位在没有安排工作及等待重新安排期间，每月按其所在地政府规定的最低工资标准支付报酬，不得停发。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-04352abc4f7f5e140976"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-04352abc4f7f5e140976"
+          ],
+          "bound_evidence_ids": [
+            "SRC-04352abc4f7f5e140976"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "派出单位在没有安排工作及等待重新安排期间，每月按其所在地政府规定的最低工资标准支付报酬，不得停发。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "DSP-05-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "DSP-05-01",
+          "element_id": "employment_dispatch_charges_1",
+          "proposition": "禁止派遣单位及用工单位向劳动者收取派遣费用",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-f1179a51786fc60702bf"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "派出单位和接受单位均不得向乙方收取派遣服务费、管理费。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-f1179a51786fc60702bf"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-f1179a51786fc60702bf"
+          ],
+          "bound_evidence_ids": [
+            "SRC-f1179a51786fc60702bf"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "派出单位和接受单位均不得向乙方收取派遣服务费、管理费。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "DSP-06-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "DSP-06-01",
+          "element_id": "employment_dispatch_return_1",
+          "proposition": "用工单位退回条件与程序",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-c6a03e8567632e07bb6a"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "接受单位须具备法定事由才可退回劳动者，不得直接解除乙方与甲方的劳动合同。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-c6a03e8567632e07bb6a"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-c6a03e8567632e07bb6a"
+          ],
+          "bound_evidence_ids": [
+            "SRC-c6a03e8567632e07bb6a"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "接受单位须具备法定事由才可退回劳动者，不得直接解除乙方与甲方的劳动合同。"
+            }
+          ]
+        },
+        {
+          "review_id": "DSP-06-01",
+          "element_id": "employment_dispatch_return_2",
+          "proposition": "重新派遣安排",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-f7c5b24e7f77d4603d69"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "依法退回后甲方另行安排工作；只在维持或提高劳动合同约定条件且符合法定退回条件的情况下，乙方拒绝重新安排的，方可依法解除，并依法支付经济补偿。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-f7c5b24e7f77d4603d69"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-f7c5b24e7f77d4603d69"
+          ],
+          "bound_evidence_ids": [
+            "SRC-f7c5b24e7f77d4603d69"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "依法退回后甲方另行安排工作；只在维持或提高劳动合同约定条件且符合法定退回条件的情况下，乙方拒绝重新安排的，方可依法解除，并依法支付经济补偿。"
+            }
+          ]
+        },
+        {
+          "review_id": "DSP-06-01",
+          "element_id": "employment_dispatch_return_3",
+          "proposition": "拒绝新岗位后的解除条件",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-3dcb77232162667f63ca"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "依法退回后甲方另行安排工作；只在维持或提高劳动合同约定条件且符合法定退回条件的情况下，乙方拒绝重新安排的，方可依法解除，并依法支付经济补偿。新安排降低条件时，不得仅因拒绝而解除。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-3dcb77232162667f63ca"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-3dcb77232162667f63ca"
+          ],
+          "bound_evidence_ids": [
+            "SRC-3dcb77232162667f63ca"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "依法退回后甲方另行安排工作；只在维持或提高劳动合同约定条件且符合法定退回条件的情况下，乙方拒绝重新安排的，方可依法解除，并依法支付经济补偿。新安排降低条件时，不得仅因拒绝而解除。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "DSP-07-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "DSP-07-01",
+          "element_id": "employment_dispatch_disclosure_1",
+          "proposition": "告知与劳动者切身利益相关的派遣协议内容",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-46246fa17b22e2c8783a"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "甲方应向乙方告知派遣协议中关系其切身利益的内容。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-46246fa17b22e2c8783a"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-46246fa17b22e2c8783a"
+          ],
+          "bound_evidence_ids": [
+            "SRC-46246fa17b22e2c8783a"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方应向乙方告知派遣协议中关系其切身利益的内容。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "DSP-08-01",
+      "coverage_status": "通过",
+      "coverage_elements": [
+        {
+          "review_id": "DSP-08-01",
+          "element_id": "employment_dispatch_duties_1",
+          "proposition": "派遣单位雇主义务",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-35773b0fc8bab70fc1b9",
+            "SRC-7c721313b15451502c99",
+            "SRC-35773b0fc8bab70fc1b9"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "接受单位负责劳动条件、安全防护、岗位培训与依法支付加班待遇；派出单位负责工资、社会保险并督促接受单位履行保护义务。双方不得通过责任分工免除法定责任。",
+            "甲方依法计算经济补偿并于交接结束时结清工资与应付补偿。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-35773b0fc8bab70fc1b9",
+            "SRC-7c721313b15451502c99",
+            "SRC-35773b0fc8bab70fc1b9"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-35773b0fc8bab70fc1b9",
+            "SRC-7c721313b15451502c99",
+            "SRC-35773b0fc8bab70fc1b9"
+          ],
+          "bound_evidence_ids": [
+            "SRC-35773b0fc8bab70fc1b9",
+            "SRC-7c721313b15451502c99",
+            "SRC-35773b0fc8bab70fc1b9"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "接受单位负责劳动条件、安全防护、岗位培训与依法支付加班待遇；派出单位负责工资、社会保险并督促接受单位履行保护义务。双方不得通过责任分工免除法定责任。"
+            },
+            {
+              "clause_id": "C0002",
+              "quote": "甲方依法计算经济补偿并于交接结束时结清工资与应付补偿。"
+            }
+          ]
+        },
+        {
+          "review_id": "DSP-08-01",
+          "element_id": "employment_dispatch_duties_2",
+          "proposition": "用工单位实际用工义务",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-35773b0fc8bab70fc1b9",
+            "SRC-35773b0fc8bab70fc1b9"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0002"
+          ],
+          "source_spans": [
+            "接受单位负责劳动条件、安全防护、岗位培训与依法支付加班待遇；派出单位负责工资、社会保险并督促接受单位履行保护义务。双方不得通过责任分工免除法定责任。"
+          ],
+          "source_locations": [
+            "甲方（雇佣并派出人员的单位）：远航用工服务有限公司，住所为成都市锦江区东风路18"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0002"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-35773b0fc8bab70fc1b9",
+            "SRC-35773b0fc8bab70fc1b9"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-35773b0fc8bab70fc1b9",
+            "SRC-35773b0fc8bab70fc1b9"
+          ],
+          "bound_evidence_ids": [
+            "SRC-35773b0fc8bab70fc1b9",
+            "SRC-35773b0fc8bab70fc1b9"
+          ],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "接受单位负责劳动条件、安全防护、岗位培训与依法支付加班待遇；派出单位负责工资、社会保险并督促接受单位履行保护义务。双方不得通过责任分工免除法定责任。"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+........................................................................ [ 33%]
+................................F....................................... [ 66%]
+........................................................................ [100%]
+================================== FAILURES ===================================
+_______________ test_final_report_uses_facts_not_lexical_recall _______________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000284276BC4C0>
+
+    def test_final_report_uses_facts_not_lexical_recall(monkeypatch):
+        from review_v2 import employment_fact_pipeline as pipeline
+        from review_v2.engine import review_contract_v2
+        text = '劳动合同\n第一条 工资\n试用阶段报酬壹万叁仟元每月。正常阶段每月壹万伍仟元。\n第二条 劳动保护\n配备劳动防护设施。'
+        cs = parse_contract_clauses(text)
+        fs = [fact(cs,'probation.arrangement','CURRENT','试用阶段报酬壹万叁仟元每月。'),
+              fact(cs,'probation.salary',{'amount_text':'壹万叁仟','unit':'CNY/MONTH'},'试用阶段报酬壹万叁仟元每月。'),
+              fact(cs,'salary.regular',{'amount_text':'壹万伍仟','unit':'CNY/MONTH'},'正常阶段每月壹万伍仟元。'),
+              fact(cs,'labor_protection.measures','防护设施','配备劳动防护设施。')]
+        monkeypatch.setattr(pipeline,'extract',lambda _:packet(cs,fs))
+        monkeypatch.setattr(pipeline,'verify',verified_packet)
+        result = review_contract_v2(text,'labor',use_llm=False)
+        rows = {r['item_id']:r for r in result['items']}
+        assert rows['EMP-03-01']['coverage_status'] == '部分覆盖'
+        assert rows['EMP-06-01']['coverage_status'] == '部分覆盖'
+>       assert rows['EMP-08-01']['coverage_status'] == '部分覆盖'
+E       AssertionError: assert '待核验' == '部分覆盖'
+E         
+E         - 部分覆盖
+E         + 待核验
+
+backend\tests\test_employment_fact_pipeline.py:123: AssertionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+backend/tests/test_employment_dispatch.py::test_dispatch_final_report_separates_unproven_comparisons_from_risks
+  F:\ai\Sage\backend\tests\test_employment_dispatch.py:93: PydanticDeprecatedSince20: The `dict` method is deprecated; use `model_dump` instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    public=ReviewV2Result(**result).dict()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_employment_fact_pipeline.py::test_final_report_uses_facts_not_lexical_recall
+1 failed, 215 passed, 7 warnings in 65.64s (0:01:05)

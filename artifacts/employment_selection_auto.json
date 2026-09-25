@@ -1,0 +1,822 @@
+{
+  "success": false,
+  "contract_type": "auto",
+  "contract_type_name": "未支持的合同类型",
+  "message": "审查第二版当前支持房屋租赁合同、买卖合同、赠与合同、保管合同、承揽合同、运输合同、委托合同、借款合同、服务合同、保证合同、融资租赁合同、仓储合同、建设工程合同、技术合同、行纪合同、供用电、水、气、热力合同、中介合同、劳动合同、竞业限制协议、保密协议、劳动关系解除/终止协议、抵押合同、动产质押合同、股权质押合同、应收账款等权利质押合同、股权转让协议、增资扩股协议、投资协议、股东协议；其他合同类型应按同一审查清单结构迁移。",
+  "contract_review_trace_id": "CR-20260908-062701-F641B7",
+  "items": [],
+  "summary": {
+    "高": 0,
+    "中": 0,
+    "低": 0
+  },
+  "risk_finding_summary": {
+    "重大风险": 0,
+    "中等风险": 0,
+    "低风险": 0,
+    "人工复核": 0
+  },
+  "final_overview_summary": {
+    "major_risk": 0,
+    "medium_risk": 0,
+    "low_risk": 0,
+    "priority_action": 0,
+    "recommended_action": 0,
+    "optional_action": 0,
+    "manual_review": 0
+  },
+  "coverage_summary": {},
+  "issue_type_summary": {},
+  "judge_source_summary": {},
+  "llm_enabled": false,
+  "llm_status": {
+    "enabled_by_env": true,
+    "has_model_key": false,
+    "available": false,
+    "configured_models": [],
+    "priority": "doubao,qwen,deepseek",
+    "message": "服务器未配置模型 API Key，当前仅使用规则兜底。"
+  },
+  "global_fallback_reason": "本次审查未启用大模型语义复核，使用规则判定",
+  "report_notice": "本报告基于完整合同模板逐项审查，部分缺失项可能因合同格式简略所致，建议结合合同实际用途判断优先级。",
+  "result": "",
+  "review_results_4_0": [],
+  "risk_findings": [],
+  "recommendations": [],
+  "contract_context": {
+    "contract_type": "auto",
+    "contract_family": "AUTO",
+    "transaction_nature": "GENERAL_TRANSACTION",
+    "contract_subtype": "GENERAL_CONTRACT",
+    "user_role": "buyer",
+    "counterparty_role": "neutral",
+    "transaction_purpose": "general_contract",
+    "usage_scenario": "general_contract",
+    "subject_matter": "GENERAL",
+    "asset_usage": "",
+    "consideration_type": "UNKNOWN",
+    "ownership_transfer": false,
+    "possession_transfer": false,
+    "product_category": "",
+    "transaction_structure": "OTHER",
+    "fixed_quantity": null,
+    "dynamic_quantity": null,
+    "master_agreement_exists": null,
+    "order_driven_performance": null,
+    "recurring_delivery": null,
+    "recurring_settlement": null,
+    "minimum_purchase_commitment": null,
+    "forecast_exists": null,
+    "forecast_binding": null,
+    "price_adjustment_mechanism": "",
+    "term_based_relationship": null,
+    "contract_value": null,
+    "currency": "CNY",
+    "duration": null,
+    "payment_frequency": null,
+    "payment_structure": "",
+    "delivery_structure": "",
+    "prepaid_amount": null,
+    "deposit": null,
+    "parties": {},
+    "business_or_consumer": "unknown",
+    "bargaining_power": "均衡方",
+    "user_perspective": "buyer",
+    "industry": "unknown",
+    "jurisdiction": "CN",
+    "special_assets": [],
+    "special_facts": [],
+    "domain_attributes": {
+      "domain_pack": "domain-pack-shared-1.0",
+      "context_resolver": "isolated_generic_context",
+      "lease_fields_used": false
+    }
+  },
+  "overall_assessment": {},
+  "legal_reference_issues": [],
+  "legal_citation_claims": [],
+  "legal_authority_validation": {},
+  "benchmark_metrics": {},
+  "release_quality_gate": {
+    "status": "BLOCKED",
+    "failures": [
+      {
+        "requirement": "Supported Contract Type",
+        "failure_stage": "Parser Validation",
+        "root_cause": "Unsupported contract type.",
+        "responsible_function": "get_contract_meta",
+        "current_status": "FAIL"
+      }
+    ]
+  },
+  "quality4_gate": {
+    "status": "BLOCKED",
+    "failures": [
+      {
+        "requirement": "Supported Contract Type",
+        "failure_stage": "Parser Validation",
+        "root_cause": "Unsupported contract type.",
+        "fix_owner": "Contract Registry"
+      }
+    ]
+  },
+  "architecture_status": [
+    {
+      "module": "Parser",
+      "exists": true,
+      "production_called": true,
+      "controls_final": true,
+      "tests": true,
+      "status": "Implemented"
+    },
+    {
+      "module": "Canonical Contract",
+      "exists": true,
+      "production_called": true,
+      "controls_final": true,
+      "tests": true,
+      "status": "Implemented"
+    },
+    {
+      "module": "Version Resolver",
+      "exists": true,
+      "production_called": true,
+      "controls_final": false,
+      "tests": true,
+      "status": "Implemented as precedence hints"
+    },
+    {
+      "module": "Fact Graph",
+      "exists": true,
+      "production_called": true,
+      "controls_final": true,
+      "tests": true,
+      "status": "Implemented"
+    },
+    {
+      "module": "Applicability",
+      "exists": true,
+      "production_called": true,
+      "controls_final": true,
+      "tests": true,
+      "status": "Implemented"
+    },
+    {
+      "module": "Evidence",
+      "exists": true,
+      "production_called": true,
+      "controls_final": true,
+      "tests": true,
+      "status": "Implemented"
+    },
+    {
+      "module": "Legal Authority",
+      "exists": true,
+      "production_called": true,
+      "controls_final": true,
+      "tests": true,
+      "status": "Implemented minimal KB"
+    },
+    {
+      "module": "Formula",
+      "exists": true,
+      "production_called": true,
+      "controls_final": true,
+      "tests": true,
+      "status": "Implemented"
+    },
+    {
+      "module": "Scenario",
+      "exists": true,
+      "production_called": true,
+      "controls_final": true,
+      "tests": true,
+      "status": "Implemented"
+    },
+    {
+      "module": "Review",
+      "exists": true,
+      "production_called": true,
+      "controls_final": true,
+      "tests": true,
+      "status": "Implemented"
+    },
+    {
+      "module": "Risk Aggregator",
+      "exists": true,
+      "production_called": true,
+      "controls_final": true,
+      "tests": true,
+      "status": "Implemented"
+    },
+    {
+      "module": "Severity",
+      "exists": true,
+      "production_called": true,
+      "controls_final": true,
+      "tests": true,
+      "status": "Implemented"
+    },
+    {
+      "module": "Priority",
+      "exists": true,
+      "production_called": true,
+      "controls_final": true,
+      "tests": true,
+      "status": "Implemented"
+    },
+    {
+      "module": "Recommendation",
+      "exists": true,
+      "production_called": true,
+      "controls_final": true,
+      "tests": true,
+      "status": "Implemented"
+    },
+    {
+      "module": "Verifier",
+      "exists": true,
+      "production_called": true,
+      "controls_final": true,
+      "tests": true,
+      "status": "Implemented deterministic"
+    },
+    {
+      "module": "Confidence",
+      "exists": true,
+      "production_called": true,
+      "controls_final": true,
+      "tests": true,
+      "status": "Implemented"
+    },
+    {
+      "module": "Manual Review",
+      "exists": true,
+      "production_called": true,
+      "controls_final": true,
+      "tests": true,
+      "status": "Implemented"
+    },
+    {
+      "module": "Quality Gate",
+      "exists": true,
+      "production_called": true,
+      "controls_final": true,
+      "tests": true,
+      "status": "Implemented"
+    },
+    {
+      "module": "Report",
+      "exists": true,
+      "production_called": true,
+      "controls_final": true,
+      "tests": true,
+      "status": "Implemented"
+    },
+    {
+      "module": "Benchmark",
+      "exists": true,
+      "production_called": true,
+      "controls_final": false,
+      "tests": true,
+      "status": "Implemented runner; sample size pending"
+    }
+  ],
+  "system_metadata": {
+    "system_version": "contract-review-quality-6.4",
+    "pipeline_version": "canonical-review-v2-production-6.4",
+    "classifier_version": "technical-transaction-classifier-v3-single-source",
+    "evaluator_version": "canonical-review-evaluator-6.4-single-classification",
+    "prompt_version": "review-v2-prompt-2026-08-11",
+    "fact_prompt_version": "fact-extraction-v2-2026-08-11",
+    "review_prompt_version": "review-v2-prompt-2026-08-11",
+    "verifier_prompt_version": "independent-verifier-deterministic-2026-08-11",
+    "risk_aggregation_prompt_version": "risk-aggregation-deterministic-2026-08-11",
+    "recommendation_prompt_version": "recommendation-aggregation-deterministic-2026-08-11",
+    "rule_version": "review-v2-rules-quality3-2026-08-11",
+    "legal_dataset_version": "cn-civil-code-minimal-2026-08-11",
+    "ontology_version": "risk-ontology-4.0-2026-08-11",
+    "quality4_version": "contract-review-quality-4.0-target-2026-08-11",
+    "benchmark_version": "quality6.4-final-convergence-2026-08-13",
+    "parser_version": "canonical-clause-parser-6.4",
+    "fact_schema_version": "contract-fact-graph-1.0",
+    "retrieval_version": "hybrid-retrieval-1.0",
+    "domain_pack_version": "domain-pack-sale-1.0",
+    "default_law_version": "sale-default-law-6.4",
+    "perspective_resolver_version": "perspective-resolver-6.7-freeze-1.3",
+    "effective_gap_engine_version": "effective-gap-6.7-freeze-1.0",
+    "recommendation_engine_version": "recommendation-impact-6.7-freeze-1.0",
+    "production_serializer_version": "production-semantic-display-6.7-freeze-1.0",
+    "confidence_version": "confidence-calibration-6.4",
+    "cross_type_generalization_stage": "CONVERGED",
+    "sale_historical_blind_001": "FROZEN_REGRESSION",
+    "sale_historical_blind_002": "FROZEN_REGRESSION",
+    "sale_historical_blind_003": "FROZEN_REGRESSION",
+    "sale_historical_blind_004": "FROZEN_REGRESSION",
+    "technology_cooperative_development": "FROZEN_REGRESSION",
+    "technology_technical_consulting": "FROZEN_REGRESSION",
+    "next_blind_case": "SALE-BLIND-005",
+    "next_blind_status": "READY",
+    "fact_graph_version": "contract-fact-graph-1.0",
+    "domain_packs": {
+      "shared": {
+        "contract_type": "shared",
+        "version": "domain-pack-shared-1.0",
+        "context_defaults": {
+          "jurisdiction": "CN",
+          "business_or_consumer": "unknown",
+          "bargaining_power": "unknown"
+        },
+        "default_law_nodes": {},
+        "default_law_rules": {},
+        "economic_ratio_keys": [
+          "contract_value_ratio",
+          "batch_value_ratio",
+          "unpaid_amount_ratio",
+          "advance_payment_ratio",
+          "replacement_cost_ratio",
+          "delay_loss_ratio"
+        ],
+        "pack_id": "",
+        "parent_pack_ids": [],
+        "subject_matter": ""
+      },
+      "sale": {
+        "contract_type": "sale",
+        "version": "domain-pack-sale-1.0",
+        "context_defaults": {
+          "contract_subtype": "GENERAL_GOODS_SALE",
+          "transaction_purpose": "goods_sale",
+          "usage_scenario": "GENERAL_GOODS_SALE",
+          "delivery_structure": "goods_delivery",
+          "payment_structure": "goods_price_payment"
+        },
+        "default_law_nodes": {
+          "sale_risk_transfer_delivery": "PARTIAL_DEFAULT",
+          "sale_risk_carrier_delivery": "PARTIAL_DEFAULT",
+          "sale_risk_buyer_delay_acceptance": "PARTIAL_DEFAULT",
+          "sale_inspection_period": "PARTIAL_DEFAULT",
+          "sale_quality_liability": "PARTIAL_DEFAULT",
+          "sale_third_party_rights": "PARTIAL_DEFAULT",
+          "sale_title_warranty": "PARTIAL_DEFAULT",
+          "sale_delay_performance": "PARTIAL_DEFAULT",
+          "sale_breach_damages": "PARTIAL_DEFAULT",
+          "sale_expectation_loss": "PARTIAL_DEFAULT",
+          "sale_termination": "PARTIAL_DEFAULT",
+          "common_force_majeure": "PARTIAL_DEFAULT"
+        },
+        "default_law_rules": {
+          "sale_risk_transfer_delivery": {
+            "rule_id": "SALE-DEFAULT-RISK-DELIVERY",
+            "domain": "sale",
+            "proposition": "标的物毁损、灭失风险原则上随交付转移，但合同约定和法定例外优先。",
+            "applicability_conditions": [
+              "买卖合同",
+              "未约定完整风险转移规则"
+            ],
+            "authority_ids": [
+              "CN-CC-604"
+            ],
+            "protection_scope": "提供一般交付场景的风险转移基准，不替代交付节点、验收方式和业务例外约定。",
+            "exceptions": [
+              "当事人另有约定",
+              "法律另有规定",
+              "出卖人原因导致不能按约交付"
+            ],
+            "overrideable": true,
+            "confidence": "high",
+            "status": "CLEAR_DEFAULT",
+            "proposition_id": "",
+            "supplied_element_ids": []
+          },
+          "sale_risk_carrier_delivery": {
+            "rule_id": "SALE-DEFAULT-RISK-CARRIER",
+            "domain": "sale",
+            "proposition": "需要运输且未约定交付地点时，风险通常在货交第一承运人后转移。",
+            "applicability_conditions": [
+              "买卖合同",
+              "交易需要运输",
+              "当事人未另行约定交付地点或风险节点"
+            ],
+            "authority_ids": [
+              "CN-CC-607"
+            ],
+            "protection_scope": "仅覆盖法定运输交付场景，不解决承运人选择、保险、包装和具体交接证据。",
+            "exceptions": [
+              "当事人约定交付地点或风险节点",
+              "出卖人未按约包装或交运"
+            ],
+            "overrideable": true,
+            "confidence": "high",
+            "status": "PARTIAL_DEFAULT",
+            "proposition_id": "",
+            "supplied_element_ids": []
+          },
+          "sale_risk_buyer_delay_acceptance": {
+            "rule_id": "SALE-DEFAULT-DELAYED-ACCEPTANCE",
+            "domain": "sale",
+            "proposition": "买受人无正当理由拒绝或迟延受领时，增加的费用及相应风险依法分配。",
+            "applicability_conditions": [
+              "买卖合同",
+              "买受人迟延或拒绝受领"
+            ],
+            "authority_ids": [
+              "CN-CC-605",
+              "CN-CC-589"
+            ],
+            "protection_scope": "提供迟延受领后的基础责任规则，不替代催告、保管、费用计算和处置流程。",
+            "exceptions": [
+              "买受人有正当拒收理由",
+              "标的物不符合约定"
+            ],
+            "overrideable": true,
+            "confidence": "medium",
+            "status": "PARTIAL_DEFAULT",
+            "proposition_id": "",
+            "supplied_element_ids": []
+          },
+          "sale_inspection_period": {
+            "rule_id": "SALE-DEFAULT-INSPECTION",
+            "domain": "sale",
+            "proposition": "检验期限未约定或不明确时，买受人仍应在合理期限内检验并通知。",
+            "applicability_conditions": [
+              "买卖合同",
+              "检验期限缺失或不完整"
+            ],
+            "authority_ids": [
+              "CN-CC-620",
+              "CN-CC-621"
+            ],
+            "protection_scope": "提供合理期限和通知的法定补充，不确定具体商品所需检验时长及隐蔽瑕疵流程。",
+            "exceptions": [
+              "当事人约定检验期限",
+              "出卖人知道或应当知道标的物不符合约定"
+            ],
+            "overrideable": true,
+            "confidence": "high",
+            "status": "CLEAR_DEFAULT",
+            "proposition_id": "",
+            "supplied_element_ids": []
+          },
+          "sale_quality_liability": {
+            "rule_id": "SALE-DEFAULT-QUALITY-REMEDY",
+            "domain": "sale",
+            "proposition": "标的物不符合质量要求时，买受人可依法主张修理、重作、更换、退货、减价或赔偿。",
+            "applicability_conditions": [
+              "买卖合同",
+              "标的物不符合约定质量"
+            ],
+            "authority_ids": [
+              "CN-CC-582",
+              "CN-CC-617"
+            ],
+            "protection_scope": "提供法定质量救济类型，不替代异议期限、举证标准、操作程序和费用承担约定。",
+            "exceptions": [
+              "标的物性质或当事人约定限制特定救济方式"
+            ],
+            "overrideable": true,
+            "confidence": "high",
+            "status": "CLEAR_DEFAULT",
+            "proposition_id": "",
+            "supplied_element_ids": []
+          },
+          "sale_breach_damages": {
+            "rule_id": "SALE-DEFAULT-BREACH-DAMAGES",
+            "domain": "sale",
+            "proposition": "违约造成损失时，损失赔偿适用可预见性、减损和损益相抵等一般规则。",
+            "applicability_conditions": [
+              "合同违约",
+              "存在可证明损失"
+            ],
+            "authority_ids": [
+              "CN-CC-584",
+              "CN-CC-591"
+            ],
+            "protection_scope": "提供损害赔偿基础规则，不自动证明损失金额、因果关系或约定违约金合理性。",
+            "exceptions": [
+              "免责事由成立",
+              "损失不可预见或未履行减损义务"
+            ],
+            "overrideable": true,
+            "confidence": "high",
+            "status": "CLEAR_DEFAULT",
+            "proposition_id": "",
+            "supplied_element_ids": []
+          },
+          "sale_expectation_loss": {
+            "rule_id": "SALE-DEFAULT-EXPECTATION-LOSS",
+            "domain": "sale",
+            "proposition": "可得利益损失赔偿受订约时可预见性边界约束。",
+            "applicability_conditions": [
+              "合同违约",
+              "主张可得利益损失"
+            ],
+            "authority_ids": [
+              "CN-CC-584"
+            ],
+            "protection_scope": "现行法律提供可得利益赔偿及可预见性边界，但不替代损失金额、因果关系和证明责任。",
+            "exceptions": [
+              "损失不具有可预见性",
+              "损失或因果关系无法证明"
+            ],
+            "overrideable": false,
+            "confidence": "high",
+            "status": "PARTIAL_DEFAULT",
+            "proposition_id": "legal.damages.foreseeability_limit",
+            "supplied_element_ids": [
+              "foreseeability_limit"
+            ]
+          },
+          "sale_termination": {
+            "rule_id": "SALE-DEFAULT-TERMINATION",
+            "domain": "sale",
+            "proposition": "达到法定或约定解除条件时，当事人可依法通知解除并进行清算。",
+            "applicability_conditions": [
+              "合同目的不能实现或其他解除事由",
+              "依法履行通知程序"
+            ],
+            "authority_ids": [
+              "CN-CC-563",
+              "CN-CC-565"
+            ],
+            "protection_scope": "提供法定解除事由和通知框架，不替代合同中的宽限期、证据、返还和结算流程。",
+            "exceptions": [
+              "不具备法定或约定解除事由",
+              "解除通知未有效到达"
+            ],
+            "overrideable": true,
+            "confidence": "high",
+            "status": "PARTIAL_DEFAULT",
+            "proposition_id": "",
+            "supplied_element_ids": []
+          }
+        },
+        "economic_ratio_keys": [
+          "contract_value_ratio",
+          "batch_value_ratio",
+          "unpaid_amount_ratio",
+          "advance_payment_ratio",
+          "replacement_cost_ratio",
+          "delay_loss_ratio"
+        ],
+        "pack_id": "",
+        "parent_pack_ids": [],
+        "subject_matter": ""
+      },
+      "sale_framework_supply": {
+        "contract_type": "sale",
+        "version": "domain-pack-sale-framework-supply-1.0",
+        "context_defaults": {
+          "contract_subtype": "FRAMEWORK_SUPPLY",
+          "transaction_purpose": "goods_sale",
+          "usage_scenario": "LONG_TERM_INDUSTRIAL_SUPPLY",
+          "delivery_structure": "order_driven_recurring_delivery",
+          "payment_structure": "periodic_reconciliation_settlement"
+        },
+        "default_law_nodes": {
+          "sale_risk_transfer_delivery": "PARTIAL_DEFAULT",
+          "sale_risk_carrier_delivery": "PARTIAL_DEFAULT",
+          "sale_risk_buyer_delay_acceptance": "PARTIAL_DEFAULT",
+          "sale_inspection_period": "PARTIAL_DEFAULT",
+          "sale_quality_liability": "PARTIAL_DEFAULT",
+          "sale_third_party_rights": "PARTIAL_DEFAULT",
+          "sale_title_warranty": "PARTIAL_DEFAULT",
+          "sale_delay_performance": "PARTIAL_DEFAULT",
+          "sale_breach_damages": "PARTIAL_DEFAULT",
+          "sale_expectation_loss": "PARTIAL_DEFAULT",
+          "sale_termination": "PARTIAL_DEFAULT",
+          "common_force_majeure": "PARTIAL_DEFAULT"
+        },
+        "default_law_rules": {
+          "sale_risk_transfer_delivery": {
+            "rule_id": "SALE-DEFAULT-RISK-DELIVERY",
+            "domain": "sale",
+            "proposition": "标的物毁损、灭失风险原则上随交付转移，但合同约定和法定例外优先。",
+            "applicability_conditions": [
+              "买卖合同",
+              "未约定完整风险转移规则"
+            ],
+            "authority_ids": [
+              "CN-CC-604"
+            ],
+            "protection_scope": "提供一般交付场景的风险转移基准，不替代交付节点、验收方式和业务例外约定。",
+            "exceptions": [
+              "当事人另有约定",
+              "法律另有规定",
+              "出卖人原因导致不能按约交付"
+            ],
+            "overrideable": true,
+            "confidence": "high",
+            "status": "CLEAR_DEFAULT",
+            "proposition_id": "",
+            "supplied_element_ids": []
+          },
+          "sale_risk_carrier_delivery": {
+            "rule_id": "SALE-DEFAULT-RISK-CARRIER",
+            "domain": "sale",
+            "proposition": "需要运输且未约定交付地点时，风险通常在货交第一承运人后转移。",
+            "applicability_conditions": [
+              "买卖合同",
+              "交易需要运输",
+              "当事人未另行约定交付地点或风险节点"
+            ],
+            "authority_ids": [
+              "CN-CC-607"
+            ],
+            "protection_scope": "仅覆盖法定运输交付场景，不解决承运人选择、保险、包装和具体交接证据。",
+            "exceptions": [
+              "当事人约定交付地点或风险节点",
+              "出卖人未按约包装或交运"
+            ],
+            "overrideable": true,
+            "confidence": "high",
+            "status": "PARTIAL_DEFAULT",
+            "proposition_id": "",
+            "supplied_element_ids": []
+          },
+          "sale_risk_buyer_delay_acceptance": {
+            "rule_id": "SALE-DEFAULT-DELAYED-ACCEPTANCE",
+            "domain": "sale",
+            "proposition": "买受人无正当理由拒绝或迟延受领时，增加的费用及相应风险依法分配。",
+            "applicability_conditions": [
+              "买卖合同",
+              "买受人迟延或拒绝受领"
+            ],
+            "authority_ids": [
+              "CN-CC-605",
+              "CN-CC-589"
+            ],
+            "protection_scope": "提供迟延受领后的基础责任规则，不替代催告、保管、费用计算和处置流程。",
+            "exceptions": [
+              "买受人有正当拒收理由",
+              "标的物不符合约定"
+            ],
+            "overrideable": true,
+            "confidence": "medium",
+            "status": "PARTIAL_DEFAULT",
+            "proposition_id": "",
+            "supplied_element_ids": []
+          },
+          "sale_inspection_period": {
+            "rule_id": "SALE-DEFAULT-INSPECTION",
+            "domain": "sale",
+            "proposition": "检验期限未约定或不明确时，买受人仍应在合理期限内检验并通知。",
+            "applicability_conditions": [
+              "买卖合同",
+              "检验期限缺失或不完整"
+            ],
+            "authority_ids": [
+              "CN-CC-620",
+              "CN-CC-621"
+            ],
+            "protection_scope": "提供合理期限和通知的法定补充，不确定具体商品所需检验时长及隐蔽瑕疵流程。",
+            "exceptions": [
+              "当事人约定检验期限",
+              "出卖人知道或应当知道标的物不符合约定"
+            ],
+            "overrideable": true,
+            "confidence": "high",
+            "status": "CLEAR_DEFAULT",
+            "proposition_id": "",
+            "supplied_element_ids": []
+          },
+          "sale_quality_liability": {
+            "rule_id": "SALE-DEFAULT-QUALITY-REMEDY",
+            "domain": "sale",
+            "proposition": "标的物不符合质量要求时，买受人可依法主张修理、重作、更换、退货、减价或赔偿。",
+            "applicability_conditions": [
+              "买卖合同",
+              "标的物不符合约定质量"
+            ],
+            "authority_ids": [
+              "CN-CC-582",
+              "CN-CC-617"
+            ],
+            "protection_scope": "提供法定质量救济类型，不替代异议期限、举证标准、操作程序和费用承担约定。",
+            "exceptions": [
+              "标的物性质或当事人约定限制特定救济方式"
+            ],
+            "overrideable": true,
+            "confidence": "high",
+            "status": "CLEAR_DEFAULT",
+            "proposition_id": "",
+            "supplied_element_ids": []
+          },
+          "sale_breach_damages": {
+            "rule_id": "SALE-DEFAULT-BREACH-DAMAGES",
+            "domain": "sale",
+            "proposition": "违约造成损失时，损失赔偿适用可预见性、减损和损益相抵等一般规则。",
+            "applicability_conditions": [
+              "合同违约",
+              "存在可证明损失"
+            ],
+            "authority_ids": [
+              "CN-CC-584",
+              "CN-CC-591"
+            ],
+            "protection_scope": "提供损害赔偿基础规则，不自动证明损失金额、因果关系或约定违约金合理性。",
+            "exceptions": [
+              "免责事由成立",
+              "损失不可预见或未履行减损义务"
+            ],
+            "overrideable": true,
+            "confidence": "high",
+            "status": "CLEAR_DEFAULT",
+            "proposition_id": "",
+            "supplied_element_ids": []
+          },
+          "sale_expectation_loss": {
+            "rule_id": "SALE-DEFAULT-EXPECTATION-LOSS",
+            "domain": "sale",
+            "proposition": "可得利益损失赔偿受订约时可预见性边界约束。",
+            "applicability_conditions": [
+              "合同违约",
+              "主张可得利益损失"
+            ],
+            "authority_ids": [
+              "CN-CC-584"
+            ],
+            "protection_scope": "现行法律提供可得利益赔偿及可预见性边界，但不替代损失金额、因果关系和证明责任。",
+            "exceptions": [
+              "损失不具有可预见性",
+              "损失或因果关系无法证明"
+            ],
+            "overrideable": false,
+            "confidence": "high",
+            "status": "PARTIAL_DEFAULT",
+            "proposition_id": "legal.damages.foreseeability_limit",
+            "supplied_element_ids": [
+              "foreseeability_limit"
+            ]
+          },
+          "sale_termination": {
+            "rule_id": "SALE-DEFAULT-TERMINATION",
+            "domain": "sale",
+            "proposition": "达到法定或约定解除条件时，当事人可依法通知解除并进行清算。",
+            "applicability_conditions": [
+              "合同目的不能实现或其他解除事由",
+              "依法履行通知程序"
+            ],
+            "authority_ids": [
+              "CN-CC-563",
+              "CN-CC-565"
+            ],
+            "protection_scope": "提供法定解除事由和通知框架，不替代合同中的宽限期、证据、返还和结算流程。",
+            "exceptions": [
+              "不具备法定或约定解除事由",
+              "解除通知未有效到达"
+            ],
+            "overrideable": true,
+            "confidence": "high",
+            "status": "PARTIAL_DEFAULT",
+            "proposition_id": "",
+            "supplied_element_ids": []
+          }
+        },
+        "economic_ratio_keys": [
+          "contract_value_ratio",
+          "batch_value_ratio",
+          "unpaid_amount_ratio",
+          "advance_payment_ratio",
+          "replacement_cost_ratio",
+          "delay_loss_ratio"
+        ],
+        "pack_id": "sale/goods/framework_supply",
+        "parent_pack_ids": [
+          "shared",
+          "sale/common",
+          "sale/goods/general"
+        ],
+        "subject_matter": "GOODS"
+      },
+      "house_lease": {
+        "contract_type": "house_lease",
+        "version": "domain-pack-house-lease-1.0",
+        "context_defaults": {
+          "contract_subtype": "RESIDENTIAL_LEASE",
+          "transaction_purpose": "residential_lease",
+          "usage_scenario": "residential_living",
+          "payment_structure": "rent_payment"
+        },
+        "default_law_nodes": {},
+        "default_law_rules": {},
+        "economic_ratio_keys": [],
+        "pack_id": "",
+        "parent_pack_ids": [],
+        "subject_matter": ""
+      }
+    },
+    "model_version": "deterministic_pipeline",
+    "generated_at": "2026-09-08T06:27:01.826447"
+  },
+  "observability": {
+    "total_latency_ms": 1.37
+  },
+  "profile": {
+    "user_identity": "个人租客/买方",
+    "contract_scenario": "居住用途",
+    "risk_appetite": "标准",
+    "bargaining_position": "均衡方",
+    "jurisdiction": "北京"
+  }
+}

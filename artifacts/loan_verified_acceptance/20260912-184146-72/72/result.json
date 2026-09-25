@@ -1,0 +1,341 @@
+{
+  "file": "F:\\ai\\Sage\\test_data\\72 无抵押借款.docx",
+  "file_sha256": "6878e648ecd7c983c7103c54a67a43e901cd0ec820ff0ce5da60320c2ea64930",
+  "source_sha256": "e15a8bbc871a7f4e6a327794d545d35883885f52ac44f0809e51e46cc54b4735",
+  "source_characters": 1164,
+  "code_sha256": {
+    "backend\\review_v2\\unified_facts\\__init__.py": "12c1cfefdc5ad94d0c224dc5df189009ecea19dfb8c16c5072228f5b11917af4",
+    "backend\\review_v2\\unified_facts\\certificates.py": "86650744df87f0226ac4b6c3462cd214be81835d3c15d2f233f630e8a7e931ea",
+    "backend\\review_v2\\unified_facts\\loan.py": "3e14cadac840ec98982142f41ca47837bd4598b5423caf0522b53ffc5d00a208",
+    "backend\\review_v2\\unified_facts\\loan_bindings.py": "dcaa90bf61a91cffdb6d1b3ff13472ddfeacc3a5eeb9e7f565ad1e4358d0eff4",
+    "backend\\review_v2\\unified_facts\\loan_costs.py": "13d80e0775ddd3fb05a8a327b53254ba75b9f8464ee070d8a318282c828dadfa",
+    "backend\\review_v2\\unified_facts\\loan_formulas.py": "a8f21df6a86e9bff2ea3edd0b80e800980316cee89f22731555926ecb1ce510e",
+    "backend\\review_v2\\unified_facts\\loan_pipeline.py": "2dc44befc2801f3ddc7cc33054dac2b62de77f44cd40c1afa6047f8a860a31ae",
+    "backend\\review_v2\\unified_facts\\loan_rules.py": "cb8678312100908a9e535b289486cbe0f5d783600f6612f93a01ddefdf411bb6",
+    "backend\\review_v2\\unified_facts\\normalization.py": "31953671189c9af73d922a1774952829f737bedb784c462e87b595220f31c310",
+    "backend\\review_v2\\unified_facts\\ontology.py": "137bc1c40fcf82a1af60db096468d902a3bcc382e353d4bba018998f5e0e3538",
+    "backend\\review_v2\\unified_facts\\pipeline.py": "a901a2b2bcefa268b4f5502deb2341340db58567068a2d9e1e0e3df295407831",
+    "backend\\review_v2\\unified_facts\\schema.py": "3532060bf1af1de433ab080b58ad69b055b8302f447b34678727c2d20e101a75",
+    "backend\\review_v2\\unified_facts\\store.py": "ed1d18b7fe14ed06680f649ad31bea32ffb984d29ec3e49b4e55129c8e5b5b5c"
+  },
+  "sample_origin": "EXISTING_DOCX",
+  "status": "BLOCKED",
+  "error": "FactExtractionError: VERIFICATION_RESPONSE_INVALID:SNAPSHOT_MISMATCH",
+  "diagnostics": [
+    {
+      "failed_stage": "UNIFIED_FACT_VALIDATION",
+      "fact_id": null,
+      "field": "certificate",
+      "validation_rule": "VERIFICATION_RESPONSE_INVALID:SNAPSHOT_MISMATCH",
+      "model_raw_value": null,
+      "evidence": null,
+      "expected": null,
+      "actual": null,
+      "disposition": "BLOCK"
+    }
+  ],
+  "attempts": [
+    {
+      "raw_extraction": {
+        "schema_version": "contract-facts-1.0",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020"
+        ],
+        "searched_concepts": [
+          "common.parties",
+          "common.signing_date",
+          "common.effective_date",
+          "common.effective_condition",
+          "common.term",
+          "common.amounts",
+          "common.liability",
+          "common.dispute_method",
+          "common.dispute_institution",
+          "loan.lender_kind",
+          "loan.borrower_kind",
+          "loan.guarantee"
+        ],
+        "observations": [
+          {
+            "concept": "common.parties",
+            "state": "PRESENT",
+            "value": {
+              "name": "张明远",
+              "role": "贷款人（甲方）",
+              "kind": "NATURAL"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0001",
+                "quote": "贷款人（甲方）：张明远"
+              }
+            ]
+          },
+          {
+            "concept": "common.parties",
+            "state": "PRESENT",
+            "value": {
+              "name": "李浩然",
+              "role": "借款人（乙方）",
+              "kind": "NATURAL"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0001",
+                "quote": "借款人（乙方）：李浩然"
+              }
+            ]
+          },
+          {
+            "concept": "common.signing_date",
+            "state": "PRESENT",
+            "value": "2026-09-10",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0020",
+                "quote": "签约时间：2026年9月10日"
+              }
+            ]
+          },
+          {
+            "concept": "common.effective_date",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "common.effective_condition",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "common.term",
+            "state": "PRESENT",
+            "value": {
+              "start_date": "2026-09-10",
+              "end_date": "2027-09-09"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0005",
+                "quote": "1.3 借款期限：自2026年9月10日至2027年9月9日。"
+              }
+            ]
+          },
+          {
+            "concept": "common.amounts",
+            "state": "PRESENT",
+            "value": {
+              "amount": "150000.00",
+              "currency": "CNY",
+              "role": "借款金额"
+            },
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0004",
+                "quote": "1.2 借款金额：人民币（大写）壹拾伍万元整（￥150,000.00元）。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "乙方违反本合同约定借款用途的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且乙方应按借款总额的20％向甲方支付违约金。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0009",
+                "quote": "2.1 乙方违反本合同约定借款用途的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且乙方应按借款总额的20％向甲方支付违约金。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "乙方违反本合同其它相关条款时，若该条款对违约责任没有约定，则乙方应按借款总额的20％向甲方支付违约金。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0010",
+                "quote": "2.2 乙方违反本合同其它相关条款时，若该条款对违约责任没有约定，则乙方应按借款总额的20％向甲方支付违约金。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "无论何种情形下，乙方按照合同约定支付的违约金不足以弥补甲方全部损失的，乙方应全额赔偿。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0011",
+                "quote": "2.3 无论何种情形下，乙方按照合同约定支付的违约金不足以弥补甲方全部损失的，乙方应全额赔偿。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "乙方未按合同约定按时偿还本金或利息的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且从逾期之日起乙方应每日按借款总额的0.5%向甲方支付违约金。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0012",
+                "quote": "2.4 乙方未按合同约定按时偿还本金或利息的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且从逾期之日起乙方应每日按借款总额的0.5%向甲方支付违约金。"
+              }
+            ]
+          },
+          {
+            "concept": "common.liability",
+            "state": "PRESENT",
+            "value": "因乙方违约而产生的诉讼费、公证费、财产保全费、律师服务费等实现债权的各种费用以及可能产生的甲方代垫费用和其他费用均由乙方承担。",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0013",
+                "quote": "2.5 因乙方违约而产生的诉讼费、公证费、财产保全费、律师服务费等实现债权的各种费用以及可能产生的甲方代垫费用和其他费用均由乙方承担。"
+              }
+            ]
+          },
+          {
+            "concept": "common.dispute_method",
+            "state": "PRESENT",
+            "value": "NEGOTIATION",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0015",
+                "quote": "3.1 甲乙双方因履行本合同发生纠纷，应首先协商解决；协商不成，则向青岛市黄岛区人民法院提起诉讼。"
+              }
+            ]
+          },
+          {
+            "concept": "common.dispute_method",
+            "state": "PRESENT",
+            "value": "LITIGATION",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0015",
+                "quote": "3.1 甲乙双方因履行本合同发生纠纷，应首先协商解决；协商不成，则向青岛市黄岛区人民法院提起诉讼。"
+              }
+            ]
+          },
+          {
+            "concept": "common.dispute_institution",
+            "state": "PRESENT",
+            "value": "青岛市黄岛区人民法院",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0015",
+                "quote": "3.1 甲乙双方因履行本合同发生纠纷，应首先协商解决；协商不成，则向青岛市黄岛区人民法院提起诉讼。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.lender_kind",
+            "state": "PRESENT",
+            "value": "natural",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0001",
+                "quote": "贷款人（甲方）：张明远"
+              },
+              {
+                "clause_id": "C0001",
+                "quote": "身份证号：370211198806150017"
+              }
+            ]
+          },
+          {
+            "concept": "loan.borrower_kind",
+            "state": "PRESENT",
+            "value": "natural",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0001",
+                "quote": "借款人（乙方）：李浩然"
+              },
+              {
+                "clause_id": "C0001",
+                "quote": "身份证号：370211199203220025"
+              }
+            ]
+          },
+          {
+            "concept": "loan.guarantee",
+            "state": "EXPLICIT_NONE",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": [
+              {
+                "clause_id": "C0001",
+                "quote": "无抵押借款合同"
+              }
+            ]
+          }
+        ]
+      },
+      "verification": null,
+      "diagnostics": [
+        {
+          "failed_stage": "UNIFIED_FACT_VALIDATION",
+          "fact_id": null,
+          "field": "certificate",
+          "validation_rule": "VERIFICATION_RESPONSE_INVALID:SNAPSHOT_MISMATCH",
+          "model_raw_value": null,
+          "evidence": null,
+          "expected": null,
+          "actual": null,
+          "disposition": "BLOCK"
+        }
+      ]
+    }
+  ],
+  "calls": 4
+}

@@ -1,0 +1,349 @@
+{
+  "trace_id": "CR-20260911-193014-7E3D71",
+  "process_id": 15500,
+  "document_sha256": "5f146f6469e06288b2d23662631b575d071960fc464311dd65b71ad16fa8ccee",
+  "PT-03-01": "通过",
+  "EMP-DEPOSIT-01": {
+    "coverage_status": "风险条款",
+    "title": "违法向劳动者收取保证金或从工资扣收费用",
+    "economic_impact": "直接涉及收取或从工资扣收800元；同笔保证金不与工资扣收重复累计，不等同最终损失。",
+    "evidence_clauses": [
+      {
+        "clause_id": "C0010",
+        "location": "第九条 工作设备及保证金",
+        "title": "工作设备及保证金",
+        "text": "为保证设备妥善保管，甲方可以从乙方首次工资中暂扣人民币800元作为设备保证金。",
+        "section_type": "正式合同条款",
+        "level": 1,
+        "raw_text": "第九条 工作设备及保证金\n甲方向乙方提供用于处理业务资料的平板电脑一台。\n为保证设备妥善保管，甲方可以从乙方首次工资中暂扣人民币800元作为设备保证金。\n乙方终止用工时完整归还设备后，甲方应在三个工作日内将保证金全额返还乙方。\n如设备因乙方故意或者重大过失造成实际损坏，双方按照法律规定及实际损失另行处理。",
+        "normalized_text": "第九条工作设备及保证金甲方向乙方提供用于处理业务资料的平板电脑一台。为保证设备妥善保管，甲方可以从乙方首次工资中暂扣人民币800元作为设备保证金。乙方终止用工时完整归还设备后，甲方应在三个工作日内将保证金全额返还乙方。如设备因乙方故意或者重大过失造成实际损坏，双方按照法律规定及实际损失另行处理。",
+        "option_groups": [],
+        "source": "body",
+        "section_path": [
+          "正式合同条款",
+          "第九条 工作设备及保证金"
+        ],
+        "heading": "工作设备及保证金",
+        "clause_number": "第九条",
+        "paragraph_index": 9,
+        "block_type": "OPERATIVE_CLAUSE",
+        "parties": [
+          "甲方",
+          "乙方"
+        ],
+        "dates": [],
+        "amounts": [
+          "人民币800元"
+        ],
+        "percentages": [],
+        "durations": [
+          "三个工作日"
+        ],
+        "cross_references": [
+          "第九条"
+        ],
+        "node_id": "C0010",
+        "document_id": "contract_package/main",
+        "heading_path": [
+          "第九条 工作设备及保证金"
+        ],
+        "article_number": "第九条",
+        "section_number": "",
+        "item_number": "",
+        "sentence_index": 1,
+        "start_offset": 1185,
+        "end_offset": 1338,
+        "source_type": "CONTRACT_TEXT",
+        "party_obligation": true,
+        "quote": "为保证设备妥善保管，甲方可以从乙方首次工资中暂扣人民币800元作为设备保证金。",
+        "original_excerpt": "为保证设备妥善保管，甲方可以从乙方首次工资中暂扣人民币800元作为设备保证金。",
+        "model_quote": "为保证设备妥善保管，甲方可以从乙方首次工资中暂扣人民币800元作为设备保证金。",
+        "alignment_mode": "EXACT",
+        "source_start": 1222,
+        "source_end": 1261,
+        "evidence_span": {
+          "basis": "clause.text",
+          "start": 37,
+          "end": 76
+        },
+        "document_span": {
+          "start": 1222,
+          "end": 1261
+        },
+        "verified_original": true,
+        "fact_concept": "worker.security_payment",
+        "structured_fact_id": "EF-2c2c1934658ca8c1",
+        "supports_element_ids": [
+          "employment_worker_charge_adverse"
+        ],
+        "supporting_element_ids": [
+          "employment_worker_charge_adverse"
+        ],
+        "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+        "entailment_score": 100,
+        "reason": "向劳动者收取押金保证金或从工资扣收费用；返还约定不消除扣收风险。",
+        "adverse_fact_atom": {
+          "fact": "344b9882f4cf6d953a34",
+          "scope": "8e693b90942116413bef24eacf55d37ec1e1db12ab31fbbfe02fd2691fac24af",
+          "actor": "EMPLOYER",
+          "object": "EMPLOYMENT_RELATION",
+          "legal_exposure": "worker_charge",
+          "remedy": "取消押金保证金收费及工资扣收，返还已收款项并结清工资",
+          "title": "违法向劳动者收取保证金或从工资扣收费用",
+          "summary": "违法向劳动者收取保证金或从工资扣收费用",
+          "recommendation": "取消押金保证金收费及工资扣收，返还已收款项并结清工资",
+          "evidence_ids": [
+            "EF-2c2c1934658ca8c1"
+          ],
+          "fact_concept": "worker.security_payment"
+        },
+        "document_type": "MAIN_CONTRACT",
+        "source_document_type": "MAIN_CONTRACT",
+        "evidence_block_type": "OPERATIVE_CLAUSE",
+        "document_name": "合同正文",
+        "section": "第九条 工作设备及保证金",
+        "confidence": "high",
+        "evidence_type": "CONTRACT_TEXT",
+        "source_span": {
+          "start_offset": 1222,
+          "end_offset": 1261,
+          "raw_text": "为保证设备妥善保管，甲方可以从乙方首次工资中暂扣人民币800元作为设备保证金。",
+          "coordinate_system": "DOCUMENT_TEXT"
+        },
+        "source_document": "contract_package/main",
+        "original_document_reference": "contract_package/main",
+        "derived_or_original": "ORIGINAL",
+        "evidence_source": {
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "document_name": "合同正文",
+          "clause_id": "C0010",
+          "section": "第九条 工作设备及保证金",
+          "sentence_index": 1,
+          "quote": "为保证设备妥善保管，甲方可以从乙方首次工资中暂扣人民币800元作为设备保证金。",
+          "confidence": "high",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "evidence_type": "CONTRACT_TEXT",
+          "source_span": {
+            "start_offset": 1222,
+            "end_offset": 1261,
+            "raw_text": "为保证设备妥善保管，甲方可以从乙方首次工资中暂扣人民币800元作为设备保证金。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "derived_or_original": "ORIGINAL",
+          "source_ref": {
+            "document_id": "contract_package/main",
+            "clause_id": "C0010",
+            "clause_sha256": "5bcff7b00b968a126bec51f90dd10be12b71256f33fde4d1a6d32f0c969f998f",
+            "local_start": 37,
+            "local_end": 76,
+            "locator": "第九条 工作设备及保证金"
+          },
+          "verified_original": true
+        },
+        "evidence_polarity": "NEUTRAL",
+        "entailment_status": "SUPPORTS",
+        "canonical_fact_keys": [],
+        "relevance_score": 1.0,
+        "review_id": "EMP-DEPOSIT-01",
+        "element_ids": [
+          "employment_worker_charge_adverse"
+        ],
+        "support_type": "DIRECT",
+        "source_verification": {
+          "status": "PASS",
+          "errors": [],
+          "method": "EXACT_PARSER_SOURCE_SPAN"
+        },
+        "evidence_id": "SRC-8a77127228774807e551",
+        "quoted_text": "为保证设备妥善保管，甲方可以从乙方首次工资中暂扣人民币800元作为设备保证金。",
+        "source_ref": {
+          "document_id": "contract_package/main",
+          "clause_id": "C0010",
+          "clause_sha256": "5bcff7b00b968a126bec51f90dd10be12b71256f33fde4d1a6d32f0c969f998f",
+          "local_start": 37,
+          "local_end": 76,
+          "locator": "第九条 工作设备及保证金"
+        },
+        "provenance_validation": {
+          "status": "PASS",
+          "evidence_type": "CONTRACT_TEXT",
+          "errors": []
+        },
+        "supported_propositions": [
+          "违法向劳动者收取保证金或从工资扣收费用"
+        ],
+        "support_summary": "证明合同已约定相关合同要素。"
+      },
+      {
+        "clause_id": "C0010",
+        "location": "第九条 工作设备及保证金",
+        "title": "工作设备及保证金",
+        "text": "乙方终止用工时完整归还设备后，甲方应在三个工作日内将保证金全额返还乙方。",
+        "section_type": "正式合同条款",
+        "level": 1,
+        "raw_text": "第九条 工作设备及保证金\n甲方向乙方提供用于处理业务资料的平板电脑一台。\n为保证设备妥善保管，甲方可以从乙方首次工资中暂扣人民币800元作为设备保证金。\n乙方终止用工时完整归还设备后，甲方应在三个工作日内将保证金全额返还乙方。\n如设备因乙方故意或者重大过失造成实际损坏，双方按照法律规定及实际损失另行处理。",
+        "normalized_text": "第九条工作设备及保证金甲方向乙方提供用于处理业务资料的平板电脑一台。为保证设备妥善保管，甲方可以从乙方首次工资中暂扣人民币800元作为设备保证金。乙方终止用工时完整归还设备后，甲方应在三个工作日内将保证金全额返还乙方。如设备因乙方故意或者重大过失造成实际损坏，双方按照法律规定及实际损失另行处理。",
+        "option_groups": [],
+        "source": "body",
+        "section_path": [
+          "正式合同条款",
+          "第九条 工作设备及保证金"
+        ],
+        "heading": "工作设备及保证金",
+        "clause_number": "第九条",
+        "paragraph_index": 9,
+        "block_type": "OPERATIVE_CLAUSE",
+        "parties": [
+          "甲方",
+          "乙方"
+        ],
+        "dates": [],
+        "amounts": [
+          "人民币800元"
+        ],
+        "percentages": [],
+        "durations": [
+          "三个工作日"
+        ],
+        "cross_references": [
+          "第九条"
+        ],
+        "node_id": "C0010",
+        "document_id": "contract_package/main",
+        "heading_path": [
+          "第九条 工作设备及保证金"
+        ],
+        "article_number": "第九条",
+        "section_number": "",
+        "item_number": "",
+        "sentence_index": 1,
+        "start_offset": 1185,
+        "end_offset": 1338,
+        "source_type": "CONTRACT_TEXT",
+        "party_obligation": true,
+        "quote": "乙方终止用工时完整归还设备后，甲方应在三个工作日内将保证金全额返还乙方。",
+        "original_excerpt": "乙方终止用工时完整归还设备后，甲方应在三个工作日内将保证金全额返还乙方。",
+        "model_quote": "乙方终止用工时完整归还设备后，甲方应在三个工作日内将保证金全额返还乙方。",
+        "alignment_mode": "EXACT",
+        "source_start": 1262,
+        "source_end": 1298,
+        "evidence_span": {
+          "basis": "clause.text",
+          "start": 77,
+          "end": 113
+        },
+        "document_span": {
+          "start": 1262,
+          "end": 1298
+        },
+        "verified_original": true,
+        "fact_concept": "worker.security_payment",
+        "structured_fact_id": "EF-2c2c1934658ca8c1",
+        "supports_element_ids": [
+          "employment_worker_charge_adverse"
+        ],
+        "supporting_element_ids": [
+          "employment_worker_charge_adverse"
+        ],
+        "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+        "entailment_score": 100,
+        "reason": "向劳动者收取押金保证金或从工资扣收费用；返还约定不消除扣收风险。",
+        "adverse_fact_atom": {
+          "fact": "344b9882f4cf6d953a34",
+          "scope": "8e693b90942116413bef24eacf55d37ec1e1db12ab31fbbfe02fd2691fac24af",
+          "actor": "EMPLOYER",
+          "object": "EMPLOYMENT_RELATION",
+          "legal_exposure": "worker_charge",
+          "remedy": "取消押金保证金收费及工资扣收，返还已收款项并结清工资",
+          "title": "违法向劳动者收取保证金或从工资扣收费用",
+          "summary": "违法向劳动者收取保证金或从工资扣收费用",
+          "recommendation": "取消押金保证金收费及工资扣收，返还已收款项并结清工资",
+          "evidence_ids": [
+            "EF-2c2c1934658ca8c1"
+          ],
+          "fact_concept": "worker.security_payment"
+        },
+        "document_type": "MAIN_CONTRACT",
+        "source_document_type": "MAIN_CONTRACT",
+        "evidence_block_type": "OPERATIVE_CLAUSE",
+        "document_name": "合同正文",
+        "section": "第九条 工作设备及保证金",
+        "confidence": "high",
+        "evidence_type": "CONTRACT_TEXT",
+        "source_span": {
+          "start_offset": 1262,
+          "end_offset": 1298,
+          "raw_text": "乙方终止用工时完整归还设备后，甲方应在三个工作日内将保证金全额返还乙方。",
+          "coordinate_system": "DOCUMENT_TEXT"
+        },
+        "source_document": "contract_package/main",
+        "original_document_reference": "contract_package/main",
+        "derived_or_original": "ORIGINAL",
+        "evidence_source": {
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "document_name": "合同正文",
+          "clause_id": "C0010",
+          "section": "第九条 工作设备及保证金",
+          "sentence_index": 1,
+          "quote": "乙方终止用工时完整归还设备后，甲方应在三个工作日内将保证金全额返还乙方。",
+          "confidence": "high",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "evidence_type": "CONTRACT_TEXT",
+          "source_span": {
+            "start_offset": 1262,
+            "end_offset": 1298,
+            "raw_text": "乙方终止用工时完整归还设备后，甲方应在三个工作日内将保证金全额返还乙方。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "derived_or_original": "ORIGINAL",
+          "source_ref": {
+            "document_id": "contract_package/main",
+            "clause_id": "C0010",
+            "clause_sha256": "5bcff7b00b968a126bec51f90dd10be12b71256f33fde4d1a6d32f0c969f998f",
+            "local_start": 77,
+            "local_end": 113,
+            "locator": "第九条 工作设备及保证金"
+          },
+          "verified_original": true
+        },
+        "evidence_polarity": "NEUTRAL",
+        "entailment_status": "SUPPORTS",
+        "canonical_fact_keys": [],
+        "relevance_score": 1.0,
+        "review_id": "EMP-DEPOSIT-01",
+        "element_ids": [
+          "employment_worker_charge_adverse"
+        ],
+        "support_type": "DIRECT",
+        "source_verification": {
+          "status": "PASS",
+          "errors": [],
+          "method": "EXACT_PARSER_SOURCE_SPAN"
+        },
+        "evidence_id": "SRC-fa272be0debc72dd920d",
+        "quoted_text": "乙方终止用工时完整归还设备后，甲方应在三个工作日内将保证金全额返还乙方。",
+        "source_ref": {
+          "document_id": "contract_package/main",
+          "clause_id": "C0010",
+          "clause_sha256": "5bcff7b00b968a126bec51f90dd10be12b71256f33fde4d1a6d32f0c969f998f",
+          "local_start": 77,
+          "local_end": 113,
+          "locator": "第九条 工作设备及保证金"
+        },
+        "provenance_validation": {
+          "status": "PASS",
+          "evidence_type": "CONTRACT_TEXT",
+          "errors": []
+        },
+        "supported_propositions": [
+          "违法向劳动者收取保证金或从工资扣收费用"
+        ],
+        "support_summary": "证明合同已约定相关合同要素。"
+      }
+    ]
+  },
+  "other_PT_unchanged": true,
+  "release_quality_gate": "REPORT_READY"
+}

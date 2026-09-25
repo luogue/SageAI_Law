@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="13.324" timestamp="2026-09-08T08:20:20.027553+08:00" hostname="PC-202411042018"><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_production_file_endpoint_uses_active_consulting_evidence_implementation" time="4.815"><failure message="KeyError: 'contract_subtype'">def test_production_file_endpoint_uses_active_consulting_evidence_implementation():
+        document = Document()
+        for line in CONSULTING_CONFIDENTIALITY_BINDING_CONTRACT.strip().splitlines():
+            document.add_paragraph(line)
+        buffer = io.BytesIO()
+        document.save(buffer)
+    
+        app.dependency_overrides[get_current_user] = lambda: {"id": 1, "phone": "test"}
+        try:
+            with TestClient(app) as client:
+                response = client.post(
+                    "/review-v2/file",
+                    files={
+                        "file": (
+                            "consulting-production-path.docx",
+                            buffer.getvalue(),
+                            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                        )
+                    },
+                    data={
+                        "contract_type": "technology",
+                        "include_low_risk": "true",
+                        "use_llm": "false",
+                        "profile_json": '{"user_identity":"甲方/委托方"}',
+                    },
+                )
+        finally:
+            app.dependency_overrides.pop(get_current_user, None)
+    
+        assert response.status_code == 200
+        payload = response.json()
+        trace = payload["production_path_trace"]
+        assert trace["entrypoint"] == "routers.review_v2.review_v2_file"
+        assert trace["engine_function"] == "review_v2.engine.review_contract_v2"
+        assert trace["evidence_implementation"] == TECHNICAL_CONSULTING_EVIDENCE_IMPLEMENTATION
+        assert trace["cache"]["status"] == "MISS"
+        assert trace["input_visibility"]["confidentiality_terms_present"] is True
+        assert trace["pipeline_id"] == "canonical-review-v2-production-6.4"
+        assert trace["classifier_version"] == "technical-transaction-classifier-v3-single-source"
+        assert trace["classification_runtime"]["actual_execution_count"] == 1
+        assert trace["classification_runtime"]["invocation_count"] &gt;= 1
+        assert trace["classification_runtime"]["cache_hit_count"] == trace["classification_runtime"]["invocation_count"] - 1
+        lifecycle = trace["classification_lifecycle"]
+        assert lifecycle["raw_classification"]["primary_subtype"] == "TECHNICAL_CONSULTING"
+&gt;       assert lifecycle["normalized_classification"]["contract_subtype"] == "TECHNICAL_CONSULTING"
+E       KeyError: 'contract_subtype'
+
+backend\tests\test_technical_consulting_contract_review.py:854: KeyError</failure></testcase><testcase classname="backend.tests.test_technical_consulting_contract_review" name="test_production_file_endpoint_is_deterministic_across_fresh_no_cache_runs" time="4.470" /></testsuite></testsuites>

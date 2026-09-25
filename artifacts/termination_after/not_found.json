@@ -1,0 +1,2393 @@
+[
+  {
+    "rule_id": "EMP-01-01",
+    "element_id": "employment_identity_1",
+    "review_id": "EMP-01-01",
+    "search_targets": [
+      "用人单位住所"
+    ],
+    "query_patterns": [
+      "(?:用人单位|劳务派遣单位)[）)]?\\s*(?:名称|姓名)?\\s*[：:]\\s*[^\\n，；。_]{2,60}(?:公司|企业|事务所)(?:(?!乙方|劳动者|用工单位).){0,300}(?:住所|地址|注册地|注册登记地|实际经营地)[：:]\\s*[^\\n，；。_]{3,60}",
+      "甲方(?:[（(][^）)\\n]{1,15}[）)])?[：:]\\s*[^\\n，；。_]{2,80}(?:(?!乙方)[\\s\\S]){0,200}(?:注册地址|经营地址|住所)[：:]\\s*[^\\n，；。_]{3,80}",
+      "甲方[：:]\\s*[^\\n，；。_]{2,60}(?:(?!乙方)[\\s\\S]){0,120}(?:住所|地址)[：:]\\s*[^\\n，；。_]{3,60}"
+    ],
+    "query_semantic_target": "用人单位住所",
+    "query_semantics": "POSITIVE_REQUIRED_FACT",
+    "search_mode": "SEMANTIC_REQUIREMENT",
+    "searched_clause_ids": [
+      "C0001",
+      "C0002",
+      "C0003",
+      "C0004",
+      "C0005",
+      "C0006",
+      "C0007",
+      "C0008",
+      "C0009",
+      "C0010",
+      "C0011",
+      "C0012",
+      "C0013",
+      "C0014",
+      "C0015",
+      "C0016",
+      "C0017",
+      "C0018",
+      "C0019",
+      "C0020",
+      "C0021",
+      "C0022",
+      "C0023",
+      "C0024"
+    ],
+    "search_corpus_chunks": [
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "title": "全文",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "text": "解除或终止劳动合同协议书\n甲方：北京华诚智能科技有限公司（用人单位）\n乙方：张明远（职工姓名）\n甲乙双方于2021年4月15日签订了劳动合同，合同期限至2027年4月14日。现经双方平等自愿协商，就解除劳动合同事宜达成如下协议："
+      },
+      {
+        "clause_id": "C0002",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "1、因下列第（5）条情形，双方协商解除劳动合同："
+      },
+      {
+        "clause_id": "C0003",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(1)乙方提出辞职，甲方同意；"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(2)合同到期，乙方提出不再续签；"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(3)合同到期，甲方提出不再续签；"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(4)乙方达到法定退休年龄；"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(5)其他原因：因甲方经营结构调整及部门岗位优化，由甲方提出，经双方协商一致解除劳动合同。"
+      },
+      {
+        "clause_id": "C0008",
+        "location": "第2项",
+        "title": "2、双方同意于2026年9月30日解除劳动合同，劳动报酬及社会保险同时停发及停缴",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "2、双方同意于2026年9月30日解除劳动合同，劳动报酬及社会保险同时停发及停缴。其中劳动报酬发放至2026年9月30日，社会保险于2026年9月停缴、住房公积金于2026年9月停缴。"
+        ],
+        "text": "2、双方同意于2026年9月30日解除劳动合同，劳动报酬及社会保险同时停发及停缴。其中劳动报酬发放至2026年9月30日，社会保险于2026年9月停缴、住房公积金于2026年9月停缴。"
+      },
+      {
+        "clause_id": "C0009",
+        "location": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "title": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "3、关于经济补偿金按以下第（2）条的约定执行："
+        ],
+        "text": "3、关于经济补偿金按以下第（2）条的约定执行："
+      },
+      {
+        "clause_id": "C0010",
+        "location": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "title": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "3、关于经济补偿金按以下第（2）条的约定执行："
+        ],
+        "text": "(1)双方确认，甲方无需支付乙方经济补偿金。"
+      },
+      {
+        "clause_id": "C0011",
+        "location": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "title": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "3、关于经济补偿金按以下第（2）条的约定执行："
+        ],
+        "text": "(2)双方确认，乙方自2021年4月起在甲方工作，连续工作5年5个月，甲方应支付乙方5.5个月工资，具体金额为99000元人民币。"
+      },
+      {
+        "clause_id": "C0012",
+        "location": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "title": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "3、关于经济补偿金按以下第（2）条的约定执行："
+        ],
+        "text": "上述经济补偿金按照乙方解除劳动合同前十二个月平均工资18000元/月计算。"
+      },
+      {
+        "clause_id": "C0013",
+        "location": "4、关于乙方当月未结清劳动报酬的约定：",
+        "title": "4、关于乙方当月未结清劳动报酬的约定：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "4、关于乙方当月未结清劳动报酬的约定："
+        ],
+        "text": "4、关于乙方当月未结清劳动报酬的约定：\n双方确认，截至劳动合同解除之日，甲方尚未向乙方支付2026年9月份工资18000元及2026年第三季度绩效奖金4000元，合计22000元。上述款项由甲方在乙方完成全部工作交接及离职手续后统一结算支付。\n除上述款项外，乙方确认不存在其他未支付的工资、奖金、加班费、津贴、补贴、未休年休假工资等劳动报酬。"
+      },
+      {
+        "clause_id": "C0014",
+        "location": "第5项",
+        "title": "5、乙方应在本协议签订之日起3天内，按照甲方的相关规定和要求办理所有工作交接及离",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "5、乙方应在本协议签订之日起3天内，按照甲方的相关规定和要求办理所有工作交接及离职手续，包括但不限于移交工作文件、客户资料、账号密码、办公设备及其他公司财物。"
+        ],
+        "text": "5、乙方应在本协议签订之日起3天内，按照甲方的相关规定和要求办理所有工作交接及离职手续，包括但不限于移交工作文件、客户资料、账号密码、办公设备及其他公司财物。\n如乙方未在规定期限内完成工作交接，甲方有权暂缓支付尚未结清的劳动报酬及经济补偿金，直至乙方完成全部工作交接手续。"
+      },
+      {
+        "clause_id": "C0015",
+        "location": "第6项",
+        "title": "6、甲方在确认乙方办理完毕工作交接、离职手续之日起15天内，将乙方当月未结清的劳",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "6、甲方在确认乙方办理完毕工作交接、离职手续之日起15天内，将乙方当月未结清的劳动报酬及经济补偿金支付给乙方。"
+        ],
+        "text": "6、甲方在确认乙方办理完毕工作交接、离职手续之日起15天内，将乙方当月未结清的劳动报酬及经济补偿金支付给乙方。\n甲方有权从上述应付款项中直接扣除乙方尚未归还的公司财物价值、借款、培训费用以及因乙方工作失误给甲方造成的损失。"
+      },
+      {
+        "clause_id": "C0016",
+        "location": "第7项",
+        "title": "7、甲乙双方就与劳动关系有关的所有费用（包括但不限于劳动报酬、加班费、奖金、津贴",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "7、甲乙双方就与劳动关系有关的所有费用（包括但不限于劳动报酬、加班费、奖金、津贴补贴、经济补偿金、社会保险、住房公积金、未休年休假工资及其他任何费用）均已结算。"
+        ],
+        "text": "7、甲乙双方就与劳动关系有关的所有费用（包括但不限于劳动报酬、加班费、奖金、津贴补贴、经济补偿金、社会保险、住房公积金、未休年休假工资及其他任何费用）均已结算。\n乙方确认对上述结算无异议，并自愿放弃基于双方劳动关系向甲方提出任何其他请求、仲裁、诉讼、投诉或者举报的权利。双方确认不存在任何劳动争议及纠纷。"
+      },
+      {
+        "clause_id": "C0017",
+        "location": "8、其他约定事项：",
+        "title": "8、其他约定事项：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "8、其他约定事项："
+        ],
+        "text": "8、其他约定事项："
+      },
+      {
+        "clause_id": "C0018",
+        "location": "（1）",
+        "title": "（1）甲方应依法为乙方出具解除劳动合同证明，并在双方解除劳动合同后30日内办理档",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（1）甲方应依法为乙方出具解除劳动合同证明，并在双方解除劳动合同后30日内办理档案及社会保险关系转移手续。"
+        ],
+        "text": "（1）甲方应依法为乙方出具解除劳动合同证明，并在双方解除劳动合同后30日内办理档案及社会保险关系转移手续。"
+      },
+      {
+        "clause_id": "C0019",
+        "location": "（2）",
+        "title": "（2）乙方在劳动关系存续期间知悉的甲方商业秘密、技术资料、客户信息、经营数据等信",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（2）乙方在劳动关系存续期间知悉的甲方商业秘密、技术资料、客户信息、经营数据等信息，在劳动合同解除后仍负有保密义务，保密期限为永久。"
+        ],
+        "text": "（2）乙方在劳动关系存续期间知悉的甲方商业秘密、技术资料、客户信息、经营数据等信息，在劳动合同解除后仍负有保密义务，保密期限为永久。"
+      },
+      {
+        "clause_id": "C0020",
+        "location": "（3）",
+        "title": "（3）乙方承诺，自劳动合同解除之日起两年内，不得进入与甲方存在竞争关系的企业任职",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（3）乙方承诺，自劳动合同解除之日起两年内，不得进入与甲方存在竞争关系的企业任职，也不得自行经营与甲方相同或类似的业务。甲方无需就上述竞业限制义务另行向乙方支付经济补偿。"
+        ],
+        "text": "（3）乙方承诺，自劳动合同解除之日起两年内，不得进入与甲方存在竞争关系的企业任职，也不得自行经营与甲方相同或类似的业务。甲方无需就上述竞业限制义务另行向乙方支付经济补偿。"
+      },
+      {
+        "clause_id": "C0021",
+        "location": "（4）",
+        "title": "（4）乙方违反本条约定的，应向甲方支付违约金人民币200000元；违约金不足以弥",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（4）乙方违反本条约定的，应向甲方支付违约金人民币200000元；违约金不足以弥补甲方损失的，乙方还应赔偿全部损失。"
+        ],
+        "text": "（4）乙方违反本条约定的，应向甲方支付违约金人民币200000元；违约金不足以弥补甲方损失的，乙方还应赔偿全部损失。"
+      },
+      {
+        "clause_id": "C0022",
+        "location": "（5）",
+        "title": "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。"
+        ],
+        "text": "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。\n本协议书一式三份，甲乙双方及北京华诚智能科技有限公司人力资源部各执一份，具有同等法律效力。"
+      },
+      {
+        "clause_id": "C0023",
+        "location": "甲方（签章）：北京华诚智能科技有限公司",
+        "title": "甲方（签章）：北京华诚智能科技有限公司",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。"
+        ],
+        "text": "甲方（签章）：北京华诚智能科技有限公司"
+      },
+      {
+        "clause_id": "C0024",
+        "location": "乙方（签字）：张明远",
+        "title": "乙方（签字）：张明远",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。"
+        ],
+        "text": "乙方（签字）：张明远\n委托代理人（签章）：李建国\n身份证号：110101199205168637\n2026年9月25日\n2026年9月25日"
+      }
+    ],
+    "top_k_candidates": [
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "title": "全文",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "text": "解除或终止劳动合同协议书\n甲方：北京华诚智能科技有限公司（用人单位）\n乙方：张明远（职工姓名）\n甲乙双方于2021年4月15日签订了劳动合同，合同期限至2027年4月14日。",
+        "score": 0.0,
+        "accepted": false,
+        "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+          "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "PASS"
+        }
+      },
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "title": "全文",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "text": "现经双方平等自愿协商，就解除劳动合同事宜达成如下协议：",
+        "score": 0.0,
+        "accepted": false,
+        "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+          "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "PASS"
+        }
+      },
+      {
+        "clause_id": "C0002",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "score": 0.0,
+        "accepted": false,
+        "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+          "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "PASS"
+        }
+      },
+      {
+        "clause_id": "C0003",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(1)乙方提出辞职，甲方同意；",
+        "score": 0,
+        "accepted": false,
+        "reject_reason": "非正式合同条款或附件，未进入正向事实候选。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "SKIPPED_NON_CONTRACT_SECTION",
+          "rerank": "score=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "NOT_RUN"
+        }
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(2)合同到期，乙方提出不再续签；",
+        "score": 0,
+        "accepted": false,
+        "reject_reason": "非正式合同条款或附件，未进入正向事实候选。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "SKIPPED_NON_CONTRACT_SECTION",
+          "rerank": "score=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "NOT_RUN"
+        }
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(3)合同到期，甲方提出不再续签；",
+        "score": 0,
+        "accepted": false,
+        "reject_reason": "非正式合同条款或附件，未进入正向事实候选。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "SKIPPED_NON_CONTRACT_SECTION",
+          "rerank": "score=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "NOT_RUN"
+        }
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(4)乙方达到法定退休年龄；",
+        "score": 0,
+        "accepted": false,
+        "reject_reason": "非正式合同条款或附件，未进入正向事实候选。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "SKIPPED_NON_CONTRACT_SECTION",
+          "rerank": "score=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "NOT_RUN"
+        }
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(5)其他原因：因甲方经营结构调整及部门岗位优化，由甲方提出，经双方协商一致解除劳动合同。",
+        "score": 0.0,
+        "accepted": false,
+        "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+          "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "PASS"
+        }
+      }
+    ],
+    "stage_results": {
+      "normalize": "PASS",
+      "rerank": "PASS",
+      "threshold": "NOT_FOUND",
+      "contradiction_filter": "NO_ACCEPTED_CANDIDATE"
+    },
+    "searched_document_hash": "7c47c40b44e97820ac325ec3018357c5111ec1a9f6db238a08b36e3ff2240e83",
+    "result": "NOT_FOUND",
+    "supporting_evidence": []
+  },
+  {
+    "rule_id": "EMP-10-01",
+    "element_id": "employment_exit_2",
+    "review_id": "EMP-10-01",
+    "search_targets": [
+      "解除通知方式或明确解除日期"
+    ],
+    "query_patterns": [
+      "(?:解除|终止).{0,40}(?:书面通知|\\d{4}年\\d{1,2}月\\d{1,2}日)|提前.{0,8}(?:三十|30)日.{0,8}书面通知"
+    ],
+    "query_semantic_target": "解除通知方式或明确解除日期",
+    "query_semantics": "POSITIVE_REQUIRED_FACT",
+    "search_mode": "SEMANTIC_REQUIREMENT",
+    "searched_clause_ids": [
+      "C0001",
+      "C0002",
+      "C0003",
+      "C0004",
+      "C0005",
+      "C0006",
+      "C0007",
+      "C0008",
+      "C0009",
+      "C0010",
+      "C0011",
+      "C0012",
+      "C0013",
+      "C0014",
+      "C0015",
+      "C0016",
+      "C0017",
+      "C0018",
+      "C0019",
+      "C0020",
+      "C0021",
+      "C0022",
+      "C0023",
+      "C0024"
+    ],
+    "search_corpus_chunks": [
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "title": "全文",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "text": "解除或终止劳动合同协议书\n甲方：北京华诚智能科技有限公司（用人单位）\n乙方：张明远（职工姓名）\n甲乙双方于2021年4月15日签订了劳动合同，合同期限至2027年4月14日。现经双方平等自愿协商，就解除劳动合同事宜达成如下协议："
+      },
+      {
+        "clause_id": "C0002",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "1、因下列第（5）条情形，双方协商解除劳动合同："
+      },
+      {
+        "clause_id": "C0003",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(1)乙方提出辞职，甲方同意；"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(2)合同到期，乙方提出不再续签；"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(3)合同到期，甲方提出不再续签；"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(4)乙方达到法定退休年龄；"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(5)其他原因：因甲方经营结构调整及部门岗位优化，由甲方提出，经双方协商一致解除劳动合同。"
+      },
+      {
+        "clause_id": "C0008",
+        "location": "第2项",
+        "title": "2、双方同意于2026年9月30日解除劳动合同，劳动报酬及社会保险同时停发及停缴",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "2、双方同意于2026年9月30日解除劳动合同，劳动报酬及社会保险同时停发及停缴。其中劳动报酬发放至2026年9月30日，社会保险于2026年9月停缴、住房公积金于2026年9月停缴。"
+        ],
+        "text": "2、双方同意于2026年9月30日解除劳动合同，劳动报酬及社会保险同时停发及停缴。其中劳动报酬发放至2026年9月30日，社会保险于2026年9月停缴、住房公积金于2026年9月停缴。"
+      },
+      {
+        "clause_id": "C0009",
+        "location": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "title": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "3、关于经济补偿金按以下第（2）条的约定执行："
+        ],
+        "text": "3、关于经济补偿金按以下第（2）条的约定执行："
+      },
+      {
+        "clause_id": "C0010",
+        "location": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "title": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "3、关于经济补偿金按以下第（2）条的约定执行："
+        ],
+        "text": "(1)双方确认，甲方无需支付乙方经济补偿金。"
+      },
+      {
+        "clause_id": "C0011",
+        "location": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "title": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "3、关于经济补偿金按以下第（2）条的约定执行："
+        ],
+        "text": "(2)双方确认，乙方自2021年4月起在甲方工作，连续工作5年5个月，甲方应支付乙方5.5个月工资，具体金额为99000元人民币。"
+      },
+      {
+        "clause_id": "C0012",
+        "location": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "title": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "3、关于经济补偿金按以下第（2）条的约定执行："
+        ],
+        "text": "上述经济补偿金按照乙方解除劳动合同前十二个月平均工资18000元/月计算。"
+      },
+      {
+        "clause_id": "C0013",
+        "location": "4、关于乙方当月未结清劳动报酬的约定：",
+        "title": "4、关于乙方当月未结清劳动报酬的约定：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "4、关于乙方当月未结清劳动报酬的约定："
+        ],
+        "text": "4、关于乙方当月未结清劳动报酬的约定：\n双方确认，截至劳动合同解除之日，甲方尚未向乙方支付2026年9月份工资18000元及2026年第三季度绩效奖金4000元，合计22000元。上述款项由甲方在乙方完成全部工作交接及离职手续后统一结算支付。\n除上述款项外，乙方确认不存在其他未支付的工资、奖金、加班费、津贴、补贴、未休年休假工资等劳动报酬。"
+      },
+      {
+        "clause_id": "C0014",
+        "location": "第5项",
+        "title": "5、乙方应在本协议签订之日起3天内，按照甲方的相关规定和要求办理所有工作交接及离",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "5、乙方应在本协议签订之日起3天内，按照甲方的相关规定和要求办理所有工作交接及离职手续，包括但不限于移交工作文件、客户资料、账号密码、办公设备及其他公司财物。"
+        ],
+        "text": "5、乙方应在本协议签订之日起3天内，按照甲方的相关规定和要求办理所有工作交接及离职手续，包括但不限于移交工作文件、客户资料、账号密码、办公设备及其他公司财物。\n如乙方未在规定期限内完成工作交接，甲方有权暂缓支付尚未结清的劳动报酬及经济补偿金，直至乙方完成全部工作交接手续。"
+      },
+      {
+        "clause_id": "C0015",
+        "location": "第6项",
+        "title": "6、甲方在确认乙方办理完毕工作交接、离职手续之日起15天内，将乙方当月未结清的劳",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "6、甲方在确认乙方办理完毕工作交接、离职手续之日起15天内，将乙方当月未结清的劳动报酬及经济补偿金支付给乙方。"
+        ],
+        "text": "6、甲方在确认乙方办理完毕工作交接、离职手续之日起15天内，将乙方当月未结清的劳动报酬及经济补偿金支付给乙方。\n甲方有权从上述应付款项中直接扣除乙方尚未归还的公司财物价值、借款、培训费用以及因乙方工作失误给甲方造成的损失。"
+      },
+      {
+        "clause_id": "C0016",
+        "location": "第7项",
+        "title": "7、甲乙双方就与劳动关系有关的所有费用（包括但不限于劳动报酬、加班费、奖金、津贴",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "7、甲乙双方就与劳动关系有关的所有费用（包括但不限于劳动报酬、加班费、奖金、津贴补贴、经济补偿金、社会保险、住房公积金、未休年休假工资及其他任何费用）均已结算。"
+        ],
+        "text": "7、甲乙双方就与劳动关系有关的所有费用（包括但不限于劳动报酬、加班费、奖金、津贴补贴、经济补偿金、社会保险、住房公积金、未休年休假工资及其他任何费用）均已结算。\n乙方确认对上述结算无异议，并自愿放弃基于双方劳动关系向甲方提出任何其他请求、仲裁、诉讼、投诉或者举报的权利。双方确认不存在任何劳动争议及纠纷。"
+      },
+      {
+        "clause_id": "C0017",
+        "location": "8、其他约定事项：",
+        "title": "8、其他约定事项：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "8、其他约定事项："
+        ],
+        "text": "8、其他约定事项："
+      },
+      {
+        "clause_id": "C0018",
+        "location": "（1）",
+        "title": "（1）甲方应依法为乙方出具解除劳动合同证明，并在双方解除劳动合同后30日内办理档",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（1）甲方应依法为乙方出具解除劳动合同证明，并在双方解除劳动合同后30日内办理档案及社会保险关系转移手续。"
+        ],
+        "text": "（1）甲方应依法为乙方出具解除劳动合同证明，并在双方解除劳动合同后30日内办理档案及社会保险关系转移手续。"
+      },
+      {
+        "clause_id": "C0019",
+        "location": "（2）",
+        "title": "（2）乙方在劳动关系存续期间知悉的甲方商业秘密、技术资料、客户信息、经营数据等信",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（2）乙方在劳动关系存续期间知悉的甲方商业秘密、技术资料、客户信息、经营数据等信息，在劳动合同解除后仍负有保密义务，保密期限为永久。"
+        ],
+        "text": "（2）乙方在劳动关系存续期间知悉的甲方商业秘密、技术资料、客户信息、经营数据等信息，在劳动合同解除后仍负有保密义务，保密期限为永久。"
+      },
+      {
+        "clause_id": "C0020",
+        "location": "（3）",
+        "title": "（3）乙方承诺，自劳动合同解除之日起两年内，不得进入与甲方存在竞争关系的企业任职",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（3）乙方承诺，自劳动合同解除之日起两年内，不得进入与甲方存在竞争关系的企业任职，也不得自行经营与甲方相同或类似的业务。甲方无需就上述竞业限制义务另行向乙方支付经济补偿。"
+        ],
+        "text": "（3）乙方承诺，自劳动合同解除之日起两年内，不得进入与甲方存在竞争关系的企业任职，也不得自行经营与甲方相同或类似的业务。甲方无需就上述竞业限制义务另行向乙方支付经济补偿。"
+      },
+      {
+        "clause_id": "C0021",
+        "location": "（4）",
+        "title": "（4）乙方违反本条约定的，应向甲方支付违约金人民币200000元；违约金不足以弥",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（4）乙方违反本条约定的，应向甲方支付违约金人民币200000元；违约金不足以弥补甲方损失的，乙方还应赔偿全部损失。"
+        ],
+        "text": "（4）乙方违反本条约定的，应向甲方支付违约金人民币200000元；违约金不足以弥补甲方损失的，乙方还应赔偿全部损失。"
+      },
+      {
+        "clause_id": "C0022",
+        "location": "（5）",
+        "title": "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。"
+        ],
+        "text": "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。\n本协议书一式三份，甲乙双方及北京华诚智能科技有限公司人力资源部各执一份，具有同等法律效力。"
+      },
+      {
+        "clause_id": "C0023",
+        "location": "甲方（签章）：北京华诚智能科技有限公司",
+        "title": "甲方（签章）：北京华诚智能科技有限公司",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。"
+        ],
+        "text": "甲方（签章）：北京华诚智能科技有限公司"
+      },
+      {
+        "clause_id": "C0024",
+        "location": "乙方（签字）：张明远",
+        "title": "乙方（签字）：张明远",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。"
+        ],
+        "text": "乙方（签字）：张明远\n委托代理人（签章）：李建国\n身份证号：110101199205168637\n2026年9月25日\n2026年9月25日"
+      }
+    ],
+    "top_k_candidates": [
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "title": "全文",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "text": "解除或终止劳动合同协议书\n甲方：北京华诚智能科技有限公司（用人单位）\n乙方：张明远（职工姓名）\n甲乙双方于2021年4月15日签订了劳动合同，合同期限至2027年4月14日。",
+        "score": 0.0,
+        "accepted": false,
+        "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+          "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "PASS"
+        }
+      },
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "title": "全文",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "text": "现经双方平等自愿协商，就解除劳动合同事宜达成如下协议：",
+        "score": 0.0,
+        "accepted": false,
+        "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+          "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "PASS"
+        }
+      },
+      {
+        "clause_id": "C0002",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "score": 0.0,
+        "accepted": false,
+        "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+          "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "PASS"
+        }
+      },
+      {
+        "clause_id": "C0003",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(1)乙方提出辞职，甲方同意；",
+        "score": 0,
+        "accepted": false,
+        "reject_reason": "非正式合同条款或附件，未进入正向事实候选。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "SKIPPED_NON_CONTRACT_SECTION",
+          "rerank": "score=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "NOT_RUN"
+        }
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(2)合同到期，乙方提出不再续签；",
+        "score": 0,
+        "accepted": false,
+        "reject_reason": "非正式合同条款或附件，未进入正向事实候选。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "SKIPPED_NON_CONTRACT_SECTION",
+          "rerank": "score=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "NOT_RUN"
+        }
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(3)合同到期，甲方提出不再续签；",
+        "score": 0,
+        "accepted": false,
+        "reject_reason": "非正式合同条款或附件，未进入正向事实候选。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "SKIPPED_NON_CONTRACT_SECTION",
+          "rerank": "score=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "NOT_RUN"
+        }
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(4)乙方达到法定退休年龄；",
+        "score": 0,
+        "accepted": false,
+        "reject_reason": "非正式合同条款或附件，未进入正向事实候选。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "SKIPPED_NON_CONTRACT_SECTION",
+          "rerank": "score=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "NOT_RUN"
+        }
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(5)其他原因：因甲方经营结构调整及部门岗位优化，由甲方提出，经双方协商一致解除劳动合同。",
+        "score": 0.0,
+        "accepted": false,
+        "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+          "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "PASS"
+        }
+      }
+    ],
+    "stage_results": {
+      "normalize": "PASS",
+      "rerank": "PASS",
+      "threshold": "NOT_FOUND",
+      "contradiction_filter": "NO_ACCEPTED_CANDIDATE"
+    },
+    "searched_document_hash": "7c47c40b44e97820ac325ec3018357c5111ec1a9f6db238a08b36e3ff2240e83",
+    "result": "NOT_FOUND",
+    "supporting_evidence": []
+  },
+  {
+    "rule_id": "EMP-11-01",
+    "element_id": "employment_compensation_2",
+    "review_id": "EMP-11-01",
+    "search_targets": [
+      "解除终止后工资及补偿结算期限"
+    ],
+    "query_patterns": [
+      "(?:解除|终止).{0,70}(?:\\d+日内|当日).{0,35}(?:支付|结清)|(?:补偿|工资).{0,40}\\d+日内.{0,20}(?:结清|支付)",
+      "经济补偿[^。；\\n]{0,30}(?:办结|完成|办理完毕)工作交接(?:时|后当日)[^。；\\n]{0,8}(?:支付|结清)",
+      "经济补偿[^。；\\n]{0,30}工作交接(?:结束|完成|办结)后[^。；\\n]{0,8}支付"
+    ],
+    "query_semantic_target": "解除终止后工资及补偿结算期限",
+    "query_semantics": "POSITIVE_REQUIRED_FACT",
+    "search_mode": "SEMANTIC_REQUIREMENT",
+    "searched_clause_ids": [
+      "C0001",
+      "C0002",
+      "C0003",
+      "C0004",
+      "C0005",
+      "C0006",
+      "C0007",
+      "C0008",
+      "C0009",
+      "C0010",
+      "C0011",
+      "C0012",
+      "C0013",
+      "C0014",
+      "C0015",
+      "C0016",
+      "C0017",
+      "C0018",
+      "C0019",
+      "C0020",
+      "C0021",
+      "C0022",
+      "C0023",
+      "C0024"
+    ],
+    "search_corpus_chunks": [
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "title": "全文",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "text": "解除或终止劳动合同协议书\n甲方：北京华诚智能科技有限公司（用人单位）\n乙方：张明远（职工姓名）\n甲乙双方于2021年4月15日签订了劳动合同，合同期限至2027年4月14日。现经双方平等自愿协商，就解除劳动合同事宜达成如下协议："
+      },
+      {
+        "clause_id": "C0002",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "1、因下列第（5）条情形，双方协商解除劳动合同："
+      },
+      {
+        "clause_id": "C0003",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(1)乙方提出辞职，甲方同意；"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(2)合同到期，乙方提出不再续签；"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(3)合同到期，甲方提出不再续签；"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(4)乙方达到法定退休年龄；"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(5)其他原因：因甲方经营结构调整及部门岗位优化，由甲方提出，经双方协商一致解除劳动合同。"
+      },
+      {
+        "clause_id": "C0008",
+        "location": "第2项",
+        "title": "2、双方同意于2026年9月30日解除劳动合同，劳动报酬及社会保险同时停发及停缴",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "2、双方同意于2026年9月30日解除劳动合同，劳动报酬及社会保险同时停发及停缴。其中劳动报酬发放至2026年9月30日，社会保险于2026年9月停缴、住房公积金于2026年9月停缴。"
+        ],
+        "text": "2、双方同意于2026年9月30日解除劳动合同，劳动报酬及社会保险同时停发及停缴。其中劳动报酬发放至2026年9月30日，社会保险于2026年9月停缴、住房公积金于2026年9月停缴。"
+      },
+      {
+        "clause_id": "C0009",
+        "location": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "title": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "3、关于经济补偿金按以下第（2）条的约定执行："
+        ],
+        "text": "3、关于经济补偿金按以下第（2）条的约定执行："
+      },
+      {
+        "clause_id": "C0010",
+        "location": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "title": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "3、关于经济补偿金按以下第（2）条的约定执行："
+        ],
+        "text": "(1)双方确认，甲方无需支付乙方经济补偿金。"
+      },
+      {
+        "clause_id": "C0011",
+        "location": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "title": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "3、关于经济补偿金按以下第（2）条的约定执行："
+        ],
+        "text": "(2)双方确认，乙方自2021年4月起在甲方工作，连续工作5年5个月，甲方应支付乙方5.5个月工资，具体金额为99000元人民币。"
+      },
+      {
+        "clause_id": "C0012",
+        "location": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "title": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "3、关于经济补偿金按以下第（2）条的约定执行："
+        ],
+        "text": "上述经济补偿金按照乙方解除劳动合同前十二个月平均工资18000元/月计算。"
+      },
+      {
+        "clause_id": "C0013",
+        "location": "4、关于乙方当月未结清劳动报酬的约定：",
+        "title": "4、关于乙方当月未结清劳动报酬的约定：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "4、关于乙方当月未结清劳动报酬的约定："
+        ],
+        "text": "4、关于乙方当月未结清劳动报酬的约定：\n双方确认，截至劳动合同解除之日，甲方尚未向乙方支付2026年9月份工资18000元及2026年第三季度绩效奖金4000元，合计22000元。上述款项由甲方在乙方完成全部工作交接及离职手续后统一结算支付。\n除上述款项外，乙方确认不存在其他未支付的工资、奖金、加班费、津贴、补贴、未休年休假工资等劳动报酬。"
+      },
+      {
+        "clause_id": "C0014",
+        "location": "第5项",
+        "title": "5、乙方应在本协议签订之日起3天内，按照甲方的相关规定和要求办理所有工作交接及离",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "5、乙方应在本协议签订之日起3天内，按照甲方的相关规定和要求办理所有工作交接及离职手续，包括但不限于移交工作文件、客户资料、账号密码、办公设备及其他公司财物。"
+        ],
+        "text": "5、乙方应在本协议签订之日起3天内，按照甲方的相关规定和要求办理所有工作交接及离职手续，包括但不限于移交工作文件、客户资料、账号密码、办公设备及其他公司财物。\n如乙方未在规定期限内完成工作交接，甲方有权暂缓支付尚未结清的劳动报酬及经济补偿金，直至乙方完成全部工作交接手续。"
+      },
+      {
+        "clause_id": "C0015",
+        "location": "第6项",
+        "title": "6、甲方在确认乙方办理完毕工作交接、离职手续之日起15天内，将乙方当月未结清的劳",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "6、甲方在确认乙方办理完毕工作交接、离职手续之日起15天内，将乙方当月未结清的劳动报酬及经济补偿金支付给乙方。"
+        ],
+        "text": "6、甲方在确认乙方办理完毕工作交接、离职手续之日起15天内，将乙方当月未结清的劳动报酬及经济补偿金支付给乙方。\n甲方有权从上述应付款项中直接扣除乙方尚未归还的公司财物价值、借款、培训费用以及因乙方工作失误给甲方造成的损失。"
+      },
+      {
+        "clause_id": "C0016",
+        "location": "第7项",
+        "title": "7、甲乙双方就与劳动关系有关的所有费用（包括但不限于劳动报酬、加班费、奖金、津贴",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "7、甲乙双方就与劳动关系有关的所有费用（包括但不限于劳动报酬、加班费、奖金、津贴补贴、经济补偿金、社会保险、住房公积金、未休年休假工资及其他任何费用）均已结算。"
+        ],
+        "text": "7、甲乙双方就与劳动关系有关的所有费用（包括但不限于劳动报酬、加班费、奖金、津贴补贴、经济补偿金、社会保险、住房公积金、未休年休假工资及其他任何费用）均已结算。\n乙方确认对上述结算无异议，并自愿放弃基于双方劳动关系向甲方提出任何其他请求、仲裁、诉讼、投诉或者举报的权利。双方确认不存在任何劳动争议及纠纷。"
+      },
+      {
+        "clause_id": "C0017",
+        "location": "8、其他约定事项：",
+        "title": "8、其他约定事项：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "8、其他约定事项："
+        ],
+        "text": "8、其他约定事项："
+      },
+      {
+        "clause_id": "C0018",
+        "location": "（1）",
+        "title": "（1）甲方应依法为乙方出具解除劳动合同证明，并在双方解除劳动合同后30日内办理档",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（1）甲方应依法为乙方出具解除劳动合同证明，并在双方解除劳动合同后30日内办理档案及社会保险关系转移手续。"
+        ],
+        "text": "（1）甲方应依法为乙方出具解除劳动合同证明，并在双方解除劳动合同后30日内办理档案及社会保险关系转移手续。"
+      },
+      {
+        "clause_id": "C0019",
+        "location": "（2）",
+        "title": "（2）乙方在劳动关系存续期间知悉的甲方商业秘密、技术资料、客户信息、经营数据等信",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（2）乙方在劳动关系存续期间知悉的甲方商业秘密、技术资料、客户信息、经营数据等信息，在劳动合同解除后仍负有保密义务，保密期限为永久。"
+        ],
+        "text": "（2）乙方在劳动关系存续期间知悉的甲方商业秘密、技术资料、客户信息、经营数据等信息，在劳动合同解除后仍负有保密义务，保密期限为永久。"
+      },
+      {
+        "clause_id": "C0020",
+        "location": "（3）",
+        "title": "（3）乙方承诺，自劳动合同解除之日起两年内，不得进入与甲方存在竞争关系的企业任职",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（3）乙方承诺，自劳动合同解除之日起两年内，不得进入与甲方存在竞争关系的企业任职，也不得自行经营与甲方相同或类似的业务。甲方无需就上述竞业限制义务另行向乙方支付经济补偿。"
+        ],
+        "text": "（3）乙方承诺，自劳动合同解除之日起两年内，不得进入与甲方存在竞争关系的企业任职，也不得自行经营与甲方相同或类似的业务。甲方无需就上述竞业限制义务另行向乙方支付经济补偿。"
+      },
+      {
+        "clause_id": "C0021",
+        "location": "（4）",
+        "title": "（4）乙方违反本条约定的，应向甲方支付违约金人民币200000元；违约金不足以弥",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（4）乙方违反本条约定的，应向甲方支付违约金人民币200000元；违约金不足以弥补甲方损失的，乙方还应赔偿全部损失。"
+        ],
+        "text": "（4）乙方违反本条约定的，应向甲方支付违约金人民币200000元；违约金不足以弥补甲方损失的，乙方还应赔偿全部损失。"
+      },
+      {
+        "clause_id": "C0022",
+        "location": "（5）",
+        "title": "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。"
+        ],
+        "text": "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。\n本协议书一式三份，甲乙双方及北京华诚智能科技有限公司人力资源部各执一份，具有同等法律效力。"
+      },
+      {
+        "clause_id": "C0023",
+        "location": "甲方（签章）：北京华诚智能科技有限公司",
+        "title": "甲方（签章）：北京华诚智能科技有限公司",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。"
+        ],
+        "text": "甲方（签章）：北京华诚智能科技有限公司"
+      },
+      {
+        "clause_id": "C0024",
+        "location": "乙方（签字）：张明远",
+        "title": "乙方（签字）：张明远",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。"
+        ],
+        "text": "乙方（签字）：张明远\n委托代理人（签章）：李建国\n身份证号：110101199205168637\n2026年9月25日\n2026年9月25日"
+      }
+    ],
+    "top_k_candidates": [
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "title": "全文",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "text": "解除或终止劳动合同协议书\n甲方：北京华诚智能科技有限公司（用人单位）\n乙方：张明远（职工姓名）\n甲乙双方于2021年4月15日签订了劳动合同，合同期限至2027年4月14日。",
+        "score": 0.0,
+        "accepted": false,
+        "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+          "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "PASS"
+        }
+      },
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "title": "全文",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "text": "现经双方平等自愿协商，就解除劳动合同事宜达成如下协议：",
+        "score": 0.0,
+        "accepted": false,
+        "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+          "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "PASS"
+        }
+      },
+      {
+        "clause_id": "C0002",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "score": 0.0,
+        "accepted": false,
+        "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+          "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "PASS"
+        }
+      },
+      {
+        "clause_id": "C0003",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(1)乙方提出辞职，甲方同意；",
+        "score": 0,
+        "accepted": false,
+        "reject_reason": "非正式合同条款或附件，未进入正向事实候选。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "SKIPPED_NON_CONTRACT_SECTION",
+          "rerank": "score=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "NOT_RUN"
+        }
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(2)合同到期，乙方提出不再续签；",
+        "score": 0,
+        "accepted": false,
+        "reject_reason": "非正式合同条款或附件，未进入正向事实候选。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "SKIPPED_NON_CONTRACT_SECTION",
+          "rerank": "score=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "NOT_RUN"
+        }
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(3)合同到期，甲方提出不再续签；",
+        "score": 0,
+        "accepted": false,
+        "reject_reason": "非正式合同条款或附件，未进入正向事实候选。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "SKIPPED_NON_CONTRACT_SECTION",
+          "rerank": "score=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "NOT_RUN"
+        }
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(4)乙方达到法定退休年龄；",
+        "score": 0,
+        "accepted": false,
+        "reject_reason": "非正式合同条款或附件，未进入正向事实候选。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "SKIPPED_NON_CONTRACT_SECTION",
+          "rerank": "score=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "NOT_RUN"
+        }
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(5)其他原因：因甲方经营结构调整及部门岗位优化，由甲方提出，经双方协商一致解除劳动合同。",
+        "score": 0.0,
+        "accepted": false,
+        "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+          "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "PASS"
+        }
+      }
+    ],
+    "stage_results": {
+      "normalize": "PASS",
+      "rerank": "PASS",
+      "threshold": "NOT_FOUND",
+      "contradiction_filter": "NO_ACCEPTED_CANDIDATE"
+    },
+    "searched_document_hash": "7c47c40b44e97820ac325ec3018357c5111ec1a9f6db238a08b36e3ff2240e83",
+    "result": "NOT_FOUND",
+    "supporting_evidence": []
+  },
+  {
+    "rule_id": "EMP-12-01",
+    "element_id": "employment_dispute_1",
+    "review_id": "EMP-12-01",
+    "search_targets": [
+      "劳动争议依法申请劳动仲裁"
+    ],
+    "query_patterns": [
+      "(?:劳动争议|劳动合同争议).{0,60}(?:劳动仲裁|劳动(?:人事)?争议仲裁委员会)",
+      "申请(?:调解或|调解、)?仲裁",
+      "劳动争议仲裁机构[：:]\\s*[^。；\\n]{2,50}劳动人事争议仲裁委员会"
+    ],
+    "query_semantic_target": "劳动争议依法申请劳动仲裁",
+    "query_semantics": "POSITIVE_REQUIRED_FACT",
+    "search_mode": "SEMANTIC_REQUIREMENT",
+    "searched_clause_ids": [
+      "C0001",
+      "C0002",
+      "C0003",
+      "C0004",
+      "C0005",
+      "C0006",
+      "C0007",
+      "C0008",
+      "C0009",
+      "C0010",
+      "C0011",
+      "C0012",
+      "C0013",
+      "C0014",
+      "C0015",
+      "C0016",
+      "C0017",
+      "C0018",
+      "C0019",
+      "C0020",
+      "C0021",
+      "C0022",
+      "C0023",
+      "C0024"
+    ],
+    "search_corpus_chunks": [
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "title": "全文",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "text": "解除或终止劳动合同协议书\n甲方：北京华诚智能科技有限公司（用人单位）\n乙方：张明远（职工姓名）\n甲乙双方于2021年4月15日签订了劳动合同，合同期限至2027年4月14日。现经双方平等自愿协商，就解除劳动合同事宜达成如下协议："
+      },
+      {
+        "clause_id": "C0002",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "1、因下列第（5）条情形，双方协商解除劳动合同："
+      },
+      {
+        "clause_id": "C0003",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(1)乙方提出辞职，甲方同意；"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(2)合同到期，乙方提出不再续签；"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(3)合同到期，甲方提出不再续签；"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(4)乙方达到法定退休年龄；"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(5)其他原因：因甲方经营结构调整及部门岗位优化，由甲方提出，经双方协商一致解除劳动合同。"
+      },
+      {
+        "clause_id": "C0008",
+        "location": "第2项",
+        "title": "2、双方同意于2026年9月30日解除劳动合同，劳动报酬及社会保险同时停发及停缴",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "2、双方同意于2026年9月30日解除劳动合同，劳动报酬及社会保险同时停发及停缴。其中劳动报酬发放至2026年9月30日，社会保险于2026年9月停缴、住房公积金于2026年9月停缴。"
+        ],
+        "text": "2、双方同意于2026年9月30日解除劳动合同，劳动报酬及社会保险同时停发及停缴。其中劳动报酬发放至2026年9月30日，社会保险于2026年9月停缴、住房公积金于2026年9月停缴。"
+      },
+      {
+        "clause_id": "C0009",
+        "location": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "title": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "3、关于经济补偿金按以下第（2）条的约定执行："
+        ],
+        "text": "3、关于经济补偿金按以下第（2）条的约定执行："
+      },
+      {
+        "clause_id": "C0010",
+        "location": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "title": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "3、关于经济补偿金按以下第（2）条的约定执行："
+        ],
+        "text": "(1)双方确认，甲方无需支付乙方经济补偿金。"
+      },
+      {
+        "clause_id": "C0011",
+        "location": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "title": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "3、关于经济补偿金按以下第（2）条的约定执行："
+        ],
+        "text": "(2)双方确认，乙方自2021年4月起在甲方工作，连续工作5年5个月，甲方应支付乙方5.5个月工资，具体金额为99000元人民币。"
+      },
+      {
+        "clause_id": "C0012",
+        "location": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "title": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "3、关于经济补偿金按以下第（2）条的约定执行："
+        ],
+        "text": "上述经济补偿金按照乙方解除劳动合同前十二个月平均工资18000元/月计算。"
+      },
+      {
+        "clause_id": "C0013",
+        "location": "4、关于乙方当月未结清劳动报酬的约定：",
+        "title": "4、关于乙方当月未结清劳动报酬的约定：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "4、关于乙方当月未结清劳动报酬的约定："
+        ],
+        "text": "4、关于乙方当月未结清劳动报酬的约定：\n双方确认，截至劳动合同解除之日，甲方尚未向乙方支付2026年9月份工资18000元及2026年第三季度绩效奖金4000元，合计22000元。上述款项由甲方在乙方完成全部工作交接及离职手续后统一结算支付。\n除上述款项外，乙方确认不存在其他未支付的工资、奖金、加班费、津贴、补贴、未休年休假工资等劳动报酬。"
+      },
+      {
+        "clause_id": "C0014",
+        "location": "第5项",
+        "title": "5、乙方应在本协议签订之日起3天内，按照甲方的相关规定和要求办理所有工作交接及离",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "5、乙方应在本协议签订之日起3天内，按照甲方的相关规定和要求办理所有工作交接及离职手续，包括但不限于移交工作文件、客户资料、账号密码、办公设备及其他公司财物。"
+        ],
+        "text": "5、乙方应在本协议签订之日起3天内，按照甲方的相关规定和要求办理所有工作交接及离职手续，包括但不限于移交工作文件、客户资料、账号密码、办公设备及其他公司财物。\n如乙方未在规定期限内完成工作交接，甲方有权暂缓支付尚未结清的劳动报酬及经济补偿金，直至乙方完成全部工作交接手续。"
+      },
+      {
+        "clause_id": "C0015",
+        "location": "第6项",
+        "title": "6、甲方在确认乙方办理完毕工作交接、离职手续之日起15天内，将乙方当月未结清的劳",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "6、甲方在确认乙方办理完毕工作交接、离职手续之日起15天内，将乙方当月未结清的劳动报酬及经济补偿金支付给乙方。"
+        ],
+        "text": "6、甲方在确认乙方办理完毕工作交接、离职手续之日起15天内，将乙方当月未结清的劳动报酬及经济补偿金支付给乙方。\n甲方有权从上述应付款项中直接扣除乙方尚未归还的公司财物价值、借款、培训费用以及因乙方工作失误给甲方造成的损失。"
+      },
+      {
+        "clause_id": "C0016",
+        "location": "第7项",
+        "title": "7、甲乙双方就与劳动关系有关的所有费用（包括但不限于劳动报酬、加班费、奖金、津贴",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "7、甲乙双方就与劳动关系有关的所有费用（包括但不限于劳动报酬、加班费、奖金、津贴补贴、经济补偿金、社会保险、住房公积金、未休年休假工资及其他任何费用）均已结算。"
+        ],
+        "text": "7、甲乙双方就与劳动关系有关的所有费用（包括但不限于劳动报酬、加班费、奖金、津贴补贴、经济补偿金、社会保险、住房公积金、未休年休假工资及其他任何费用）均已结算。\n乙方确认对上述结算无异议，并自愿放弃基于双方劳动关系向甲方提出任何其他请求、仲裁、诉讼、投诉或者举报的权利。双方确认不存在任何劳动争议及纠纷。"
+      },
+      {
+        "clause_id": "C0017",
+        "location": "8、其他约定事项：",
+        "title": "8、其他约定事项：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "8、其他约定事项："
+        ],
+        "text": "8、其他约定事项："
+      },
+      {
+        "clause_id": "C0018",
+        "location": "（1）",
+        "title": "（1）甲方应依法为乙方出具解除劳动合同证明，并在双方解除劳动合同后30日内办理档",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（1）甲方应依法为乙方出具解除劳动合同证明，并在双方解除劳动合同后30日内办理档案及社会保险关系转移手续。"
+        ],
+        "text": "（1）甲方应依法为乙方出具解除劳动合同证明，并在双方解除劳动合同后30日内办理档案及社会保险关系转移手续。"
+      },
+      {
+        "clause_id": "C0019",
+        "location": "（2）",
+        "title": "（2）乙方在劳动关系存续期间知悉的甲方商业秘密、技术资料、客户信息、经营数据等信",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（2）乙方在劳动关系存续期间知悉的甲方商业秘密、技术资料、客户信息、经营数据等信息，在劳动合同解除后仍负有保密义务，保密期限为永久。"
+        ],
+        "text": "（2）乙方在劳动关系存续期间知悉的甲方商业秘密、技术资料、客户信息、经营数据等信息，在劳动合同解除后仍负有保密义务，保密期限为永久。"
+      },
+      {
+        "clause_id": "C0020",
+        "location": "（3）",
+        "title": "（3）乙方承诺，自劳动合同解除之日起两年内，不得进入与甲方存在竞争关系的企业任职",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（3）乙方承诺，自劳动合同解除之日起两年内，不得进入与甲方存在竞争关系的企业任职，也不得自行经营与甲方相同或类似的业务。甲方无需就上述竞业限制义务另行向乙方支付经济补偿。"
+        ],
+        "text": "（3）乙方承诺，自劳动合同解除之日起两年内，不得进入与甲方存在竞争关系的企业任职，也不得自行经营与甲方相同或类似的业务。甲方无需就上述竞业限制义务另行向乙方支付经济补偿。"
+      },
+      {
+        "clause_id": "C0021",
+        "location": "（4）",
+        "title": "（4）乙方违反本条约定的，应向甲方支付违约金人民币200000元；违约金不足以弥",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（4）乙方违反本条约定的，应向甲方支付违约金人民币200000元；违约金不足以弥补甲方损失的，乙方还应赔偿全部损失。"
+        ],
+        "text": "（4）乙方违反本条约定的，应向甲方支付违约金人民币200000元；违约金不足以弥补甲方损失的，乙方还应赔偿全部损失。"
+      },
+      {
+        "clause_id": "C0022",
+        "location": "（5）",
+        "title": "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。"
+        ],
+        "text": "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。\n本协议书一式三份，甲乙双方及北京华诚智能科技有限公司人力资源部各执一份，具有同等法律效力。"
+      },
+      {
+        "clause_id": "C0023",
+        "location": "甲方（签章）：北京华诚智能科技有限公司",
+        "title": "甲方（签章）：北京华诚智能科技有限公司",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。"
+        ],
+        "text": "甲方（签章）：北京华诚智能科技有限公司"
+      },
+      {
+        "clause_id": "C0024",
+        "location": "乙方（签字）：张明远",
+        "title": "乙方（签字）：张明远",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。"
+        ],
+        "text": "乙方（签字）：张明远\n委托代理人（签章）：李建国\n身份证号：110101199205168637\n2026年9月25日\n2026年9月25日"
+      }
+    ],
+    "top_k_candidates": [
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "title": "全文",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "text": "解除或终止劳动合同协议书\n甲方：北京华诚智能科技有限公司（用人单位）\n乙方：张明远（职工姓名）\n甲乙双方于2021年4月15日签订了劳动合同，合同期限至2027年4月14日。",
+        "score": 0.0,
+        "accepted": false,
+        "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+          "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "PASS"
+        }
+      },
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "title": "全文",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "text": "现经双方平等自愿协商，就解除劳动合同事宜达成如下协议：",
+        "score": 0.0,
+        "accepted": false,
+        "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+          "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "PASS"
+        }
+      },
+      {
+        "clause_id": "C0002",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "score": 0.0,
+        "accepted": false,
+        "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+          "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "PASS"
+        }
+      },
+      {
+        "clause_id": "C0003",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(1)乙方提出辞职，甲方同意；",
+        "score": 0,
+        "accepted": false,
+        "reject_reason": "非正式合同条款或附件，未进入正向事实候选。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "SKIPPED_NON_CONTRACT_SECTION",
+          "rerank": "score=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "NOT_RUN"
+        }
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(2)合同到期，乙方提出不再续签；",
+        "score": 0,
+        "accepted": false,
+        "reject_reason": "非正式合同条款或附件，未进入正向事实候选。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "SKIPPED_NON_CONTRACT_SECTION",
+          "rerank": "score=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "NOT_RUN"
+        }
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(3)合同到期，甲方提出不再续签；",
+        "score": 0,
+        "accepted": false,
+        "reject_reason": "非正式合同条款或附件，未进入正向事实候选。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "SKIPPED_NON_CONTRACT_SECTION",
+          "rerank": "score=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "NOT_RUN"
+        }
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(4)乙方达到法定退休年龄；",
+        "score": 0,
+        "accepted": false,
+        "reject_reason": "非正式合同条款或附件，未进入正向事实候选。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "SKIPPED_NON_CONTRACT_SECTION",
+          "rerank": "score=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "NOT_RUN"
+        }
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(5)其他原因：因甲方经营结构调整及部门岗位优化，由甲方提出，经双方协商一致解除劳动合同。",
+        "score": 0.0,
+        "accepted": false,
+        "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+          "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "PASS"
+        }
+      }
+    ],
+    "stage_results": {
+      "normalize": "PASS",
+      "rerank": "PASS",
+      "threshold": "NOT_FOUND",
+      "contradiction_filter": "NO_ACCEPTED_CANDIDATE"
+    },
+    "searched_document_hash": "7c47c40b44e97820ac325ec3018357c5111ec1a9f6db238a08b36e3ff2240e83",
+    "result": "NOT_FOUND",
+    "supporting_evidence": []
+  },
+  {
+    "rule_id": "NC-01-01",
+    "element_id": "employment_noncompete_scope_3",
+    "review_id": "NC-01-01",
+    "search_targets": [
+      "明确约定竞业地域范围"
+    ],
+    "query_patterns": [
+      "竞业(?:限制|禁止).{0,25}(?:地域|地区|区域)范围\\s*(?:为|包括|限于|：|:)[^。；_]{2,80}"
+    ],
+    "query_semantic_target": "明确约定竞业地域范围",
+    "query_semantics": "POSITIVE_REQUIRED_FACT",
+    "search_mode": "SEMANTIC_REQUIREMENT",
+    "searched_clause_ids": [
+      "C0001",
+      "C0002",
+      "C0003",
+      "C0004",
+      "C0005",
+      "C0006",
+      "C0007",
+      "C0008",
+      "C0009",
+      "C0010",
+      "C0011",
+      "C0012",
+      "C0013",
+      "C0014",
+      "C0015",
+      "C0016",
+      "C0017",
+      "C0018",
+      "C0019",
+      "C0020",
+      "C0021",
+      "C0022",
+      "C0023",
+      "C0024"
+    ],
+    "search_corpus_chunks": [
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "title": "全文",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "text": "解除或终止劳动合同协议书\n甲方：北京华诚智能科技有限公司（用人单位）\n乙方：张明远（职工姓名）\n甲乙双方于2021年4月15日签订了劳动合同，合同期限至2027年4月14日。现经双方平等自愿协商，就解除劳动合同事宜达成如下协议："
+      },
+      {
+        "clause_id": "C0002",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "1、因下列第（5）条情形，双方协商解除劳动合同："
+      },
+      {
+        "clause_id": "C0003",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(1)乙方提出辞职，甲方同意；"
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(2)合同到期，乙方提出不再续签；"
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(3)合同到期，甲方提出不再续签；"
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(4)乙方达到法定退休年龄；"
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(5)其他原因：因甲方经营结构调整及部门岗位优化，由甲方提出，经双方协商一致解除劳动合同。"
+      },
+      {
+        "clause_id": "C0008",
+        "location": "第2项",
+        "title": "2、双方同意于2026年9月30日解除劳动合同，劳动报酬及社会保险同时停发及停缴",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "2、双方同意于2026年9月30日解除劳动合同，劳动报酬及社会保险同时停发及停缴。其中劳动报酬发放至2026年9月30日，社会保险于2026年9月停缴、住房公积金于2026年9月停缴。"
+        ],
+        "text": "2、双方同意于2026年9月30日解除劳动合同，劳动报酬及社会保险同时停发及停缴。其中劳动报酬发放至2026年9月30日，社会保险于2026年9月停缴、住房公积金于2026年9月停缴。"
+      },
+      {
+        "clause_id": "C0009",
+        "location": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "title": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "3、关于经济补偿金按以下第（2）条的约定执行："
+        ],
+        "text": "3、关于经济补偿金按以下第（2）条的约定执行："
+      },
+      {
+        "clause_id": "C0010",
+        "location": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "title": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "3、关于经济补偿金按以下第（2）条的约定执行："
+        ],
+        "text": "(1)双方确认，甲方无需支付乙方经济补偿金。"
+      },
+      {
+        "clause_id": "C0011",
+        "location": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "title": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "3、关于经济补偿金按以下第（2）条的约定执行："
+        ],
+        "text": "(2)双方确认，乙方自2021年4月起在甲方工作，连续工作5年5个月，甲方应支付乙方5.5个月工资，具体金额为99000元人民币。"
+      },
+      {
+        "clause_id": "C0012",
+        "location": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "title": "3、关于经济补偿金按以下第（2）条的约定执行：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "3、关于经济补偿金按以下第（2）条的约定执行："
+        ],
+        "text": "上述经济补偿金按照乙方解除劳动合同前十二个月平均工资18000元/月计算。"
+      },
+      {
+        "clause_id": "C0013",
+        "location": "4、关于乙方当月未结清劳动报酬的约定：",
+        "title": "4、关于乙方当月未结清劳动报酬的约定：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "4、关于乙方当月未结清劳动报酬的约定："
+        ],
+        "text": "4、关于乙方当月未结清劳动报酬的约定：\n双方确认，截至劳动合同解除之日，甲方尚未向乙方支付2026年9月份工资18000元及2026年第三季度绩效奖金4000元，合计22000元。上述款项由甲方在乙方完成全部工作交接及离职手续后统一结算支付。\n除上述款项外，乙方确认不存在其他未支付的工资、奖金、加班费、津贴、补贴、未休年休假工资等劳动报酬。"
+      },
+      {
+        "clause_id": "C0014",
+        "location": "第5项",
+        "title": "5、乙方应在本协议签订之日起3天内，按照甲方的相关规定和要求办理所有工作交接及离",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "5、乙方应在本协议签订之日起3天内，按照甲方的相关规定和要求办理所有工作交接及离职手续，包括但不限于移交工作文件、客户资料、账号密码、办公设备及其他公司财物。"
+        ],
+        "text": "5、乙方应在本协议签订之日起3天内，按照甲方的相关规定和要求办理所有工作交接及离职手续，包括但不限于移交工作文件、客户资料、账号密码、办公设备及其他公司财物。\n如乙方未在规定期限内完成工作交接，甲方有权暂缓支付尚未结清的劳动报酬及经济补偿金，直至乙方完成全部工作交接手续。"
+      },
+      {
+        "clause_id": "C0015",
+        "location": "第6项",
+        "title": "6、甲方在确认乙方办理完毕工作交接、离职手续之日起15天内，将乙方当月未结清的劳",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "6、甲方在确认乙方办理完毕工作交接、离职手续之日起15天内，将乙方当月未结清的劳动报酬及经济补偿金支付给乙方。"
+        ],
+        "text": "6、甲方在确认乙方办理完毕工作交接、离职手续之日起15天内，将乙方当月未结清的劳动报酬及经济补偿金支付给乙方。\n甲方有权从上述应付款项中直接扣除乙方尚未归还的公司财物价值、借款、培训费用以及因乙方工作失误给甲方造成的损失。"
+      },
+      {
+        "clause_id": "C0016",
+        "location": "第7项",
+        "title": "7、甲乙双方就与劳动关系有关的所有费用（包括但不限于劳动报酬、加班费、奖金、津贴",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "7、甲乙双方就与劳动关系有关的所有费用（包括但不限于劳动报酬、加班费、奖金、津贴补贴、经济补偿金、社会保险、住房公积金、未休年休假工资及其他任何费用）均已结算。"
+        ],
+        "text": "7、甲乙双方就与劳动关系有关的所有费用（包括但不限于劳动报酬、加班费、奖金、津贴补贴、经济补偿金、社会保险、住房公积金、未休年休假工资及其他任何费用）均已结算。\n乙方确认对上述结算无异议，并自愿放弃基于双方劳动关系向甲方提出任何其他请求、仲裁、诉讼、投诉或者举报的权利。双方确认不存在任何劳动争议及纠纷。"
+      },
+      {
+        "clause_id": "C0017",
+        "location": "8、其他约定事项：",
+        "title": "8、其他约定事项：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "8、其他约定事项："
+        ],
+        "text": "8、其他约定事项："
+      },
+      {
+        "clause_id": "C0018",
+        "location": "（1）",
+        "title": "（1）甲方应依法为乙方出具解除劳动合同证明，并在双方解除劳动合同后30日内办理档",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（1）甲方应依法为乙方出具解除劳动合同证明，并在双方解除劳动合同后30日内办理档案及社会保险关系转移手续。"
+        ],
+        "text": "（1）甲方应依法为乙方出具解除劳动合同证明，并在双方解除劳动合同后30日内办理档案及社会保险关系转移手续。"
+      },
+      {
+        "clause_id": "C0019",
+        "location": "（2）",
+        "title": "（2）乙方在劳动关系存续期间知悉的甲方商业秘密、技术资料、客户信息、经营数据等信",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（2）乙方在劳动关系存续期间知悉的甲方商业秘密、技术资料、客户信息、经营数据等信息，在劳动合同解除后仍负有保密义务，保密期限为永久。"
+        ],
+        "text": "（2）乙方在劳动关系存续期间知悉的甲方商业秘密、技术资料、客户信息、经营数据等信息，在劳动合同解除后仍负有保密义务，保密期限为永久。"
+      },
+      {
+        "clause_id": "C0020",
+        "location": "（3）",
+        "title": "（3）乙方承诺，自劳动合同解除之日起两年内，不得进入与甲方存在竞争关系的企业任职",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（3）乙方承诺，自劳动合同解除之日起两年内，不得进入与甲方存在竞争关系的企业任职，也不得自行经营与甲方相同或类似的业务。甲方无需就上述竞业限制义务另行向乙方支付经济补偿。"
+        ],
+        "text": "（3）乙方承诺，自劳动合同解除之日起两年内，不得进入与甲方存在竞争关系的企业任职，也不得自行经营与甲方相同或类似的业务。甲方无需就上述竞业限制义务另行向乙方支付经济补偿。"
+      },
+      {
+        "clause_id": "C0021",
+        "location": "（4）",
+        "title": "（4）乙方违反本条约定的，应向甲方支付违约金人民币200000元；违约金不足以弥",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（4）乙方违反本条约定的，应向甲方支付违约金人民币200000元；违约金不足以弥补甲方损失的，乙方还应赔偿全部损失。"
+        ],
+        "text": "（4）乙方违反本条约定的，应向甲方支付违约金人民币200000元；违约金不足以弥补甲方损失的，乙方还应赔偿全部损失。"
+      },
+      {
+        "clause_id": "C0022",
+        "location": "（5）",
+        "title": "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。"
+        ],
+        "text": "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。\n本协议书一式三份，甲乙双方及北京华诚智能科技有限公司人力资源部各执一份，具有同等法律效力。"
+      },
+      {
+        "clause_id": "C0023",
+        "location": "甲方（签章）：北京华诚智能科技有限公司",
+        "title": "甲方（签章）：北京华诚智能科技有限公司",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。"
+        ],
+        "text": "甲方（签章）：北京华诚智能科技有限公司"
+      },
+      {
+        "clause_id": "C0024",
+        "location": "乙方（签字）：张明远",
+        "title": "乙方（签字）：张明远",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "（5）本协议签署后，双方均不得以任何理由反悔或要求撤销本协议。"
+        ],
+        "text": "乙方（签字）：张明远\n委托代理人（签章）：李建国\n身份证号：110101199205168637\n2026年9月25日\n2026年9月25日"
+      }
+    ],
+    "top_k_candidates": [
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "title": "全文",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "text": "解除或终止劳动合同协议书\n甲方：北京华诚智能科技有限公司（用人单位）\n乙方：张明远（职工姓名）\n甲乙双方于2021年4月15日签订了劳动合同，合同期限至2027年4月14日。",
+        "score": 0.0,
+        "accepted": false,
+        "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+          "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "PASS"
+        }
+      },
+      {
+        "clause_id": "C0001",
+        "location": "全文",
+        "title": "全文",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "全文"
+        ],
+        "text": "现经双方平等自愿协商，就解除劳动合同事宜达成如下协议：",
+        "score": 0.0,
+        "accepted": false,
+        "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+          "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "PASS"
+        }
+      },
+      {
+        "clause_id": "C0002",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "score": 0.0,
+        "accepted": false,
+        "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+          "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "PASS"
+        }
+      },
+      {
+        "clause_id": "C0003",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(1)乙方提出辞职，甲方同意；",
+        "score": 0,
+        "accepted": false,
+        "reject_reason": "非正式合同条款或附件，未进入正向事实候选。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "SKIPPED_NON_CONTRACT_SECTION",
+          "rerank": "score=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "NOT_RUN"
+        }
+      },
+      {
+        "clause_id": "C0004",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(2)合同到期，乙方提出不再续签；",
+        "score": 0,
+        "accepted": false,
+        "reject_reason": "非正式合同条款或附件，未进入正向事实候选。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "SKIPPED_NON_CONTRACT_SECTION",
+          "rerank": "score=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "NOT_RUN"
+        }
+      },
+      {
+        "clause_id": "C0005",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(3)合同到期，甲方提出不再续签；",
+        "score": 0,
+        "accepted": false,
+        "reject_reason": "非正式合同条款或附件，未进入正向事实候选。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "SKIPPED_NON_CONTRACT_SECTION",
+          "rerank": "score=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "NOT_RUN"
+        }
+      },
+      {
+        "clause_id": "C0006",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "使用说明",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(4)乙方达到法定退休年龄；",
+        "score": 0,
+        "accepted": false,
+        "reject_reason": "非正式合同条款或附件，未进入正向事实候选。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "SKIPPED_NON_CONTRACT_SECTION",
+          "rerank": "score=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "NOT_RUN"
+        }
+      },
+      {
+        "clause_id": "C0007",
+        "location": "第1项",
+        "title": "1、因下列第（5）条情形，双方协商解除劳动合同：",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "1、因下列第（5）条情形，双方协商解除劳动合同："
+        ],
+        "text": "(5)其他原因：因甲方经营结构调整及部门岗位优化，由甲方提出，经双方协商一致解除劳动合同。",
+        "score": 0.0,
+        "accepted": false,
+        "reject_reason": "REJECTED: 未命中语义目标或上下文谓词。",
+        "matched_semantic_patterns": [],
+        "matched_contextual_patterns": [],
+        "matched_excluded_patterns": [],
+        "required_fact_groups": {},
+        "stage_trace": {
+          "normalize": "OK: ParsedClause -> canonical candidate text/location/heading",
+          "rerank": "score=0; semantic_hits=0; contextual_hits=0",
+          "threshold": "REJECT",
+          "contradiction_filter": "PASS"
+        }
+      }
+    ],
+    "stage_results": {
+      "normalize": "PASS",
+      "rerank": "PASS",
+      "threshold": "NOT_FOUND",
+      "contradiction_filter": "NO_ACCEPTED_CANDIDATE"
+    },
+    "searched_document_hash": "7c47c40b44e97820ac325ec3018357c5111ec1a9f6db238a08b36e3ff2240e83",
+    "result": "NOT_FOUND",
+    "supporting_evidence": []
+  }
+]

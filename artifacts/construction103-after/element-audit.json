@@ -1,0 +1,4664 @@
+[
+  {
+    "rule_id": "CE-01-03",
+    "before": "部分覆盖",
+    "after": "通过",
+    "elements": [
+      {
+        "review_id": "CE-01-03",
+        "element_id": "scope",
+        "proposition": "工程承包范围",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-29013b027edf23dc53de",
+          "SRC-85bfc8ff6c1e830eaa29"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0003"
+        ],
+        "source_spans": [
+          "乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。"
+        ],
+        "source_locations": [
+          "第二条 承包方式及承包范围"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0003"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "SRC-29013b027edf23dc53de",
+          "SRC-85bfc8ff6c1e830eaa29"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence_ids": [
+          "SRC-29013b027edf23dc53de",
+          "SRC-85bfc8ff6c1e830eaa29"
+        ],
+        "bound_evidence_ids": [
+          "SRC-29013b027edf23dc53de",
+          "SRC-85bfc8ff6c1e830eaa29"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0003",
+            "quote": "乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。"
+          }
+        ]
+      },
+      {
+        "review_id": "CE-01-03",
+        "element_id": "site",
+        "proposition": "工程地点",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-43267957865ee433d13c"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0002"
+        ],
+        "source_spans": [
+          "工程地点：浙江省杭州市余杭区启航路168号厂区东侧。"
+        ],
+        "source_locations": [
+          "第一条 工程概况"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0002"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "SRC-43267957865ee433d13c"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence_ids": [
+          "SRC-43267957865ee433d13c"
+        ],
+        "bound_evidence_ids": [
+          "SRC-43267957865ee433d13c"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "工程地点：浙江省杭州市余杭区启航路168号厂区东侧。"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "clause_id": "C0002",
+        "location": "第一条 工程概况",
+        "title": "工程概况",
+        "text": "工程内容：新建一栋研发生产综合楼及配套附属设施，其中地上六层、地下一层，总建筑面积约18,600平方米。",
+        "quote": "工程内容：新建一栋研发生产综合楼及配套附属设施，其中地上六层、地下一层，总建筑面积约18,600平方米。",
+        "original_excerpt": "工程内容：新建一栋研发生产综合楼及配套附属设施，其中地上六层、地下一层，总建筑面积约18,600平方米。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "construction_element_ids": [
+          "scope"
+        ],
+        "construction_blank": false,
+        "source_start": 379,
+        "source_end": 431,
+        "document_id": "contract_package/main",
+        "document_type": "MAIN_CONTRACT",
+        "source_document_type": "MAIN_CONTRACT",
+        "evidence_block_type": "OPERATIVE_CLAUSE",
+        "document_name": "合同正文",
+        "section": "第一条 工程概况",
+        "sentence_index": 1,
+        "confidence": "high",
+        "evidence_type": "CONTRACT_TEXT",
+        "raw_text": "第一条 工程概况\n工程名称：华新智能装备研发制造中心二期建设工程。\n工程地点：浙江省杭州市余杭区启航路168号厂区东侧。\n工程内容：新建一栋研发生产综合楼及配套附属设施，其中地上六层、地下一层，总建筑面积约18,600平方米。\n主要施工内容包括：\n（1）土建主体工程；\n（2）基础及地下室工程；\n（3）给排水、电气、消防及通风工程；\n（4）建筑外立面及屋面工程；\n（5）室内公共区域基础装修；\n（6）室外道路、雨污水管网及绿化恢复工程；\n（7）施工图纸及工程量清单载明的其他工程。\n本工程资金来源：甲方自筹资金。",
+        "source_span": {
+          "start_offset": 379,
+          "end_offset": 431,
+          "raw_text": "工程内容：新建一栋研发生产综合楼及配套附属设施，其中地上六层、地下一层，总建筑面积约18,600平方米。",
+          "coordinate_system": "DOCUMENT_TEXT"
+        },
+        "source_document": "contract_package/main",
+        "original_document_reference": "contract_package/main",
+        "derived_or_original": "ORIGINAL",
+        "evidence_source": {
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "document_name": "合同正文",
+          "clause_id": "C0002",
+          "section": "第一条 工程概况",
+          "sentence_index": 1,
+          "quote": "工程内容：新建一栋研发生产综合楼及配套附属设施，其中地上六层、地下一层，总建筑面积约18,600平方米。",
+          "confidence": "high",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "evidence_type": "CONTRACT_TEXT",
+          "source_span": {
+            "start_offset": 379,
+            "end_offset": 431,
+            "raw_text": "工程内容：新建一栋研发生产综合楼及配套附属设施，其中地上六层、地下一层，总建筑面积约18,600平方米。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "derived_or_original": "ORIGINAL",
+          "source_ref": {
+            "document_id": "contract_package/main",
+            "clause_id": "C0002",
+            "clause_sha256": "3d3002e5a48e232d492a4dad8e313360cd56c97be17c9f6224d1cfb3d0df3325",
+            "local_start": 61,
+            "local_end": 113,
+            "locator": "第一条 工程概况"
+          },
+          "verified_original": true
+        },
+        "evidence_polarity": "SUPPORTS_COVERAGE",
+        "evidence_claim_id": "CE-01-03-EC-01",
+        "entailment_status": "SUPPORTS",
+        "semantic_score": 0.25,
+        "entity_match": false,
+        "obligation_match": false,
+        "consequence_match": false,
+        "polarity_match": true,
+        "supporting_element_ids": [
+          "scope"
+        ],
+        "canonical_fact_keys": [],
+        "relevance_score": 1.0,
+        "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+        "review_id": "CE-01-03",
+        "element_ids": [
+          "site"
+        ],
+        "support_type": "DIRECT",
+        "verified_original": true,
+        "source_verification": {
+          "status": "PASS",
+          "errors": [],
+          "method": "EXACT_PARSER_SOURCE_SPAN"
+        },
+        "evidence_id": "SRC-29013b027edf23dc53de",
+        "quoted_text": "工程内容：新建一栋研发生产综合楼及配套附属设施，其中地上六层、地下一层，总建筑面积约18,600平方米。",
+        "source_ref": {
+          "document_id": "contract_package/main",
+          "clause_id": "C0002",
+          "clause_sha256": "3d3002e5a48e232d492a4dad8e313360cd56c97be17c9f6224d1cfb3d0df3325",
+          "local_start": 61,
+          "local_end": 113,
+          "locator": "第一条 工程概况"
+        },
+        "provenance_validation": {
+          "status": "PASS",
+          "evidence_type": "CONTRACT_TEXT",
+          "errors": []
+        },
+        "source_semantic_verification": {
+          "status": "PASS",
+          "element_ids": [
+            "scope"
+          ]
+        },
+        "supports_element_ids": [
+          "scope"
+        ]
+      },
+      {
+        "clause_id": "C0002",
+        "location": "第一条 工程概况",
+        "title": "工程概况",
+        "text": "工程地点：浙江省杭州市余杭区启航路168号厂区东侧。",
+        "quote": "工程地点：浙江省杭州市余杭区启航路168号厂区东侧。",
+        "original_excerpt": "工程地点：浙江省杭州市余杭区启航路168号厂区东侧。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "construction_element_ids": [
+          "site"
+        ],
+        "construction_blank": false,
+        "source_start": 352,
+        "source_end": 378,
+        "document_id": "contract_package/main",
+        "document_type": "MAIN_CONTRACT",
+        "source_document_type": "MAIN_CONTRACT",
+        "evidence_block_type": "OPERATIVE_CLAUSE",
+        "document_name": "合同正文",
+        "section": "第一条 工程概况",
+        "sentence_index": 1,
+        "confidence": "high",
+        "evidence_type": "CONTRACT_TEXT",
+        "raw_text": "第一条 工程概况\n工程名称：华新智能装备研发制造中心二期建设工程。\n工程地点：浙江省杭州市余杭区启航路168号厂区东侧。\n工程内容：新建一栋研发生产综合楼及配套附属设施，其中地上六层、地下一层，总建筑面积约18,600平方米。\n主要施工内容包括：\n（1）土建主体工程；\n（2）基础及地下室工程；\n（3）给排水、电气、消防及通风工程；\n（4）建筑外立面及屋面工程；\n（5）室内公共区域基础装修；\n（6）室外道路、雨污水管网及绿化恢复工程；\n（7）施工图纸及工程量清单载明的其他工程。\n本工程资金来源：甲方自筹资金。",
+        "source_span": {
+          "start_offset": 352,
+          "end_offset": 378,
+          "raw_text": "工程地点：浙江省杭州市余杭区启航路168号厂区东侧。",
+          "coordinate_system": "DOCUMENT_TEXT"
+        },
+        "source_document": "contract_package/main",
+        "original_document_reference": "contract_package/main",
+        "derived_or_original": "ORIGINAL",
+        "evidence_source": {
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "document_name": "合同正文",
+          "clause_id": "C0002",
+          "section": "第一条 工程概况",
+          "sentence_index": 1,
+          "quote": "工程地点：浙江省杭州市余杭区启航路168号厂区东侧。",
+          "confidence": "high",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "evidence_type": "CONTRACT_TEXT",
+          "source_span": {
+            "start_offset": 352,
+            "end_offset": 378,
+            "raw_text": "工程地点：浙江省杭州市余杭区启航路168号厂区东侧。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "derived_or_original": "ORIGINAL",
+          "source_ref": {
+            "document_id": "contract_package/main",
+            "clause_id": "C0002",
+            "clause_sha256": "3d3002e5a48e232d492a4dad8e313360cd56c97be17c9f6224d1cfb3d0df3325",
+            "local_start": 34,
+            "local_end": 60,
+            "locator": "第一条 工程概况"
+          },
+          "verified_original": true
+        },
+        "evidence_polarity": "SUPPORTS_COVERAGE",
+        "evidence_claim_id": "CE-01-03-EC-01",
+        "entailment_status": "SUPPORTS",
+        "semantic_score": 0.25,
+        "entity_match": false,
+        "obligation_match": false,
+        "consequence_match": false,
+        "polarity_match": true,
+        "supporting_element_ids": [
+          "site"
+        ],
+        "canonical_fact_keys": [],
+        "relevance_score": 1.0,
+        "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+        "review_id": "CE-01-03",
+        "element_ids": [
+          "site"
+        ],
+        "support_type": "DIRECT",
+        "verified_original": true,
+        "source_verification": {
+          "status": "PASS",
+          "errors": [],
+          "method": "EXACT_PARSER_SOURCE_SPAN"
+        },
+        "evidence_id": "SRC-43267957865ee433d13c",
+        "quoted_text": "工程地点：浙江省杭州市余杭区启航路168号厂区东侧。",
+        "source_ref": {
+          "document_id": "contract_package/main",
+          "clause_id": "C0002",
+          "clause_sha256": "3d3002e5a48e232d492a4dad8e313360cd56c97be17c9f6224d1cfb3d0df3325",
+          "local_start": 34,
+          "local_end": 60,
+          "locator": "第一条 工程概况"
+        },
+        "provenance_validation": {
+          "status": "PASS",
+          "evidence_type": "CONTRACT_TEXT",
+          "errors": []
+        },
+        "source_semantic_verification": {
+          "status": "PASS",
+          "element_ids": [
+            "site"
+          ]
+        },
+        "supports_element_ids": [
+          "site"
+        ],
+        "supported_propositions": [
+          "工程地点"
+        ],
+        "support_summary": "证明合同已约定相关合同要素。"
+      },
+      {
+        "clause_id": "C0003",
+        "location": "第二条 承包方式及承包范围",
+        "title": "承包方式及承包范围",
+        "text": "乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。",
+        "quote": "乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。",
+        "original_excerpt": "乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "construction_element_ids": [
+          "scope"
+        ],
+        "construction_blank": false,
+        "source_start": 603,
+        "source_end": 651,
+        "document_id": "contract_package/main",
+        "document_type": "MAIN_CONTRACT",
+        "source_document_type": "MAIN_CONTRACT",
+        "evidence_block_type": "OPERATIVE_CLAUSE",
+        "document_name": "合同正文",
+        "section": "第二条 承包方式及承包范围",
+        "sentence_index": 1,
+        "confidence": "high",
+        "evidence_type": "CONTRACT_TEXT",
+        "raw_text": "第二条 承包方式及承包范围\n本工程采用施工总承包方式。\n乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。\n电梯设备采购、生产设备安装、专业实验室装修及弱电智能化系统由甲方另行采购或发包，不属于本合同承包范围。\n未经甲方书面同意，乙方不得将本工程主体结构施工转包或违法分包给第三方。\n经甲方书面同意的专业分包，不免除乙方作为总承包人应承担的管理、质量、安全及工期责任。",
+        "source_span": {
+          "start_offset": 603,
+          "end_offset": 651,
+          "raw_text": "乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。",
+          "coordinate_system": "DOCUMENT_TEXT"
+        },
+        "source_document": "contract_package/main",
+        "original_document_reference": "contract_package/main",
+        "derived_or_original": "ORIGINAL",
+        "evidence_source": {
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "document_name": "合同正文",
+          "clause_id": "C0003",
+          "section": "第二条 承包方式及承包范围",
+          "sentence_index": 1,
+          "quote": "乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。",
+          "confidence": "high",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "evidence_type": "CONTRACT_TEXT",
+          "source_span": {
+            "start_offset": 603,
+            "end_offset": 651,
+            "raw_text": "乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "derived_or_original": "ORIGINAL",
+          "source_ref": {
+            "document_id": "contract_package/main",
+            "clause_id": "C0003",
+            "clause_sha256": "e4cfd70137d33b01bf68702ea50a310ba8a1421a256ab8c7cffc44f111324210",
+            "local_start": 28,
+            "local_end": 76,
+            "locator": "第二条 承包方式及承包范围"
+          },
+          "verified_original": true
+        },
+        "evidence_polarity": "SUPPORTS_COVERAGE",
+        "evidence_claim_id": "CE-01-03-EC-01",
+        "entailment_status": "SUPPORTS",
+        "semantic_score": 0.25,
+        "entity_match": false,
+        "obligation_match": false,
+        "consequence_match": false,
+        "polarity_match": true,
+        "supporting_element_ids": [
+          "scope"
+        ],
+        "canonical_fact_keys": [],
+        "relevance_score": 1.0,
+        "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+        "review_id": "CE-01-03",
+        "element_ids": [
+          "scope"
+        ],
+        "support_type": "DIRECT",
+        "verified_original": true,
+        "source_verification": {
+          "status": "PASS",
+          "errors": [],
+          "method": "EXACT_PARSER_SOURCE_SPAN"
+        },
+        "evidence_id": "SRC-85bfc8ff6c1e830eaa29",
+        "quoted_text": "乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。",
+        "source_ref": {
+          "document_id": "contract_package/main",
+          "clause_id": "C0003",
+          "clause_sha256": "e4cfd70137d33b01bf68702ea50a310ba8a1421a256ab8c7cffc44f111324210",
+          "local_start": 28,
+          "local_end": 76,
+          "locator": "第二条 承包方式及承包范围"
+        },
+        "provenance_validation": {
+          "status": "PASS",
+          "evidence_type": "CONTRACT_TEXT",
+          "errors": []
+        },
+        "source_semantic_verification": {
+          "status": "PASS",
+          "element_ids": [
+            "scope"
+          ]
+        },
+        "supports_element_ids": [
+          "scope"
+        ],
+        "supported_propositions": [
+          "工程承包范围"
+        ],
+        "support_summary": "证明合同已约定相关合同要素。"
+      }
+    ],
+    "search": [],
+    "retrieval": {
+      "searched_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009",
+        "C0010",
+        "C0011",
+        "C0012",
+        "C0013",
+        "C0014",
+        "C0015",
+        "C0016",
+        "C0017",
+        "C0018",
+        "C0019",
+        "C0020",
+        "C0021",
+        "C0022",
+        "C0023",
+        "C0024",
+        "C0025",
+        "C0026",
+        "C0027",
+        "C0028",
+        "C0029",
+        "C0030",
+        "C0031",
+        "C0032"
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0003",
+          "location": "第二条 承包方式及承包范围",
+          "title": "承包方式及承包范围",
+          "text": "乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。",
+          "quote": "乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。",
+          "original_excerpt": "乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。",
+          "section_type": "正式合同条款",
+          "block_type": "OPERATIVE_CLAUSE",
+          "construction_element_ids": [
+            "scope"
+          ],
+          "construction_blank": false,
+          "source_start": 28,
+          "source_end": 76
+        },
+        {
+          "clause_id": "C0002",
+          "location": "第一条 工程概况",
+          "title": "工程概况",
+          "text": "工程内容：新建一栋研发生产综合楼及配套附属设施，其中地上六层、地下一层，总建筑面积约18,600平方米。",
+          "quote": "工程内容：新建一栋研发生产综合楼及配套附属设施，其中地上六层、地下一层，总建筑面积约18,600平方米。",
+          "original_excerpt": "工程内容：新建一栋研发生产综合楼及配套附属设施，其中地上六层、地下一层，总建筑面积约18,600平方米。",
+          "section_type": "正式合同条款",
+          "block_type": "OPERATIVE_CLAUSE",
+          "construction_element_ids": [
+            "scope"
+          ],
+          "construction_blank": false,
+          "source_start": 61,
+          "source_end": 113
+        },
+        {
+          "clause_id": "C0002",
+          "location": "第一条 工程概况",
+          "title": "工程概况",
+          "text": "工程地点：浙江省杭州市余杭区启航路168号厂区东侧。",
+          "quote": "工程地点：浙江省杭州市余杭区启航路168号厂区东侧。",
+          "original_excerpt": "工程地点：浙江省杭州市余杭区启航路168号厂区东侧。",
+          "section_type": "正式合同条款",
+          "block_type": "OPERATIVE_CLAUSE",
+          "construction_element_ids": [
+            "site"
+          ],
+          "construction_blank": false,
+          "source_start": 34,
+          "source_end": 60
+        }
+      ],
+      "covered_elements": [
+        "scope",
+        "site"
+      ],
+      "missing_elements": [],
+      "scope": "FULL_CONTRACT_AND_ANNEXES",
+      "intent_verified": true
+    },
+    "semantic_requirements": []
+  },
+  {
+    "rule_id": "CE-08-01",
+    "before": "部分覆盖",
+    "after": "通过",
+    "elements": [
+      {
+        "review_id": "CE-08-01",
+        "element_id": "standard",
+        "proposition": "工程质量适用标准",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-1cccb804826b890c8c64",
+          "SRC-c7c3618c396e0e138619"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0011"
+        ],
+        "source_spans": [
+          "本工程主要建筑材料及设备应符合国家现行标准、设计文件及合同要求。"
+        ],
+        "source_locations": [
+          "第七条 材料与设备"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0011"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "SRC-1cccb804826b890c8c64",
+          "SRC-c7c3618c396e0e138619"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence_ids": [
+          "SRC-1cccb804826b890c8c64",
+          "SRC-c7c3618c396e0e138619"
+        ],
+        "bound_evidence_ids": [
+          "SRC-1cccb804826b890c8c64",
+          "SRC-c7c3618c396e0e138619"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0011",
+            "quote": "本工程主要建筑材料及设备应符合国家现行标准、设计文件及合同要求。"
+          }
+        ]
+      },
+      {
+        "review_id": "CE-08-01",
+        "element_id": "acceptance",
+        "proposition": "竣工验收程序",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-2616349a9cba9f0911fd"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0019"
+        ],
+        "source_spans": [
+          "工程达到竣工验收条件后，乙方应向甲方提交完整的竣工验收申请及竣工资料。"
+        ],
+        "source_locations": [
+          "第十五条 竣工验收"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0019"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "SRC-2616349a9cba9f0911fd"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence_ids": [
+          "SRC-2616349a9cba9f0911fd"
+        ],
+        "bound_evidence_ids": [
+          "SRC-2616349a9cba9f0911fd"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0019",
+            "quote": "工程达到竣工验收条件后，乙方应向甲方提交完整的竣工验收申请及竣工资料。"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "clause_id": "C0011",
+        "location": "第七条 材料与设备",
+        "title": "材料与设备",
+        "text": "本工程主要建筑材料及设备应符合国家现行标准、设计文件及合同要求。",
+        "quote": "本工程主要建筑材料及设备应符合国家现行标准、设计文件及合同要求。",
+        "original_excerpt": "本工程主要建筑材料及设备应符合国家现行标准、设计文件及合同要求。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "construction_element_ids": [
+          "standard"
+        ],
+        "construction_blank": false,
+        "source_start": 1859,
+        "source_end": 1891,
+        "document_id": "contract_package/main",
+        "document_type": "MAIN_CONTRACT",
+        "source_document_type": "MAIN_CONTRACT",
+        "evidence_block_type": "OPERATIVE_CLAUSE",
+        "document_name": "合同正文",
+        "section": "第七条 材料与设备",
+        "sentence_index": 1,
+        "confidence": "high",
+        "evidence_type": "CONTRACT_TEXT",
+        "raw_text": "第七条 材料与设备\n本工程主要建筑材料及设备应符合国家现行标准、设计文件及合同要求。\n钢筋、商品混凝土、防水材料、配电设备、消防设备等主要材料，乙方进场前应向甲方或监理单位提交品牌、型号、合格证明及检测资料。\n需送检或者复检的材料，应按照规定完成检测并经确认合格后方可使用。\n乙方擅自使用不符合约定或者检验不合格材料的，应负责拆除、更换，并自行承担由此产生的全部合理费用及工期损失。\n甲方指定品牌范围的材料，乙方可以在指定品牌范围内选择具体产品；甲方不得要求乙方使用明显不符合设计或者质量标准的产品。",
+        "source_span": {
+          "start_offset": 1859,
+          "end_offset": 1891,
+          "raw_text": "本工程主要建筑材料及设备应符合国家现行标准、设计文件及合同要求。",
+          "coordinate_system": "DOCUMENT_TEXT"
+        },
+        "source_document": "contract_package/main",
+        "original_document_reference": "contract_package/main",
+        "derived_or_original": "ORIGINAL",
+        "evidence_source": {
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "document_name": "合同正文",
+          "clause_id": "C0011",
+          "section": "第七条 材料与设备",
+          "sentence_index": 1,
+          "quote": "本工程主要建筑材料及设备应符合国家现行标准、设计文件及合同要求。",
+          "confidence": "high",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "evidence_type": "CONTRACT_TEXT",
+          "source_span": {
+            "start_offset": 1859,
+            "end_offset": 1891,
+            "raw_text": "本工程主要建筑材料及设备应符合国家现行标准、设计文件及合同要求。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "derived_or_original": "ORIGINAL",
+          "source_ref": {
+            "document_id": "contract_package/main",
+            "clause_id": "C0011",
+            "clause_sha256": "4e62fb6c246b96ee548d412b0cad8589a0a77e5d9ecb05314da8018a0077ebe3",
+            "local_start": 10,
+            "local_end": 42,
+            "locator": "第七条 材料与设备"
+          },
+          "verified_original": true
+        },
+        "evidence_polarity": "SUPPORTS_COVERAGE",
+        "evidence_claim_id": "CE-08-01-EC-01",
+        "entailment_status": "SUPPORTS",
+        "semantic_score": 0.25,
+        "entity_match": false,
+        "obligation_match": false,
+        "consequence_match": false,
+        "polarity_match": true,
+        "supporting_element_ids": [
+          "standard"
+        ],
+        "canonical_fact_keys": [],
+        "relevance_score": 1.0,
+        "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+        "review_id": "CE-08-01",
+        "element_ids": [
+          "standard"
+        ],
+        "support_type": "DIRECT",
+        "verified_original": true,
+        "source_verification": {
+          "status": "PASS",
+          "errors": [],
+          "method": "EXACT_PARSER_SOURCE_SPAN"
+        },
+        "evidence_id": "SRC-1cccb804826b890c8c64",
+        "quoted_text": "本工程主要建筑材料及设备应符合国家现行标准、设计文件及合同要求。",
+        "source_ref": {
+          "document_id": "contract_package/main",
+          "clause_id": "C0011",
+          "clause_sha256": "4e62fb6c246b96ee548d412b0cad8589a0a77e5d9ecb05314da8018a0077ebe3",
+          "local_start": 10,
+          "local_end": 42,
+          "locator": "第七条 材料与设备"
+        },
+        "provenance_validation": {
+          "status": "PASS",
+          "evidence_type": "CONTRACT_TEXT",
+          "errors": []
+        },
+        "source_semantic_verification": {
+          "status": "PASS",
+          "element_ids": [
+            "standard"
+          ]
+        },
+        "supports_element_ids": [
+          "standard"
+        ],
+        "supported_propositions": [
+          "工程质量适用标准"
+        ],
+        "support_summary": "证明合同已约定相关合同要素。"
+      },
+      {
+        "clause_id": "C0019",
+        "location": "第十五条 竣工验收",
+        "title": "竣工验收",
+        "text": "工程达到竣工验收条件后，乙方应向甲方提交完整的竣工验收申请及竣工资料。",
+        "quote": "工程达到竣工验收条件后，乙方应向甲方提交完整的竣工验收申请及竣工资料。",
+        "original_excerpt": "工程达到竣工验收条件后，乙方应向甲方提交完整的竣工验收申请及竣工资料。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "construction_element_ids": [
+          "acceptance"
+        ],
+        "construction_blank": false,
+        "source_start": 3385,
+        "source_end": 3420,
+        "document_id": "contract_package/main",
+        "document_type": "MAIN_CONTRACT",
+        "source_document_type": "MAIN_CONTRACT",
+        "evidence_block_type": "OPERATIVE_CLAUSE",
+        "document_name": "合同正文",
+        "section": "第十五条 竣工验收",
+        "sentence_index": 1,
+        "confidence": "high",
+        "evidence_type": "CONTRACT_TEXT",
+        "raw_text": "第十五条 竣工验收\n工程达到竣工验收条件后，乙方应向甲方提交完整的竣工验收申请及竣工资料。\n甲方收到符合要求的验收申请后，应在合理期限内组织设计、施工、监理等单位进行验收。\n经竣工验收发现质量问题的，乙方应在甲方要求的合理期限内完成整改并申请复验。\n工程经验收合格后，双方办理工程移交手续。\n甲方无正当理由长期拖延组织验收的，双方应根据工程实际完成情况协商确定验收及结算事项。",
+        "source_span": {
+          "start_offset": 3385,
+          "end_offset": 3420,
+          "raw_text": "工程达到竣工验收条件后，乙方应向甲方提交完整的竣工验收申请及竣工资料。",
+          "coordinate_system": "DOCUMENT_TEXT"
+        },
+        "source_document": "contract_package/main",
+        "original_document_reference": "contract_package/main",
+        "derived_or_original": "ORIGINAL",
+        "evidence_source": {
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "document_name": "合同正文",
+          "clause_id": "C0019",
+          "section": "第十五条 竣工验收",
+          "sentence_index": 1,
+          "quote": "工程达到竣工验收条件后，乙方应向甲方提交完整的竣工验收申请及竣工资料。",
+          "confidence": "high",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "evidence_type": "CONTRACT_TEXT",
+          "source_span": {
+            "start_offset": 3385,
+            "end_offset": 3420,
+            "raw_text": "工程达到竣工验收条件后，乙方应向甲方提交完整的竣工验收申请及竣工资料。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "derived_or_original": "ORIGINAL",
+          "source_ref": {
+            "document_id": "contract_package/main",
+            "clause_id": "C0019",
+            "clause_sha256": "9abe28a1f8b795eb3670e95cf478a32240421c91fb455a21ba493d5cd9ab4cef",
+            "local_start": 10,
+            "local_end": 45,
+            "locator": "第十五条 竣工验收"
+          },
+          "verified_original": true
+        },
+        "evidence_polarity": "SUPPORTS_COVERAGE",
+        "evidence_claim_id": "CE-08-01-EC-01",
+        "entailment_status": "SUPPORTS",
+        "semantic_score": 0.25,
+        "entity_match": false,
+        "obligation_match": false,
+        "consequence_match": false,
+        "polarity_match": true,
+        "supporting_element_ids": [
+          "acceptance"
+        ],
+        "canonical_fact_keys": [],
+        "relevance_score": 1.0,
+        "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+        "review_id": "CE-08-01",
+        "element_ids": [
+          "acceptance"
+        ],
+        "support_type": "DIRECT",
+        "verified_original": true,
+        "source_verification": {
+          "status": "PASS",
+          "errors": [],
+          "method": "EXACT_PARSER_SOURCE_SPAN"
+        },
+        "evidence_id": "SRC-2616349a9cba9f0911fd",
+        "quoted_text": "工程达到竣工验收条件后，乙方应向甲方提交完整的竣工验收申请及竣工资料。",
+        "source_ref": {
+          "document_id": "contract_package/main",
+          "clause_id": "C0019",
+          "clause_sha256": "9abe28a1f8b795eb3670e95cf478a32240421c91fb455a21ba493d5cd9ab4cef",
+          "local_start": 10,
+          "local_end": 45,
+          "locator": "第十五条 竣工验收"
+        },
+        "provenance_validation": {
+          "status": "PASS",
+          "evidence_type": "CONTRACT_TEXT",
+          "errors": []
+        },
+        "source_semantic_verification": {
+          "status": "PASS",
+          "element_ids": [
+            "acceptance"
+          ]
+        },
+        "supports_element_ids": [
+          "acceptance"
+        ],
+        "supported_propositions": [
+          "竣工验收程序"
+        ],
+        "support_summary": "证明合同已约定相关合同要素。"
+      },
+      {
+        "clause_id": "C0012",
+        "location": "第八条 工程质量",
+        "title": "工程质量",
+        "text": "工程质量标准：符合国家现行建设工程施工质量验收规范，达到合格标准。",
+        "quote": "工程质量标准：符合国家现行建设工程施工质量验收规范，达到合格标准。",
+        "original_excerpt": "工程质量标准：符合国家现行建设工程施工质量验收规范，达到合格标准。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "construction_element_ids": [
+          "standard"
+        ],
+        "construction_blank": false,
+        "source_start": 2109,
+        "source_end": 2142,
+        "document_id": "contract_package/main",
+        "document_type": "MAIN_CONTRACT",
+        "source_document_type": "MAIN_CONTRACT",
+        "evidence_block_type": "OPERATIVE_CLAUSE",
+        "document_name": "合同正文",
+        "section": "第八条 工程质量",
+        "sentence_index": 1,
+        "confidence": "high",
+        "evidence_type": "CONTRACT_TEXT",
+        "raw_text": "第八条 工程质量\n工程质量标准：符合国家现行建设工程施工质量验收规范，达到合格标准。\n乙方应严格按照施工图纸、施工技术标准及批准的施工组织设计进行施工。\n隐蔽工程完成后，乙方应至少提前24小时通知甲方及监理单位验收。\n未经验收或者验收不合格的隐蔽工程，乙方不得进行下一道工序。\n因乙方原因造成工程质量不合格的，乙方应负责返工、修复，并承担相关费用。\n因甲方提供的设计文件错误或者甲方强制要求采用不符合质量标准的方案导致质量问题的，由责任方依法承担相应责任。",
+        "source_span": {
+          "start_offset": 2109,
+          "end_offset": 2142,
+          "raw_text": "工程质量标准：符合国家现行建设工程施工质量验收规范，达到合格标准。",
+          "coordinate_system": "DOCUMENT_TEXT"
+        },
+        "source_document": "contract_package/main",
+        "original_document_reference": "contract_package/main",
+        "derived_or_original": "ORIGINAL",
+        "evidence_source": {
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "document_name": "合同正文",
+          "clause_id": "C0012",
+          "section": "第八条 工程质量",
+          "sentence_index": 1,
+          "quote": "工程质量标准：符合国家现行建设工程施工质量验收规范，达到合格标准。",
+          "confidence": "high",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "evidence_type": "CONTRACT_TEXT",
+          "source_span": {
+            "start_offset": 2109,
+            "end_offset": 2142,
+            "raw_text": "工程质量标准：符合国家现行建设工程施工质量验收规范，达到合格标准。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "derived_or_original": "ORIGINAL",
+          "source_ref": {
+            "document_id": "contract_package/main",
+            "clause_id": "C0012",
+            "clause_sha256": "bc35b18d5f996190e630b83ef624206f32d1689f520586133f6db6a809fc2fc7",
+            "local_start": 9,
+            "local_end": 42,
+            "locator": "第八条 工程质量"
+          },
+          "verified_original": true
+        },
+        "evidence_polarity": "SUPPORTS_COVERAGE",
+        "evidence_claim_id": "CE-08-01-EC-01",
+        "entailment_status": "SUPPORTS",
+        "semantic_score": 0.25,
+        "entity_match": false,
+        "obligation_match": false,
+        "consequence_match": false,
+        "polarity_match": true,
+        "supporting_element_ids": [
+          "standard"
+        ],
+        "canonical_fact_keys": [],
+        "relevance_score": 0.25,
+        "selection_reason": "Contextual retrieval evidence does not directly support a resolved ReviewElementTruth.",
+        "review_id": "CE-08-01",
+        "element_ids": [],
+        "support_type": "CONTEXTUAL",
+        "verified_original": true,
+        "source_verification": {
+          "status": "PASS",
+          "errors": [],
+          "method": "EXACT_PARSER_SOURCE_SPAN"
+        },
+        "evidence_id": "SRC-c7c3618c396e0e138619",
+        "quoted_text": "工程质量标准：符合国家现行建设工程施工质量验收规范，达到合格标准。",
+        "source_ref": {
+          "document_id": "contract_package/main",
+          "clause_id": "C0012",
+          "clause_sha256": "bc35b18d5f996190e630b83ef624206f32d1689f520586133f6db6a809fc2fc7",
+          "local_start": 9,
+          "local_end": 42,
+          "locator": "第八条 工程质量"
+        },
+        "provenance_validation": {
+          "status": "PASS",
+          "evidence_type": "CONTRACT_TEXT",
+          "errors": []
+        },
+        "source_semantic_verification": {
+          "status": "PASS",
+          "element_ids": [
+            "standard"
+          ]
+        },
+        "supports_element_ids": [
+          "standard"
+        ]
+      }
+    ],
+    "search": [],
+    "retrieval": {
+      "searched_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009",
+        "C0010",
+        "C0011",
+        "C0012",
+        "C0013",
+        "C0014",
+        "C0015",
+        "C0016",
+        "C0017",
+        "C0018",
+        "C0019",
+        "C0020",
+        "C0021",
+        "C0022",
+        "C0023",
+        "C0024",
+        "C0025",
+        "C0026",
+        "C0027",
+        "C0028",
+        "C0029",
+        "C0030",
+        "C0031",
+        "C0032"
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0011",
+          "location": "第七条 材料与设备",
+          "title": "材料与设备",
+          "text": "本工程主要建筑材料及设备应符合国家现行标准、设计文件及合同要求。",
+          "quote": "本工程主要建筑材料及设备应符合国家现行标准、设计文件及合同要求。",
+          "original_excerpt": "本工程主要建筑材料及设备应符合国家现行标准、设计文件及合同要求。",
+          "section_type": "正式合同条款",
+          "block_type": "OPERATIVE_CLAUSE",
+          "construction_element_ids": [
+            "standard"
+          ],
+          "construction_blank": false,
+          "source_start": 10,
+          "source_end": 42
+        },
+        {
+          "clause_id": "C0012",
+          "location": "第八条 工程质量",
+          "title": "工程质量",
+          "text": "工程质量标准：符合国家现行建设工程施工质量验收规范，达到合格标准。",
+          "quote": "工程质量标准：符合国家现行建设工程施工质量验收规范，达到合格标准。",
+          "original_excerpt": "工程质量标准：符合国家现行建设工程施工质量验收规范，达到合格标准。",
+          "section_type": "正式合同条款",
+          "block_type": "OPERATIVE_CLAUSE",
+          "construction_element_ids": [
+            "standard"
+          ],
+          "construction_blank": false,
+          "source_start": 9,
+          "source_end": 42
+        },
+        {
+          "clause_id": "C0019",
+          "location": "第十五条 竣工验收",
+          "title": "竣工验收",
+          "text": "工程达到竣工验收条件后，乙方应向甲方提交完整的竣工验收申请及竣工资料。",
+          "quote": "工程达到竣工验收条件后，乙方应向甲方提交完整的竣工验收申请及竣工资料。",
+          "original_excerpt": "工程达到竣工验收条件后，乙方应向甲方提交完整的竣工验收申请及竣工资料。",
+          "section_type": "正式合同条款",
+          "block_type": "OPERATIVE_CLAUSE",
+          "construction_element_ids": [
+            "acceptance"
+          ],
+          "construction_blank": false,
+          "source_start": 10,
+          "source_end": 45
+        }
+      ],
+      "covered_elements": [
+        "standard",
+        "acceptance"
+      ],
+      "missing_elements": [],
+      "scope": "FULL_CONTRACT_AND_ANNEXES",
+      "intent_verified": true
+    },
+    "semantic_requirements": []
+  },
+  {
+    "rule_id": "CE-08-03",
+    "before": "缺失",
+    "after": "通过",
+    "elements": [
+      {
+        "review_id": "CE-08-03",
+        "element_id": "deposit_return",
+        "proposition": "质量保证金返还条件及期限",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-d61fadbc5badba48d354"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0009"
+        ],
+        "source_spans": [
+          "缺陷责任期届满且乙方已完成全部缺陷修复义务后30日内，甲方将剩余质量保证金无息返还乙方。"
+        ],
+        "source_locations": [
+          "第五条 工程款支付"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0009"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "SRC-d61fadbc5badba48d354"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence_ids": [
+          "SRC-d61fadbc5badba48d354"
+        ],
+        "bound_evidence_ids": [
+          "SRC-d61fadbc5badba48d354"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0009",
+            "quote": "缺陷责任期届满且乙方已完成全部缺陷修复义务后30日内，甲方将剩余质量保证金无息返还乙方。"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "clause_id": "C0009",
+        "location": "第五条 工程款支付",
+        "title": "工程款支付",
+        "text": "缺陷责任期届满且乙方已完成全部缺陷修复义务后30日内，甲方将剩余质量保证金无息返还乙方。",
+        "quote": "缺陷责任期届满且乙方已完成全部缺陷修复义务后30日内，甲方将剩余质量保证金无息返还乙方。",
+        "original_excerpt": "缺陷责任期届满且乙方已完成全部缺陷修复义务后30日内，甲方将剩余质量保证金无息返还乙方。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "construction_element_ids": [
+          "deposit_return"
+        ],
+        "construction_blank": false,
+        "source_start": 1652,
+        "source_end": 1696,
+        "document_id": "contract_package/main",
+        "document_type": "MAIN_CONTRACT",
+        "source_document_type": "MAIN_CONTRACT",
+        "evidence_block_type": "OPERATIVE_CLAUSE",
+        "document_name": "合同正文",
+        "section": "第五条 工程款支付",
+        "sentence_index": 1,
+        "confidence": "high",
+        "evidence_type": "CONTRACT_TEXT",
+        "raw_text": "第五条 工程款支付\n预付款：\n合同生效且乙方提交履约担保后10个工作日内，甲方向乙方支付合同暂定价款的10%，即人民币4,860,000元。\n进度款：\n乙方每月25日前申报当月已完成工程量，经监理单位及甲方审核确认后，甲方按照审核后已完成工程价款的80%支付进度款。\n主体结构封顶并经阶段验收合格后，累计支付金额最高不超过已完成工程价款的85%。\n工程竣工验收合格并完成现场移交后，累计支付至经甲方确认已完成工程价款的90%。\n完成竣工结算审核后30日内，甲方累计支付至最终结算价款的97%。\n剩余最终结算价款的3%作为工程质量保证金。\n缺陷责任期届满且乙方已完成全部缺陷修复义务后30日内，甲方将剩余质量保证金无息返还乙方。\n乙方申请每笔工程款前，应向甲方提供合法有效且符合税务要求的增值税专用发票。",
+        "source_span": {
+          "start_offset": 1652,
+          "end_offset": 1696,
+          "raw_text": "缺陷责任期届满且乙方已完成全部缺陷修复义务后30日内，甲方将剩余质量保证金无息返还乙方。",
+          "coordinate_system": "DOCUMENT_TEXT"
+        },
+        "source_document": "contract_package/main",
+        "original_document_reference": "contract_package/main",
+        "derived_or_original": "ORIGINAL",
+        "evidence_source": {
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "document_name": "合同正文",
+          "clause_id": "C0009",
+          "section": "第五条 工程款支付",
+          "sentence_index": 1,
+          "quote": "缺陷责任期届满且乙方已完成全部缺陷修复义务后30日内，甲方将剩余质量保证金无息返还乙方。",
+          "confidence": "high",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "evidence_type": "CONTRACT_TEXT",
+          "source_span": {
+            "start_offset": 1652,
+            "end_offset": 1696,
+            "raw_text": "缺陷责任期届满且乙方已完成全部缺陷修复义务后30日内，甲方将剩余质量保证金无息返还乙方。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "derived_or_original": "ORIGINAL",
+          "source_ref": {
+            "document_id": "contract_package/main",
+            "clause_id": "C0009",
+            "clause_sha256": "a13cc93386ad9fe825d37f46c983c6ffc7c9c33cbea06c88a729aa7bb3dbc239",
+            "local_start": 269,
+            "local_end": 313,
+            "locator": "第五条 工程款支付"
+          },
+          "verified_original": true
+        },
+        "evidence_polarity": "SUPPORTS_COVERAGE",
+        "evidence_claim_id": "CE-08-03-EC-01",
+        "entailment_status": "SUPPORTS",
+        "semantic_score": 0.25,
+        "entity_match": false,
+        "obligation_match": false,
+        "consequence_match": true,
+        "polarity_match": true,
+        "supporting_element_ids": [
+          "deposit_return"
+        ],
+        "canonical_fact_keys": [],
+        "relevance_score": 1.0,
+        "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+        "review_id": "CE-08-03",
+        "element_ids": [
+          "deposit_return"
+        ],
+        "support_type": "DIRECT",
+        "verified_original": true,
+        "source_verification": {
+          "status": "PASS",
+          "errors": [],
+          "method": "EXACT_PARSER_SOURCE_SPAN"
+        },
+        "evidence_id": "SRC-d61fadbc5badba48d354",
+        "quoted_text": "缺陷责任期届满且乙方已完成全部缺陷修复义务后30日内，甲方将剩余质量保证金无息返还乙方。",
+        "source_ref": {
+          "document_id": "contract_package/main",
+          "clause_id": "C0009",
+          "clause_sha256": "a13cc93386ad9fe825d37f46c983c6ffc7c9c33cbea06c88a729aa7bb3dbc239",
+          "local_start": 269,
+          "local_end": 313,
+          "locator": "第五条 工程款支付"
+        },
+        "provenance_validation": {
+          "status": "PASS",
+          "evidence_type": "CONTRACT_TEXT",
+          "errors": []
+        },
+        "source_semantic_verification": {
+          "status": "PASS",
+          "element_ids": [
+            "deposit_return"
+          ]
+        },
+        "supports_element_ids": [
+          "deposit_return"
+        ],
+        "supported_propositions": [
+          "质量保证金返还条件及期限"
+        ],
+        "support_summary": "证明合同已约定相关合同要素。"
+      }
+    ],
+    "search": [],
+    "retrieval": {
+      "searched_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009",
+        "C0010",
+        "C0011",
+        "C0012",
+        "C0013",
+        "C0014",
+        "C0015",
+        "C0016",
+        "C0017",
+        "C0018",
+        "C0019",
+        "C0020",
+        "C0021",
+        "C0022",
+        "C0023",
+        "C0024",
+        "C0025",
+        "C0026",
+        "C0027",
+        "C0028",
+        "C0029",
+        "C0030",
+        "C0031",
+        "C0032"
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0009",
+          "location": "第五条 工程款支付",
+          "title": "工程款支付",
+          "text": "缺陷责任期届满且乙方已完成全部缺陷修复义务后30日内，甲方将剩余质量保证金无息返还乙方。",
+          "quote": "缺陷责任期届满且乙方已完成全部缺陷修复义务后30日内，甲方将剩余质量保证金无息返还乙方。",
+          "original_excerpt": "缺陷责任期届满且乙方已完成全部缺陷修复义务后30日内，甲方将剩余质量保证金无息返还乙方。",
+          "section_type": "正式合同条款",
+          "block_type": "OPERATIVE_CLAUSE",
+          "construction_element_ids": [
+            "deposit_return"
+          ],
+          "construction_blank": false,
+          "source_start": 269,
+          "source_end": 313
+        }
+      ],
+      "covered_elements": [
+        "deposit_return"
+      ],
+      "missing_elements": [],
+      "scope": "FULL_CONTRACT_AND_ANNEXES",
+      "intent_verified": true
+    },
+    "semantic_requirements": []
+  },
+  {
+    "rule_id": "CE-09-01",
+    "before": "缺失",
+    "after": "通过",
+    "elements": [
+      {
+        "review_id": "CE-09-01",
+        "element_id": "pricing",
+        "proposition": "工程价款计价方法",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-9d2b7c00f052be99a053"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0008"
+        ],
+        "source_spans": [
+          "本工程采用工程量清单综合单价计价方式。"
+        ],
+        "source_locations": [
+          "第四条合同价款"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0008"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "SRC-9d2b7c00f052be99a053"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence_ids": [
+          "SRC-9d2b7c00f052be99a053"
+        ],
+        "bound_evidence_ids": [
+          "SRC-9d2b7c00f052be99a053"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0008",
+            "quote": "本工程采用工程量清单综合单价计价方式。"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "clause_id": "C0008",
+        "location": "第四条合同价款",
+        "title": "合同价款",
+        "text": "本工程采用工程量清单综合单价计价方式。",
+        "quote": "本工程采用工程量清单综合单价计价方式。",
+        "original_excerpt": "本工程采用工程量清单综合单价计价方式。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "construction_element_ids": [
+          "pricing"
+        ],
+        "construction_blank": false,
+        "source_start": 1203,
+        "source_end": 1222,
+        "document_id": "contract_package/main",
+        "document_type": "MAIN_CONTRACT",
+        "source_document_type": "MAIN_CONTRACT",
+        "evidence_block_type": "OPERATIVE_CLAUSE",
+        "document_name": "合同正文",
+        "section": "第四条合同价款",
+        "sentence_index": 1,
+        "confidence": "high",
+        "evidence_type": "CONTRACT_TEXT",
+        "raw_text": "第四条合同价款\n本合同暂定含税总价为人民币：\n￥48,600,000.00元\n大写：人民币肆仟捌佰陆拾万元整。\n上述价款包含人工费、材料费、施工机械费、措施费、管理费、利润、税费以及乙方履行本合同所需的其他合理费用。\n本工程采用工程量清单综合单价计价方式。清单中已有适用综合单价的，原则上执行原综合单价；清单中没有适用单价的，由乙方提出价格组成，经甲方及造价咨询单位审核确认后执行。\n最终工程结算金额以实际完成并经甲方确认的工程量、合同约定的计价方式及经批准的工程变更为依据确定。\n未经甲方书面确认的工程量增加、材料品牌调整或者施工方案改变，原则上不得作为增加工程价款的依据。",
+        "source_span": {
+          "start_offset": 1203,
+          "end_offset": 1222,
+          "raw_text": "本工程采用工程量清单综合单价计价方式。",
+          "coordinate_system": "DOCUMENT_TEXT"
+        },
+        "source_document": "contract_package/main",
+        "original_document_reference": "contract_package/main",
+        "derived_or_original": "ORIGINAL",
+        "evidence_source": {
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "document_name": "合同正文",
+          "clause_id": "C0008",
+          "section": "第四条合同价款",
+          "sentence_index": 1,
+          "quote": "本工程采用工程量清单综合单价计价方式。",
+          "confidence": "high",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "evidence_type": "CONTRACT_TEXT",
+          "source_span": {
+            "start_offset": 1203,
+            "end_offset": 1222,
+            "raw_text": "本工程采用工程量清单综合单价计价方式。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "derived_or_original": "ORIGINAL",
+          "source_ref": {
+            "document_id": "contract_package/main",
+            "clause_id": "C0008",
+            "clause_sha256": "b96f805f6572f3ad23b873cdf1f807881b9e2729518ddf822ab94bdeea5411c3",
+            "local_start": 109,
+            "local_end": 128,
+            "locator": "第四条合同价款"
+          },
+          "verified_original": true
+        },
+        "evidence_polarity": "SUPPORTS_COVERAGE",
+        "evidence_claim_id": "CE-09-01-EC-01",
+        "entailment_status": "SUPPORTS",
+        "semantic_score": 0.25,
+        "entity_match": false,
+        "obligation_match": false,
+        "consequence_match": false,
+        "polarity_match": true,
+        "supporting_element_ids": [
+          "pricing"
+        ],
+        "canonical_fact_keys": [],
+        "relevance_score": 1.0,
+        "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+        "review_id": "CE-09-01",
+        "element_ids": [
+          "pricing"
+        ],
+        "support_type": "DIRECT",
+        "verified_original": true,
+        "source_verification": {
+          "status": "PASS",
+          "errors": [],
+          "method": "EXACT_PARSER_SOURCE_SPAN"
+        },
+        "evidence_id": "SRC-9d2b7c00f052be99a053",
+        "quoted_text": "本工程采用工程量清单综合单价计价方式。",
+        "source_ref": {
+          "document_id": "contract_package/main",
+          "clause_id": "C0008",
+          "clause_sha256": "b96f805f6572f3ad23b873cdf1f807881b9e2729518ddf822ab94bdeea5411c3",
+          "local_start": 109,
+          "local_end": 128,
+          "locator": "第四条合同价款"
+        },
+        "provenance_validation": {
+          "status": "PASS",
+          "evidence_type": "CONTRACT_TEXT",
+          "errors": []
+        },
+        "source_semantic_verification": {
+          "status": "PASS",
+          "element_ids": [
+            "pricing"
+          ]
+        },
+        "supports_element_ids": [
+          "pricing"
+        ],
+        "supported_propositions": [
+          "工程价款计价方法"
+        ],
+        "support_summary": "证明合同已约定相关合同要素。"
+      }
+    ],
+    "search": [],
+    "retrieval": {
+      "searched_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009",
+        "C0010",
+        "C0011",
+        "C0012",
+        "C0013",
+        "C0014",
+        "C0015",
+        "C0016",
+        "C0017",
+        "C0018",
+        "C0019",
+        "C0020",
+        "C0021",
+        "C0022",
+        "C0023",
+        "C0024",
+        "C0025",
+        "C0026",
+        "C0027",
+        "C0028",
+        "C0029",
+        "C0030",
+        "C0031",
+        "C0032"
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0008",
+          "location": "第四条合同价款",
+          "title": "合同价款",
+          "text": "本工程采用工程量清单综合单价计价方式。",
+          "quote": "本工程采用工程量清单综合单价计价方式。",
+          "original_excerpt": "本工程采用工程量清单综合单价计价方式。",
+          "section_type": "正式合同条款",
+          "block_type": "OPERATIVE_CLAUSE",
+          "construction_element_ids": [
+            "pricing"
+          ],
+          "construction_blank": false,
+          "source_start": 109,
+          "source_end": 128
+        }
+      ],
+      "covered_elements": [
+        "pricing"
+      ],
+      "missing_elements": [],
+      "scope": "FULL_CONTRACT_AND_ANNEXES",
+      "intent_verified": true
+    },
+    "semantic_requirements": []
+  },
+  {
+    "rule_id": "CE-09-02",
+    "before": "部分覆盖",
+    "after": "部分覆盖",
+    "elements": [
+      {
+        "review_id": "CE-09-02",
+        "element_id": "settlement_submission",
+        "proposition": "结算资料提交节点及期限",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-38fa743b3e3da7f6f804",
+          "EV-146e55cc03258d91"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0020"
+        ],
+        "source_spans": [
+          "工程竣工验收合格后30日内，乙方应向甲方提交完整的竣工结算资料。"
+        ],
+        "source_locations": [
+          "第十六条 竣工结算"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0020"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "SRC-38fa743b3e3da7f6f804",
+          "EV-146e55cc03258d91"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence": [
+          {
+            "clause_id": "C0020",
+            "quote": "工程竣工验收合格后30日内，乙方应向甲方提交完整的竣工结算资料。"
+          }
+        ],
+        "supporting_evidence_ids": [
+          "SRC-38fa743b3e3da7f6f804",
+          "EV-146e55cc03258d91"
+        ]
+      },
+      {
+        "review_id": "CE-09-02",
+        "element_id": "settlement_review",
+        "proposition": "结算审核期限及反馈程序",
+        "status": "MISSING",
+        "evidence_ids": [],
+        "entailment": "NOT_RELEVANT",
+        "verifier_confidence": "medium",
+        "reason": "未找到可支撑该元素的合同证据。",
+        "claim_id": "",
+        "source_clause_ids": [],
+        "source_spans": [],
+        "source_locations": [],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "MISSING",
+        "fact_value": null,
+        "fact_evidence_refs": [],
+        "requirement_status": "NOT_SATISFIED",
+        "requirement_reason": "未找到可支撑该元素的合同证据。",
+        "evidence_refs": [],
+        "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+      },
+      {
+        "review_id": "CE-09-02",
+        "element_id": "settlement_payment",
+        "proposition": "结算后的付款节点",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-a5815d259cfb49b8e303",
+          "EV-0e58599b870f73f6"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0009"
+        ],
+        "source_spans": [
+          "完成竣工结算审核后30日内，甲方累计支付至最终结算价款的97%。"
+        ],
+        "source_locations": [
+          "第五条 工程款支付"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0009"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "SRC-a5815d259cfb49b8e303",
+          "EV-0e58599b870f73f6"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence": [
+          {
+            "clause_id": "C0009",
+            "quote": "完成竣工结算审核后30日内，甲方累计支付至最终结算价款的97%。"
+          }
+        ],
+        "supporting_evidence_ids": [
+          "SRC-a5815d259cfb49b8e303",
+          "EV-0e58599b870f73f6"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "clause_id": "C0009",
+        "location": "第五条 工程款支付",
+        "title": "工程款支付",
+        "text": "完成竣工结算审核后30日内，甲方累计支付至最终结算价款的97%。",
+        "quote": "完成竣工结算审核后30日内，甲方累计支付至最终结算价款的97%。",
+        "original_excerpt": "完成竣工结算审核后30日内，甲方累计支付至最终结算价款的97%。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "construction_element_ids": [
+          "settlement_payment"
+        ],
+        "construction_blank": false,
+        "source_start": 1597,
+        "source_end": 1629,
+        "document_id": "contract_package/main",
+        "document_type": "MAIN_CONTRACT",
+        "source_document_type": "MAIN_CONTRACT",
+        "evidence_block_type": "OPERATIVE_CLAUSE",
+        "document_name": "合同正文",
+        "section": "第五条 工程款支付",
+        "sentence_index": 1,
+        "confidence": "high",
+        "evidence_type": "CONTRACT_TEXT",
+        "raw_text": "第五条 工程款支付\n预付款：\n合同生效且乙方提交履约担保后10个工作日内，甲方向乙方支付合同暂定价款的10%，即人民币4,860,000元。\n进度款：\n乙方每月25日前申报当月已完成工程量，经监理单位及甲方审核确认后，甲方按照审核后已完成工程价款的80%支付进度款。\n主体结构封顶并经阶段验收合格后，累计支付金额最高不超过已完成工程价款的85%。\n工程竣工验收合格并完成现场移交后，累计支付至经甲方确认已完成工程价款的90%。\n完成竣工结算审核后30日内，甲方累计支付至最终结算价款的97%。\n剩余最终结算价款的3%作为工程质量保证金。\n缺陷责任期届满且乙方已完成全部缺陷修复义务后30日内，甲方将剩余质量保证金无息返还乙方。\n乙方申请每笔工程款前，应向甲方提供合法有效且符合税务要求的增值税专用发票。",
+        "source_span": {
+          "start_offset": 1597,
+          "end_offset": 1629,
+          "raw_text": "完成竣工结算审核后30日内，甲方累计支付至最终结算价款的97%。",
+          "coordinate_system": "DOCUMENT_TEXT"
+        },
+        "source_document": "contract_package/main",
+        "original_document_reference": "contract_package/main",
+        "derived_or_original": "ORIGINAL",
+        "evidence_source": {
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "document_name": "合同正文",
+          "clause_id": "C0009",
+          "section": "第五条 工程款支付",
+          "sentence_index": 1,
+          "quote": "完成竣工结算审核后30日内，甲方累计支付至最终结算价款的97%。",
+          "confidence": "high",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "evidence_type": "CONTRACT_TEXT",
+          "source_span": {
+            "start_offset": 1597,
+            "end_offset": 1629,
+            "raw_text": "完成竣工结算审核后30日内，甲方累计支付至最终结算价款的97%。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "derived_or_original": "ORIGINAL",
+          "source_ref": {
+            "document_id": "contract_package/main",
+            "clause_id": "C0009",
+            "clause_sha256": "a13cc93386ad9fe825d37f46c983c6ffc7c9c33cbea06c88a729aa7bb3dbc239",
+            "local_start": 214,
+            "local_end": 246,
+            "locator": "第五条 工程款支付"
+          },
+          "verified_original": true
+        },
+        "evidence_polarity": "SUPPORTS_PARTIAL",
+        "evidence_claim_id": "CE-09-02-EC-01",
+        "entailment_status": "UNCERTAIN",
+        "semantic_score": 0.25,
+        "entity_match": false,
+        "obligation_match": false,
+        "consequence_match": false,
+        "polarity_match": true,
+        "supporting_element_ids": [
+          "settlement_payment"
+        ],
+        "canonical_fact_keys": [],
+        "relevance_score": 1.0,
+        "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+        "review_id": "CE-09-02",
+        "element_ids": [
+          "settlement_payment"
+        ],
+        "support_type": "DIRECT",
+        "verified_original": true,
+        "source_verification": {
+          "status": "PASS",
+          "errors": [],
+          "method": "EXACT_PARSER_SOURCE_SPAN"
+        },
+        "evidence_id": "SRC-a5815d259cfb49b8e303",
+        "quoted_text": "完成竣工结算审核后30日内，甲方累计支付至最终结算价款的97%。",
+        "source_ref": {
+          "document_id": "contract_package/main",
+          "clause_id": "C0009",
+          "clause_sha256": "a13cc93386ad9fe825d37f46c983c6ffc7c9c33cbea06c88a729aa7bb3dbc239",
+          "local_start": 214,
+          "local_end": 246,
+          "locator": "第五条 工程款支付"
+        },
+        "provenance_validation": {
+          "status": "PASS",
+          "evidence_type": "CONTRACT_TEXT",
+          "errors": []
+        },
+        "supports_element_ids": [
+          "settlement_payment"
+        ],
+        "supported_propositions": [
+          "结算后的付款节点"
+        ],
+        "support_summary": "证明合同已约定相关合同要素。"
+      },
+      {
+        "clause_id": "C0020",
+        "location": "第十六条 竣工结算",
+        "title": "竣工结算",
+        "text": "工程竣工验收合格后30日内，乙方应向甲方提交完整的竣工结算资料。",
+        "quote": "工程竣工验收合格后30日内，乙方应向甲方提交完整的竣工结算资料。",
+        "original_excerpt": "工程竣工验收合格后30日内，乙方应向甲方提交完整的竣工结算资料。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "construction_element_ids": [
+          "settlement_submission"
+        ],
+        "construction_blank": false,
+        "source_start": 3574,
+        "source_end": 3606,
+        "document_id": "contract_package/main",
+        "document_type": "MAIN_CONTRACT",
+        "source_document_type": "MAIN_CONTRACT",
+        "evidence_block_type": "OPERATIVE_CLAUSE",
+        "document_name": "合同正文",
+        "section": "第十六条 竣工结算",
+        "sentence_index": 1,
+        "confidence": "high",
+        "evidence_type": "CONTRACT_TEXT",
+        "raw_text": "第十六条 竣工结算\n工程竣工验收合格后30日内，乙方应向甲方提交完整的竣工结算资料。\n甲方有权委托第三方造价咨询机构进行审核。\n双方应就审定工程量、综合单价、工程变更、现场签证及其他结算事项进行核对。\n对无争议的结算金额，甲方不得以部分结算事项存在争议为由拒绝支付全部工程款。\n双方无法就争议部分形成一致意见的，可按照本合同争议解决条款处理。",
+        "source_span": {
+          "start_offset": 3574,
+          "end_offset": 3606,
+          "raw_text": "工程竣工验收合格后30日内，乙方应向甲方提交完整的竣工结算资料。",
+          "coordinate_system": "DOCUMENT_TEXT"
+        },
+        "source_document": "contract_package/main",
+        "original_document_reference": "contract_package/main",
+        "derived_or_original": "ORIGINAL",
+        "evidence_source": {
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "document_name": "合同正文",
+          "clause_id": "C0020",
+          "section": "第十六条 竣工结算",
+          "sentence_index": 1,
+          "quote": "工程竣工验收合格后30日内，乙方应向甲方提交完整的竣工结算资料。",
+          "confidence": "high",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "evidence_type": "CONTRACT_TEXT",
+          "source_span": {
+            "start_offset": 3574,
+            "end_offset": 3606,
+            "raw_text": "工程竣工验收合格后30日内，乙方应向甲方提交完整的竣工结算资料。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "derived_or_original": "ORIGINAL",
+          "source_ref": {
+            "document_id": "contract_package/main",
+            "clause_id": "C0020",
+            "clause_sha256": "09ca0122b58a40b4435587a00fe16ad0232b54465b4032755a470f8113a4f105",
+            "local_start": 10,
+            "local_end": 42,
+            "locator": "第十六条 竣工结算"
+          },
+          "verified_original": true
+        },
+        "evidence_polarity": "SUPPORTS_PARTIAL",
+        "evidence_claim_id": "CE-09-02-EC-01",
+        "entailment_status": "UNCERTAIN",
+        "semantic_score": 0.25,
+        "entity_match": false,
+        "obligation_match": false,
+        "consequence_match": false,
+        "polarity_match": true,
+        "supporting_element_ids": [
+          "settlement_submission"
+        ],
+        "canonical_fact_keys": [],
+        "relevance_score": 1.0,
+        "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+        "review_id": "CE-09-02",
+        "element_ids": [
+          "settlement_submission"
+        ],
+        "support_type": "DIRECT",
+        "verified_original": true,
+        "source_verification": {
+          "status": "PASS",
+          "errors": [],
+          "method": "EXACT_PARSER_SOURCE_SPAN"
+        },
+        "evidence_id": "SRC-38fa743b3e3da7f6f804",
+        "quoted_text": "工程竣工验收合格后30日内，乙方应向甲方提交完整的竣工结算资料。",
+        "source_ref": {
+          "document_id": "contract_package/main",
+          "clause_id": "C0020",
+          "clause_sha256": "09ca0122b58a40b4435587a00fe16ad0232b54465b4032755a470f8113a4f105",
+          "local_start": 10,
+          "local_end": 42,
+          "locator": "第十六条 竣工结算"
+        },
+        "provenance_validation": {
+          "status": "PASS",
+          "evidence_type": "CONTRACT_TEXT",
+          "errors": []
+        },
+        "supports_element_ids": [
+          "settlement_submission"
+        ],
+        "supported_propositions": [
+          "结算资料提交节点及期限"
+        ],
+        "support_summary": "证明合同已约定相关合同要素。"
+      }
+    ],
+    "search": [
+      {
+        "element_id": "settlement_review",
+        "review_id": "CE-09-02",
+        "search_targets": [
+          "结算审核期限及反馈程序"
+        ],
+        "query_patterns": [
+          "(?:甲方|发包人)[^。\\n]{0,80}(?:\\d+日内|期限)[^。\\n]{0,25}(?:完成审核|审核完成|书面反馈)",
+          "(?:甲方|发包人)[^。\\n]{0,100}(?:逾期未反馈|逾期视为)"
+        ],
+        "query_semantics": "POSITIVE_REQUIRED_FACT",
+        "search_mode": "CONSTRUCTION_ELEMENT",
+        "searched_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021",
+          "C0022",
+          "C0023",
+          "C0024",
+          "C0025",
+          "C0026",
+          "C0027",
+          "C0028",
+          "C0029",
+          "C0030",
+          "C0031",
+          "C0032"
+        ],
+        "searched_document_hash": "a24d39352f7deac9c33dc0a674aa9c20f9b08c71360d768fcf360bd96a81e9ad",
+        "result": "NOT_FOUND",
+        "supporting_evidence": []
+      }
+    ],
+    "retrieval": {
+      "searched_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009",
+        "C0010",
+        "C0011",
+        "C0012",
+        "C0013",
+        "C0014",
+        "C0015",
+        "C0016",
+        "C0017",
+        "C0018",
+        "C0019",
+        "C0020",
+        "C0021",
+        "C0022",
+        "C0023",
+        "C0024",
+        "C0025",
+        "C0026",
+        "C0027",
+        "C0028",
+        "C0029",
+        "C0030",
+        "C0031",
+        "C0032"
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0020",
+          "location": "第十六条 竣工结算",
+          "title": "竣工结算",
+          "text": "工程竣工验收合格后30日内，乙方应向甲方提交完整的竣工结算资料。",
+          "quote": "工程竣工验收合格后30日内，乙方应向甲方提交完整的竣工结算资料。",
+          "original_excerpt": "工程竣工验收合格后30日内，乙方应向甲方提交完整的竣工结算资料。",
+          "section_type": "正式合同条款",
+          "block_type": "OPERATIVE_CLAUSE",
+          "construction_element_ids": [
+            "settlement_submission"
+          ],
+          "construction_blank": false,
+          "source_start": 10,
+          "source_end": 42
+        },
+        {
+          "clause_id": "C0009",
+          "location": "第五条 工程款支付",
+          "title": "工程款支付",
+          "text": "完成竣工结算审核后30日内，甲方累计支付至最终结算价款的97%。",
+          "quote": "完成竣工结算审核后30日内，甲方累计支付至最终结算价款的97%。",
+          "original_excerpt": "完成竣工结算审核后30日内，甲方累计支付至最终结算价款的97%。",
+          "section_type": "正式合同条款",
+          "block_type": "OPERATIVE_CLAUSE",
+          "construction_element_ids": [
+            "settlement_payment"
+          ],
+          "construction_blank": false,
+          "source_start": 214,
+          "source_end": 246
+        }
+      ],
+      "covered_elements": [
+        "settlement_submission",
+        "settlement_payment"
+      ],
+      "missing_elements": [
+        "settlement_review"
+      ],
+      "scope": "FULL_CONTRACT_AND_ANNEXES",
+      "intent_verified": true
+    },
+    "semantic_requirements": []
+  },
+  {
+    "rule_id": "CE-13-01",
+    "before": "缺失",
+    "after": "通过",
+    "elements": [
+      {
+        "review_id": "CE-13-01",
+        "element_id": "drawings",
+        "proposition": "图纸纳入合同文件",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-218abba43506bdc44132",
+          "SRC-242ba1642dd3472af263"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0031"
+        ],
+        "source_spans": [
+          "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；",
+          "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；\n技术标准及要求；"
+        ],
+        "source_locations": [
+          "第二十七条 合同文件组成及解释顺序"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0031"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "SRC-218abba43506bdc44132",
+          "SRC-242ba1642dd3472af263"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence_ids": [
+          "SRC-218abba43506bdc44132",
+          "SRC-242ba1642dd3472af263"
+        ],
+        "bound_evidence_ids": [
+          "SRC-218abba43506bdc44132",
+          "SRC-242ba1642dd3472af263"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0031",
+            "quote": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；"
+          },
+          {
+            "clause_id": "C0031",
+            "quote": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；\n技术标准及要求；"
+          }
+        ]
+      },
+      {
+        "review_id": "CE-13-01",
+        "element_id": "specifications",
+        "proposition": "标准规范及技术要求纳入合同",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-242ba1642dd3472af263"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0031"
+        ],
+        "source_spans": [
+          "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；\n技术标准及要求；"
+        ],
+        "source_locations": [
+          "第二十七条 合同文件组成及解释顺序"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0031"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "SRC-242ba1642dd3472af263"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence_ids": [
+          "SRC-242ba1642dd3472af263"
+        ],
+        "bound_evidence_ids": [
+          "SRC-242ba1642dd3472af263"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0031",
+            "quote": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；\n技术标准及要求；"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "clause_id": "C0031",
+        "location": "第二十七条 合同文件组成及解释顺序",
+        "title": "合同文件组成及解释顺序",
+        "text": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；",
+        "quote": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；",
+        "original_excerpt": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "construction_element_ids": [
+          "drawings"
+        ],
+        "construction_blank": false,
+        "source_start": 5351,
+        "source_end": 5420,
+        "document_id": "contract_package/main",
+        "document_type": "MAIN_CONTRACT",
+        "source_document_type": "MAIN_CONTRACT",
+        "evidence_block_type": "OPERATIVE_CLAUSE",
+        "document_name": "合同正文",
+        "section": "第二十七条 合同文件组成及解释顺序",
+        "sentence_index": 1,
+        "confidence": "high",
+        "evidence_type": "CONTRACT_TEXT",
+        "raw_text": "第二十七条 合同文件组成及解释顺序\n构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；\n技术标准及要求；\n经双方确认的工程变更、现场签证及会议纪要；\n其他构成合同组成部分的书面文件。\n文件内容存在冲突时，原则上按照形成时间、文件性质及双方明确约定综合确定；双方另有书面约定的，从其约定。",
+        "source_span": {
+          "start_offset": 5351,
+          "end_offset": 5420,
+          "raw_text": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；",
+          "coordinate_system": "DOCUMENT_TEXT"
+        },
+        "source_document": "contract_package/main",
+        "original_document_reference": "contract_package/main",
+        "derived_or_original": "ORIGINAL",
+        "evidence_source": {
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "document_name": "合同正文",
+          "clause_id": "C0031",
+          "section": "第二十七条 合同文件组成及解释顺序",
+          "sentence_index": 1,
+          "quote": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；",
+          "confidence": "high",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "evidence_type": "CONTRACT_TEXT",
+          "source_span": {
+            "start_offset": 5351,
+            "end_offset": 5420,
+            "raw_text": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "derived_or_original": "ORIGINAL",
+          "source_ref": {
+            "document_id": "contract_package/main",
+            "clause_id": "C0031",
+            "clause_sha256": "5574fe22ccf825f41346c52e6d482477095fd40ccabcc3b18dc4feea5fdecbee",
+            "local_start": 18,
+            "local_end": 87,
+            "locator": "第二十七条 合同文件组成及解释顺序"
+          },
+          "verified_original": true
+        },
+        "evidence_polarity": "SUPPORTS_COVERAGE",
+        "evidence_claim_id": "CE-13-01-EC-01",
+        "entailment_status": "SUPPORTS",
+        "semantic_score": 0.25,
+        "entity_match": false,
+        "obligation_match": false,
+        "consequence_match": true,
+        "polarity_match": true,
+        "supporting_element_ids": [
+          "drawings"
+        ],
+        "canonical_fact_keys": [],
+        "relevance_score": 1.0,
+        "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+        "review_id": "CE-13-01",
+        "element_ids": [
+          "drawings"
+        ],
+        "support_type": "DIRECT",
+        "verified_original": true,
+        "source_verification": {
+          "status": "PASS",
+          "errors": [],
+          "method": "EXACT_PARSER_SOURCE_SPAN"
+        },
+        "evidence_id": "SRC-218abba43506bdc44132",
+        "quoted_text": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；",
+        "source_ref": {
+          "document_id": "contract_package/main",
+          "clause_id": "C0031",
+          "clause_sha256": "5574fe22ccf825f41346c52e6d482477095fd40ccabcc3b18dc4feea5fdecbee",
+          "local_start": 18,
+          "local_end": 87,
+          "locator": "第二十七条 合同文件组成及解释顺序"
+        },
+        "provenance_validation": {
+          "status": "PASS",
+          "evidence_type": "CONTRACT_TEXT",
+          "errors": []
+        },
+        "source_semantic_verification": {
+          "status": "PASS",
+          "element_ids": [
+            "drawings"
+          ]
+        },
+        "supports_element_ids": [
+          "drawings"
+        ],
+        "supported_propositions": [
+          "图纸纳入合同文件"
+        ],
+        "support_summary": "证明合同已约定相关合同要素。"
+      },
+      {
+        "clause_id": "C0031",
+        "location": "第二十七条 合同文件组成及解释顺序",
+        "title": "合同文件组成及解释顺序",
+        "text": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；\n技术标准及要求；",
+        "quote": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；\n技术标准及要求；",
+        "original_excerpt": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；\n技术标准及要求；",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "construction_element_ids": [
+          "specifications"
+        ],
+        "construction_blank": false,
+        "source_start": 5351,
+        "source_end": 5429,
+        "document_id": "contract_package/main",
+        "document_type": "MAIN_CONTRACT",
+        "source_document_type": "MAIN_CONTRACT",
+        "evidence_block_type": "OPERATIVE_CLAUSE",
+        "document_name": "合同正文",
+        "section": "第二十七条 合同文件组成及解释顺序",
+        "sentence_index": 1,
+        "confidence": "high",
+        "evidence_type": "CONTRACT_TEXT",
+        "raw_text": "第二十七条 合同文件组成及解释顺序\n构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；\n技术标准及要求；\n经双方确认的工程变更、现场签证及会议纪要；\n其他构成合同组成部分的书面文件。\n文件内容存在冲突时，原则上按照形成时间、文件性质及双方明确约定综合确定；双方另有书面约定的，从其约定。",
+        "source_span": {
+          "start_offset": 5351,
+          "end_offset": 5429,
+          "raw_text": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；\n技术标准及要求；",
+          "coordinate_system": "DOCUMENT_TEXT"
+        },
+        "source_document": "contract_package/main",
+        "original_document_reference": "contract_package/main",
+        "derived_or_original": "ORIGINAL",
+        "evidence_source": {
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "document_name": "合同正文",
+          "clause_id": "C0031",
+          "section": "第二十七条 合同文件组成及解释顺序",
+          "sentence_index": 1,
+          "quote": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；\n技术标准及要求；",
+          "confidence": "high",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "evidence_type": "CONTRACT_TEXT",
+          "source_span": {
+            "start_offset": 5351,
+            "end_offset": 5429,
+            "raw_text": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；\n技术标准及要求；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "derived_or_original": "ORIGINAL",
+          "source_ref": {
+            "document_id": "contract_package/main",
+            "clause_id": "C0031",
+            "clause_sha256": "5574fe22ccf825f41346c52e6d482477095fd40ccabcc3b18dc4feea5fdecbee",
+            "local_start": 18,
+            "local_end": 96,
+            "locator": "第二十七条 合同文件组成及解释顺序"
+          },
+          "verified_original": true
+        },
+        "evidence_polarity": "SUPPORTS_COVERAGE",
+        "evidence_claim_id": "CE-13-01-EC-01",
+        "entailment_status": "SUPPORTS",
+        "semantic_score": 0.25,
+        "entity_match": false,
+        "obligation_match": false,
+        "consequence_match": true,
+        "polarity_match": true,
+        "supporting_element_ids": [
+          "drawings",
+          "specifications"
+        ],
+        "canonical_fact_keys": [],
+        "relevance_score": 1.0,
+        "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+        "review_id": "CE-13-01",
+        "element_ids": [
+          "drawings",
+          "specifications"
+        ],
+        "support_type": "DIRECT",
+        "verified_original": true,
+        "source_verification": {
+          "status": "PASS",
+          "errors": [],
+          "method": "EXACT_PARSER_SOURCE_SPAN"
+        },
+        "evidence_id": "SRC-242ba1642dd3472af263",
+        "quoted_text": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；\n技术标准及要求；",
+        "source_ref": {
+          "document_id": "contract_package/main",
+          "clause_id": "C0031",
+          "clause_sha256": "5574fe22ccf825f41346c52e6d482477095fd40ccabcc3b18dc4feea5fdecbee",
+          "local_start": 18,
+          "local_end": 96,
+          "locator": "第二十七条 合同文件组成及解释顺序"
+        },
+        "provenance_validation": {
+          "status": "PASS",
+          "evidence_type": "CONTRACT_TEXT",
+          "errors": []
+        },
+        "source_semantic_verification": {
+          "status": "PASS",
+          "element_ids": [
+            "drawings",
+            "specifications"
+          ]
+        },
+        "supports_element_ids": [
+          "drawings",
+          "specifications"
+        ],
+        "supported_propositions": [
+          "图纸纳入合同文件",
+          "标准规范及技术要求纳入合同"
+        ],
+        "support_summary": "证明合同已约定相关合同要素、相关合同要素。"
+      }
+    ],
+    "search": [],
+    "retrieval": {
+      "searched_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009",
+        "C0010",
+        "C0011",
+        "C0012",
+        "C0013",
+        "C0014",
+        "C0015",
+        "C0016",
+        "C0017",
+        "C0018",
+        "C0019",
+        "C0020",
+        "C0021",
+        "C0022",
+        "C0023",
+        "C0024",
+        "C0025",
+        "C0026",
+        "C0027",
+        "C0028",
+        "C0029",
+        "C0030",
+        "C0031",
+        "C0032"
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0031",
+          "location": "第二十七条 合同文件组成及解释顺序",
+          "title": "合同文件组成及解释顺序",
+          "text": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；",
+          "quote": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；",
+          "original_excerpt": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；",
+          "section_type": "正式合同条款",
+          "block_type": "OPERATIVE_CLAUSE",
+          "construction_element_ids": [
+            "drawings"
+          ],
+          "construction_blank": false,
+          "source_start": 18,
+          "source_end": 88
+        },
+        {
+          "clause_id": "C0031",
+          "location": "第二十七条 合同文件组成及解释顺序",
+          "title": "合同文件组成及解释顺序",
+          "text": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；\n技术标准及要求；",
+          "quote": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；\n技术标准及要求；",
+          "original_excerpt": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；\n技术标准及要求；",
+          "section_type": "正式合同条款",
+          "block_type": "OPERATIVE_CLAUSE",
+          "construction_element_ids": [
+            "specifications"
+          ],
+          "construction_blank": false,
+          "source_start": 18,
+          "source_end": 97
+        }
+      ],
+      "covered_elements": [
+        "drawings",
+        "specifications"
+      ],
+      "missing_elements": [],
+      "scope": "FULL_CONTRACT_AND_ANNEXES",
+      "intent_verified": true
+    },
+    "semantic_requirements": []
+  },
+  {
+    "rule_id": "CE-13-02",
+    "before": "缺失",
+    "after": "通过",
+    "elements": [
+      {
+        "review_id": "CE-13-02",
+        "element_id": "pricing_attachment",
+        "proposition": "计价清单或预算附件",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-fde6975fa8aaf19cba07"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0031"
+        ],
+        "source_spans": [
+          "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；"
+        ],
+        "source_locations": [
+          "第二十七条 合同文件组成及解释顺序"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0031"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "SRC-fde6975fa8aaf19cba07"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence_ids": [
+          "SRC-fde6975fa8aaf19cba07"
+        ],
+        "bound_evidence_ids": [
+          "SRC-fde6975fa8aaf19cba07"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0031",
+            "quote": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "clause_id": "C0031",
+        "location": "第二十七条 合同文件组成及解释顺序",
+        "title": "合同文件组成及解释顺序",
+        "text": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；",
+        "quote": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；",
+        "original_excerpt": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "construction_element_ids": [
+          "pricing_attachment"
+        ],
+        "construction_blank": false,
+        "source_start": 5351,
+        "source_end": 5410,
+        "document_id": "contract_package/main",
+        "document_type": "MAIN_CONTRACT",
+        "source_document_type": "MAIN_CONTRACT",
+        "evidence_block_type": "OPERATIVE_CLAUSE",
+        "document_name": "合同正文",
+        "section": "第二十七条 合同文件组成及解释顺序",
+        "sentence_index": 1,
+        "confidence": "high",
+        "evidence_type": "CONTRACT_TEXT",
+        "raw_text": "第二十七条 合同文件组成及解释顺序\n构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；\n技术标准及要求；\n经双方确认的工程变更、现场签证及会议纪要；\n其他构成合同组成部分的书面文件。\n文件内容存在冲突时，原则上按照形成时间、文件性质及双方明确约定综合确定；双方另有书面约定的，从其约定。",
+        "source_span": {
+          "start_offset": 5351,
+          "end_offset": 5410,
+          "raw_text": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；",
+          "coordinate_system": "DOCUMENT_TEXT"
+        },
+        "source_document": "contract_package/main",
+        "original_document_reference": "contract_package/main",
+        "derived_or_original": "ORIGINAL",
+        "evidence_source": {
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "document_name": "合同正文",
+          "clause_id": "C0031",
+          "section": "第二十七条 合同文件组成及解释顺序",
+          "sentence_index": 1,
+          "quote": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；",
+          "confidence": "high",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "evidence_type": "CONTRACT_TEXT",
+          "source_span": {
+            "start_offset": 5351,
+            "end_offset": 5410,
+            "raw_text": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "derived_or_original": "ORIGINAL",
+          "source_ref": {
+            "document_id": "contract_package/main",
+            "clause_id": "C0031",
+            "clause_sha256": "5574fe22ccf825f41346c52e6d482477095fd40ccabcc3b18dc4feea5fdecbee",
+            "local_start": 18,
+            "local_end": 77,
+            "locator": "第二十七条 合同文件组成及解释顺序"
+          },
+          "verified_original": true
+        },
+        "evidence_polarity": "SUPPORTS_COVERAGE",
+        "evidence_claim_id": "CE-13-02-EC-01",
+        "entailment_status": "SUPPORTS",
+        "semantic_score": 0.25,
+        "entity_match": false,
+        "obligation_match": false,
+        "consequence_match": true,
+        "polarity_match": true,
+        "supporting_element_ids": [
+          "pricing_attachment"
+        ],
+        "canonical_fact_keys": [],
+        "relevance_score": 1.0,
+        "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+        "review_id": "CE-13-02",
+        "element_ids": [
+          "pricing_attachment"
+        ],
+        "support_type": "DIRECT",
+        "verified_original": true,
+        "source_verification": {
+          "status": "PASS",
+          "errors": [],
+          "method": "EXACT_PARSER_SOURCE_SPAN"
+        },
+        "evidence_id": "SRC-fde6975fa8aaf19cba07",
+        "quoted_text": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；",
+        "source_ref": {
+          "document_id": "contract_package/main",
+          "clause_id": "C0031",
+          "clause_sha256": "5574fe22ccf825f41346c52e6d482477095fd40ccabcc3b18dc4feea5fdecbee",
+          "local_start": 18,
+          "local_end": 77,
+          "locator": "第二十七条 合同文件组成及解释顺序"
+        },
+        "provenance_validation": {
+          "status": "PASS",
+          "evidence_type": "CONTRACT_TEXT",
+          "errors": []
+        },
+        "source_semantic_verification": {
+          "status": "PASS",
+          "element_ids": [
+            "pricing_attachment"
+          ]
+        },
+        "supports_element_ids": [
+          "pricing_attachment"
+        ],
+        "supported_propositions": [
+          "计价清单或预算附件"
+        ],
+        "support_summary": "证明合同已约定相关合同要素。"
+      }
+    ],
+    "search": [],
+    "retrieval": {
+      "searched_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009",
+        "C0010",
+        "C0011",
+        "C0012",
+        "C0013",
+        "C0014",
+        "C0015",
+        "C0016",
+        "C0017",
+        "C0018",
+        "C0019",
+        "C0020",
+        "C0021",
+        "C0022",
+        "C0023",
+        "C0024",
+        "C0025",
+        "C0026",
+        "C0027",
+        "C0028",
+        "C0029",
+        "C0030",
+        "C0031",
+        "C0032"
+      ],
+      "evidence": [
+        {
+          "clause_id": "C0031",
+          "location": "第二十七条 合同文件组成及解释顺序",
+          "title": "合同文件组成及解释顺序",
+          "text": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；",
+          "quote": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；",
+          "original_excerpt": "构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；",
+          "section_type": "正式合同条款",
+          "block_type": "OPERATIVE_CLAUSE",
+          "construction_element_ids": [
+            "pricing_attachment"
+          ],
+          "construction_blank": false,
+          "source_start": 18,
+          "source_end": 78
+        }
+      ],
+      "covered_elements": [
+        "pricing_attachment"
+      ],
+      "missing_elements": [],
+      "scope": "FULL_CONTRACT_AND_ANNEXES",
+      "intent_verified": true
+    },
+    "semantic_requirements": []
+  },
+  {
+    "rule_id": "COMMON-20-01",
+    "before": "部分覆盖",
+    "after": "通过",
+    "elements": [
+      {
+        "review_id": "COMMON-20-01",
+        "element_id": "common_penalty_base_determinability_ratio",
+        "proposition": "违约金计算公式及对应基数约定",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-54717c546d189ba1c895"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0022"
+        ],
+        "source_spans": [
+          "第十八条 工期违约责任\n因乙方原因造成工程实际竣工日期迟于合同约定竣工日期的，每逾期一日，乙方按照合同暂定总价的0.03%向甲方支付违约金。"
+        ],
+        "source_locations": [
+          "第十八条 工期违约责任"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0022"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "SRC-54717c546d189ba1c895"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence_ids": [
+          "SRC-54717c546d189ba1c895"
+        ],
+        "bound_evidence_ids": [
+          "SRC-54717c546d189ba1c895"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0022",
+            "quote": "第十八条 工期违约责任\n因乙方原因造成工程实际竣工日期迟于合同约定竣工日期的，每逾期一日，乙方按照合同暂定总价的0.03%向甲方支付违约金。"
+          }
+        ]
+      },
+      {
+        "review_id": "COMMON-20-01",
+        "element_id": "common_penalty_base_determinability_definition",
+        "proposition": "计算基数有金额或可验证动态计算方法",
+        "status": "COVERED",
+        "evidence_ids": [
+          "SRC-ddb67f280e611ecb5d9c"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0008"
+        ],
+        "source_spans": [
+          "第四条合同价款\n本合同暂定含税总价为人民币：\n￥48,600,000.00元\n大写：人民币肆仟捌佰陆拾万元整。"
+        ],
+        "source_locations": [
+          "第四条合同价款"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0008"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "SRC-ddb67f280e611ecb5d9c"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence_ids": [
+          "SRC-ddb67f280e611ecb5d9c"
+        ],
+        "bound_evidence_ids": [
+          "SRC-ddb67f280e611ecb5d9c"
+        ],
+        "supporting_evidence": [
+          {
+            "clause_id": "C0008",
+            "quote": "第四条合同价款\n本合同暂定含税总价为人民币：\n￥48,600,000.00元\n大写：人民币肆仟捌佰陆拾万元整。"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "clause_id": "C0022",
+        "location": "第十八条 工期违约责任",
+        "title": "工期违约责任",
+        "text": "第十八条 工期违约责任\n因乙方原因造成工程实际竣工日期迟于合同约定竣工日期的，每逾期一日，乙方按照合同暂定总价的0.03%向甲方支付违约金。",
+        "quote": "第十八条 工期违约责任\n因乙方原因造成工程实际竣工日期迟于合同约定竣工日期的，每逾期一日，乙方按照合同暂定总价的0.03%向甲方支付违约金。",
+        "original_excerpt": "第十八条 工期违约责任\n因乙方原因造成工程实际竣工日期迟于合同约定竣工日期的，每逾期一日，乙方按照合同暂定总价的0.03%向甲方支付违约金。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第十八条 工期违约责任"
+        ],
+        "source_start": 3961,
+        "source_end": 4031,
+        "supports_element_ids": [
+          "common_penalty_base_determinability_ratio"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "entailment_score": 100,
+        "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+        "document_id": "contract_package/main",
+        "document_type": "MAIN_CONTRACT",
+        "source_document_type": "MAIN_CONTRACT",
+        "evidence_block_type": "OPERATIVE_CLAUSE",
+        "document_name": "合同正文",
+        "section": "第十八条 工期违约责任",
+        "sentence_index": 1,
+        "confidence": "high",
+        "evidence_type": "CONTRACT_TEXT",
+        "raw_text": "第十八条 工期违约责任\n因乙方原因造成工程实际竣工日期迟于合同约定竣工日期的，每逾期一日，乙方按照合同暂定总价的0.03%向甲方支付违约金。\n工期违约金累计最高不超过合同最终结算价款的5%。\n因乙方严重延误工期导致合同目的无法实现的，甲方有权依法解除合同，并要求乙方承担相应损失。\n因甲方原因造成工期延误的，乙方有权申请工期顺延；因此产生的合理停工、窝工等损失，经双方核实后由责任方承担。",
+        "source_span": {
+          "start_offset": 3961,
+          "end_offset": 4031,
+          "raw_text": "第十八条 工期违约责任\n因乙方原因造成工程实际竣工日期迟于合同约定竣工日期的，每逾期一日，乙方按照合同暂定总价的0.03%向甲方支付违约金。",
+          "coordinate_system": "DOCUMENT_TEXT"
+        },
+        "source_document": "contract_package/main",
+        "original_document_reference": "contract_package/main",
+        "derived_or_original": "ORIGINAL",
+        "evidence_source": {
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "document_name": "合同正文",
+          "clause_id": "C0022",
+          "section": "第十八条 工期违约责任",
+          "sentence_index": 1,
+          "quote": "第十八条 工期违约责任\n因乙方原因造成工程实际竣工日期迟于合同约定竣工日期的，每逾期一日，乙方按照合同暂定总价的0.03%向甲方支付违约金。",
+          "confidence": "high",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "evidence_type": "CONTRACT_TEXT",
+          "source_span": {
+            "start_offset": 3961,
+            "end_offset": 4031,
+            "raw_text": "第十八条 工期违约责任\n因乙方原因造成工程实际竣工日期迟于合同约定竣工日期的，每逾期一日，乙方按照合同暂定总价的0.03%向甲方支付违约金。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "derived_or_original": "ORIGINAL",
+          "source_ref": {
+            "document_id": "contract_package/main",
+            "clause_id": "C0022",
+            "clause_sha256": "a5367252d4453442c4f3bf8717295859acf2b09df8969b371beb5a5cab0e2674",
+            "local_start": 0,
+            "local_end": 70,
+            "locator": "第十八条 工期违约责任"
+          },
+          "verified_original": true
+        },
+        "evidence_polarity": "SUPPORTS_COVERAGE",
+        "entailment_status": "SUPPORTS",
+        "supporting_element_ids": [
+          "common_penalty_base_determinability_ratio"
+        ],
+        "canonical_fact_keys": [],
+        "relevance_score": 1.0,
+        "review_id": "COMMON-20-01",
+        "element_ids": [
+          "common_penalty_base_determinability_ratio"
+        ],
+        "support_type": "DIRECT",
+        "verified_original": true,
+        "source_verification": {
+          "status": "PASS",
+          "errors": [],
+          "method": "EXACT_PARSER_SOURCE_SPAN"
+        },
+        "evidence_id": "SRC-54717c546d189ba1c895",
+        "quoted_text": "第十八条 工期违约责任\n因乙方原因造成工程实际竣工日期迟于合同约定竣工日期的，每逾期一日，乙方按照合同暂定总价的0.03%向甲方支付违约金。",
+        "source_ref": {
+          "document_id": "contract_package/main",
+          "clause_id": "C0022",
+          "clause_sha256": "a5367252d4453442c4f3bf8717295859acf2b09df8969b371beb5a5cab0e2674",
+          "local_start": 0,
+          "local_end": 70,
+          "locator": "第十八条 工期违约责任"
+        },
+        "provenance_validation": {
+          "status": "PASS",
+          "evidence_type": "CONTRACT_TEXT",
+          "errors": []
+        },
+        "source_semantic_verification": {
+          "status": "PASS",
+          "element_ids": [
+            "common_penalty_base_determinability_ratio"
+          ]
+        },
+        "supported_propositions": [
+          "违约金计算公式及对应基数约定"
+        ],
+        "support_summary": "证明合同已约定相关合同要素。"
+      },
+      {
+        "clause_id": "C0008",
+        "location": "第四条合同价款",
+        "title": "合同价款",
+        "text": "第四条合同价款\n本合同暂定含税总价为人民币：\n￥48,600,000.00元\n大写：人民币肆仟捌佰陆拾万元整。",
+        "quote": "第四条合同价款\n本合同暂定含税总价为人民币：\n￥48,600,000.00元\n大写：人民币肆仟捌佰陆拾万元整。",
+        "original_excerpt": "第四条合同价款\n本合同暂定含税总价为人民币：\n￥48,600,000.00元\n大写：人民币肆仟捌佰陆拾万元整。",
+        "section_type": "正式合同条款",
+        "heading_path": [
+          "第四条合同价款"
+        ],
+        "source_start": 1094,
+        "source_end": 1149,
+        "supports_element_ids": [
+          "common_penalty_base_determinability_definition"
+        ],
+        "source_type": "CONTRACT_TEXT",
+        "entailment_score": 100,
+        "selection_reason": "Existing evidence directly supports resolved ReviewElementTruth.",
+        "document_id": "contract_package/main",
+        "document_type": "MAIN_CONTRACT",
+        "source_document_type": "MAIN_CONTRACT",
+        "evidence_block_type": "OPERATIVE_CLAUSE",
+        "document_name": "合同正文",
+        "section": "第四条合同价款",
+        "sentence_index": 1,
+        "confidence": "high",
+        "evidence_type": "CONTRACT_TEXT",
+        "raw_text": "第四条合同价款\n本合同暂定含税总价为人民币：\n￥48,600,000.00元\n大写：人民币肆仟捌佰陆拾万元整。\n上述价款包含人工费、材料费、施工机械费、措施费、管理费、利润、税费以及乙方履行本合同所需的其他合理费用。\n本工程采用工程量清单综合单价计价方式。清单中已有适用综合单价的，原则上执行原综合单价；清单中没有适用单价的，由乙方提出价格组成，经甲方及造价咨询单位审核确认后执行。\n最终工程结算金额以实际完成并经甲方确认的工程量、合同约定的计价方式及经批准的工程变更为依据确定。\n未经甲方书面确认的工程量增加、材料品牌调整或者施工方案改变，原则上不得作为增加工程价款的依据。",
+        "source_span": {
+          "start_offset": 1094,
+          "end_offset": 1149,
+          "raw_text": "第四条合同价款\n本合同暂定含税总价为人民币：\n￥48,600,000.00元\n大写：人民币肆仟捌佰陆拾万元整。",
+          "coordinate_system": "DOCUMENT_TEXT"
+        },
+        "source_document": "contract_package/main",
+        "original_document_reference": "contract_package/main",
+        "derived_or_original": "ORIGINAL",
+        "evidence_source": {
+          "document_id": "contract_package/main",
+          "document_type": "MAIN_CONTRACT",
+          "document_name": "合同正文",
+          "clause_id": "C0008",
+          "section": "第四条合同价款",
+          "sentence_index": 1,
+          "quote": "第四条合同价款\n本合同暂定含税总价为人民币：\n￥48,600,000.00元\n大写：人民币肆仟捌佰陆拾万元整。",
+          "confidence": "high",
+          "evidence_block_type": "OPERATIVE_CLAUSE",
+          "evidence_type": "CONTRACT_TEXT",
+          "source_span": {
+            "start_offset": 1094,
+            "end_offset": 1149,
+            "raw_text": "第四条合同价款\n本合同暂定含税总价为人民币：\n￥48,600,000.00元\n大写：人民币肆仟捌佰陆拾万元整。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "derived_or_original": "ORIGINAL",
+          "source_ref": {
+            "document_id": "contract_package/main",
+            "clause_id": "C0008",
+            "clause_sha256": "b96f805f6572f3ad23b873cdf1f807881b9e2729518ddf822ab94bdeea5411c3",
+            "local_start": 0,
+            "local_end": 55,
+            "locator": "第四条合同价款"
+          },
+          "verified_original": true
+        },
+        "evidence_polarity": "SUPPORTS_COVERAGE",
+        "entailment_status": "SUPPORTS",
+        "supporting_element_ids": [
+          "common_penalty_base_determinability_definition"
+        ],
+        "canonical_fact_keys": [],
+        "relevance_score": 1.0,
+        "review_id": "COMMON-20-01",
+        "element_ids": [
+          "common_penalty_base_determinability_definition"
+        ],
+        "support_type": "DIRECT",
+        "verified_original": true,
+        "source_verification": {
+          "status": "PASS",
+          "errors": [],
+          "method": "EXACT_PARSER_SOURCE_SPAN"
+        },
+        "evidence_id": "SRC-ddb67f280e611ecb5d9c",
+        "quoted_text": "第四条合同价款\n本合同暂定含税总价为人民币：\n￥48,600,000.00元\n大写：人民币肆仟捌佰陆拾万元整。",
+        "source_ref": {
+          "document_id": "contract_package/main",
+          "clause_id": "C0008",
+          "clause_sha256": "b96f805f6572f3ad23b873cdf1f807881b9e2729518ddf822ab94bdeea5411c3",
+          "local_start": 0,
+          "local_end": 55,
+          "locator": "第四条合同价款"
+        },
+        "provenance_validation": {
+          "status": "PASS",
+          "evidence_type": "CONTRACT_TEXT",
+          "errors": []
+        },
+        "source_semantic_verification": {
+          "status": "PASS",
+          "element_ids": [
+            "common_penalty_base_determinability_definition"
+          ]
+        },
+        "supported_propositions": [
+          "计算基数有金额或可验证动态计算方法"
+        ],
+        "support_summary": "证明合同已约定相关合同要素。"
+      }
+    ],
+    "search": [
+      {
+        "element_id": "common_penalty_base_determinability_ratio",
+        "review_id": "COMMON-20-01",
+        "search_targets": [
+          "违约金计算公式及对应基数约定"
+        ],
+        "query_patterns": [
+          "乙方按照合同暂定总价的0\\.03%向甲方支付违约金"
+        ],
+        "query_semantic_target": "违约金计算公式及对应基数约定",
+        "query_semantics": "POSITIVE_REQUIRED_FACT",
+        "search_mode": "SEMANTIC_REQUIREMENT",
+        "searched_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021",
+          "C0022",
+          "C0023",
+          "C0024",
+          "C0025",
+          "C0026",
+          "C0027",
+          "C0028",
+          "C0029",
+          "C0030",
+          "C0031",
+          "C0032"
+        ],
+        "search_corpus_chunks": [
+          {
+            "clause_id": "C0001",
+            "location": "全文",
+            "text": "建设工程施工合同\n合同编号：HX-JS-2026-0910\n发包人（甲方）：杭州华新智能装备有限公司\n统一社会信用代码：91330110MA8X7K215R\n住所：浙江省杭州市余杭区启航路168号\n法定代表人：周明远\n联系人：陈志鹏\n联系电话：1384721\n承包人（乙方）：浙江恒筑建设工程有限公司\n统一社会信用代码：91330000MA2K9F681N\n住所：浙江省杭州市拱墅区祥园路88号\n法定代表人：沈国强\n联系人：刘浩然\n联系电话：1376158\n根据《中华人民共和国民法典》《中华人民共和国建筑法》及其他有关法律法规，甲乙双方遵循平等、自愿、公平和诚实信用原则，就甲方研发制造中心二期建设工程施工事项协商一致，订立本合同。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0002",
+            "location": "第一条 工程概况",
+            "text": "第一条 工程概况\n工程名称：华新智能装备研发制造中心二期建设工程。\n工程地点：浙江省杭州市余杭区启航路168号厂区东侧。\n工程内容：新建一栋研发生产综合楼及配套附属设施，其中地上六层、地下一层，总建筑面积约18,600平方米。\n主要施工内容包括：\n（1）土建主体工程；\n（2）基础及地下室工程；\n（3）给排水、电气、消防及通风工程；\n（4）建筑外立面及屋面工程；\n（5）室内公共区域基础装修；\n（6）室外道路、雨污水管网及绿化恢复工程；\n（7）施工图纸及工程量清单载明的其他工程。\n本工程资金来源：甲方自筹资金。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0003",
+            "location": "第二条 承包方式及承包范围",
+            "text": "第二条 承包方式及承包范围\n本工程采用施工总承包方式。\n乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。\n电梯设备采购、生产设备安装、专业实验室装修及弱电智能化系统由甲方另行采购或发包，不属于本合同承包范围。\n未经甲方书面同意，乙方不得将本工程主体结构施工转包或违法分包给第三方。\n经甲方书面同意的专业分包，不免除乙方作为总承包人应承担的管理、质量、安全及工期责任。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0004",
+            "location": "第三条 合同工期",
+            "text": "第三条 合同工期\n计划开工日期：2026年10月15日。\n计划竣工日期：2027年10月9日。\n合同总工期：360日历天。\n实际开工日期以甲方或监理单位签发的开工通知载明日期为准。\n因下列原因造成关键线路工期延误的，乙方有权申请相应顺延：\n（1）甲方未按约定提供施工场地；\n（2）甲方未按期提供经审查合格的施工图纸；\n（3）甲方重大设计变更导致工程量明显增加；",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0005",
+            "location": "第三条（4）",
+            "text": "（4）连续停水、停电超过24小时且非乙方原因造成；",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0006",
+            "location": "第三条（5）",
+            "text": "（5）不可抗力；",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0007",
+            "location": "第三条（6）",
+            "text": "（6）法律法规规定或者双方书面确认的其他情形。\n乙方认为发生工期顺延情形的，应当在知道或者应当知道该事件后7日内提交书面报告及相关证据。逾期未提交的，甲方有权根据实际情况决定是否予以确认。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0008",
+            "location": "第四条合同价款",
+            "text": "第四条合同价款\n本合同暂定含税总价为人民币：\n￥48,600,000.00元\n大写：人民币肆仟捌佰陆拾万元整。\n上述价款包含人工费、材料费、施工机械费、措施费、管理费、利润、税费以及乙方履行本合同所需的其他合理费用。\n本工程采用工程量清单综合单价计价方式。清单中已有适用综合单价的，原则上执行原综合单价；清单中没有适用单价的，由乙方提出价格组成，经甲方及造价咨询单位审核确认后执行。\n最终工程结算金额以实际完成并经甲方确认的工程量、合同约定的计价方式及经批准的工程变更为依据确定。\n未经甲方书面确认的工程量增加、材料品牌调整或者施工方案改变，原则上不得作为增加工程价款的依据。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0009",
+            "location": "第五条 工程款支付",
+            "text": "第五条 工程款支付\n预付款：\n合同生效且乙方提交履约担保后10个工作日内，甲方向乙方支付合同暂定价款的10%，即人民币4,860,000元。\n进度款：\n乙方每月25日前申报当月已完成工程量，经监理单位及甲方审核确认后，甲方按照审核后已完成工程价款的80%支付进度款。\n主体结构封顶并经阶段验收合格后，累计支付金额最高不超过已完成工程价款的85%。\n工程竣工验收合格并完成现场移交后，累计支付至经甲方确认已完成工程价款的90%。\n完成竣工结算审核后30日内，甲方累计支付至最终结算价款的97%。\n剩余最终结算价款的3%作为工程质量保证金。\n缺陷责任期届满且乙方已完成全部缺陷修复义务后30日内，甲方将剩余质量保证金无息返还乙方。\n乙方申请每笔工程款前，应向甲方提供合法有效且符合税务要求的增值税专用发票。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0010",
+            "location": "第六条 履约担保",
+            "text": "第六条 履约担保\n乙方应在合同签订后10日内向甲方提供金额为合同暂定总价5%的履约担保。\n履约担保可以采用银行保函或者甲方认可的其他合法方式。\n工程竣工验收合格且乙方不存在重大违约行为后，甲方应在30日内办理履约担保解除手续。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0011",
+            "location": "第七条 材料与设备",
+            "text": "第七条 材料与设备\n本工程主要建筑材料及设备应符合国家现行标准、设计文件及合同要求。\n钢筋、商品混凝土、防水材料、配电设备、消防设备等主要材料，乙方进场前应向甲方或监理单位提交品牌、型号、合格证明及检测资料。\n需送检或者复检的材料，应按照规定完成检测并经确认合格后方可使用。\n乙方擅自使用不符合约定或者检验不合格材料的，应负责拆除、更换，并自行承担由此产生的全部合理费用及工期损失。\n甲方指定品牌范围的材料，乙方可以在指定品牌范围内选择具体产品；甲方不得要求乙方使用明显不符合设计或者质量标准的产品。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0012",
+            "location": "第八条 工程质量",
+            "text": "第八条 工程质量\n工程质量标准：符合国家现行建设工程施工质量验收规范，达到合格标准。\n乙方应严格按照施工图纸、施工技术标准及批准的施工组织设计进行施工。\n隐蔽工程完成后，乙方应至少提前24小时通知甲方及监理单位验收。\n未经验收或者验收不合格的隐蔽工程，乙方不得进行下一道工序。\n因乙方原因造成工程质量不合格的，乙方应负责返工、修复，并承担相关费用。\n因甲方提供的设计文件错误或者甲方强制要求采用不符合质量标准的方案导致质量问题的，由责任方依法承担相应责任。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0013",
+            "location": "第九条 工程变更",
+            "text": "第九条 工程变更\n任何涉及设计、工程量、材料标准、施工方法或者工程范围的变更，原则上均应取得甲方书面确认。\n乙方不得自行扩大施工范围或者提高建设标准。\n紧急情况下，为防止人员伤亡或者重大财产损失确需立即采取措施的，乙方可以先行处置，但应在24小时内向甲方及监理单位提交书面说明。\n工程变更涉及合同价款调整的，乙方应在变更发生后14日内提交变更报价资料。\n甲方收到完整资料后，应组织监理单位及造价咨询单位进行审核。\n双方对变更价格存在争议，不影响其他无争议部分工程正常施工。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0014",
+            "location": "第十条 工程签证",
+            "text": "第十条 工程签证\n现场签证应载明施工原因、施工内容、工程数量、人工机械投入及必要影像资料。\n现场签证原则上由甲方授权代表、监理工程师及乙方项目负责人共同确认。\n仅由普通现场工作人员签字且超出其授权范围的文件，不直接作为增加合同价款的依据。\n乙方不得以口头指令作为结算依据，但紧急施工事项经后续书面追认的除外。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0015",
+            "location": "第十一条 安全文明施工",
+            "text": "第十一条 安全文明施工\n乙方应依法建立施工安全管理制度，配备符合要求的项目经理、专职安全管理人员及其他专业人员。\n乙方应依法为施工人员提供安全防护用品，开展安全教育培训。\n施工过程中发生安全事故的，乙方应立即组织救援并按照规定报告有关部门，同时通知甲方。\n因乙方违反安全管理规定造成事故的，由乙方承担其依法应承担的责任。\n因甲方违法指挥、提供存在重大安全隐患的条件或者其他甲方原因造成事故的，由甲方承担相应责任。\n双方均不得通过本合同免除依法应当由各自承担的安全生产责任。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0016",
+            "location": "第十二条 项目人员",
+            "text": "第十二条 项目人员\n乙方项目经理：王泽宇。\n项目经理原则上应常驻施工现场，负责工程施工组织和协调。\n未经甲方书面同意，乙方不得随意更换项目经理。\n因离职、疾病、行政主管部门要求或者其他合理原因确需更换的，乙方应提前提交具有相应资格和能力的替代人员资料。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0017",
+            "location": "第十三条 甲方主要义务",
+            "text": "第十三条 甲方主要义务\n按约定提供施工场地及必要施工条件。\n按约定支付工程款。\n及时组织图纸会审、工程验收及相关协调工作。\n及时处理乙方提交的工程联系单、变更申请及付款申请。\n协调甲方另行发包单位与乙方之间的施工界面。\n不得要求乙方违反法律法规、强制性标准或者施工安全要求施工。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0018",
+            "location": "第十四条 乙方主要义务",
+            "text": "第十四条 乙方主要义务\n按期组织人员、设备及材料进场。\n按施工图纸和技术标准施工。\n对施工现场进行统一管理。\n做好成品保护、施工资料归档及竣工资料编制工作。\n配合甲方、监理单位及有关行政主管部门依法开展检查。\n按照法律规定及时支付农民工工资及分包工程款。\n工程竣工后及时清理施工现场并完成工程移交。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0019",
+            "location": "第十五条 竣工验收",
+            "text": "第十五条 竣工验收\n工程达到竣工验收条件后，乙方应向甲方提交完整的竣工验收申请及竣工资料。\n甲方收到符合要求的验收申请后，应在合理期限内组织设计、施工、监理等单位进行验收。\n经竣工验收发现质量问题的，乙方应在甲方要求的合理期限内完成整改并申请复验。\n工程经验收合格后，双方办理工程移交手续。\n甲方无正当理由长期拖延组织验收的，双方应根据工程实际完成情况协商确定验收及结算事项。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0020",
+            "location": "第十六条 竣工结算",
+            "text": "第十六条 竣工结算\n工程竣工验收合格后30日内，乙方应向甲方提交完整的竣工结算资料。\n甲方有权委托第三方造价咨询机构进行审核。\n双方应就审定工程量、综合单价、工程变更、现场签证及其他结算事项进行核对。\n对无争议的结算金额，甲方不得以部分结算事项存在争议为由拒绝支付全部工程款。\n双方无法就争议部分形成一致意见的，可按照本合同争议解决条款处理。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0021",
+            "location": "第十七条 工程质量保修",
+            "text": "第十七条 工程质量保修\n乙方依法承担工程质量保修责任。\n工程质量保修期限按照国家有关规定及双方签署的《工程质量保修书》执行。\n保修期从工程竣工验收合格之日起计算。\n保修期内发生属于乙方施工质量责任的缺陷，乙方应在接到甲方通知后及时维修。\n对影响结构安全、消防安全或者正常使用的紧急问题，乙方应在接到通知后24小时内到场处理。\n乙方无正当理由未及时履行保修义务的，甲方可以委托第三方维修，由此产生的合理费用可以从质量保证金或者其他应付乙方款项中扣除。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0022",
+            "location": "第十八条 工期违约责任",
+            "text": "第十八条 工期违约责任\n因乙方原因造成工程实际竣工日期迟于合同约定竣工日期的，每逾期一日，乙方按照合同暂定总价的0.03%向甲方支付违约金。\n工期违约金累计最高不超过合同最终结算价款的5%。\n因乙方严重延误工期导致合同目的无法实现的，甲方有权依法解除合同，并要求乙方承担相应损失。\n因甲方原因造成工期延误的，乙方有权申请工期顺延；因此产生的合理停工、窝工等损失，经双方核实后由责任方承担。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0023",
+            "location": "第十九条 工程质量违约责任",
+            "text": "第十九条 工程质量违约责任\n工程未达到约定质量标准的，乙方应负责整改。\n经整改仍无法达到法律规定或者合同约定的基本质量要求，并导致合同目的无法实现的，甲方有权依法解除合同。\n因施工质量问题给甲方造成损失的，乙方应按照其责任范围承担赔偿责任。\n甲方不得仅以存在轻微且不影响正常使用的质量瑕疵为由拒绝支付全部工程价款。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0024",
+            "location": "第二十条 工程款逾期责任",
+            "text": "第二十条 工程款逾期责任\n甲方应按照合同约定支付工程款。\n对已经确认且不存在争议的应付款项，甲方逾期超过15日仍未支付的，乙方有权书面催告。\n催告后甲方仍未在合理期限内付款的，乙方可以依法主张逾期付款损失。\n甲方长期严重拖欠工程款，致使乙方无法继续施工的，乙方有权依法暂停施工或者解除合同，但应提前向甲方发出书面通知。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0025",
+            "location": "第二十一条 合同解除",
+            "text": "第二十一条 合同解除\n出现下列情形之一的，守约方可以依法解除合同：\n一方明确表示或者以行为表明不履行主要合同义务；\n乙方存在违法转包、违法分包行为，且经要求仍未纠正；\n乙方无正当理由长期停工，严重影响合同目的实现；\n甲方长期拖欠到期工程款，经乙方合理催告后仍拒不支付；\n因不可抗力导致合同目的无法实现；\n法律规定或者双方约定的其他解除情形。\n合同解除后，双方应对已完工程进行现场确认，并依法办理工程价款结算、材料设备处理和现场移交。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0026",
+            "location": "第二十二条 不可抗力",
+            "text": "第二十二条 不可抗力\n因地震、洪水、台风、重大公共卫生事件、战争、政府依法采取的紧急措施以及其他不能预见、不能避免且不能克服的事件导致合同无法正常履行的，受影响一方应及时通知另一方。\n受影响一方应采取合理措施减少损失扩大。\n双方根据不可抗力实际影响程度协商确定工期顺延、费用承担及后续履行方案。\n一方迟延履行后发生不可抗力的，不免除其迟延履行期间依法应承担的责任。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0027",
+            "location": "第二十三条 保险",
+            "text": "第二十三条 保险\n乙方应依法办理施工人员工伤保险及依法应由施工单位办理的其他保险。\n施工机械、设备以及乙方自有财产的保险由乙方自行负责。\n双方另行约定购买建筑工程一切险的，具体投保人、保险金额及保费承担方式以保险方案为准。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0028",
+            "location": "第二十四条 保密义务",
+            "text": "第二十四条 保密义务\n双方对在履行本合同过程中获悉的对方商业秘密、技术资料、工程预算数据及未公开经营信息承担保密义务，但依法应当披露或者已经公开的信息除外。\n未经信息权利人书面同意，任何一方不得将相关保密信息用于本工程以外的目的。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0029",
+            "location": "第二十五条 文件送达",
+            "text": "第二十五条 文件送达\n双方在本合同首页记载的地址、联系人及联系方式作为合同履行期间的有效送达信息。\n一方联系方式发生变化的，应在5个工作日内书面通知另一方。\n因未及时通知导致有关文件无法送达的，由未通知方承担相应不利后果。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0030",
+            "location": "第二十六条 争议解决",
+            "text": "第二十六条 争议解决\n因本合同订立、履行、结算、解除产生争议的，双方应首先协商解决。\n协商不成的，任何一方均可向工程所在地有管辖权的人民法院提起诉讼。\n争议处理期间，除争议事项或者确实无法继续履行的事项外，双方应继续履行其他无争议部分。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0031",
+            "location": "第二十七条 合同文件组成及解释顺序",
+            "text": "第二十七条 合同文件组成及解释顺序\n构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；\n技术标准及要求；\n经双方确认的工程变更、现场签证及会议纪要；\n其他构成合同组成部分的书面文件。\n文件内容存在冲突时，原则上按照形成时间、文件性质及双方明确约定综合确定；双方另有书面约定的，从其约定。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0032",
+            "location": "第二十八条 合同生效及其他",
+            "text": "第二十八条 合同生效及其他\n本合同自双方法定代表人或授权代表签字并加盖公章之日起生效。\n本合同未尽事项，由双方另行签订书面补充协议。\n补充协议与本合同具有同等法律效力。\n本合同一式陆份，甲方执叁份，乙方执叁份，具有同等法律效力。\n双方确认，本合同所填写的公司名称、项目名称、金额、人员及联系方式均作为合同约定内容使用。\n甲方：杭州华新智能装备有限公司\n（盖章）\n法定代表人/授权代表：_______________\n签署日期：2026年9月10日\n乙方：浙江恒筑建设工程有限公司\n（盖章）\n法定代表人/授权代表：_______________\n签署日期：2026年9月10日",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "top_k_candidates": [
+          {
+            "clause_id": "C0022",
+            "location": "第十八条 工期违约责任",
+            "title": "工期违约责任",
+            "text": "第十八条 工期违约责任\n因乙方原因造成工程实际竣工日期迟于合同约定竣工日期的，每逾期一日，乙方按照合同暂定总价的0.03%向甲方支付违约金。",
+            "quote": "第十八条 工期违约责任\n因乙方原因造成工程实际竣工日期迟于合同约定竣工日期的，每逾期一日，乙方按照合同暂定总价的0.03%向甲方支付违约金。",
+            "original_excerpt": "第十八条 工期违约责任\n因乙方原因造成工程实际竣工日期迟于合同约定竣工日期的，每逾期一日，乙方按照合同暂定总价的0.03%向甲方支付违约金。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第十八条 工期违约责任"
+            ],
+            "source_start": 0,
+            "source_end": 70,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": true,
+            "score": 1.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [
+              "乙方按照合同暂定总价的0\\.03%向甲方支付违约金"
+            ],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "FOUND"
+          },
+          {
+            "clause_id": "C0001",
+            "location": "全文",
+            "title": "全文",
+            "text": "建设工程施工合同\n合同编号：HX-JS-2026-0910\n发包人（甲方）：杭州华新智能装备有限公司\n统一社会信用代码：91330110MA8X7K215R\n住所：浙江省杭州市余杭区启航路168号\n法定代表人：周明远\n联系人：陈志鹏\n联系电话：1384721\n承包人（乙方）：浙江恒筑建设工程有限公司\n统一社会信用代码：91330000MA2K9F681N\n住所：浙江省杭州市拱墅区祥园路88号\n法定代表人：沈国强\n联系人：刘浩然\n联系电话：1376158\n根据《中华人民共和国民法典》《中华人民共和国建筑法》及其他有关法律法规，甲乙双方遵循平等、自愿、公平和诚实信用原则，就甲方研发制造中心二期建设工程施工事项协商一致，订立本合同。",
+            "quote": "建设工程施工合同\n合同编号：HX-JS-2026-0910\n发包人（甲方）：杭州华新智能装备有限公司\n统一社会信用代码：91330110MA8X7K215R\n住所：浙江省杭州市余杭区启航路168号\n法定代表人：周明远\n联系人：陈志鹏\n联系电话：1384721\n承包人（乙方）：浙江恒筑建设工程有限公司\n统一社会信用代码：91330000MA2K9F681N\n住所：浙江省杭州市拱墅区祥园路88号\n法定代表人：沈国强\n联系人：刘浩然\n联系电话：1376158\n根据《中华人民共和国民法典》《中华人民共和国建筑法》及其他有关法律法规，甲乙双方遵循平等、自愿、公平和诚实信用原则，就甲方研发制造中心二期建设工程施工事项协商一致，订立本合同。",
+            "original_excerpt": "建设工程施工合同\n合同编号：HX-JS-2026-0910\n发包人（甲方）：杭州华新智能装备有限公司\n统一社会信用代码：91330110MA8X7K215R\n住所：浙江省杭州市余杭区启航路168号\n法定代表人：周明远\n联系人：陈志鹏\n联系电话：1384721\n承包人（乙方）：浙江恒筑建设工程有限公司\n统一社会信用代码：91330000MA2K9F681N\n住所：浙江省杭州市拱墅区祥园路88号\n法定代表人：沈国强\n联系人：刘浩然\n联系电话：1376158\n根据《中华人民共和国民法典》《中华人民共和国建筑法》及其他有关法律法规，甲乙双方遵循平等、自愿、公平和诚实信用原则，就甲方研发制造中心二期建设工程施工事项协商一致，订立本合同。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "全文"
+            ],
+            "source_start": 0,
+            "source_end": 317,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0002",
+            "location": "第一条 工程概况",
+            "title": "工程概况",
+            "text": "第一条 工程概况\n工程名称：华新智能装备研发制造中心二期建设工程。",
+            "quote": "第一条 工程概况\n工程名称：华新智能装备研发制造中心二期建设工程。",
+            "original_excerpt": "第一条 工程概况\n工程名称：华新智能装备研发制造中心二期建设工程。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第一条 工程概况"
+            ],
+            "source_start": 0,
+            "source_end": 33,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0002",
+            "location": "第一条 工程概况",
+            "title": "工程概况",
+            "text": "工程地点：浙江省杭州市余杭区启航路168号厂区东侧。",
+            "quote": "工程地点：浙江省杭州市余杭区启航路168号厂区东侧。",
+            "original_excerpt": "工程地点：浙江省杭州市余杭区启航路168号厂区东侧。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第一条 工程概况"
+            ],
+            "source_start": 33,
+            "source_end": 60,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0002",
+            "location": "第一条 工程概况",
+            "title": "工程概况",
+            "text": "工程内容：新建一栋研发生产综合楼及配套附属设施，其中地上六层、地下一层，总建筑面积约18,600平方米。",
+            "quote": "工程内容：新建一栋研发生产综合楼及配套附属设施，其中地上六层、地下一层，总建筑面积约18,600平方米。",
+            "original_excerpt": "工程内容：新建一栋研发生产综合楼及配套附属设施，其中地上六层、地下一层，总建筑面积约18,600平方米。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第一条 工程概况"
+            ],
+            "source_start": 60,
+            "source_end": 113,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0002",
+            "location": "第一条 工程概况",
+            "title": "工程概况",
+            "text": "主要施工内容包括：\n（1）土建主体工程；\n（2）基础及地下室工程；\n（3）给排水、电气、消防及通风工程；\n（4）建筑外立面及屋面工程；\n（5）室内公共区域基础装修；\n（6）室外道路、雨污水管网及绿化恢复工程；\n（7）施工图纸及工程量清单载明的其他工程。",
+            "quote": "主要施工内容包括：\n（1）土建主体工程；\n（2）基础及地下室工程；\n（3）给排水、电气、消防及通风工程；\n（4）建筑外立面及屋面工程；\n（5）室内公共区域基础装修；\n（6）室外道路、雨污水管网及绿化恢复工程；\n（7）施工图纸及工程量清单载明的其他工程。",
+            "original_excerpt": "主要施工内容包括：\n（1）土建主体工程；\n（2）基础及地下室工程；\n（3）给排水、电气、消防及通风工程；\n（4）建筑外立面及屋面工程；\n（5）室内公共区域基础装修；\n（6）室外道路、雨污水管网及绿化恢复工程；\n（7）施工图纸及工程量清单载明的其他工程。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第一条 工程概况"
+            ],
+            "source_start": 113,
+            "source_end": 240,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0002",
+            "location": "第一条 工程概况",
+            "title": "工程概况",
+            "text": "本工程资金来源：甲方自筹资金。",
+            "quote": "本工程资金来源：甲方自筹资金。",
+            "original_excerpt": "本工程资金来源：甲方自筹资金。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第一条 工程概况"
+            ],
+            "source_start": 240,
+            "source_end": 256,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0003",
+            "location": "第二条 承包方式及承包范围",
+            "title": "承包方式及承包范围",
+            "text": "第二条 承包方式及承包范围\n本工程采用施工总承包方式。",
+            "quote": "第二条 承包方式及承包范围\n本工程采用施工总承包方式。",
+            "original_excerpt": "第二条 承包方式及承包范围\n本工程采用施工总承包方式。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第二条 承包方式及承包范围"
+            ],
+            "source_start": 0,
+            "source_end": 27,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0003",
+            "location": "第二条 承包方式及承包范围",
+            "title": "承包方式及承包范围",
+            "text": "乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。",
+            "quote": "乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。",
+            "original_excerpt": "乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第二条 承包方式及承包范围"
+            ],
+            "source_start": 27,
+            "source_end": 76,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0003",
+            "location": "第二条 承包方式及承包范围",
+            "title": "承包方式及承包范围",
+            "text": "电梯设备采购、生产设备安装、专业实验室装修及弱电智能化系统由甲方另行采购或发包，不属于本合同承包范围。",
+            "quote": "电梯设备采购、生产设备安装、专业实验室装修及弱电智能化系统由甲方另行采购或发包，不属于本合同承包范围。",
+            "original_excerpt": "电梯设备采购、生产设备安装、专业实验室装修及弱电智能化系统由甲方另行采购或发包，不属于本合同承包范围。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第二条 承包方式及承包范围"
+            ],
+            "source_start": 76,
+            "source_end": 128,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0003",
+            "location": "第二条 承包方式及承包范围",
+            "title": "承包方式及承包范围",
+            "text": "未经甲方书面同意，乙方不得将本工程主体结构施工转包或违法分包给第三方。",
+            "quote": "未经甲方书面同意，乙方不得将本工程主体结构施工转包或违法分包给第三方。",
+            "original_excerpt": "未经甲方书面同意，乙方不得将本工程主体结构施工转包或违法分包给第三方。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第二条 承包方式及承包范围"
+            ],
+            "source_start": 128,
+            "source_end": 164,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0003",
+            "location": "第二条 承包方式及承包范围",
+            "title": "承包方式及承包范围",
+            "text": "经甲方书面同意的专业分包，不免除乙方作为总承包人应承担的管理、质量、安全及工期责任。",
+            "quote": "经甲方书面同意的专业分包，不免除乙方作为总承包人应承担的管理、质量、安全及工期责任。",
+            "original_excerpt": "经甲方书面同意的专业分包，不免除乙方作为总承包人应承担的管理、质量、安全及工期责任。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第二条 承包方式及承包范围"
+            ],
+            "source_start": 164,
+            "source_end": 207,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0004",
+            "location": "第三条 合同工期",
+            "title": "合同工期",
+            "text": "第三条 合同工期\n计划开工日期：2026年10月15日。",
+            "quote": "第三条 合同工期\n计划开工日期：2026年10月15日。",
+            "original_excerpt": "第三条 合同工期\n计划开工日期：2026年10月15日。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第三条 合同工期"
+            ],
+            "source_start": 0,
+            "source_end": 28,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0004",
+            "location": "第三条 合同工期",
+            "title": "合同工期",
+            "text": "计划竣工日期：2027年10月9日。",
+            "quote": "计划竣工日期：2027年10月9日。",
+            "original_excerpt": "计划竣工日期：2027年10月9日。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第三条 合同工期"
+            ],
+            "source_start": 28,
+            "source_end": 47,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0004",
+            "location": "第三条 合同工期",
+            "title": "合同工期",
+            "text": "合同总工期：360日历天。",
+            "quote": "合同总工期：360日历天。",
+            "original_excerpt": "合同总工期：360日历天。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第三条 合同工期"
+            ],
+            "source_start": 47,
+            "source_end": 61,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0004",
+            "location": "第三条 合同工期",
+            "title": "合同工期",
+            "text": "实际开工日期以甲方或监理单位签发的开工通知载明日期为准。",
+            "quote": "实际开工日期以甲方或监理单位签发的开工通知载明日期为准。",
+            "original_excerpt": "实际开工日期以甲方或监理单位签发的开工通知载明日期为准。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第三条 合同工期"
+            ],
+            "source_start": 61,
+            "source_end": 90,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0004",
+            "location": "第三条 合同工期",
+            "title": "合同工期",
+            "text": "因下列原因造成关键线路工期延误的，乙方有权申请相应顺延：\n（1）甲方未按约定提供施工场地；\n（2）甲方未按期提供经审查合格的施工图纸；\n（3）甲方重大设计变更导致工程量明显增加；",
+            "quote": "因下列原因造成关键线路工期延误的，乙方有权申请相应顺延：\n（1）甲方未按约定提供施工场地；\n（2）甲方未按期提供经审查合格的施工图纸；\n（3）甲方重大设计变更导致工程量明显增加；",
+            "original_excerpt": "因下列原因造成关键线路工期延误的，乙方有权申请相应顺延：\n（1）甲方未按约定提供施工场地；\n（2）甲方未按期提供经审查合格的施工图纸；\n（3）甲方重大设计变更导致工程量明显增加；",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第三条 合同工期"
+            ],
+            "source_start": 90,
+            "source_end": 180,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0005",
+            "location": "第三条（4）",
+            "title": "（4）连续停水、停电超过24小时且非乙方原因造成；",
+            "text": "（4）连续停水、停电超过24小时且非乙方原因造成；",
+            "quote": "（4）连续停水、停电超过24小时且非乙方原因造成；",
+            "original_excerpt": "（4）连续停水、停电超过24小时且非乙方原因造成；",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第三条 合同工期",
+              "（4）连续停水、停电超过24小时且非乙方原因造成；"
+            ],
+            "source_start": 0,
+            "source_end": 25,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0006",
+            "location": "第三条（5）",
+            "title": "（5）不可抗力；",
+            "text": "（5）不可抗力；",
+            "quote": "（5）不可抗力；",
+            "original_excerpt": "（5）不可抗力；",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第三条 合同工期",
+              "（5）不可抗力；"
+            ],
+            "source_start": 0,
+            "source_end": 8,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0007",
+            "location": "第三条（6）",
+            "title": "（6）法律法规规定或者双方书面确认的其他情形。",
+            "text": "（6）法律法规规定或者双方书面确认的其他情形。",
+            "quote": "（6）法律法规规定或者双方书面确认的其他情形。",
+            "original_excerpt": "（6）法律法规规定或者双方书面确认的其他情形。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第三条 合同工期",
+              "（6）法律法规规定或者双方书面确认的其他情形。"
+            ],
+            "source_start": 0,
+            "source_end": 23,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          }
+        ],
+        "candidate_count": 135,
+        "stage_results": {
+          "normalize": "CANONICAL_CANDIDATE",
+          "threshold": "PASS"
+        },
+        "searched_document_hash": "a24d39352f7deac9c33dc0a674aa9c20f9b08c71360d768fcf360bd96a81e9ad",
+        "result": "FOUND",
+        "supporting_evidence": [
+          {
+            "clause_id": "C0022",
+            "location": "第十八条 工期违约责任",
+            "title": "工期违约责任",
+            "text": "第十八条 工期违约责任\n因乙方原因造成工程实际竣工日期迟于合同约定竣工日期的，每逾期一日，乙方按照合同暂定总价的0.03%向甲方支付违约金。",
+            "quote": "第十八条 工期违约责任\n因乙方原因造成工程实际竣工日期迟于合同约定竣工日期的，每逾期一日，乙方按照合同暂定总价的0.03%向甲方支付违约金。",
+            "original_excerpt": "第十八条 工期违约责任\n因乙方原因造成工程实际竣工日期迟于合同约定竣工日期的，每逾期一日，乙方按照合同暂定总价的0.03%向甲方支付违约金。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第十八条 工期违约责任"
+            ],
+            "source_start": 0,
+            "source_end": 70,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_ratio"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "entailment_score": 100,
+            "selection_reason": "DIRECT_OPERATIVE_WITH_VALUE"
+          }
+        ]
+      },
+      {
+        "element_id": "common_penalty_base_determinability_definition",
+        "review_id": "COMMON-20-01",
+        "search_targets": [
+          "计算基数有金额或可验证动态计算方法"
+        ],
+        "query_patterns": [
+          "本合同暂定含税总价为人民币：\\s+￥48,600,000\\.00元"
+        ],
+        "query_semantic_target": "计算基数有金额或可验证动态计算方法",
+        "query_semantics": "POSITIVE_REQUIRED_FACT",
+        "search_mode": "SEMANTIC_REQUIREMENT",
+        "searched_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021",
+          "C0022",
+          "C0023",
+          "C0024",
+          "C0025",
+          "C0026",
+          "C0027",
+          "C0028",
+          "C0029",
+          "C0030",
+          "C0031",
+          "C0032"
+        ],
+        "search_corpus_chunks": [
+          {
+            "clause_id": "C0001",
+            "location": "全文",
+            "text": "建设工程施工合同\n合同编号：HX-JS-2026-0910\n发包人（甲方）：杭州华新智能装备有限公司\n统一社会信用代码：91330110MA8X7K215R\n住所：浙江省杭州市余杭区启航路168号\n法定代表人：周明远\n联系人：陈志鹏\n联系电话：1384721\n承包人（乙方）：浙江恒筑建设工程有限公司\n统一社会信用代码：91330000MA2K9F681N\n住所：浙江省杭州市拱墅区祥园路88号\n法定代表人：沈国强\n联系人：刘浩然\n联系电话：1376158\n根据《中华人民共和国民法典》《中华人民共和国建筑法》及其他有关法律法规，甲乙双方遵循平等、自愿、公平和诚实信用原则，就甲方研发制造中心二期建设工程施工事项协商一致，订立本合同。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0002",
+            "location": "第一条 工程概况",
+            "text": "第一条 工程概况\n工程名称：华新智能装备研发制造中心二期建设工程。\n工程地点：浙江省杭州市余杭区启航路168号厂区东侧。\n工程内容：新建一栋研发生产综合楼及配套附属设施，其中地上六层、地下一层，总建筑面积约18,600平方米。\n主要施工内容包括：\n（1）土建主体工程；\n（2）基础及地下室工程；\n（3）给排水、电气、消防及通风工程；\n（4）建筑外立面及屋面工程；\n（5）室内公共区域基础装修；\n（6）室外道路、雨污水管网及绿化恢复工程；\n（7）施工图纸及工程量清单载明的其他工程。\n本工程资金来源：甲方自筹资金。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0003",
+            "location": "第二条 承包方式及承包范围",
+            "text": "第二条 承包方式及承包范围\n本工程采用施工总承包方式。\n乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。\n电梯设备采购、生产设备安装、专业实验室装修及弱电智能化系统由甲方另行采购或发包，不属于本合同承包范围。\n未经甲方书面同意，乙方不得将本工程主体结构施工转包或违法分包给第三方。\n经甲方书面同意的专业分包，不免除乙方作为总承包人应承担的管理、质量、安全及工期责任。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0004",
+            "location": "第三条 合同工期",
+            "text": "第三条 合同工期\n计划开工日期：2026年10月15日。\n计划竣工日期：2027年10月9日。\n合同总工期：360日历天。\n实际开工日期以甲方或监理单位签发的开工通知载明日期为准。\n因下列原因造成关键线路工期延误的，乙方有权申请相应顺延：\n（1）甲方未按约定提供施工场地；\n（2）甲方未按期提供经审查合格的施工图纸；\n（3）甲方重大设计变更导致工程量明显增加；",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0005",
+            "location": "第三条（4）",
+            "text": "（4）连续停水、停电超过24小时且非乙方原因造成；",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0006",
+            "location": "第三条（5）",
+            "text": "（5）不可抗力；",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0007",
+            "location": "第三条（6）",
+            "text": "（6）法律法规规定或者双方书面确认的其他情形。\n乙方认为发生工期顺延情形的，应当在知道或者应当知道该事件后7日内提交书面报告及相关证据。逾期未提交的，甲方有权根据实际情况决定是否予以确认。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0008",
+            "location": "第四条合同价款",
+            "text": "第四条合同价款\n本合同暂定含税总价为人民币：\n￥48,600,000.00元\n大写：人民币肆仟捌佰陆拾万元整。\n上述价款包含人工费、材料费、施工机械费、措施费、管理费、利润、税费以及乙方履行本合同所需的其他合理费用。\n本工程采用工程量清单综合单价计价方式。清单中已有适用综合单价的，原则上执行原综合单价；清单中没有适用单价的，由乙方提出价格组成，经甲方及造价咨询单位审核确认后执行。\n最终工程结算金额以实际完成并经甲方确认的工程量、合同约定的计价方式及经批准的工程变更为依据确定。\n未经甲方书面确认的工程量增加、材料品牌调整或者施工方案改变，原则上不得作为增加工程价款的依据。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0009",
+            "location": "第五条 工程款支付",
+            "text": "第五条 工程款支付\n预付款：\n合同生效且乙方提交履约担保后10个工作日内，甲方向乙方支付合同暂定价款的10%，即人民币4,860,000元。\n进度款：\n乙方每月25日前申报当月已完成工程量，经监理单位及甲方审核确认后，甲方按照审核后已完成工程价款的80%支付进度款。\n主体结构封顶并经阶段验收合格后，累计支付金额最高不超过已完成工程价款的85%。\n工程竣工验收合格并完成现场移交后，累计支付至经甲方确认已完成工程价款的90%。\n完成竣工结算审核后30日内，甲方累计支付至最终结算价款的97%。\n剩余最终结算价款的3%作为工程质量保证金。\n缺陷责任期届满且乙方已完成全部缺陷修复义务后30日内，甲方将剩余质量保证金无息返还乙方。\n乙方申请每笔工程款前，应向甲方提供合法有效且符合税务要求的增值税专用发票。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0010",
+            "location": "第六条 履约担保",
+            "text": "第六条 履约担保\n乙方应在合同签订后10日内向甲方提供金额为合同暂定总价5%的履约担保。\n履约担保可以采用银行保函或者甲方认可的其他合法方式。\n工程竣工验收合格且乙方不存在重大违约行为后，甲方应在30日内办理履约担保解除手续。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0011",
+            "location": "第七条 材料与设备",
+            "text": "第七条 材料与设备\n本工程主要建筑材料及设备应符合国家现行标准、设计文件及合同要求。\n钢筋、商品混凝土、防水材料、配电设备、消防设备等主要材料，乙方进场前应向甲方或监理单位提交品牌、型号、合格证明及检测资料。\n需送检或者复检的材料，应按照规定完成检测并经确认合格后方可使用。\n乙方擅自使用不符合约定或者检验不合格材料的，应负责拆除、更换，并自行承担由此产生的全部合理费用及工期损失。\n甲方指定品牌范围的材料，乙方可以在指定品牌范围内选择具体产品；甲方不得要求乙方使用明显不符合设计或者质量标准的产品。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0012",
+            "location": "第八条 工程质量",
+            "text": "第八条 工程质量\n工程质量标准：符合国家现行建设工程施工质量验收规范，达到合格标准。\n乙方应严格按照施工图纸、施工技术标准及批准的施工组织设计进行施工。\n隐蔽工程完成后，乙方应至少提前24小时通知甲方及监理单位验收。\n未经验收或者验收不合格的隐蔽工程，乙方不得进行下一道工序。\n因乙方原因造成工程质量不合格的，乙方应负责返工、修复，并承担相关费用。\n因甲方提供的设计文件错误或者甲方强制要求采用不符合质量标准的方案导致质量问题的，由责任方依法承担相应责任。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0013",
+            "location": "第九条 工程变更",
+            "text": "第九条 工程变更\n任何涉及设计、工程量、材料标准、施工方法或者工程范围的变更，原则上均应取得甲方书面确认。\n乙方不得自行扩大施工范围或者提高建设标准。\n紧急情况下，为防止人员伤亡或者重大财产损失确需立即采取措施的，乙方可以先行处置，但应在24小时内向甲方及监理单位提交书面说明。\n工程变更涉及合同价款调整的，乙方应在变更发生后14日内提交变更报价资料。\n甲方收到完整资料后，应组织监理单位及造价咨询单位进行审核。\n双方对变更价格存在争议，不影响其他无争议部分工程正常施工。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0014",
+            "location": "第十条 工程签证",
+            "text": "第十条 工程签证\n现场签证应载明施工原因、施工内容、工程数量、人工机械投入及必要影像资料。\n现场签证原则上由甲方授权代表、监理工程师及乙方项目负责人共同确认。\n仅由普通现场工作人员签字且超出其授权范围的文件，不直接作为增加合同价款的依据。\n乙方不得以口头指令作为结算依据，但紧急施工事项经后续书面追认的除外。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0015",
+            "location": "第十一条 安全文明施工",
+            "text": "第十一条 安全文明施工\n乙方应依法建立施工安全管理制度，配备符合要求的项目经理、专职安全管理人员及其他专业人员。\n乙方应依法为施工人员提供安全防护用品，开展安全教育培训。\n施工过程中发生安全事故的，乙方应立即组织救援并按照规定报告有关部门，同时通知甲方。\n因乙方违反安全管理规定造成事故的，由乙方承担其依法应承担的责任。\n因甲方违法指挥、提供存在重大安全隐患的条件或者其他甲方原因造成事故的，由甲方承担相应责任。\n双方均不得通过本合同免除依法应当由各自承担的安全生产责任。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0016",
+            "location": "第十二条 项目人员",
+            "text": "第十二条 项目人员\n乙方项目经理：王泽宇。\n项目经理原则上应常驻施工现场，负责工程施工组织和协调。\n未经甲方书面同意，乙方不得随意更换项目经理。\n因离职、疾病、行政主管部门要求或者其他合理原因确需更换的，乙方应提前提交具有相应资格和能力的替代人员资料。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0017",
+            "location": "第十三条 甲方主要义务",
+            "text": "第十三条 甲方主要义务\n按约定提供施工场地及必要施工条件。\n按约定支付工程款。\n及时组织图纸会审、工程验收及相关协调工作。\n及时处理乙方提交的工程联系单、变更申请及付款申请。\n协调甲方另行发包单位与乙方之间的施工界面。\n不得要求乙方违反法律法规、强制性标准或者施工安全要求施工。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0018",
+            "location": "第十四条 乙方主要义务",
+            "text": "第十四条 乙方主要义务\n按期组织人员、设备及材料进场。\n按施工图纸和技术标准施工。\n对施工现场进行统一管理。\n做好成品保护、施工资料归档及竣工资料编制工作。\n配合甲方、监理单位及有关行政主管部门依法开展检查。\n按照法律规定及时支付农民工工资及分包工程款。\n工程竣工后及时清理施工现场并完成工程移交。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0019",
+            "location": "第十五条 竣工验收",
+            "text": "第十五条 竣工验收\n工程达到竣工验收条件后，乙方应向甲方提交完整的竣工验收申请及竣工资料。\n甲方收到符合要求的验收申请后，应在合理期限内组织设计、施工、监理等单位进行验收。\n经竣工验收发现质量问题的，乙方应在甲方要求的合理期限内完成整改并申请复验。\n工程经验收合格后，双方办理工程移交手续。\n甲方无正当理由长期拖延组织验收的，双方应根据工程实际完成情况协商确定验收及结算事项。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0020",
+            "location": "第十六条 竣工结算",
+            "text": "第十六条 竣工结算\n工程竣工验收合格后30日内，乙方应向甲方提交完整的竣工结算资料。\n甲方有权委托第三方造价咨询机构进行审核。\n双方应就审定工程量、综合单价、工程变更、现场签证及其他结算事项进行核对。\n对无争议的结算金额，甲方不得以部分结算事项存在争议为由拒绝支付全部工程款。\n双方无法就争议部分形成一致意见的，可按照本合同争议解决条款处理。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0021",
+            "location": "第十七条 工程质量保修",
+            "text": "第十七条 工程质量保修\n乙方依法承担工程质量保修责任。\n工程质量保修期限按照国家有关规定及双方签署的《工程质量保修书》执行。\n保修期从工程竣工验收合格之日起计算。\n保修期内发生属于乙方施工质量责任的缺陷，乙方应在接到甲方通知后及时维修。\n对影响结构安全、消防安全或者正常使用的紧急问题，乙方应在接到通知后24小时内到场处理。\n乙方无正当理由未及时履行保修义务的，甲方可以委托第三方维修，由此产生的合理费用可以从质量保证金或者其他应付乙方款项中扣除。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0022",
+            "location": "第十八条 工期违约责任",
+            "text": "第十八条 工期违约责任\n因乙方原因造成工程实际竣工日期迟于合同约定竣工日期的，每逾期一日，乙方按照合同暂定总价的0.03%向甲方支付违约金。\n工期违约金累计最高不超过合同最终结算价款的5%。\n因乙方严重延误工期导致合同目的无法实现的，甲方有权依法解除合同，并要求乙方承担相应损失。\n因甲方原因造成工期延误的，乙方有权申请工期顺延；因此产生的合理停工、窝工等损失，经双方核实后由责任方承担。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0023",
+            "location": "第十九条 工程质量违约责任",
+            "text": "第十九条 工程质量违约责任\n工程未达到约定质量标准的，乙方应负责整改。\n经整改仍无法达到法律规定或者合同约定的基本质量要求，并导致合同目的无法实现的，甲方有权依法解除合同。\n因施工质量问题给甲方造成损失的，乙方应按照其责任范围承担赔偿责任。\n甲方不得仅以存在轻微且不影响正常使用的质量瑕疵为由拒绝支付全部工程价款。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0024",
+            "location": "第二十条 工程款逾期责任",
+            "text": "第二十条 工程款逾期责任\n甲方应按照合同约定支付工程款。\n对已经确认且不存在争议的应付款项，甲方逾期超过15日仍未支付的，乙方有权书面催告。\n催告后甲方仍未在合理期限内付款的，乙方可以依法主张逾期付款损失。\n甲方长期严重拖欠工程款，致使乙方无法继续施工的，乙方有权依法暂停施工或者解除合同，但应提前向甲方发出书面通知。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0025",
+            "location": "第二十一条 合同解除",
+            "text": "第二十一条 合同解除\n出现下列情形之一的，守约方可以依法解除合同：\n一方明确表示或者以行为表明不履行主要合同义务；\n乙方存在违法转包、违法分包行为，且经要求仍未纠正；\n乙方无正当理由长期停工，严重影响合同目的实现；\n甲方长期拖欠到期工程款，经乙方合理催告后仍拒不支付；\n因不可抗力导致合同目的无法实现；\n法律规定或者双方约定的其他解除情形。\n合同解除后，双方应对已完工程进行现场确认，并依法办理工程价款结算、材料设备处理和现场移交。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0026",
+            "location": "第二十二条 不可抗力",
+            "text": "第二十二条 不可抗力\n因地震、洪水、台风、重大公共卫生事件、战争、政府依法采取的紧急措施以及其他不能预见、不能避免且不能克服的事件导致合同无法正常履行的，受影响一方应及时通知另一方。\n受影响一方应采取合理措施减少损失扩大。\n双方根据不可抗力实际影响程度协商确定工期顺延、费用承担及后续履行方案。\n一方迟延履行后发生不可抗力的，不免除其迟延履行期间依法应承担的责任。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0027",
+            "location": "第二十三条 保险",
+            "text": "第二十三条 保险\n乙方应依法办理施工人员工伤保险及依法应由施工单位办理的其他保险。\n施工机械、设备以及乙方自有财产的保险由乙方自行负责。\n双方另行约定购买建筑工程一切险的，具体投保人、保险金额及保费承担方式以保险方案为准。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0028",
+            "location": "第二十四条 保密义务",
+            "text": "第二十四条 保密义务\n双方对在履行本合同过程中获悉的对方商业秘密、技术资料、工程预算数据及未公开经营信息承担保密义务，但依法应当披露或者已经公开的信息除外。\n未经信息权利人书面同意，任何一方不得将相关保密信息用于本工程以外的目的。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0029",
+            "location": "第二十五条 文件送达",
+            "text": "第二十五条 文件送达\n双方在本合同首页记载的地址、联系人及联系方式作为合同履行期间的有效送达信息。\n一方联系方式发生变化的，应在5个工作日内书面通知另一方。\n因未及时通知导致有关文件无法送达的，由未通知方承担相应不利后果。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0030",
+            "location": "第二十六条 争议解决",
+            "text": "第二十六条 争议解决\n因本合同订立、履行、结算、解除产生争议的，双方应首先协商解决。\n协商不成的，任何一方均可向工程所在地有管辖权的人民法院提起诉讼。\n争议处理期间，除争议事项或者确实无法继续履行的事项外，双方应继续履行其他无争议部分。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0031",
+            "location": "第二十七条 合同文件组成及解释顺序",
+            "text": "第二十七条 合同文件组成及解释顺序\n构成本合同的文件包括：\n本合同协议书及补充协议；\n中标通知书或者双方确认的承包确认文件；\n合同专用条款；\n工程量清单；\n经确认的施工图纸；\n技术标准及要求；\n经双方确认的工程变更、现场签证及会议纪要；\n其他构成合同组成部分的书面文件。\n文件内容存在冲突时，原则上按照形成时间、文件性质及双方明确约定综合确定；双方另有书面约定的，从其约定。",
+            "section_type": "正式合同条款"
+          },
+          {
+            "clause_id": "C0032",
+            "location": "第二十八条 合同生效及其他",
+            "text": "第二十八条 合同生效及其他\n本合同自双方法定代表人或授权代表签字并加盖公章之日起生效。\n本合同未尽事项，由双方另行签订书面补充协议。\n补充协议与本合同具有同等法律效力。\n本合同一式陆份，甲方执叁份，乙方执叁份，具有同等法律效力。\n双方确认，本合同所填写的公司名称、项目名称、金额、人员及联系方式均作为合同约定内容使用。\n甲方：杭州华新智能装备有限公司\n（盖章）\n法定代表人/授权代表：_______________\n签署日期：2026年9月10日\n乙方：浙江恒筑建设工程有限公司\n（盖章）\n法定代表人/授权代表：_______________\n签署日期：2026年9月10日",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "top_k_candidates": [
+          {
+            "clause_id": "C0008",
+            "location": "第四条合同价款",
+            "title": "合同价款",
+            "text": "第四条合同价款\n本合同暂定含税总价为人民币：\n￥48,600,000.00元\n大写：人民币肆仟捌佰陆拾万元整。",
+            "quote": "第四条合同价款\n本合同暂定含税总价为人民币：\n￥48,600,000.00元\n大写：人民币肆仟捌佰陆拾万元整。",
+            "original_excerpt": "第四条合同价款\n本合同暂定含税总价为人民币：\n￥48,600,000.00元\n大写：人民币肆仟捌佰陆拾万元整。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第四条合同价款"
+            ],
+            "source_start": 0,
+            "source_end": 55,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": true,
+            "score": 1.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [
+              "本合同暂定含税总价为人民币：\\s+￥48,600,000\\.00元"
+            ],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "FOUND"
+          },
+          {
+            "clause_id": "C0001",
+            "location": "全文",
+            "title": "全文",
+            "text": "建设工程施工合同\n合同编号：HX-JS-2026-0910\n发包人（甲方）：杭州华新智能装备有限公司\n统一社会信用代码：91330110MA8X7K215R\n住所：浙江省杭州市余杭区启航路168号\n法定代表人：周明远\n联系人：陈志鹏\n联系电话：1384721\n承包人（乙方）：浙江恒筑建设工程有限公司\n统一社会信用代码：91330000MA2K9F681N\n住所：浙江省杭州市拱墅区祥园路88号\n法定代表人：沈国强\n联系人：刘浩然\n联系电话：1376158\n根据《中华人民共和国民法典》《中华人民共和国建筑法》及其他有关法律法规，甲乙双方遵循平等、自愿、公平和诚实信用原则，就甲方研发制造中心二期建设工程施工事项协商一致，订立本合同。",
+            "quote": "建设工程施工合同\n合同编号：HX-JS-2026-0910\n发包人（甲方）：杭州华新智能装备有限公司\n统一社会信用代码：91330110MA8X7K215R\n住所：浙江省杭州市余杭区启航路168号\n法定代表人：周明远\n联系人：陈志鹏\n联系电话：1384721\n承包人（乙方）：浙江恒筑建设工程有限公司\n统一社会信用代码：91330000MA2K9F681N\n住所：浙江省杭州市拱墅区祥园路88号\n法定代表人：沈国强\n联系人：刘浩然\n联系电话：1376158\n根据《中华人民共和国民法典》《中华人民共和国建筑法》及其他有关法律法规，甲乙双方遵循平等、自愿、公平和诚实信用原则，就甲方研发制造中心二期建设工程施工事项协商一致，订立本合同。",
+            "original_excerpt": "建设工程施工合同\n合同编号：HX-JS-2026-0910\n发包人（甲方）：杭州华新智能装备有限公司\n统一社会信用代码：91330110MA8X7K215R\n住所：浙江省杭州市余杭区启航路168号\n法定代表人：周明远\n联系人：陈志鹏\n联系电话：1384721\n承包人（乙方）：浙江恒筑建设工程有限公司\n统一社会信用代码：91330000MA2K9F681N\n住所：浙江省杭州市拱墅区祥园路88号\n法定代表人：沈国强\n联系人：刘浩然\n联系电话：1376158\n根据《中华人民共和国民法典》《中华人民共和国建筑法》及其他有关法律法规，甲乙双方遵循平等、自愿、公平和诚实信用原则，就甲方研发制造中心二期建设工程施工事项协商一致，订立本合同。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "全文"
+            ],
+            "source_start": 0,
+            "source_end": 317,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0002",
+            "location": "第一条 工程概况",
+            "title": "工程概况",
+            "text": "第一条 工程概况\n工程名称：华新智能装备研发制造中心二期建设工程。",
+            "quote": "第一条 工程概况\n工程名称：华新智能装备研发制造中心二期建设工程。",
+            "original_excerpt": "第一条 工程概况\n工程名称：华新智能装备研发制造中心二期建设工程。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第一条 工程概况"
+            ],
+            "source_start": 0,
+            "source_end": 33,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0002",
+            "location": "第一条 工程概况",
+            "title": "工程概况",
+            "text": "工程地点：浙江省杭州市余杭区启航路168号厂区东侧。",
+            "quote": "工程地点：浙江省杭州市余杭区启航路168号厂区东侧。",
+            "original_excerpt": "工程地点：浙江省杭州市余杭区启航路168号厂区东侧。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第一条 工程概况"
+            ],
+            "source_start": 33,
+            "source_end": 60,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0002",
+            "location": "第一条 工程概况",
+            "title": "工程概况",
+            "text": "工程内容：新建一栋研发生产综合楼及配套附属设施，其中地上六层、地下一层，总建筑面积约18,600平方米。",
+            "quote": "工程内容：新建一栋研发生产综合楼及配套附属设施，其中地上六层、地下一层，总建筑面积约18,600平方米。",
+            "original_excerpt": "工程内容：新建一栋研发生产综合楼及配套附属设施，其中地上六层、地下一层，总建筑面积约18,600平方米。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第一条 工程概况"
+            ],
+            "source_start": 60,
+            "source_end": 113,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0002",
+            "location": "第一条 工程概况",
+            "title": "工程概况",
+            "text": "主要施工内容包括：\n（1）土建主体工程；\n（2）基础及地下室工程；\n（3）给排水、电气、消防及通风工程；\n（4）建筑外立面及屋面工程；\n（5）室内公共区域基础装修；\n（6）室外道路、雨污水管网及绿化恢复工程；\n（7）施工图纸及工程量清单载明的其他工程。",
+            "quote": "主要施工内容包括：\n（1）土建主体工程；\n（2）基础及地下室工程；\n（3）给排水、电气、消防及通风工程；\n（4）建筑外立面及屋面工程；\n（5）室内公共区域基础装修；\n（6）室外道路、雨污水管网及绿化恢复工程；\n（7）施工图纸及工程量清单载明的其他工程。",
+            "original_excerpt": "主要施工内容包括：\n（1）土建主体工程；\n（2）基础及地下室工程；\n（3）给排水、电气、消防及通风工程；\n（4）建筑外立面及屋面工程；\n（5）室内公共区域基础装修；\n（6）室外道路、雨污水管网及绿化恢复工程；\n（7）施工图纸及工程量清单载明的其他工程。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第一条 工程概况"
+            ],
+            "source_start": 113,
+            "source_end": 240,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0002",
+            "location": "第一条 工程概况",
+            "title": "工程概况",
+            "text": "本工程资金来源：甲方自筹资金。",
+            "quote": "本工程资金来源：甲方自筹资金。",
+            "original_excerpt": "本工程资金来源：甲方自筹资金。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第一条 工程概况"
+            ],
+            "source_start": 240,
+            "source_end": 256,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0003",
+            "location": "第二条 承包方式及承包范围",
+            "title": "承包方式及承包范围",
+            "text": "第二条 承包方式及承包范围\n本工程采用施工总承包方式。",
+            "quote": "第二条 承包方式及承包范围\n本工程采用施工总承包方式。",
+            "original_excerpt": "第二条 承包方式及承包范围\n本工程采用施工总承包方式。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第二条 承包方式及承包范围"
+            ],
+            "source_start": 0,
+            "source_end": 27,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0003",
+            "location": "第二条 承包方式及承包范围",
+            "title": "承包方式及承包范围",
+            "text": "乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。",
+            "quote": "乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。",
+            "original_excerpt": "乙方按照经确认的施工图纸、工程量清单、设计变更、技术要求及甲方书面指令完成约定范围内的施工工作。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第二条 承包方式及承包范围"
+            ],
+            "source_start": 27,
+            "source_end": 76,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0003",
+            "location": "第二条 承包方式及承包范围",
+            "title": "承包方式及承包范围",
+            "text": "电梯设备采购、生产设备安装、专业实验室装修及弱电智能化系统由甲方另行采购或发包，不属于本合同承包范围。",
+            "quote": "电梯设备采购、生产设备安装、专业实验室装修及弱电智能化系统由甲方另行采购或发包，不属于本合同承包范围。",
+            "original_excerpt": "电梯设备采购、生产设备安装、专业实验室装修及弱电智能化系统由甲方另行采购或发包，不属于本合同承包范围。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第二条 承包方式及承包范围"
+            ],
+            "source_start": 76,
+            "source_end": 128,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0003",
+            "location": "第二条 承包方式及承包范围",
+            "title": "承包方式及承包范围",
+            "text": "未经甲方书面同意，乙方不得将本工程主体结构施工转包或违法分包给第三方。",
+            "quote": "未经甲方书面同意，乙方不得将本工程主体结构施工转包或违法分包给第三方。",
+            "original_excerpt": "未经甲方书面同意，乙方不得将本工程主体结构施工转包或违法分包给第三方。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第二条 承包方式及承包范围"
+            ],
+            "source_start": 128,
+            "source_end": 164,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0003",
+            "location": "第二条 承包方式及承包范围",
+            "title": "承包方式及承包范围",
+            "text": "经甲方书面同意的专业分包，不免除乙方作为总承包人应承担的管理、质量、安全及工期责任。",
+            "quote": "经甲方书面同意的专业分包，不免除乙方作为总承包人应承担的管理、质量、安全及工期责任。",
+            "original_excerpt": "经甲方书面同意的专业分包，不免除乙方作为总承包人应承担的管理、质量、安全及工期责任。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第二条 承包方式及承包范围"
+            ],
+            "source_start": 164,
+            "source_end": 207,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0004",
+            "location": "第三条 合同工期",
+            "title": "合同工期",
+            "text": "第三条 合同工期\n计划开工日期：2026年10月15日。",
+            "quote": "第三条 合同工期\n计划开工日期：2026年10月15日。",
+            "original_excerpt": "第三条 合同工期\n计划开工日期：2026年10月15日。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第三条 合同工期"
+            ],
+            "source_start": 0,
+            "source_end": 28,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0004",
+            "location": "第三条 合同工期",
+            "title": "合同工期",
+            "text": "计划竣工日期：2027年10月9日。",
+            "quote": "计划竣工日期：2027年10月9日。",
+            "original_excerpt": "计划竣工日期：2027年10月9日。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第三条 合同工期"
+            ],
+            "source_start": 28,
+            "source_end": 47,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0004",
+            "location": "第三条 合同工期",
+            "title": "合同工期",
+            "text": "合同总工期：360日历天。",
+            "quote": "合同总工期：360日历天。",
+            "original_excerpt": "合同总工期：360日历天。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第三条 合同工期"
+            ],
+            "source_start": 47,
+            "source_end": 61,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0004",
+            "location": "第三条 合同工期",
+            "title": "合同工期",
+            "text": "实际开工日期以甲方或监理单位签发的开工通知载明日期为准。",
+            "quote": "实际开工日期以甲方或监理单位签发的开工通知载明日期为准。",
+            "original_excerpt": "实际开工日期以甲方或监理单位签发的开工通知载明日期为准。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第三条 合同工期"
+            ],
+            "source_start": 61,
+            "source_end": 90,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0004",
+            "location": "第三条 合同工期",
+            "title": "合同工期",
+            "text": "因下列原因造成关键线路工期延误的，乙方有权申请相应顺延：\n（1）甲方未按约定提供施工场地；\n（2）甲方未按期提供经审查合格的施工图纸；\n（3）甲方重大设计变更导致工程量明显增加；",
+            "quote": "因下列原因造成关键线路工期延误的，乙方有权申请相应顺延：\n（1）甲方未按约定提供施工场地；\n（2）甲方未按期提供经审查合格的施工图纸；\n（3）甲方重大设计变更导致工程量明显增加；",
+            "original_excerpt": "因下列原因造成关键线路工期延误的，乙方有权申请相应顺延：\n（1）甲方未按约定提供施工场地；\n（2）甲方未按期提供经审查合格的施工图纸；\n（3）甲方重大设计变更导致工程量明显增加；",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第三条 合同工期"
+            ],
+            "source_start": 90,
+            "source_end": 180,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0005",
+            "location": "第三条（4）",
+            "title": "（4）连续停水、停电超过24小时且非乙方原因造成；",
+            "text": "（4）连续停水、停电超过24小时且非乙方原因造成；",
+            "quote": "（4）连续停水、停电超过24小时且非乙方原因造成；",
+            "original_excerpt": "（4）连续停水、停电超过24小时且非乙方原因造成；",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第三条 合同工期",
+              "（4）连续停水、停电超过24小时且非乙方原因造成；"
+            ],
+            "source_start": 0,
+            "source_end": 25,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0006",
+            "location": "第三条（5）",
+            "title": "（5）不可抗力；",
+            "text": "（5）不可抗力；",
+            "quote": "（5）不可抗力；",
+            "original_excerpt": "（5）不可抗力；",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第三条 合同工期",
+              "（5）不可抗力；"
+            ],
+            "source_start": 0,
+            "source_end": 8,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          },
+          {
+            "clause_id": "C0007",
+            "location": "第三条（6）",
+            "title": "（6）法律法规规定或者双方书面确认的其他情形。",
+            "text": "（6）法律法规规定或者双方书面确认的其他情形。",
+            "quote": "（6）法律法规规定或者双方书面确认的其他情形。",
+            "original_excerpt": "（6）法律法规规定或者双方书面确认的其他情形。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第三条 合同工期",
+              "（6）法律法规规定或者双方书面确认的其他情形。"
+            ],
+            "source_start": 0,
+            "source_end": 23,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "accepted": false,
+            "score": 0.0,
+            "threshold": "ALL_REQUIRED_RELATIONS",
+            "relation_slots": [],
+            "matched_patterns": [],
+            "rejected_patterns": [],
+            "decision_function": "review_v2.lease_semantics.supports",
+            "result": "NOT_FOUND"
+          }
+        ],
+        "candidate_count": 135,
+        "stage_results": {
+          "normalize": "CANONICAL_CANDIDATE",
+          "threshold": "PASS"
+        },
+        "searched_document_hash": "a24d39352f7deac9c33dc0a674aa9c20f9b08c71360d768fcf360bd96a81e9ad",
+        "result": "FOUND",
+        "supporting_evidence": [
+          {
+            "clause_id": "C0008",
+            "location": "第四条合同价款",
+            "title": "合同价款",
+            "text": "第四条合同价款\n本合同暂定含税总价为人民币：\n￥48,600,000.00元\n大写：人民币肆仟捌佰陆拾万元整。",
+            "quote": "第四条合同价款\n本合同暂定含税总价为人民币：\n￥48,600,000.00元\n大写：人民币肆仟捌佰陆拾万元整。",
+            "original_excerpt": "第四条合同价款\n本合同暂定含税总价为人民币：\n￥48,600,000.00元\n大写：人民币肆仟捌佰陆拾万元整。",
+            "section_type": "正式合同条款",
+            "heading_path": [
+              "第四条合同价款"
+            ],
+            "source_start": 0,
+            "source_end": 55,
+            "supports_element_ids": [
+              "common_penalty_base_determinability_definition"
+            ],
+            "source_type": "CONTRACT_TEXT",
+            "entailment_score": 100,
+            "selection_reason": "DIRECT_OPERATIVE_WITH_VALUE"
+          }
+        ]
+      }
+    ],
+    "retrieval": {},
+    "semantic_requirements": [
+      {
+        "element_id": "common_penalty_base_determinability_ratio",
+        "proposition": "违约金计算公式及对应基数约定",
+        "semantic_patterns": [
+          "乙方按照合同暂定总价的0\\.03%向甲方支付违约金"
+        ]
+      },
+      {
+        "element_id": "common_penalty_base_determinability_definition",
+        "proposition": "计算基数有金额或可验证动态计算方法",
+        "semantic_patterns": [
+          "本合同暂定含税总价为人民币：\\s+￥48,600,000\\.00元"
+        ]
+      }
+    ]
+  }
+]

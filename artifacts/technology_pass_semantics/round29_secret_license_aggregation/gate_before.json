@@ -1,0 +1,4106 @@
+{
+  "licensor": {
+    "gate": {
+      "status": "BLOCKED",
+      "failures": [
+        {
+          "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+          "failure_stage": "Technology Coverage Consistency",
+          "root_cause": "TC-03-04 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+          "entity_type": "review",
+          "entity_id": "TC-03-04",
+          "source_clause_ids": [
+            "C0021",
+            "C0022"
+          ],
+          "severity": "blocking"
+        },
+        {
+          "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+          "failure_stage": "Technology Coverage Consistency",
+          "root_cause": "TC-13-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+          "entity_type": "review",
+          "entity_id": "TC-13-02",
+          "source_clause_ids": [
+            "C0021",
+            "C0022"
+          ],
+          "severity": "blocking"
+        },
+        {
+          "requirement": "POSITIVE_FACT_MONOTONICITY",
+          "root_cause": "TC-03-04",
+          "element_id": "existing_confidentiality_measures",
+          "final_element_status": "COVERED",
+          "bound_evidence_ids": [
+            "SRC-ec00d4fd0fd68b57b33d"
+          ],
+          "search_audit": null,
+          "current_status": "FAIL"
+        },
+        {
+          "requirement": "POSITIVE_FACT_MONOTONICITY",
+          "root_cause": "TC-13-02",
+          "element_id": "existing_confidentiality_measures",
+          "final_element_status": "COVERED",
+          "bound_evidence_ids": [
+            "SRC-ec00d4fd0fd68b57b33d"
+          ],
+          "search_audit": null,
+          "current_status": "FAIL"
+        },
+        {
+          "requirement": "CANONICAL_RISK_COVERAGE_INVARIANT",
+          "field": "linked_review_state",
+          "conflicts": [
+            {
+              "review_id": "TC-03-04",
+              "risk_id": "RF-001",
+              "expected_issue_type": "PARTIAL",
+              "actual_issue_type": "完全缺失",
+              "expected_coverage_status": "部分覆盖",
+              "actual_coverage_status": "缺失"
+            },
+            {
+              "review_id": "TC-13-02",
+              "risk_id": "RF-001",
+              "expected_issue_type": "PARTIAL",
+              "actual_issue_type": "完全缺失",
+              "expected_coverage_status": "部分覆盖",
+              "actual_coverage_status": "缺失"
+            }
+          ]
+        }
+      ],
+      "priority_consistency_verification": {
+        "executed": true,
+        "high_finding_count": 1,
+        "core_priority_count": 1,
+        "consistency": "CONSISTENT",
+        "explanations": [],
+        "needs_recalibration": false
+      },
+      "context_consistency": {
+        "status": "PASS",
+        "failures": [],
+        "contract_type": "technology",
+        "domain_pack": "domain-pack-technology-1.0"
+      },
+      "gate_results": {
+        "PASS_EVIDENCE_PROVENANCE_GATE": "PASS",
+        "PARTIAL_ELEMENT_NARRATIVE_GATE": "PASS",
+        "COVERAGE_SENTENCE_CONSISTENCY_GATE": "PASS",
+        "ELEMENT_STATUS_CONTRADICTION": "PASS",
+        "EVIDENCE_MONOTONICITY_VIOLATION": "PASS",
+        "FINDING_EVIDENCE_GATE": "PASS",
+        "CROSS_LAYER_CONSISTENCY_GATE": "PASS",
+        "DEFAULT_LAW_COMPLETENESS_GATE": "PASS",
+        "DEFAULT_LAW_EFFECTIVE_GAP_GATE": "PASS",
+        "NARRATIVE_ELEMENT_CONSISTENCY_GATE": "PASS",
+        "NARRATIVE_TRUTH_GATE": "PASS",
+        "PRIORITY_CONSISTENCY_GATE": "PASS",
+        "SIGNABILITY_GATE": "PASS",
+        "CONFIDENCE_VALIDATION_GATE": "PASS",
+        "DOMAIN_SUBTYPE_GATE": "PASS",
+        "DOMAIN_REVIEW_ISOLATION_GATE": "PASS",
+        "DOMAIN_MATERIAL_COVERAGE_GATE": "PASS",
+        "TRANSACTION_STRUCTURE_GATE": "PASS",
+        "FRAMEWORK_DOMAIN_GATE": "PASS",
+        "ORDER_RELATION_GATE": "PASS",
+        "DYNAMIC_QUANTITY_GATE": "PASS",
+        "PRICE_MECHANISM_GATE": "PASS",
+        "ALTERNATIVE_SATISFACTION_GATE": "PASS",
+        "FALSE_RISK_EXISTENCE_GATE": "PASS",
+        "FACT_REGISTRY_SNAPSHOT_CONSISTENCY": "PASS",
+        "FACT_REGISTRY_CONFLICTING_FACT": "PASS",
+        "CROSS_REVIEW_FACT_CONFLICT": "PASS",
+        "FACT_TRUTH_OVERRIDE_VIOLATION": "PASS",
+        "FACT_CONSUMER_MAPPING_MISSING": "PASS",
+        "RISK_EVIDENCE_MISMATCH": "PASS",
+        "CANONICAL_PENALTY_BINDING": "PASS",
+        "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS",
+        "APPLICABILITY_PRECONDITION_GATE": "PASS",
+        "SHARED_CLAIM_CONSISTENCY_GATE": "PASS",
+        "FINDING_PRECONDITION_GATE": "PASS",
+        "REPORT_CONTEXT_GATE": "PASS",
+        "REPORT_TRANSACTION_TRUTH_GATE": "PASS",
+        "CROSS_REVIEW_CONSISTENCY_GATE": "PASS",
+        "RECOMMENDATION_NON_DEGRADATION_GATE": "PASS",
+        "COMMON_REVIEW_SATISFACTION_GATE": "PASS",
+        "ELEMENT_IDENTITY_CONTRADICTION_GATE": "PASS",
+        "PRODUCT_APPLICABILITY_GATE": "PASS",
+        "SHARED_CLAIM_REUSE_GATE": "PASS",
+        "FINDING_INDEPENDENCE_GATE": "PASS",
+        "TECHNOLOGY_TRANSACTION_CONSISTENCY": "FAIL",
+        "CLASSIFICATION_NARRATIVE_CONSISTENCY": "PASS",
+        "EVIDENCE_JUDGMENT_CONSISTENCY": "PASS",
+        "ATOMIC_ELEMENT_CONSISTENCY": "PASS",
+        "CROSS_RULE_EVIDENCE_CONSISTENCY": "FAIL",
+        "PARTY_DIRECTION_CONSISTENCY": "PASS",
+        "SUBTYPE_RENDERING_CONSISTENCY": "PASS",
+        "EVIDENCE_PROVENANCE_CONSISTENCY": "PASS",
+        "EMPTY_FIELD_CONSISTENCY": "PASS",
+        "REPORT_EVIDENCE_CONSISTENCY": "PASS",
+        "EVIDENCE_POLARITY_CONSISTENCY": "PASS",
+        "PERSPECTIVE_DOMAIN_CONSISTENCY_GATE": "PASS",
+        "PATENT_TRANSFER_QUALITY_GATE": "NOT_APPLICABLE",
+        "PRODUCTION_FACT_POLARITY_GATE": "PASS",
+        "ADVERSE_POLARITY_AUDIT_GATE": "PASS",
+        "RECOMMENDATION_SOURCE_UNMAPPED": "PASS",
+        "RECOMMENDATION_ELEMENT_LEAKAGE": "PASS",
+        "RECOMMENDATION_COVERED_ELEMENT_REINTRODUCED": "PASS",
+        "RECOMMENDATION_PLACEHOLDER_TEXT": "PASS",
+        "RECOMMENDATION_FINAL_DISPOSITION_MISMATCH": "PASS",
+        "CLIENT_INTEREST_GATE": "PASS",
+        "RISK_STATISTICS_INVARIANT": "PASS",
+        "FINAL_DISPOSITION_INVARIANT": "PASS",
+        "FORMAL_RECOMMENDATION_FINAL_DISPOSITION_INVARIANT": "PASS",
+        "RECOMMENDATION_OWNERSHIP_INVARIANT": "PASS",
+        "HIGH_NON_MUST_CHANGE_REASON_INVARIANT": "PASS",
+        "OPTIONAL_IMPROVEMENT_VISIBILITY_INVARIANT": "PASS",
+        "ACTIONABLE_RECOMMENDATION_COMPLETENESS_INVARIANT": "PASS",
+        "LEGAL_AUTHORITY_DEDUP_GATE": "PASS",
+        "LEGAL_AUTHORITY_SELECTION_GATE": "PASS",
+        "CITATION_ENTAILMENT_GATE": "PASS",
+        "LEGAL_DEFAULT_LAW_CONSISTENCY_GATE": "PASS",
+        "ATOMIC_LEGAL_ELEMENT_GATE": "PASS",
+        "DEFAULT_LAW_NARRATIVE_TRUTH_GATE": "PASS",
+        "NOT_APPLICABLE_NARRATIVE_GATE": "PASS",
+        "NOT_APPLICABLE_GAP_GATE": "PASS",
+        "REVIEW_POLARITY_NARRATIVE_GATE": "PASS",
+        "NEGATIVE_CHECK_PASS_GATE": "PASS",
+        "CROSS_REVIEW_SHARED_CLAIM_GATE": "PASS",
+        "NARRATIVE_EVIDENCE_GATE": "PASS",
+        "CANONICAL_SEMANTIC_PROOF_GATE": "PASS",
+        "VERIFIED_PASS_ORIGINAL_GATE": "PASS",
+        "REPORT_ELEMENT_EVIDENCE_POLLUTION": "PASS",
+        "EXACT_ELEMENT_REPORT_INVARIANT": "PASS",
+        "RISK_TITLE_EVIDENCE_CONSISTENCY": "PASS",
+        "COVERAGE_LEGALITY_CONSISTENCY": "PASS",
+        "REPORT_TOPIC_LABEL_CONSISTENCY": "PASS",
+        "PRODUCTION_INTERNAL_TOKEN_GATE": "PASS",
+        "DEFAULT_LAW_PROVENANCE_GATE": "PASS",
+        "RECOMMENDATION_SINGLE_SOURCE_GATE": "PASS",
+        "RECOMMENDATION_CROSS_RENDERER_CONSISTENCY_GATE": "PASS",
+        "REPORT_TEXT_VALIDATION": "PASS",
+        "REPORT_DISPOSITION_PROJECTION_INVARIANT": "PASS",
+        "EVIDENCE_BUNDLE_ENTAILMENT_GATE": "PASS",
+        "RECOMMENDATION_SEMANTIC_BINDING_GATE": "PASS",
+        "SUMMARY_DETAIL_RISK_ID_GATE": "PASS",
+        "ISSUE_TYPE_NARRATIVE_GATE": "PASS",
+        "OPTIONAL_REPORT_COUNT_GATE": "PASS",
+        "REPORT_ROLE_PLACEHOLDER_GATE": "PASS",
+        "ACTIONABLE_RECOMMENDATION_VISIBILITY_GATE": "PASS",
+        "CLAIM_EVIDENCE_COVERAGE_GATE": "PASS",
+        "EVIDENCE_FACT_ROLE_GATE": "PASS",
+        "SINGLE_EVIDENCE_SOURCE_GATE": "PASS",
+        "EVIDENCE_BUNDLE_RENDER_GATE": "PASS",
+        "APPLICABILITY_DISPLAY_CONSISTENCY_GATE": "PASS",
+        "ISSUE_TYPE_CONSISTENCY_GATE": "PASS",
+        "PARTIAL_MISSING_ELEMENT_GATE": "PASS",
+        "SUMMARY_TRUNCATION_DISCLOSURE_GATE": "PASS",
+        "TECHNICAL_REPORT_PLACEHOLDER_GATE": "PASS",
+        "FINAL_RISK_EVIDENCE_BUNDLE_GATE": "PASS",
+        "EVIDENCE_ITEM_UNIQUENESS_GATE": "PASS",
+        "CLAUSE_NODE_CONSISTENCY_GATE": "PASS",
+        "MISSING_RISK_ABSENCE_EVIDENCE_GATE": "PASS",
+        "COVERAGE_RISK_ACTION_CONSISTENCY_GATE": "PASS",
+        "PATENT_ROLE_TERMINOLOGY_GATE": "PASS",
+        "DUPLICATE_TEMPLATE_PHRASE_GATE": "PASS",
+        "EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+        "PASS_EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+        "CANONICAL_RISK_COVERAGE_INVARIANT": "FAIL",
+        "CONSULTING_REPORT_CONTEXT_GATE": "PASS",
+        "TERMINOLOGY_CONSISTENCY_GATE": "PASS",
+        "APPLICABILITY_AND_EVIDENCE_BOUNDARY": "PASS"
+      },
+      "blocking_rules": [
+        {
+          "code": "MISSING_WITH_POSITIVE_EVIDENCE",
+          "stage": "Technology Coverage Consistency",
+          "reason": "TC-03-04 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+          "entity_type": "review",
+          "entity_id": "TC-03-04",
+          "severity": "blocking"
+        },
+        {
+          "code": "MISSING_WITH_POSITIVE_EVIDENCE",
+          "stage": "Technology Coverage Consistency",
+          "reason": "TC-13-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+          "entity_type": "review",
+          "entity_id": "TC-13-02",
+          "severity": "blocking"
+        },
+        {
+          "code": "POSITIVE_FACT_MONOTONICITY",
+          "stage": "quality_gate",
+          "reason": "TC-03-04",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        },
+        {
+          "code": "POSITIVE_FACT_MONOTONICITY",
+          "stage": "quality_gate",
+          "reason": "TC-13-02",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        },
+        {
+          "code": "CANONICAL_RISK_COVERAGE_INVARIANT",
+          "stage": "quality_gate",
+          "reason": "Quality gate reported a blocking failure.",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        }
+      ],
+      "blocking_stage": "Technology Coverage Consistency",
+      "blocking_entities": [
+        {
+          "entity_type": "review",
+          "entity_id": "TC-03-04"
+        },
+        {
+          "entity_type": "review",
+          "entity_id": "TC-13-02"
+        },
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        },
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        },
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        }
+      ],
+      "blocking_reasons": [
+        "TC-03-04 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+        "TC-13-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+        "TC-03-04",
+        "TC-13-02",
+        "Quality gate reported a blocking failure."
+      ],
+      "post_render_status": "REPORT_READY"
+    },
+    "rules": [
+      {
+        "item_id": "TC-03-04",
+        "coverage_status": "缺失",
+        "issue_type": "完全缺失",
+        "coverage_elements": [
+          {
+            "review_id": "TC-03-04",
+            "element_id": "technical_secret_identity_and_delivery_scope",
+            "claim_id": "TC-03-04-technical_secret_identity_and_delivery_scope",
+            "proposition": "技术秘密的名称、技术边界、资料范围及交付内容可独立核验",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "技术秘密的名称、技术边界、资料范围及交付内容可独立核验",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "supporting_evidence": [],
+            "source_fact_key": "technical_secret_identity_and_delivery_scope"
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "technical_source",
+            "claim_id": "TC-03-04-technical_source",
+            "proposition": "技术秘密研发来源及形成过程的可核验材料",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "技术秘密研发来源及形成过程的可核验材料",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "技术秘密研发来源及形成过程的可核验材料",
+            "search_targets": [
+              "技术秘密研发来源及形成过程的可核验材料"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "lawful_possession_basis",
+            "claim_id": "TC-03-04-lawful_possession_basis",
+            "proposition": "合法持有技术秘密的权利依据材料",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "合法持有技术秘密的权利依据材料",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "合法持有技术秘密的权利依据材料",
+            "search_targets": [
+              "合法持有技术秘密的权利依据材料"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "disposition_authority",
+            "claim_id": "TC-03-04-disposition_authority",
+            "proposition": "处分或许可技术秘密权限的证明材料",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "处分或许可技术秘密权限的证明材料",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "处分或许可技术秘密权限的证明材料",
+            "search_targets": [
+              "处分或许可技术秘密权限的证明材料"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "historical_disclosure_objects",
+            "claim_id": "TC-03-04-historical_disclosure_objects",
+            "proposition": "完整的历史披露对象清单",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "完整的历史披露对象清单",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "完整的历史披露对象清单",
+            "search_targets": [
+              "完整的历史披露对象清单"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "historical_disclosure_scope",
+            "claim_id": "TC-03-04-historical_disclosure_scope",
+            "proposition": "历史披露的具体技术内容和范围",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "历史披露的具体技术内容和范围",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "历史披露的具体技术内容和范围",
+            "search_targets": [
+              "历史披露的具体技术内容和范围"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "third_party_confidentiality_obligations",
+            "claim_id": "TC-03-04-third_party_confidentiality_obligations",
+            "proposition": "历史披露对象承担保密义务的协议或承诺可供核验",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "历史披露对象承担保密义务的协议或承诺可供核验",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN"
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "existing_license_disclosure",
+            "claim_id": "TC-03-04-existing_license_disclosure",
+            "proposition": "既有许可情况披露",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "既有许可情况披露",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "既有许可情况披露",
+            "search_targets": [
+              "既有许可情况披露"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "existing_license_counterparty",
+            "claim_id": "TC-03-04-existing_license_counterparty",
+            "proposition": "既有许可的相对方",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "既有许可的相对方",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "既有许可的相对方",
+            "search_targets": [
+              "既有许可的相对方"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "existing_license_term",
+            "claim_id": "TC-03-04-existing_license_term",
+            "proposition": "既有许可期限",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "既有许可期限",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "既有许可期限",
+            "search_targets": [
+              "既有许可期限"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "existing_license_territory",
+            "claim_id": "TC-03-04-existing_license_territory",
+            "proposition": "既有许可地域",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "既有许可地域",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "既有许可地域",
+            "search_targets": [
+              "既有许可地域"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "test_use_arrangement",
+            "claim_id": "TC-03-04-test_use_arrangement",
+            "proposition": "测试使用安排披露",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "测试使用安排披露",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "测试使用安排披露",
+            "search_targets": [
+              "测试使用安排披露"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "other_third_party_use_arrangement",
+            "claim_id": "TC-03-04-other_third_party_use_arrangement",
+            "proposition": "其他第三方使用安排披露",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "其他第三方使用安排披露",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "其他第三方使用安排披露",
+            "search_targets": [
+              "其他第三方使用安排披露"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "current_secret_status",
+            "claim_id": "TC-03-04-current_secret_status",
+            "proposition": "合同对当前秘密状态作出陈述，但当前秘密性及既有披露影响的核验依据尚不完整。",
+            "status": "PARTIALLY_COVERED",
+            "evidence_ids": [
+              "SRC-6253a1ea34ca608c6307"
+            ],
+            "supporting_evidence_ids": [
+              "SRC-6253a1ea34ca608c6307"
+            ],
+            "source_clause_ids": [
+              "C0021"
+            ],
+            "source_spans": [
+              "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。"
+            ],
+            "source_locations": [
+              "第九条 保密义务"
+            ],
+            "entailment": "PARTIAL_SUPPORT",
+            "verifier_confidence": "high",
+            "reason": "合同对当前秘密状态作出陈述，但当前秘密性及既有披露影响的核验依据尚不完整。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "residual_gap": "当前秘密性及既有披露影响的核验依据",
+            "required_fact": "当前秘密性及既有披露影响的核验依据",
+            "search_targets": [
+              "当前秘密性及既有披露影响的核验依据"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "existing_confidentiality_measures",
+            "claim_id": "TC-03-04-existing_confidentiality_measures",
+            "proposition": "许可前已经采取的保密制度、访问控制或其他保密措施有可核验依据。",
+            "status": "COVERED",
+            "evidence_ids": [
+              "SRC-ec00d4fd0fd68b57b33d"
+            ],
+            "supporting_evidence_ids": [
+              "SRC-ec00d4fd0fd68b57b33d"
+            ],
+            "source_clause_ids": [
+              "C0022"
+            ],
+            "source_spans": [
+              "乙方应建立许可技术资料的访问权限控制。"
+            ],
+            "source_locations": [
+              "第十条 技术资料管理"
+            ],
+            "entailment": "SUPPORTS",
+            "verifier_confidence": "high",
+            "reason": "许可前已经采取的保密制度、访问控制或其他保密措施有可核验依据。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "EXPLICIT"
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "joint_holder_disclosure",
+            "claim_id": "TC-03-04-joint_holder_disclosure",
+            "proposition": "核验合同技术是否有共同持有人或共同研发方；如有，再核验权利证明及必要同意。",
+            "status": "CONDITION_UNRESOLVED",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "核验合同技术是否有共同持有人或共同研发方；如有，再核验权利证明及必要同意。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "risk_relevant": false,
+            "required_fact": "共同持有人及共同研发方的权利证明或同意文件",
+            "conditional_element": true,
+            "prerequisite_status": "UNKNOWN",
+            "prerequisite_fact": "(?:技术秘密|合同技术).{0,25}(?:共同持有|共同研发|共有)|(?:共同持有人|共同研发方|共有权人)(?:为|包括|：|:)",
+            "verification_instruction": "核验合同技术是否有共同持有人或共同研发方；如有，再核验权利证明及必要同意。"
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "staff_assignment",
+            "claim_id": "TC-03-04-staff_assignment",
+            "proposition": "核验合同技术是否涉及员工或职务成果；如涉及，再核验成果归属和归集材料。",
+            "status": "CONDITION_UNRESOLVED",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "核验合同技术是否涉及员工或职务成果；如涉及，再核验成果归属和归集材料。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "risk_relevant": false,
+            "required_fact": "员工职务成果归属及成果归集材料",
+            "conditional_element": true,
+            "prerequisite_status": "UNKNOWN",
+            "prerequisite_fact": "(?:员工|研发人员|职工).{0,15}(?:研发形成|开发形成|完成的技术|职务成果)|职务(?:发明|技术成果)",
+            "verification_instruction": "核验合同技术是否涉及员工或职务成果；如涉及，再核验成果归属和归集材料。"
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "open_source_compliance",
+            "claim_id": "TC-03-04-open_source_compliance",
+            "proposition": "核验交付技术是否包含开源组件；如包含，再核验组件清单及对应许可证。",
+            "status": "CONDITION_UNRESOLVED",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "核验交付技术是否包含开源组件；如包含，再核验组件清单及对应许可证。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "risk_relevant": false,
+            "required_fact": "开源组件及对应许可证材料",
+            "conditional_element": true,
+            "prerequisite_status": "UNKNOWN",
+            "prerequisite_fact": "(?:含有|包含|使用|采用|集成|引入|涉及).{0,12}开源(?:组件|代码|软件)|开源组件(?:包括|为|：|:)",
+            "verification_instruction": "核验交付技术是否包含开源组件；如包含，再核验组件清单及对应许可证。"
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "software_copyright_proof",
+            "claim_id": "TC-03-04-software_copyright_proof",
+            "proposition": "核验是否以已登记软件著作权作为权利来源；如是，再核验相应登记及权属材料。",
+            "status": "CONDITION_UNRESOLVED",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "核验是否以已登记软件著作权作为权利来源；如是，再核验相应登记及权属材料。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "risk_relevant": false,
+            "required_fact": "软件著作权登记或权属证明材料",
+            "conditional_element": true,
+            "prerequisite_status": "UNKNOWN",
+            "prerequisite_fact": "(?:已取得|已办理|已登记|拥有).{0,12}软件著作权|软件著作权登记号",
+            "verification_instruction": "核验是否以已登记软件著作权作为权利来源；如是，再核验相应登记及权属材料。"
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "third_party_code_authorization",
+            "claim_id": "TC-03-04-third_party_code_authorization",
+            "proposition": "核验交付技术是否使用第三方代码或软件；如使用，再核验来源及授权链。",
+            "status": "CONDITION_UNRESOLVED",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "核验交付技术是否使用第三方代码或软件；如使用，再核验来源及授权链。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "risk_relevant": false,
+            "required_fact": "第三方代码来源及授权证明材料",
+            "conditional_element": true,
+            "prerequisite_status": "UNKNOWN",
+            "prerequisite_fact": "(?:包含|使用|采用|集成|引入|涉及).{0,12}第三方(?:代码|软件)|第三方代码(?:来自|来源|为|：|:)",
+            "verification_instruction": "核验交付技术是否使用第三方代码或软件；如使用，再核验来源及授权链。"
+          }
+        ],
+        "evidence_clauses": [
+          {
+            "clause_id": "C0021",
+            "location": "第九条 保密义务",
+            "title": "保密义务",
+            "text": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "section_type": "正式合同条款",
+            "level": 1,
+            "raw_text": "第九条 保密义务\n乙方应对从甲方获得的技术秘密采取不低于保护自身同类重要技术资料的保密措施。\n未经甲方书面许可，乙方不得向与本项目无关的第三方披露相关技术资料。\n乙方应控制接触许可技术的人员范围，并要求相关员工承担相应保密责任。\n下列信息不受本条限制：\n（1）接收时已合法公开的信息；\n（2）非因乙方违反本合同而进入公共领域的信息；\n（3）乙方能够证明在接收前已经合法掌握的信息；\n（4）乙方从有权披露的第三方合法取得的信息。\n因法院、行政机关或其他有权机关依法要求必须披露相关信息的，乙方可在必要范围内进行披露。\n本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "normalized_text": "第九条保密义务乙方应对从甲方获得的技术秘密采取不低于保护自身同类重要技术资料的保密措施。未经甲方书面许可，乙方不得向与本项目无关的第三方披露相关技术资料。乙方应控制接触许可技术的人员范围，并要求相关员工承担相应保密责任。下列信息不受本条限制：（1）接收时已合法公开的信息；（2）非因乙方违反本合同而进入公共领域的信息；（3）乙方能够证明在接收前已经合法掌握的信息；（4）乙方从有权披露的第三方合法取得的信息。因法院、行政机关或其他有权机关依法要求必须披露相关信息的，乙方可在必要范围内进行披露。本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "option_groups": [],
+            "source": "body",
+            "section_path": [
+              "正式合同条款",
+              "第九条 保密义务"
+            ],
+            "heading": "保密义务",
+            "clause_number": "第九条",
+            "paragraph_index": 20,
+            "block_type": "OPERATIVE_CLAUSE",
+            "parties": [
+              "乙方",
+              "甲方"
+            ],
+            "dates": [],
+            "amounts": [],
+            "percentages": [],
+            "durations": [],
+            "cross_references": [
+              "第九条"
+            ],
+            "node_id": "C0021",
+            "document_id": "contract_package/main",
+            "heading_path": [
+              "第九条 保密义务"
+            ],
+            "article_number": "第九条",
+            "section_number": "",
+            "item_number": "",
+            "sentence_index": 1,
+            "start_offset": 1739,
+            "end_offset": 2025,
+            "source_type": "BODY",
+            "party_obligation": true,
+            "document_type": "MAIN_CONTRACT",
+            "source_document_type": "MAIN_CONTRACT",
+            "evidence_block_type": "OPERATIVE_CLAUSE",
+            "document_name": "合同正文",
+            "section": "第九条 保密义务",
+            "quote": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "confidence": "high",
+            "evidence_type": "CONTRACT_TEXT",
+            "source_span": {
+              "start_offset": 1997,
+              "end_offset": 2025,
+              "raw_text": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+              "coordinate_system": "DOCUMENT_TEXT"
+            },
+            "source_start": 1997,
+            "source_end": 2025,
+            "source_document": "contract_package/main",
+            "original_document_reference": "contract_package/main",
+            "derived_or_original": "ORIGINAL",
+            "evidence_source": {
+              "document_id": "contract_package/main",
+              "document_type": "MAIN_CONTRACT",
+              "document_name": "合同正文",
+              "clause_id": "C0021",
+              "section": "第九条 保密义务",
+              "sentence_index": 1,
+              "quote": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+              "confidence": "high",
+              "evidence_block_type": "OPERATIVE_CLAUSE",
+              "evidence_type": "CONTRACT_TEXT",
+              "source_span": {
+                "start_offset": 1997,
+                "end_offset": 2025,
+                "raw_text": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+                "coordinate_system": "DOCUMENT_TEXT"
+              },
+              "derived_or_original": "ORIGINAL",
+              "source_ref": {
+                "document_id": "contract_package/main",
+                "clause_id": "C0021",
+                "clause_sha256": "4f8900dfef9f1b5f3becda01bb0eed9e55060ceb1ff404a3af456fcbe5be2137",
+                "local_start": 258,
+                "local_end": 286,
+                "locator": "第九条 保密义务"
+              },
+              "verified_original": true
+            },
+            "source_text_hash": "de6d097637539e350ee1ef39deee29824855e2cb70b72d2a9f4c1d77f0204222",
+            "source_full_path": [
+              "第九条 保密义务"
+            ],
+            "source_identity": {
+              "document_id": "contract_package/main",
+              "section_id": "正式合同条款",
+              "parent_clause_id": "第九条",
+              "clause_id": "C0021",
+              "document_offset": 1739,
+              "source_text_hash": "de6d097637539e350ee1ef39deee29824855e2cb70b72d2a9f4c1d77f0204222"
+            },
+            "entailment_status": "PARTIAL_SUPPORT",
+            "semantic_score": 1.0,
+            "matched_terms": [
+              "尚未公开"
+            ],
+            "support_type": "DIRECT",
+            "selection_reason": "Specialized proposition matching selected this operative clause.",
+            "original_excerpt": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "evidence_id": "SRC-6253a1ea34ca608c6307",
+            "supporting_element_ids": [
+              "current_secret_status"
+            ],
+            "element_ids": [
+              "current_secret_status"
+            ],
+            "evidence_polarity": "NEUTRAL",
+            "supports_element_ids": [
+              "current_secret_status"
+            ],
+            "supported_propositions": [
+              "合同对当前秘密状态作出陈述，但当前秘密性及既有披露影响的核验依据尚不完整。"
+            ],
+            "support_summary": "证明合同已对相关合同要素作出部分约定。",
+            "verified_original": true,
+            "source_verification": {
+              "status": "PASS",
+              "errors": [],
+              "method": "EXACT_PARSER_SOURCE_SPAN"
+            },
+            "quoted_text": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "source_ref": {
+              "document_id": "contract_package/main",
+              "clause_id": "C0021",
+              "clause_sha256": "4f8900dfef9f1b5f3becda01bb0eed9e55060ceb1ff404a3af456fcbe5be2137",
+              "local_start": 258,
+              "local_end": 286,
+              "locator": "第九条 保密义务"
+            },
+            "provenance_validation": {
+              "status": "PASS",
+              "evidence_type": "CONTRACT_TEXT",
+              "errors": []
+            }
+          },
+          {
+            "clause_id": "C0022",
+            "location": "第十条 技术资料管理",
+            "title": "技术资料管理",
+            "text": "乙方应建立许可技术资料的访问权限控制。",
+            "section_type": "正式合同条款",
+            "level": 1,
+            "raw_text": "第十条 技术资料管理\n乙方应建立许可技术资料的访问权限控制。\n未经甲方书面同意，不得将完整技术资料上传至公开互联网平台或面向社会开放的云端存储空间。\n本合同解除或者终止后，甲方有权要求乙方返还或者删除其提供的部分技术资料。\n因乙方依法进行财务、审计、诉讼举证或者内部合规留档而必须保留的文件，可以继续保存必要副本，但不得用于其他目的。",
+            "normalized_text": "第十条技术资料管理乙方应建立许可技术资料的访问权限控制。未经甲方书面同意，不得将完整技术资料上传至公开互联网平台或面向社会开放的云端存储空间。本合同解除或者终止后，甲方有权要求乙方返还或者删除其提供的部分技术资料。因乙方依法进行财务、审计、诉讼举证或者内部合规留档而必须保留的文件，可以继续保存必要副本，但不得用于其他目的。",
+            "option_groups": [],
+            "source": "body",
+            "section_path": [
+              "正式合同条款",
+              "第十条 技术资料管理"
+            ],
+            "heading": "技术资料管理",
+            "clause_number": "第十条",
+            "paragraph_index": 21,
+            "block_type": "OPERATIVE_CLAUSE",
+            "parties": [
+              "乙方",
+              "甲方"
+            ],
+            "dates": [],
+            "amounts": [],
+            "percentages": [],
+            "durations": [],
+            "cross_references": [
+              "第十条"
+            ],
+            "node_id": "C0022",
+            "document_id": "contract_package/main",
+            "heading_path": [
+              "第十条 技术资料管理"
+            ],
+            "article_number": "第十条",
+            "section_number": "",
+            "item_number": "",
+            "sentence_index": 1,
+            "start_offset": 2026,
+            "end_offset": 2193,
+            "source_type": "BODY",
+            "party_obligation": true,
+            "document_type": "MAIN_CONTRACT",
+            "source_document_type": "MAIN_CONTRACT",
+            "evidence_block_type": "OPERATIVE_CLAUSE",
+            "document_name": "合同正文",
+            "section": "第十条 技术资料管理",
+            "quote": "乙方应建立许可技术资料的访问权限控制。",
+            "confidence": "high",
+            "evidence_type": "CONTRACT_TEXT",
+            "source_span": {
+              "start_offset": 2037,
+              "end_offset": 2056,
+              "raw_text": "乙方应建立许可技术资料的访问权限控制。",
+              "coordinate_system": "DOCUMENT_TEXT"
+            },
+            "source_start": 2037,
+            "source_end": 2056,
+            "source_document": "contract_package/main",
+            "original_document_reference": "contract_package/main",
+            "derived_or_original": "ORIGINAL",
+            "evidence_source": {
+              "document_id": "contract_package/main",
+              "document_type": "MAIN_CONTRACT",
+              "document_name": "合同正文",
+              "clause_id": "C0022",
+              "section": "第十条 技术资料管理",
+              "sentence_index": 1,
+              "quote": "乙方应建立许可技术资料的访问权限控制。",
+              "confidence": "high",
+              "evidence_block_type": "OPERATIVE_CLAUSE",
+              "evidence_type": "CONTRACT_TEXT",
+              "source_span": {
+                "start_offset": 2037,
+                "end_offset": 2056,
+                "raw_text": "乙方应建立许可技术资料的访问权限控制。",
+                "coordinate_system": "DOCUMENT_TEXT"
+              },
+              "derived_or_original": "ORIGINAL",
+              "source_ref": {
+                "document_id": "contract_package/main",
+                "clause_id": "C0022",
+                "clause_sha256": "e01a02e39b308c27ddaee68487bd4e51db2290f0dfcc342b60065de98291124a",
+                "local_start": 11,
+                "local_end": 30,
+                "locator": "第十条 技术资料管理"
+              },
+              "verified_original": true
+            },
+            "source_text_hash": "064e9396e0f8703c2c8988110b271f979c0a622e42999e74235215d946b9a5af",
+            "source_full_path": [
+              "第十条 技术资料管理"
+            ],
+            "source_identity": {
+              "document_id": "contract_package/main",
+              "section_id": "正式合同条款",
+              "parent_clause_id": "第十条",
+              "clause_id": "C0022",
+              "document_offset": 2026,
+              "source_text_hash": "064e9396e0f8703c2c8988110b271f979c0a622e42999e74235215d946b9a5af"
+            },
+            "entailment_status": "SUPPORTS",
+            "semantic_score": 1.0,
+            "matched_terms": [
+              "访问权限",
+              "权限控制"
+            ],
+            "support_type": "DIRECT",
+            "selection_reason": "Specialized proposition matching selected this operative clause.",
+            "original_excerpt": "乙方应建立许可技术资料的访问权限控制。",
+            "evidence_id": "SRC-ec00d4fd0fd68b57b33d",
+            "supporting_element_ids": [
+              "existing_confidentiality_measures"
+            ],
+            "element_ids": [
+              "existing_confidentiality_measures"
+            ],
+            "evidence_polarity": "NEUTRAL",
+            "supports_element_ids": [
+              "existing_confidentiality_measures"
+            ],
+            "supported_propositions": [
+              "许可前已经采取的保密制度、访问控制或其他保密措施有可核验依据。"
+            ],
+            "support_summary": "证明合同已约定相关合同要素。",
+            "verified_original": true,
+            "source_verification": {
+              "status": "PASS",
+              "errors": [],
+              "method": "EXACT_PARSER_SOURCE_SPAN"
+            },
+            "quoted_text": "乙方应建立许可技术资料的访问权限控制。",
+            "source_ref": {
+              "document_id": "contract_package/main",
+              "clause_id": "C0022",
+              "clause_sha256": "e01a02e39b308c27ddaee68487bd4e51db2290f0dfcc342b60065de98291124a",
+              "local_start": 11,
+              "local_end": 30,
+              "locator": "第十条 技术资料管理"
+            },
+            "provenance_validation": {
+              "status": "PASS",
+              "evidence_type": "CONTRACT_TEXT",
+              "errors": []
+            }
+          },
+          {
+            "clause_id": "C0023",
+            "location": "第十一条 权利保证",
+            "title": "权利保证",
+            "text": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+            "section_type": "正式合同条款",
+            "level": 1,
+            "raw_text": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。\n甲方声明，截至合同签订之日，其未收到第三方就本合同主要许可技术提出的有效侵权通知。\n若第三方主张乙方按照本合同约定使用甲方提供的技术构成侵权，乙方应及时通知甲方。\n甲方应根据实际情况配合乙方处理有关争议。\n因乙方擅自修改、超范围使用许可技术或者将许可技术与未经甲方确认的其他技术结合而引发的争议，由乙方自行负责。",
+            "normalized_text": "第十一条权利保证甲方保证其有权就本合同约定的许可技术向乙方提供许可。甲方声明，截至合同签订之日，其未收到第三方就本合同主要许可技术提出的有效侵权通知。若第三方主张乙方按照本合同约定使用甲方提供的技术构成侵权，乙方应及时通知甲方。甲方应根据实际情况配合乙方处理有关争议。因乙方擅自修改、超范围使用许可技术或者将许可技术与未经甲方确认的其他技术结合而引发的争议，由乙方自行负责。",
+            "option_groups": [],
+            "source": "body",
+            "section_path": [
+              "正式合同条款",
+              "第十一条 权利保证"
+            ],
+            "heading": "权利保证",
+            "clause_number": "第十一条",
+            "paragraph_index": 22,
+            "block_type": "OPERATIVE_CLAUSE",
+            "parties": [
+              "甲方",
+              "乙方"
+            ],
+            "dates": [],
+            "amounts": [],
+            "percentages": [],
+            "durations": [],
+            "cross_references": [
+              "第十一条"
+            ],
+            "node_id": "C0023",
+            "document_id": "contract_package/main",
+            "heading_path": [
+              "第十一条 权利保证"
+            ],
+            "article_number": "第十一条",
+            "section_number": "",
+            "item_number": "",
+            "sentence_index": 1,
+            "start_offset": 2194,
+            "end_offset": 2387,
+            "source_type": "BODY",
+            "party_obligation": true,
+            "document_type": "MAIN_CONTRACT",
+            "source_document_type": "MAIN_CONTRACT",
+            "evidence_block_type": "OPERATIVE_CLAUSE",
+            "document_name": "合同正文",
+            "section": "第十一条 权利保证",
+            "quote": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+            "confidence": "high",
+            "evidence_type": "CONTRACT_TEXT",
+            "source_span": {
+              "start_offset": 2194,
+              "end_offset": 2230,
+              "raw_text": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+              "coordinate_system": "DOCUMENT_TEXT"
+            },
+            "source_start": 2194,
+            "source_end": 2230,
+            "source_document": "contract_package/main",
+            "original_document_reference": "contract_package/main",
+            "derived_or_original": "ORIGINAL",
+            "evidence_source": {
+              "document_id": "contract_package/main",
+              "document_type": "MAIN_CONTRACT",
+              "document_name": "合同正文",
+              "clause_id": "C0023",
+              "section": "第十一条 权利保证",
+              "sentence_index": 1,
+              "quote": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+              "confidence": "high",
+              "evidence_block_type": "OPERATIVE_CLAUSE",
+              "evidence_type": "CONTRACT_TEXT",
+              "source_span": {
+                "start_offset": 2194,
+                "end_offset": 2230,
+                "raw_text": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+                "coordinate_system": "DOCUMENT_TEXT"
+              },
+              "derived_or_original": "ORIGINAL",
+              "source_ref": {
+                "document_id": "contract_package/main",
+                "clause_id": "C0023",
+                "clause_sha256": "9cec1bcccd684e9bfc6c6f3aca53be0ee5e98a2a121a3e9939c5cb96dd5f488c",
+                "local_start": 0,
+                "local_end": 36,
+                "locator": "第十一条 权利保证"
+              },
+              "verified_original": true
+            },
+            "source_text_hash": "6a53d7c5da5b1ada30982cdf2bfd420906f7a97783dc0fccf58ef31f8712b9c8",
+            "source_full_path": [
+              "第十一条 权利保证"
+            ],
+            "source_identity": {
+              "document_id": "contract_package/main",
+              "section_id": "正式合同条款",
+              "parent_clause_id": "第十一条",
+              "clause_id": "C0023",
+              "document_offset": 2194,
+              "source_text_hash": "6a53d7c5da5b1ada30982cdf2bfd420906f7a97783dc0fccf58ef31f8712b9c8"
+            },
+            "entailment_status": "PARTIAL_SUPPORT",
+            "semantic_score": 1.0,
+            "matched_terms": [
+              "保证"
+            ],
+            "support_type": "DIRECT",
+            "selection_reason": "Specialized proposition matching selected this operative clause.",
+            "original_excerpt": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+            "evidence_level": "CONTRACTUAL_REPRESENTATION",
+            "evidence_id": "SRC-8a99781381dda42b1c2a",
+            "supporting_element_ids": [],
+            "element_ids": [],
+            "evidence_polarity": "NEUTRAL",
+            "verified_original": true,
+            "source_verification": {
+              "status": "PASS",
+              "errors": [],
+              "method": "EXACT_PARSER_SOURCE_SPAN"
+            },
+            "quoted_text": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+            "source_ref": {
+              "document_id": "contract_package/main",
+              "clause_id": "C0023",
+              "clause_sha256": "9cec1bcccd684e9bfc6c6f3aca53be0ee5e98a2a121a3e9939c5cb96dd5f488c",
+              "local_start": 0,
+              "local_end": 36,
+              "locator": "第十一条 权利保证"
+            },
+            "provenance_validation": {
+              "status": "PASS",
+              "evidence_type": "CONTRACT_TEXT",
+              "errors": []
+            }
+          }
+        ],
+        "reasoning_summary": "已有部分安排；仍需补足：技术秘密的名称、技术边界、资料范围及交付内容可独立核验、技术秘密研发来源及形成过程的可核验材料、合法持有技术秘密的权利依据材料、处分或许可技术秘密权限的证明材料、完整的历史披露对象清单、历史披露的具体技术内容和范围、历史披露对象承担保密义务的协议或承诺可供核验、既有许可情况披露、既有许可的相对方、既有许可期限、既有许可地域、测试使用安排披露、其他第三方使用安排披露、当前秘密性及既有披露影响的核验依据。"
+      },
+      {
+        "item_id": "TC-13-02",
+        "coverage_status": "缺失",
+        "issue_type": "完全缺失",
+        "coverage_elements": [
+          {
+            "review_id": "TC-13-02",
+            "element_id": "technical_secret_identity_and_delivery_scope",
+            "claim_id": "TC-13-02-technical_secret_identity_and_delivery_scope",
+            "proposition": "技术秘密的名称、技术边界、资料范围及交付内容可独立核验",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "技术秘密的名称、技术边界、资料范围及交付内容可独立核验",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "supporting_evidence": [],
+            "source_fact_key": "technical_secret_identity_and_delivery_scope"
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "technical_source",
+            "claim_id": "TC-13-02-technical_source",
+            "proposition": "技术秘密研发来源及形成过程的可核验材料",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "技术秘密研发来源及形成过程的可核验材料",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "技术秘密研发来源及形成过程的可核验材料",
+            "search_targets": [
+              "技术秘密研发来源及形成过程的可核验材料"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "lawful_possession_basis",
+            "claim_id": "TC-13-02-lawful_possession_basis",
+            "proposition": "合法持有技术秘密的权利依据材料",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "合法持有技术秘密的权利依据材料",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "合法持有技术秘密的权利依据材料",
+            "search_targets": [
+              "合法持有技术秘密的权利依据材料"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "disposition_authority",
+            "claim_id": "TC-13-02-disposition_authority",
+            "proposition": "处分或许可技术秘密权限的证明材料",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "处分或许可技术秘密权限的证明材料",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "处分或许可技术秘密权限的证明材料",
+            "search_targets": [
+              "处分或许可技术秘密权限的证明材料"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "historical_disclosure_objects",
+            "claim_id": "TC-13-02-historical_disclosure_objects",
+            "proposition": "完整的历史披露对象清单",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "完整的历史披露对象清单",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "完整的历史披露对象清单",
+            "search_targets": [
+              "完整的历史披露对象清单"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "historical_disclosure_scope",
+            "claim_id": "TC-13-02-historical_disclosure_scope",
+            "proposition": "历史披露的具体技术内容和范围",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "历史披露的具体技术内容和范围",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "历史披露的具体技术内容和范围",
+            "search_targets": [
+              "历史披露的具体技术内容和范围"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "third_party_confidentiality_obligations",
+            "claim_id": "TC-13-02-third_party_confidentiality_obligations",
+            "proposition": "历史披露对象承担保密义务的协议或承诺可供核验",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "历史披露对象承担保密义务的协议或承诺可供核验",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN"
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "existing_license_disclosure",
+            "claim_id": "TC-13-02-existing_license_disclosure",
+            "proposition": "既有许可情况披露",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "既有许可情况披露",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "既有许可情况披露",
+            "search_targets": [
+              "既有许可情况披露"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "existing_license_counterparty",
+            "claim_id": "TC-13-02-existing_license_counterparty",
+            "proposition": "既有许可的相对方",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "既有许可的相对方",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "既有许可的相对方",
+            "search_targets": [
+              "既有许可的相对方"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "existing_license_term",
+            "claim_id": "TC-13-02-existing_license_term",
+            "proposition": "既有许可期限",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "既有许可期限",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "既有许可期限",
+            "search_targets": [
+              "既有许可期限"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "existing_license_territory",
+            "claim_id": "TC-13-02-existing_license_territory",
+            "proposition": "既有许可地域",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "既有许可地域",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "既有许可地域",
+            "search_targets": [
+              "既有许可地域"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "test_use_arrangement",
+            "claim_id": "TC-13-02-test_use_arrangement",
+            "proposition": "测试使用安排披露",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "测试使用安排披露",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "测试使用安排披露",
+            "search_targets": [
+              "测试使用安排披露"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "other_third_party_use_arrangement",
+            "claim_id": "TC-13-02-other_third_party_use_arrangement",
+            "proposition": "其他第三方使用安排披露",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "其他第三方使用安排披露",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "其他第三方使用安排披露",
+            "search_targets": [
+              "其他第三方使用安排披露"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "current_secret_status",
+            "claim_id": "TC-13-02-current_secret_status",
+            "proposition": "合同对当前秘密状态作出陈述，但当前秘密性及既有披露影响的核验依据尚不完整。",
+            "status": "PARTIALLY_COVERED",
+            "evidence_ids": [
+              "SRC-6253a1ea34ca608c6307"
+            ],
+            "supporting_evidence_ids": [
+              "SRC-6253a1ea34ca608c6307"
+            ],
+            "source_clause_ids": [
+              "C0021"
+            ],
+            "source_spans": [
+              "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。"
+            ],
+            "source_locations": [
+              "第九条 保密义务"
+            ],
+            "entailment": "PARTIAL_SUPPORT",
+            "verifier_confidence": "high",
+            "reason": "合同对当前秘密状态作出陈述，但当前秘密性及既有披露影响的核验依据尚不完整。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "residual_gap": "当前秘密性及既有披露影响的核验依据",
+            "required_fact": "当前秘密性及既有披露影响的核验依据",
+            "search_targets": [
+              "当前秘密性及既有披露影响的核验依据"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "existing_confidentiality_measures",
+            "claim_id": "TC-13-02-existing_confidentiality_measures",
+            "proposition": "许可前已经采取的保密制度、访问控制或其他保密措施有可核验依据。",
+            "status": "COVERED",
+            "evidence_ids": [
+              "SRC-ec00d4fd0fd68b57b33d"
+            ],
+            "supporting_evidence_ids": [
+              "SRC-ec00d4fd0fd68b57b33d"
+            ],
+            "source_clause_ids": [
+              "C0022"
+            ],
+            "source_spans": [
+              "乙方应建立许可技术资料的访问权限控制。"
+            ],
+            "source_locations": [
+              "第十条 技术资料管理"
+            ],
+            "entailment": "SUPPORTS",
+            "verifier_confidence": "high",
+            "reason": "许可前已经采取的保密制度、访问控制或其他保密措施有可核验依据。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "EXPLICIT"
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "joint_holder_disclosure",
+            "claim_id": "TC-13-02-joint_holder_disclosure",
+            "proposition": "核验合同技术是否有共同持有人或共同研发方；如有，再核验权利证明及必要同意。",
+            "status": "CONDITION_UNRESOLVED",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "核验合同技术是否有共同持有人或共同研发方；如有，再核验权利证明及必要同意。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "risk_relevant": false,
+            "required_fact": "共同持有人及共同研发方的权利证明或同意文件",
+            "conditional_element": true,
+            "prerequisite_status": "UNKNOWN",
+            "prerequisite_fact": "(?:技术秘密|合同技术).{0,25}(?:共同持有|共同研发|共有)|(?:共同持有人|共同研发方|共有权人)(?:为|包括|：|:)",
+            "verification_instruction": "核验合同技术是否有共同持有人或共同研发方；如有，再核验权利证明及必要同意。"
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "staff_assignment",
+            "claim_id": "TC-13-02-staff_assignment",
+            "proposition": "核验合同技术是否涉及员工或职务成果；如涉及，再核验成果归属和归集材料。",
+            "status": "CONDITION_UNRESOLVED",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "核验合同技术是否涉及员工或职务成果；如涉及，再核验成果归属和归集材料。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "risk_relevant": false,
+            "required_fact": "员工职务成果归属及成果归集材料",
+            "conditional_element": true,
+            "prerequisite_status": "UNKNOWN",
+            "prerequisite_fact": "(?:员工|研发人员|职工).{0,15}(?:研发形成|开发形成|完成的技术|职务成果)|职务(?:发明|技术成果)",
+            "verification_instruction": "核验合同技术是否涉及员工或职务成果；如涉及，再核验成果归属和归集材料。"
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "open_source_compliance",
+            "claim_id": "TC-13-02-open_source_compliance",
+            "proposition": "核验交付技术是否包含开源组件；如包含，再核验组件清单及对应许可证。",
+            "status": "CONDITION_UNRESOLVED",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "核验交付技术是否包含开源组件；如包含，再核验组件清单及对应许可证。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "risk_relevant": false,
+            "required_fact": "开源组件及对应许可证材料",
+            "conditional_element": true,
+            "prerequisite_status": "UNKNOWN",
+            "prerequisite_fact": "(?:含有|包含|使用|采用|集成|引入|涉及).{0,12}开源(?:组件|代码|软件)|开源组件(?:包括|为|：|:)",
+            "verification_instruction": "核验交付技术是否包含开源组件；如包含，再核验组件清单及对应许可证。"
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "software_copyright_proof",
+            "claim_id": "TC-13-02-software_copyright_proof",
+            "proposition": "核验是否以已登记软件著作权作为权利来源；如是，再核验相应登记及权属材料。",
+            "status": "CONDITION_UNRESOLVED",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "核验是否以已登记软件著作权作为权利来源；如是，再核验相应登记及权属材料。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "risk_relevant": false,
+            "required_fact": "软件著作权登记或权属证明材料",
+            "conditional_element": true,
+            "prerequisite_status": "UNKNOWN",
+            "prerequisite_fact": "(?:已取得|已办理|已登记|拥有).{0,12}软件著作权|软件著作权登记号",
+            "verification_instruction": "核验是否以已登记软件著作权作为权利来源；如是，再核验相应登记及权属材料。"
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "third_party_code_authorization",
+            "claim_id": "TC-13-02-third_party_code_authorization",
+            "proposition": "核验交付技术是否使用第三方代码或软件；如使用，再核验来源及授权链。",
+            "status": "CONDITION_UNRESOLVED",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "核验交付技术是否使用第三方代码或软件；如使用，再核验来源及授权链。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "risk_relevant": false,
+            "required_fact": "第三方代码来源及授权证明材料",
+            "conditional_element": true,
+            "prerequisite_status": "UNKNOWN",
+            "prerequisite_fact": "(?:包含|使用|采用|集成|引入|涉及).{0,12}第三方(?:代码|软件)|第三方代码(?:来自|来源|为|：|:)",
+            "verification_instruction": "核验交付技术是否使用第三方代码或软件；如使用，再核验来源及授权链。"
+          }
+        ],
+        "evidence_clauses": [
+          {
+            "clause_id": "C0021",
+            "location": "第九条 保密义务",
+            "title": "保密义务",
+            "text": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "section_type": "正式合同条款",
+            "level": 1,
+            "raw_text": "第九条 保密义务\n乙方应对从甲方获得的技术秘密采取不低于保护自身同类重要技术资料的保密措施。\n未经甲方书面许可，乙方不得向与本项目无关的第三方披露相关技术资料。\n乙方应控制接触许可技术的人员范围，并要求相关员工承担相应保密责任。\n下列信息不受本条限制：\n（1）接收时已合法公开的信息；\n（2）非因乙方违反本合同而进入公共领域的信息；\n（3）乙方能够证明在接收前已经合法掌握的信息；\n（4）乙方从有权披露的第三方合法取得的信息。\n因法院、行政机关或其他有权机关依法要求必须披露相关信息的，乙方可在必要范围内进行披露。\n本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "normalized_text": "第九条保密义务乙方应对从甲方获得的技术秘密采取不低于保护自身同类重要技术资料的保密措施。未经甲方书面许可，乙方不得向与本项目无关的第三方披露相关技术资料。乙方应控制接触许可技术的人员范围，并要求相关员工承担相应保密责任。下列信息不受本条限制：（1）接收时已合法公开的信息；（2）非因乙方违反本合同而进入公共领域的信息；（3）乙方能够证明在接收前已经合法掌握的信息；（4）乙方从有权披露的第三方合法取得的信息。因法院、行政机关或其他有权机关依法要求必须披露相关信息的，乙方可在必要范围内进行披露。本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "option_groups": [],
+            "source": "body",
+            "section_path": [
+              "正式合同条款",
+              "第九条 保密义务"
+            ],
+            "heading": "保密义务",
+            "clause_number": "第九条",
+            "paragraph_index": 20,
+            "block_type": "OPERATIVE_CLAUSE",
+            "parties": [
+              "乙方",
+              "甲方"
+            ],
+            "dates": [],
+            "amounts": [],
+            "percentages": [],
+            "durations": [],
+            "cross_references": [
+              "第九条"
+            ],
+            "node_id": "C0021",
+            "document_id": "contract_package/main",
+            "heading_path": [
+              "第九条 保密义务"
+            ],
+            "article_number": "第九条",
+            "section_number": "",
+            "item_number": "",
+            "sentence_index": 1,
+            "start_offset": 1739,
+            "end_offset": 2025,
+            "source_type": "BODY",
+            "party_obligation": true,
+            "document_type": "MAIN_CONTRACT",
+            "source_document_type": "MAIN_CONTRACT",
+            "evidence_block_type": "OPERATIVE_CLAUSE",
+            "document_name": "合同正文",
+            "section": "第九条 保密义务",
+            "quote": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "confidence": "high",
+            "evidence_type": "CONTRACT_TEXT",
+            "source_span": {
+              "start_offset": 1997,
+              "end_offset": 2025,
+              "raw_text": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+              "coordinate_system": "DOCUMENT_TEXT"
+            },
+            "source_start": 1997,
+            "source_end": 2025,
+            "source_document": "contract_package/main",
+            "original_document_reference": "contract_package/main",
+            "derived_or_original": "ORIGINAL",
+            "evidence_source": {
+              "document_id": "contract_package/main",
+              "document_type": "MAIN_CONTRACT",
+              "document_name": "合同正文",
+              "clause_id": "C0021",
+              "section": "第九条 保密义务",
+              "sentence_index": 1,
+              "quote": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+              "confidence": "high",
+              "evidence_block_type": "OPERATIVE_CLAUSE",
+              "evidence_type": "CONTRACT_TEXT",
+              "source_span": {
+                "start_offset": 1997,
+                "end_offset": 2025,
+                "raw_text": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+                "coordinate_system": "DOCUMENT_TEXT"
+              },
+              "derived_or_original": "ORIGINAL",
+              "source_ref": {
+                "document_id": "contract_package/main",
+                "clause_id": "C0021",
+                "clause_sha256": "4f8900dfef9f1b5f3becda01bb0eed9e55060ceb1ff404a3af456fcbe5be2137",
+                "local_start": 258,
+                "local_end": 286,
+                "locator": "第九条 保密义务"
+              },
+              "verified_original": true
+            },
+            "source_text_hash": "de6d097637539e350ee1ef39deee29824855e2cb70b72d2a9f4c1d77f0204222",
+            "source_full_path": [
+              "第九条 保密义务"
+            ],
+            "source_identity": {
+              "document_id": "contract_package/main",
+              "section_id": "正式合同条款",
+              "parent_clause_id": "第九条",
+              "clause_id": "C0021",
+              "document_offset": 1739,
+              "source_text_hash": "de6d097637539e350ee1ef39deee29824855e2cb70b72d2a9f4c1d77f0204222"
+            },
+            "entailment_status": "PARTIAL_SUPPORT",
+            "semantic_score": 1.0,
+            "matched_terms": [
+              "尚未公开"
+            ],
+            "support_type": "DIRECT",
+            "selection_reason": "Specialized proposition matching selected this operative clause.",
+            "original_excerpt": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "evidence_id": "SRC-6253a1ea34ca608c6307",
+            "supporting_element_ids": [
+              "current_secret_status"
+            ],
+            "element_ids": [
+              "current_secret_status"
+            ],
+            "evidence_polarity": "NEUTRAL",
+            "supports_element_ids": [
+              "current_secret_status"
+            ],
+            "supported_propositions": [
+              "合同对当前秘密状态作出陈述，但当前秘密性及既有披露影响的核验依据尚不完整。"
+            ],
+            "support_summary": "证明合同已对相关合同要素作出部分约定。",
+            "verified_original": true,
+            "source_verification": {
+              "status": "PASS",
+              "errors": [],
+              "method": "EXACT_PARSER_SOURCE_SPAN"
+            },
+            "quoted_text": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "source_ref": {
+              "document_id": "contract_package/main",
+              "clause_id": "C0021",
+              "clause_sha256": "4f8900dfef9f1b5f3becda01bb0eed9e55060ceb1ff404a3af456fcbe5be2137",
+              "local_start": 258,
+              "local_end": 286,
+              "locator": "第九条 保密义务"
+            },
+            "provenance_validation": {
+              "status": "PASS",
+              "evidence_type": "CONTRACT_TEXT",
+              "errors": []
+            }
+          },
+          {
+            "clause_id": "C0022",
+            "location": "第十条 技术资料管理",
+            "title": "技术资料管理",
+            "text": "乙方应建立许可技术资料的访问权限控制。",
+            "section_type": "正式合同条款",
+            "level": 1,
+            "raw_text": "第十条 技术资料管理\n乙方应建立许可技术资料的访问权限控制。\n未经甲方书面同意，不得将完整技术资料上传至公开互联网平台或面向社会开放的云端存储空间。\n本合同解除或者终止后，甲方有权要求乙方返还或者删除其提供的部分技术资料。\n因乙方依法进行财务、审计、诉讼举证或者内部合规留档而必须保留的文件，可以继续保存必要副本，但不得用于其他目的。",
+            "normalized_text": "第十条技术资料管理乙方应建立许可技术资料的访问权限控制。未经甲方书面同意，不得将完整技术资料上传至公开互联网平台或面向社会开放的云端存储空间。本合同解除或者终止后，甲方有权要求乙方返还或者删除其提供的部分技术资料。因乙方依法进行财务、审计、诉讼举证或者内部合规留档而必须保留的文件，可以继续保存必要副本，但不得用于其他目的。",
+            "option_groups": [],
+            "source": "body",
+            "section_path": [
+              "正式合同条款",
+              "第十条 技术资料管理"
+            ],
+            "heading": "技术资料管理",
+            "clause_number": "第十条",
+            "paragraph_index": 21,
+            "block_type": "OPERATIVE_CLAUSE",
+            "parties": [
+              "乙方",
+              "甲方"
+            ],
+            "dates": [],
+            "amounts": [],
+            "percentages": [],
+            "durations": [],
+            "cross_references": [
+              "第十条"
+            ],
+            "node_id": "C0022",
+            "document_id": "contract_package/main",
+            "heading_path": [
+              "第十条 技术资料管理"
+            ],
+            "article_number": "第十条",
+            "section_number": "",
+            "item_number": "",
+            "sentence_index": 1,
+            "start_offset": 2026,
+            "end_offset": 2193,
+            "source_type": "BODY",
+            "party_obligation": true,
+            "document_type": "MAIN_CONTRACT",
+            "source_document_type": "MAIN_CONTRACT",
+            "evidence_block_type": "OPERATIVE_CLAUSE",
+            "document_name": "合同正文",
+            "section": "第十条 技术资料管理",
+            "quote": "乙方应建立许可技术资料的访问权限控制。",
+            "confidence": "high",
+            "evidence_type": "CONTRACT_TEXT",
+            "source_span": {
+              "start_offset": 2037,
+              "end_offset": 2056,
+              "raw_text": "乙方应建立许可技术资料的访问权限控制。",
+              "coordinate_system": "DOCUMENT_TEXT"
+            },
+            "source_start": 2037,
+            "source_end": 2056,
+            "source_document": "contract_package/main",
+            "original_document_reference": "contract_package/main",
+            "derived_or_original": "ORIGINAL",
+            "evidence_source": {
+              "document_id": "contract_package/main",
+              "document_type": "MAIN_CONTRACT",
+              "document_name": "合同正文",
+              "clause_id": "C0022",
+              "section": "第十条 技术资料管理",
+              "sentence_index": 1,
+              "quote": "乙方应建立许可技术资料的访问权限控制。",
+              "confidence": "high",
+              "evidence_block_type": "OPERATIVE_CLAUSE",
+              "evidence_type": "CONTRACT_TEXT",
+              "source_span": {
+                "start_offset": 2037,
+                "end_offset": 2056,
+                "raw_text": "乙方应建立许可技术资料的访问权限控制。",
+                "coordinate_system": "DOCUMENT_TEXT"
+              },
+              "derived_or_original": "ORIGINAL",
+              "source_ref": {
+                "document_id": "contract_package/main",
+                "clause_id": "C0022",
+                "clause_sha256": "e01a02e39b308c27ddaee68487bd4e51db2290f0dfcc342b60065de98291124a",
+                "local_start": 11,
+                "local_end": 30,
+                "locator": "第十条 技术资料管理"
+              },
+              "verified_original": true
+            },
+            "source_text_hash": "064e9396e0f8703c2c8988110b271f979c0a622e42999e74235215d946b9a5af",
+            "source_full_path": [
+              "第十条 技术资料管理"
+            ],
+            "source_identity": {
+              "document_id": "contract_package/main",
+              "section_id": "正式合同条款",
+              "parent_clause_id": "第十条",
+              "clause_id": "C0022",
+              "document_offset": 2026,
+              "source_text_hash": "064e9396e0f8703c2c8988110b271f979c0a622e42999e74235215d946b9a5af"
+            },
+            "entailment_status": "SUPPORTS",
+            "semantic_score": 1.0,
+            "matched_terms": [
+              "访问权限",
+              "权限控制"
+            ],
+            "support_type": "DIRECT",
+            "selection_reason": "Specialized proposition matching selected this operative clause.",
+            "original_excerpt": "乙方应建立许可技术资料的访问权限控制。",
+            "evidence_id": "SRC-ec00d4fd0fd68b57b33d",
+            "supporting_element_ids": [
+              "existing_confidentiality_measures"
+            ],
+            "element_ids": [
+              "existing_confidentiality_measures"
+            ],
+            "evidence_polarity": "NEUTRAL",
+            "supports_element_ids": [
+              "existing_confidentiality_measures"
+            ],
+            "supported_propositions": [
+              "许可前已经采取的保密制度、访问控制或其他保密措施有可核验依据。"
+            ],
+            "support_summary": "证明合同已约定相关合同要素。",
+            "verified_original": true,
+            "source_verification": {
+              "status": "PASS",
+              "errors": [],
+              "method": "EXACT_PARSER_SOURCE_SPAN"
+            },
+            "quoted_text": "乙方应建立许可技术资料的访问权限控制。",
+            "source_ref": {
+              "document_id": "contract_package/main",
+              "clause_id": "C0022",
+              "clause_sha256": "e01a02e39b308c27ddaee68487bd4e51db2290f0dfcc342b60065de98291124a",
+              "local_start": 11,
+              "local_end": 30,
+              "locator": "第十条 技术资料管理"
+            },
+            "provenance_validation": {
+              "status": "PASS",
+              "evidence_type": "CONTRACT_TEXT",
+              "errors": []
+            }
+          },
+          {
+            "clause_id": "C0023",
+            "location": "第十一条 权利保证",
+            "title": "权利保证",
+            "text": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+            "section_type": "正式合同条款",
+            "level": 1,
+            "raw_text": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。\n甲方声明，截至合同签订之日，其未收到第三方就本合同主要许可技术提出的有效侵权通知。\n若第三方主张乙方按照本合同约定使用甲方提供的技术构成侵权，乙方应及时通知甲方。\n甲方应根据实际情况配合乙方处理有关争议。\n因乙方擅自修改、超范围使用许可技术或者将许可技术与未经甲方确认的其他技术结合而引发的争议，由乙方自行负责。",
+            "normalized_text": "第十一条权利保证甲方保证其有权就本合同约定的许可技术向乙方提供许可。甲方声明，截至合同签订之日，其未收到第三方就本合同主要许可技术提出的有效侵权通知。若第三方主张乙方按照本合同约定使用甲方提供的技术构成侵权，乙方应及时通知甲方。甲方应根据实际情况配合乙方处理有关争议。因乙方擅自修改、超范围使用许可技术或者将许可技术与未经甲方确认的其他技术结合而引发的争议，由乙方自行负责。",
+            "option_groups": [],
+            "source": "body",
+            "section_path": [
+              "正式合同条款",
+              "第十一条 权利保证"
+            ],
+            "heading": "权利保证",
+            "clause_number": "第十一条",
+            "paragraph_index": 22,
+            "block_type": "OPERATIVE_CLAUSE",
+            "parties": [
+              "甲方",
+              "乙方"
+            ],
+            "dates": [],
+            "amounts": [],
+            "percentages": [],
+            "durations": [],
+            "cross_references": [
+              "第十一条"
+            ],
+            "node_id": "C0023",
+            "document_id": "contract_package/main",
+            "heading_path": [
+              "第十一条 权利保证"
+            ],
+            "article_number": "第十一条",
+            "section_number": "",
+            "item_number": "",
+            "sentence_index": 1,
+            "start_offset": 2194,
+            "end_offset": 2387,
+            "source_type": "BODY",
+            "party_obligation": true,
+            "document_type": "MAIN_CONTRACT",
+            "source_document_type": "MAIN_CONTRACT",
+            "evidence_block_type": "OPERATIVE_CLAUSE",
+            "document_name": "合同正文",
+            "section": "第十一条 权利保证",
+            "quote": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+            "confidence": "high",
+            "evidence_type": "CONTRACT_TEXT",
+            "source_span": {
+              "start_offset": 2194,
+              "end_offset": 2230,
+              "raw_text": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+              "coordinate_system": "DOCUMENT_TEXT"
+            },
+            "source_start": 2194,
+            "source_end": 2230,
+            "source_document": "contract_package/main",
+            "original_document_reference": "contract_package/main",
+            "derived_or_original": "ORIGINAL",
+            "evidence_source": {
+              "document_id": "contract_package/main",
+              "document_type": "MAIN_CONTRACT",
+              "document_name": "合同正文",
+              "clause_id": "C0023",
+              "section": "第十一条 权利保证",
+              "sentence_index": 1,
+              "quote": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+              "confidence": "high",
+              "evidence_block_type": "OPERATIVE_CLAUSE",
+              "evidence_type": "CONTRACT_TEXT",
+              "source_span": {
+                "start_offset": 2194,
+                "end_offset": 2230,
+                "raw_text": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+                "coordinate_system": "DOCUMENT_TEXT"
+              },
+              "derived_or_original": "ORIGINAL",
+              "source_ref": {
+                "document_id": "contract_package/main",
+                "clause_id": "C0023",
+                "clause_sha256": "9cec1bcccd684e9bfc6c6f3aca53be0ee5e98a2a121a3e9939c5cb96dd5f488c",
+                "local_start": 0,
+                "local_end": 36,
+                "locator": "第十一条 权利保证"
+              },
+              "verified_original": true
+            },
+            "source_text_hash": "6a53d7c5da5b1ada30982cdf2bfd420906f7a97783dc0fccf58ef31f8712b9c8",
+            "source_full_path": [
+              "第十一条 权利保证"
+            ],
+            "source_identity": {
+              "document_id": "contract_package/main",
+              "section_id": "正式合同条款",
+              "parent_clause_id": "第十一条",
+              "clause_id": "C0023",
+              "document_offset": 2194,
+              "source_text_hash": "6a53d7c5da5b1ada30982cdf2bfd420906f7a97783dc0fccf58ef31f8712b9c8"
+            },
+            "entailment_status": "PARTIAL_SUPPORT",
+            "semantic_score": 1.0,
+            "matched_terms": [
+              "保证"
+            ],
+            "support_type": "DIRECT",
+            "selection_reason": "Specialized proposition matching selected this operative clause.",
+            "original_excerpt": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+            "evidence_level": "CONTRACTUAL_REPRESENTATION",
+            "evidence_id": "SRC-8a99781381dda42b1c2a",
+            "supporting_element_ids": [],
+            "element_ids": [],
+            "evidence_polarity": "NEUTRAL",
+            "verified_original": true,
+            "source_verification": {
+              "status": "PASS",
+              "errors": [],
+              "method": "EXACT_PARSER_SOURCE_SPAN"
+            },
+            "quoted_text": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+            "source_ref": {
+              "document_id": "contract_package/main",
+              "clause_id": "C0023",
+              "clause_sha256": "9cec1bcccd684e9bfc6c6f3aca53be0ee5e98a2a121a3e9939c5cb96dd5f488c",
+              "local_start": 0,
+              "local_end": 36,
+              "locator": "第十一条 权利保证"
+            },
+            "provenance_validation": {
+              "status": "PASS",
+              "evidence_type": "CONTRACT_TEXT",
+              "errors": []
+            }
+          }
+        ],
+        "reasoning_summary": "已有部分安排；仍需补足：技术秘密的名称、技术边界、资料范围及交付内容可独立核验、技术秘密研发来源及形成过程的可核验材料、合法持有技术秘密的权利依据材料、处分或许可技术秘密权限的证明材料、完整的历史披露对象清单、历史披露的具体技术内容和范围、历史披露对象承担保密义务的协议或承诺可供核验、既有许可情况披露、既有许可的相对方、既有许可期限、既有许可地域、测试使用安排披露、其他第三方使用安排披露、当前秘密性及既有披露影响的核验依据。"
+      }
+    ]
+  },
+  "licensee": {
+    "gate": {
+      "status": "BLOCKED",
+      "failures": [
+        {
+          "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+          "failure_stage": "Technology Coverage Consistency",
+          "root_cause": "TC-03-04 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+          "entity_type": "review",
+          "entity_id": "TC-03-04",
+          "source_clause_ids": [
+            "C0021",
+            "C0022"
+          ],
+          "severity": "blocking"
+        },
+        {
+          "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+          "failure_stage": "Technology Coverage Consistency",
+          "root_cause": "TC-13-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+          "entity_type": "review",
+          "entity_id": "TC-13-02",
+          "source_clause_ids": [
+            "C0021",
+            "C0022"
+          ],
+          "severity": "blocking"
+        },
+        {
+          "requirement": "POSITIVE_FACT_MONOTONICITY",
+          "root_cause": "TC-03-04",
+          "element_id": "existing_confidentiality_measures",
+          "final_element_status": "COVERED",
+          "bound_evidence_ids": [
+            "SRC-ec00d4fd0fd68b57b33d"
+          ],
+          "search_audit": null,
+          "current_status": "FAIL"
+        },
+        {
+          "requirement": "POSITIVE_FACT_MONOTONICITY",
+          "root_cause": "TC-13-02",
+          "element_id": "existing_confidentiality_measures",
+          "final_element_status": "COVERED",
+          "bound_evidence_ids": [
+            "SRC-ec00d4fd0fd68b57b33d"
+          ],
+          "search_audit": null,
+          "current_status": "FAIL"
+        },
+        {
+          "requirement": "CANONICAL_RISK_COVERAGE_INVARIANT",
+          "field": "linked_review_state",
+          "conflicts": [
+            {
+              "review_id": "TC-03-04",
+              "risk_id": "RF-001",
+              "expected_issue_type": "PARTIAL",
+              "actual_issue_type": "完全缺失",
+              "expected_coverage_status": "部分覆盖",
+              "actual_coverage_status": "缺失"
+            },
+            {
+              "review_id": "TC-13-02",
+              "risk_id": "RF-001",
+              "expected_issue_type": "PARTIAL",
+              "actual_issue_type": "完全缺失",
+              "expected_coverage_status": "部分覆盖",
+              "actual_coverage_status": "缺失"
+            }
+          ]
+        }
+      ],
+      "priority_consistency_verification": {
+        "executed": true,
+        "high_finding_count": 1,
+        "core_priority_count": 1,
+        "consistency": "CONSISTENT",
+        "explanations": [],
+        "needs_recalibration": false
+      },
+      "context_consistency": {
+        "status": "PASS",
+        "failures": [],
+        "contract_type": "technology",
+        "domain_pack": "domain-pack-technology-1.0"
+      },
+      "gate_results": {
+        "PASS_EVIDENCE_PROVENANCE_GATE": "PASS",
+        "PARTIAL_ELEMENT_NARRATIVE_GATE": "PASS",
+        "COVERAGE_SENTENCE_CONSISTENCY_GATE": "PASS",
+        "ELEMENT_STATUS_CONTRADICTION": "PASS",
+        "EVIDENCE_MONOTONICITY_VIOLATION": "PASS",
+        "FINDING_EVIDENCE_GATE": "PASS",
+        "CROSS_LAYER_CONSISTENCY_GATE": "PASS",
+        "DEFAULT_LAW_COMPLETENESS_GATE": "PASS",
+        "DEFAULT_LAW_EFFECTIVE_GAP_GATE": "PASS",
+        "NARRATIVE_ELEMENT_CONSISTENCY_GATE": "PASS",
+        "NARRATIVE_TRUTH_GATE": "PASS",
+        "PRIORITY_CONSISTENCY_GATE": "PASS",
+        "SIGNABILITY_GATE": "PASS",
+        "CONFIDENCE_VALIDATION_GATE": "PASS",
+        "DOMAIN_SUBTYPE_GATE": "PASS",
+        "DOMAIN_REVIEW_ISOLATION_GATE": "PASS",
+        "DOMAIN_MATERIAL_COVERAGE_GATE": "PASS",
+        "TRANSACTION_STRUCTURE_GATE": "PASS",
+        "FRAMEWORK_DOMAIN_GATE": "PASS",
+        "ORDER_RELATION_GATE": "PASS",
+        "DYNAMIC_QUANTITY_GATE": "PASS",
+        "PRICE_MECHANISM_GATE": "PASS",
+        "ALTERNATIVE_SATISFACTION_GATE": "PASS",
+        "FALSE_RISK_EXISTENCE_GATE": "PASS",
+        "FACT_REGISTRY_SNAPSHOT_CONSISTENCY": "PASS",
+        "FACT_REGISTRY_CONFLICTING_FACT": "PASS",
+        "CROSS_REVIEW_FACT_CONFLICT": "PASS",
+        "FACT_TRUTH_OVERRIDE_VIOLATION": "PASS",
+        "FACT_CONSUMER_MAPPING_MISSING": "PASS",
+        "RISK_EVIDENCE_MISMATCH": "PASS",
+        "CANONICAL_PENALTY_BINDING": "PASS",
+        "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS",
+        "APPLICABILITY_PRECONDITION_GATE": "PASS",
+        "SHARED_CLAIM_CONSISTENCY_GATE": "PASS",
+        "FINDING_PRECONDITION_GATE": "PASS",
+        "REPORT_CONTEXT_GATE": "PASS",
+        "REPORT_TRANSACTION_TRUTH_GATE": "PASS",
+        "CROSS_REVIEW_CONSISTENCY_GATE": "PASS",
+        "RECOMMENDATION_NON_DEGRADATION_GATE": "PASS",
+        "COMMON_REVIEW_SATISFACTION_GATE": "PASS",
+        "ELEMENT_IDENTITY_CONTRADICTION_GATE": "PASS",
+        "PRODUCT_APPLICABILITY_GATE": "PASS",
+        "SHARED_CLAIM_REUSE_GATE": "PASS",
+        "FINDING_INDEPENDENCE_GATE": "PASS",
+        "TECHNOLOGY_TRANSACTION_CONSISTENCY": "FAIL",
+        "CLASSIFICATION_NARRATIVE_CONSISTENCY": "PASS",
+        "EVIDENCE_JUDGMENT_CONSISTENCY": "PASS",
+        "ATOMIC_ELEMENT_CONSISTENCY": "PASS",
+        "CROSS_RULE_EVIDENCE_CONSISTENCY": "FAIL",
+        "PARTY_DIRECTION_CONSISTENCY": "PASS",
+        "SUBTYPE_RENDERING_CONSISTENCY": "PASS",
+        "EVIDENCE_PROVENANCE_CONSISTENCY": "PASS",
+        "EMPTY_FIELD_CONSISTENCY": "PASS",
+        "REPORT_EVIDENCE_CONSISTENCY": "PASS",
+        "EVIDENCE_POLARITY_CONSISTENCY": "PASS",
+        "PERSPECTIVE_DOMAIN_CONSISTENCY_GATE": "PASS",
+        "PATENT_TRANSFER_QUALITY_GATE": "NOT_APPLICABLE",
+        "PRODUCTION_FACT_POLARITY_GATE": "PASS",
+        "ADVERSE_POLARITY_AUDIT_GATE": "PASS",
+        "RECOMMENDATION_SOURCE_UNMAPPED": "PASS",
+        "RECOMMENDATION_ELEMENT_LEAKAGE": "PASS",
+        "RECOMMENDATION_COVERED_ELEMENT_REINTRODUCED": "PASS",
+        "RECOMMENDATION_PLACEHOLDER_TEXT": "PASS",
+        "RECOMMENDATION_FINAL_DISPOSITION_MISMATCH": "PASS",
+        "CLIENT_INTEREST_GATE": "PASS",
+        "RISK_STATISTICS_INVARIANT": "PASS",
+        "FINAL_DISPOSITION_INVARIANT": "PASS",
+        "FORMAL_RECOMMENDATION_FINAL_DISPOSITION_INVARIANT": "PASS",
+        "RECOMMENDATION_OWNERSHIP_INVARIANT": "PASS",
+        "HIGH_NON_MUST_CHANGE_REASON_INVARIANT": "PASS",
+        "OPTIONAL_IMPROVEMENT_VISIBILITY_INVARIANT": "PASS",
+        "ACTIONABLE_RECOMMENDATION_COMPLETENESS_INVARIANT": "PASS",
+        "LEGAL_AUTHORITY_DEDUP_GATE": "PASS",
+        "LEGAL_AUTHORITY_SELECTION_GATE": "PASS",
+        "CITATION_ENTAILMENT_GATE": "PASS",
+        "LEGAL_DEFAULT_LAW_CONSISTENCY_GATE": "PASS",
+        "ATOMIC_LEGAL_ELEMENT_GATE": "PASS",
+        "DEFAULT_LAW_NARRATIVE_TRUTH_GATE": "PASS",
+        "NOT_APPLICABLE_NARRATIVE_GATE": "PASS",
+        "NOT_APPLICABLE_GAP_GATE": "PASS",
+        "REVIEW_POLARITY_NARRATIVE_GATE": "PASS",
+        "NEGATIVE_CHECK_PASS_GATE": "PASS",
+        "CROSS_REVIEW_SHARED_CLAIM_GATE": "PASS",
+        "NARRATIVE_EVIDENCE_GATE": "PASS",
+        "CANONICAL_SEMANTIC_PROOF_GATE": "PASS",
+        "VERIFIED_PASS_ORIGINAL_GATE": "PASS",
+        "REPORT_ELEMENT_EVIDENCE_POLLUTION": "PASS",
+        "EXACT_ELEMENT_REPORT_INVARIANT": "PASS",
+        "RISK_TITLE_EVIDENCE_CONSISTENCY": "PASS",
+        "COVERAGE_LEGALITY_CONSISTENCY": "PASS",
+        "REPORT_TOPIC_LABEL_CONSISTENCY": "PASS",
+        "PRODUCTION_INTERNAL_TOKEN_GATE": "PASS",
+        "DEFAULT_LAW_PROVENANCE_GATE": "PASS",
+        "RECOMMENDATION_SINGLE_SOURCE_GATE": "PASS",
+        "RECOMMENDATION_CROSS_RENDERER_CONSISTENCY_GATE": "PASS",
+        "REPORT_TEXT_VALIDATION": "PASS",
+        "REPORT_DISPOSITION_PROJECTION_INVARIANT": "PASS",
+        "EVIDENCE_BUNDLE_ENTAILMENT_GATE": "PASS",
+        "RECOMMENDATION_SEMANTIC_BINDING_GATE": "PASS",
+        "SUMMARY_DETAIL_RISK_ID_GATE": "PASS",
+        "ISSUE_TYPE_NARRATIVE_GATE": "PASS",
+        "OPTIONAL_REPORT_COUNT_GATE": "PASS",
+        "REPORT_ROLE_PLACEHOLDER_GATE": "PASS",
+        "ACTIONABLE_RECOMMENDATION_VISIBILITY_GATE": "PASS",
+        "CLAIM_EVIDENCE_COVERAGE_GATE": "PASS",
+        "EVIDENCE_FACT_ROLE_GATE": "PASS",
+        "SINGLE_EVIDENCE_SOURCE_GATE": "PASS",
+        "EVIDENCE_BUNDLE_RENDER_GATE": "PASS",
+        "APPLICABILITY_DISPLAY_CONSISTENCY_GATE": "PASS",
+        "ISSUE_TYPE_CONSISTENCY_GATE": "PASS",
+        "PARTIAL_MISSING_ELEMENT_GATE": "PASS",
+        "SUMMARY_TRUNCATION_DISCLOSURE_GATE": "PASS",
+        "TECHNICAL_REPORT_PLACEHOLDER_GATE": "PASS",
+        "FINAL_RISK_EVIDENCE_BUNDLE_GATE": "PASS",
+        "EVIDENCE_ITEM_UNIQUENESS_GATE": "PASS",
+        "CLAUSE_NODE_CONSISTENCY_GATE": "PASS",
+        "MISSING_RISK_ABSENCE_EVIDENCE_GATE": "PASS",
+        "COVERAGE_RISK_ACTION_CONSISTENCY_GATE": "PASS",
+        "PATENT_ROLE_TERMINOLOGY_GATE": "PASS",
+        "DUPLICATE_TEMPLATE_PHRASE_GATE": "PASS",
+        "EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+        "PASS_EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+        "CANONICAL_RISK_COVERAGE_INVARIANT": "FAIL",
+        "CONSULTING_REPORT_CONTEXT_GATE": "PASS",
+        "TERMINOLOGY_CONSISTENCY_GATE": "PASS",
+        "APPLICABILITY_AND_EVIDENCE_BOUNDARY": "PASS"
+      },
+      "blocking_rules": [
+        {
+          "code": "MISSING_WITH_POSITIVE_EVIDENCE",
+          "stage": "Technology Coverage Consistency",
+          "reason": "TC-03-04 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+          "entity_type": "review",
+          "entity_id": "TC-03-04",
+          "severity": "blocking"
+        },
+        {
+          "code": "MISSING_WITH_POSITIVE_EVIDENCE",
+          "stage": "Technology Coverage Consistency",
+          "reason": "TC-13-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+          "entity_type": "review",
+          "entity_id": "TC-13-02",
+          "severity": "blocking"
+        },
+        {
+          "code": "POSITIVE_FACT_MONOTONICITY",
+          "stage": "quality_gate",
+          "reason": "TC-03-04",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        },
+        {
+          "code": "POSITIVE_FACT_MONOTONICITY",
+          "stage": "quality_gate",
+          "reason": "TC-13-02",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        },
+        {
+          "code": "CANONICAL_RISK_COVERAGE_INVARIANT",
+          "stage": "quality_gate",
+          "reason": "Quality gate reported a blocking failure.",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        }
+      ],
+      "blocking_stage": "Technology Coverage Consistency",
+      "blocking_entities": [
+        {
+          "entity_type": "review",
+          "entity_id": "TC-03-04"
+        },
+        {
+          "entity_type": "review",
+          "entity_id": "TC-13-02"
+        },
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        },
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        },
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        }
+      ],
+      "blocking_reasons": [
+        "TC-03-04 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+        "TC-13-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+        "TC-03-04",
+        "TC-13-02",
+        "Quality gate reported a blocking failure."
+      ],
+      "post_render_status": "REPORT_READY"
+    },
+    "rules": [
+      {
+        "item_id": "TC-03-04",
+        "coverage_status": "缺失",
+        "issue_type": "完全缺失",
+        "coverage_elements": [
+          {
+            "review_id": "TC-03-04",
+            "element_id": "technical_secret_identity_and_delivery_scope",
+            "claim_id": "TC-03-04-technical_secret_identity_and_delivery_scope",
+            "proposition": "技术秘密的名称、技术边界、资料范围及交付内容可独立核验",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "技术秘密的名称、技术边界、资料范围及交付内容可独立核验",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "supporting_evidence": [],
+            "source_fact_key": "technical_secret_identity_and_delivery_scope"
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "technical_source",
+            "claim_id": "TC-03-04-technical_source",
+            "proposition": "技术秘密研发来源及形成过程的可核验材料",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "技术秘密研发来源及形成过程的可核验材料",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "技术秘密研发来源及形成过程的可核验材料",
+            "search_targets": [
+              "技术秘密研发来源及形成过程的可核验材料"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "lawful_possession_basis",
+            "claim_id": "TC-03-04-lawful_possession_basis",
+            "proposition": "合法持有技术秘密的权利依据材料",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "合法持有技术秘密的权利依据材料",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "合法持有技术秘密的权利依据材料",
+            "search_targets": [
+              "合法持有技术秘密的权利依据材料"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "disposition_authority",
+            "claim_id": "TC-03-04-disposition_authority",
+            "proposition": "处分或许可技术秘密权限的证明材料",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "处分或许可技术秘密权限的证明材料",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "处分或许可技术秘密权限的证明材料",
+            "search_targets": [
+              "处分或许可技术秘密权限的证明材料"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "historical_disclosure_objects",
+            "claim_id": "TC-03-04-historical_disclosure_objects",
+            "proposition": "完整的历史披露对象清单",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "完整的历史披露对象清单",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "完整的历史披露对象清单",
+            "search_targets": [
+              "完整的历史披露对象清单"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "historical_disclosure_scope",
+            "claim_id": "TC-03-04-historical_disclosure_scope",
+            "proposition": "历史披露的具体技术内容和范围",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "历史披露的具体技术内容和范围",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "历史披露的具体技术内容和范围",
+            "search_targets": [
+              "历史披露的具体技术内容和范围"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "third_party_confidentiality_obligations",
+            "claim_id": "TC-03-04-third_party_confidentiality_obligations",
+            "proposition": "历史披露对象承担保密义务的协议或承诺可供核验",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "历史披露对象承担保密义务的协议或承诺可供核验",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN"
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "existing_license_disclosure",
+            "claim_id": "TC-03-04-existing_license_disclosure",
+            "proposition": "既有许可情况披露",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "既有许可情况披露",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "既有许可情况披露",
+            "search_targets": [
+              "既有许可情况披露"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "existing_license_counterparty",
+            "claim_id": "TC-03-04-existing_license_counterparty",
+            "proposition": "既有许可的相对方",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "既有许可的相对方",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "既有许可的相对方",
+            "search_targets": [
+              "既有许可的相对方"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "existing_license_term",
+            "claim_id": "TC-03-04-existing_license_term",
+            "proposition": "既有许可期限",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "既有许可期限",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "既有许可期限",
+            "search_targets": [
+              "既有许可期限"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "existing_license_territory",
+            "claim_id": "TC-03-04-existing_license_territory",
+            "proposition": "既有许可地域",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "既有许可地域",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "既有许可地域",
+            "search_targets": [
+              "既有许可地域"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "test_use_arrangement",
+            "claim_id": "TC-03-04-test_use_arrangement",
+            "proposition": "测试使用安排披露",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "测试使用安排披露",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "测试使用安排披露",
+            "search_targets": [
+              "测试使用安排披露"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "other_third_party_use_arrangement",
+            "claim_id": "TC-03-04-other_third_party_use_arrangement",
+            "proposition": "其他第三方使用安排披露",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "其他第三方使用安排披露",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "其他第三方使用安排披露",
+            "search_targets": [
+              "其他第三方使用安排披露"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "current_secret_status",
+            "claim_id": "TC-03-04-current_secret_status",
+            "proposition": "合同对当前秘密状态作出陈述，但当前秘密性及既有披露影响的核验依据尚不完整。",
+            "status": "PARTIALLY_COVERED",
+            "evidence_ids": [
+              "SRC-6253a1ea34ca608c6307"
+            ],
+            "supporting_evidence_ids": [
+              "SRC-6253a1ea34ca608c6307"
+            ],
+            "source_clause_ids": [
+              "C0021"
+            ],
+            "source_spans": [
+              "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。"
+            ],
+            "source_locations": [
+              "第九条 保密义务"
+            ],
+            "entailment": "PARTIAL_SUPPORT",
+            "verifier_confidence": "high",
+            "reason": "合同对当前秘密状态作出陈述，但当前秘密性及既有披露影响的核验依据尚不完整。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "residual_gap": "当前秘密性及既有披露影响的核验依据",
+            "required_fact": "当前秘密性及既有披露影响的核验依据",
+            "search_targets": [
+              "当前秘密性及既有披露影响的核验依据"
+            ]
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "existing_confidentiality_measures",
+            "claim_id": "TC-03-04-existing_confidentiality_measures",
+            "proposition": "许可前已经采取的保密制度、访问控制或其他保密措施有可核验依据。",
+            "status": "COVERED",
+            "evidence_ids": [
+              "SRC-ec00d4fd0fd68b57b33d"
+            ],
+            "supporting_evidence_ids": [
+              "SRC-ec00d4fd0fd68b57b33d"
+            ],
+            "source_clause_ids": [
+              "C0022"
+            ],
+            "source_spans": [
+              "乙方应建立许可技术资料的访问权限控制。"
+            ],
+            "source_locations": [
+              "第十条 技术资料管理"
+            ],
+            "entailment": "SUPPORTS",
+            "verifier_confidence": "high",
+            "reason": "许可前已经采取的保密制度、访问控制或其他保密措施有可核验依据。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "EXPLICIT"
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "joint_holder_disclosure",
+            "claim_id": "TC-03-04-joint_holder_disclosure",
+            "proposition": "核验合同技术是否有共同持有人或共同研发方；如有，再核验权利证明及必要同意。",
+            "status": "CONDITION_UNRESOLVED",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "核验合同技术是否有共同持有人或共同研发方；如有，再核验权利证明及必要同意。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "risk_relevant": false,
+            "required_fact": "共同持有人及共同研发方的权利证明或同意文件",
+            "conditional_element": true,
+            "prerequisite_status": "UNKNOWN",
+            "prerequisite_fact": "(?:技术秘密|合同技术).{0,25}(?:共同持有|共同研发|共有)|(?:共同持有人|共同研发方|共有权人)(?:为|包括|：|:)",
+            "verification_instruction": "核验合同技术是否有共同持有人或共同研发方；如有，再核验权利证明及必要同意。"
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "staff_assignment",
+            "claim_id": "TC-03-04-staff_assignment",
+            "proposition": "核验合同技术是否涉及员工或职务成果；如涉及，再核验成果归属和归集材料。",
+            "status": "CONDITION_UNRESOLVED",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "核验合同技术是否涉及员工或职务成果；如涉及，再核验成果归属和归集材料。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "risk_relevant": false,
+            "required_fact": "员工职务成果归属及成果归集材料",
+            "conditional_element": true,
+            "prerequisite_status": "UNKNOWN",
+            "prerequisite_fact": "(?:员工|研发人员|职工).{0,15}(?:研发形成|开发形成|完成的技术|职务成果)|职务(?:发明|技术成果)",
+            "verification_instruction": "核验合同技术是否涉及员工或职务成果；如涉及，再核验成果归属和归集材料。"
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "open_source_compliance",
+            "claim_id": "TC-03-04-open_source_compliance",
+            "proposition": "核验交付技术是否包含开源组件；如包含，再核验组件清单及对应许可证。",
+            "status": "CONDITION_UNRESOLVED",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "核验交付技术是否包含开源组件；如包含，再核验组件清单及对应许可证。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "risk_relevant": false,
+            "required_fact": "开源组件及对应许可证材料",
+            "conditional_element": true,
+            "prerequisite_status": "UNKNOWN",
+            "prerequisite_fact": "(?:含有|包含|使用|采用|集成|引入|涉及).{0,12}开源(?:组件|代码|软件)|开源组件(?:包括|为|：|:)",
+            "verification_instruction": "核验交付技术是否包含开源组件；如包含，再核验组件清单及对应许可证。"
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "software_copyright_proof",
+            "claim_id": "TC-03-04-software_copyright_proof",
+            "proposition": "核验是否以已登记软件著作权作为权利来源；如是，再核验相应登记及权属材料。",
+            "status": "CONDITION_UNRESOLVED",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "核验是否以已登记软件著作权作为权利来源；如是，再核验相应登记及权属材料。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "risk_relevant": false,
+            "required_fact": "软件著作权登记或权属证明材料",
+            "conditional_element": true,
+            "prerequisite_status": "UNKNOWN",
+            "prerequisite_fact": "(?:已取得|已办理|已登记|拥有).{0,12}软件著作权|软件著作权登记号",
+            "verification_instruction": "核验是否以已登记软件著作权作为权利来源；如是，再核验相应登记及权属材料。"
+          },
+          {
+            "review_id": "TC-03-04",
+            "element_id": "third_party_code_authorization",
+            "claim_id": "TC-03-04-third_party_code_authorization",
+            "proposition": "核验交付技术是否使用第三方代码或软件；如使用，再核验来源及授权链。",
+            "status": "CONDITION_UNRESOLVED",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "核验交付技术是否使用第三方代码或软件；如使用，再核验来源及授权链。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "risk_relevant": false,
+            "required_fact": "第三方代码来源及授权证明材料",
+            "conditional_element": true,
+            "prerequisite_status": "UNKNOWN",
+            "prerequisite_fact": "(?:包含|使用|采用|集成|引入|涉及).{0,12}第三方(?:代码|软件)|第三方代码(?:来自|来源|为|：|:)",
+            "verification_instruction": "核验交付技术是否使用第三方代码或软件；如使用，再核验来源及授权链。"
+          }
+        ],
+        "evidence_clauses": [
+          {
+            "clause_id": "C0021",
+            "location": "第九条 保密义务",
+            "title": "保密义务",
+            "text": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "section_type": "正式合同条款",
+            "level": 1,
+            "raw_text": "第九条 保密义务\n乙方应对从甲方获得的技术秘密采取不低于保护自身同类重要技术资料的保密措施。\n未经甲方书面许可，乙方不得向与本项目无关的第三方披露相关技术资料。\n乙方应控制接触许可技术的人员范围，并要求相关员工承担相应保密责任。\n下列信息不受本条限制：\n（1）接收时已合法公开的信息；\n（2）非因乙方违反本合同而进入公共领域的信息；\n（3）乙方能够证明在接收前已经合法掌握的信息；\n（4）乙方从有权披露的第三方合法取得的信息。\n因法院、行政机关或其他有权机关依法要求必须披露相关信息的，乙方可在必要范围内进行披露。\n本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "normalized_text": "第九条保密义务乙方应对从甲方获得的技术秘密采取不低于保护自身同类重要技术资料的保密措施。未经甲方书面许可，乙方不得向与本项目无关的第三方披露相关技术资料。乙方应控制接触许可技术的人员范围，并要求相关员工承担相应保密责任。下列信息不受本条限制：（1）接收时已合法公开的信息；（2）非因乙方违反本合同而进入公共领域的信息；（3）乙方能够证明在接收前已经合法掌握的信息；（4）乙方从有权披露的第三方合法取得的信息。因法院、行政机关或其他有权机关依法要求必须披露相关信息的，乙方可在必要范围内进行披露。本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "option_groups": [],
+            "source": "body",
+            "section_path": [
+              "正式合同条款",
+              "第九条 保密义务"
+            ],
+            "heading": "保密义务",
+            "clause_number": "第九条",
+            "paragraph_index": 20,
+            "block_type": "OPERATIVE_CLAUSE",
+            "parties": [
+              "乙方",
+              "甲方"
+            ],
+            "dates": [],
+            "amounts": [],
+            "percentages": [],
+            "durations": [],
+            "cross_references": [
+              "第九条"
+            ],
+            "node_id": "C0021",
+            "document_id": "contract_package/main",
+            "heading_path": [
+              "第九条 保密义务"
+            ],
+            "article_number": "第九条",
+            "section_number": "",
+            "item_number": "",
+            "sentence_index": 1,
+            "start_offset": 1739,
+            "end_offset": 2025,
+            "source_type": "BODY",
+            "party_obligation": true,
+            "document_type": "MAIN_CONTRACT",
+            "source_document_type": "MAIN_CONTRACT",
+            "evidence_block_type": "OPERATIVE_CLAUSE",
+            "document_name": "合同正文",
+            "section": "第九条 保密义务",
+            "quote": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "confidence": "high",
+            "evidence_type": "CONTRACT_TEXT",
+            "source_span": {
+              "start_offset": 1997,
+              "end_offset": 2025,
+              "raw_text": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+              "coordinate_system": "DOCUMENT_TEXT"
+            },
+            "source_start": 1997,
+            "source_end": 2025,
+            "source_document": "contract_package/main",
+            "original_document_reference": "contract_package/main",
+            "derived_or_original": "ORIGINAL",
+            "evidence_source": {
+              "document_id": "contract_package/main",
+              "document_type": "MAIN_CONTRACT",
+              "document_name": "合同正文",
+              "clause_id": "C0021",
+              "section": "第九条 保密义务",
+              "sentence_index": 1,
+              "quote": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+              "confidence": "high",
+              "evidence_block_type": "OPERATIVE_CLAUSE",
+              "evidence_type": "CONTRACT_TEXT",
+              "source_span": {
+                "start_offset": 1997,
+                "end_offset": 2025,
+                "raw_text": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+                "coordinate_system": "DOCUMENT_TEXT"
+              },
+              "derived_or_original": "ORIGINAL",
+              "source_ref": {
+                "document_id": "contract_package/main",
+                "clause_id": "C0021",
+                "clause_sha256": "4f8900dfef9f1b5f3becda01bb0eed9e55060ceb1ff404a3af456fcbe5be2137",
+                "local_start": 258,
+                "local_end": 286,
+                "locator": "第九条 保密义务"
+              },
+              "verified_original": true
+            },
+            "source_text_hash": "de6d097637539e350ee1ef39deee29824855e2cb70b72d2a9f4c1d77f0204222",
+            "source_full_path": [
+              "第九条 保密义务"
+            ],
+            "source_identity": {
+              "document_id": "contract_package/main",
+              "section_id": "正式合同条款",
+              "parent_clause_id": "第九条",
+              "clause_id": "C0021",
+              "document_offset": 1739,
+              "source_text_hash": "de6d097637539e350ee1ef39deee29824855e2cb70b72d2a9f4c1d77f0204222"
+            },
+            "entailment_status": "PARTIAL_SUPPORT",
+            "semantic_score": 1.0,
+            "matched_terms": [
+              "尚未公开"
+            ],
+            "support_type": "DIRECT",
+            "selection_reason": "Specialized proposition matching selected this operative clause.",
+            "original_excerpt": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "evidence_id": "SRC-6253a1ea34ca608c6307",
+            "supporting_element_ids": [
+              "current_secret_status"
+            ],
+            "element_ids": [
+              "current_secret_status"
+            ],
+            "evidence_polarity": "NEUTRAL",
+            "supports_element_ids": [
+              "current_secret_status"
+            ],
+            "supported_propositions": [
+              "合同对当前秘密状态作出陈述，但当前秘密性及既有披露影响的核验依据尚不完整。"
+            ],
+            "support_summary": "证明合同已对相关合同要素作出部分约定。",
+            "verified_original": true,
+            "source_verification": {
+              "status": "PASS",
+              "errors": [],
+              "method": "EXACT_PARSER_SOURCE_SPAN"
+            },
+            "quoted_text": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "source_ref": {
+              "document_id": "contract_package/main",
+              "clause_id": "C0021",
+              "clause_sha256": "4f8900dfef9f1b5f3becda01bb0eed9e55060ceb1ff404a3af456fcbe5be2137",
+              "local_start": 258,
+              "local_end": 286,
+              "locator": "第九条 保密义务"
+            },
+            "provenance_validation": {
+              "status": "PASS",
+              "evidence_type": "CONTRACT_TEXT",
+              "errors": []
+            }
+          },
+          {
+            "clause_id": "C0022",
+            "location": "第十条 技术资料管理",
+            "title": "技术资料管理",
+            "text": "乙方应建立许可技术资料的访问权限控制。",
+            "section_type": "正式合同条款",
+            "level": 1,
+            "raw_text": "第十条 技术资料管理\n乙方应建立许可技术资料的访问权限控制。\n未经甲方书面同意，不得将完整技术资料上传至公开互联网平台或面向社会开放的云端存储空间。\n本合同解除或者终止后，甲方有权要求乙方返还或者删除其提供的部分技术资料。\n因乙方依法进行财务、审计、诉讼举证或者内部合规留档而必须保留的文件，可以继续保存必要副本，但不得用于其他目的。",
+            "normalized_text": "第十条技术资料管理乙方应建立许可技术资料的访问权限控制。未经甲方书面同意，不得将完整技术资料上传至公开互联网平台或面向社会开放的云端存储空间。本合同解除或者终止后，甲方有权要求乙方返还或者删除其提供的部分技术资料。因乙方依法进行财务、审计、诉讼举证或者内部合规留档而必须保留的文件，可以继续保存必要副本，但不得用于其他目的。",
+            "option_groups": [],
+            "source": "body",
+            "section_path": [
+              "正式合同条款",
+              "第十条 技术资料管理"
+            ],
+            "heading": "技术资料管理",
+            "clause_number": "第十条",
+            "paragraph_index": 21,
+            "block_type": "OPERATIVE_CLAUSE",
+            "parties": [
+              "乙方",
+              "甲方"
+            ],
+            "dates": [],
+            "amounts": [],
+            "percentages": [],
+            "durations": [],
+            "cross_references": [
+              "第十条"
+            ],
+            "node_id": "C0022",
+            "document_id": "contract_package/main",
+            "heading_path": [
+              "第十条 技术资料管理"
+            ],
+            "article_number": "第十条",
+            "section_number": "",
+            "item_number": "",
+            "sentence_index": 1,
+            "start_offset": 2026,
+            "end_offset": 2193,
+            "source_type": "BODY",
+            "party_obligation": true,
+            "document_type": "MAIN_CONTRACT",
+            "source_document_type": "MAIN_CONTRACT",
+            "evidence_block_type": "OPERATIVE_CLAUSE",
+            "document_name": "合同正文",
+            "section": "第十条 技术资料管理",
+            "quote": "乙方应建立许可技术资料的访问权限控制。",
+            "confidence": "high",
+            "evidence_type": "CONTRACT_TEXT",
+            "source_span": {
+              "start_offset": 2037,
+              "end_offset": 2056,
+              "raw_text": "乙方应建立许可技术资料的访问权限控制。",
+              "coordinate_system": "DOCUMENT_TEXT"
+            },
+            "source_start": 2037,
+            "source_end": 2056,
+            "source_document": "contract_package/main",
+            "original_document_reference": "contract_package/main",
+            "derived_or_original": "ORIGINAL",
+            "evidence_source": {
+              "document_id": "contract_package/main",
+              "document_type": "MAIN_CONTRACT",
+              "document_name": "合同正文",
+              "clause_id": "C0022",
+              "section": "第十条 技术资料管理",
+              "sentence_index": 1,
+              "quote": "乙方应建立许可技术资料的访问权限控制。",
+              "confidence": "high",
+              "evidence_block_type": "OPERATIVE_CLAUSE",
+              "evidence_type": "CONTRACT_TEXT",
+              "source_span": {
+                "start_offset": 2037,
+                "end_offset": 2056,
+                "raw_text": "乙方应建立许可技术资料的访问权限控制。",
+                "coordinate_system": "DOCUMENT_TEXT"
+              },
+              "derived_or_original": "ORIGINAL",
+              "source_ref": {
+                "document_id": "contract_package/main",
+                "clause_id": "C0022",
+                "clause_sha256": "e01a02e39b308c27ddaee68487bd4e51db2290f0dfcc342b60065de98291124a",
+                "local_start": 11,
+                "local_end": 30,
+                "locator": "第十条 技术资料管理"
+              },
+              "verified_original": true
+            },
+            "source_text_hash": "064e9396e0f8703c2c8988110b271f979c0a622e42999e74235215d946b9a5af",
+            "source_full_path": [
+              "第十条 技术资料管理"
+            ],
+            "source_identity": {
+              "document_id": "contract_package/main",
+              "section_id": "正式合同条款",
+              "parent_clause_id": "第十条",
+              "clause_id": "C0022",
+              "document_offset": 2026,
+              "source_text_hash": "064e9396e0f8703c2c8988110b271f979c0a622e42999e74235215d946b9a5af"
+            },
+            "entailment_status": "SUPPORTS",
+            "semantic_score": 1.0,
+            "matched_terms": [
+              "访问权限",
+              "权限控制"
+            ],
+            "support_type": "DIRECT",
+            "selection_reason": "Specialized proposition matching selected this operative clause.",
+            "original_excerpt": "乙方应建立许可技术资料的访问权限控制。",
+            "evidence_id": "SRC-ec00d4fd0fd68b57b33d",
+            "supporting_element_ids": [
+              "existing_confidentiality_measures"
+            ],
+            "element_ids": [
+              "existing_confidentiality_measures"
+            ],
+            "evidence_polarity": "NEUTRAL",
+            "supports_element_ids": [
+              "existing_confidentiality_measures"
+            ],
+            "supported_propositions": [
+              "许可前已经采取的保密制度、访问控制或其他保密措施有可核验依据。"
+            ],
+            "support_summary": "证明合同已约定相关合同要素。",
+            "verified_original": true,
+            "source_verification": {
+              "status": "PASS",
+              "errors": [],
+              "method": "EXACT_PARSER_SOURCE_SPAN"
+            },
+            "quoted_text": "乙方应建立许可技术资料的访问权限控制。",
+            "source_ref": {
+              "document_id": "contract_package/main",
+              "clause_id": "C0022",
+              "clause_sha256": "e01a02e39b308c27ddaee68487bd4e51db2290f0dfcc342b60065de98291124a",
+              "local_start": 11,
+              "local_end": 30,
+              "locator": "第十条 技术资料管理"
+            },
+            "provenance_validation": {
+              "status": "PASS",
+              "evidence_type": "CONTRACT_TEXT",
+              "errors": []
+            }
+          },
+          {
+            "clause_id": "C0023",
+            "location": "第十一条 权利保证",
+            "title": "权利保证",
+            "text": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+            "section_type": "正式合同条款",
+            "level": 1,
+            "raw_text": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。\n甲方声明，截至合同签订之日，其未收到第三方就本合同主要许可技术提出的有效侵权通知。\n若第三方主张乙方按照本合同约定使用甲方提供的技术构成侵权，乙方应及时通知甲方。\n甲方应根据实际情况配合乙方处理有关争议。\n因乙方擅自修改、超范围使用许可技术或者将许可技术与未经甲方确认的其他技术结合而引发的争议，由乙方自行负责。",
+            "normalized_text": "第十一条权利保证甲方保证其有权就本合同约定的许可技术向乙方提供许可。甲方声明，截至合同签订之日，其未收到第三方就本合同主要许可技术提出的有效侵权通知。若第三方主张乙方按照本合同约定使用甲方提供的技术构成侵权，乙方应及时通知甲方。甲方应根据实际情况配合乙方处理有关争议。因乙方擅自修改、超范围使用许可技术或者将许可技术与未经甲方确认的其他技术结合而引发的争议，由乙方自行负责。",
+            "option_groups": [],
+            "source": "body",
+            "section_path": [
+              "正式合同条款",
+              "第十一条 权利保证"
+            ],
+            "heading": "权利保证",
+            "clause_number": "第十一条",
+            "paragraph_index": 22,
+            "block_type": "OPERATIVE_CLAUSE",
+            "parties": [
+              "甲方",
+              "乙方"
+            ],
+            "dates": [],
+            "amounts": [],
+            "percentages": [],
+            "durations": [],
+            "cross_references": [
+              "第十一条"
+            ],
+            "node_id": "C0023",
+            "document_id": "contract_package/main",
+            "heading_path": [
+              "第十一条 权利保证"
+            ],
+            "article_number": "第十一条",
+            "section_number": "",
+            "item_number": "",
+            "sentence_index": 1,
+            "start_offset": 2194,
+            "end_offset": 2387,
+            "source_type": "BODY",
+            "party_obligation": true,
+            "document_type": "MAIN_CONTRACT",
+            "source_document_type": "MAIN_CONTRACT",
+            "evidence_block_type": "OPERATIVE_CLAUSE",
+            "document_name": "合同正文",
+            "section": "第十一条 权利保证",
+            "quote": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+            "confidence": "high",
+            "evidence_type": "CONTRACT_TEXT",
+            "source_span": {
+              "start_offset": 2194,
+              "end_offset": 2230,
+              "raw_text": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+              "coordinate_system": "DOCUMENT_TEXT"
+            },
+            "source_start": 2194,
+            "source_end": 2230,
+            "source_document": "contract_package/main",
+            "original_document_reference": "contract_package/main",
+            "derived_or_original": "ORIGINAL",
+            "evidence_source": {
+              "document_id": "contract_package/main",
+              "document_type": "MAIN_CONTRACT",
+              "document_name": "合同正文",
+              "clause_id": "C0023",
+              "section": "第十一条 权利保证",
+              "sentence_index": 1,
+              "quote": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+              "confidence": "high",
+              "evidence_block_type": "OPERATIVE_CLAUSE",
+              "evidence_type": "CONTRACT_TEXT",
+              "source_span": {
+                "start_offset": 2194,
+                "end_offset": 2230,
+                "raw_text": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+                "coordinate_system": "DOCUMENT_TEXT"
+              },
+              "derived_or_original": "ORIGINAL",
+              "source_ref": {
+                "document_id": "contract_package/main",
+                "clause_id": "C0023",
+                "clause_sha256": "9cec1bcccd684e9bfc6c6f3aca53be0ee5e98a2a121a3e9939c5cb96dd5f488c",
+                "local_start": 0,
+                "local_end": 36,
+                "locator": "第十一条 权利保证"
+              },
+              "verified_original": true
+            },
+            "source_text_hash": "6a53d7c5da5b1ada30982cdf2bfd420906f7a97783dc0fccf58ef31f8712b9c8",
+            "source_full_path": [
+              "第十一条 权利保证"
+            ],
+            "source_identity": {
+              "document_id": "contract_package/main",
+              "section_id": "正式合同条款",
+              "parent_clause_id": "第十一条",
+              "clause_id": "C0023",
+              "document_offset": 2194,
+              "source_text_hash": "6a53d7c5da5b1ada30982cdf2bfd420906f7a97783dc0fccf58ef31f8712b9c8"
+            },
+            "entailment_status": "PARTIAL_SUPPORT",
+            "semantic_score": 1.0,
+            "matched_terms": [
+              "保证"
+            ],
+            "support_type": "DIRECT",
+            "selection_reason": "Specialized proposition matching selected this operative clause.",
+            "original_excerpt": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+            "evidence_level": "CONTRACTUAL_REPRESENTATION",
+            "evidence_id": "SRC-8a99781381dda42b1c2a",
+            "supporting_element_ids": [],
+            "element_ids": [],
+            "evidence_polarity": "NEUTRAL",
+            "verified_original": true,
+            "source_verification": {
+              "status": "PASS",
+              "errors": [],
+              "method": "EXACT_PARSER_SOURCE_SPAN"
+            },
+            "quoted_text": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+            "source_ref": {
+              "document_id": "contract_package/main",
+              "clause_id": "C0023",
+              "clause_sha256": "9cec1bcccd684e9bfc6c6f3aca53be0ee5e98a2a121a3e9939c5cb96dd5f488c",
+              "local_start": 0,
+              "local_end": 36,
+              "locator": "第十一条 权利保证"
+            },
+            "provenance_validation": {
+              "status": "PASS",
+              "evidence_type": "CONTRACT_TEXT",
+              "errors": []
+            }
+          }
+        ],
+        "reasoning_summary": "已有部分安排；仍需补足：技术秘密的名称、技术边界、资料范围及交付内容可独立核验、技术秘密研发来源及形成过程的可核验材料、合法持有技术秘密的权利依据材料、处分或许可技术秘密权限的证明材料、完整的历史披露对象清单、历史披露的具体技术内容和范围、历史披露对象承担保密义务的协议或承诺可供核验、既有许可情况披露、既有许可的相对方、既有许可期限、既有许可地域、测试使用安排披露、其他第三方使用安排披露、当前秘密性及既有披露影响的核验依据。"
+      },
+      {
+        "item_id": "TC-13-02",
+        "coverage_status": "缺失",
+        "issue_type": "完全缺失",
+        "coverage_elements": [
+          {
+            "review_id": "TC-13-02",
+            "element_id": "technical_secret_identity_and_delivery_scope",
+            "claim_id": "TC-13-02-technical_secret_identity_and_delivery_scope",
+            "proposition": "技术秘密的名称、技术边界、资料范围及交付内容可独立核验",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "技术秘密的名称、技术边界、资料范围及交付内容可独立核验",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "supporting_evidence": [],
+            "source_fact_key": "technical_secret_identity_and_delivery_scope"
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "technical_source",
+            "claim_id": "TC-13-02-technical_source",
+            "proposition": "技术秘密研发来源及形成过程的可核验材料",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "技术秘密研发来源及形成过程的可核验材料",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "技术秘密研发来源及形成过程的可核验材料",
+            "search_targets": [
+              "技术秘密研发来源及形成过程的可核验材料"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "lawful_possession_basis",
+            "claim_id": "TC-13-02-lawful_possession_basis",
+            "proposition": "合法持有技术秘密的权利依据材料",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "合法持有技术秘密的权利依据材料",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "合法持有技术秘密的权利依据材料",
+            "search_targets": [
+              "合法持有技术秘密的权利依据材料"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "disposition_authority",
+            "claim_id": "TC-13-02-disposition_authority",
+            "proposition": "处分或许可技术秘密权限的证明材料",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "处分或许可技术秘密权限的证明材料",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "处分或许可技术秘密权限的证明材料",
+            "search_targets": [
+              "处分或许可技术秘密权限的证明材料"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "historical_disclosure_objects",
+            "claim_id": "TC-13-02-historical_disclosure_objects",
+            "proposition": "完整的历史披露对象清单",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "完整的历史披露对象清单",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "完整的历史披露对象清单",
+            "search_targets": [
+              "完整的历史披露对象清单"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "historical_disclosure_scope",
+            "claim_id": "TC-13-02-historical_disclosure_scope",
+            "proposition": "历史披露的具体技术内容和范围",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "历史披露的具体技术内容和范围",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "历史披露的具体技术内容和范围",
+            "search_targets": [
+              "历史披露的具体技术内容和范围"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "third_party_confidentiality_obligations",
+            "claim_id": "TC-13-02-third_party_confidentiality_obligations",
+            "proposition": "历史披露对象承担保密义务的协议或承诺可供核验",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "历史披露对象承担保密义务的协议或承诺可供核验",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN"
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "existing_license_disclosure",
+            "claim_id": "TC-13-02-existing_license_disclosure",
+            "proposition": "既有许可情况披露",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "既有许可情况披露",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "既有许可情况披露",
+            "search_targets": [
+              "既有许可情况披露"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "existing_license_counterparty",
+            "claim_id": "TC-13-02-existing_license_counterparty",
+            "proposition": "既有许可的相对方",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "既有许可的相对方",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "既有许可的相对方",
+            "search_targets": [
+              "既有许可的相对方"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "existing_license_term",
+            "claim_id": "TC-13-02-existing_license_term",
+            "proposition": "既有许可期限",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "既有许可期限",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "既有许可期限",
+            "search_targets": [
+              "既有许可期限"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "existing_license_territory",
+            "claim_id": "TC-13-02-existing_license_territory",
+            "proposition": "既有许可地域",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "既有许可地域",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "既有许可地域",
+            "search_targets": [
+              "既有许可地域"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "test_use_arrangement",
+            "claim_id": "TC-13-02-test_use_arrangement",
+            "proposition": "测试使用安排披露",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "测试使用安排披露",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "测试使用安排披露",
+            "search_targets": [
+              "测试使用安排披露"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "other_third_party_use_arrangement",
+            "claim_id": "TC-13-02-other_third_party_use_arrangement",
+            "proposition": "其他第三方使用安排披露",
+            "status": "MISSING",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "其他第三方使用安排披露",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "其他第三方使用安排披露",
+            "search_targets": [
+              "其他第三方使用安排披露"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "current_secret_status",
+            "claim_id": "TC-13-02-current_secret_status",
+            "proposition": "合同对当前秘密状态作出陈述，但当前秘密性及既有披露影响的核验依据尚不完整。",
+            "status": "PARTIALLY_COVERED",
+            "evidence_ids": [
+              "SRC-6253a1ea34ca608c6307"
+            ],
+            "supporting_evidence_ids": [
+              "SRC-6253a1ea34ca608c6307"
+            ],
+            "source_clause_ids": [
+              "C0021"
+            ],
+            "source_spans": [
+              "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。"
+            ],
+            "source_locations": [
+              "第九条 保密义务"
+            ],
+            "entailment": "PARTIAL_SUPPORT",
+            "verifier_confidence": "high",
+            "reason": "合同对当前秘密状态作出陈述，但当前秘密性及既有披露影响的核验依据尚不完整。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "residual_gap": "当前秘密性及既有披露影响的核验依据",
+            "required_fact": "当前秘密性及既有披露影响的核验依据",
+            "search_targets": [
+              "当前秘密性及既有披露影响的核验依据"
+            ]
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "existing_confidentiality_measures",
+            "claim_id": "TC-13-02-existing_confidentiality_measures",
+            "proposition": "许可前已经采取的保密制度、访问控制或其他保密措施有可核验依据。",
+            "status": "COVERED",
+            "evidence_ids": [
+              "SRC-ec00d4fd0fd68b57b33d"
+            ],
+            "supporting_evidence_ids": [
+              "SRC-ec00d4fd0fd68b57b33d"
+            ],
+            "source_clause_ids": [
+              "C0022"
+            ],
+            "source_spans": [
+              "乙方应建立许可技术资料的访问权限控制。"
+            ],
+            "source_locations": [
+              "第十条 技术资料管理"
+            ],
+            "entailment": "SUPPORTS",
+            "verifier_confidence": "high",
+            "reason": "许可前已经采取的保密制度、访问控制或其他保密措施有可核验依据。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "EXPLICIT"
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "joint_holder_disclosure",
+            "claim_id": "TC-13-02-joint_holder_disclosure",
+            "proposition": "核验合同技术是否有共同持有人或共同研发方；如有，再核验权利证明及必要同意。",
+            "status": "CONDITION_UNRESOLVED",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "核验合同技术是否有共同持有人或共同研发方；如有，再核验权利证明及必要同意。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "risk_relevant": false,
+            "required_fact": "共同持有人及共同研发方的权利证明或同意文件",
+            "conditional_element": true,
+            "prerequisite_status": "UNKNOWN",
+            "prerequisite_fact": "(?:技术秘密|合同技术).{0,25}(?:共同持有|共同研发|共有)|(?:共同持有人|共同研发方|共有权人)(?:为|包括|：|:)",
+            "verification_instruction": "核验合同技术是否有共同持有人或共同研发方；如有，再核验权利证明及必要同意。"
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "staff_assignment",
+            "claim_id": "TC-13-02-staff_assignment",
+            "proposition": "核验合同技术是否涉及员工或职务成果；如涉及，再核验成果归属和归集材料。",
+            "status": "CONDITION_UNRESOLVED",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "核验合同技术是否涉及员工或职务成果；如涉及，再核验成果归属和归集材料。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "risk_relevant": false,
+            "required_fact": "员工职务成果归属及成果归集材料",
+            "conditional_element": true,
+            "prerequisite_status": "UNKNOWN",
+            "prerequisite_fact": "(?:员工|研发人员|职工).{0,15}(?:研发形成|开发形成|完成的技术|职务成果)|职务(?:发明|技术成果)",
+            "verification_instruction": "核验合同技术是否涉及员工或职务成果；如涉及，再核验成果归属和归集材料。"
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "open_source_compliance",
+            "claim_id": "TC-13-02-open_source_compliance",
+            "proposition": "核验交付技术是否包含开源组件；如包含，再核验组件清单及对应许可证。",
+            "status": "CONDITION_UNRESOLVED",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "核验交付技术是否包含开源组件；如包含，再核验组件清单及对应许可证。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "risk_relevant": false,
+            "required_fact": "开源组件及对应许可证材料",
+            "conditional_element": true,
+            "prerequisite_status": "UNKNOWN",
+            "prerequisite_fact": "(?:含有|包含|使用|采用|集成|引入|涉及).{0,12}开源(?:组件|代码|软件)|开源组件(?:包括|为|：|:)",
+            "verification_instruction": "核验交付技术是否包含开源组件；如包含，再核验组件清单及对应许可证。"
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "software_copyright_proof",
+            "claim_id": "TC-13-02-software_copyright_proof",
+            "proposition": "核验是否以已登记软件著作权作为权利来源；如是，再核验相应登记及权属材料。",
+            "status": "CONDITION_UNRESOLVED",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "核验是否以已登记软件著作权作为权利来源；如是，再核验相应登记及权属材料。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "risk_relevant": false,
+            "required_fact": "软件著作权登记或权属证明材料",
+            "conditional_element": true,
+            "prerequisite_status": "UNKNOWN",
+            "prerequisite_fact": "(?:已取得|已办理|已登记|拥有).{0,12}软件著作权|软件著作权登记号",
+            "verification_instruction": "核验是否以已登记软件著作权作为权利来源；如是，再核验相应登记及权属材料。"
+          },
+          {
+            "review_id": "TC-13-02",
+            "element_id": "third_party_code_authorization",
+            "claim_id": "TC-13-02-third_party_code_authorization",
+            "proposition": "核验交付技术是否使用第三方代码或软件；如使用，再核验来源及授权链。",
+            "status": "CONDITION_UNRESOLVED",
+            "evidence_ids": [],
+            "supporting_evidence_ids": [],
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "high",
+            "reason": "核验交付技术是否使用第三方代码或软件；如使用，再核验来源及授权链。",
+            "evidence_strength": "EXPLICIT",
+            "minimum_evidence_strength": "UNKNOWN",
+            "risk_relevant": false,
+            "required_fact": "第三方代码来源及授权证明材料",
+            "conditional_element": true,
+            "prerequisite_status": "UNKNOWN",
+            "prerequisite_fact": "(?:包含|使用|采用|集成|引入|涉及).{0,12}第三方(?:代码|软件)|第三方代码(?:来自|来源|为|：|:)",
+            "verification_instruction": "核验交付技术是否使用第三方代码或软件；如使用，再核验来源及授权链。"
+          }
+        ],
+        "evidence_clauses": [
+          {
+            "clause_id": "C0021",
+            "location": "第九条 保密义务",
+            "title": "保密义务",
+            "text": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "section_type": "正式合同条款",
+            "level": 1,
+            "raw_text": "第九条 保密义务\n乙方应对从甲方获得的技术秘密采取不低于保护自身同类重要技术资料的保密措施。\n未经甲方书面许可，乙方不得向与本项目无关的第三方披露相关技术资料。\n乙方应控制接触许可技术的人员范围，并要求相关员工承担相应保密责任。\n下列信息不受本条限制：\n（1）接收时已合法公开的信息；\n（2）非因乙方违反本合同而进入公共领域的信息；\n（3）乙方能够证明在接收前已经合法掌握的信息；\n（4）乙方从有权披露的第三方合法取得的信息。\n因法院、行政机关或其他有权机关依法要求必须披露相关信息的，乙方可在必要范围内进行披露。\n本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "normalized_text": "第九条保密义务乙方应对从甲方获得的技术秘密采取不低于保护自身同类重要技术资料的保密措施。未经甲方书面许可，乙方不得向与本项目无关的第三方披露相关技术资料。乙方应控制接触许可技术的人员范围，并要求相关员工承担相应保密责任。下列信息不受本条限制：（1）接收时已合法公开的信息；（2）非因乙方违反本合同而进入公共领域的信息；（3）乙方能够证明在接收前已经合法掌握的信息；（4）乙方从有权披露的第三方合法取得的信息。因法院、行政机关或其他有权机关依法要求必须披露相关信息的，乙方可在必要范围内进行披露。本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "option_groups": [],
+            "source": "body",
+            "section_path": [
+              "正式合同条款",
+              "第九条 保密义务"
+            ],
+            "heading": "保密义务",
+            "clause_number": "第九条",
+            "paragraph_index": 20,
+            "block_type": "OPERATIVE_CLAUSE",
+            "parties": [
+              "乙方",
+              "甲方"
+            ],
+            "dates": [],
+            "amounts": [],
+            "percentages": [],
+            "durations": [],
+            "cross_references": [
+              "第九条"
+            ],
+            "node_id": "C0021",
+            "document_id": "contract_package/main",
+            "heading_path": [
+              "第九条 保密义务"
+            ],
+            "article_number": "第九条",
+            "section_number": "",
+            "item_number": "",
+            "sentence_index": 1,
+            "start_offset": 1739,
+            "end_offset": 2025,
+            "source_type": "BODY",
+            "party_obligation": true,
+            "document_type": "MAIN_CONTRACT",
+            "source_document_type": "MAIN_CONTRACT",
+            "evidence_block_type": "OPERATIVE_CLAUSE",
+            "document_name": "合同正文",
+            "section": "第九条 保密义务",
+            "quote": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "confidence": "high",
+            "evidence_type": "CONTRACT_TEXT",
+            "source_span": {
+              "start_offset": 1997,
+              "end_offset": 2025,
+              "raw_text": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+              "coordinate_system": "DOCUMENT_TEXT"
+            },
+            "source_start": 1997,
+            "source_end": 2025,
+            "source_document": "contract_package/main",
+            "original_document_reference": "contract_package/main",
+            "derived_or_original": "ORIGINAL",
+            "evidence_source": {
+              "document_id": "contract_package/main",
+              "document_type": "MAIN_CONTRACT",
+              "document_name": "合同正文",
+              "clause_id": "C0021",
+              "section": "第九条 保密义务",
+              "sentence_index": 1,
+              "quote": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+              "confidence": "high",
+              "evidence_block_type": "OPERATIVE_CLAUSE",
+              "evidence_type": "CONTRACT_TEXT",
+              "source_span": {
+                "start_offset": 1997,
+                "end_offset": 2025,
+                "raw_text": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+                "coordinate_system": "DOCUMENT_TEXT"
+              },
+              "derived_or_original": "ORIGINAL",
+              "source_ref": {
+                "document_id": "contract_package/main",
+                "clause_id": "C0021",
+                "clause_sha256": "4f8900dfef9f1b5f3becda01bb0eed9e55060ceb1ff404a3af456fcbe5be2137",
+                "local_start": 258,
+                "local_end": 286,
+                "locator": "第九条 保密义务"
+              },
+              "verified_original": true
+            },
+            "source_text_hash": "de6d097637539e350ee1ef39deee29824855e2cb70b72d2a9f4c1d77f0204222",
+            "source_full_path": [
+              "第九条 保密义务"
+            ],
+            "source_identity": {
+              "document_id": "contract_package/main",
+              "section_id": "正式合同条款",
+              "parent_clause_id": "第九条",
+              "clause_id": "C0021",
+              "document_offset": 1739,
+              "source_text_hash": "de6d097637539e350ee1ef39deee29824855e2cb70b72d2a9f4c1d77f0204222"
+            },
+            "entailment_status": "PARTIAL_SUPPORT",
+            "semantic_score": 1.0,
+            "matched_terms": [
+              "尚未公开"
+            ],
+            "support_type": "DIRECT",
+            "selection_reason": "Specialized proposition matching selected this operative clause.",
+            "original_excerpt": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "evidence_id": "SRC-6253a1ea34ca608c6307",
+            "supporting_element_ids": [
+              "current_secret_status"
+            ],
+            "element_ids": [
+              "current_secret_status"
+            ],
+            "evidence_polarity": "NEUTRAL",
+            "supports_element_ids": [
+              "current_secret_status"
+            ],
+            "supported_propositions": [
+              "合同对当前秘密状态作出陈述，但当前秘密性及既有披露影响的核验依据尚不完整。"
+            ],
+            "support_summary": "证明合同已对相关合同要素作出部分约定。",
+            "verified_original": true,
+            "source_verification": {
+              "status": "PASS",
+              "errors": [],
+              "method": "EXACT_PARSER_SOURCE_SPAN"
+            },
+            "quoted_text": "本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。",
+            "source_ref": {
+              "document_id": "contract_package/main",
+              "clause_id": "C0021",
+              "clause_sha256": "4f8900dfef9f1b5f3becda01bb0eed9e55060ceb1ff404a3af456fcbe5be2137",
+              "local_start": 258,
+              "local_end": 286,
+              "locator": "第九条 保密义务"
+            },
+            "provenance_validation": {
+              "status": "PASS",
+              "evidence_type": "CONTRACT_TEXT",
+              "errors": []
+            }
+          },
+          {
+            "clause_id": "C0022",
+            "location": "第十条 技术资料管理",
+            "title": "技术资料管理",
+            "text": "乙方应建立许可技术资料的访问权限控制。",
+            "section_type": "正式合同条款",
+            "level": 1,
+            "raw_text": "第十条 技术资料管理\n乙方应建立许可技术资料的访问权限控制。\n未经甲方书面同意，不得将完整技术资料上传至公开互联网平台或面向社会开放的云端存储空间。\n本合同解除或者终止后，甲方有权要求乙方返还或者删除其提供的部分技术资料。\n因乙方依法进行财务、审计、诉讼举证或者内部合规留档而必须保留的文件，可以继续保存必要副本，但不得用于其他目的。",
+            "normalized_text": "第十条技术资料管理乙方应建立许可技术资料的访问权限控制。未经甲方书面同意，不得将完整技术资料上传至公开互联网平台或面向社会开放的云端存储空间。本合同解除或者终止后，甲方有权要求乙方返还或者删除其提供的部分技术资料。因乙方依法进行财务、审计、诉讼举证或者内部合规留档而必须保留的文件，可以继续保存必要副本，但不得用于其他目的。",
+            "option_groups": [],
+            "source": "body",
+            "section_path": [
+              "正式合同条款",
+              "第十条 技术资料管理"
+            ],
+            "heading": "技术资料管理",
+            "clause_number": "第十条",
+            "paragraph_index": 21,
+            "block_type": "OPERATIVE_CLAUSE",
+            "parties": [
+              "乙方",
+              "甲方"
+            ],
+            "dates": [],
+            "amounts": [],
+            "percentages": [],
+            "durations": [],
+            "cross_references": [
+              "第十条"
+            ],
+            "node_id": "C0022",
+            "document_id": "contract_package/main",
+            "heading_path": [
+              "第十条 技术资料管理"
+            ],
+            "article_number": "第十条",
+            "section_number": "",
+            "item_number": "",
+            "sentence_index": 1,
+            "start_offset": 2026,
+            "end_offset": 2193,
+            "source_type": "BODY",
+            "party_obligation": true,
+            "document_type": "MAIN_CONTRACT",
+            "source_document_type": "MAIN_CONTRACT",
+            "evidence_block_type": "OPERATIVE_CLAUSE",
+            "document_name": "合同正文",
+            "section": "第十条 技术资料管理",
+            "quote": "乙方应建立许可技术资料的访问权限控制。",
+            "confidence": "high",
+            "evidence_type": "CONTRACT_TEXT",
+            "source_span": {
+              "start_offset": 2037,
+              "end_offset": 2056,
+              "raw_text": "乙方应建立许可技术资料的访问权限控制。",
+              "coordinate_system": "DOCUMENT_TEXT"
+            },
+            "source_start": 2037,
+            "source_end": 2056,
+            "source_document": "contract_package/main",
+            "original_document_reference": "contract_package/main",
+            "derived_or_original": "ORIGINAL",
+            "evidence_source": {
+              "document_id": "contract_package/main",
+              "document_type": "MAIN_CONTRACT",
+              "document_name": "合同正文",
+              "clause_id": "C0022",
+              "section": "第十条 技术资料管理",
+              "sentence_index": 1,
+              "quote": "乙方应建立许可技术资料的访问权限控制。",
+              "confidence": "high",
+              "evidence_block_type": "OPERATIVE_CLAUSE",
+              "evidence_type": "CONTRACT_TEXT",
+              "source_span": {
+                "start_offset": 2037,
+                "end_offset": 2056,
+                "raw_text": "乙方应建立许可技术资料的访问权限控制。",
+                "coordinate_system": "DOCUMENT_TEXT"
+              },
+              "derived_or_original": "ORIGINAL",
+              "source_ref": {
+                "document_id": "contract_package/main",
+                "clause_id": "C0022",
+                "clause_sha256": "e01a02e39b308c27ddaee68487bd4e51db2290f0dfcc342b60065de98291124a",
+                "local_start": 11,
+                "local_end": 30,
+                "locator": "第十条 技术资料管理"
+              },
+              "verified_original": true
+            },
+            "source_text_hash": "064e9396e0f8703c2c8988110b271f979c0a622e42999e74235215d946b9a5af",
+            "source_full_path": [
+              "第十条 技术资料管理"
+            ],
+            "source_identity": {
+              "document_id": "contract_package/main",
+              "section_id": "正式合同条款",
+              "parent_clause_id": "第十条",
+              "clause_id": "C0022",
+              "document_offset": 2026,
+              "source_text_hash": "064e9396e0f8703c2c8988110b271f979c0a622e42999e74235215d946b9a5af"
+            },
+            "entailment_status": "SUPPORTS",
+            "semantic_score": 1.0,
+            "matched_terms": [
+              "访问权限",
+              "权限控制"
+            ],
+            "support_type": "DIRECT",
+            "selection_reason": "Specialized proposition matching selected this operative clause.",
+            "original_excerpt": "乙方应建立许可技术资料的访问权限控制。",
+            "evidence_id": "SRC-ec00d4fd0fd68b57b33d",
+            "supporting_element_ids": [
+              "existing_confidentiality_measures"
+            ],
+            "element_ids": [
+              "existing_confidentiality_measures"
+            ],
+            "evidence_polarity": "NEUTRAL",
+            "supports_element_ids": [
+              "existing_confidentiality_measures"
+            ],
+            "supported_propositions": [
+              "许可前已经采取的保密制度、访问控制或其他保密措施有可核验依据。"
+            ],
+            "support_summary": "证明合同已约定相关合同要素。",
+            "verified_original": true,
+            "source_verification": {
+              "status": "PASS",
+              "errors": [],
+              "method": "EXACT_PARSER_SOURCE_SPAN"
+            },
+            "quoted_text": "乙方应建立许可技术资料的访问权限控制。",
+            "source_ref": {
+              "document_id": "contract_package/main",
+              "clause_id": "C0022",
+              "clause_sha256": "e01a02e39b308c27ddaee68487bd4e51db2290f0dfcc342b60065de98291124a",
+              "local_start": 11,
+              "local_end": 30,
+              "locator": "第十条 技术资料管理"
+            },
+            "provenance_validation": {
+              "status": "PASS",
+              "evidence_type": "CONTRACT_TEXT",
+              "errors": []
+            }
+          },
+          {
+            "clause_id": "C0023",
+            "location": "第十一条 权利保证",
+            "title": "权利保证",
+            "text": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+            "section_type": "正式合同条款",
+            "level": 1,
+            "raw_text": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。\n甲方声明，截至合同签订之日，其未收到第三方就本合同主要许可技术提出的有效侵权通知。\n若第三方主张乙方按照本合同约定使用甲方提供的技术构成侵权，乙方应及时通知甲方。\n甲方应根据实际情况配合乙方处理有关争议。\n因乙方擅自修改、超范围使用许可技术或者将许可技术与未经甲方确认的其他技术结合而引发的争议，由乙方自行负责。",
+            "normalized_text": "第十一条权利保证甲方保证其有权就本合同约定的许可技术向乙方提供许可。甲方声明，截至合同签订之日，其未收到第三方就本合同主要许可技术提出的有效侵权通知。若第三方主张乙方按照本合同约定使用甲方提供的技术构成侵权，乙方应及时通知甲方。甲方应根据实际情况配合乙方处理有关争议。因乙方擅自修改、超范围使用许可技术或者将许可技术与未经甲方确认的其他技术结合而引发的争议，由乙方自行负责。",
+            "option_groups": [],
+            "source": "body",
+            "section_path": [
+              "正式合同条款",
+              "第十一条 权利保证"
+            ],
+            "heading": "权利保证",
+            "clause_number": "第十一条",
+            "paragraph_index": 22,
+            "block_type": "OPERATIVE_CLAUSE",
+            "parties": [
+              "甲方",
+              "乙方"
+            ],
+            "dates": [],
+            "amounts": [],
+            "percentages": [],
+            "durations": [],
+            "cross_references": [
+              "第十一条"
+            ],
+            "node_id": "C0023",
+            "document_id": "contract_package/main",
+            "heading_path": [
+              "第十一条 权利保证"
+            ],
+            "article_number": "第十一条",
+            "section_number": "",
+            "item_number": "",
+            "sentence_index": 1,
+            "start_offset": 2194,
+            "end_offset": 2387,
+            "source_type": "BODY",
+            "party_obligation": true,
+            "document_type": "MAIN_CONTRACT",
+            "source_document_type": "MAIN_CONTRACT",
+            "evidence_block_type": "OPERATIVE_CLAUSE",
+            "document_name": "合同正文",
+            "section": "第十一条 权利保证",
+            "quote": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+            "confidence": "high",
+            "evidence_type": "CONTRACT_TEXT",
+            "source_span": {
+              "start_offset": 2194,
+              "end_offset": 2230,
+              "raw_text": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+              "coordinate_system": "DOCUMENT_TEXT"
+            },
+            "source_start": 2194,
+            "source_end": 2230,
+            "source_document": "contract_package/main",
+            "original_document_reference": "contract_package/main",
+            "derived_or_original": "ORIGINAL",
+            "evidence_source": {
+              "document_id": "contract_package/main",
+              "document_type": "MAIN_CONTRACT",
+              "document_name": "合同正文",
+              "clause_id": "C0023",
+              "section": "第十一条 权利保证",
+              "sentence_index": 1,
+              "quote": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+              "confidence": "high",
+              "evidence_block_type": "OPERATIVE_CLAUSE",
+              "evidence_type": "CONTRACT_TEXT",
+              "source_span": {
+                "start_offset": 2194,
+                "end_offset": 2230,
+                "raw_text": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+                "coordinate_system": "DOCUMENT_TEXT"
+              },
+              "derived_or_original": "ORIGINAL",
+              "source_ref": {
+                "document_id": "contract_package/main",
+                "clause_id": "C0023",
+                "clause_sha256": "9cec1bcccd684e9bfc6c6f3aca53be0ee5e98a2a121a3e9939c5cb96dd5f488c",
+                "local_start": 0,
+                "local_end": 36,
+                "locator": "第十一条 权利保证"
+              },
+              "verified_original": true
+            },
+            "source_text_hash": "6a53d7c5da5b1ada30982cdf2bfd420906f7a97783dc0fccf58ef31f8712b9c8",
+            "source_full_path": [
+              "第十一条 权利保证"
+            ],
+            "source_identity": {
+              "document_id": "contract_package/main",
+              "section_id": "正式合同条款",
+              "parent_clause_id": "第十一条",
+              "clause_id": "C0023",
+              "document_offset": 2194,
+              "source_text_hash": "6a53d7c5da5b1ada30982cdf2bfd420906f7a97783dc0fccf58ef31f8712b9c8"
+            },
+            "entailment_status": "PARTIAL_SUPPORT",
+            "semantic_score": 1.0,
+            "matched_terms": [
+              "保证"
+            ],
+            "support_type": "DIRECT",
+            "selection_reason": "Specialized proposition matching selected this operative clause.",
+            "original_excerpt": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+            "evidence_level": "CONTRACTUAL_REPRESENTATION",
+            "evidence_id": "SRC-8a99781381dda42b1c2a",
+            "supporting_element_ids": [],
+            "element_ids": [],
+            "evidence_polarity": "NEUTRAL",
+            "verified_original": true,
+            "source_verification": {
+              "status": "PASS",
+              "errors": [],
+              "method": "EXACT_PARSER_SOURCE_SPAN"
+            },
+            "quoted_text": "第十一条 权利保证\n甲方保证其有权就本合同约定的许可技术向乙方提供许可。",
+            "source_ref": {
+              "document_id": "contract_package/main",
+              "clause_id": "C0023",
+              "clause_sha256": "9cec1bcccd684e9bfc6c6f3aca53be0ee5e98a2a121a3e9939c5cb96dd5f488c",
+              "local_start": 0,
+              "local_end": 36,
+              "locator": "第十一条 权利保证"
+            },
+            "provenance_validation": {
+              "status": "PASS",
+              "evidence_type": "CONTRACT_TEXT",
+              "errors": []
+            }
+          }
+        ],
+        "reasoning_summary": "已有部分安排；仍需补足：技术秘密的名称、技术边界、资料范围及交付内容可独立核验、技术秘密研发来源及形成过程的可核验材料、合法持有技术秘密的权利依据材料、处分或许可技术秘密权限的证明材料、完整的历史披露对象清单、历史披露的具体技术内容和范围、历史披露对象承担保密义务的协议或承诺可供核验、既有许可情况披露、既有许可的相对方、既有许可期限、既有许可地域、测试使用安排披露、其他第三方使用安排披露、当前秘密性及既有披露影响的核验依据。"
+      }
+    ]
+  }
+}

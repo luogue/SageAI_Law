@@ -72,6 +72,9 @@ SERVICE_SIGNALS: Tuple[Tuple[str, Tuple[str, ...], int], ...] = (
 
 
 def _collect(text: str, clauses: Sequence[ParsedClause], definitions, target: str) -> tuple[int, List[ClassificationEvidence]]:
+    from review_v2.transaction_scope import operative_text
+    if target == 'GOODS':
+        text = operative_text(text)
     rows: List[ClassificationEvidence] = []
     score = 0
     for signal_type, terms, weight in definitions:
@@ -91,6 +94,26 @@ def resolve_contract_domain(
     technology_classification: Dict[str, Any] | None = None,
 ) -> DomainResolution:
     family = "SALE" if contract_family in {"sale", "SALE"} else contract_family.upper()
+    from review_v2.priority_contract_types import PRIORITY_TYPES
+    key = contract_family.lower()
+    if key in PRIORITY_TYPES:
+        meta = PRIORITY_TYPES[key]
+        from review_v2.transaction_scope import company_formation
+        formation = company_formation(text) if key == 'shareholders' else {}
+        subject = meta.subject
+        if key == "mortgage":
+            subject = "REAL_ESTATE" if any(t in text for t in ("不动产", "房屋", "土地使用权")) else "MOVABLE" if any(t in text for t in ("设备", "动产", "车辆")) else "COLLATERAL"
+        return DomainResolution(
+            contract_family=meta.family, subject_matter=subject,
+            transaction_nature="SECURITY_CREATION" if meta.family == "SECURITY_PROPERTY" else "EQUITY_TRANSACTION" if meta.family == "EQUITY_INVESTMENT" else "EMPLOYMENT_ARRANGEMENT",
+            contract_subtype=key.upper(), asset_usage="NOT_APPLICABLE", consideration_type="TRANSACTION_SPECIFIC",
+            ownership_transfer=key == "equity_transfer", possession_transfer=key == "movable_pledge",
+            transaction_structure=key.upper(), product_category="NOT_APPLICABLE", transaction_purpose=key,
+            jurisdiction="CN", primary_subject=subject, accessory_subjects=[],
+            selected_domain_packs=["shared", meta.family.lower(), key], rejected_domain_packs=[], confidence="high",
+            domain_attributes={"registry_type": key, "type_tree_path": [meta.family, key.upper()],
+                               "company_formation": formation},
+        )
     if family == "TECHNOLOGY":
         if technology_classification is None:
             from review_v2.technology_service_analysis import classify_technology_transaction
@@ -138,13 +161,15 @@ def resolve_contract_domain(
         is_lease = contract_family in {"lease", "house_lease"}
         is_service = contract_family in {"service", "SERVICE"}
         if is_service:
+            from review_v2.service_scenarios import is_property_service
+            property_service = is_property_service(text)
             service_score, service_evidence = _collect(text, clauses, SERVICE_SIGNALS, "SERVICE")
             confidence = "high" if service_score >= 8 and len(service_evidence) >= 2 else "medium" if service_score >= 5 else "low"
             return DomainResolution(
                 contract_family="SERVICE",
                 subject_matter="SERVICE",
                 transaction_nature="SERVICE_PROVISION",
-                contract_subtype="GENERAL_SERVICE",
+                contract_subtype="PROPERTY_SERVICE" if property_service else "GENERAL_SERVICE",
                 asset_usage="NOT_APPLICABLE",
                 consideration_type="SERVICE_FEE",
                 ownership_transfer=False,

@@ -1,0 +1,56 @@
+{
+  "document": "117  非全日制用工协议.docx",
+  "document_sha256": "5f146f6469e06288b2d23662631b575d071960fc464311dd65b71ad16fa8ccee",
+  "non_compete_arrangement": "NOT_FOUND",
+  "verified_full_text_audit": {
+    "concept": "non_compete.arrangement",
+    "result": "ABSENT",
+    "reason": "全文通读C0001至C0018，仅C0011约定保密义务且明确正常履行保密义务不得限制乙方依法选择其他工作，未发现任何离职后竞业限制条款、竞业人员范围、竞争业务、地域、期限、补偿或全员竞业安排；保密条款不等于竞业限制，故本概念及相关子概念均不存在且无歧义。",
+    "searched_concepts": [
+      "non_compete.arrangement",
+      "non_compete.personnel",
+      "non_compete.secret_access",
+      "non_compete.businesses",
+      "non_compete.territories",
+      "non_compete.duration_months",
+      "non_compete.compensation",
+      "non_compete.compensation_deferred",
+      "non_compete.compensation_waived",
+      "non_compete.all_staff"
+    ],
+    "reviewed_clause_ids": [
+      "C0001",
+      "C0002",
+      "C0003",
+      "C0004",
+      "C0005",
+      "C0006",
+      "C0007",
+      "C0008",
+      "C0009",
+      "C0010",
+      "C0011",
+      "C0012",
+      "C0013",
+      "C0014",
+      "C0015",
+      "C0016",
+      "C0017",
+      "C0018"
+    ]
+  },
+  "release_quality_gate": "BLOCKED",
+  "remaining_blocker": {
+    "field": "penalties.obligations",
+    "reason": [
+      {
+        "fact_id": "EF-4ddec94eca15a9e1",
+        "supported": false,
+        "reason": "C0009仅禁止因乙方另有合法工作而要求承担违约责任，并非针对ORDINARY_DISCIPLINE纪律处分的违约金义务，scope不匹配，不能据此认定该纪律违约金imposed=false。"
+      }
+    ]
+  },
+  "automated_tests_passed": 243,
+  "real_deepseek_extraction_cases_passed": 5,
+  "final_report_generated": false
+}

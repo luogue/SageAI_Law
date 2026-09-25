@@ -5,6 +5,7 @@ FROM python:3.11-slim
 RUN groupadd -r sageai && useradd -r -g sageai -d /app sageai
 
 WORKDIR /app
+ENV DATABASE_URL=sqlite:////app/data/app.db SAGE_DATA_DIR=/app/data
 
 # 安装系统依赖（添加重试机制应对网络不稳定）
 RUN apt-get update -o Acquire::Retries=5 -o Acquire::http::Timeout=30 && \
@@ -25,6 +26,7 @@ RUN mkdir -p /app/data /app/logs && chown -R sageai:sageai /app
 
 # 切换到非 root 用户
 USER sageai
+VOLUME ["/app/data"]
 
 # 健康检查
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \

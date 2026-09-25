@@ -1,0 +1,6 @@
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+  warnings.warn(
+Traceback (most recent call last):
+  File "<stdin>", line 9, in <module>
+KeyError: 'review_polarity'
+transfer FAILURES [{'requirement': 'REVIEW_EVIDENCE_ELEMENT_MISMATCH', 'failure_stage': 'Review Evidence Projection', 'root_cause': 'Review evidence is not exactly bound to covered elements: 1 mismatch(es).', 'current_status': 'FAIL', 'mismatches': [{'review_id': 'TC-12-03', 'element_id': 'PRIMARY_EVIDENCE', 'evidence_refs': ['C0008'], 'reason': 'The primary report evidence does not directly support any covered element in this Review.'}]}]

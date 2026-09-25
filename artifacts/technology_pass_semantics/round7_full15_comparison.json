@@ -1,0 +1,684 @@
+{
+  "baseline": {
+    "PASS": 820,
+    "FAIL": 262,
+    "SKIP": 0
+  },
+  "current": {
+    "PASS": 801,
+    "FAIL": 301,
+    "SKIP": 0
+  },
+  "recovered": [
+    "backend.tests.test_current_patent_license_evidence_recall::test_infringement_remedy_coordination_ignores_unrelated_payment_penalty",
+    "backend.tests.test_entrusted_cross_rule_consistency::test_completed_negative_check_does_not_leave_an_obsolete_manual_review",
+    "backend.tests.test_patent_right_transfer_contract_review::test_patent_transfer_coverage_distinguishes_presence_from_adverse_terms",
+    "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_loss_positive_notice_facts_never_reenter_missing",
+    "backend.tests.test_technical_service_latest_shared_fact_regressions::test_counterparty_restrictions_are_projected_as_current_party_enforceability_risk",
+    "backend.tests.test_technical_service_latest_shared_fact_regressions::test_report_actual_exposure_uses_party_aware_finding_consequence",
+    "backend.tests.test_technical_service_maintenance_contract_review::test_service_confidentiality_has_precise_partial_evidence"
+  ],
+  "newly_failing": [
+    "backend.tests.test_cooperative_development_advanced_regressions::test_complex_five_day_deemed_acceptance_preserves_latent_defect_rights",
+    "backend.tests.test_cooperative_development_advanced_regressions::test_component_control_and_loss_direction_are_separate_from_claim_procedure",
+    "backend.tests.test_cooperative_development_advanced_regressions::test_existing_failure_and_exit_terms_are_adverse_not_missing",
+    "backend.tests.test_cooperative_development_advanced_regressions::test_result_reuse_data_reuse_and_follow_on_improvement_remain_distinct",
+    "backend.tests.test_cooperative_development_advanced_regressions::test_reviewer_funded_equipment_transfer_is_an_independent_adverse_risk",
+    "backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency::test_investment_facts_override_absence_search",
+    "backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency::test_party_a_failure_allocation_is_favorable_and_article_858_controls",
+    "backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency::test_retention_does_not_imply_external_use_or_training",
+    "backend.tests.test_cooperative_development_latest_regressions::test_budget_investment_and_cooperation_timeline_use_shared_deterministic_checks",
+    "backend.tests.test_cooperative_development_latest_regressions::test_claim_allocation_is_not_misreported_as_actual_infringement",
+    "backend.tests.test_cooperative_development_latest_regressions::test_competition_and_improvement_rules_reuse_direct_atomic_evidence",
+    "backend.tests.test_cooperative_development_latest_regressions::test_cooperative_failure_allocation_is_an_evidence_bound_risk",
+    "backend.tests.test_patent_application_transfer_consistency::test_claim_liability_reuses_seller_responsibility",
+    "backend.tests.test_patent_application_transfer_consistency::test_completed_core_becomes_pass_without_fabricated_gap_or_exposure",
+    "backend.tests.test_patent_application_transfer_consistency::test_duty_and_non_duty_have_separate_triggers",
+    "backend.tests.test_patent_application_transfer_consistency::test_warranty_is_not_demoted_by_missing_proof_documents",
+    "backend.tests.test_patent_license_latest_report_regressions::test_third_party_responsibility_follows_the_actual_party_allocation",
+    "backend.tests.test_patent_right_transfer_contract_review::test_third_party_claim_advanced_only_gaps_are_optional_optimization",
+    "backend.tests.test_patent_transfer_acquisition_and_remedies::test_current_invalidity_unpaid_fees_generate_actionable_risk",
+    "backend.tests.test_patent_transfer_acquisition_and_remedies::test_current_registration_conflict_is_not_pass",
+    "backend.tests.test_patent_transfer_acquisition_and_remedies::test_existing_claim_and_daily_penalty_findings_remain_actionable",
+    "backend.tests.test_patent_transfer_acquisition_and_remedies::test_identifiable_document_types_are_separate_from_versions_and_exhibits[\\u4e13\\u5229\\u8bc1\\u4e66\\u3001\\u4e13\\u5229\\u8bf4\\u660e\\u4e66\\u3001\\u6743\\u5229\\u8981\\u6c42\\u4e66\\u53ca\\u9644\\u56fe-True]",
+    "backend.tests.test_patent_transfer_acquisition_and_remedies::test_identifiable_document_types_are_separate_from_versions_and_exhibits[\\u603b\\u4f53\\u8bbe\\u8ba1\\u56fe\\u3001\\u673a\\u68b0\\u96f6\\u4ef6\\u56fe-True]",
+    "backend.tests.test_patent_transfer_acquisition_and_remedies::test_unrelated_infringement_risk_does_not_require_coordination_link",
+    "backend.tests.test_penalty_base::test_actual_nda_preserves_eight_reviews_and_adds_one_common_gap",
+    "backend.tests.test_shared_penalty_registry::test_shared_identity_and_development_coverage",
+    "backend.tests.test_technical_consulting_contract_review::test_complete_consulting_data_provision_is_pass",
+    "backend.tests.test_technical_consulting_contract_review::test_consulting_elements_and_evidence_are_status_separated_and_contract_grounded",
+    "backend.tests.test_technical_consulting_contract_review::test_consulting_signing_law_context_is_not_false_positive",
+    "backend.tests.test_technical_consulting_contract_review::test_consulting_subtype_is_inferred_from_transaction_substance_without_explicit_title",
+    "backend.tests.test_technical_consulting_contract_review::test_consulting_tc08_rules_and_direct_evidence",
+    "backend.tests.test_technical_consulting_contract_review::test_production_file_endpoint_uses_active_consulting_evidence_implementation",
+    "backend.tests.test_technical_secret_license_contract_review::test_case_i_j_confidentiality_balance_is_directional",
+    "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_compliant_use_infringement_liability_is_covered",
+    "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_confidentiality_consumes_cross_article_facts",
+    "backend.tests.test_technical_secret_license_contract_review::test_over_scope_liability_b_existing_clause_is_not_missing",
+    "backend.tests.test_technical_secret_transfer_contract_review::test_ancillary_service_fee_keeps_covered_base_and_only_reports_excess_fee_gaps",
+    "backend.tests.test_technical_secret_transfer_contract_review::test_service_fee_and_confidentiality_use_only_direct_operational_clauses",
+    "backend.tests.test_technical_secret_transfer_contract_review::test_technical_secret_proof_uses_partial_atomic_facts_not_principle_warranty_pass",
+    "backend.tests.test_technical_service_dynamic_roles_and_grounding::test_service_provider_does_not_receive_counterparty_liability_cap_risk",
+    "backend.tests.test_technical_service_final_evidence_closure::test_same_evidence_span_supports_multiple_claims_without_duplicate_rendering",
+    "backend.tests.test_technical_service_latest_shared_fact_regressions::test_party_direction_and_finding_consistency_are_enforced",
+    "backend.tests.test_technology_license_final_precision::test_tc_12_04_requires_same_loss_general_remedy_before_activation",
+    "backend.tests.test_technology_license_scenario_interest_isolation::test_d_party_interest_check_distinguishes_uncapped_and_low_capped_licensor_liability",
+    "backend.tests.test_technology_pass_semantic_sources::test_negative_rule_requires_reproduced_complete_adverse_search[\\u7b2c\\u4e09\\u65b9\\u63d0\\u51fa\\u4fb5\\u6743\\u4e3b\\u5f20\\u65f6\\uff0c\\u4e59\\u65b9\\u5e94\\u5904\\u7406\\u7ea0\\u7eb7\\u3002-True-REPORT_READY]",
+    "backend.tests.test_technology_transaction_routing_consistency::test_title_and_core_transaction_conflict_is_a_finding_not_a_second_rule_pack"
+  ],
+  "added": {
+    "backend.tests.test_technology_verified_decision_boundary::test_canonical_penalty_rekey_preserves_exact_binding_contract": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_technology_verified_decision_boundary::test_confidentiality_undertaking_is_only_applicability_not_breach_liability": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_technology_verified_decision_boundary::test_generic_confidentiality_claim_reuses_scope_and_obligation_sources": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_technology_verified_decision_boundary::test_material_delivery_uses_same_document_taxonomy_as_scope[\\u8bb8\\u53ef\\u65b9\\u5e94\\u4ea4\\u4ed8\\u8bbe\\u8ba1\\u56fe\\u7eb8\\u548c\\u64cd\\u4f5c\\u624b\\u518c\\u3002-True]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_technology_verified_decision_boundary::test_material_delivery_uses_same_document_taxonomy_as_scope[\\u8bb8\\u53ef\\u65b9\\u5e94\\u63d0\\u4ea4\\u7535\\u6c14\\u539f\\u7406\\u56fe\\u548c\\u7ef4\\u4fee\\u624b\\u518c\\u3002-True]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_technology_verified_decision_boundary::test_material_delivery_uses_same_document_taxonomy_as_scope[\\u8bb8\\u53ef\\u65b9\\u63d0\\u4f9b\\u7684\\u64cd\\u4f5c\\u624b\\u518c\\u53d1\\u751f\\u9519\\u8bef\\u65f6\\u5e94\\u627f\\u62c5\\u8d54\\u507f\\u8d23\\u4efb\\u3002-False]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_technology_verified_decision_boundary::test_negative_audit_requires_reproducible_predicate_and_full_corpus[contrary_clause]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_technology_verified_decision_boundary::test_negative_audit_requires_reproducible_predicate_and_full_corpus[incomplete_scope]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_technology_verified_decision_boundary::test_negative_audit_requires_reproducible_predicate_and_full_corpus[wrong_predicate]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_technology_verified_decision_boundary::test_negative_search_is_not_replaced_by_checkpoint_display_metadata[TC-02-02]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_technology_verified_decision_boundary::test_negative_search_is_not_replaced_by_checkpoint_display_metadata[TC-10-04]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_technology_verified_decision_boundary::test_owner_declaration_is_identity_not_document_availability[\\u7532\\u65b9\\u4e0d\\u662f\\u8be5\\u9879\\u6280\\u672f\\u7684\\u4e13\\u5229\\u6743\\u4eba\\u3002-False]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_technology_verified_decision_boundary::test_owner_declaration_is_identity_not_document_availability[\\u7532\\u65b9\\u58f0\\u660e\\u662f\\u8be5\\u9879\\u6280\\u672f\\u7684\\u4e13\\u5229\\u6743\\u4eba\\u3002-True]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_technology_verified_decision_boundary::test_owner_declaration_is_identity_not_document_availability[\\u7532\\u65b9\\u5982\\u4e3a\\u4e13\\u5229\\u6743\\u4eba\\uff0c\\u5e94\\u63d0\\u4f9b\\u8bc1\\u4e66\\u3002-False]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_technology_verified_decision_boundary::test_owner_declaration_is_identity_not_document_availability[\\u8bb8\\u53ef\\u65b9\\u786e\\u8ba4\\u5176\\u4e3a\\u8bb8\\u53ef\\u6807\\u7684\\u7684\\u5408\\u6cd5\\u4e13\\u5229\\u6743\\u4eba\\u3002-True]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_technology_verified_decision_boundary::test_patent_identity_absence_query_is_field_specific": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_technology_verified_decision_boundary::test_rejected_positive_element_cannot_be_restored_from_specialized_snapshot": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_technology_verified_decision_boundary::test_replaying_completed_negative_search_is_idempotent": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_technology_verified_decision_boundary::test_trigger_party_does_not_own_later_provider_response[\\u4e70\\u65b9\\u906d\\u5230\\u7b2c\\u4e09\\u4eba\\u7d22\\u8d54\\u7684\\uff0c\\u5356\\u65b9\\u5e94\\u8d1f\\u8d23\\u5904\\u7406\\u5e76\\u627f\\u62c5\\u5408\\u7406\\u635f\\u5931\\u3002]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_technology_verified_decision_boundary::test_trigger_party_does_not_own_later_provider_response[\\u63a5\\u53d7\\u65b9\\u6309\\u7ea6\\u5b9e\\u65bd\\u906d\\u9047\\u7b2c\\u4e09\\u65b9\\u4fb5\\u6743\\u4e3b\\u5f20\\u65f6\\uff0c\\u8bb8\\u53ef\\u65b9\\u5e94\\u8d1f\\u8d23\\u5e94\\u8bc9\\u5e76\\u627f\\u62c5\\u76f8\\u5e94\\u4fb5\\u6743\\u8d23\\u4efb\\u3002]": {
+      "status": "PASS",
+      "message": ""
+    }
+  },
+  "removed": [],
+  "changes": {
+    "backend.tests.test_cooperative_development_advanced_regressions::test_complex_five_day_deemed_acceptance_preserves_latent_defect_rights": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "KeyError: 'short_deemed_acceptance'"
+      }
+    },
+    "backend.tests.test_cooperative_development_advanced_regressions::test_component_control_and_loss_direction_are_separate_from_claim_procedure": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "KeyError: 'component_selection_control'"
+      }
+    },
+    "backend.tests.test_cooperative_development_advanced_regressions::test_existing_failure_and_exit_terms_are_adverse_not_missing": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '部分覆盖' == '风险条款'\n  \n  - 风险条款\n  + 部分覆盖"
+      }
+    },
+    "backend.tests.test_cooperative_development_advanced_regressions::test_result_reuse_data_reuse_and_follow_on_improvement_remain_distinct": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "KeyError: 'project_purpose_limitation'"
+      }
+    },
+    "backend.tests.test_cooperative_development_advanced_regressions::test_reviewer_funded_equipment_transfer_is_an_independent_adverse_risk": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "KeyError: 'reviewer_funded_asset_ownership'"
+      }
+    },
+    "backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency::test_investment_facts_override_absence_search": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert 'ADVERSE' == 'COVERED'\n  \n  - COVERED\n  + ADVERSE"
+      }
+    },
+    "backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency::test_party_a_failure_allocation_is_favorable_and_article_858_controls": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "KeyError: 'incurred_cost_allocation'"
+      }
+    },
+    "backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency::test_retention_does_not_imply_external_use_or_training": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "KeyError: 'post_termination_retention_and_deletion'"
+      }
+    },
+    "backend.tests.test_cooperative_development_latest_regressions::test_budget_investment_and_cooperation_timeline_use_shared_deterministic_checks": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert 5 == 3\n +  where 5 = len(['合作期限为三年，自2026年10月1日起至2029年9月30日止。', '本协议自双方于2026年10月15日签字盖章之日起生效。', '履行开始日期 = 2026-10-01；合同生效日期 = 2026-10-15；2026-10-01 < 2026-10-15，存在生效前履行事实。', '合作期限为三年，自2026年10月1日起至2029年9月30日止。', '本协议自双方于2026年10月15日签字盖章之日起生效。'])\n +  and   3 = len({'合作期限为三年，自2026年10月1日起至2029年9月30日止。', '履行开始日期 = 2026-10-01；合同生效日期 = 2026-10-15；2026-10-01 < 2026-10-15，存在生效前履行事实。', '本协议自双方于2026年10月15日签字盖章之日起生效。'})\n +    where {'合作期限为三年，自2026年10月1日起至2029年9月30日止。', '履行开始日期 = 2026-10-01；合同生效日期 = 2026-10-15；2026-10-01 < 2026-10-15，存在生效前履行事实。', '本协议自双方于2026年10月15日签字盖章之日起生效。'} = set(['合作期限为三年，自2026年10月1日起至2029年9月30日止。', '本协议自双方于2026年10月15日签字盖章之日起生效。', '履行开始日期 = 2026-10-01；合同生效日期 = 2026-10-15；2026-10-01 < 2026-10-15，存在生效前履行事实。', '合作期限为三年，自2026年10月1日起至2029年9月30日止。', '本协议自双方于2026年10月15日签字盖章之日起生效。'])"
+      }
+    },
+    "backend.tests.test_cooperative_development_latest_regressions::test_claim_allocation_is_not_misreported_as_actual_infringement": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "KeyError: 'claim_handling_responsibility'"
+      }
+    },
+    "backend.tests.test_cooperative_development_latest_regressions::test_competition_and_improvement_rules_reuse_direct_atomic_evidence": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert {'MISSING'} == {'ADVERSE'}\n  \n  Extra items in the left set:\n  'MISSING'\n  Extra items in the right set:\n  'ADVERSE'\n  Use -v to get more diff"
+      }
+    },
+    "backend.tests.test_cooperative_development_latest_regressions::test_cooperative_failure_allocation_is_an_evidence_bound_risk": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "KeyError: 'incurred_cost_allocation'"
+      }
+    },
+    "backend.tests.test_current_patent_license_evidence_recall::test_infringement_remedy_coordination_ignores_unrelated_payment_penalty": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert [{'clause_id'...和经济责任。', ...}] == []\n  \n  Left contains one more item: {'clause_id': 'C0033', 'location': '6.1', 'title': '6.1 许可方保证是本合同涉及的一切专利技术和专利资料的合法持有者，并且有权向接受方授予本合同约定的许可权。如果在合同执行过程中发生...xt': '6.1 许可方保证是本合同涉及的一切专利技术和专利资料的合法持有者，并且有权向接受方授予本合同约定的许可权。如果在合同执行过程中发生第三方指控侵权，则由许可方负责与第三方交涉，并承担由此引起的一切法律和经济责任。', ...}\n  Use -v to get more diff"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_entrusted_cross_rule_consistency::test_completed_negative_check_does_not_leave_an_obsolete_manual_review": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_patent_application_transfer_consistency::test_claim_liability_reuses_seller_responsibility": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' in {'通过', '部分覆盖'}"
+      }
+    },
+    "backend.tests.test_patent_application_transfer_consistency::test_completed_core_becomes_pass_without_fabricated_gap_or_exposure": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验"
+      }
+    },
+    "backend.tests.test_patent_application_transfer_consistency::test_duty_and_non_duty_have_separate_triggers": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' in {'通过', '部分覆盖'}"
+      }
+    },
+    "backend.tests.test_patent_application_transfer_consistency::test_warranty_is_not_demoted_by_missing_proof_documents": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' in {'通过', '部分覆盖'}"
+      }
+    },
+    "backend.tests.test_patent_license_latest_report_regressions::test_third_party_responsibility_follows_the_actual_party_allocation": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert 'LICENSOR' == 'LICENSEE'\n  \n  - LICENSEE\n  ?       ^^\n  + LICENSOR\n  ?       ^^"
+      }
+    },
+    "backend.tests.test_patent_right_transfer_contract_review::test_patent_transfer_coverage_distinguishes_presence_from_adverse_terms": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert 'PARTIAL' == 'PRESENT'\n  \n  - PRESENT\n  + PARTIAL"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_patent_right_transfer_contract_review::test_third_party_claim_advanced_only_gaps_are_optional_optimization": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "KeyError: 'claim_trigger'"
+      }
+    },
+    "backend.tests.test_patent_transfer_acquisition_and_remedies::test_current_invalidity_unpaid_fees_generate_actionable_risk": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "KeyError: 'invalidity_unpaid_fees_continue'"
+      }
+    },
+    "backend.tests.test_patent_transfer_acquisition_and_remedies::test_current_registration_conflict_is_not_pass": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "assert False\n +  where False = any(<generator object test_current_registration_conflict_is_not_pass.<locals>.<genexpr> at 0x00000137AD0B8CF0>)"
+      }
+    },
+    "backend.tests.test_patent_transfer_acquisition_and_remedies::test_existing_claim_and_daily_penalty_findings_remain_actionable": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "assert False\n +  where False = any(<generator object test_existing_claim_and_daily_penalty_findings_remain_actionable.<locals>.<genexpr> at 0x00000137A6FFB990>)"
+      }
+    },
+    "backend.tests.test_patent_transfer_acquisition_and_remedies::test_identifiable_document_types_are_separate_from_versions_and_exhibits[\\u4e13\\u5229\\u8bc1\\u4e66\\u3001\\u4e13\\u5229\\u8bf4\\u660e\\u4e66\\u3001\\u6743\\u5229\\u8981\\u6c42\\u4e66\\u53ca\\u9644\\u56fe-True]": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "KeyError: 'major_document_types'"
+      }
+    },
+    "backend.tests.test_patent_transfer_acquisition_and_remedies::test_identifiable_document_types_are_separate_from_versions_and_exhibits[\\u603b\\u4f53\\u8bbe\\u8ba1\\u56fe\\u3001\\u673a\\u68b0\\u96f6\\u4ef6\\u56fe-True]": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "KeyError: 'major_document_types'"
+      }
+    },
+    "backend.tests.test_patent_transfer_acquisition_and_remedies::test_unrelated_infringement_risk_does_not_require_coordination_link": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "assert False\n +  where False = any(<generator object test_unrelated_infringement_risk_does_not_require_coordination_link.<locals>.<genexpr> at 0x00000137AD2469D0>)"
+      }
+    },
+    "backend.tests.test_penalty_base::test_actual_nda_preserves_eight_reviews_and_adds_one_common_gap": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: [{'requirement': 'VERIFIED_PASS_ORIGINAL_GATE', 'root_cause': 'NDA-01-01', 'evidence_id': 'SRC-5f41b7a1a6feb45eb506', ...T', 'root_cause': 'NDA-01-01:nda_exception_public', 'current_status': 'FAIL', 'failure_stage': 'Semantic consistency'}]\nassert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED"
+      }
+    },
+    "backend.tests.test_shared_penalty_registry::test_shared_identity_and_development_coverage": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AttributeError: 'types.SimpleNamespace' object has no attribute 'decision_trace'"
+      }
+    },
+    "backend.tests.test_technical_consulting_contract_review::test_complete_consulting_data_provision_is_pass": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验"
+      }
+    },
+    "backend.tests.test_technical_consulting_contract_review::test_consulting_elements_and_evidence_are_status_separated_and_contract_grounded": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验"
+      }
+    },
+    "backend.tests.test_technical_consulting_contract_review::test_consulting_signing_law_context_is_not_false_positive": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '签署时法律依据：《中华人民共和国合同法》第359条（技术咨询合同决策风险承担规则）；现行对应规则：《中华人民共和国民法典》第881条；具体争议适用法律仍应结合履行时间、争议事实及相关法律适用规则判断。' in '# 技术咨询合同审查报告\\n\\n\\n## 一、合同总体评价\\n\\n- 审查立场：甲方 / 委托方\\n- 使用场景：技术咨询\\n- 合同类型：技术合同—技术咨询合同\\n- 总体可签署性：建议修改后签署\\n- 风险主题数（聚合后）：1\\n...人民共和国民法典》第466条\\n\\n【证据定位】\\n- 支持要素：第一条引用核验\\n- 条款编号：第七条第2项\\n- 原文片段：2、咨询报告应完整覆盖第一条约定内容，并就架构、性能瓶颈、改造路线和主要风险提出明确意见。\\n\\n---\\n'"
+      }
+    },
+    "backend.tests.test_technical_consulting_contract_review::test_consulting_subtype_is_inferred_from_transaction_substance_without_explicit_title": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验"
+      }
+    },
+    "backend.tests.test_technical_consulting_contract_review::test_consulting_tc08_rules_and_direct_evidence": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert ['待核验', '待核验', '待核验', '待核验'] == ['通过', '通过', '通过', '通过']\n  \n  At index 0 diff: '待核验' != '通过'\n  Use -v to get more diff"
+      }
+    },
+    "backend.tests.test_technical_consulting_contract_review::test_production_file_endpoint_uses_active_consulting_evidence_implementation": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验"
+      }
+    },
+    "backend.tests.test_technical_secret_license_contract_review::test_case_i_j_confidentiality_balance_is_directional": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验"
+      }
+    },
+    "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_compliant_use_infringement_liability_is_covered": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '缺失' == '通过'\n  \n  - 通过\n  + 缺失"
+      }
+    },
+    "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_confidentiality_consumes_cross_article_facts": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验"
+      }
+    },
+    "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_loss_positive_notice_facts_never_reenter_missing": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert ['EV-ea306a4b851ff2a8'] == ['C0023']\n  \n  At index 0 diff: 'EV-ea306a4b851ff2a8' != 'C0023'\n  Use -v to get more diff"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_technical_secret_license_contract_review::test_over_scope_liability_b_existing_clause_is_not_missing": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "assert False\n +  where False = any(<generator object test_over_scope_liability_b_existing_clause_is_not_missing.<locals>.<genexpr> at 0x00000186714E2B20>)"
+      }
+    },
+    "backend.tests.test_technical_secret_transfer_contract_review::test_ancillary_service_fee_keeps_covered_base_and_only_reports_excess_fee_gaps": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '缺失' == '部分覆盖'\n  \n  - 部分覆盖\n  + 缺失"
+      }
+    },
+    "backend.tests.test_technical_secret_transfer_contract_review::test_service_fee_and_confidentiality_use_only_direct_operational_clauses": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert [] == ['C0009']\n  \n  Right contains one more item: 'C0009'\n  Use -v to get more diff"
+      }
+    },
+    "backend.tests.test_technical_secret_transfer_contract_review::test_technical_secret_proof_uses_partial_atomic_facts_not_principle_warranty_pass": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '缺失' == '部分覆盖'\n  \n  - 部分覆盖\n  + 缺失"
+      }
+    },
+    "backend.tests.test_technical_service_dynamic_roles_and_grounding::test_service_provider_does_not_receive_counterparty_liability_cap_risk": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验"
+      }
+    },
+    "backend.tests.test_technical_service_final_evidence_closure::test_same_evidence_span_supports_multiple_claims_without_duplicate_rendering": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_technical_service_latest_shared_fact_regressions::test_counterparty_restrictions_are_projected_as_current_party_enforceability_risk": {
+      "before": {
+        "status": "FAIL",
+        "message": "KeyError: 'risk_to_current_party'"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_technical_service_latest_shared_fact_regressions::test_party_direction_and_finding_consistency_are_enforced": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验"
+      }
+    },
+    "backend.tests.test_technical_service_latest_shared_fact_regressions::test_report_actual_exposure_uses_party_aware_finding_consequence": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '影响甲方最终取得权利的稳定性和可执行性' in '# 技术服务合同审查报告\\n\\n\\n## 一、合同总体评价\\n\\n- 审查立场：甲方 / 服务接受方\\n- 使用场景：技术服务\\n- 合同类型：技术合同—技术服务合同\\n- 总体可签署性：建议修改后签署\\n- 风险主题数（聚合后）：1...期一日，按照合同总额的0.5%支付违约金\\n- 第九条 违约责任 [支持：违约金标准偏高及司法调减风险]: 乙方违反保密、知识产权或者数据使用约定的，应向甲方支付人民币300万元违约金，不足以弥补甲方损失的，应继续赔偿\\n\\n---\\n'"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_technical_service_maintenance_contract_review::test_service_confidentiality_has_precise_partial_evidence": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '违反保密义务' in '4．任何一方违反第五条保密义务的，应赔偿对方因此遭受的实际损失。'"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_technology_license_final_precision::test_tc_12_04_requires_same_loss_general_remedy_before_activation": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '同一侵权损失' in '合同未形成侵权专项责任与同一损失一般救济并存的事实，本项不适用。'"
+      }
+    },
+    "backend.tests.test_technology_license_scenario_interest_isolation::test_d_party_interest_check_distinguishes_uncapped_and_low_capped_licensor_liability": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert '同一侵权损失' in '合同未形成侵权专项责任与同一损失一般救济并存的事实，本项不适用。'"
+      }
+    },
+    "backend.tests.test_technology_pass_semantic_sources::test_negative_rule_requires_reproduced_complete_adverse_search[\\u7b2c\\u4e09\\u65b9\\u63d0\\u51fa\\u4fb5\\u6743\\u4e3b\\u5f20\\u65f6\\uff0c\\u4e59\\u65b9\\u5e94\\u5904\\u7406\\u7ea0\\u7eb7\\u3002-True-REPORT_READY]": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED"
+      }
+    },
+    "backend.tests.test_technology_transaction_routing_consistency::test_title_and_core_transaction_conflict_is_a_finding_not_a_second_rule_pack": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED"
+      }
+    }
+  }
+}

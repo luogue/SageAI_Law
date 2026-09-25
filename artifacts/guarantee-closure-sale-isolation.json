@@ -1,0 +1,193 @@
+{
+  "unchanged_without_new_document_priority_logic": true,
+  "existing_result": {
+    "statuses": {
+      "S-00-01": "缺失",
+      "S-00-02": "缺失",
+      "S-00-03": "缺失",
+      "S-00-04": "缺失",
+      "S-00-05": "缺失",
+      "S-00-06": "缺失",
+      "S-00-07": "待核验",
+      "S-01-01": "缺失",
+      "S-01-02": "缺失",
+      "S-01-03": "不适用",
+      "S-01-04": "不适用",
+      "S-02-01": "缺失",
+      "S-02-02": "通过",
+      "S-02-03": "缺失",
+      "S-02-04": "缺失",
+      "S-02-05": "通过",
+      "S-03-01": "通过",
+      "S-03-02": "缺失",
+      "S-03-03": "部分覆盖",
+      "S-03-04": "缺失",
+      "S-04-01": "缺失",
+      "S-04-02": "缺失",
+      "S-04-03": "不适用",
+      "S-04-04": "部分覆盖",
+      "S-05-01": "缺失",
+      "S-05-02": "缺失",
+      "S-05-03": "缺失",
+      "S-05-04": "缺失",
+      "S-06-01": "缺失",
+      "S-06-02": "缺失",
+      "S-06-03": "缺失",
+      "S-06-04": "通过",
+      "S-07-01": "缺失",
+      "S-07-02": "待核验",
+      "S-07-03": "缺失",
+      "S-07-04": "不适用",
+      "S-08-01": "通过",
+      "S-08-02": "缺失",
+      "S-08-03": "缺失",
+      "S-08-04": "通过",
+      "S-09-01": "不适用",
+      "S-09-02": "不适用",
+      "S-09-03": "不适用",
+      "S-09-04": "不适用",
+      "S-10-01": "不适用",
+      "S-10-02": "不适用",
+      "S-10-03": "不适用",
+      "S-10-04": "不适用",
+      "S-11-01": "缺失",
+      "S-11-02": "缺失",
+      "S-11-03": "缺失",
+      "S-11-04": "缺失",
+      "S-12-01": "缺失",
+      "S-12-02": "缺失",
+      "S-12-03": "不适用",
+      "S-12-04": "缺失",
+      "FS-01": "通过",
+      "FS-02": "通过",
+      "FS-03": "通过",
+      "FS-04": "通过",
+      "FS-05": "缺失",
+      "FS-06": "通过",
+      "FS-07": "通过",
+      "FS-08": "缺失",
+      "FS-09": "缺失",
+      "FS-10": "缺失",
+      "FS-11": "缺失",
+      "FS-12": "缺失",
+      "FS-13": "缺失",
+      "FS-14": "缺失"
+    },
+    "gate": [
+      {
+        "requirement": "NOT_APPLICABLE_NARRATIVE_GATE",
+        "failure_stage": "Applicability-aware Narrative",
+        "root_cause": "1 review(s) violated applicability or polarity semantics.",
+        "reviews": [
+          {
+            "review_id": "S-01-03",
+            "applicability": "NOT_APPLICABLE",
+            "rule_id": "S-01-03",
+            "polarity": "POSITIVE_REQUIREMENT",
+            "expected_status": "APPLICABLE_COVERAGE",
+            "actual_status": "不适用",
+            "violation_reason": "ALWAYS_APPLICABLE_RULE_MARKED_NOT_APPLICABLE",
+            "reason": "标的是普通工业零部件，未出现禁止流通、限制流通、来源违法或权属争议触发事实。",
+            "coverage_evaluated": false,
+            "default_law_evaluated": false,
+            "effective_gap_created": false,
+            "finding_created": false,
+            "recommendation_created": false,
+            "production_gap_narrative_present": true,
+            "not_applicable_always_conflict": true,
+            "gate_result": "FAIL"
+          }
+        ],
+        "responsible_function": "_applicability_polarity_gates",
+        "current_status": "FAIL"
+      },
+      {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "details": [
+          {
+            "risk_id": "RF-041",
+            "review_id": "FS-14",
+            "element_id": "supplement_priority",
+            "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+          },
+          {
+            "risk_id": "RF-041",
+            "review_id": "FS-14",
+            "element_id": "amendment_priority",
+            "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+          },
+          {
+            "risk_id": "RF-041",
+            "review_id": "FS-14",
+            "element_id": "order_priority",
+            "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+          },
+          {
+            "review_id": "FS-14",
+            "evidence_owner": "ELEMENT_SEARCH",
+            "element_id": "supplement_priority",
+            "reason": "INVALID_ABSENCE_SEARCH_TARGET",
+            "target_fields": [
+              "search_targets"
+            ],
+            "search_targets": []
+          },
+          {
+            "review_id": "FS-14",
+            "evidence_owner": "ELEMENT_SEARCH",
+            "element_id": "amendment_priority",
+            "reason": "INVALID_ABSENCE_SEARCH_TARGET",
+            "target_fields": [
+              "search_targets"
+            ],
+            "search_targets": []
+          },
+          {
+            "review_id": "FS-14",
+            "evidence_owner": "ELEMENT_SEARCH",
+            "element_id": "order_priority",
+            "reason": "INVALID_ABSENCE_SEARCH_TARGET",
+            "target_fields": [
+              "search_targets"
+            ],
+            "search_targets": []
+          }
+        ]
+      },
+      {
+        "requirement": "NOT_APPLICABLE_NARRATIVE_GATE",
+        "failure_stage": "Applicability-aware Narrative",
+        "root_cause": "1 review(s) violated applicability or polarity semantics.",
+        "reviews": [
+          {
+            "review_id": "S-01-03",
+            "applicability": "NOT_APPLICABLE",
+            "rule_id": "S-01-03",
+            "polarity": "POSITIVE_REQUIREMENT",
+            "expected_status": "APPLICABLE_COVERAGE",
+            "actual_status": "不适用",
+            "violation_reason": "ALWAYS_APPLICABLE_RULE_MARKED_NOT_APPLICABLE",
+            "reason": "标的是普通工业零部件，未出现禁止流通、限制流通、来源违法或权属争议触发事实。",
+            "coverage_evaluated": false,
+            "default_law_evaluated": false,
+            "effective_gap_created": false,
+            "finding_created": false,
+            "recommendation_created": false,
+            "production_gap_narrative_present": true,
+            "not_applicable_always_conflict": true,
+            "gate_result": "FAIL"
+          }
+        ],
+        "responsible_function": "_applicability_polarity_gates",
+        "current_status": "FAIL"
+      }
+    ],
+    "manual": {
+      "manual_review_count": 2,
+      "blocking_signability_count": 0
+    }
+  }
+}

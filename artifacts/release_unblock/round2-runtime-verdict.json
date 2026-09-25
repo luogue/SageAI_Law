@@ -1,0 +1,13 @@
+{
+  "functional_assertions": "PASS_BACKEND_ONLY",
+  "worker_stability": "FAIL",
+  "reason": "Kernel recorded two CONSTRAINT_MEMCG OOM kills of workers in the verified test container. A surviving Gunicorn master and HTTP 200 do not override these failures.",
+  "test_container_id": "3fb943e9335a0de1bb9b909fb23b88276e41c664886a3db9b246b20b554695f4",
+  "oom_worker_pids": [
+    2421767,
+    2421768
+  ],
+  "backend_container_acceptance": "FAIL",
+  "DOCKER_BUSINESS_REGRESSION": "FAIL",
+  "additional_missing_check": "Final frontend image and frontend/backend joint chain unavailable."
+}

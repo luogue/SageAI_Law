@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+  File "F:\ai\Sage\backend\tests\__init__.py", line 2, in <module>
+    from .test_security import *
+  File "F:\ai\Sage\backend\tests\test_security.py", line 9, in <module>
+    from main import app
+  File "F:\ai\Sage\backend\main.py", line 78, in <module>
+    from layers.inference_layer import InferenceLayer
+  File "F:\ai\Sage\backend\layers\inference_layer.py", line 10, in <module>
+    from security.content_safety import content_safety, mask_content, add_ai_marker
+  File "F:\ai\Sage\backend\security\__init__.py", line 2, in <module>
+    from .sensitive_filter import SensitiveWordFilter, get_sensitive_filter
+  File "F:\ai\Sage\backend\security\sensitive_filter.py", line 19, in <module>
+    INTERCEPT_DB = auxiliary_db_path('intercept_logs.db', os.path.join(os.path.dirname(__file__), "intercept_logs.db"))
+  File "F:\ai\Sage\backend\storage\paths.py", line 32, in auxiliary_db_path
+    raise RuntimeError('Auxiliary test database is not isolated')
+RuntimeError: Auxiliary test database is not isolated

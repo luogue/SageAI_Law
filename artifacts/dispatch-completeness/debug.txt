@@ -1,0 +1,89 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+____ test_dispatch_final_report_separates_unproven_comparisons_from_risks _____
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001DF3568C4C0>
+
+    def test_dispatch_final_report_separates_unproven_comparisons_from_risks(monkeypatch):
+        from review_v2 import employment_fact_pipeline as pipeline
+        from review_v2.engine import review_contract_v2
+        text=('�Ͷ���ͬ\n��һ��\n�������ú������ͻ���λ���ɿͻ����Ź�����\n'
+              '�ڶ���\n��λ���ڳ������ڵ���Ӫҵ��ְλ��\n������\n��ͬ�������Բ��ñȿͻ�Ա�����͵Ĺ��ʡ�\n'
+              '������\n���ɽ׶ι���ͣ����\n������\n�������κ����ɹ������޲�����Լ��')
+        cs=parse_contract_clauses(text)
+        fs=[fact(cs,c,v,q) for c,v,q in [
+            ('contract.employment_form','DISPATCH','�������ú������ͻ���λ���ɿͻ����Ź�����'),
+            ('dispatch.position_basis','REGULAR_CORE','��λ���ڳ������ڵ���Ӫҵ��ְλ��'),
+            ('dispatch.equal_pay','LOWER_ALLOWED','��ͬ�������Բ��ñȿͻ�Ա�����͵Ĺ��ʡ�'),
+            ('dispatch.idle_pay','NONE','���ɽ׶ι���ͣ����'),
+            ('dispatch.refusal_termination','ANY_OFFER','�������κ����ɹ������޲�����Լ��'),
+            ('dispatch.refusal_compensation_waived',True,'�������κ����ɹ������޲�����Լ��')]]
+        monkeypatch.setattr(pipeline,'extract',lambda *a,**k:packet(cs,fs))
+        monkeypatch.setattr(pipeline,'verify',verified_packet)
+        result=review_contract_v2(text,'labor',include_low_risk=True)
+        items={r['item_id']:r for r in result['items']}
+        assert len(items)==21+len(CHECKLIST)
+        assert result['contract_type_name']=='������ǲ�Ͷ���ͬ'
+        assert result['report_context']['contract_subtype']=='LABOR_DISPATCH'
+        for rule in ('DSP-02-01','DSP-03-01'):
+            assert items[rule]['coverage_status'] in ('������','INSUFFICIENT_CONTEXT')
+        for rule in ('DSP-04-01','DSP-06-01'):
+            row=items[rule]
+            assert row['coverage_status']=='��������'
+            assert row['evidence_clauses']
+            assert all(e.get('structured_fact_id') and e.get('quote') in text for e in row['evidence_clauses'])
+>       assert result['release_quality_gate']['status']=='REPORT_READY',result['release_quality_gate']['failures']
+E       AssertionError: [{'rule_id': 'DSP-02-01', 'element_id': 'employment_dispatch_position_1', 'final_element_status': 'COVERED', 'bound_ev...lement_id': 'employment_dispatch_equal_pay_1', 'final_element_status': 'COVERED', 'bound_evidence_id': ['C0004'], ...}]
+E       assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+cs         = [ParsedClause(clause_id='C0001', location='ȫ��', title='ȫ��', text='�Ͷ���ͬ', section_type='��ʽ��ͬ����', level=0, raw_text='�Ͷ���...mber='', item_number='', sentence_index=1, start_offset=89, end_offset=109, source_type='BODY', party_obligation=True)]
+fs         = [{'concept': 'contract.employment_form', 'value': 'DISPATCH', 'confidence': 1, 'assertion': 'EXPLICIT', ...}, {'concep.....}, {'concept': 'dispatch.refusal_compensation_waived', 'value': True, 'confidence': 1, 'assertion': 'EXPLICIT', ...}]
+items      = {'EMP-01-01': {'item_id': 'EMP-01-01', 'node_id': 'employment_identity', 'title': '�ù��������Ͷ�������', 'risk_level': '��', ......_id': 'EMP-15-01', 'node_id': 'employment_probation_limit', 'title': '�����ڳ����������޻��ظ�Լ��', 'risk_level': 'none', ...}, ...}
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001DF3568C4C0>
+pipeline   = <module 'review_v2.employment_fact_pipeline' from 'F:\\ai\\Sage\\backend\\review_v2\\employment_fact_pipeline.py'>
+result     = {'success': True, 'contract_type': 'labor', 'selected_contract_type': 'labor', 'domain_selection_resolution': {'select...YMENT_ARRANGEMENT', 'contract_subtype': 'LABOR', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+review_contract_v2 = <function review_contract_v2 at 0x000001DF31949750>
+row        = {'item_id': 'DSP-06-01', 'node_id': 'employment_dispatch_return', 'title': '�˻ء�������ǲ��������', 'risk_level': '��', ...}
+rule       = 'DSP-06-01'
+text       = '�Ͷ���ͬ\n��һ��\n�������ú������ͻ���λ���ɿͻ����Ź�����\n�ڶ���\n��λ���ڳ������ڵ���Ӫҵ��ְλ��\n������\n��ͬ�������Բ��ñȿͻ�Ա�����͵Ĺ��ʡ�\n������\n���ɽ׶ι���ͣ����\n������\n�������κ����ɹ������޲�����Լ��'
+
+backend\tests\test_employment_dispatch.py:91: AssertionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_employment_dispatch.py::test_dispatch_final_report_separates_unproven_comparisons_from_risks
+1 failed, 6 warnings in 10.22s

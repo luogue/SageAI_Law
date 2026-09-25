@@ -1,0 +1,338 @@
+........................................................................ [ 35%]
+........F.........................F.......FF............................ [ 70%]
+........................F.FFFF..FFF.F......FF....FFF.......              [100%]
+================================== FAILURES ===================================
+_____________________ test_fixed_runtime_and_aggregation ______________________
+
+    def test_fixed_runtime_and_aggregation():
+     from pathlib import Path
+     from docx import Document
+     p=next((Path(__file__).resolve().parents[2]/'test_data').glob('98 *.docx'))
+     result=review_contract_v2('\n'.join(x.text for x in Document(p).paragraphs),'loan',use_llm=False)
+     rows={r['item_id']:r for r in result['items']}
+     assert rows['L-06-03']['coverage_status']=='缺失'
+     for key in ['L-05-02','L-07-02','L-07-03','L-03-03','L-04-04']:
+>     assert rows[key]['coverage_status']=='通过', (key,rows[key]['reasoning_summary'])
+E     AssertionError: ('L-05-02', '未找到直接覆盖以下要素的约定：逾期利息起止期间。')
+E     assert '部分覆盖' == '通过'
+E       
+E       - 通过
+E       + 部分覆盖
+
+backend\tests\test_loan_residual_semantics.py:43: AssertionError
+________ test_natural_person_classification_and_existing_overdue_risk _________
+
+    def test_natural_person_classification_and_existing_overdue_risk():
+        text='贷款人：张三，身份证号123。借款人：李四，身份证号456。借款人逾期应每日按本金的0.5%支付违约金。'
+        r=review_contract_v2(text,'loan',use_llm=False)
+        rows={i['item_id']:i for i in r['items']}
+        assert rows['L-01-02']['coverage_status']=='通过'
+        for key in ['L-04-02','L-05-02']:
+>           assert rows[key]['coverage_status']=='风险条款'
+E           AssertionError: assert '待核验' == '风险条款'
+E             
+E             - 风险条款
+E             + 待核验
+
+backend\tests\test_loan_exact_evidence.py:34: AssertionError
+_____ test_resolved_principal_removes_false_theme_but_keeps_overdue_risk ______
+
+    def test_resolved_principal_removes_false_theme_but_keeps_overdue_risk():
+        result=review_contract_v2('贷款人：张三，身份证号123。借款人：李四，身份证号456。借款金额：150000元。每日按借款总额的0.5%支付逾期违约金。','loan',use_llm=False)
+        assert not any(i['item_id']=='COMMON-20-01' and i['coverage_status']!='通过' for i in result['items'])
+>       assert next(i for i in result['items'] if i['item_id']=='L-05-02')['coverage_status']=='风险条款'
+E       AssertionError: assert '缺失' == '风险条款'
+E         
+E         - 风险条款
+E         + 缺失
+
+backend\tests\test_loan_exact_evidence.py:76: AssertionError
+________ test_actual_exposure_grading_preserves_coverage_and_evidence _________
+
+    def test_actual_exposure_grading_preserves_coverage_and_evidence():
+        text=('贷款人：张三，身份证号123。借款人：李四，身份证号456。借款金额：150000元。'
+              '每日按借款总额的0.5%支付逾期违约金。'
+              '双方住址变更应书面通知对方。双方现住址作为法院送达地址。'
+              '收款收据：今收到贷款人张三现金150000元。')
+        result=review_contract_v2(text,'loan',use_llm=False)
+        rows={i['item_id']:i for i in result['items']}
+        notice=rows['L-11-03']
+        assert (notice['coverage_status'],notice['risk_severity'],notice['action_priority'])==('部分覆盖','LOW','C_OPTIMIZATION')
+        for key in ['L-04-02','L-05-02']:
+>           assert (rows[key]['coverage_status'],rows[key]['risk_severity'],rows[key]['action_priority'])==('风险条款','HIGH','A_CORE')
+E           AssertionError: assert ('待核验', 'NONE', 'NONE') == ('风险条款', 'HIGH', 'A_CORE')
+E             
+E             At index 0 diff: '待核验' != '风险条款'
+E             Use -v to get more diff
+
+backend\tests\test_loan_exact_evidence.py:89: AssertionError
+__________________ test_current_48_rules_and_final_counters ___________________
+
+current_report = ('借 款 合 同\n出借人（甲方）：张明远身份证号：110101198703150018\n借款人（乙方）：李浩然身份证号：310101198909220023\n乙方配偶：王静怡身份证号：310101199102110039\n担保...ONDARY_REAL_ESTATE_SALE', ...}, 'compatibility': 'NOT_COMPARABLE', 'resolution': 'USER_SELECTION_ACCEPTED', ...}, ...})
+
+    def test_current_48_rules_and_final_counters(current_report):
+        text, r = current_report
+        rows = {i["item_id"]: i for i in r["items"]}
+        assert len(rows) == r["all_items_count"]
+        assert sum(key.startswith("L-") for key in rows) == 48
+        assert set(rows)-{key for key in rows if key.startswith("L-")} <= {"REG-06-01"}
+        assert r["release_quality_gate"]["status"] == "REPORT_READY", r["release_quality_gate"]["failures"]
+        assert dict(Counter(i["coverage_status"] for i in rows.values())) == r["coverage_summary"]
+        na = {key for key, i in rows.items() if i["coverage_status"] == "不适用"}
+        assert {"L-04-03", "L-02-04", "L-09-04", "L-01-03", "L-05-04", "L-10-02", *[f"L-08-0{n}" for n in range(1, 5)]} <= na
+        for key in na:
+            item = rows[key]
+            assert item["applicability"]["applicable"] is False
+            assert item["risk_severity"] == "NONE"
+            assert not item["suggested_clause_example"]
+        for f in r["risk_findings"]:
+            assert not na.intersection(f["source_review_ids"])
+        for suggestion in r["recommendations"]:
+            assert not na.intersection(suggestion.get("target_review_ids", []))
+        assert rows["L-04-04"]["coverage_status"] == "通过"
+        assert not rows["L-04-04"]["evidence_clauses"]
+>       assert rows["L-04-02"]["coverage_status"] == rows["L-05-02"]["coverage_status"] == "部分覆盖"
+E       AssertionError: assert '待核验' == '通过'
+E         
+E         - 通过
+E         + 待核验
+
+backend\tests\test_loan_applicability_and_consistency.py:227: AssertionError
+_______ test_varied_rates_are_normalized_and_combined[0.6-0.015-12.675] _______
+
+regular = 0.6, overdue = 0.015, expected = 12.675
+
+    @pytest.mark.parametrize("regular,overdue,expected", [(0.6, 0.015, 12.675), (1.1, 0.03, 24.15), (0.8, 0.02, 16.9)])
+    def test_varied_rates_are_normalized_and_combined(regular, overdue, expected):
+        text = f"第一条 利率\n借款月利率为{regular}%。\n第二条 逾期\n每逾期一日按本金的{overdue}%计收逾期利息。"
+        a = analyze(text)
+>       assert a["stacking"] == "AMBIGUOUS"
+E       AssertionError: assert 'REPLACEMENT' == 'AMBIGUOUS'
+E         
+E         - AMBIGUOUS
+E         + REPLACEMENT
+
+backend\tests\test_loan_cost_combinations.py:25: AssertionError
+________ test_varied_rates_are_normalized_and_combined[1.1-0.03-24.15] ________
+
+regular = 1.1, overdue = 0.03, expected = 24.15
+
+    @pytest.mark.parametrize("regular,overdue,expected", [(0.6, 0.015, 12.675), (1.1, 0.03, 24.15), (0.8, 0.02, 16.9)])
+    def test_varied_rates_are_normalized_and_combined(regular, overdue, expected):
+        text = f"第一条 利率\n借款月利率为{regular}%。\n第二条 逾期\n每逾期一日按本金的{overdue}%计收逾期利息。"
+        a = analyze(text)
+>       assert a["stacking"] == "AMBIGUOUS"
+E       AssertionError: assert 'REPLACEMENT' == 'AMBIGUOUS'
+E         
+E         - AMBIGUOUS
+E         + REPLACEMENT
+
+backend\tests\test_loan_cost_combinations.py:25: AssertionError
+________ test_varied_rates_are_normalized_and_combined[0.8-0.02-16.9] _________
+
+regular = 0.8, overdue = 0.02, expected = 16.9
+
+    @pytest.mark.parametrize("regular,overdue,expected", [(0.6, 0.015, 12.675), (1.1, 0.03, 24.15), (0.8, 0.02, 16.9)])
+    def test_varied_rates_are_normalized_and_combined(regular, overdue, expected):
+        text = f"第一条 利率\n借款月利率为{regular}%。\n第二条 逾期\n每逾期一日按本金的{overdue}%计收逾期利息。"
+        a = analyze(text)
+>       assert a["stacking"] == "AMBIGUOUS"
+E       AssertionError: assert 'REPLACEMENT' == 'AMBIGUOUS'
+E         
+E         - AMBIGUOUS
+E         + REPLACEMENT
+
+backend\tests\test_loan_cost_combinations.py:25: AssertionError
+____________ test_replacement_scope_does_not_add_regular_interest _____________
+
+    def test_replacement_scope_does_not_add_regular_interest():
+        a = analyze(REGULAR + OVERDUE + "逾期后不再计收借期利息，仅收取逾期利息。" + CAP)
+        assert a["stacking"] == "REPLACEMENT"
+>       assert a["potential_annual_percent_estimate"] == pytest.approx(5.475)
+E       assert None == 5.475 ± 5.5e-06
+E         
+E         comparison failed
+E         Obtained: None
+E         Expected: 5.475 ± 5.5e-06
+
+backend\tests\test_loan_cost_combinations.py:36: AssertionError
+_____________ test_combined_ceiling_is_not_external_verification ______________
+
+    def test_combined_ceiling_is_not_external_verification():
+        a = analyze(REGULAR + OVERDUE + "逾期后仅收取逾期利息。" + CAP)
+        assert a["combined_contractual_cap"]
+        assert not a["needs_check"]
+>       assert a["lpr_verification"] == "NOT_EXTERNALLY_VERIFIED"
+E       AssertionError: assert 'FORMATION_DATE_UNKNOWN' == 'NOT_EXTERNALLY_VERIFIED'
+E         
+E         - NOT_EXTERNALLY_VERIFIED
+E         + FORMATION_DATE_UNKNOWN
+
+backend\tests\test_loan_cost_combinations.py:57: AssertionError
+________ test_combined_cap_alone_does_not_resolve_time_scope_ambiguity ________
+
+    def test_combined_cap_alone_does_not_resolve_time_scope_ambiguity():
+        a = analyze(REGULAR + OVERDUE + CAP)
+        assert a["combined_contractual_cap"]
+>       assert a["stacking"] == "AMBIGUOUS"
+E       AssertionError: assert 'REPLACEMENT' == 'AMBIGUOUS'
+E         
+E         - AMBIGUOUS
+E         + REPLACEMENT
+
+backend\tests\test_loan_cost_combinations.py:63: AssertionError
+______ test_rate_exceeding_declared_lpr_is_not_cured_by_boilerplate_cap _______
+
+    def test_rate_exceeding_declared_lpr_is_not_cured_by_boilerplate_cap():
+        a = analyze(REGULAR + OVERDUE + "逾期利息与借期利息同时计收。合同成立时一年期LPR为3%。" + CAP)
+>       assert a["declared_lpr_cap_percent"] == 12
+E       KeyError: 'declared_lpr_cap_percent'
+
+backend\tests\test_loan_cost_combinations.py:69: KeyError
+__ test_repeated_annex_rate_is_not_a_second_charge_and_conflict_is_preserved __
+
+    def test_repeated_annex_rate_is_not_a_second_charge_and_conflict_is_preserved():
+        duplicate = analyze(REGULAR + OVERDUE + "附件：借条\n借款月利率为0.6%。")
+        conflict = analyze(REGULAR + OVERDUE + "附件：借条\n借款月利率为0.9%。" + CAP)
+>       assert duplicate["potential_annual_percent_estimate"] == pytest.approx(12.675)
+E       assert None == 12.675 ± 1.3e-05
+E         
+E         comparison failed
+E         Obtained: None
+E         Expected: 12.675 ± 1.3e-05
+
+backend\tests\test_loan_cost_combinations.py:82: AssertionError
+_________ test_full_pipeline_cost_truth_evidence_and_counters[False] __________
+
+cap = False
+
+    @pytest.mark.parametrize("cap", [False, True])
+    def test_full_pipeline_cost_truth_evidence_and_counters(cap):
+        text = PARTIES + REGULAR + OVERDUE + ("逾期后仅收取逾期利息。" + CAP if cap else "")
+        r = review_contract_v2(text, "loan", use_llm=False)
+        rows = {i["item_id"]: i for i in r["items"]}
+        assert r["release_quality_gate"]["status"] == "REPORT_READY", r["release_quality_gate"]["failures"]
+        for key in ("L-04-02", "L-05-02"):
+>           assert rows[key]["coverage_status"] == ("通过" if cap else "部分覆盖")
+E           AssertionError: assert '待核验' == '部分覆盖'
+E             
+E             - 部分覆盖
+E             + 待核验
+
+backend\tests\test_loan_cost_combinations.py:115: AssertionError
+__________ test_full_pipeline_cost_truth_evidence_and_counters[True] __________
+
+cap = True
+
+    @pytest.mark.parametrize("cap", [False, True])
+    def test_full_pipeline_cost_truth_evidence_and_counters(cap):
+        text = PARTIES + REGULAR + OVERDUE + ("逾期后仅收取逾期利息。" + CAP if cap else "")
+        r = review_contract_v2(text, "loan", use_llm=False)
+        rows = {i["item_id"]: i for i in r["items"]}
+        assert r["release_quality_gate"]["status"] == "REPORT_READY", r["release_quality_gate"]["failures"]
+        for key in ("L-04-02", "L-05-02"):
+>           assert rows[key]["coverage_status"] == ("通过" if cap else "部分覆盖")
+E           AssertionError: assert '部分覆盖' == '通过'
+E             
+E             - 通过
+E             + 部分覆盖
+
+backend\tests\test_loan_cost_combinations.py:115: AssertionError
+_______ test_llm_pass_cannot_erase_cost_risk_or_confirm_external_facts ________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000021A61B14B20>
+
+    def test_llm_pass_cannot_erase_cost_risk_or_confirm_external_facts(monkeypatch):
+        from dataclasses import replace
+        import review_v2.engine as engine
+        from review_v2.semantic_reviewer import judge_checkpoint
+        def excessive_pass(checkpoints, clauses, **kwargs):
+            return {c.item_id: replace(judge_checkpoint(c, clauses), coverage_status="通过", status="已覆盖", risk_level="低", reasoning_summary="已确认不存在职业放贷，所有利率合法。") for c in checkpoints}
+        monkeypatch.setattr(engine, "judge_checkpoints_with_llm", excessive_pass)
+        r = engine.review_contract_v2(PARTIES + REGULAR + OVERDUE, "loan", use_llm=True)
+        rows = {i["item_id"]: i for i in r["items"]}
+>       assert rows["L-04-02"]["coverage_status"] == rows["L-05-02"]["coverage_status"] == "部分覆盖"
+E       AssertionError: assert '待核验' == '部分覆盖'
+E         
+E         - 部分覆盖
+E         + 待核验
+
+backend\tests\test_loan_cost_combinations.py:160: AssertionError
+___ test_same_sentence_interest_and_management_fee_are_distinct_components ____
+
+    def test_same_sentence_interest_and_management_fee_are_distinct_components():
+        a = analyze("第一条 利率\n借款月利率为0.6%，另按月支付管理费0.2%。\n" + OVERDUE)
+        assert {c["kind"] for c in a["components"]} >= {"regular_interest", "financing_fee", "overdue_interest"}
+>       assert a["potential_annual_percent_estimate"] == pytest.approx(15.075)
+E       assert None == 15.075 ± 1.5e-05
+E         
+E         comparison failed
+E         Obtained: None
+E         Expected: 15.075 ± 1.5e-05
+
+backend\tests\test_loan_cost_combinations.py:168: AssertionError
+_______ test_distinct_financing_fees_with_equal_rates_are_both_counted ________
+
+    def test_distinct_financing_fees_with_equal_rates_are_both_counted():
+        a = analyze(REGULAR + OVERDUE + "第三条 费用\n另按月支付管理费0.2%，另按月支付咨询费0.2%。")
+        assert len([c for c in a["components"] if c["kind"] == "financing_fee"]) == 2
+>       assert a["potential_annual_percent_estimate"] == pytest.approx(17.475)
+E       assert None == 17.475 ± 1.7e-05
+E         
+E         comparison failed
+E         Obtained: None
+E         Expected: 17.475 ± 1.7e-05
+
+backend\tests\test_loan_cost_combinations.py:174: AssertionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_loan_residual_semantics.py::test_fixed_runtime_and_aggregation
+FAILED backend/tests/test_loan_exact_evidence.py::test_natural_person_classification_and_existing_overdue_risk
+FAILED backend/tests/test_loan_exact_evidence.py::test_resolved_principal_removes_false_theme_but_keeps_overdue_risk
+FAILED backend/tests/test_loan_exact_evidence.py::test_actual_exposure_grading_preserves_coverage_and_evidence
+FAILED backend/tests/test_loan_applicability_and_consistency.py::test_current_48_rules_and_final_counters
+FAILED backend/tests/test_loan_cost_combinations.py::test_varied_rates_are_normalized_and_combined[0.6-0.015-12.675]
+FAILED backend/tests/test_loan_cost_combinations.py::test_varied_rates_are_normalized_and_combined[1.1-0.03-24.15]
+FAILED backend/tests/test_loan_cost_combinations.py::test_varied_rates_are_normalized_and_combined[0.8-0.02-16.9]
+FAILED backend/tests/test_loan_cost_combinations.py::test_replacement_scope_does_not_add_regular_interest
+FAILED backend/tests/test_loan_cost_combinations.py::test_combined_ceiling_is_not_external_verification
+FAILED backend/tests/test_loan_cost_combinations.py::test_combined_cap_alone_does_not_resolve_time_scope_ambiguity
+FAILED backend/tests/test_loan_cost_combinations.py::test_rate_exceeding_declared_lpr_is_not_cured_by_boilerplate_cap
+FAILED backend/tests/test_loan_cost_combinations.py::test_repeated_annex_rate_is_not_a_second_charge_and_conflict_is_preserved
+FAILED backend/tests/test_loan_cost_combinations.py::test_full_pipeline_cost_truth_evidence_and_counters[False]
+FAILED backend/tests/test_loan_cost_combinations.py::test_full_pipeline_cost_truth_evidence_and_counters[True]
+FAILED backend/tests/test_loan_cost_combinations.py::test_llm_pass_cannot_erase_cost_risk_or_confirm_external_facts
+FAILED backend/tests/test_loan_cost_combinations.py::test_same_sentence_interest_and_management_fee_are_distinct_components
+FAILED backend/tests/test_loan_cost_combinations.py::test_distinct_financing_fees_with_equal_rates_are_both_counted
+18 failed, 185 passed, 5 warnings in 78.92s (0:01:18)

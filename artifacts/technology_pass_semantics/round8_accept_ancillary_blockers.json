@@ -1,0 +1,4305 @@
+{
+  "status": "BLOCKED",
+  "contract_type": "technology",
+  "selected_contract_type": "technology",
+  "raw_failure_count": 4,
+  "blocker_tuple_count": 27,
+  "blockers": [
+    {
+      "error_code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+      "rule_id": "TC-06-02",
+      "element_id": "core_contract_arrangement",
+      "fact_id": null,
+      "detected_stage": "Review Evidence Projection",
+      "reject_reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership.",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-5ddee96fae77052d06ee",
+          "clause_id": "C0003",
+          "quote": "第二条 技术资料交付\n乙方应向甲方提供：\n热管理控制算法源代码；",
+          "source_span": {
+            "start_offset": 429,
+            "end_offset": 461,
+            "raw_text": "第二条 技术资料交付\n乙方应向甲方提供：\n热管理控制算法源代码；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "core_contract_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-1d871ced7c87e9189463",
+          "clause_id": "C0004",
+          "quote": "第三条 技术资料交付时间、地点和方式\n首批资料于2026年11月10日前交付；",
+          "source_span": {
+            "start_offset": 534,
+            "end_offset": 573,
+            "raw_text": "第三条 技术资料交付时间、地点和方式\n首批资料于2026年11月10日前交付；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "core_contract_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-ad5ec7445597ef9821e3",
+          "clause_id": "C0009",
+          "quote": "第八条 保密义务\n甲方义务\n甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。",
+          "source_span": {
+            "start_offset": 1452,
+            "end_offset": 1510,
+            "raw_text": "第八条 保密义务\n甲方义务\n甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "core_contract_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-06-02",
+          "element_id": "core_contract_arrangement",
+          "proposition": "合同存在可验证的“转让技术资料交付”实质条款内容。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-5ddee96fae77052d06ee",
+            "SRC-1d871ced7c87e9189463",
+            "SRC-ad5ec7445597ef9821e3"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "元素级证据可支撑。",
+          "claim_id": "",
+          "source_clause_ids": [
+            "C0003"
+          ],
+          "source_spans": [
+            "第二条 技术资料交付\n乙方应向甲方提供：\n热管理控制算法源代码；\nBMS控制参数表；\n算法设计说明书；\n测试报告；\n标定流程文件；\n技术培训资料。\n具体文件版本、文件数量和最终文件清单以乙方实际交付内容为准。"
+          ],
+          "source_locations": [
+            "第二条 技术资料交付"
+          ],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "FOUND",
+          "fact_value": null,
+          "fact_evidence_refs": [
+            "C0003"
+          ],
+          "requirement_status": "SATISFIED",
+          "requirement_reason": "元素级证据可支撑。",
+          "evidence_refs": [
+            "SRC-5ddee96fae77052d06ee",
+            "SRC-1d871ced7c87e9189463",
+            "SRC-ad5ec7445597ef9821e3"
+          ],
+          "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+          "supporting_evidence_ids": [
+            "SRC-5ddee96fae77052d06ee",
+            "SRC-1d871ced7c87e9189463",
+            "SRC-ad5ec7445597ef9821e3"
+          ],
+          "bound_evidence_ids": [
+            "SRC-5ddee96fae77052d06ee",
+            "SRC-1d871ced7c87e9189463",
+            "SRC-ad5ec7445597ef9821e3"
+          ]
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+        "failure_stage": "Review Evidence Projection",
+        "root_cause": "Review evidence is not exactly bound to covered elements: 1 mismatch(es).",
+        "current_status": "FAIL",
+        "review_id": "TC-06-02",
+        "element_id": "core_contract_arrangement",
+        "status": "COVERED",
+        "evidence_refs": [
+          "SRC-5ddee96fae77052d06ee",
+          "SRC-1d871ced7c87e9189463",
+          "SRC-ad5ec7445597ef9821e3"
+        ],
+        "direct_evidence_refs": [],
+        "selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "reason": "A covered Review element has no DIRECT evidence with matching element and source-clause ownership."
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "GEN-PAY-01",
+      "element_id": "payment_formula_inconsistency_adverse_arrangement",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "EV-b2a5def7f0acbb08",
+          "clause_id": "",
+          "quote": "合同总价：3000000 CNY；付款比例：40% + 40% + 30% = 110%；付款金额：1200000 + 1200000 + 900000 = 3300000 CNY；差额：300000 CNY。",
+          "source_type": "CALCULATION",
+          "source_span": {
+            "start_offset": 0,
+            "end_offset": 105,
+            "raw_text": "合同总价：3000000 CNY；付款比例：40% + 40% + 30% = 110%；付款金额：1200000 + 1200000 + 900000 = 3300000 CNY；差额：300000 CNY。"
+          },
+          "supporting_element_ids": [
+            "payment_formula_inconsistency_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-284a67fe455ae4ad092b",
+          "clause_id": "C0012",
+          "quote": "固定技术转让费总额为人民币3,000,000元",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2020,
+            "end_offset": 2043,
+            "raw_text": "固定技术转让费总额为人民币3,000,000元",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "payment_formula_inconsistency_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-4e0cd3932fdc1fb5b34d",
+          "clause_id": "C0012",
+          "quote": "第一期：合同签署后5个工作日内支付40%，即1,200,000元",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2054,
+            "end_offset": 2086,
+            "raw_text": "第一期：合同签署后5个工作日内支付40%，即1,200,000元",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "payment_formula_inconsistency_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-e42bd400f55ff696217b",
+          "clause_id": "C0012",
+          "quote": "第二期：乙方完成首次技术资料交付后5个工作日内支付40%，即1,200,000元",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2088,
+            "end_offset": 2128,
+            "raw_text": "第二期：乙方完成首次技术资料交付后5个工作日内支付40%，即1,200,000元",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "payment_formula_inconsistency_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-126a75861e2a6e435ff1",
+          "clause_id": "C0012",
+          "quote": "第三期：甲方产品首次实现商业销售后10个工作日内支付30%，即900,000元",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2130,
+            "end_offset": 2169,
+            "raw_text": "第三期：甲方产品首次实现商业销售后10个工作日内支付30%，即900,000元",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "payment_formula_inconsistency_adverse_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "GEN-PAY-01",
+          "element_id": "payment_formula_inconsistency_adverse_arrangement",
+          "claim_id": "GEN-PAY-01-ADVERSE-CLAIM",
+          "proposition": "付款节点比例合计为110%，金额合计为3,300,000元，与合同总价3,000,000元相差300,000元。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-b2a5def7f0acbb08",
+            "SRC-284a67fe455ae4ad092b",
+            "SRC-4e0cd3932fdc1fb5b34d",
+            "SRC-e42bd400f55ff696217b",
+            "SRC-126a75861e2a6e435ff1"
+          ],
+          "supporting_evidence_ids": [
+            "EV-b2a5def7f0acbb08",
+            "SRC-284a67fe455ae4ad092b",
+            "SRC-4e0cd3932fdc1fb5b34d",
+            "SRC-e42bd400f55ff696217b",
+            "SRC-126a75861e2a6e435ff1"
+          ],
+          "source_clause_ids": [
+            "C0012",
+            "C0012",
+            "C0012",
+            "C0012"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "确定性结构化规则与原始合同条款直接对应。"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-016",
+        "element_id": "payment_formula_inconsistency_adverse_arrangement",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "GEN-PAY-01",
+        "finding_id": "RF-016",
+        "fact_key": "payment_formula_inconsistency_adverse_arrangement",
+        "fact_value": "付款节点比例合计为110%，金额合计为3,300,000元，与合同总价3,000,000元相差300,000元。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "GEN-PAY-01",
+            "finding_id": "RF-016",
+            "fact_key": "payment_formula_inconsistency_adverse_arrangement",
+            "fact_value": "付款节点比例合计为110%，金额合计为3,300,000元，与合同总价3,000,000元相差300,000元。",
+            "current_evidence_refs": [
+              "EV-b2a5def7f0acbb08",
+              "SRC-284a67fe455ae4ad092b",
+              "SRC-4e0cd3932fdc1fb5b34d",
+              "SRC-e42bd400f55ff696217b",
+              "SRC-126a75861e2a6e435ff1"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": "EV-b2a5def7f0acbb08",
+            "support_target": [],
+            "supporting_review_ids": [],
+            "source_type": "CALCULATION",
+            "conditions": {
+              "element_target_matches": false,
+              "review_owner_matches": false,
+              "positive_source": true,
+              "exact_span_matches": true,
+              "assertion_supported": true
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "GEN-LIAB-02",
+      "element_id": "generic_liability_cap_validity_adverse_arrangement",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-eb4b194cc43b358eab82",
+          "clause_id": "C0018",
+          "quote": "第十七条 违约责任\n甲方逾期付款的，每逾期一日按照应付款金额的0.5%支付违约金；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2955,
+            "end_offset": 2996,
+            "raw_text": "第十七条 违约责任\n甲方逾期付款的，每逾期一日按照应付款金额的0.5%支付违约金；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_liability_cap_validity_adverse_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "GEN-LIAB-02",
+          "element_id": "generic_liability_cap_validity_adverse_arrangement",
+          "claim_id": "GEN-LIAB-02-ADVERSE-CLAIM",
+          "proposition": "合同明确约定即使乙方存在重大过失，上述责任限制仍然适用。重大过失仍受责任上限保护的约定存在效力风险。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-eb4b194cc43b358eab82"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-eb4b194cc43b358eab82"
+          ],
+          "source_clause_ids": [
+            "C0018"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "确定性结构化规则与原始合同条款直接对应。"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-018",
+        "element_id": "generic_liability_cap_validity_adverse_arrangement",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "GEN-LIAB-02",
+        "finding_id": "RF-018",
+        "fact_key": "generic_liability_cap_validity_adverse_arrangement",
+        "fact_value": "合同明确约定即使乙方存在重大过失，上述责任限制仍然适用。重大过失仍受责任上限保护的约定存在效力风险。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "GEN-LIAB-02",
+            "finding_id": "RF-018",
+            "fact_key": "generic_liability_cap_validity_adverse_arrangement",
+            "fact_value": "合同明确约定即使乙方存在重大过失，上述责任限制仍然适用。重大过失仍受责任上限保护的约定存在效力风险。",
+            "current_evidence_refs": [
+              "SRC-eb4b194cc43b358eab82"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "GEN-LIAB-03",
+      "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-ad5ec7445597ef9821e3",
+          "clause_id": "C0009",
+          "quote": "第八条 保密义务\n甲方义务\n甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1452,
+            "end_offset": 1510,
+            "raw_text": "第八条 保密义务\n甲方义务\n甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-bed66e0c17edeca217f2",
+          "clause_id": "C0007",
+          "quote": "第六条 权利保证及第三方权利\n乙方保证其有权签署本合同并向甲方提供本项技术。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1019,
+            "end_offset": 1057,
+            "raw_text": "第六条 权利保证及第三方权利\n乙方保证其有权签署本合同并向甲方提供本项技术。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-7a8e586e4cf36b9503d0",
+          "clause_id": "C0014",
+          "quote": "第十三条 实施义务\n甲方应在本合同生效后30日内开始实施本项技术。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2405,
+            "end_offset": 2438,
+            "raw_text": "第十三条 实施义务\n甲方应在本合同生效后30日内开始实施本项技术。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-15566826376aed2e1e78",
+          "clause_id": "C0011",
+          "quote": "第十条 技术服务和技术指导\n乙方应向甲方提供：\n技术资料讲解；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1902,
+            "end_offset": 1933,
+            "raw_text": "第十条 技术服务和技术指导\n乙方应向甲方提供：\n技术资料讲解；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "claim_id": "GEN-LIAB-03-ADVERSE-CLAIM",
+          "proposition": "当前审查方承担的高额违约金包括甲方逾期付款的，每逾期一日按照应付款金额的0.5%支付违约金；甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失。合同价比例仅用于识别异常，不等同于实际损失比例。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-ad5ec7445597ef9821e3",
+            "SRC-bed66e0c17edeca217f2",
+            "SRC-7a8e586e4cf36b9503d0",
+            "SRC-15566826376aed2e1e78",
+            "C0018",
+            "C0009"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-ad5ec7445597ef9821e3",
+            "SRC-bed66e0c17edeca217f2",
+            "SRC-7a8e586e4cf36b9503d0",
+            "SRC-15566826376aed2e1e78",
+            "C0018",
+            "C0009"
+          ],
+          "source_clause_ids": [
+            "C0009",
+            "C0007",
+            "C0014",
+            "C0011",
+            "C0018"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "确定性结构化规则与原始合同条款直接对应。"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-019",
+        "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "GEN-LIAB-03",
+        "finding_id": "RF-019",
+        "fact_key": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+        "fact_value": "当前审查方承担的高额违约金包括甲方逾期付款的，每逾期一日按照应付款金额的0.5%支付违约金；甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失。合同价比例仅用于识别异常，不等同于实际损失比例。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "GEN-LIAB-03",
+            "finding_id": "RF-019",
+            "fact_key": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+            "fact_value": "当前审查方承担的高额违约金包括甲方逾期付款的，每逾期一日按照应付款金额的0.5%支付违约金；甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失。合同价比例仅用于识别异常，不等同于实际损失比例。",
+            "current_evidence_refs": [
+              "SRC-ad5ec7445597ef9821e3",
+              "SRC-bed66e0c17edeca217f2",
+              "SRC-7a8e586e4cf36b9503d0",
+              "SRC-15566826376aed2e1e78",
+              "C0018",
+              "C0009"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "GEN-LIAB-03",
+      "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-ad5ec7445597ef9821e3",
+          "clause_id": "C0009",
+          "quote": "第八条 保密义务\n甲方义务\n甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1452,
+            "end_offset": 1510,
+            "raw_text": "第八条 保密义务\n甲方义务\n甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-bed66e0c17edeca217f2",
+          "clause_id": "C0007",
+          "quote": "第六条 权利保证及第三方权利\n乙方保证其有权签署本合同并向甲方提供本项技术。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1019,
+            "end_offset": 1057,
+            "raw_text": "第六条 权利保证及第三方权利\n乙方保证其有权签署本合同并向甲方提供本项技术。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-7a8e586e4cf36b9503d0",
+          "clause_id": "C0014",
+          "quote": "第十三条 实施义务\n甲方应在本合同生效后30日内开始实施本项技术。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2405,
+            "end_offset": 2438,
+            "raw_text": "第十三条 实施义务\n甲方应在本合同生效后30日内开始实施本项技术。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-15566826376aed2e1e78",
+          "clause_id": "C0011",
+          "quote": "第十条 技术服务和技术指导\n乙方应向甲方提供：\n技术资料讲解；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1902,
+            "end_offset": 1933,
+            "raw_text": "第十条 技术服务和技术指导\n乙方应向甲方提供：\n技术资料讲解；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "claim_id": "GEN-LIAB-03-ADVERSE-CLAIM",
+          "proposition": "当前审查方承担的高额违约金包括甲方逾期付款的，每逾期一日按照应付款金额的0.5%支付违约金；甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失。合同价比例仅用于识别异常，不等同于实际损失比例。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-ad5ec7445597ef9821e3",
+            "SRC-bed66e0c17edeca217f2",
+            "SRC-7a8e586e4cf36b9503d0",
+            "SRC-15566826376aed2e1e78",
+            "C0018",
+            "C0009"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-ad5ec7445597ef9821e3",
+            "SRC-bed66e0c17edeca217f2",
+            "SRC-7a8e586e4cf36b9503d0",
+            "SRC-15566826376aed2e1e78",
+            "C0018",
+            "C0009"
+          ],
+          "source_clause_ids": [
+            "C0009",
+            "C0007",
+            "C0014",
+            "C0011",
+            "C0018"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "确定性结构化规则与原始合同条款直接对应。"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-019",
+        "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+        "fact": "违反保密义务的，应向乙方支付人民币3000000元违约金",
+        "reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE",
+        "rule_id": "GEN-LIAB-03",
+        "finding_id": "RF-019",
+        "fact_key": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+        "fact_value": "违反保密义务的，应向乙方支付人民币3000000元违约金",
+        "reject_reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE",
+        "binding_diagnostics": [
+          {
+            "rule_id": "GEN-LIAB-03",
+            "finding_id": "RF-019",
+            "fact_key": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+            "fact_value": "当前审查方承担的高额违约金包括甲方逾期付款的，每逾期一日按照应付款金额的0.5%支付违约金；甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失。合同价比例仅用于识别异常，不等同于实际损失比例。",
+            "current_evidence_refs": [
+              "SRC-ad5ec7445597ef9821e3",
+              "SRC-bed66e0c17edeca217f2",
+              "SRC-7a8e586e4cf36b9503d0",
+              "SRC-15566826376aed2e1e78",
+              "C0018",
+              "C0009"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "GEN-LIAB-03",
+      "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-ad5ec7445597ef9821e3",
+          "clause_id": "C0009",
+          "quote": "第八条 保密义务\n甲方义务\n甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1452,
+            "end_offset": 1510,
+            "raw_text": "第八条 保密义务\n甲方义务\n甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-bed66e0c17edeca217f2",
+          "clause_id": "C0007",
+          "quote": "第六条 权利保证及第三方权利\n乙方保证其有权签署本合同并向甲方提供本项技术。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1019,
+            "end_offset": 1057,
+            "raw_text": "第六条 权利保证及第三方权利\n乙方保证其有权签署本合同并向甲方提供本项技术。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-7a8e586e4cf36b9503d0",
+          "clause_id": "C0014",
+          "quote": "第十三条 实施义务\n甲方应在本合同生效后30日内开始实施本项技术。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2405,
+            "end_offset": 2438,
+            "raw_text": "第十三条 实施义务\n甲方应在本合同生效后30日内开始实施本项技术。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-15566826376aed2e1e78",
+          "clause_id": "C0011",
+          "quote": "第十条 技术服务和技术指导\n乙方应向甲方提供：\n技术资料讲解；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1902,
+            "end_offset": 1933,
+            "raw_text": "第十条 技术服务和技术指导\n乙方应向甲方提供：\n技术资料讲解；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "claim_id": "GEN-LIAB-03-ADVERSE-CLAIM",
+          "proposition": "当前审查方承担的高额违约金包括甲方逾期付款的，每逾期一日按照应付款金额的0.5%支付违约金；甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失。合同价比例仅用于识别异常，不等同于实际损失比例。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-ad5ec7445597ef9821e3",
+            "SRC-bed66e0c17edeca217f2",
+            "SRC-7a8e586e4cf36b9503d0",
+            "SRC-15566826376aed2e1e78",
+            "C0018",
+            "C0009"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-ad5ec7445597ef9821e3",
+            "SRC-bed66e0c17edeca217f2",
+            "SRC-7a8e586e4cf36b9503d0",
+            "SRC-15566826376aed2e1e78",
+            "C0018",
+            "C0009"
+          ],
+          "source_clause_ids": [
+            "C0009",
+            "C0007",
+            "C0014",
+            "C0011",
+            "C0018"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "确定性结构化规则与原始合同条款直接对应。"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-019",
+        "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+        "fact": "违反保密义务的，支付3000000元违约金",
+        "reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE",
+        "rule_id": "GEN-LIAB-03",
+        "finding_id": "RF-019",
+        "fact_key": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+        "fact_value": "违反保密义务的，支付3000000元违约金",
+        "reject_reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE",
+        "binding_diagnostics": [
+          {
+            "rule_id": "GEN-LIAB-03",
+            "finding_id": "RF-019",
+            "fact_key": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+            "fact_value": "当前审查方承担的高额违约金包括甲方逾期付款的，每逾期一日按照应付款金额的0.5%支付违约金；甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失。合同价比例仅用于识别异常，不等同于实际损失比例。",
+            "current_evidence_refs": [
+              "SRC-ad5ec7445597ef9821e3",
+              "SRC-bed66e0c17edeca217f2",
+              "SRC-7a8e586e4cf36b9503d0",
+              "SRC-15566826376aed2e1e78",
+              "C0018",
+              "C0009"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TC-11-03",
+      "element_id": "post_termination_material_retention",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "EV-63411ddb3cf3c632",
+          "clause_id": "C0009",
+          "quoted_text": "第八条 保密义务 甲方义务 甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。 甲方涉密人员包括： 员工； 关联公司员工； 供应商； 代工企业； 顾问及其他可能接触相关资料的人员。 甲方保密期限为相关信息披露之日起20年。 甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金； 不足以弥补乙方损失的，还应继续赔偿。 乙方义务 乙方对甲方在项目实施过程中提供的销售数据、生产数据和客户资料承担保密义务。 乙方保密期限为本合同有效期内。 本合同终止后，乙方可以为研发、案例展示、融资及经营管理目的继续保存和使用甲方提供的有关资料。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1452,
+            "end_offset": 1741,
+            "raw_text": "第八条 保密义务 甲方义务 甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。 甲方涉密人员包括： 员工； 关联公司员工； 供应商； 代工企业； 顾问及其他可能接触相关资料的人员。 甲方保密期限为相关信息披露之日起20年。 甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金； 不足以弥补乙方损失的，还应继续赔偿。 乙方义务 乙方对甲方在项目实施过程中提供的销售数据、生产数据和客户资料承担保密义务。 乙方保密期限为本合同有效期内。 本合同终止后，乙方可以为研发、案例展示、融资及经营管理目的继续保存和使用甲方提供的有关资料。"
+          }
+        }
+      ],
+      "current_elements": [
+        {
+          "element_id": "post_termination_material_retention",
+          "status": "ADVERSE",
+          "proposition": "合同明确允许终止后继续保存项目资料或数据。",
+          "evidence_ids": [
+            ""
+          ],
+          "supporting_evidence_ids": [
+            ""
+          ],
+          "risk_relevant": true
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-009",
+        "element_id": "post_termination_material_retention",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "TC-11-03",
+        "finding_id": "RF-009",
+        "fact_key": "post_termination_material_retention",
+        "fact_value": "合同明确允许终止后继续保存项目资料或数据。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TC-11-03",
+            "finding_id": "RF-009",
+            "fact_key": "post_termination_material_retention",
+            "fact_value": "合同明确允许终止后继续保存项目资料或数据。",
+            "current_evidence_refs": [
+              ""
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TECH-SHARED-03",
+      "element_id": "technical_timeline_conflict_adverse_arrangement",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "EV-2de77d6f38bffae5",
+          "clause_id": "",
+          "quote": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+          "source_type": "CALCULATION",
+          "source_span": {
+            "start_offset": 0,
+            "end_offset": 82,
+            "raw_text": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。"
+          },
+          "supporting_element_ids": [
+            "technical_timeline_conflict_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-6e555cfdbf1add2cbbc8",
+          "clause_id": "C0026",
+          "quote": "本合同自双方签字盖章之日起生效。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 3879,
+            "end_offset": 3895,
+            "raw_text": "本合同自双方签字盖章之日起生效。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "technical_timeline_conflict_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-f996eb417580e3cfa4a1",
+          "clause_id": "C0026",
+          "quote": "签署日期：2026年10月20日",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 3927,
+            "end_offset": 3943,
+            "raw_text": "签署日期：2026年10月20日",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "technical_timeline_conflict_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-692364db6596bdd3b3b7",
+          "clause_id": "C0006",
+          "quote": "合同期限为2026年10月10日至2036年10月9日。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 990,
+            "end_offset": 1018,
+            "raw_text": "合同期限为2026年10月10日至2036年10月9日。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "technical_timeline_conflict_adverse_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TECH-SHARED-03",
+          "element_id": "technical_timeline_conflict_adverse_arrangement",
+          "claim_id": "TECH-SHARED-03-ADVERSE-CLAIM",
+          "proposition": "合同有效期限起始日早于签署日；该日期不是已确认的履行起始日，亦不能据此确定合同生效日期。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-2de77d6f38bffae5",
+            "SRC-6e555cfdbf1add2cbbc8",
+            "SRC-f996eb417580e3cfa4a1",
+            "SRC-692364db6596bdd3b3b7"
+          ],
+          "supporting_evidence_ids": [
+            "EV-2de77d6f38bffae5",
+            "SRC-6e555cfdbf1add2cbbc8",
+            "SRC-f996eb417580e3cfa4a1",
+            "SRC-692364db6596bdd3b3b7"
+          ],
+          "source_clause_ids": [
+            "C0026",
+            "C0026",
+            "C0006"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "确定性结构化规则与原始合同条款直接对应。"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-017",
+        "element_id": "technical_timeline_conflict_adverse_arrangement",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "TECH-SHARED-03",
+        "finding_id": "RF-017",
+        "fact_key": "technical_timeline_conflict_adverse_arrangement",
+        "fact_value": "合同有效期限起始日早于签署日；该日期不是已确认的履行起始日，亦不能据此确定合同生效日期。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TECH-SHARED-03",
+            "finding_id": "RF-017",
+            "fact_key": "technical_timeline_conflict_adverse_arrangement",
+            "fact_value": "合同有效期限起始日早于签署日；该日期不是已确认的履行起始日，亦不能据此确定合同生效日期。",
+            "current_evidence_refs": [
+              "EV-2de77d6f38bffae5",
+              "SRC-6e555cfdbf1add2cbbc8",
+              "SRC-f996eb417580e3cfa4a1",
+              "SRC-692364db6596bdd3b3b7"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": "EV-2de77d6f38bffae5",
+            "support_target": [],
+            "supporting_review_ids": [],
+            "source_type": "CALCULATION",
+            "conditions": {
+              "element_target_matches": false,
+              "review_owner_matches": false,
+              "positive_source": true,
+              "exact_span_matches": true,
+              "assertion_supported": true
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TECH-SHARED-03",
+      "element_id": "risk_description",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+      "source_spans": [
+        {
+          "evidence_id": "EV-a54e19130f4b43eb",
+          "clause_id": "C0006",
+          "quoted_text": "合同期限为2026年10月10日至2036年10月9日。",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-8d1db286ac832413",
+          "clause_id": "C0026",
+          "quoted_text": "本合同自双方签字盖章之日起生效。",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-49cd654f067723fd",
+          "clause_id": "C0026",
+          "quoted_text": "签署日期：2026年10月20日",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-2de77d6f38bffae5",
+          "clause_id": "",
+          "quoted_text": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+          "source_type": "CALCULATION"
+        }
+      ],
+      "current_elements": [],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-017",
+        "field": "risk_description",
+        "fact": "有效期限起始日早于签署日",
+        "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+        "rule_id": "TECH-SHARED-03",
+        "finding_id": "RF-017",
+        "fact_key": "risk_description",
+        "fact_value": "有效期限起始日早于签署日",
+        "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TECH-SHARED-03",
+            "finding_id": "RF-017",
+            "fact_key": "technical_timeline_conflict_adverse_arrangement",
+            "fact_value": "合同有效期限起始日早于签署日；该日期不是已确认的履行起始日，亦不能据此确定合同生效日期。",
+            "current_evidence_refs": [
+              "EV-2de77d6f38bffae5",
+              "SRC-6e555cfdbf1add2cbbc8",
+              "SRC-f996eb417580e3cfa4a1",
+              "SRC-692364db6596bdd3b3b7"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": "EV-2de77d6f38bffae5",
+            "support_target": [],
+            "supporting_review_ids": [],
+            "source_type": "CALCULATION",
+            "conditions": {
+              "element_target_matches": false,
+              "review_owner_matches": false,
+              "positive_source": true,
+              "exact_span_matches": true,
+              "assertion_supported": false
+            },
+            "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TECH-SHARED-03",
+      "element_id": "risk_point_description",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+      "source_spans": [
+        {
+          "evidence_id": "EV-a54e19130f4b43eb",
+          "clause_id": "C0006",
+          "quoted_text": "合同期限为2026年10月10日至2036年10月9日。",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-8d1db286ac832413",
+          "clause_id": "C0026",
+          "quoted_text": "本合同自双方签字盖章之日起生效。",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-49cd654f067723fd",
+          "clause_id": "C0026",
+          "quoted_text": "签署日期：2026年10月20日",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-2de77d6f38bffae5",
+          "clause_id": "",
+          "quoted_text": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+          "source_type": "CALCULATION"
+        }
+      ],
+      "current_elements": [],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-017",
+        "field": "risk_point_description",
+        "fact": "有效期限起始日早于签署日",
+        "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+        "rule_id": "TECH-SHARED-03",
+        "finding_id": "RF-017",
+        "fact_key": "risk_point_description",
+        "fact_value": "有效期限起始日早于签署日",
+        "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TECH-SHARED-03",
+            "finding_id": "RF-017",
+            "fact_key": "technical_timeline_conflict_adverse_arrangement",
+            "fact_value": "合同有效期限起始日早于签署日；该日期不是已确认的履行起始日，亦不能据此确定合同生效日期。",
+            "current_evidence_refs": [
+              "EV-2de77d6f38bffae5",
+              "SRC-6e555cfdbf1add2cbbc8",
+              "SRC-f996eb417580e3cfa4a1",
+              "SRC-692364db6596bdd3b3b7"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": "EV-2de77d6f38bffae5",
+            "support_target": [],
+            "supporting_review_ids": [],
+            "source_type": "CALCULATION",
+            "conditions": {
+              "element_target_matches": false,
+              "review_owner_matches": false,
+              "positive_source": true,
+              "exact_span_matches": true,
+              "assertion_supported": false
+            },
+            "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TECH-SHARED-03",
+      "element_id": "review_judgment",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+      "source_spans": [
+        {
+          "evidence_id": "EV-a54e19130f4b43eb",
+          "clause_id": "C0006",
+          "quoted_text": "合同期限为2026年10月10日至2036年10月9日。",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-8d1db286ac832413",
+          "clause_id": "C0026",
+          "quoted_text": "本合同自双方签字盖章之日起生效。",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-49cd654f067723fd",
+          "clause_id": "C0026",
+          "quoted_text": "签署日期：2026年10月20日",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-2de77d6f38bffae5",
+          "clause_id": "",
+          "quoted_text": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+          "source_type": "CALCULATION"
+        }
+      ],
+      "current_elements": [],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-017",
+        "field": "review_judgment",
+        "fact": "有效期限起始日早于签署日",
+        "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+        "rule_id": "TECH-SHARED-03",
+        "finding_id": "RF-017",
+        "fact_key": "review_judgment",
+        "fact_value": "有效期限起始日早于签署日",
+        "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TECH-SHARED-03",
+            "finding_id": "RF-017",
+            "fact_key": "technical_timeline_conflict_adverse_arrangement",
+            "fact_value": "合同有效期限起始日早于签署日；该日期不是已确认的履行起始日，亦不能据此确定合同生效日期。",
+            "current_evidence_refs": [
+              "EV-2de77d6f38bffae5",
+              "SRC-6e555cfdbf1add2cbbc8",
+              "SRC-f996eb417580e3cfa4a1",
+              "SRC-692364db6596bdd3b3b7"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": "EV-2de77d6f38bffae5",
+            "support_target": [],
+            "supporting_review_ids": [],
+            "source_type": "CALCULATION",
+            "conditions": {
+              "element_target_matches": false,
+              "review_owner_matches": false,
+              "positive_source": true,
+              "exact_span_matches": true,
+              "assertion_supported": false
+            },
+            "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TECH-SHARED-03",
+      "element_id": "narrative_judgment",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+      "source_spans": [
+        {
+          "evidence_id": "EV-a54e19130f4b43eb",
+          "clause_id": "C0006",
+          "quoted_text": "合同期限为2026年10月10日至2036年10月9日。",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-8d1db286ac832413",
+          "clause_id": "C0026",
+          "quoted_text": "本合同自双方签字盖章之日起生效。",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-49cd654f067723fd",
+          "clause_id": "C0026",
+          "quoted_text": "签署日期：2026年10月20日",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-2de77d6f38bffae5",
+          "clause_id": "",
+          "quoted_text": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+          "source_type": "CALCULATION"
+        }
+      ],
+      "current_elements": [],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-017",
+        "field": "narrative_judgment",
+        "fact": "有效期限起始日早于签署日",
+        "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+        "rule_id": "TECH-SHARED-03",
+        "finding_id": "RF-017",
+        "fact_key": "narrative_judgment",
+        "fact_value": "有效期限起始日早于签署日",
+        "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TECH-SHARED-03",
+            "finding_id": "RF-017",
+            "fact_key": "technical_timeline_conflict_adverse_arrangement",
+            "fact_value": "合同有效期限起始日早于签署日；该日期不是已确认的履行起始日，亦不能据此确定合同生效日期。",
+            "current_evidence_refs": [
+              "EV-2de77d6f38bffae5",
+              "SRC-6e555cfdbf1add2cbbc8",
+              "SRC-f996eb417580e3cfa4a1",
+              "SRC-692364db6596bdd3b3b7"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": "EV-2de77d6f38bffae5",
+            "support_target": [],
+            "supporting_review_ids": [],
+            "source_type": "CALCULATION",
+            "conditions": {
+              "element_target_matches": false,
+              "review_owner_matches": false,
+              "positive_source": true,
+              "exact_span_matches": true,
+              "assertion_supported": false
+            },
+            "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "GEN-PAY-01",
+      "element_id": "payment_formula_inconsistency_adverse_arrangement",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "EV-b2a5def7f0acbb08",
+          "clause_id": "",
+          "quote": "合同总价：3000000 CNY；付款比例：40% + 40% + 30% = 110%；付款金额：1200000 + 1200000 + 900000 = 3300000 CNY；差额：300000 CNY。",
+          "source_type": "CALCULATION",
+          "source_span": {
+            "start_offset": 0,
+            "end_offset": 105,
+            "raw_text": "合同总价：3000000 CNY；付款比例：40% + 40% + 30% = 110%；付款金额：1200000 + 1200000 + 900000 = 3300000 CNY；差额：300000 CNY。"
+          },
+          "supporting_element_ids": [
+            "payment_formula_inconsistency_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-284a67fe455ae4ad092b",
+          "clause_id": "C0012",
+          "quote": "固定技术转让费总额为人民币3,000,000元",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2020,
+            "end_offset": 2043,
+            "raw_text": "固定技术转让费总额为人民币3,000,000元",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "payment_formula_inconsistency_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-4e0cd3932fdc1fb5b34d",
+          "clause_id": "C0012",
+          "quote": "第一期：合同签署后5个工作日内支付40%，即1,200,000元",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2054,
+            "end_offset": 2086,
+            "raw_text": "第一期：合同签署后5个工作日内支付40%，即1,200,000元",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "payment_formula_inconsistency_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-e42bd400f55ff696217b",
+          "clause_id": "C0012",
+          "quote": "第二期：乙方完成首次技术资料交付后5个工作日内支付40%，即1,200,000元",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2088,
+            "end_offset": 2128,
+            "raw_text": "第二期：乙方完成首次技术资料交付后5个工作日内支付40%，即1,200,000元",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "payment_formula_inconsistency_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-126a75861e2a6e435ff1",
+          "clause_id": "C0012",
+          "quote": "第三期：甲方产品首次实现商业销售后10个工作日内支付30%，即900,000元",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2130,
+            "end_offset": 2169,
+            "raw_text": "第三期：甲方产品首次实现商业销售后10个工作日内支付30%，即900,000元",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "payment_formula_inconsistency_adverse_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "GEN-PAY-01",
+          "element_id": "payment_formula_inconsistency_adverse_arrangement",
+          "claim_id": "GEN-PAY-01-ADVERSE-CLAIM",
+          "proposition": "付款节点比例合计为110%，金额合计为3,300,000元，与合同总价3,000,000元相差300,000元。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-b2a5def7f0acbb08",
+            "SRC-284a67fe455ae4ad092b",
+            "SRC-4e0cd3932fdc1fb5b34d",
+            "SRC-e42bd400f55ff696217b",
+            "SRC-126a75861e2a6e435ff1"
+          ],
+          "supporting_evidence_ids": [
+            "EV-b2a5def7f0acbb08",
+            "SRC-284a67fe455ae4ad092b",
+            "SRC-4e0cd3932fdc1fb5b34d",
+            "SRC-e42bd400f55ff696217b",
+            "SRC-126a75861e2a6e435ff1"
+          ],
+          "source_clause_ids": [
+            "C0012",
+            "C0012",
+            "C0012",
+            "C0012"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "确定性结构化规则与原始合同条款直接对应。"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-016",
+        "element_id": "payment_formula_inconsistency_adverse_arrangement",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "GEN-PAY-01",
+        "finding_id": "RF-016",
+        "fact_key": "payment_formula_inconsistency_adverse_arrangement",
+        "fact_value": "付款节点比例合计为110%，金额合计为3,300,000元，与合同总价3,000,000元相差300,000元。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "GEN-PAY-01",
+            "finding_id": "RF-016",
+            "fact_key": "payment_formula_inconsistency_adverse_arrangement",
+            "fact_value": "付款节点比例合计为110%，金额合计为3,300,000元，与合同总价3,000,000元相差300,000元。",
+            "current_evidence_refs": [
+              "EV-b2a5def7f0acbb08",
+              "SRC-284a67fe455ae4ad092b",
+              "SRC-4e0cd3932fdc1fb5b34d",
+              "SRC-e42bd400f55ff696217b",
+              "SRC-126a75861e2a6e435ff1"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": "EV-b2a5def7f0acbb08",
+            "support_target": [],
+            "supporting_review_ids": [],
+            "source_type": "CALCULATION",
+            "conditions": {
+              "element_target_matches": false,
+              "review_owner_matches": false,
+              "positive_source": true,
+              "exact_span_matches": true,
+              "assertion_supported": true
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "GEN-LIAB-02",
+      "element_id": "generic_liability_cap_validity_adverse_arrangement",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-eb4b194cc43b358eab82",
+          "clause_id": "C0018",
+          "quote": "第十七条 违约责任\n甲方逾期付款的，每逾期一日按照应付款金额的0.5%支付违约金；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2955,
+            "end_offset": 2996,
+            "raw_text": "第十七条 违约责任\n甲方逾期付款的，每逾期一日按照应付款金额的0.5%支付违约金；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_liability_cap_validity_adverse_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "GEN-LIAB-02",
+          "element_id": "generic_liability_cap_validity_adverse_arrangement",
+          "claim_id": "GEN-LIAB-02-ADVERSE-CLAIM",
+          "proposition": "合同明确约定即使乙方存在重大过失，上述责任限制仍然适用。重大过失仍受责任上限保护的约定存在效力风险。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-eb4b194cc43b358eab82"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-eb4b194cc43b358eab82"
+          ],
+          "source_clause_ids": [
+            "C0018"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "确定性结构化规则与原始合同条款直接对应。"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-018",
+        "element_id": "generic_liability_cap_validity_adverse_arrangement",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "GEN-LIAB-02",
+        "finding_id": "RF-018",
+        "fact_key": "generic_liability_cap_validity_adverse_arrangement",
+        "fact_value": "合同明确约定即使乙方存在重大过失，上述责任限制仍然适用。重大过失仍受责任上限保护的约定存在效力风险。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "GEN-LIAB-02",
+            "finding_id": "RF-018",
+            "fact_key": "generic_liability_cap_validity_adverse_arrangement",
+            "fact_value": "合同明确约定即使乙方存在重大过失，上述责任限制仍然适用。重大过失仍受责任上限保护的约定存在效力风险。",
+            "current_evidence_refs": [
+              "SRC-eb4b194cc43b358eab82"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "GEN-LIAB-03",
+      "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-ad5ec7445597ef9821e3",
+          "clause_id": "C0009",
+          "quote": "第八条 保密义务\n甲方义务\n甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1452,
+            "end_offset": 1510,
+            "raw_text": "第八条 保密义务\n甲方义务\n甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-bed66e0c17edeca217f2",
+          "clause_id": "C0007",
+          "quote": "第六条 权利保证及第三方权利\n乙方保证其有权签署本合同并向甲方提供本项技术。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1019,
+            "end_offset": 1057,
+            "raw_text": "第六条 权利保证及第三方权利\n乙方保证其有权签署本合同并向甲方提供本项技术。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-7a8e586e4cf36b9503d0",
+          "clause_id": "C0014",
+          "quote": "第十三条 实施义务\n甲方应在本合同生效后30日内开始实施本项技术。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2405,
+            "end_offset": 2438,
+            "raw_text": "第十三条 实施义务\n甲方应在本合同生效后30日内开始实施本项技术。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-15566826376aed2e1e78",
+          "clause_id": "C0011",
+          "quote": "第十条 技术服务和技术指导\n乙方应向甲方提供：\n技术资料讲解；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1902,
+            "end_offset": 1933,
+            "raw_text": "第十条 技术服务和技术指导\n乙方应向甲方提供：\n技术资料讲解；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "claim_id": "GEN-LIAB-03-ADVERSE-CLAIM",
+          "proposition": "当前审查方承担的高额违约金包括甲方逾期付款的，每逾期一日按照应付款金额的0.5%支付违约金；甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失。合同价比例仅用于识别异常，不等同于实际损失比例。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-ad5ec7445597ef9821e3",
+            "SRC-bed66e0c17edeca217f2",
+            "SRC-7a8e586e4cf36b9503d0",
+            "SRC-15566826376aed2e1e78",
+            "C0018",
+            "C0009"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-ad5ec7445597ef9821e3",
+            "SRC-bed66e0c17edeca217f2",
+            "SRC-7a8e586e4cf36b9503d0",
+            "SRC-15566826376aed2e1e78",
+            "C0018",
+            "C0009"
+          ],
+          "source_clause_ids": [
+            "C0009",
+            "C0007",
+            "C0014",
+            "C0011",
+            "C0018"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "确定性结构化规则与原始合同条款直接对应。"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-019",
+        "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "GEN-LIAB-03",
+        "finding_id": "RF-019",
+        "fact_key": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+        "fact_value": "当前审查方承担的高额违约金包括甲方逾期付款的，每逾期一日按照应付款金额的0.5%支付违约金；甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失。合同价比例仅用于识别异常，不等同于实际损失比例。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "GEN-LIAB-03",
+            "finding_id": "RF-019",
+            "fact_key": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+            "fact_value": "当前审查方承担的高额违约金包括甲方逾期付款的，每逾期一日按照应付款金额的0.5%支付违约金；甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失。合同价比例仅用于识别异常，不等同于实际损失比例。",
+            "current_evidence_refs": [
+              "SRC-ad5ec7445597ef9821e3",
+              "SRC-bed66e0c17edeca217f2",
+              "SRC-7a8e586e4cf36b9503d0",
+              "SRC-15566826376aed2e1e78",
+              "C0018",
+              "C0009"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "GEN-LIAB-03",
+      "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-ad5ec7445597ef9821e3",
+          "clause_id": "C0009",
+          "quote": "第八条 保密义务\n甲方义务\n甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1452,
+            "end_offset": 1510,
+            "raw_text": "第八条 保密义务\n甲方义务\n甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-bed66e0c17edeca217f2",
+          "clause_id": "C0007",
+          "quote": "第六条 权利保证及第三方权利\n乙方保证其有权签署本合同并向甲方提供本项技术。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1019,
+            "end_offset": 1057,
+            "raw_text": "第六条 权利保证及第三方权利\n乙方保证其有权签署本合同并向甲方提供本项技术。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-7a8e586e4cf36b9503d0",
+          "clause_id": "C0014",
+          "quote": "第十三条 实施义务\n甲方应在本合同生效后30日内开始实施本项技术。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2405,
+            "end_offset": 2438,
+            "raw_text": "第十三条 实施义务\n甲方应在本合同生效后30日内开始实施本项技术。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-15566826376aed2e1e78",
+          "clause_id": "C0011",
+          "quote": "第十条 技术服务和技术指导\n乙方应向甲方提供：\n技术资料讲解；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1902,
+            "end_offset": 1933,
+            "raw_text": "第十条 技术服务和技术指导\n乙方应向甲方提供：\n技术资料讲解；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "claim_id": "GEN-LIAB-03-ADVERSE-CLAIM",
+          "proposition": "当前审查方承担的高额违约金包括甲方逾期付款的，每逾期一日按照应付款金额的0.5%支付违约金；甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失。合同价比例仅用于识别异常，不等同于实际损失比例。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-ad5ec7445597ef9821e3",
+            "SRC-bed66e0c17edeca217f2",
+            "SRC-7a8e586e4cf36b9503d0",
+            "SRC-15566826376aed2e1e78",
+            "C0018",
+            "C0009"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-ad5ec7445597ef9821e3",
+            "SRC-bed66e0c17edeca217f2",
+            "SRC-7a8e586e4cf36b9503d0",
+            "SRC-15566826376aed2e1e78",
+            "C0018",
+            "C0009"
+          ],
+          "source_clause_ids": [
+            "C0009",
+            "C0007",
+            "C0014",
+            "C0011",
+            "C0018"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "确定性结构化规则与原始合同条款直接对应。"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-019",
+        "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+        "fact": "违反保密义务的，应向乙方支付人民币3000000元违约金",
+        "reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE",
+        "rule_id": "GEN-LIAB-03",
+        "finding_id": "RF-019",
+        "fact_key": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+        "fact_value": "违反保密义务的，应向乙方支付人民币3000000元违约金",
+        "reject_reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE",
+        "binding_diagnostics": [
+          {
+            "rule_id": "GEN-LIAB-03",
+            "finding_id": "RF-019",
+            "fact_key": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+            "fact_value": "当前审查方承担的高额违约金包括甲方逾期付款的，每逾期一日按照应付款金额的0.5%支付违约金；甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失。合同价比例仅用于识别异常，不等同于实际损失比例。",
+            "current_evidence_refs": [
+              "SRC-ad5ec7445597ef9821e3",
+              "SRC-bed66e0c17edeca217f2",
+              "SRC-7a8e586e4cf36b9503d0",
+              "SRC-15566826376aed2e1e78",
+              "C0018",
+              "C0009"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "GEN-LIAB-03",
+      "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-ad5ec7445597ef9821e3",
+          "clause_id": "C0009",
+          "quote": "第八条 保密义务\n甲方义务\n甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1452,
+            "end_offset": 1510,
+            "raw_text": "第八条 保密义务\n甲方义务\n甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-bed66e0c17edeca217f2",
+          "clause_id": "C0007",
+          "quote": "第六条 权利保证及第三方权利\n乙方保证其有权签署本合同并向甲方提供本项技术。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1019,
+            "end_offset": 1057,
+            "raw_text": "第六条 权利保证及第三方权利\n乙方保证其有权签署本合同并向甲方提供本项技术。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-7a8e586e4cf36b9503d0",
+          "clause_id": "C0014",
+          "quote": "第十三条 实施义务\n甲方应在本合同生效后30日内开始实施本项技术。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2405,
+            "end_offset": 2438,
+            "raw_text": "第十三条 实施义务\n甲方应在本合同生效后30日内开始实施本项技术。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-15566826376aed2e1e78",
+          "clause_id": "C0011",
+          "quote": "第十条 技术服务和技术指导\n乙方应向甲方提供：\n技术资料讲解；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1902,
+            "end_offset": 1933,
+            "raw_text": "第十条 技术服务和技术指导\n乙方应向甲方提供：\n技术资料讲解；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "generic_potential_excessive_liquidated_damages_adverse_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "GEN-LIAB-03",
+          "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+          "claim_id": "GEN-LIAB-03-ADVERSE-CLAIM",
+          "proposition": "当前审查方承担的高额违约金包括甲方逾期付款的，每逾期一日按照应付款金额的0.5%支付违约金；甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失。合同价比例仅用于识别异常，不等同于实际损失比例。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "SRC-ad5ec7445597ef9821e3",
+            "SRC-bed66e0c17edeca217f2",
+            "SRC-7a8e586e4cf36b9503d0",
+            "SRC-15566826376aed2e1e78",
+            "C0018",
+            "C0009"
+          ],
+          "supporting_evidence_ids": [
+            "SRC-ad5ec7445597ef9821e3",
+            "SRC-bed66e0c17edeca217f2",
+            "SRC-7a8e586e4cf36b9503d0",
+            "SRC-15566826376aed2e1e78",
+            "C0018",
+            "C0009"
+          ],
+          "source_clause_ids": [
+            "C0009",
+            "C0007",
+            "C0014",
+            "C0011",
+            "C0018"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "确定性结构化规则与原始合同条款直接对应。"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-019",
+        "element_id": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+        "fact": "违反保密义务的，支付3000000元违约金",
+        "reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE",
+        "rule_id": "GEN-LIAB-03",
+        "finding_id": "RF-019",
+        "fact_key": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+        "fact_value": "违反保密义务的，支付3000000元违约金",
+        "reject_reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE",
+        "binding_diagnostics": [
+          {
+            "rule_id": "GEN-LIAB-03",
+            "finding_id": "RF-019",
+            "fact_key": "generic_potential_excessive_liquidated_damages_adverse_arrangement",
+            "fact_value": "当前审查方承担的高额违约金包括甲方逾期付款的，每逾期一日按照应付款金额的0.5%支付违约金；甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失。合同价比例仅用于识别异常，不等同于实际损失比例。",
+            "current_evidence_refs": [
+              "SRC-ad5ec7445597ef9821e3",
+              "SRC-bed66e0c17edeca217f2",
+              "SRC-7a8e586e4cf36b9503d0",
+              "SRC-15566826376aed2e1e78",
+              "C0018",
+              "C0009"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "ATOMIC_FACT_WITHOUT_SUPPORTING_EVIDENCE"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TC-11-03",
+      "element_id": "post_termination_material_retention",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "EV-63411ddb3cf3c632",
+          "clause_id": "C0009",
+          "quoted_text": "第八条 保密义务 甲方义务 甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。 甲方涉密人员包括： 员工； 关联公司员工； 供应商； 代工企业； 顾问及其他可能接触相关资料的人员。 甲方保密期限为相关信息披露之日起20年。 甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金； 不足以弥补乙方损失的，还应继续赔偿。 乙方义务 乙方对甲方在项目实施过程中提供的销售数据、生产数据和客户资料承担保密义务。 乙方保密期限为本合同有效期内。 本合同终止后，乙方可以为研发、案例展示、融资及经营管理目的继续保存和使用甲方提供的有关资料。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1452,
+            "end_offset": 1741,
+            "raw_text": "第八条 保密义务 甲方义务 甲方应对乙方提供的全部技术资料、算法、源代码、参数、测试数据及相关经营信息承担保密义务。 甲方涉密人员包括： 员工； 关联公司员工； 供应商； 代工企业； 顾问及其他可能接触相关资料的人员。 甲方保密期限为相关信息披露之日起20年。 甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金； 不足以弥补乙方损失的，还应继续赔偿。 乙方义务 乙方对甲方在项目实施过程中提供的销售数据、生产数据和客户资料承担保密义务。 乙方保密期限为本合同有效期内。 本合同终止后，乙方可以为研发、案例展示、融资及经营管理目的继续保存和使用甲方提供的有关资料。"
+          }
+        }
+      ],
+      "current_elements": [
+        {
+          "element_id": "post_termination_material_retention",
+          "status": "ADVERSE",
+          "proposition": "合同明确允许终止后继续保存项目资料或数据。",
+          "evidence_ids": [
+            ""
+          ],
+          "supporting_evidence_ids": [
+            ""
+          ],
+          "risk_relevant": true
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-009",
+        "element_id": "post_termination_material_retention",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "TC-11-03",
+        "finding_id": "RF-009",
+        "fact_key": "post_termination_material_retention",
+        "fact_value": "合同明确允许终止后继续保存项目资料或数据。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TC-11-03",
+            "finding_id": "RF-009",
+            "fact_key": "post_termination_material_retention",
+            "fact_value": "合同明确允许终止后继续保存项目资料或数据。",
+            "current_evidence_refs": [
+              ""
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": null,
+            "support_target": [],
+            "source_type": null,
+            "conditions": {
+              "published_element_evidence_exists": false
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TECH-SHARED-03",
+      "element_id": "technical_timeline_conflict_adverse_arrangement",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+      "source_spans": [
+        {
+          "evidence_id": "EV-2de77d6f38bffae5",
+          "clause_id": "",
+          "quote": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+          "source_type": "CALCULATION",
+          "source_span": {
+            "start_offset": 0,
+            "end_offset": 82,
+            "raw_text": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。"
+          },
+          "supporting_element_ids": [
+            "technical_timeline_conflict_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-6e555cfdbf1add2cbbc8",
+          "clause_id": "C0026",
+          "quote": "本合同自双方签字盖章之日起生效。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 3879,
+            "end_offset": 3895,
+            "raw_text": "本合同自双方签字盖章之日起生效。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "technical_timeline_conflict_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-f996eb417580e3cfa4a1",
+          "clause_id": "C0026",
+          "quote": "签署日期：2026年10月20日",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 3927,
+            "end_offset": 3943,
+            "raw_text": "签署日期：2026年10月20日",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "technical_timeline_conflict_adverse_arrangement"
+          ]
+        },
+        {
+          "evidence_id": "SRC-692364db6596bdd3b3b7",
+          "clause_id": "C0006",
+          "quote": "合同期限为2026年10月10日至2036年10月9日。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 990,
+            "end_offset": 1018,
+            "raw_text": "合同期限为2026年10月10日至2036年10月9日。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "technical_timeline_conflict_adverse_arrangement"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TECH-SHARED-03",
+          "element_id": "technical_timeline_conflict_adverse_arrangement",
+          "claim_id": "TECH-SHARED-03-ADVERSE-CLAIM",
+          "proposition": "合同有效期限起始日早于签署日；该日期不是已确认的履行起始日，亦不能据此确定合同生效日期。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-2de77d6f38bffae5",
+            "SRC-6e555cfdbf1add2cbbc8",
+            "SRC-f996eb417580e3cfa4a1",
+            "SRC-692364db6596bdd3b3b7"
+          ],
+          "supporting_evidence_ids": [
+            "EV-2de77d6f38bffae5",
+            "SRC-6e555cfdbf1add2cbbc8",
+            "SRC-f996eb417580e3cfa4a1",
+            "SRC-692364db6596bdd3b3b7"
+          ],
+          "source_clause_ids": [
+            "C0026",
+            "C0026",
+            "C0006"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "确定性结构化规则与原始合同条款直接对应。"
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-017",
+        "element_id": "technical_timeline_conflict_adverse_arrangement",
+        "reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "rule_id": "TECH-SHARED-03",
+        "finding_id": "RF-017",
+        "fact_key": "technical_timeline_conflict_adverse_arrangement",
+        "fact_value": "合同有效期限起始日早于签署日；该日期不是已确认的履行起始日，亦不能据此确定合同生效日期。",
+        "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TECH-SHARED-03",
+            "finding_id": "RF-017",
+            "fact_key": "technical_timeline_conflict_adverse_arrangement",
+            "fact_value": "合同有效期限起始日早于签署日；该日期不是已确认的履行起始日，亦不能据此确定合同生效日期。",
+            "current_evidence_refs": [
+              "EV-2de77d6f38bffae5",
+              "SRC-6e555cfdbf1add2cbbc8",
+              "SRC-f996eb417580e3cfa4a1",
+              "SRC-692364db6596bdd3b3b7"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": "EV-2de77d6f38bffae5",
+            "support_target": [],
+            "supporting_review_ids": [],
+            "source_type": "CALCULATION",
+            "conditions": {
+              "element_target_matches": false,
+              "review_owner_matches": false,
+              "positive_source": true,
+              "exact_span_matches": true,
+              "assertion_supported": true
+            },
+            "reject_reason": "FACT_ELEMENT_WITHOUT_PUBLISHED_BINDING"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TECH-SHARED-03",
+      "element_id": "risk_description",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+      "source_spans": [
+        {
+          "evidence_id": "EV-a54e19130f4b43eb",
+          "clause_id": "C0006",
+          "quoted_text": "合同期限为2026年10月10日至2036年10月9日。",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-8d1db286ac832413",
+          "clause_id": "C0026",
+          "quoted_text": "本合同自双方签字盖章之日起生效。",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-49cd654f067723fd",
+          "clause_id": "C0026",
+          "quoted_text": "签署日期：2026年10月20日",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-2de77d6f38bffae5",
+          "clause_id": "",
+          "quoted_text": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+          "source_type": "CALCULATION"
+        }
+      ],
+      "current_elements": [],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-017",
+        "field": "risk_description",
+        "fact": "有效期限起始日早于签署日",
+        "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+        "rule_id": "TECH-SHARED-03",
+        "finding_id": "RF-017",
+        "fact_key": "risk_description",
+        "fact_value": "有效期限起始日早于签署日",
+        "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TECH-SHARED-03",
+            "finding_id": "RF-017",
+            "fact_key": "technical_timeline_conflict_adverse_arrangement",
+            "fact_value": "合同有效期限起始日早于签署日；该日期不是已确认的履行起始日，亦不能据此确定合同生效日期。",
+            "current_evidence_refs": [
+              "EV-2de77d6f38bffae5",
+              "SRC-6e555cfdbf1add2cbbc8",
+              "SRC-f996eb417580e3cfa4a1",
+              "SRC-692364db6596bdd3b3b7"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": "EV-2de77d6f38bffae5",
+            "support_target": [],
+            "supporting_review_ids": [],
+            "source_type": "CALCULATION",
+            "conditions": {
+              "element_target_matches": false,
+              "review_owner_matches": false,
+              "positive_source": true,
+              "exact_span_matches": true,
+              "assertion_supported": false
+            },
+            "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TECH-SHARED-03",
+      "element_id": "risk_point_description",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+      "source_spans": [
+        {
+          "evidence_id": "EV-a54e19130f4b43eb",
+          "clause_id": "C0006",
+          "quoted_text": "合同期限为2026年10月10日至2036年10月9日。",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-8d1db286ac832413",
+          "clause_id": "C0026",
+          "quoted_text": "本合同自双方签字盖章之日起生效。",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-49cd654f067723fd",
+          "clause_id": "C0026",
+          "quoted_text": "签署日期：2026年10月20日",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-2de77d6f38bffae5",
+          "clause_id": "",
+          "quoted_text": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+          "source_type": "CALCULATION"
+        }
+      ],
+      "current_elements": [],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-017",
+        "field": "risk_point_description",
+        "fact": "有效期限起始日早于签署日",
+        "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+        "rule_id": "TECH-SHARED-03",
+        "finding_id": "RF-017",
+        "fact_key": "risk_point_description",
+        "fact_value": "有效期限起始日早于签署日",
+        "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TECH-SHARED-03",
+            "finding_id": "RF-017",
+            "fact_key": "technical_timeline_conflict_adverse_arrangement",
+            "fact_value": "合同有效期限起始日早于签署日；该日期不是已确认的履行起始日，亦不能据此确定合同生效日期。",
+            "current_evidence_refs": [
+              "EV-2de77d6f38bffae5",
+              "SRC-6e555cfdbf1add2cbbc8",
+              "SRC-f996eb417580e3cfa4a1",
+              "SRC-692364db6596bdd3b3b7"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": "EV-2de77d6f38bffae5",
+            "support_target": [],
+            "supporting_review_ids": [],
+            "source_type": "CALCULATION",
+            "conditions": {
+              "element_target_matches": false,
+              "review_owner_matches": false,
+              "positive_source": true,
+              "exact_span_matches": true,
+              "assertion_supported": false
+            },
+            "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TECH-SHARED-03",
+      "element_id": "review_judgment",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+      "source_spans": [
+        {
+          "evidence_id": "EV-a54e19130f4b43eb",
+          "clause_id": "C0006",
+          "quoted_text": "合同期限为2026年10月10日至2036年10月9日。",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-8d1db286ac832413",
+          "clause_id": "C0026",
+          "quoted_text": "本合同自双方签字盖章之日起生效。",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-49cd654f067723fd",
+          "clause_id": "C0026",
+          "quoted_text": "签署日期：2026年10月20日",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-2de77d6f38bffae5",
+          "clause_id": "",
+          "quoted_text": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+          "source_type": "CALCULATION"
+        }
+      ],
+      "current_elements": [],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-017",
+        "field": "review_judgment",
+        "fact": "有效期限起始日早于签署日",
+        "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+        "rule_id": "TECH-SHARED-03",
+        "finding_id": "RF-017",
+        "fact_key": "review_judgment",
+        "fact_value": "有效期限起始日早于签署日",
+        "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TECH-SHARED-03",
+            "finding_id": "RF-017",
+            "fact_key": "technical_timeline_conflict_adverse_arrangement",
+            "fact_value": "合同有效期限起始日早于签署日；该日期不是已确认的履行起始日，亦不能据此确定合同生效日期。",
+            "current_evidence_refs": [
+              "EV-2de77d6f38bffae5",
+              "SRC-6e555cfdbf1add2cbbc8",
+              "SRC-f996eb417580e3cfa4a1",
+              "SRC-692364db6596bdd3b3b7"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": "EV-2de77d6f38bffae5",
+            "support_target": [],
+            "supporting_review_ids": [],
+            "source_type": "CALCULATION",
+            "conditions": {
+              "element_target_matches": false,
+              "review_owner_matches": false,
+              "positive_source": true,
+              "exact_span_matches": true,
+              "assertion_supported": false
+            },
+            "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TECH-SHARED-03",
+      "element_id": "narrative_judgment",
+      "fact_id": null,
+      "detected_stage": "Narrative Evidence Validation",
+      "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+      "source_spans": [
+        {
+          "evidence_id": "EV-a54e19130f4b43eb",
+          "clause_id": "C0006",
+          "quoted_text": "合同期限为2026年10月10日至2036年10月9日。",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-8d1db286ac832413",
+          "clause_id": "C0026",
+          "quoted_text": "本合同自双方签字盖章之日起生效。",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-49cd654f067723fd",
+          "clause_id": "C0026",
+          "quoted_text": "签署日期：2026年10月20日",
+          "source_type": "BODY"
+        },
+        {
+          "evidence_id": "EV-2de77d6f38bffae5",
+          "clause_id": "",
+          "quoted_text": "有效期限起始日 = 2026-10-10；合同签订日期 = 2026-10-20；2026-10-10 < 2026-10-20，存在有效期限起始日早于签署日事实。",
+          "source_type": "CALCULATION"
+        }
+      ],
+      "current_elements": [],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "NARRATIVE_EVIDENCE_GATE",
+        "failure_stage": "Narrative Evidence Validation",
+        "root_cause": "风险事实未绑定直接支持该事实的要素级报告证据。",
+        "risk_id": "RF-017",
+        "field": "narrative_judgment",
+        "fact": "有效期限起始日早于签署日",
+        "reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+        "rule_id": "TECH-SHARED-03",
+        "finding_id": "RF-017",
+        "fact_key": "narrative_judgment",
+        "fact_value": "有效期限起始日早于签署日",
+        "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE",
+        "binding_diagnostics": [
+          {
+            "rule_id": "TECH-SHARED-03",
+            "finding_id": "RF-017",
+            "fact_key": "technical_timeline_conflict_adverse_arrangement",
+            "fact_value": "合同有效期限起始日早于签署日；该日期不是已确认的履行起始日，亦不能据此确定合同生效日期。",
+            "current_evidence_refs": [
+              "EV-2de77d6f38bffae5",
+              "SRC-6e555cfdbf1add2cbbc8",
+              "SRC-f996eb417580e3cfa4a1",
+              "SRC-692364db6596bdd3b3b7"
+            ],
+            "current_supporting_evidence": [],
+            "report_evidence_id": "EV-2de77d6f38bffae5",
+            "support_target": [],
+            "supporting_review_ids": [],
+            "source_type": "CALCULATION",
+            "conditions": {
+              "element_target_matches": false,
+              "review_owner_matches": false,
+              "positive_source": true,
+              "exact_span_matches": true,
+              "assertion_supported": false
+            },
+            "reject_reason": "NARRATIVE_FACT_WITHOUT_ELEMENT_EVIDENCE"
+          }
+        ]
+      }
+    },
+    {
+      "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-11-04",
+      "element_id": "breach_damage_liability",
+      "fact_id": null,
+      "detected_stage": "Final Evidence Projection",
+      "reject_reason": "REMEDY_OR_PARTY_NOT_ENTAILED",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-8d48e944734730057e6a",
+          "clause_id": "C0009",
+          "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1583,
+            "end_offset": 1634,
+            "raw_text": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability",
+            "specific_confidentiality_penalty",
+            "excess_loss_compensation"
+          ]
+        },
+        {
+          "evidence_id": "SRC-ce4ccc6a648606822f6f",
+          "clause_id": "C0018",
+          "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2997,
+            "end_offset": 3033,
+            "raw_text": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability",
+            "specific_confidentiality_penalty"
+          ]
+        },
+        {
+          "evidence_id": "SRC-217d4d7aab9435054c64",
+          "clause_id": "C0018",
+          "quote": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 3074,
+            "end_offset": 3123,
+            "raw_text": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability"
+          ]
+        },
+        {
+          "evidence_id": "SRC-7340d7666ca1c4bea814",
+          "clause_id": "C0018",
+          "quote": "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 3034,
+            "end_offset": 3073,
+            "raw_text": "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "specific_confidentiality_penalty"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-11-04",
+          "element_id": "breach_damage_liability",
+          "claim_id": "TC-11-04-breach_damage_liability",
+          "proposition": "甲方泄密损失赔偿责任已有约定；乙方泄密损失赔偿责任已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-c7b98ffc66f9ff52"
+          ],
+          "supporting_evidence_ids": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-c7b98ffc66f9ff52"
+          ],
+          "source_clause_ids": [
+            "C0009",
+            "C0018",
+            "C0018"
+          ],
+          "source_spans": [
+            "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+            "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+            "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；"
+          ],
+          "source_locations": [
+            "第八条 保密义务",
+            "第十七条 违约责任",
+            "第十七条 违约责任"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密损失赔偿责任已有约定；乙方泄密损失赔偿责任已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "泄密损失赔偿责任",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+              "obligated_party": "甲方",
+              "proposition": "甲方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "clause_id": "C0018",
+              "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+              "obligated_party": "甲方",
+              "proposition": "甲方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "clause_id": "C0018",
+              "quote": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+              "obligated_party": "乙方",
+              "proposition": "乙方泄密损失赔偿责任已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.breach_damage_liability",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0009",
+                  "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+                  "obligated_party": "甲方",
+                  "proposition": "甲方泄密损失赔偿责任已有约定。"
+                },
+                {
+                  "clause_id": "C0018",
+                  "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+                  "obligated_party": "甲方",
+                  "proposition": "甲方泄密损失赔偿责任已有约定。"
+                }
+              ],
+              "required_fact": "甲方泄密损失赔偿责任",
+              "proposition": "甲方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0018",
+                  "quote": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+                  "obligated_party": "乙方",
+                  "proposition": "乙方泄密损失赔偿责任已有约定。"
+                }
+              ],
+              "required_fact": "乙方泄密损失赔偿责任",
+              "proposition": "乙方泄密损失赔偿责任已有约定。"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-c7b98ffc66f9ff52"
+          ]
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "review_id": "TC-11-04",
+        "element_id": "breach_damage_liability",
+        "reason": "REMEDY_OR_PARTY_NOT_ENTAILED"
+      }
+    },
+    {
+      "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-11-04",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Final Evidence Projection",
+      "reject_reason": "CONSEQUENCE_REQUIREMENTS_MISMATCH",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-8d48e944734730057e6a",
+          "clause_id": "C0009",
+          "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1583,
+            "end_offset": 1634,
+            "raw_text": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability",
+            "specific_confidentiality_penalty",
+            "excess_loss_compensation"
+          ]
+        },
+        {
+          "evidence_id": "SRC-ce4ccc6a648606822f6f",
+          "clause_id": "C0018",
+          "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2997,
+            "end_offset": 3033,
+            "raw_text": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability",
+            "specific_confidentiality_penalty"
+          ]
+        },
+        {
+          "evidence_id": "SRC-217d4d7aab9435054c64",
+          "clause_id": "C0018",
+          "quote": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 3074,
+            "end_offset": 3123,
+            "raw_text": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability"
+          ]
+        },
+        {
+          "evidence_id": "SRC-7340d7666ca1c4bea814",
+          "clause_id": "C0018",
+          "quote": "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 3034,
+            "end_offset": 3073,
+            "raw_text": "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "specific_confidentiality_penalty"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-11-04",
+          "element_id": "breach_damage_liability",
+          "claim_id": "TC-11-04-breach_damage_liability",
+          "proposition": "甲方泄密损失赔偿责任已有约定；乙方泄密损失赔偿责任已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-c7b98ffc66f9ff52"
+          ],
+          "supporting_evidence_ids": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-c7b98ffc66f9ff52"
+          ],
+          "source_clause_ids": [
+            "C0009",
+            "C0018",
+            "C0018"
+          ],
+          "source_spans": [
+            "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+            "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+            "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；"
+          ],
+          "source_locations": [
+            "第八条 保密义务",
+            "第十七条 违约责任",
+            "第十七条 违约责任"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密损失赔偿责任已有约定；乙方泄密损失赔偿责任已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "泄密损失赔偿责任",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+              "obligated_party": "甲方",
+              "proposition": "甲方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "clause_id": "C0018",
+              "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+              "obligated_party": "甲方",
+              "proposition": "甲方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "clause_id": "C0018",
+              "quote": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+              "obligated_party": "乙方",
+              "proposition": "乙方泄密损失赔偿责任已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.breach_damage_liability",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0009",
+                  "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+                  "obligated_party": "甲方",
+                  "proposition": "甲方泄密损失赔偿责任已有约定。"
+                },
+                {
+                  "clause_id": "C0018",
+                  "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+                  "obligated_party": "甲方",
+                  "proposition": "甲方泄密损失赔偿责任已有约定。"
+                }
+              ],
+              "required_fact": "甲方泄密损失赔偿责任",
+              "proposition": "甲方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0018",
+                  "quote": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+                  "obligated_party": "乙方",
+                  "proposition": "乙方泄密损失赔偿责任已有约定。"
+                }
+              ],
+              "required_fact": "乙方泄密损失赔偿责任",
+              "proposition": "乙方泄密损失赔偿责任已有约定。"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-c7b98ffc66f9ff52"
+          ]
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "stop_disclosure",
+          "claim_id": "TC-11-04-stop_disclosure",
+          "proposition": "甲方泄密后停止披露、乙方泄密后停止披露",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密后停止披露、乙方泄密后停止披露",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "甲方泄密后停止披露、乙方泄密后停止披露",
+          "required_fact": "甲方泄密后停止披露、乙方泄密后停止披露",
+          "search_targets": [
+            "甲方泄密后停止披露",
+            "乙方泄密后停止披露"
+          ],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.stop_disclosure",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "甲方泄密后停止披露",
+              "proposition": "甲方泄密后停止披露"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "乙方泄密后停止披露",
+              "proposition": "乙方泄密后停止披露"
+            }
+          ],
+          "recommendation_action": "明确甲方泄密后停止披露、乙方泄密后停止披露"
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "stop_use",
+          "claim_id": "TC-11-04-stop_use",
+          "proposition": "甲方泄密后停止使用、乙方泄密后停止使用",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密后停止使用、乙方泄密后停止使用",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "甲方泄密后停止使用、乙方泄密后停止使用",
+          "required_fact": "甲方泄密后停止使用、乙方泄密后停止使用",
+          "search_targets": [
+            "甲方泄密后停止使用",
+            "乙方泄密后停止使用"
+          ],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.stop_use",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "甲方泄密后停止使用",
+              "proposition": "甲方泄密后停止使用"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "乙方泄密后停止使用",
+              "proposition": "乙方泄密后停止使用"
+            }
+          ],
+          "recommendation_action": "明确甲方泄密后停止使用、乙方泄密后停止使用"
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "mitigation_obligation",
+          "claim_id": "TC-11-04-mitigation_obligation",
+          "proposition": "甲方泄密后采取措施防止继续扩散或损失扩大、乙方泄密后采取措施防止继续扩散或损失扩大",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密后采取措施防止继续扩散或损失扩大、乙方泄密后采取措施防止继续扩散或损失扩大",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "甲方泄密后采取措施防止继续扩散或损失扩大、乙方泄密后采取措施防止继续扩散或损失扩大",
+          "required_fact": "甲方泄密后采取措施防止继续扩散或损失扩大、乙方泄密后采取措施防止继续扩散或损失扩大",
+          "search_targets": [
+            "甲方泄密后采取措施防止继续扩散或损失扩大",
+            "乙方泄密后采取措施防止继续扩散或损失扩大"
+          ],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.mitigation_obligation",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "甲方泄密后采取措施防止继续扩散或损失扩大",
+              "proposition": "甲方泄密后采取措施防止继续扩散或损失扩大"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "乙方泄密后采取措施防止继续扩散或损失扩大",
+              "proposition": "乙方泄密后采取措施防止继续扩散或损失扩大"
+            }
+          ],
+          "recommendation_action": "明确甲方泄密后采取措施防止继续扩散或损失扩大、乙方泄密后采取措施防止继续扩散或损失扩大"
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "incident_notification",
+          "claim_id": "TC-11-04-incident_notification",
+          "proposition": "甲方泄密后及时通知受影响方、乙方泄密后及时通知受影响方",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密后及时通知受影响方、乙方泄密后及时通知受影响方",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "甲方泄密后及时通知受影响方、乙方泄密后及时通知受影响方",
+          "required_fact": "甲方泄密后及时通知受影响方、乙方泄密后及时通知受影响方",
+          "search_targets": [
+            "甲方泄密后及时通知受影响方",
+            "乙方泄密后及时通知受影响方"
+          ],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.incident_notification",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "甲方泄密后及时通知受影响方",
+              "proposition": "甲方泄密后及时通知受影响方"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "乙方泄密后及时通知受影响方",
+              "proposition": "乙方泄密后及时通知受影响方"
+            }
+          ],
+          "recommendation_action": "明确甲方泄密后及时通知受影响方、乙方泄密后及时通知受影响方"
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "specific_confidentiality_penalty",
+          "claim_id": "TC-11-04-specific_confidentiality_penalty",
+          "proposition": "甲方泄密专项违约金已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-fb6a3785cb064123"
+          ],
+          "supporting_evidence_ids": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-fb6a3785cb064123"
+          ],
+          "source_clause_ids": [
+            "C0009",
+            "C0018",
+            "C0018"
+          ],
+          "source_spans": [
+            "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+            "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+            "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；"
+          ],
+          "source_locations": [
+            "第八条 保密义务",
+            "第十七条 违约责任",
+            "第十七条 违约责任"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密专项违约金已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "residual_gap": "",
+          "required_fact": "泄密专项违约金",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+              "obligated_party": "甲方",
+              "proposition": "甲方泄密专项违约金已有约定。"
+            },
+            {
+              "clause_id": "C0018",
+              "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+              "obligated_party": "甲方",
+              "proposition": "甲方泄密专项违约金已有约定。"
+            },
+            {
+              "clause_id": "C0018",
+              "quote": "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；",
+              "obligated_party": "甲方",
+              "proposition": "甲方泄密专项违约金已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.specific_confidentiality_penalty",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0009",
+                  "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+                  "obligated_party": "甲方",
+                  "proposition": "甲方泄密专项违约金已有约定。"
+                },
+                {
+                  "clause_id": "C0018",
+                  "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+                  "obligated_party": "甲方",
+                  "proposition": "甲方泄密专项违约金已有约定。"
+                },
+                {
+                  "clause_id": "C0018",
+                  "quote": "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；",
+                  "obligated_party": "甲方",
+                  "proposition": "甲方泄密专项违约金已有约定。"
+                }
+              ],
+              "required_fact": "甲方泄密专项违约金",
+              "proposition": "甲方泄密专项违约金已有约定。"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "NOT_APPLICABLE",
+              "supporting_evidence": [],
+              "required_fact": "乙方泄密专项违约金",
+              "proposition": "乙方泄密专项违约金"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-fb6a3785cb064123"
+          ]
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "excess_loss_compensation",
+          "claim_id": "TC-11-04-excess_loss_compensation",
+          "proposition": "甲方泄密违约金不足部分的继续赔偿已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-d85d859ea628057e"
+          ],
+          "supporting_evidence_ids": [
+            "EV-d85d859ea628057e"
+          ],
+          "source_clause_ids": [
+            "C0009"
+          ],
+          "source_spans": [
+            "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。"
+          ],
+          "source_locations": [
+            "第八条 保密义务"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密违约金不足部分的继续赔偿已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "residual_gap": "",
+          "required_fact": "泄密违约金不足部分的继续赔偿",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+              "obligated_party": "甲方",
+              "proposition": "甲方泄密违约金不足部分的继续赔偿已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.excess_loss_compensation",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0009",
+                  "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+                  "obligated_party": "甲方",
+                  "proposition": "甲方泄密违约金不足部分的继续赔偿已有约定。"
+                }
+              ],
+              "required_fact": "甲方泄密违约金不足部分的继续赔偿",
+              "proposition": "甲方泄密违约金不足部分的继续赔偿已有约定。"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "NOT_APPLICABLE",
+              "supporting_evidence": [],
+              "required_fact": "乙方泄密违约金不足部分的继续赔偿",
+              "proposition": "乙方泄密违约金不足部分的继续赔偿"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-d85d859ea628057e"
+          ]
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "review_id": "TC-11-04",
+        "reason": "CONSEQUENCE_REQUIREMENTS_MISMATCH",
+        "expected": [
+          "incident_notification",
+          "mitigation_obligation",
+          "stop_disclosure",
+          "stop_use"
+        ],
+        "actual": [],
+        "omitted": [
+          "stop_disclosure",
+          "stop_use",
+          "mitigation_obligation",
+          "incident_notification"
+        ]
+      }
+    },
+    {
+      "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-11-04",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Final Evidence Projection",
+      "reject_reason": "DETAIL_UNRESOLVED_REQUIREMENTS_OMITTED",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-8d48e944734730057e6a",
+          "clause_id": "C0009",
+          "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1583,
+            "end_offset": 1634,
+            "raw_text": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability",
+            "specific_confidentiality_penalty",
+            "excess_loss_compensation"
+          ]
+        },
+        {
+          "evidence_id": "SRC-ce4ccc6a648606822f6f",
+          "clause_id": "C0018",
+          "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2997,
+            "end_offset": 3033,
+            "raw_text": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability",
+            "specific_confidentiality_penalty"
+          ]
+        },
+        {
+          "evidence_id": "SRC-217d4d7aab9435054c64",
+          "clause_id": "C0018",
+          "quote": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 3074,
+            "end_offset": 3123,
+            "raw_text": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability"
+          ]
+        },
+        {
+          "evidence_id": "SRC-7340d7666ca1c4bea814",
+          "clause_id": "C0018",
+          "quote": "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 3034,
+            "end_offset": 3073,
+            "raw_text": "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "specific_confidentiality_penalty"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-11-04",
+          "element_id": "breach_damage_liability",
+          "claim_id": "TC-11-04-breach_damage_liability",
+          "proposition": "甲方泄密损失赔偿责任已有约定；乙方泄密损失赔偿责任已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-c7b98ffc66f9ff52"
+          ],
+          "supporting_evidence_ids": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-c7b98ffc66f9ff52"
+          ],
+          "source_clause_ids": [
+            "C0009",
+            "C0018",
+            "C0018"
+          ],
+          "source_spans": [
+            "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+            "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+            "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；"
+          ],
+          "source_locations": [
+            "第八条 保密义务",
+            "第十七条 违约责任",
+            "第十七条 违约责任"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密损失赔偿责任已有约定；乙方泄密损失赔偿责任已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "泄密损失赔偿责任",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+              "obligated_party": "甲方",
+              "proposition": "甲方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "clause_id": "C0018",
+              "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+              "obligated_party": "甲方",
+              "proposition": "甲方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "clause_id": "C0018",
+              "quote": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+              "obligated_party": "乙方",
+              "proposition": "乙方泄密损失赔偿责任已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.breach_damage_liability",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0009",
+                  "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+                  "obligated_party": "甲方",
+                  "proposition": "甲方泄密损失赔偿责任已有约定。"
+                },
+                {
+                  "clause_id": "C0018",
+                  "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+                  "obligated_party": "甲方",
+                  "proposition": "甲方泄密损失赔偿责任已有约定。"
+                }
+              ],
+              "required_fact": "甲方泄密损失赔偿责任",
+              "proposition": "甲方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0018",
+                  "quote": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+                  "obligated_party": "乙方",
+                  "proposition": "乙方泄密损失赔偿责任已有约定。"
+                }
+              ],
+              "required_fact": "乙方泄密损失赔偿责任",
+              "proposition": "乙方泄密损失赔偿责任已有约定。"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-c7b98ffc66f9ff52"
+          ]
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "stop_disclosure",
+          "claim_id": "TC-11-04-stop_disclosure",
+          "proposition": "甲方泄密后停止披露、乙方泄密后停止披露",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密后停止披露、乙方泄密后停止披露",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "甲方泄密后停止披露、乙方泄密后停止披露",
+          "required_fact": "甲方泄密后停止披露、乙方泄密后停止披露",
+          "search_targets": [
+            "甲方泄密后停止披露",
+            "乙方泄密后停止披露"
+          ],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.stop_disclosure",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "甲方泄密后停止披露",
+              "proposition": "甲方泄密后停止披露"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "乙方泄密后停止披露",
+              "proposition": "乙方泄密后停止披露"
+            }
+          ],
+          "recommendation_action": "明确甲方泄密后停止披露、乙方泄密后停止披露"
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "stop_use",
+          "claim_id": "TC-11-04-stop_use",
+          "proposition": "甲方泄密后停止使用、乙方泄密后停止使用",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密后停止使用、乙方泄密后停止使用",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "甲方泄密后停止使用、乙方泄密后停止使用",
+          "required_fact": "甲方泄密后停止使用、乙方泄密后停止使用",
+          "search_targets": [
+            "甲方泄密后停止使用",
+            "乙方泄密后停止使用"
+          ],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.stop_use",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "甲方泄密后停止使用",
+              "proposition": "甲方泄密后停止使用"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "乙方泄密后停止使用",
+              "proposition": "乙方泄密后停止使用"
+            }
+          ],
+          "recommendation_action": "明确甲方泄密后停止使用、乙方泄密后停止使用"
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "mitigation_obligation",
+          "claim_id": "TC-11-04-mitigation_obligation",
+          "proposition": "甲方泄密后采取措施防止继续扩散或损失扩大、乙方泄密后采取措施防止继续扩散或损失扩大",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密后采取措施防止继续扩散或损失扩大、乙方泄密后采取措施防止继续扩散或损失扩大",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "甲方泄密后采取措施防止继续扩散或损失扩大、乙方泄密后采取措施防止继续扩散或损失扩大",
+          "required_fact": "甲方泄密后采取措施防止继续扩散或损失扩大、乙方泄密后采取措施防止继续扩散或损失扩大",
+          "search_targets": [
+            "甲方泄密后采取措施防止继续扩散或损失扩大",
+            "乙方泄密后采取措施防止继续扩散或损失扩大"
+          ],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.mitigation_obligation",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "甲方泄密后采取措施防止继续扩散或损失扩大",
+              "proposition": "甲方泄密后采取措施防止继续扩散或损失扩大"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "乙方泄密后采取措施防止继续扩散或损失扩大",
+              "proposition": "乙方泄密后采取措施防止继续扩散或损失扩大"
+            }
+          ],
+          "recommendation_action": "明确甲方泄密后采取措施防止继续扩散或损失扩大、乙方泄密后采取措施防止继续扩散或损失扩大"
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "incident_notification",
+          "claim_id": "TC-11-04-incident_notification",
+          "proposition": "甲方泄密后及时通知受影响方、乙方泄密后及时通知受影响方",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密后及时通知受影响方、乙方泄密后及时通知受影响方",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "甲方泄密后及时通知受影响方、乙方泄密后及时通知受影响方",
+          "required_fact": "甲方泄密后及时通知受影响方、乙方泄密后及时通知受影响方",
+          "search_targets": [
+            "甲方泄密后及时通知受影响方",
+            "乙方泄密后及时通知受影响方"
+          ],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.incident_notification",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "甲方泄密后及时通知受影响方",
+              "proposition": "甲方泄密后及时通知受影响方"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "乙方泄密后及时通知受影响方",
+              "proposition": "乙方泄密后及时通知受影响方"
+            }
+          ],
+          "recommendation_action": "明确甲方泄密后及时通知受影响方、乙方泄密后及时通知受影响方"
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "specific_confidentiality_penalty",
+          "claim_id": "TC-11-04-specific_confidentiality_penalty",
+          "proposition": "甲方泄密专项违约金已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-fb6a3785cb064123"
+          ],
+          "supporting_evidence_ids": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-fb6a3785cb064123"
+          ],
+          "source_clause_ids": [
+            "C0009",
+            "C0018",
+            "C0018"
+          ],
+          "source_spans": [
+            "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+            "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+            "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；"
+          ],
+          "source_locations": [
+            "第八条 保密义务",
+            "第十七条 违约责任",
+            "第十七条 违约责任"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密专项违约金已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "residual_gap": "",
+          "required_fact": "泄密专项违约金",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+              "obligated_party": "甲方",
+              "proposition": "甲方泄密专项违约金已有约定。"
+            },
+            {
+              "clause_id": "C0018",
+              "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+              "obligated_party": "甲方",
+              "proposition": "甲方泄密专项违约金已有约定。"
+            },
+            {
+              "clause_id": "C0018",
+              "quote": "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；",
+              "obligated_party": "甲方",
+              "proposition": "甲方泄密专项违约金已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.specific_confidentiality_penalty",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0009",
+                  "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+                  "obligated_party": "甲方",
+                  "proposition": "甲方泄密专项违约金已有约定。"
+                },
+                {
+                  "clause_id": "C0018",
+                  "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+                  "obligated_party": "甲方",
+                  "proposition": "甲方泄密专项违约金已有约定。"
+                },
+                {
+                  "clause_id": "C0018",
+                  "quote": "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；",
+                  "obligated_party": "甲方",
+                  "proposition": "甲方泄密专项违约金已有约定。"
+                }
+              ],
+              "required_fact": "甲方泄密专项违约金",
+              "proposition": "甲方泄密专项违约金已有约定。"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "NOT_APPLICABLE",
+              "supporting_evidence": [],
+              "required_fact": "乙方泄密专项违约金",
+              "proposition": "乙方泄密专项违约金"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-fb6a3785cb064123"
+          ]
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "excess_loss_compensation",
+          "claim_id": "TC-11-04-excess_loss_compensation",
+          "proposition": "甲方泄密违约金不足部分的继续赔偿已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-d85d859ea628057e"
+          ],
+          "supporting_evidence_ids": [
+            "EV-d85d859ea628057e"
+          ],
+          "source_clause_ids": [
+            "C0009"
+          ],
+          "source_spans": [
+            "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。"
+          ],
+          "source_locations": [
+            "第八条 保密义务"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密违约金不足部分的继续赔偿已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "residual_gap": "",
+          "required_fact": "泄密违约金不足部分的继续赔偿",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+              "obligated_party": "甲方",
+              "proposition": "甲方泄密违约金不足部分的继续赔偿已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.excess_loss_compensation",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0009",
+                  "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+                  "obligated_party": "甲方",
+                  "proposition": "甲方泄密违约金不足部分的继续赔偿已有约定。"
+                }
+              ],
+              "required_fact": "甲方泄密违约金不足部分的继续赔偿",
+              "proposition": "甲方泄密违约金不足部分的继续赔偿已有约定。"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "NOT_APPLICABLE",
+              "supporting_evidence": [],
+              "required_fact": "乙方泄密违约金不足部分的继续赔偿",
+              "proposition": "乙方泄密违约金不足部分的继续赔偿"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-d85d859ea628057e"
+          ]
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "review_id": "TC-11-04",
+        "reason": "DETAIL_UNRESOLVED_REQUIREMENTS_OMITTED",
+        "projection": "judgment",
+        "omitted": [
+          "stop_disclosure",
+          "stop_use",
+          "mitigation_obligation",
+          "incident_notification"
+        ]
+      }
+    },
+    {
+      "error_code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-11-04",
+      "element_id": null,
+      "fact_id": null,
+      "detected_stage": "Final Evidence Projection",
+      "reject_reason": "DETAIL_UNRESOLVED_REQUIREMENTS_OMITTED",
+      "source_spans": [
+        {
+          "evidence_id": "SRC-8d48e944734730057e6a",
+          "clause_id": "C0009",
+          "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 1583,
+            "end_offset": 1634,
+            "raw_text": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability",
+            "specific_confidentiality_penalty",
+            "excess_loss_compensation"
+          ]
+        },
+        {
+          "evidence_id": "SRC-ce4ccc6a648606822f6f",
+          "clause_id": "C0018",
+          "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 2997,
+            "end_offset": 3033,
+            "raw_text": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability",
+            "specific_confidentiality_penalty"
+          ]
+        },
+        {
+          "evidence_id": "SRC-217d4d7aab9435054c64",
+          "clause_id": "C0018",
+          "quote": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 3074,
+            "end_offset": 3123,
+            "raw_text": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "breach_damage_liability"
+          ]
+        },
+        {
+          "evidence_id": "SRC-7340d7666ca1c4bea814",
+          "clause_id": "C0018",
+          "quote": "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；",
+          "source_type": "BODY",
+          "source_span": {
+            "start_offset": 3034,
+            "end_offset": 3073,
+            "raw_text": "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；",
+            "coordinate_system": "DOCUMENT_TEXT"
+          },
+          "supporting_element_ids": [
+            "specific_confidentiality_penalty"
+          ]
+        }
+      ],
+      "current_elements": [
+        {
+          "review_id": "TC-11-04",
+          "element_id": "breach_damage_liability",
+          "claim_id": "TC-11-04-breach_damage_liability",
+          "proposition": "甲方泄密损失赔偿责任已有约定；乙方泄密损失赔偿责任已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-c7b98ffc66f9ff52"
+          ],
+          "supporting_evidence_ids": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-c7b98ffc66f9ff52"
+          ],
+          "source_clause_ids": [
+            "C0009",
+            "C0018",
+            "C0018"
+          ],
+          "source_spans": [
+            "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+            "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+            "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；"
+          ],
+          "source_locations": [
+            "第八条 保密义务",
+            "第十七条 违约责任",
+            "第十七条 违约责任"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密损失赔偿责任已有约定；乙方泄密损失赔偿责任已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "",
+          "required_fact": "泄密损失赔偿责任",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+              "obligated_party": "甲方",
+              "proposition": "甲方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "clause_id": "C0018",
+              "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+              "obligated_party": "甲方",
+              "proposition": "甲方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "clause_id": "C0018",
+              "quote": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+              "obligated_party": "乙方",
+              "proposition": "乙方泄密损失赔偿责任已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.breach_damage_liability",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0009",
+                  "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+                  "obligated_party": "甲方",
+                  "proposition": "甲方泄密损失赔偿责任已有约定。"
+                },
+                {
+                  "clause_id": "C0018",
+                  "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+                  "obligated_party": "甲方",
+                  "proposition": "甲方泄密损失赔偿责任已有约定。"
+                }
+              ],
+              "required_fact": "甲方泄密损失赔偿责任",
+              "proposition": "甲方泄密损失赔偿责任已有约定。"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0018",
+                  "quote": "乙方违反合同义务造成甲方损失的，乙方累计赔偿责任最高不超过甲方已经实际支付固定技术转让费的20%；",
+                  "obligated_party": "乙方",
+                  "proposition": "乙方泄密损失赔偿责任已有约定。"
+                }
+              ],
+              "required_fact": "乙方泄密损失赔偿责任",
+              "proposition": "乙方泄密损失赔偿责任已有约定。"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-c7b98ffc66f9ff52"
+          ]
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "stop_disclosure",
+          "claim_id": "TC-11-04-stop_disclosure",
+          "proposition": "甲方泄密后停止披露、乙方泄密后停止披露",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密后停止披露、乙方泄密后停止披露",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "甲方泄密后停止披露、乙方泄密后停止披露",
+          "required_fact": "甲方泄密后停止披露、乙方泄密后停止披露",
+          "search_targets": [
+            "甲方泄密后停止披露",
+            "乙方泄密后停止披露"
+          ],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.stop_disclosure",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "甲方泄密后停止披露",
+              "proposition": "甲方泄密后停止披露"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "乙方泄密后停止披露",
+              "proposition": "乙方泄密后停止披露"
+            }
+          ],
+          "recommendation_action": "明确甲方泄密后停止披露、乙方泄密后停止披露"
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "stop_use",
+          "claim_id": "TC-11-04-stop_use",
+          "proposition": "甲方泄密后停止使用、乙方泄密后停止使用",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密后停止使用、乙方泄密后停止使用",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "甲方泄密后停止使用、乙方泄密后停止使用",
+          "required_fact": "甲方泄密后停止使用、乙方泄密后停止使用",
+          "search_targets": [
+            "甲方泄密后停止使用",
+            "乙方泄密后停止使用"
+          ],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.stop_use",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "甲方泄密后停止使用",
+              "proposition": "甲方泄密后停止使用"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "乙方泄密后停止使用",
+              "proposition": "乙方泄密后停止使用"
+            }
+          ],
+          "recommendation_action": "明确甲方泄密后停止使用、乙方泄密后停止使用"
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "mitigation_obligation",
+          "claim_id": "TC-11-04-mitigation_obligation",
+          "proposition": "甲方泄密后采取措施防止继续扩散或损失扩大、乙方泄密后采取措施防止继续扩散或损失扩大",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密后采取措施防止继续扩散或损失扩大、乙方泄密后采取措施防止继续扩散或损失扩大",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "甲方泄密后采取措施防止继续扩散或损失扩大、乙方泄密后采取措施防止继续扩散或损失扩大",
+          "required_fact": "甲方泄密后采取措施防止继续扩散或损失扩大、乙方泄密后采取措施防止继续扩散或损失扩大",
+          "search_targets": [
+            "甲方泄密后采取措施防止继续扩散或损失扩大",
+            "乙方泄密后采取措施防止继续扩散或损失扩大"
+          ],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.mitigation_obligation",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "甲方泄密后采取措施防止继续扩散或损失扩大",
+              "proposition": "甲方泄密后采取措施防止继续扩散或损失扩大"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "乙方泄密后采取措施防止继续扩散或损失扩大",
+              "proposition": "乙方泄密后采取措施防止继续扩散或损失扩大"
+            }
+          ],
+          "recommendation_action": "明确甲方泄密后采取措施防止继续扩散或损失扩大、乙方泄密后采取措施防止继续扩散或损失扩大"
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "incident_notification",
+          "claim_id": "TC-11-04-incident_notification",
+          "proposition": "甲方泄密后及时通知受影响方、乙方泄密后及时通知受影响方",
+          "status": "MISSING",
+          "evidence_ids": [],
+          "supporting_evidence_ids": [],
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密后及时通知受影响方、乙方泄密后及时通知受影响方",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": true,
+          "residual_gap": "甲方泄密后及时通知受影响方、乙方泄密后及时通知受影响方",
+          "required_fact": "甲方泄密后及时通知受影响方、乙方泄密后及时通知受影响方",
+          "search_targets": [
+            "甲方泄密后及时通知受影响方",
+            "乙方泄密后及时通知受影响方"
+          ],
+          "supporting_evidence": [],
+          "source_fact_key": "confidentiality.incident_notification",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "甲方泄密后及时通知受影响方",
+              "proposition": "甲方泄密后及时通知受影响方"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "MISSING",
+              "supporting_evidence": [],
+              "required_fact": "乙方泄密后及时通知受影响方",
+              "proposition": "乙方泄密后及时通知受影响方"
+            }
+          ],
+          "recommendation_action": "明确甲方泄密后及时通知受影响方、乙方泄密后及时通知受影响方"
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "specific_confidentiality_penalty",
+          "claim_id": "TC-11-04-specific_confidentiality_penalty",
+          "proposition": "甲方泄密专项违约金已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-fb6a3785cb064123"
+          ],
+          "supporting_evidence_ids": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-fb6a3785cb064123"
+          ],
+          "source_clause_ids": [
+            "C0009",
+            "C0018",
+            "C0018"
+          ],
+          "source_spans": [
+            "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+            "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+            "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；"
+          ],
+          "source_locations": [
+            "第八条 保密义务",
+            "第十七条 违约责任",
+            "第十七条 违约责任"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密专项违约金已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "residual_gap": "",
+          "required_fact": "泄密专项违约金",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+              "obligated_party": "甲方",
+              "proposition": "甲方泄密专项违约金已有约定。"
+            },
+            {
+              "clause_id": "C0018",
+              "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+              "obligated_party": "甲方",
+              "proposition": "甲方泄密专项违约金已有约定。"
+            },
+            {
+              "clause_id": "C0018",
+              "quote": "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；",
+              "obligated_party": "甲方",
+              "proposition": "甲方泄密专项违约金已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.specific_confidentiality_penalty",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0009",
+                  "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+                  "obligated_party": "甲方",
+                  "proposition": "甲方泄密专项违约金已有约定。"
+                },
+                {
+                  "clause_id": "C0018",
+                  "quote": "甲方违反保密义务的，支付3,000,000元违约金，并赔偿乙方全部损失；",
+                  "obligated_party": "甲方",
+                  "proposition": "甲方泄密专项违约金已有约定。"
+                },
+                {
+                  "clause_id": "C0018",
+                  "quote": "甲方违反实施范围或者擅自转让技术秘密的，支付固定技术转让费总额50%的违约金；",
+                  "obligated_party": "甲方",
+                  "proposition": "甲方泄密专项违约金已有约定。"
+                }
+              ],
+              "required_fact": "甲方泄密专项违约金",
+              "proposition": "甲方泄密专项违约金已有约定。"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "NOT_APPLICABLE",
+              "supporting_evidence": [],
+              "required_fact": "乙方泄密专项违约金",
+              "proposition": "乙方泄密专项违约金"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-d85d859ea628057e",
+            "EV-a9c52213a72890fe",
+            "EV-fb6a3785cb064123"
+          ]
+        },
+        {
+          "review_id": "TC-11-04",
+          "element_id": "excess_loss_compensation",
+          "claim_id": "TC-11-04-excess_loss_compensation",
+          "proposition": "甲方泄密违约金不足部分的继续赔偿已有约定。",
+          "status": "COVERED",
+          "evidence_ids": [
+            "EV-d85d859ea628057e"
+          ],
+          "supporting_evidence_ids": [
+            "EV-d85d859ea628057e"
+          ],
+          "source_clause_ids": [
+            "C0009"
+          ],
+          "source_spans": [
+            "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。"
+          ],
+          "source_locations": [
+            "第八条 保密义务"
+          ],
+          "entailment": "SUPPORTS",
+          "verifier_confidence": "high",
+          "reason": "甲方泄密违约金不足部分的继续赔偿已有约定。",
+          "evidence_strength": "EXPLICIT",
+          "minimum_evidence_strength": "UNKNOWN",
+          "risk_relevant": false,
+          "residual_gap": "",
+          "required_fact": "泄密违约金不足部分的继续赔偿",
+          "search_targets": [],
+          "supporting_evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+              "obligated_party": "甲方",
+              "proposition": "甲方泄密违约金不足部分的继续赔偿已有约定。"
+            }
+          ],
+          "source_fact_key": "confidentiality.excess_loss_compensation",
+          "party_coverage": [
+            {
+              "obligated_party": "甲方",
+              "status": "COVERED",
+              "supporting_evidence": [
+                {
+                  "clause_id": "C0009",
+                  "quote": "甲方违反保密义务的，应向乙方支付人民币3,000,000元违约金；不足以弥补乙方损失的，还应继续赔偿。",
+                  "obligated_party": "甲方",
+                  "proposition": "甲方泄密违约金不足部分的继续赔偿已有约定。"
+                }
+              ],
+              "required_fact": "甲方泄密违约金不足部分的继续赔偿",
+              "proposition": "甲方泄密违约金不足部分的继续赔偿已有约定。"
+            },
+            {
+              "obligated_party": "乙方",
+              "status": "NOT_APPLICABLE",
+              "supporting_evidence": [],
+              "required_fact": "乙方泄密违约金不足部分的继续赔偿",
+              "proposition": "乙方泄密违约金不足部分的继续赔偿"
+            }
+          ],
+          "recommendation_action": "",
+          "evidence_refs": [
+            "EV-d85d859ea628057e"
+          ]
+        }
+      ],
+      "observed_status_transitions": [],
+      "gate_tuple": {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "review_id": "TC-11-04",
+        "reason": "DETAIL_UNRESOLVED_REQUIREMENTS_OMITTED",
+        "projection": "risk_point_description",
+        "omitted": [
+          "stop_disclosure",
+          "stop_use",
+          "mitigation_obligation",
+          "incident_notification"
+        ]
+      }
+    }
+  ],
+  "note": "Null IDs/stages mean the existing gate did not publish them; none are fabricated."
+}

@@ -1,0 +1,69 @@
+FFFFF                                                                    [100%]
+================================== FAILURES ===================================
+_____ test_gift_attached_obligation_remedy_depends_on_obligation_content ______
+backend\tests\test_gift_review_checklist.py:130: in test_gift_attached_obligation_remedy_depends_on_obligation_content
+    assert by_id["G-09-01"]["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '缺失' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 缺失
+________________ test_gift_dependency_rules_sync_related_items ________________
+backend\tests\test_gift_review_checklist.py:151: in test_gift_dependency_rules_sync_related_items
+    assert "G-09-01" in by_id["G-10-04"]["reasoning_summary"]
+E   AssertionError: assert 'G-09-01' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'
+__ test_technology_fixture_entrusted_development_filters_cooperative_points ___
+backend\tests\test_technology_review_checklist.py:209: in test_technology_fixture_entrusted_development_filters_cooperative_points
+    assert fixture is not None
+E   assert None is not None
+_______ test_quality4_public_review_result_has_no_review_level_severity _______
+backend\tests\test_review_v2_quality4_architecture.py:25: in test_quality4_public_review_result_has_no_review_level_severity
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_______________ test_hb4_freeze_closure_production_regressions ________________
+backend\tests\test_quality6_7_freeze_closure.py:102: in test_hb4_freeze_closure_production_regressions
+    result = engine.review_contract_v2(_hb4_text(), "house_lease", use_llm=False)
+backend\tests\test_quality6_7_freeze_closure.py:13: in _hb4_text
+    document = Document(next((ROOT / "test_data").glob("7*.docx")))
+E   StopIteration
+============================== warnings summary ===============================
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\storage\database.py:41
+  F:\ai\Sage\backend\storage\database.py:41: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+backend\main.py:145
+  F:\ai\Sage\backend\main.py:145: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_gift_review_checklist.py::test_gift_attached_obligation_remedy_depends_on_obligation_content
+FAILED backend/tests/test_gift_review_checklist.py::test_gift_dependency_rules_sync_related_items
+FAILED backend/tests/test_technology_review_checklist.py::test_technology_fixture_entrusted_development_filters_cooperative_points
+FAILED backend/tests/test_review_v2_quality4_architecture.py::test_quality4_public_review_result_has_no_review_level_severity
+FAILED backend/tests/test_quality6_7_freeze_closure.py::test_hb4_freeze_closure_production_regressions
+5 failed, 5 warnings in 6.89s

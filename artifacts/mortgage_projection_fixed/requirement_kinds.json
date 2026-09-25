@@ -1,0 +1,822 @@
+[
+  {
+    "rule_id": "SEC-01-01",
+    "coverage_status": "通过",
+    "risk_level": "低",
+    "action_priority": "NONE",
+    "needs_manual_review": false,
+    "contract_elements": [
+      {
+        "review_id": "SEC-01-01",
+        "element_id": "security_main_debt_1",
+        "proposition": "主合同及债务人可识别",
+        "status": "COVERED",
+        "evidence_ids": [
+          "C0001"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0001"
+        ],
+        "source_spans": [
+          "民间借款抵押合同\n借款人（甲方）：山东华远智能设备有限公司\n统一社会信用代码：91370811MA7TEST001\n贷款人（抵押权人，乙方）：李明远\n身份证号：370811198803151234\n抵押人（丙方）：王志强\n身份证号：370811198506221278\n根据《中华人民共和国民法典》等规定，本着平等、自愿、诚实守信、协商一致的原则，为明确责任，恪守信用，签订本合同，并保证共同遵守。"
+        ],
+        "source_locations": [
+          "全文"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0001"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "C0001"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence": [
+          {
+            "clause_id": "C0001",
+            "quote": "民间借款抵押合同\n借款人（甲方）：山东华远智能设备有限公司\n统一社会信用代码：91370811MA7TEST001\n贷款人（抵押权人，乙方）：李明远\n身份证号：370811198803151234\n抵押人（丙方）：王志强\n身份证号：370811198506221278\n根据《中华人民共和国民法典》等规定，本着平等、自愿、诚实守信、协商一致的原则，为明确责任，恪守信用，签订本合同，并保证共同遵守。"
+          }
+        ]
+      },
+      {
+        "review_id": "SEC-01-01",
+        "element_id": "security_main_debt_2",
+        "proposition": "主债权金额",
+        "status": "COVERED",
+        "evidence_ids": [
+          "C0004"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0004"
+        ],
+        "source_spans": [
+          "第二条 借款金额\n借款金额为人民币（大写）：壹佰贰拾万元整，小写：￥1,200,000.00元。"
+        ],
+        "source_locations": [
+          "第二条 借款金额"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0004"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "C0004"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence": [
+          {
+            "clause_id": "C0004",
+            "quote": "第二条 借款金额\n借款金额为人民币（大写）：壹佰贰拾万元整，小写：￥1,200,000.00元。"
+          }
+        ]
+      },
+      {
+        "review_id": "SEC-01-01",
+        "element_id": "security_main_debt_3",
+        "proposition": "主债务履行期限",
+        "status": "COVERED",
+        "evidence_ids": [
+          "C0005"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0005"
+        ],
+        "source_spans": [
+          "第三条 借款期限\n借款期限为12个月，自2026年9月8日起到2027年9月8日止。"
+        ],
+        "source_locations": [
+          "第三条 借款期限"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0005"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "C0005"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence": [
+          {
+            "clause_id": "C0005",
+            "quote": "第三条 借款期限\n借款期限为12个月，自2026年9月8日起到2027年9月8日止。"
+          }
+        ]
+      }
+    ],
+    "noncontract_elements": []
+  },
+  {
+    "rule_id": "SEC-02-01",
+    "coverage_status": "通过",
+    "risk_level": "低",
+    "action_priority": "NONE",
+    "needs_manual_review": false,
+    "contract_elements": [
+      {
+        "review_id": "SEC-02-01",
+        "element_id": "security_scope_1",
+        "proposition": "本金、利息及费用的担保边界",
+        "status": "COVERED",
+        "evidence_ids": [
+          "C0030"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0030"
+        ],
+        "source_spans": [
+          "第十四条 抵押担保范围\n为本合同项下的贷款本金、利息、逾期利息、违约金以及贷款人实现债权的所有费用。"
+        ],
+        "source_locations": [
+          "第十四条 抵押担保范围"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0030"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "C0030"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence": [
+          {
+            "clause_id": "C0030",
+            "quote": "第十四条 抵押担保范围\n为本合同项下的贷款本金、利息、逾期利息、违约金以及贷款人实现债权的所有费用。"
+          }
+        ]
+      }
+    ],
+    "noncontract_elements": []
+  },
+  {
+    "rule_id": "SEC-03-01",
+    "coverage_status": "通过",
+    "risk_level": "低",
+    "action_priority": "NONE",
+    "needs_manual_review": false,
+    "contract_elements": [
+      {
+        "review_id": "SEC-03-01",
+        "element_id": "security_title_authority_1",
+        "proposition": "担保人合法权属及处分权声明",
+        "status": "COVERED",
+        "evidence_ids": [
+          "C0027"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0027"
+        ],
+        "source_spans": [
+          "第十一条 抵押物\n为确保借款人全面履行还款义务，抵押人自愿以其拥有所有权并有权处分的位于山东省济宁市任城区太白楼东路188号锦绣华庭2号楼1单元1202室的合法不动产（不动产权证号：鲁（2022）济宁市不动产权第0123456号，建筑面积128.60平方米）（以下简称不动产）抵押给贷款人，作为借款人归还借款的担保。",
+          "和他人共有的，共有人同意将该不动产抵押给贷款人，并同意受本合同约束。"
+        ],
+        "source_locations": [
+          "第十一条 抵押物"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0027"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "C0027"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence": [
+          {
+            "clause_id": "C0027",
+            "quote": "第十一条 抵押物\n为确保借款人全面履行还款义务，抵押人自愿以其拥有所有权并有权处分的位于山东省济宁市任城区太白楼东路188号锦绣华庭2号楼1单元1202室的合法不动产（不动产权证号：鲁（2022）济宁市不动产权第0123456号，建筑面积128.60平方米）（以下简称不动产）抵押给贷款人，作为借款人归还借款的担保。"
+          },
+          {
+            "clause_id": "C0027",
+            "quote": "和他人共有的，共有人同意将该不动产抵押给贷款人，并同意受本合同约束。"
+          }
+        ]
+      },
+      {
+        "review_id": "SEC-03-01",
+        "element_id": "security_title_authority_2",
+        "proposition": "共有人同意或无共有情况",
+        "status": "COVERED",
+        "evidence_ids": [
+          "C0027"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0027"
+        ],
+        "source_spans": [
+          "第十一条 抵押物\n为确保借款人全面履行还款义务，抵押人自愿以其拥有所有权并有权处分的位于山东省济宁市任城区太白楼东路188号锦绣华庭2号楼1单元1202室的合法不动产（不动产权证号：鲁（2022）济宁市不动产权第0123456号，建筑面积128.60平方米）（以下简称不动产）抵押给贷款人，作为借款人归还借款的担保。",
+          "和他人共有的，共有人同意将该不动产抵押给贷款人，并同意受本合同约束。"
+        ],
+        "source_locations": [
+          "第十一条 抵押物"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0027"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "C0027"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence": [
+          {
+            "clause_id": "C0027",
+            "quote": "第十一条 抵押物\n为确保借款人全面履行还款义务，抵押人自愿以其拥有所有权并有权处分的位于山东省济宁市任城区太白楼东路188号锦绣华庭2号楼1单元1202室的合法不动产（不动产权证号：鲁（2022）济宁市不动产权第0123456号，建筑面积128.60平方米）（以下简称不动产）抵押给贷款人，作为借款人归还借款的担保。"
+          },
+          {
+            "clause_id": "C0027",
+            "quote": "和他人共有的，共有人同意将该不动产抵押给贷款人，并同意受本合同约束。"
+          }
+        ]
+      }
+    ],
+    "noncontract_elements": []
+  },
+  {
+    "rule_id": "SEC-10-01",
+    "coverage_status": "不适用",
+    "risk_level": "none",
+    "action_priority": "NOT_APPLICABLE",
+    "needs_manual_review": false,
+    "contract_elements": [],
+    "noncontract_elements": []
+  },
+  {
+    "rule_id": "SEC-04-01",
+    "coverage_status": "INSUFFICIENT_CONTEXT",
+    "risk_level": "低",
+    "action_priority": "NONE",
+    "needs_manual_review": true,
+    "contract_elements": [
+      {
+        "review_id": "SEC-04-01",
+        "element_id": "security_prior_encumbrances_1",
+        "proposition": "披露在先担保和查封冻结",
+        "status": "COVERED",
+        "evidence_ids": [
+          "C0027"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0027"
+        ],
+        "source_spans": [
+          "抵押人保证，该不动产不存在任何权属争议，不存在被查封、已抵押、已拆迁冻结等情况。"
+        ],
+        "source_locations": [
+          "第十一条 抵押物"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0027"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "C0027"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence": [
+          {
+            "clause_id": "C0027",
+            "quote": "抵押人保证，该不动产不存在任何权属争议，不存在被查封、已抵押、已拆迁冻结等情况。"
+          }
+        ]
+      }
+    ],
+    "noncontract_elements": [
+      {
+        "element_id": "security_prior_encumbrances_2",
+        "target_element": "登记查询及顺位核验",
+        "requirement_kind": "EXTERNAL_VERIFICATION",
+        "contract_coverage_required": false,
+        "status": "PENDING_VERIFICATION",
+        "legal_basis": "",
+        "statutory_protection": "",
+        "verification_instruction": "核验登记簿或公示资料中的实际权利负担、查封及受偿顺位；合同声明不能替代外部登记事实。",
+        "risk_relevant": false
+      }
+    ]
+  },
+  {
+    "rule_id": "SEC-05-01",
+    "coverage_status": "通过",
+    "risk_level": "低",
+    "action_priority": "NONE",
+    "needs_manual_review": false,
+    "contract_elements": [
+      {
+        "review_id": "SEC-05-01",
+        "element_id": "security_realization_1",
+        "proposition": "到期未履行等实现条件",
+        "status": "COVERED",
+        "evidence_ids": [
+          "C0030"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0030"
+        ],
+        "source_spans": [
+          "当借款人未按照本合同约定履行其还款义务时，无论贷款人对本合同项下的债权是否拥有其它担保，贷款人均有权直接要求抵押人以该不动产承担担保责任。"
+        ],
+        "source_locations": [
+          "第十四条 抵押担保范围"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0030"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "C0030"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence": [
+          {
+            "clause_id": "C0030",
+            "quote": "当借款人未按照本合同约定履行其还款义务时，无论贷款人对本合同项下的债权是否拥有其它担保，贷款人均有权直接要求抵押人以该不动产承担担保责任。"
+          }
+        ]
+      }
+    ],
+    "noncontract_elements": [
+      {
+        "element_id": "security_realization_2",
+        "target_element": "依法折价拍卖变卖及优先受偿",
+        "requirement_kind": "STATUTORY_DEFAULT",
+        "contract_coverage_required": false,
+        "status": "PROTECTED_BY_LAW",
+        "legal_basis": "《民法典》第410条、第436条",
+        "statutory_protection": "法律已规定依法折价、拍卖或变卖担保财产并优先受偿的实现路径，合同未复述不构成修改风险；仍须核验是否存在限制实现的冲突约定。",
+        "verification_instruction": "",
+        "risk_relevant": false
+      },
+      {
+        "element_id": "security_realization_3",
+        "target_element": "超额价款返还及不足部分处理",
+        "requirement_kind": "STATUTORY_DEFAULT",
+        "contract_coverage_required": false,
+        "status": "PROTECTED_BY_LAW",
+        "legal_basis": "《民法典》第413条、第438条",
+        "statutory_protection": "担保财产处分价款超额归担保财产提供人，不足由债务人清偿，已有法定分配规则；合同无需机械复述。",
+        "verification_instruction": "",
+        "risk_relevant": false
+      }
+    ]
+  },
+  {
+    "rule_id": "SEC-06-01",
+    "coverage_status": "通过",
+    "risk_level": "低",
+    "action_priority": "NONE",
+    "needs_manual_review": false,
+    "contract_elements": [
+      {
+        "review_id": "SEC-06-01",
+        "element_id": "security_exercise_period_2",
+        "proposition": "主债权消灭后的注销或返还",
+        "status": "COVERED",
+        "evidence_ids": [
+          "C0033"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0033"
+        ],
+        "source_spans": [
+          "第十七条 抵押注销\n贷款人应在借款人偿还全部款项后三日内协同抵押人到不动产登记机构办理抵押注销登记。"
+        ],
+        "source_locations": [
+          "第十七条 抵押注销"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0033"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "C0033"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence": [
+          {
+            "clause_id": "C0033",
+            "quote": "第十七条 抵押注销\n贷款人应在借款人偿还全部款项后三日内协同抵押人到不动产登记机构办理抵押注销登记。"
+          }
+        ]
+      }
+    ],
+    "noncontract_elements": [
+      {
+        "element_id": "security_exercise_period_1",
+        "target_element": "行权期限依主债权及担保物权规则处理",
+        "requirement_kind": "STATUTORY_DEFAULT",
+        "contract_coverage_required": false,
+        "status": "PROTECTED_BY_LAW",
+        "legal_basis": "《民法典》第419条、第437条",
+        "statutory_protection": "抵押权依法在主债权诉讼时效期间行使，质权按法定请求及时行使机制处理；缺少法条复述不构成合同缺陷，缩短、排除等冲突约定仍需审查。",
+        "verification_instruction": "",
+        "risk_relevant": false
+      }
+    ]
+  },
+  {
+    "rule_id": "SEC-07-01",
+    "coverage_status": "通过",
+    "risk_level": "低",
+    "action_priority": "NONE",
+    "needs_manual_review": false,
+    "contract_elements": [],
+    "noncontract_elements": []
+  },
+  {
+    "rule_id": "SEC-08-01",
+    "coverage_status": "不适用",
+    "risk_level": "none",
+    "action_priority": "NOT_APPLICABLE",
+    "needs_manual_review": false,
+    "contract_elements": [],
+    "noncontract_elements": []
+  },
+  {
+    "rule_id": "SEC-09-01",
+    "coverage_status": "通过",
+    "risk_level": "低",
+    "action_priority": "NONE",
+    "needs_manual_review": false,
+    "contract_elements": [],
+    "noncontract_elements": []
+  },
+  {
+    "rule_id": "MTG-01-01",
+    "coverage_status": "通过",
+    "risk_level": "低",
+    "action_priority": "NONE",
+    "needs_manual_review": false,
+    "contract_elements": [
+      {
+        "review_id": "MTG-01-01",
+        "element_id": "mortgage_asset_1",
+        "proposition": "财产名称和识别位置或编号",
+        "status": "COVERED",
+        "evidence_ids": [
+          "C0027"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0027"
+        ],
+        "source_spans": [
+          "第十一条 抵押物\n为确保借款人全面履行还款义务，抵押人自愿以其拥有所有权并有权处分的位于山东省济宁市任城区太白楼东路188号锦绣华庭2号楼1单元1202室的合法不动产（不动产权证号：鲁（2022）济宁市不动产权第0123456号，建筑面积128.60平方米）（以下简称不动产）抵押给贷款人，作为借款人归还借款的担保。"
+        ],
+        "source_locations": [
+          "第十一条 抵押物"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0027"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "C0027"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence": [
+          {
+            "clause_id": "C0027",
+            "quote": "第十一条 抵押物\n为确保借款人全面履行还款义务，抵押人自愿以其拥有所有权并有权处分的位于山东省济宁市任城区太白楼东路188号锦绣华庭2号楼1单元1202室的合法不动产（不动产权证号：鲁（2022）济宁市不动产权第0123456号，建筑面积128.60平方米）（以下简称不动产）抵押给贷款人，作为借款人归还借款的担保。"
+          }
+        ]
+      },
+      {
+        "review_id": "MTG-01-01",
+        "element_id": "mortgage_asset_2",
+        "proposition": "财产数量面积及权属凭证",
+        "status": "COVERED",
+        "evidence_ids": [
+          "C0027"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0027"
+        ],
+        "source_spans": [
+          "第十一条 抵押物\n为确保借款人全面履行还款义务，抵押人自愿以其拥有所有权并有权处分的位于山东省济宁市任城区太白楼东路188号锦绣华庭2号楼1单元1202室的合法不动产（不动产权证号：鲁（2022）济宁市不动产权第0123456号，建筑面积128.60平方米）（以下简称不动产）抵押给贷款人，作为借款人归还借款的担保。"
+        ],
+        "source_locations": [
+          "第十一条 抵押物"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0027"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "C0027"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence": [
+          {
+            "clause_id": "C0027",
+            "quote": "第十一条 抵押物\n为确保借款人全面履行还款义务，抵押人自愿以其拥有所有权并有权处分的位于山东省济宁市任城区太白楼东路188号锦绣华庭2号楼1单元1202室的合法不动产（不动产权证号：鲁（2022）济宁市不动产权第0123456号，建筑面积128.60平方米）（以下简称不动产）抵押给贷款人，作为借款人归还借款的担保。"
+          }
+        ]
+      }
+    ],
+    "noncontract_elements": []
+  },
+  {
+    "rule_id": "MTG-02-01",
+    "coverage_status": "通过",
+    "risk_level": "低",
+    "action_priority": "NONE",
+    "needs_manual_review": false,
+    "contract_elements": [
+      {
+        "review_id": "MTG-02-01",
+        "element_id": "mortgage_publicity_1",
+        "proposition": "负责办理登记的主体及期限",
+        "status": "COVERED",
+        "evidence_ids": [
+          "C0029"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0029"
+        ],
+        "source_spans": [
+          "第十三条 抵押登记\n本合同自签订后三日内，抵押双方当事人应持不动产权证及其他相关证件到不动产登记机构办理不动产抵押登记手续。"
+        ],
+        "source_locations": [
+          "第十三条 抵押登记"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0029"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "C0029"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence": [
+          {
+            "clause_id": "C0029",
+            "quote": "第十三条 抵押登记\n本合同自签订后三日内，抵押双方当事人应持不动产权证及其他相关证件到不动产登记机构办理不动产抵押登记手续。"
+          }
+        ]
+      },
+      {
+        "review_id": "MTG-02-01",
+        "element_id": "mortgage_publicity_2",
+        "proposition": "登记机关或可识别的公示渠道",
+        "status": "COVERED",
+        "evidence_ids": [
+          "C0029"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0029"
+        ],
+        "source_spans": [
+          "第十三条 抵押登记\n本合同自签订后三日内，抵押双方当事人应持不动产权证及其他相关证件到不动产登记机构办理不动产抵押登记手续。"
+        ],
+        "source_locations": [
+          "第十三条 抵押登记"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0029"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "C0029"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence": [
+          {
+            "clause_id": "C0029",
+            "quote": "第十三条 抵押登记\n本合同自签订后三日内，抵押双方当事人应持不动产权证及其他相关证件到不动产登记机构办理不动产抵押登记手续。"
+          }
+        ]
+      }
+    ],
+    "noncontract_elements": []
+  },
+  {
+    "rule_id": "S-00-01",
+    "coverage_status": "通过",
+    "risk_level": "低",
+    "action_priority": "NONE",
+    "needs_manual_review": false,
+    "contract_elements": [
+      {
+        "review_id": "S-00-01",
+        "element_id": "contract_effective_condition",
+        "proposition": "本合同生效条件或日期",
+        "status": "COVERED",
+        "evidence_ids": [
+          "C0044"
+        ],
+        "entailment": "SUPPORTS",
+        "verifier_confidence": "high",
+        "reason": "元素级证据可支撑。",
+        "claim_id": "",
+        "source_clause_ids": [
+          "C0044"
+        ],
+        "source_spans": [
+          "1．在签订本合同前，合同各方已完全理解并接受本合同的内容，在本合同项下全部意思表示均真实有效。本合同自各方当事人签字或盖章后生效；"
+        ],
+        "source_locations": [
+          "第二十条第1项"
+        ],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "FOUND",
+        "fact_value": null,
+        "fact_evidence_refs": [
+          "C0044"
+        ],
+        "requirement_status": "SATISFIED",
+        "requirement_reason": "元素级证据可支撑。",
+        "evidence_refs": [
+          "C0044"
+        ],
+        "evidence_selection_reason": "Direct evidence selected by exact source-clause ownership for this element.",
+        "supporting_evidence": [
+          {
+            "clause_id": "C0044",
+            "quote": "1．在签订本合同前，合同各方已完全理解并接受本合同的内容，在本合同项下全部意思表示均真实有效。本合同自各方当事人签字或盖章后生效；"
+          }
+        ]
+      }
+    ],
+    "noncontract_elements": []
+  },
+  {
+    "rule_id": "S-00-03",
+    "coverage_status": "缺失",
+    "risk_level": "低",
+    "action_priority": "NONE",
+    "needs_manual_review": false,
+    "contract_elements": [
+      {
+        "review_id": "S-00-03",
+        "element_id": "core_contract_arrangement",
+        "proposition": "合同存在可验证的“通知与送达”实质条款内容。",
+        "status": "MISSING",
+        "evidence_ids": [],
+        "entailment": "NOT_RELEVANT",
+        "verifier_confidence": "medium",
+        "reason": "未找到可支撑该元素的合同证据。",
+        "claim_id": "",
+        "source_clause_ids": [],
+        "source_spans": [],
+        "source_locations": [],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "MISSING",
+        "fact_value": null,
+        "fact_evidence_refs": [],
+        "requirement_status": "NOT_SATISFIED",
+        "requirement_reason": "未找到可支撑该元素的合同证据。",
+        "evidence_refs": [],
+        "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+      }
+    ],
+    "noncontract_elements": []
+  }
+]

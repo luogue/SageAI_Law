@@ -1,0 +1,20 @@
+..................................F..................................... [ 49%]
+........................................................................ [ 99%]
+.                                                                        [100%]
+================================== FAILURES ===================================
+_______ test_compensation_handover_settlement_is_partial_without_amount _______
+
+    def test_compensation_handover_settlement_is_partial_without_amount():
+        source = '第二十三条 甲方依法应向乙方支付经济补偿的，在办结工作交接时支付。'
+        result = review(source)
+        row = item(result, 'EMP-11-01')
+>       assert row['coverage_status'] == '部分覆盖'
+E       AssertionError: assert '通过' == '部分覆盖'
+E         
+E         - 部分覆盖
+E         + 通过
+
+backend\tests\test_employment_round2_semantics.py:41: AssertionError
+=========================== short test summary info ===========================
+FAILED backend/tests/test_employment_round2_semantics.py::test_compensation_handover_settlement_is_partial_without_amount
+1 failed, 144 passed, 5 warnings in 65.22s (0:01:05)

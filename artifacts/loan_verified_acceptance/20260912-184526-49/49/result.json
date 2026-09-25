@@ -1,0 +1,447 @@
+{
+  "file": "F:\\ai\\Sage\\test_data\\49 借款合同.docx",
+  "file_sha256": "f7b6add0014282b759e925776666881db6c971582281b3eb6fc19b2ccc43fa60",
+  "source_sha256": "42a49a60dc6ad5b37f52b0aa36155fb933347022f53e757d4fdec5fd0f553c90",
+  "source_characters": 3360,
+  "code_sha256": {
+    "backend\\review_v2\\unified_facts\\__init__.py": "12c1cfefdc5ad94d0c224dc5df189009ecea19dfb8c16c5072228f5b11917af4",
+    "backend\\review_v2\\unified_facts\\certificates.py": "71950e48cfca51744943f95c52f6d6565f4ecbb947e093dbd1fcdc14c8053c09",
+    "backend\\review_v2\\unified_facts\\loan.py": "3e14cadac840ec98982142f41ca47837bd4598b5423caf0522b53ffc5d00a208",
+    "backend\\review_v2\\unified_facts\\loan_bindings.py": "dcaa90bf61a91cffdb6d1b3ff13472ddfeacc3a5eeb9e7f565ad1e4358d0eff4",
+    "backend\\review_v2\\unified_facts\\loan_costs.py": "13d80e0775ddd3fb05a8a327b53254ba75b9f8464ee070d8a318282c828dadfa",
+    "backend\\review_v2\\unified_facts\\loan_formulas.py": "a8f21df6a86e9bff2ea3edd0b80e800980316cee89f22731555926ecb1ce510e",
+    "backend\\review_v2\\unified_facts\\loan_pipeline.py": "2dc44befc2801f3ddc7cc33054dac2b62de77f44cd40c1afa6047f8a860a31ae",
+    "backend\\review_v2\\unified_facts\\loan_rules.py": "cb8678312100908a9e535b289486cbe0f5d783600f6612f93a01ddefdf411bb6",
+    "backend\\review_v2\\unified_facts\\normalization.py": "31953671189c9af73d922a1774952829f737bedb784c462e87b595220f31c310",
+    "backend\\review_v2\\unified_facts\\ontology.py": "137bc1c40fcf82a1af60db096468d902a3bcc382e353d4bba018998f5e0e3538",
+    "backend\\review_v2\\unified_facts\\pipeline.py": "5b8f35891698b4aef6c763a973ac3b446813bac78067542f5715a05f4daa0009",
+    "backend\\review_v2\\unified_facts\\schema.py": "3532060bf1af1de433ab080b58ad69b055b8302f447b34678727c2d20e101a75",
+    "backend\\review_v2\\unified_facts\\store.py": "ed1d18b7fe14ed06680f649ad31bea32ffb984d29ec3e49b4e55129c8e5b5b5c"
+  },
+  "sample_origin": "EXISTING_DOCX",
+  "status": "BLOCKED",
+  "error": "FactExtractionError: INVALID_FACT_EVIDENCE:EVIDENCE_DOES_NOT_SUPPORT_ATTRIBUTE:loan.debt_instrument",
+  "diagnostics": [
+    {
+      "failed_stage": "UNIFIED_FACT_VALIDATION",
+      "fact_id": null,
+      "field": "loan.debt_instrument",
+      "validation_rule": "INVALID_FACT_EVIDENCE:EVIDENCE_DOES_NOT_SUPPORT_ATTRIBUTE:loan.debt_instrument",
+      "model_raw_value": null,
+      "evidence": null,
+      "expected": null,
+      "actual": {
+        "concept": "loan.debt_instrument",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": true,
+        "evidence": [
+          {
+            "clause_id": "C0030",
+            "quote": "借 条\n为采购餐饮门店厨房设备、支付装修费用及补充经营流动资金，现收到张明远（身份证号：110101198703150018）通过银行转账方式出借的人民币：",
+            "section": "附件",
+            "source_start": 2844,
+            "source_end": 2922,
+            "block_type": "ANNEX",
+            "section_type": "附件"
+          },
+          {
+            "clause_id": "C0030",
+            "quote": "本人确认上述借款已经实际收到。",
+            "section": "附件",
+            "source_start": 2947,
+            "source_end": 2962,
+            "block_type": "ANNEX",
+            "section_type": "附件"
+          },
+          {
+            "clause_id": "C0030",
+            "quote": "立此为据。",
+            "section": "附件",
+            "source_start": 3241,
+            "source_end": 3246,
+            "block_type": "ANNEX",
+            "section_type": "附件"
+          }
+        ]
+      },
+      "disposition": "BLOCK"
+    }
+  ],
+  "attempts": [
+    {
+      "raw_extraction": {
+        "schema_version": "contract-facts-1.0",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021",
+          "C0022",
+          "C0023",
+          "C0024",
+          "C0025",
+          "C0026",
+          "C0027",
+          "C0028",
+          "C0029",
+          "C0030"
+        ],
+        "searched_concepts": [
+          "loan.debt_instrument",
+          "loan.charges"
+        ],
+        "observations": [
+          {
+            "concept": "loan.debt_instrument",
+            "state": "PRESENT",
+            "value": true,
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0030",
+                "quote": "借 条\n为采购餐饮门店厨房设备、支付装修费用及补充经营流动资金，现收到张明远（身份证号：110101198703150018）通过银行转账方式出借的人民币："
+              }
+            ]
+          },
+          {
+            "concept": "loan.charges",
+            "state": "PRESENT",
+            "value": true,
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0007",
+                "quote": "本合同项下借款利率为固定利率，借款月利率为0.8%，自乙方实际收到借款之日起计算。"
+              },
+              {
+                "clause_id": "C0015",
+                "quote": "如乙方未按期偿还借款本金或利息，甲方有权追回全部借款，并自逾期之日起按照**每逾期一日按逾期借款本金的0.02%**计收逾期利息，直至全部款项实际清偿之日止。"
+              }
+            ]
+          }
+        ]
+      },
+      "verification": null,
+      "diagnostics": [
+        {
+          "failed_stage": "UNIFIED_FACT_VALIDATION",
+          "fact_id": null,
+          "field": "loan.debt_instrument",
+          "validation_rule": "INVALID_FACT_EVIDENCE:EVIDENCE_DOES_NOT_SUPPORT_ATTRIBUTE:loan.debt_instrument",
+          "model_raw_value": null,
+          "evidence": null,
+          "expected": null,
+          "actual": {
+            "concept": "loan.debt_instrument",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": true,
+            "evidence": [
+              {
+                "clause_id": "C0030",
+                "quote": "借 条\n为采购餐饮门店厨房设备、支付装修费用及补充经营流动资金，现收到张明远（身份证号：110101198703150018）通过银行转账方式出借的人民币：",
+                "section": "附件",
+                "source_start": 2844,
+                "source_end": 2922,
+                "block_type": "ANNEX",
+                "section_type": "附件"
+              }
+            ]
+          },
+          "disposition": "BLOCK"
+        }
+      ]
+    },
+    {
+      "raw_extraction": {
+        "schema_version": "contract-facts-1.0",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021",
+          "C0022",
+          "C0023",
+          "C0024",
+          "C0025",
+          "C0026",
+          "C0027",
+          "C0028",
+          "C0029",
+          "C0030"
+        ],
+        "searched_concepts": [
+          "loan.debt_instrument",
+          "loan.charges"
+        ],
+        "observations": [
+          {
+            "concept": "loan.debt_instrument",
+            "state": "PRESENT",
+            "value": true,
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0030",
+                "quote": "借 条\n为采购餐饮门店厨房设备、支付装修费用及补充经营流动资金，现收到张明远（身份证号：110101198703150018）通过银行转账方式出借的人民币："
+              },
+              {
+                "clause_id": "C0030",
+                "quote": "本人确认上述借款已经实际收到。"
+              },
+              {
+                "clause_id": "C0030",
+                "quote": "立此为据。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.charges",
+            "state": "PRESENT",
+            "value": true,
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0007",
+                "quote": "本合同项下借款利率为固定利率，借款月利率为0.8%，自乙方实际收到借款之日起计算。"
+              },
+              {
+                "clause_id": "C0015",
+                "quote": "如乙方未按期偿还借款本金或利息，甲方有权追回全部借款，并自逾期之日起按照**每逾期一日按逾期借款本金的0.02%**计收逾期利息，直至全部款项实际清偿之日止。"
+              },
+              {
+                "clause_id": "C0030",
+                "quote": "借款月利率为0.8%，按月支付利息，每月8日为利息支付日，借款期限届满时一次性偿还全部借款本金并结清剩余利息。"
+              }
+            ]
+          }
+        ]
+      },
+      "verification": null,
+      "diagnostics": [
+        {
+          "failed_stage": "UNIFIED_FACT_VALIDATION",
+          "fact_id": null,
+          "field": "loan.debt_instrument",
+          "validation_rule": "INVALID_FACT_EVIDENCE:EVIDENCE_DOES_NOT_SUPPORT_ATTRIBUTE:loan.debt_instrument",
+          "model_raw_value": null,
+          "evidence": null,
+          "expected": null,
+          "actual": {
+            "concept": "loan.debt_instrument",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": true,
+            "evidence": [
+              {
+                "clause_id": "C0030",
+                "quote": "借 条\n为采购餐饮门店厨房设备、支付装修费用及补充经营流动资金，现收到张明远（身份证号：110101198703150018）通过银行转账方式出借的人民币：",
+                "section": "附件",
+                "source_start": 2844,
+                "source_end": 2922,
+                "block_type": "ANNEX",
+                "section_type": "附件"
+              },
+              {
+                "clause_id": "C0030",
+                "quote": "本人确认上述借款已经实际收到。",
+                "section": "附件",
+                "source_start": 2947,
+                "source_end": 2962,
+                "block_type": "ANNEX",
+                "section_type": "附件"
+              },
+              {
+                "clause_id": "C0030",
+                "quote": "立此为据。",
+                "section": "附件",
+                "source_start": 3241,
+                "source_end": 3246,
+                "block_type": "ANNEX",
+                "section_type": "附件"
+              }
+            ]
+          },
+          "disposition": "BLOCK"
+        }
+      ]
+    },
+    {
+      "raw_extraction": {
+        "schema_version": "contract-facts-1.0",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021",
+          "C0022",
+          "C0023",
+          "C0024",
+          "C0025",
+          "C0026",
+          "C0027",
+          "C0028",
+          "C0029",
+          "C0030"
+        ],
+        "searched_concepts": [
+          "loan.debt_instrument",
+          "loan.charges"
+        ],
+        "observations": [
+          {
+            "concept": "loan.debt_instrument",
+            "state": "PRESENT",
+            "value": true,
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0030",
+                "quote": "借 条\n为采购餐饮门店厨房设备、支付装修费用及补充经营流动资金，现收到张明远（身份证号：110101198703150018）通过银行转账方式出借的人民币："
+              },
+              {
+                "clause_id": "C0030",
+                "quote": "本人确认上述借款已经实际收到。"
+              },
+              {
+                "clause_id": "C0030",
+                "quote": "立此为据。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.charges",
+            "state": "PRESENT",
+            "value": true,
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "evidence": [
+              {
+                "clause_id": "C0007",
+                "quote": "本合同项下借款利率为固定利率，借款月利率为0.8%，自乙方实际收到借款之日起计算。"
+              },
+              {
+                "clause_id": "C0015",
+                "quote": "如乙方未按期偿还借款本金或利息，甲方有权追回全部借款，并自逾期之日起按照**每逾期一日按逾期借款本金的0.02%**计收逾期利息，直至全部款项实际清偿之日止。"
+              },
+              {
+                "clause_id": "C0030",
+                "quote": "借款月利率为0.8%，按月支付利息，每月8日为利息支付日，借款期限届满时一次性偿还全部借款本金并结清剩余利息。"
+              }
+            ]
+          }
+        ]
+      },
+      "verification": null,
+      "diagnostics": [
+        {
+          "failed_stage": "UNIFIED_FACT_VALIDATION",
+          "fact_id": null,
+          "field": "loan.debt_instrument",
+          "validation_rule": "INVALID_FACT_EVIDENCE:EVIDENCE_DOES_NOT_SUPPORT_ATTRIBUTE:loan.debt_instrument",
+          "model_raw_value": null,
+          "evidence": null,
+          "expected": null,
+          "actual": {
+            "concept": "loan.debt_instrument",
+            "state": "PRESENT",
+            "confidence": 0.95,
+            "assertion": "EXPLICIT",
+            "normalized_value": true,
+            "evidence": [
+              {
+                "clause_id": "C0030",
+                "quote": "借 条\n为采购餐饮门店厨房设备、支付装修费用及补充经营流动资金，现收到张明远（身份证号：110101198703150018）通过银行转账方式出借的人民币：",
+                "section": "附件",
+                "source_start": 2844,
+                "source_end": 2922,
+                "block_type": "ANNEX",
+                "section_type": "附件"
+              },
+              {
+                "clause_id": "C0030",
+                "quote": "本人确认上述借款已经实际收到。",
+                "section": "附件",
+                "source_start": 2947,
+                "source_end": 2962,
+                "block_type": "ANNEX",
+                "section_type": "附件"
+              },
+              {
+                "clause_id": "C0030",
+                "quote": "立此为据。",
+                "section": "附件",
+                "source_start": 3241,
+                "source_end": 3246,
+                "block_type": "ANNEX",
+                "section_type": "附件"
+              }
+            ]
+          },
+          "disposition": "BLOCK"
+        }
+      ]
+    }
+  ],
+  "calls": 9
+}

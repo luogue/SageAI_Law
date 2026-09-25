@@ -1,0 +1,4151 @@
+{
+  "code": "FACT_EXTRACTION_BLOCKED",
+  "release_quality_gate": "BLOCKED",
+  "provider": "deepseek",
+  "message": "事实校验失败：NORMALIZATION / value / INVALID_ENUM；详见诊断。",
+  "reason": "FACT_STORE_VALIDATION_FAILED: INVALID_ENUM",
+  "failed_stage": "NORMALIZATION",
+  "fact_id": "candidate-0-6",
+  "field": "value",
+  "validation_rule": "INVALID_ENUM",
+  "model_raw_value": {
+    "concept": "contract.type",
+    "value": "OTHER",
+    "confidence": 0.5,
+    "assertion": "INFERRED",
+    "evidence": [
+      {
+        "clause_id": "C0001",
+        "quote": "保密协议"
+      },
+      {
+        "clause_id": "C0015",
+        "quote": "本协议属于双方劳动关系相关专项协议。"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "clause_id": "C0001",
+      "quote": "保密协议"
+    },
+    {
+      "clause_id": "C0015",
+      "quote": "本协议属于双方劳动关系相关专项协议。"
+    }
+  ],
+  "expected": [
+    "FIXED",
+    "INDEFINITE",
+    "TASK"
+  ],
+  "actual": "OTHER",
+  "disposition": "BLOCK",
+  "concept": "contract.type",
+  "fact_key": "contract.type",
+  "raw_value": "OTHER",
+  "normalized_value": null,
+  "allowed_values": [
+    "FIXED",
+    "INDEFINITE",
+    "TASK"
+  ],
+  "source_clause": [
+    {
+      "clause_id": "C0001",
+      "section": "全文",
+      "text": "保密协议"
+    },
+    {
+      "clause_id": "C0015",
+      "section": "第十二条 与其他协议的关系",
+      "text": "第十二条 与其他协议的关系\n本协议属于双方劳动关系相关专项协议。\n如双方另行签署劳动合同、知识产权协议或者竞业限制协议，本协议与其他协议分别调整相应事项。\n本协议不当然产生竞业限制义务。"
+    }
+  ],
+  "diagnostics": [
+    {
+      "failed_stage": "NORMALIZATION",
+      "fact_id": "candidate-0-6",
+      "field": "value",
+      "validation_rule": "INVALID_ENUM",
+      "model_raw_value": {
+        "concept": "contract.type",
+        "value": "OTHER",
+        "confidence": 0.5,
+        "assertion": "INFERRED",
+        "evidence": [
+          {
+            "clause_id": "C0001",
+            "quote": "保密协议"
+          },
+          {
+            "clause_id": "C0015",
+            "quote": "本协议属于双方劳动关系相关专项协议。"
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "clause_id": "C0001",
+          "quote": "保密协议"
+        },
+        {
+          "clause_id": "C0015",
+          "quote": "本协议属于双方劳动关系相关专项协议。"
+        }
+      ],
+      "expected": [
+        "FIXED",
+        "INDEFINITE",
+        "TASK"
+      ],
+      "actual": "OTHER",
+      "disposition": "BLOCK",
+      "concept": "contract.type",
+      "fact_key": "contract.type",
+      "raw_value": "OTHER",
+      "normalized_value": null,
+      "allowed_values": [
+        "FIXED",
+        "INDEFINITE",
+        "TASK"
+      ],
+      "source_clause": [
+        {
+          "clause_id": "C0001",
+          "section": "全文",
+          "text": "保密协议"
+        },
+        {
+          "clause_id": "C0015",
+          "section": "第十二条 与其他协议的关系",
+          "text": "第十二条 与其他协议的关系\n本协议属于双方劳动关系相关专项协议。\n如双方另行签署劳动合同、知识产权协议或者竞业限制协议，本协议与其他协议分别调整相应事项。\n本协议不当然产生竞业限制义务。"
+        }
+      ],
+      "stage": "NORMALIZATION",
+      "code": "INVALID_ENUM",
+      "clause": [
+        {
+          "clause_id": "C0001",
+          "section": "全文",
+          "text": "保密协议"
+        },
+        {
+          "clause_id": "C0015",
+          "section": "第十二条 与其他协议的关系",
+          "text": "第十二条 与其他协议的关系\n本协议属于双方劳动关系相关专项协议。\n如双方另行签署劳动合同、知识产权协议或者竞业限制协议，本协议与其他协议分别调整相应事项。\n本协议不当然产生竞业限制义务。"
+        }
+      ],
+      "message": "抽取值未通过事实类型、证据或语义校验；未生成报告，不能以默认值替代。",
+      "trace_id": "FACT-64fd228cd05d408a827785cb2dfae006"
+    }
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "BLOCKED",
+      "diagnostics": [
+        {
+          "failed_stage": "VERIFICATION_SCHEMA",
+          "fact_id": null,
+          "field": "non_compete.arrangement",
+          "validation_rule": "CONFLICTING_ABSENCE_AUDIT",
+          "model_raw_value": {
+            "concept": "non_compete.arrangement",
+            "result": "ABSENT",
+            "reason": "全文核验：C0015仅称本协议不当然产生竞业限制义务，并提及如另行签署竞业限制协议则分别调整，未实际约定离职后竞业限制，也未明确否定双方离职竞业安排本身；C0011仅禁止以保密协议限制依法就业，不构成独立竞业条款；全文无竞业人员范围、秘密接触资格、竞争业务、地域、期限、补偿、工资基数、补偿另议/保底/放弃、全员适用等任何具体竞业安排，故不存在可提取的EXISTS或EXPLICIT_NONE事实。",
+            "searched_concepts": [
+              "non_compete.arrangement",
+              "non_compete.personnel",
+              "non_compete.secret_access",
+              "non_compete.access_capability",
+              "non_compete.actual_access",
+              "non_compete.businesses",
+              "non_compete.territories",
+              "non_compete.duration_months",
+              "non_compete.compensation",
+              "non_compete.compensation_floor",
+              "non_compete.salary_base",
+              "non_compete.compensation_deferred",
+              "non_compete.compensation_waived",
+              "non_compete.all_staff"
+            ],
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019"
+            ]
+          },
+          "evidence": null,
+          "expected": "related facts require separate arrangement verification",
+          "actual": {
+            "concept": "non_compete.arrangement",
+            "result": "ABSENT",
+            "reason": "全文核验：C0015仅称本协议不当然产生竞业限制义务，并提及如另行签署竞业限制协议则分别调整，未实际约定离职后竞业限制，也未明确否定双方离职竞业安排本身；C0011仅禁止以保密协议限制依法就业，不构成独立竞业条款；全文无竞业人员范围、秘密接触资格、竞争业务、地域、期限、补偿、工资基数、补偿另议/保底/放弃、全员适用等任何具体竞业安排，故不存在可提取的EXISTS或EXPLICIT_NONE事实。",
+            "searched_concepts": [
+              "non_compete.arrangement",
+              "non_compete.personnel",
+              "non_compete.secret_access",
+              "non_compete.access_capability",
+              "non_compete.actual_access",
+              "non_compete.businesses",
+              "non_compete.territories",
+              "non_compete.duration_months",
+              "non_compete.compensation",
+              "non_compete.compensation_floor",
+              "non_compete.salary_base",
+              "non_compete.compensation_deferred",
+              "non_compete.compensation_waived",
+              "non_compete.all_staff"
+            ],
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019"
+            ]
+          },
+          "disposition": "BLOCK"
+        }
+      ],
+      "raw_extraction": [
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019"
+            ],
+            "searched_concepts": [
+              "identity.employer_representative",
+              "identity.worker_address",
+              "identity.employer_name",
+              "identity.employer_address",
+              "identity.worker_name",
+              "identity.worker_id",
+              "contract.type",
+              "contract.start_date",
+              "contract.end_date",
+              "contract.duration_months",
+              "contract.task",
+              "contract.task_end",
+              "probation.arrangement",
+              "probation.start_date",
+              "probation.end_date",
+              "probation.duration_months",
+              "probation.salary",
+              "probation.repeated",
+              "job.position",
+              "job.duties",
+              "job.locations",
+              "working_hours.system",
+              "working_hours.hours_per_day",
+              "working_hours.hours_per_week",
+              "working_hours.rest",
+              "working_hours.rest_days_per_week",
+              "working_hours.rest_waived",
+              "working_hours.overtime",
+              "salary.regular",
+              "salary.payment_date",
+              "salary.payment_method",
+              "salary.withheld_for_handover",
+              "social_insurance.employer_enrolls",
+              "social_insurance.statutory_duties",
+              "social_insurance.employer_pays"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "identity.employer_representative",
+                "value": "林志远",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "法定代表人：林志远"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.employer_name",
+                "value": "广州星瀚数字科技有限公司",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：广州星瀚数字科技有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.employer_address",
+                "value": "广东省广州市天河区科韵路168号",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "住所：广东省广州市天河区科韵路168号"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_name",
+                "value": "许文博",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方（员工）：许文博"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_id",
+                "value": "44010619960318XXXX",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "身份证号码：44010619960318XXXX"
+                  }
+                ]
+              },
+              {
+                "concept": "job.position",
+                "value": "数据产品经理",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "岗位：数据产品经理"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 4202,
+            "completion_tokens": 643,
+            "total_tokens": 4845,
+            "prompt_tokens_details": {
+              "cached_tokens": 2176
+            },
+            "prompt_cache_hit_tokens": 2176,
+            "prompt_cache_miss_tokens": 2026
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019"
+            ],
+            "searched_concepts": [
+              "social_insurance.employee_withheld",
+              "social_insurance.cash_replacement",
+              "social_insurance.waived",
+              "social_insurance.employer_share_shifted",
+              "social_insurance.employer_underpays",
+              "social_insurance.employer_liability_excluded",
+              "social_insurance.employee_remedy_excluded",
+              "labor_protection.measures",
+              "labor_protection.training",
+              "labor_protection.special_training_required",
+              "labor_protection.training_excluded",
+              "labor_protection.hazard_exists",
+              "labor_protection.hazard_protection",
+              "training.arrangement",
+              "training.technical",
+              "training.service_penalty",
+              "training.cost",
+              "training.duration_months",
+              "training.penalty_prorated",
+              "termination.grounds",
+              "termination.notice",
+              "termination.notice_days",
+              "termination.approval_required",
+              "termination.employee_right_waived",
+              "termination.employer_unrestricted",
+              "termination.handover",
+              "economic_compensation.statutory",
+              "economic_compensation.settlement_deadline",
+              "economic_compensation.waived",
+              "economic_compensation.reduced",
+              "economic_compensation.statutory_percentage",
+              "economic_compensation.payment_delay_months",
+              "dispute.arbitration",
+              "penalties.obligations",
+              "non_compete.arrangement"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "termination.handover",
+                "value": "乙方与甲方劳动关系解除或者终止时，应在三个工作日内：返还持有的甲方文件、设备、存储介质及其他工作资料；删除个人设备、个人邮箱、个人网盘等载体中保存的甲方保密信息及其复制件；不再保留任何形式的甲方内部资料。甲方有权要求乙方书面确认已经完成上述返还及删除义务。",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "乙方与甲方劳动关系解除或者终止时，应在三个工作日内：\n返还持有的甲方文件、设备、存储介质及其他工作资料；\n删除个人设备、个人邮箱、个人网盘等载体中保存的甲方保密信息及其复制件；\n不再保留任何形式的甲方内部资料。\n甲方有权要求乙方书面确认已经完成上述返还及删除义务。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispute.arbitration",
+                "value": true,
+                "confidence": 0.97,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0016",
+                    "quote": "协商不成的，可以依法向有管辖权的劳动人事争议仲裁委员会申请仲裁。"
+                  }
+                ]
+              },
+              {
+                "concept": "penalties.obligations",
+                "value": {
+                  "scope": "CONFIDENTIALITY",
+                  "trigger": "乙方违反本协议任何保密义务",
+                  "imposed": true,
+                  "amount_text": "人民币300,000元"
+                },
+                "confidence": 0.97,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0013",
+                    "quote": "乙方违反本协议任何保密义务，应向甲方支付违约金人民币300,000元。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.arrangement",
+                "value": "EXPLICIT_NONE",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0015",
+                    "quote": "本协议不当然产生竞业限制义务。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 4865,
+            "completion_tokens": 798,
+            "total_tokens": 5663,
+            "prompt_tokens_details": {
+              "cached_tokens": 2816
+            },
+            "prompt_cache_hit_tokens": 2816,
+            "prompt_cache_miss_tokens": 2049
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019"
+            ],
+            "searched_concepts": [
+              "non_compete.personnel",
+              "non_compete.secret_access",
+              "non_compete.access_capability",
+              "non_compete.actual_access",
+              "non_compete.businesses",
+              "non_compete.territories",
+              "non_compete.duration_months",
+              "non_compete.compensation",
+              "non_compete.compensation_floor",
+              "non_compete.salary_base",
+              "non_compete.compensation_deferred",
+              "non_compete.compensation_waived",
+              "non_compete.all_staff",
+              "ip.assignment_scope",
+              "ip.allocations",
+              "ip.personal_rights_waived",
+              "contract.employment_form",
+              "dispatch.auxiliary_noncore",
+              "dispatch.auxiliary_procedure",
+              "dispatch.substitute",
+              "dispatch.worker_pay_method",
+              "dispatch.comparator_pay_method",
+              "dispatch.comparator_pay",
+              "dispatch.comparable_work",
+              "dispatch.agency",
+              "dispatch.host",
+              "dispatch.position",
+              "dispatch.period",
+              "dispatch.position_basis",
+              "dispatch.long_term_position",
+              "dispatch.temporary_duration_months",
+              "dispatch.equal_pay",
+              "dispatch.idle_pay",
+              "dispatch.worker_charges",
+              "dispatch.return_procedure"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "non_compete.access_capability",
+                "value": true,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "鉴于乙方在甲方任职期间可能接触甲方的技术资料、经营信息、客户资料及其他具有商业价值的信息，为保护甲方合法权益，双方就保密事项达成如下协议。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.actual_access",
+                "value": true,
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "本协议所称保密信息，是指乙方在任职期间因工作原因知悉、接触或者取得的、尚未公开且甲方采取相应保密措施的技术信息、经营信息及其他商业信息，包括但不限于："
+                  }
+                ]
+              },
+              {
+                "concept": "ip.assignment_scope",
+                "value": "DUTY_OR_RESOURCES",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "乙方在任职期间利用甲方资源、执行甲方工作任务形成的软件程序、产品设计、业务方案、技术文档及其他工作成果，其知识产权归属按照法律规定及双方另行签署的知识产权协议确定。"
+                  }
+                ]
+              },
+              {
+                "concept": "ip.allocations",
+                "value": {
+                  "scope": "DUTY_OR_RESOURCES",
+                  "beneficiary": "UNSPECIFIED",
+                  "mode": "STATUTORY"
+                },
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "乙方在任职期间利用甲方资源、执行甲方工作任务形成的软件程序、产品设计、业务方案、技术文档及其他工作成果，其知识产权归属按照法律规定及双方另行签署的知识产权协议确定。"
+                  }
+                ]
+              },
+              {
+                "concept": "ip.allocations",
+                "value": {
+                  "scope": "DUTY_OR_RESOURCES",
+                  "beneficiary": "UNSPECIFIED",
+                  "mode": "SEPARATE_AGREEMENT"
+                },
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "乙方在任职期间利用甲方资源、执行甲方工作任务形成的软件程序、产品设计、业务方案、技术文档及其他工作成果，其知识产权归属按照法律规定及双方另行签署的知识产权协议确定。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.employment_form",
+                "value": "DIRECT",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：广州星瀚数字科技有限公司"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方（员工）：许文博"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 4924,
+            "completion_tokens": 896,
+            "total_tokens": 5820,
+            "prompt_tokens_details": {
+              "cached_tokens": 2816
+            },
+            "prompt_cache_hit_tokens": 2816,
+            "prompt_cache_miss_tokens": 2108
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019"
+            ],
+            "searched_concepts": [
+              "dispatch.reassignment_procedure",
+              "dispatch.refusal_termination",
+              "dispatch.refusal_compensation_waived",
+              "dispatch.host_direct_dismissal",
+              "dispatch.agreement_disclosure",
+              "dispatch.agency_obligations",
+              "dispatch.host_obligations",
+              "dispatch.obligations_waived",
+              "contract.term_limit_mode",
+              "contract.term_limit_date",
+              "contract.term_limit_months",
+              "capability.ground",
+              "capability.training",
+              "capability.reassignment",
+              "capability.reassessment",
+              "capability.notice",
+              "capability.compensation",
+              "working_hours.days_per_week",
+              "salary.cycle_kind",
+              "salary.cycle_days",
+              "part_time.hourly_minimum",
+              "part_time.injury_insurance",
+              "part_time.employee_notice_days",
+              "part_time.exit_permission",
+              "part_time.exit_constraint",
+              "part_time.employer_notice_days",
+              "part_time.exit_approval",
+              "salary.settlement_period",
+              "worker.damage_liability",
+              "job.change_terms",
+              "discipline.dismissal_terms",
+              "dispatch.onward_assignment",
+              "dispatch.return_terms",
+              "worker.security_payment",
+              "nda.employment_relationship"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "nda.employment_relationship",
+                "value": true,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：广州星瀚数字科技有限公司"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方（员工）：许文博"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "鉴于乙方在甲方任职期间可能接触甲方的技术资料、经营信息、客户资料及其他具有商业价值的信息，为保护甲方合法权益，双方就保密事项达成如下协议。"
+                  },
+                  {
+                    "clause_id": "C0015",
+                    "quote": "本协议属于双方劳动关系相关专项协议。"
+                  }
+                ]
+              },
+              {
+                "concept": "worker.damage_liability",
+                "value": {
+                  "kind": "ACTUAL_DAMAGE_COMPENSATION",
+                  "trigger": "乙方违反本协议任何保密义务",
+                  "basis": "如违约金不足以弥补甲方损失，乙方还应赔偿甲方因此遭受的全部损失，包括直接损失、预期利益损失、调查费用、律师费、公证费、鉴定费以及甲方为维权支出的其他费用"
+                },
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0013",
+                    "quote": "如违约金不足以弥补甲方损失，乙方还应赔偿甲方因此遭受的全部损失，包括直接损失、预期利益损失、调查费用、律师费、公证费、鉴定费以及甲方为维权支出的其他费用。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 7599,
+            "completion_tokens": 643,
+            "total_tokens": 8242,
+            "prompt_tokens_details": {
+              "cached_tokens": 1152
+            },
+            "prompt_cache_hit_tokens": 1152,
+            "prompt_cache_miss_tokens": 6447
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019"
+            ],
+            "searched_concepts": [
+              "nda.party_one",
+              "nda.party_two",
+              "nda.information_flow",
+              "nda.protected_information",
+              "nda.exception_public",
+              "nda.exception_prior",
+              "nda.exception_independent",
+              "nda.exception_third_party",
+              "nda.exception_mandatory",
+              "nda.use_restriction",
+              "nda.duration",
+              "nda.return",
+              "nda.remedies"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "nda.party_one",
+                "value": "广州星瀚数字科技有限公司",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：广州星瀚数字科技有限公司"
+                  },
+                  {
+                    "clause_id": "C0018",
+                    "quote": "甲方（盖章）：广州星瀚数字科技有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.party_two",
+                "value": "许文博",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方（员工）：许文博"
+                  },
+                  {
+                    "clause_id": "C0019",
+                    "quote": "乙方（签字）：许文博"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.information_flow",
+                "value": "甲方→乙方",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "鉴于乙方在甲方任职期间可能接触甲方的技术资料、经营信息、客户资料及其他具有商业价值的信息，为保护甲方合法权益，双方就保密事项达成如下协议。"
+                  },
+                  {
+                    "clause_id": "C0004",
+                    "quote": "本协议所称保密信息，是指乙方在任职期间因工作原因知悉、接触或者取得的、尚未公开且甲方采取相应保密措施的技术信息、经营信息及其他商业信息，包括但不限于："
+                  }
+                ]
+              },
+              {
+                "concept": "nda.protected_information",
+                "value": "乙方在任职期间因工作原因知悉、接触或者取得的、尚未公开且甲方采取相应保密措施的技术信息、经营信息及其他商业信息，包括但不限于：软件源代码、算法逻辑、技术架构、接口文档、数据库结构及研发方案；产品规划、业务流程、内部操作规范及未公开项目计划；客户名单、客户需求、联系方式、报价方案、交易记录及合作条件；供应商资料、采购价格、成本结构及渠道信息；销售数据、经营数据、财务预测、市场策略及内部分析报告；甲方依法承担保密义务的第三方信息；其他甲方以书面、电子标识或者其他合理方式明确要求保密的信息。",
+                "confidence": 0.97,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "本协议所称保密信息，是指乙方在任职期间因工作原因知悉、接触或者取得的、尚未公开且甲方采取相应保密措施的技术信息、经营信息及其他商业信息，包括但不限于：\n软件源代码、算法逻辑、技术架构、接口文档、数据库结构及研发方案；\n产品规划、业务流程、内部操作规范及未公开项目计划；\n客户名单、客户需求、联系方式、报价方案、交易记录及合作条件；\n供应商资料、采购价格、成本结构及渠道信息；\n销售数据、经营数据、财务预测、市场策略及内部分析报告；\n甲方依法承担保密义务的第三方信息；\n其他甲方以书面、电子标识或者其他合理方式明确要求保密的信息。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_public",
+                "value": true,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "下列信息不属于保密信息：\n已经依法公开的信息；"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_prior",
+                "value": true,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方能够证明在从甲方取得之前已经合法知悉的信息；"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_independent",
+                "value": true,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方未使用甲方保密信息而独立开发形成的信息。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_third_party",
+                "value": true,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方从有权披露该信息的第三方合法取得的信息；"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_mandatory",
+                "value": true,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "因法律法规、司法机关、行政机关或者其他有权机关依法要求，乙方必须披露相关保密信息的，不视为违反本协议。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.use_restriction",
+                "value": "乙方应当对保密信息采取合理保护措施，未经甲方书面许可，不得实施下列行为：向任何无权知悉的第三方披露、提供或者转让保密信息；将保密信息用于履行工作职责以外的目的；擅自复制、下载、拍摄、截屏、转存或者通过私人邮箱、个人网盘、即时通信软件等方式传输保密信息；协助他人获取、使用或者披露甲方保密信息。因正常履行岗位职责确需向甲方其他工作人员披露的，应当遵循必要知悉原则。乙方仅可在履行工作职责所必要的范围内使用甲方文件、设备、账号及数据。未经甲方许可，不得将包含保密信息的文件或者数据长期保存在个人电脑、私人移动存储设备或者非甲方授权的网络空间中。",
+                "confidence": 0.97,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "乙方应当对保密信息采取合理保护措施，未经甲方书面许可，不得实施下列行为：\n向任何无权知悉的第三方披露、提供或者转让保密信息；\n将保密信息用于履行工作职责以外的目的；\n擅自复制、下载、拍摄、截屏、转存或者通过私人邮箱、个人网盘、即时通信软件等方式传输保密信息；\n协助他人获取、使用或者披露甲方保密信息。\n因正常履行岗位职责确需向甲方其他工作人员披露的，应当遵循必要知悉原则。"
+                  },
+                  {
+                    "clause_id": "C0008",
+                    "quote": "乙方仅可在履行工作职责所必要的范围内使用甲方文件、设备、账号及数据。\n未经甲方许可，不得将包含保密信息的文件或者数据长期保存在个人电脑、私人移动存储设备或者非甲方授权的网络空间中。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.duration",
+                "value": "乙方在劳动关系存续期间以及劳动关系解除或者终止后，均应继续履行保密义务。对于依法构成商业秘密的信息，保密义务持续至该信息依法进入公开领域或者不再具备商业秘密属性之日。对于甲方其他未公开内部信息，乙方离职后的保密期限为五年。",
+                "confidence": 0.97,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "乙方在劳动关系存续期间以及劳动关系解除或者终止后，均应继续履行保密义务。\n对于依法构成商业秘密的信息，保密义务持续至该信息依法进入公开领域或者不再具备商业秘密属性之日。\n对于甲方其他未公开内部信息，乙方离职后的保密期限为五年。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.return",
+                "value": "乙方与甲方劳动关系解除或者终止时，应在三个工作日内：返还持有的甲方文件、设备、存储介质及其他工作资料；删除个人设备、个人邮箱、个人网盘等载体中保存的甲方保密信息及其复制件；不再保留任何形式的甲方内部资料。甲方有权要求乙方书面确认已经完成上述返还及删除义务。因法律规定必须保存的材料除外，但乙方应继续承担相应保密义务。",
+                "confidence": 0.97,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "乙方与甲方劳动关系解除或者终止时，应在三个工作日内：\n返还持有的甲方文件、设备、存储介质及其他工作资料；\n删除个人设备、个人邮箱、个人网盘等载体中保存的甲方保密信息及其复制件；\n不再保留任何形式的甲方内部资料。\n甲方有权要求乙方书面确认已经完成上述返还及删除义务。\n因法律规定必须保存的材料除外，但乙方应继续承担相应保密义务。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.remedies",
+                "value": "乙方违反本协议保密义务的，应立即停止侵害并采取合理措施防止损失扩大。乙方违反本协议任何保密义务，应向甲方支付违约金人民币300,000元。如违约金不足以弥补甲方损失，乙方还应赔偿甲方因此遭受的全部损失，包括直接损失、预期利益损失、调查费用、律师费、公证费、鉴定费以及甲方为维权支出的其他费用。",
+                "confidence": 0.97,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0013",
+                    "quote": "乙方违反本协议保密义务的，应立即停止侵害并采取合理措施防止损失扩大。\n乙方违反本协议任何保密义务，应向甲方支付违约金人民币300,000元。\n如违约金不足以弥补甲方损失，乙方还应赔偿甲方因此遭受的全部损失，包括直接损失、预期利益损失、调查费用、律师费、公证费、鉴定费以及甲方为维权支出的其他费用。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 3422,
+            "completion_tokens": 2042,
+            "total_tokens": 5464,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 2526
+          },
+          "provider": "deepseek"
+        }
+      ],
+      "raw_verification": {
+        "provider": "deepseek",
+        "model": "deepseek-flash",
+        "verification": {
+          "verification_schema_version": "fact-verification-2",
+          "checks": [
+            {
+              "fact_id": "EF-49874f23cf5f876d",
+              "supported": true,
+              "reason": "C0002明确甲方为用人单位广州星瀚数字科技有限公司，C0003明确乙方为员工许文博，双方直接建立劳动关系，未显示派遣单位或非全日制安排，支持DIRECT。"
+            },
+            {
+              "fact_id": "EF-1ca58508d08874d6",
+              "supported": true,
+              "reason": "C0016明确约定协商不成可以依法向劳动人事争议仲裁委员会申请仲裁，支持允许仲裁。"
+            },
+            {
+              "fact_id": "EF-9bada902f6113df3",
+              "supported": true,
+              "reason": "C0002明确载明用人单位住所为广东省广州市天河区科韵路168号。"
+            },
+            {
+              "fact_id": "EF-fb6447b1b1caa8b3",
+              "supported": true,
+              "reason": "C0002明确载明甲方（用人单位）为广州星瀚数字科技有限公司。"
+            },
+            {
+              "fact_id": "EF-0190d3e44aacb426",
+              "supported": true,
+              "reason": "C0002明确载明法定代表人为林志远。"
+            },
+            {
+              "fact_id": "EF-8973cf996f6809cc",
+              "supported": true,
+              "reason": "C0003明确载明乙方身份证号码为44010619960318XXXX，保留遮蔽字符。"
+            },
+            {
+              "fact_id": "EF-a23b03cd100142ef",
+              "supported": true,
+              "reason": "C0003明确载明乙方（员工）为许文博。"
+            },
+            {
+              "fact_id": "EF-21d49b4c5125f03f",
+              "supported": true,
+              "reason": "C0010明确约定任职期间利用甲方资源、执行甲方工作任务形成的成果，知识产权归属按照法律规定及双方另行签署的知识产权协议确定，可支持范围DUTY_OR_RESOURCES、归属未指定、方式为另行协议。"
+            },
+            {
+              "fact_id": "EF-7571e9cc92decb18",
+              "supported": true,
+              "reason": "C0010明确约定知识产权归属按照法律规定确定，可支持范围DUTY_OR_RESOURCES、归属未指定、方式为依法确定。"
+            },
+            {
+              "fact_id": "EF-b21c100bce849464",
+              "supported": true,
+              "reason": "C0010明确将成果形成范围限定为任职期间利用甲方资源、执行甲方工作任务，支持DUTY_OR_RESOURCES。"
+            },
+            {
+              "fact_id": "EF-89f67f4ed08fcfe2",
+              "supported": true,
+              "reason": "C0003明确载明“岗位：数据产品经理”，引文直接支持岗位名称。"
+            },
+            {
+              "fact_id": "EF-12f964b147a3f848",
+              "supported": true,
+              "reason": "C0007明确约定劳动关系存续期间及解除/终止后继续保密、商业秘密持续至公开或不再具备商业秘密属性、其他未公开内部信息离职后五年，引文完整支持。"
+            },
+            {
+              "fact_id": "EF-d95d1ee6405d0ce6",
+              "supported": true,
+              "reason": "C0002称甲方为用人单位、C0003称乙方为员工并载明任职期间，C0015称本协议属于双方劳动关系相关专项协议，足以明示劳动关系。"
+            },
+            {
+              "fact_id": "EF-e56d359d1c17372c",
+              "supported": true,
+              "reason": "C0004明确将“乙方未使用甲方保密信息而独立开发形成的信息”列为不属于保密信息，支持独立开发例外。"
+            },
+            {
+              "fact_id": "EF-b8b4019683463037",
+              "supported": true,
+              "reason": "C0006明确因法律法规、司法机关、行政机关或其他有权机关依法要求而必须披露的，不视为违反协议，支持强制披露例外。"
+            },
+            {
+              "fact_id": "EF-ddf874057d58ffd0",
+              "supported": true,
+              "reason": "C0004明确将乙方在从甲方取得之前已经合法知悉的信息列为不属于保密信息，支持在先知悉例外。"
+            },
+            {
+              "fact_id": "EF-25476d6628788f8c",
+              "supported": true,
+              "reason": "C0004明确将“已经依法公开的信息”列为不属于保密信息，支持公开信息例外。"
+            },
+            {
+              "fact_id": "EF-13ad69f3d3af118f",
+              "supported": true,
+              "reason": "C0004明确将乙方从有权披露该信息的第三方合法取得的信息列为不属于保密信息，支持第三方合法取得例外。"
+            },
+            {
+              "fact_id": "EF-2cc8854d1e748623",
+              "supported": true,
+              "reason": "C0003、C0004明确乙方因任职接触、知悉或取得甲方保密信息，保密信息由甲方采取保密措施并流向乙方，支持甲方→乙方。"
+            },
+            {
+              "fact_id": "EF-9c78dd628f9c549c",
+              "supported": true,
+              "reason": "C0002及C0018均明确甲方为广州星瀚数字科技有限公司，支持第一方主体名称。"
+            },
+            {
+              "fact_id": "EF-43bd9c69c516acb3",
+              "supported": true,
+              "reason": "C0003与C0019均明确乙方（员工/签字）为许文博，引文直接支持第二方主体名称。"
+            },
+            {
+              "fact_id": "EF-c203da0866770c5b",
+              "supported": true,
+              "reason": "C0004完整列举保密信息定义及范围，候选value与引文一致。"
+            },
+            {
+              "fact_id": "EF-3caa3830b85470fd",
+              "supported": true,
+              "reason": "C0013明确停止侵害、防止损失扩大、违约金300,000元及不足部分赔偿全部损失，构成违约救济安排。"
+            },
+            {
+              "fact_id": "EF-9d2668590c710bf9",
+              "supported": true,
+              "reason": "C0009明确解除或终止后三个工作日内返还、删除、不再保留及书面确认，并含法定保存例外。"
+            },
+            {
+              "fact_id": "EF-5841acd20cdd3885",
+              "supported": true,
+              "reason": "C0005与C0008明确限制披露、使用目的、复制传输、协助获取及必要知悉原则，候选value与引文一致。"
+            },
+            {
+              "fact_id": "EF-ee35bcc579ba0645",
+              "supported": true,
+              "reason": "C0003使用“可能接触”表述，仅证明接触可能性/能力，符合access_capability布尔true定义。"
+            },
+            {
+              "fact_id": "EF-68d11b3b66ebaca5",
+              "supported": false,
+              "reason": "C0004仅定义保密信息为任职期间因工作原因知悉、接触或取得的信息，属范围定义，未明示员工已经实际接触或知悉具体秘密事项；将定义性表述升级为已实际接触，强度冲突。"
+            },
+            {
+              "fact_id": "EF-dc86aa37906636ce",
+              "supported": false,
+              "reason": "C0015“本协议不当然产生竞业限制义务”仅说明本协议本身不产生竞业义务，并未明确否定双方离职竞业安排本身；且C0015同时提及如另行签署竞业限制协议则分别调整，不能据此认定EXPLICIT_NONE。"
+            },
+            {
+              "fact_id": "EF-5e52fdbd5062e293",
+              "supported": true,
+              "reason": "C0013明确约定乙方违反保密义务应支付违约金人民币300,000元，scope为CONFIDENTIALITY、trigger为违反保密义务、imposed为true、amount_text为人民币300,000元，均与引文一致。"
+            },
+            {
+              "fact_id": "EF-19abf26e0d4b1bf8",
+              "supported": true,
+              "reason": "C0009原文明确约定劳动关系解除或终止时三个工作日内返还文件设备、删除保密信息复制件、不再保留内部资料，并有权要求书面确认，属于离职工作交接和手续。"
+            },
+            {
+              "fact_id": "EF-b2e898d0e5ea4cc8",
+              "supported": true,
+              "reason": "C0013明确约定违约金不足以弥补损失时，乙方还应赔偿全部损失，属于按实际发生损失赔偿，trigger与basis均由引文支持。"
+            }
+          ],
+          "searched_concepts": [
+            "capability.compensation",
+            "capability.ground",
+            "capability.notice",
+            "capability.reassessment",
+            "capability.reassignment",
+            "capability.training",
+            "contract.duration_months",
+            "contract.employment_form",
+            "contract.end_date",
+            "contract.start_date",
+            "contract.task",
+            "contract.task_end",
+            "contract.term_limit_date",
+            "contract.term_limit_mode",
+            "contract.term_limit_months",
+            "contract.type",
+            "discipline.dismissal_terms",
+            "dispatch.agency",
+            "dispatch.agency_obligations",
+            "dispatch.agreement_disclosure",
+            "dispatch.auxiliary_noncore",
+            "dispatch.auxiliary_procedure",
+            "dispatch.comparable_work",
+            "dispatch.comparator_pay",
+            "dispatch.comparator_pay_method",
+            "dispatch.equal_pay",
+            "dispatch.host",
+            "dispatch.host_direct_dismissal",
+            "dispatch.host_obligations",
+            "dispatch.idle_pay",
+            "dispatch.long_term_position",
+            "dispatch.obligations_waived",
+            "dispatch.onward_assignment",
+            "dispatch.period",
+            "dispatch.position",
+            "dispatch.position_basis",
+            "dispatch.reassignment_procedure",
+            "dispatch.refusal_compensation_waived",
+            "dispatch.refusal_termination",
+            "dispatch.return_procedure",
+            "dispatch.return_terms",
+            "dispatch.substitute",
+            "dispatch.temporary_duration_months",
+            "dispatch.worker_charges",
+            "dispatch.worker_pay_method",
+            "dispute.arbitration",
+            "economic_compensation.payment_delay_months",
+            "economic_compensation.reduced",
+            "economic_compensation.settlement_deadline",
+            "economic_compensation.statutory",
+            "economic_compensation.statutory_percentage",
+            "economic_compensation.waived",
+            "identity.employer_address",
+            "identity.employer_name",
+            "identity.employer_representative",
+            "identity.worker_address",
+            "identity.worker_id",
+            "identity.worker_name",
+            "ip.allocations",
+            "ip.assignment_scope",
+            "ip.personal_rights_waived",
+            "job.change_terms",
+            "job.duties",
+            "job.locations",
+            "job.position",
+            "labor_protection.hazard_exists",
+            "labor_protection.hazard_protection",
+            "labor_protection.measures",
+            "labor_protection.special_training_required",
+            "labor_protection.training",
+            "labor_protection.training_excluded",
+            "nda.duration",
+            "nda.employment_relationship",
+            "nda.exception_independent",
+            "nda.exception_mandatory",
+            "nda.exception_prior",
+            "nda.exception_public",
+            "nda.exception_third_party",
+            "nda.information_flow",
+            "nda.party_one",
+            "nda.party_two",
+            "nda.protected_information",
+            "nda.remedies",
+            "nda.return",
+            "nda.use_restriction",
+            "non_compete.access_capability",
+            "non_compete.actual_access",
+            "non_compete.all_staff",
+            "non_compete.arrangement",
+            "non_compete.businesses",
+            "non_compete.compensation",
+            "non_compete.compensation_deferred",
+            "non_compete.compensation_floor",
+            "non_compete.compensation_waived",
+            "non_compete.duration_months",
+            "non_compete.personnel",
+            "non_compete.salary_base",
+            "non_compete.secret_access",
+            "non_compete.territories",
+            "part_time.employee_notice_days",
+            "part_time.employer_notice_days",
+            "part_time.exit_approval",
+            "part_time.exit_constraint",
+            "part_time.exit_permission",
+            "part_time.hourly_minimum",
+            "part_time.injury_insurance",
+            "penalties.obligations",
+            "probation.arrangement",
+            "probation.duration_months",
+            "probation.end_date",
+            "probation.repeated",
+            "probation.salary",
+            "probation.start_date",
+            "salary.cycle_days",
+            "salary.cycle_kind",
+            "salary.payment_date",
+            "salary.payment_method",
+            "salary.regular",
+            "salary.settlement_period",
+            "salary.withheld_for_handover",
+            "social_insurance.cash_replacement",
+            "social_insurance.employee_remedy_excluded",
+            "social_insurance.employee_withheld",
+            "social_insurance.employer_enrolls",
+            "social_insurance.employer_liability_excluded",
+            "social_insurance.employer_pays",
+            "social_insurance.employer_share_shifted",
+            "social_insurance.employer_underpays",
+            "social_insurance.statutory_duties",
+            "social_insurance.waived",
+            "termination.approval_required",
+            "termination.employee_right_waived",
+            "termination.employer_unrestricted",
+            "termination.grounds",
+            "termination.handover",
+            "termination.notice",
+            "termination.notice_days",
+            "training.arrangement",
+            "training.cost",
+            "training.duration_months",
+            "training.penalty_prorated",
+            "training.service_penalty",
+            "training.technical",
+            "worker.damage_liability",
+            "worker.security_payment",
+            "working_hours.days_per_week",
+            "working_hours.hours_per_day",
+            "working_hours.hours_per_week",
+            "working_hours.overtime",
+            "working_hours.rest",
+            "working_hours.rest_days_per_week",
+            "working_hours.rest_waived",
+            "working_hours.system"
+          ],
+          "unresolved_concepts": [],
+          "additional_facts": [],
+          "absence_audits": [
+            {
+              "concept": "non_compete.arrangement",
+              "result": "ABSENT",
+              "reason": "全文核验：C0015仅称本协议不当然产生竞业限制义务，并提及如另行签署竞业限制协议则分别调整，未实际约定离职后竞业限制，也未明确否定双方离职竞业安排本身；C0011仅禁止以保密协议限制依法就业，不构成独立竞业条款；全文无竞业人员范围、秘密接触资格、竞争业务、地域、期限、补偿、工资基数、补偿另议/保底/放弃、全员适用等任何具体竞业安排，故不存在可提取的EXISTS或EXPLICIT_NONE事实。",
+              "searched_concepts": [
+                "non_compete.arrangement",
+                "non_compete.personnel",
+                "non_compete.secret_access",
+                "non_compete.access_capability",
+                "non_compete.actual_access",
+                "non_compete.businesses",
+                "non_compete.territories",
+                "non_compete.duration_months",
+                "non_compete.compensation",
+                "non_compete.compensation_floor",
+                "non_compete.salary_base",
+                "non_compete.compensation_deferred",
+                "non_compete.compensation_waived",
+                "non_compete.all_staff"
+              ],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019"
+              ]
+            },
+            {
+              "concept": "training.arrangement",
+              "result": "ABSENT",
+              "reason": "全文为保密专项协议，仅涉及保密、知识产权、争议解决等事项；未出现任何专项技术培训、培训费用、服务期或服务期违约金的约定，也无明确不设服务期的表述，故该概念全文不存在且无歧义。",
+              "searched_concepts": [
+                "training.arrangement",
+                "training.technical",
+                "training.cost",
+                "training.duration_months",
+                "training.service_penalty"
+              ],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019"
+              ]
+            }
+          ],
+          "reviewed_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011",
+            "C0012",
+            "C0013",
+            "C0014",
+            "C0015",
+            "C0016",
+            "C0017",
+            "C0018",
+            "C0019"
+          ]
+        },
+        "batches": [
+          {
+            "batch_id": 1,
+            "input_fact_ids": [
+              "EF-49874f23cf5f876d"
+            ],
+            "required_concepts": [
+              "capability.compensation",
+              "capability.ground",
+              "capability.notice",
+              "capability.reassessment",
+              "capability.reassignment",
+              "capability.training",
+              "contract.duration_months",
+              "contract.employment_form",
+              "contract.end_date",
+              "contract.start_date",
+              "contract.task",
+              "contract.task_end",
+              "contract.term_limit_date",
+              "contract.term_limit_mode",
+              "contract.term_limit_months",
+              "contract.type",
+              "discipline.dismissal_terms",
+              "dispatch.agency",
+              "dispatch.agency_obligations",
+              "dispatch.agreement_disclosure"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-49874f23cf5f876d",
+                  "supported": true,
+                  "reason": "C0002明确甲方为用人单位广州星瀚数字科技有限公司，C0003明确乙方为员工许文博，双方直接建立劳动关系，未显示派遣单位或非全日制安排，支持DIRECT。"
+                }
+              ],
+              "searched_concepts": [
+                "capability.compensation",
+                "capability.ground",
+                "capability.notice",
+                "capability.reassessment",
+                "capability.reassignment",
+                "capability.training",
+                "contract.duration_months",
+                "contract.employment_form",
+                "contract.end_date",
+                "contract.start_date",
+                "contract.task",
+                "contract.task_end",
+                "contract.term_limit_date",
+                "contract.term_limit_mode",
+                "contract.term_limit_months",
+                "contract.type",
+                "discipline.dismissal_terms",
+                "dispatch.agency",
+                "dispatch.agency_obligations",
+                "dispatch.agreement_disclosure"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 10329,
+              "completion_tokens": 299,
+              "total_tokens": 10628,
+              "prompt_tokens_details": {
+                "cached_tokens": 2304
+              },
+              "prompt_cache_hit_tokens": 2304,
+              "prompt_cache_miss_tokens": 8025
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 2,
+            "input_fact_ids": [],
+            "required_concepts": [
+              "dispatch.auxiliary_noncore",
+              "dispatch.auxiliary_procedure",
+              "dispatch.comparable_work",
+              "dispatch.comparator_pay",
+              "dispatch.comparator_pay_method",
+              "dispatch.equal_pay",
+              "dispatch.host",
+              "dispatch.host_direct_dismissal",
+              "dispatch.host_obligations",
+              "dispatch.idle_pay",
+              "dispatch.long_term_position",
+              "dispatch.obligations_waived",
+              "dispatch.onward_assignment",
+              "dispatch.period",
+              "dispatch.position",
+              "dispatch.position_basis",
+              "dispatch.reassignment_procedure",
+              "dispatch.refusal_compensation_waived",
+              "dispatch.refusal_termination",
+              "dispatch.return_procedure"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [],
+              "searched_concepts": [
+                "dispatch.auxiliary_noncore",
+                "dispatch.auxiliary_procedure",
+                "dispatch.comparable_work",
+                "dispatch.comparator_pay",
+                "dispatch.comparator_pay_method",
+                "dispatch.equal_pay",
+                "dispatch.host",
+                "dispatch.host_direct_dismissal",
+                "dispatch.host_obligations",
+                "dispatch.idle_pay",
+                "dispatch.long_term_position",
+                "dispatch.obligations_waived",
+                "dispatch.onward_assignment",
+                "dispatch.period",
+                "dispatch.position",
+                "dispatch.position_basis",
+                "dispatch.reassignment_procedure",
+                "dispatch.refusal_compensation_waived",
+                "dispatch.refusal_termination",
+                "dispatch.return_procedure"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 10199,
+              "completion_tokens": 259,
+              "total_tokens": 10458,
+              "prompt_tokens_details": {
+                "cached_tokens": 2304
+              },
+              "prompt_cache_hit_tokens": 2304,
+              "prompt_cache_miss_tokens": 7895
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 3,
+            "input_fact_ids": [
+              "EF-1ca58508d08874d6",
+              "EF-9bada902f6113df3",
+              "EF-fb6447b1b1caa8b3",
+              "EF-0190d3e44aacb426",
+              "EF-8973cf996f6809cc",
+              "EF-a23b03cd100142ef",
+              "EF-21d49b4c5125f03f",
+              "EF-7571e9cc92decb18",
+              "EF-b21c100bce849464"
+            ],
+            "required_concepts": [
+              "dispatch.return_terms",
+              "dispatch.substitute",
+              "dispatch.temporary_duration_months",
+              "dispatch.worker_charges",
+              "dispatch.worker_pay_method",
+              "dispute.arbitration",
+              "economic_compensation.payment_delay_months",
+              "economic_compensation.reduced",
+              "economic_compensation.settlement_deadline",
+              "economic_compensation.statutory",
+              "economic_compensation.statutory_percentage",
+              "economic_compensation.waived",
+              "identity.employer_address",
+              "identity.employer_name",
+              "identity.employer_representative",
+              "identity.worker_address",
+              "identity.worker_id",
+              "identity.worker_name",
+              "ip.allocations",
+              "ip.assignment_scope"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-1ca58508d08874d6",
+                  "supported": true,
+                  "reason": "C0016明确约定协商不成可以依法向劳动人事争议仲裁委员会申请仲裁，支持允许仲裁。"
+                },
+                {
+                  "fact_id": "EF-9bada902f6113df3",
+                  "supported": true,
+                  "reason": "C0002明确载明用人单位住所为广东省广州市天河区科韵路168号。"
+                },
+                {
+                  "fact_id": "EF-fb6447b1b1caa8b3",
+                  "supported": true,
+                  "reason": "C0002明确载明甲方（用人单位）为广州星瀚数字科技有限公司。"
+                },
+                {
+                  "fact_id": "EF-0190d3e44aacb426",
+                  "supported": true,
+                  "reason": "C0002明确载明法定代表人为林志远。"
+                },
+                {
+                  "fact_id": "EF-8973cf996f6809cc",
+                  "supported": true,
+                  "reason": "C0003明确载明乙方身份证号码为44010619960318XXXX，保留遮蔽字符。"
+                },
+                {
+                  "fact_id": "EF-a23b03cd100142ef",
+                  "supported": true,
+                  "reason": "C0003明确载明乙方（员工）为许文博。"
+                },
+                {
+                  "fact_id": "EF-21d49b4c5125f03f",
+                  "supported": true,
+                  "reason": "C0010明确约定任职期间利用甲方资源、执行甲方工作任务形成的成果，知识产权归属按照法律规定及双方另行签署的知识产权协议确定，可支持范围DUTY_OR_RESOURCES、归属未指定、方式为另行协议。"
+                },
+                {
+                  "fact_id": "EF-7571e9cc92decb18",
+                  "supported": true,
+                  "reason": "C0010明确约定知识产权归属按照法律规定确定，可支持范围DUTY_OR_RESOURCES、归属未指定、方式为依法确定。"
+                },
+                {
+                  "fact_id": "EF-b21c100bce849464",
+                  "supported": true,
+                  "reason": "C0010明确将成果形成范围限定为任职期间利用甲方资源、执行甲方工作任务，支持DUTY_OR_RESOURCES。"
+                }
+              ],
+              "searched_concepts": [
+                "dispatch.return_terms",
+                "dispatch.substitute",
+                "dispatch.temporary_duration_months",
+                "dispatch.worker_charges",
+                "dispatch.worker_pay_method",
+                "dispute.arbitration",
+                "economic_compensation.payment_delay_months",
+                "economic_compensation.reduced",
+                "economic_compensation.settlement_deadline",
+                "economic_compensation.statutory",
+                "economic_compensation.statutory_percentage",
+                "economic_compensation.waived",
+                "identity.employer_address",
+                "identity.employer_name",
+                "identity.employer_representative",
+                "identity.worker_address",
+                "identity.worker_id",
+                "identity.worker_name",
+                "ip.allocations",
+                "ip.assignment_scope"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 11635,
+              "completion_tokens": 683,
+              "total_tokens": 12318,
+              "prompt_tokens_details": {
+                "cached_tokens": 2560
+              },
+              "prompt_cache_hit_tokens": 2560,
+              "prompt_cache_miss_tokens": 9075
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 4,
+            "input_fact_ids": [
+              "EF-89f67f4ed08fcfe2",
+              "EF-12f964b147a3f848",
+              "EF-d95d1ee6405d0ce6",
+              "EF-e56d359d1c17372c",
+              "EF-b8b4019683463037",
+              "EF-ddf874057d58ffd0",
+              "EF-25476d6628788f8c",
+              "EF-13ad69f3d3af118f",
+              "EF-2cc8854d1e748623",
+              "EF-9c78dd628f9c549c"
+            ],
+            "required_concepts": [
+              "ip.personal_rights_waived",
+              "job.change_terms",
+              "job.duties",
+              "job.locations",
+              "job.position",
+              "labor_protection.hazard_exists",
+              "labor_protection.hazard_protection",
+              "labor_protection.measures",
+              "labor_protection.special_training_required",
+              "labor_protection.training",
+              "labor_protection.training_excluded",
+              "nda.duration",
+              "nda.employment_relationship",
+              "nda.exception_independent",
+              "nda.exception_mandatory",
+              "nda.exception_prior",
+              "nda.exception_public",
+              "nda.exception_third_party",
+              "nda.information_flow",
+              "nda.party_one"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-89f67f4ed08fcfe2",
+                  "supported": true,
+                  "reason": "C0003明确载明“岗位：数据产品经理”，引文直接支持岗位名称。"
+                },
+                {
+                  "fact_id": "EF-12f964b147a3f848",
+                  "supported": true,
+                  "reason": "C0007明确约定劳动关系存续期间及解除/终止后继续保密、商业秘密持续至公开或不再具备商业秘密属性、其他未公开内部信息离职后五年，引文完整支持。"
+                },
+                {
+                  "fact_id": "EF-d95d1ee6405d0ce6",
+                  "supported": true,
+                  "reason": "C0002称甲方为用人单位、C0003称乙方为员工并载明任职期间，C0015称本协议属于双方劳动关系相关专项协议，足以明示劳动关系。"
+                },
+                {
+                  "fact_id": "EF-e56d359d1c17372c",
+                  "supported": true,
+                  "reason": "C0004明确将“乙方未使用甲方保密信息而独立开发形成的信息”列为不属于保密信息，支持独立开发例外。"
+                },
+                {
+                  "fact_id": "EF-b8b4019683463037",
+                  "supported": true,
+                  "reason": "C0006明确因法律法规、司法机关、行政机关或其他有权机关依法要求而必须披露的，不视为违反协议，支持强制披露例外。"
+                },
+                {
+                  "fact_id": "EF-ddf874057d58ffd0",
+                  "supported": true,
+                  "reason": "C0004明确将乙方在从甲方取得之前已经合法知悉的信息列为不属于保密信息，支持在先知悉例外。"
+                },
+                {
+                  "fact_id": "EF-25476d6628788f8c",
+                  "supported": true,
+                  "reason": "C0004明确将“已经依法公开的信息”列为不属于保密信息，支持公开信息例外。"
+                },
+                {
+                  "fact_id": "EF-13ad69f3d3af118f",
+                  "supported": true,
+                  "reason": "C0004明确将乙方从有权披露该信息的第三方合法取得的信息列为不属于保密信息，支持第三方合法取得例外。"
+                },
+                {
+                  "fact_id": "EF-2cc8854d1e748623",
+                  "supported": true,
+                  "reason": "C0003、C0004明确乙方因任职接触、知悉或取得甲方保密信息，保密信息由甲方采取保密措施并流向乙方，支持甲方→乙方。"
+                },
+                {
+                  "fact_id": "EF-9c78dd628f9c549c",
+                  "supported": true,
+                  "reason": "C0002及C0018均明确甲方为广州星瀚数字科技有限公司，支持第一方主体名称。"
+                }
+              ],
+              "searched_concepts": [
+                "ip.personal_rights_waived",
+                "job.change_terms",
+                "job.duties",
+                "job.locations",
+                "job.position",
+                "labor_protection.hazard_exists",
+                "labor_protection.hazard_protection",
+                "labor_protection.measures",
+                "labor_protection.special_training_required",
+                "labor_protection.training",
+                "labor_protection.training_excluded",
+                "nda.duration",
+                "nda.employment_relationship",
+                "nda.exception_independent",
+                "nda.exception_mandatory",
+                "nda.exception_prior",
+                "nda.exception_public",
+                "nda.exception_third_party",
+                "nda.information_flow",
+                "nda.party_one"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 11068,
+              "completion_tokens": 769,
+              "total_tokens": 11837,
+              "prompt_tokens_details": {
+                "cached_tokens": 1792
+              },
+              "prompt_cache_hit_tokens": 1792,
+              "prompt_cache_miss_tokens": 9276
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 5,
+            "input_fact_ids": [
+              "EF-43bd9c69c516acb3",
+              "EF-c203da0866770c5b",
+              "EF-3caa3830b85470fd",
+              "EF-9d2668590c710bf9",
+              "EF-5841acd20cdd3885",
+              "EF-ee35bcc579ba0645",
+              "EF-68d11b3b66ebaca5",
+              "EF-dc86aa37906636ce"
+            ],
+            "required_concepts": [
+              "nda.party_two",
+              "nda.protected_information",
+              "nda.remedies",
+              "nda.return",
+              "nda.use_restriction",
+              "non_compete.access_capability",
+              "non_compete.actual_access",
+              "non_compete.all_staff",
+              "non_compete.arrangement",
+              "non_compete.businesses",
+              "non_compete.compensation",
+              "non_compete.compensation_deferred",
+              "non_compete.compensation_floor",
+              "non_compete.compensation_waived",
+              "non_compete.duration_months",
+              "non_compete.personnel",
+              "non_compete.salary_base",
+              "non_compete.secret_access",
+              "non_compete.territories",
+              "part_time.employee_notice_days"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-43bd9c69c516acb3",
+                  "supported": true,
+                  "reason": "C0003与C0019均明确乙方（员工/签字）为许文博，引文直接支持第二方主体名称。"
+                },
+                {
+                  "fact_id": "EF-c203da0866770c5b",
+                  "supported": true,
+                  "reason": "C0004完整列举保密信息定义及范围，候选value与引文一致。"
+                },
+                {
+                  "fact_id": "EF-3caa3830b85470fd",
+                  "supported": true,
+                  "reason": "C0013明确停止侵害、防止损失扩大、违约金300,000元及不足部分赔偿全部损失，构成违约救济安排。"
+                },
+                {
+                  "fact_id": "EF-9d2668590c710bf9",
+                  "supported": true,
+                  "reason": "C0009明确解除或终止后三个工作日内返还、删除、不再保留及书面确认，并含法定保存例外。"
+                },
+                {
+                  "fact_id": "EF-5841acd20cdd3885",
+                  "supported": true,
+                  "reason": "C0005与C0008明确限制披露、使用目的、复制传输、协助获取及必要知悉原则，候选value与引文一致。"
+                },
+                {
+                  "fact_id": "EF-ee35bcc579ba0645",
+                  "supported": true,
+                  "reason": "C0003使用“可能接触”表述，仅证明接触可能性/能力，符合access_capability布尔true定义。"
+                },
+                {
+                  "fact_id": "EF-68d11b3b66ebaca5",
+                  "supported": false,
+                  "reason": "C0004仅定义保密信息为任职期间因工作原因知悉、接触或取得的信息，属范围定义，未明示员工已经实际接触或知悉具体秘密事项；将定义性表述升级为已实际接触，强度冲突。"
+                },
+                {
+                  "fact_id": "EF-dc86aa37906636ce",
+                  "supported": false,
+                  "reason": "C0015“本协议不当然产生竞业限制义务”仅说明本协议本身不产生竞业义务，并未明确否定双方离职竞业安排本身；且C0015同时提及如另行签署竞业限制协议则分别调整，不能据此认定EXPLICIT_NONE。"
+                }
+              ],
+              "searched_concepts": [
+                "nda.party_two",
+                "nda.protected_information",
+                "nda.remedies",
+                "nda.return",
+                "nda.use_restriction",
+                "non_compete.access_capability",
+                "non_compete.actual_access",
+                "non_compete.all_staff",
+                "non_compete.arrangement",
+                "non_compete.businesses",
+                "non_compete.compensation",
+                "non_compete.compensation_deferred",
+                "non_compete.compensation_floor",
+                "non_compete.compensation_waived",
+                "non_compete.duration_months",
+                "non_compete.personnel",
+                "non_compete.salary_base",
+                "non_compete.secret_access",
+                "non_compete.territories",
+                "part_time.employee_notice_days"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [
+                {
+                  "concept": "non_compete.arrangement",
+                  "result": "ABSENT",
+                  "reason": "全文核验：C0015仅称本协议不当然产生竞业限制义务，并提及如另行签署竞业限制协议则分别调整，未实际约定离职后竞业限制，也未明确否定双方离职竞业安排本身；C0011仅禁止以保密协议限制依法就业，不构成独立竞业条款；全文无竞业人员范围、秘密接触资格、竞争业务、地域、期限、补偿、工资基数、补偿另议/保底/放弃、全员适用等任何具体竞业安排，故不存在可提取的EXISTS或EXPLICIT_NONE事实。",
+                  "searched_concepts": [
+                    "non_compete.arrangement",
+                    "non_compete.personnel",
+                    "non_compete.secret_access",
+                    "non_compete.access_capability",
+                    "non_compete.actual_access",
+                    "non_compete.businesses",
+                    "non_compete.territories",
+                    "non_compete.duration_months",
+                    "non_compete.compensation",
+                    "non_compete.compensation_floor",
+                    "non_compete.salary_base",
+                    "non_compete.compensation_deferred",
+                    "non_compete.compensation_waived",
+                    "non_compete.all_staff"
+                  ],
+                  "reviewed_clause_ids": [
+                    "C0001",
+                    "C0002",
+                    "C0003",
+                    "C0004",
+                    "C0005",
+                    "C0006",
+                    "C0007",
+                    "C0008",
+                    "C0009",
+                    "C0010",
+                    "C0011",
+                    "C0012",
+                    "C0013",
+                    "C0014",
+                    "C0015",
+                    "C0016",
+                    "C0017",
+                    "C0018",
+                    "C0019"
+                  ]
+                }
+              ],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 11795,
+              "completion_tokens": 1086,
+              "total_tokens": 12881,
+              "prompt_tokens_details": {
+                "cached_tokens": 1408
+              },
+              "prompt_cache_hit_tokens": 1408,
+              "prompt_cache_miss_tokens": 10387
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 6,
+            "input_fact_ids": [
+              "EF-5e52fdbd5062e293"
+            ],
+            "required_concepts": [
+              "part_time.employer_notice_days",
+              "part_time.exit_approval",
+              "part_time.exit_constraint",
+              "part_time.exit_permission",
+              "part_time.hourly_minimum",
+              "part_time.injury_insurance",
+              "penalties.obligations",
+              "probation.arrangement",
+              "probation.duration_months",
+              "probation.end_date",
+              "probation.repeated",
+              "probation.salary",
+              "probation.start_date",
+              "salary.cycle_days",
+              "salary.cycle_kind",
+              "salary.payment_date",
+              "salary.payment_method",
+              "salary.regular",
+              "salary.settlement_period",
+              "salary.withheld_for_handover"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-5e52fdbd5062e293",
+                  "supported": true,
+                  "reason": "C0013明确约定乙方违反保密义务应支付违约金人民币300,000元，scope为CONFIDENTIALITY、trigger为违反保密义务、imposed为true、amount_text为人民币300,000元，均与引文一致。"
+                }
+              ],
+              "searched_concepts": [
+                "part_time.employer_notice_days",
+                "part_time.exit_approval",
+                "part_time.exit_constraint",
+                "part_time.exit_permission",
+                "part_time.hourly_minimum",
+                "part_time.injury_insurance",
+                "penalties.obligations",
+                "probation.arrangement",
+                "probation.duration_months",
+                "probation.end_date",
+                "probation.repeated",
+                "probation.salary",
+                "probation.start_date",
+                "salary.cycle_days",
+                "salary.cycle_kind",
+                "salary.payment_date",
+                "salary.payment_method",
+                "salary.regular",
+                "salary.settlement_period",
+                "salary.withheld_for_handover"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 10784,
+              "completion_tokens": 330,
+              "total_tokens": 11114,
+              "prompt_tokens_details": {
+                "cached_tokens": 1408
+              },
+              "prompt_cache_hit_tokens": 1408,
+              "prompt_cache_miss_tokens": 9376
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 7,
+            "input_fact_ids": [
+              "EF-19abf26e0d4b1bf8"
+            ],
+            "required_concepts": [
+              "social_insurance.cash_replacement",
+              "social_insurance.employee_remedy_excluded",
+              "social_insurance.employee_withheld",
+              "social_insurance.employer_enrolls",
+              "social_insurance.employer_liability_excluded",
+              "social_insurance.employer_pays",
+              "social_insurance.employer_share_shifted",
+              "social_insurance.employer_underpays",
+              "social_insurance.statutory_duties",
+              "social_insurance.waived",
+              "termination.approval_required",
+              "termination.employee_right_waived",
+              "termination.employer_unrestricted",
+              "termination.grounds",
+              "termination.handover",
+              "termination.notice",
+              "termination.notice_days",
+              "training.arrangement",
+              "training.cost",
+              "training.duration_months"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-19abf26e0d4b1bf8",
+                  "supported": true,
+                  "reason": "C0009原文明确约定劳动关系解除或终止时三个工作日内返还文件设备、删除保密信息复制件、不再保留内部资料，并有权要求书面确认，属于离职工作交接和手续。"
+                }
+              ],
+              "searched_concepts": [
+                "social_insurance.cash_replacement",
+                "social_insurance.employee_remedy_excluded",
+                "social_insurance.employee_withheld",
+                "social_insurance.employer_enrolls",
+                "social_insurance.employer_liability_excluded",
+                "social_insurance.employer_pays",
+                "social_insurance.employer_share_shifted",
+                "social_insurance.employer_underpays",
+                "social_insurance.statutory_duties",
+                "social_insurance.waived",
+                "termination.approval_required",
+                "termination.employee_right_waived",
+                "termination.employer_unrestricted",
+                "termination.grounds",
+                "termination.handover",
+                "termination.notice",
+                "termination.notice_days",
+                "training.arrangement",
+                "training.cost",
+                "training.duration_months"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [
+                {
+                  "concept": "training.arrangement",
+                  "result": "ABSENT",
+                  "reason": "全文为保密专项协议，仅涉及保密、知识产权、争议解决等事项；未出现任何专项技术培训、培训费用、服务期或服务期违约金的约定，也无明确不设服务期的表述，故该概念全文不存在且无歧义。",
+                  "searched_concepts": [
+                    "training.arrangement",
+                    "training.technical",
+                    "training.cost",
+                    "training.duration_months",
+                    "training.service_penalty"
+                  ],
+                  "reviewed_clause_ids": [
+                    "C0001",
+                    "C0002",
+                    "C0003",
+                    "C0004",
+                    "C0005",
+                    "C0006",
+                    "C0007",
+                    "C0008",
+                    "C0009",
+                    "C0010",
+                    "C0011",
+                    "C0012",
+                    "C0013",
+                    "C0014",
+                    "C0015",
+                    "C0016",
+                    "C0017",
+                    "C0018",
+                    "C0019"
+                  ]
+                }
+              ],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 9931,
+              "completion_tokens": 544,
+              "total_tokens": 10475,
+              "prompt_tokens_details": {
+                "cached_tokens": 1408
+              },
+              "prompt_cache_hit_tokens": 1408,
+              "prompt_cache_miss_tokens": 8523
+            },
+            "finish_reason": "stop"
+          },
+          {
+            "batch_id": 8,
+            "input_fact_ids": [
+              "EF-b2e898d0e5ea4cc8"
+            ],
+            "required_concepts": [
+              "training.penalty_prorated",
+              "training.service_penalty",
+              "training.technical",
+              "worker.damage_liability",
+              "worker.security_payment",
+              "working_hours.days_per_week",
+              "working_hours.hours_per_day",
+              "working_hours.hours_per_week",
+              "working_hours.overtime",
+              "working_hours.rest",
+              "working_hours.rest_days_per_week",
+              "working_hours.rest_waived",
+              "working_hours.system"
+            ],
+            "audit_owner": true,
+            "response": {
+              "verification_schema_version": "fact-verification-2",
+              "checks": [
+                {
+                  "fact_id": "EF-b2e898d0e5ea4cc8",
+                  "supported": true,
+                  "reason": "C0013明确约定违约金不足以弥补损失时，乙方还应赔偿全部损失，属于按实际发生损失赔偿，trigger与basis均由引文支持。"
+                }
+              ],
+              "searched_concepts": [
+                "training.penalty_prorated",
+                "training.service_penalty",
+                "training.technical",
+                "worker.damage_liability",
+                "worker.security_payment",
+                "working_hours.days_per_week",
+                "working_hours.hours_per_day",
+                "working_hours.hours_per_week",
+                "working_hours.overtime",
+                "working_hours.rest",
+                "working_hours.rest_days_per_week",
+                "working_hours.rest_waived",
+                "working_hours.system"
+              ],
+              "unresolved_concepts": [],
+              "additional_facts": [],
+              "absence_audits": [],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019"
+              ]
+            },
+            "usage": {
+              "prompt_tokens": 10179,
+              "completion_tokens": 278,
+              "total_tokens": 10457,
+              "prompt_tokens_details": {
+                "cached_tokens": 1408
+              },
+              "prompt_cache_hit_tokens": 1408,
+              "prompt_cache_miss_tokens": 8771
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 85920,
+          "completion_tokens": 4248,
+          "total_tokens": 90168
+        }
+      },
+      "verification_batches": null
+    },
+    {
+      "attempt": 2,
+      "status": "BLOCKED",
+      "diagnostics": [
+        {
+          "failed_stage": "NORMALIZATION",
+          "fact_id": "candidate-0-6",
+          "field": "value",
+          "validation_rule": "INVALID_ENUM",
+          "model_raw_value": {
+            "concept": "contract.type",
+            "value": "OTHER",
+            "confidence": 0.5,
+            "assertion": "INFERRED",
+            "evidence": [
+              {
+                "clause_id": "C0001",
+                "quote": "保密协议"
+              },
+              {
+                "clause_id": "C0015",
+                "quote": "本协议属于双方劳动关系相关专项协议。"
+              }
+            ]
+          },
+          "evidence": [
+            {
+              "clause_id": "C0001",
+              "quote": "保密协议"
+            },
+            {
+              "clause_id": "C0015",
+              "quote": "本协议属于双方劳动关系相关专项协议。"
+            }
+          ],
+          "expected": [
+            "FIXED",
+            "INDEFINITE",
+            "TASK"
+          ],
+          "actual": "OTHER",
+          "disposition": "BLOCK",
+          "concept": "contract.type",
+          "fact_key": "contract.type",
+          "raw_value": "OTHER",
+          "normalized_value": null,
+          "allowed_values": [
+            "FIXED",
+            "INDEFINITE",
+            "TASK"
+          ],
+          "source_clause": [
+            {
+              "clause_id": "C0001",
+              "section": "全文",
+              "text": "保密协议"
+            },
+            {
+              "clause_id": "C0015",
+              "section": "第十二条 与其他协议的关系",
+              "text": "第十二条 与其他协议的关系\n本协议属于双方劳动关系相关专项协议。\n如双方另行签署劳动合同、知识产权协议或者竞业限制协议，本协议与其他协议分别调整相应事项。\n本协议不当然产生竞业限制义务。"
+            }
+          ],
+          "stage": "NORMALIZATION",
+          "code": "INVALID_ENUM",
+          "clause": [
+            {
+              "clause_id": "C0001",
+              "section": "全文",
+              "text": "保密协议"
+            },
+            {
+              "clause_id": "C0015",
+              "section": "第十二条 与其他协议的关系",
+              "text": "第十二条 与其他协议的关系\n本协议属于双方劳动关系相关专项协议。\n如双方另行签署劳动合同、知识产权协议或者竞业限制协议，本协议与其他协议分别调整相应事项。\n本协议不当然产生竞业限制义务。"
+            }
+          ],
+          "message": "抽取值未通过事实类型、证据或语义校验；未生成报告，不能以默认值替代。",
+          "trace_id": "FACT-64fd228cd05d408a827785cb2dfae006"
+        }
+      ],
+      "raw_extraction": [
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019"
+            ],
+            "searched_concepts": [
+              "identity.employer_representative",
+              "identity.worker_address",
+              "identity.employer_name",
+              "identity.employer_address",
+              "identity.worker_name",
+              "identity.worker_id",
+              "contract.type",
+              "contract.start_date",
+              "contract.end_date",
+              "contract.duration_months",
+              "contract.task",
+              "contract.task_end",
+              "probation.arrangement",
+              "probation.start_date",
+              "probation.end_date",
+              "probation.duration_months",
+              "probation.salary",
+              "probation.repeated",
+              "job.position",
+              "job.duties",
+              "job.locations",
+              "working_hours.system",
+              "working_hours.hours_per_day",
+              "working_hours.hours_per_week",
+              "working_hours.rest",
+              "working_hours.rest_days_per_week",
+              "working_hours.rest_waived",
+              "working_hours.overtime",
+              "salary.regular",
+              "salary.payment_date",
+              "salary.payment_method",
+              "salary.withheld_for_handover",
+              "social_insurance.employer_enrolls",
+              "social_insurance.statutory_duties",
+              "social_insurance.employer_pays"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "identity.employer_name",
+                "value": "广州星瀚数字科技有限公司",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：广州星瀚数字科技有限公司"
+                  },
+                  {
+                    "clause_id": "C0018",
+                    "quote": "甲方（盖章）：广州星瀚数字科技有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.employer_address",
+                "value": "广东省广州市天河区科韵路168号",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "住所：广东省广州市天河区科韵路168号"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.employer_representative",
+                "value": "林志远",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "法定代表人：林志远"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_name",
+                "value": "许文博",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方（员工）：许文博"
+                  },
+                  {
+                    "clause_id": "C0019",
+                    "quote": "乙方（签字）：许文博"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_id",
+                "value": "44010619960318XXXX",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "身份证号码：44010619960318XXXX"
+                  }
+                ]
+              },
+              {
+                "concept": "job.position",
+                "value": "数据产品经理",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "岗位：数据产品经理"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.type",
+                "value": "OTHER",
+                "confidence": 0.5,
+                "assertion": "INFERRED",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "保密协议"
+                  },
+                  {
+                    "clause_id": "C0015",
+                    "quote": "本协议属于双方劳动关系相关专项协议。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 5177,
+            "completion_tokens": 744,
+            "total_tokens": 5921,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024
+            },
+            "prompt_cache_hit_tokens": 1024,
+            "prompt_cache_miss_tokens": 4153
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019"
+            ],
+            "searched_concepts": [
+              "social_insurance.employee_withheld",
+              "social_insurance.cash_replacement",
+              "social_insurance.waived",
+              "social_insurance.employer_share_shifted",
+              "social_insurance.employer_underpays",
+              "social_insurance.employer_liability_excluded",
+              "social_insurance.employee_remedy_excluded",
+              "labor_protection.measures",
+              "labor_protection.training",
+              "labor_protection.special_training_required",
+              "labor_protection.training_excluded",
+              "labor_protection.hazard_exists",
+              "labor_protection.hazard_protection",
+              "training.arrangement",
+              "training.technical",
+              "training.service_penalty",
+              "training.cost",
+              "training.duration_months",
+              "training.penalty_prorated",
+              "termination.grounds",
+              "termination.notice",
+              "termination.notice_days",
+              "termination.approval_required",
+              "termination.employee_right_waived",
+              "termination.employer_unrestricted",
+              "termination.handover",
+              "economic_compensation.statutory",
+              "economic_compensation.settlement_deadline",
+              "economic_compensation.waived",
+              "economic_compensation.reduced",
+              "economic_compensation.statutory_percentage",
+              "economic_compensation.payment_delay_months",
+              "dispute.arbitration",
+              "penalties.obligations",
+              "non_compete.arrangement"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "labor_protection.measures",
+                "value": "乙方应当对保密信息采取合理保护措施",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "乙方应当对保密信息采取合理保护措施，未经甲方书面许可，不得实施下列行为："
+                  }
+                ]
+              },
+              {
+                "concept": "termination.handover",
+                "value": "乙方与甲方劳动关系解除或者终止时，应在三个工作日内：返还持有的甲方文件、设备、存储介质及其他工作资料；删除个人设备、个人邮箱、个人网盘等载体中保存的甲方保密信息及其复制件；不再保留任何形式的甲方内部资料。甲方有权要求乙方书面确认已经完成上述返还及删除义务。",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "乙方与甲方劳动关系解除或者终止时，应在三个工作日内：\n返还持有的甲方文件、设备、存储介质及其他工作资料；\n删除个人设备、个人邮箱、个人网盘等载体中保存的甲方保密信息及其复制件；\n不再保留任何形式的甲方内部资料。\n甲方有权要求乙方书面确认已经完成上述返还及删除义务。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispute.arbitration",
+                "value": true,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0016",
+                    "quote": "协商不成的，可以依法向有管辖权的劳动人事争议仲裁委员会申请仲裁。"
+                  }
+                ]
+              },
+              {
+                "concept": "penalties.obligations",
+                "value": {
+                  "scope": "CONFIDENTIALITY",
+                  "trigger": "乙方违反本协议任何保密义务",
+                  "imposed": true,
+                  "amount_text": "人民币300,000元"
+                },
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0013",
+                    "quote": "乙方违反本协议任何保密义务，应向甲方支付违约金人民币300,000元。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.arrangement",
+                "value": "DEFERRED",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0015",
+                    "quote": "如双方另行签署劳动合同、知识产权协议或者竞业限制协议，本协议与其他协议分别调整相应事项。"
+                  },
+                  {
+                    "clause_id": "C0015",
+                    "quote": "本协议不当然产生竞业限制义务。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 5840,
+            "completion_tokens": 900,
+            "total_tokens": 6740,
+            "prompt_tokens_details": {
+              "cached_tokens": 1920
+            },
+            "prompt_cache_hit_tokens": 1920,
+            "prompt_cache_miss_tokens": 3920
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019"
+            ],
+            "searched_concepts": [
+              "non_compete.personnel",
+              "non_compete.secret_access",
+              "non_compete.access_capability",
+              "non_compete.actual_access",
+              "non_compete.businesses",
+              "non_compete.territories",
+              "non_compete.duration_months",
+              "non_compete.compensation",
+              "non_compete.compensation_floor",
+              "non_compete.salary_base",
+              "non_compete.compensation_deferred",
+              "non_compete.compensation_waived",
+              "non_compete.all_staff",
+              "ip.assignment_scope",
+              "ip.allocations",
+              "ip.personal_rights_waived",
+              "contract.employment_form",
+              "dispatch.auxiliary_noncore",
+              "dispatch.auxiliary_procedure",
+              "dispatch.substitute",
+              "dispatch.worker_pay_method",
+              "dispatch.comparator_pay_method",
+              "dispatch.comparator_pay",
+              "dispatch.comparable_work",
+              "dispatch.agency",
+              "dispatch.host",
+              "dispatch.position",
+              "dispatch.period",
+              "dispatch.position_basis",
+              "dispatch.long_term_position",
+              "dispatch.temporary_duration_months",
+              "dispatch.equal_pay",
+              "dispatch.idle_pay",
+              "dispatch.worker_charges",
+              "dispatch.return_procedure"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "non_compete.access_capability",
+                "value": true,
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "鉴于乙方在甲方任职期间可能接触甲方的技术资料、经营信息、客户资料及其他具有商业价值的信息，为保护甲方合法权益，双方就保密事项达成如下协议。"
+                  }
+                ]
+              },
+              {
+                "concept": "ip.assignment_scope",
+                "value": "DUTY_OR_RESOURCES",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "乙方在任职期间利用甲方资源、执行甲方工作任务形成的软件程序、产品设计、业务方案、技术文档及其他工作成果，其知识产权归属按照法律规定及双方另行签署的知识产权协议确定。"
+                  }
+                ]
+              },
+              {
+                "concept": "ip.allocations",
+                "value": {
+                  "scope": "DUTY_OR_RESOURCES",
+                  "beneficiary": "UNSPECIFIED",
+                  "mode": "STATUTORY"
+                },
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "乙方在任职期间利用甲方资源、执行甲方工作任务形成的软件程序、产品设计、业务方案、技术文档及其他工作成果，其知识产权归属按照法律规定及双方另行签署的知识产权协议确定。"
+                  }
+                ]
+              },
+              {
+                "concept": "ip.allocations",
+                "value": {
+                  "scope": "DUTY_OR_RESOURCES",
+                  "beneficiary": "UNSPECIFIED",
+                  "mode": "SEPARATE_AGREEMENT"
+                },
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "乙方在任职期间利用甲方资源、执行甲方工作任务形成的软件程序、产品设计、业务方案、技术文档及其他工作成果，其知识产权归属按照法律规定及双方另行签署的知识产权协议确定。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.employment_form",
+                "value": "DIRECT",
+                "confidence": 0.85,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：广州星瀚数字科技有限公司"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方（员工）：许文博"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 5899,
+            "completion_tokens": 810,
+            "total_tokens": 6709,
+            "prompt_tokens_details": {
+              "cached_tokens": 1920
+            },
+            "prompt_cache_hit_tokens": 1920,
+            "prompt_cache_miss_tokens": 3979
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019"
+            ],
+            "searched_concepts": [
+              "dispatch.reassignment_procedure",
+              "dispatch.refusal_termination",
+              "dispatch.refusal_compensation_waived",
+              "dispatch.host_direct_dismissal",
+              "dispatch.agreement_disclosure",
+              "dispatch.agency_obligations",
+              "dispatch.host_obligations",
+              "dispatch.obligations_waived",
+              "contract.term_limit_mode",
+              "contract.term_limit_date",
+              "contract.term_limit_months",
+              "capability.ground",
+              "capability.training",
+              "capability.reassignment",
+              "capability.reassessment",
+              "capability.notice",
+              "capability.compensation",
+              "working_hours.days_per_week",
+              "salary.cycle_kind",
+              "salary.cycle_days",
+              "part_time.hourly_minimum",
+              "part_time.injury_insurance",
+              "part_time.employee_notice_days",
+              "part_time.exit_permission",
+              "part_time.exit_constraint",
+              "part_time.employer_notice_days",
+              "part_time.exit_approval",
+              "salary.settlement_period",
+              "worker.damage_liability",
+              "job.change_terms",
+              "discipline.dismissal_terms",
+              "dispatch.onward_assignment",
+              "dispatch.return_terms",
+              "worker.security_payment",
+              "nda.employment_relationship"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "nda.employment_relationship",
+                "value": true,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：广州星瀚数字科技有限公司"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方（员工）：许文博"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "鉴于乙方在甲方任职期间可能接触甲方的技术资料、经营信息、客户资料及其他具有商业价值的信息，为保护甲方合法权益，双方就保密事项达成如下协议。"
+                  },
+                  {
+                    "clause_id": "C0015",
+                    "quote": "本协议属于双方劳动关系相关专项协议。"
+                  }
+                ]
+              },
+              {
+                "concept": "worker.damage_liability",
+                "value": {
+                  "kind": "ACTUAL_DAMAGE_COMPENSATION",
+                  "trigger": "乙方违反本协议保密义务",
+                  "basis": "如违约金不足以弥补甲方损失，乙方还应赔偿甲方因此遭受的全部损失，包括直接损失、预期利益损失、调查费用、律师费、公证费、鉴定费以及甲方为维权支出的其他费用。"
+                },
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0013",
+                    "quote": "如违约金不足以弥补甲方损失，乙方还应赔偿甲方因此遭受的全部损失，包括直接损失、预期利益损失、调查费用、律师费、公证费、鉴定费以及甲方为维权支出的其他费用。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 8574,
+            "completion_tokens": 643,
+            "total_tokens": 9217,
+            "prompt_tokens_details": {
+              "cached_tokens": 1920
+            },
+            "prompt_cache_hit_tokens": 1920,
+            "prompt_cache_miss_tokens": 6654
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019"
+            ],
+            "searched_concepts": [
+              "nda.party_one",
+              "nda.party_two",
+              "nda.information_flow",
+              "nda.protected_information",
+              "nda.exception_public",
+              "nda.exception_prior",
+              "nda.exception_independent",
+              "nda.exception_third_party",
+              "nda.exception_mandatory",
+              "nda.use_restriction",
+              "nda.duration",
+              "nda.return",
+              "nda.remedies"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "nda.party_one",
+                "value": "广州星瀚数字科技有限公司",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：广州星瀚数字科技有限公司"
+                  },
+                  {
+                    "clause_id": "C0018",
+                    "quote": "甲方（盖章）：广州星瀚数字科技有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.party_two",
+                "value": "许文博",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方（员工）：许文博"
+                  },
+                  {
+                    "clause_id": "C0019",
+                    "quote": "乙方（签字）：许文博"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.information_flow",
+                "value": "甲方→乙方",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "鉴于乙方在甲方任职期间可能接触甲方的技术资料、经营信息、客户资料及其他具有商业价值的信息，为保护甲方合法权益，双方就保密事项达成如下协议。"
+                  },
+                  {
+                    "clause_id": "C0004",
+                    "quote": "本协议所称保密信息，是指乙方在任职期间因工作原因知悉、接触或者取得的、尚未公开且甲方采取相应保密措施的技术信息、经营信息及其他商业信息，包括但不限于："
+                  }
+                ]
+              },
+              {
+                "concept": "nda.protected_information",
+                "value": "乙方在任职期间因工作原因知悉、接触或者取得的、尚未公开且甲方采取相应保密措施的技术信息、经营信息及其他商业信息，包括但不限于：软件源代码、算法逻辑、技术架构、接口文档、数据库结构及研发方案；产品规划、业务流程、内部操作规范及未公开项目计划；客户名单、客户需求、联系方式、报价方案、交易记录及合作条件；供应商资料、采购价格、成本结构及渠道信息；销售数据、经营数据、财务预测、市场策略及内部分析报告；甲方依法承担保密义务的第三方信息；其他甲方以书面、电子标识或者其他合理方式明确要求保密的信息。",
+                "confidence": 0.97,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "本协议所称保密信息，是指乙方在任职期间因工作原因知悉、接触或者取得的、尚未公开且甲方采取相应保密措施的技术信息、经营信息及其他商业信息，包括但不限于：\n软件源代码、算法逻辑、技术架构、接口文档、数据库结构及研发方案；\n产品规划、业务流程、内部操作规范及未公开项目计划；\n客户名单、客户需求、联系方式、报价方案、交易记录及合作条件；\n供应商资料、采购价格、成本结构及渠道信息；\n销售数据、经营数据、财务预测、市场策略及内部分析报告；\n甲方依法承担保密义务的第三方信息；\n其他甲方以书面、电子标识或者其他合理方式明确要求保密的信息。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_public",
+                "value": true,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "下列信息不属于保密信息：\n已经依法公开的信息；"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_prior",
+                "value": true,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方能够证明在从甲方取得之前已经合法知悉的信息；"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_independent",
+                "value": true,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方未使用甲方保密信息而独立开发形成的信息。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_third_party",
+                "value": true,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方从有权披露该信息的第三方合法取得的信息；"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_mandatory",
+                "value": true,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "因法律法规、司法机关、行政机关或者其他有权机关依法要求，乙方必须披露相关保密信息的，不视为违反本协议。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.use_restriction",
+                "value": "乙方应当对保密信息采取合理保护措施，未经甲方书面许可，不得：向任何无权知悉的第三方披露、提供或者转让保密信息；将保密信息用于履行工作职责以外的目的；擅自复制、下载、拍摄、截屏、转存或者通过私人邮箱、个人网盘、即时通信软件等方式传输保密信息；协助他人获取、使用或者披露甲方保密信息。因正常履行岗位职责确需向甲方其他工作人员披露的，应当遵循必要知悉原则。乙方仅可在履行工作职责所必要的范围内使用甲方文件、设备、账号及数据。未经甲方许可，不得将包含保密信息的文件或者数据长期保存在个人电脑、私人移动存储设备或者非甲方授权的网络空间中。",
+                "confidence": 0.97,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "乙方应当对保密信息采取合理保护措施，未经甲方书面许可，不得实施下列行为：\n向任何无权知悉的第三方披露、提供或者转让保密信息；\n将保密信息用于履行工作职责以外的目的；\n擅自复制、下载、拍摄、截屏、转存或者通过私人邮箱、个人网盘、即时通信软件等方式传输保密信息；\n协助他人获取、使用或者披露甲方保密信息。\n因正常履行岗位职责确需向甲方其他工作人员披露的，应当遵循必要知悉原则。"
+                  },
+                  {
+                    "clause_id": "C0008",
+                    "quote": "乙方仅可在履行工作职责所必要的范围内使用甲方文件、设备、账号及数据。\n未经甲方许可，不得将包含保密信息的文件或者数据长期保存在个人电脑、私人移动存储设备或者非甲方授权的网络空间中。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.duration",
+                "value": "乙方在劳动关系存续期间以及劳动关系解除或者终止后，均应继续履行保密义务。对于依法构成商业秘密的信息，保密义务持续至该信息依法进入公开领域或者不再具备商业秘密属性之日。对于甲方其他未公开内部信息，乙方离职后的保密期限为五年。",
+                "confidence": 0.97,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "乙方在劳动关系存续期间以及劳动关系解除或者终止后，均应继续履行保密义务。\n对于依法构成商业秘密的信息，保密义务持续至该信息依法进入公开领域或者不再具备商业秘密属性之日。\n对于甲方其他未公开内部信息，乙方离职后的保密期限为五年。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.return",
+                "value": "乙方与甲方劳动关系解除或者终止时，应在三个工作日内：返还持有的甲方文件、设备、存储介质及其他工作资料；删除个人设备、个人邮箱、个人网盘等载体中保存的甲方保密信息及其复制件；不再保留任何形式的甲方内部资料。甲方有权要求乙方书面确认已经完成上述返还及删除义务。因法律规定必须保存的材料除外，但乙方应继续承担相应保密义务。",
+                "confidence": 0.97,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "乙方与甲方劳动关系解除或者终止时，应在三个工作日内：\n返还持有的甲方文件、设备、存储介质及其他工作资料；\n删除个人设备、个人邮箱、个人网盘等载体中保存的甲方保密信息及其复制件；\n不再保留任何形式的甲方内部资料。\n甲方有权要求乙方书面确认已经完成上述返还及删除义务。\n因法律规定必须保存的材料除外，但乙方应继续承担相应保密义务。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.remedies",
+                "value": "乙方违反本协议保密义务的，应立即停止侵害并采取合理措施防止损失扩大。乙方违反本协议任何保密义务，应向甲方支付违约金人民币300,000元。如违约金不足以弥补甲方损失，乙方还应赔偿甲方因此遭受的全部损失，包括直接损失、预期利益损失、调查费用、律师费、公证费、鉴定费以及甲方为维权支出的其他费用。",
+                "confidence": 0.97,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0013",
+                    "quote": "乙方违反本协议保密义务的，应立即停止侵害并采取合理措施防止损失扩大。\n乙方违反本协议任何保密义务，应向甲方支付违约金人民币300,000元。\n如违约金不足以弥补甲方损失，乙方还应赔偿甲方因此遭受的全部损失，包括直接损失、预期利益损失、调查费用、律师费、公证费、鉴定费以及甲方为维权支出的其他费用。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 4397,
+            "completion_tokens": 2039,
+            "total_tokens": 6436,
+            "prompt_tokens_details": {
+              "cached_tokens": 1920
+            },
+            "prompt_cache_hit_tokens": 1920,
+            "prompt_cache_miss_tokens": 2477
+          },
+          "provider": "deepseek"
+        }
+      ],
+      "raw_verification": null,
+      "verification_batches": [
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019"
+            ],
+            "searched_concepts": [
+              "identity.employer_representative",
+              "identity.worker_address",
+              "identity.employer_name",
+              "identity.employer_address",
+              "identity.worker_name",
+              "identity.worker_id",
+              "contract.type",
+              "contract.start_date",
+              "contract.end_date",
+              "contract.duration_months",
+              "contract.task",
+              "contract.task_end",
+              "probation.arrangement",
+              "probation.start_date",
+              "probation.end_date",
+              "probation.duration_months",
+              "probation.salary",
+              "probation.repeated",
+              "job.position",
+              "job.duties",
+              "job.locations",
+              "working_hours.system",
+              "working_hours.hours_per_day",
+              "working_hours.hours_per_week",
+              "working_hours.rest",
+              "working_hours.rest_days_per_week",
+              "working_hours.rest_waived",
+              "working_hours.overtime",
+              "salary.regular",
+              "salary.payment_date",
+              "salary.payment_method",
+              "salary.withheld_for_handover",
+              "social_insurance.employer_enrolls",
+              "social_insurance.statutory_duties",
+              "social_insurance.employer_pays"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "identity.employer_name",
+                "value": "广州星瀚数字科技有限公司",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：广州星瀚数字科技有限公司"
+                  },
+                  {
+                    "clause_id": "C0018",
+                    "quote": "甲方（盖章）：广州星瀚数字科技有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.employer_address",
+                "value": "广东省广州市天河区科韵路168号",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "住所：广东省广州市天河区科韵路168号"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.employer_representative",
+                "value": "林志远",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "法定代表人：林志远"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_name",
+                "value": "许文博",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方（员工）：许文博"
+                  },
+                  {
+                    "clause_id": "C0019",
+                    "quote": "乙方（签字）：许文博"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_id",
+                "value": "44010619960318XXXX",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "身份证号码：44010619960318XXXX"
+                  }
+                ]
+              },
+              {
+                "concept": "job.position",
+                "value": "数据产品经理",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "岗位：数据产品经理"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.type",
+                "value": "OTHER",
+                "confidence": 0.5,
+                "assertion": "INFERRED",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "保密协议"
+                  },
+                  {
+                    "clause_id": "C0015",
+                    "quote": "本协议属于双方劳动关系相关专项协议。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 5177,
+            "completion_tokens": 744,
+            "total_tokens": 5921,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024
+            },
+            "prompt_cache_hit_tokens": 1024,
+            "prompt_cache_miss_tokens": 4153
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019"
+            ],
+            "searched_concepts": [
+              "social_insurance.employee_withheld",
+              "social_insurance.cash_replacement",
+              "social_insurance.waived",
+              "social_insurance.employer_share_shifted",
+              "social_insurance.employer_underpays",
+              "social_insurance.employer_liability_excluded",
+              "social_insurance.employee_remedy_excluded",
+              "labor_protection.measures",
+              "labor_protection.training",
+              "labor_protection.special_training_required",
+              "labor_protection.training_excluded",
+              "labor_protection.hazard_exists",
+              "labor_protection.hazard_protection",
+              "training.arrangement",
+              "training.technical",
+              "training.service_penalty",
+              "training.cost",
+              "training.duration_months",
+              "training.penalty_prorated",
+              "termination.grounds",
+              "termination.notice",
+              "termination.notice_days",
+              "termination.approval_required",
+              "termination.employee_right_waived",
+              "termination.employer_unrestricted",
+              "termination.handover",
+              "economic_compensation.statutory",
+              "economic_compensation.settlement_deadline",
+              "economic_compensation.waived",
+              "economic_compensation.reduced",
+              "economic_compensation.statutory_percentage",
+              "economic_compensation.payment_delay_months",
+              "dispute.arbitration",
+              "penalties.obligations",
+              "non_compete.arrangement"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "labor_protection.measures",
+                "value": "乙方应当对保密信息采取合理保护措施",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "乙方应当对保密信息采取合理保护措施，未经甲方书面许可，不得实施下列行为："
+                  }
+                ]
+              },
+              {
+                "concept": "termination.handover",
+                "value": "乙方与甲方劳动关系解除或者终止时，应在三个工作日内：返还持有的甲方文件、设备、存储介质及其他工作资料；删除个人设备、个人邮箱、个人网盘等载体中保存的甲方保密信息及其复制件；不再保留任何形式的甲方内部资料。甲方有权要求乙方书面确认已经完成上述返还及删除义务。",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "乙方与甲方劳动关系解除或者终止时，应在三个工作日内：\n返还持有的甲方文件、设备、存储介质及其他工作资料；\n删除个人设备、个人邮箱、个人网盘等载体中保存的甲方保密信息及其复制件；\n不再保留任何形式的甲方内部资料。\n甲方有权要求乙方书面确认已经完成上述返还及删除义务。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispute.arbitration",
+                "value": true,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0016",
+                    "quote": "协商不成的，可以依法向有管辖权的劳动人事争议仲裁委员会申请仲裁。"
+                  }
+                ]
+              },
+              {
+                "concept": "penalties.obligations",
+                "value": {
+                  "scope": "CONFIDENTIALITY",
+                  "trigger": "乙方违反本协议任何保密义务",
+                  "imposed": true,
+                  "amount_text": "人民币300,000元"
+                },
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0013",
+                    "quote": "乙方违反本协议任何保密义务，应向甲方支付违约金人民币300,000元。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.arrangement",
+                "value": "DEFERRED",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0015",
+                    "quote": "如双方另行签署劳动合同、知识产权协议或者竞业限制协议，本协议与其他协议分别调整相应事项。"
+                  },
+                  {
+                    "clause_id": "C0015",
+                    "quote": "本协议不当然产生竞业限制义务。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 5840,
+            "completion_tokens": 900,
+            "total_tokens": 6740,
+            "prompt_tokens_details": {
+              "cached_tokens": 1920
+            },
+            "prompt_cache_hit_tokens": 1920,
+            "prompt_cache_miss_tokens": 3920
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019"
+            ],
+            "searched_concepts": [
+              "non_compete.personnel",
+              "non_compete.secret_access",
+              "non_compete.access_capability",
+              "non_compete.actual_access",
+              "non_compete.businesses",
+              "non_compete.territories",
+              "non_compete.duration_months",
+              "non_compete.compensation",
+              "non_compete.compensation_floor",
+              "non_compete.salary_base",
+              "non_compete.compensation_deferred",
+              "non_compete.compensation_waived",
+              "non_compete.all_staff",
+              "ip.assignment_scope",
+              "ip.allocations",
+              "ip.personal_rights_waived",
+              "contract.employment_form",
+              "dispatch.auxiliary_noncore",
+              "dispatch.auxiliary_procedure",
+              "dispatch.substitute",
+              "dispatch.worker_pay_method",
+              "dispatch.comparator_pay_method",
+              "dispatch.comparator_pay",
+              "dispatch.comparable_work",
+              "dispatch.agency",
+              "dispatch.host",
+              "dispatch.position",
+              "dispatch.period",
+              "dispatch.position_basis",
+              "dispatch.long_term_position",
+              "dispatch.temporary_duration_months",
+              "dispatch.equal_pay",
+              "dispatch.idle_pay",
+              "dispatch.worker_charges",
+              "dispatch.return_procedure"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "non_compete.access_capability",
+                "value": true,
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "鉴于乙方在甲方任职期间可能接触甲方的技术资料、经营信息、客户资料及其他具有商业价值的信息，为保护甲方合法权益，双方就保密事项达成如下协议。"
+                  }
+                ]
+              },
+              {
+                "concept": "ip.assignment_scope",
+                "value": "DUTY_OR_RESOURCES",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "乙方在任职期间利用甲方资源、执行甲方工作任务形成的软件程序、产品设计、业务方案、技术文档及其他工作成果，其知识产权归属按照法律规定及双方另行签署的知识产权协议确定。"
+                  }
+                ]
+              },
+              {
+                "concept": "ip.allocations",
+                "value": {
+                  "scope": "DUTY_OR_RESOURCES",
+                  "beneficiary": "UNSPECIFIED",
+                  "mode": "STATUTORY"
+                },
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "乙方在任职期间利用甲方资源、执行甲方工作任务形成的软件程序、产品设计、业务方案、技术文档及其他工作成果，其知识产权归属按照法律规定及双方另行签署的知识产权协议确定。"
+                  }
+                ]
+              },
+              {
+                "concept": "ip.allocations",
+                "value": {
+                  "scope": "DUTY_OR_RESOURCES",
+                  "beneficiary": "UNSPECIFIED",
+                  "mode": "SEPARATE_AGREEMENT"
+                },
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "乙方在任职期间利用甲方资源、执行甲方工作任务形成的软件程序、产品设计、业务方案、技术文档及其他工作成果，其知识产权归属按照法律规定及双方另行签署的知识产权协议确定。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.employment_form",
+                "value": "DIRECT",
+                "confidence": 0.85,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：广州星瀚数字科技有限公司"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方（员工）：许文博"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 5899,
+            "completion_tokens": 810,
+            "total_tokens": 6709,
+            "prompt_tokens_details": {
+              "cached_tokens": 1920
+            },
+            "prompt_cache_hit_tokens": 1920,
+            "prompt_cache_miss_tokens": 3979
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019"
+            ],
+            "searched_concepts": [
+              "dispatch.reassignment_procedure",
+              "dispatch.refusal_termination",
+              "dispatch.refusal_compensation_waived",
+              "dispatch.host_direct_dismissal",
+              "dispatch.agreement_disclosure",
+              "dispatch.agency_obligations",
+              "dispatch.host_obligations",
+              "dispatch.obligations_waived",
+              "contract.term_limit_mode",
+              "contract.term_limit_date",
+              "contract.term_limit_months",
+              "capability.ground",
+              "capability.training",
+              "capability.reassignment",
+              "capability.reassessment",
+              "capability.notice",
+              "capability.compensation",
+              "working_hours.days_per_week",
+              "salary.cycle_kind",
+              "salary.cycle_days",
+              "part_time.hourly_minimum",
+              "part_time.injury_insurance",
+              "part_time.employee_notice_days",
+              "part_time.exit_permission",
+              "part_time.exit_constraint",
+              "part_time.employer_notice_days",
+              "part_time.exit_approval",
+              "salary.settlement_period",
+              "worker.damage_liability",
+              "job.change_terms",
+              "discipline.dismissal_terms",
+              "dispatch.onward_assignment",
+              "dispatch.return_terms",
+              "worker.security_payment",
+              "nda.employment_relationship"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "nda.employment_relationship",
+                "value": true,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：广州星瀚数字科技有限公司"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方（员工）：许文博"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "鉴于乙方在甲方任职期间可能接触甲方的技术资料、经营信息、客户资料及其他具有商业价值的信息，为保护甲方合法权益，双方就保密事项达成如下协议。"
+                  },
+                  {
+                    "clause_id": "C0015",
+                    "quote": "本协议属于双方劳动关系相关专项协议。"
+                  }
+                ]
+              },
+              {
+                "concept": "worker.damage_liability",
+                "value": {
+                  "kind": "ACTUAL_DAMAGE_COMPENSATION",
+                  "trigger": "乙方违反本协议保密义务",
+                  "basis": "如违约金不足以弥补甲方损失，乙方还应赔偿甲方因此遭受的全部损失，包括直接损失、预期利益损失、调查费用、律师费、公证费、鉴定费以及甲方为维权支出的其他费用。"
+                },
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0013",
+                    "quote": "如违约金不足以弥补甲方损失，乙方还应赔偿甲方因此遭受的全部损失，包括直接损失、预期利益损失、调查费用、律师费、公证费、鉴定费以及甲方为维权支出的其他费用。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 8574,
+            "completion_tokens": 643,
+            "total_tokens": 9217,
+            "prompt_tokens_details": {
+              "cached_tokens": 1920
+            },
+            "prompt_cache_hit_tokens": 1920,
+            "prompt_cache_miss_tokens": 6654
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019"
+            ],
+            "searched_concepts": [
+              "nda.party_one",
+              "nda.party_two",
+              "nda.information_flow",
+              "nda.protected_information",
+              "nda.exception_public",
+              "nda.exception_prior",
+              "nda.exception_independent",
+              "nda.exception_third_party",
+              "nda.exception_mandatory",
+              "nda.use_restriction",
+              "nda.duration",
+              "nda.return",
+              "nda.remedies"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "nda.party_one",
+                "value": "广州星瀚数字科技有限公司",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：广州星瀚数字科技有限公司"
+                  },
+                  {
+                    "clause_id": "C0018",
+                    "quote": "甲方（盖章）：广州星瀚数字科技有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.party_two",
+                "value": "许文博",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方（员工）：许文博"
+                  },
+                  {
+                    "clause_id": "C0019",
+                    "quote": "乙方（签字）：许文博"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.information_flow",
+                "value": "甲方→乙方",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "鉴于乙方在甲方任职期间可能接触甲方的技术资料、经营信息、客户资料及其他具有商业价值的信息，为保护甲方合法权益，双方就保密事项达成如下协议。"
+                  },
+                  {
+                    "clause_id": "C0004",
+                    "quote": "本协议所称保密信息，是指乙方在任职期间因工作原因知悉、接触或者取得的、尚未公开且甲方采取相应保密措施的技术信息、经营信息及其他商业信息，包括但不限于："
+                  }
+                ]
+              },
+              {
+                "concept": "nda.protected_information",
+                "value": "乙方在任职期间因工作原因知悉、接触或者取得的、尚未公开且甲方采取相应保密措施的技术信息、经营信息及其他商业信息，包括但不限于：软件源代码、算法逻辑、技术架构、接口文档、数据库结构及研发方案；产品规划、业务流程、内部操作规范及未公开项目计划；客户名单、客户需求、联系方式、报价方案、交易记录及合作条件；供应商资料、采购价格、成本结构及渠道信息；销售数据、经营数据、财务预测、市场策略及内部分析报告；甲方依法承担保密义务的第三方信息；其他甲方以书面、电子标识或者其他合理方式明确要求保密的信息。",
+                "confidence": 0.97,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "本协议所称保密信息，是指乙方在任职期间因工作原因知悉、接触或者取得的、尚未公开且甲方采取相应保密措施的技术信息、经营信息及其他商业信息，包括但不限于：\n软件源代码、算法逻辑、技术架构、接口文档、数据库结构及研发方案；\n产品规划、业务流程、内部操作规范及未公开项目计划；\n客户名单、客户需求、联系方式、报价方案、交易记录及合作条件；\n供应商资料、采购价格、成本结构及渠道信息；\n销售数据、经营数据、财务预测、市场策略及内部分析报告；\n甲方依法承担保密义务的第三方信息；\n其他甲方以书面、电子标识或者其他合理方式明确要求保密的信息。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_public",
+                "value": true,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "下列信息不属于保密信息：\n已经依法公开的信息；"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_prior",
+                "value": true,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方能够证明在从甲方取得之前已经合法知悉的信息；"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_independent",
+                "value": true,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方未使用甲方保密信息而独立开发形成的信息。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_third_party",
+                "value": true,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方从有权披露该信息的第三方合法取得的信息；"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_mandatory",
+                "value": true,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "因法律法规、司法机关、行政机关或者其他有权机关依法要求，乙方必须披露相关保密信息的，不视为违反本协议。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.use_restriction",
+                "value": "乙方应当对保密信息采取合理保护措施，未经甲方书面许可，不得：向任何无权知悉的第三方披露、提供或者转让保密信息；将保密信息用于履行工作职责以外的目的；擅自复制、下载、拍摄、截屏、转存或者通过私人邮箱、个人网盘、即时通信软件等方式传输保密信息；协助他人获取、使用或者披露甲方保密信息。因正常履行岗位职责确需向甲方其他工作人员披露的，应当遵循必要知悉原则。乙方仅可在履行工作职责所必要的范围内使用甲方文件、设备、账号及数据。未经甲方许可，不得将包含保密信息的文件或者数据长期保存在个人电脑、私人移动存储设备或者非甲方授权的网络空间中。",
+                "confidence": 0.97,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "乙方应当对保密信息采取合理保护措施，未经甲方书面许可，不得实施下列行为：\n向任何无权知悉的第三方披露、提供或者转让保密信息；\n将保密信息用于履行工作职责以外的目的；\n擅自复制、下载、拍摄、截屏、转存或者通过私人邮箱、个人网盘、即时通信软件等方式传输保密信息；\n协助他人获取、使用或者披露甲方保密信息。\n因正常履行岗位职责确需向甲方其他工作人员披露的，应当遵循必要知悉原则。"
+                  },
+                  {
+                    "clause_id": "C0008",
+                    "quote": "乙方仅可在履行工作职责所必要的范围内使用甲方文件、设备、账号及数据。\n未经甲方许可，不得将包含保密信息的文件或者数据长期保存在个人电脑、私人移动存储设备或者非甲方授权的网络空间中。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.duration",
+                "value": "乙方在劳动关系存续期间以及劳动关系解除或者终止后，均应继续履行保密义务。对于依法构成商业秘密的信息，保密义务持续至该信息依法进入公开领域或者不再具备商业秘密属性之日。对于甲方其他未公开内部信息，乙方离职后的保密期限为五年。",
+                "confidence": 0.97,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "乙方在劳动关系存续期间以及劳动关系解除或者终止后，均应继续履行保密义务。\n对于依法构成商业秘密的信息，保密义务持续至该信息依法进入公开领域或者不再具备商业秘密属性之日。\n对于甲方其他未公开内部信息，乙方离职后的保密期限为五年。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.return",
+                "value": "乙方与甲方劳动关系解除或者终止时，应在三个工作日内：返还持有的甲方文件、设备、存储介质及其他工作资料；删除个人设备、个人邮箱、个人网盘等载体中保存的甲方保密信息及其复制件；不再保留任何形式的甲方内部资料。甲方有权要求乙方书面确认已经完成上述返还及删除义务。因法律规定必须保存的材料除外，但乙方应继续承担相应保密义务。",
+                "confidence": 0.97,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "乙方与甲方劳动关系解除或者终止时，应在三个工作日内：\n返还持有的甲方文件、设备、存储介质及其他工作资料；\n删除个人设备、个人邮箱、个人网盘等载体中保存的甲方保密信息及其复制件；\n不再保留任何形式的甲方内部资料。\n甲方有权要求乙方书面确认已经完成上述返还及删除义务。\n因法律规定必须保存的材料除外，但乙方应继续承担相应保密义务。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.remedies",
+                "value": "乙方违反本协议保密义务的，应立即停止侵害并采取合理措施防止损失扩大。乙方违反本协议任何保密义务，应向甲方支付违约金人民币300,000元。如违约金不足以弥补甲方损失，乙方还应赔偿甲方因此遭受的全部损失，包括直接损失、预期利益损失、调查费用、律师费、公证费、鉴定费以及甲方为维权支出的其他费用。",
+                "confidence": 0.97,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0013",
+                    "quote": "乙方违反本协议保密义务的，应立即停止侵害并采取合理措施防止损失扩大。\n乙方违反本协议任何保密义务，应向甲方支付违约金人民币300,000元。\n如违约金不足以弥补甲方损失，乙方还应赔偿甲方因此遭受的全部损失，包括直接损失、预期利益损失、调查费用、律师费、公证费、鉴定费以及甲方为维权支出的其他费用。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 4397,
+            "completion_tokens": 2039,
+            "total_tokens": 6436,
+            "prompt_tokens_details": {
+              "cached_tokens": 1920
+            },
+            "prompt_cache_hit_tokens": 1920,
+            "prompt_cache_miss_tokens": 2477
+          },
+          "provider": "deepseek"
+        }
+      ]
+    }
+  ],
+  "trace_id": "FACT-64fd228cd05d408a827785cb2dfae006"
+}

@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 from typing import Tuple
+from dataclasses import replace
 
 from review_v2.house_lease_checklist import ReviewCheckpoint
 
@@ -145,6 +146,13 @@ WORK_CONTRACT_REVIEW_CHECKLIST: Tuple[ReviewCheckpoint, ...] = (
     _required("W-11-03", "work_material_acceptance_attachment", "材料和验收记录附件", "中", ("材料清单", "验收记录", "交接单", "签收", "检测报告"), "材料清单、交接和验收记录不完整，材料瑕疵和成果交付难以证明。", "材料清单、来料检验记录、交接单、验收记录、检测报告、整改记录均作为合同履行资料保存。", "《民法典》第775条、第780条、第781条"),
     _required("W-11-04", "work_attachment_priority", "附件效力和冲突顺位", "中", ("附件", "同等效力", "冲突", "优先适用", "补充协议"), "未约定附件效力和冲突顺位，正文、图纸、样品、技术规范不一致时适用规则不清。", "本合同附件、补充协议、图纸、样品确认单、技术规范与正文具有同等效力；内容不一致的，按补充协议、特别约定、技术规范、图纸样品、合同正文的顺序适用。", "《民法典》第510条、第511条"),
 )
+
+
+WORK_CONTRACT_REVIEW_CHECKLIST = tuple(
+    replace(c, applicable_if="承揽工作存在依法需专项许可、特种设备资质、专业执业资格或强制认证的触发事实时适用。")
+    if c.node_id == "work_professional_license" else
+    replace(c, applicable_if="存在转包或分包场景时适用。")
+    if c.node_id == "work_illegal_total_subcontract" else c for c in WORK_CONTRACT_REVIEW_CHECKLIST)
 
 
 def get_work_contract_checklist() -> Tuple[ReviewCheckpoint, ...]:

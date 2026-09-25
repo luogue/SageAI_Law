@@ -124,7 +124,7 @@ def get_health_status() -> Dict[str, Any]:
             'success_rate': round(success_rate, 2),
             'latency': {
                 'avg_ms': round(avg_latency * 1000, 2),
-                'min_ms': round(metrics['requests']['latency']['min'] * 1000, 2),
+                'min_ms': round(metrics['requests']['latency']['min'] * 1000, 2) if latency_data['count'] else 0,
                 'max_ms': round(metrics['requests']['latency']['max'] * 1000, 2)
             },
             'status_codes': dict(metrics['requests']['status_codes'])

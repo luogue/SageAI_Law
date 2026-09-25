@@ -1,0 +1,301 @@
+..............FF.                                                        [100%]
+================================== FAILURES ===================================
+______ test_remuneration_is_independent_of_probation[True-\u901a\u8fc7] _______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001822E9FF2B0>
+regular = True, expected = 'ͨ��'
+
+    @pytest.mark.parametrize('regular,expected',[(True,'ͨ��'),(False,'���ָ���')])
+    def test_remuneration_is_independent_of_probation(monkeypatch,regular,expected):
+     from review_v2 import employment_fact_pipeline as p
+     from review_v2.engine import review_contract_v2
+     from review_v2.clause_parser import parse_contract_clauses
+     from backend.tests.test_employment_fact_pipeline import fact,packet,verified_packet
+     text='�Ͷ���ͬ\n��������ĳ���Ͷ���ס����������\n������н��ǧԪ��\n��ʽ��н��ǧԪ��\nÿ�°���ͨ�����и��'
+     cs=parse_contract_clauses(text)
+     values=[('identity.employer_representative','��ĳ','��������ĳ���Ͷ���ס����������'),('identity.worker_address','������','��������ĳ���Ͷ���ס����������'),
+     ('probation.salary',{'amount_text':'��ǧ','unit':'CNY/MONTH'},'������н��ǧԪ��'),
+     ('salary.payment_date','ÿ�°���','ÿ�°���ͨ�����и��'),('salary.payment_method','���и���','ÿ�°���ͨ�����и��')]
+     if regular:values.append(('salary.regular',{'amount_text':'��ǧ','unit':'CNY/MONTH'},'��ʽ��н��ǧԪ��'))
+     monkeypatch.setattr(p,'extract',lambda *a,**k:packet(cs,[fact(cs,c,v,q) for c,v,q in values]))
+     monkeypatch.setattr(p,'verify',verified_packet)
+>    r=review_contract_v2(text,'labor');rs={i['item_id']:i for i in r['items']}
+
+backend\tests\test_dispatch_completeness.py:72: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\review_v2\engine.py:51664: in review_contract_v2
+    return run(contract_text, contract_type, _review_contract_v2_legacy, **options)
+backend\review_v2\employment_fact_pipeline.py:36: in run
+    extracted = FactStore(source, clauses, raw)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <review_v2.employment_fact_store.FactStore object at 0x000001822E9FFA90>
+source = '�Ͷ���ͬ\n��������ĳ���Ͷ���ס����������\n������н��ǧԪ��\n��ʽ��н��ǧԪ��\nÿ�°���ͨ�����и��'
+clauses = [ParsedClause(clause_id='C0001', location='��1��', title='�Ͷ���ͬ', text='�Ͷ���ͬ', section_type='��ʽ��ͬ����', level=0, raw_text='...umber='', item_number='', sentence_index=1, start_offset=39, end_offset=50, source_type='BODY', party_obligation=True)]
+raw = [{'response': {'schema_version': 'employment-facts-1.0', 'reviewed_clause_ids': ['C0001', 'C0002', 'C0003', 'C0004', '...nit': 'CNY/MONTH'}, 'confidence': 1, 'assertion': 'EXPLICIT', ...}]}, 'provider': 'deepseek', 'model': 'test-fixture'}]
+
+    def __init__(self, source, clauses, raw):
+        self.source = source
+        self.clauses = clauses
+        self.raw = raw
+        self.hash = hashlib.sha256(source.encode()).hexdigest()
+        self.facts = []
+        self.coverage = {}
+        self.decisions = {}
+        self.by_id = {}
+        self.adverse_cache = {}
+        self.element_specs = deepcopy(ELEMENTS)
+        self.normalization_events = []
+        from review_v2.employment_fact_schema import NONCRITICAL_FACTS
+        self.validation_diagnostics = []
+        self.quarantined_concepts = set()
+        searched_concepts = set()
+        unresolved_concepts = set()
+        by_clause = {c.clause_id: c for c in clauses}
+        for packet_index, packet in enumerate(raw):
+            data = packet.get('response') if isinstance(packet, dict) else None
+            if not isinstance(data, dict):
+                self._schema_error('INVALID_FACT_ENVELOPE', 'response', data, 'object')
+            if data.get('schema_version') != SCHEMA_VERSION:
+                self._schema_error('SCHEMA_VERSION_MISMATCH', 'schema_version', data.get('schema_version'), SCHEMA_VERSION)
+            reviewed = data.get('reviewed_clause_ids')
+            if not isinstance(reviewed, list) or not all(isinstance(c,str) for c in reviewed) or set(reviewed) != set(by_clause):
+                self._schema_error('INCOMPLETE_FULL_TEXT_COVERAGE', 'reviewed_clause_ids', reviewed, sorted(by_clause))
+            coverage = data.get('coverage')
+            if 'searched_concepts' in data:
+                searched = data['searched_concepts']
+                uncertain = data.get('unresolved_concepts',[])
+                if not isinstance(searched,list) or not all(isinstance(c,str) and c in CONCEPTS for c in searched):
+                    self._schema_error('INVALID_SEARCH_SCOPE','searched_concepts',searched,sorted(CONCEPTS))
+                # Every topic batch reads the same full document. Cross-batch
+                # uncertainty is retained globally; unknown concepts still fail.
+                if not isinstance(uncertain,list) or not all(isinstance(c,str) and c in CONCEPTS for c in uncertain):
+                    self._schema_error('INVALID_UNRESOLVED_SCOPE','unresolved_concepts',uncertain,sorted(CONCEPTS))
+                searched_concepts.update(searched)
+                unresolved_concepts.update(uncertain)
+                coverage = {c:'UNCERTAIN' for c in searched}
+            if not isinstance(coverage, dict):
+                self._schema_error('INVALID_COVERAGE_TYPE', 'coverage', coverage, 'concept -> extraction status mapping')
+            self.coverage.update(coverage)
+            if not isinstance(data.get('facts'), list):
+                self._schema_error('INVALID_FACTS_TYPE', 'facts', data.get('facts'), 'array')
+            for index, fact in enumerate(data['facts']):
+                concept = fact.get('concept') if isinstance(fact, dict) else None
+                try:
+                    row = self._validate_fact(fact, by_clause, coverage)
+                except FactExtractionError as exc:
+                    for diagnostic in exc.diagnostics:
+                        diagnostic.update(fact_id=(fact.get('fact_id') if isinstance(fact,dict) else None) or f'candidate-{packet_index}-{index}',
+                                          concept=concept, model_raw_value=fact,
+                                          evidence=fact.get('evidence') if isinstance(fact,dict) else None)
+                        diagnostic.update(fact_key=concept,raw_value=fact.get('value') if isinstance(fact,dict) else fact,normalized_value=None,
+                            allowed_values=sorted(ENUMS[concept]) if concept in ENUMS else None,
+                            source_clause=[{'clause_id':e.get('clause_id'),'section':by_clause[e['clause_id']].location,'text':by_clause[e['clause_id']].text} for e in (fact.get('evidence',[]) if isinstance(fact,dict) else []) if isinstance(e,dict) and e.get('clause_id') in by_clause])
+                        if concept in NONCRITICAL_FACTS and diagnostic['failed_stage'] in {'NORMALIZATION','FACT_SCHEMA'}:
+                            diagnostic['disposition'] = 'QUARANTINE_AND_MANUAL_REVIEW'
+                            self.quarantined_concepts.add(concept)
+                        self.validation_diagnostics.append(diagnostic)
+                    continue
+                if row['fact_id'] not in self.by_id:
+                    self.facts.append(row)
+                    self.by_id[row['fact_id']] = row
+                else:
+                    previous = self.by_id[row['fact_id']]
+                    rank = lambda f: (f['assertion']=='EXPLICIT', f['confidence'])
+                    if rank(row) > rank(previous):
+                        # Identical value/source duplicates must not let an
+                        # earlier inferred or low-confidence record win by order.
+                        previous.update(row)
+        if set(self.coverage) != set(CONCEPTS):
+            self._schema_error('INCOMPLETE_CONCEPT_COVERAGE', 'coverage.keys', sorted(self.coverage), sorted(CONCEPTS))
+        for key, status in self.coverage.items():
+            if key in self.quarantined_concepts:
+                self.coverage[key] = 'UNCERTAIN'
+                continue
+            if key in searched_concepts:
+                rows = [f for f in self.facts if f['concept']==key]
+                self.coverage[key] = ('EXTRACTED' if any(f['assertion']=='EXPLICIT' and f['confidence']>=.75 for f in rows)
+                    else 'UNCERTAIN' if rows or key in unresolved_concepts else 'ABSENT')
+                continue
+            if isinstance(status,str) and status in ENUMS.get(key, set()) and any(f['concept']==key and f['normalized_value']==status for f in self.facts):
+                self.normalization_events.append({'concept':key,'field':'coverage','from':status,'to':'EXTRACTED'})
+                self.coverage[key] = status = 'EXTRACTED'
+            if status not in ('EXTRACTED','ABSENT','UNCERTAIN'):
+                self.validation_diagnostics.append(self._diagnostic('INVALID_EXTRACTION_COVERAGE', 'coverage.'+key, status, ['EXTRACTED','ABSENT','UNCERTAIN']))
+            elif status != 'UNCERTAIN' and (status == 'EXTRACTED') != any(f['concept'] == key for f in self.facts):
+                self.validation_diagnostics.append(self._diagnostic('CONTRADICTORY_EXTRACTION', 'coverage.'+key, status, 'EXTRACTED iff validated fact exists; otherwise ABSENT or UNCERTAIN'))
+        if any(d['disposition'] == 'BLOCK' for d in self.validation_diagnostics):
+            exc = FactExtractionError('FACT_STORE_VALIDATION_FAILED', diagnostics=self.validation_diagnostics)
+            exc.raw_output = raw
+>           raise exc
+E           review_v2.fact_validation.FactExtractionError: FACT_STORE_VALIDATION_FAILED: INVALID_ENUM; CONTRADICTORY_EXTRACTION
+
+backend\review_v2\employment_fact_store.py:222: FactExtractionError
+_ test_remuneration_is_independent_of_probation[False-\u90e8\u5206\u8986\u76d6] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000182395ABA30>
+regular = False, expected = '���ָ���'
+
+    @pytest.mark.parametrize('regular,expected',[(True,'ͨ��'),(False,'���ָ���')])
+    def test_remuneration_is_independent_of_probation(monkeypatch,regular,expected):
+     from review_v2 import employment_fact_pipeline as p
+     from review_v2.engine import review_contract_v2
+     from review_v2.clause_parser import parse_contract_clauses
+     from backend.tests.test_employment_fact_pipeline import fact,packet,verified_packet
+     text='�Ͷ���ͬ\n��������ĳ���Ͷ���ס����������\n������н��ǧԪ��\n��ʽ��н��ǧԪ��\nÿ�°���ͨ�����и��'
+     cs=parse_contract_clauses(text)
+     values=[('identity.employer_representative','��ĳ','��������ĳ���Ͷ���ס����������'),('identity.worker_address','������','��������ĳ���Ͷ���ס����������'),
+     ('probation.salary',{'amount_text':'��ǧ','unit':'CNY/MONTH'},'������н��ǧԪ��'),
+     ('salary.payment_date','ÿ�°���','ÿ�°���ͨ�����и��'),('salary.payment_method','���и���','ÿ�°���ͨ�����и��')]
+     if regular:values.append(('salary.regular',{'amount_text':'��ǧ','unit':'CNY/MONTH'},'��ʽ��н��ǧԪ��'))
+     monkeypatch.setattr(p,'extract',lambda *a,**k:packet(cs,[fact(cs,c,v,q) for c,v,q in values]))
+     monkeypatch.setattr(p,'verify',verified_packet)
+>    r=review_contract_v2(text,'labor');rs={i['item_id']:i for i in r['items']}
+
+backend\tests\test_dispatch_completeness.py:72: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\review_v2\engine.py:51664: in review_contract_v2
+    return run(contract_text, contract_type, _review_contract_v2_legacy, **options)
+backend\review_v2\employment_fact_pipeline.py:36: in run
+    extracted = FactStore(source, clauses, raw)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <review_v2.employment_fact_store.FactStore object at 0x00000182395AB160>
+source = '�Ͷ���ͬ\n��������ĳ���Ͷ���ס����������\n������н��ǧԪ��\n��ʽ��н��ǧԪ��\nÿ�°���ͨ�����и��'
+clauses = [ParsedClause(clause_id='C0001', location='��1��', title='�Ͷ���ͬ', text='�Ͷ���ͬ', section_type='��ʽ��ͬ����', level=0, raw_text='...umber='', item_number='', sentence_index=1, start_offset=39, end_offset=50, source_type='BODY', party_obligation=True)]
+raw = [{'response': {'schema_version': 'employment-facts-1.0', 'reviewed_clause_ids': ['C0001', 'C0002', 'C0003', 'C0004', '...', 'value': '���и���', 'confidence': 1, 'assertion': 'EXPLICIT', ...}]}, 'provider': 'deepseek', 'model': 'test-fixture'}]
+
+    def __init__(self, source, clauses, raw):
+        self.source = source
+        self.clauses = clauses
+        self.raw = raw
+        self.hash = hashlib.sha256(source.encode()).hexdigest()
+        self.facts = []
+        self.coverage = {}
+        self.decisions = {}
+        self.by_id = {}
+        self.adverse_cache = {}
+        self.element_specs = deepcopy(ELEMENTS)
+        self.normalization_events = []
+        from review_v2.employment_fact_schema import NONCRITICAL_FACTS
+        self.validation_diagnostics = []
+        self.quarantined_concepts = set()
+        searched_concepts = set()
+        unresolved_concepts = set()
+        by_clause = {c.clause_id: c for c in clauses}
+        for packet_index, packet in enumerate(raw):
+            data = packet.get('response') if isinstance(packet, dict) else None
+            if not isinstance(data, dict):
+                self._schema_error('INVALID_FACT_ENVELOPE', 'response', data, 'object')
+            if data.get('schema_version') != SCHEMA_VERSION:
+                self._schema_error('SCHEMA_VERSION_MISMATCH', 'schema_version', data.get('schema_version'), SCHEMA_VERSION)
+            reviewed = data.get('reviewed_clause_ids')
+            if not isinstance(reviewed, list) or not all(isinstance(c,str) for c in reviewed) or set(reviewed) != set(by_clause):
+                self._schema_error('INCOMPLETE_FULL_TEXT_COVERAGE', 'reviewed_clause_ids', reviewed, sorted(by_clause))
+            coverage = data.get('coverage')
+            if 'searched_concepts' in data:
+                searched = data['searched_concepts']
+                uncertain = data.get('unresolved_concepts',[])
+                if not isinstance(searched,list) or not all(isinstance(c,str) and c in CONCEPTS for c in searched):
+                    self._schema_error('INVALID_SEARCH_SCOPE','searched_concepts',searched,sorted(CONCEPTS))
+                # Every topic batch reads the same full document. Cross-batch
+                # uncertainty is retained globally; unknown concepts still fail.
+                if not isinstance(uncertain,list) or not all(isinstance(c,str) and c in CONCEPTS for c in uncertain):
+                    self._schema_error('INVALID_UNRESOLVED_SCOPE','unresolved_concepts',uncertain,sorted(CONCEPTS))
+                searched_concepts.update(searched)
+                unresolved_concepts.update(uncertain)
+                coverage = {c:'UNCERTAIN' for c in searched}
+            if not isinstance(coverage, dict):
+                self._schema_error('INVALID_COVERAGE_TYPE', 'coverage', coverage, 'concept -> extraction status mapping')
+            self.coverage.update(coverage)
+            if not isinstance(data.get('facts'), list):
+                self._schema_error('INVALID_FACTS_TYPE', 'facts', data.get('facts'), 'array')
+            for index, fact in enumerate(data['facts']):
+                concept = fact.get('concept') if isinstance(fact, dict) else None
+                try:
+                    row = self._validate_fact(fact, by_clause, coverage)
+                except FactExtractionError as exc:
+                    for diagnostic in exc.diagnostics:
+                        diagnostic.update(fact_id=(fact.get('fact_id') if isinstance(fact,dict) else None) or f'candidate-{packet_index}-{index}',
+                                          concept=concept, model_raw_value=fact,
+                                          evidence=fact.get('evidence') if isinstance(fact,dict) else None)
+                        diagnostic.update(fact_key=concept,raw_value=fact.get('value') if isinstance(fact,dict) else fact,normalized_value=None,
+                            allowed_values=sorted(ENUMS[concept]) if concept in ENUMS else None,
+                            source_clause=[{'clause_id':e.get('clause_id'),'section':by_clause[e['clause_id']].location,'text':by_clause[e['clause_id']].text} for e in (fact.get('evidence',[]) if isinstance(fact,dict) else []) if isinstance(e,dict) and e.get('clause_id') in by_clause])
+                        if concept in NONCRITICAL_FACTS and diagnostic['failed_stage'] in {'NORMALIZATION','FACT_SCHEMA'}:
+                            diagnostic['disposition'] = 'QUARANTINE_AND_MANUAL_REVIEW'
+                            self.quarantined_concepts.add(concept)
+                        self.validation_diagnostics.append(diagnostic)
+                    continue
+                if row['fact_id'] not in self.by_id:
+                    self.facts.append(row)
+                    self.by_id[row['fact_id']] = row
+                else:
+                    previous = self.by_id[row['fact_id']]
+                    rank = lambda f: (f['assertion']=='EXPLICIT', f['confidence'])
+                    if rank(row) > rank(previous):
+                        # Identical value/source duplicates must not let an
+                        # earlier inferred or low-confidence record win by order.
+                        previous.update(row)
+        if set(self.coverage) != set(CONCEPTS):
+            self._schema_error('INCOMPLETE_CONCEPT_COVERAGE', 'coverage.keys', sorted(self.coverage), sorted(CONCEPTS))
+        for key, status in self.coverage.items():
+            if key in self.quarantined_concepts:
+                self.coverage[key] = 'UNCERTAIN'
+                continue
+            if key in searched_concepts:
+                rows = [f for f in self.facts if f['concept']==key]
+                self.coverage[key] = ('EXTRACTED' if any(f['assertion']=='EXPLICIT' and f['confidence']>=.75 for f in rows)
+                    else 'UNCERTAIN' if rows or key in unresolved_concepts else 'ABSENT')
+                continue
+            if isinstance(status,str) and status in ENUMS.get(key, set()) and any(f['concept']==key and f['normalized_value']==status for f in self.facts):
+                self.normalization_events.append({'concept':key,'field':'coverage','from':status,'to':'EXTRACTED'})
+                self.coverage[key] = status = 'EXTRACTED'
+            if status not in ('EXTRACTED','ABSENT','UNCERTAIN'):
+                self.validation_diagnostics.append(self._diagnostic('INVALID_EXTRACTION_COVERAGE', 'coverage.'+key, status, ['EXTRACTED','ABSENT','UNCERTAIN']))
+            elif status != 'UNCERTAIN' and (status == 'EXTRACTED') != any(f['concept'] == key for f in self.facts):
+                self.validation_diagnostics.append(self._diagnostic('CONTRADICTORY_EXTRACTION', 'coverage.'+key, status, 'EXTRACTED iff validated fact exists; otherwise ABSENT or UNCERTAIN'))
+        if any(d['disposition'] == 'BLOCK' for d in self.validation_diagnostics):
+            exc = FactExtractionError('FACT_STORE_VALIDATION_FAILED', diagnostics=self.validation_diagnostics)
+            exc.raw_output = raw
+>           raise exc
+E           review_v2.fact_validation.FactExtractionError: FACT_STORE_VALIDATION_FAILED: INVALID_ENUM; CONTRADICTORY_EXTRACTION
+
+backend\review_v2\employment_fact_store.py:222: FactExtractionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_dispatch_completeness.py::test_remuneration_is_independent_of_probation[True-\u901a\u8fc7]
+FAILED backend/tests/test_dispatch_completeness.py::test_remuneration_is_independent_of_probation[False-\u90e8\u5206\u8986\u76d6]
+2 failed, 15 passed, 6 warnings in 13.71s

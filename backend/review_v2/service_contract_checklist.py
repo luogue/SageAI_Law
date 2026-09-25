@@ -174,5 +174,16 @@ SERVICE_REVIEW_CHECKLIST: Tuple[ReviewCheckpoint, ...] = (
 )
 
 
+from dataclasses import replace
+from review_v2.service_scenarios import CONDITIONS
+
+SERVICE_REVIEW_CHECKLIST = tuple(replace(rule,
+    prerequisite_facts=(CONDITIONS[rule.item_id],),
+    applicable_if='仅在已确认' + {'consumer':'个人生活消费','prepaid_consumer':'消费者身份且有预付式消费',
+        'training':'课程教学服务','platform':'互联网平台服务','indefinite':'不定期服务',
+        'qualified_staff':'法定或合同约定的人员执业资格要求',
+        'qualification_documents':'明确约定提供资质证明材料'}[CONDITIONS[rule.item_id]] + '时适用。')
+    if rule.item_id in CONDITIONS else rule for rule in SERVICE_REVIEW_CHECKLIST)
+
 def get_service_checklist() -> Tuple[ReviewCheckpoint, ...]:
     return SERVICE_REVIEW_CHECKLIST

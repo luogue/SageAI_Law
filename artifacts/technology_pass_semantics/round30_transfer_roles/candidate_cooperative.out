@@ -1,0 +1,81 @@
+F.F                                                                      [100%]
+================================== FAILURES ===================================
+____ test_duplicate_improvement_and_copy_retention_findings_are_aggregated ____
+
+cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_duplicate_improvement_and_copy_retention_findings_are_aggregated(cooperative_review: dict):
+        findings = cooperative_review["risk_findings"]
+    
+        improvement = [row for row in findings if row["risk_group"] == "followup_improvement_ownership"]
+        assert len(improvement) == 1
+        assert improvement[0]["source_review_ids"] == [
+            "TC-02-01", "TC-10-01", "TC-10-02", "TC-10-04",
+        ]
+        assert "偏向完成方" not in improvement[0]["title"]
+        assert "甲方无法继续使用" not in str(improvement[0])
+        assert not any(
+            row["risk_group"] in {"improvement_sharing_license", "improvement_no_unlawful_restriction"}
+            for row in findings
+        )
+    
+        retention = [row for row in findings if row["risk_group"] == "technology_data_secondary_use"]
+        assert len(retention) == 1
+>       assert retention[0]["source_review_ids"] == ["TC-11-03", "TECH-SHARED-DATA-01"]
+E       AssertionError: assert ['TECH-SHARED-DATA-01'] == ['TC-11-03', ...ARED-DATA-01']
+E         
+E         At index 0 diff: 'TECH-SHARED-DATA-01' != 'TC-11-03'
+E         Right contains one more item: 'TECH-SHARED-DATA-01'
+E         Use -v to get more diff
+
+backend\tests\test_cooperative_development_evidence_fact_conclusion_consistency.py:258: AssertionError
+_____ test_competition_and_improvement_rules_reuse_direct_atomic_evidence _____
+
+latest_cooperative_review = {'success': True, 'contract_type': 'technology', 'selected_contract_type': 'technology', 'domain_selection_resolution'..., 'contract_subtype': 'COOPERATIVE_DEVELOPMENT', ...}, 'compatibility': 'COMPATIBLE', 'resolution': 'AGREE', ...}, ...}
+
+    def test_competition_and_improvement_rules_reuse_direct_atomic_evidence(latest_cooperative_review: dict):
+        by_id = _items(latest_cooperative_review)
+        competition = by_id["TC-02-01"]
+>       assert competition["coverage_status"] == "风险条款"
+E       AssertionError: assert '通过' == '风险条款'
+E         
+E         - 风险条款
+E         + 通过
+
+backend\tests\test_cooperative_development_latest_regressions.py:55: AssertionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:159
+  F:\ai\Sage\backend\main.py:159: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_cooperative_development_evidence_fact_conclusion_consistency.py::test_duplicate_improvement_and_copy_retention_findings_are_aggregated
+FAILED backend/tests/test_cooperative_development_latest_regressions.py::test_competition_and_improvement_rules_reuse_direct_atomic_evidence
+2 failed, 1 passed, 5 warnings in 20.46s

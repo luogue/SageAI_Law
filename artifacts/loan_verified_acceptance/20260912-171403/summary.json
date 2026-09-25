@@ -1,0 +1,1496 @@
+[
+  {
+    "file": "F:\\ai\\Sage\\test_data\\72 无抵押借款.docx",
+    "file_sha256": "6878e648ecd7c983c7103c54a67a43e901cd0ec820ff0ce5da60320c2ea64930",
+    "source_sha256": "e15a8bbc871a7f4e6a327794d545d35883885f52ac44f0809e51e46cc54b4735",
+    "source_characters": 1164,
+    "status": "PASS",
+    "gate": {
+      "status": "REPORT_READY",
+      "failures": [],
+      "gate_results": {
+        "VERIFIED_LOAN_FACT_PROVENANCE": "PASS",
+        "ALL_48_LOAN_CONSUMERS": "PASS"
+      }
+    },
+    "coverage": {
+      "通过": 10,
+      "不适用": 25,
+      "缺失": 7,
+      "待核验": 4,
+      "部分覆盖": 2
+    },
+    "rules": 48,
+    "active_concepts": [
+      "common.amounts",
+      "common.dispute_institution",
+      "common.dispute_method",
+      "common.effective_condition",
+      "common.effective_date",
+      "common.liability",
+      "common.parties",
+      "common.signing_date",
+      "common.term",
+      "loan.bank_relending",
+      "loan.borrower_kind",
+      "loan.charges",
+      "loan.compound",
+      "loan.cost_combined_cap",
+      "loan.cost_components",
+      "loan.cost_cumulative",
+      "loan.cost_exclusive",
+      "loan.cost_replacement",
+      "loan.debt_instrument",
+      "loan.delivered_principal",
+      "loan.duration",
+      "loan.early_repayment",
+      "loan.element.loan_address_change_notice",
+      "loan.element.loan_agreed_rate",
+      "loan.element.loan_collection_channel",
+      "loan.element.loan_collection_records",
+      "loan.element.loan_delivery_formation",
+      "loan.element.loan_disbursement_record",
+      "loan.element.loan_enterprise_purpose",
+      "loan.element.loan_financial_rate_compliance",
+      "loan.element.loan_interest_base",
+      "loan.element.loan_interest_period",
+      "loan.element.loan_interruption_record",
+      "loan.element.loan_lender_identity",
+      "loan.element.loan_maturity",
+      "loan.element.loan_no_interest_default",
+      "loan.element.loan_offset_order",
+      "loan.element.loan_overdue_base",
+      "loan.element.loan_overdue_period",
+      "loan.element.loan_overdue_rate",
+      "loan.element.loan_receipt_document",
+      "loan.element.loan_repayment_account",
+      "loan.element.loan_repayment_method",
+      "loan.element.loan_repayment_receipt",
+      "loan.element.loan_service_address",
+      "loan.element.loan_voucher_creditor",
+      "loan.extension",
+      "loan.extension_excluded",
+      "loan.financing_fee",
+      "loan.funds_return",
+      "loan.guarantee",
+      "loan.household",
+      "loan.interest_formula",
+      "loan.joint_business",
+      "loan.known_illegal_use",
+      "loan.lender_kind",
+      "loan.limitation_risk",
+      "loan.maturity_date",
+      "loan.principal",
+      "loan.refinancing",
+      "loan.regular_rate",
+      "loan.regular_rate_period",
+      "loan.sale_security",
+      "loan.security",
+      "loan.spouse",
+      "loan.unlicensed_repeated_lending",
+      "loan.upfront_deduction",
+      "loan.voucher_mechanism"
+    ],
+    "calls": 26
+  },
+  {
+    "file": "F:\\ai\\Sage\\test_data\\98 借款合同.docx",
+    "file_sha256": "b0add44adf035d4025d62b511645cb2cc324eab094a3511a27c9cc7129c2b809",
+    "source_sha256": "53b70b7ac320a8fd97d6601625c3ee1cea32f196094c1d131a4b9b0a7f7962ba",
+    "source_characters": 2183,
+    "status": "BLOCKED",
+    "error": "FactExtractionError: FACT_VERIFICATION_REJECTED",
+    "diagnostics": [
+      {
+        "failed_stage": "UNIFIED_FACT_VALIDATION",
+        "fact_id": null,
+        "field": "checks",
+        "validation_rule": "FACT_VERIFICATION_REJECTED",
+        "model_raw_value": null,
+        "evidence": null,
+        "expected": null,
+        "actual": [
+          {
+            "fact_id": "CF-2e985edff157adf0cdec1a73",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-5fed947627af8bcb1cec4b38",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-d0de5eb422a43413891a8112",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-ddd00db4d2221fdd6572ebce",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-b968dd8556f4c5e62ed0fb53",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-9de92ab8a9f32d072acc3e10",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-df6b884d25e6ea7217d9cb23",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-71b85e6abc4e55f6f94fce29",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-971cf26e95663c1bd25c1e60",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-018ac6a938aa7b1faecbceb5",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-11aba8dd6f5f91d1559dc876",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-c556dbbfec2713cfcb2e4489",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-dc3b80d3ea4f58ce184d9a7c",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-ba9801b894d01eee44f19642",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-7494bbbd68a89063f6d030e1",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-2129155891ab5234b992d8ff",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-629495ce2e1d76c347968fb3",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-fe89e2d709711cfd0abb2633",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-5db4f82ed096cb5a0ab7b43b",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-8f9ebc67d806d248167e589e",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-2af212816f8781ad8e30c19b",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-b10647b921327139b61bb818",
+            "supported": false,
+            "reason": "取值不支持：C0018明确约定增信方式为个人贷款保证保险，属于已设立的保证关系，与ABSENT状态矛盾。"
+          }
+        ],
+        "disposition": "BLOCK"
+      }
+    ],
+    "attempts": [],
+    "calls": 26
+  },
+  {
+    "file": "F:\\ai\\Sage\\test_data\\101 企业之间借款合同.docx",
+    "file_sha256": "24ee8a64dc775e20b1fe5ccf538298290e419e674b5b1737e00a5dd1057be973",
+    "source_sha256": "f9c21ad3b976d3d4d2a53ce19ce3887652c38e20c1e60836ce0d8fa4f16a5c77",
+    "source_characters": 3069,
+    "status": "BLOCKED",
+    "error": "FactExtractionError: INVALID_TYPED_FACT:INVALID_CHARGE_BASE",
+    "diagnostics": [
+      {
+        "failed_stage": "UNIFIED_FACT_VALIDATION",
+        "fact_id": null,
+        "field": "loan.cost_components",
+        "validation_rule": "INVALID_TYPED_FACT:INVALID_CHARGE_BASE",
+        "model_raw_value": null,
+        "evidence": null,
+        "expected": null,
+        "actual": {
+          "kind": "regular_interest",
+          "charge_key": "借期利息",
+          "base": "UNPAID_PRINCIPAL",
+          "scope": "UNTIL_REPAYMENT",
+          "rate": {
+            "state": "PRESENT",
+            "percent": 7.2,
+            "period": "YEAR"
+          }
+        },
+        "disposition": "BLOCK"
+      }
+    ],
+    "attempts": [
+      {
+        "raw_extraction": {
+          "schema_version": "contract-facts-1.0",
+          "reviewed_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011",
+            "C0012",
+            "C0013",
+            "C0014",
+            "C0015",
+            "C0016",
+            "C0017",
+            "C0018",
+            "C0019",
+            "C0020",
+            "C0021"
+          ],
+          "searched_concepts": [
+            "loan.bank_relending",
+            "loan.unlicensed_repeated_lending",
+            "loan.known_illegal_use",
+            "loan.upfront_deduction",
+            "loan.financing_fee",
+            "loan.early_permission",
+            "loan.early_prohibited",
+            "loan.early_charge",
+            "loan.cost_components",
+            "loan.cost_cumulative",
+            "loan.cost_replacement",
+            "loan.cost_exclusive"
+          ],
+          "observations": [
+            {
+              "concept": "loan.bank_relending",
+              "state": "EXPLICIT_NONE",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "evidence": [
+                {
+                  "clause_id": "C0004",
+                  "quote": "本合同项下借款由甲方以自有资金提供，不属于甲方通过银行贷款、信托融资或者其他融资方式取得后再行转贷的资金。"
+                },
+                {
+                  "clause_id": "C0012",
+                  "quote": "不存在以吸收公众资金、套取金融机构贷款等方式取得资金后向乙方转贷的情形。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.unlicensed_repeated_lending",
+              "state": "ABSENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.9,
+              "evidence": []
+            },
+            {
+              "concept": "loan.known_illegal_use",
+              "state": "EXPLICIT_NONE",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "evidence": [
+                {
+                  "clause_id": "C0005",
+                  "quote": "未经甲方书面同意，乙方不得将借款用于：\n\n\n股票、期货、虚拟货币等投资；\n\n\n向第三方提供借款；\n\n\n与乙方主营业务无关的大额资产投资；\n\n\n法律法规禁止的其他用途。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.upfront_deduction",
+              "state": "ABSENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.9,
+              "evidence": []
+            },
+            {
+              "concept": "loan.financing_fee",
+              "state": "ABSENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.9,
+              "evidence": []
+            },
+            {
+              "concept": "loan.early_permission",
+              "state": "PRESENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "value": true,
+              "evidence": [
+                {
+                  "clause_id": "C0011",
+                  "quote": "乙方有权提前归还全部或者部分借款。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.early_prohibited",
+              "state": "EXPLICIT_NONE",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "evidence": [
+                {
+                  "clause_id": "C0011",
+                  "quote": "乙方有权提前归还全部或者部分借款。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.early_charge",
+              "state": "EXPLICIT_NONE",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "evidence": [
+                {
+                  "clause_id": "C0011",
+                  "quote": "提前还款不收取提前还款手续费或者违约金。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.cost_components",
+              "state": "PRESENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "value": {
+                "kind": "regular_interest",
+                "charge_key": "借期利息",
+                "base": "UNPAID_PRINCIPAL",
+                "scope": "UNTIL_REPAYMENT",
+                "rate": {
+                  "state": "PRESENT",
+                  "percent": 7.2,
+                  "period": "YEAR"
+                }
+              },
+              "evidence": [
+                {
+                  "clause_id": "C0008",
+                  "quote": "本合同借款年利率为7.2%，按照单利计算。"
+                },
+                {
+                  "clause_id": "C0008",
+                  "quote": "利息以乙方实际占用且尚未归还的借款本金为计算基数。"
+                },
+                {
+                  "clause_id": "C0008",
+                  "quote": "利息自借款实际到账之日起计算至相应本金实际归还之日止。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.cost_components",
+              "state": "PRESENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "value": {
+                "kind": "overdue_interest",
+                "charge_key": "逾期利息",
+                "base": "UNPAID_PRINCIPAL",
+                "scope": "OVERDUE",
+                "rate": {
+                  "state": "PRESENT",
+                  "percent": 10.8,
+                  "period": "YEAR"
+                }
+              },
+              "evidence": [
+                {
+                  "clause_id": "C0015",
+                  "quote": "乙方逾期偿还本金的，自逾期之日起，对逾期本金按照年利率10.8%计算逾期利息，直至该部分本金实际清偿之日止。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.cost_components",
+              "state": "PRESENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "value": {
+                "kind": "penalty",
+                "charge_key": "逾期利息违约金",
+                "base": "UNPAID_INTEREST",
+                "scope": "OVERDUE",
+                "rate": {
+                  "state": "PRESENT",
+                  "percent": 0.02,
+                  "period": "DAY"
+                }
+              },
+              "evidence": [
+                {
+                  "clause_id": "C0015",
+                  "quote": "乙方逾期支付应付利息的，自逾期之日起至实际支付之日止，按照应付未付利息每日0.02%的标准支付违约金。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.cost_cumulative",
+              "state": "ABSENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.9,
+              "evidence": []
+            },
+            {
+              "concept": "loan.cost_replacement",
+              "state": "ABSENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.9,
+              "evidence": []
+            },
+            {
+              "concept": "loan.cost_exclusive",
+              "state": "ABSENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.9,
+              "evidence": []
+            }
+          ]
+        },
+        "verification": null,
+        "diagnostics": [
+          {
+            "failed_stage": "UNIFIED_FACT_VALIDATION",
+            "fact_id": null,
+            "field": "loan.cost_components",
+            "validation_rule": "INVALID_TYPED_FACT:INVALID_CHARGE_BASE",
+            "model_raw_value": null,
+            "evidence": null,
+            "expected": null,
+            "actual": {
+              "kind": "regular_interest",
+              "charge_key": "借期利息",
+              "base": "UNPAID_PRINCIPAL",
+              "scope": "UNTIL_REPAYMENT",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 7.2,
+                "period": "YEAR"
+              }
+            },
+            "disposition": "BLOCK"
+          }
+        ]
+      },
+      {
+        "raw_extraction": {
+          "schema_version": "contract-facts-1.0",
+          "reviewed_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011",
+            "C0012",
+            "C0013",
+            "C0014",
+            "C0015",
+            "C0016",
+            "C0017",
+            "C0018",
+            "C0019",
+            "C0020",
+            "C0021"
+          ],
+          "searched_concepts": [
+            "loan.bank_relending",
+            "loan.unlicensed_repeated_lending",
+            "loan.known_illegal_use",
+            "loan.upfront_deduction",
+            "loan.financing_fee",
+            "loan.early_permission",
+            "loan.early_prohibited",
+            "loan.early_charge",
+            "loan.cost_components",
+            "loan.cost_cumulative",
+            "loan.cost_replacement",
+            "loan.cost_exclusive"
+          ],
+          "observations": [
+            {
+              "concept": "loan.bank_relending",
+              "state": "EXPLICIT_NONE",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "evidence": [
+                {
+                  "clause_id": "C0004",
+                  "quote": "本合同项下借款由甲方以自有资金提供，不属于甲方通过银行贷款、信托融资或者其他融资方式取得后再行转贷的资金。"
+                },
+                {
+                  "clause_id": "C0012",
+                  "quote": "不存在以吸收公众资金、套取金融机构贷款等方式取得资金后向乙方转贷的情形。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.unlicensed_repeated_lending",
+              "state": "ABSENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.9,
+              "evidence": []
+            },
+            {
+              "concept": "loan.known_illegal_use",
+              "state": "EXPLICIT_NONE",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "evidence": [
+                {
+                  "clause_id": "C0005",
+                  "quote": "未经甲方书面同意，乙方不得将借款用于：\n\n\n股票、期货、虚拟货币等投资；\n\n\n向第三方提供借款；\n\n\n与乙方主营业务无关的大额资产投资；\n\n\n法律法规禁止的其他用途。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.upfront_deduction",
+              "state": "ABSENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.9,
+              "evidence": []
+            },
+            {
+              "concept": "loan.financing_fee",
+              "state": "ABSENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.9,
+              "evidence": []
+            },
+            {
+              "concept": "loan.early_permission",
+              "state": "PRESENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "value": true,
+              "evidence": [
+                {
+                  "clause_id": "C0011",
+                  "quote": "乙方有权提前归还全部或者部分借款。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.early_prohibited",
+              "state": "EXPLICIT_NONE",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "evidence": [
+                {
+                  "clause_id": "C0011",
+                  "quote": "乙方有权提前归还全部或者部分借款。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.early_charge",
+              "state": "EXPLICIT_NONE",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "evidence": [
+                {
+                  "clause_id": "C0011",
+                  "quote": "提前还款不收取提前还款手续费或者违约金。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.cost_components",
+              "state": "PRESENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "value": {
+                "kind": "regular_interest",
+                "charge_key": "借期利息",
+                "base": "PRINCIPAL",
+                "scope": "UNTIL_REPAYMENT",
+                "rate": {
+                  "state": "PRESENT",
+                  "percent": 7.2,
+                  "period": "YEAR"
+                }
+              },
+              "evidence": [
+                {
+                  "clause_id": "C0008",
+                  "quote": "本合同借款年利率为7.2%，按照单利计算。"
+                },
+                {
+                  "clause_id": "C0008",
+                  "quote": "利息以乙方实际占用且尚未归还的借款本金为计算基数。"
+                },
+                {
+                  "clause_id": "C0008",
+                  "quote": "利息自借款实际到账之日起计算至相应本金实际归还之日止。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.cost_components",
+              "state": "PRESENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "value": {
+                "kind": "overdue_interest",
+                "charge_key": "逾期利息",
+                "base": "PRINCIPAL",
+                "scope": "OVERDUE",
+                "rate": {
+                  "state": "PRESENT",
+                  "percent": 10.8,
+                  "period": "YEAR"
+                }
+              },
+              "evidence": [
+                {
+                  "clause_id": "C0015",
+                  "quote": "乙方逾期偿还本金的，自逾期之日起，对逾期本金按照年利率10.8%计算逾期利息，直至该部分本金实际清偿之日止。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.cost_components",
+              "state": "PRESENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "value": {
+                "kind": "penalty",
+                "charge_key": "逾期利息违约金",
+                "base": "UNPAID_INTEREST",
+                "scope": "OVERDUE",
+                "rate": {
+                  "state": "PRESENT",
+                  "percent": 0.02,
+                  "period": "DAY"
+                }
+              },
+              "evidence": [
+                {
+                  "clause_id": "C0015",
+                  "quote": "乙方逾期支付应付利息的，自逾期之日起至实际支付之日止，按照应付未付利息每日0.02%的标准支付违约金。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.cost_cumulative",
+              "state": "ABSENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.9,
+              "evidence": []
+            },
+            {
+              "concept": "loan.cost_replacement",
+              "state": "ABSENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.9,
+              "evidence": []
+            },
+            {
+              "concept": "loan.cost_exclusive",
+              "state": "ABSENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.9,
+              "evidence": []
+            }
+          ]
+        },
+        "verification": {
+          "reviewed_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011",
+            "C0012",
+            "C0013",
+            "C0014",
+            "C0015",
+            "C0016",
+            "C0017",
+            "C0018",
+            "C0019",
+            "C0020",
+            "C0021"
+          ],
+          "searched_concepts": [
+            "loan.bank_relending",
+            "loan.unlicensed_repeated_lending",
+            "loan.known_illegal_use",
+            "loan.upfront_deduction",
+            "loan.financing_fee",
+            "loan.early_permission",
+            "loan.early_prohibited",
+            "loan.early_charge",
+            "loan.cost_components",
+            "loan.cost_cumulative",
+            "loan.cost_replacement",
+            "loan.cost_exclusive"
+          ],
+          "checks": [
+            {
+              "fact_id": "CF-b36cddc529c2f227873b609d",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-86e5123d4a8f00dfdb1c304f",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-cf3e3fd1605e62cef86041d5",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-9daada3b4a00431d933d0c7d",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-1a7e9bf0778ed4a484c143e9",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-0630b9b37b775da89be55e3d",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-24b114d3c2728229c5852b30",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-c0170e3cfab5e9f930101e98",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-3061470b3e516a2a1c00b73b",
+              "supported": false,
+              "reason": "取值错误：base应为UNPAID_PRINCIPAL而非PRINCIPAL。C0008原文“利息以乙方实际占用且尚未归还的借款本金为计算基数”表明基数为实际占用且尚未归还的本金，非原始本金。scope=UNTIL_REPAYMENT与“利息自借款实际到账之日起计算至相应本金实际归还之日止”一致，rate=7.2%YEAR一致，仅base需修正为UNPAID_PRINCIPAL。"
+            },
+            {
+              "fact_id": "CF-b662902dc8b194ee527a5bbd",
+              "supported": false,
+              "reason": "取值错误：base应为UNPAID_PRINCIPAL而非PRINCIPAL。C0015原文“对逾期本金按照年利率10.8%计算逾期利息”表明基数为逾期未还本金，非原始本金。scope=OVERDUE、rate=10.8%YEAR一致，仅base需修正为UNPAID_PRINCIPAL。"
+            },
+            {
+              "fact_id": "CF-20a5b0d2b25a2fc4261df562",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-90a9600e05fd0a2539582b83",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-e312e5189ac32f85d553b665",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-0dd4f596c2cbdf3d0c8f5ea9",
+              "supported": true
+            }
+          ],
+          "audits": [
+            {
+              "concept": "loan.bank_relending",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020",
+                "C0021"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文核验：C0004“本合同项下借款由甲方以自有资金提供，不属于甲方通过银行贷款、信托融资或者其他融资方式取得后再行转贷的资金”及C0012“不存在以吸收公众资金、套取金融机构贷款等方式取得资金后向乙方转贷的情形”均为否认性承诺，属EXPLICIT_NONE，无肯定转贷事实。候选CF-b36cddc529c2f227873b609d取值与状态正确。"
+            },
+            {
+              "concept": "loan.unlicensed_repeated_lending",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020",
+                "C0021"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文无未取得放贷资格、向不特定对象反复放贷的肯定叙述；C0012仅作合法资金来源保证，不构成该事实。ABSENT正确。"
+            },
+            {
+              "concept": "loan.known_illegal_use",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020",
+                "C0021"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0005借款用途为采购生产设备零部件、支付上游供应商货款、补充日常经营流动资金，并禁止股票期货虚拟货币投资、向第三方提供借款等；属禁止违法用途的EXPLICIT_NONE，无出借人明知违法犯罪用途仍出借的肯定事实。候选CF-cf3e3fd1605e62cef86041d5正确。"
+            },
+            {
+              "concept": "loan.upfront_deduction",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020",
+                "C0021"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0004约定全额提供借款1,200,000元，C0007约定一次性支付至乙方账户，C0008利息自实际到账之日起算，全文无预扣利息或融资服务费的约定。ABSENT正确。"
+            },
+            {
+              "concept": "loan.financing_fee",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020",
+                "C0021"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文无融资服务费、管理费、咨询费等收取约定；C0015实现债权费用属实现债权费用，C0016抵充顺序亦非融资费。ABSENT正确。"
+            },
+            {
+              "concept": "loan.early_permission",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020",
+                "C0021"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0011“乙方有权提前归还全部或者部分借款”明确允许提前还款，PRESENT true正确。候选CF-0630b9b37b775da89be55e3d正确。"
+            },
+            {
+              "concept": "loan.early_prohibited",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020",
+                "C0021"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0011明确允许提前还款，无绝对禁止提前还款的约定，EXPLICIT_NONE正确。候选CF-24b114d3c2728229c5852b30正确。"
+            },
+            {
+              "concept": "loan.early_charge",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020",
+                "C0021"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0011“提前还款不收取提前还款手续费或者违约金”为免收约定，属EXPLICIT_NONE，无提前清偿收费的肯定安排。候选CF-c0170e3cfab5e9f930101e98正确。"
+            },
+            {
+              "concept": "loan.cost_components",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020",
+                "C0021"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文核验收费：C0008借期利息年利率7.2%单利，基数为实际占用且尚未归还本金，自到账日起算至本金实际归还日止，scope=UNTIL_REPAYMENT；C0015逾期利息年利率10.8%，基数为逾期本金，scope=OVERDUE；C0015逾期付息违约金按应付未付利息每日0.02%，base=UNPAID_INTEREST，scope=OVERDUE。候选CF-3061470b3e516a2a1c00b73b与CF-b662902dc8b194ee527a5bbd的base应为UNPAID_PRINCIPAL而非PRINCIPAL，需修正；CF-20a5b0d2b25a2fc4261df562正确。C0015实现债权费用、C0016抵充顺序不属本概念收费。"
+            },
+            {
+              "concept": "loan.cost_cumulative",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020",
+                "C0021"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "C0015仅分别约定逾期利息与逾期付息违约金，未明确约定逾期后借期利息与逾期责任继续叠加计收。ABSENT正确。"
+            },
+            {
+              "concept": "loan.cost_replacement",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020",
+                "C0021"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文无逾期责任替代借期利息、借期利息停止计收的约定。ABSENT正确。"
+            },
+            {
+              "concept": "loan.cost_exclusive",
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020",
+                "C0021"
+              ],
+              "complete": true,
+              "omitted_facts": [],
+              "reason": "全文无逾期收费择一主张、不得同时计收的约定。ABSENT正确。"
+            }
+          ]
+        },
+        "diagnostics": [
+          {
+            "failed_stage": "UNIFIED_FACT_VALIDATION",
+            "fact_id": null,
+            "field": "checks",
+            "validation_rule": "FACT_VERIFICATION_REJECTED",
+            "model_raw_value": null,
+            "evidence": null,
+            "expected": null,
+            "actual": [
+              {
+                "fact_id": "CF-b36cddc529c2f227873b609d",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-86e5123d4a8f00dfdb1c304f",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-cf3e3fd1605e62cef86041d5",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-9daada3b4a00431d933d0c7d",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-1a7e9bf0778ed4a484c143e9",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-0630b9b37b775da89be55e3d",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-24b114d3c2728229c5852b30",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-c0170e3cfab5e9f930101e98",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-3061470b3e516a2a1c00b73b",
+                "supported": false,
+                "reason": "取值错误：base应为UNPAID_PRINCIPAL而非PRINCIPAL。C0008原文“利息以乙方实际占用且尚未归还的借款本金为计算基数”表明基数为实际占用且尚未归还的本金，非原始本金。scope=UNTIL_REPAYMENT与“利息自借款实际到账之日起计算至相应本金实际归还之日止”一致，rate=7.2%YEAR一致，仅base需修正为UNPAID_PRINCIPAL。"
+              },
+              {
+                "fact_id": "CF-b662902dc8b194ee527a5bbd",
+                "supported": false,
+                "reason": "取值错误：base应为UNPAID_PRINCIPAL而非PRINCIPAL。C0015原文“对逾期本金按照年利率10.8%计算逾期利息”表明基数为逾期未还本金，非原始本金。scope=OVERDUE、rate=10.8%YEAR一致，仅base需修正为UNPAID_PRINCIPAL。"
+              },
+              {
+                "fact_id": "CF-20a5b0d2b25a2fc4261df562",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-90a9600e05fd0a2539582b83",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-e312e5189ac32f85d553b665",
+                "supported": true
+              },
+              {
+                "fact_id": "CF-0dd4f596c2cbdf3d0c8f5ea9",
+                "supported": true
+              }
+            ],
+            "disposition": "BLOCK"
+          }
+        ]
+      },
+      {
+        "raw_extraction": {
+          "schema_version": "contract-facts-1.0",
+          "reviewed_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011",
+            "C0012",
+            "C0013",
+            "C0014",
+            "C0015",
+            "C0016",
+            "C0017",
+            "C0018",
+            "C0019",
+            "C0020",
+            "C0021"
+          ],
+          "searched_concepts": [
+            "loan.bank_relending",
+            "loan.unlicensed_repeated_lending",
+            "loan.known_illegal_use",
+            "loan.upfront_deduction",
+            "loan.financing_fee",
+            "loan.early_permission",
+            "loan.early_prohibited",
+            "loan.early_charge",
+            "loan.cost_components",
+            "loan.cost_cumulative",
+            "loan.cost_replacement",
+            "loan.cost_exclusive"
+          ],
+          "observations": [
+            {
+              "concept": "loan.bank_relending",
+              "state": "EXPLICIT_NONE",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "evidence": [
+                {
+                  "clause_id": "C0004",
+                  "quote": "本合同项下借款由甲方以自有资金提供，不属于甲方通过银行贷款、信托融资或者其他融资方式取得后再行转贷的资金。"
+                },
+                {
+                  "clause_id": "C0012",
+                  "quote": "不存在以吸收公众资金、套取金融机构贷款等方式取得资金后向乙方转贷的情形。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.unlicensed_repeated_lending",
+              "state": "ABSENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.9,
+              "evidence": []
+            },
+            {
+              "concept": "loan.known_illegal_use",
+              "state": "EXPLICIT_NONE",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "evidence": [
+                {
+                  "clause_id": "C0005",
+                  "quote": "未经甲方书面同意，乙方不得将借款用于：\n\n\n股票、期货、虚拟货币等投资；\n\n\n向第三方提供借款；\n\n\n与乙方主营业务无关的大额资产投资；\n\n\n法律法规禁止的其他用途。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.upfront_deduction",
+              "state": "ABSENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.9,
+              "evidence": []
+            },
+            {
+              "concept": "loan.financing_fee",
+              "state": "ABSENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.9,
+              "evidence": []
+            },
+            {
+              "concept": "loan.early_permission",
+              "state": "PRESENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "value": true,
+              "evidence": [
+                {
+                  "clause_id": "C0011",
+                  "quote": "乙方有权提前归还全部或者部分借款。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.early_prohibited",
+              "state": "EXPLICIT_NONE",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "evidence": [
+                {
+                  "clause_id": "C0011",
+                  "quote": "乙方有权提前归还全部或者部分借款。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.early_charge",
+              "state": "EXPLICIT_NONE",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "evidence": [
+                {
+                  "clause_id": "C0011",
+                  "quote": "提前还款不收取提前还款手续费或者违约金。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.cost_components",
+              "state": "PRESENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "value": {
+                "kind": "regular_interest",
+                "charge_key": "借期利息",
+                "base": "UNPAID_PRINCIPAL",
+                "scope": "UNTIL_REPAYMENT",
+                "rate": {
+                  "state": "PRESENT",
+                  "percent": 7.2,
+                  "period": "YEAR"
+                }
+              },
+              "evidence": [
+                {
+                  "clause_id": "C0008",
+                  "quote": "本合同借款年利率为7.2%，按照单利计算。"
+                },
+                {
+                  "clause_id": "C0008",
+                  "quote": "利息以乙方实际占用且尚未归还的借款本金为计算基数。"
+                },
+                {
+                  "clause_id": "C0008",
+                  "quote": "利息自借款实际到账之日起计算至相应本金实际归还之日止。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.cost_components",
+              "state": "PRESENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "value": {
+                "kind": "overdue_interest",
+                "charge_key": "逾期利息",
+                "base": "UNPAID_PRINCIPAL",
+                "scope": "OVERDUE",
+                "rate": {
+                  "state": "PRESENT",
+                  "percent": 10.8,
+                  "period": "YEAR"
+                }
+              },
+              "evidence": [
+                {
+                  "clause_id": "C0015",
+                  "quote": "乙方逾期偿还本金的，自逾期之日起，对逾期本金按照年利率10.8%计算逾期利息，直至该部分本金实际清偿之日止。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.cost_components",
+              "state": "PRESENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.95,
+              "value": {
+                "kind": "penalty",
+                "charge_key": "逾期利息违约金",
+                "base": "UNPAID_INTEREST",
+                "scope": "OVERDUE",
+                "rate": {
+                  "state": "PRESENT",
+                  "percent": 0.02,
+                  "period": "DAY"
+                }
+              },
+              "evidence": [
+                {
+                  "clause_id": "C0015",
+                  "quote": "乙方逾期支付应付利息的，自逾期之日起至实际支付之日止，按照应付未付利息每日0.02%的标准支付违约金。"
+                }
+              ]
+            },
+            {
+              "concept": "loan.cost_cumulative",
+              "state": "ABSENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.9,
+              "evidence": []
+            },
+            {
+              "concept": "loan.cost_replacement",
+              "state": "ABSENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.9,
+              "evidence": []
+            },
+            {
+              "concept": "loan.cost_exclusive",
+              "state": "ABSENT",
+              "assertion": "EXPLICIT",
+              "confidence": 0.9,
+              "evidence": []
+            }
+          ]
+        },
+        "verification": null,
+        "diagnostics": [
+          {
+            "failed_stage": "UNIFIED_FACT_VALIDATION",
+            "fact_id": null,
+            "field": "loan.cost_components",
+            "validation_rule": "INVALID_TYPED_FACT:INVALID_CHARGE_BASE",
+            "model_raw_value": null,
+            "evidence": null,
+            "expected": null,
+            "actual": {
+              "kind": "regular_interest",
+              "charge_key": "借期利息",
+              "base": "UNPAID_PRINCIPAL",
+              "scope": "UNTIL_REPAYMENT",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 7.2,
+                "period": "YEAR"
+              }
+            },
+            "disposition": "BLOCK"
+          }
+        ]
+      }
+    ],
+    "calls": 16
+  }
+]

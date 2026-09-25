@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="18" skipped="0" tests="34" time="99.867" timestamp="2026-09-13T14:29:41.117137+08:00" hostname="PC-202411042018"><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_confidentiality_siblings_consume_shared_positive_prerequisites[\u53cc\u65b9\u7684\u7ecf\u8425\u6570\u636e\u548c\u975e\u516c\u5f00\u6280\u672f\u8d44\u6599\u5747\u5c5e\u4e8e\u4fdd\u5bc6\u4fe1\u606f\u3002]" time="0.061" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_confidentiality_siblings_consume_shared_positive_prerequisites[\u53cc\u65b9\u4fdd\u5bc6\u4e49\u52a1\u5728\u5408\u540c\u7ec8\u6b62\u540e\u7ee7\u7eed\u6709\u6548\u4e09\u5e74\u3002]" time="0.007" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_confidentiality_siblings_consume_shared_positive_prerequisites[\u4fdd\u5bc6\u4fe1\u606f\u5305\u62ec\u5ba2\u6237\u4fe1\u606f\u53ca\u5546\u4e1a\u8ba1\u5212\u3002]" time="0.006" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_loss_allocation_proves_liability_actor_not_specific_cost_scope[\u4e59\u65b9-\u7532\u65b9]" time="0.007" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_loss_allocation_proves_liability_actor_not_specific_cost_scope[\u8bb8\u53ef\u65b9-\u88ab\u8bb8\u53ef\u65b9]" time="0.002" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_loss_allocation_proves_liability_actor_not_specific_cost_scope[\u5356\u65b9-\u4e70\u65b9]" time="0.002" /><testcase classname="backend.tests.test_technology_shared_fact_regression" name="test_exact_source_adapter_projects_span_without_covering_neighbour" time="0.001" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_classification_is_canonical_across_report_and_execution" time="13.320" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_party_roles_follow_identity_and_subtype" time="13.558" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_rule_states_and_partial_elements_are_consistent" time="0.001"><failure message="AssertionError: assert {'TC-01-01': ...2': '通过', ...} == {'TC-01-01': ...2': '通过', ...}&#10;  &#10;  Omitting 6 identical items, use -vv to show&#10;  Differing items:&#10;  {'TC-04-04': '缺失'} != {'TC-04-04': '部分覆盖'}&#10;  {'TC-04-03': '缺失'} != {'TC-04-03': '部分覆盖'}&#10;  {'TC-13-01': '部分覆盖'} != {'TC-13-01': '通过'}&#10;  {'TC-12-04': '不适用'} != {'TC-12-04': '部分覆盖'}&#10;  {'TC-01-01': '待核验'} != {'TC-01-01': '通过'}&#10;  Use -v to get more diff">backend\tests\test_entrusted_development_contract_review.py:111: in test_entrusted_rule_states_and_partial_elements_are_consistent
+    assert {review_id: items[review_id]["coverage_status"] for review_id in expected} == expected
+E   AssertionError: assert {'TC-01-01': ...2': '通过', ...} == {'TC-01-01': ...2': '通过', ...}
+E     
+E     Omitting 6 identical items, use -vv to show
+E     Differing items:
+E     {'TC-04-04': '缺失'} != {'TC-04-04': '部分覆盖'}
+E     {'TC-04-03': '缺失'} != {'TC-04-03': '部分覆盖'}
+E     {'TC-13-01': '部分覆盖'} != {'TC-13-01': '通过'}
+E     {'TC-12-04': '不适用'} != {'TC-12-04': '部分覆盖'}
+E     {'TC-01-01': '待核验'} != {'TC-01-01': '通过'}
+E     Use -v to get more diff</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_rule_evidence_covers_body_and_attachment_semantics" time="0.001"><failure message="assert False&#10; +  where False = all(&lt;generator object test_entrusted_rule_evidence_covers_body_and_attachment_semantics.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000019DFF39E500&gt;)">backend\tests\test_entrusted_development_contract_review.py:145: in test_entrusted_rule_evidence_covers_body_and_attachment_semantics
+    assert all(term in evidence_text for term in terms)
+E   assert False
+E    +  where False = all(&lt;generator object test_entrusted_rule_evidence_covers_body_and_attachment_semantics.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000019DFF39E500&gt;)</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_report_is_generated_without_fatal_quality_gate" time="0.002"><failure message="AssertionError: assert 'GENERATED_WI...LITY_WARNINGS' == 'GENERATED'&#10;  &#10;  - GENERATED&#10;  + GENERATED_WITH_QUALITY_WARNINGS">backend\tests\test_entrusted_development_contract_review.py:149: in test_entrusted_report_is_generated_without_fatal_quality_gate
+    assert party_a_review["report_generation_decision"]["status"] == "GENERATED"
+E   AssertionError: assert 'GENERATED_WI...LITY_WARNINGS' == 'GENERATED'
+E     
+E     - GENERATED
+E     + GENERATED_WITH_QUALITY_WARNINGS</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_unsubstantiated_generic_missing_is_local_manual_review" time="0.001" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_acceptance_evidence_does_not_invent_third_party_testing" time="0.001"><failure message="KeyError: 'test_method_and_report'">backend\tests\test_entrusted_development_contract_review.py:176: in test_acceptance_evidence_does_not_invent_third_party_testing
+    assert elements["test_method_and_report"]["status"] == "COVERED"
+E   KeyError: 'test_method_and_report'</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_explicit_third_party_testing_clause_is_covered" time="14.120"><failure message="AssertionError: assert '部分覆盖' == '通过'&#10;  &#10;  - 通过&#10;  + 部分覆盖">backend\tests\test_entrusted_development_contract_review.py:194: in test_explicit_third_party_testing_clause_is_covered
+    assert item["coverage_status"] == "通过"
+E   AssertionError: assert '部分覆盖' == '通过'
+E     
+E     - 通过
+E     + 部分覆盖</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_post_termination_confidentiality_is_directly_covered" time="0.002"><failure message="AssertionError: assert '部分覆盖' == '通过'&#10;  &#10;  - 通过&#10;  + 部分覆盖">backend\tests\test_entrusted_development_contract_review.py:203: in test_post_termination_confidentiality_is_directly_covered
+    assert item["coverage_status"] == "通过"
+E   AssertionError: assert '部分覆盖' == '通过'
+E     
+E     - 通过
+E     + 部分覆盖</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_recommendation_normalization_removes_negative_prefixes" time="0.002" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_gap_consequences_are_bound_to_actual_missing_elements" time="0.001"><failure message="assert False&#10; +  where False = all(&lt;generator object test_gap_consequences_are_bound_to_actual_missing_elements.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000019D81081850&gt;)">backend\tests\test_entrusted_development_contract_review.py:228: in test_gap_consequences_are_bound_to_actual_missing_elements
+    assert all(term in patent for term in ("申请主体", "文件签署", "权利登记"))
+E   assert False
+E    +  where False = all(&lt;generator object test_gap_consequences_are_bound_to_actual_missing_elements.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000019D81081850&gt;)</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_manual_review_and_insufficient_context_states_are_explained" time="0.001" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_semantic_coverage_and_conditional_applicability" time="0.001"><failure message="AssertionError: assert 'MISSING' == 'COVERED'&#10;  &#10;  - COVERED&#10;  + MISSING">backend\tests\test_entrusted_development_contract_review.py:267: in test_entrusted_semantic_coverage_and_conditional_applicability
+    assert patent_elements["patent_application_right_ownership"]["status"] == "COVERED"
+E   AssertionError: assert 'MISSING' == 'COVERED'
+E     
+E     - COVERED
+E     + MISSING</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_confidentiality_liability_reuses_semantically_valid_evidence" time="0.001"><failure message="AssertionError: assert '缺失' == '部分覆盖'&#10;  &#10;  - 部分覆盖&#10;  + 缺失">backend\tests\test_entrusted_development_contract_review.py:296: in test_confidentiality_liability_reuses_semantically_valid_evidence
+    assert item["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '缺失' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 缺失</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_general_breach_catch_all_propagates_only_damage_remedies" time="0.001"><failure message="KeyError: 'confidentiality_obligation'">backend\tests\test_entrusted_development_contract_review.py:314: in test_general_breach_catch_all_propagates_only_damage_remedies
+    assert all(elements[element_id] == "COVERED" for element_id in (
+backend\tests\test_entrusted_development_contract_review.py:314: in &lt;genexpr&gt;
+    assert all(elements[element_id] == "COVERED" for element_id in (
+E   KeyError: 'confidentiality_obligation'</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_secret_copy_retention_uses_matching_legal_consequence" time="0.001"><failure message="KeyError: 'legal_consequence_mapping'">backend\tests\test_entrusted_development_contract_review.py:338: in test_secret_copy_retention_uses_matching_legal_consequence
+    assert item["decision_trace"]["legal_consequence_mapping"]["semantic_domain"] == "SECRET_COPY_RETENTION"
+E   KeyError: 'legal_consequence_mapping'</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_improvement_notification_rendering_respects_development_subtype" time="3.624"><failure message="AssertionError: assert 'GENERAL_TECHNOLOGY' == 'COOPERATIVE_DEVELOPMENT'&#10;  &#10;  - COOPERATIVE_DEVELOPMENT&#10;  + GENERAL_TECHNOLOGY">backend\tests\test_entrusted_development_contract_review.py:368: in test_improvement_notification_rendering_respects_development_subtype
+    assert cooperative_rendering["primary_subtype"] == "COOPERATIVE_DEVELOPMENT"
+E   AssertionError: assert 'GENERAL_TECHNOLOGY' == 'COOPERATIVE_DEVELOPMENT'
+E     
+E     - COOPERATIVE_DEVELOPMENT
+E     + GENERAL_TECHNOLOGY</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_improvement_boundary_requires_affirmative_restriction" time="14.131" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_commissioning_party_liability_direction_excludes_favorable_no_cap_gap" time="0.001"><failure message="AssertionError: assert '不适用' == '部分覆盖'&#10;  &#10;  - 部分覆盖&#10;  + 不适用">backend\tests\test_entrusted_development_contract_review.py:396: in test_commissioning_party_liability_direction_excludes_favorable_no_cap_gap
+    assert item["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '不适用' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 不适用</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_entrusted_partial_findings_have_positive_and_absence_evidence" time="0.001"><failure message="KeyError: 'indemnity_and_liability_cap'">backend\tests\test_entrusted_development_contract_review.py:426: in test_entrusted_partial_findings_have_positive_and_absence_evidence
+    evidence = findings[group]["evidence_bundle"]["items"]
+E   KeyError: 'indemnity_and_liability_cap'</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_commissioned_development_golden_manifest" time="0.001"><failure message="assert False&#10; +  where False = all(&lt;generator object test_commissioned_development_golden_manifest.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000019DFFACD5B0&gt;)">backend\tests\test_entrusted_development_contract_review.py:451: in test_commissioned_development_golden_manifest
+    assert all(items[review_id]["coverage_status"] == status for review_id, status in manifest["key_statuses"].items())
+E   assert False
+E    +  where False = all(&lt;generator object test_commissioned_development_golden_manifest.&lt;locals&gt;.&lt;genexpr&gt; at 0x0000019DFFACD5B0&gt;)</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_production_file_api_renders_entrusted_development_snapshot" time="14.852"><failure message="AssertionError: assert 'BLOCKED' == 'REPORT_READY'&#10;  &#10;  - REPORT_READY&#10;  + BLOCKED">backend\tests\test_entrusted_development_contract_review.py:512: in test_production_file_api_renders_entrusted_development_snapshot
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_explicit_review_role_is_not_overridden_by_generic_subtype_identity" time="13.598"><failure message="AssertionError: assert 15 == 11&#10; +  where 15 = len([{'finding_id': 'RF-015', 'risk_group': 'generic_potential_excessive_liquidated_damages', 'title': '违约金标准偏高及司法调减风险', '...'RF-012', 'risk_group': 'common_penalty_base_determinability', 'title': '违约金计算基数可确定性', 'severity': 'MEDIUM', ...}, ...])">backend\tests\test_entrusted_development_contract_review.py:583: in test_explicit_review_role_is_not_overridden_by_generic_subtype_identity
+    assert len(output["risk_findings"]) == 11
+E   AssertionError: assert 15 == 11
+E    +  where 15 = len([{'finding_id': 'RF-015', 'risk_group': 'generic_potential_excessive_liquidated_damages', 'title': '违约金标准偏高及司法调减风险', '...'RF-012', 'risk_group': 'common_penalty_base_determinability', 'title': '违约金计算基数可确定性', 'severity': 'MEDIUM', ...}, ...])</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_future_development_warranty_does_not_trigger_existing_ip_proof_attachments" time="4.907"><failure message="assert '技术合同均适用' not in &quot;{'review_id... '技术合同均适用。'}&quot;&#10;  &#10;  '技术合同均适用' is contained here:&#10;    dition': '技术合同均适用。', 'triggered': False, 'condition_text': '技术合同均适用。'}&#10;  ?           +++++++">backend\tests\test_entrusted_development_contract_review.py:607: in test_future_development_warranty_does_not_trigger_existing_ip_proof_attachments
+    assert "技术合同均适用" not in str(items["TC-03-04"]["applicability"])
+E   assert '技术合同均适用' not in "{'review_id... '技术合同均适用。'}"
+E     
+E     '技术合同均适用' is contained here:
+E       dition': '技术合同均适用。', 'triggered': False, 'condition_text': '技术合同均适用。'}
+E     ?           +++++++</failure></testcase><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_existing_patent_transfer_still_triggers_ip_proof_review" time="2.916" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_shared_personal_information_trigger_requires_business_processing_fact" time="0.037" /><testcase classname="backend.tests.test_entrusted_development_contract_review" name="test_current_commissioning_party_liability_overlap_is_an_enforceability_risk" time="0.001" /></testsuite></testsuites>

@@ -1,0 +1,33 @@
+...........F
+================================== FAILURES ===================================
+_________________________ test_dispatch_final_report __________________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002569702FD30>
+
+    def test_dispatch_final_report(monkeypatch):
+     from review_v2 import employment_fact_pipeline as p
+     from review_v2.engine import review_contract_v2
+     from review_v2.clause_parser import parse_contract_clauses
+     text='劳动合同\n派遣方招用员工交由接收方使用。\n接收方直接送员工到其他独立企业工作，视为原安排继续。\n接收方认为不适合即可退回。\n派遣方收取可退押金九百元，并从工资扣收。'
+     cs=parse_contract_clauses(text)
+     values=[('contract.employment_form','DISPATCH','派遣方招用员工交由接收方使用。'),
+     ('dispatch.onward_assignment',dict(actor='HOST',recipient_relation='OTHER_ENTITY',procedure='HOST_DIRECT_CONTINUATION',permitted=True,agency='派遣方',host='接收方',recipient='其他独立企业'),'接收方直接送员工到其他独立企业工作，视为原安排继续。'),
+     ('dispatch.return_terms',dict(reason='不适合',reason_type='SUBJECTIVE_MISMATCH',basis='REASON_ALONE'),'接收方认为不适合即可退回。'),
+     ('worker.security_payment',dict(nature='REFUNDABLE_SECURITY',collector='AGENCY',required=True,deducted_from_wage=True,amount_text='九百元'),'派遣方收取可退押金九百元，并从工资扣收。')]
+     monkeypatch.setattr(p,'extract',lambda *a,**k:packet(cs,[fact(cs,c,v,q) for c,v,q in values]));monkeypatch.setattr(p,'verify',verified_packet)
+     r=review_contract_v2(text,'labor');items={i['item_id']:i for i in r['items']}
+     for k in ['DSP-09-01','DSP-10-01','DSP-05-01','EMP-06-01']:assert items[k]['coverage_status']=='风险条款'
+     assert items['EMP-14-01']['coverage_status']!='风险条款'
+     themes=[t for t in r['risk_themes'] if 'DSP-05-01' in t['related_rule_ids']]
+     assert len(themes)==1 and 'EMP-06-01' in themes[0]['related_rule_ids']
+>    assert r['release_quality_gate']['status']=='REPORT_READY'
+E    AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E      
+E      - REPORT_READY
+E      + BLOCKED
+
+backend\tests\test_dispatch_boundaries.py:39: AssertionError
+=========================== short test summary info ===========================
+FAILED backend/tests/test_dispatch_boundaries.py::test_dispatch_final_report
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 11 passed, 6 warnings in 10.16s

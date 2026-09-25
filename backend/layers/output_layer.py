@@ -1,4 +1,5 @@
 """输出层：处理LLM输出，提取关键信息并格式化"""
+from model_settings import configuration as model_configuration
 import json
 import time
 import io
@@ -152,7 +153,7 @@ class OutputLayer:
         """生成元数据"""
         metadata = {
             "timestamp": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
-            "model_version": "qwen-plus",
+            "model_version": model_configuration()["model"],
             "confidence_score": validation_result.get('confidence_check', {}).get('confidence_score', 0),
             "validation_status": validation_result.get('status', 'unknown'),
             "has_warnings": validation_result.get('has_warnings', False),
@@ -189,7 +190,7 @@ class OutputLayer:
 ---
 
 *报告生成时间：{time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())}*
-*模型版本：qwen-plus*
+*模型版本：{model_configuration()["model"]}*
 """
         return markdown
 

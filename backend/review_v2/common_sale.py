@@ -178,12 +178,12 @@ def _claim_element(
     }
 
 
-def common_sale_coverage_requirement(node_id: str) -> Dict[str, Any] | None:
+def common_sale_coverage_requirement(node_id: str, element_context=None) -> Dict[str, Any] | None:
     definitions: Dict[str, Dict[str, Any]] = {
         "common_termination_procedure": {
             "elements": [
                 _claim_element("termination_trigger", "合同明确解除事由或触发条件。", "contract.termination.trigger"),
-                _claim_element("notice_or_demand", "合同明确解除前通知或书面催告机制。", "contract.termination.notice_or_demand"),
+                _claim_element("notice_or_demand", "合同明确解除通知及送达机制。", "contract.termination.notice_or_demand"),
                 _claim_element("cure_period", "合同明确违约后的补救期限。", "contract.termination.cure_period"),
                 _claim_element("right_to_terminate", "合同明确条件满足后的解除权。", "contract.termination.right"),
                 _claim_element("convenience_termination_notice", "长期合作可通过提前通知终止。", "contract.termination.convenience_notice"),
@@ -312,6 +312,16 @@ def common_sale_coverage_requirement(node_id: str) -> Dict[str, Any] | None:
     definition = definitions.get(node_id)
     if not definition:
         return None
+    if node_id == "common_termination_procedure" and element_context is not None:
+        prerequisites = {"convenience_termination_notice": "ongoing_transaction",
+                         "existing_order_effect": "ongoing_transaction",
+                         "cure_period": "cure_based_termination"}
+        excluded = {key for key, condition in prerequisites.items() if not element_context.get(condition)}
+        definition["elements"] = [e for e in definition["elements"] if e["element_id"] not in excluded]
+        # Disabled conditional elements must not remain in an alternative path
+        # as implicit MISSING requirements, or make a disabled path vacuously pass.
+        definition["paths"] = [p for p in definition["paths"]
+                               if not set(p.required_elements).intersection(excluded)]
     return {
         "review_id": node_id,
         "required_elements": definition["elements"],

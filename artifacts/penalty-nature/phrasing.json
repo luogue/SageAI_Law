@@ -1,0 +1,130 @@
+[
+  {
+    "source": "设备损坏按实际损失赔偿。",
+    "facts": [
+      {
+        "concept": "worker.damage_liability",
+        "value": {
+          "kind": "ACTUAL_DAMAGE_COMPENSATION",
+          "trigger": "设备损坏",
+          "basis": "按实际损失赔偿"
+        },
+        "confidence": 0.98,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "设备损坏按实际损失赔偿。"
+          }
+        ]
+      }
+    ],
+    "status": "PASS"
+  },
+  {
+    "source": "损坏设备应赔偿800元。",
+    "facts": [
+      {
+        "concept": "penalties.obligations",
+        "value": {
+          "scope": "PROPERTY_DAMAGE",
+          "amount_text": "800元",
+          "imposed": true
+        },
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "损坏设备应赔偿800元。"
+          }
+        ]
+      }
+    ],
+    "status": "PASS"
+  },
+  {
+    "source": "每逾期一日支付100元违约金。",
+    "facts": [
+      {
+        "concept": "penalties.obligations",
+        "value": {
+          "scope": "ORDINARY_DISCIPLINE",
+          "amount_text": "100元",
+          "imposed": true
+        },
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "每逾期一日支付100元违约金。"
+          }
+        ]
+      }
+    ],
+    "status": "PASS"
+  },
+  {
+    "source": "依法承担赔偿责任。",
+    "facts": [
+      {
+        "concept": "worker.damage_liability",
+        "value": {
+          "kind": "STATUTORY_LIABILITY",
+          "trigger": "依法承担赔偿责任"
+        },
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "依法承担赔偿责任。"
+          }
+        ]
+      }
+    ],
+    "status": "PASS"
+  },
+  {
+    "source": "从工资中扣收800元设备保证金，归还后退还。设备因故意或重大过失损坏，按实际损失依法处理。",
+    "facts": [
+      {
+        "concept": "worker.security_payment",
+        "value": {
+          "nature": "REFUNDABLE_SECURITY",
+          "collector": "EMPLOYER",
+          "required": true,
+          "deducted_from_wage": true,
+          "amount_text": "800元",
+          "refund_condition": "归还后退还"
+        },
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "从工资中扣收800元设备保证金，归还后退还。"
+          }
+        ]
+      },
+      {
+        "concept": "worker.damage_liability",
+        "value": {
+          "kind": "ACTUAL_DAMAGE_COMPENSATION",
+          "trigger": "设备因故意或重大过失损坏",
+          "basis": "按实际损失依法处理"
+        },
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0002",
+            "quote": "设备因故意或重大过失损坏，按实际损失依法处理。"
+          }
+        ]
+      }
+    ],
+    "status": "PASS"
+  }
+]

@@ -1,0 +1,880 @@
+{
+  "current": {
+    "licensor": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round24_patent_consistency\\current_licensor\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术许可合同—专利实施许可",
+      "engine_hash_matches": true,
+      "process_id": 6564,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "462c58948ce68a3d2dcd045e7b53ab44362af0bc72169cf57e2cf1afe0a1612d",
+      "rules": {
+        "TC-07-01": {
+          "coverage": "通过",
+          "elements": {
+            "licensed_patent_subject": "COVERED",
+            "permitted_implementation_acts": "COVERED",
+            "license_territory": "COVERED",
+            "license_term": "COVERED",
+            "license_type": "COVERED",
+            "transfer_or_sublicense_boundary": "COVERED"
+          },
+          "narrative": "合同已明确约定许可标的已有明确约定；实施方式已有明确约定；许可地域已有明确约定；许可期限已有明确约定；许可类型已有明确约定；许可权转让或再许可边界已有明确约定。",
+          "sources": {
+            "permitted_implementation_acts": [
+              {
+                "clause_id": "C0006",
+                "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；",
+                "component_key": "implementation_acts"
+              },
+              {
+                "clause_id": "C0006",
+                "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；\n使用上述设备；",
+                "component_key": "implementation_acts"
+              },
+              {
+                "clause_id": "C0006",
+                "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；\n使用上述设备；\n销售、许诺销售由乙方制造的上述设备；",
+                "component_key": "implementation_acts"
+              },
+              {
+                "clause_id": "C0006",
+                "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；\n使用上述设备；\n销售、许诺销售由乙方制造的上述设备；\n为设备售后维修目的更换实施该专利技术的零部件。",
+                "component_key": "implementation_acts"
+              },
+              {
+                "clause_id": "C0006",
+                "quote": "乙方不得利用本许可生产与自动化装配设备无关的其他产品。",
+                "component_key": "implementation_acts"
+              },
+              {
+                "clause_id": "C0008",
+                "quote": "乙方首台使用许可专利的设备完成生产后十个工作日内支付40万元。",
+                "component_key": "implementation_acts"
+              }
+            ],
+            "license_territory": [
+              {
+                "clause_id": "C0007",
+                "quote": "许可地域为中华人民共和国大陆地区。",
+                "component_key": "territory"
+              }
+            ]
+          }
+        },
+        "TC-07-03": {
+          "coverage": "通过",
+          "elements": {
+            "over_scope_breach_remedy": "COVERED",
+            "damage_compensation": "COVERED"
+          },
+          "narrative": "合同已明确约定超范围实施或未经授权再许可的违约救济已有约定；超范围违约损失赔偿。",
+          "sources": {
+            "damage_compensation": [
+              {
+                "clause_id": "C0017",
+                "quote": "因乙方故意超范围实施给甲方造成可证明实际损失的，乙方依法承担赔偿责任。",
+                "location": "第十四条 超范围实施"
+              }
+            ]
+          }
+        },
+        "TC-07-04": {
+          "coverage": "部分覆盖",
+          "elements": {
+            "on_demand_technical_service": "COVERED",
+            "technical_service_execution_details": "PARTIALLY_COVERED",
+            "patent_fee_and_validity_maintenance": "COVERED",
+            "patent_status_change_notice": "COVERED",
+            "patent_status_change_notice_deadline": "MISSING"
+          },
+          "narrative": "已有部分安排；仍需补足：实施协助请求的响应时限、实施协助的完成或交付标准、专利法律状态变化通知的具体期限。",
+          "sources": {
+            "on_demand_technical_service": [
+              {
+                "clause_id": "C0011",
+                "quote": "自资料交付日起六个月内，甲方提供累计不超过30小时的远程实施指导。"
+              }
+            ],
+            "patent_status_change_notice": [
+              {
+                "clause_id": "C0009",
+                "quote": "如甲方决定放弃专利权、不再缴纳年费或者获知涉案专利可能被无效、撤销、终止，应及时通知乙方。"
+              }
+            ]
+          }
+        },
+        "TC-11-02": {
+          "coverage": "通过",
+          "elements": {
+            "confidential_information_scope": "COVERED",
+            "confidentiality_period": "COVERED",
+            "confidentiality_exceptions": "COVERED"
+          },
+          "narrative": "合同已明确约定保密信息范围的具体对象和边界；保密义务的持续期间已有明确约定；公开信息例外；合法取得信息例外；独立开发信息例外；依法披露例外。",
+          "sources": {
+            "confidentiality_exceptions": [
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；"
+              },
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；\n非因接收方违反本合同而公开的信息；"
+              },
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；\n非因接收方违反本合同而公开的信息；\n接收方从合法第三方取得的信息；"
+              },
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；\n非因接收方违反本合同而公开的信息；\n接收方从合法第三方取得的信息；\n接收方能够证明系独立开发的信息；"
+              },
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；\n非因接收方违反本合同而公开的信息；\n接收方从合法第三方取得的信息；\n接收方能够证明系独立开发的信息；\n根据法律法规或者有权机关要求必须披露的信息。"
+              },
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；\n非因接收方违反本合同而公开的信息；\n接收方从合法第三方取得的信息；\n接收方能够证明系独立开发的信息；\n根据法律法规或者有权机关要求必须披露的信息。\n依法必须披露时，在法律允许范围内，接收方应事先通知另一方。"
+              }
+            ]
+          }
+        },
+        "TC-12-02": {
+          "coverage": "通过",
+          "elements": {
+            "claim_trigger": "COVERED",
+            "notification_requirement": "COVERED",
+            "notification_deadline": "COVERED",
+            "claim_handling": "COVERED",
+            "administrative_handling": "MISSING",
+            "litigation_handling": "MISSING",
+            "licensor_participation": "COVERED",
+            "liability_responsible_party": "COVERED",
+            "attorney_fee": "COVERED",
+            "litigation_cost": "COVERED",
+            "direct_damage": "COVERED",
+            "defense_cost_allocation": "COVERED",
+            "damages_allocation": "COVERED",
+            "damages_scope": "COVERED",
+            "settlement_non_prejudice": "COVERED",
+            "settlement_consultation": "MISSING",
+            "defense_control": "MISSING",
+            "lawyer_selection": "MISSING",
+            "settlement_authority": "MISSING",
+            "replacement_remedy": "MISSING",
+            "replacement_or_workaround": "MISSING",
+            "license_cure": "MISSING",
+            "refund_or_termination_remedy": "MISSING"
+          },
+          "narrative": "合同已覆盖本项核心要求，未发现需要独立修改的实质性缺口。",
+          "sources": {
+            "settlement_non_prejudice": [
+              {
+                "clause_id": "C0013",
+                "quote": "未经乙方书面同意，甲方不得以要求乙方承认侵权、停止全部生产或者向第三方承担额外付款义务为条件达成和解",
+                "location": "第十条 第三方权利主张",
+                "actor": ""
+              }
+            ]
+          }
+        }
+      }
+    },
+    "licensee": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round24_patent_consistency\\current_licensee\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术许可合同—专利实施许可",
+      "engine_hash_matches": true,
+      "process_id": 6564,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "462c58948ce68a3d2dcd045e7b53ab44362af0bc72169cf57e2cf1afe0a1612d",
+      "rules": {
+        "TC-07-01": {
+          "coverage": "通过",
+          "elements": {
+            "licensed_patent_subject": "COVERED",
+            "permitted_implementation_acts": "COVERED",
+            "license_territory": "COVERED",
+            "license_term": "COVERED",
+            "license_type": "COVERED",
+            "transfer_or_sublicense_boundary": "COVERED"
+          },
+          "narrative": "合同已明确约定许可标的已有明确约定；实施方式已有明确约定；许可地域已有明确约定；许可期限已有明确约定；许可类型已有明确约定；许可权转让或再许可边界已有明确约定。",
+          "sources": {
+            "permitted_implementation_acts": [
+              {
+                "clause_id": "C0006",
+                "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；",
+                "component_key": "implementation_acts"
+              },
+              {
+                "clause_id": "C0006",
+                "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；\n使用上述设备；",
+                "component_key": "implementation_acts"
+              },
+              {
+                "clause_id": "C0006",
+                "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；\n使用上述设备；\n销售、许诺销售由乙方制造的上述设备；",
+                "component_key": "implementation_acts"
+              },
+              {
+                "clause_id": "C0006",
+                "quote": "乙方可以实施下列行为：\n制造使用涉案专利技术的自动化装配设备；\n使用上述设备；\n销售、许诺销售由乙方制造的上述设备；\n为设备售后维修目的更换实施该专利技术的零部件。",
+                "component_key": "implementation_acts"
+              },
+              {
+                "clause_id": "C0006",
+                "quote": "乙方不得利用本许可生产与自动化装配设备无关的其他产品。",
+                "component_key": "implementation_acts"
+              },
+              {
+                "clause_id": "C0008",
+                "quote": "乙方首台使用许可专利的设备完成生产后十个工作日内支付40万元。",
+                "component_key": "implementation_acts"
+              }
+            ],
+            "license_territory": [
+              {
+                "clause_id": "C0007",
+                "quote": "许可地域为中华人民共和国大陆地区。",
+                "component_key": "territory"
+              }
+            ]
+          }
+        },
+        "TC-07-03": {
+          "coverage": "通过",
+          "elements": {
+            "over_scope_breach_remedy": "COVERED",
+            "damage_compensation": "COVERED"
+          },
+          "narrative": "合同已明确约定超范围实施或未经授权再许可的违约救济已有约定；超范围违约损失赔偿。",
+          "sources": {
+            "damage_compensation": [
+              {
+                "clause_id": "C0017",
+                "quote": "因乙方故意超范围实施给甲方造成可证明实际损失的，乙方依法承担赔偿责任。",
+                "location": "第十四条 超范围实施"
+              }
+            ]
+          }
+        },
+        "TC-07-04": {
+          "coverage": "部分覆盖",
+          "elements": {
+            "on_demand_technical_service": "COVERED",
+            "technical_service_execution_details": "PARTIALLY_COVERED",
+            "patent_fee_and_validity_maintenance": "COVERED",
+            "patent_status_change_notice": "COVERED",
+            "patent_status_change_notice_deadline": "MISSING"
+          },
+          "narrative": "已有部分安排；仍需补足：实施协助请求的响应时限、实施协助的完成或交付标准、专利法律状态变化通知的具体期限。",
+          "sources": {
+            "on_demand_technical_service": [
+              {
+                "clause_id": "C0011",
+                "quote": "自资料交付日起六个月内，甲方提供累计不超过30小时的远程实施指导。"
+              }
+            ],
+            "patent_status_change_notice": [
+              {
+                "clause_id": "C0009",
+                "quote": "如甲方决定放弃专利权、不再缴纳年费或者获知涉案专利可能被无效、撤销、终止，应及时通知乙方。"
+              }
+            ]
+          }
+        },
+        "TC-11-02": {
+          "coverage": "通过",
+          "elements": {
+            "confidential_information_scope": "COVERED",
+            "confidentiality_period": "COVERED",
+            "confidentiality_exceptions": "COVERED"
+          },
+          "narrative": "合同已明确约定保密信息范围的具体对象和边界；保密义务的持续期间已有明确约定；公开信息例外；合法取得信息例外；独立开发信息例外；依法披露例外。",
+          "sources": {
+            "confidentiality_exceptions": [
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；"
+              },
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；\n非因接收方违反本合同而公开的信息；"
+              },
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；\n非因接收方违反本合同而公开的信息；\n接收方从合法第三方取得的信息；"
+              },
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；\n非因接收方违反本合同而公开的信息；\n接收方从合法第三方取得的信息；\n接收方能够证明系独立开发的信息；"
+              },
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；\n非因接收方违反本合同而公开的信息；\n接收方从合法第三方取得的信息；\n接收方能够证明系独立开发的信息；\n根据法律法规或者有权机关要求必须披露的信息。"
+              },
+              {
+                "clause_id": "C0016",
+                "quote": "下列信息不属于保密信息：\n已经公开的信息；\n非因接收方违反本合同而公开的信息；\n接收方从合法第三方取得的信息；\n接收方能够证明系独立开发的信息；\n根据法律法规或者有权机关要求必须披露的信息。\n依法必须披露时，在法律允许范围内，接收方应事先通知另一方。"
+              }
+            ]
+          }
+        },
+        "TC-12-02": {
+          "coverage": "通过",
+          "elements": {
+            "claim_trigger": "COVERED",
+            "notification_requirement": "COVERED",
+            "notification_deadline": "COVERED",
+            "claim_handling": "COVERED",
+            "administrative_handling": "MISSING",
+            "litigation_handling": "MISSING",
+            "licensor_participation": "COVERED",
+            "liability_responsible_party": "COVERED",
+            "attorney_fee": "COVERED",
+            "litigation_cost": "COVERED",
+            "direct_damage": "COVERED",
+            "defense_cost_allocation": "COVERED",
+            "damages_allocation": "COVERED",
+            "damages_scope": "COVERED",
+            "settlement_non_prejudice": "COVERED",
+            "settlement_consultation": "MISSING",
+            "defense_control": "MISSING",
+            "lawyer_selection": "MISSING",
+            "settlement_authority": "MISSING",
+            "replacement_remedy": "MISSING",
+            "replacement_or_workaround": "MISSING",
+            "license_cure": "MISSING",
+            "refund_or_termination_remedy": "MISSING"
+          },
+          "narrative": "合同已覆盖本项核心要求，未发现需要独立修改的实质性缺口。",
+          "sources": {
+            "settlement_non_prejudice": [
+              {
+                "clause_id": "C0013",
+                "quote": "未经乙方书面同意，甲方不得以要求乙方承认侵权、停止全部生产或者向第三方承担额外付款义务为条件达成和解",
+                "location": "第十条 第三方权利主张",
+                "actor": ""
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "guards": {
+    "ancillary_live": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round24_accepted_ancillary_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术转让合同—技术秘密转让合同",
+      "engine_hash_matches": true,
+      "process_id": 6564,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "5bd9b68a914823713d04094f64412f5373fb703d67322f90ce7bd933ab576102",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "balanced_live": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round24_accepted_balanced_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术许可合同—技术秘密许可合同",
+      "engine_hash_matches": true,
+      "process_id": 6564,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "1c1a3dc299572bc1e7e569f656633a3f62bab9fe571d481b33d462764e24e319",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "consulting_live": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round24_accepted_consulting_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术咨询合同",
+      "engine_hash_matches": true,
+      "process_id": 6564,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "34bb6f1f350e2357fc9a92533e9c4693be262b061c142cb65344dcbd95173462",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "cooperative_live": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round24_accepted_cooperative_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术开发合同—合作开发合同",
+      "engine_hash_matches": true,
+      "process_id": 6564,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "2f488c35bc7a3a26524cfa9fc4fd5a919bac129e485ffbd46eeef2ecf9b5d2e4",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "cross_article_live": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round24_accepted_cross_article_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术许可合同—技术秘密许可合同",
+      "engine_hash_matches": true,
+      "process_id": 6564,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "73dc8704b30cf567f220f4120e08ba941fc8ae8b62852b5e12eb7adcda1b0fe7",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "entrusted": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round24_accepted_entrusted\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术开发合同—委托开发合同",
+      "engine_hash_matches": true,
+      "process_id": 6564,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "b07782e463c3443071b30e46a363f932d5ba64dae7d45b83cb7f60e1e7d2e66d",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "patent_closed": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round24_accepted_patent_closed\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术许可合同—专利实施许可",
+      "engine_hash_matches": true,
+      "process_id": 6564,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "402add450c711820a8d11cd171262892cd811b1886fa47f1404188b3c60f6634",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "patent_live": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round24_accepted_patent_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术许可合同—专利实施许可",
+      "engine_hash_matches": true,
+      "process_id": 6564,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "846075612cfc955e109442cf5ee76c4954abc01f61a0ea88c69d35f2b455812c",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "prior_patent": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round24_accepted_prior_patent\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术转让合同—专利权转让合同",
+      "engine_hash_matches": true,
+      "process_id": 6564,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "1f15166bc911c9abd84f8c9079eb0aea6c7063c6cb636dadf6cdcac92ac1100a",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "prior_secret_licensee": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round24_accepted_prior_secret_licensee\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术许可合同—技术秘密许可合同",
+      "engine_hash_matches": true,
+      "process_id": 6564,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "af05442fbe35953987939f548426ba060244e2b05a9c6e7562dcae17da4a589a",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "prior_secret_licensor": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round24_accepted_prior_secret_licensor\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术许可合同—技术秘密许可合同",
+      "engine_hash_matches": true,
+      "process_id": 6564,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "af05442fbe35953987939f548426ba060244e2b05a9c6e7562dcae17da4a589a",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "provider_live": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round24_accepted_provider_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术服务合同",
+      "engine_hash_matches": true,
+      "process_id": 6564,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "c9478c59aabbb2303a6c72334b733c2249ea95a1c4a604355b779822b8232588",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "recent_secret_licensee": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round24_accepted_recent_secret_licensee\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术许可合同—技术秘密许可合同",
+      "engine_hash_matches": true,
+      "process_id": 6564,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "76271bc52c2410f96ab091b9fe6a6f205afc29bea99f0cb131fad2e3ffbf3550",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "recent_secret_licensor": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round24_accepted_recent_secret_licensor\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术许可合同—技术秘密许可合同",
+      "engine_hash_matches": true,
+      "process_id": 6564,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "76271bc52c2410f96ab091b9fe6a6f205afc29bea99f0cb131fad2e3ffbf3550",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    },
+    "transfer": {
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round24_accepted_transfer\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "expanded_blockers": 0,
+      "evidence_mismatch": 0,
+      "contract_type": "技术合同—技术转让合同—专利权转让合同",
+      "engine_hash_matches": true,
+      "process_id": 6564,
+      "cache": {
+        "status": "MISS",
+        "reason": "review-v2/file has no rule, evidence, or report result cache"
+      },
+      "document_hash": "ea237f4a0703c8c8b2f057b9824780ec1f3434c7d578de9a511b2aae0ae68c60",
+      "added_risk_groups": [],
+      "removed_risk_groups": []
+    }
+  },
+  "payment": {
+    "nodes": [
+      {
+        "fact_id": "PAY-001-725fdbfbb4",
+        "source_document": "1207d47927c902e3623c352d02bdd2a6b524125e170b83f621387bf8ea9851e1",
+        "source_clause": "本合同生效后十个工作日内",
+        "source_location": "line 49",
+        "sequence": 1,
+        "stage": "initial",
+        "trigger": "本合同生效后十个工作日内",
+        "condition": "本合同生效后十个工作日内",
+        "percentage": null,
+        "amount": 400000,
+        "currency": "CNY",
+        "payment_type": "initial",
+        "is_deposit": true,
+        "is_stage_payment": false,
+        "is_final_payment": false,
+        "is_retention": false,
+        "raw_text": "本合同生效后十个工作日内支付40万元",
+        "start_offset": 883,
+        "end_offset": 901,
+        "context": "本合同生效后十个工作日内",
+        "retention_included": false,
+        "percentage_inferred": true,
+        "amount_inferred": false,
+        "payment_group_id": "contract_total",
+        "payment_group_label": "专利实施许可费总额",
+        "payment_base_amount": 1200000,
+        "payment_base_fact_offset": 854,
+        "effective_amount": 400000,
+        "effective_percentage": 33.333333333333336,
+        "payment_direction": {
+          "payer": "",
+          "payee": "",
+          "source_text": "本合同生效后十个工作日内支付40万元；"
+        }
+      },
+      {
+        "fact_id": "PAY-002-83521952d2",
+        "source_document": "1207d47927c902e3623c352d02bdd2a6b524125e170b83f621387bf8ea9851e1",
+        "source_clause": "甲方完成首轮技术说明后十个工作日内",
+        "source_location": "line 52",
+        "sequence": 2,
+        "stage": "initial",
+        "trigger": "甲方完成首轮技术说明后十个工作日内",
+        "condition": "甲方完成首轮技术说明后十个工作日内",
+        "percentage": null,
+        "amount": 400000,
+        "currency": "CNY",
+        "payment_type": "initial",
+        "is_deposit": true,
+        "is_stage_payment": false,
+        "is_final_payment": false,
+        "is_retention": false,
+        "raw_text": "甲方完成首轮技术说明后十个工作日内支付40万元",
+        "start_offset": 905,
+        "end_offset": 928,
+        "context": "甲方完成首轮技术说明后十个工作日内",
+        "retention_included": false,
+        "percentage_inferred": true,
+        "amount_inferred": false,
+        "payment_group_id": "contract_total",
+        "payment_group_label": "专利实施许可费总额",
+        "payment_base_amount": 1200000,
+        "payment_base_fact_offset": 854,
+        "effective_amount": 400000,
+        "effective_percentage": 33.333333333333336,
+        "payment_direction": {
+          "payer": "",
+          "payee": "",
+          "source_text": "甲方完成首轮技术说明后十个工作日内支付40万元；"
+        }
+      },
+      {
+        "fact_id": "PAY-003-7e6437be65",
+        "source_document": "1207d47927c902e3623c352d02bdd2a6b524125e170b83f621387bf8ea9851e1",
+        "source_clause": "乙方首台使用许可专利的设备完成生产后十个工作日内",
+        "source_location": "line 55",
+        "sequence": 3,
+        "stage": "milestone",
+        "trigger": "乙方首台使用许可专利的设备完成生产后十个工作日内",
+        "condition": "乙方首台使用许可专利的设备完成生产后十个工作日内",
+        "percentage": null,
+        "amount": 400000,
+        "currency": "CNY",
+        "payment_type": "milestone",
+        "is_deposit": false,
+        "is_stage_payment": true,
+        "is_final_payment": false,
+        "is_retention": false,
+        "raw_text": "乙方首台使用许可专利的设备完成生产后十个工作日内支付40万元",
+        "start_offset": 932,
+        "end_offset": 962,
+        "context": "乙方首台使用许可专利的设备完成生产后十个工作日内",
+        "retention_included": false,
+        "percentage_inferred": true,
+        "amount_inferred": false,
+        "payment_group_id": "contract_total",
+        "payment_group_label": "专利实施许可费总额",
+        "payment_base_amount": 1200000,
+        "payment_base_fact_offset": 854,
+        "effective_amount": 400000,
+        "effective_percentage": 33.333333333333336,
+        "payment_direction": {
+          "payer": "",
+          "payee": "",
+          "source_text": "乙方首台使用许可专利的设备完成生产后十个工作日内支付40万元。"
+        }
+      }
+    ],
+    "amount_total": 1200000,
+    "contract_total": 1200000,
+    "amount_delta": 0,
+    "percentage_total": 100,
+    "payment_groups": [
+      {
+        "group_id": "contract_total",
+        "label": "专利实施许可费总额",
+        "base_amount": 1200000,
+        "base_fact_offset": 854,
+        "node_fact_ids": [
+          "PAY-001-725fdbfbb4",
+          "PAY-002-83521952d2",
+          "PAY-003-7e6437be65"
+        ],
+        "percentages": [
+          33.333333333333336,
+          33.333333333333336,
+          33.333333333333336
+        ],
+        "amounts": [
+          400000,
+          400000,
+          400000
+        ],
+        "percentage_total": 100,
+        "amount_total": 1200000,
+        "amount_delta": 0,
+        "percentage_total_complete": true,
+        "percentage_total_inferred": true,
+        "amount_total_complete": true,
+        "node_mismatches": [],
+        "status": "CONSISTENT"
+      }
+    ]
+  },
+  "full": {
+    "total": 1476,
+    "passed": 1227,
+    "failed": 249,
+    "changes": {},
+    "newly_failing": [],
+    "added": {
+      "backend.tests.test_patent_component_consistency::test_absent_or_negated_support_list_never_becomes_affirmative[\\u51fa\\u8ba9\\u65b9\\u65e0\\u9700\\u63d0\\u4f9b\\uff1a]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_concrete_settlement_protection_not_an_adverse_allocation[\\u505c\\u6b62\\u5168\\u90e8\\u751f\\u4ea7]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_notice_and_missing_deadline_are_independent[\\u4e13\\u5229\\u6743\\u7ec8\\u6b62]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_compensation_absence_and_negation_remain_distinct[\\u4e59\\u65b9\\u8d85\\u8303\\u56f4\\u5b9e\\u65bd\\u9020\\u6210\\u7532\\u65b9\\u635f\\u5931\\u7684\\uff0c\\u4e59\\u65b9\\u65e0\\u9700\\u627f\\u62c5\\u8d54\\u507f\\u8d23\\u4efb\\u3002]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_real_payment_discrepancy_remains[50]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_support_list_preserves_operative_introduction[\\n]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_lawful_third_party_acquisition_component[\\u53d6\\u5f97]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_excluded_secret_is_not_a_licensed_secret_premise[\\u4e59\\u65b9\\u672a\\u4f7f\\u7528\\u7532\\u65b9\\u989d\\u5916\\u672a\\u516c\\u5f00\\u6280\\u672f\\u8d44\\u6599\\u5f62\\u6210\\u7684\\u72ec\\u7acb\\u6539\\u8fdb\\u6210\\u679c\\u5f52\\u4e59\\u65b9\\u3002]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_territory_declarative_aliases[\\u4e3a]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_compensation_action_and_loss_order[\\u56e0\\u4e59\\u65b9\\u6545\\u610f\\u8d85\\u8303\\u56f4\\u5b9e\\u65bd\\u7ed9\\u7532\\u65b9\\u9020\\u6210\\u53ef\\u8bc1\\u660e\\u5b9e\\u9645\\u635f\\u5931\\u7684\\uff0c\\u4e59\\u65b9\\u4f9d\\u6cd5\\u627f\\u62c5\\u8d54\\u507f\\u8d23\\u4efb\\u3002]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_liability_in_compensation_premise_does_not_reassign_the_duty": "PASS",
+      "backend.tests.test_patent_component_consistency::test_lawful_third_party_acquisition_component[\\u83b7\\u53d6]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_compensation_absence_and_negation_remain_distinct[\\u53cc\\u65b9\\u672a\\u7ea6\\u5b9a\\u4e59\\u65b9\\u8d85\\u8303\\u56f4\\u5b9e\\u65bd\\u9020\\u6210\\u635f\\u5931\\u65f6\\u627f\\u62c5\\u8d54\\u507f\\u8d23\\u4efb\\u3002]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_limited_support_is_an_existing_obligation[\\u5b9e\\u65bd\\u6307\\u5bfc]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_limited_support_is_an_existing_obligation[\\u6280\\u672f\\u670d\\u52a1]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_concrete_settlement_protection_not_an_adverse_allocation[\\u627f\\u8ba4\\u4fb5\\u6743]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_excluded_secret_is_not_a_licensed_secret_premise[\\u8d44\\u6599\\u4ea4\\u4ed8\\u4e0d\\u4ee3\\u8868\\u7532\\u65b9\\u5411\\u4e59\\u65b9\\u8bb8\\u53ef\\u4efb\\u4f55\\u672a\\u516c\\u5f00\\u6280\\u672f\\u79d8\\u5bc6\\u3002]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_negative_support_is_not_a_positive_fact[\\u5982\\u4e13\\u5229\\u88ab\\u65e0\\u6548\\uff0c\\u7532\\u65b9\\u65e0\\u9700\\u901a\\u77e5\\u4e59\\u65b9\\u3002]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_proof_requirement_uses_document_provenance[APPENDIX-True]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_absent_territory_is_not_a_declaration[\\u53cc\\u65b9\\u672a\\u7ea6\\u5b9a\\u8bb8\\u53ef\\u5730\\u57df\\u4e3a\\u4e2d\\u56fd\\u5927\\u9646\\u3002]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_notice_and_missing_deadline_are_independent[\\u653e\\u5f03\\u4e13\\u5229\\u6743]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_territory_declarative_aliases[\\u9650\\u4e8e]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_first_equal_payment_is_not_lost_or_deduplicated[\\u672c\\u5408\\u540c\\u751f\\u6548]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_negative_support_is_not_a_positive_fact[\\u7532\\u65b9\\u65e0\\u9700\\u63d0\\u4f9b\\u5b9e\\u65bd\\u6307\\u5bfc\\u3002]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_implementation_list_inherits_only_positive_grant[\\n\\n\\n]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_negative_support_is_not_a_positive_fact[\\u53cc\\u65b9\\u672a\\u7ea6\\u5b9a\\u7532\\u65b9\\u63d0\\u4f9b\\u5b9e\\u65bd\\u534f\\u52a9\\u3002]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_final_patent_report_consistency[\\u7532\\u65b9/\\u8bb8\\u53ef\\u65b9]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_first_equal_payment_is_not_lost_or_deduplicated[\\u53cc\\u65b9\\u76d6\\u7ae0]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_final_patent_report_consistency[\\u4e59\\u65b9/\\u88ab\\u8bb8\\u53ef\\u65b9]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_first_equal_payment_is_not_lost_or_deduplicated[\\u5408\\u540c\\u7b7e\\u7f72]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_notice_and_missing_deadline_are_independent[\\u4e13\\u5229\\u6cd5\\u5f8b\\u72b6\\u6001\\u53d8\\u5316]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_compensation_action_and_loss_order[\\u4e59\\u65b9\\u8d85\\u8303\\u56f4\\u5b9e\\u65bd\\uff0c\\u5e94\\u8d54\\u507f\\u7532\\u65b9\\u5b9e\\u9645\\u635f\\u5931\\u3002]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_implementation_list_inherits_only_positive_grant[\\n]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_absent_territory_is_not_a_declaration[\\u8bb8\\u53ef\\u5730\\u57df\\u662f\\u5426\\u4e3a\\u4e2d\\u56fd\\u5927\\u9646\\uff0c\\u53cc\\u65b9\\u672a\\u660e\\u786e\\u3002]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_first_equal_payment_is_not_lost_or_deduplicated[\\u53cc\\u65b9\\u7b7e\\u5b57]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_proof_requirement_uses_document_provenance[BODY-False]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_proof_requirement_uses_document_provenance[ATTACHMENT-True]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_territory_declarative_aliases[\\u5305\\u62ec]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_absent_or_negated_support_list_never_becomes_affirmative[\\u53cc\\u65b9\\u672a\\u660e\\u786e\\u7ea6\\u5b9a\\u51fa\\u8ba9\\u65b9\\u5e94\\u63d0\\u4f9b\\uff1a]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_support_list_preserves_operative_introduction[\\n\\n]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_first_equal_payment_is_not_lost_or_deduplicated[\\u5408\\u540c\\u7b7e\\u8ba2]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_notice_and_missing_deadline_are_independent[\\u4e13\\u5229\\u88ab\\u65e0\\u6548]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_real_payment_discrepancy_remains[30]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_execution_content_does_not_disappear_with_missing_response_deadline": "PASS",
+      "backend.tests.test_patent_component_consistency::test_notice_and_missing_deadline_are_independent[\\u4e13\\u5229\\u88ab\\u64a4\\u9500]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_territory_declarative_aliases[\\uff1a]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_lawful_third_party_acquisition_component[\\u83b7\\u5f97]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_compensation_absence_and_negation_remain_distinct[\\u4e59\\u65b9\\u8d85\\u8303\\u56f4\\u5b9e\\u65bd\\u9020\\u6210\\u7532\\u65b9\\u635f\\u5931\\u7684\\uff0c\\u4e59\\u65b9\\u4e0d\\u627f\\u62c5\\u8d54\\u507f\\u8d23\\u4efb\\u3002]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_implementation_list_inherits_only_positive_grant[\\n\\n]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_limited_support_is_an_existing_obligation[\\u6280\\u672f\\u6307\\u5bfc]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_concrete_settlement_protection_not_an_adverse_allocation[\\u5411\\u7b2c\\u4e09\\u65b9\\u627f\\u62c5\\u989d\\u5916\\u4ed8\\u6b3e\\u4e49\\u52a1]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_settlement_prohibition_keeps_preceding_actual_allocation": "PASS",
+      "backend.tests.test_patent_component_consistency::test_first_equal_payment_is_not_lost_or_deduplicated[\\u534f\\u8bae\\u751f\\u6548]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_compensation_action_and_loss_order[\\u4e59\\u65b9\\u8d85\\u8303\\u56f4\\u5b9e\\u65bd\\u9020\\u6210\\u7532\\u65b9\\u635f\\u5931\\u7684\\uff0c\\u4e59\\u65b9\\u8d1f\\u8d23\\u8d54\\u507f\\u3002]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_limited_support_is_an_existing_obligation[\\u6280\\u672f\\u652f\\u6301]": "PASS",
+      "backend.tests.test_patent_component_consistency::test_limited_support_is_an_existing_obligation[\\u5b9e\\u65bd\\u534f\\u52a9]": "PASS"
+    },
+    "removed": []
+  },
+  "supplemental": {
+    "total": 41,
+    "passed": 30,
+    "failed": 11,
+    "changes": {},
+    "newly_failing": [],
+    "added": {},
+    "removed": []
+  },
+  "focused": {
+    "total": 230,
+    "passed": 230,
+    "failed": 0,
+    "changes": {}
+  },
+  "changed_engine_functions": [
+    "_apply_element_level_narratives",
+    "_apply_exact_claim_response",
+    "_apply_technology_common_semantic_rules",
+    "_apply_technology_confidentiality_semantic_rules",
+    "_apply_technology_transaction_evidence_consistency",
+    "_atomic_requirement_definitions",
+    "_build_narrative_state",
+    "_register_atomic_family_facts",
+    "_review_contract_v2_legacy",
+    "_search_final_element",
+    "_set_multi_element_state",
+    "_technology_registry_evidence"
+  ],
+  "changed_gate_or_verifier_functions": []
+}

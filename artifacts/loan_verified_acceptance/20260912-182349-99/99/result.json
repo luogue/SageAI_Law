@@ -1,0 +1,93 @@
+{
+  "file": "F:\\ai\\Sage\\test_data\\99 借款合同.docx",
+  "file_sha256": "99a6249b26492c7a13b3317b7f9af17815b4aa2cc1eab834c3de4264bc13c5b1",
+  "source_sha256": "f733373ed95299af893a2b8407c62d65d765094df6f13a38fd4629474195999a",
+  "source_characters": 3126,
+  "code_sha256": {
+    "backend\\review_v2\\unified_facts\\__init__.py": "12c1cfefdc5ad94d0c224dc5df189009ecea19dfb8c16c5072228f5b11917af4",
+    "backend\\review_v2\\unified_facts\\loan.py": "18e4d2d5eb155c627a308a41fe65a5165d554a8ced2d317dcb78451ec86f3ec5",
+    "backend\\review_v2\\unified_facts\\loan_bindings.py": "945a44cb653049eaea670963a732c28763a58e56da665bb3144fc257fa99e368",
+    "backend\\review_v2\\unified_facts\\loan_costs.py": "13d80e0775ddd3fb05a8a327b53254ba75b9f8464ee070d8a318282c828dadfa",
+    "backend\\review_v2\\unified_facts\\loan_pipeline.py": "dcbdb65ff2ccbfddf8fcf595985dfe4c74df5391e8b3e182fe39e61b04688a04",
+    "backend\\review_v2\\unified_facts\\loan_rules.py": "cb8678312100908a9e535b289486cbe0f5d783600f6612f93a01ddefdf411bb6",
+    "backend\\review_v2\\unified_facts\\normalization.py": "370bfea9d2f66b111d0da674b3efcbe114bb5d4fba2c54371658855efbc7c7f8",
+    "backend\\review_v2\\unified_facts\\pipeline.py": "a20d8dc9544c775c9b9afbda7c9cc11b899e817f13e7d8e61cd5b36cbfe4d360",
+    "backend\\review_v2\\unified_facts\\schema.py": "ae490c84afc74a784ccd89de58d6b75dd50953679be8d09bc48bbf66e5a0262b",
+    "backend\\review_v2\\unified_facts\\store.py": "ffcc899fd7257025e2fe073567d8e3b3fcb4b88be2833a3ceda0f95b7d426306"
+  },
+  "status": "BLOCKED",
+  "error": "FactExtractionError: FACT_VERIFICATION_REJECTED",
+  "diagnostics": [
+    {
+      "failed_stage": "UNIFIED_FACT_VALIDATION",
+      "fact_id": null,
+      "field": "checks",
+      "validation_rule": "FACT_VERIFICATION_REJECTED",
+      "model_raw_value": null,
+      "evidence": null,
+      "expected": null,
+      "actual": [
+        {
+          "fact_id": "CF-7cbce75a09adba01fa456856",
+          "supported": false,
+          "reason": "取值不支持：C0010明确约定提前还款通知渠道（短信、微信、电子邮件或书面方式）及提前五个工作日通知期限，原文为“乙方拟一次性提前归还全部剩余借款的，应提前五个工作日通知甲方”，故loan.element.loan_early_channel应为PRESENT而非ABSENT。"
+        },
+        {
+          "fact_id": "CF-237e0bdc65e3c65667afdc96",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-9f159537eee7e9f8842bace6",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-23c30fc2d6dafce1cbde6403",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-d9d46570f96f5fc188733ec4",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-ed55b4d7fdb48dab1984165c",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-c32b6d856fa14a4ca1c8b3d0",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-78bd9f450887015db455421e",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-e15c9592a707644b218c0f16",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-141eda33b59ad6952d138628",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-1aa9e3516fb2021b7ed0b231",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-5a67312a104831b35f348b68",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-ca6d9cef72337b47e8a2c50b",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-f231c729ee3a21b08c34a1da",
+          "supported": true
+        }
+      ],
+      "disposition": "BLOCK"
+    }
+  ],
+  "attempts": [],
+  "calls": 33
+}

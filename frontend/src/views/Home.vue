@@ -14,18 +14,18 @@
           <router-link 
             to="/" 
             class="nav-link-item" 
-            :class="{ active: isActive('/') }"
+            :class="{ active: isReviewActive }"
             exact
           >
-            上传审查
+            合同审查
           </router-link>
           <span class="divider">|</span>
           <router-link
-            to="/contract-review-v2"
-            class="nav-link-item nav-link-review-v2"
-            :class="{ active: isActive('/contract-review-v2') }"
+            to="/review-legacy"
+            class="nav-link-item"
+            :class="{ active: isActive('/review-legacy') }"
           >
-            合同审查第二版
+            合同审查（旧版）
           </router-link>
           <span class="divider">|</span>
           <router-link 
@@ -166,6 +166,10 @@ const accountDisplay = computed(() => {
     || localStorage.getItem('admin_username')
     || localStorage.getItem('username')
     || 'admin'
+})
+
+const isReviewActive = computed(() => {
+  return ['/', '/review', '/contract-review-v2'].includes(route.path)
 })
 
 onMounted(() => {

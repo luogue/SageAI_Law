@@ -171,8 +171,11 @@ def test_ancillary_service_fee_keeps_covered_base_and_only_reports_excess_fee_ga
     elements = {row["element_id"]: row for row in item["coverage_elements"]}
 
     assert item["coverage_status"] == "部分覆盖"
-    assert elements["service_fee_amount"]["status"] == "COVERED"
-    assert elements["service_payment_schedule"]["status"] == "COVERED"
+    # Article 10 specifies an allowance and a charge beyond it; neither it nor
+    # article 11 expressly puts baseline service in the transfer price/schedule.
+    assert elements["service_fee_amount"]["status"] == "PARTIALLY_COVERED"
+    assert elements["service_fee_amount"]["supporting_evidence"]
+    assert elements["service_payment_schedule"]["status"] == "MISSING"
     assert elements["extra_service_pricing_standard"]["status"] == "MISSING"
     assert elements["extra_service_billing_method"]["status"] == "MISSING"
     assert elements["extra_service_payment_node"]["status"] == "MISSING"
@@ -317,10 +320,18 @@ def test_service_fee_and_confidentiality_use_only_direct_operational_clauses(
         if row["risk_group"] == "service_payment_and_expense"
     )
 
-    assert {row["clause_id"] for row in service_fee["evidence_clauses"]} == {"C0011", "C0012"}
+    # Transfer-price instalments (C0012) do not establish a service-price link.
+    # Only the allowance/excess-charge clause supports the partial fee fact.
+    assert {row["clause_id"] for row in service_fee["evidence_clauses"]
+            if row.get("source_type") != "SEARCH_AUDIT"} == {"C0011"}
     assert {
         row["clause_id"]
         for row in service_finding["evidence_bundle"]["items"]
         if row.get("source_type") != "SEARCH_AUDIT"
-    } == {"C0011", "C0012"}
-    assert [row["clause_id"] for row in confidentiality["evidence_clauses"]] == ["C0009"]
+    } == {"C0011"}
+    # Element-level source spans may share one operative clause. Require that
+    # exact clause, not one topic-level row containing the whole paragraph.
+    assert confidentiality["coverage_status"] == "通过"
+    assert {row["clause_id"] for row in confidentiality["evidence_clauses"]} == {"C0009"}
+    assert all(row.get("supporting_element_ids") and "保密" in row.get("quote", "")
+               for row in confidentiality["evidence_clauses"])

@@ -1,0 +1,797 @@
+{
+  "status": "NOT_CLOSED",
+  "original_request_verification": "NOT_VERIFIED",
+  "original_input_verification": "EXTRACTED_TEXT_SHA256_MATCHES_ORIGINAL_REQUEST_LOG",
+  "original_llm_execution": "CLOUD_CALLS_OBSERVED_IN_ORIGINAL_REQUEST_TRACE",
+  "required_user_information": [
+    "original review party",
+    "original request form parameters if available"
+  ],
+  "full_test_comparison": {
+    "baseline": {
+      "PASS": 1001,
+      "FAIL": 249,
+      "SKIP": 0
+    },
+    "current": {
+      "PASS": 1017,
+      "FAIL": 249,
+      "SKIP": 0
+    },
+    "recovered": [],
+    "newly_failing": [],
+    "added": {
+      "backend.tests.test_claim_semantic_scope::test_absence_list_does_not_inherit_previous_actor_or_create_duties": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_affirmative_duty_after_absence_list_still_exists": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_conditional_assistance_retains_its_own_limit": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_conditional_notification_is_not_fault_limited_liability": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u53cc\\u65b9\\u672a\\u53d1\\u73b0\\u5df2\\u7ecf\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\uff0c\\u4f46\\u7532\\u65b9\\u786e\\u8ba4\\u672c\\u6280\\u672f\\u76ee\\u524d\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-True]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u53cc\\u65b9\\u672a\\u53d1\\u73b0\\u672c\\u6280\\u672f\\u5df2\\u7ecf\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u53cc\\u65b9\\u672a\\u660e\\u786e\\u7ea6\\u5b9a\\u4fb5\\u6743\\u5904\\u7406\\u65b9\\u5f0f\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u53cc\\u65b9\\u672a\\u660e\\u786e\\u7ea6\\u5b9a\\u4fb5\\u6743\\u5904\\u7406\\u65b9\\u5f0f\\uff0c\\u4f46\\u7532\\u65b9\\u786e\\u8ba4\\u672c\\u6280\\u672f\\u76ee\\u524d\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-True]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u53cc\\u65b9\\u672a\\u660e\\u786e\\u7ea6\\u5b9a\\u5f8b\\u5e08\\u8d39\\u3001\\u8bc9\\u8bbc\\u8d39\\u627f\\u62c5\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u5982\\u7532\\u65b9\\u5728\\u5408\\u540c\\u7b7e\\u7f72\\u524d\\u5df2\\u7ecf\\u660e\\u786e\\u77e5\\u9053\\u6709\\u5173\\u6280\\u672f\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u5408\\u6cd5\\u6743\\u5229\\u800c\\u672a\\u5411\\u4e59\\u65b9\\u62ab\\u9732\\uff0c\\u7532\\u65b9\\u5e94\\u8d54\\u507f\\u635f\\u5931\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u5982\\u7b2c\\u4e09\\u65b9\\u4e3b\\u5f20\\u672c\\u6280\\u672f\\u4fb5\\u6743\\uff0c\\u4e59\\u65b9\\u5e94\\u53ca\\u65f6\\u901a\\u77e5\\u7532\\u65b9\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u7532\\u65b9\\u4e0d\\u5141\\u8bb8\\u4e59\\u65b9\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u6280\\u672f\\u6210\\u679c\\u3002-False]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u7532\\u65b9\\u5141\\u8bb8\\u4e59\\u65b9\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u6280\\u672f\\u6210\\u679c\\u3002-True]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u7532\\u65b9\\u786e\\u8ba4\\u672c\\u6280\\u672f\\u76ee\\u524d\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-True]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_event_occurrence_polarity[\\u82e5\\u786e\\u8ba4\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\uff0c\\u5e94\\u5f53\\u505c\\u6b62\\u4f7f\\u7528\\u3002\\u7532\\u65b9\\u786e\\u8ba4\\u672c\\u6280\\u672f\\u76ee\\u524d\\u4fb5\\u72af\\u7b2c\\u4e09\\u65b9\\u4e13\\u5229\\u3002-True]": {
+        "status": "PASS",
+        "message": ""
+      },
+      "backend.tests.test_claim_semantic_scope::test_report_element_preserves_fault_condition": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "removed": [],
+    "changes": {}
+  },
+  "guards": {
+    "patent_closed": {
+      "gate": "REPORT_READY",
+      "failures": [],
+      "risk_groups_added": [],
+      "risk_groups_removed": [],
+      "process_id": 7340,
+      "engine_hash_matches": true
+    },
+    "cooperative_live": {
+      "gate": "REPORT_READY",
+      "failures": [],
+      "risk_groups_added": [],
+      "risk_groups_removed": [],
+      "process_id": 7340,
+      "engine_hash_matches": true
+    },
+    "cross_article_live": {
+      "gate": "REPORT_READY",
+      "failures": [],
+      "risk_groups_added": [],
+      "risk_groups_removed": [],
+      "process_id": 7340,
+      "engine_hash_matches": true
+    },
+    "patent_live": {
+      "gate": "REPORT_READY",
+      "failures": [],
+      "risk_groups_added": [],
+      "risk_groups_removed": [],
+      "process_id": 7340,
+      "engine_hash_matches": true
+    },
+    "consulting_live": {
+      "gate": "REPORT_READY",
+      "failures": [],
+      "risk_groups_added": [],
+      "risk_groups_removed": [],
+      "process_id": 7340,
+      "engine_hash_matches": true
+    },
+    "provider_live": {
+      "gate": "REPORT_READY",
+      "failures": [],
+      "risk_groups_added": [],
+      "risk_groups_removed": [],
+      "process_id": 7340,
+      "engine_hash_matches": true
+    },
+    "balanced_live": {
+      "gate": "REPORT_READY",
+      "failures": [],
+      "risk_groups_added": [],
+      "risk_groups_removed": [],
+      "process_id": 7340,
+      "engine_hash_matches": true
+    },
+    "ancillary_live": {
+      "gate": "REPORT_READY",
+      "failures": [],
+      "risk_groups_added": [],
+      "risk_groups_removed": [],
+      "process_id": 7340,
+      "engine_hash_matches": true
+    },
+    "entrusted": {
+      "gate": "REPORT_READY",
+      "failures": [],
+      "risk_groups_added": [],
+      "risk_groups_removed": [],
+      "process_id": 7340,
+      "engine_hash_matches": true
+    },
+    "prior_patent": {
+      "gate": "REPORT_READY",
+      "failures": [],
+      "risk_groups_added": [],
+      "risk_groups_removed": [],
+      "process_id": 7340,
+      "engine_hash_matches": true
+    },
+    "transfer": {
+      "gate": "REPORT_READY",
+      "failures": [],
+      "risk_groups_added": [],
+      "risk_groups_removed": [],
+      "process_id": 7340,
+      "engine_hash_matches": true
+    }
+  },
+  "guard_count": 11,
+  "guards_ready": 11,
+  "candidate_local_diagnostic": {
+    "mode": "LOCAL_DIAGNOSTIC_ONLY",
+    "assumed_parameters": {
+      "contract_type": "technology",
+      "use_llm": false,
+      "user_identity": "乙方/被许可方"
+    },
+    "gate": "BLOCKED",
+    "raw_reject_count": 1,
+    "expanded_reject_count": 1,
+    "item_states": {
+      "TC-02-02": "通过",
+      "TC-11-04": "缺失",
+      "TC-12-01": "缺失",
+      "TC-12-02": "部分覆盖"
+    },
+    "rejects": [
+      {
+        "code": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "stage": "Final Evidence Projection",
+        "rule_id": "TC-11-04",
+        "element_id": "breach_damage_liability",
+        "fact_id": null,
+        "polarity": null,
+        "condition": null,
+        "source_clause_ids": null,
+        "source_spans": null,
+        "evidence_ids": null,
+        "report_evidence": [
+          {
+            "evidence_id": "EV-4629c22f79b90383",
+            "clause_node_id": "SEARCH_AUDIT-c2f9f5eae5e188a3",
+            "source_node_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021"
+            ],
+            "claim_id": "confidentiality_breach_liability:absence_search",
+            "supports_claim_ids": [
+              "confidentiality_breach_liability:absence_search"
+            ],
+            "clause_id": "",
+            "clause_number": "SEARCH_AUDIT",
+            "heading_path": [
+              "SEARCH_AUDIT"
+            ],
+            "source_type": "SEARCH_AUDIT",
+            "evidence_type": "SEARCH_AUDIT",
+            "document_id": "",
+            "source_document": "",
+            "original_document_reference": "",
+            "raw_text": "已检索合同正文及全部已提供附件，未找到以下正向事实：责任方泄密后停止披露。",
+            "source_span": {
+              "start_offset": 0,
+              "end_offset": 37,
+              "raw_text": "已检索合同正文及全部已提供附件，未找到以下正向事实：责任方泄密后停止披露。"
+            },
+            "source_start": 0,
+            "source_end": 37,
+            "derived_or_original": "AUDIT",
+            "article_number": null,
+            "paragraph_number": null,
+            "sentence_index": 1,
+            "start_offset": 0,
+            "end_offset": 37,
+            "evidence_role": "MISSING_ELEMENT_CONTEXT",
+            "fact_type": "ABSENCE_EVIDENCE",
+            "fact_types": [
+              "ABSENCE_EVIDENCE"
+            ],
+            "quoted_text": "已检索合同正文及全部已提供附件，未找到以下正向事实：责任方泄密后停止披露。",
+            "quoted_text_hash": "c2f9f5eae5e188a3",
+            "supports": "ABSENCE_EVIDENCE",
+            "polarity": "FACT_OR_AUDIT",
+            "entailment_score": 1.0,
+            "confidence": "high",
+            "proposition": "在约定检索范围内未发现以下正向事实：责任方泄密后停止披露。",
+            "support_strength": "DIRECT",
+            "support_type": "DIRECT",
+            "entailment_status": "SUPPORTS",
+            "selection_reason": "以所需正向法律事实为检索目标执行全文缺失检索，未使用否定式风险描述作为查询。",
+            "search_scope": [
+              "合同正文及全部已提供附件"
+            ],
+            "search_targets": [
+              "责任方泄密后停止披露"
+            ],
+            "searched_sections": [
+              "合同正文及全部已提供附件"
+            ],
+            "result": "NOT_FOUND",
+            "quote": "已检索合同正文及全部已提供附件，未找到以下正向事实：责任方泄密后停止披露。",
+            "location": "SEARCH_AUDIT",
+            "supporting_review_ids": [
+              "TC-11-04"
+            ],
+            "supporting_element_ids": [
+              "stop_disclosure"
+            ],
+            "element_ids": [
+              "stop_disclosure"
+            ],
+            "searched_absent_element_ids": [
+              "stop_disclosure"
+            ],
+            "element_search": {
+              "element_id": "stop_disclosure",
+              "review_id": "TC-11-04",
+              "search_targets": [
+                "责任方泄密后停止披露"
+              ],
+              "query_patterns": [
+                "责任方泄密后停止披露"
+              ],
+              "query_semantics": "POSITIVE_REQUIRED_FACT",
+              "search_mode": "SAME_ATOMIC_EVALUATOR",
+              "searched_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020",
+                "C0021"
+              ],
+              "searched_document_hash": "2b380a9c5560ec0c323f4b254d22c17fa45551ac076284963ff68929059bdbef",
+              "result": "NOT_FOUND",
+              "supporting_evidence": [],
+              "partial_supporting_evidence": []
+            },
+            "source_fact_key": "confidentiality.stop_disclosure",
+            "evidence_polarity": "SUPPORTS_ABSENCE"
+          },
+          {
+            "evidence_id": "EV-20a739fa10f0e4fb",
+            "clause_node_id": "SEARCH_AUDIT-48d2ea55059e553d",
+            "source_node_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021"
+            ],
+            "claim_id": "confidentiality_breach_liability:absence_search",
+            "supports_claim_ids": [
+              "confidentiality_breach_liability:absence_search"
+            ],
+            "clause_id": "",
+            "clause_number": "SEARCH_AUDIT",
+            "heading_path": [
+              "SEARCH_AUDIT"
+            ],
+            "source_type": "SEARCH_AUDIT",
+            "evidence_type": "SEARCH_AUDIT",
+            "document_id": "",
+            "source_document": "",
+            "original_document_reference": "",
+            "raw_text": "已检索合同正文及全部已提供附件，未找到以下正向事实：责任方泄密后停止使用。",
+            "source_span": {
+              "start_offset": 0,
+              "end_offset": 37,
+              "raw_text": "已检索合同正文及全部已提供附件，未找到以下正向事实：责任方泄密后停止使用。"
+            },
+            "source_start": 0,
+            "source_end": 37,
+            "derived_or_original": "AUDIT",
+            "article_number": null,
+            "paragraph_number": null,
+            "sentence_index": 1,
+            "start_offset": 0,
+            "end_offset": 37,
+            "evidence_role": "MISSING_ELEMENT_CONTEXT",
+            "fact_type": "ABSENCE_EVIDENCE",
+            "fact_types": [
+              "ABSENCE_EVIDENCE"
+            ],
+            "quoted_text": "已检索合同正文及全部已提供附件，未找到以下正向事实：责任方泄密后停止使用。",
+            "quoted_text_hash": "48d2ea55059e553d",
+            "supports": "ABSENCE_EVIDENCE",
+            "polarity": "FACT_OR_AUDIT",
+            "entailment_score": 1.0,
+            "confidence": "high",
+            "proposition": "在约定检索范围内未发现以下正向事实：责任方泄密后停止使用。",
+            "support_strength": "DIRECT",
+            "support_type": "DIRECT",
+            "entailment_status": "SUPPORTS",
+            "selection_reason": "以所需正向法律事实为检索目标执行全文缺失检索，未使用否定式风险描述作为查询。",
+            "search_scope": [
+              "合同正文及全部已提供附件"
+            ],
+            "search_targets": [
+              "责任方泄密后停止使用"
+            ],
+            "searched_sections": [
+              "合同正文及全部已提供附件"
+            ],
+            "result": "NOT_FOUND",
+            "quote": "已检索合同正文及全部已提供附件，未找到以下正向事实：责任方泄密后停止使用。",
+            "location": "SEARCH_AUDIT",
+            "supporting_review_ids": [
+              "TC-11-04"
+            ],
+            "supporting_element_ids": [
+              "stop_use"
+            ],
+            "element_ids": [
+              "stop_use"
+            ],
+            "searched_absent_element_ids": [
+              "stop_use"
+            ],
+            "element_search": {
+              "element_id": "stop_use",
+              "review_id": "TC-11-04",
+              "search_targets": [
+                "责任方泄密后停止使用"
+              ],
+              "query_patterns": [
+                "责任方泄密后停止使用"
+              ],
+              "query_semantics": "POSITIVE_REQUIRED_FACT",
+              "search_mode": "SAME_ATOMIC_EVALUATOR",
+              "searched_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020",
+                "C0021"
+              ],
+              "searched_document_hash": "2b380a9c5560ec0c323f4b254d22c17fa45551ac076284963ff68929059bdbef",
+              "result": "NOT_FOUND",
+              "supporting_evidence": [],
+              "partial_supporting_evidence": []
+            },
+            "source_fact_key": "confidentiality.stop_use",
+            "evidence_polarity": "SUPPORTS_ABSENCE"
+          },
+          {
+            "evidence_id": "EV-6688b003ac9eb226",
+            "clause_node_id": "SEARCH_AUDIT-809641f9f86b3583",
+            "source_node_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021"
+            ],
+            "claim_id": "confidentiality_breach_liability:absence_search",
+            "supports_claim_ids": [
+              "confidentiality_breach_liability:absence_search"
+            ],
+            "clause_id": "",
+            "clause_number": "SEARCH_AUDIT",
+            "heading_path": [
+              "SEARCH_AUDIT"
+            ],
+            "source_type": "SEARCH_AUDIT",
+            "evidence_type": "SEARCH_AUDIT",
+            "document_id": "",
+            "source_document": "",
+            "original_document_reference": "",
+            "raw_text": "已检索合同正文及全部已提供附件，未找到以下正向事实：责任方泄密后采取措施防止继续扩散或损失扩大。",
+            "source_span": {
+              "start_offset": 0,
+              "end_offset": 48,
+              "raw_text": "已检索合同正文及全部已提供附件，未找到以下正向事实：责任方泄密后采取措施防止继续扩散或损失扩大。"
+            },
+            "source_start": 0,
+            "source_end": 48,
+            "derived_or_original": "AUDIT",
+            "article_number": null,
+            "paragraph_number": null,
+            "sentence_index": 1,
+            "start_offset": 0,
+            "end_offset": 48,
+            "evidence_role": "MISSING_ELEMENT_CONTEXT",
+            "fact_type": "ABSENCE_EVIDENCE",
+            "fact_types": [
+              "ABSENCE_EVIDENCE"
+            ],
+            "quoted_text": "已检索合同正文及全部已提供附件，未找到以下正向事实：责任方泄密后采取措施防止继续扩散或损失扩大。",
+            "quoted_text_hash": "809641f9f86b3583",
+            "supports": "ABSENCE_EVIDENCE",
+            "polarity": "FACT_OR_AUDIT",
+            "entailment_score": 1.0,
+            "confidence": "high",
+            "proposition": "在约定检索范围内未发现以下正向事实：责任方泄密后采取措施防止继续扩散或损失扩大。",
+            "support_strength": "DIRECT",
+            "support_type": "DIRECT",
+            "entailment_status": "SUPPORTS",
+            "selection_reason": "以所需正向法律事实为检索目标执行全文缺失检索，未使用否定式风险描述作为查询。",
+            "search_scope": [
+              "合同正文及全部已提供附件"
+            ],
+            "search_targets": [
+              "责任方泄密后采取措施防止继续扩散或损失扩大"
+            ],
+            "searched_sections": [
+              "合同正文及全部已提供附件"
+            ],
+            "result": "NOT_FOUND",
+            "quote": "已检索合同正文及全部已提供附件，未找到以下正向事实：责任方泄密后采取措施防止继续扩散或损失扩大。",
+            "location": "SEARCH_AUDIT",
+            "supporting_review_ids": [
+              "TC-11-04"
+            ],
+            "supporting_element_ids": [
+              "mitigation_obligation"
+            ],
+            "element_ids": [
+              "mitigation_obligation"
+            ],
+            "searched_absent_element_ids": [
+              "mitigation_obligation"
+            ],
+            "element_search": {
+              "element_id": "mitigation_obligation",
+              "review_id": "TC-11-04",
+              "search_targets": [
+                "责任方泄密后采取措施防止继续扩散或损失扩大"
+              ],
+              "query_patterns": [
+                "责任方泄密后采取措施防止继续扩散或损失扩大"
+              ],
+              "query_semantics": "POSITIVE_REQUIRED_FACT",
+              "search_mode": "SAME_ATOMIC_EVALUATOR",
+              "searched_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020",
+                "C0021"
+              ],
+              "searched_document_hash": "2b380a9c5560ec0c323f4b254d22c17fa45551ac076284963ff68929059bdbef",
+              "result": "NOT_FOUND",
+              "supporting_evidence": [],
+              "partial_supporting_evidence": []
+            },
+            "source_fact_key": "confidentiality.mitigation_obligation",
+            "evidence_polarity": "SUPPORTS_ABSENCE"
+          },
+          {
+            "evidence_id": "EV-4c4aeb363e01fbb5",
+            "clause_node_id": "SEARCH_AUDIT-959e8dd833c26283",
+            "source_node_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021"
+            ],
+            "claim_id": "confidentiality_breach_liability:absence_search",
+            "supports_claim_ids": [
+              "confidentiality_breach_liability:absence_search"
+            ],
+            "clause_id": "",
+            "clause_number": "SEARCH_AUDIT",
+            "heading_path": [
+              "SEARCH_AUDIT"
+            ],
+            "source_type": "SEARCH_AUDIT",
+            "evidence_type": "SEARCH_AUDIT",
+            "document_id": "",
+            "source_document": "",
+            "original_document_reference": "",
+            "raw_text": "已检索合同正文及全部已提供附件，未找到以下正向事实：责任方泄密后及时通知受影响方。",
+            "source_span": {
+              "start_offset": 0,
+              "end_offset": 41,
+              "raw_text": "已检索合同正文及全部已提供附件，未找到以下正向事实：责任方泄密后及时通知受影响方。"
+            },
+            "source_start": 0,
+            "source_end": 41,
+            "derived_or_original": "AUDIT",
+            "article_number": null,
+            "paragraph_number": null,
+            "sentence_index": 1,
+            "start_offset": 0,
+            "end_offset": 41,
+            "evidence_role": "MISSING_ELEMENT_CONTEXT",
+            "fact_type": "ABSENCE_EVIDENCE",
+            "fact_types": [
+              "ABSENCE_EVIDENCE"
+            ],
+            "quoted_text": "已检索合同正文及全部已提供附件，未找到以下正向事实：责任方泄密后及时通知受影响方。",
+            "quoted_text_hash": "959e8dd833c26283",
+            "supports": "ABSENCE_EVIDENCE",
+            "polarity": "FACT_OR_AUDIT",
+            "entailment_score": 1.0,
+            "confidence": "high",
+            "proposition": "在约定检索范围内未发现以下正向事实：责任方泄密后及时通知受影响方。",
+            "support_strength": "DIRECT",
+            "support_type": "DIRECT",
+            "entailment_status": "SUPPORTS",
+            "selection_reason": "以所需正向法律事实为检索目标执行全文缺失检索，未使用否定式风险描述作为查询。",
+            "search_scope": [
+              "合同正文及全部已提供附件"
+            ],
+            "search_targets": [
+              "责任方泄密后及时通知受影响方"
+            ],
+            "searched_sections": [
+              "合同正文及全部已提供附件"
+            ],
+            "result": "NOT_FOUND",
+            "quote": "已检索合同正文及全部已提供附件，未找到以下正向事实：责任方泄密后及时通知受影响方。",
+            "location": "SEARCH_AUDIT",
+            "supporting_review_ids": [
+              "TC-11-04"
+            ],
+            "supporting_element_ids": [
+              "incident_notification"
+            ],
+            "element_ids": [
+              "incident_notification"
+            ],
+            "searched_absent_element_ids": [
+              "incident_notification"
+            ],
+            "element_search": {
+              "element_id": "incident_notification",
+              "review_id": "TC-11-04",
+              "search_targets": [
+                "责任方泄密后及时通知受影响方"
+              ],
+              "query_patterns": [
+                "责任方泄密后及时通知受影响方"
+              ],
+              "query_semantics": "POSITIVE_REQUIRED_FACT",
+              "search_mode": "SAME_ATOMIC_EVALUATOR",
+              "searched_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020",
+                "C0021"
+              ],
+              "searched_document_hash": "2b380a9c5560ec0c323f4b254d22c17fa45551ac076284963ff68929059bdbef",
+              "result": "NOT_FOUND",
+              "supporting_evidence": [],
+              "partial_supporting_evidence": []
+            },
+            "source_fact_key": "confidentiality.incident_notification",
+            "evidence_polarity": "SUPPORTS_ABSENCE"
+          }
+        ],
+        "final_coverage": "缺失",
+        "detail": {
+          "review_id": "TC-11-04",
+          "element_id": "breach_damage_liability",
+          "obligated_party": "责任方",
+          "reason": "PARTY_NARRATIVE_STATUS_MISMATCH"
+        }
+      }
+    ]
+  },
+  "final_code": {
+    "current_request": "NOT_VERIFIED",
+    "full_test_run": "full58",
+    "code_frozen_at": "2026-09-15T23:09:37.2913729Z",
+    "sources": [
+      {
+        "path": "backend/review_v2/engine.py",
+        "sha256": "8dbcd3d55ba74311086a142b1a95c75296ddf0ea4fe74761cf3db6cbff8a03c8"
+      },
+      {
+        "path": "backend/review_v2/proposition_scope.py",
+        "sha256": "4ae0f19796ab99ce5af99f2d3c28a5e789bfe5bcfbd5012a20595fa9a66d34cb"
+      },
+      {
+        "path": "backend/review_v2/technology_adverse_evidence.py",
+        "sha256": "e9fd705e950a7256bed21f7edb09eaaa3d47e0f9fbc7ab2e9f114c35c0f9b3f0"
+      },
+      {
+        "path": "backend/review_v2/technology_service_analysis.py",
+        "sha256": "8cecbfd53fe8f66eca6581ba197c3c8a7dcd6e117b4f9f78f950b46ba700ed0b"
+      },
+      {
+        "path": "backend/tests/test_claim_semantic_scope.py",
+        "sha256": "091dca358ed1207b651a44d2e7259103fe49a4c69700fba10cea29fa057939df"
+      }
+    ],
+    "candidate": "1ad8d39d8fe0905fb7a974a6f014a114c0f1d8d95d8411ad7381fd1f39677ce3"
+  },
+  "prior_full57_new_regression": "Fixed without changing the existing test assertion; see Full58 comparison."
+}

@@ -1,0 +1,430 @@
+{
+  "baseline": {
+    "PASS": 803,
+    "FAIL": 270,
+    "SKIP": 0
+  },
+  "current": {
+    "PASS": 790,
+    "FAIL": 289,
+    "SKIP": 0
+  },
+  "recovered": [
+    "backend.tests.test_industrial_technical_service_routing_regression::test_b2b_industrial_service_uses_technical_service_route_and_roles",
+    "backend.tests.test_industrial_technical_service_routing_regression::test_explicit_service_follow_on_improvement_still_activates_tc10",
+    "backend.tests.test_industrial_technical_service_routing_regression::test_improvement_recommendation_does_not_invent_existing_mechanisms",
+    "backend.tests.test_industrial_technical_service_routing_regression::test_payment_and_timeline_are_bound_to_current_contract_facts",
+    "backend.tests.test_industrial_technical_service_routing_regression::test_service_current_project_outputs_do_not_activate_follow_on_improvement_rules",
+    "backend.tests.test_industrial_technical_service_routing_regression::test_third_party_component_fact_is_shared_by_claim_and_proof_reviews",
+    "backend.tests.test_patent_license_input_integrity_routing::test_complete_patent_license_uses_one_full_text_and_never_loads_sale_rules",
+    "backend.tests.test_technology_license_primary_transaction::test_gold_routes_raw_docx_to_technology_license_not_sale"
+  ],
+  "newly_failing": [
+    "backend.tests.test_atomic_narrative_and_recommendation_binding::test_recommendation_gate_rejects_covered_or_unregistered_actions[covered_id]",
+    "backend.tests.test_atomic_narrative_and_recommendation_binding::test_recommendation_gate_rejects_covered_or_unregistered_actions[new_id]",
+    "backend.tests.test_atomic_narrative_and_recommendation_binding::test_recommendation_gate_rejects_covered_or_unregistered_actions[new_text]",
+    "backend.tests.test_atomic_narrative_and_recommendation_binding::test_recommendation_gate_rejects_covered_or_unregistered_actions[rendered_text]",
+    "backend.tests.test_cooperative_development_advanced_regressions::test_article_870_is_kept_for_a_license_but_not_for_cooperative_development",
+    "backend.tests.test_narrative_source_and_date_semantics::test_current_timeline_has_no_invented_performance_or_effect",
+    "backend.tests.test_narrative_source_and_date_semantics::test_invented_material_fact_in_any_projection_blocks[finding_issue]",
+    "backend.tests.test_narrative_source_and_date_semantics::test_invented_material_fact_in_any_projection_blocks[narrative_state]",
+    "backend.tests.test_narrative_source_and_date_semantics::test_invented_material_fact_in_any_projection_blocks[reasoning_summary]",
+    "backend.tests.test_narrative_source_and_date_semantics::test_invented_material_fact_in_any_projection_blocks[risk_point_description]",
+    "backend.tests.test_narrative_source_and_date_semantics::test_removing_one_material_source_blocks_not_rescued_by_other_clauses[\\u4ec5\\u9650\\u672c\\u5408\\u540c\\u6709\\u6548\\u671f\\u5185]",
+    "backend.tests.test_narrative_source_and_date_semantics::test_removing_one_material_source_blocks_not_rescued_by_other_clauses[\\u8fdd\\u53cd\\u6280\\u672f\\u4f7f\\u7528\\u3001\\u8f6c\\u8ba9\\u6216\\u4fdd\\u5bc6\\u4e49\\u52a1]",
+    "backend.tests.test_narrative_source_and_date_semantics::test_same_amount_with_an_invented_trigger_is_not_supported",
+    "backend.tests.test_narrative_source_and_date_semantics::test_time_narrative_cannot_replace_validity_with_performance",
+    "backend.tests.test_technical_secret_license_contract_review::test_acceptance_report_blocks_share_one_final_missing_element_set",
+    "backend.tests.test_technical_secret_license_contract_review::test_confidentiality_liability_evidence_explanation_is_element_bound",
+    "backend.tests.test_technical_secret_license_contract_review::test_latest_acceptance_absence_search_excludes_covered_metrics",
+    "backend.tests.test_technical_secret_license_contract_review::test_latest_confidentiality_period_recommendation_only_uses_final_exception_gap",
+    "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_compliant_use_infringement_liability_is_covered",
+    "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_confidentiality_consumes_cross_article_facts",
+    "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_confidentiality_partial_renderer_uses_final_missing_fact",
+    "backend.tests.test_technical_secret_license_contract_review::test_partial_rule_text_is_generated_only_from_final_missing_elements",
+    "backend.tests.test_technical_secret_license_contract_review::test_secret_loss_explicit_article_consumes_trigger_notice_termination_and_damage",
+    "backend.tests.test_technology_subject_identity_consistency::test_current_application_identity_uses_basic_information_and_definition",
+    "backend.tests.test_technology_subject_identity_consistency::test_direct_identity_overrides_stale_semantic_absence[\\u7f3a\\u5931]",
+    "backend.tests.test_technology_subject_identity_consistency::test_direct_identity_overrides_stale_semantic_absence[\\u90e8\\u5206\\u8986\\u76d6]",
+    "backend.tests.test_technology_subject_identity_consistency::test_unbound_structured_fields_cannot_create_coverage"
+  ],
+  "added": {
+    "backend.tests.test_resolved_fact_route_handoff::test_body_transaction_controls_dispatch_without_a_technology_title[sale]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_resolved_fact_route_handoff::test_body_transaction_controls_dispatch_without_a_technology_title[service]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_resolved_fact_route_handoff::test_reclassification_gate_validates_resolved_execution_not_input_prior[None]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_resolved_fact_route_handoff::test_reclassification_gate_validates_resolved_execution_not_input_prior[checklist]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_resolved_fact_route_handoff::test_reclassification_gate_validates_resolved_execution_not_input_prior[facts_pipeline]": {
+      "status": "PASS",
+      "message": ""
+    },
+    "backend.tests.test_resolved_fact_route_handoff::test_reclassification_gate_validates_resolved_execution_not_input_prior[report]": {
+      "status": "PASS",
+      "message": ""
+    }
+  },
+  "removed": [],
+  "changes": {
+    "backend.tests.test_atomic_narrative_and_recommendation_binding::test_recommendation_gate_rejects_covered_or_unregistered_actions[covered_id]": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_atomic_narrative_and_recommendation_binding::test_recommendation_gate_rejects_covered_or_unregistered_actions[new_id]": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_atomic_narrative_and_recommendation_binding::test_recommendation_gate_rejects_covered_or_unregistered_actions[new_text]": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_atomic_narrative_and_recommendation_binding::test_recommendation_gate_rejects_covered_or_unregistered_actions[rendered_text]": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_cooperative_development_advanced_regressions::test_article_870_is_kept_for_a_license_but_not_for_cooperative_development": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "KeyError: 'TC-13-02'"
+      }
+    },
+    "backend.tests.test_industrial_technical_service_routing_regression::test_b2b_industrial_service_uses_technical_service_route_and_roles": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert 'SERVICE' == 'TECHNOLOGY'\n  \n  - TECHNOLOGY\n  + SERVICE"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_industrial_technical_service_routing_regression::test_explicit_service_follow_on_improvement_still_activates_tc10": {
+      "before": {
+        "status": "FAIL",
+        "message": "KeyError: 'TC-10-01'"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_industrial_technical_service_routing_regression::test_improvement_recommendation_does_not_invent_existing_mechanisms": {
+      "before": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_industrial_technical_service_routing_regression::test_payment_and_timeline_are_bound_to_current_contract_facts": {
+      "before": {
+        "status": "FAIL",
+        "message": "KeyError: 'contract_total'"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_industrial_technical_service_routing_regression::test_service_current_project_outputs_do_not_activate_follow_on_improvement_rules": {
+      "before": {
+        "status": "FAIL",
+        "message": "KeyError: 'TC-10-01'"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_industrial_technical_service_routing_regression::test_third_party_component_fact_is_shared_by_claim_and_proof_reviews": {
+      "before": {
+        "status": "FAIL",
+        "message": "KeyError: 'TC-03-04'"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_narrative_source_and_date_semantics::test_current_timeline_has_no_invented_performance_or_effect": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_narrative_source_and_date_semantics::test_invented_material_fact_in_any_projection_blocks[finding_issue]": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_narrative_source_and_date_semantics::test_invented_material_fact_in_any_projection_blocks[narrative_state]": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_narrative_source_and_date_semantics::test_invented_material_fact_in_any_projection_blocks[reasoning_summary]": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_narrative_source_and_date_semantics::test_invented_material_fact_in_any_projection_blocks[risk_point_description]": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_narrative_source_and_date_semantics::test_removing_one_material_source_blocks_not_rescued_by_other_clauses[\\u4ec5\\u9650\\u672c\\u5408\\u540c\\u6709\\u6548\\u671f\\u5185]": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert 'REPORT_READY' == 'BLOCKED'\n  \n  - BLOCKED\n  + REPORT_READY"
+      }
+    },
+    "backend.tests.test_narrative_source_and_date_semantics::test_removing_one_material_source_blocks_not_rescued_by_other_clauses[\\u8fdd\\u53cd\\u6280\\u672f\\u4f7f\\u7528\\u3001\\u8f6c\\u8ba9\\u6216\\u4fdd\\u5bc6\\u4e49\\u52a1]": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "AssertionError: assert 'REPORT_READY' == 'BLOCKED'\n  \n  - BLOCKED\n  + REPORT_READY"
+      }
+    },
+    "backend.tests.test_narrative_source_and_date_semantics::test_same_amount_with_an_invented_trigger_is_not_supported": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_narrative_source_and_date_semantics::test_time_narrative_cannot_replace_validity_with_performance": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_patent_license_input_integrity_routing::test_complete_patent_license_uses_one_full_text_and_never_loads_sale_rules": {
+      "before": {
+        "status": "FAIL",
+        "message": "AssertionError: assert 'sale' == 'technology'\n  \n  - technology\n  + sale"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_technical_secret_license_contract_review::test_acceptance_report_blocks_share_one_final_missing_element_set": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_technical_secret_license_contract_review::test_confidentiality_liability_evidence_explanation_is_element_bound": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_technical_secret_license_contract_review::test_latest_acceptance_absence_search_excludes_covered_metrics": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_technical_secret_license_contract_review::test_latest_confidentiality_period_recommendation_only_uses_final_exception_gap": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_compliant_use_infringement_liability_is_covered": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_confidentiality_consumes_cross_article_facts": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_confidentiality_partial_renderer_uses_final_missing_fact": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_technical_secret_license_contract_review::test_partial_rule_text_is_generated_only_from_final_missing_elements": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_technical_secret_license_contract_review::test_secret_loss_explicit_article_consumes_trigger_notice_termination_and_damage": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_technology_license_primary_transaction::test_gold_routes_raw_docx_to_technology_license_not_sale": {
+      "before": {
+        "status": "FAIL",
+        "message": "KeyError: 'primary_transaction_model'"
+      },
+      "after": {
+        "status": "PASS",
+        "message": ""
+      }
+    },
+    "backend.tests.test_technology_subject_identity_consistency::test_current_application_identity_uses_basic_information_and_definition": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_technology_subject_identity_consistency::test_direct_identity_overrides_stale_semantic_absence[\\u7f3a\\u5931]": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_technology_subject_identity_consistency::test_direct_identity_overrides_stale_semantic_absence[\\u90e8\\u5206\\u8986\\u76d6]": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    },
+    "backend.tests.test_technology_subject_identity_consistency::test_unbound_structured_fields_cannot_create_coverage": {
+      "before": {
+        "status": "PASS",
+        "message": ""
+      },
+      "after": {
+        "status": "FAIL",
+        "message": "StopIteration"
+      }
+    }
+  }
+}

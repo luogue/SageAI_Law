@@ -1,10 +1,9 @@
 # Project Memory: Agent Configuration
 
 ## Base Model Configuration
-- **Primary Model**: Qwen (千问/DashScope API) - 云端调用
-- **Secondary Model**: Doubao (火山方舟/Ark API) - 云端调用
-- **Model Type**: Cloud API (本地模型已移除)
-- **Model Description**: 云端大模型推理，支持千问+火山双模型智能降级
+- **Primary Model**: DeepSeek - 云端调用
+- **Model Type**: Cloud API
+- **Model Description**: 仅使用 DeepSeek；配置通过环境变量或 backend/.env 加载，不进行 provider fallback。
 
 ## Agents
 

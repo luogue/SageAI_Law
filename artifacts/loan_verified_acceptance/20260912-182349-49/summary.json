@@ -1,0 +1,51 @@
+[
+  {
+    "file": "F:\\ai\\Sage\\test_data\\49 借款合同.docx",
+    "file_sha256": "f7b6add0014282b759e925776666881db6c971582281b3eb6fc19b2ccc43fa60",
+    "source_sha256": "42a49a60dc6ad5b37f52b0aa36155fb933347022f53e757d4fdec5fd0f553c90",
+    "source_characters": 3360,
+    "code_sha256": {
+      "backend\\review_v2\\unified_facts\\__init__.py": "12c1cfefdc5ad94d0c224dc5df189009ecea19dfb8c16c5072228f5b11917af4",
+      "backend\\review_v2\\unified_facts\\loan.py": "18e4d2d5eb155c627a308a41fe65a5165d554a8ced2d317dcb78451ec86f3ec5",
+      "backend\\review_v2\\unified_facts\\loan_bindings.py": "945a44cb653049eaea670963a732c28763a58e56da665bb3144fc257fa99e368",
+      "backend\\review_v2\\unified_facts\\loan_costs.py": "13d80e0775ddd3fb05a8a327b53254ba75b9f8464ee070d8a318282c828dadfa",
+      "backend\\review_v2\\unified_facts\\loan_pipeline.py": "dcbdb65ff2ccbfddf8fcf595985dfe4c74df5391e8b3e182fe39e61b04688a04",
+      "backend\\review_v2\\unified_facts\\loan_rules.py": "cb8678312100908a9e535b289486cbe0f5d783600f6612f93a01ddefdf411bb6",
+      "backend\\review_v2\\unified_facts\\normalization.py": "370bfea9d2f66b111d0da674b3efcbe114bb5d4fba2c54371658855efbc7c7f8",
+      "backend\\review_v2\\unified_facts\\pipeline.py": "a20d8dc9544c775c9b9afbda7c9cc11b899e817f13e7d8e61cd5b36cbfe4d360",
+      "backend\\review_v2\\unified_facts\\schema.py": "ae490c84afc74a784ccd89de58d6b75dd50953679be8d09bc48bbf66e5a0262b",
+      "backend\\review_v2\\unified_facts\\store.py": "ffcc899fd7257025e2fe073567d8e3b3fcb4b88be2833a3ceda0f95b7d426306"
+    },
+    "status": "BLOCKED",
+    "error": "FactExtractionError: INCOMPLETE_FACT_SCOPE",
+    "diagnostics": [
+      {
+        "failed_stage": "UNIFIED_FACT_VALIDATION",
+        "fact_id": null,
+        "field": "checks.fact_id",
+        "validation_rule": "INCOMPLETE_FACT_SCOPE",
+        "model_raw_value": null,
+        "evidence": null,
+        "expected": [
+          "CF-14e7b75861e9f53322b90b57",
+          "CF-5c90c027752b47c168338a5c",
+          "CF-6a80f7c187cef9e7cc8f41c7",
+          "CF-7e27287fa203c42397a07288",
+          "CF-9a11b198013208d80ccf57d0"
+        ],
+        "actual": [
+          "CF-7e27287fa203c42397a07288",
+          "CF-14e7b75861e9f53322b90b57",
+          "CF-5c90c027752b47c168338a5c",
+          "CF-9a11b198013208d80ccf57d0",
+          "CF-db7e5a9a3541fbdbe0bc8326",
+          "CF-e6e13fb068b08b795ce9f616",
+          "CF-9fe80811edbeb827de4442cb"
+        ],
+        "disposition": "BLOCK"
+      }
+    ],
+    "attempts": [],
+    "calls": 28
+  }
+]

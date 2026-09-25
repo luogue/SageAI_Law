@@ -113,4 +113,5 @@ def test_review_v2_can_load_finance_lease_checklist():
     assert output["contract_type_name"] == "融资租赁合同"
     assert output["all_items_count"] == 45
     assert len(output["items"]) == 45
-    assert output["summary"]["高"] + output["summary"]["中"] + output["summary"]["低"] == 45
+    assert sum(output["coverage_summary"].values()) == 45
+    assert output["coverage_summary"].get("不适用", 0) >= 3

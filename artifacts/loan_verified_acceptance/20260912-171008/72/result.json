@@ -1,0 +1,889 @@
+{
+  "file": "F:\\ai\\Sage\\test_data\\72 无抵押借款.docx",
+  "file_sha256": "6878e648ecd7c983c7103c54a67a43e901cd0ec820ff0ce5da60320c2ea64930",
+  "source_sha256": "e15a8bbc871a7f4e6a327794d545d35883885f52ac44f0809e51e46cc54b4735",
+  "source_characters": 1164,
+  "status": "BLOCKED",
+  "error": "FactExtractionError: INVALID_TYPED_FACT:INVALID_VALUE_OBJECT_FIELDS",
+  "diagnostics": [
+    {
+      "failed_stage": "UNIFIED_FACT_VALIDATION",
+      "fact_id": null,
+      "field": "loan.cost_components",
+      "validation_rule": "INVALID_TYPED_FACT:INVALID_VALUE_OBJECT_FIELDS",
+      "model_raw_value": null,
+      "evidence": null,
+      "expected": null,
+      "actual": {
+        "kind": "penalty",
+        "charge_key": "借款用途违约违约金",
+        "base": "PRINCIPAL",
+        "scope": "LOAN_TERM",
+        "rate": {
+          "state": "PRESENT",
+          "percent": 20
+        }
+      },
+      "disposition": "BLOCK"
+    }
+  ],
+  "attempts": [
+    {
+      "raw_extraction": {
+        "schema_version": "contract-facts-1.0",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020"
+        ],
+        "searched_concepts": [
+          "loan.financing_fee",
+          "loan.cost_components",
+          "loan.cost_cumulative",
+          "loan.cost_replacement",
+          "loan.cost_exclusive",
+          "loan.cost_combined_cap"
+        ],
+        "observations": [
+          {
+            "concept": "loan.financing_fee",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.cost_components",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": {
+              "kind": "regular_interest",
+              "charge_key": "借期利息",
+              "base": "PRINCIPAL",
+              "scope": "LOAN_TERM",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 10.8,
+                "period": "YEAR"
+              }
+            },
+            "evidence": [
+              {
+                "clause_id": "C0006",
+                "quote": "1.4 利息：利率为年利率10.8%，按月计收，每月10日（与借款发放日同一日）支付。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.cost_components",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": {
+              "kind": "penalty",
+              "charge_key": "逾期违约金",
+              "base": "PRINCIPAL",
+              "scope": "OVERDUE",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 0.5,
+                "period": "DAY"
+              }
+            },
+            "evidence": [
+              {
+                "clause_id": "C0012",
+                "quote": "2.4 乙方未按合同约定按时偿还本金或利息的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且从逾期之日起乙方应每日按借款总额的0.5%向甲方支付违约金。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.cost_components",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": {
+              "kind": "penalty",
+              "charge_key": "借款用途违约违约金",
+              "base": "PRINCIPAL",
+              "scope": "LOAN_TERM",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 20,
+                "period": "YEAR"
+              }
+            },
+            "evidence": [
+              {
+                "clause_id": "C0009",
+                "quote": "2.1 乙方违反本合同约定借款用途的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且乙方应按借款总额的20％向甲方支付违约金。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.cost_components",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": {
+              "kind": "penalty",
+              "charge_key": "其他违约违约金",
+              "base": "PRINCIPAL",
+              "scope": "LOAN_TERM",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 20,
+                "period": "YEAR"
+              }
+            },
+            "evidence": [
+              {
+                "clause_id": "C0010",
+                "quote": "2.2 乙方违反本合同其它相关条款时，若该条款对违约责任没有约定，则乙方应按借款总额的20％向甲方支付违约金。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.cost_cumulative",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.cost_replacement",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.cost_exclusive",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.cost_combined_cap",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          }
+        ]
+      },
+      "verification": {
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020"
+        ],
+        "searched_concepts": [
+          "loan.financing_fee",
+          "loan.cost_components",
+          "loan.cost_cumulative",
+          "loan.cost_replacement",
+          "loan.cost_exclusive",
+          "loan.cost_combined_cap"
+        ],
+        "checks": [
+          {
+            "fact_id": "CF-941d0745611335bfd40894b2",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-080c0fa150859da0f8e40e7e",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-91469e9a756935bf7e5120be",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-e22adc59d0c5d7ec99d51337",
+            "supported": false,
+            "reason": "取值错误：C0009约定的是按借款总额的20%一次性支付违约金，并非按年利率计收，period不应为YEAR；应修正为rate={state:PRESENT,percent:20,period:UNKNOWN}或按一次性比例处理。"
+          },
+          {
+            "fact_id": "CF-6fa72353354f6e033f220219",
+            "supported": false,
+            "reason": "取值错误：C0010约定的是按借款总额的20%一次性支付违约金，并非按年利率计收，period不应为YEAR；应修正为rate={state:PRESENT,percent:20,period:UNKNOWN}或按一次性比例处理。"
+          },
+          {
+            "fact_id": "CF-3aaae17d4884f485e5ff03c4",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-2ee04d1308f2510fd4a97824",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-829f8851f090b977fd9404b9",
+            "supported": true
+          },
+          {
+            "fact_id": "CF-ba541d16c51d12698a4c01b2",
+            "supported": true
+          }
+        ],
+        "audits": [
+          {
+            "concept": "loan.financing_fee",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "全文未出现融资服务费、管理费、咨询费等实际收取的融资费用；C0007仅约定评估、保险、鉴定、登记、公证等办理费用由乙方承担，不属于融资服务费。"
+          },
+          {
+            "concept": "loan.cost_components",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020"
+            ],
+            "complete": false,
+            "omitted_facts": [
+              {
+                "concept": "loan.cost_components",
+                "kind": "penalty",
+                "charge_key": "逾期违约金",
+                "base": "PRINCIPAL",
+                "scope": "OVERDUE",
+                "rate": {
+                  "state": "PRESENT",
+                  "percent": "0.5",
+                  "period": "DAY"
+                },
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "2.4 乙方未按合同约定按时偿还本金或利息的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且从逾期之日起乙方应每日按借款总额的0.5%向甲方支付违约金。",
+                    "section": "2.4",
+                    "source_start": 659,
+                    "source_end": 747,
+                    "block_type": "OPERATIVE_CLAUSE",
+                    "section_type": "正式合同条款"
+                  }
+                ],
+                "reason": "候选CF-91469e9a756935bf7e5120be已提取，但audit需确认无遗漏；经全文核验，C0012的逾期违约金已提取，无其他遗漏。"
+              }
+            ],
+            "reason": "已提取借期利息（C0006）、逾期违约金（C0012）、借款用途违约金（C0009）、其他违约金（C0010）。C0009和C0010的period应为UNKNOWN而非YEAR，但属于取值修正，不构成遗漏。C0007的办理费用不属于借期利息、逾期利息、违约金或融资费用，不提取。"
+          },
+          {
+            "concept": "loan.cost_cumulative",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "全文未明确约定逾期后借期利息和逾期责任继续叠加计收。"
+          },
+          {
+            "concept": "loan.cost_replacement",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "全文未明确约定逾期责任替代借期利息或借期利息停止计收。"
+          },
+          {
+            "concept": "loan.cost_exclusive",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "全文未明确约定逾期收费择一主张或不得同时计收。"
+          },
+          {
+            "concept": "loan.cost_combined_cap",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020"
+            ],
+            "complete": true,
+            "omitted_facts": [],
+            "reason": "全文未约定全部实际融资收费合计受合同成立时一年期LPR四倍限制。"
+          }
+        ]
+      },
+      "diagnostics": [
+        {
+          "failed_stage": "UNIFIED_FACT_VALIDATION",
+          "fact_id": null,
+          "field": "checks",
+          "validation_rule": "FACT_VERIFICATION_REJECTED",
+          "model_raw_value": null,
+          "evidence": null,
+          "expected": null,
+          "actual": [
+            {
+              "fact_id": "CF-941d0745611335bfd40894b2",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-080c0fa150859da0f8e40e7e",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-91469e9a756935bf7e5120be",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-e22adc59d0c5d7ec99d51337",
+              "supported": false,
+              "reason": "取值错误：C0009约定的是按借款总额的20%一次性支付违约金，并非按年利率计收，period不应为YEAR；应修正为rate={state:PRESENT,percent:20,period:UNKNOWN}或按一次性比例处理。"
+            },
+            {
+              "fact_id": "CF-6fa72353354f6e033f220219",
+              "supported": false,
+              "reason": "取值错误：C0010约定的是按借款总额的20%一次性支付违约金，并非按年利率计收，period不应为YEAR；应修正为rate={state:PRESENT,percent:20,period:UNKNOWN}或按一次性比例处理。"
+            },
+            {
+              "fact_id": "CF-3aaae17d4884f485e5ff03c4",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-2ee04d1308f2510fd4a97824",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-829f8851f090b977fd9404b9",
+              "supported": true
+            },
+            {
+              "fact_id": "CF-ba541d16c51d12698a4c01b2",
+              "supported": true
+            }
+          ],
+          "disposition": "BLOCK"
+        }
+      ]
+    },
+    {
+      "raw_extraction": {
+        "schema_version": "contract-facts-1.0",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020"
+        ],
+        "searched_concepts": [
+          "loan.financing_fee",
+          "loan.cost_components",
+          "loan.cost_cumulative",
+          "loan.cost_replacement",
+          "loan.cost_exclusive",
+          "loan.cost_combined_cap"
+        ],
+        "observations": [
+          {
+            "concept": "loan.financing_fee",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.cost_components",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": {
+              "kind": "regular_interest",
+              "charge_key": "借期利息",
+              "base": "PRINCIPAL",
+              "scope": "LOAN_TERM",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 10.8,
+                "period": "YEAR"
+              }
+            },
+            "evidence": [
+              {
+                "clause_id": "C0006",
+                "quote": "1.4 利息：利率为年利率10.8%，按月计收，每月10日（与借款发放日同一日）支付。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.cost_components",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": {
+              "kind": "penalty",
+              "charge_key": "逾期违约金",
+              "base": "PRINCIPAL",
+              "scope": "OVERDUE",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 0.5,
+                "period": "DAY"
+              }
+            },
+            "evidence": [
+              {
+                "clause_id": "C0012",
+                "quote": "2.4 乙方未按合同约定按时偿还本金或利息的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且从逾期之日起乙方应每日按借款总额的0.5%向甲方支付违约金。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.cost_components",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": {
+              "kind": "penalty",
+              "charge_key": "借款用途违约违约金",
+              "base": "PRINCIPAL",
+              "scope": "LOAN_TERM",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 20,
+                "period": "UNKNOWN"
+              }
+            },
+            "evidence": [
+              {
+                "clause_id": "C0009",
+                "quote": "2.1 乙方违反本合同约定借款用途的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且乙方应按借款总额的20％向甲方支付违约金。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.cost_components",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": {
+              "kind": "penalty",
+              "charge_key": "其他违约违约金",
+              "base": "PRINCIPAL",
+              "scope": "LOAN_TERM",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 20,
+                "period": "UNKNOWN"
+              }
+            },
+            "evidence": [
+              {
+                "clause_id": "C0010",
+                "quote": "2.2 乙方违反本合同其它相关条款时，若该条款对违约责任没有约定，则乙方应按借款总额的20％向甲方支付违约金。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.cost_cumulative",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.cost_replacement",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.cost_exclusive",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.cost_combined_cap",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          }
+        ]
+      },
+      "verification": null,
+      "diagnostics": [
+        {
+          "failed_stage": "UNIFIED_FACT_VALIDATION",
+          "fact_id": null,
+          "field": "loan.cost_components",
+          "validation_rule": "INVALID_TYPED_FACT:INVALID_RATE_PERIOD",
+          "model_raw_value": null,
+          "evidence": null,
+          "expected": null,
+          "actual": {
+            "kind": "penalty",
+            "charge_key": "借款用途违约违约金",
+            "base": "PRINCIPAL",
+            "scope": "LOAN_TERM",
+            "rate": {
+              "state": "PRESENT",
+              "percent": 20,
+              "period": "UNKNOWN"
+            }
+          },
+          "disposition": "BLOCK"
+        }
+      ]
+    },
+    {
+      "raw_extraction": {
+        "schema_version": "contract-facts-1.0",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020"
+        ],
+        "searched_concepts": [
+          "loan.financing_fee",
+          "loan.cost_components",
+          "loan.cost_cumulative",
+          "loan.cost_replacement",
+          "loan.cost_exclusive",
+          "loan.cost_combined_cap"
+        ],
+        "observations": [
+          {
+            "concept": "loan.financing_fee",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.cost_components",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": {
+              "kind": "regular_interest",
+              "charge_key": "借期利息",
+              "base": "PRINCIPAL",
+              "scope": "LOAN_TERM",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 10.8,
+                "period": "YEAR"
+              }
+            },
+            "evidence": [
+              {
+                "clause_id": "C0006",
+                "quote": "1.4 利息：利率为年利率10.8%，按月计收，每月10日（与借款发放日同一日）支付。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.cost_components",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": {
+              "kind": "penalty",
+              "charge_key": "逾期违约金",
+              "base": "PRINCIPAL",
+              "scope": "OVERDUE",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 0.5,
+                "period": "DAY"
+              }
+            },
+            "evidence": [
+              {
+                "clause_id": "C0012",
+                "quote": "2.4 乙方未按合同约定按时偿还本金或利息的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且从逾期之日起乙方应每日按借款总额的0.5%向甲方支付违约金。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.cost_components",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": {
+              "kind": "penalty",
+              "charge_key": "借款用途违约违约金",
+              "base": "PRINCIPAL",
+              "scope": "LOAN_TERM",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 20
+              }
+            },
+            "evidence": [
+              {
+                "clause_id": "C0009",
+                "quote": "2.1 乙方违反本合同约定借款用途的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且乙方应按借款总额的20％向甲方支付违约金。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.cost_components",
+            "state": "PRESENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.95,
+            "value": {
+              "kind": "penalty",
+              "charge_key": "其他违约违约金",
+              "base": "PRINCIPAL",
+              "scope": "LOAN_TERM",
+              "rate": {
+                "state": "PRESENT",
+                "percent": 20
+              }
+            },
+            "evidence": [
+              {
+                "clause_id": "C0010",
+                "quote": "2.2 乙方违反本合同其它相关条款时，若该条款对违约责任没有约定，则乙方应按借款总额的20％向甲方支付违约金。"
+              }
+            ]
+          },
+          {
+            "concept": "loan.cost_cumulative",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.cost_replacement",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.cost_exclusive",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          },
+          {
+            "concept": "loan.cost_combined_cap",
+            "state": "ABSENT",
+            "assertion": "EXPLICIT",
+            "confidence": 0.9,
+            "evidence": []
+          }
+        ]
+      },
+      "verification": null,
+      "diagnostics": [
+        {
+          "failed_stage": "UNIFIED_FACT_VALIDATION",
+          "fact_id": null,
+          "field": "loan.cost_components",
+          "validation_rule": "INVALID_TYPED_FACT:INVALID_VALUE_OBJECT_FIELDS",
+          "model_raw_value": null,
+          "evidence": null,
+          "expected": null,
+          "actual": {
+            "kind": "penalty",
+            "charge_key": "借款用途违约违约金",
+            "base": "PRINCIPAL",
+            "scope": "LOAN_TERM",
+            "rate": {
+              "state": "PRESENT",
+              "percent": 20
+            }
+          },
+          "disposition": "BLOCK"
+        }
+      ]
+    }
+  ],
+  "calls": 19
+}

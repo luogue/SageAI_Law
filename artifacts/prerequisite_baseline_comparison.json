@@ -1,0 +1,441 @@
+{
+  "identical": true,
+  "baseline": {
+    "statuses": {
+      "TC-01-01": "通过",
+      "TC-01-02": "通过",
+      "TC-01-03": "通过",
+      "TC-01-04": "不适用",
+      "TC-02-01": "通过",
+      "TC-02-02": "通过",
+      "TC-02-03": "不适用",
+      "TC-02-04": "不适用",
+      "TC-03-01": "不适用",
+      "TC-03-02": "不适用",
+      "TC-03-03": "不适用",
+      "TC-03-04": "缺失",
+      "TC-04-01": "不适用",
+      "TC-04-02": "不适用",
+      "TC-04-03": "不适用",
+      "TC-04-04": "不适用",
+      "TC-05-01": "不适用",
+      "TC-05-02": "不适用",
+      "TC-05-03": "不适用",
+      "TC-05-04": "不适用",
+      "TC-06-01": "不适用",
+      "TC-06-02": "不适用",
+      "TC-06-03": "不适用",
+      "TC-06-04": "不适用",
+      "TC-07-01": "部分覆盖",
+      "TC-07-02": "通过",
+      "TC-07-03": "通过",
+      "TC-07-04": "通过",
+      "TC-08-01": "不适用",
+      "TC-08-02": "不适用",
+      "TC-08-03": "不适用",
+      "TC-08-04": "不适用",
+      "TC-08-05": "不适用",
+      "TC-09-01": "通过",
+      "TC-09-02": "缺失",
+      "TC-09-03": "不适用",
+      "TC-09-04": "缺失",
+      "TC-10-01": "通过",
+      "TC-10-02": "部分覆盖",
+      "TC-10-03": "缺失",
+      "TC-10-04": "通过",
+      "TC-11-01": "INSUFFICIENT_CONTEXT",
+      "TC-11-02": "INSUFFICIENT_CONTEXT",
+      "TC-11-03": "INSUFFICIENT_CONTEXT",
+      "TC-11-04": "缺失",
+      "TC-12-01": "缺失",
+      "TC-12-02": "缺失",
+      "TC-12-03": "不适用",
+      "TC-12-04": "不适用",
+      "TC-13-01": "缺失",
+      "TC-13-02": "缺失",
+      "TC-13-03": "缺失",
+      "TC-13-04": "不适用"
+    },
+    "gate": "BLOCKED",
+    "failures": [
+      {
+        "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+        "failure_stage": "Technology Coverage Consistency",
+        "root_cause": "TC-03-04 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+        "entity_type": "review",
+        "entity_id": "TC-03-04",
+        "source_clause_ids": [
+          "C0002",
+          "C0003",
+          "C0051"
+        ],
+        "severity": "blocking"
+      },
+      {
+        "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+        "failure_stage": "Technology Coverage Consistency",
+        "root_cause": "TC-09-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+        "entity_type": "review",
+        "entity_id": "TC-09-02",
+        "source_clause_ids": [
+          "C0061"
+        ],
+        "severity": "blocking"
+      },
+      {
+        "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+        "failure_stage": "Technology Coverage Consistency",
+        "root_cause": "TC-13-01 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+        "entity_type": "review",
+        "entity_id": "TC-13-01",
+        "source_clause_ids": [
+          "C0057",
+          "C0045",
+          "C0048",
+          "C0049",
+          "C0050",
+          "C0051"
+        ],
+        "severity": "blocking"
+      },
+      {
+        "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+        "failure_stage": "Technology Coverage Consistency",
+        "root_cause": "TC-13-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+        "entity_type": "review",
+        "entity_id": "TC-13-02",
+        "source_clause_ids": [
+          "C0002",
+          "C0003",
+          "C0051"
+        ],
+        "severity": "blocking"
+      },
+      {
+        "requirement": "CROSS_RULE_CANONICAL_FACT_CONSISTENCY",
+        "failure_stage": "Cross-rule Canonical Fact Audit",
+        "root_cause": "同一事实已被其他规则或统一事实层确认，但下游消费者仍输出完全缺失。",
+        "entity_type": "review_group",
+        "entity_id": "technology_shared_facts",
+        "conflicts": [
+          {
+            "subject": "ACCEPTANCE",
+            "consumer": "TC-13-03"
+          }
+        ],
+        "severity": "blocking"
+      },
+      {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "details": [
+          {
+            "review_id": "TC-11-04",
+            "element_id": "breach_damage_liability",
+            "obligated_party": "责任方",
+            "reason": "PARTY_NARRATIVE_STATUS_MISMATCH"
+          },
+          {
+            "risk_id": "RF-002",
+            "review_id": "TC-07-01",
+            "element_id": "license_territory",
+            "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+          },
+          {
+            "risk_id": "RF-001",
+            "review_id": "TC-03-04",
+            "element_id": "patent_identity_in_contract",
+            "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+          },
+          {
+            "review_id": "TC-11-01",
+            "evidence_owner": "ELEMENT_SEARCH",
+            "element_id": "technical_secret_applicability",
+            "reason": "INVALID_ABSENCE_SEARCH_TARGET",
+            "target_fields": [
+              "search_targets"
+            ],
+            "search_targets": []
+          }
+        ]
+      },
+      {
+        "requirement": "PASS_EVIDENCE_PROPOSITION_MATCH_GATE",
+        "field": "review_evidence",
+        "failures": [
+          {
+            "review_id": "TC-07-04",
+            "status": "NO_DIRECT_EVIDENCE",
+            "repaired": false,
+            "primary_evidence_was_direct": false,
+            "coverage_propositions": [
+              "合同存在可验证的“许可人协助和维护”实质条款内容。"
+            ],
+            "direct_evidence_ids": [],
+            "missing_element_ids": [
+              "core_contract_arrangement"
+            ],
+            "synthetic_proposition_only": true
+          },
+          {
+            "review_id": "TC-10-01",
+            "status": "NO_DIRECT_EVIDENCE",
+            "repaired": false,
+            "primary_evidence_was_direct": false,
+            "coverage_propositions": [
+              "合同存在可验证的“后续改进成果归属”实质条款内容。"
+            ],
+            "direct_evidence_ids": [],
+            "missing_element_ids": [
+              "core_contract_arrangement"
+            ],
+            "synthetic_proposition_only": true
+          }
+        ]
+      },
+      {
+        "requirement": "CANONICAL_RISK_COVERAGE_INVARIANT",
+        "field": "linked_review_state",
+        "conflicts": [
+          {
+            "review_id": "TC-03-04",
+            "risk_id": "RF-001",
+            "expected_issue_type": "PARTIAL",
+            "actual_issue_type": "完全缺失",
+            "expected_coverage_status": "部分覆盖",
+            "actual_coverage_status": "缺失"
+          },
+          {
+            "review_id": "TC-13-02",
+            "risk_id": "RF-001",
+            "expected_issue_type": "PARTIAL",
+            "actual_issue_type": "完全缺失",
+            "expected_coverage_status": "部分覆盖",
+            "actual_coverage_status": "缺失"
+          }
+        ]
+      }
+    ]
+  },
+  "current": {
+    "statuses": {
+      "TC-01-01": "通过",
+      "TC-01-02": "通过",
+      "TC-01-03": "通过",
+      "TC-01-04": "不适用",
+      "TC-02-01": "通过",
+      "TC-02-02": "通过",
+      "TC-02-03": "不适用",
+      "TC-02-04": "不适用",
+      "TC-03-01": "不适用",
+      "TC-03-02": "不适用",
+      "TC-03-03": "不适用",
+      "TC-03-04": "缺失",
+      "TC-04-01": "不适用",
+      "TC-04-02": "不适用",
+      "TC-04-03": "不适用",
+      "TC-04-04": "不适用",
+      "TC-05-01": "不适用",
+      "TC-05-02": "不适用",
+      "TC-05-03": "不适用",
+      "TC-05-04": "不适用",
+      "TC-06-01": "不适用",
+      "TC-06-02": "不适用",
+      "TC-06-03": "不适用",
+      "TC-06-04": "不适用",
+      "TC-07-01": "部分覆盖",
+      "TC-07-02": "通过",
+      "TC-07-03": "通过",
+      "TC-07-04": "通过",
+      "TC-08-01": "不适用",
+      "TC-08-02": "不适用",
+      "TC-08-03": "不适用",
+      "TC-08-04": "不适用",
+      "TC-08-05": "不适用",
+      "TC-09-01": "通过",
+      "TC-09-02": "缺失",
+      "TC-09-03": "不适用",
+      "TC-09-04": "缺失",
+      "TC-10-01": "通过",
+      "TC-10-02": "部分覆盖",
+      "TC-10-03": "缺失",
+      "TC-10-04": "通过",
+      "TC-11-01": "INSUFFICIENT_CONTEXT",
+      "TC-11-02": "INSUFFICIENT_CONTEXT",
+      "TC-11-03": "INSUFFICIENT_CONTEXT",
+      "TC-11-04": "缺失",
+      "TC-12-01": "缺失",
+      "TC-12-02": "缺失",
+      "TC-12-03": "不适用",
+      "TC-12-04": "不适用",
+      "TC-13-01": "缺失",
+      "TC-13-02": "缺失",
+      "TC-13-03": "缺失",
+      "TC-13-04": "不适用"
+    },
+    "gate": "BLOCKED",
+    "failures": [
+      {
+        "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+        "failure_stage": "Technology Coverage Consistency",
+        "root_cause": "TC-03-04 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+        "entity_type": "review",
+        "entity_id": "TC-03-04",
+        "source_clause_ids": [
+          "C0002",
+          "C0003",
+          "C0051"
+        ],
+        "severity": "blocking"
+      },
+      {
+        "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+        "failure_stage": "Technology Coverage Consistency",
+        "root_cause": "TC-09-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+        "entity_type": "review",
+        "entity_id": "TC-09-02",
+        "source_clause_ids": [
+          "C0061"
+        ],
+        "severity": "blocking"
+      },
+      {
+        "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+        "failure_stage": "Technology Coverage Consistency",
+        "root_cause": "TC-13-01 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+        "entity_type": "review",
+        "entity_id": "TC-13-01",
+        "source_clause_ids": [
+          "C0057",
+          "C0045",
+          "C0048",
+          "C0049",
+          "C0050",
+          "C0051"
+        ],
+        "severity": "blocking"
+      },
+      {
+        "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+        "failure_stage": "Technology Coverage Consistency",
+        "root_cause": "TC-13-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+        "entity_type": "review",
+        "entity_id": "TC-13-02",
+        "source_clause_ids": [
+          "C0002",
+          "C0003",
+          "C0051"
+        ],
+        "severity": "blocking"
+      },
+      {
+        "requirement": "CROSS_RULE_CANONICAL_FACT_CONSISTENCY",
+        "failure_stage": "Cross-rule Canonical Fact Audit",
+        "root_cause": "同一事实已被其他规则或统一事实层确认，但下游消费者仍输出完全缺失。",
+        "entity_type": "review_group",
+        "entity_id": "technology_shared_facts",
+        "conflicts": [
+          {
+            "subject": "ACCEPTANCE",
+            "consumer": "TC-13-03"
+          }
+        ],
+        "severity": "blocking"
+      },
+      {
+        "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+        "failure_stage": "Final Evidence Projection",
+        "root_cause": "最终要素、原文引文与报告事实不一致。",
+        "current_status": "FAIL",
+        "details": [
+          {
+            "review_id": "TC-11-04",
+            "element_id": "breach_damage_liability",
+            "obligated_party": "责任方",
+            "reason": "PARTY_NARRATIVE_STATUS_MISMATCH"
+          },
+          {
+            "risk_id": "RF-002",
+            "review_id": "TC-07-01",
+            "element_id": "license_territory",
+            "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+          },
+          {
+            "risk_id": "RF-001",
+            "review_id": "TC-03-04",
+            "element_id": "patent_identity_in_contract",
+            "reason": "FINAL_MISSING_WITHOUT_ELEMENT_ABSENCE_SEARCH"
+          },
+          {
+            "review_id": "TC-11-01",
+            "evidence_owner": "ELEMENT_SEARCH",
+            "element_id": "technical_secret_applicability",
+            "reason": "INVALID_ABSENCE_SEARCH_TARGET",
+            "target_fields": [
+              "search_targets"
+            ],
+            "search_targets": []
+          }
+        ]
+      },
+      {
+        "requirement": "PASS_EVIDENCE_PROPOSITION_MATCH_GATE",
+        "field": "review_evidence",
+        "failures": [
+          {
+            "review_id": "TC-07-04",
+            "status": "NO_DIRECT_EVIDENCE",
+            "repaired": false,
+            "primary_evidence_was_direct": false,
+            "coverage_propositions": [
+              "合同存在可验证的“许可人协助和维护”实质条款内容。"
+            ],
+            "direct_evidence_ids": [],
+            "missing_element_ids": [
+              "core_contract_arrangement"
+            ],
+            "synthetic_proposition_only": true
+          },
+          {
+            "review_id": "TC-10-01",
+            "status": "NO_DIRECT_EVIDENCE",
+            "repaired": false,
+            "primary_evidence_was_direct": false,
+            "coverage_propositions": [
+              "合同存在可验证的“后续改进成果归属”实质条款内容。"
+            ],
+            "direct_evidence_ids": [],
+            "missing_element_ids": [
+              "core_contract_arrangement"
+            ],
+            "synthetic_proposition_only": true
+          }
+        ]
+      },
+      {
+        "requirement": "CANONICAL_RISK_COVERAGE_INVARIANT",
+        "field": "linked_review_state",
+        "conflicts": [
+          {
+            "review_id": "TC-03-04",
+            "risk_id": "RF-001",
+            "expected_issue_type": "PARTIAL",
+            "actual_issue_type": "完全缺失",
+            "expected_coverage_status": "部分覆盖",
+            "actual_coverage_status": "缺失"
+          },
+          {
+            "review_id": "TC-13-02",
+            "risk_id": "RF-001",
+            "expected_issue_type": "PARTIAL",
+            "actual_issue_type": "完全缺失",
+            "expected_coverage_status": "部分覆盖",
+            "actual_coverage_status": "缺失"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "file": "F:\\ai\\Sage\\test_data\\98 借款合同.docx",
+  "file_sha256": "b0add44adf035d4025d62b511645cb2cc324eab094a3511a27c9cc7129c2b809",
+  "source_sha256": "53b70b7ac320a8fd97d6601625c3ee1cea32f196094c1d131a4b9b0a7f7962ba",
+  "source_characters": 2183,
+  "status": "BLOCKED",
+  "error": "FactExtractionError: FACT_VERIFICATION_REJECTED",
+  "diagnostics": [
+    {
+      "failed_stage": "UNIFIED_FACT_VALIDATION",
+      "fact_id": null,
+      "field": "checks",
+      "validation_rule": "FACT_VERIFICATION_REJECTED",
+      "model_raw_value": null,
+      "evidence": null,
+      "expected": null,
+      "actual": [
+        {
+          "fact_id": "CF-2e985edff157adf0cdec1a73",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-5fed947627af8bcb1cec4b38",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-d0de5eb422a43413891a8112",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-ddd00db4d2221fdd6572ebce",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-b968dd8556f4c5e62ed0fb53",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-9de92ab8a9f32d072acc3e10",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-df6b884d25e6ea7217d9cb23",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-71b85e6abc4e55f6f94fce29",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-971cf26e95663c1bd25c1e60",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-018ac6a938aa7b1faecbceb5",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-11aba8dd6f5f91d1559dc876",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-c556dbbfec2713cfcb2e4489",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-dc3b80d3ea4f58ce184d9a7c",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-ba9801b894d01eee44f19642",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-7494bbbd68a89063f6d030e1",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-2129155891ab5234b992d8ff",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-629495ce2e1d76c347968fb3",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-fe89e2d709711cfd0abb2633",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-5db4f82ed096cb5a0ab7b43b",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-8f9ebc67d806d248167e589e",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-2af212816f8781ad8e30c19b",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-b10647b921327139b61bb818",
+          "supported": false,
+          "reason": "取值不支持：C0018明确约定增信方式为个人贷款保证保险，属于已设立的保证关系，与ABSENT状态矛盾。"
+        }
+      ],
+      "disposition": "BLOCK"
+    }
+  ],
+  "attempts": [],
+  "calls": 26
+}

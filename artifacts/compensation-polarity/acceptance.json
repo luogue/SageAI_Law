@@ -1,0 +1,64 @@
+{
+  "trace_id": "CR-20260912-091155-433498",
+  "process_id": 11344,
+  "schema_version": "employment-facts-1.1",
+  "source_sha256": "638173c1d638161d8aede94ef0bdaf25040638d4cc6f61f1f7c87ed36ed266ad",
+  "source_unchanged": true,
+  "verification_attempts": [
+    {
+      "attempt": 1,
+      "status": "VALIDATED",
+      "diagnostics": []
+    }
+  ],
+  "facts": [
+    {
+      "concept": "economic_compensation.statutory",
+      "value": {
+        "kind": "EXCLUDED",
+        "basis": "项目验收完成后，本劳动合同即行终止，甲方无需向乙方支付任何经济补偿，乙方对此无异议。"
+      },
+      "evidence": [
+        "项目验收完成后，本劳动合同即行终止，甲方无需向乙方支付任何经济补偿，乙方对此无异议。"
+      ]
+    },
+    {
+      "concept": "penalties.obligations",
+      "value": {
+        "scope": "PROJECT_TASK_PERFORMANCE",
+        "trigger": "因乙方个人原因未能在甲方要求的时间内完成项目任务",
+        "imposed": true,
+        "amount_text": "人民币5,000元"
+      },
+      "evidence": [
+        "如因乙方个人原因未能在甲方要求的时间内完成项目任务，乙方应向甲方支付人民币5,000元违约金。"
+      ]
+    }
+  ],
+  "rules": {
+    "EMP-11-01": {
+      "status": "风险条款",
+      "economic_impact": ""
+    },
+    "EMP-14-01": {
+      "status": "风险条款",
+      "economic_impact": "直接涉及5000元违约金；同一责任不重复累计；是否实际发生取决于触发条件，不等同已经产生实际损失。"
+    },
+    "EMP-15-01": {
+      "status": "风险条款",
+      "economic_impact": ""
+    }
+  },
+  "themes": [
+    "试用期超过法定上限或重复约定",
+    "违法约定劳动者违约金",
+    "排除法定经济补偿"
+  ],
+  "release_quality_gate": "REPORT_READY",
+  "automated_tests": {
+    "passed": 176,
+    "failed": 0,
+    "new_cases": 13
+  },
+  "real_deepseek_phrasing_cases": 7
+}

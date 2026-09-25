@@ -1,0 +1,126 @@
+{
+  "code": "FACT_EXTRACTION_BLOCKED",
+  "release_quality_gate": "BLOCKED",
+  "provider": "deepseek",
+  "message": "事实校验失败：EXTRACTION_APPLICABILITY / non_compete.personnel / UNSATISFIED_FACT_DEPENDENCY；详见诊断。",
+  "reason": "UNSATISFIED_FACT_DEPENDENCY",
+  "failed_stage": "EXTRACTION_APPLICABILITY",
+  "fact_id": null,
+  "field": "non_compete.personnel",
+  "validation_rule": "UNSATISFIED_FACT_DEPENDENCY",
+  "model_raw_value": {
+    "concept": "non_compete.personnel",
+    "value": "本协议未约定离职后的竞业限制义务。如双方未来确有需要，应另行依法签署竞业限制协议，并依法约定适用人员、期限、范围及经济补偿。"
+  },
+  "evidence": null,
+  "expected": {
+    "concept": "non_compete.arrangement",
+    "required_value": "EXISTS"
+  },
+  "actual": "no current parent fact",
+  "disposition": "BLOCK",
+  "diagnostics": [
+    {
+      "failed_stage": "EXTRACTION_APPLICABILITY",
+      "fact_id": null,
+      "field": "non_compete.personnel",
+      "validation_rule": "UNSATISFIED_FACT_DEPENDENCY",
+      "model_raw_value": {
+        "concept": "non_compete.personnel",
+        "value": "本协议未约定离职后的竞业限制义务。如双方未来确有需要，应另行依法签署竞业限制协议，并依法约定适用人员、期限、范围及经济补偿。"
+      },
+      "evidence": null,
+      "expected": {
+        "concept": "non_compete.arrangement",
+        "required_value": "EXISTS"
+      },
+      "actual": "no current parent fact",
+      "disposition": "BLOCK",
+      "stage": "EXTRACTION_APPLICABILITY",
+      "code": "UNSATISFIED_FACT_DEPENDENCY",
+      "fact_key": null,
+      "raw_value": {
+        "concept": "non_compete.personnel",
+        "value": "本协议未约定离职后的竞业限制义务。如双方未来确有需要，应另行依法签署竞业限制协议，并依法约定适用人员、期限、范围及经济补偿。"
+      },
+      "normalized_value": null,
+      "allowed_values": {
+        "concept": "non_compete.arrangement",
+        "required_value": "EXISTS"
+      },
+      "clause": null,
+      "message": "抽取值未通过事实类型、证据或语义校验；未生成报告，不能以默认值替代。",
+      "trace_id": "FACT-88e4c59718a84232813fdfa78e6b9505"
+    }
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "BLOCKED",
+      "diagnostics": [
+        {
+          "failed_stage": "EXTRACTION_APPLICABILITY",
+          "fact_id": null,
+          "field": "non_compete.personnel",
+          "validation_rule": "UNSATISFIED_FACT_DEPENDENCY",
+          "model_raw_value": {
+            "concept": "non_compete.personnel",
+            "value": "本协议未约定离职后的竞业限制义务。如双方未来确有需要，应另行依法签署竞业限制协议，并依法约定适用人员、期限、范围及经济补偿。"
+          },
+          "evidence": null,
+          "expected": {
+            "concept": "non_compete.arrangement",
+            "required_value": "EXISTS"
+          },
+          "actual": "no current parent fact",
+          "disposition": "BLOCK"
+        }
+      ],
+      "raw_extraction": null,
+      "raw_verification": null,
+      "verification_batches": null
+    },
+    {
+      "attempt": 2,
+      "status": "BLOCKED",
+      "diagnostics": [
+        {
+          "failed_stage": "EXTRACTION_APPLICABILITY",
+          "fact_id": null,
+          "field": "non_compete.personnel",
+          "validation_rule": "UNSATISFIED_FACT_DEPENDENCY",
+          "model_raw_value": {
+            "concept": "non_compete.personnel",
+            "value": "本协议未约定离职后的竞业限制义务。如双方未来确有需要，应另行依法签署竞业限制协议，并依法约定适用人员、期限、范围及经济补偿。"
+          },
+          "evidence": null,
+          "expected": {
+            "concept": "non_compete.arrangement",
+            "required_value": "EXISTS"
+          },
+          "actual": "no current parent fact",
+          "disposition": "BLOCK",
+          "stage": "EXTRACTION_APPLICABILITY",
+          "code": "UNSATISFIED_FACT_DEPENDENCY",
+          "fact_key": null,
+          "raw_value": {
+            "concept": "non_compete.personnel",
+            "value": "本协议未约定离职后的竞业限制义务。如双方未来确有需要，应另行依法签署竞业限制协议，并依法约定适用人员、期限、范围及经济补偿。"
+          },
+          "normalized_value": null,
+          "allowed_values": {
+            "concept": "non_compete.arrangement",
+            "required_value": "EXISTS"
+          },
+          "clause": null,
+          "message": "抽取值未通过事实类型、证据或语义校验；未生成报告，不能以默认值替代。",
+          "trace_id": "FACT-88e4c59718a84232813fdfa78e6b9505"
+        }
+      ],
+      "raw_extraction": null,
+      "raw_verification": null,
+      "verification_batches": null
+    }
+  ],
+  "trace_id": "FACT-88e4c59718a84232813fdfa78e6b9505"
+}

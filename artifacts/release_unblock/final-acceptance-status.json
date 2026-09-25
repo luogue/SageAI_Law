@@ -1,0 +1,59 @@
+{
+  "updated_at": "2026-09-09T07:41:51.522979+00:00",
+  "INDEPENDENT_DOCKER_ENV": "UNAVAILABLE",
+  "BACKEND_DOCKER_BUILD": "PASS",
+  "FRONTEND_DOCKER_BUILD": "NOT_VERIFIED_ENV_BLOCKED",
+  "BACKEND_IMAGE_DB_SCAN": "PASS",
+  "FRONTEND_IMAGE_DB_SCAN": "NOT_VERIFIED",
+  "DOCKER_BUSINESS_REGRESSION": "NOT_VERIFIED_ENV_BLOCKED",
+  "environment_blocked_reason": "当前没有资源满足要求的 Docker 验收环境，无法完成最终验证；不是已确认的代码失败。",
+  "PRODUCTION_DB_STATUS": "HEALTHY",
+  "production_db_verified_at": "2026-09-09T07:17:23.709497+00:00",
+  "production_db_evidence": "round3-production.json",
+  "production_rechecked_this_round": false,
+  "PRODUCTION_FRONTEND_HEALTH": "CONFIG_ERROR_FIXED_IN_CODE_NOT_DEPLOYED",
+  "PRODUCTION_FRONTEND_RUNNING_HEALTH": "CONFIG_ERROR",
+  "production_frontend_evidence": "round3-frontend-health-evidence.json",
+  "CODE_RELEASE_GATE": "BLOCKED",
+  "CODE_RELEASE_BLOCKER": "DOCKER_ACCEPTANCE_ENV_UNAVAILABLE",
+  "code_release_pending": [
+    "Docker 最终验收环境不可用",
+    "frontend 新镜像尚未生成",
+    "双镜像完整扫描尚未完成",
+    "完整 Docker E2E 尚未完成"
+  ],
+  "DATABASE_SWITCH_GATE": "BLOCKED",
+  "database_switch_blockers": [
+    "本地损坏库 4 条任务仍不完整",
+    "历史数据处置尚未批准"
+  ],
+  "PRODUCTION_DEPLOY_GATE": "BLOCKED",
+  "production_deploy_blockers": [
+    "CODE_RELEASE_GATE 尚未 READY",
+    "healthcheck 修复尚未完成最终 Docker 验证和部署"
+  ],
+  "backend_evidence": {
+    "image_id": "sha256:b52381b00707382f98cc624f8d7295b7abd5a67e5ea7dab4d82252556b7a5774",
+    "scan": "round2-backend-scan.json",
+    "scope": "已有实际构建及最终文件系统、全部 11 层扫描；本轮未重新构建"
+  },
+  "healthcheck_static_regression": {
+    "command": "node --test scripts/frontend-healthcheck.test.mjs",
+    "exit_code": 0,
+    "passed": 5,
+    "failed": 0,
+    "docker_e2e_equivalent": false
+  },
+  "resume_docker_acceptance_only_when": [
+    "资源充足的独立 Docker 主机",
+    "可用 CI runner",
+    "现成 Docker context",
+    "本机具备可用 Docker/WSL2/虚拟化环境"
+  ],
+  "checklist": "docs/release-acceptance-pending.md",
+  "docker_build_attempted_this_round": false,
+  "production_restart_performed": false,
+  "database_switch_performed": false,
+  "deployment_performed": false,
+  "historical_evidence_note": "保留旧轮次原始日志与退出码；本文件修正最终状态语义，未把环境阻塞判为产品代码失败。"
+}

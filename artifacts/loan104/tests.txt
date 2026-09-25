@@ -1,0 +1,73 @@
+........................................................................ [ 30%]
+........................................................................ [ 60%]
+..........................................................F............. [ 91%]
+.....................                                                    [100%]
+================================== FAILURES ===================================
+__________________ test_current_48_rules_and_final_counters ___________________
+
+current_report = ('借 款 合 同\n出借人（甲方）：张明远身份证号：110101198703150018\n借款人（乙方）：李浩然身份证号：310101198909220023\n乙方配偶：王静怡身份证号：310101199102110039\n担保...ONDARY_REAL_ESTATE_SALE', ...}, 'compatibility': 'NOT_COMPARABLE', 'resolution': 'USER_SELECTION_ACCEPTED', ...}, ...})
+
+    def test_current_48_rules_and_final_counters(current_report):
+        text, r = current_report
+        rows = {i["item_id"]: i for i in r["items"]}
+        assert len(rows) == r["all_items_count"]
+        assert sum(key.startswith("L-") for key in rows) == 48
+        assert set(rows)-{key for key in rows if key.startswith("L-")} <= {"REG-06-01"}
+        assert r["release_quality_gate"]["status"] == "REPORT_READY", r["release_quality_gate"]["failures"]
+        assert dict(Counter(i["coverage_status"] for i in rows.values())) == r["coverage_summary"]
+        na = {key for key, i in rows.items() if i["coverage_status"] == "不适用"}
+        assert {"L-04-03", "L-02-04", "L-09-04", "L-01-03", "L-05-04", "L-10-02", *[f"L-08-0{n}" for n in range(1, 5)]} <= na
+        for key in na:
+            item = rows[key]
+            assert item["applicability"]["applicable"] is False
+            assert item["risk_severity"] == "NONE"
+            assert not item["suggested_clause_example"]
+        for f in r["risk_findings"]:
+            assert not na.intersection(f["source_review_ids"])
+        for suggestion in r["recommendations"]:
+            assert not na.intersection(suggestion.get("target_review_ids", []))
+        assert rows["L-04-04"]["coverage_status"] == "通过"
+        assert not rows["L-04-04"]["evidence_clauses"]
+        assert rows["L-04-02"]["coverage_status"] == "待核验"
+>       assert rows["L-05-02"]["coverage_status"] == "通过"
+E       AssertionError: assert '部分覆盖' == '通过'
+E         
+E         - 通过
+E         + 部分覆盖
+
+backend\tests\test_loan_applicability_and_consistency.py:228: AssertionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_loan_applicability_and_consistency.py::test_current_48_rules_and_final_counters
+1 failed, 236 passed, 5 warnings in 119.90s (0:01:59)

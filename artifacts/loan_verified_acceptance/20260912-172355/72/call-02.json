@@ -1,0 +1,1119 @@
+{
+  "stage": "VERIFICATION",
+  "payload": {
+    "schema_version": "contract-facts-1.0",
+    "family": "credit.loan",
+    "active_concepts": [
+      "common.parties",
+      "common.signing_date",
+      "common.effective_date",
+      "common.effective_condition",
+      "common.term",
+      "common.amounts",
+      "common.liability",
+      "common.dispute_method",
+      "common.dispute_institution",
+      "loan.lender_kind",
+      "loan.borrower_kind",
+      "loan.guarantee"
+    ],
+    "concepts": {
+      "common.parties": {
+        "kind": "party",
+        "description": "合同主体名称、角色及主体性质，分别提取各主体，不猜测身份。",
+        "multiple": true
+      },
+      "common.signing_date": {
+        "kind": "date",
+        "description": "实际填写的合同签署日期，不能用其他日期代替。",
+        "multiple": false
+      },
+      "common.effective_date": {
+        "kind": "date",
+        "description": "明确的生效日期；生效条件另存，不计算或补日期。",
+        "multiple": false
+      },
+      "common.effective_condition": {
+        "kind": "string",
+        "description": "合同生效条件的具体约定。",
+        "multiple": false,
+        "value_schema": {
+          "type": "string"
+        }
+      },
+      "common.term": {
+        "kind": "duration",
+        "description": "合同明确约定的期限及单位，不用日期差生成事实。",
+        "multiple": false
+      },
+      "common.amounts": {
+        "kind": "money",
+        "description": "合同金额；须保留币种和语义角色，不能把不同用途金额合并。",
+        "multiple": true
+      },
+      "common.liability": {
+        "kind": "string",
+        "description": "当前合同责任分配、责任触发条件和责任承担方式。",
+        "multiple": true,
+        "value_schema": {
+          "type": "string"
+        }
+      },
+      "common.dispute_method": {
+        "kind": "enum",
+        "description": "约定的争议解决方式。",
+        "multiple": true,
+        "enum": [
+          "LITIGATION",
+          "ARBITRATION",
+          "NEGOTIATION",
+          "MEDIATION"
+        ],
+        "value_schema": {
+          "type": "string",
+          "enum": [
+            "LITIGATION",
+            "ARBITRATION",
+            "NEGOTIATION",
+            "MEDIATION"
+          ]
+        }
+      },
+      "common.dispute_institution": {
+        "kind": "string",
+        "description": "约定的法院、仲裁机构或可确定的管辖连接点。",
+        "multiple": false,
+        "value_schema": {
+          "type": "string"
+        }
+      },
+      "loan.lender_kind": {
+        "kind": "enum",
+        "description": "贷款人主体性质，名称不足以确认时为UNCERTAIN。",
+        "multiple": false,
+        "enum": [
+          "natural",
+          "enterprise",
+          "financial"
+        ],
+        "value_schema": {
+          "type": "string",
+          "enum": [
+            "natural",
+            "enterprise",
+            "financial"
+          ]
+        }
+      },
+      "loan.borrower_kind": {
+        "kind": "enum",
+        "description": "借款人主体性质，不能用收款银行身份代替借款人。",
+        "multiple": false,
+        "enum": [
+          "natural",
+          "enterprise",
+          "financial"
+        ],
+        "value_schema": {
+          "type": "string",
+          "enum": [
+            "natural",
+            "enterprise",
+            "financial"
+          ]
+        }
+      },
+      "loan.guarantee": {
+        "kind": "boolean",
+        "description": "当前是否已有第三方作为保证人向债权人承诺在债务人不履行时承担从属性保证责任。保险人承担保险赔付责任不属于此种保证人责任。拟另签保证、模板或可选提示不是当前保证。",
+        "multiple": false,
+        "value_schema": {
+          "type": "boolean"
+        }
+      }
+    },
+    "known_verified_roots": [],
+    "document": [
+      {
+        "clause_id": "C0001",
+        "section": "全文",
+        "text": "无抵押借款合同\n贷款人（甲方）：张明远\n住址：青岛市黄岛区测试路88号1号楼101室邮编：266500\n电话：13800000001身份证号：370211198806150017\n借款人（乙方）：李浩然\n住址：青岛市黄岛区示范路126号2号楼502室邮编：266500\n电话：13900000002身份证号：370211199203220025\n为明确甲、乙双方权利义务及约束双方的借贷行为，根据相关的法律法规，甲、乙双方遵循自愿、互利、公平和诚实信用的原则，经协商一致，特订立本合同，以资共同遵守。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 0,
+        "source_end": 250
+      },
+      {
+        "clause_id": "C0002",
+        "section": "第一条　借款用途、金额、期限及利息",
+        "text": "第一条　借款用途、金额、期限及利息",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 251,
+        "source_end": 268
+      },
+      {
+        "clause_id": "C0003",
+        "section": "1.1",
+        "text": "1.1 借款用途：用于乙方个人经营资金周转及采购经营所需设备。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 269,
+        "source_end": 300
+      },
+      {
+        "clause_id": "C0004",
+        "section": "1.2",
+        "text": "1.2 借款金额：人民币（大写）壹拾伍万元整（￥150,000.00元）。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 301,
+        "source_end": 338
+      },
+      {
+        "clause_id": "C0005",
+        "section": "1.3",
+        "text": "1.3 借款期限：自2026年9月10日至2027年9月9日。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 339,
+        "source_end": 370
+      },
+      {
+        "clause_id": "C0006",
+        "section": "1.4",
+        "text": "1.4 利息：利率为年利率10.8%，按月计收，每月10日（与借款发放日同一日）支付。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 371,
+        "source_end": 414
+      },
+      {
+        "clause_id": "C0007",
+        "section": "1.5",
+        "text": "1.5 因办理本次借款而发生一切费用，包括但不限于评估、保险、鉴定、登记、公证等费用，皆由乙方独立全部承担。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 415,
+        "source_end": 469
+      },
+      {
+        "clause_id": "C0008",
+        "section": "第二条　违约责任",
+        "text": "第二条　违约责任",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 470,
+        "source_end": 478
+      },
+      {
+        "clause_id": "C0009",
+        "section": "2.1",
+        "text": "2.1 乙方违反本合同约定借款用途的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且乙方应按借款总额的20％向甲方支付违约金。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 479,
+        "source_end": 554
+      },
+      {
+        "clause_id": "C0010",
+        "section": "2.2",
+        "text": "2.2 乙方违反本合同其它相关条款时，若该条款对违约责任没有约定，则乙方应按借款总额的20％向甲方支付违约金。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 555,
+        "source_end": 610
+      },
+      {
+        "clause_id": "C0011",
+        "section": "2.3",
+        "text": "2.3 无论何种情形下，乙方按照合同约定支付的违约金不足以弥补甲方全部损失的，乙方应全额赔偿。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 611,
+        "source_end": 658
+      },
+      {
+        "clause_id": "C0012",
+        "section": "2.4",
+        "text": "2.4 乙方未按合同约定按时偿还本金或利息的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且从逾期之日起乙方应每日按借款总额的0.5%向甲方支付违约金。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 659,
+        "source_end": 747
+      },
+      {
+        "clause_id": "C0013",
+        "section": "2.5",
+        "text": "2.5 因乙方违约而产生的诉讼费、公证费、财产保全费、律师服务费等实现债权的各种费用以及可能产生的甲方代垫费用和其他费用均由乙方承担。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 748,
+        "source_end": 815
+      },
+      {
+        "clause_id": "C0014",
+        "section": "第三条　争议解决",
+        "text": "第三条　争议解决",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 816,
+        "source_end": 824
+      },
+      {
+        "clause_id": "C0015",
+        "section": "3.1",
+        "text": "3.1 甲乙双方因履行本合同发生纠纷，应首先协商解决；协商不成，则向青岛市黄岛区人民法院提起诉讼。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 825,
+        "source_end": 874
+      },
+      {
+        "clause_id": "C0016",
+        "section": "3.2",
+        "text": "3.2 在诉讼期间，本合同不涉及争议部分的条款仍需履行。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 875,
+        "source_end": 903
+      },
+      {
+        "clause_id": "C0017",
+        "section": "第四条　其他",
+        "text": "第四条　其他",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 904,
+        "source_end": 910
+      },
+      {
+        "clause_id": "C0018",
+        "section": "4.1",
+        "text": "4.1 本合同一式二份，具有同等法律效力，甲、乙双方各执一份。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 911,
+        "source_end": 942
+      },
+      {
+        "clause_id": "C0019",
+        "section": "4.2",
+        "text": "4.2 本合同附件或补充协议（若有）为本合同的组成部分，与本合同具有同等法律效力。",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 943,
+        "source_end": 984
+      },
+      {
+        "clause_id": "C0020",
+        "section": "第五条　其他约定",
+        "text": "第五条　其他约定\n甲、乙双方提供的住址为现住址，如发生变化必须书面通知对方。如本合同发生争议，诉至法院甲、乙双方提供的现住址可作为法院的送达地址。\n甲方：张明远\n乙方：李浩然\n签约时间：2026年9月10日",
+        "section_type": "正式合同条款",
+        "block_type": "OPERATIVE_CLAUSE",
+        "source_start": 985,
+        "source_end": 1088
+      }
+    ],
+    "candidates": [
+      {
+        "concept": "common.parties",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "name": "张明远",
+          "role": "贷款人（甲方）",
+          "kind": "NATURAL"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0001",
+            "quote": "贷款人（甲方）：张明远",
+            "section": "全文",
+            "source_start": 8,
+            "source_end": 19,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-2def8c753e8bbad2946078b3"
+      },
+      {
+        "concept": "common.parties",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "name": "李浩然",
+          "role": "借款人（乙方）",
+          "kind": "NATURAL"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0001",
+            "quote": "借款人（乙方）：李浩然",
+            "section": "全文",
+            "source_start": 90,
+            "source_end": 101,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-00d059b90747940014ba2520"
+      },
+      {
+        "concept": "common.signing_date",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "2026-09-10",
+        "evidence": [
+          {
+            "clause_id": "C0020",
+            "quote": "签约时间：2026年9月10日",
+            "section": "第五条　其他约定",
+            "source_start": 1073,
+            "source_end": 1088,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-67d4a57db3214fc3ad1479fe"
+      },
+      {
+        "concept": "common.effective_date",
+        "state": "ABSENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [],
+        "fact_id": "CF-eabdb93cba1fe28ea9295820"
+      },
+      {
+        "concept": "common.effective_condition",
+        "state": "ABSENT",
+        "confidence": 0.9,
+        "assertion": "EXPLICIT",
+        "evidence": [],
+        "fact_id": "CF-b4f5f948c093e2687be79655"
+      },
+      {
+        "concept": "common.term",
+        "state": "PRESENT",
+        "confidence": 0.8,
+        "assertion": "INFERRED",
+        "normalized_value": {
+          "amount": "1",
+          "unit": "YEAR"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0005",
+            "quote": "1.3 借款期限：自2026年9月10日至2027年9月9日。",
+            "section": "1.3",
+            "source_start": 339,
+            "source_end": 370,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-ef4700a4f4844d4ff827798a"
+      },
+      {
+        "concept": "common.amounts",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": {
+          "amount": "150000",
+          "currency": "CNY",
+          "role": "借款金额"
+        },
+        "evidence": [
+          {
+            "clause_id": "C0004",
+            "quote": "1.2 借款金额：人民币（大写）壹拾伍万元整（￥150,000.00元）。",
+            "section": "1.2",
+            "source_start": 301,
+            "source_end": 338,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-6c044d9bbcc065d2fd23c158"
+      },
+      {
+        "concept": "common.liability",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "乙方违反本合同约定借款用途的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且乙方应按借款总额的20％向甲方支付违约金。",
+        "evidence": [
+          {
+            "clause_id": "C0009",
+            "quote": "2.1 乙方违反本合同约定借款用途的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且乙方应按借款总额的20％向甲方支付违约金。",
+            "section": "2.1",
+            "source_start": 479,
+            "source_end": 554,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-330f64df10a9e2a66d244618"
+      },
+      {
+        "concept": "common.liability",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "乙方违反本合同其它相关条款时，若该条款对违约责任没有约定，则乙方应按借款总额的20％向甲方支付违约金。",
+        "evidence": [
+          {
+            "clause_id": "C0010",
+            "quote": "2.2 乙方违反本合同其它相关条款时，若该条款对违约责任没有约定，则乙方应按借款总额的20％向甲方支付违约金。",
+            "section": "2.2",
+            "source_start": 555,
+            "source_end": 610,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-c9518f71891dbc25bb88cfea"
+      },
+      {
+        "concept": "common.liability",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "无论何种情形下，乙方按照合同约定支付的违约金不足以弥补甲方全部损失的，乙方应全额赔偿。",
+        "evidence": [
+          {
+            "clause_id": "C0011",
+            "quote": "2.3 无论何种情形下，乙方按照合同约定支付的违约金不足以弥补甲方全部损失的，乙方应全额赔偿。",
+            "section": "2.3",
+            "source_start": 611,
+            "source_end": 658,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-c8cb5c8da1f0b998479b3fe1"
+      },
+      {
+        "concept": "common.liability",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "乙方未按合同约定按时偿还本金或利息的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且从逾期之日起乙方应每日按借款总额的0.5%向甲方支付违约金。",
+        "evidence": [
+          {
+            "clause_id": "C0012",
+            "quote": "2.4 乙方未按合同约定按时偿还本金或利息的，甲方有权解除合同，停止发放本合同项下借款或者提前收回已发放的借款，并且从逾期之日起乙方应每日按借款总额的0.5%向甲方支付违约金。",
+            "section": "2.4",
+            "source_start": 659,
+            "source_end": 747,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-ee396c74c8fab592dc84bdaa"
+      },
+      {
+        "concept": "common.liability",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "因乙方违约而产生的诉讼费、公证费、财产保全费、律师服务费等实现债权的各种费用以及可能产生的甲方代垫费用和其他费用均由乙方承担。",
+        "evidence": [
+          {
+            "clause_id": "C0013",
+            "quote": "2.5 因乙方违约而产生的诉讼费、公证费、财产保全费、律师服务费等实现债权的各种费用以及可能产生的甲方代垫费用和其他费用均由乙方承担。",
+            "section": "2.5",
+            "source_start": 748,
+            "source_end": 815,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-2391f1193d5aad9a7710ba43"
+      },
+      {
+        "concept": "common.dispute_method",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "NEGOTIATION",
+        "evidence": [
+          {
+            "clause_id": "C0015",
+            "quote": "3.1 甲乙双方因履行本合同发生纠纷，应首先协商解决；协商不成，则向青岛市黄岛区人民法院提起诉讼。",
+            "section": "3.1",
+            "source_start": 825,
+            "source_end": 874,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-c9260fc5d9a81a97729eafc6"
+      },
+      {
+        "concept": "common.dispute_method",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "LITIGATION",
+        "evidence": [
+          {
+            "clause_id": "C0015",
+            "quote": "3.1 甲乙双方因履行本合同发生纠纷，应首先协商解决；协商不成，则向青岛市黄岛区人民法院提起诉讼。",
+            "section": "3.1",
+            "source_start": 825,
+            "source_end": 874,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-1546c3ba77332abc9c754d1d"
+      },
+      {
+        "concept": "common.dispute_institution",
+        "state": "PRESENT",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "normalized_value": "青岛市黄岛区人民法院",
+        "evidence": [
+          {
+            "clause_id": "C0015",
+            "quote": "3.1 甲乙双方因履行本合同发生纠纷，应首先协商解决；协商不成，则向青岛市黄岛区人民法院提起诉讼。",
+            "section": "3.1",
+            "source_start": 825,
+            "source_end": 874,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-20d6f5ccc9ca626367250742"
+      },
+      {
+        "concept": "loan.lender_kind",
+        "state": "PRESENT",
+        "confidence": 0.9,
+        "assertion": "INFERRED",
+        "normalized_value": "natural",
+        "evidence": [
+          {
+            "clause_id": "C0001",
+            "quote": "贷款人（甲方）：张明远\n住址：青岛市黄岛区测试路88号1号楼101室邮编：266500\n电话：13800000001身份证号：370211198806150017",
+            "section": "全文",
+            "source_start": 8,
+            "source_end": 89,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-892549c2d7435abaf90c409d"
+      },
+      {
+        "concept": "loan.borrower_kind",
+        "state": "PRESENT",
+        "confidence": 0.9,
+        "assertion": "INFERRED",
+        "normalized_value": "natural",
+        "evidence": [
+          {
+            "clause_id": "C0001",
+            "quote": "借款人（乙方）：李浩然\n住址：青岛市黄岛区示范路126号2号楼502室邮编：266500\n电话：13900000002身份证号：370211199203220025",
+            "section": "全文",
+            "source_start": 90,
+            "source_end": 172,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-c8cb00842e3e8f7234100cc5"
+      },
+      {
+        "concept": "loan.guarantee",
+        "state": "EXPLICIT_NONE",
+        "confidence": 0.95,
+        "assertion": "EXPLICIT",
+        "evidence": [
+          {
+            "clause_id": "C0001",
+            "quote": "无抵押借款合同",
+            "section": "全文",
+            "source_start": 0,
+            "source_end": 7,
+            "block_type": "OPERATIVE_CLAUSE",
+            "section_type": "正式合同条款"
+          }
+        ],
+        "fact_id": "CF-686926b378b91e622c90e154"
+      }
+    ]
+  },
+  "response": {
+    "reviewed_clause_ids": [
+      "C0001",
+      "C0002",
+      "C0003",
+      "C0004",
+      "C0005",
+      "C0006",
+      "C0007",
+      "C0008",
+      "C0009",
+      "C0010",
+      "C0011",
+      "C0012",
+      "C0013",
+      "C0014",
+      "C0015",
+      "C0016",
+      "C0017",
+      "C0018",
+      "C0019",
+      "C0020"
+    ],
+    "searched_concepts": [
+      "common.parties",
+      "common.signing_date",
+      "common.effective_date",
+      "common.effective_condition",
+      "common.term",
+      "common.amounts",
+      "common.liability",
+      "common.dispute_method",
+      "common.dispute_institution",
+      "loan.lender_kind",
+      "loan.borrower_kind",
+      "loan.guarantee"
+    ],
+    "checks": [
+      {
+        "fact_id": "CF-2def8c753e8bbad2946078b3",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-00d059b90747940014ba2520",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-67d4a57db3214fc3ad1479fe",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-eabdb93cba1fe28ea9295820",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-b4f5f948c093e2687be79655",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-ef4700a4f4844d4ff827798a",
+        "supported": false,
+        "reason": "取值不支持：C0005仅约定借款期限自2026年9月10日至2027年9月9日，未明确约定“1年”这一期限单位；将日期区间推断为1年属于计算生成，违反“不用日期差生成事实”的要求。应修正为按原文日期区间表述，或标注为无明确期限单位。"
+      },
+      {
+        "fact_id": "CF-6c044d9bbcc065d2fd23c158",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-330f64df10a9e2a66d244618",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-c9518f71891dbc25bb88cfea",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-c8cb5c8da1f0b998479b3fe1",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-ee396c74c8fab592dc84bdaa",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-2391f1193d5aad9a7710ba43",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-c9260fc5d9a81a97729eafc6",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-1546c3ba77332abc9c754d1d",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-20d6f5ccc9ca626367250742",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-892549c2d7435abaf90c409d",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-c8cb00842e3e8f7234100cc5",
+        "supported": true
+      },
+      {
+        "fact_id": "CF-686926b378b91e622c90e154",
+        "supported": false,
+        "reason": "状态与取值不支持：C0001标题“无抵押借款合同”仅表明无抵押，不能证明不存在第三方保证人；全文未出现保证人、保证责任或保证条款，应认定为ABSENT（当前无保证事实），而非EXPLICIT_NONE。修正要求：将state改为ABSENT，移除该引文作为否定保证的依据。"
+      }
+    ],
+    "audits": [
+      {
+        "concept": "common.parties",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "C0001载明贷款人（甲方）张明远、借款人（乙方）李浩然，C0020再次出现甲方张明远、乙方李浩然；全文无其他合同主体，已完整提取。"
+      },
+      {
+        "concept": "common.signing_date",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "C0020明确“签约时间：2026年9月10日”，为唯一实际填写签署日期，已提取。"
+      },
+      {
+        "concept": "common.effective_date",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "全文无“生效日期”或“自某日起生效”的明确约定；C0005为借款期限起止，不是合同生效日期，故ABSENT正确。"
+      },
+      {
+        "concept": "common.effective_condition",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "全文无合同生效条件约定，C0018仅说明份数与效力，C0019为附件效力，均非生效条件，故ABSENT正确。"
+      },
+      {
+        "concept": "common.term",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "C0005约定借款期限自2026年9月10日至2027年9月9日，为唯一期限约定；候选将其推断为1年，取值不支持，但概念本身无其他遗漏。"
+      },
+      {
+        "concept": "common.amounts",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "C0004明确借款金额人民币壹拾伍万元整（￥150,000.00元）；C0006年利率10.8%为利率而非金额，C0009/C0010/C0012违约金比例、C0007费用均非确定金额，故仅提取借款金额正确。"
+      },
+      {
+        "concept": "common.liability",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "C0009、C0010、C0011、C0012、C0013分别约定违约情形、违约金、损失赔偿及实现债权费用承担，均已提取；C0007费用承担属费用负担，非违约责任，未遗漏。"
+      },
+      {
+        "concept": "common.dispute_method",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "C0015约定先协商、协商不成向法院起诉，已提取NEGOTIATION与LITIGATION；全文无仲裁或调解约定。"
+      },
+      {
+        "concept": "common.dispute_institution",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "C0015明确约定青岛市黄岛区人民法院，已提取。"
+      },
+      {
+        "concept": "loan.lender_kind",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "C0001载明贷款人张明远附身份证号370211198806150017，可确认为自然人，natural正确。"
+      },
+      {
+        "concept": "loan.borrower_kind",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "C0001载明借款人李浩然附身份证号370211199203220025，可确认为自然人，natural正确。"
+      },
+      {
+        "concept": "loan.guarantee",
+        "reviewed_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020"
+        ],
+        "complete": true,
+        "omitted_facts": [],
+        "reason": "全文无保证人、保证责任或保证条款；C0001“无抵押借款合同”仅排除抵押，不能作为不存在保证的明确否定，故当前保证事实应为ABSENT，候选EXPLICIT_NONE状态不支持。"
+      }
+    ]
+  },
+  "model": "deepseek-flash",
+  "usage": {
+    "prompt_tokens": 5718,
+    "completion_tokens": 2525,
+    "total_tokens": 8243,
+    "prompt_tokens_details": {
+      "cached_tokens": 384
+    },
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 5334
+  },
+  "seconds": 8.24
+}

@@ -1,0 +1,548 @@
+[
+  {
+    "node": "sale_risk_transfer_delivery",
+    "contract": "sale",
+    "default": {
+      "rule_id": "SALE-DEFAULT-RISK-DELIVERY",
+      "domain": "sale",
+      "proposition": "标的物毁损、灭失风险原则上随交付转移，但合同约定和法定例外优先。",
+      "applicability_conditions": [
+        "买卖合同",
+        "未约定完整风险转移规则"
+      ],
+      "authority_ids": [
+        "CN-CC-604"
+      ],
+      "protection_scope": "提供一般交付场景的风险转移基准，不替代交付节点、验收方式和业务例外约定。",
+      "exceptions": [
+        "当事人另有约定",
+        "法律另有规定",
+        "出卖人原因导致不能按约交付"
+      ],
+      "overrideable": true,
+      "confidence": "high",
+      "status": "CLEAR_DEFAULT",
+      "proposition_id": "",
+      "supplied_element_ids": [],
+      "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+    },
+    "configuration_consequence": "未约定风险转移节点，货物毁损、灭失时难以确定损失由谁承担。"
+  },
+  {
+    "node": "sale_risk_transfer_delivery",
+    "contract": "sale/goods/general",
+    "default": {
+      "rule_id": "SALE-DEFAULT-RISK-DELIVERY",
+      "domain": "sale",
+      "proposition": "标的物毁损、灭失风险原则上随交付转移，但合同约定和法定例外优先。",
+      "applicability_conditions": [
+        "买卖合同",
+        "未约定完整风险转移规则"
+      ],
+      "authority_ids": [
+        "CN-CC-604"
+      ],
+      "protection_scope": "提供一般交付场景的风险转移基准，不替代交付节点、验收方式和业务例外约定。",
+      "exceptions": [
+        "当事人另有约定",
+        "法律另有规定",
+        "出卖人原因导致不能按约交付"
+      ],
+      "overrideable": true,
+      "confidence": "high",
+      "status": "CLEAR_DEFAULT",
+      "proposition_id": "",
+      "supplied_element_ids": [],
+      "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+    },
+    "configuration_consequence": "未约定风险转移节点，货物毁损、灭失时难以确定损失由谁承担。"
+  },
+  {
+    "node": "sale_risk_transfer_delivery",
+    "contract": "sale/goods/equipment",
+    "default": {
+      "rule_id": "SALE-DEFAULT-RISK-DELIVERY",
+      "domain": "sale",
+      "proposition": "标的物毁损、灭失风险原则上随交付转移，但合同约定和法定例外优先。",
+      "applicability_conditions": [
+        "买卖合同",
+        "未约定完整风险转移规则"
+      ],
+      "authority_ids": [
+        "CN-CC-604"
+      ],
+      "protection_scope": "提供一般交付场景的风险转移基准，不替代交付节点、验收方式和业务例外约定。",
+      "exceptions": [
+        "当事人另有约定",
+        "法律另有规定",
+        "出卖人原因导致不能按约交付"
+      ],
+      "overrideable": true,
+      "confidence": "high",
+      "status": "CLEAR_DEFAULT",
+      "proposition_id": "",
+      "supplied_element_ids": [],
+      "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+    },
+    "configuration_consequence": "未约定风险转移节点，货物毁损、灭失时难以确定损失由谁承担。"
+  },
+  {
+    "node": "sale_risk_transfer_delivery",
+    "contract": "sale/goods/framework_supply",
+    "default": {
+      "rule_id": "SALE-DEFAULT-RISK-DELIVERY",
+      "domain": "sale",
+      "proposition": "标的物毁损、灭失风险原则上随交付转移，但合同约定和法定例外优先。",
+      "applicability_conditions": [
+        "买卖合同",
+        "未约定完整风险转移规则"
+      ],
+      "authority_ids": [
+        "CN-CC-604"
+      ],
+      "protection_scope": "提供一般交付场景的风险转移基准，不替代交付节点、验收方式和业务例外约定。",
+      "exceptions": [
+        "当事人另有约定",
+        "法律另有规定",
+        "出卖人原因导致不能按约交付"
+      ],
+      "overrideable": true,
+      "confidence": "high",
+      "status": "CLEAR_DEFAULT",
+      "proposition_id": "",
+      "supplied_element_ids": [],
+      "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+    },
+    "configuration_consequence": "未约定风险转移节点，货物毁损、灭失时难以确定损失由谁承担。"
+  },
+  {
+    "node": "sale_inspection_period",
+    "contract": "sale",
+    "default": {
+      "rule_id": "SALE-DEFAULT-INSPECTION",
+      "domain": "sale",
+      "proposition": "检验期限未约定或不明确时，买受人仍应在合理期限内检验并通知。",
+      "applicability_conditions": [
+        "买卖合同",
+        "检验期限缺失或不完整"
+      ],
+      "authority_ids": [
+        "CN-CC-620",
+        "CN-CC-621"
+      ],
+      "protection_scope": "提供合理期限和通知的法定补充，不确定具体商品所需检验时长及隐蔽瑕疵流程。",
+      "exceptions": [
+        "当事人约定检验期限",
+        "出卖人知道或应当知道标的物不符合约定"
+      ],
+      "overrideable": true,
+      "confidence": "high",
+      "status": "CLEAR_DEFAULT",
+      "proposition_id": "",
+      "supplied_element_ids": [],
+      "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+    },
+    "configuration_consequence": "未约定检验期限，买受人何时提出数量或质量异议容易发生争议。"
+  },
+  {
+    "node": "sale_inspection_period",
+    "contract": "sale/goods/general",
+    "default": {
+      "rule_id": "SALE-DEFAULT-INSPECTION",
+      "domain": "sale",
+      "proposition": "检验期限未约定或不明确时，买受人仍应在合理期限内检验并通知。",
+      "applicability_conditions": [
+        "买卖合同",
+        "检验期限缺失或不完整"
+      ],
+      "authority_ids": [
+        "CN-CC-620",
+        "CN-CC-621"
+      ],
+      "protection_scope": "提供合理期限和通知的法定补充，不确定具体商品所需检验时长及隐蔽瑕疵流程。",
+      "exceptions": [
+        "当事人约定检验期限",
+        "出卖人知道或应当知道标的物不符合约定"
+      ],
+      "overrideable": true,
+      "confidence": "high",
+      "status": "CLEAR_DEFAULT",
+      "proposition_id": "",
+      "supplied_element_ids": [],
+      "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+    },
+    "configuration_consequence": "未约定检验期限，买受人何时提出数量或质量异议容易发生争议。"
+  },
+  {
+    "node": "sale_inspection_period",
+    "contract": "sale/goods/equipment",
+    "default": {
+      "rule_id": "SALE-DEFAULT-INSPECTION",
+      "domain": "sale",
+      "proposition": "检验期限未约定或不明确时，买受人仍应在合理期限内检验并通知。",
+      "applicability_conditions": [
+        "买卖合同",
+        "检验期限缺失或不完整"
+      ],
+      "authority_ids": [
+        "CN-CC-620",
+        "CN-CC-621"
+      ],
+      "protection_scope": "提供合理期限和通知的法定补充，不确定具体商品所需检验时长及隐蔽瑕疵流程。",
+      "exceptions": [
+        "当事人约定检验期限",
+        "出卖人知道或应当知道标的物不符合约定"
+      ],
+      "overrideable": true,
+      "confidence": "high",
+      "status": "CLEAR_DEFAULT",
+      "proposition_id": "",
+      "supplied_element_ids": [],
+      "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+    },
+    "configuration_consequence": "未约定检验期限，买受人何时提出数量或质量异议容易发生争议。"
+  },
+  {
+    "node": "sale_inspection_period",
+    "contract": "sale/goods/framework_supply",
+    "default": {
+      "rule_id": "SALE-DEFAULT-INSPECTION",
+      "domain": "sale",
+      "proposition": "检验期限未约定或不明确时，买受人仍应在合理期限内检验并通知。",
+      "applicability_conditions": [
+        "买卖合同",
+        "检验期限缺失或不完整"
+      ],
+      "authority_ids": [
+        "CN-CC-620",
+        "CN-CC-621"
+      ],
+      "protection_scope": "提供合理期限和通知的法定补充，不确定具体商品所需检验时长及隐蔽瑕疵流程。",
+      "exceptions": [
+        "当事人约定检验期限",
+        "出卖人知道或应当知道标的物不符合约定"
+      ],
+      "overrideable": true,
+      "confidence": "high",
+      "status": "CLEAR_DEFAULT",
+      "proposition_id": "",
+      "supplied_element_ids": [],
+      "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+    },
+    "configuration_consequence": "未约定检验期限，买受人何时提出数量或质量异议容易发生争议。"
+  },
+  {
+    "node": "indefinite_lease",
+    "contract": "house_lease",
+    "default": {
+      "rule_id": "LEASE-DEFAULT-INDEFINITE-LEASE",
+      "domain": "house_lease",
+      "proposition": "租赁期限届满后承租人继续使用租赁物，出租人没有提出异议的，原租赁合同继续有效但租赁期限转为不定期；不定期租赁解除应在合理期限前通知。",
+      "applicability_conditions": [
+        "房屋租赁合同",
+        "租赁期限届满",
+        "承租人继续使用",
+        "出租人未提出异议或继续收租"
+      ],
+      "authority_ids": [
+        "CN-CIVIL-CODE-734",
+        "CN-CIVIL-CODE-730"
+      ],
+      "protection_scope": "《民法典》第734条、第730条提供期满继续使用转不定期租赁及合理期限通知解除的法定规则。",
+      "exceptions": [
+        "当事人另有有效约定",
+        "出租人及时提出异议",
+        "租赁关系因其他法定或约定事由终止"
+      ],
+      "overrideable": true,
+      "confidence": "high",
+      "status": "CLEAR_DEFAULT",
+      "proposition_id": "lease_post_expiry_indefinite_default",
+      "supplied_element_ids": [
+        "post_expiry_continue_use",
+        "no_objection_or_rent_acceptance",
+        "reasonable_notice"
+      ],
+      "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+    },
+    "configuration_consequence": "未处理期满后继续居住且继续收租的状态，可能导致提前退租、押金和通知期规则失灵。"
+  },
+  {
+    "node": "indefinite_lease",
+    "contract": "lease",
+    "default": {
+      "rule_id": "LEASE-DEFAULT-INDEFINITE-LEASE",
+      "domain": "house_lease",
+      "proposition": "租赁期限届满后承租人继续使用租赁物，出租人没有提出异议的，原租赁合同继续有效但租赁期限转为不定期；不定期租赁解除应在合理期限前通知。",
+      "applicability_conditions": [
+        "房屋租赁合同",
+        "租赁期限届满",
+        "承租人继续使用",
+        "出租人未提出异议或继续收租"
+      ],
+      "authority_ids": [
+        "CN-CIVIL-CODE-734",
+        "CN-CIVIL-CODE-730"
+      ],
+      "protection_scope": "《民法典》第734条、第730条提供期满继续使用转不定期租赁及合理期限通知解除的法定规则。",
+      "exceptions": [
+        "当事人另有有效约定",
+        "出租人及时提出异议",
+        "租赁关系因其他法定或约定事由终止"
+      ],
+      "overrideable": true,
+      "confidence": "high",
+      "status": "CLEAR_DEFAULT",
+      "proposition_id": "lease_post_expiry_indefinite_default",
+      "supplied_element_ids": [
+        "post_expiry_continue_use",
+        "no_objection_or_rent_acceptance",
+        "reasonable_notice"
+      ],
+      "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+    },
+    "configuration_consequence": "未处理期满后继续居住且继续收租的状态，可能导致提前退租、押金和通知期规则失灵。"
+  },
+  {
+    "node": "lease_before_sale",
+    "contract": "house_lease",
+    "default": {
+      "rule_id": "LEASE-DEFAULT-SALE-NO-BREAK",
+      "domain": "house_lease",
+      "proposition": "租赁期间租赁物所有权发生变动的，不影响租赁合同效力。",
+      "applicability_conditions": [
+        "房屋租赁合同",
+        "承租人按租赁合同占有使用期间",
+        "租赁物所有权发生变动"
+      ],
+      "authority_ids": [
+        "CN-CIVIL-CODE-725"
+      ],
+      "protection_scope": "《民法典》第725条提供买卖不破租赁的法定承继保护，所有权变动不影响租赁合同效力。",
+      "exceptions": [
+        "当事人另有有效约定",
+        "承租人未依租赁合同占有租赁物",
+        "法律另有特别规定"
+      ],
+      "overrideable": false,
+      "confidence": "high",
+      "status": "CLEAR_DEFAULT",
+      "proposition_id": "lease_ownership_change_no_break",
+      "supplied_element_ids": [
+        "core_contract_arrangement"
+      ],
+      "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+    },
+    "configuration_consequence": "未约定租期内房屋出售后的继续履行和押金交接，新房主接续义务可能不清。"
+  },
+  {
+    "node": "lease_before_sale",
+    "contract": "lease",
+    "default": {
+      "rule_id": "LEASE-DEFAULT-SALE-NO-BREAK",
+      "domain": "house_lease",
+      "proposition": "租赁期间租赁物所有权发生变动的，不影响租赁合同效力。",
+      "applicability_conditions": [
+        "房屋租赁合同",
+        "承租人按租赁合同占有使用期间",
+        "租赁物所有权发生变动"
+      ],
+      "authority_ids": [
+        "CN-CIVIL-CODE-725"
+      ],
+      "protection_scope": "《民法典》第725条提供买卖不破租赁的法定承继保护，所有权变动不影响租赁合同效力。",
+      "exceptions": [
+        "当事人另有有效约定",
+        "承租人未依租赁合同占有租赁物",
+        "法律另有特别规定"
+      ],
+      "overrideable": false,
+      "confidence": "high",
+      "status": "CLEAR_DEFAULT",
+      "proposition_id": "lease_ownership_change_no_break",
+      "supplied_element_ids": [
+        "core_contract_arrangement"
+      ],
+      "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+    },
+    "configuration_consequence": "未约定租期内房屋出售后的继续履行和押金交接，新房主接续义务可能不清。"
+  },
+  {
+    "node": "excessive_deduction",
+    "contract": "house_lease",
+    "default": {
+      "rule_id": "LEASE-DEFAULT-LIQUIDATED-DAMAGES-ADJUSTMENT",
+      "domain": "house_lease",
+      "proposition": "约定违约金低于或过分高于造成损失的，当事人可以依法请求增加或适当减少。",
+      "applicability_conditions": [
+        "房屋租赁合同",
+        "合同约定押金扣款、违约金或赔偿金额",
+        "金额与实际损失存在明显偏离争议"
+      ],
+      "authority_ids": [
+        "CN-CIVIL-CODE-585"
+      ],
+      "protection_scope": "《民法典》第585条提供违约金过高或过低时请求司法调整的救济，合同未写明不等于当然无法调整。",
+      "exceptions": [
+        "不存在约定违约金或约定赔偿额",
+        "当事人未依法主张调整",
+        "法院或仲裁机构结合损失、履行情况和过错程度裁量后不予调整"
+      ],
+      "overrideable": false,
+      "confidence": "high",
+      "status": "CLEAR_DEFAULT",
+      "proposition_id": "lease_liquidated_damages_judicial_adjustment",
+      "supplied_element_ids": [
+        "adjustment"
+      ],
+      "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+    },
+    "configuration_consequence": "未限制扣款不得明显超过实际损失，固定高额扣款容易被调整。"
+  },
+  {
+    "node": "excessive_deduction",
+    "contract": "lease",
+    "default": {
+      "rule_id": "LEASE-DEFAULT-LIQUIDATED-DAMAGES-ADJUSTMENT",
+      "domain": "house_lease",
+      "proposition": "约定违约金低于或过分高于造成损失的，当事人可以依法请求增加或适当减少。",
+      "applicability_conditions": [
+        "房屋租赁合同",
+        "合同约定押金扣款、违约金或赔偿金额",
+        "金额与实际损失存在明显偏离争议"
+      ],
+      "authority_ids": [
+        "CN-CIVIL-CODE-585"
+      ],
+      "protection_scope": "《民法典》第585条提供违约金过高或过低时请求司法调整的救济，合同未写明不等于当然无法调整。",
+      "exceptions": [
+        "不存在约定违约金或约定赔偿额",
+        "当事人未依法主张调整",
+        "法院或仲裁机构结合损失、履行情况和过错程度裁量后不予调整"
+      ],
+      "overrideable": false,
+      "confidence": "high",
+      "status": "CLEAR_DEFAULT",
+      "proposition_id": "lease_liquidated_damages_judicial_adjustment",
+      "supplied_element_ids": [
+        "adjustment"
+      ],
+      "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+    },
+    "configuration_consequence": "未限制扣款不得明显超过实际损失，固定高额扣款容易被调整。"
+  },
+  {
+    "node": "loan_repayment_offset_order",
+    "contract": "loan",
+    "default": {
+      "rule_id": "loan-default-offset-order",
+      "domain": "loan",
+      "proposition": "债务人给付不足且无另行约定时，按实现债权费用、利息、主债务的顺序抵充。",
+      "applicability_conditions": [
+        "给付不足以清偿全部债务",
+        "当事人未另行约定抵充顺序"
+      ],
+      "authority_ids": [
+        "CN-CC-561"
+      ],
+      "protection_scope": "法定抵充顺序补充合同未约定的顺序，无须将该默认顺序重复写入合同。",
+      "exceptions": [
+        "当事人另有有效约定"
+      ],
+      "overrideable": true,
+      "confidence": "high",
+      "status": "CLEAR_DEFAULT",
+      "proposition_id": "loan.default.offset_order",
+      "supplied_element_ids": [
+        "loan_offset_order"
+      ],
+      "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+    },
+    "configuration_consequence": "未约定部分还款冲抵顺序，借款人偿还不足时尚欠本金和利息难以计算。"
+  },
+  {
+    "node": "loan_repayment_offset_order",
+    "contract": "loan/common",
+    "default": {
+      "rule_id": "loan-default-offset-order",
+      "domain": "loan",
+      "proposition": "债务人给付不足且无另行约定时，按实现债权费用、利息、主债务的顺序抵充。",
+      "applicability_conditions": [
+        "给付不足以清偿全部债务",
+        "当事人未另行约定抵充顺序"
+      ],
+      "authority_ids": [
+        "CN-CC-561"
+      ],
+      "protection_scope": "法定抵充顺序补充合同未约定的顺序，无须将该默认顺序重复写入合同。",
+      "exceptions": [
+        "当事人另有有效约定"
+      ],
+      "overrideable": true,
+      "confidence": "high",
+      "status": "CLEAR_DEFAULT",
+      "proposition_id": "loan.default.offset_order",
+      "supplied_element_ids": [
+        "loan_offset_order"
+      ],
+      "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+    },
+    "configuration_consequence": "未约定部分还款冲抵顺序，借款人偿还不足时尚欠本金和利息难以计算。"
+  },
+  {
+    "node": "safekeeping_lien_condition",
+    "contract": "deposit",
+    "default": {
+      "rule_id": "default-custody-lien",
+      "domain": "deposit",
+      "proposition": "寄存人未按约支付保管费或其他费用时，保管人依法享有留置权，当事人另有约定的除外。",
+      "applicability_conditions": [
+        "费用未按约支付",
+        "当事人未另行排除留置权"
+      ],
+      "authority_ids": [
+        "CN-CIVIL-CODE-903"
+      ],
+      "protection_scope": "欠费时的法定留置权由法律直接规定，合同沉默不等于该权利不存在。",
+      "exceptions": [
+        "当事人另有约定"
+      ],
+      "overrideable": true,
+      "confidence": "high",
+      "status": "CLEAR_DEFAULT",
+      "proposition_id": "custody.statutory_lien",
+      "supplied_element_ids": [],
+      "legal_default_rule": "SUPPLETIVE_CLEAR"
+    },
+    "configuration_consequence": "未约定留置权及条件，寄存人欠费时保管人能否留置保管物不清。"
+  },
+  {
+    "node": "license_infringement_responsibility",
+    "contract": "technology/transfer/patent_right",
+    "default": {
+      "rule_id": "TECH-DEFAULT-INFRINGEMENT-ALLOCATION",
+      "domain": "technology/transfer/patent_right",
+      "proposition": "受让人按照约定实施专利侵害他人合法权益的，原则上由让与人承担责任。",
+      "applicability_conditions": [
+        "专利权转让",
+        "受让人按约实施",
+        "第三方权利主张"
+      ],
+      "authority_ids": [
+        "PRC-CIVIL-CODE-874"
+      ],
+      "protection_scope": "提供按约实施时的基础责任分配，不覆盖受让人超范围实施或擅自变更造成的侵权。",
+      "exceptions": [
+        "受让人超范围实施",
+        "当事人依法另有有效约定"
+      ],
+      "overrideable": true,
+      "confidence": "high",
+      "status": "CLEAR_DEFAULT",
+      "proposition_id": "",
+      "supplied_element_ids": [],
+      "legal_default_rule": "NEEDS_CONTRACTUAL_DETAIL"
+    },
+    "configuration_consequence": "被许可人或受让人按约实施技术却侵害第三人权益时，责任分配不明会导致被许可人承担非预期赔偿。"
+  }
+]

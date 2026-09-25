@@ -1,0 +1,176 @@
+{
+  "matrix": [
+    {
+      "sample": "ordinary-normal",
+      "subtype": "LABOR",
+      "risk_rules": [],
+      "gate": "REPORT_READY",
+      "routing_assertions": "PASS"
+    },
+    {
+      "sample": "ordinary-risk",
+      "subtype": "LABOR",
+      "risk_rules": [
+        "EMP-15-01"
+      ],
+      "gate": "REPORT_READY",
+      "routing_assertions": "PASS"
+    },
+    {
+      "sample": "dispatch-normal",
+      "subtype": "LABOR_DISPATCH",
+      "risk_rules": [],
+      "gate": "REPORT_READY",
+      "routing_assertions": "PASS"
+    },
+    {
+      "sample": "dispatch-risk",
+      "subtype": "LABOR_DISPATCH",
+      "risk_rules": [
+        "DSP-03-01"
+      ],
+      "gate": "REPORT_READY",
+      "routing_assertions": "PASS"
+    },
+    {
+      "sample": "indefinite-normal",
+      "subtype": "LABOR_INDEFINITE",
+      "risk_rules": [],
+      "gate": "REPORT_READY",
+      "routing_assertions": "PASS"
+    },
+    {
+      "sample": "indefinite-risk",
+      "subtype": "LABOR_INDEFINITE",
+      "risk_rules": [
+        "OET-01-01"
+      ],
+      "gate": "REPORT_READY",
+      "routing_assertions": "PASS"
+    },
+    {
+      "sample": "task-normal",
+      "subtype": "LABOR_TASK",
+      "risk_rules": [],
+      "gate": "REPORT_READY",
+      "routing_assertions": "PASS"
+    },
+    {
+      "sample": "task-risk",
+      "subtype": "LABOR_TASK",
+      "risk_rules": [
+        "EMP-15-01"
+      ],
+      "gate": "REPORT_READY",
+      "routing_assertions": "PASS"
+    },
+    {
+      "sample": "part_time-normal",
+      "subtype": "LABOR_PART_TIME",
+      "risk_rules": [],
+      "gate": "REPORT_READY",
+      "routing_assertions": "PASS"
+    },
+    {
+      "sample": "part_time-risk",
+      "subtype": "LABOR_PART_TIME",
+      "risk_rules": [
+        "EMP-14-01",
+        "PT-01-01",
+        "PT-02-01",
+        "PT-03-01",
+        "PT-07-01"
+      ],
+      "gate": "REPORT_READY",
+      "routing_assertions": "PASS"
+    }
+  ],
+  "current_gate": "REPORT_READY",
+  "current_rules": [
+    {
+      "item_id": "EMP-01-01",
+      "title": "用工主体与劳动者身份",
+      "coverage_status": "通过"
+    },
+    {
+      "item_id": "EMP-04-01",
+      "title": "工作内容和地点",
+      "coverage_status": "通过"
+    },
+    {
+      "item_id": "EMP-08-01",
+      "title": "劳动保护与职业危害",
+      "coverage_status": "待核验"
+    },
+    {
+      "item_id": "EMP-09-01",
+      "title": "专项培训服务期",
+      "coverage_status": "不适用"
+    },
+    {
+      "item_id": "EMP-12-01",
+      "title": "劳动争议处理",
+      "coverage_status": "通过"
+    },
+    {
+      "item_id": "EMP-14-01",
+      "title": "违法约定劳动者违约金",
+      "coverage_status": "风险条款"
+    },
+    {
+      "item_id": "NC-01-01",
+      "title": "竞业人员及秘密接触范围",
+      "coverage_status": "不适用"
+    },
+    {
+      "item_id": "NC-02-01",
+      "title": "离职竞业期限及补偿",
+      "coverage_status": "不适用"
+    },
+    {
+      "item_id": "NC-03-01",
+      "title": "竞业范围或补偿明显不当",
+      "coverage_status": "不适用"
+    },
+    {
+      "item_id": "EMP-IP-01",
+      "title": "劳动成果与知识产权归属",
+      "coverage_status": "通过"
+    },
+    {
+      "item_id": "PT-01-01",
+      "title": "非全日制不得约定试用期",
+      "coverage_status": "风险条款"
+    },
+    {
+      "item_id": "PT-02-01",
+      "title": "非全日制每日及每周工时",
+      "coverage_status": "风险条款"
+    },
+    {
+      "item_id": "PT-03-01",
+      "title": "非全日制小时计酬及十五日结算",
+      "coverage_status": "风险条款"
+    },
+    {
+      "item_id": "PT-04-01",
+      "title": "非全日制工伤保险等法定义务",
+      "coverage_status": "通过"
+    },
+    {
+      "item_id": "PT-05-01",
+      "title": "非全日制已提供劳动的工资结算",
+      "coverage_status": "通过"
+    },
+    {
+      "item_id": "PT-06-01",
+      "title": "非全日制用工关系与起始日期",
+      "coverage_status": "通过"
+    },
+    {
+      "item_id": "PT-07-01",
+      "title": "非全日制劳动者随时通知终止权",
+      "coverage_status": "风险条款"
+    }
+  ]
+}

@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 from typing import Tuple
+from dataclasses import replace
 
 from review_v2.house_lease_checklist import ReviewCheckpoint
 
@@ -99,13 +100,13 @@ LOAN_REVIEW_CHECKLIST: Tuple[ReviewCheckpoint, ...] = (
 
     # ===== L-04 利率条款 =====
     _required("L-04-01", "loan_interest_rate_agreed", "借期内利率", "高", ("利率", "年利率", "月息", "借期利息", "利息"), "未明确借期内利率，是否计息、按何标准计息容易争议。", "借期内利率为年利率__%，按实际借款本金和实际占用天数计算；自然人之间未约定利息的，视为不支付借期内利息。", "《民法典》第680条"),
-    _required("L-04-02", "loan_interest_lpr_cap", "民间借贷LPR四倍上限", "高", ("LPR", "四倍", "一年期LPR", "利率上限", "民间借贷"), "未约定利率不得超过合同成立时一年期LPR四倍，利息、逾期利息、违约金和其他费用合计可能超限。", "民间借贷项下，借期利率、逾期利率、违约金及其他费用总和不得超过合同成立时一年期贷款市场报价利率（LPR）四倍，超过部分不作为计收依据。", "民间借贷司法解释第26条、第29条"),
+    _required("L-04-02", "loan_interest_lpr_cap", "民间借贷LPR四倍上限", "高", ("LPR", "四倍", "一年期LPR", "利率上限", "民间借贷"), "未约定利率不得超过合同成立时一年期LPR四倍，利息、逾期利息、违约金和其他费用合计可能超限。", "民间借贷项下，借期利率、逾期利率、违约金及其他费用总和不得超过合同成立时一年期贷款市场报价利率（LPR）四倍，超过部分不作为计收依据。", "民间借贷司法解释第25条、第28条、第29条"),
     _required("L-04-03", "loan_financial_interest_compliance", "金融借款利率合规", "高", ("金融借款", "监管规定", "贷款利率", "年化利率", "综合成本"), "金融借款未约定利率和综合成本应符合法律及监管要求，可能引发费用合法性争议。", "金融借款项下，贷款利率、罚息、复利、服务费、管理费及综合融资成本应符合金融监管规定和合同披露要求。", "《民法典》第680条及金融监管规定"),
-    _forbidden("L-04-04", "loan_hidden_fee_over_cap", "变相高息费用", "高", ("服务费", "管理费", "咨询费", "手续费", "违约金", "综合费率"), "合同通过服务费、管理费、咨询费等方式变相提高融资成本，可能被并入利率上限审查。", "建议改为：除明确列明并有真实服务依据的费用外，任何服务费、管理费、咨询费、违约金等均不得与利息合计超过法定上限。", "民间借贷司法解释第26条、第29条、《民法典》第680条"),
+    _forbidden("L-04-04", "loan_hidden_fee_over_cap", "变相高息费用", "高", ("服务费", "管理费", "咨询费", "手续费", "违约金", "综合费率"), "合同通过服务费、管理费、咨询费等方式变相提高融资成本，可能被并入利率上限审查。", "建议改为：除明确列明并有真实服务依据的费用外，任何服务费、管理费、咨询费、违约金等均不得与利息合计超过法定上限。", "民间借贷司法解释第25条、第29条、《民法典》第680条"),
 
     # ===== L-05 利息计算 =====
     _required("L-05-01", "loan_interest_calculation_base", "利息计算基数和期间", "高", ("计息基数", "计息期间", "实际占用", "按日计息", "本金余额"), "未明确利息计算基数和期间，部分还款、提前还款或实际到账不一致时利息计算混乱。", "利息以借款人实际收到且尚未偿还的本金余额为基数，自实际到账之日起至实际清偿之日止按日计算。", "《民法典》第670条、第680条"),
-    _required("L-05-02", "loan_overdue_interest", "逾期利息", "高", ("逾期利息", "逾期利率", "罚息", "逾期还款", "违约利息"), "未约定逾期利息，借款人逾期后资金占用损失计算依据不足。", "借款人逾期还款的，逾期期间以未清偿本金为基数，按年利率__%计算逾期利息；民间借贷中不得超过法定利率上限。", "《民法典》第676条、民间借贷司法解释第29条"),
+    _required("L-05-02", "loan_overdue_interest", "逾期利息", "高", ("逾期利息", "逾期利率", "罚息", "逾期还款", "违约利息"), "未约定逾期利息，借款人逾期后资金占用损失计算依据不足。", "借款人逾期还款的，逾期期间以未清偿本金为基数，按年利率__%计算逾期利息；民间借贷中不得超过法定利率上限。", "《民法典》第676条、民间借贷司法解释第28条、第29条"),
     _required("L-05-03", "loan_compound_interest_limit", "复利限制", "中", ("复利", "利滚利", "利息计息", "计收复利", "本息合计"), "未约定复利规则或复利超限，可能导致利息计算不被支持。", "除法律允许且双方明确约定的情形外，不对利息另行计收复利；任何复利、逾期利息和费用合计不得突破法定上限。", "《民法典》第680条、民间借贷司法解释第29条"),
     _required("L-05-04", "loan_interest_no_agreement_rule", "未约定利息处理", "低", ("未约定利息", "无息", "不计息", "利息不明", "自然人借款"), "未说明未约定利息时的处理，尤其自然人之间借款容易出现是否计息争议。", "自然人之间借款未约定借期内利息的，视为不支付利息；其他主体之间利息约定不明的，按法律规定、交易方式和交易习惯处理。", "《民法典》第680条"),
 
@@ -154,4 +155,37 @@ LOAN_REVIEW_CHECKLIST: Tuple[ReviewCheckpoint, ...] = (
 
 
 def get_loan_checklist() -> Tuple[ReviewCheckpoint, ...]:
-    return LOAN_REVIEW_CHECKLIST
+    from review_v2.loan_facts import OPTIONAL_NODES, GUARANTEE_NODES
+    conditions = {
+        "loan_financial_interest_compliance": "贷款人为金融机构",
+        "loan_interest_lpr_cap": "贷款人为非金融机构的民间借贷",
+        "loan_enterprise_business_need": "出借方和借款方均为非金融企业或法人组织",
+        "loan_natural_person_formation": "出借方和借款方均为自然人",
+        "loan_sale_security_distinction": "存在买卖、过户或回购担保借款的安排",
+        "loan_old_for_new_guarantor_notice": "存在新贷偿还旧贷事实且有保证人",
+        "loan_interest_no_agreement_rule": "未明确约定借期利率或无息安排",
+        "loan_compound_interest_limit": "存在复利安排",
+        "loan_daily_family_need": "存在家庭日常生活借款用途",
+        "loan_joint_business_need": "存在夫妻共同经营借款用途",
+        "loan_spousal_joint_intent": "涉及夫妻共同债务",
+        "loan_beyond_family_need_evidence": "涉及夫妻共同债务且超出日常家用",
+        "loan_guarantee_attachment": "存在保证、抵押或质押担保",
+    }
+    rows = []
+    for c in LOAN_REVIEW_CHECKLIST:
+        condition = conditions.get(c.node_id, "始终适用")
+        if c.node_id.startswith("loan_extension_"):
+            condition = "存在借款展期安排" + ("且有保证人" if "guarantor" in c.node_id else "")
+        if c.node_id.startswith("loan_early_repayment_") or c.node_id == "loan_unreasonable_early_repayment_penalty":
+            condition = "存在提前还款安排"
+        if c.node_id in GUARANTEE_NODES:
+            condition = "存在保证担保"
+        updates = {"applicable_if": condition, "polarity": "NEGATIVE_CLAUSE_CHECK" if c.kind == "forbidden" else "TRIGGERED_RULE_CHECK" if condition != "始终适用" else "POSITIVE_REQUIREMENT"}
+        if c.node_id in OPTIONAL_NODES:
+            updates["risk_level"] = "低"
+        if c.node_id == "loan_financial_private_distinction":
+            updates.update(review_nature="INTERNAL_CLASSIFICATION", action_type="NO_ACTION")
+        if c.node_id == "loan_hidden_fee_over_cap":
+            updates["terms"] = ("服务费", "管理费", "咨询费", "手续费", "融资费", "综合费率")
+        rows.append(replace(c, **updates))
+    return tuple(rows)

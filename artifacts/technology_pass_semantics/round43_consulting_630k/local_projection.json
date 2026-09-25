@@ -1,0 +1,1816 @@
+{
+  "甲方": {
+    "gate": {
+      "status": "BLOCKED",
+      "failures": [
+        {
+          "requirement": "SHARED_ELEMENT_EVIDENCE_CONFLICT",
+          "root_cause": "COMMON-20-01:common_penalty_base_determinability_ratio",
+          "current_status": "FAIL",
+          "failure_stage": "Semantic consistency"
+        },
+        {
+          "requirement": "COVERAGE_ELEMENT_STATE_CONFLICT",
+          "root_cause": "COMMON-20-01",
+          "current_status": "FAIL",
+          "failure_stage": "Semantic consistency"
+        },
+        {
+          "requirement": "SHARED_ELEMENT_EVIDENCE_CONFLICT",
+          "root_cause": "COMMON-21-01:common_internal_references_1",
+          "current_status": "FAIL",
+          "failure_stage": "Semantic consistency"
+        },
+        {
+          "requirement": "SEARCH_AUDIT_ELEMENT_CONFLICT",
+          "root_cause": "COMMON-21-01:common_internal_references_1",
+          "current_status": "FAIL",
+          "failure_stage": "Semantic consistency"
+        },
+        {
+          "requirement": "SHARED_ELEMENT_EVIDENCE_CONFLICT",
+          "root_cause": "COMMON-21-01:common_internal_references_2",
+          "current_status": "FAIL",
+          "failure_stage": "Semantic consistency"
+        },
+        {
+          "requirement": "SEARCH_AUDIT_ELEMENT_CONFLICT",
+          "root_cause": "COMMON-21-01:common_internal_references_2",
+          "current_status": "FAIL",
+          "failure_stage": "Semantic consistency"
+        },
+        {
+          "requirement": "COVERAGE_ELEMENT_STATE_CONFLICT",
+          "root_cause": "COMMON-21-01",
+          "current_status": "FAIL",
+          "failure_stage": "Semantic consistency"
+        },
+        {
+          "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "failure_stage": "Final Evidence Projection",
+          "root_cause": "最终要素、原文引文与报告事实不一致。",
+          "current_status": "FAIL",
+          "details": [
+            {
+              "review_id": "TC-12-02",
+              "element_id": "notification_requirement",
+              "reason": "CLAIM_RESPONSE_FACT_NOT_ENTAILED"
+            },
+            {
+              "review_id": "TC-12-02",
+              "evidence_owner": "ELEMENT",
+              "element_id": "notification_requirement",
+              "clause_id": "C0017",
+              "reason": "REQUIREMENT_NOT_ENTAILED_BY_SOURCE"
+            },
+            {
+              "review_id": "TC-12-02",
+              "evidence_owner": "REVIEW",
+              "element_id": "notification_requirement",
+              "clause_id": "C0017",
+              "reason": "REQUIREMENT_NOT_ENTAILED_BY_SOURCE"
+            }
+          ]
+        }
+      ],
+      "priority_consistency_verification": {
+        "executed": true,
+        "high_finding_count": 0,
+        "core_priority_count": 0,
+        "consistency": "CONSISTENT",
+        "explanations": [],
+        "needs_recalibration": false
+      },
+      "context_consistency": {
+        "status": "PASS",
+        "failures": [],
+        "contract_type": "technology",
+        "domain_pack": "domain-pack-technology-1.0"
+      },
+      "gate_results": {
+        "PASS_EVIDENCE_PROVENANCE_GATE": "PASS",
+        "PARTIAL_ELEMENT_NARRATIVE_GATE": "PASS",
+        "COVERAGE_SENTENCE_CONSISTENCY_GATE": "PASS",
+        "ELEMENT_STATUS_CONTRADICTION": "PASS",
+        "EVIDENCE_MONOTONICITY_VIOLATION": "PASS",
+        "FINDING_EVIDENCE_GATE": "PASS",
+        "CROSS_LAYER_CONSISTENCY_GATE": "PASS",
+        "DEFAULT_LAW_COMPLETENESS_GATE": "PASS",
+        "DEFAULT_LAW_EFFECTIVE_GAP_GATE": "PASS",
+        "NARRATIVE_ELEMENT_CONSISTENCY_GATE": "PASS",
+        "NARRATIVE_TRUTH_GATE": "PASS",
+        "PRIORITY_CONSISTENCY_GATE": "PASS",
+        "SIGNABILITY_GATE": "PASS",
+        "CONFIDENCE_VALIDATION_GATE": "PASS",
+        "DOMAIN_SUBTYPE_GATE": "PASS",
+        "DOMAIN_REVIEW_ISOLATION_GATE": "PASS",
+        "DOMAIN_MATERIAL_COVERAGE_GATE": "PASS",
+        "TRANSACTION_STRUCTURE_GATE": "PASS",
+        "FRAMEWORK_DOMAIN_GATE": "PASS",
+        "ORDER_RELATION_GATE": "PASS",
+        "DYNAMIC_QUANTITY_GATE": "PASS",
+        "PRICE_MECHANISM_GATE": "PASS",
+        "ALTERNATIVE_SATISFACTION_GATE": "PASS",
+        "FALSE_RISK_EXISTENCE_GATE": "PASS",
+        "FACT_REGISTRY_SNAPSHOT_CONSISTENCY": "PASS",
+        "FACT_REGISTRY_CONFLICTING_FACT": "PASS",
+        "CROSS_REVIEW_FACT_CONFLICT": "PASS",
+        "FACT_TRUTH_OVERRIDE_VIOLATION": "PASS",
+        "FACT_CONSUMER_MAPPING_MISSING": "PASS",
+        "RISK_EVIDENCE_MISMATCH": "PASS",
+        "CANONICAL_PENALTY_BINDING": "PASS",
+        "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS",
+        "APPLICABILITY_PRECONDITION_GATE": "PASS",
+        "SHARED_CLAIM_CONSISTENCY_GATE": "PASS",
+        "FINDING_PRECONDITION_GATE": "PASS",
+        "REPORT_CONTEXT_GATE": "PASS",
+        "REPORT_TRANSACTION_TRUTH_GATE": "PASS",
+        "CROSS_REVIEW_CONSISTENCY_GATE": "PASS",
+        "RECOMMENDATION_NON_DEGRADATION_GATE": "PASS",
+        "COMMON_REVIEW_SATISFACTION_GATE": "PASS",
+        "ELEMENT_IDENTITY_CONTRADICTION_GATE": "PASS",
+        "PRODUCT_APPLICABILITY_GATE": "PASS",
+        "SHARED_CLAIM_REUSE_GATE": "PASS",
+        "FINDING_INDEPENDENCE_GATE": "PASS",
+        "TECHNOLOGY_TRANSACTION_CONSISTENCY": "PASS",
+        "CLASSIFICATION_NARRATIVE_CONSISTENCY": "PASS",
+        "EVIDENCE_JUDGMENT_CONSISTENCY": "PASS",
+        "ATOMIC_ELEMENT_CONSISTENCY": "PASS",
+        "CROSS_RULE_EVIDENCE_CONSISTENCY": "PASS",
+        "PARTY_DIRECTION_CONSISTENCY": "PASS",
+        "SUBTYPE_RENDERING_CONSISTENCY": "PASS",
+        "EVIDENCE_PROVENANCE_CONSISTENCY": "PASS",
+        "EMPTY_FIELD_CONSISTENCY": "PASS",
+        "REPORT_EVIDENCE_CONSISTENCY": "PASS",
+        "EVIDENCE_POLARITY_CONSISTENCY": "PASS",
+        "PERSPECTIVE_DOMAIN_CONSISTENCY_GATE": "PASS",
+        "PATENT_TRANSFER_QUALITY_GATE": "NOT_APPLICABLE",
+        "PRODUCTION_FACT_POLARITY_GATE": "PASS",
+        "ADVERSE_POLARITY_AUDIT_GATE": "PASS",
+        "RECOMMENDATION_SOURCE_UNMAPPED": "PASS",
+        "RECOMMENDATION_ELEMENT_LEAKAGE": "PASS",
+        "RECOMMENDATION_COVERED_ELEMENT_REINTRODUCED": "PASS",
+        "RECOMMENDATION_PLACEHOLDER_TEXT": "PASS",
+        "RECOMMENDATION_FINAL_DISPOSITION_MISMATCH": "PASS",
+        "CLIENT_INTEREST_GATE": "PASS",
+        "RISK_STATISTICS_INVARIANT": "PASS",
+        "FINAL_DISPOSITION_INVARIANT": "PASS",
+        "FORMAL_RECOMMENDATION_FINAL_DISPOSITION_INVARIANT": "PASS",
+        "RECOMMENDATION_OWNERSHIP_INVARIANT": "PASS",
+        "HIGH_NON_MUST_CHANGE_REASON_INVARIANT": "PASS",
+        "OPTIONAL_IMPROVEMENT_VISIBILITY_INVARIANT": "PASS",
+        "ACTIONABLE_RECOMMENDATION_COMPLETENESS_INVARIANT": "PASS",
+        "LEGAL_AUTHORITY_DEDUP_GATE": "PASS",
+        "LEGAL_AUTHORITY_SELECTION_GATE": "PASS",
+        "CITATION_ENTAILMENT_GATE": "PASS",
+        "LEGAL_DEFAULT_LAW_CONSISTENCY_GATE": "PASS",
+        "ATOMIC_LEGAL_ELEMENT_GATE": "PASS",
+        "DEFAULT_LAW_NARRATIVE_TRUTH_GATE": "PASS",
+        "NOT_APPLICABLE_NARRATIVE_GATE": "PASS",
+        "NOT_APPLICABLE_GAP_GATE": "PASS",
+        "REVIEW_POLARITY_NARRATIVE_GATE": "PASS",
+        "NEGATIVE_CHECK_PASS_GATE": "PASS",
+        "CROSS_REVIEW_SHARED_CLAIM_GATE": "PASS",
+        "NARRATIVE_EVIDENCE_GATE": "PASS",
+        "CANONICAL_SEMANTIC_PROOF_GATE": "PASS",
+        "VERIFIED_PASS_ORIGINAL_GATE": "PASS",
+        "REPORT_ELEMENT_EVIDENCE_POLLUTION": "PASS",
+        "EXACT_ELEMENT_REPORT_INVARIANT": "FAIL",
+        "RISK_TITLE_EVIDENCE_CONSISTENCY": "PASS",
+        "COVERAGE_LEGALITY_CONSISTENCY": "PASS",
+        "REPORT_TOPIC_LABEL_CONSISTENCY": "PASS",
+        "PRODUCTION_INTERNAL_TOKEN_GATE": "PASS",
+        "DEFAULT_LAW_PROVENANCE_GATE": "PASS",
+        "RECOMMENDATION_SINGLE_SOURCE_GATE": "PASS",
+        "RECOMMENDATION_CROSS_RENDERER_CONSISTENCY_GATE": "PASS",
+        "REPORT_TEXT_VALIDATION": "PASS",
+        "REPORT_DISPOSITION_PROJECTION_INVARIANT": "PASS",
+        "EVIDENCE_BUNDLE_ENTAILMENT_GATE": "PASS",
+        "RECOMMENDATION_SEMANTIC_BINDING_GATE": "PASS",
+        "SUMMARY_DETAIL_RISK_ID_GATE": "PASS",
+        "ISSUE_TYPE_NARRATIVE_GATE": "PASS",
+        "OPTIONAL_REPORT_COUNT_GATE": "PASS",
+        "REPORT_ROLE_PLACEHOLDER_GATE": "PASS",
+        "ACTIONABLE_RECOMMENDATION_VISIBILITY_GATE": "PASS",
+        "CLAIM_EVIDENCE_COVERAGE_GATE": "PASS",
+        "EVIDENCE_FACT_ROLE_GATE": "PASS",
+        "SINGLE_EVIDENCE_SOURCE_GATE": "PASS",
+        "EVIDENCE_BUNDLE_RENDER_GATE": "PASS",
+        "APPLICABILITY_DISPLAY_CONSISTENCY_GATE": "PASS",
+        "ISSUE_TYPE_CONSISTENCY_GATE": "PASS",
+        "PARTIAL_MISSING_ELEMENT_GATE": "PASS",
+        "SUMMARY_TRUNCATION_DISCLOSURE_GATE": "PASS",
+        "TECHNICAL_REPORT_PLACEHOLDER_GATE": "PASS",
+        "FINAL_RISK_EVIDENCE_BUNDLE_GATE": "PASS",
+        "EVIDENCE_ITEM_UNIQUENESS_GATE": "PASS",
+        "CLAUSE_NODE_CONSISTENCY_GATE": "PASS",
+        "MISSING_RISK_ABSENCE_EVIDENCE_GATE": "PASS",
+        "COVERAGE_RISK_ACTION_CONSISTENCY_GATE": "PASS",
+        "PATENT_ROLE_TERMINOLOGY_GATE": "PASS",
+        "DUPLICATE_TEMPLATE_PHRASE_GATE": "PASS",
+        "EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+        "PASS_EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+        "CANONICAL_RISK_COVERAGE_INVARIANT": "PASS",
+        "CONSULTING_REPORT_CONTEXT_GATE": "PASS",
+        "TERMINOLOGY_CONSISTENCY_GATE": "PASS",
+        "APPLICABILITY_AND_EVIDENCE_BOUNDARY": "PASS"
+      },
+      "blocking_rules": [
+        {
+          "code": "SHARED_ELEMENT_EVIDENCE_CONFLICT",
+          "stage": "Semantic consistency",
+          "reason": "COMMON-20-01:common_penalty_base_determinability_ratio",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        },
+        {
+          "code": "COVERAGE_ELEMENT_STATE_CONFLICT",
+          "stage": "Semantic consistency",
+          "reason": "COMMON-20-01",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        },
+        {
+          "code": "SHARED_ELEMENT_EVIDENCE_CONFLICT",
+          "stage": "Semantic consistency",
+          "reason": "COMMON-21-01:common_internal_references_1",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        },
+        {
+          "code": "SEARCH_AUDIT_ELEMENT_CONFLICT",
+          "stage": "Semantic consistency",
+          "reason": "COMMON-21-01:common_internal_references_1",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        },
+        {
+          "code": "SHARED_ELEMENT_EVIDENCE_CONFLICT",
+          "stage": "Semantic consistency",
+          "reason": "COMMON-21-01:common_internal_references_2",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        },
+        {
+          "code": "SEARCH_AUDIT_ELEMENT_CONFLICT",
+          "stage": "Semantic consistency",
+          "reason": "COMMON-21-01:common_internal_references_2",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        },
+        {
+          "code": "COVERAGE_ELEMENT_STATE_CONFLICT",
+          "stage": "Semantic consistency",
+          "reason": "COMMON-21-01",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        },
+        {
+          "code": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "stage": "Final Evidence Projection",
+          "reason": "最终要素、原文引文与报告事实不一致。",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        }
+      ],
+      "blocking_stage": "Semantic consistency",
+      "blocking_entities": [
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        },
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        },
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        },
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        },
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        },
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        },
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        },
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        }
+      ],
+      "blocking_reasons": [
+        "COMMON-20-01:common_penalty_base_determinability_ratio",
+        "COMMON-20-01",
+        "COMMON-21-01:common_internal_references_1",
+        "COMMON-21-01:common_internal_references_1",
+        "COMMON-21-01:common_internal_references_2",
+        "COMMON-21-01:common_internal_references_2",
+        "COMMON-21-01",
+        "最终要素、原文引文与报告事实不一致。"
+      ],
+      "post_render_status": "REPORT_READY"
+    },
+    "items": {
+      "TC-01-03": {
+        "coverage": "通过",
+        "presence": "PRESENT",
+        "app": {
+          "review_id": "TC-01-03",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "user_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "技术合同均适用。",
+          "triggered": true,
+          "condition_text": "技术合同均适用。"
+        },
+        "components": [
+          {
+            "consulting_project": "COVERED"
+          },
+          {
+            "technical_question_or_object": "COVERED"
+          },
+          {
+            "consulting_scope": "COVERED"
+          },
+          {
+            "consulting_deliverable": "COVERED"
+          }
+        ]
+      },
+      "TC-01-04": {
+        "coverage": "不适用",
+        "presence": "NOT_APPLICABLE",
+        "app": {
+          "review_id": "TC-01-04",
+          "applicable": false,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "当前主交易为技术咨询，未出现加工、制造、设备安装、施工或建设工程等混合履约事实，本项不适用。",
+          "confidence": "medium",
+          "status": "NOT_APPLICABLE",
+          "machine_reason": "当前主交易为技术咨询，未出现加工、制造、设备安装、施工或建设工程等混合履约事实，本项不适用。",
+          "user_reason": "当前主交易为技术咨询，未出现加工、制造、设备安装、施工或建设工程等混合履约事实，本项不适用。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_NOT_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "仅在合同出现加工、定作、设备制造或交付、安装、施工、建设工程等混合履约事实，需要区分技术合同与承揽、建设工程规则时适用。",
+          "triggered": false,
+          "condition_text": "仅在合同出现加工、定作、设备制造或交付、安装、施工、建设工程等混合履约事实，需要区分技术合同与承揽、建设工程规则时适用。"
+        },
+        "components": []
+      },
+      "TC-08-01": {
+        "coverage": "通过",
+        "presence": "PRESENT",
+        "app": {
+          "review_id": "TC-08-01",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "user_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "仅适用于技术咨询合同。",
+          "triggered": true,
+          "condition_text": "仅适用于技术咨询合同。"
+        },
+        "components": [
+          {
+            "consulting_scope": "COVERED"
+          },
+          {
+            "report_contents": "COVERED"
+          },
+          {
+            "delivery_form": "COVERED"
+          },
+          {
+            "acceptance_standard": "COVERED"
+          }
+        ]
+      },
+      "TC-08-03": {
+        "coverage": "通过",
+        "presence": "PRESENT",
+        "app": {
+          "review_id": "TC-08-03",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "user_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "仅适用于技术咨询合同。",
+          "triggered": true,
+          "condition_text": "仅适用于技术咨询合同。"
+        },
+        "components": [
+          {
+            "technical_materials": "COVERED"
+          },
+          {
+            "cooperation_conditions": "COVERED"
+          },
+          {
+            "truthfulness_completeness": "COVERED"
+          },
+          {
+            "delivery_time_method": "COVERED"
+          }
+        ]
+      },
+      "TC-08-04": {
+        "coverage": "通过",
+        "presence": "PRESENT",
+        "app": {
+          "review_id": "TC-08-04",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "user_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "仅适用于技术咨询合同。",
+          "triggered": true,
+          "condition_text": "仅适用于技术咨询合同。"
+        },
+        "components": [
+          {
+            "defect_trigger": "COVERED"
+          },
+          {
+            "correction_period": "COVERED"
+          },
+          {
+            "correction_remedy": "COVERED"
+          },
+          {
+            "termination_remedy": "MISSING"
+          },
+          {
+            "refund_remedy": "MISSING"
+          }
+        ]
+      },
+      "TC-08-05": {
+        "coverage": "通过",
+        "presence": "PRESENT",
+        "app": {
+          "review_id": "TC-08-05",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "user_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "仅适用于技术咨询合同。",
+          "triggered": true,
+          "condition_text": "仅适用于技术咨询合同。"
+        },
+        "components": [
+          {
+            "consulting_fee_total": "COVERED"
+          },
+          {
+            "payment_milestones": "COVERED"
+          },
+          {
+            "collection_account": "MISSING"
+          }
+        ]
+      },
+      "TC-11-01": {
+        "coverage": "通过",
+        "presence": "PRESENT",
+        "app": {
+          "review_id": "TC-11-01",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "user_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "适用于涉及技术秘密、源代码、数据、图纸、样品或其他保密资料的技术合同。",
+          "triggered": true,
+          "condition_text": "适用于涉及技术秘密、源代码、数据、图纸、样品或其他保密资料的技术合同。"
+        },
+        "components": [
+          {
+            "confidential_information_scope": "COVERED"
+          },
+          {
+            "confidentiality_obligation": "COVERED"
+          },
+          {
+            "need_to_know_personnel": "COVERED"
+          },
+          {
+            "confidentiality_duration": "COVERED"
+          },
+          {
+            "purpose_limitation": "COVERED"
+          },
+          {
+            "third_party_disclosure_restriction": "COVERED"
+          },
+          {
+            "copying_restriction": "COVERED"
+          },
+          {
+            "security_measures": "COVERED"
+          }
+        ]
+      },
+      "TC-11-02": {
+        "coverage": "通过",
+        "presence": "PRESENT",
+        "app": {
+          "review_id": "TC-11-02",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "user_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "适用于涉及技术秘密、源代码、数据、图纸、样品或其他保密资料的技术合同。",
+          "triggered": true,
+          "condition_text": "适用于涉及技术秘密、源代码、数据、图纸、样品或其他保密资料的技术合同。"
+        },
+        "components": [
+          {
+            "confidential_information_scope": "COVERED"
+          },
+          {
+            "confidentiality_period": "COVERED"
+          },
+          {
+            "post_termination_confidentiality": "COVERED"
+          },
+          {
+            "public_information_exception": "COVERED"
+          },
+          {
+            "lawful_third_party_source_exception": "COVERED"
+          },
+          {
+            "independent_development_exception": "COVERED"
+          },
+          {
+            "compelled_disclosure_exception": "COVERED"
+          },
+          {
+            "prior_notice_when_legally_permitted": "COVERED"
+          }
+        ]
+      },
+      "TC-11-03": {
+        "coverage": "部分覆盖",
+        "presence": "PARTIAL",
+        "app": {
+          "review_id": "TC-11-03",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "user_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "适用于涉及技术秘密、源代码、数据、图纸、样品或其他保密资料的技术合同。",
+          "triggered": true,
+          "condition_text": "适用于涉及技术秘密、源代码、数据、图纸、样品或其他保密资料的技术合同。"
+        },
+        "components": [
+          {
+            "termination_return_or_delete": "COVERED"
+          },
+          {
+            "processing_deadline": "COVERED"
+          },
+          {
+            "retained_backup_use_restriction": "COVERED"
+          },
+          {
+            "confidential_copy_deletion": "COVERED"
+          },
+          {
+            "confidential_backup_deletion": "COVERED"
+          },
+          {
+            "confidential_material_destruction": "MISSING"
+          },
+          {
+            "confidential_disposal_confirmation": "COVERED"
+          }
+        ]
+      },
+      "TC-11-04": {
+        "coverage": "部分覆盖",
+        "presence": "PARTIAL",
+        "app": {
+          "review_id": "TC-11-04",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "user_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "适用于涉及技术秘密、源代码、数据、图纸、样品或其他保密资料的技术合同。",
+          "triggered": true,
+          "condition_text": "适用于涉及技术秘密、源代码、数据、图纸、样品或其他保密资料的技术合同。"
+        },
+        "components": [
+          {
+            "breach_damage_liability": "MISSING"
+          },
+          {
+            "stop_disclosure": "COVERED"
+          },
+          {
+            "stop_use": "COVERED"
+          },
+          {
+            "mitigation_obligation": "COVERED"
+          },
+          {
+            "incident_notification": "MISSING"
+          },
+          {
+            "specific_confidentiality_penalty": "NOT_APPLICABLE"
+          },
+          {
+            "excess_loss_compensation": "NOT_APPLICABLE"
+          }
+        ]
+      },
+      "TC-12-02": {
+        "coverage": "部分覆盖",
+        "presence": "PARTIAL",
+        "app": {
+          "review_id": "TC-12-02",
+          "applicable": true,
+          "trigger_facts": [
+            "claim_trigger"
+          ],
+          "trigger_evidence": [
+            {
+              "clause_id": "C0017",
+              "quote": "如因乙方自行提供的材料发生第三方知识产权争议，乙方应在收到相关通知后及时告知甲方，并配合提供必要说明和处理材料",
+              "location": "第十条 第三方资料",
+              "actor": "",
+              "condition": "如因乙方自行提供的材料发生第三方知识产权争议",
+              "limited": false,
+              "polarity": "CONDITIONAL"
+            }
+          ],
+          "missing_triggers": [],
+          "reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "user_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "APPLICABLE",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "适用于涉及技术成果交付、实施、转让、许可、咨询或服务并可能发生第三方权利主张的技术合同。",
+          "triggered": true,
+          "condition_text": "适用于涉及技术成果交付、实施、转让、许可、咨询或服务并可能发生第三方权利主张的技术合同。"
+        },
+        "components": [
+          {
+            "third_party_claim_trigger": "COVERED"
+          },
+          {
+            "claim_handling_responsibility": "MISSING"
+          },
+          {
+            "provider_infringement_liability": "MISSING"
+          },
+          {
+            "direct_damage": "MISSING"
+          },
+          {
+            "defense_cost_allocation": "MISSING"
+          },
+          {
+            "third_party_compensation": "MISSING"
+          },
+          {
+            "notification_requirement": "COVERED"
+          },
+          {
+            "notification_deadline": "MISSING"
+          },
+          {
+            "necessary_assistance": "COVERED"
+          },
+          {
+            "termination_remedy": "MISSING"
+          },
+          {
+            "refund_remedy": "MISSING"
+          },
+          {
+            "defense_control": "MISSING"
+          },
+          {
+            "lawyer_selection": "MISSING"
+          },
+          {
+            "settlement_authority": "MISSING"
+          },
+          {
+            "replacement_remedy": "MISSING"
+          },
+          {
+            "license_cure": "MISSING"
+          }
+        ]
+      },
+      "COMMON-20-01": {
+        "coverage": "待核验",
+        "presence": "PRESENT",
+        "app": {
+          "review_id": "COMMON-20-01",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "存在依赖金额基数的比例违约金约定。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "存在依赖金额基数的比例违约金约定。",
+          "user_reason": "合同已触发“合同存在按比例、按期间或按次数计算的违约金时，核对计算公式、金额基数及期间或次数。”这一适用条件。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "合同存在按比例、按期间或按次数计算的违约金时，核对计算公式、金额基数及期间或次数。",
+          "triggered": true,
+          "condition_text": "合同存在按比例、按期间或按次数计算的违约金时，核对计算公式、金额基数及期间或次数。"
+        },
+        "components": [
+          {
+            "common_penalty_base_determinability_ratio": "UNCERTAIN"
+          },
+          {
+            "common_penalty_base_determinability_definition": "COVERED"
+          }
+        ]
+      }
+    }
+  },
+  "乙方": {
+    "gate": {
+      "status": "BLOCKED",
+      "failures": [
+        {
+          "requirement": "SHARED_ELEMENT_EVIDENCE_CONFLICT",
+          "root_cause": "COMMON-20-01:common_penalty_base_determinability_ratio",
+          "current_status": "FAIL",
+          "failure_stage": "Semantic consistency"
+        },
+        {
+          "requirement": "COVERAGE_ELEMENT_STATE_CONFLICT",
+          "root_cause": "COMMON-20-01",
+          "current_status": "FAIL",
+          "failure_stage": "Semantic consistency"
+        },
+        {
+          "requirement": "SHARED_ELEMENT_EVIDENCE_CONFLICT",
+          "root_cause": "COMMON-21-01:common_internal_references_1",
+          "current_status": "FAIL",
+          "failure_stage": "Semantic consistency"
+        },
+        {
+          "requirement": "SEARCH_AUDIT_ELEMENT_CONFLICT",
+          "root_cause": "COMMON-21-01:common_internal_references_1",
+          "current_status": "FAIL",
+          "failure_stage": "Semantic consistency"
+        },
+        {
+          "requirement": "SHARED_ELEMENT_EVIDENCE_CONFLICT",
+          "root_cause": "COMMON-21-01:common_internal_references_2",
+          "current_status": "FAIL",
+          "failure_stage": "Semantic consistency"
+        },
+        {
+          "requirement": "SEARCH_AUDIT_ELEMENT_CONFLICT",
+          "root_cause": "COMMON-21-01:common_internal_references_2",
+          "current_status": "FAIL",
+          "failure_stage": "Semantic consistency"
+        },
+        {
+          "requirement": "COVERAGE_ELEMENT_STATE_CONFLICT",
+          "root_cause": "COMMON-21-01",
+          "current_status": "FAIL",
+          "failure_stage": "Semantic consistency"
+        },
+        {
+          "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "failure_stage": "Final Evidence Projection",
+          "root_cause": "最终要素、原文引文与报告事实不一致。",
+          "current_status": "FAIL",
+          "details": [
+            {
+              "review_id": "TC-12-02",
+              "element_id": "notification_requirement",
+              "reason": "CLAIM_RESPONSE_FACT_NOT_ENTAILED"
+            },
+            {
+              "review_id": "TC-12-02",
+              "evidence_owner": "ELEMENT",
+              "element_id": "notification_requirement",
+              "clause_id": "C0017",
+              "reason": "REQUIREMENT_NOT_ENTAILED_BY_SOURCE"
+            },
+            {
+              "review_id": "TC-12-02",
+              "evidence_owner": "REVIEW",
+              "element_id": "notification_requirement",
+              "clause_id": "C0017",
+              "reason": "REQUIREMENT_NOT_ENTAILED_BY_SOURCE"
+            }
+          ]
+        }
+      ],
+      "priority_consistency_verification": {
+        "executed": true,
+        "high_finding_count": 0,
+        "core_priority_count": 0,
+        "consistency": "CONSISTENT",
+        "explanations": [],
+        "needs_recalibration": false
+      },
+      "context_consistency": {
+        "status": "PASS",
+        "failures": [],
+        "contract_type": "technology",
+        "domain_pack": "domain-pack-technology-1.0"
+      },
+      "gate_results": {
+        "PASS_EVIDENCE_PROVENANCE_GATE": "PASS",
+        "PARTIAL_ELEMENT_NARRATIVE_GATE": "PASS",
+        "COVERAGE_SENTENCE_CONSISTENCY_GATE": "PASS",
+        "ELEMENT_STATUS_CONTRADICTION": "PASS",
+        "EVIDENCE_MONOTONICITY_VIOLATION": "PASS",
+        "FINDING_EVIDENCE_GATE": "PASS",
+        "CROSS_LAYER_CONSISTENCY_GATE": "PASS",
+        "DEFAULT_LAW_COMPLETENESS_GATE": "PASS",
+        "DEFAULT_LAW_EFFECTIVE_GAP_GATE": "PASS",
+        "NARRATIVE_ELEMENT_CONSISTENCY_GATE": "PASS",
+        "NARRATIVE_TRUTH_GATE": "PASS",
+        "PRIORITY_CONSISTENCY_GATE": "PASS",
+        "SIGNABILITY_GATE": "PASS",
+        "CONFIDENCE_VALIDATION_GATE": "PASS",
+        "DOMAIN_SUBTYPE_GATE": "PASS",
+        "DOMAIN_REVIEW_ISOLATION_GATE": "PASS",
+        "DOMAIN_MATERIAL_COVERAGE_GATE": "PASS",
+        "TRANSACTION_STRUCTURE_GATE": "PASS",
+        "FRAMEWORK_DOMAIN_GATE": "PASS",
+        "ORDER_RELATION_GATE": "PASS",
+        "DYNAMIC_QUANTITY_GATE": "PASS",
+        "PRICE_MECHANISM_GATE": "PASS",
+        "ALTERNATIVE_SATISFACTION_GATE": "PASS",
+        "FALSE_RISK_EXISTENCE_GATE": "PASS",
+        "FACT_REGISTRY_SNAPSHOT_CONSISTENCY": "PASS",
+        "FACT_REGISTRY_CONFLICTING_FACT": "PASS",
+        "CROSS_REVIEW_FACT_CONFLICT": "PASS",
+        "FACT_TRUTH_OVERRIDE_VIOLATION": "PASS",
+        "FACT_CONSUMER_MAPPING_MISSING": "PASS",
+        "RISK_EVIDENCE_MISMATCH": "PASS",
+        "CANONICAL_PENALTY_BINDING": "PASS",
+        "REVIEW_EVIDENCE_ELEMENT_MISMATCH": "PASS",
+        "APPLICABILITY_PRECONDITION_GATE": "PASS",
+        "SHARED_CLAIM_CONSISTENCY_GATE": "PASS",
+        "FINDING_PRECONDITION_GATE": "PASS",
+        "REPORT_CONTEXT_GATE": "PASS",
+        "REPORT_TRANSACTION_TRUTH_GATE": "PASS",
+        "CROSS_REVIEW_CONSISTENCY_GATE": "PASS",
+        "RECOMMENDATION_NON_DEGRADATION_GATE": "PASS",
+        "COMMON_REVIEW_SATISFACTION_GATE": "PASS",
+        "ELEMENT_IDENTITY_CONTRADICTION_GATE": "PASS",
+        "PRODUCT_APPLICABILITY_GATE": "PASS",
+        "SHARED_CLAIM_REUSE_GATE": "PASS",
+        "FINDING_INDEPENDENCE_GATE": "PASS",
+        "TECHNOLOGY_TRANSACTION_CONSISTENCY": "PASS",
+        "CLASSIFICATION_NARRATIVE_CONSISTENCY": "PASS",
+        "EVIDENCE_JUDGMENT_CONSISTENCY": "PASS",
+        "ATOMIC_ELEMENT_CONSISTENCY": "PASS",
+        "CROSS_RULE_EVIDENCE_CONSISTENCY": "PASS",
+        "PARTY_DIRECTION_CONSISTENCY": "PASS",
+        "SUBTYPE_RENDERING_CONSISTENCY": "PASS",
+        "EVIDENCE_PROVENANCE_CONSISTENCY": "PASS",
+        "EMPTY_FIELD_CONSISTENCY": "PASS",
+        "REPORT_EVIDENCE_CONSISTENCY": "PASS",
+        "EVIDENCE_POLARITY_CONSISTENCY": "PASS",
+        "PERSPECTIVE_DOMAIN_CONSISTENCY_GATE": "PASS",
+        "PATENT_TRANSFER_QUALITY_GATE": "NOT_APPLICABLE",
+        "PRODUCTION_FACT_POLARITY_GATE": "PASS",
+        "ADVERSE_POLARITY_AUDIT_GATE": "PASS",
+        "RECOMMENDATION_SOURCE_UNMAPPED": "PASS",
+        "RECOMMENDATION_ELEMENT_LEAKAGE": "PASS",
+        "RECOMMENDATION_COVERED_ELEMENT_REINTRODUCED": "PASS",
+        "RECOMMENDATION_PLACEHOLDER_TEXT": "PASS",
+        "RECOMMENDATION_FINAL_DISPOSITION_MISMATCH": "PASS",
+        "CLIENT_INTEREST_GATE": "PASS",
+        "RISK_STATISTICS_INVARIANT": "PASS",
+        "FINAL_DISPOSITION_INVARIANT": "PASS",
+        "FORMAL_RECOMMENDATION_FINAL_DISPOSITION_INVARIANT": "PASS",
+        "RECOMMENDATION_OWNERSHIP_INVARIANT": "PASS",
+        "HIGH_NON_MUST_CHANGE_REASON_INVARIANT": "PASS",
+        "OPTIONAL_IMPROVEMENT_VISIBILITY_INVARIANT": "PASS",
+        "ACTIONABLE_RECOMMENDATION_COMPLETENESS_INVARIANT": "PASS",
+        "LEGAL_AUTHORITY_DEDUP_GATE": "PASS",
+        "LEGAL_AUTHORITY_SELECTION_GATE": "PASS",
+        "CITATION_ENTAILMENT_GATE": "PASS",
+        "LEGAL_DEFAULT_LAW_CONSISTENCY_GATE": "PASS",
+        "ATOMIC_LEGAL_ELEMENT_GATE": "PASS",
+        "DEFAULT_LAW_NARRATIVE_TRUTH_GATE": "PASS",
+        "NOT_APPLICABLE_NARRATIVE_GATE": "PASS",
+        "NOT_APPLICABLE_GAP_GATE": "PASS",
+        "REVIEW_POLARITY_NARRATIVE_GATE": "PASS",
+        "NEGATIVE_CHECK_PASS_GATE": "PASS",
+        "CROSS_REVIEW_SHARED_CLAIM_GATE": "PASS",
+        "NARRATIVE_EVIDENCE_GATE": "PASS",
+        "CANONICAL_SEMANTIC_PROOF_GATE": "PASS",
+        "VERIFIED_PASS_ORIGINAL_GATE": "PASS",
+        "REPORT_ELEMENT_EVIDENCE_POLLUTION": "PASS",
+        "EXACT_ELEMENT_REPORT_INVARIANT": "FAIL",
+        "RISK_TITLE_EVIDENCE_CONSISTENCY": "PASS",
+        "COVERAGE_LEGALITY_CONSISTENCY": "PASS",
+        "REPORT_TOPIC_LABEL_CONSISTENCY": "PASS",
+        "PRODUCTION_INTERNAL_TOKEN_GATE": "PASS",
+        "DEFAULT_LAW_PROVENANCE_GATE": "PASS",
+        "RECOMMENDATION_SINGLE_SOURCE_GATE": "PASS",
+        "RECOMMENDATION_CROSS_RENDERER_CONSISTENCY_GATE": "PASS",
+        "REPORT_TEXT_VALIDATION": "PASS",
+        "REPORT_DISPOSITION_PROJECTION_INVARIANT": "PASS",
+        "EVIDENCE_BUNDLE_ENTAILMENT_GATE": "PASS",
+        "RECOMMENDATION_SEMANTIC_BINDING_GATE": "PASS",
+        "SUMMARY_DETAIL_RISK_ID_GATE": "PASS",
+        "ISSUE_TYPE_NARRATIVE_GATE": "PASS",
+        "OPTIONAL_REPORT_COUNT_GATE": "PASS",
+        "REPORT_ROLE_PLACEHOLDER_GATE": "PASS",
+        "ACTIONABLE_RECOMMENDATION_VISIBILITY_GATE": "PASS",
+        "CLAIM_EVIDENCE_COVERAGE_GATE": "PASS",
+        "EVIDENCE_FACT_ROLE_GATE": "PASS",
+        "SINGLE_EVIDENCE_SOURCE_GATE": "PASS",
+        "EVIDENCE_BUNDLE_RENDER_GATE": "PASS",
+        "APPLICABILITY_DISPLAY_CONSISTENCY_GATE": "PASS",
+        "ISSUE_TYPE_CONSISTENCY_GATE": "PASS",
+        "PARTIAL_MISSING_ELEMENT_GATE": "PASS",
+        "SUMMARY_TRUNCATION_DISCLOSURE_GATE": "PASS",
+        "TECHNICAL_REPORT_PLACEHOLDER_GATE": "PASS",
+        "FINAL_RISK_EVIDENCE_BUNDLE_GATE": "PASS",
+        "EVIDENCE_ITEM_UNIQUENESS_GATE": "PASS",
+        "CLAUSE_NODE_CONSISTENCY_GATE": "PASS",
+        "MISSING_RISK_ABSENCE_EVIDENCE_GATE": "PASS",
+        "COVERAGE_RISK_ACTION_CONSISTENCY_GATE": "PASS",
+        "PATENT_ROLE_TERMINOLOGY_GATE": "PASS",
+        "DUPLICATE_TEMPLATE_PHRASE_GATE": "PASS",
+        "EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+        "PASS_EVIDENCE_PROPOSITION_MATCH_GATE": "PASS",
+        "CANONICAL_RISK_COVERAGE_INVARIANT": "PASS",
+        "CONSULTING_REPORT_CONTEXT_GATE": "PASS",
+        "TERMINOLOGY_CONSISTENCY_GATE": "PASS",
+        "APPLICABILITY_AND_EVIDENCE_BOUNDARY": "PASS"
+      },
+      "blocking_rules": [
+        {
+          "code": "SHARED_ELEMENT_EVIDENCE_CONFLICT",
+          "stage": "Semantic consistency",
+          "reason": "COMMON-20-01:common_penalty_base_determinability_ratio",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        },
+        {
+          "code": "COVERAGE_ELEMENT_STATE_CONFLICT",
+          "stage": "Semantic consistency",
+          "reason": "COMMON-20-01",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        },
+        {
+          "code": "SHARED_ELEMENT_EVIDENCE_CONFLICT",
+          "stage": "Semantic consistency",
+          "reason": "COMMON-21-01:common_internal_references_1",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        },
+        {
+          "code": "SEARCH_AUDIT_ELEMENT_CONFLICT",
+          "stage": "Semantic consistency",
+          "reason": "COMMON-21-01:common_internal_references_1",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        },
+        {
+          "code": "SHARED_ELEMENT_EVIDENCE_CONFLICT",
+          "stage": "Semantic consistency",
+          "reason": "COMMON-21-01:common_internal_references_2",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        },
+        {
+          "code": "SEARCH_AUDIT_ELEMENT_CONFLICT",
+          "stage": "Semantic consistency",
+          "reason": "COMMON-21-01:common_internal_references_2",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        },
+        {
+          "code": "COVERAGE_ELEMENT_STATE_CONFLICT",
+          "stage": "Semantic consistency",
+          "reason": "COMMON-21-01",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        },
+        {
+          "code": "EXACT_ELEMENT_REPORT_INVARIANT",
+          "stage": "Final Evidence Projection",
+          "reason": "最终要素、原文引文与报告事实不一致。",
+          "entity_type": "quality_gate",
+          "entity_id": "",
+          "severity": "blocking"
+        }
+      ],
+      "blocking_stage": "Semantic consistency",
+      "blocking_entities": [
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        },
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        },
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        },
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        },
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        },
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        },
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        },
+        {
+          "entity_type": "quality_gate",
+          "entity_id": ""
+        }
+      ],
+      "blocking_reasons": [
+        "COMMON-20-01:common_penalty_base_determinability_ratio",
+        "COMMON-20-01",
+        "COMMON-21-01:common_internal_references_1",
+        "COMMON-21-01:common_internal_references_1",
+        "COMMON-21-01:common_internal_references_2",
+        "COMMON-21-01:common_internal_references_2",
+        "COMMON-21-01",
+        "最终要素、原文引文与报告事实不一致。"
+      ],
+      "post_render_status": "REPORT_READY"
+    },
+    "items": {
+      "TC-01-03": {
+        "coverage": "通过",
+        "presence": "PRESENT",
+        "app": {
+          "review_id": "TC-01-03",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "user_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "技术合同均适用。",
+          "triggered": true,
+          "condition_text": "技术合同均适用。"
+        },
+        "components": [
+          {
+            "consulting_project": "COVERED"
+          },
+          {
+            "technical_question_or_object": "COVERED"
+          },
+          {
+            "consulting_scope": "COVERED"
+          },
+          {
+            "consulting_deliverable": "COVERED"
+          }
+        ]
+      },
+      "TC-01-04": {
+        "coverage": "不适用",
+        "presence": "NOT_APPLICABLE",
+        "app": {
+          "review_id": "TC-01-04",
+          "applicable": false,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "当前主交易为技术咨询，未出现加工、制造、设备安装、施工或建设工程等混合履约事实，本项不适用。",
+          "confidence": "medium",
+          "status": "NOT_APPLICABLE",
+          "machine_reason": "当前主交易为技术咨询，未出现加工、制造、设备安装、施工或建设工程等混合履约事实，本项不适用。",
+          "user_reason": "当前主交易为技术咨询，未出现加工、制造、设备安装、施工或建设工程等混合履约事实，本项不适用。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_NOT_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "仅在合同出现加工、定作、设备制造或交付、安装、施工、建设工程等混合履约事实，需要区分技术合同与承揽、建设工程规则时适用。",
+          "triggered": false,
+          "condition_text": "仅在合同出现加工、定作、设备制造或交付、安装、施工、建设工程等混合履约事实，需要区分技术合同与承揽、建设工程规则时适用。"
+        },
+        "components": []
+      },
+      "TC-08-01": {
+        "coverage": "通过",
+        "presence": "PRESENT",
+        "app": {
+          "review_id": "TC-08-01",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "user_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "仅适用于技术咨询合同。",
+          "triggered": true,
+          "condition_text": "仅适用于技术咨询合同。"
+        },
+        "components": [
+          {
+            "consulting_scope": "COVERED"
+          },
+          {
+            "report_contents": "COVERED"
+          },
+          {
+            "delivery_form": "COVERED"
+          },
+          {
+            "acceptance_standard": "COVERED"
+          }
+        ]
+      },
+      "TC-08-03": {
+        "coverage": "通过",
+        "presence": "PRESENT",
+        "app": {
+          "review_id": "TC-08-03",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "user_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "仅适用于技术咨询合同。",
+          "triggered": true,
+          "condition_text": "仅适用于技术咨询合同。"
+        },
+        "components": [
+          {
+            "technical_materials": "COVERED"
+          },
+          {
+            "cooperation_conditions": "COVERED"
+          },
+          {
+            "truthfulness_completeness": "COVERED"
+          },
+          {
+            "delivery_time_method": "COVERED"
+          }
+        ]
+      },
+      "TC-08-04": {
+        "coverage": "通过",
+        "presence": "PRESENT",
+        "app": {
+          "review_id": "TC-08-04",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "user_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "仅适用于技术咨询合同。",
+          "triggered": true,
+          "condition_text": "仅适用于技术咨询合同。"
+        },
+        "components": [
+          {
+            "defect_trigger": "COVERED"
+          },
+          {
+            "correction_period": "COVERED"
+          },
+          {
+            "correction_remedy": "COVERED"
+          },
+          {
+            "termination_remedy": "MISSING"
+          },
+          {
+            "refund_remedy": "MISSING"
+          }
+        ]
+      },
+      "TC-08-05": {
+        "coverage": "通过",
+        "presence": "PRESENT",
+        "app": {
+          "review_id": "TC-08-05",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "user_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "仅适用于技术咨询合同。",
+          "triggered": true,
+          "condition_text": "仅适用于技术咨询合同。"
+        },
+        "components": [
+          {
+            "consulting_fee_total": "COVERED"
+          },
+          {
+            "payment_milestones": "COVERED"
+          },
+          {
+            "collection_account": "MISSING"
+          }
+        ]
+      },
+      "TC-11-01": {
+        "coverage": "通过",
+        "presence": "PRESENT",
+        "app": {
+          "review_id": "TC-11-01",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "user_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "适用于涉及技术秘密、源代码、数据、图纸、样品或其他保密资料的技术合同。",
+          "triggered": true,
+          "condition_text": "适用于涉及技术秘密、源代码、数据、图纸、样品或其他保密资料的技术合同。"
+        },
+        "components": [
+          {
+            "confidential_information_scope": "COVERED"
+          },
+          {
+            "confidentiality_obligation": "COVERED"
+          },
+          {
+            "need_to_know_personnel": "COVERED"
+          },
+          {
+            "confidentiality_duration": "COVERED"
+          },
+          {
+            "purpose_limitation": "COVERED"
+          },
+          {
+            "third_party_disclosure_restriction": "COVERED"
+          },
+          {
+            "copying_restriction": "COVERED"
+          },
+          {
+            "security_measures": "COVERED"
+          }
+        ]
+      },
+      "TC-11-02": {
+        "coverage": "通过",
+        "presence": "PRESENT",
+        "app": {
+          "review_id": "TC-11-02",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "user_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "适用于涉及技术秘密、源代码、数据、图纸、样品或其他保密资料的技术合同。",
+          "triggered": true,
+          "condition_text": "适用于涉及技术秘密、源代码、数据、图纸、样品或其他保密资料的技术合同。"
+        },
+        "components": [
+          {
+            "confidential_information_scope": "COVERED"
+          },
+          {
+            "confidentiality_period": "COVERED"
+          },
+          {
+            "post_termination_confidentiality": "COVERED"
+          },
+          {
+            "public_information_exception": "COVERED"
+          },
+          {
+            "lawful_third_party_source_exception": "COVERED"
+          },
+          {
+            "independent_development_exception": "COVERED"
+          },
+          {
+            "compelled_disclosure_exception": "COVERED"
+          },
+          {
+            "prior_notice_when_legally_permitted": "COVERED"
+          }
+        ]
+      },
+      "TC-11-03": {
+        "coverage": "部分覆盖",
+        "presence": "PARTIAL",
+        "app": {
+          "review_id": "TC-11-03",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "user_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "适用于涉及技术秘密、源代码、数据、图纸、样品或其他保密资料的技术合同。",
+          "triggered": true,
+          "condition_text": "适用于涉及技术秘密、源代码、数据、图纸、样品或其他保密资料的技术合同。"
+        },
+        "components": [
+          {
+            "termination_return_or_delete": "COVERED"
+          },
+          {
+            "processing_deadline": "COVERED"
+          },
+          {
+            "retained_backup_use_restriction": "COVERED"
+          },
+          {
+            "confidential_copy_deletion": "COVERED"
+          },
+          {
+            "confidential_backup_deletion": "COVERED"
+          },
+          {
+            "confidential_material_destruction": "MISSING"
+          },
+          {
+            "confidential_disposal_confirmation": "COVERED"
+          }
+        ]
+      },
+      "TC-11-04": {
+        "coverage": "部分覆盖",
+        "presence": "PARTIAL",
+        "app": {
+          "review_id": "TC-11-04",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "user_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "适用于涉及技术秘密、源代码、数据、图纸、样品或其他保密资料的技术合同。",
+          "triggered": true,
+          "condition_text": "适用于涉及技术秘密、源代码、数据、图纸、样品或其他保密资料的技术合同。"
+        },
+        "components": [
+          {
+            "breach_damage_liability": "MISSING"
+          },
+          {
+            "stop_disclosure": "COVERED"
+          },
+          {
+            "stop_use": "COVERED"
+          },
+          {
+            "mitigation_obligation": "COVERED"
+          },
+          {
+            "incident_notification": "MISSING"
+          },
+          {
+            "specific_confidentiality_penalty": "NOT_APPLICABLE"
+          },
+          {
+            "excess_loss_compensation": "NOT_APPLICABLE"
+          }
+        ]
+      },
+      "TC-12-02": {
+        "coverage": "部分覆盖",
+        "presence": "PARTIAL",
+        "app": {
+          "review_id": "TC-12-02",
+          "applicable": true,
+          "trigger_facts": [
+            "claim_trigger"
+          ],
+          "trigger_evidence": [
+            {
+              "clause_id": "C0017",
+              "quote": "如因乙方自行提供的材料发生第三方知识产权争议，乙方应在收到相关通知后及时告知甲方，并配合提供必要说明和处理材料",
+              "location": "第十条 第三方资料",
+              "actor": "",
+              "condition": "如因乙方自行提供的材料发生第三方知识产权争议",
+              "limited": false,
+              "polarity": "CONDITIONAL"
+            }
+          ],
+          "missing_triggers": [],
+          "reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "user_reason": "合同中存在本事项的直接条款，按原子要素进入实质审查。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "APPLICABLE",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "适用于涉及技术成果交付、实施、转让、许可、咨询或服务并可能发生第三方权利主张的技术合同。",
+          "triggered": true,
+          "condition_text": "适用于涉及技术成果交付、实施、转让、许可、咨询或服务并可能发生第三方权利主张的技术合同。"
+        },
+        "components": [
+          {
+            "third_party_claim_trigger": "COVERED"
+          },
+          {
+            "claim_handling_responsibility": "MISSING"
+          },
+          {
+            "provider_infringement_liability": "MISSING"
+          },
+          {
+            "direct_damage": "MISSING"
+          },
+          {
+            "defense_cost_allocation": "MISSING"
+          },
+          {
+            "third_party_compensation": "MISSING"
+          },
+          {
+            "notification_requirement": "COVERED"
+          },
+          {
+            "notification_deadline": "MISSING"
+          },
+          {
+            "necessary_assistance": "COVERED"
+          },
+          {
+            "termination_remedy": "MISSING"
+          },
+          {
+            "refund_remedy": "MISSING"
+          },
+          {
+            "defense_control": "MISSING"
+          },
+          {
+            "lawyer_selection": "MISSING"
+          },
+          {
+            "settlement_authority": "MISSING"
+          },
+          {
+            "replacement_remedy": "MISSING"
+          },
+          {
+            "license_cure": "MISSING"
+          }
+        ]
+      },
+      "COMMON-20-01": {
+        "coverage": "待核验",
+        "presence": "PRESENT",
+        "app": {
+          "review_id": "COMMON-20-01",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "存在依赖金额基数的比例违约金约定。",
+          "confidence": "medium",
+          "status": "APPLICABLE",
+          "machine_reason": "存在依赖金额基数的比例违约金约定。",
+          "user_reason": "合同已触发“合同存在按比例、按期间或按次数计算的违约金时，核对计算公式、金额基数及期间或次数。”这一适用条件。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "CONDITIONAL_TRIGGERED",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "合同存在按比例、按期间或按次数计算的违约金时，核对计算公式、金额基数及期间或次数。",
+          "triggered": true,
+          "condition_text": "合同存在按比例、按期间或按次数计算的违约金时，核对计算公式、金额基数及期间或次数。"
+        },
+        "components": [
+          {
+            "common_penalty_base_determinability_ratio": "UNCERTAIN"
+          },
+          {
+            "common_penalty_base_determinability_definition": "COVERED"
+          }
+        ]
+      }
+    }
+  }
+}

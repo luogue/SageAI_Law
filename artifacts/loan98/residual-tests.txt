@@ -1,0 +1,74 @@
+..F..................................................................... [ 45%]
+..................................................F..................... [ 91%]
+.............                                                            [100%]
+================================== FAILURES ===================================
+_ test_offset_boundary[\u90e8\u5206\u8fd8\u6b3e\u5148\u6e05\u507f\u5229\u606f\uff0c\u518d\u507f\u8fd8\u672c\u91d1\u3002-True] _
+
+text = '���ֻ������峥��Ϣ���ٳ�������', found = True
+
+    @pytest.mark.parametrize('text,found',[
+     ('���տۿ�˳�򣺱��ѡ���������Ϣ����Ϣ������',False),
+     ('������峥ȫ��ծ��ʱ�����εֳ���á���Ϣ������',True),
+     ('���ֻ������峥��Ϣ���ٳ�������',True),
+    ])
+    def test_offset_boundary(text,found):
+>    assert bool(extract('loan_repayment_offset_order',parse_contract_clauses(text)))==found
+E    AssertionError: assert False == True
+E     +  where False = bool([])
+E     +    where [] = extract('loan_repayment_offset_order', [ParsedClause(clause_id='C0001', location='��1��', title='���ֻ������峥��Ϣ���ٳ�������', text='���ֻ������峥��Ϣ���ٳ�������', section_type='��ʽ��ͬ...number='', item_number='', sentence_index=1, start_offset=0, end_offset=16, source_type='BODY', party_obligation=True)])
+E     +      where [ParsedClause(clause_id='C0001', location='��1��', title='���ֻ������峥��Ϣ���ٳ�������', text='���ֻ������峥��Ϣ���ٳ�������', section_type='��ʽ��ͬ...number='', item_number='', sentence_index=1, start_offset=0, end_offset=16, source_type='BODY', party_obligation=True)] = parse_contract_clauses('���ֻ������峥��Ϣ���ٳ�������')
+
+backend\tests\test_loan_residual_semantics.py:12: AssertionError
+__________ test_full_pipeline_cost_truth_evidence_and_counters[True] __________
+
+cap = True
+
+    @pytest.mark.parametrize("cap", [False, True])
+    def test_full_pipeline_cost_truth_evidence_and_counters(cap):
+        text = PARTIES + REGULAR + OVERDUE + ("���ں����ȡ������Ϣ��" + CAP if cap else "")
+        r = review_contract_v2(text, "loan", use_llm=False)
+        rows = {i["item_id"]: i for i in r["items"]}
+>       assert r["release_quality_gate"]["status"] == "REPORT_READY", r["release_quality_gate"]["failures"]
+E       AssertionError: [{'requirement': 'LOAN_SHARED_FACT_CONSISTENCY', 'review_id': 'L-05-02', 'failure_stage': 'Final Loan Fact Validation', 'root_cause': '�Ѹ���Ҫ��ȱ��ֱ���̺�����ʵ�İ�ԭ�ģ�loan_overdue_rate', ...}]
+E       assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_loan_cost_combinations.py:113: AssertionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_loan_residual_semantics.py::test_offset_boundary[\u90e8\u5206\u8fd8\u6b3e\u5148\u6e05\u507f\u5229\u606f\uff0c\u518d\u507f\u8fd8\u672c\u91d1\u3002-True]
+FAILED backend/tests/test_loan_cost_combinations.py::test_full_pipeline_cost_truth_evidence_and_counters[True]
+2 failed, 155 passed, 5 warnings in 62.04s (0:01:02)

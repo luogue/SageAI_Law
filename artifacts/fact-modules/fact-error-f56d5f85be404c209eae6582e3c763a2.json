@@ -1,0 +1,3189 @@
+{
+  "code": "FACT_EXTRACTION_BLOCKED",
+  "release_quality_gate": "BLOCKED",
+  "provider": "deepseek",
+  "message": "本批负责的概念必须全部经全文检索；未抽到事实也不能省略搜索声明。",
+  "reason": "INCOMPLETE_VERIFICATION_SCOPE: INCOMPLETE_VERIFICATION_SCOPE",
+  "failed_stage": "VERIFICATION_SCHEMA",
+  "field": "searched_concepts",
+  "validation_rule": "INCOMPLETE_VERIFICATION_SCOPE",
+  "batch_id": "merged",
+  "expected_count": 154,
+  "actual_count": 32,
+  "missing_concepts": [
+    "capability.compensation",
+    "capability.ground",
+    "capability.notice",
+    "capability.reassessment",
+    "capability.reassignment",
+    "capability.training",
+    "contract.duration_months",
+    "contract.end_date",
+    "contract.start_date",
+    "contract.task",
+    "contract.task_end",
+    "contract.term_limit_date",
+    "contract.term_limit_mode",
+    "contract.term_limit_months",
+    "contract.type",
+    "discipline.dismissal_terms",
+    "dispatch.agency",
+    "dispatch.agency_obligations",
+    "dispatch.agreement_disclosure",
+    "dispatch.auxiliary_noncore",
+    "dispatch.auxiliary_procedure",
+    "dispatch.comparable_work",
+    "dispatch.comparator_pay",
+    "dispatch.comparator_pay_method",
+    "dispatch.equal_pay",
+    "dispatch.host",
+    "dispatch.host_direct_dismissal",
+    "dispatch.host_obligations",
+    "dispatch.idle_pay",
+    "dispatch.long_term_position",
+    "dispatch.obligations_waived",
+    "dispatch.onward_assignment",
+    "dispatch.period",
+    "dispatch.position",
+    "dispatch.position_basis",
+    "dispatch.reassignment_procedure",
+    "dispatch.refusal_compensation_waived",
+    "dispatch.refusal_termination",
+    "dispatch.return_procedure",
+    "dispatch.return_terms",
+    "dispatch.substitute",
+    "dispatch.temporary_duration_months",
+    "dispatch.worker_charges",
+    "dispatch.worker_pay_method",
+    "dispute.arbitration",
+    "economic_compensation.payment_delay_months",
+    "economic_compensation.reduced",
+    "economic_compensation.settlement_deadline",
+    "economic_compensation.statutory",
+    "economic_compensation.statutory_percentage",
+    "economic_compensation.waived",
+    "job.change_terms",
+    "job.duties",
+    "job.locations",
+    "job.position",
+    "labor_protection.hazard_exists",
+    "labor_protection.hazard_protection",
+    "labor_protection.measures",
+    "labor_protection.special_training_required",
+    "labor_protection.training",
+    "labor_protection.training_excluded",
+    "non_compete.all_staff",
+    "non_compete.businesses",
+    "non_compete.compensation",
+    "non_compete.compensation_deferred",
+    "non_compete.compensation_floor",
+    "non_compete.compensation_waived",
+    "non_compete.duration_months",
+    "non_compete.personnel",
+    "non_compete.salary_base",
+    "non_compete.territories",
+    "part_time.employee_notice_days",
+    "part_time.employer_notice_days",
+    "part_time.exit_approval",
+    "part_time.exit_constraint",
+    "part_time.exit_permission",
+    "part_time.hourly_minimum",
+    "part_time.injury_insurance",
+    "probation.arrangement",
+    "probation.duration_months",
+    "probation.end_date",
+    "probation.repeated",
+    "probation.salary",
+    "probation.start_date",
+    "salary.cycle_days",
+    "salary.cycle_kind",
+    "salary.payment_date",
+    "salary.payment_method",
+    "salary.regular",
+    "salary.settlement_period",
+    "salary.withheld_for_handover",
+    "social_insurance.cash_replacement",
+    "social_insurance.employee_remedy_excluded",
+    "social_insurance.employee_withheld",
+    "social_insurance.employer_enrolls",
+    "social_insurance.employer_liability_excluded",
+    "social_insurance.employer_pays",
+    "social_insurance.employer_share_shifted",
+    "social_insurance.employer_underpays",
+    "social_insurance.statutory_duties",
+    "social_insurance.waived",
+    "termination.approval_required",
+    "termination.employee_right_waived",
+    "termination.employer_unrestricted",
+    "termination.grounds",
+    "termination.handover",
+    "termination.notice",
+    "termination.notice_days",
+    "training.arrangement",
+    "training.cost",
+    "training.duration_months",
+    "training.penalty_prorated",
+    "training.service_penalty",
+    "training.technical",
+    "working_hours.days_per_week",
+    "working_hours.hours_per_day",
+    "working_hours.hours_per_week",
+    "working_hours.overtime",
+    "working_hours.rest",
+    "working_hours.rest_days_per_week",
+    "working_hours.rest_waived",
+    "working_hours.system"
+  ],
+  "unexpected_concepts": [],
+  "expected": 154,
+  "actual": 32,
+  "model_raw_value": {
+    "missing_concepts": [
+      "capability.compensation",
+      "capability.ground",
+      "capability.notice",
+      "capability.reassessment",
+      "capability.reassignment",
+      "capability.training",
+      "contract.duration_months",
+      "contract.end_date",
+      "contract.start_date",
+      "contract.task",
+      "contract.task_end",
+      "contract.term_limit_date",
+      "contract.term_limit_mode",
+      "contract.term_limit_months",
+      "contract.type",
+      "discipline.dismissal_terms",
+      "dispatch.agency",
+      "dispatch.agency_obligations",
+      "dispatch.agreement_disclosure",
+      "dispatch.auxiliary_noncore",
+      "dispatch.auxiliary_procedure",
+      "dispatch.comparable_work",
+      "dispatch.comparator_pay",
+      "dispatch.comparator_pay_method",
+      "dispatch.equal_pay",
+      "dispatch.host",
+      "dispatch.host_direct_dismissal",
+      "dispatch.host_obligations",
+      "dispatch.idle_pay",
+      "dispatch.long_term_position",
+      "dispatch.obligations_waived",
+      "dispatch.onward_assignment",
+      "dispatch.period",
+      "dispatch.position",
+      "dispatch.position_basis",
+      "dispatch.reassignment_procedure",
+      "dispatch.refusal_compensation_waived",
+      "dispatch.refusal_termination",
+      "dispatch.return_procedure",
+      "dispatch.return_terms",
+      "dispatch.substitute",
+      "dispatch.temporary_duration_months",
+      "dispatch.worker_charges",
+      "dispatch.worker_pay_method",
+      "dispute.arbitration",
+      "economic_compensation.payment_delay_months",
+      "economic_compensation.reduced",
+      "economic_compensation.settlement_deadline",
+      "economic_compensation.statutory",
+      "economic_compensation.statutory_percentage",
+      "economic_compensation.waived",
+      "job.change_terms",
+      "job.duties",
+      "job.locations",
+      "job.position",
+      "labor_protection.hazard_exists",
+      "labor_protection.hazard_protection",
+      "labor_protection.measures",
+      "labor_protection.special_training_required",
+      "labor_protection.training",
+      "labor_protection.training_excluded",
+      "non_compete.all_staff",
+      "non_compete.businesses",
+      "non_compete.compensation",
+      "non_compete.compensation_deferred",
+      "non_compete.compensation_floor",
+      "non_compete.compensation_waived",
+      "non_compete.duration_months",
+      "non_compete.personnel",
+      "non_compete.salary_base",
+      "non_compete.territories",
+      "part_time.employee_notice_days",
+      "part_time.employer_notice_days",
+      "part_time.exit_approval",
+      "part_time.exit_constraint",
+      "part_time.exit_permission",
+      "part_time.hourly_minimum",
+      "part_time.injury_insurance",
+      "probation.arrangement",
+      "probation.duration_months",
+      "probation.end_date",
+      "probation.repeated",
+      "probation.salary",
+      "probation.start_date",
+      "salary.cycle_days",
+      "salary.cycle_kind",
+      "salary.payment_date",
+      "salary.payment_method",
+      "salary.regular",
+      "salary.settlement_period",
+      "salary.withheld_for_handover",
+      "social_insurance.cash_replacement",
+      "social_insurance.employee_remedy_excluded",
+      "social_insurance.employee_withheld",
+      "social_insurance.employer_enrolls",
+      "social_insurance.employer_liability_excluded",
+      "social_insurance.employer_pays",
+      "social_insurance.employer_share_shifted",
+      "social_insurance.employer_underpays",
+      "social_insurance.statutory_duties",
+      "social_insurance.waived",
+      "termination.approval_required",
+      "termination.employee_right_waived",
+      "termination.employer_unrestricted",
+      "termination.grounds",
+      "termination.handover",
+      "termination.notice",
+      "termination.notice_days",
+      "training.arrangement",
+      "training.cost",
+      "training.duration_months",
+      "training.penalty_prorated",
+      "training.service_penalty",
+      "training.technical",
+      "working_hours.days_per_week",
+      "working_hours.hours_per_day",
+      "working_hours.hours_per_week",
+      "working_hours.overtime",
+      "working_hours.rest",
+      "working_hours.rest_days_per_week",
+      "working_hours.rest_waived",
+      "working_hours.system"
+    ],
+    "unexpected_concepts": []
+  },
+  "disposition": "BLOCK",
+  "diagnostics": [
+    {
+      "failed_stage": "VERIFICATION_SCHEMA",
+      "field": "searched_concepts",
+      "validation_rule": "INCOMPLETE_VERIFICATION_SCOPE",
+      "batch_id": "merged",
+      "expected_count": 154,
+      "actual_count": 32,
+      "missing_concepts": [
+        "capability.compensation",
+        "capability.ground",
+        "capability.notice",
+        "capability.reassessment",
+        "capability.reassignment",
+        "capability.training",
+        "contract.duration_months",
+        "contract.end_date",
+        "contract.start_date",
+        "contract.task",
+        "contract.task_end",
+        "contract.term_limit_date",
+        "contract.term_limit_mode",
+        "contract.term_limit_months",
+        "contract.type",
+        "discipline.dismissal_terms",
+        "dispatch.agency",
+        "dispatch.agency_obligations",
+        "dispatch.agreement_disclosure",
+        "dispatch.auxiliary_noncore",
+        "dispatch.auxiliary_procedure",
+        "dispatch.comparable_work",
+        "dispatch.comparator_pay",
+        "dispatch.comparator_pay_method",
+        "dispatch.equal_pay",
+        "dispatch.host",
+        "dispatch.host_direct_dismissal",
+        "dispatch.host_obligations",
+        "dispatch.idle_pay",
+        "dispatch.long_term_position",
+        "dispatch.obligations_waived",
+        "dispatch.onward_assignment",
+        "dispatch.period",
+        "dispatch.position",
+        "dispatch.position_basis",
+        "dispatch.reassignment_procedure",
+        "dispatch.refusal_compensation_waived",
+        "dispatch.refusal_termination",
+        "dispatch.return_procedure",
+        "dispatch.return_terms",
+        "dispatch.substitute",
+        "dispatch.temporary_duration_months",
+        "dispatch.worker_charges",
+        "dispatch.worker_pay_method",
+        "dispute.arbitration",
+        "economic_compensation.payment_delay_months",
+        "economic_compensation.reduced",
+        "economic_compensation.settlement_deadline",
+        "economic_compensation.statutory",
+        "economic_compensation.statutory_percentage",
+        "economic_compensation.waived",
+        "job.change_terms",
+        "job.duties",
+        "job.locations",
+        "job.position",
+        "labor_protection.hazard_exists",
+        "labor_protection.hazard_protection",
+        "labor_protection.measures",
+        "labor_protection.special_training_required",
+        "labor_protection.training",
+        "labor_protection.training_excluded",
+        "non_compete.all_staff",
+        "non_compete.businesses",
+        "non_compete.compensation",
+        "non_compete.compensation_deferred",
+        "non_compete.compensation_floor",
+        "non_compete.compensation_waived",
+        "non_compete.duration_months",
+        "non_compete.personnel",
+        "non_compete.salary_base",
+        "non_compete.territories",
+        "part_time.employee_notice_days",
+        "part_time.employer_notice_days",
+        "part_time.exit_approval",
+        "part_time.exit_constraint",
+        "part_time.exit_permission",
+        "part_time.hourly_minimum",
+        "part_time.injury_insurance",
+        "probation.arrangement",
+        "probation.duration_months",
+        "probation.end_date",
+        "probation.repeated",
+        "probation.salary",
+        "probation.start_date",
+        "salary.cycle_days",
+        "salary.cycle_kind",
+        "salary.payment_date",
+        "salary.payment_method",
+        "salary.regular",
+        "salary.settlement_period",
+        "salary.withheld_for_handover",
+        "social_insurance.cash_replacement",
+        "social_insurance.employee_remedy_excluded",
+        "social_insurance.employee_withheld",
+        "social_insurance.employer_enrolls",
+        "social_insurance.employer_liability_excluded",
+        "social_insurance.employer_pays",
+        "social_insurance.employer_share_shifted",
+        "social_insurance.employer_underpays",
+        "social_insurance.statutory_duties",
+        "social_insurance.waived",
+        "termination.approval_required",
+        "termination.employee_right_waived",
+        "termination.employer_unrestricted",
+        "termination.grounds",
+        "termination.handover",
+        "termination.notice",
+        "termination.notice_days",
+        "training.arrangement",
+        "training.cost",
+        "training.duration_months",
+        "training.penalty_prorated",
+        "training.service_penalty",
+        "training.technical",
+        "working_hours.days_per_week",
+        "working_hours.hours_per_day",
+        "working_hours.hours_per_week",
+        "working_hours.overtime",
+        "working_hours.rest",
+        "working_hours.rest_days_per_week",
+        "working_hours.rest_waived",
+        "working_hours.system"
+      ],
+      "unexpected_concepts": [],
+      "expected": 154,
+      "actual": 32,
+      "model_raw_value": {
+        "missing_concepts": [
+          "capability.compensation",
+          "capability.ground",
+          "capability.notice",
+          "capability.reassessment",
+          "capability.reassignment",
+          "capability.training",
+          "contract.duration_months",
+          "contract.end_date",
+          "contract.start_date",
+          "contract.task",
+          "contract.task_end",
+          "contract.term_limit_date",
+          "contract.term_limit_mode",
+          "contract.term_limit_months",
+          "contract.type",
+          "discipline.dismissal_terms",
+          "dispatch.agency",
+          "dispatch.agency_obligations",
+          "dispatch.agreement_disclosure",
+          "dispatch.auxiliary_noncore",
+          "dispatch.auxiliary_procedure",
+          "dispatch.comparable_work",
+          "dispatch.comparator_pay",
+          "dispatch.comparator_pay_method",
+          "dispatch.equal_pay",
+          "dispatch.host",
+          "dispatch.host_direct_dismissal",
+          "dispatch.host_obligations",
+          "dispatch.idle_pay",
+          "dispatch.long_term_position",
+          "dispatch.obligations_waived",
+          "dispatch.onward_assignment",
+          "dispatch.period",
+          "dispatch.position",
+          "dispatch.position_basis",
+          "dispatch.reassignment_procedure",
+          "dispatch.refusal_compensation_waived",
+          "dispatch.refusal_termination",
+          "dispatch.return_procedure",
+          "dispatch.return_terms",
+          "dispatch.substitute",
+          "dispatch.temporary_duration_months",
+          "dispatch.worker_charges",
+          "dispatch.worker_pay_method",
+          "dispute.arbitration",
+          "economic_compensation.payment_delay_months",
+          "economic_compensation.reduced",
+          "economic_compensation.settlement_deadline",
+          "economic_compensation.statutory",
+          "economic_compensation.statutory_percentage",
+          "economic_compensation.waived",
+          "job.change_terms",
+          "job.duties",
+          "job.locations",
+          "job.position",
+          "labor_protection.hazard_exists",
+          "labor_protection.hazard_protection",
+          "labor_protection.measures",
+          "labor_protection.special_training_required",
+          "labor_protection.training",
+          "labor_protection.training_excluded",
+          "non_compete.all_staff",
+          "non_compete.businesses",
+          "non_compete.compensation",
+          "non_compete.compensation_deferred",
+          "non_compete.compensation_floor",
+          "non_compete.compensation_waived",
+          "non_compete.duration_months",
+          "non_compete.personnel",
+          "non_compete.salary_base",
+          "non_compete.territories",
+          "part_time.employee_notice_days",
+          "part_time.employer_notice_days",
+          "part_time.exit_approval",
+          "part_time.exit_constraint",
+          "part_time.exit_permission",
+          "part_time.hourly_minimum",
+          "part_time.injury_insurance",
+          "probation.arrangement",
+          "probation.duration_months",
+          "probation.end_date",
+          "probation.repeated",
+          "probation.salary",
+          "probation.start_date",
+          "salary.cycle_days",
+          "salary.cycle_kind",
+          "salary.payment_date",
+          "salary.payment_method",
+          "salary.regular",
+          "salary.settlement_period",
+          "salary.withheld_for_handover",
+          "social_insurance.cash_replacement",
+          "social_insurance.employee_remedy_excluded",
+          "social_insurance.employee_withheld",
+          "social_insurance.employer_enrolls",
+          "social_insurance.employer_liability_excluded",
+          "social_insurance.employer_pays",
+          "social_insurance.employer_share_shifted",
+          "social_insurance.employer_underpays",
+          "social_insurance.statutory_duties",
+          "social_insurance.waived",
+          "termination.approval_required",
+          "termination.employee_right_waived",
+          "termination.employer_unrestricted",
+          "termination.grounds",
+          "termination.handover",
+          "termination.notice",
+          "termination.notice_days",
+          "training.arrangement",
+          "training.cost",
+          "training.duration_months",
+          "training.penalty_prorated",
+          "training.service_penalty",
+          "training.technical",
+          "working_hours.days_per_week",
+          "working_hours.hours_per_day",
+          "working_hours.hours_per_week",
+          "working_hours.overtime",
+          "working_hours.rest",
+          "working_hours.rest_days_per_week",
+          "working_hours.rest_waived",
+          "working_hours.system"
+        ],
+        "unexpected_concepts": []
+      },
+      "message": "抽取值未通过事实类型、证据或语义校验；未生成报告，不能以默认值替代。",
+      "disposition": "BLOCK",
+      "stage": "VERIFICATION_SCHEMA",
+      "code": "INCOMPLETE_VERIFICATION_SCOPE",
+      "fact_key": null,
+      "raw_value": {
+        "missing_concepts": [
+          "capability.compensation",
+          "capability.ground",
+          "capability.notice",
+          "capability.reassessment",
+          "capability.reassignment",
+          "capability.training",
+          "contract.duration_months",
+          "contract.end_date",
+          "contract.start_date",
+          "contract.task",
+          "contract.task_end",
+          "contract.term_limit_date",
+          "contract.term_limit_mode",
+          "contract.term_limit_months",
+          "contract.type",
+          "discipline.dismissal_terms",
+          "dispatch.agency",
+          "dispatch.agency_obligations",
+          "dispatch.agreement_disclosure",
+          "dispatch.auxiliary_noncore",
+          "dispatch.auxiliary_procedure",
+          "dispatch.comparable_work",
+          "dispatch.comparator_pay",
+          "dispatch.comparator_pay_method",
+          "dispatch.equal_pay",
+          "dispatch.host",
+          "dispatch.host_direct_dismissal",
+          "dispatch.host_obligations",
+          "dispatch.idle_pay",
+          "dispatch.long_term_position",
+          "dispatch.obligations_waived",
+          "dispatch.onward_assignment",
+          "dispatch.period",
+          "dispatch.position",
+          "dispatch.position_basis",
+          "dispatch.reassignment_procedure",
+          "dispatch.refusal_compensation_waived",
+          "dispatch.refusal_termination",
+          "dispatch.return_procedure",
+          "dispatch.return_terms",
+          "dispatch.substitute",
+          "dispatch.temporary_duration_months",
+          "dispatch.worker_charges",
+          "dispatch.worker_pay_method",
+          "dispute.arbitration",
+          "economic_compensation.payment_delay_months",
+          "economic_compensation.reduced",
+          "economic_compensation.settlement_deadline",
+          "economic_compensation.statutory",
+          "economic_compensation.statutory_percentage",
+          "economic_compensation.waived",
+          "job.change_terms",
+          "job.duties",
+          "job.locations",
+          "job.position",
+          "labor_protection.hazard_exists",
+          "labor_protection.hazard_protection",
+          "labor_protection.measures",
+          "labor_protection.special_training_required",
+          "labor_protection.training",
+          "labor_protection.training_excluded",
+          "non_compete.all_staff",
+          "non_compete.businesses",
+          "non_compete.compensation",
+          "non_compete.compensation_deferred",
+          "non_compete.compensation_floor",
+          "non_compete.compensation_waived",
+          "non_compete.duration_months",
+          "non_compete.personnel",
+          "non_compete.salary_base",
+          "non_compete.territories",
+          "part_time.employee_notice_days",
+          "part_time.employer_notice_days",
+          "part_time.exit_approval",
+          "part_time.exit_constraint",
+          "part_time.exit_permission",
+          "part_time.hourly_minimum",
+          "part_time.injury_insurance",
+          "probation.arrangement",
+          "probation.duration_months",
+          "probation.end_date",
+          "probation.repeated",
+          "probation.salary",
+          "probation.start_date",
+          "salary.cycle_days",
+          "salary.cycle_kind",
+          "salary.payment_date",
+          "salary.payment_method",
+          "salary.regular",
+          "salary.settlement_period",
+          "salary.withheld_for_handover",
+          "social_insurance.cash_replacement",
+          "social_insurance.employee_remedy_excluded",
+          "social_insurance.employee_withheld",
+          "social_insurance.employer_enrolls",
+          "social_insurance.employer_liability_excluded",
+          "social_insurance.employer_pays",
+          "social_insurance.employer_share_shifted",
+          "social_insurance.employer_underpays",
+          "social_insurance.statutory_duties",
+          "social_insurance.waived",
+          "termination.approval_required",
+          "termination.employee_right_waived",
+          "termination.employer_unrestricted",
+          "termination.grounds",
+          "termination.handover",
+          "termination.notice",
+          "termination.notice_days",
+          "training.arrangement",
+          "training.cost",
+          "training.duration_months",
+          "training.penalty_prorated",
+          "training.service_penalty",
+          "training.technical",
+          "working_hours.days_per_week",
+          "working_hours.hours_per_day",
+          "working_hours.hours_per_week",
+          "working_hours.overtime",
+          "working_hours.rest",
+          "working_hours.rest_days_per_week",
+          "working_hours.rest_waived",
+          "working_hours.system"
+        ],
+        "unexpected_concepts": []
+      },
+      "normalized_value": null,
+      "allowed_values": 154,
+      "clause": null,
+      "trace_id": "FACT-098cb09562d147f183a2db91bcca3c5c"
+    }
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "BLOCKED",
+      "diagnostics": [
+        {
+          "failed_stage": "VERIFICATION_SCHEMA",
+          "field": "searched_concepts",
+          "validation_rule": "INCOMPLETE_VERIFICATION_SCOPE",
+          "batch_id": "merged",
+          "expected_count": 154,
+          "actual_count": 32,
+          "missing_concepts": [
+            "capability.compensation",
+            "capability.ground",
+            "capability.notice",
+            "capability.reassessment",
+            "capability.reassignment",
+            "capability.training",
+            "contract.duration_months",
+            "contract.end_date",
+            "contract.start_date",
+            "contract.task",
+            "contract.task_end",
+            "contract.term_limit_date",
+            "contract.term_limit_mode",
+            "contract.term_limit_months",
+            "contract.type",
+            "discipline.dismissal_terms",
+            "dispatch.agency",
+            "dispatch.agency_obligations",
+            "dispatch.agreement_disclosure",
+            "dispatch.auxiliary_noncore",
+            "dispatch.auxiliary_procedure",
+            "dispatch.comparable_work",
+            "dispatch.comparator_pay",
+            "dispatch.comparator_pay_method",
+            "dispatch.equal_pay",
+            "dispatch.host",
+            "dispatch.host_direct_dismissal",
+            "dispatch.host_obligations",
+            "dispatch.idle_pay",
+            "dispatch.long_term_position",
+            "dispatch.obligations_waived",
+            "dispatch.onward_assignment",
+            "dispatch.period",
+            "dispatch.position",
+            "dispatch.position_basis",
+            "dispatch.reassignment_procedure",
+            "dispatch.refusal_compensation_waived",
+            "dispatch.refusal_termination",
+            "dispatch.return_procedure",
+            "dispatch.return_terms",
+            "dispatch.substitute",
+            "dispatch.temporary_duration_months",
+            "dispatch.worker_charges",
+            "dispatch.worker_pay_method",
+            "dispute.arbitration",
+            "economic_compensation.payment_delay_months",
+            "economic_compensation.reduced",
+            "economic_compensation.settlement_deadline",
+            "economic_compensation.statutory",
+            "economic_compensation.statutory_percentage",
+            "economic_compensation.waived",
+            "job.change_terms",
+            "job.duties",
+            "job.locations",
+            "job.position",
+            "labor_protection.hazard_exists",
+            "labor_protection.hazard_protection",
+            "labor_protection.measures",
+            "labor_protection.special_training_required",
+            "labor_protection.training",
+            "labor_protection.training_excluded",
+            "non_compete.all_staff",
+            "non_compete.businesses",
+            "non_compete.compensation",
+            "non_compete.compensation_deferred",
+            "non_compete.compensation_floor",
+            "non_compete.compensation_waived",
+            "non_compete.duration_months",
+            "non_compete.personnel",
+            "non_compete.salary_base",
+            "non_compete.territories",
+            "part_time.employee_notice_days",
+            "part_time.employer_notice_days",
+            "part_time.exit_approval",
+            "part_time.exit_constraint",
+            "part_time.exit_permission",
+            "part_time.hourly_minimum",
+            "part_time.injury_insurance",
+            "probation.arrangement",
+            "probation.duration_months",
+            "probation.end_date",
+            "probation.repeated",
+            "probation.salary",
+            "probation.start_date",
+            "salary.cycle_days",
+            "salary.cycle_kind",
+            "salary.payment_date",
+            "salary.payment_method",
+            "salary.regular",
+            "salary.settlement_period",
+            "salary.withheld_for_handover",
+            "social_insurance.cash_replacement",
+            "social_insurance.employee_remedy_excluded",
+            "social_insurance.employee_withheld",
+            "social_insurance.employer_enrolls",
+            "social_insurance.employer_liability_excluded",
+            "social_insurance.employer_pays",
+            "social_insurance.employer_share_shifted",
+            "social_insurance.employer_underpays",
+            "social_insurance.statutory_duties",
+            "social_insurance.waived",
+            "termination.approval_required",
+            "termination.employee_right_waived",
+            "termination.employer_unrestricted",
+            "termination.grounds",
+            "termination.handover",
+            "termination.notice",
+            "termination.notice_days",
+            "training.arrangement",
+            "training.cost",
+            "training.duration_months",
+            "training.penalty_prorated",
+            "training.service_penalty",
+            "training.technical",
+            "working_hours.days_per_week",
+            "working_hours.hours_per_day",
+            "working_hours.hours_per_week",
+            "working_hours.overtime",
+            "working_hours.rest",
+            "working_hours.rest_days_per_week",
+            "working_hours.rest_waived",
+            "working_hours.system"
+          ],
+          "unexpected_concepts": [],
+          "expected": 154,
+          "actual": 32,
+          "model_raw_value": {
+            "missing_concepts": [
+              "capability.compensation",
+              "capability.ground",
+              "capability.notice",
+              "capability.reassessment",
+              "capability.reassignment",
+              "capability.training",
+              "contract.duration_months",
+              "contract.end_date",
+              "contract.start_date",
+              "contract.task",
+              "contract.task_end",
+              "contract.term_limit_date",
+              "contract.term_limit_mode",
+              "contract.term_limit_months",
+              "contract.type",
+              "discipline.dismissal_terms",
+              "dispatch.agency",
+              "dispatch.agency_obligations",
+              "dispatch.agreement_disclosure",
+              "dispatch.auxiliary_noncore",
+              "dispatch.auxiliary_procedure",
+              "dispatch.comparable_work",
+              "dispatch.comparator_pay",
+              "dispatch.comparator_pay_method",
+              "dispatch.equal_pay",
+              "dispatch.host",
+              "dispatch.host_direct_dismissal",
+              "dispatch.host_obligations",
+              "dispatch.idle_pay",
+              "dispatch.long_term_position",
+              "dispatch.obligations_waived",
+              "dispatch.onward_assignment",
+              "dispatch.period",
+              "dispatch.position",
+              "dispatch.position_basis",
+              "dispatch.reassignment_procedure",
+              "dispatch.refusal_compensation_waived",
+              "dispatch.refusal_termination",
+              "dispatch.return_procedure",
+              "dispatch.return_terms",
+              "dispatch.substitute",
+              "dispatch.temporary_duration_months",
+              "dispatch.worker_charges",
+              "dispatch.worker_pay_method",
+              "dispute.arbitration",
+              "economic_compensation.payment_delay_months",
+              "economic_compensation.reduced",
+              "economic_compensation.settlement_deadline",
+              "economic_compensation.statutory",
+              "economic_compensation.statutory_percentage",
+              "economic_compensation.waived",
+              "job.change_terms",
+              "job.duties",
+              "job.locations",
+              "job.position",
+              "labor_protection.hazard_exists",
+              "labor_protection.hazard_protection",
+              "labor_protection.measures",
+              "labor_protection.special_training_required",
+              "labor_protection.training",
+              "labor_protection.training_excluded",
+              "non_compete.all_staff",
+              "non_compete.businesses",
+              "non_compete.compensation",
+              "non_compete.compensation_deferred",
+              "non_compete.compensation_floor",
+              "non_compete.compensation_waived",
+              "non_compete.duration_months",
+              "non_compete.personnel",
+              "non_compete.salary_base",
+              "non_compete.territories",
+              "part_time.employee_notice_days",
+              "part_time.employer_notice_days",
+              "part_time.exit_approval",
+              "part_time.exit_constraint",
+              "part_time.exit_permission",
+              "part_time.hourly_minimum",
+              "part_time.injury_insurance",
+              "probation.arrangement",
+              "probation.duration_months",
+              "probation.end_date",
+              "probation.repeated",
+              "probation.salary",
+              "probation.start_date",
+              "salary.cycle_days",
+              "salary.cycle_kind",
+              "salary.payment_date",
+              "salary.payment_method",
+              "salary.regular",
+              "salary.settlement_period",
+              "salary.withheld_for_handover",
+              "social_insurance.cash_replacement",
+              "social_insurance.employee_remedy_excluded",
+              "social_insurance.employee_withheld",
+              "social_insurance.employer_enrolls",
+              "social_insurance.employer_liability_excluded",
+              "social_insurance.employer_pays",
+              "social_insurance.employer_share_shifted",
+              "social_insurance.employer_underpays",
+              "social_insurance.statutory_duties",
+              "social_insurance.waived",
+              "termination.approval_required",
+              "termination.employee_right_waived",
+              "termination.employer_unrestricted",
+              "termination.grounds",
+              "termination.handover",
+              "termination.notice",
+              "termination.notice_days",
+              "training.arrangement",
+              "training.cost",
+              "training.duration_months",
+              "training.penalty_prorated",
+              "training.service_penalty",
+              "training.technical",
+              "working_hours.days_per_week",
+              "working_hours.hours_per_day",
+              "working_hours.hours_per_week",
+              "working_hours.overtime",
+              "working_hours.rest",
+              "working_hours.rest_days_per_week",
+              "working_hours.rest_waived",
+              "working_hours.system"
+            ],
+            "unexpected_concepts": []
+          },
+          "message": "本批负责的概念必须全部经全文检索；未抽到事实也不能省略搜索声明。",
+          "disposition": "BLOCK"
+        }
+      ],
+      "raw_extraction": [
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011"
+            ],
+            "searched_concepts": [
+              "non_compete.arrangement",
+              "contract.employment_form"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "non_compete.arrangement",
+                "value": "EXPLICIT_NONE",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "本协议本身不构成竞业限制协议，也不当然限制乙方离职后正常就业。"
+                  },
+                  {
+                    "clause_id": "C0011",
+                    "quote": "本协议未约定离职后的竞业限制义务。如双方未来确有需要，应另行依法签署竞业限制协议，并依法约定适用人员、期限、范围及经济补偿。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.employment_form",
+                "value": "DIRECT",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "甲方：深圳云启智能科技有限公司"
+                  },
+                  {
+                    "clause_id": "C0001",
+                    "quote": "乙方：周启明"
+                  },
+                  {
+                    "clause_id": "C0001",
+                    "quote": "岗位：算法工程师"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 3131,
+            "completion_tokens": 297,
+            "total_tokens": 3428,
+            "prompt_tokens_details": {
+              "cached_tokens": 1280
+            },
+            "prompt_cache_hit_tokens": 1280,
+            "prompt_cache_miss_tokens": 1851
+          },
+          "provider": "deepseek",
+          "active_concepts": [
+            "identity.employer_representative",
+            "identity.worker_address",
+            "identity.employer_name",
+            "identity.employer_address",
+            "identity.worker_name",
+            "identity.worker_id",
+            "penalties.obligations",
+            "non_compete.arrangement",
+            "non_compete.secret_access",
+            "non_compete.access_capability",
+            "non_compete.actual_access",
+            "ip.assignment_scope",
+            "ip.allocations",
+            "ip.personal_rights_waived",
+            "contract.employment_form",
+            "penalties.exclusions",
+            "worker.damage_liability",
+            "worker.security_payment",
+            "nda.employment_relationship",
+            "nda.party_one",
+            "nda.party_two",
+            "nda.information_flow",
+            "nda.protected_information",
+            "nda.exception_public",
+            "nda.exception_prior",
+            "nda.exception_independent",
+            "nda.exception_third_party",
+            "nda.exception_mandatory",
+            "nda.use_restriction",
+            "nda.duration",
+            "nda.return",
+            "nda.remedies"
+          ],
+          "agreement_type": "confidentiality"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011"
+            ],
+            "searched_concepts": [
+              "identity.employer_representative",
+              "identity.worker_address",
+              "identity.employer_name",
+              "identity.employer_address",
+              "identity.worker_name",
+              "identity.worker_id",
+              "penalties.obligations",
+              "non_compete.secret_access",
+              "non_compete.access_capability",
+              "non_compete.actual_access",
+              "ip.assignment_scope",
+              "ip.allocations",
+              "ip.personal_rights_waived",
+              "penalties.exclusions",
+              "worker.damage_liability",
+              "worker.security_payment",
+              "nda.employment_relationship",
+              "nda.party_one",
+              "nda.party_two",
+              "nda.information_flow",
+              "nda.protected_information",
+              "nda.exception_public",
+              "nda.exception_prior",
+              "nda.exception_independent",
+              "nda.exception_third_party",
+              "nda.exception_mandatory",
+              "nda.use_restriction",
+              "nda.duration",
+              "nda.return",
+              "nda.remedies"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "identity.employer_name",
+                "value": "深圳云启智能科技有限公司",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "甲方：深圳云启智能科技有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.employer_address",
+                "value": "广东省深圳市南山区科技园科苑路88号",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "住所：广东省深圳市南山区科技园科苑路88号"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_name",
+                "value": "周启明",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "乙方：周启明"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_id",
+                "value": "44030519950426XXXX",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "身份证号码：44030519950426XXXX"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.secret_access",
+                "value": "乙方因履行工作职责将接触甲方尚未公开的技术、业务及经营资料",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "鉴于乙方因履行工作职责将接触甲方尚未公开的技术、业务及经营资料，为维护甲方合法权益，双方就相关信息保护事项约定如下："
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.access_capability",
+                "value": true,
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "鉴于乙方因履行工作职责将接触甲方尚未公开的技术、业务及经营资料，为维护甲方合法权益，双方就相关信息保护事项约定如下："
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.actual_access",
+                "value": true,
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "乙方在任职期间通过文件、系统、会议、邮件、即时通信、口头交流或其他方式知悉的下列信息，均属于本协议所称保密资料："
+                  }
+                ]
+              },
+              {
+                "concept": "ip.assignment_scope",
+                "value": "DUTY_OR_RESOURCES",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "乙方在履行职务过程中形成的技术成果、程序代码、设计文件、数据成果及其他依法属于职务成果的内容，其权利归属按照法律规定、劳动合同及甲方相关有效制度执行。"
+                  }
+                ]
+              },
+              {
+                "concept": "ip.allocations",
+                "value": {
+                  "scope": "DUTY_OR_RESOURCES",
+                  "beneficiary": "UNSPECIFIED",
+                  "mode": "STATUTORY"
+                },
+                "confidence": 0.85,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "乙方在履行职务过程中形成的技术成果、程序代码、设计文件、数据成果及其他依法属于职务成果的内容，其权利归属按照法律规定、劳动合同及甲方相关有效制度执行。"
+                  }
+                ]
+              },
+              {
+                "concept": "penalties.exclusions",
+                "value": {
+                  "kind": "EXPLICIT_ABSENCE",
+                  "scope": "违反一般保密义务",
+                  "basis": "双方未就违反一般保密义务另行约定固定金额违约金。"
+                },
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "双方未就违反一般保密义务另行约定固定金额违约金。"
+                  }
+                ]
+              },
+              {
+                "concept": "worker.damage_liability",
+                "value": {
+                  "kind": "ACTUAL_DAMAGE_COMPENSATION",
+                  "trigger": "乙方违反本协议，造成甲方损失",
+                  "basis": "赔偿范围以甲方能够证明的实际损失以及依法可以主张的合理维权费用为限。"
+                },
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "乙方违反本协议，造成甲方损失的，应依法承担相应赔偿责任。"
+                  },
+                  {
+                    "clause_id": "C0010",
+                    "quote": "赔偿范围以甲方能够证明的实际损失以及依法可以主张的合理维权费用为限。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.employment_relationship",
+                "value": true,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "鉴于乙方因履行工作职责将接触甲方尚未公开的技术、业务及经营资料，为维护甲方合法权益，双方就相关信息保护事项约定如下："
+                  },
+                  {
+                    "clause_id": "C0011",
+                    "quote": "本协议与乙方劳动合同共同构成双方劳动关系相关文件的一部分。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.party_one",
+                "value": "深圳云启智能科技有限公司",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "甲方：深圳云启智能科技有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.party_two",
+                "value": "周启明",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "乙方：周启明"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.information_flow",
+                "value": "甲方→乙方",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "鉴于乙方因履行工作职责将接触甲方尚未公开的技术、业务及经营资料，为维护甲方合法权益，双方就相关信息保护事项约定如下："
+                  },
+                  {
+                    "clause_id": "C0002",
+                    "quote": "乙方在任职期间通过文件、系统、会议、邮件、即时通信、口头交流或其他方式知悉的下列信息，均属于本协议所称保密资料："
+                  }
+                ]
+              },
+              {
+                "concept": "nda.protected_information",
+                "value": "源代码、模型参数、算法方案、训练数据、接口设计、数据库结构、服务器部署方案及技术文档；产品规划、研发计划、测试方案、业务流程及尚未公开的项目安排；客户资料、客户需求、报价信息、合作条件、交易数据及商务谈判内容；供应商信息、采购价格、成本数据、利润数据、经营分析及内部财务信息；甲方依据合同或者法律规定需要承担保密义务的第三方资料；其他依其性质或者甲方明确说明应当保密的信息。",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "乙方在任职期间通过文件、系统、会议、邮件、即时通信、口头交流或其他方式知悉的下列信息，均属于本协议所称保密资料："
+                  },
+                  {
+                    "clause_id": "C0002",
+                    "quote": "源代码、模型参数、算法方案、训练数据、接口设计、数据库结构、服务器部署方案及技术文档；"
+                  },
+                  {
+                    "clause_id": "C0002",
+                    "quote": "产品规划、研发计划、测试方案、业务流程及尚未公开的项目安排；"
+                  },
+                  {
+                    "clause_id": "C0002",
+                    "quote": "客户资料、客户需求、报价信息、合作条件、交易数据及商务谈判内容；"
+                  },
+                  {
+                    "clause_id": "C0002",
+                    "quote": "供应商信息、采购价格、成本数据、利润数据、经营分析及内部财务信息；"
+                  },
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方依据合同或者法律规定需要承担保密义务的第三方资料；"
+                  },
+                  {
+                    "clause_id": "C0002",
+                    "quote": "其他依其性质或者甲方明确说明应当保密的信息。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_public",
+                "value": true,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "在乙方接触前已经合法进入公开领域的信息；"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_prior",
+                "value": true,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "乙方能够提供证据证明，在接触甲方相关资料之前已经合法掌握的信息；"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_independent",
+                "value": true,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "乙方在未利用甲方保密资料的情况下独立完成的信息或成果。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_third_party",
+                "value": true,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "乙方从具有合法披露权限的第三方处取得且无需承担保密义务的信息；"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_mandatory",
+                "value": true,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "如乙方因法院、行政机关、监管机关或者其他依法享有调查、取证、监管权限的机构要求而必须提供相关资料，乙方应在法律允许的范围内及时通知甲方，并尽可能将披露范围控制在有权机关要求的最低必要限度。"
+                  },
+                  {
+                    "clause_id": "C0005",
+                    "quote": "依照前款规定进行的披露，不视为乙方违反本协议。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.use_restriction",
+                "value": "乙方仅可在完成甲方安排的工作任务所必需的范围内使用保密资料。未经甲方书面授权，乙方不得：向无权接触相关资料的个人或者机构提供、泄露、转发或者展示保密资料；将保密资料用于本人工作职责之外的项目、投资、经营或其他活动；将甲方内部文件复制、下载或转移至私人邮箱、个人云盘、个人移动存储设备或者其他未经授权的设备；利用甲方资料帮助第三方开发与甲方相同或类似的产品、服务；以其他方式使无权人员取得甲方保密资料。乙方因协作需要向甲方其他员工提供相关资料的，应限于工作确有必要的人员和范围，不得超出合理的内部知悉范围。",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方仅可在完成甲方安排的工作任务所必需的范围内使用保密资料。"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "未经甲方书面授权，乙方不得："
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "向无权接触相关资料的个人或者机构提供、泄露、转发或者展示保密资料；"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "将保密资料用于本人工作职责之外的项目、投资、经营或其他活动；"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "将甲方内部文件复制、下载或转移至私人邮箱、个人云盘、个人移动存储设备或者其他未经授权的设备；"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "利用甲方资料帮助第三方开发与甲方相同或类似的产品、服务；"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "以其他方式使无权人员取得甲方保密资料。"
+                  },
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方因协作需要向甲方其他员工提供相关资料的，应限于工作确有必要的人员和范围，不得超出合理的内部知悉范围。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.duration",
+                "value": "乙方在职期间持续承担本协议约定的保密义务。劳动关系终止后：对依法构成商业秘密的信息，乙方仍应持续保密，直至相关信息合法公开或者不再符合商业秘密构成条件；对其他未公开的内部经营信息，乙方继续承担三年的保密义务。",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "乙方在职期间持续承担本协议约定的保密义务。"
+                  },
+                  {
+                    "clause_id": "C0006",
+                    "quote": "对依法构成商业秘密的信息，乙方仍应持续保密，直至相关信息合法公开或者不再符合商业秘密构成条件；"
+                  },
+                  {
+                    "clause_id": "C0006",
+                    "quote": "对其他未公开的内部经营信息，乙方继续承担三年的保密义务。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.return",
+                "value": "乙方离职、调岗或者甲方提出要求时，应在两个工作日内：将持有的甲方文件、设备、账号载体、存储介质及其他工作资料返还甲方；删除个人设备及个人网络空间中保存的甲方资料及复制件；根据甲方要求书面确认已完成资料返还、删除及账号交接。法律法规要求乙方依法留存的材料不受前述删除要求限制，但乙方仍不得擅自使用或披露。",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "乙方离职、调岗或者甲方提出要求时，应在两个工作日内："
+                  },
+                  {
+                    "clause_id": "C0007",
+                    "quote": "将持有的甲方文件、设备、账号载体、存储介质及其他工作资料返还甲方；"
+                  },
+                  {
+                    "clause_id": "C0007",
+                    "quote": "删除个人设备及个人网络空间中保存的甲方资料及复制件；"
+                  },
+                  {
+                    "clause_id": "C0007",
+                    "quote": "根据甲方要求书面确认已完成资料返还、删除及账号交接。"
+                  },
+                  {
+                    "clause_id": "C0007",
+                    "quote": "法律法规要求乙方依法留存的材料不受前述删除要求限制，但乙方仍不得擅自使用或披露。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.remedies",
+                "value": "乙方违反本协议，造成甲方损失的，应依法承担相应赔偿责任。赔偿范围以甲方能够证明的实际损失以及依法可以主张的合理维权费用为限。",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "乙方违反本协议，造成甲方损失的，应依法承担相应赔偿责任。"
+                  },
+                  {
+                    "clause_id": "C0010",
+                    "quote": "赔偿范围以甲方能够证明的实际损失以及依法可以主张的合理维权费用为限。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 5506,
+            "completion_tokens": 3086,
+            "total_tokens": 8592,
+            "prompt_tokens_details": {
+              "cached_tokens": 1280
+            },
+            "prompt_cache_hit_tokens": 1280,
+            "prompt_cache_miss_tokens": 4226
+          },
+          "provider": "deepseek",
+          "active_concepts": [
+            "identity.employer_representative",
+            "identity.worker_address",
+            "identity.employer_name",
+            "identity.employer_address",
+            "identity.worker_name",
+            "identity.worker_id",
+            "penalties.obligations",
+            "non_compete.arrangement",
+            "non_compete.secret_access",
+            "non_compete.access_capability",
+            "non_compete.actual_access",
+            "ip.assignment_scope",
+            "ip.allocations",
+            "ip.personal_rights_waived",
+            "contract.employment_form",
+            "penalties.exclusions",
+            "worker.damage_liability",
+            "worker.security_payment",
+            "nda.employment_relationship",
+            "nda.party_one",
+            "nda.party_two",
+            "nda.information_flow",
+            "nda.protected_information",
+            "nda.exception_public",
+            "nda.exception_prior",
+            "nda.exception_independent",
+            "nda.exception_third_party",
+            "nda.exception_mandatory",
+            "nda.use_restriction",
+            "nda.duration",
+            "nda.return",
+            "nda.remedies"
+          ],
+          "agreement_type": "confidentiality"
+        }
+      ],
+      "raw_verification": null,
+      "verification_batches": [
+        {
+          "batch_id": 1,
+          "input_fact_ids": [
+            "EF-5f2526d0d5bd3707",
+            "EF-5b092c6c5c575d83",
+            "EF-4faf375ad5fe9000",
+            "EF-e3f9f9f560c008c6",
+            "EF-2a17b24afbedb381",
+            "EF-24b64dd16fa90bed",
+            "EF-98051eb349da69a7",
+            "EF-ed04fcfc7f4e719c",
+            "EF-57de7f1c0a565349",
+            "EF-30b52e6d54382336",
+            "EF-eb14689006bebd80",
+            "EF-f8d6df03e1158a78",
+            "EF-c9ad335d1c448bb1",
+            "EF-6b105d949874473c",
+            "EF-38fd896e51a90e39",
+            "EF-cfe62bc1eb41c876",
+            "EF-288d31093366a989"
+          ],
+          "required_concepts": [
+            "contract.employment_form",
+            "identity.employer_address",
+            "identity.employer_name",
+            "identity.employer_representative",
+            "identity.worker_address",
+            "identity.worker_id",
+            "identity.worker_name",
+            "ip.allocations",
+            "ip.assignment_scope",
+            "ip.personal_rights_waived",
+            "nda.duration",
+            "nda.employment_relationship",
+            "nda.exception_independent",
+            "nda.exception_mandatory",
+            "nda.exception_prior",
+            "nda.exception_public",
+            "nda.exception_third_party",
+            "nda.information_flow",
+            "nda.party_one",
+            "nda.party_two"
+          ],
+          "audit_owner": true,
+          "response": {
+            "verification_schema_version": "fact-verification-2",
+            "checks": [
+              {
+                "fact_id": "EF-5f2526d0d5bd3707",
+                "supported": true,
+                "reason": "协议载明甲方为公司、乙方为员工并载明岗位，结合C0011确认双方劳动关系，可支持直接用工关系。"
+              },
+              {
+                "fact_id": "EF-5b092c6c5c575d83",
+                "supported": true,
+                "reason": "C0001明确载明甲方住所为广东省深圳市南山区科技园科苑路88号。"
+              },
+              {
+                "fact_id": "EF-4faf375ad5fe9000",
+                "supported": true,
+                "reason": "C0001明确载明甲方为深圳云启智能科技有限公司。"
+              },
+              {
+                "fact_id": "EF-e3f9f9f560c008c6",
+                "supported": true,
+                "reason": "C0001明确载明乙方身份证号码为44030519950426XXXX。"
+              },
+              {
+                "fact_id": "EF-2a17b24afbedb381",
+                "supported": true,
+                "reason": "C0001明确载明乙方为周启明。"
+              },
+              {
+                "fact_id": "EF-24b64dd16fa90bed",
+                "supported": true,
+                "reason": "C0008明确职务成果权利归属按法律规定、劳动合同及甲方有效制度执行，属于范围DUTY_OR_RESOURCES、归属未具体列明、按法定方式处理的安排。"
+              },
+              {
+                "fact_id": "EF-98051eb349da69a7",
+                "supported": true,
+                "reason": "C0008明确针对履行职务过程中形成的成果，属于DUTY_OR_RESOURCES范围。"
+              },
+              {
+                "fact_id": "EF-ed04fcfc7f4e719c",
+                "supported": true,
+                "reason": "C0006明确在职期间持续保密，离职后商业秘密持续至合法公开或不再符合条件，其他未公开内部经营信息继续三年。"
+              },
+              {
+                "fact_id": "EF-57de7f1c0a565349",
+                "supported": true,
+                "reason": "C0001载明乙方因履行工作职责接触甲方资料，C0011明确本协议与劳动合同共同构成劳动关系相关文件，可确认劳动关系。"
+              },
+              {
+                "fact_id": "EF-30b52e6d54382336",
+                "supported": true,
+                "reason": "C0002明确乙方未利用甲方保密资料独立完成的信息或成果不属于保密资料。"
+              },
+              {
+                "fact_id": "EF-eb14689006bebd80",
+                "supported": true,
+                "reason": "C0005明确因法院、行政机关、监管机关等依法要求必须提供资料时披露不视为违约，属于强制披露例外。"
+              },
+              {
+                "fact_id": "EF-f8d6df03e1158a78",
+                "supported": true,
+                "reason": "C0002明确乙方能证明在接触甲方资料前已合法掌握的信息不属于保密资料。"
+              },
+              {
+                "fact_id": "EF-c9ad335d1c448bb1",
+                "supported": true,
+                "reason": "C0002明确在乙方接触前已合法进入公开领域的信息不属于保密资料。"
+              },
+              {
+                "fact_id": "EF-6b105d949874473c",
+                "supported": true,
+                "reason": "C0002明确乙方从具有合法披露权限且无需承担保密义务的第三方取得的信息不属于保密资料。"
+              },
+              {
+                "fact_id": "EF-38fd896e51a90e39",
+                "supported": true,
+                "reason": "C0001和C0002明确乙方因任职知悉甲方尚未公开资料，信息流向为甲方到乙方。"
+              },
+              {
+                "fact_id": "EF-cfe62bc1eb41c876",
+                "supported": true,
+                "reason": "C0001明确甲方为深圳云启智能科技有限公司。"
+              },
+              {
+                "fact_id": "EF-288d31093366a989",
+                "supported": true,
+                "reason": "C0001明确乙方为周启明。"
+              }
+            ],
+            "searched_concepts": [
+              "contract.employment_form",
+              "identity.employer_address",
+              "identity.employer_name",
+              "identity.employer_representative",
+              "identity.worker_address",
+              "identity.worker_id",
+              "identity.worker_name",
+              "ip.allocations",
+              "ip.assignment_scope",
+              "ip.personal_rights_waived",
+              "nda.duration",
+              "nda.employment_relationship",
+              "nda.exception_independent",
+              "nda.exception_mandatory",
+              "nda.exception_prior",
+              "nda.exception_public",
+              "nda.exception_third_party",
+              "nda.information_flow",
+              "nda.party_one",
+              "nda.party_two"
+            ],
+            "unresolved_concepts": [],
+            "additional_facts": [],
+            "absence_audits": [],
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011"
+            ]
+          },
+          "usage": {
+            "prompt_tokens": 12034,
+            "completion_tokens": 958,
+            "total_tokens": 12992,
+            "prompt_tokens_details": {
+              "cached_tokens": 1792
+            },
+            "prompt_cache_hit_tokens": 1792,
+            "prompt_cache_miss_tokens": 10242
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "batch_id": 2,
+          "input_fact_ids": [
+            "EF-45f2eebec8fa3776",
+            "EF-8ec15a0bcd62f6fc",
+            "EF-081762ae85b49400",
+            "EF-bd0463532f1f5e72",
+            "EF-f4755aa0d246e968",
+            "EF-72152a03d6316981",
+            "EF-1fbc5d7a23d1562f",
+            "EF-0afc3549644cca2e",
+            "EF-b491c838c76b8b8f",
+            "EF-0bbb6e1871c49df7"
+          ],
+          "required_concepts": [
+            "nda.protected_information",
+            "nda.remedies",
+            "nda.return",
+            "nda.use_restriction",
+            "non_compete.access_capability",
+            "non_compete.actual_access",
+            "non_compete.arrangement",
+            "non_compete.secret_access",
+            "penalties.exclusions",
+            "penalties.obligations",
+            "worker.damage_liability",
+            "worker.security_payment"
+          ],
+          "audit_owner": true,
+          "response": {
+            "verification_schema_version": "fact-verification-2",
+            "checks": [
+              {
+                "fact_id": "EF-45f2eebec8fa3776",
+                "supported": true,
+                "reason": "C0002逐项列举了源代码、模型参数、算法方案、训练数据、接口设计、数据库结构、服务器部署方案及技术文档；产品规划、研发计划、测试方案、业务流程及尚未公开的项目安排；客户资料、客户需求、报价信息、合作条件、交易数据及商务谈判内容；供应商信息、采购价格、成本数据、利润数据、经营分析及内部财务信息；甲方依据合同或者法律规定需要承担保密义务的第三方资料；其他依其性质或者甲方明确说明应当保密的信息，引文与value一致。"
+              },
+              {
+                "fact_id": "EF-8ec15a0bcd62f6fc",
+                "supported": true,
+                "reason": "C0010明确乙方违反本协议造成甲方损失的应依法承担相应赔偿责任，赔偿范围以甲方能够证明的实际损失及依法可主张的合理维权费用为限，引文支持该救济安排。"
+              },
+              {
+                "fact_id": "EF-081762ae85b49400",
+                "supported": true,
+                "reason": "C0007明确离职、调岗或甲方提出要求时两个工作日内返还资料、删除个人设备及网络空间中的资料复制件、书面确认返还删除及账号交接，并规定依法留存材料不受删除限制但仍不得擅自使用或披露，引文支持。"
+              },
+              {
+                "fact_id": "EF-bd0463532f1f5e72",
+                "supported": true,
+                "reason": "C0003明确仅可在完成工作任务必需范围内使用保密资料，并列举未经书面授权不得提供、泄露、转发、展示、用于职责外活动、复制转移至私人邮箱云盘设备、帮助第三方开发同类产品服务等限制；C0004补充内部协作知悉范围限制，引文支持。"
+              },
+              {
+                "fact_id": "EF-f4755aa0d246e968",
+                "supported": true,
+                "reason": "C0001载明乙方因履行工作职责将接触甲方尚未公开的技术、业务及经营资料，属于岗位具备接触商业秘密可能性的能力事实，引文支持access_capability为true。"
+              },
+              {
+                "fact_id": "EF-72152a03d6316981",
+                "supported": false,
+                "reason": "C0002仅界定保密资料范围并描述乙方在任职期间通过文件、系统、会议、邮件、即时通信、口头交流或其他方式知悉的下列信息均属于保密资料，属于范围界定和可能性/能力表述，并未明确乙方已经实际接触、知悉或掌握具体商业秘密的已发生事实，不能支持actual_access为true。"
+              },
+              {
+                "fact_id": "EF-1fbc5d7a23d1562f",
+                "supported": true,
+                "reason": "C0008明确本协议本身不构成竞业限制协议，也不当然限制乙方离职后正常就业；C0011明确本协议未约定离职后的竞业限制义务，如未来确有需要应另行依法签署竞业限制协议，属于对离职竞业安排本身的明确否定，支持EXPLICIT_NONE。"
+              },
+              {
+                "fact_id": "EF-0afc3549644cca2e",
+                "supported": true,
+                "reason": "C0001明确乙方因履行工作职责将接触甲方尚未公开的技术、业务及经营资料，属于适用人员须接触秘密的资格前提或范围声明，引文支持。"
+              },
+              {
+                "fact_id": "EF-b491c838c76b8b8f",
+                "supported": true,
+                "reason": "C0010明确双方未就违反一般保密义务另行约定固定金额违约金，属于对一般保密义务范围固定违约金的明示否定，kind、scope、basis与引文一致。"
+              },
+              {
+                "fact_id": "EF-0bbb6e1871c49df7",
+                "supported": true,
+                "reason": "C0010明确乙方违反本协议造成甲方损失的应依法承担相应赔偿责任，赔偿范围以甲方能够证明的实际损失及依法可主张的合理维权费用为限，属于按实际损失赔偿而非预设违约金，引文支持ACTUAL_DAMAGE_COMPENSATION。"
+              }
+            ],
+            "searched_concepts": [
+              "nda.protected_information",
+              "nda.remedies",
+              "nda.return",
+              "nda.use_restriction",
+              "non_compete.access_capability",
+              "non_compete.actual_access",
+              "non_compete.arrangement",
+              "non_compete.secret_access",
+              "penalties.exclusions",
+              "penalties.obligations",
+              "worker.damage_liability",
+              "worker.security_payment"
+            ],
+            "unresolved_concepts": [],
+            "additional_facts": [],
+            "absence_audits": [],
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011"
+            ]
+          },
+          "usage": {
+            "prompt_tokens": 12837,
+            "completion_tokens": 1006,
+            "total_tokens": 13843,
+            "prompt_tokens_details": {
+              "cached_tokens": 1792
+            },
+            "prompt_cache_hit_tokens": 1792,
+            "prompt_cache_miss_tokens": 11045
+          },
+          "finish_reason": "stop"
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "status": "BLOCKED",
+      "diagnostics": [
+        {
+          "failed_stage": "VERIFICATION_SCHEMA",
+          "field": "searched_concepts",
+          "validation_rule": "INCOMPLETE_VERIFICATION_SCOPE",
+          "batch_id": "merged",
+          "expected_count": 154,
+          "actual_count": 32,
+          "missing_concepts": [
+            "capability.compensation",
+            "capability.ground",
+            "capability.notice",
+            "capability.reassessment",
+            "capability.reassignment",
+            "capability.training",
+            "contract.duration_months",
+            "contract.end_date",
+            "contract.start_date",
+            "contract.task",
+            "contract.task_end",
+            "contract.term_limit_date",
+            "contract.term_limit_mode",
+            "contract.term_limit_months",
+            "contract.type",
+            "discipline.dismissal_terms",
+            "dispatch.agency",
+            "dispatch.agency_obligations",
+            "dispatch.agreement_disclosure",
+            "dispatch.auxiliary_noncore",
+            "dispatch.auxiliary_procedure",
+            "dispatch.comparable_work",
+            "dispatch.comparator_pay",
+            "dispatch.comparator_pay_method",
+            "dispatch.equal_pay",
+            "dispatch.host",
+            "dispatch.host_direct_dismissal",
+            "dispatch.host_obligations",
+            "dispatch.idle_pay",
+            "dispatch.long_term_position",
+            "dispatch.obligations_waived",
+            "dispatch.onward_assignment",
+            "dispatch.period",
+            "dispatch.position",
+            "dispatch.position_basis",
+            "dispatch.reassignment_procedure",
+            "dispatch.refusal_compensation_waived",
+            "dispatch.refusal_termination",
+            "dispatch.return_procedure",
+            "dispatch.return_terms",
+            "dispatch.substitute",
+            "dispatch.temporary_duration_months",
+            "dispatch.worker_charges",
+            "dispatch.worker_pay_method",
+            "dispute.arbitration",
+            "economic_compensation.payment_delay_months",
+            "economic_compensation.reduced",
+            "economic_compensation.settlement_deadline",
+            "economic_compensation.statutory",
+            "economic_compensation.statutory_percentage",
+            "economic_compensation.waived",
+            "job.change_terms",
+            "job.duties",
+            "job.locations",
+            "job.position",
+            "labor_protection.hazard_exists",
+            "labor_protection.hazard_protection",
+            "labor_protection.measures",
+            "labor_protection.special_training_required",
+            "labor_protection.training",
+            "labor_protection.training_excluded",
+            "non_compete.all_staff",
+            "non_compete.businesses",
+            "non_compete.compensation",
+            "non_compete.compensation_deferred",
+            "non_compete.compensation_floor",
+            "non_compete.compensation_waived",
+            "non_compete.duration_months",
+            "non_compete.personnel",
+            "non_compete.salary_base",
+            "non_compete.territories",
+            "part_time.employee_notice_days",
+            "part_time.employer_notice_days",
+            "part_time.exit_approval",
+            "part_time.exit_constraint",
+            "part_time.exit_permission",
+            "part_time.hourly_minimum",
+            "part_time.injury_insurance",
+            "probation.arrangement",
+            "probation.duration_months",
+            "probation.end_date",
+            "probation.repeated",
+            "probation.salary",
+            "probation.start_date",
+            "salary.cycle_days",
+            "salary.cycle_kind",
+            "salary.payment_date",
+            "salary.payment_method",
+            "salary.regular",
+            "salary.settlement_period",
+            "salary.withheld_for_handover",
+            "social_insurance.cash_replacement",
+            "social_insurance.employee_remedy_excluded",
+            "social_insurance.employee_withheld",
+            "social_insurance.employer_enrolls",
+            "social_insurance.employer_liability_excluded",
+            "social_insurance.employer_pays",
+            "social_insurance.employer_share_shifted",
+            "social_insurance.employer_underpays",
+            "social_insurance.statutory_duties",
+            "social_insurance.waived",
+            "termination.approval_required",
+            "termination.employee_right_waived",
+            "termination.employer_unrestricted",
+            "termination.grounds",
+            "termination.handover",
+            "termination.notice",
+            "termination.notice_days",
+            "training.arrangement",
+            "training.cost",
+            "training.duration_months",
+            "training.penalty_prorated",
+            "training.service_penalty",
+            "training.technical",
+            "working_hours.days_per_week",
+            "working_hours.hours_per_day",
+            "working_hours.hours_per_week",
+            "working_hours.overtime",
+            "working_hours.rest",
+            "working_hours.rest_days_per_week",
+            "working_hours.rest_waived",
+            "working_hours.system"
+          ],
+          "unexpected_concepts": [],
+          "expected": 154,
+          "actual": 32,
+          "model_raw_value": {
+            "missing_concepts": [
+              "capability.compensation",
+              "capability.ground",
+              "capability.notice",
+              "capability.reassessment",
+              "capability.reassignment",
+              "capability.training",
+              "contract.duration_months",
+              "contract.end_date",
+              "contract.start_date",
+              "contract.task",
+              "contract.task_end",
+              "contract.term_limit_date",
+              "contract.term_limit_mode",
+              "contract.term_limit_months",
+              "contract.type",
+              "discipline.dismissal_terms",
+              "dispatch.agency",
+              "dispatch.agency_obligations",
+              "dispatch.agreement_disclosure",
+              "dispatch.auxiliary_noncore",
+              "dispatch.auxiliary_procedure",
+              "dispatch.comparable_work",
+              "dispatch.comparator_pay",
+              "dispatch.comparator_pay_method",
+              "dispatch.equal_pay",
+              "dispatch.host",
+              "dispatch.host_direct_dismissal",
+              "dispatch.host_obligations",
+              "dispatch.idle_pay",
+              "dispatch.long_term_position",
+              "dispatch.obligations_waived",
+              "dispatch.onward_assignment",
+              "dispatch.period",
+              "dispatch.position",
+              "dispatch.position_basis",
+              "dispatch.reassignment_procedure",
+              "dispatch.refusal_compensation_waived",
+              "dispatch.refusal_termination",
+              "dispatch.return_procedure",
+              "dispatch.return_terms",
+              "dispatch.substitute",
+              "dispatch.temporary_duration_months",
+              "dispatch.worker_charges",
+              "dispatch.worker_pay_method",
+              "dispute.arbitration",
+              "economic_compensation.payment_delay_months",
+              "economic_compensation.reduced",
+              "economic_compensation.settlement_deadline",
+              "economic_compensation.statutory",
+              "economic_compensation.statutory_percentage",
+              "economic_compensation.waived",
+              "job.change_terms",
+              "job.duties",
+              "job.locations",
+              "job.position",
+              "labor_protection.hazard_exists",
+              "labor_protection.hazard_protection",
+              "labor_protection.measures",
+              "labor_protection.special_training_required",
+              "labor_protection.training",
+              "labor_protection.training_excluded",
+              "non_compete.all_staff",
+              "non_compete.businesses",
+              "non_compete.compensation",
+              "non_compete.compensation_deferred",
+              "non_compete.compensation_floor",
+              "non_compete.compensation_waived",
+              "non_compete.duration_months",
+              "non_compete.personnel",
+              "non_compete.salary_base",
+              "non_compete.territories",
+              "part_time.employee_notice_days",
+              "part_time.employer_notice_days",
+              "part_time.exit_approval",
+              "part_time.exit_constraint",
+              "part_time.exit_permission",
+              "part_time.hourly_minimum",
+              "part_time.injury_insurance",
+              "probation.arrangement",
+              "probation.duration_months",
+              "probation.end_date",
+              "probation.repeated",
+              "probation.salary",
+              "probation.start_date",
+              "salary.cycle_days",
+              "salary.cycle_kind",
+              "salary.payment_date",
+              "salary.payment_method",
+              "salary.regular",
+              "salary.settlement_period",
+              "salary.withheld_for_handover",
+              "social_insurance.cash_replacement",
+              "social_insurance.employee_remedy_excluded",
+              "social_insurance.employee_withheld",
+              "social_insurance.employer_enrolls",
+              "social_insurance.employer_liability_excluded",
+              "social_insurance.employer_pays",
+              "social_insurance.employer_share_shifted",
+              "social_insurance.employer_underpays",
+              "social_insurance.statutory_duties",
+              "social_insurance.waived",
+              "termination.approval_required",
+              "termination.employee_right_waived",
+              "termination.employer_unrestricted",
+              "termination.grounds",
+              "termination.handover",
+              "termination.notice",
+              "termination.notice_days",
+              "training.arrangement",
+              "training.cost",
+              "training.duration_months",
+              "training.penalty_prorated",
+              "training.service_penalty",
+              "training.technical",
+              "working_hours.days_per_week",
+              "working_hours.hours_per_day",
+              "working_hours.hours_per_week",
+              "working_hours.overtime",
+              "working_hours.rest",
+              "working_hours.rest_days_per_week",
+              "working_hours.rest_waived",
+              "working_hours.system"
+            ],
+            "unexpected_concepts": []
+          },
+          "message": "抽取值未通过事实类型、证据或语义校验；未生成报告，不能以默认值替代。",
+          "disposition": "BLOCK",
+          "stage": "VERIFICATION_SCHEMA",
+          "code": "INCOMPLETE_VERIFICATION_SCOPE",
+          "fact_key": null,
+          "raw_value": {
+            "missing_concepts": [
+              "capability.compensation",
+              "capability.ground",
+              "capability.notice",
+              "capability.reassessment",
+              "capability.reassignment",
+              "capability.training",
+              "contract.duration_months",
+              "contract.end_date",
+              "contract.start_date",
+              "contract.task",
+              "contract.task_end",
+              "contract.term_limit_date",
+              "contract.term_limit_mode",
+              "contract.term_limit_months",
+              "contract.type",
+              "discipline.dismissal_terms",
+              "dispatch.agency",
+              "dispatch.agency_obligations",
+              "dispatch.agreement_disclosure",
+              "dispatch.auxiliary_noncore",
+              "dispatch.auxiliary_procedure",
+              "dispatch.comparable_work",
+              "dispatch.comparator_pay",
+              "dispatch.comparator_pay_method",
+              "dispatch.equal_pay",
+              "dispatch.host",
+              "dispatch.host_direct_dismissal",
+              "dispatch.host_obligations",
+              "dispatch.idle_pay",
+              "dispatch.long_term_position",
+              "dispatch.obligations_waived",
+              "dispatch.onward_assignment",
+              "dispatch.period",
+              "dispatch.position",
+              "dispatch.position_basis",
+              "dispatch.reassignment_procedure",
+              "dispatch.refusal_compensation_waived",
+              "dispatch.refusal_termination",
+              "dispatch.return_procedure",
+              "dispatch.return_terms",
+              "dispatch.substitute",
+              "dispatch.temporary_duration_months",
+              "dispatch.worker_charges",
+              "dispatch.worker_pay_method",
+              "dispute.arbitration",
+              "economic_compensation.payment_delay_months",
+              "economic_compensation.reduced",
+              "economic_compensation.settlement_deadline",
+              "economic_compensation.statutory",
+              "economic_compensation.statutory_percentage",
+              "economic_compensation.waived",
+              "job.change_terms",
+              "job.duties",
+              "job.locations",
+              "job.position",
+              "labor_protection.hazard_exists",
+              "labor_protection.hazard_protection",
+              "labor_protection.measures",
+              "labor_protection.special_training_required",
+              "labor_protection.training",
+              "labor_protection.training_excluded",
+              "non_compete.all_staff",
+              "non_compete.businesses",
+              "non_compete.compensation",
+              "non_compete.compensation_deferred",
+              "non_compete.compensation_floor",
+              "non_compete.compensation_waived",
+              "non_compete.duration_months",
+              "non_compete.personnel",
+              "non_compete.salary_base",
+              "non_compete.territories",
+              "part_time.employee_notice_days",
+              "part_time.employer_notice_days",
+              "part_time.exit_approval",
+              "part_time.exit_constraint",
+              "part_time.exit_permission",
+              "part_time.hourly_minimum",
+              "part_time.injury_insurance",
+              "probation.arrangement",
+              "probation.duration_months",
+              "probation.end_date",
+              "probation.repeated",
+              "probation.salary",
+              "probation.start_date",
+              "salary.cycle_days",
+              "salary.cycle_kind",
+              "salary.payment_date",
+              "salary.payment_method",
+              "salary.regular",
+              "salary.settlement_period",
+              "salary.withheld_for_handover",
+              "social_insurance.cash_replacement",
+              "social_insurance.employee_remedy_excluded",
+              "social_insurance.employee_withheld",
+              "social_insurance.employer_enrolls",
+              "social_insurance.employer_liability_excluded",
+              "social_insurance.employer_pays",
+              "social_insurance.employer_share_shifted",
+              "social_insurance.employer_underpays",
+              "social_insurance.statutory_duties",
+              "social_insurance.waived",
+              "termination.approval_required",
+              "termination.employee_right_waived",
+              "termination.employer_unrestricted",
+              "termination.grounds",
+              "termination.handover",
+              "termination.notice",
+              "termination.notice_days",
+              "training.arrangement",
+              "training.cost",
+              "training.duration_months",
+              "training.penalty_prorated",
+              "training.service_penalty",
+              "training.technical",
+              "working_hours.days_per_week",
+              "working_hours.hours_per_day",
+              "working_hours.hours_per_week",
+              "working_hours.overtime",
+              "working_hours.rest",
+              "working_hours.rest_days_per_week",
+              "working_hours.rest_waived",
+              "working_hours.system"
+            ],
+            "unexpected_concepts": []
+          },
+          "normalized_value": null,
+          "allowed_values": 154,
+          "clause": null,
+          "trace_id": "FACT-098cb09562d147f183a2db91bcca3c5c"
+        }
+      ],
+      "raw_extraction": [
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011"
+            ],
+            "searched_concepts": [
+              "non_compete.arrangement",
+              "contract.employment_form"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "non_compete.arrangement",
+                "value": "DEFERRED",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0011",
+                    "quote": "本协议未约定离职后的竞业限制义务。如双方未来确有需要，应另行依法签署竞业限制协议，并依法约定适用人员、期限、范围及经济补偿。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.employment_form",
+                "value": "DIRECT",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "甲方：深圳云启智能科技有限公司"
+                  },
+                  {
+                    "clause_id": "C0001",
+                    "quote": "乙方：周启明"
+                  },
+                  {
+                    "clause_id": "C0001",
+                    "quote": "岗位：算法工程师"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 5291,
+            "completion_tokens": 264,
+            "total_tokens": 5555,
+            "prompt_tokens_details": {
+              "cached_tokens": 1280
+            },
+            "prompt_cache_hit_tokens": 1280,
+            "prompt_cache_miss_tokens": 4011
+          },
+          "provider": "deepseek",
+          "active_concepts": [
+            "identity.employer_representative",
+            "identity.worker_address",
+            "identity.employer_name",
+            "identity.employer_address",
+            "identity.worker_name",
+            "identity.worker_id",
+            "penalties.obligations",
+            "non_compete.arrangement",
+            "non_compete.secret_access",
+            "non_compete.access_capability",
+            "non_compete.actual_access",
+            "ip.assignment_scope",
+            "ip.allocations",
+            "ip.personal_rights_waived",
+            "contract.employment_form",
+            "penalties.exclusions",
+            "worker.damage_liability",
+            "worker.security_payment",
+            "nda.employment_relationship",
+            "nda.party_one",
+            "nda.party_two",
+            "nda.information_flow",
+            "nda.protected_information",
+            "nda.exception_public",
+            "nda.exception_prior",
+            "nda.exception_independent",
+            "nda.exception_third_party",
+            "nda.exception_mandatory",
+            "nda.use_restriction",
+            "nda.duration",
+            "nda.return",
+            "nda.remedies"
+          ],
+          "agreement_type": "confidentiality"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.2",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011"
+            ],
+            "searched_concepts": [
+              "identity.employer_representative",
+              "identity.worker_address",
+              "identity.employer_name",
+              "identity.employer_address",
+              "identity.worker_name",
+              "identity.worker_id",
+              "penalties.obligations",
+              "non_compete.secret_access",
+              "non_compete.access_capability",
+              "non_compete.actual_access",
+              "ip.assignment_scope",
+              "ip.allocations",
+              "ip.personal_rights_waived",
+              "penalties.exclusions",
+              "worker.damage_liability",
+              "worker.security_payment",
+              "nda.employment_relationship",
+              "nda.party_one",
+              "nda.party_two",
+              "nda.information_flow",
+              "nda.protected_information",
+              "nda.exception_public",
+              "nda.exception_prior",
+              "nda.exception_independent",
+              "nda.exception_third_party",
+              "nda.exception_mandatory",
+              "nda.use_restriction",
+              "nda.duration",
+              "nda.return",
+              "nda.remedies"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "identity.employer_name",
+                "value": "深圳云启智能科技有限公司",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "甲方：深圳云启智能科技有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.employer_address",
+                "value": "广东省深圳市南山区科技园科苑路88号",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "住所：广东省深圳市南山区科技园科苑路88号"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_name",
+                "value": "周启明",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "乙方：周启明"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_id",
+                "value": "44030519950426XXXX",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "身份证号码：44030519950426XXXX"
+                  }
+                ]
+              },
+              {
+                "concept": "penalties.exclusions",
+                "value": {
+                  "kind": "EXPLICIT_ABSENCE",
+                  "scope": "违反一般保密义务",
+                  "basis": "双方未就违反一般保密义务另行约定固定金额违约金。"
+                },
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "双方未就违反一般保密义务另行约定固定金额违约金。"
+                  }
+                ]
+              },
+              {
+                "concept": "worker.damage_liability",
+                "value": {
+                  "kind": "ACTUAL_DAMAGE_COMPENSATION",
+                  "trigger": "乙方违反本协议，造成甲方损失",
+                  "basis": "赔偿范围以甲方能够证明的实际损失以及依法可以主张的合理维权费用为限。"
+                },
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "乙方违反本协议，造成甲方损失的，应依法承担相应赔偿责任。"
+                  },
+                  {
+                    "clause_id": "C0010",
+                    "quote": "赔偿范围以甲方能够证明的实际损失以及依法可以主张的合理维权费用为限。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.secret_access",
+                "value": "乙方因履行工作职责将接触甲方尚未公开的技术、业务及经营资料",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "鉴于乙方因履行工作职责将接触甲方尚未公开的技术、业务及经营资料，为维护甲方合法权益，双方就相关信息保护事项约定如下："
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.access_capability",
+                "value": true,
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "鉴于乙方因履行工作职责将接触甲方尚未公开的技术、业务及经营资料，为维护甲方合法权益，双方就相关信息保护事项约定如下："
+                  }
+                ]
+              },
+              {
+                "concept": "ip.assignment_scope",
+                "value": "DUTY_OR_RESOURCES",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "乙方在履行职务过程中形成的技术成果、程序代码、设计文件、数据成果及其他依法属于职务成果的内容，其权利归属按照法律规定、劳动合同及甲方相关有效制度执行。"
+                  }
+                ]
+              },
+              {
+                "concept": "ip.allocations",
+                "value": {
+                  "scope": "DUTY_OR_RESOURCES",
+                  "beneficiary": "UNSPECIFIED",
+                  "mode": "STATUTORY"
+                },
+                "confidence": 0.85,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "乙方在履行职务过程中形成的技术成果、程序代码、设计文件、数据成果及其他依法属于职务成果的内容，其权利归属按照法律规定、劳动合同及甲方相关有效制度执行。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.employment_relationship",
+                "value": true,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "鉴于乙方因履行工作职责将接触甲方尚未公开的技术、业务及经营资料，为维护甲方合法权益，双方就相关信息保护事项约定如下："
+                  },
+                  {
+                    "clause_id": "C0011",
+                    "quote": "本协议与乙方劳动合同共同构成双方劳动关系相关文件的一部分。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.party_one",
+                "value": "深圳云启智能科技有限公司",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "甲方：深圳云启智能科技有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.party_two",
+                "value": "周启明",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "乙方：周启明"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.information_flow",
+                "value": "甲方→乙方",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0001",
+                    "quote": "鉴于乙方因履行工作职责将接触甲方尚未公开的技术、业务及经营资料，为维护甲方合法权益，双方就相关信息保护事项约定如下："
+                  },
+                  {
+                    "clause_id": "C0002",
+                    "quote": "乙方在任职期间通过文件、系统、会议、邮件、即时通信、口头交流或其他方式知悉的下列信息，均属于本协议所称保密资料："
+                  }
+                ]
+              },
+              {
+                "concept": "nda.protected_information",
+                "value": "源代码、模型参数、算法方案、训练数据、接口设计、数据库结构、服务器部署方案及技术文档；产品规划、研发计划、测试方案、业务流程及尚未公开的项目安排；客户资料、客户需求、报价信息、合作条件、交易数据及商务谈判内容；供应商信息、采购价格、成本数据、利润数据、经营分析及内部财务信息；甲方依据合同或者法律规定需要承担保密义务的第三方资料；其他依其性质或者甲方明确说明应当保密的信息。",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "乙方在任职期间通过文件、系统、会议、邮件、即时通信、口头交流或其他方式知悉的下列信息，均属于本协议所称保密资料："
+                  },
+                  {
+                    "clause_id": "C0002",
+                    "quote": "源代码、模型参数、算法方案、训练数据、接口设计、数据库结构、服务器部署方案及技术文档；"
+                  },
+                  {
+                    "clause_id": "C0002",
+                    "quote": "产品规划、研发计划、测试方案、业务流程及尚未公开的项目安排；"
+                  },
+                  {
+                    "clause_id": "C0002",
+                    "quote": "客户资料、客户需求、报价信息、合作条件、交易数据及商务谈判内容；"
+                  },
+                  {
+                    "clause_id": "C0002",
+                    "quote": "供应商信息、采购价格、成本数据、利润数据、经营分析及内部财务信息；"
+                  },
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方依据合同或者法律规定需要承担保密义务的第三方资料；"
+                  },
+                  {
+                    "clause_id": "C0002",
+                    "quote": "其他依其性质或者甲方明确说明应当保密的信息。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_public",
+                "value": true,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "在乙方接触前已经合法进入公开领域的信息；"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_prior",
+                "value": true,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "乙方能够提供证据证明，在接触甲方相关资料之前已经合法掌握的信息；"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_independent",
+                "value": true,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "乙方在未利用甲方保密资料的情况下独立完成的信息或成果。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_third_party",
+                "value": true,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "乙方从具有合法披露权限的第三方处取得且无需承担保密义务的信息；"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.exception_mandatory",
+                "value": true,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "如乙方因法院、行政机关、监管机关或者其他依法享有调查、取证、监管权限的机构要求而必须提供相关资料，乙方应在法律允许的范围内及时通知甲方，并尽可能将披露范围控制在有权机关要求的最低必要限度。"
+                  },
+                  {
+                    "clause_id": "C0005",
+                    "quote": "依照前款规定进行的披露，不视为乙方违反本协议。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.use_restriction",
+                "value": "乙方仅可在完成甲方安排的工作任务所必需的范围内使用保密资料。未经甲方书面授权，乙方不得：向无权接触相关资料的个人或者机构提供、泄露、转发或者展示保密资料；将保密资料用于本人工作职责之外的项目、投资、经营或其他活动；将甲方内部文件复制、下载或转移至私人邮箱、个人云盘、个人移动存储设备或者其他未经授权的设备；利用甲方资料帮助第三方开发与甲方相同或类似的产品、服务；以其他方式使无权人员取得甲方保密资料。乙方因协作需要向甲方其他员工提供相关资料的，应限于工作确有必要的人员和范围，不得超出合理的内部知悉范围。",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方仅可在完成甲方安排的工作任务所必需的范围内使用保密资料。"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "未经甲方书面授权，乙方不得："
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "向无权接触相关资料的个人或者机构提供、泄露、转发或者展示保密资料；"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "将保密资料用于本人工作职责之外的项目、投资、经营或其他活动；"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "将甲方内部文件复制、下载或转移至私人邮箱、个人云盘、个人移动存储设备或者其他未经授权的设备；"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "利用甲方资料帮助第三方开发与甲方相同或类似的产品、服务；"
+                  },
+                  {
+                    "clause_id": "C0003",
+                    "quote": "以其他方式使无权人员取得甲方保密资料。"
+                  },
+                  {
+                    "clause_id": "C0004",
+                    "quote": "乙方因协作需要向甲方其他员工提供相关资料的，应限于工作确有必要的人员和范围，不得超出合理的内部知悉范围。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.duration",
+                "value": "乙方在职期间持续承担本协议约定的保密义务。劳动关系终止后：对依法构成商业秘密的信息，乙方仍应持续保密，直至相关信息合法公开或者不再符合商业秘密构成条件；对其他未公开的内部经营信息，乙方继续承担三年的保密义务。",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "乙方在职期间持续承担本协议约定的保密义务。"
+                  },
+                  {
+                    "clause_id": "C0006",
+                    "quote": "对依法构成商业秘密的信息，乙方仍应持续保密，直至相关信息合法公开或者不再符合商业秘密构成条件；"
+                  },
+                  {
+                    "clause_id": "C0006",
+                    "quote": "对其他未公开的内部经营信息，乙方继续承担三年的保密义务。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.return",
+                "value": "乙方离职、调岗或者甲方提出要求时，应在两个工作日内：将持有的甲方文件、设备、账号载体、存储介质及其他工作资料返还甲方；删除个人设备及个人网络空间中保存的甲方资料及复制件；根据甲方要求书面确认已完成资料返还、删除及账号交接。法律法规要求乙方依法留存的材料不受前述删除要求限制，但乙方仍不得擅自使用或披露。",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "乙方离职、调岗或者甲方提出要求时，应在两个工作日内："
+                  },
+                  {
+                    "clause_id": "C0007",
+                    "quote": "将持有的甲方文件、设备、账号载体、存储介质及其他工作资料返还甲方；"
+                  },
+                  {
+                    "clause_id": "C0007",
+                    "quote": "删除个人设备及个人网络空间中保存的甲方资料及复制件；"
+                  },
+                  {
+                    "clause_id": "C0007",
+                    "quote": "根据甲方要求书面确认已完成资料返还、删除及账号交接。"
+                  },
+                  {
+                    "clause_id": "C0007",
+                    "quote": "法律法规要求乙方依法留存的材料不受前述删除要求限制，但乙方仍不得擅自使用或披露。"
+                  }
+                ]
+              },
+              {
+                "concept": "nda.remedies",
+                "value": "乙方违反本协议，造成甲方损失的，应依法承担相应赔偿责任。赔偿范围以甲方能够证明的实际损失以及依法可以主张的合理维权费用为限。乙方发现保密资料可能发生遗失、误发、泄露、未经授权访问或者其他安全事件时，应立即通知甲方，并积极配合采取补救措施。",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "乙方违反本协议，造成甲方损失的，应依法承担相应赔偿责任。"
+                  },
+                  {
+                    "clause_id": "C0010",
+                    "quote": "赔偿范围以甲方能够证明的实际损失以及依法可以主张的合理维权费用为限。"
+                  },
+                  {
+                    "clause_id": "C0009",
+                    "quote": "乙方发现保密资料可能发生遗失、误发、泄露、未经授权访问或者其他安全事件时，应立即通知甲方，并积极配合采取补救措施。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 7629,
+            "completion_tokens": 3081,
+            "total_tokens": 10710,
+            "prompt_tokens_details": {
+              "cached_tokens": 3456
+            },
+            "prompt_cache_hit_tokens": 3456,
+            "prompt_cache_miss_tokens": 4173
+          },
+          "provider": "deepseek",
+          "active_concepts": [
+            "identity.employer_representative",
+            "identity.worker_address",
+            "identity.employer_name",
+            "identity.employer_address",
+            "identity.worker_name",
+            "identity.worker_id",
+            "penalties.obligations",
+            "non_compete.arrangement",
+            "non_compete.secret_access",
+            "non_compete.access_capability",
+            "non_compete.actual_access",
+            "ip.assignment_scope",
+            "ip.allocations",
+            "ip.personal_rights_waived",
+            "contract.employment_form",
+            "penalties.exclusions",
+            "worker.damage_liability",
+            "worker.security_payment",
+            "nda.employment_relationship",
+            "nda.party_one",
+            "nda.party_two",
+            "nda.information_flow",
+            "nda.protected_information",
+            "nda.exception_public",
+            "nda.exception_prior",
+            "nda.exception_independent",
+            "nda.exception_third_party",
+            "nda.exception_mandatory",
+            "nda.use_restriction",
+            "nda.duration",
+            "nda.return",
+            "nda.remedies"
+          ],
+          "agreement_type": "confidentiality"
+        }
+      ],
+      "raw_verification": null,
+      "verification_batches": [
+        {
+          "batch_id": 1,
+          "input_fact_ids": [
+            "EF-5f2526d0d5bd3707",
+            "EF-5b092c6c5c575d83",
+            "EF-4faf375ad5fe9000",
+            "EF-e3f9f9f560c008c6",
+            "EF-2a17b24afbedb381",
+            "EF-24b64dd16fa90bed",
+            "EF-98051eb349da69a7",
+            "EF-ed04fcfc7f4e719c",
+            "EF-57de7f1c0a565349",
+            "EF-30b52e6d54382336",
+            "EF-eb14689006bebd80",
+            "EF-f8d6df03e1158a78",
+            "EF-c9ad335d1c448bb1",
+            "EF-6b105d949874473c",
+            "EF-38fd896e51a90e39",
+            "EF-cfe62bc1eb41c876",
+            "EF-288d31093366a989"
+          ],
+          "required_concepts": [
+            "contract.employment_form",
+            "identity.employer_address",
+            "identity.employer_name",
+            "identity.employer_representative",
+            "identity.worker_address",
+            "identity.worker_id",
+            "identity.worker_name",
+            "ip.allocations",
+            "ip.assignment_scope",
+            "ip.personal_rights_waived",
+            "nda.duration",
+            "nda.employment_relationship",
+            "nda.exception_independent",
+            "nda.exception_mandatory",
+            "nda.exception_prior",
+            "nda.exception_public",
+            "nda.exception_third_party",
+            "nda.information_flow",
+            "nda.party_one",
+            "nda.party_two"
+          ],
+          "audit_owner": true,
+          "response": {
+            "verification_schema_version": "fact-verification-2",
+            "checks": [
+              {
+                "fact_id": "EF-5f2526d0d5bd3707",
+                "supported": true,
+                "reason": "C0001显示甲方为公司、乙方为员工并载明岗位，属直接招用；无派遣或非全日制约定。"
+              },
+              {
+                "fact_id": "EF-5b092c6c5c575d83",
+                "supported": true,
+                "reason": "C0001明确载明甲方住所为广东省深圳市南山区科技园科苑路88号。"
+              },
+              {
+                "fact_id": "EF-4faf375ad5fe9000",
+                "supported": true,
+                "reason": "C0001明确载明甲方为深圳云启智能科技有限公司。"
+              },
+              {
+                "fact_id": "EF-e3f9f9f560c008c6",
+                "supported": true,
+                "reason": "C0001明确载明乙方身份证号码44030519950426XXXX。"
+              },
+              {
+                "fact_id": "EF-2a17b24afbedb381",
+                "supported": true,
+                "reason": "C0001明确载明乙方为周启明。"
+              },
+              {
+                "fact_id": "EF-24b64dd16fa90bed",
+                "supported": true,
+                "reason": "C0008约定履行职务过程中形成的职务成果按法律规定、劳动合同及有效制度确定权利归属，属DUTY_OR_RESOURCES范围、STATUTORY方式，未指定具体权利人。"
+              },
+              {
+                "fact_id": "EF-98051eb349da69a7",
+                "supported": true,
+                "reason": "C0008明确针对履行职务过程中形成的成果，属DUTY_OR_RESOURCES范围。"
+              },
+              {
+                "fact_id": "EF-ed04fcfc7f4e719c",
+                "supported": true,
+                "reason": "C0006明确在职期间持续保密，离职后商业秘密持续至合法公开或不再符合条件，其他未公开内部经营信息继续保密三年。"
+              },
+              {
+                "fact_id": "EF-57de7f1c0a565349",
+                "supported": true,
+                "reason": "C0001载明乙方因履行工作职责接触甲方资料，C0011明确本协议与劳动合同共同构成劳动关系相关文件。"
+              },
+              {
+                "fact_id": "EF-30b52e6d54382336",
+                "supported": true,
+                "reason": "C0002明确将未利用甲方保密资料独立完成的信息或成果排除在保密资料之外。"
+              },
+              {
+                "fact_id": "EF-eb14689006bebd80",
+                "supported": true,
+                "reason": "C0005明确因法院、行政机关等有权机构要求必须提供资料并依法披露的，不视为违反协议。"
+              },
+              {
+                "fact_id": "EF-f8d6df03e1158a78",
+                "supported": true,
+                "reason": "C0002明确接触前已合法掌握并能提供证据的信息不属于保密资料。"
+              },
+              {
+                "fact_id": "EF-c9ad335d1c448bb1",
+                "supported": true,
+                "reason": "C0002明确接触前已合法进入公开领域的信息不属于保密资料。"
+              },
+              {
+                "fact_id": "EF-6b105d949874473c",
+                "supported": true,
+                "reason": "C0002明确从有合法披露权限且无需承担保密义务的第三方取得的信息不属于保密资料。"
+              },
+              {
+                "fact_id": "EF-38fd896e51a90e39",
+                "supported": true,
+                "reason": "C0001、C0002显示甲方保密资料由乙方因任职知悉，流向为甲方→乙方。"
+              },
+              {
+                "fact_id": "EF-cfe62bc1eb41c876",
+                "supported": true,
+                "reason": "C0001明确协议第一方甲方为深圳云启智能科技有限公司。"
+              },
+              {
+                "fact_id": "EF-288d31093366a989",
+                "supported": true,
+                "reason": "C0001明确协议第二方乙方为周启明。"
+              }
+            ],
+            "searched_concepts": [
+              "contract.employment_form",
+              "identity.employer_address",
+              "identity.employer_name",
+              "identity.employer_representative",
+              "identity.worker_address",
+              "identity.worker_id",
+              "identity.worker_name",
+              "ip.allocations",
+              "ip.assignment_scope",
+              "ip.personal_rights_waived",
+              "nda.duration",
+              "nda.employment_relationship",
+              "nda.exception_independent",
+              "nda.exception_mandatory",
+              "nda.exception_prior",
+              "nda.exception_public",
+              "nda.exception_third_party",
+              "nda.information_flow",
+              "nda.party_one",
+              "nda.party_two"
+            ],
+            "unresolved_concepts": [],
+            "additional_facts": [],
+            "absence_audits": [],
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011"
+            ]
+          },
+          "usage": {
+            "prompt_tokens": 14143,
+            "completion_tokens": 952,
+            "total_tokens": 15095,
+            "prompt_tokens_details": {
+              "cached_tokens": 1920
+            },
+            "prompt_cache_hit_tokens": 1920,
+            "prompt_cache_miss_tokens": 12223
+          },
+          "finish_reason": "stop"
+        },
+        {
+          "batch_id": 2,
+          "input_fact_ids": [
+            "EF-45f2eebec8fa3776",
+            "EF-ef654a31af354f9a",
+            "EF-081762ae85b49400",
+            "EF-bd0463532f1f5e72",
+            "EF-f4755aa0d246e968",
+            "EF-ae69e2606b6dbc68",
+            "EF-0afc3549644cca2e",
+            "EF-b491c838c76b8b8f",
+            "EF-0bbb6e1871c49df7"
+          ],
+          "required_concepts": [
+            "nda.protected_information",
+            "nda.remedies",
+            "nda.return",
+            "nda.use_restriction",
+            "non_compete.access_capability",
+            "non_compete.actual_access",
+            "non_compete.arrangement",
+            "non_compete.secret_access",
+            "penalties.exclusions",
+            "penalties.obligations",
+            "worker.damage_liability",
+            "worker.security_payment"
+          ],
+          "audit_owner": true,
+          "response": {
+            "verification_schema_version": "fact-verification-2",
+            "checks": [
+              {
+                "fact_id": "EF-45f2eebec8fa3776",
+                "supported": true,
+                "reason": "C0002逐项列举了源代码、模型参数、算法方案、训练数据、接口设计、数据库结构、服务器部署方案及技术文档；产品规划、研发计划、测试方案、业务流程及尚未公开的项目安排；客户资料、客户需求、报价信息、合作条件、交易数据及商务谈判内容；供应商信息、采购价格、成本数据、利润数据、经营分析及内部财务信息；甲方依据合同或者法律规定需要承担保密义务的第三方资料；其他依其性质或者甲方明确说明应当保密的信息，候选value与原文一致。"
+              },
+              {
+                "fact_id": "EF-ef654a31af354f9a",
+                "supported": true,
+                "reason": "C0010明确乙方违反本协议造成甲方损失应依法承担赔偿责任，赔偿范围以能够证明的实际损失及合理维权费用为限；C0009明确发现安全事件应立即通知并配合补救，候选value由原文支持。"
+              },
+              {
+                "fact_id": "EF-081762ae85b49400",
+                "supported": true,
+                "reason": "C0007明确离职、调岗或甲方提出要求时两个工作日内返还文件设备账号载体存储介质等、删除个人设备及网络空间中的甲方资料及复制件、书面确认返还删除及账号交接，并规定依法留存材料不受删除限制但不得擅自使用或披露，候选value与原文一致。"
+              },
+              {
+                "fact_id": "EF-bd0463532f1f5e72",
+                "supported": true,
+                "reason": "C0003明确仅可在完成工作任务必需范围内使用保密资料，未经书面授权不得向无权人员提供泄露转发展示、不得用于职责外活动、不得复制下载转移至私人邮箱云盘移动存储等未授权设备、不得帮助第三方开发相同或类似产品服务、不得以其他方式使无权人员取得；C0004明确内部协作限于确有必要人员和范围，候选value与原文一致。"
+              },
+              {
+                "fact_id": "EF-f4755aa0d246e968",
+                "supported": true,
+                "reason": "C0001载明乙方因履行工作职责将接触甲方尚未公开的技术、业务及经营资料，属于岗位具备接触商业秘密可能性的能力事实，候选value为true有原文支持。"
+              },
+              {
+                "fact_id": "EF-ae69e2606b6dbc68",
+                "supported": true,
+                "reason": "C0011明确本协议未约定离职后的竞业限制义务，如双方未来确有需要应另行依法签署竞业限制协议，属于未来另签的DEFERRED安排，候选value与原文一致。"
+              },
+              {
+                "fact_id": "EF-0afc3549644cca2e",
+                "supported": true,
+                "reason": "C0001明确乙方因履行工作职责将接触甲方尚未公开的技术、业务及经营资料，候选value引用原文，属于适用人员须接触秘密的资格前提或范围声明。"
+              },
+              {
+                "fact_id": "EF-b491c838c76b8b8f",
+                "supported": true,
+                "reason": "C0010明确双方未就违反一般保密义务另行约定固定金额违约金，属于对一般保密义务范围固定违约金的明示否定，候选对象kind、scope、basis均有原文支持。"
+              },
+              {
+                "fact_id": "EF-0bbb6e1871c49df7",
+                "supported": true,
+                "reason": "C0010明确乙方违反本协议造成甲方损失应依法承担相应赔偿责任，赔偿范围以能够证明的实际损失及合理维权费用为限，属于按实际损失赔偿而非预设违约金，候选对象kind、trigger、basis均有原文支持。"
+              }
+            ],
+            "searched_concepts": [
+              "nda.protected_information",
+              "nda.remedies",
+              "nda.return",
+              "nda.use_restriction",
+              "non_compete.access_capability",
+              "non_compete.actual_access",
+              "non_compete.arrangement",
+              "non_compete.secret_access",
+              "penalties.exclusions",
+              "penalties.obligations",
+              "worker.damage_liability",
+              "worker.security_payment"
+            ],
+            "unresolved_concepts": [],
+            "additional_facts": [],
+            "absence_audits": [],
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011"
+            ]
+          },
+          "usage": {
+            "prompt_tokens": 14858,
+            "completion_tokens": 912,
+            "total_tokens": 15770,
+            "prompt_tokens_details": {
+              "cached_tokens": 3968
+            },
+            "prompt_cache_hit_tokens": 3968,
+            "prompt_cache_miss_tokens": 10890
+          },
+          "finish_reason": "stop"
+        }
+      ]
+    }
+  ],
+  "trace_id": "FACT-098cb09562d147f183a2db91bcca3c5c"
+}

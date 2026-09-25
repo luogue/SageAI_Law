@@ -1,0 +1,54 @@
+{
+  "contract_type": "以完成一定工作任务为期限劳动合同",
+  "risk_theme_count": 3,
+  "rule_finding_count": 4,
+  "gate": "REPORT_READY",
+  "semantic_gate": "PASS",
+  "themes": [
+    {
+      "title": "试用期超过法定上限或重复约定",
+      "related_rule_ids": [
+        "EMP-15-01"
+      ]
+    },
+    {
+      "title": "用人单位单方认定任务完成并终止",
+      "related_rule_ids": [
+        "EMP-10-01",
+        "EMP-16-01"
+      ]
+    },
+    {
+      "title": "排除法定经济补偿",
+      "related_rule_ids": [
+        "EMP-11-01"
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "item_id": "EMP-15-01",
+      "title": "试用期超过法定上限或重复约定",
+      "coverage_status": "风险条款",
+      "evidence_location": "全文；第一条 合同期限"
+    },
+    {
+      "item_id": "EMP-10-01",
+      "title": "用人单位单方认定任务完成并终止",
+      "coverage_status": "风险条款",
+      "evidence_location": "第二条约定的主要开发任务已经完成"
+    },
+    {
+      "item_id": "EMP-11-01",
+      "title": "排除法定经济补偿",
+      "coverage_status": "风险条款",
+      "evidence_location": "第十四条 合同终止"
+    },
+    {
+      "item_id": "EMP-16-01",
+      "title": "用人单位单方认定任务完成并终止",
+      "coverage_status": "风险条款",
+      "evidence_location": "第二条约定的主要开发任务已经完成"
+    }
+  ]
+}

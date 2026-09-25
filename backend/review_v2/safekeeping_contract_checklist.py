@@ -155,3 +155,86 @@ SAFEKEEPING_REVIEW_CHECKLIST: Tuple[ReviewCheckpoint, ...] = (
 
 def get_safekeeping_checklist() -> Tuple[ReviewCheckpoint, ...]:
     return SAFEKEEPING_REVIEW_CHECKLIST
+
+
+# Declarative bindings to cross-domain facts; aggregation stays in the engine.
+from dataclasses import replace
+_LEGAL_TOPICS = {
+ 'safekeeping_contract_nature': ('custody_definition',),
+ 'safekeeping_keep_return_purpose': ('custody_definition','return_original_fruits'),
+ 'safekeeping_actual_control': ('custody_definition','custody_delivery_formation'),
+ 'safekeeping_venue_only_confusion': ('custody_definition',),
+ 'safekeeping_delivery_establishment': ('custody_delivery_formation',),
+ 'safekeeping_establishment_exception': ('custody_delivery_formation',),
+ 'safekeeping_delivery_receipt': ('custody_receipt',),
+ 'safekeeping_before_delivery_risk': ('pre_delivery_risk',),
+ 'safekeeping_item_name_quantity': ('subject_description',),
+ 'safekeeping_item_status': ('state_records',),
+ 'safekeeping_item_nature_requirement': ('defect_disclosure',),
+ 'safekeeping_item_value': ('value_assessment',),
+ 'safekeeping_fee_paid_or_unpaid': ('custody_fee_obligation',),
+ 'safekeeping_fee_unclear_default': ('unclear_custody_fee_default',),
+ 'safekeeping_proper_custody': ('proper_custody','custody_loss_liability'),
+ 'safekeeping_place_method': ('custody_method',),
+ 'safekeeping_place_method_change': ('custody_method',),
+ 'safekeeping_return_obligation': ('return_original_fruits','retrieval_right'),
+ 'safekeeping_depositor_disclosure': ('defect_disclosure',),
+ 'safekeeping_valuable_declaration': ('valuable_declaration',),
+ 'safekeeping_undeclared_valuable_consequence': ('valuable_declaration',),
+ 'safekeeping_depositor_packaging': ('packaging_assistance',),
+ 'safekeeping_paid_general_negligence': ('custody_loss_liability',),
+ 'safekeeping_unpaid_intent_gross': ('custody_loss_liability',),
+ 'safekeeping_loss_cause_evidence': ('state_records',),
+ 'safekeeping_overbroad_liability_clause': ('custody_loss_liability',),
+ 'safekeeping_no_transfer_to_third': ('unauthorized_subcustody',),
+ 'safekeeping_transfer_agreed_condition': ('unauthorized_subcustody',),
+ 'safekeeping_transfer_liability': ('unauthorized_subcustody','general_breach_liability'),
+ 'safekeeping_transfer_full_exemption': ('unauthorized_subcustody','authorized_subcustody_liability'),
+ 'safekeeping_lien_condition': ('custody_lien_source',),
+ 'safekeeping_lien_exclusion': ('custody_lien_source',),
+ 'safekeeping_consumptive_type': ('fungible_return',),
+ 'safekeeping_consumptive_return_rule': ('fungible_return',),
+ 'safekeeping_currency_interest': ('income_agreement',),
+ 'safekeeping_consumptive_mixing': ('fungible_return',),
+ 'safekeeping_depositor_anytime_retrieval': ('retrieval_right',),
+ 'safekeeping_return_item_fruits': ('return_original_fruits',),
+ 'safekeeping_return_procedure': ('retrieval_procedure',),
+ 'safekeeping_overdue_retrieval': ('overdue_payment_context','overdue_retrieval_context','extra_fee_arrangement','overdue_retrieval','necessary_disposal_costs'),
+ 'safekeeping_item_list_attachment': ('subject_description','written_attachments'),
+ 'safekeeping_photo_video_attachment': ('state_records',),
+ 'safekeeping_special_instruction_attachment': ('defect_disclosure','written_attachments'),
+ 'safekeeping_attachment_priority': ('attachment_precedence','intent_interpretation'),
+ 'safekeeping_fee_amount_payment': ('custody_fee_obligation','remuneration_payment','performance_cooperation','unclear_contract_terms'),
+ 'safekeeping_fee_extra_costs': ('performance_cooperation','unclear_contract_terms'),
+ 'safekeeping_lien_notice_scope': ('divisible_lien_scope','lien_realization_period','custody_lien_source'),
+ 'safekeeping_improper_lien': ('divisible_lien_scope','lien_same_relationship','custody_lien_source'),
+}
+SAFEKEEPING_REVIEW_CHECKLIST=tuple(replace(c,legal_basis_topics=_LEGAL_TOPICS[c.node_id],legal_basis_domain='custody') if c.node_id in _LEGAL_TOPICS else c for c in SAFEKEEPING_REVIEW_CHECKLIST)
+from review_v2.shared_fact_concepts import register
+_CONCEPT_BINDINGS = {
+ 'safekeeping_loss_cause_evidence': ('movement_records','retained_visual_records'),
+ 'safekeeping_return_procedure': ('handover_receipt','retrieval_workflow','signed_handover_record'),
+ 'safekeeping_photo_video_attachment': ('retained_visual_records','acceptance_record'),
+ 'safekeeping_return_item_fruits': ('return_entrusted_property','return_property_fruits'),
+ 'safekeeping_depositor_packaging': ('depositor_packaging_duty','depositor_delivery_assistance'),
+ 'safekeeping_keep_return_purpose': ('return_entrusted_property',),
+ 'safekeeping_fee_unclear_default': ('uncertain_remuneration_default',),
+ 'safekeeping_no_transfer_to_third': ('unauthorized_delegation_control',),
+ 'safekeeping_transfer_liability': ('unauthorized_delegation_liability','authorized_delegation_liability'),
+ 'safekeeping_unpaid_intent_gross': ('gratuitous_fault_standard',),
+ 'safekeeping_actual_control': ('accepted_handover','custody_duty'),
+ 'safekeeping_delivery_receipt': ('handover_receipt',),
+ 'safekeeping_fee_extra_costs': ('incidental_service_fees','overdue_service_fees','disposal_cost_allocation','expense_verification'),
+ 'safekeeping_paid_general_negligence': ('custody_negligence_compensation',),
+ 'safekeeping_attachment_priority': ('attachment_effect','document_precedence'),
+ 'safekeeping_lien_exclusion': ('lien_exclusion',),
+}
+for _node, _keys in _CONCEPT_BINDINGS.items(): register(_node, _keys)
+SAFEKEEPING_REVIEW_CHECKLIST = tuple(replace(c, fact_concepts=_CONCEPT_BINDINGS[c.node_id],
+    optional_trigger_patterns=(r'(?:排除|限制|放弃)留置权|不得留置|禁止扣留',) if c.node_id=='safekeeping_lien_exclusion' else (),
+    applicable_if='存在排除或限制留置权的特别安排时适用' if c.node_id=='safekeeping_lien_exclusion' else c.applicable_if)
+    if c.node_id in _CONCEPT_BINDINGS else c for c in SAFEKEEPING_REVIEW_CHECKLIST)
+
+SAFEKEEPING_REVIEW_CHECKLIST = tuple(replace(c, unless_fact_concepts=('remuneration_determinable',),
+    applicable_if='报酬是否有偿或金额、计算方式无法确定时适用')
+    if c.node_id=='safekeeping_fee_unclear_default' else c for c in SAFEKEEPING_REVIEW_CHECKLIST)

@@ -118,4 +118,6 @@ def test_safekeeping_special_scenario_points_are_not_applicable_when_absent():
         assert by_id[item_id]["issue_type"] == ISSUE_NOT_APPLICABLE
         assert by_id[item_id]["risk_level"] == COVERAGE_NOT_APPLICABLE
 
-    assert output["summary"]["高"] + output["summary"]["中"] + output["summary"]["低"] == 48 - 6
+    assert by_id["D-04-04"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+    assert by_id["D-09-03"]["coverage_status"] == COVERAGE_NOT_APPLICABLE
+    assert output["summary"]["高"] + output["summary"]["中"] + output["summary"]["低"] == 48 - 8

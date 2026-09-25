@@ -165,7 +165,7 @@ async def login(request: LoginRequest, req: Request) -> Dict[str, Any]:
 @router.get("/me")
 async def get_current_user_info(user_id: int = Depends(get_current_user)):
     """获取当前用户信息"""
-    from ..storage import get_user_by_id
+    from storage.crud import get_user_by_id
     user = get_user_by_id(user_id)
     if not user:
         raise HTTPException(status_code=404, detail="用户不存在")

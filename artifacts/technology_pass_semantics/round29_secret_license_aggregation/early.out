@@ -1,0 +1,57 @@
+..................F..................................................... [ 69%]
+...............................                                          [100%]
+================================== FAILURES ===================================
+_ test_duty_exception_hypothesis_and_absence_are_not_present_secret_status[\u5982\u679c\u6280\u672f\u79d8\u5bc6\u5df2\u8fdb\u5165\u516c\u5171\u9886\u57df\uff0c\u5e94\u901a\u77e5\u4e59\u65b9\u3002] _
+
+text = '如果技术秘密已进入公共领域，应通知乙方。'
+
+    @pytest.mark.parametrize('text', [
+        '本合同终止后，乙方仍应对尚未公开的技术秘密承担保密责任。',
+        '非因乙方违反合同而进入公共领域的信息不承担保密义务。',
+        '如果技术秘密已进入公共领域，应通知乙方。',
+        '双方未明确技术秘密当前仍具秘密性。',
+    ])
+    def test_duty_exception_hypothesis_and_absence_are_not_present_secret_status(text):
+        e=proof(text)['current_secret_status']
+>       assert e['status']=='MISSING' and not e['supporting_evidence']
+E       AssertionError: assert ('PARTIALLY_COVERED' == 'MISSING'
+E         
+E         - MISSING
+E         + PARTIALLY_COVERED)
+
+backend\tests\test_secret_license_proof_aggregation.py:39: AssertionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:159
+  F:\ai\Sage\backend\main.py:159: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_secret_license_proof_aggregation.py::test_duty_exception_hypothesis_and_absence_are_not_present_secret_status[\u5982\u679c\u6280\u672f\u79d8\u5bc6\u5df2\u8fdb\u5165\u516c\u5171\u9886\u57df\uff0c\u5e94\u901a\u77e5\u4e59\u65b9\u3002]
+1 failed, 102 passed, 5 warnings in 65.00s (0:01:04)

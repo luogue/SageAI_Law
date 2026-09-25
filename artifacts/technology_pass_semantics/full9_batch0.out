@@ -1,0 +1,394 @@
+.F...F.F....F.......FFFFFFFF..F....F.FF...F..FFFFFFFFF...............F.. [ 50%]
+FFF........FFFF............F.F..FF.F.F.F.FF............................. [100%]
+================================== FAILURES ===================================
+___________ test_patent_transfer_golden_matrix_semantic_invariants ____________
+backend\tests\test_patent_right_transfer_contract_review.py:111: in test_patent_transfer_golden_matrix_semantic_invariants
+    assert output["coverage_summary"] == manifest["coverage_summary"]
+E   AssertionError: assert {'通过': 8, '不适...部分覆盖': 5, ...} == {'通过': 17, '不... '缺失': 2, ...}
+E     
+E     Differing items:
+E     {'缺失': 3} != {'缺失': 2}
+E     {'通过': 8} != {'通过': 17}
+E     {'风险条款': 9} != {'风险条款': 8}
+E     {'不适用': 31} != {'不适用': 30}
+E     {'部分覆盖': 5} != {'部分覆盖': 1}...
+E     
+E     ...Full output truncated (3 lines hidden), use '-vv' to show
+___ test_patent_transfer_coverage_distinguishes_presence_from_adverse_terms ___
+backend\tests\test_patent_right_transfer_contract_review.py:183: in test_patent_transfer_coverage_distinguishes_presence_from_adverse_terms
+    assert by_id[item_id]["coverage_presence"] == "PRESENT"
+E   AssertionError: assert 'PARTIAL' == 'PRESENT'
+E     
+E     - PRESENT
+E     + PARTIAL
+________ test_default_law_and_negative_assertions_for_patent_transfer _________
+backend\tests\test_patent_right_transfer_contract_review.py:228: in test_default_law_and_negative_assertions_for_patent_transfer
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_____ test_patent_gold_closure_review_semantics_links_and_economic_impact _____
+backend\tests\test_patent_right_transfer_contract_review.py:304: in test_patent_gold_closure_review_semantics_links_and_economic_impact
+    assert "transferee_infringement_liability_shift" in linked_groups
+E   AssertionError: assert 'transferee_infringement_liability_shift' in set()
+_ test_explicit_confidentiality_breach_liability_is_present_with_dedicated_fact_type _
+backend\tests\test_patent_right_transfer_contract_review.py:446: in test_explicit_confidentiality_breach_liability_is_present_with_dedicated_fact_type
+    assert item["coverage_presence"] == "PRESENT"
+E   AssertionError: assert 'PARTIAL' == 'PRESENT'
+E     
+E     - PRESENT
+E     + PARTIAL
+__ test_general_any_breach_liability_is_partial_without_confidentiality_link __
+backend\tests\test_patent_right_transfer_contract_review.py:456: in test_general_any_breach_liability_is_partial_without_confidentiality_link
+    assert item["coverage_presence"] == "PARTIAL"
+E   AssertionError: assert 'MISSING' == 'PARTIAL'
+E     
+E     - PARTIAL
+E     + MISSING
+_ test_partial_without_a_concrete_gap_is_promoted_to_pass_and_cannot_create_a_finding _
+backend\tests\test_patent_right_transfer_contract_review.py:505: in test_partial_without_a_concrete_gap_is_promoted_to_pass_and_cannot_create_a_finding
+    assert item.coverage_status == "通过"
+E   AssertionError: assert '缺失' == '通过'
+E     
+E     - 通过
+E     + 缺失
+_ test_partial_with_a_concrete_missing_element_and_tc_11_04_evidence_remain_unchanged _
+backend\tests\test_patent_right_transfer_contract_review.py:542: in test_partial_with_a_concrete_missing_element_and_tc_11_04_evidence_remain_unchanged
+    assert item.coverage_status == "部分覆盖"
+E   AssertionError: assert '缺失' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 缺失
+_ test_patent_gold_confidentiality_liability_uses_a_complete_two_clause_evidence_chain _
+backend\tests\test_patent_right_transfer_contract_review.py:553: in test_patent_gold_confidentiality_liability_uses_a_complete_two_clause_evidence_chain
+    assert item["coverage_presence"] == "PARTIAL"
+E   AssertionError: assert 'MISSING' == 'PARTIAL'
+E     
+E     - PARTIAL
+E     + MISSING
+_ test_patent_gold_optional_recommendations_and_report_language_close_cleanly _
+backend\tests\test_patent_right_transfer_contract_review.py:643: in test_patent_gold_optional_recommendations_and_report_language_close_cleanly
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_ test_current_patent_transfer_registration_feasibility_blocker_is_core_risk __
+backend\tests\test_patent_right_transfer_contract_review.py:672: in test_current_patent_transfer_registration_feasibility_blocker_is_core_risk
+    assert registration["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '缺失' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 缺失
+_ test_current_patent_transfer_ancillary_service_materials_and_domestic_scope_are_fact_driven _
+backend\tests\test_patent_right_transfer_contract_review.py:693: in test_current_patent_transfer_ancillary_service_materials_and_domestic_scope_are_fact_driven
+    assert by_id["TC-09-01"]["coverage_status"] == "通过"
+E   AssertionError: assert '部分覆盖' == '通过'
+E     
+E     - 通过
+E     + 部分覆盖
+_ test_report_missing_notice_is_conditionally_rendered_from_existing_coverage_summary _
+backend\tests\test_patent_right_transfer_contract_review.py:780: in test_report_missing_notice_is_conditionally_rendered_from_existing_coverage_summary
+    assert current["coverage_summary"].get("缺失", 0) == 0
+E   AssertionError: assert 4 == 0
+E    +  where 4 = <built-in method get of dict object at 0x000001503ECEE240>('缺失', 0)
+E    +    where <built-in method get of dict object at 0x000001503ECEE240> = {'缺失': 4, '通过': 7, '不适用': 32, '待核验': 4, ...}.get
+____________ test_fixture_classification_context_and_applicability ____________
+backend\tests\test_technical_service_contract_review.py:90: in test_fixture_classification_context_and_applicability
+    assert by_id["TC-13-03"]["coverage_status"] == "通过"
+E   AssertionError: assert '部分覆盖' == '通过'
+E     
+E     - 通过
+E     + 部分覆盖
+__________ test_fixture_formula_timeline_evidence_and_report_quality __________
+backend\tests\test_technical_service_contract_review.py:131: in test_fixture_formula_timeline_evidence_and_report_quality
+    assert output["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_________________ test_fixture_matches_frozen_gold_semantics __________________
+backend\tests\test_technical_service_contract_review.py:148: in test_fixture_matches_frozen_gold_semantics
+    assert all(by_id[item_id]["coverage_status"] == "通过" for item_id in gold["required_attachment_review_ids"])
+E   assert False
+E    +  where False = all(<generator object test_fixture_matches_frozen_gold_semantics.<locals>.<genexpr> at 0x000001503CA968F0>)
+_ test_material_delivery_method_is_covered_but_version_and_schedule_gaps_remain _
+backend\tests\test_patent_license_latest_report_regressions.py:85: in test_material_delivery_method_is_covered_but_version_and_schedule_gaps_remain
+    assert elements["delivery_method"]["status"] == "COVERED"
+E   KeyError: 'delivery_method'
+_____ test_cross_reference_subject_mismatch_is_bound_to_source_and_target _____
+backend\tests\test_patent_license_latest_report_regressions.py:117: in test_cross_reference_subject_mismatch_is_bound_to_source_and_target
+    assert "按照第七条约定执行" in acceptance["risk_point_description"]
+E   AssertionError: assert '按照第七条约定执行' in '合同未明确：验收标准；验收方法；测试用例要求；测试报告交付；验收记录要求；验收争议的第三方检测或复测机制。'
+_____ test_tc1303_positive_elements_have_element_specific_direct_evidence _____
+backend\tests\test_patent_license_latest_report_regressions.py:134: in test_tc1303_positive_elements_have_element_specific_direct_evidence
+    assert elements["quantitative_metrics"]["status"] == "MISSING"
+E   KeyError: 'quantitative_metrics'
+______ test_tc1303_cross_reference_bundle_and_issue_type_are_consistent _______
+backend\tests\test_patent_license_latest_report_regressions.py:151: in test_tc1303_cross_reference_bundle_and_issue_type_are_consistent
+    assert item["issue_type"] == "CONFLICTING"
+E   AssertionError: assert 'MISSING' == 'CONFLICTING'
+E     
+E     - CONFLICTING
+E     + MISSING
+________ test_tc1303_recommendation_does_not_invent_a_named_attachment ________
+backend\tests\test_patent_license_latest_report_regressions.py:165: in test_tc1303_recommendation_does_not_invent_a_named_attachment
+    assert "验收测试附件或专项测试方案" in finding["recommendation"]
+E   AssertionError: assert '验收测试附件或专项测试方案' in '建议补充明确验收标准；补充明确验收方法；补充明确测试用例要求；补充明确测试报告交付；补充明确验收记录要求；约定测试结果争议时共同委托有资质的第三方检测机构复测，并明确检测结果的效力和费用承担。'
+___________ test_tc0201_final_claims_do_not_exceed_direct_evidence ____________
+backend\tests\test_patent_license_latest_report_regressions.py:176: in test_tc0201_final_claims_do_not_exceed_direct_evidence
+    assert elements["forced_free_improvement_transfer"]["evidence_ids"] == ["C0019"]
+E   AssertionError: assert ['C0018'] == ['C0019']
+E     
+E     At index 0 diff: 'C0018' != 'C0019'
+E     Use -v to get more diff
+_ test_improvement_claims_bind_the_actual_forced_transfer_clause[TC-10-01-licensee_independent_improvement_ownership] _
+backend\tests\test_patent_license_latest_report_regressions.py:207: in test_improvement_claims_bind_the_actual_forced_transfer_clause
+    source = next(row for row in item["evidence_clauses"] if row.get("clause_id") == "C0019")
+E   StopIteration
+_ test_improvement_claims_bind_the_actual_forced_transfer_clause[TC-10-02-licensee_improvement_ownership] _
+backend\tests\test_patent_license_latest_report_regressions.py:207: in test_improvement_claims_bind_the_actual_forced_transfer_clause
+    source = next(row for row in item["evidence_clauses"] if row.get("clause_id") == "C0019")
+E   StopIteration
+_ test_improvement_claims_bind_the_actual_forced_transfer_clause[TC-10-04-forced_free_ownership_transfer] _
+backend\tests\test_patent_license_latest_report_regressions.py:207: in test_improvement_claims_bind_the_actual_forced_transfer_clause
+    source = next(row for row in item["evidence_clauses"] if row.get("clause_id") == "C0019")
+E   StopIteration
+__ test_aggregated_improvement_finding_has_a_complete_direct_evidence_bundle __
+backend\tests\test_patent_license_latest_report_regressions.py:223: in test_aggregated_improvement_finding_has_a_complete_direct_evidence_bundle
+    assert fact_types == {
+E   AssertionError: assert {'FREE_TRANSF...ship_written'} == {'FREE_TRANSF...HIP_TRANSFER'}
+E     
+E     Extra items in the left set:
+E     'improvement_ownership_written'
+E     Use -v to get more diff
+________ test_case_k2_explicit_recordal_party_and_deadline_are_covered ________
+backend\tests\test_non_patent_technology_transfer_contract_review.py:210: in test_case_k2_explicit_recordal_party_and_deadline_are_covered
+    assert item["coverage_status"] == "通过"
+E   AssertionError: assert '待核验' == '通过'
+E     
+E     - 通过
+E     + 待核验
+_ test_current_full_review_is_report_ready_and_uses_non_patent_transfer_language _
+backend\tests\test_non_patent_technology_transfer_contract_review.py:244: in test_current_full_review_is_report_ready_and_uses_non_patent_transfer_language
+    assert transfer_review["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_________ test_current_transfer_report_respects_the_evidence_ceiling __________
+backend\tests\test_non_patent_technology_transfer_contract_review.py:275: in test_current_transfer_report_respects_the_evidence_ceiling
+    assert proof["joint_holder_disclosure"]["status"] == "MISSING"
+E   AssertionError: assert 'CONDITION_UNRESOLVED' == 'MISSING'
+E     
+E     - MISSING
+E     + CONDITION_UNRESOLVED
+_______ test_partial_proof_narrative_does_not_claim_complete_disclosure _______
+backend\tests\test_non_patent_technology_transfer_contract_review.py:295: in test_partial_proof_narrative_does_not_claim_complete_disclosure
+    assert "技术秘密的历史披露对象已有部分约定，但仍未完整列明" in judgment
+E   AssertionError: assert '技术秘密的历史披露对象已有部分约定，但仍未完整列明' in '已覆盖：技术秘密的名称、技术边界、资料范围及交付内容可独立核验；仅部分明确：合同已披露部分第三方使用对象，但完整的历史披露对象清单尚不完整；合同已记载部分历史披露安排，但历史披露的具体技术内容和范围尚不完整；尚未覆盖：技术秘密研发来源...担保密义务的协议或承诺可供核验；既有许可情况披露；既有许可的相对方；既有许可期限；既有许可地域；测试使用安排披露；其他第三方使用安排披露；当前秘密性及既有披露影响的核验依据；转让前已经采取的保密制度、访问控制或其他保密措施有可核验依据。'
+____ test_current_contract_reports_asymmetric_caps_instead_of_missing_cap _____
+backend\tests\test_patent_license_liability_caps.py:105: in test_current_contract_reports_asymmetric_caps_instead_of_missing_cap
+    assert "重新平衡双方责任上限" in item["suggested_clause_example"]
+E   AssertionError: assert '重新平衡双方责任上限' in '建议补充明确第三方侵权直接损失或特定过错损失已有分配；调整以下已确认的不利安排：许可方责任上限已明确为已支付许可费的20%；补充明确被许可方承担的侵权损失责任未设置总额上限；调整以下已确认的不利安排：双方责任范围和责任上限明显不对等；明确故意、重大过失及未披露权利瑕疵等例外；明确退款、损失赔偿和违约金之间的抵扣或并用关系；明确各项侵权救济是否累计适用。'
+__________ test_gold_routes_raw_docx_to_technology_license_not_sale ___________
+backend\tests\test_technology_license_primary_transaction.py:71: in test_gold_routes_raw_docx_to_technology_license_not_sale
+    model = classification["primary_transaction_model"]
+E   KeyError: 'primary_transaction_model'
+---------------------------- Captured stdout setup ----------------------------
+Redis连接失败: Timeout connecting to server
+---------------------------- Captured stderr setup ----------------------------
+2026-09-14 06:37:24 - security.sensitive_filter - INFO - [unknown] - 已清理 0 条超过 90 天的拦截日志
+2026-09-14 06:37:24 - main - INFO - [unknown] - 启动时清理了 0 条过期拦截日志
+2026-09-14 06:37:26 - main - INFO - [unknown] - Redis连接失败，已切换到内存模式，后续请求无延迟
+2026-09-14 06:37:26 - security.output_guard - INFO - [unknown] - [OUTPUT_GUARD] 初始化完成: 系统提示词长度=4633, 片段哈希数量=4584, 完整哈希=13c9684b6d3e79c1...
+2026-09-14 06:37:26 - main - INFO - [unknown] - [STARTUP] 输出安全守卫初始化完成: 片段哈希数=4584
+2026-09-14 06:37:26 - security.injection_detector - INFO - [unknown] - [INJECTION_DETECTOR] 已加载 70 个注入检测模式
+2026-09-14 06:37:26 - main - INFO - [unknown] - [STARTUP] 注入检测器初始化完成
+2026-09-14 06:37:26 - layers.legal_check_layer - INFO - [unknown] - [MCP_ADAPTER] MCP 客户端已初始化
+2026-09-14 06:37:26 - main - INFO - [unknown] - [STARTUP] 法条校验层初始化完成
+2026-09-14 06:37:27 - routers.review_v2 - WARNING - [e54f1885] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=19 技术许可.docx stage=source_document used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+2026-09-14 06:37:27 - routers.review_v2 - WARNING - [e54f1885] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=19 技术许可.docx stage=extracted_full_text used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+2026-09-14 06:37:27 - routers.review_v2 - WARNING - [e54f1885] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=19 技术许可.docx stage=normalized_full_text used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+2026-09-14 06:37:27 - routers.review_v2 - WARNING - [e54f1885] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=19 技术许可.docx stage=classifier_input used=False chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+2026-09-14 06:37:27 - routers.review_v2 - WARNING - [e54f1885] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=19 技术许可.docx stage=clause_extraction_input used=False chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+2026-09-14 06:37:27 - routers.review_v2 - WARNING - [e54f1885] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=19 技术许可.docx stage=rule_engine_input used=False chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+2026-09-14 06:37:27 - routers.review_v2 - WARNING - [e54f1885] - [REVIEW_INPUT_INTEGRITY] trace_id= filename=19 技术许可.docx stage=search_audit_input used=False chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+2026-09-14 06:37:27 - routers.review_v2 - WARNING - [e54f1885] - [REVIEW_INPUT_INTEGRITY_GATE] trace_id= filename=19 技术许可.docx status=PASS failures=[] anchors={'专利技术': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '许可方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '接受方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '非独占': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '提成费': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '专利资料': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '中国国际经济贸易仲裁委员会': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '不可抗力': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '专利失效': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '专利费用': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '侵权': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': None, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+2026-09-14 06:37:38 - routers.review_v2 - WARNING - [e54f1885] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063727-8DCC05 filename=19 技术许可.docx stage=source_document used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+2026-09-14 06:37:38 - routers.review_v2 - WARNING - [e54f1885] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063727-8DCC05 filename=19 技术许可.docx stage=extracted_full_text used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+2026-09-14 06:37:38 - routers.review_v2 - WARNING - [e54f1885] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063727-8DCC05 filename=19 技术许可.docx stage=normalized_full_text used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+2026-09-14 06:37:38 - routers.review_v2 - WARNING - [e54f1885] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063727-8DCC05 filename=19 技术许可.docx stage=classifier_input used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+2026-09-14 06:37:38 - routers.review_v2 - WARNING - [e54f1885] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063727-8DCC05 filename=19 技术许可.docx stage=clause_extraction_input used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+2026-09-14 06:37:38 - routers.review_v2 - WARNING - [e54f1885] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063727-8DCC05 filename=19 技术许可.docx stage=rule_engine_input used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+2026-09-14 06:37:38 - routers.review_v2 - WARNING - [e54f1885] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063727-8DCC05 filename=19 技术许可.docx stage=search_audit_input used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+2026-09-14 06:37:38 - routers.review_v2 - WARNING - [e54f1885] - [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063727-8DCC05 filename=19 技术许可.docx stage=clause_extraction_output used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+2026-09-14 06:37:38 - routers.review_v2 - WARNING - [e54f1885] - [REVIEW_INPUT_INTEGRITY_GATE] trace_id=CR-20260914-063727-8DCC05 filename=19 技术许可.docx status=PASS failures=[] anchors={'专利技术': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '许可方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '接受方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '非独占': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '提成费': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '专利资料': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '中国国际经济贸易仲裁委员会': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '不可抗力': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '专利失效': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '专利费用': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '侵权': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': 1.0, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+2026-09-14 06:37:38 - routers.review_v2 - WARNING - [e54f1885] - [TRACE_REVIEW_V2] pid=6768 pipeline=canonical-review-v2-production-6.4 classifier=technical-transaction-classifier-v3-single-source evaluator=canonical-review-evaluator-6.4-single-classification ruleset=review-v2-rules-quality3-2026-08-11 entry=F:\ai\Sage\backend\routers\review_v2.py:1382 engine=F:\ai\Sage\backend\review_v2\engine.py:51991 subtype=GENERAL_GOODS_SALE classifier_executions=1 registry_id=1444054959456 evidence_impl=technical-consulting-evidence-v2.1-active-path doc_hash=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 confidentiality=True
+2026-09-14 06:37:38 - routers.review_v2 - INFO - [e54f1885] - [REVIEW_RELEASE_GATE] review_id=CR-20260914-063727-8DCC05 pid=6768 runtime=CURRENT status=BLOCKED failures=['COMMON_REVIEW_SATISFACTION_GATE', 'PRODUCTION_INTERNAL_TOKEN_GATE']
+2026-09-14 06:37:39 - sageai - INFO - [e54f1885] - {"type": "request", "request_id": "e54f1885", "user_id": "anoxxx", "ip": "unknown", "path": "/review-v2/file", "method": "POST", "duration_ms": 12803.98, "status_code": 200, "error": null}
+2026-09-14 06:37:39 - httpx - INFO - [unknown] - HTTP Request: POST http://testserver/review-v2/file "HTTP/1.1 200 OK"
+----------------------------- Captured log setup ------------------------------
+INFO     security.sensitive_filter:sensitive_filter.py:223 已清理 0 条超过 90 天的拦截日志
+INFO     main:main.py:163 启动时清理了 0 条过期拦截日志
+INFO     main:main.py:172 Redis连接失败，已切换到内存模式，后续请求无延迟
+INFO     security.output_guard:output_guard.py:141 [OUTPUT_GUARD] 初始化完成: 系统提示词长度=4633, 片段哈希数量=4584, 完整哈希=13c9684b6d3e79c1...
+INFO     main:main.py:182 [STARTUP] 输出安全守卫初始化完成: 片段哈希数=4584
+INFO     security.injection_detector:injection_detector.py:107 [INJECTION_DETECTOR] 已加载 70 个注入检测模式
+INFO     main:main.py:189 [STARTUP] 注入检测器初始化完成
+INFO     layers.legal_check_layer:legal_check_layer.py:171 [MCP_ADAPTER] MCP 客户端已初始化
+INFO     main:main.py:209 [STARTUP] 法条校验层初始化完成
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=19 技术许可.docx stage=source_document used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=19 技术许可.docx stage=extracted_full_text used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=19 技术许可.docx stage=normalized_full_text used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=19 技术许可.docx stage=classifier_input used=False chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=19 技术许可.docx stage=clause_extraction_input used=False chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=19 技术许可.docx stage=rule_engine_input used=False chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id= filename=19 技术许可.docx stage=search_audit_input used=False chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+WARNING  routers.review_v2:input_integrity.py:291 [REVIEW_INPUT_INTEGRITY_GATE] trace_id= filename=19 技术许可.docx status=PASS failures=[] anchors={'专利技术': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '许可方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '接受方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '非独占': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '提成费': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '专利资料': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '中国国际经济贸易仲裁委员会': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '不可抗力': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}, '专利失效': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '专利费用': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False}, '侵权': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': None, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063727-8DCC05 filename=19 技术许可.docx stage=source_document used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063727-8DCC05 filename=19 技术许可.docx stage=extracted_full_text used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063727-8DCC05 filename=19 技术许可.docx stage=normalized_full_text used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063727-8DCC05 filename=19 技术许可.docx stage=classifier_input used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063727-8DCC05 filename=19 技术许可.docx stage=clause_extraction_input used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063727-8DCC05 filename=19 技术许可.docx stage=rule_engine_input used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063727-8DCC05 filename=19 技术许可.docx stage=search_audit_input used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+WARNING  routers.review_v2:input_integrity.py:277 [REVIEW_INPUT_INTEGRITY] trace_id=CR-20260914-063727-8DCC05 filename=19 技术许可.docx stage=clause_extraction_output used=True chars=8274 compact_chars=7571 paragraphs=566 sha256=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 head='技术许可合同\n合同号：TL-2026-BJ-DE-001\n签约时间：2026年10月15日\n签约地点：中国北京市朝阳区\n受让方：北京智恒工业科技有限公司\n统一社会信用代码：91110105MA01X7K82R\n注册地址：中国北京市朝阳区科创路88号\n出让方：TechForm Automation GmbH\n注册地：德国慕尼黑\n注册号：HRB 258936\n注册地址：Industriestrasse 28, 80331 Munich, Germany\n鉴于：\n出让方合法拥有TF-800智能高速包装生产线相关机械结构设计、电气控制系统、PLC控制程序、设备调试工艺、故障诊断技术及相关制造工艺；\n出' tail='1,200美元/人/工作日。\n预计服务费用：\n144,000美元。\n附件五：人员培训方案\n培训地点：\n德国慕尼黑TechForm Automation GmbH工厂。\n培训人数：\n6人。\n培训期限：\n每人20个工作日。\n培训费用：\n800美元/人/工作日。\n预计培训费用：\n96,000美元。\n培训内容：\n机械设计；\n电气控制；\nPLC软件；\n设备调试；\n设备维修；\n故障诊断。\n受让方：北京智恒工业科技有限公司\n授权代表：张伟\n签字：\n日期：2026年10月15日\n出让方：TechForm Automation GmbH\n授权代表：Thomas Keller\n签字：\n日期：2026年10月15日'
+WARNING  routers.review_v2:input_integrity.py:291 [REVIEW_INPUT_INTEGRITY_GATE] trace_id=CR-20260914-063727-8DCC05 filename=19 技术许可.docx status=PASS failures=[] anchors={'专利技术': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '许可方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '接受方': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '非独占': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '提成费': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '专利资料': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '中国国际经济贸易仲裁委员会': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '不可抗力': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}, '专利失效': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '专利费用': {'source_document': False, 'extracted_full_text': False, 'normalized_full_text': False, 'classifier_input': False, 'clause_extraction_input': False, 'rule_engine_input': False, 'search_audit_input': False, 'clause_extraction_output': False}, '侵权': {'source_document': True, 'extracted_full_text': True, 'normalized_full_text': True, 'classifier_input': True, 'clause_extraction_input': True, 'rule_engine_input': True, 'search_audit_input': True, 'clause_extraction_output': True}} lineage={'source_to_extracted_retention': 1.0, 'extracted_to_normalized_retention': 1.0, 'clause_extraction_output_retention': 1.0, 'extracted_to_normalized_same_hash': True, 'classifier_rule_same_hash': True, 'normalized_classifier_same_hash': True, 'normalized_clause_extraction_same_hash': True, 'normalized_rule_engine_same_hash': True, 'normalized_search_audit_same_hash': True, 'single_full_text_source': True}
+WARNING  routers.review_v2:review_v2.py:1556 [TRACE_REVIEW_V2] pid=6768 pipeline=canonical-review-v2-production-6.4 classifier=technical-transaction-classifier-v3-single-source evaluator=canonical-review-evaluator-6.4-single-classification ruleset=review-v2-rules-quality3-2026-08-11 entry=F:\ai\Sage\backend\routers\review_v2.py:1382 engine=F:\ai\Sage\backend\review_v2\engine.py:51991 subtype=GENERAL_GOODS_SALE classifier_executions=1 registry_id=1444054959456 evidence_impl=technical-consulting-evidence-v2.1-active-path doc_hash=800d09b9a40ec8cbaa7d66f2d9fa97c06ca3c5d8646ecac15f076ec799c2aa18 confidentiality=True
+INFO     routers.review_v2:review_v2.py:1576 [REVIEW_RELEASE_GATE] review_id=CR-20260914-063727-8DCC05 pid=6768 runtime=CURRENT status=BLOCKED failures=['COMMON_REVIEW_SATISFACTION_GATE', 'PRODUCTION_INTERNAL_TOKEN_GATE']
+INFO     sageai:logging_utils.py:133 {"type": "request", "request_id": "e54f1885", "user_id": "anoxxx", "ip": "unknown", "path": "/review-v2/file", "method": "POST", "duration_ms": 12803.98, "status_code": 200, "error": null}
+INFO     httpx:_client.py:1038 HTTP Request: POST http://testserver/review-v2/file "HTTP/1.1 200 OK"
+_____ test_gold_generic_calculations_and_relationship_risks_remain_active _____
+backend\tests\test_technology_license_primary_transaction.py:112: in test_gold_generic_calculations_and_relationship_risks_remain_active
+    assert payment["status"] == "INCONSISTENT"
+E   KeyError: 'status'
+____________ test_gold_semantic_facts_and_rendering_are_consistent ____________
+backend\tests\test_technology_license_primary_transaction.py:144: in test_gold_semantic_facts_and_rendering_are_consistent
+    assert improvement["asymmetric_improvement_license"] is True
+E   KeyError: 'asymmetric_improvement_license'
+_______ test_cooperative_classification_uses_core_transaction_evidence ________
+backend\tests\test_cooperative_development_evidence_fact_conclusion_consistency.py:55: in test_cooperative_classification_uses_core_transaction_evidence
+    assert any(
+E   assert False
+E    +  where False = any(<generator object test_cooperative_classification_uses_core_transaction_evidence.<locals>.<genexpr> at 0x000001503D9986D0>)
+________ test_confidentiality_damage_is_covered_without_duplicate_gap _________
+backend\tests\test_cooperative_development_evidence_fact_conclusion_consistency.py:99: in test_confidentiality_damage_is_covered_without_duplicate_gap
+    assert liability["confidentiality_obligation"]["status"] == "COVERED"
+E   KeyError: 'confidentiality_obligation'
+__ test_explicit_improvement_and_high_salience_adverse_clauses_are_consumed ___
+backend\tests\test_cooperative_development_evidence_fact_conclusion_consistency.py:181: in test_explicit_improvement_and_high_salience_adverse_clauses_are_consumed
+    assert result_rights["decision_trace"]["risk_to_current_party"]["current_party_directly_burdened"] is False
+E   KeyError: 'risk_to_current_party'
+____ test_sole_ownership_claim_cost_and_retention_branches_are_consistent _____
+backend\tests\test_cooperative_development_evidence_fact_conclusion_consistency.py:214: in test_sole_ownership_claim_cost_and_retention_branches_are_consistent
+    assert "费用和赔偿责任承担已经覆盖" in claim["risk_point_description"]
+E   AssertionError: assert '费用和赔偿责任承担已经覆盖' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'
+______ test_party_a_favorable_rights_and_penalty_rendering_are_preserved ______
+backend\tests\test_cooperative_development_evidence_fact_conclusion_consistency.py:270: in test_party_a_favorable_rights_and_penalty_rendering_are_preserved
+    assert "对甲方有利" in result_rights["risk_point_description"]
+E   AssertionError: assert '对甲方有利' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'
+__________ test_report_layers_and_preserved_risks_remain_consistent ___________
+backend\tests\test_cooperative_development_evidence_fact_conclusion_consistency.py:313: in test_report_layers_and_preserved_risks_remain_consistent
+    assert cooperative_review["release_quality_gate"]["status"] == "REPORT_READY"
+E   AssertionError: assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED
+_______ test_party_a_ownership_and_final_decision_right_are_not_adverse _______
+backend\tests\test_cooperative_development_evidence_fact_conclusion_consistency.py:392: in test_party_a_ownership_and_final_decision_right_are_not_adverse
+    assert result_rights["coverage_status"] == "部分覆盖"
+E   AssertionError: assert '缺失' == '部分覆盖'
+E     
+E     - 部分覆盖
+E     + 缺失
+_ test_report_deduplicates_basis_and_evidence_and_uses_actual_acceptance_articles _
+backend\tests\test_cooperative_development_evidence_fact_conclusion_consistency.py:478: in test_report_deduplicates_basis_and_evidence_and_uses_actual_acceptance_articles
+    assert len(quotes) == len(set(quotes))
+E   AssertionError: assert 5 == 4
+E    +  where 5 = len(['乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金。', '第十九条 违约责任\n甲方逾期支付研发费用的，每逾期一日按应付款金额的0.05%支付违约金。\n乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%...0日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '已检索合同正文及全部已提供附件，未找到以下正向事实：违约金基数（合同研发总金额、同时支付合同总金额）的金额或可验证确定方法。'])
+E    +  and   4 = len({'乙方交付成果未通过验收超过30日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金。', '已检索合同正文及...按合同研发总金额的1%支付违约金。\n乙方交付成果未通过验收超过30日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。\n丙方未按照要求完成技术评估的，应赔偿因此给甲方造成的全部损失。'})
+E    +    where {'乙方交付成果未通过验收超过30日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金。', '已检索合同正文及...按合同研发总金额的1%支付违约金。\n乙方交付成果未通过验收超过30日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。\n丙方未按照要求完成技术评估的，应赔偿因此给甲方造成的全部损失。'} = set(['乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金。', '第十九条 违约责任\n甲方逾期支付研发费用的，每逾期一日按应付款金额的0.05%支付违约金。\n乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%...0日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '已检索合同正文及全部已提供附件，未找到以下正向事实：违约金基数（合同研发总金额、同时支付合同总金额）的金额或可验证确定方法。'])
+______ test_report_distinguishes_aggregated_themes_from_rule_level_hits _______
+backend\tests\test_cooperative_development_evidence_fact_conclusion_consistency.py:500: in test_report_distinguishes_aggregated_themes_from_rule_level_hits
+    assert f"规则级审查命中数：{len(rule_ids)}" in report
+E   AssertionError: assert '规则级审查命中数：20' in '# 合作开发合同审查报告\n\n\n## 一、合同总体评价\n\n- 审查立场：甲方 / 合作开发方\n- 使用场景：合作开发\n- 合同类型：技术合同—技术开发合同—合作开发合同\n- 总体可签署性：建议修改后签署\n- 风险主题数...30%的违约金。 丙方未按照要求完成技术评估的，应赔偿因此给甲方造成的全部损失。\n- 第十九条 违约责任 [支持：违约金标准偏高及司法调减风险]: 乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金\n\n---\n'
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+backend/tests/test_technology_license_primary_transaction.py::test_gold_routes_raw_docx_to_technology_license_not_sale
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_patent_transfer_golden_matrix_semantic_invariants
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_patent_transfer_coverage_distinguishes_presence_from_adverse_terms
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_default_law_and_negative_assertions_for_patent_transfer
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_patent_gold_closure_review_semantics_links_and_economic_impact
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_explicit_confidentiality_breach_liability_is_present_with_dedicated_fact_type
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_general_any_breach_liability_is_partial_without_confidentiality_link
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_partial_without_a_concrete_gap_is_promoted_to_pass_and_cannot_create_a_finding
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_partial_with_a_concrete_missing_element_and_tc_11_04_evidence_remain_unchanged
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_patent_gold_confidentiality_liability_uses_a_complete_two_clause_evidence_chain
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_patent_gold_optional_recommendations_and_report_language_close_cleanly
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_current_patent_transfer_registration_feasibility_blocker_is_core_risk
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_current_patent_transfer_ancillary_service_materials_and_domestic_scope_are_fact_driven
+FAILED backend/tests/test_patent_right_transfer_contract_review.py::test_report_missing_notice_is_conditionally_rendered_from_existing_coverage_summary
+FAILED backend/tests/test_technical_service_contract_review.py::test_fixture_classification_context_and_applicability
+FAILED backend/tests/test_technical_service_contract_review.py::test_fixture_formula_timeline_evidence_and_report_quality
+FAILED backend/tests/test_technical_service_contract_review.py::test_fixture_matches_frozen_gold_semantics
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_material_delivery_method_is_covered_but_version_and_schedule_gaps_remain
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_cross_reference_subject_mismatch_is_bound_to_source_and_target
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_tc1303_positive_elements_have_element_specific_direct_evidence
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_tc1303_cross_reference_bundle_and_issue_type_are_consistent
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_tc1303_recommendation_does_not_invent_a_named_attachment
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_tc0201_final_claims_do_not_exceed_direct_evidence
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_improvement_claims_bind_the_actual_forced_transfer_clause[TC-10-01-licensee_independent_improvement_ownership]
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_improvement_claims_bind_the_actual_forced_transfer_clause[TC-10-02-licensee_improvement_ownership]
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_improvement_claims_bind_the_actual_forced_transfer_clause[TC-10-04-forced_free_ownership_transfer]
+FAILED backend/tests/test_patent_license_latest_report_regressions.py::test_aggregated_improvement_finding_has_a_complete_direct_evidence_bundle
+FAILED backend/tests/test_non_patent_technology_transfer_contract_review.py::test_case_k2_explicit_recordal_party_and_deadline_are_covered
+FAILED backend/tests/test_non_patent_technology_transfer_contract_review.py::test_current_full_review_is_report_ready_and_uses_non_patent_transfer_language
+FAILED backend/tests/test_non_patent_technology_transfer_contract_review.py::test_current_transfer_report_respects_the_evidence_ceiling
+FAILED backend/tests/test_non_patent_technology_transfer_contract_review.py::test_partial_proof_narrative_does_not_claim_complete_disclosure
+FAILED backend/tests/test_patent_license_liability_caps.py::test_current_contract_reports_asymmetric_caps_instead_of_missing_cap
+FAILED backend/tests/test_technology_license_primary_transaction.py::test_gold_routes_raw_docx_to_technology_license_not_sale
+FAILED backend/tests/test_technology_license_primary_transaction.py::test_gold_generic_calculations_and_relationship_risks_remain_active
+FAILED backend/tests/test_technology_license_primary_transaction.py::test_gold_semantic_facts_and_rendering_are_consistent
+FAILED backend/tests/test_cooperative_development_evidence_fact_conclusion_consistency.py::test_cooperative_classification_uses_core_transaction_evidence
+FAILED backend/tests/test_cooperative_development_evidence_fact_conclusion_consistency.py::test_confidentiality_damage_is_covered_without_duplicate_gap
+FAILED backend/tests/test_cooperative_development_evidence_fact_conclusion_consistency.py::test_explicit_improvement_and_high_salience_adverse_clauses_are_consumed
+FAILED backend/tests/test_cooperative_development_evidence_fact_conclusion_consistency.py::test_sole_ownership_claim_cost_and_retention_branches_are_consistent
+FAILED backend/tests/test_cooperative_development_evidence_fact_conclusion_consistency.py::test_party_a_favorable_rights_and_penalty_rendering_are_preserved
+FAILED backend/tests/test_cooperative_development_evidence_fact_conclusion_consistency.py::test_report_layers_and_preserved_risks_remain_consistent
+FAILED backend/tests/test_cooperative_development_evidence_fact_conclusion_consistency.py::test_party_a_ownership_and_final_decision_right_are_not_adverse
+FAILED backend/tests/test_cooperative_development_evidence_fact_conclusion_consistency.py::test_report_deduplicates_basis_and_evidence_and_uses_actual_acceptance_articles
+FAILED backend/tests/test_cooperative_development_evidence_fact_conclusion_consistency.py::test_report_distinguishes_aggregated_themes_from_rule_level_hits
+43 failed, 101 passed, 6 warnings in 593.82s (0:09:53)

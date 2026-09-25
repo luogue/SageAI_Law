@@ -3,10 +3,10 @@
 # SageAI 回滚脚本
 # 用法: bash rollback.sh [docker|backup|git]
 #   docker - 回滚到上一个 Docker 镜像
-#   backup - 从最近一次备份恢复数据库
+#   backup - 校验指定备份并生成新候选文件（不切换数据库）
 #   git    - 回滚到上一个 Git 版本
 # ============================================================
-set -e
+set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
@@ -45,41 +45,21 @@ case $ROLLBACK_MODE in
         ;;
         
     backup)
-        echo ""
-        echo "从最近备份恢复数据库..."
-        
-        BACKUP_DIR="$SCRIPT_DIR/backups"
-        LATEST_BACKUP=$(ls -t "$BACKUP_DIR"/sageai_db_*.sqlite.gz 2>/dev/null | head -1)
-        
-        if [ -z "$LATEST_BACKUP" ]; then
-            echo "  [ERROR] 未找到备份文件"
-            exit 1
-        fi
-        
-        echo "  找到备份: $LATEST_BACKUP"
-        
-        # 解压备份
-        gunzip -c "$LATEST_BACKUP" > "$BACKUP_DIR/restore_temp.db"
-        
-        # 停止服务
-        docker compose down 2>/dev/null || true
-        
-        # 恢复数据库
-        DB_PATH="$SCRIPT_DIR/backend/data/app.db"
-        if [ -f "$DB_PATH" ]; then
-            cp "$DB_PATH" "$DB_PATH.bak_$(date '+%Y%m%d_%H%M%S')"
-            echo "  [OK] 已备份当前数据库"
-        fi
-        
-        cp "$BACKUP_DIR/restore_temp.db" "$DB_PATH"
-        rm "$BACKUP_DIR/restore_temp.db"
-        
-        # 重启服务
-        docker compose up -d
-        
-        echo "  [OK] 数据库已恢复"
+        # Stage a verified NEW candidate only. Never guess the latest backup or replace live data.
+        : "${BACKUP_FILE:?Select a specific reviewed backup file}"
+        : "${RESTORE_OUTPUT:?Set a NEW candidate path, never the active DB path}"
+        case "${MAINTENANCE_MODE:-compose}" in
+            compose)
+                docker compose exec -T backend python /app/sqlite_maintenance.py stage --source "$BACKUP_FILE" --output "$RESTORE_OUTPUT"
+                ;;
+            local)
+                "${PYTHON:-python3}" "$SCRIPT_DIR/backend/sqlite_maintenance.py" stage --source "$BACKUP_FILE" --output "$RESTORE_OUTPUT"
+                ;;
+            *) echo "Unknown MAINTENANCE_MODE" >&2; exit 2 ;;
+        esac
+        echo "Verified candidate staged. No database switch performed."
         ;;
-        
+
     git)
         echo ""
         echo "回滚到上一个 Git 版本..."

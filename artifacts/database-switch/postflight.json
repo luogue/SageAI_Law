@@ -1,0 +1,40 @@
+{
+  "actual_database": "F:\\ai\\Sage\\backend\\data\\recovered-production-20260911.sqlite",
+  "checks": {
+    "health": {
+      "status": "healthy",
+      "database": {
+        "status": "ok",
+        "structural_check_interval_seconds": 60
+      }
+    },
+    "integrity": "ok",
+    "history": "33/33 tasks readable",
+    "missing_reports": "1/3/4 return explicit 404; no incorrect association",
+    "task_crud": "create/update through production repository; query/delete HTTP PASS",
+    "concurrency": "4 workers / 24 create-update-query-delete cycles PASS",
+    "new_report_generation": "HTTP200 / DeepSeek / REPORT_READY",
+    "report_save_read": {
+      "record_id": 5,
+      "sha256": "f04f5694c3fd40437ba18ba14f95a1e3a13a9aea23b125dc42952e6a99a7653f",
+      "repository_and_http": "PASS"
+    },
+    "final_integrity": "ok",
+    "final_health": {
+      "status": "healthy",
+      "database": {
+        "status": "ok",
+        "structural_check_interval_seconds": 60
+      }
+    }
+  },
+  "SAFE_TO_SWITCH": "YES",
+  "PRODUCTION_DB_SWITCHED": "YES",
+  "accepted_at": "2026-09-11T10:30:12.244237+08:00",
+  "database_sha256": "fab37791ea4675b822c0c9cc6def322e60cd788de01ea59b6d60dcf9dc37d14e",
+  "accepted_snapshot": {
+    "path": "F:\\ai\\Sage\\artifacts\\database-switch\\accepted-production.sqlite",
+    "sha256": "0f27d5205c3173e4aeceab752bac852b27d92610548e21a5d07e5cf351e27db4"
+  },
+  "original_preserved": true
+}

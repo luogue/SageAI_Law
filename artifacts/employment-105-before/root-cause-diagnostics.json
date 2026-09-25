@@ -1,0 +1,57 @@
+{
+  "source_sha256": "1a4fd2b9bfc97c680d266bf392877a01991ef1ed78ac7929b8a59ad7cab23b8f",
+  "baseline_error": {
+    "detail": {
+      "code": "FACT_EXTRACTION_BLOCKED",
+      "release_quality_gate": "BLOCKED",
+      "provider": "deepseek",
+      "message": "结构化事实抽取或证据绑定未通过校验，未回退其他模型或关键词规则。",
+      "reason": "EMPTY_EXTRACTED_VALUE:labor_protection.hazard_exists"
+    }
+  },
+  "same_raw_output_diagnostics_after_fix": [
+    {
+      "failed_stage": "NORMALIZATION",
+      "fact_id": "candidate-1-2",
+      "field": "value",
+      "validation_rule": "EMPTY_EXTRACTED_VALUE:labor_protection.hazard_exists",
+      "model_raw_value": {
+        "concept": "labor_protection.hazard_exists",
+        "value": null,
+        "confidence": 0.5,
+        "assertion": "INFERRED",
+        "evidence": [
+          {
+            "clause_id": "C0010",
+            "quote": "如乙方工作岗位涉及特殊职业危害因素，甲方应依法履行告知、防护及职业健康保护义务。"
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "clause_id": "C0010",
+          "quote": "如乙方工作岗位涉及特殊职业危害因素，甲方应依法履行告知、防护及职业健康保护义务。"
+        }
+      ],
+      "expected": "岗位是否实际存在职业危害（布尔值），仅如有危害不算实际存在",
+      "actual": null,
+      "disposition": "QUARANTINE_AND_MANUAL_REVIEW",
+      "concept": "labor_protection.hazard_exists"
+    },
+    {
+      "failed_stage": "FACT_SCHEMA",
+      "fact_id": null,
+      "field": "coverage.non_compete.arrangement",
+      "validation_rule": "INVALID_EXTRACTION_COVERAGE",
+      "model_raw_value": "NONE",
+      "evidence": null,
+      "expected": [
+        "EXTRACTED",
+        "ABSENT",
+        "UNCERTAIN"
+      ],
+      "actual": "NONE",
+      "disposition": "BLOCK"
+    }
+  ]
+}

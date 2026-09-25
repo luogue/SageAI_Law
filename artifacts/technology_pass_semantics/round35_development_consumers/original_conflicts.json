@@ -1,0 +1,101 @@
+{
+  "raw_gate_failures": [
+    {
+      "requirement": "CROSS_RULE_CANONICAL_FACT_CONSISTENCY",
+      "failure_stage": "Cross-rule Canonical Fact Audit",
+      "root_cause": "同一事实已被其他规则或统一事实层确认，但下游消费者仍输出完全缺失。",
+      "entity_type": "review_group",
+      "entity_id": "technology_shared_facts",
+      "conflicts": [
+        {
+          "subject": "ACCEPTANCE",
+          "consumer": "TC-13-03"
+        }
+      ],
+      "severity": "blocking"
+    }
+  ],
+  "traced_conflicts": [
+    {
+      "canonical_fact_key": "technology.acceptance.quantitative_metrics",
+      "canonical_value": true,
+      "producer_rule": null,
+      "producer_component": "structured_facts.acceptance.defined",
+      "producer_status": {
+        "defined": true,
+        "confidence": "high",
+        "verified_status_not_emitted": true
+      },
+      "producer_fact_id": "F-TECHNOLOGY-ACCEPTANCE-QUANTITATIVE_METRICS-001",
+      "producer_evidence_id": null,
+      "producer_span": [
+        "第十三条 阶段验收\n阶段一验收\n要求：\n完成数据分析报告；\n完成算法方案；\n提供原型模型；\n原型准确率达到90%以上。\n甲方应在收到成果后10个工作日内验收。\n阶段二验收\n要求：\n准确率达到95%以上；\n接口可正常调用；\n四台相机并发测试通过；\n完成初步部署。\n甲方应在收到成果后15个工作日内验收。\n验收不合格：\n乙方应在15个工作日内整改。\n整改后重新验收。"
+      ],
+      "producer_clause_ids": [
+        "C0020"
+      ],
+      "producer_numeric_offsets": null,
+      "consumer_rule": "TC-13-03",
+      "consumer_component": "acceptance_metrics",
+      "consumer_canonical_key": "technology.transaction.acceptance",
+      "consumer_status": "MISSING",
+      "consumer_SEARCH_AUDIT": [
+        {
+          "element_id": "acceptance_metrics",
+          "review_id": "TC-13-03",
+          "search_targets": [
+            "验收标准"
+          ],
+          "query_patterns": [
+            "验收标准"
+          ],
+          "query_semantics": "POSITIVE_REQUIRED_FACT",
+          "search_mode": "SAME_ATOMIC_EVALUATOR",
+          "searched_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011",
+            "C0012",
+            "C0013",
+            "C0014",
+            "C0015",
+            "C0016",
+            "C0017",
+            "C0018",
+            "C0019",
+            "C0020",
+            "C0021",
+            "C0022",
+            "C0023",
+            "C0024",
+            "C0025",
+            "C0026",
+            "C0027",
+            "C0028",
+            "C0029",
+            "C0030",
+            "C0031",
+            "C0032",
+            "C0033",
+            "C0034"
+          ],
+          "searched_document_hash": "d668699644fd96ee243a58c6c5820e4594cf9bad08b02224099268e97e5896ed",
+          "result": "NOT_FOUND",
+          "supporting_evidence": [],
+          "partial_supporting_evidence": []
+        }
+      ],
+      "expected_status": "COVERED component; PARTIAL rule if other requirements missing",
+      "actual_status": "MISSING",
+      "note": "Fields absent from raw Gate diagnostics are null; producer facts and consumer details are traced from the same original response."
+    }
+  ]
+}

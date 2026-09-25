@@ -1,0 +1,588 @@
+[
+  {
+    "response": {
+      "schema_version": "employment-facts-1.0",
+      "reviewed_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009"
+      ],
+      "coverage": {
+        "identity.employer_name": "EXTRACTED",
+        "identity.employer_address": "EXTRACTED",
+        "identity.worker_name": "EXTRACTED",
+        "identity.worker_id": "EXTRACTED",
+        "contract.type": "EXTRACTED",
+        "contract.start_date": "EXTRACTED",
+        "contract.end_date": "EXTRACTED",
+        "contract.duration_months": "EXTRACTED",
+        "contract.task": "ABSENT",
+        "contract.task_end": "ABSENT",
+        "probation.arrangement": "EXTRACTED",
+        "probation.start_date": "ABSENT",
+        "probation.end_date": "ABSENT",
+        "probation.duration_months": "EXTRACTED",
+        "probation.salary": "EXTRACTED",
+        "probation.repeated": "ABSENT",
+        "job.position": "ABSENT",
+        "job.duties": "ABSENT",
+        "job.locations": "ABSENT",
+        "working_hours.system": "ABSENT",
+        "working_hours.hours_per_day": "ABSENT",
+        "working_hours.hours_per_week": "ABSENT",
+        "working_hours.rest": "ABSENT",
+        "working_hours.rest_days_per_week": "ABSENT",
+        "working_hours.rest_waived": "ABSENT",
+        "working_hours.overtime": "EXTRACTED",
+        "salary.regular": "EXTRACTED",
+        "salary.payment_date": "EXTRACTED",
+        "salary.payment_method": "EXTRACTED",
+        "salary.withheld_for_handover": "ABSENT",
+        "social_insurance.employer_enrolls": "EXTRACTED",
+        "social_insurance.employer_pays": "EXTRACTED",
+        "social_insurance.employee_withheld": "ABSENT",
+        "social_insurance.cash_replacement": "EXTRACTED",
+        "social_insurance.waived": "EXTRACTED"
+      },
+      "facts": [
+        {
+          "concept": "identity.employer_name",
+          "value": "青原材料有限公司",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方青原材料有限公司，住所武汉市科技路81号。"
+            }
+          ]
+        },
+        {
+          "concept": "identity.employer_address",
+          "value": "武汉市科技路81号",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "甲方青原材料有限公司，住所武汉市科技路81号。"
+            }
+          ]
+        },
+        {
+          "concept": "identity.worker_name",
+          "value": "王云",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方王云，身份证号码420100199501061234。"
+            }
+          ]
+        },
+        {
+          "concept": "identity.worker_id",
+          "value": "420100199501061234",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "乙方王云，身份证号码420100199501061234。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.type",
+          "value": "FIXED",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "双方订立两年固定期限劳动合同，自2027年6月1日至2029年5月31日。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.start_date",
+          "value": "2027-06-01",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "双方订立两年固定期限劳动合同，自2027年6月1日至2029年5月31日。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.end_date",
+          "value": "2029-05-31",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "双方订立两年固定期限劳动合同，自2027年6月1日至2029年5月31日。"
+            }
+          ]
+        },
+        {
+          "concept": "contract.duration_months",
+          "value": 24,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0002",
+              "quote": "双方订立两年固定期限劳动合同，自2027年6月1日至2029年5月31日。"
+            }
+          ]
+        },
+        {
+          "concept": "probation.arrangement",
+          "value": "CURRENT",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "约定试用三个月，试用期间基本薪酬为每月8,600元。"
+            }
+          ]
+        },
+        {
+          "concept": "probation.duration_months",
+          "value": 3,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "约定试用三个月，试用期间基本薪酬为每月8,600元。"
+            }
+          ]
+        },
+        {
+          "concept": "probation.salary",
+          "value": {
+            "amount_text": "8,600",
+            "unit": "CNY/MONTH",
+            "component": "BASE"
+          },
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "约定试用三个月，试用期间基本薪酬为每月8,600元。"
+            }
+          ]
+        },
+        {
+          "concept": "salary.regular",
+          "value": {
+            "amount_text": "12,500",
+            "unit": "CNY/MONTH",
+            "component": "TOTAL"
+          },
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "转正后的月薪为12,500元，每月五日通过银行支付。"
+            }
+          ]
+        },
+        {
+          "concept": "salary.payment_date",
+          "value": "每月五日",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "转正后的月薪为12,500元，每月五日通过银行支付。"
+            }
+          ]
+        },
+        {
+          "concept": "salary.payment_method",
+          "value": "BANK",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0003",
+              "quote": "转正后的月薪为12,500元，每月五日通过银行支付。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.employer_enrolls",
+          "value": true,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "单位依法办理职工社会保险并承担单位缴费义务。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.employer_pays",
+          "value": true,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "单位依法办理职工社会保险并承担单位缴费义务。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.cash_replacement",
+          "value": true,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "员工可申请每月领取保险津贴，由其自行处理保险，单位不再参保缴费。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.waived",
+          "value": true,
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "员工可申请每月领取保险津贴，由其自行处理保险，单位不再参保缴费。"
+            }
+          ]
+        },
+        {
+          "concept": "working_hours.overtime",
+          "value": "ALL_INCLUDED",
+          "confidence": 0.99,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0005",
+              "quote": "月薪包括全部加班报酬，职工不得再索取加班费。"
+            }
+          ]
+        }
+      ]
+    },
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 1840,
+      "completion_tokens": 2259,
+      "total_tokens": 4099,
+      "prompt_tokens_details": {
+        "cached_tokens": 768
+      },
+      "prompt_cache_hit_tokens": 768,
+      "prompt_cache_miss_tokens": 1072
+    },
+    "provider": "deepseek"
+  },
+  {
+    "response": {
+      "schema_version": "employment-facts-1.0",
+      "reviewed_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009"
+      ],
+      "coverage": {
+        "social_insurance.employer_share_shifted": "EXTRACTED",
+        "social_insurance.employer_underpays": "EXTRACTED",
+        "social_insurance.employer_liability_excluded": "ABSENT",
+        "social_insurance.employee_remedy_excluded": "ABSENT",
+        "labor_protection.measures": "ABSENT",
+        "labor_protection.training": "ABSENT",
+        "labor_protection.hazard_exists": "ABSENT",
+        "labor_protection.hazard_protection": "ABSENT",
+        "training.arrangement": "ABSENT",
+        "training.cost": "ABSENT",
+        "training.duration_months": "ABSENT",
+        "training.penalty_prorated": "ABSENT",
+        "termination.grounds": "EXTRACTED",
+        "termination.notice": "EXTRACTED",
+        "termination.notice_days": "UNCERTAIN",
+        "termination.approval_required": "ABSENT",
+        "termination.employee_right_waived": "ABSENT",
+        "termination.employer_unrestricted": "ABSENT",
+        "termination.handover": "EXTRACTED",
+        "economic_compensation.statutory": "ABSENT",
+        "economic_compensation.settlement_deadline": "ABSENT",
+        "economic_compensation.waived": "ABSENT",
+        "economic_compensation.reduced": "ABSENT",
+        "economic_compensation.statutory_percentage": "ABSENT",
+        "economic_compensation.payment_delay_months": "ABSENT",
+        "dispute.arbitration": "EXTRACTED",
+        "penalties.obligations": "EXTRACTED",
+        "non_compete.arrangement": "EXTRACTED",
+        "non_compete.personnel": "EXTRACTED",
+        "non_compete.secret_access": "EXTRACTED",
+        "non_compete.businesses": "EXTRACTED",
+        "non_compete.territories": "EXTRACTED",
+        "non_compete.duration_months": "EXTRACTED",
+        "non_compete.compensation": "EXTRACTED",
+        "non_compete.compensation_deferred": "ABSENT",
+        "non_compete.compensation_waived": "ABSENT",
+        "non_compete.all_staff": "ABSENT",
+        "ip.assignment_scope": "ABSENT",
+        "ip.allocations": "ABSENT",
+        "ip.personal_rights_waived": "ABSENT"
+      },
+      "facts": [
+        {
+          "concept": "social_insurance.employer_share_shifted",
+          "value": true,
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "员工可申请每月领取保险津贴，由其自行处理保险，单位不再参保缴费。"
+            }
+          ]
+        },
+        {
+          "concept": "social_insurance.employer_underpays",
+          "value": true,
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0004",
+              "quote": "员工可申请每月领取保险津贴，由其自行处理保险，单位不再参保缴费。"
+            }
+          ]
+        },
+        {
+          "concept": "termination.grounds",
+          "value": [
+            "员工普通辞职"
+          ],
+          "confidence": 0.9,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0006",
+              "quote": "员工普通辞职未按通知期办理须支付两个月工资作为违约金。"
+            }
+          ]
+        },
+        {
+          "concept": "termination.notice",
+          "value": "员工普通辞职须按通知期办理",
+          "confidence": 0.9,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0006",
+              "quote": "员工普通辞职未按通知期办理须支付两个月工资作为违约金。"
+            }
+          ]
+        },
+        {
+          "concept": "termination.handover",
+          "value": "员工普通辞职须按通知期办理",
+          "confidence": 0.85,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0006",
+              "quote": "员工普通辞职未按通知期办理须支付两个月工资作为违约金。"
+            }
+          ]
+        },
+        {
+          "concept": "dispute.arbitration",
+          "value": true,
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0009",
+              "quote": "争议先申请劳动仲裁。"
+            }
+          ]
+        },
+        {
+          "concept": "penalties.obligations",
+          "value": {
+            "scope": "ORDINARY_RESIGNATION",
+            "amount_text": "两个月工资"
+          },
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0006",
+              "quote": "员工普通辞职未按通知期办理须支付两个月工资作为违约金。"
+            }
+          ]
+        },
+        {
+          "concept": "penalties.obligations",
+          "value": {
+            "scope": "CONFIDENTIALITY",
+            "amount_text": "七万元"
+          },
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0007",
+              "quote": "违反一般保密义务应支付违约金七万元。"
+            }
+          ]
+        },
+        {
+          "concept": "penalties.obligations",
+          "value": {
+            "scope": "NON_COMPETE",
+            "amount_text": "三万元"
+          },
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "违反竞业义务应支付违约金三万元。"
+            }
+          ]
+        },
+        {
+          "concept": "non_compete.arrangement",
+          "value": "CURRENT",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "离职竞业期限一年，适用实际接触技术秘密的技术管理人员，竞争业务为涂层材料研发，地域湖北省。"
+            }
+          ]
+        },
+        {
+          "concept": "non_compete.personnel",
+          "value": "实际接触技术秘密的技术管理人员",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "适用实际接触技术秘密的技术管理人员"
+            }
+          ]
+        },
+        {
+          "concept": "non_compete.secret_access",
+          "value": "实际接触技术秘密",
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "适用实际接触技术秘密的技术管理人员"
+            }
+          ]
+        },
+        {
+          "concept": "non_compete.businesses",
+          "value": [
+            "涂层材料研发"
+          ],
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "竞争业务为涂层材料研发"
+            }
+          ]
+        },
+        {
+          "concept": "non_compete.territories",
+          "value": [
+            "湖北省"
+          ],
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "地域湖北省"
+            }
+          ]
+        },
+        {
+          "concept": "non_compete.duration_months",
+          "value": 12,
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "离职竞业期限一年"
+            }
+          ]
+        },
+        {
+          "concept": "non_compete.compensation",
+          "value": {
+            "amount_text": "2000",
+            "unit": "CNY/MONTH",
+            "component": "TOTAL"
+          },
+          "confidence": 0.95,
+          "assertion": "EXPLICIT",
+          "evidence": [
+            {
+              "clause_id": "C0008",
+              "quote": "每月竞业补偿2000元"
+            }
+          ]
+        }
+      ]
+    },
+    "model": "deepseek-flash",
+    "usage": {
+      "prompt_tokens": 2274,
+      "completion_tokens": 1500,
+      "total_tokens": 3774,
+      "prompt_tokens_details": {
+        "cached_tokens": 1664
+      },
+      "prompt_cache_hit_tokens": 1664,
+      "prompt_cache_miss_tokens": 610
+    },
+    "provider": "deepseek"
+  }
+]

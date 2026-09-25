@@ -1,0 +1,362 @@
+{
+  "party_a": {
+    "docx": {
+      "x-review-run-id": "d36ac629-77d6-4828-a83a-8136517f31ad",
+      "x-report-version": "07b0a253-19b8-4304-9c26-40f967705cac",
+      "x-gate-version": "d6de1f03-8fa3-4fe0-bdad-ad355a59ed8d",
+      "x-snapshot-hash": "4783564af3af46b5f0678865450834486d39071e1632078a38e8eefc49a0efb3",
+      "x-export-version": "6705d7c4-6414-4808-83ae-2bfb54e491f5",
+      "x-export-artifact-hash": "fab9913fc5ce71b92517bf0236e3cc466b54558919b9e0d480a3c69e8605413f",
+      "http_status": 200,
+      "export_created_at": "2026-09-18T13:47:18.406974+00:00"
+    },
+    "pdf": {
+      "x-review-run-id": "d36ac629-77d6-4828-a83a-8136517f31ad",
+      "x-report-version": "07b0a253-19b8-4304-9c26-40f967705cac",
+      "x-gate-version": "d6de1f03-8fa3-4fe0-bdad-ad355a59ed8d",
+      "x-snapshot-hash": "4783564af3af46b5f0678865450834486d39071e1632078a38e8eefc49a0efb3",
+      "x-export-version": "9a144dff-bbd3-43a6-867e-9055b751db00",
+      "x-export-artifact-hash": "039eb0238057a80cf95d2c2def1b31236906f657b52727297479833023756b50",
+      "http_status": 200,
+      "export_created_at": "2026-09-18T13:47:24.770592+00:00"
+    },
+    "rejections": {
+      "old_run": {
+        "code": "EXPORT_BLOCKED_STALE_REPORT",
+        "message": "导出版本不是当前任务的最新最终报告。",
+        "expected": {
+          "created_at": "2026-09-18T13:46:26.869463+00:00",
+          "export_version": null,
+          "fact_snapshot_id": "183042d89f7d2e8b6bfd5eb355645ca3bbc9502a3c246f0aca7f2ec732d19feb",
+          "gate_binding": {
+            "fact_snapshot_id": "183042d89f7d2e8b6bfd5eb355645ca3bbc9502a3c246f0aca7f2ec732d19feb",
+            "gate_version": "d6de1f03-8fa3-4fe0-bdad-ad355a59ed8d",
+            "passed_report_version": "07b0a253-19b8-4304-9c26-40f967705cac",
+            "report_version": "07b0a253-19b8-4304-9c26-40f967705cac",
+            "review_run_id": "d36ac629-77d6-4828-a83a-8136517f31ad",
+            "review_task_id": "353a723c-632b-4233-a06f-a0095b44f179",
+            "rule_result_version": "b3130982c8cd14bd9a8e998f039ebe6c97f50ac5419c03702d728566a63f8d4d",
+            "snapshot_hash": "4783564af3af46b5f0678865450834486d39071e1632078a38e8eefc49a0efb3"
+          },
+          "gate_status": "REPORT_READY",
+          "gate_version": "d6de1f03-8fa3-4fe0-bdad-ad355a59ed8d",
+          "report_version": "07b0a253-19b8-4304-9c26-40f967705cac",
+          "review_run_id": "d36ac629-77d6-4828-a83a-8136517f31ad",
+          "review_task_id": "353a723c-632b-4233-a06f-a0095b44f179",
+          "rule_result_version": "b3130982c8cd14bd9a8e998f039ebe6c97f50ac5419c03702d728566a63f8d4d",
+          "snapshot_hash": "4783564af3af46b5f0678865450834486d39071e1632078a38e8eefc49a0efb3",
+          "updated_at": "2026-09-18T13:46:44.037369+00:00"
+        },
+        "actual": {
+          "review_task_id": "353a723c-632b-4233-a06f-a0095b44f179",
+          "review_run_id": "05a5785b-c857-42dd-982c-a2fed91472ca",
+          "created_at": "2026-09-18T12:49:34.879145+00:00",
+          "updated_at": "2026-09-18T12:49:51.679475+00:00",
+          "snapshot_hash": "c4b9524f704b7e8f22c18fd0450c542a219411c093724cb3b15db516c838a94f",
+          "fact_snapshot_id": "084738fe4bf15859d07424ead9db8d5a589eb08a2ebb1b8be0e382e74d8f616c",
+          "rule_result_version": "a01c6f3827993978810a65bbb9c4b3826f8951147b0172f39d777b14c54417c6",
+          "report_version": "3ccc53c1-1a09-4de5-8161-7290d232af19",
+          "gate_version": "3135eaba-0848-4042-9cc6-a02dcdf7ccd3",
+          "export_version": null,
+          "gate_status": "REPORT_READY",
+          "gate_binding": {
+            "review_task_id": "353a723c-632b-4233-a06f-a0095b44f179",
+            "review_run_id": "05a5785b-c857-42dd-982c-a2fed91472ca",
+            "fact_snapshot_id": "084738fe4bf15859d07424ead9db8d5a589eb08a2ebb1b8be0e382e74d8f616c",
+            "rule_result_version": "a01c6f3827993978810a65bbb9c4b3826f8951147b0172f39d777b14c54417c6",
+            "report_version": "3ccc53c1-1a09-4de5-8161-7290d232af19",
+            "gate_version": "3135eaba-0848-4042-9cc6-a02dcdf7ccd3",
+            "snapshot_hash": "c4b9524f704b7e8f22c18fd0450c542a219411c093724cb3b15db516c838a94f",
+            "passed_report_version": "3ccc53c1-1a09-4de5-8161-7290d232af19"
+          }
+        }
+      },
+      "mixed_markdown": {
+        "code": "EXPORT_BLOCKED_STALE_REPORT",
+        "message": "导出正文与已通过质量门的报告不一致。",
+        "expected": {
+          "created_at": "2026-09-18T13:46:26.869463+00:00",
+          "export_version": null,
+          "fact_snapshot_id": "183042d89f7d2e8b6bfd5eb355645ca3bbc9502a3c246f0aca7f2ec732d19feb",
+          "gate_binding": {
+            "fact_snapshot_id": "183042d89f7d2e8b6bfd5eb355645ca3bbc9502a3c246f0aca7f2ec732d19feb",
+            "gate_version": "d6de1f03-8fa3-4fe0-bdad-ad355a59ed8d",
+            "passed_report_version": "07b0a253-19b8-4304-9c26-40f967705cac",
+            "report_version": "07b0a253-19b8-4304-9c26-40f967705cac",
+            "review_run_id": "d36ac629-77d6-4828-a83a-8136517f31ad",
+            "review_task_id": "353a723c-632b-4233-a06f-a0095b44f179",
+            "rule_result_version": "b3130982c8cd14bd9a8e998f039ebe6c97f50ac5419c03702d728566a63f8d4d",
+            "snapshot_hash": "4783564af3af46b5f0678865450834486d39071e1632078a38e8eefc49a0efb3"
+          },
+          "gate_status": "REPORT_READY",
+          "gate_version": "d6de1f03-8fa3-4fe0-bdad-ad355a59ed8d",
+          "report_version": "07b0a253-19b8-4304-9c26-40f967705cac",
+          "review_run_id": "d36ac629-77d6-4828-a83a-8136517f31ad",
+          "review_task_id": "353a723c-632b-4233-a06f-a0095b44f179",
+          "rule_result_version": "b3130982c8cd14bd9a8e998f039ebe6c97f50ac5419c03702d728566a63f8d4d",
+          "snapshot_hash": "4783564af3af46b5f0678865450834486d39071e1632078a38e8eefc49a0efb3",
+          "updated_at": "2026-09-18T13:46:44.037369+00:00"
+        },
+        "actual": {
+          "review_task_id": "353a723c-632b-4233-a06f-a0095b44f179",
+          "review_run_id": "d36ac629-77d6-4828-a83a-8136517f31ad",
+          "created_at": "2026-09-18T13:46:26.869463+00:00",
+          "updated_at": "2026-09-18T13:46:44.037369+00:00",
+          "snapshot_hash": "4783564af3af46b5f0678865450834486d39071e1632078a38e8eefc49a0efb3",
+          "fact_snapshot_id": "183042d89f7d2e8b6bfd5eb355645ca3bbc9502a3c246f0aca7f2ec732d19feb",
+          "rule_result_version": "b3130982c8cd14bd9a8e998f039ebe6c97f50ac5419c03702d728566a63f8d4d",
+          "report_version": "07b0a253-19b8-4304-9c26-40f967705cac",
+          "gate_version": "d6de1f03-8fa3-4fe0-bdad-ad355a59ed8d",
+          "export_version": null,
+          "gate_status": "REPORT_READY",
+          "gate_binding": {
+            "review_task_id": "353a723c-632b-4233-a06f-a0095b44f179",
+            "review_run_id": "d36ac629-77d6-4828-a83a-8136517f31ad",
+            "fact_snapshot_id": "183042d89f7d2e8b6bfd5eb355645ca3bbc9502a3c246f0aca7f2ec732d19feb",
+            "rule_result_version": "b3130982c8cd14bd9a8e998f039ebe6c97f50ac5419c03702d728566a63f8d4d",
+            "report_version": "07b0a253-19b8-4304-9c26-40f967705cac",
+            "gate_version": "d6de1f03-8fa3-4fe0-bdad-ad355a59ed8d",
+            "snapshot_hash": "4783564af3af46b5f0678865450834486d39071e1632078a38e8eefc49a0efb3",
+            "passed_report_version": "07b0a253-19b8-4304-9c26-40f967705cac"
+          }
+        }
+      },
+      "mixed_gate": {
+        "code": "EXPORT_BLOCKED_STALE_REPORT",
+        "message": "导出请求中的 Gate 诊断不属于该最终报告。",
+        "expected": {
+          "created_at": "2026-09-18T13:46:26.869463+00:00",
+          "export_version": null,
+          "fact_snapshot_id": "183042d89f7d2e8b6bfd5eb355645ca3bbc9502a3c246f0aca7f2ec732d19feb",
+          "gate_binding": {
+            "fact_snapshot_id": "183042d89f7d2e8b6bfd5eb355645ca3bbc9502a3c246f0aca7f2ec732d19feb",
+            "gate_version": "d6de1f03-8fa3-4fe0-bdad-ad355a59ed8d",
+            "passed_report_version": "07b0a253-19b8-4304-9c26-40f967705cac",
+            "report_version": "07b0a253-19b8-4304-9c26-40f967705cac",
+            "review_run_id": "d36ac629-77d6-4828-a83a-8136517f31ad",
+            "review_task_id": "353a723c-632b-4233-a06f-a0095b44f179",
+            "rule_result_version": "b3130982c8cd14bd9a8e998f039ebe6c97f50ac5419c03702d728566a63f8d4d",
+            "snapshot_hash": "4783564af3af46b5f0678865450834486d39071e1632078a38e8eefc49a0efb3"
+          },
+          "gate_status": "REPORT_READY",
+          "gate_version": "d6de1f03-8fa3-4fe0-bdad-ad355a59ed8d",
+          "report_version": "07b0a253-19b8-4304-9c26-40f967705cac",
+          "review_run_id": "d36ac629-77d6-4828-a83a-8136517f31ad",
+          "review_task_id": "353a723c-632b-4233-a06f-a0095b44f179",
+          "rule_result_version": "b3130982c8cd14bd9a8e998f039ebe6c97f50ac5419c03702d728566a63f8d4d",
+          "snapshot_hash": "4783564af3af46b5f0678865450834486d39071e1632078a38e8eefc49a0efb3",
+          "updated_at": "2026-09-18T13:46:44.037369+00:00"
+        },
+        "actual": {
+          "review_task_id": "353a723c-632b-4233-a06f-a0095b44f179",
+          "review_run_id": "d36ac629-77d6-4828-a83a-8136517f31ad",
+          "created_at": "2026-09-18T13:46:26.869463+00:00",
+          "updated_at": "2026-09-18T13:46:44.037369+00:00",
+          "snapshot_hash": "4783564af3af46b5f0678865450834486d39071e1632078a38e8eefc49a0efb3",
+          "fact_snapshot_id": "183042d89f7d2e8b6bfd5eb355645ca3bbc9502a3c246f0aca7f2ec732d19feb",
+          "rule_result_version": "b3130982c8cd14bd9a8e998f039ebe6c97f50ac5419c03702d728566a63f8d4d",
+          "report_version": "07b0a253-19b8-4304-9c26-40f967705cac",
+          "gate_version": "d6de1f03-8fa3-4fe0-bdad-ad355a59ed8d",
+          "export_version": null,
+          "gate_status": "REPORT_READY",
+          "gate_binding": {
+            "review_task_id": "353a723c-632b-4233-a06f-a0095b44f179",
+            "review_run_id": "d36ac629-77d6-4828-a83a-8136517f31ad",
+            "fact_snapshot_id": "183042d89f7d2e8b6bfd5eb355645ca3bbc9502a3c246f0aca7f2ec732d19feb",
+            "rule_result_version": "b3130982c8cd14bd9a8e998f039ebe6c97f50ac5419c03702d728566a63f8d4d",
+            "report_version": "07b0a253-19b8-4304-9c26-40f967705cac",
+            "gate_version": "d6de1f03-8fa3-4fe0-bdad-ad355a59ed8d",
+            "snapshot_hash": "4783564af3af46b5f0678865450834486d39071e1632078a38e8eefc49a0efb3",
+            "passed_report_version": "07b0a253-19b8-4304-9c26-40f967705cac"
+          }
+        }
+      },
+      "unversioned": {
+        "code": "EXPORT_BLOCKED_STALE_REPORT",
+        "message": "缺少有效的服务端审查快照，请重新审查。",
+        "expected": {},
+        "actual": {}
+      }
+    }
+  },
+  "party_b": {
+    "docx": {
+      "x-review-run-id": "dc5c853c-5d3d-4b3f-9411-1e239285b0d4",
+      "x-report-version": "ffc05c24-7f24-4e2c-9fff-35f3c144509f",
+      "x-gate-version": "2534952c-ac5b-4444-80ec-6b619d8c2912",
+      "x-snapshot-hash": "4b00afbdb7c61f1906bfe151fc1b932e800317909ec894211b99923e7c2cb171",
+      "x-export-version": "3abab4b6-5376-4901-94a3-8c5b4003dd36",
+      "x-export-artifact-hash": "56df1dac77b60e71933cd7691b4ced7761fb6e6945a30fa1b3c0d42293be2ffa",
+      "http_status": 200,
+      "export_created_at": "2026-09-18T13:47:40.183766+00:00"
+    },
+    "pdf": {
+      "x-review-run-id": "dc5c853c-5d3d-4b3f-9411-1e239285b0d4",
+      "x-report-version": "ffc05c24-7f24-4e2c-9fff-35f3c144509f",
+      "x-gate-version": "2534952c-ac5b-4444-80ec-6b619d8c2912",
+      "x-snapshot-hash": "4b00afbdb7c61f1906bfe151fc1b932e800317909ec894211b99923e7c2cb171",
+      "x-export-version": "c07cdf5e-1e5a-4e55-832c-0552d7d45168",
+      "x-export-artifact-hash": "516418fee9b12715b0e07cb1c2b3459649773f82d3530897bc707cabaf0b1bae",
+      "http_status": 200,
+      "export_created_at": "2026-09-18T13:47:44.293314+00:00"
+    },
+    "rejections": {
+      "old_run": {
+        "code": "EXPORT_BLOCKED_STALE_REPORT",
+        "message": "导出版本不是当前任务的最新最终报告。",
+        "expected": {
+          "created_at": "2026-09-18T13:46:49.614063+00:00",
+          "export_version": null,
+          "fact_snapshot_id": "183042d89f7d2e8b6bfd5eb355645ca3bbc9502a3c246f0aca7f2ec732d19feb",
+          "gate_binding": {
+            "fact_snapshot_id": "183042d89f7d2e8b6bfd5eb355645ca3bbc9502a3c246f0aca7f2ec732d19feb",
+            "gate_version": "2534952c-ac5b-4444-80ec-6b619d8c2912",
+            "passed_report_version": "ffc05c24-7f24-4e2c-9fff-35f3c144509f",
+            "report_version": "ffc05c24-7f24-4e2c-9fff-35f3c144509f",
+            "review_run_id": "dc5c853c-5d3d-4b3f-9411-1e239285b0d4",
+            "review_task_id": "a170a05e-8d29-4f39-a82b-0ffc1fc83dba",
+            "rule_result_version": "2ff691983e087fa830cad7dbdaa1a5779bad45e43f4ec8ccc924593fc5ebf6e7",
+            "snapshot_hash": "4b00afbdb7c61f1906bfe151fc1b932e800317909ec894211b99923e7c2cb171"
+          },
+          "gate_status": "REPORT_READY",
+          "gate_version": "2534952c-ac5b-4444-80ec-6b619d8c2912",
+          "report_version": "ffc05c24-7f24-4e2c-9fff-35f3c144509f",
+          "review_run_id": "dc5c853c-5d3d-4b3f-9411-1e239285b0d4",
+          "review_task_id": "a170a05e-8d29-4f39-a82b-0ffc1fc83dba",
+          "rule_result_version": "2ff691983e087fa830cad7dbdaa1a5779bad45e43f4ec8ccc924593fc5ebf6e7",
+          "snapshot_hash": "4b00afbdb7c61f1906bfe151fc1b932e800317909ec894211b99923e7c2cb171",
+          "updated_at": "2026-09-18T13:47:10.242749+00:00"
+        },
+        "actual": {
+          "review_task_id": "a170a05e-8d29-4f39-a82b-0ffc1fc83dba",
+          "review_run_id": "82a67598-c768-4cb4-8b69-cdde87566fa1",
+          "created_at": "2026-09-18T12:49:56.078065+00:00",
+          "updated_at": "2026-09-18T12:50:12.356549+00:00",
+          "snapshot_hash": "4173e0e7ab93ce9ad44d0ef3035f4dfc5f2cbf11abe09ff22cc54fc8395f47c7",
+          "fact_snapshot_id": "084738fe4bf15859d07424ead9db8d5a589eb08a2ebb1b8be0e382e74d8f616c",
+          "rule_result_version": "09bbfc0ad86f7f5ffff2a5afcb4c3137dce0a17f422a902d1467b59b7d3b3c36",
+          "report_version": "8297f4a5-3a65-46db-bff1-87266c90ebd4",
+          "gate_version": "06733cb9-24cd-403a-bbf8-c30b9fcfe05f",
+          "export_version": null,
+          "gate_status": "REPORT_READY",
+          "gate_binding": {
+            "review_task_id": "a170a05e-8d29-4f39-a82b-0ffc1fc83dba",
+            "review_run_id": "82a67598-c768-4cb4-8b69-cdde87566fa1",
+            "fact_snapshot_id": "084738fe4bf15859d07424ead9db8d5a589eb08a2ebb1b8be0e382e74d8f616c",
+            "rule_result_version": "09bbfc0ad86f7f5ffff2a5afcb4c3137dce0a17f422a902d1467b59b7d3b3c36",
+            "report_version": "8297f4a5-3a65-46db-bff1-87266c90ebd4",
+            "gate_version": "06733cb9-24cd-403a-bbf8-c30b9fcfe05f",
+            "snapshot_hash": "4173e0e7ab93ce9ad44d0ef3035f4dfc5f2cbf11abe09ff22cc54fc8395f47c7",
+            "passed_report_version": "8297f4a5-3a65-46db-bff1-87266c90ebd4"
+          }
+        }
+      },
+      "mixed_markdown": {
+        "code": "EXPORT_BLOCKED_STALE_REPORT",
+        "message": "导出正文与已通过质量门的报告不一致。",
+        "expected": {
+          "created_at": "2026-09-18T13:46:49.614063+00:00",
+          "export_version": null,
+          "fact_snapshot_id": "183042d89f7d2e8b6bfd5eb355645ca3bbc9502a3c246f0aca7f2ec732d19feb",
+          "gate_binding": {
+            "fact_snapshot_id": "183042d89f7d2e8b6bfd5eb355645ca3bbc9502a3c246f0aca7f2ec732d19feb",
+            "gate_version": "2534952c-ac5b-4444-80ec-6b619d8c2912",
+            "passed_report_version": "ffc05c24-7f24-4e2c-9fff-35f3c144509f",
+            "report_version": "ffc05c24-7f24-4e2c-9fff-35f3c144509f",
+            "review_run_id": "dc5c853c-5d3d-4b3f-9411-1e239285b0d4",
+            "review_task_id": "a170a05e-8d29-4f39-a82b-0ffc1fc83dba",
+            "rule_result_version": "2ff691983e087fa830cad7dbdaa1a5779bad45e43f4ec8ccc924593fc5ebf6e7",
+            "snapshot_hash": "4b00afbdb7c61f1906bfe151fc1b932e800317909ec894211b99923e7c2cb171"
+          },
+          "gate_status": "REPORT_READY",
+          "gate_version": "2534952c-ac5b-4444-80ec-6b619d8c2912",
+          "report_version": "ffc05c24-7f24-4e2c-9fff-35f3c144509f",
+          "review_run_id": "dc5c853c-5d3d-4b3f-9411-1e239285b0d4",
+          "review_task_id": "a170a05e-8d29-4f39-a82b-0ffc1fc83dba",
+          "rule_result_version": "2ff691983e087fa830cad7dbdaa1a5779bad45e43f4ec8ccc924593fc5ebf6e7",
+          "snapshot_hash": "4b00afbdb7c61f1906bfe151fc1b932e800317909ec894211b99923e7c2cb171",
+          "updated_at": "2026-09-18T13:47:10.242749+00:00"
+        },
+        "actual": {
+          "review_task_id": "a170a05e-8d29-4f39-a82b-0ffc1fc83dba",
+          "review_run_id": "dc5c853c-5d3d-4b3f-9411-1e239285b0d4",
+          "created_at": "2026-09-18T13:46:49.614063+00:00",
+          "updated_at": "2026-09-18T13:47:10.242749+00:00",
+          "snapshot_hash": "4b00afbdb7c61f1906bfe151fc1b932e800317909ec894211b99923e7c2cb171",
+          "fact_snapshot_id": "183042d89f7d2e8b6bfd5eb355645ca3bbc9502a3c246f0aca7f2ec732d19feb",
+          "rule_result_version": "2ff691983e087fa830cad7dbdaa1a5779bad45e43f4ec8ccc924593fc5ebf6e7",
+          "report_version": "ffc05c24-7f24-4e2c-9fff-35f3c144509f",
+          "gate_version": "2534952c-ac5b-4444-80ec-6b619d8c2912",
+          "export_version": null,
+          "gate_status": "REPORT_READY",
+          "gate_binding": {
+            "review_task_id": "a170a05e-8d29-4f39-a82b-0ffc1fc83dba",
+            "review_run_id": "dc5c853c-5d3d-4b3f-9411-1e239285b0d4",
+            "fact_snapshot_id": "183042d89f7d2e8b6bfd5eb355645ca3bbc9502a3c246f0aca7f2ec732d19feb",
+            "rule_result_version": "2ff691983e087fa830cad7dbdaa1a5779bad45e43f4ec8ccc924593fc5ebf6e7",
+            "report_version": "ffc05c24-7f24-4e2c-9fff-35f3c144509f",
+            "gate_version": "2534952c-ac5b-4444-80ec-6b619d8c2912",
+            "snapshot_hash": "4b00afbdb7c61f1906bfe151fc1b932e800317909ec894211b99923e7c2cb171",
+            "passed_report_version": "ffc05c24-7f24-4e2c-9fff-35f3c144509f"
+          }
+        }
+      },
+      "mixed_gate": {
+        "code": "EXPORT_BLOCKED_STALE_REPORT",
+        "message": "导出请求中的 Gate 诊断不属于该最终报告。",
+        "expected": {
+          "created_at": "2026-09-18T13:46:49.614063+00:00",
+          "export_version": null,
+          "fact_snapshot_id": "183042d89f7d2e8b6bfd5eb355645ca3bbc9502a3c246f0aca7f2ec732d19feb",
+          "gate_binding": {
+            "fact_snapshot_id": "183042d89f7d2e8b6bfd5eb355645ca3bbc9502a3c246f0aca7f2ec732d19feb",
+            "gate_version": "2534952c-ac5b-4444-80ec-6b619d8c2912",
+            "passed_report_version": "ffc05c24-7f24-4e2c-9fff-35f3c144509f",
+            "report_version": "ffc05c24-7f24-4e2c-9fff-35f3c144509f",
+            "review_run_id": "dc5c853c-5d3d-4b3f-9411-1e239285b0d4",
+            "review_task_id": "a170a05e-8d29-4f39-a82b-0ffc1fc83dba",
+            "rule_result_version": "2ff691983e087fa830cad7dbdaa1a5779bad45e43f4ec8ccc924593fc5ebf6e7",
+            "snapshot_hash": "4b00afbdb7c61f1906bfe151fc1b932e800317909ec894211b99923e7c2cb171"
+          },
+          "gate_status": "REPORT_READY",
+          "gate_version": "2534952c-ac5b-4444-80ec-6b619d8c2912",
+          "report_version": "ffc05c24-7f24-4e2c-9fff-35f3c144509f",
+          "review_run_id": "dc5c853c-5d3d-4b3f-9411-1e239285b0d4",
+          "review_task_id": "a170a05e-8d29-4f39-a82b-0ffc1fc83dba",
+          "rule_result_version": "2ff691983e087fa830cad7dbdaa1a5779bad45e43f4ec8ccc924593fc5ebf6e7",
+          "snapshot_hash": "4b00afbdb7c61f1906bfe151fc1b932e800317909ec894211b99923e7c2cb171",
+          "updated_at": "2026-09-18T13:47:10.242749+00:00"
+        },
+        "actual": {
+          "review_task_id": "a170a05e-8d29-4f39-a82b-0ffc1fc83dba",
+          "review_run_id": "dc5c853c-5d3d-4b3f-9411-1e239285b0d4",
+          "created_at": "2026-09-18T13:46:49.614063+00:00",
+          "updated_at": "2026-09-18T13:47:10.242749+00:00",
+          "snapshot_hash": "4b00afbdb7c61f1906bfe151fc1b932e800317909ec894211b99923e7c2cb171",
+          "fact_snapshot_id": "183042d89f7d2e8b6bfd5eb355645ca3bbc9502a3c246f0aca7f2ec732d19feb",
+          "rule_result_version": "2ff691983e087fa830cad7dbdaa1a5779bad45e43f4ec8ccc924593fc5ebf6e7",
+          "report_version": "ffc05c24-7f24-4e2c-9fff-35f3c144509f",
+          "gate_version": "2534952c-ac5b-4444-80ec-6b619d8c2912",
+          "export_version": null,
+          "gate_status": "REPORT_READY",
+          "gate_binding": {
+            "review_task_id": "a170a05e-8d29-4f39-a82b-0ffc1fc83dba",
+            "review_run_id": "dc5c853c-5d3d-4b3f-9411-1e239285b0d4",
+            "fact_snapshot_id": "183042d89f7d2e8b6bfd5eb355645ca3bbc9502a3c246f0aca7f2ec732d19feb",
+            "rule_result_version": "2ff691983e087fa830cad7dbdaa1a5779bad45e43f4ec8ccc924593fc5ebf6e7",
+            "report_version": "ffc05c24-7f24-4e2c-9fff-35f3c144509f",
+            "gate_version": "2534952c-ac5b-4444-80ec-6b619d8c2912",
+            "snapshot_hash": "4b00afbdb7c61f1906bfe151fc1b932e800317909ec894211b99923e7c2cb171",
+            "passed_report_version": "ffc05c24-7f24-4e2c-9fff-35f3c144509f"
+          }
+        }
+      },
+      "unversioned": {
+        "code": "EXPORT_BLOCKED_STALE_REPORT",
+        "message": "缺少有效的服务端审查快照，请重新审查。",
+        "expected": {},
+        "actual": {}
+      }
+    }
+  }
+}

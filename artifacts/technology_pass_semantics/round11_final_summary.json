@@ -1,0 +1,264 @@
+{
+  "baseline": {
+    "PASS": 904,
+    "FAIL": 251
+  },
+  "counts": {
+    "PASS": 918,
+    "FAIL": 250,
+    "SKIP": 0
+  },
+  "comparison": {
+    "recovered": [
+      "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_report_consistency_and_empty_template_gates"
+    ],
+    "newly_failing": [],
+    "removed": [],
+    "added": {
+      "backend.tests.test_cross_article_upload_closure::test_coordinated_fee_names_share_atomic_price_predicate[\\u6280\\u672f\\u6307\\u5bfc\\u8d39]": "PASS",
+      "backend.tests.test_cross_article_upload_closure::test_coordinated_fee_names_share_atomic_price_predicate[\\u6280\\u672f\\u652f\\u6301\\u548c\\u57f9\\u8bad\\u8d39\\u7528]": "PASS",
+      "backend.tests.test_cross_article_upload_closure::test_coordinated_fee_names_share_atomic_price_predicate[\\u6280\\u672f\\u670d\\u52a1\\u53ca\\u6307\\u5bfc\\u8d39]": "PASS",
+      "backend.tests.test_cross_article_upload_closure::test_cross_article_sources_remain_separate_and_verbatim": "PASS",
+      "backend.tests.test_cross_article_upload_closure::test_each_confidentiality_duration_has_its_own_source": "PASS",
+      "backend.tests.test_cross_article_upload_closure::test_historical_grant_does_not_supply_current_scope": "PASS",
+      "backend.tests.test_cross_article_upload_closure::test_original_cross_article_upload_complete_gate": "PASS",
+      "backend.tests.test_cross_article_upload_closure::test_price_component_has_explicit_total_and_instalment_sources": "PASS",
+      "backend.tests.test_cross_article_upload_closure::test_product_metrics_do_not_prove_support_service_acceptance": "PASS",
+      "backend.tests.test_cross_article_upload_closure::test_remedies_are_not_inferred_from_confidentiality_scope": "PASS",
+      "backend.tests.test_cross_article_upload_closure::test_removed_element_publication_is_still_blocked": "PASS",
+      "backend.tests.test_cross_article_upload_closure::test_repeated_normal_upload_has_idempotent_states_and_spans": "PASS",
+      "backend.tests.test_cross_article_upload_closure::test_service_promise_and_separate_price_do_not_imply_inclusion": "PASS"
+    }
+  },
+  "business_hashes": {
+    "engine.py": "bdfd6e5470f3be775f5055740a999e6dd23e849d5bc3501e86a05837795a4a83",
+    "ancillary_fee_facts.py": "71633a14cc5dd5ac0be5d497cfada6b840add1c26021a7d325caee5076a18c90",
+    "license_control_facts.py": "3f6bbd3daa0ba40ddcc0bbb824eb0c3827d63315b7c7b92f87cbd5f309681935"
+  },
+  "test_migrations": 0,
+  "old_baseline_raw": 7,
+  "old_baseline_expanded": 9,
+  "fresh_raw": 6,
+  "fresh_expanded": 6,
+  "raw_blocker_causes": [
+    {
+      "raw_index": 1,
+      "code": "REVIEW_EVIDENCE_ELEMENT_MISMATCH",
+      "rule_id": "TC-09-02",
+      "element_id": "PRIMARY_EVIDENCE",
+      "first_wrong_stage": "SPECIALIZED_ACCEPTANCE_CANDIDATE",
+      "cause": "Product-performance clauses were used as ancillary-service acceptance evidence without an object-domain relation."
+    },
+    {
+      "raw_index": 2,
+      "code": "MISSING_WITH_POSITIVE_EVIDENCE",
+      "rule_id": "TC-09-02",
+      "element_id": null,
+      "first_wrong_stage": "SPECIALIZED_ACCEPTANCE_CANDIDATE",
+      "cause": "An early missing decision and a later product-metric COVERED candidate diverged. Service-domain atoms now determine both evidence and coverage; actual service acceptance gaps remain."
+    },
+    {
+      "raw_index": 3,
+      "code": "CROSS_RULE_CANONICAL_FACT_CONSISTENCY",
+      "rule_id": null,
+      "element_id": null,
+      "first_wrong_stage": "FEE_ATOMIC_PREDICATE / SPECIALIZED_SCOPE_TO_CANONICAL",
+      "cause": "Coordinated service-fee names and explicit component/total relations were not adapted; licence scope retained untyped, overly broad source candidates that exact verification rejected."
+    },
+    {
+      "raw_index": 4,
+      "code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TC-11-02",
+      "element_id": "confidentiality_period",
+      "first_wrong_stage": "SPECIALIZED_FIELD_SOURCE_PROJECTION",
+      "cause": "A synthesized label/value plus repeated sentence was not a verbatim source. Existing typed confidentiality facts now supply separate exact spans and actor provenance."
+    },
+    {
+      "raw_index": 5,
+      "code": "POSITIVE_FACT_MONOTONICITY",
+      "rule_id": "TC-09-02",
+      "element_id": "objective_acceptance_standard",
+      "first_wrong_stage": "SPECIALIZED_ACCEPTANCE_CANDIDATE",
+      "duplicate_root_of": 1
+    },
+    {
+      "raw_index": 6,
+      "code": "NARRATIVE_EVIDENCE_GATE",
+      "rule_id": "TC-11-02",
+      "element_id": "confidentiality_period",
+      "duplicate_root_of": 4
+    },
+    {
+      "raw_index": 7,
+      "code": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "rule_id": "TC-11-04",
+      "element_id": null,
+      "cause": "Three consequence/unresolved-rendering refusals already absent in the freshly reproduced 904/251 baseline; preserved, not counted as this-round restoration."
+    }
+  ],
+  "samples": [
+    {
+      "sample": "cross_article",
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round11_verified_cross_article_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "failures": [],
+      "process_id": 24488,
+      "engine_hash": "bdfd6e5470f3be775f5055740a999e6dd23e849d5bc3501e86a05837795a4a83",
+      "current_code": true,
+      "removed_risk_groups": [
+        "service_payment_and_expense"
+      ]
+    },
+    {
+      "sample": "patent",
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round11_final_patent_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "failures": [],
+      "process_id": 24488,
+      "engine_hash": "bdfd6e5470f3be775f5055740a999e6dd23e849d5bc3501e86a05837795a4a83",
+      "current_code": true,
+      "removed_risk_groups": []
+    },
+    {
+      "sample": "guard",
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round11_final_guard_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "failures": [],
+      "process_id": 24488,
+      "engine_hash": "bdfd6e5470f3be775f5055740a999e6dd23e849d5bc3501e86a05837795a4a83",
+      "current_code": true,
+      "removed_risk_groups": []
+    },
+    {
+      "sample": "consulting",
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round11_final_consulting_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "failures": [],
+      "process_id": 24488,
+      "engine_hash": "bdfd6e5470f3be775f5055740a999e6dd23e849d5bc3501e86a05837795a4a83",
+      "current_code": true,
+      "removed_risk_groups": []
+    },
+    {
+      "sample": "provider",
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round11_final_provider_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "failures": [],
+      "process_id": 24488,
+      "engine_hash": "bdfd6e5470f3be775f5055740a999e6dd23e849d5bc3501e86a05837795a4a83",
+      "current_code": true,
+      "removed_risk_groups": []
+    },
+    {
+      "sample": "balanced",
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round11_final_balanced_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "failures": [],
+      "process_id": 24488,
+      "engine_hash": "bdfd6e5470f3be775f5055740a999e6dd23e849d5bc3501e86a05837795a4a83",
+      "current_code": true,
+      "removed_risk_groups": []
+    },
+    {
+      "sample": "ancillary",
+      "report": "F:\\ai\\Sage\\artifacts\\technology_pass_semantics\\round11_final_ancillary_live\\report.json",
+      "gate": "REPORT_READY",
+      "raw_blockers": 0,
+      "failures": [],
+      "process_id": 24488,
+      "engine_hash": "bdfd6e5470f3be775f5055740a999e6dd23e849d5bc3501e86a05837795a4a83",
+      "current_code": true,
+      "removed_risk_groups": []
+    }
+  ],
+  "protections": {
+    "remaining_five": {
+      "backend.tests.test_technical_secret_license_contract_review::test_case_i_j_confidentiality_balance_is_directional": "PASS",
+      "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_confidentiality_consumes_cross_article_facts": "PASS",
+      "backend.tests.test_technical_secret_license_contract_review::test_over_scope_liability_b_existing_clause_is_not_missing": "PASS",
+      "backend.tests.test_technical_secret_transfer_contract_review::test_ancillary_service_fee_keeps_covered_base_and_only_reports_excess_fee_gaps": "PASS",
+      "backend.tests.test_technical_service_dynamic_roles_and_grounding::test_service_provider_does_not_receive_counterparty_liability_cap_risk": "PASS"
+    },
+    "protected_twenty_one": {
+      "backend.tests.test_current_patent_license_evidence_recall::test_patent_identity_and_support_reuse_direct_source_facts": "PASS",
+      "backend.tests.test_patent_application_transfer_consistency::test_claim_liability_reuses_seller_responsibility": "PASS",
+      "backend.tests.test_patent_application_transfer_consistency::test_completed_core_becomes_pass_without_fabricated_gap_or_exposure": "PASS",
+      "backend.tests.test_patent_application_transfer_consistency::test_duty_and_non_duty_have_separate_triggers": "PASS",
+      "backend.tests.test_patent_application_transfer_consistency::test_warranty_is_not_demoted_by_missing_proof_documents": "PASS",
+      "backend.tests.test_patent_license_theme_recommendation_economics::test_all_confirmed_competition_restrictions_have_recommendation_fragments": "PASS",
+      "backend.tests.test_patent_license_theme_recommendation_economics::test_compound_advice_is_semantic_not_rule_id_or_fixed_duration[GENERIC-RESTRICTION-7]": "PASS",
+      "backend.tests.test_patent_license_theme_recommendation_economics::test_compound_advice_is_semantic_not_rule_id_or_fixed_duration[OTHER-REVIEW-2]": "PASS",
+      "backend.tests.test_technical_consulting_contract_review::test_complete_consulting_data_provision_is_pass": "PASS",
+      "backend.tests.test_technical_consulting_contract_review::test_consulting_elements_and_evidence_are_status_separated_and_contract_grounded": "PASS",
+      "backend.tests.test_technical_consulting_contract_review::test_consulting_signing_law_context_is_not_false_positive": "PASS",
+      "backend.tests.test_technical_consulting_contract_review::test_consulting_subtype_is_inferred_from_transaction_substance_without_explicit_title": "PASS",
+      "backend.tests.test_technical_consulting_contract_review::test_consulting_tc08_rules_and_direct_evidence": "PASS",
+      "backend.tests.test_technical_consulting_contract_review::test_production_file_endpoint_uses_active_consulting_evidence_implementation": "PASS",
+      "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_compliant_use_infringement_liability_is_covered": "PASS",
+      "backend.tests.test_technical_secret_transfer_contract_review::test_service_fee_and_confidentiality_use_only_direct_operational_clauses": "PASS",
+      "backend.tests.test_technical_service_latest_shared_fact_regressions::test_party_direction_and_finding_consistency_are_enforced": "PASS",
+      "backend.tests.test_technology_license_final_precision::test_tc_12_04_requires_same_loss_general_remedy_before_activation": "PASS",
+      "backend.tests.test_technology_license_scenario_interest_isolation::test_d_party_interest_check_distinguishes_uncapped_and_low_capped_licensor_liability": "PASS",
+      "backend.tests.test_technology_pass_semantic_sources::test_negative_rule_requires_reproduced_complete_adverse_search[\\u7b2c\\u4e09\\u65b9\\u63d0\\u51fa\\u4fb5\\u6743\\u4e3b\\u5f20\\u65f6\\uff0c\\u4e59\\u65b9\\u5e94\\u5904\\u7406\\u7ea0\\u7eb7\\u3002-True-REPORT_READY]": "PASS",
+      "backend.tests.test_technology_subject_identity_consistency::test_current_application_identity_uses_basic_information_and_definition": "PASS"
+    },
+    "prior_eight": {
+      "backend.tests.test_current_patent_license_evidence_recall::test_infringement_remedy_coordination_ignores_unrelated_payment_penalty": "PASS",
+      "backend.tests.test_entrusted_cross_rule_consistency::test_completed_negative_check_does_not_leave_an_obsolete_manual_review": "PASS",
+      "backend.tests.test_entrusted_development_fact_direction_regressions::test_complete_source_delivery_is_checked_against_unilateral_carveout": "PASS",
+      "backend.tests.test_entrusted_development_fact_direction_regressions::test_complex_project_short_deemed_acceptance_preserves_latent_defect_review": "PASS",
+      "backend.tests.test_entrusted_development_fact_direction_regressions::test_development_failure_full_price_exposure_is_direct_and_quantified": "PASS",
+      "backend.tests.test_entrusted_development_fact_direction_regressions::test_existing_failure_allocation_is_covered_adverse_not_missing": "PASS",
+      "backend.tests.test_entrusted_development_fact_direction_regressions::test_project_contact_material_change_authority_is_adverse": "PASS",
+      "backend.tests.test_entrusted_development_fact_direction_regressions::test_secondary_data_use_is_an_independent_adverse_risk": "PASS"
+    },
+    "prior_twenty_two": {
+      "backend.tests.test_technology_verified_decision_boundary::test_canonical_penalty_rekey_preserves_exact_binding_contract": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_confidentiality_undertaking_is_only_applicability_not_breach_liability": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_general_liability_allocation_does_not_establish_concrete_damage_items": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_generic_confidentiality_claim_reuses_scope_and_obligation_sources": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_liability_cap_does_not_replace_explicit_claim_handler": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_material_delivery_uses_same_document_taxonomy_as_scope[\\u8bb8\\u53ef\\u65b9\\u5e94\\u4ea4\\u4ed8\\u8bbe\\u8ba1\\u56fe\\u7eb8\\u548c\\u64cd\\u4f5c\\u624b\\u518c\\u3002-True]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_material_delivery_uses_same_document_taxonomy_as_scope[\\u8bb8\\u53ef\\u65b9\\u5e94\\u63d0\\u4ea4\\u7535\\u6c14\\u539f\\u7406\\u56fe\\u548c\\u7ef4\\u4fee\\u624b\\u518c\\u3002-True]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_material_delivery_uses_same_document_taxonomy_as_scope[\\u8bb8\\u53ef\\u65b9\\u63d0\\u4f9b\\u7684\\u64cd\\u4f5c\\u624b\\u518c\\u53d1\\u751f\\u9519\\u8bef\\u65f6\\u5e94\\u627f\\u62c5\\u8d54\\u507f\\u8d23\\u4efb\\u3002-False]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_negative_audit_requires_reproducible_predicate_and_full_corpus[contrary_clause]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_negative_audit_requires_reproducible_predicate_and_full_corpus[incomplete_scope]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_negative_audit_requires_reproducible_predicate_and_full_corpus[wrong_predicate]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_negative_search_is_not_replaced_by_checkpoint_display_metadata[TC-02-02]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_negative_search_is_not_replaced_by_checkpoint_display_metadata[TC-10-04]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_owner_declaration_is_identity_not_document_availability[\\u7532\\u65b9\\u4e0d\\u662f\\u8be5\\u9879\\u6280\\u672f\\u7684\\u4e13\\u5229\\u6743\\u4eba\\u3002-False]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_owner_declaration_is_identity_not_document_availability[\\u7532\\u65b9\\u58f0\\u660e\\u662f\\u8be5\\u9879\\u6280\\u672f\\u7684\\u4e13\\u5229\\u6743\\u4eba\\u3002-True]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_owner_declaration_is_identity_not_document_availability[\\u7532\\u65b9\\u5982\\u4e3a\\u4e13\\u5229\\u6743\\u4eba\\uff0c\\u5e94\\u63d0\\u4f9b\\u8bc1\\u4e66\\u3002-False]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_owner_declaration_is_identity_not_document_availability[\\u8bb8\\u53ef\\u65b9\\u786e\\u8ba4\\u5176\\u4e3a\\u8bb8\\u53ef\\u6807\\u7684\\u7684\\u5408\\u6cd5\\u4e13\\u5229\\u6743\\u4eba\\u3002-True]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_patent_identity_absence_query_is_field_specific": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_rejected_positive_element_cannot_be_restored_from_specialized_snapshot": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_replaying_completed_negative_search_is_idempotent": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_trigger_party_does_not_own_later_provider_response[\\u4e70\\u65b9\\u906d\\u5230\\u7b2c\\u4e09\\u4eba\\u7d22\\u8d54\\u7684\\uff0c\\u5356\\u65b9\\u5e94\\u8d1f\\u8d23\\u5904\\u7406\\u5e76\\u627f\\u62c5\\u5408\\u7406\\u635f\\u5931\\u3002]": "PASS",
+      "backend.tests.test_technology_verified_decision_boundary::test_trigger_party_does_not_own_later_provider_response[\\u63a5\\u53d7\\u65b9\\u6309\\u7ea6\\u5b9e\\u65bd\\u906d\\u9047\\u7b2c\\u4e09\\u65b9\\u4fb5\\u6743\\u4e3b\\u5f20\\u65f6\\uff0c\\u8bb8\\u53ef\\u65b9\\u5e94\\u8d1f\\u8d23\\u5e94\\u8bc9\\u5e76\\u627f\\u62c5\\u76f8\\u5e94\\u4fb5\\u6743\\u8d23\\u4efb\\u3002]": "PASS"
+    },
+    "prior_sixteen": {
+      "backend.tests.test_consulting_verified_fact_projection::test_canonical_sources_survive_projection_and_independent_verification[consulting_quality-\\u4e59\\u65b9\\u5bf9\\u7cfb\\u7edf\\u67b6\\u6784\\u8fdb\\u884c\\u5206\\u6790\\u8bc4\\u4f30\\u3002\\u54a8\\u8be2\\u62a5\\u544a\\u5e94\\u5305\\u62ec\\u98ce\\u9669\\u5206\\u6790\\u3002\\u4e59\\u65b9\\u63d0\\u4ea4\\u7eb8\\u8d28\\u54a8\\u8be2\\u62a5\\u544a\\u3002\\u54a8\\u8be2\\u62a5\\u544a\\u5e94\\u5b8c\\u6574\\u8986\\u76d6\\u7ea6\\u5b9a\\u5185\\u5bb9\\u3002-4]": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_canonical_sources_survive_projection_and_independent_verification[consulting_inputs-\\u7532\\u65b9\\u63d0\\u4f9b\\u7cfb\\u7edf\\u67b6\\u6784\\u56fe\\u548c\\u6027\\u80fd\\u6570\\u636e\\uff0c\\u5b89\\u6392\\u4eba\\u5458\\u8bbf\\u8c08\\u53ca\\u6d4b\\u8bd5\\u73af\\u5883\\u3002\\u7532\\u65b9\\u4fdd\\u8bc1\\u8d44\\u6599\\u771f\\u5b9e\\u3001\\u5b8c\\u6574\\uff0c\\u5e76\\u901a\\u8fc7\\u52a0\\u5bc6\\u7535\\u5b50\\u6587\\u4ef6\\u65b9\\u5f0f\\u63d0\\u4ea4\\u3002-4]": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_canonical_sources_survive_projection_and_independent_verification[consulting_remedy-\\u54a8\\u8be2\\u6210\\u679c\\u4e0d\\u7b26\\u5408\\u7ea6\\u5b9a\\u7684\\uff0c\\u4e59\\u65b9\\u5e94\\u5728\\u5408\\u7406\\u671f\\u9650\\u5185\\u514d\\u8d39\\u4fee\\u6539\\u3002-3]": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_related_heading_and_other_obligation_do_not_prove_consulting_elements[consulting_quality]": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_related_heading_and_other_obligation_do_not_prove_consulting_elements[consulting_inputs]": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_related_heading_and_other_obligation_do_not_prove_consulting_elements[consulting_remedy]": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_exact_report_id_does_not_get_shadowed_by_clause_id_in_advice": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_inline_article_payload_reaches_the_same_fact_predicate": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_explicit_mutual_undertaking_is_not_an_unidentified_party_group": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_response_projection_uses_original_not_reparsed_clause_identity": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_application_representations_are_not_inferred_from_future_materials[\\u5356\\u65b9\\u4fdd\\u8bc1\\u5df2\\u7ecf\\u53d6\\u5f97\\u5168\\u90e8\\u7814\\u53d1\\u4eba\\u5458\\u804c\\u52a1\\u6210\\u679c\\u5f52\\u5c5e\\u7684\\u5185\\u90e8\\u6587\\u4ef6\\u3002-True]": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_application_representations_are_not_inferred_from_future_materials[\\u5356\\u65b9\\u5e94\\u5f53\\u4eca\\u540e\\u63d0\\u4f9b\\u7814\\u53d1\\u4eba\\u5458\\u8eab\\u4efd\\u6750\\u6599\\u3002-False]": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_service_subject_candidates_retain_performance_not_remedy_sources[\\u4e59\\u65b9\\u901a\\u8fc7\\u7cfb\\u7edf\\u5206\\u6790\\u548c\\u53c2\\u6570\\u8c03\\u8bd5\\u63d0\\u4f9b\\u6280\\u672f\\u670d\\u52a1\\uff0c\\u5e76\\u63d0\\u4ea4\\u6280\\u672f\\u4f18\\u5316\\u62a5\\u544a\\u3002-True]": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_service_subject_candidates_retain_performance_not_remedy_sources[\\u7532\\u65b9\\u652f\\u4ed8\\u6280\\u672f\\u670d\\u52a1\\u8d39\\u7528\\u3002\\u4e59\\u65b9\\u8fdd\\u7ea6\\u8d54\\u507f\\u4ee5\\u6280\\u672f\\u670d\\u52a1\\u8d39\\u7528\\u4e3a\\u4e0a\\u9650\\u3002-False]": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_named_object_of_confidentiality_duty_is_scope_not_remedy": "PASS",
+      "backend.tests.test_consulting_verified_fact_projection::test_multiple_sources_for_one_element_do_not_expand_verified_quotes": "PASS"
+    }
+  }
+}

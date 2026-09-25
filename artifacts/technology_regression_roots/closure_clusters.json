@@ -1,0 +1,1635 @@
+{
+  "failure_count": 270,
+  "clusters": {
+    "建议/判断文本及其他语义断言": 82,
+    "正向事实召回与多要素覆盖归一": 55,
+    "事实节点/派生结果丢失或测试接口异常": 41,
+    "发布门禁/要素证据链不完整": 33,
+    "交易分类、主体或条件适用性": 18,
+    "精确引文、条款定位及证据标识不一致": 15,
+    "不利方向/冲突事实被覆盖或丢失": 14,
+    "聚合、统计与报告投影": 12
+  },
+  "failures": [
+    {
+      "test": "backend.tests.test_atomic_narrative_and_recommendation_binding::test_current_names_and_document_advice_are_not_expanded",
+      "message": "AssertionError: [{'requirement': 'CROSS_REVIEW_FACT_CONFLICT', 'failure_stage': 'Review Post-processing', 'root_cause': 'ContractFactR..., 'root_cause': 'TC-01-01', 'evidence_id': 'SRC-88a8d8edbdbea6147736', 'reason': 'IRRELEVANT_PASS_EVIDENCE', ...}, ...]\nassert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_atomic_narrative_and_recommendation_binding.py:43: in test_current_names_and_document_advice_are_not_expanded\n    assert current[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\", current[\"release_quality_gate\"][\"failures\"]\nE   AssertionError: [{'requirement': 'CROSS_REVIEW_FACT_CONFLICT', 'failure_stage': 'Review Post-processing', 'root_cause': 'ContractFactR..., 'root_cause': 'TC-01-01', 'evidence_id': 'SRC-88a8d8edbdbea6147736', 'reason': 'IRRELEVANT_PASS_EVIDENCE', ...}, ...]\nE   assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency::test_confidentiality_damage_is_covered_without_duplicate_gap",
+      "message": "KeyError: 'confidentiality_obligation'",
+      "trace": "backend\\tests\\test_cooperative_development_evidence_fact_conclusion_consistency.py:99: in test_confidentiality_damage_is_covered_without_duplicate_gap\n    assert liability[\"confidentiality_obligation\"][\"status\"] == \"COVERED\"\nE   KeyError: 'confidentiality_obligation'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency::test_explicit_improvement_and_high_salience_adverse_clauses_are_consumed",
+      "message": "KeyError: 'risk_to_current_party'",
+      "trace": "backend\\tests\\test_cooperative_development_evidence_fact_conclusion_consistency.py:181: in test_explicit_improvement_and_high_salience_adverse_clauses_are_consumed\n    assert result_rights[\"decision_trace\"][\"risk_to_current_party\"][\"current_party_directly_burdened\"] is False\nE   KeyError: 'risk_to_current_party'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency::test_sole_ownership_claim_cost_and_retention_branches_are_consistent",
+      "message": "AssertionError: assert '费用和赔偿责任承担已经覆盖' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'",
+      "trace": "backend\\tests\\test_cooperative_development_evidence_fact_conclusion_consistency.py:214: in test_sole_ownership_claim_cost_and_retention_branches_are_consistent\n    assert \"费用和赔偿责任承担已经覆盖\" in claim[\"risk_point_description\"]\nE   AssertionError: assert '费用和赔偿责任承担已经覆盖' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency::test_party_a_favorable_rights_and_penalty_rendering_are_preserved",
+      "message": "AssertionError: assert '对甲方有利' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'",
+      "trace": "backend\\tests\\test_cooperative_development_evidence_fact_conclusion_consistency.py:270: in test_party_a_favorable_rights_and_penalty_rendering_are_preserved\n    assert \"对甲方有利\" in result_rights[\"risk_point_description\"]\nE   AssertionError: assert '对甲方有利' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency::test_report_layers_and_preserved_risks_remain_consistent",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_cooperative_development_evidence_fact_conclusion_consistency.py:313: in test_report_layers_and_preserved_risks_remain_consistent\n    assert cooperative_review[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency::test_party_a_ownership_and_final_decision_right_are_not_adverse",
+      "message": "AssertionError: assert '缺失' == '部分覆盖'\n  \n  - 部分覆盖\n  + 缺失",
+      "trace": "backend\\tests\\test_cooperative_development_evidence_fact_conclusion_consistency.py:392: in test_party_a_ownership_and_final_decision_right_are_not_adverse\n    assert result_rights[\"coverage_status\"] == \"部分覆盖\"\nE   AssertionError: assert '缺失' == '部分覆盖'\nE     \nE     - 部分覆盖\nE     + 缺失",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency::test_report_deduplicates_basis_and_evidence_and_uses_actual_acceptance_articles",
+      "message": "AssertionError: assert 5 == 4\n +  where 5 = len(['乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金。', '第十九条 违约责任\\n甲方逾期支付研发费用的，每逾期一日按应付款金额的0.05%支付违约金。\\n乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%...0日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '已检索合同正文及全部已提供附件，未找到以下正向事实：违约金基数（合同研发总金额、同时支付合同总金额）的金额或可验证确定方法。'])\n +  and   4 = len({'乙方交付成果未通过验收超过30日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金。', '已检索合同正文及...按合同研发总金额的1%支付违约金。\\n乙方交付成果未通过验收超过30日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。\\n丙方未按照要求完成技术评估的，应赔偿因此给甲方造成的全部损失。'})\n +    where {'乙方交付成果未通过验收超过30日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金。', '已检索合同正文及...按合同研发总金额的1%支付违约金。\\n乙方交付成果未通过验收超过30日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。\\n丙方未按照要求完成技术评估的，应赔偿因此给甲方造成的全部损失。'} = set(['乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金。', '第十九条 违约责任\\n甲方逾期支付研发费用的，每逾期一日按应付款金额的0.05%支付违约金。\\n乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%...0日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '已检索合同正文及全部已提供附件，未找到以下正向事实：违约金基数（合同研发总金额、同时支付合同总金额）的金额或可验证确定方法。'])",
+      "trace": "backend\\tests\\test_cooperative_development_evidence_fact_conclusion_consistency.py:478: in test_report_deduplicates_basis_and_evidence_and_uses_actual_acceptance_articles\n    assert len(quotes) == len(set(quotes))\nE   AssertionError: assert 5 == 4\nE    +  where 5 = len(['乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金。', '第十九条 违约责任\\n甲方逾期支付研发费用的，每逾期一日按应付款金额的0.05%支付违约金。\\n乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%...0日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '已检索合同正文及全部已提供附件，未找到以下正向事实：违约金基数（合同研发总金额、同时支付合同总金额）的金额或可验证确定方法。'])\nE    +  and   4 = len({'乙方交付成果未通过验收超过30日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金。', '已检索合同正文及...按合同研发总金额的1%支付违约金。\\n乙方交付成果未通过验收超过30日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。\\n丙方未按照要求完成技术评估的，应赔偿因此给甲方造成的全部损失。'})\nE    +    where {'乙方交付成果未通过验收超过30日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金。', '已检索合同正文及...按合同研发总金额的1%支付违约金。\\n乙方交付成果未通过验收超过30日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。\\n丙方未按照要求完成技术评估的，应赔偿因此给甲方造成的全部损失。'} = set(['乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金。', '第十九条 违约责任\\n甲方逾期支付研发费用的，每逾期一日按应付款金额的0.05%支付违约金。\\n乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%...0日的，甲方有权解除合同，并要求乙方返还甲方已经支付的全部研发费用，同时支付合同总金额30%的违约金。', '已检索合同正文及全部已提供附件，未找到以下正向事实：违约金基数（合同研发总金额、同时支付合同总金额）的金额或可验证确定方法。'])",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_evidence_fact_conclusion_consistency::test_report_distinguishes_aggregated_themes_from_rule_level_hits",
+      "message": "AssertionError: assert '规则级审查命中数：20' in '# 合作开发合同审查报告\\n\\n\\n## 一、合同总体评价\\n\\n- 审查立场：甲方 / 合作开发方\\n- 使用场景：合作开发\\n- 合同类型：技术合同—技术开发合同—合作开发合同\\n- 总体可签署性：建议修改后签署\\n- 风险主题数...30%的违约金。 丙方未按照要求完成技术评估的，应赔偿因此给甲方造成的全部损失。\\n- 第十九条 违约责任 [支持：违约金标准偏高及司法调减风险]: 乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金\\n\\n---\\n'",
+      "trace": "backend\\tests\\test_cooperative_development_evidence_fact_conclusion_consistency.py:500: in test_report_distinguishes_aggregated_themes_from_rule_level_hits\n    assert f\"规则级审查命中数：{len(rule_ids)}\" in report\nE   AssertionError: assert '规则级审查命中数：20' in '# 合作开发合同审查报告\\n\\n\\n## 一、合同总体评价\\n\\n- 审查立场：甲方 / 合作开发方\\n- 使用场景：合作开发\\n- 合同类型：技术合同—技术开发合同—合作开发合同\\n- 总体可签署性：建议修改后签署\\n- 风险主题数...30%的违约金。 丙方未按照要求完成技术评估的，应赔偿因此给甲方造成的全部损失。\\n- 第十九条 违约责任 [支持：违约金标准偏高及司法调减风险]: 乙方未按期完成研发任务的，每逾期一日按合同研发总金额的1%支付违约金\\n\\n---\\n'",
+      "cluster": "不利方向/冲突事实被覆盖或丢失"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_consistency::test_gold_timeline_evidence_binds_the_two_conflicting_dates",
+      "message": "AssertionError: assert '第一阶段' in '履行开始日期 = 2026-09-01；合同生效日期 = 2026-09-20；2026-09-01 < 2026-09-20，存在生效前履行事实。 18.4. 本合同经各方签名或盖章后生效。 签订时间：2026年9月20日'",
+      "trace": "backend\\tests\\test_entrusted_development_consistency.py:157: in test_gold_timeline_evidence_binds_the_two_conflicting_dates\n    assert \"第一阶段\" in combined\nE   AssertionError: assert '第一阶段' in '履行开始日期 = 2026-09-01；合同生效日期 = 2026-09-20；2026-09-01 < 2026-09-20，存在生效前履行事实。 18.4. 本合同经各方签名或盖章后生效。 签订时间：2026年9月20日'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_consistency::test_gold_demand_reduction_evidence_stays_on_clause_5_5",
+      "message": "AssertionError: assert {'第二部分 开发安排第5.5项'} == {'第5.5项'}\n  \n  Extra items in the left set:\n  '第二部分 开发安排第5.5项'\n  Extra items in the right set:\n  '第5.5项'\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_entrusted_development_consistency.py:169: in test_gold_demand_reduction_evidence_stays_on_clause_5_5\n    assert {row[\"location\"] for row in item[\"evidence_clauses\"]} == {\"第5.5项\"}\nE   AssertionError: assert {'第二部分 开发安排第5.5项'} == {'第5.5项'}\nE     \nE     Extra items in the left set:\nE     '第二部分 开发安排第5.5项'\nE     Extra items in the right set:\nE     '第5.5项'\nE     Use -v to get more diff",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_consistency::test_gold_liability_evidence_preserves_multiple_sources",
+      "message": "AssertionError: assert 'EVIDENCE_INSUFFICIENT' == 'PASSED'\n  \n  - PASSED\n  + EVIDENCE_INSUFFICIENT",
+      "trace": "backend\\tests\\test_entrusted_development_consistency.py:177: in test_gold_liability_evidence_preserves_multiple_sources\n    assert item[\"decision_trace\"][\"evidence_consistency_gate\"][\"status\"] == \"PASSED\"\nE   AssertionError: assert 'EVIDENCE_INSUFFICIENT' == 'PASSED'\nE     \nE     - PASSED\nE     + EVIDENCE_INSUFFICIENT",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_consistency::test_internal_uncertainty_metadata_never_enters_user_report",
+      "message": "KeyError: 'internal_uncertainty_metadata'",
+      "trace": "backend\\tests\\test_entrusted_development_consistency.py:206: in test_internal_uncertainty_metadata_never_enters_user_report\n    assert items[\"TC-13-03\"][\"decision_trace\"][\"internal_uncertainty_metadata\"][\nE   KeyError: 'internal_uncertainty_metadata'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_consistency::test_tc_13_01_does_not_expand_generic_technical_documentation",
+      "message": "AssertionError: assert 'MISSING' == 'COVERED'\n  \n  - COVERED\n  + MISSING",
+      "trace": "backend\\tests\\test_entrusted_development_consistency.py:287: in test_tc_13_01_does_not_expand_generic_technical_documentation\n    assert elements[\"generic_technical_documentation\"] == \"COVERED\"\nE   AssertionError: assert 'MISSING' == 'COVERED'\nE     \nE     - COVERED\nE     + MISSING",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_consistency::test_renderer_uses_lineage_evidence_instead_of_keyword_fallback",
+      "message": "assert False\n +  where False = all(<generator object test_renderer_uses_lineage_evidence_instead_of_keyword_fallback.<locals>.<genexpr> at 0x00000194684CDD90>)",
+      "trace": "backend\\tests\\test_entrusted_development_consistency.py:305: in test_renderer_uses_lineage_evidence_instead_of_keyword_fallback\n    assert all(term in timeline for term in (\"第一阶段\", \"2026年9月1日\", \"签订时间：2026年9月20日\"))\nE   assert False\nE    +  where False = all(<generator object test_renderer_uses_lineage_evidence_instead_of_keyword_fallback.<locals>.<genexpr> at 0x00000194684CDD90>)",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_entrusted_report_consistency_closure::test_real_release_gate_and_new_invariants_reject_mutated_reports",
+      "message": "AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'VERIFIED_PASS_ORIGINAL_GATE', 'root_cause': 'TC-02-02', 'evidence_...': {'status': 'PASS', 'failures': [], 'contract_type': 'technology', 'domain_pack': 'domain-pack-technology-1.0'}, ...}\nassert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_entrusted_report_consistency_closure.py:90: in test_real_release_gate_and_new_invariants_reject_mutated_reports\n    assert report[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\", report[\"release_quality_gate\"]\nE   AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'VERIFIED_PASS_ORIGINAL_GATE', 'root_cause': 'TC-02-02', 'evidence_...': {'status': 'PASS', 'failures': [], 'contract_type': 'technology', 'domain_pack': 'domain-pack-technology-1.0'}, ...}\nE   assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_patent_license_composite_contract_review::test_composite_contract_recovers_development_and_infringement_truth",
+      "message": "AssertionError: assert '部分覆盖' == '风险条款'\n  \n  - 风险条款\n  + 部分覆盖",
+      "trace": "backend\\tests\\test_patent_license_composite_contract_review.py:75: in test_composite_contract_recovers_development_and_infringement_truth\n    assert by_id[\"TC-04-04\"][\"coverage_status\"] == \"风险条款\"\nE   AssertionError: assert '部分覆盖' == '风险条款'\nE     \nE     - 风险条款\nE     + 部分覆盖",
+      "cluster": "不利方向/冲突事实被覆盖或丢失"
+    },
+    {
+      "test": "backend.tests.test_patent_license_composite_contract_review::test_license_and_confidentiality_reviews_stay_covered_and_report_context_is_specific",
+      "message": "assert False\n +  where False = all(<generator object test_license_and_confidentiality_reviews_stay_covered_and_report_context_is_specific.<locals>.<genexpr> at 0x000001945D6A42E0>)",
+      "trace": "backend\\tests\\test_patent_license_composite_contract_review.py:99: in test_license_and_confidentiality_reviews_stay_covered_and_report_context_is_specific\n    assert all(by_id[f\"TC-07-0{index}\"][\"coverage_status\"] == \"通过\" for index in range(1, 5))\nE   assert False\nE    +  where False = all(<generator object test_license_and_confidentiality_reviews_stay_covered_and_report_context_is_specific.<locals>.<genexpr> at 0x000001945D6A42E0>)",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_patent_license_composite_contract_review::test_composite_gap_reviews_use_contract_specific_states_and_evidence",
+      "message": "AssertionError: assert '风险条款' == '部分覆盖'\n  \n  - 部分覆盖\n  + 风险条款",
+      "trace": "backend\\tests\\test_patent_license_composite_contract_review.py:110: in test_composite_gap_reviews_use_contract_specific_states_and_evidence\n    assert by_id[\"TC-05-04\"][\"coverage_status\"] == \"部分覆盖\"\nE   AssertionError: assert '风险条款' == '部分覆盖'\nE     \nE     - 部分覆盖\nE     + 风险条款",
+      "cluster": "不利方向/冲突事实被覆盖或丢失"
+    },
+    {
+      "test": "backend.tests.test_patent_license_composite_contract_review::test_final_disposition_is_the_single_report_action_source",
+      "message": "IndexError: list index out of range",
+      "trace": "backend\\tests\\test_patent_license_composite_contract_review.py:139: in test_final_disposition_is_the_single_report_action_source\n    priority_section = report.split(\"、建议修改事项\", 1)[1].split(\"\\n## \", 1)[0]\nE   IndexError: list index out of range",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_patent_license_composite_contract_review::test_final_evidence_matches_each_adverse_proposition",
+      "message": "assert False\n +  where False = all(<generator object test_final_evidence_matches_each_adverse_proposition.<locals>.<genexpr> at 0x0000019466107680>)",
+      "trace": "backend\\tests\\test_patent_license_composite_contract_review.py:160: in test_final_evidence_matches_each_adverse_proposition\n    assert all(term in infringement_by_type[\"LICENSEE_LOSS_ALLOCATION\"][\"quoted_text\"] for term in (\nE   assert False\nE    +  where False = all(<generator object test_final_evidence_matches_each_adverse_proposition.<locals>.<genexpr> at 0x0000019466107680>)",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_patent_license_composite_contract_review::test_pass_evidence_is_bound_to_coverage_propositions",
+      "message": "AssertionError: assert '部分覆盖' == '通过'\n  \n  - 通过\n  + 部分覆盖",
+      "trace": "backend\\tests\\test_patent_license_composite_contract_review.py:210: in test_pass_evidence_is_bound_to_coverage_propositions\n    assert secret_result[\"coverage_status\"] == \"通过\"\nE   AssertionError: assert '部分覆盖' == '通过'\nE     \nE     - 通过\nE     + 部分覆盖",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_patent_license_theme_recommendation_economics::test_same_contract_baseline_counts_and_release_gate",
+      "message": "assert 26 == 23",
+      "trace": "backend\\tests\\test_patent_license_theme_recommendation_economics.py:35: in test_same_contract_baseline_counts_and_release_gate\n    assert result[\"risk_theme_count\"] == 23\nE   assert 26 == 23",
+      "cluster": "聚合、统计与报告投影"
+    },
+    {
+      "test": "backend.tests.test_patent_license_theme_recommendation_economics::test_route_payment_and_partial_facts_do_not_regress",
+      "message": "StopIteration",
+      "trace": "backend\\tests\\test_patent_license_theme_recommendation_economics.py:176: in test_route_payment_and_partial_facts_do_not_regress\n    method = next(row for row in material[\"coverage_elements\"] if row[\"element_id\"] == \"delivery_method\")\nE   StopIteration",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_technical_secret_transfer_contract_review::test_existing_adverse_third_party_allocation_is_not_treated_as_missing",
+      "message": "assert False is True",
+      "trace": "backend\\tests\\test_technical_secret_transfer_contract_review.py:85: in test_existing_adverse_third_party_allocation_is_not_treated_as_missing\n    assert claim[\"claim_assistance\"] is True\nE   assert False is True",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_secret_transfer_contract_review::test_full_report_uses_secret_transfer_role_and_non_patent_proof_semantics",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_technical_secret_transfer_contract_review.py:137: in test_full_report_uses_secret_transfer_role_and_non_patent_proof_semantics\n    assert secret_transfer_review[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_technical_secret_transfer_contract_review::test_acceptance_test_attachment_is_fact_activated_and_theme_deduplicated",
+      "message": "assert 15 == 13",
+      "trace": "backend\\tests\\test_technical_secret_transfer_contract_review.py:287: in test_acceptance_test_attachment_is_fact_activated_and_theme_deduplicated\n    assert secret_transfer_review[\"risk_theme_count\"] == 13\nE   assert 15 == 13",
+      "cluster": "聚合、统计与报告投影"
+    },
+    {
+      "test": "backend.tests.test_technical_secret_transfer_contract_review::test_acceptance_test_attachment_narrative_has_complete_sentences",
+      "message": "AssertionError: assert '测试争议的复测机制未明确。' in '已覆盖：合同第十二条已明确验收场景和基本标准；合同第一条和验收条款已列明客观技术指标；测试设备和环境条件；尚未覆盖：独立验收测试方案附件；测试方法和操作步骤；固定测试数据集或样本；统计口径；测试记录和签认要求；争议复测或第三方检测机制。'",
+      "trace": "backend\\tests\\test_technical_secret_transfer_contract_review.py:301: in test_acceptance_test_attachment_narrative_has_complete_sentences\n    assert \"测试争议的复测机制未明确。\" in narrative[\"judgment\"]\nE   AssertionError: assert '测试争议的复测机制未明确。' in '已覆盖：合同第十二条已明确验收场景和基本标准；合同第一条和验收条款已列明客观技术指标；测试设备和环境条件；尚未覆盖：独立验收测试方案附件；测试方法和操作步骤；固定测试数据集或样本；统计口径；测试记录和签认要求；争议复测或第三方检测机制。'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_report_integrity::test_report_uses_final_findings_and_quality_gate_checks_integrity",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_technical_service_report_integrity.py:91: in test_report_uses_final_findings_and_quality_gate_checks_integrity\n    assert output[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_technical_service_report_integrity::test_quality_gate_blocks_wrong_recommendation_binding",
+      "message": "TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'",
+      "trace": "backend\\tests\\test_technical_service_report_integrity.py:123: in test_quality_gate_blocks_wrong_recommendation_binding\n    items, findings, recommendations, dispositions = _integrity_inputs(output)\nbackend\\tests\\test_technical_service_report_integrity.py:116: in _integrity_inputs\n    [Recommendation(**row) for row in output[\"recommendations\"]],\nbackend\\tests\\test_technical_service_report_integrity.py:116: in <listcomp>\n    [Recommendation(**row) for row in output[\"recommendations\"]],\nE   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_report_integrity::test_quality_gate_blocks_incomplete_evidence_bundle_and_missing_detail",
+      "message": "TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'",
+      "trace": "backend\\tests\\test_technical_service_report_integrity.py:134: in test_quality_gate_blocks_incomplete_evidence_bundle_and_missing_detail\n    items, findings, recommendations, dispositions = _integrity_inputs(output)\nbackend\\tests\\test_technical_service_report_integrity.py:116: in _integrity_inputs\n    [Recommendation(**row) for row in output[\"recommendations\"]],\nbackend\\tests\\test_technical_service_report_integrity.py:116: in <listcomp>\n    [Recommendation(**row) for row in output[\"recommendations\"]],\nE   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_report_integrity::test_quality_gate_blocks_semantically_invalid_evidence_and_claim_gap",
+      "message": "TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'",
+      "trace": "backend\\tests\\test_technical_service_report_integrity.py:147: in test_quality_gate_blocks_semantically_invalid_evidence_and_claim_gap\n    items, findings, recommendations, dispositions = _integrity_inputs(output)\nbackend\\tests\\test_technical_service_report_integrity.py:116: in _integrity_inputs\n    [Recommendation(**row) for row in output[\"recommendations\"]],\nbackend\\tests\\test_technical_service_report_integrity.py:116: in <listcomp>\n    [Recommendation(**row) for row in output[\"recommendations\"]],\nE   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_report_integrity::test_quality_gate_blocks_review_risk_bundle_projection_mismatch",
+      "message": "TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'",
+      "trace": "backend\\tests\\test_technical_service_report_integrity.py:158: in test_quality_gate_blocks_review_risk_bundle_projection_mismatch\n    items, findings, recommendations, dispositions = _integrity_inputs(output)\nbackend\\tests\\test_technical_service_report_integrity.py:116: in _integrity_inputs\n    [Recommendation(**row) for row in output[\"recommendations\"]],\nbackend\\tests\\test_technical_service_report_integrity.py:116: in <listcomp>\n    [Recommendation(**row) for row in output[\"recommendations\"]],\nE   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_report_integrity::test_quality_gate_blocks_issue_type_partial_and_applicability_conflicts",
+      "message": "TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'",
+      "trace": "backend\\tests\\test_technical_service_report_integrity.py:168: in test_quality_gate_blocks_issue_type_partial_and_applicability_conflicts\n    items, findings, recommendations, dispositions = _integrity_inputs(output)\nbackend\\tests\\test_technical_service_report_integrity.py:116: in _integrity_inputs\n    [Recommendation(**row) for row in output[\"recommendations\"]],\nbackend\\tests\\test_technical_service_report_integrity.py:116: in <listcomp>\n    [Recommendation(**row) for row in output[\"recommendations\"]],\nE   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_report_integrity::test_quality_gate_allows_theme_projection_without_legacy_truncation_banner",
+      "message": "TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'",
+      "trace": "backend\\tests\\test_technical_service_report_integrity.py:186: in test_quality_gate_allows_theme_projection_without_legacy_truncation_banner\n    items, findings, recommendations, dispositions = _integrity_inputs(output)\nbackend\\tests\\test_technical_service_report_integrity.py:116: in _integrity_inputs\n    [Recommendation(**row) for row in output[\"recommendations\"]],\nbackend\\tests\\test_technical_service_report_integrity.py:116: in <listcomp>\n    [Recommendation(**row) for row in output[\"recommendations\"]],\nE   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technology_license_scenario_interest_isolation::test_e_missing_special_liability_is_not_mechanically_major_when_protected",
+      "message": "AssertionError: assert '高' == '低'\n  \n  - 低\n  + 高",
+      "trace": "backend\\tests\\test_technology_license_scenario_interest_isolation.py:167: in test_e_missing_special_liability_is_not_mechanically_major_when_protected\n    assert protected_item[\"risk_level\"] == \"低\"\nE   AssertionError: assert '高' == '低'\nE     \nE     - 低\nE     + 高",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technology_transaction_routing_consistency::test_pure_patent_transaction_uses_fact_driven_proof_requirements",
+      "message": "AssertionError: assert {'license_enc...ication', ...} == {'license_enc...verification'}\n  \n  Extra items in the left set:\n  'sublicense_authorization_file'\n  'upstream_authorization_file'\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_technology_transaction_routing_consistency.py:92: in test_pure_patent_transaction_uses_fact_driven_proof_requirements\n    assert {row[\"element_id\"] for row in item[\"coverage_elements\"]} == expected_elements\nE   AssertionError: assert {'license_enc...ication', ...} == {'license_enc...verification'}\nE     \nE     Extra items in the left set:\nE     'sublicense_authorization_file'\nE     'upstream_authorization_file'\nE     Use -v to get more diff",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technology_transaction_routing_consistency::test_existing_third_party_rights_clause_is_partial_not_missing",
+      "message": "AssertionError: assert {'ABSENCE_EVI...tion_trigger'} == {'INFRINGING_...ISTANCE_ONLY'}\n  \n  Extra items in the left set:\n  'infringing_implementation_trigger'\n  'ABSENCE_EVIDENCE'\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_technology_transaction_routing_consistency.py:172: in test_existing_third_party_rights_clause_is_partial_not_missing\n    assert {row[\"fact_type\"] for row in finding[\"evidence_bundle\"][\"items\"]} == {\nE   AssertionError: assert {'ABSENCE_EVI...tion_trigger'} == {'INFRINGING_...ISTANCE_ONLY'}\nE     \nE     Extra items in the left set:\nE     'infringing_implementation_trigger'\nE     'ABSENCE_EVIDENCE'\nE     Use -v to get more diff",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technology_transaction_routing_consistency::test_license_evidence_semantics_and_atomic_elements_are_consistent",
+      "message": "AssertionError: assert {'claim_trigg...MISSING', ...} == {'notificatio...MISSING', ...}\n  \n  Omitting 8 identical items, use -vv to show\n  Differing items:\n  {'settlement_authority': 'COVERED'} != {'settlement_authority': 'MISSING'}\n  {'damages_allocation': 'MISSING'} != {'damages_allocation': 'PARTIALLY_COVERED'}\n  {'licensor_participation': 'MISSING'} != {'licensor_participation': 'COVERED'}\n  Left contains 12 more items:...\n  \n  ...Full output truncated (13 lines hidden), use '-vv' to show",
+      "trace": "backend\\tests\\test_technology_transaction_routing_consistency.py:212: in test_license_evidence_semantics_and_atomic_elements_are_consistent\n    assert claim_states == {\nE   AssertionError: assert {'claim_trigg...MISSING', ...} == {'notificatio...MISSING', ...}\nE     \nE     Omitting 8 identical items, use -vv to show\nE     Differing items:\nE     {'settlement_authority': 'COVERED'} != {'settlement_authority': 'MISSING'}\nE     {'damages_allocation': 'MISSING'} != {'damages_allocation': 'PARTIALLY_COVERED'}\nE     {'licensor_participation': 'MISSING'} != {'licensor_participation': 'COVERED'}\nE     Left contains 12 more items:...\nE     \nE     ...Full output truncated (13 lines hidden), use '-vv' to show",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_technology_transaction_routing_consistency::test_cross_rule_evidence_and_final_consistency_gate_use_classification_truth",
+      "message": "AssertionError: assert {'TECHNOLOGY_...: 'PASS', ...} == {'TECHNOLOGY_...: 'PASS', ...}\n  \n  Omitting 10 identical items, use -vv to show\n  Differing items:\n  {'SUBTYPE_RENDERING_CONSISTENCY': 'WARNING'} != {'SUBTYPE_RENDERING_CONSISTENCY': 'PASS'}\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_technology_transaction_routing_consistency.py:246: in test_cross_rule_evidence_and_final_consistency_gate_use_classification_truth\n    assert gate[\"gate_results\"] == {\nE   AssertionError: assert {'TECHNOLOGY_...: 'PASS', ...} == {'TECHNOLOGY_...: 'PASS', ...}\nE     \nE     Omitting 10 identical items, use -vv to show\nE     Differing items:\nE     {'SUBTYPE_RENDERING_CONSISTENCY': 'WARNING'} != {'SUBTYPE_RENDERING_CONSISTENCY': 'PASS'}\nE     Use -v to get more diff",
+      "cluster": "交易分类、主体或条件适用性"
+    },
+    {
+      "test": "backend.tests.test_technology_transaction_routing_consistency::test_new_patent_transfer_generalization_sample_routes_without_frozen_risks",
+      "message": "AssertionError: assert '缺失' == '通过'\n  \n  - 通过\n  + 缺失",
+      "trace": "backend\\tests\\test_technology_transaction_routing_consistency.py:311: in test_new_patent_transfer_generalization_sample_routes_without_frozen_risks\n    assert by_id[\"TC-11-04\"][\"coverage_status\"] == \"通过\"\nE   AssertionError: assert '缺失' == '通过'\nE     \nE     - 通过\nE     + 缺失",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_technology_transaction_routing_consistency::test_liability_cap_evidence_excludes_patent_maintenance_as_core_support",
+      "message": "StopIteration",
+      "trace": "backend\\tests\\test_technology_transaction_routing_consistency.py:363: in test_liability_cap_evidence_excludes_patent_maintenance_as_core_support\n    finding = next(row for row in output[\"risk_findings\"] if \"TC-12-04\" in row[\"source_review_ids\"])\nE   StopIteration",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_technology_transaction_routing_consistency::test_patent_license_direction_and_provenance_golden_sample",
+      "message": "AssertionError: assert 'PATENT_LICENSOR' == 'PATENT_LICENSEE'\n  \n  - PATENT_LICENSEE\n  ?              ^^\n  + PATENT_LICENSOR\n  ?              ^^",
+      "trace": "backend\\tests\\test_technology_transaction_routing_consistency.py:397: in test_patent_license_direction_and_provenance_golden_sample\n    assert output[\"perspective_resolution\"][\"canonical_role\"] == \"PATENT_LICENSEE\"\nE   AssertionError: assert 'PATENT_LICENSOR' == 'PATENT_LICENSEE'\nE     \nE     - PATENT_LICENSEE\nE     ?              ^^\nE     + PATENT_LICENSOR\nE     ?              ^^",
+      "cluster": "交易分类、主体或条件适用性"
+    },
+    {
+      "test": "backend.tests.test_claim_response_exact_evidence_binding::test_file_upload_response_keeps_exact_element_evidence",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_claim_response_exact_evidence_binding.py:166: in test_file_upload_response_keeps_exact_element_evidence\n    assert payload[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_claim_response_exact_evidence_binding::test_current_patent_license_report_and_release_gate",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_claim_response_exact_evidence_binding.py:189: in test_current_patent_license_report_and_release_gate\n    assert result[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_latest_regressions::test_latest_cooperative_route_and_final_quality_gate",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_cooperative_development_latest_regressions.py:48: in test_latest_cooperative_route_and_final_quality_gate\n    assert latest_cooperative_review[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_latest_regressions::test_tc_05_01_does_not_invent_covered_cooperation_facts",
+      "message": "AssertionError: assert '缺失' == '部分覆盖'\n  \n  - 部分覆盖\n  + 缺失",
+      "trace": "backend\\tests\\test_cooperative_development_latest_regressions.py:82: in test_tc_05_01_does_not_invent_covered_cooperation_facts\n    assert item[\"coverage_status\"] == \"部分覆盖\"\nE   AssertionError: assert '缺失' == '部分覆盖'\nE     \nE     - 部分覆盖\nE     + 缺失",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_latest_regressions::test_acceptance_metrics_and_internal_reference_are_separately_resolved",
+      "message": "AssertionError: assert 'PARTIAL' == 'CONFLICTING'\n  \n  - CONFLICTING\n  + PARTIAL",
+      "trace": "backend\\tests\\test_cooperative_development_latest_regressions.py:97: in test_acceptance_metrics_and_internal_reference_are_separately_resolved\n    assert item[\"issue_type\"] == \"CONFLICTING\"\nE   AssertionError: assert 'PARTIAL' == 'CONFLICTING'\nE     \nE     - CONFLICTING\nE     + PARTIAL",
+      "cluster": "不利方向/冲突事实被覆盖或丢失"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_latest_regressions::test_existing_result_license_and_revenue_terms_are_adverse_not_missing",
+      "message": "AssertionError: assert 'COVERED' == 'ADVERSE'\n  \n  - ADVERSE\n  + COVERED",
+      "trace": "backend\\tests\\test_cooperative_development_latest_regressions.py:177: in test_existing_result_license_and_revenue_terms_are_adverse_not_missing\n    assert elements[\"counterparty_license_transfer_restriction\"][\"status\"] == \"ADVERSE\"\nE   AssertionError: assert 'COVERED' == 'ADVERSE'\nE     \nE     - ADVERSE\nE     + COVERED",
+      "cluster": "不利方向/冲突事实被覆盖或丢失"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_latest_regressions::test_technical_material_attachment_preserves_body_scope_and_work_allocation",
+      "message": "AssertionError: assert '缺失' == '部分覆盖'\n  \n  - 部分覆盖\n  + 缺失",
+      "trace": "backend\\tests\\test_cooperative_development_latest_regressions.py:186: in test_technical_material_attachment_preserves_body_scope_and_work_allocation\n    assert item[\"coverage_status\"] == \"部分覆盖\"\nE   AssertionError: assert '缺失' == '部分覆盖'\nE     \nE     - 部分覆盖\nE     + 缺失",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_latest_regressions::test_major_decision_recommendation_is_direct_and_actionable",
+      "message": "AssertionError: assert '建议明确技术、人员投入及...时的补足、接管和责任机制。' == '建议约定重大需求变更、技...重大事项须经双方书面确认。'\n  \n  - 建议约定重大需求变更、技术路线调整、预算增加、项目延期等重大事项须经双方书面确认。\n  + 建议明确技术、人员投入及投入标准；明确数据、设备及研发环境等资源投入；调整以下已确认的不利安排：各方名义投资合计1,800,000元与项目总投资1,500,000元不一致；补充明确尚未建立双方书面共同决策程序，决策主体、流程和僵局处理仍不完整；明确投入不足或未完成约定研发分工时的补足、接管和责任机制。",
+      "trace": "backend\\tests\\test_cooperative_development_latest_regressions.py:223: in test_major_decision_recommendation_is_direct_and_actionable\n    assert recommendation == \"建议约定重大需求变更、技术路线调整、预算增加、项目延期等重大事项须经双方书面确认。\"\nE   AssertionError: assert '建议明确技术、人员投入及...时的补足、接管和责任机制。' == '建议约定重大需求变更、技...重大事项须经双方书面确认。'\nE     \nE     - 建议约定重大需求变更、技术路线调整、预算增加、项目延期等重大事项须经双方书面确认。\nE     + 建议明确技术、人员投入及投入标准；明确数据、设备及研发环境等资源投入；调整以下已确认的不利安排：各方名义投资合计1,800,000元与项目总投资1,500,000元不一致；补充明确尚未建立双方书面共同决策程序，决策主体、流程和僵局处理仍不完整；明确投入不足或未完成约定研发分工时的补足、接管和责任机制。",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_contract_review::test_entrusted_rule_states_and_partial_elements_are_consistent",
+      "message": "AssertionError: assert {'TC-01-01': ...2': '通过', ...} == {'TC-01-01': ...2': '通过', ...}\n  \n  Omitting 6 identical items, use -vv to show\n  Differing items:\n  {'TC-04-03': '缺失'} != {'TC-04-03': '部分覆盖'}\n  {'TC-13-01': '部分覆盖'} != {'TC-13-01': '通过'}\n  {'TC-12-04': '不适用'} != {'TC-12-04': '部分覆盖'}\n  {'TC-04-04': '缺失'} != {'TC-04-04': '部分覆盖'}\n  {'TC-01-01': '待核验'} != {'TC-01-01': '通过'}\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_entrusted_development_contract_review.py:111: in test_entrusted_rule_states_and_partial_elements_are_consistent\n    assert {review_id: items[review_id][\"coverage_status\"] for review_id in expected} == expected\nE   AssertionError: assert {'TC-01-01': ...2': '通过', ...} == {'TC-01-01': ...2': '通过', ...}\nE     \nE     Omitting 6 identical items, use -vv to show\nE     Differing items:\nE     {'TC-04-03': '缺失'} != {'TC-04-03': '部分覆盖'}\nE     {'TC-13-01': '部分覆盖'} != {'TC-13-01': '通过'}\nE     {'TC-12-04': '不适用'} != {'TC-12-04': '部分覆盖'}\nE     {'TC-04-04': '缺失'} != {'TC-04-04': '部分覆盖'}\nE     {'TC-01-01': '待核验'} != {'TC-01-01': '通过'}\nE     Use -v to get more diff",
+      "cluster": "交易分类、主体或条件适用性"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_contract_review::test_entrusted_rule_evidence_covers_body_and_attachment_semantics",
+      "message": "assert False\n +  where False = all(<generator object test_entrusted_rule_evidence_covers_body_and_attachment_semantics.<locals>.<genexpr> at 0x000002052349C120>)",
+      "trace": "backend\\tests\\test_entrusted_development_contract_review.py:145: in test_entrusted_rule_evidence_covers_body_and_attachment_semantics\n    assert all(term in evidence_text for term in terms)\nE   assert False\nE    +  where False = all(<generator object test_entrusted_rule_evidence_covers_body_and_attachment_semantics.<locals>.<genexpr> at 0x000002052349C120>)",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_contract_review::test_entrusted_report_is_generated_without_fatal_quality_gate",
+      "message": "AssertionError: assert 'GENERATED_WI...LITY_WARNINGS' == 'GENERATED'\n  \n  - GENERATED\n  + GENERATED_WITH_QUALITY_WARNINGS",
+      "trace": "backend\\tests\\test_entrusted_development_contract_review.py:149: in test_entrusted_report_is_generated_without_fatal_quality_gate\n    assert party_a_review[\"report_generation_decision\"][\"status\"] == \"GENERATED\"\nE   AssertionError: assert 'GENERATED_WI...LITY_WARNINGS' == 'GENERATED'\nE     \nE     - GENERATED\nE     + GENERATED_WITH_QUALITY_WARNINGS",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_contract_review::test_acceptance_evidence_does_not_invent_third_party_testing",
+      "message": "KeyError: 'test_method_and_report'",
+      "trace": "backend\\tests\\test_entrusted_development_contract_review.py:176: in test_acceptance_evidence_does_not_invent_third_party_testing\n    assert elements[\"test_method_and_report\"][\"status\"] == \"COVERED\"\nE   KeyError: 'test_method_and_report'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_contract_review::test_explicit_third_party_testing_clause_is_covered",
+      "message": "AssertionError: assert '部分覆盖' == '通过'\n  \n  - 通过\n  + 部分覆盖",
+      "trace": "backend\\tests\\test_entrusted_development_contract_review.py:194: in test_explicit_third_party_testing_clause_is_covered\n    assert item[\"coverage_status\"] == \"通过\"\nE   AssertionError: assert '部分覆盖' == '通过'\nE     \nE     - 通过\nE     + 部分覆盖",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_contract_review::test_post_termination_confidentiality_is_directly_covered",
+      "message": "AssertionError: assert '部分覆盖' == '通过'\n  \n  - 通过\n  + 部分覆盖",
+      "trace": "backend\\tests\\test_entrusted_development_contract_review.py:203: in test_post_termination_confidentiality_is_directly_covered\n    assert item[\"coverage_status\"] == \"通过\"\nE   AssertionError: assert '部分覆盖' == '通过'\nE     \nE     - 通过\nE     + 部分覆盖",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_contract_review::test_gap_consequences_are_bound_to_actual_missing_elements",
+      "message": "assert False\n +  where False = all(<generator object test_gap_consequences_are_bound_to_actual_missing_elements.<locals>.<genexpr> at 0x0000020520D1E650>)",
+      "trace": "backend\\tests\\test_entrusted_development_contract_review.py:228: in test_gap_consequences_are_bound_to_actual_missing_elements\n    assert all(term in patent for term in (\"申请主体\", \"文件签署\", \"权利登记\"))\nE   assert False\nE    +  where False = all(<generator object test_gap_consequences_are_bound_to_actual_missing_elements.<locals>.<genexpr> at 0x0000020520D1E650>)",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_contract_review::test_entrusted_semantic_coverage_and_conditional_applicability",
+      "message": "AssertionError: assert 'MISSING' == 'COVERED'\n  \n  - COVERED\n  + MISSING",
+      "trace": "backend\\tests\\test_entrusted_development_contract_review.py:267: in test_entrusted_semantic_coverage_and_conditional_applicability\n    assert patent_elements[\"patent_application_right_ownership\"][\"status\"] == \"COVERED\"\nE   AssertionError: assert 'MISSING' == 'COVERED'\nE     \nE     - COVERED\nE     + MISSING",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_contract_review::test_confidentiality_liability_reuses_semantically_valid_evidence",
+      "message": "AssertionError: assert '缺失' == '部分覆盖'\n  \n  - 部分覆盖\n  + 缺失",
+      "trace": "backend\\tests\\test_entrusted_development_contract_review.py:296: in test_confidentiality_liability_reuses_semantically_valid_evidence\n    assert item[\"coverage_status\"] == \"部分覆盖\"\nE   AssertionError: assert '缺失' == '部分覆盖'\nE     \nE     - 部分覆盖\nE     + 缺失",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_contract_review::test_general_breach_catch_all_propagates_only_damage_remedies",
+      "message": "KeyError: 'confidentiality_obligation'",
+      "trace": "backend\\tests\\test_entrusted_development_contract_review.py:314: in test_general_breach_catch_all_propagates_only_damage_remedies\n    assert all(elements[element_id] == \"COVERED\" for element_id in (\nbackend\\tests\\test_entrusted_development_contract_review.py:314: in <genexpr>\n    assert all(elements[element_id] == \"COVERED\" for element_id in (\nE   KeyError: 'confidentiality_obligation'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_contract_review::test_secret_copy_retention_uses_matching_legal_consequence",
+      "message": "KeyError: 'legal_consequence_mapping'",
+      "trace": "backend\\tests\\test_entrusted_development_contract_review.py:338: in test_secret_copy_retention_uses_matching_legal_consequence\n    assert item[\"decision_trace\"][\"legal_consequence_mapping\"][\"semantic_domain\"] == \"SECRET_COPY_RETENTION\"\nE   KeyError: 'legal_consequence_mapping'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_contract_review::test_improvement_notification_rendering_respects_development_subtype",
+      "message": "AssertionError: assert 'GENERAL_TECHNOLOGY' == 'COOPERATIVE_DEVELOPMENT'\n  \n  - COOPERATIVE_DEVELOPMENT\n  + GENERAL_TECHNOLOGY",
+      "trace": "backend\\tests\\test_entrusted_development_contract_review.py:368: in test_improvement_notification_rendering_respects_development_subtype\n    assert cooperative_rendering[\"primary_subtype\"] == \"COOPERATIVE_DEVELOPMENT\"\nE   AssertionError: assert 'GENERAL_TECHNOLOGY' == 'COOPERATIVE_DEVELOPMENT'\nE     \nE     - COOPERATIVE_DEVELOPMENT\nE     + GENERAL_TECHNOLOGY",
+      "cluster": "交易分类、主体或条件适用性"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_contract_review::test_commissioning_party_liability_direction_excludes_favorable_no_cap_gap",
+      "message": "AssertionError: assert '不适用' == '部分覆盖'\n  \n  - 部分覆盖\n  + 不适用",
+      "trace": "backend\\tests\\test_entrusted_development_contract_review.py:396: in test_commissioning_party_liability_direction_excludes_favorable_no_cap_gap\n    assert item[\"coverage_status\"] == \"部分覆盖\"\nE   AssertionError: assert '不适用' == '部分覆盖'\nE     \nE     - 部分覆盖\nE     + 不适用",
+      "cluster": "交易分类、主体或条件适用性"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_contract_review::test_entrusted_partial_findings_have_positive_and_absence_evidence",
+      "message": "KeyError: 'indemnity_and_liability_cap'",
+      "trace": "backend\\tests\\test_entrusted_development_contract_review.py:426: in test_entrusted_partial_findings_have_positive_and_absence_evidence\n    evidence = findings[group][\"evidence_bundle\"][\"items\"]\nE   KeyError: 'indemnity_and_liability_cap'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_contract_review::test_commissioned_development_golden_manifest",
+      "message": "assert False\n +  where False = all(<generator object test_commissioned_development_golden_manifest.<locals>.<genexpr> at 0x000002051AA06110>)",
+      "trace": "backend\\tests\\test_entrusted_development_contract_review.py:451: in test_commissioned_development_golden_manifest\n    assert all(items[review_id][\"coverage_status\"] == status for review_id, status in manifest[\"key_statuses\"].items())\nE   assert False\nE    +  where False = all(<generator object test_commissioned_development_golden_manifest.<locals>.<genexpr> at 0x000002051AA06110>)",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_contract_review::test_production_file_api_renders_entrusted_development_snapshot",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_entrusted_development_contract_review.py:512: in test_production_file_api_renders_entrusted_development_snapshot\n    assert output[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_contract_review::test_explicit_review_role_is_not_overridden_by_generic_subtype_identity",
+      "message": "AssertionError: assert 15 == 11\n +  where 15 = len([{'finding_id': 'RF-015', 'risk_group': 'generic_potential_excessive_liquidated_damages', 'title': '违约金标准偏高及司法调减风险', '...'RF-012', 'risk_group': 'common_penalty_base_determinability', 'title': '违约金计算基数可确定性', 'severity': 'MEDIUM', ...}, ...])",
+      "trace": "backend\\tests\\test_entrusted_development_contract_review.py:583: in test_explicit_review_role_is_not_overridden_by_generic_subtype_identity\n    assert len(output[\"risk_findings\"]) == 11\nE   AssertionError: assert 15 == 11\nE    +  where 15 = len([{'finding_id': 'RF-015', 'risk_group': 'generic_potential_excessive_liquidated_damages', 'title': '违约金标准偏高及司法调减风险', '...'RF-012', 'risk_group': 'common_penalty_base_determinability', 'title': '违约金计算基数可确定性', 'severity': 'MEDIUM', ...}, ...])",
+      "cluster": "聚合、统计与报告投影"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_contract_review::test_future_development_warranty_does_not_trigger_existing_ip_proof_attachments",
+      "message": "assert '技术合同均适用' not in \"{'review_id... '技术合同均适用。'}\"\n  \n  '技术合同均适用' is contained here:\n    dition': '技术合同均适用。', 'triggered': False, 'condition_text': '技术合同均适用。'}\n  ?           +++++++",
+      "trace": "backend\\tests\\test_entrusted_development_contract_review.py:607: in test_future_development_warranty_does_not_trigger_existing_ip_proof_attachments\n    assert \"技术合同均适用\" not in str(items[\"TC-03-04\"][\"applicability\"])\nE   assert '技术合同均适用' not in \"{'review_id... '技术合同均适用。'}\"\nE     \nE     '技术合同均适用' is contained here:\nE       dition': '技术合同均适用。', 'triggered': False, 'condition_text': '技术合同均适用。'}\nE     ?           +++++++",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_foreign_patent_license_status_consistency::test_uncertain_parent_confidentiality_applicability_propagates_to_children",
+      "message": "AssertionError: assert '待核验' == 'INSUFFICIENT_CONTEXT'\n  \n  - INSUFFICIENT_CONTEXT\n  + 待核验",
+      "trace": "backend\\tests\\test_foreign_patent_license_status_consistency.py:144: in test_uncertain_parent_confidentiality_applicability_propagates_to_children\n    assert item[\"coverage_status\"] == INSUFFICIENT_CONTEXT\nE   AssertionError: assert '待核验' == 'INSUFFICIENT_CONTEXT'\nE     \nE     - INSUFFICIENT_CONTEXT\nE     + 待核验",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_foreign_patent_license_status_consistency::test_direct_child_trigger_can_override_uncertain_parent_applicability",
+      "message": "AssertionError: assert '待核验' == 'INSUFFICIENT_CONTEXT'\n  \n  - INSUFFICIENT_CONTEXT\n  + 待核验",
+      "trace": "backend\\tests\\test_foreign_patent_license_status_consistency.py:170: in test_direct_child_trigger_can_override_uncertain_parent_applicability\n    assert _item(output, \"TC-11-01\")[\"coverage_status\"] == INSUFFICIENT_CONTEXT\nE   AssertionError: assert '待核验' == 'INSUFFICIENT_CONTEXT'\nE     \nE     - INSUFFICIENT_CONTEXT\nE     + 待核验",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_patent_license_cross_clause_consistency::test_third_party_claim_registry_preserves_notice_cost_direction_and_cap",
+      "message": "assert False is True",
+      "trace": "backend\\tests\\test_patent_license_cross_clause_consistency.py:100: in test_third_party_claim_registry_preserves_notice_cost_direction_and_cap\n    assert claim[\"notification_requirement\"] is True\nE   assert False is True",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_patent_license_cross_clause_consistency::test_full_review_projects_cross_clause_risks_without_stale_missing_facts",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_patent_license_cross_clause_consistency.py:112: in test_full_review_projects_cross_clause_risks_without_stale_missing_facts\n    assert patent_license_review[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_patent_license_cross_clause_consistency::test_third_party_claim_atomic_states_do_not_relabel_existing_terms_as_missing",
+      "message": "AssertionError: assert 'MISSING' == 'COVERED'\n  \n  - COVERED\n  + MISSING",
+      "trace": "backend\\tests\\test_patent_license_cross_clause_consistency.py:226: in test_third_party_claim_atomic_states_do_not_relabel_existing_terms_as_missing\n    assert elements[\"notification_requirement\"][\"status\"] == \"COVERED\"\nE   AssertionError: assert 'MISSING' == 'COVERED'\nE     \nE     - COVERED\nE     + MISSING",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_patent_license_cross_clause_consistency::test_final_report_consumes_the_same_element_truth_as_review_items",
+      "message": "AssertionError: assert '被许可方独立形成的改进成果及知识产权被要求无偿转归许可方' in '# 专利实施许可合同审查报告\\n\\n\\n## 一、合同总体评价\\n\\n- 审查立场：甲方 / 许可方\\n- 使用场景：专利实施许可\\n- 合同类型：技术合同—技术许可合同—专利实施许可\\n- 总体可签署性：建议专业法律复核后决定\\n-...方存在故意或者重大过失的，双方仍按照本条约定的责任范围处理。\\n- 第十三条 违约责任 [支持：违约金标准偏高及司法调减风险]: 被许可方逾期支付任何款项的，每逾期一日，应按照逾期未付款金额的0.5%向许可方支付违约金\\n\\n---\\n'",
+      "trace": "backend\\tests\\test_patent_license_cross_clause_consistency.py:263: in test_final_report_consumes_the_same_element_truth_as_review_items\n    assert \"被许可方独立形成的改进成果及知识产权被要求无偿转归许可方\" in report\nE   AssertionError: assert '被许可方独立形成的改进成果及知识产权被要求无偿转归许可方' in '# 专利实施许可合同审查报告\\n\\n\\n## 一、合同总体评价\\n\\n- 审查立场：甲方 / 许可方\\n- 使用场景：专利实施许可\\n- 合同类型：技术合同—技术许可合同—专利实施许可\\n- 总体可签署性：建议专业法律复核后决定\\n-...方存在故意或者重大过失的，双方仍按照本条约定的责任范围处理。\\n- 第十三条 违约责任 [支持：违约金标准偏高及司法调减风险]: 被许可方逾期支付任何款项的，每逾期一日，应按照逾期未付款金额的0.5%向许可方支付违约金\\n\\n---\\n'",
+      "cluster": "不利方向/冲突事实被覆盖或丢失"
+    },
+    {
+      "test": "backend.tests.test_patent_license_cross_clause_consistency::test_user_visible_themes_merge_the_same_improvement_fact_without_losing_findings",
+      "message": "assert 18 == 13",
+      "trace": "backend\\tests\\test_patent_license_cross_clause_consistency.py:298: in test_user_visible_themes_merge_the_same_improvement_fact_without_losing_findings\n    assert patent_license_review[\"finding_count\"] == 13\nE   assert 18 == 13",
+      "cluster": "聚合、统计与报告投影"
+    },
+    {
+      "test": "backend.tests.test_patent_license_cross_clause_consistency::test_report_statistics_and_summary_use_the_aggregated_theme_projection",
+      "message": "AssertionError: assert {'total': 18,...ment': 4, ...} == {'total': 13,...ment': 2, ...}\n  \n  Omitting 1 identical items, use -vv to show\n  Differing items:\n  {'total': 18} != {'total': 13}\n  {'must_change': 6} != {'must_change': 1}\n  {'should_change': 8} != {'should_change': 10}\n  {'optional_improvement': 4} != {'optional_improvement': 2}\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_patent_license_cross_clause_consistency.py:337: in test_report_statistics_and_summary_use_the_aggregated_theme_projection\n    assert theme_summary == {\nE   AssertionError: assert {'total': 18,...ment': 4, ...} == {'total': 13,...ment': 2, ...}\nE     \nE     Omitting 1 identical items, use -vv to show\nE     Differing items:\nE     {'total': 18} != {'total': 13}\nE     {'must_change': 6} != {'must_change': 1}\nE     {'should_change': 8} != {'should_change': 10}\nE     {'optional_improvement': 4} != {'optional_improvement': 2}\nE     Use -v to get more diff",
+      "cluster": "聚合、统计与报告投影"
+    },
+    {
+      "test": "backend.tests.test_patent_license_cross_clause_consistency::test_file_api_response_schema_preserves_user_visible_risk_themes",
+      "message": "assert 18 == 13",
+      "trace": "backend\\tests\\test_patent_license_cross_clause_consistency.py:366: in test_file_api_response_schema_preserves_user_visible_risk_themes\n    assert public_response[\"risk_theme_count\"] == 13\nE   assert 18 == 13",
+      "cluster": "聚合、统计与报告投影"
+    },
+    {
+      "test": "backend.tests.test_patent_license_with_follow_on_development::test_payment_formula_is_partitioned_by_price_base",
+      "message": "assert 113.75 is None",
+      "trace": "backend\\tests\\test_patent_license_with_follow_on_development.py:66: in test_payment_formula_is_partitioned_by_price_base\n    assert payment[\"percentage_total\"] is None\nE   assert 113.75 is None",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_patent_license_with_follow_on_development::test_license_scope_invalidity_notice_and_competition_results",
+      "message": "AssertionError: assert '排他许可' in '合同约定排他实施许可，但许可方仍可向部分第三方授予普通许可；被许可方未达到实施条件时，许可方可无需被许可方同意单方将排他实施许可降级为普通许可，且未设置通知、宽限整改及排他实施许可对价调整机制。'",
+      "trace": "backend\\tests\\test_patent_license_with_follow_on_development.py:89: in test_license_scope_invalidity_notice_and_competition_results\n    assert \"排他许可\" in by_id[\"TC-07-01\"][\"risk_point_description\"]\nE   AssertionError: assert '排他许可' in '合同约定排他实施许可，但许可方仍可向部分第三方授予普通许可；被许可方未达到实施条件时，许可方可无需被许可方同意单方将排他实施许可降级为普通许可，且未设置通知、宽限整改及排他实施许可对价调整机制。'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_patent_license_with_follow_on_development::test_acceptance_and_ip_proof_attachment_are_partial_without_manual_review",
+      "message": "AssertionError: assert '缺失' == '部分覆盖'\n  \n  - 部分覆盖\n  + 缺失",
+      "trace": "backend\\tests\\test_patent_license_with_follow_on_development.py:124: in test_acceptance_and_ip_proof_attachment_are_partial_without_manual_review\n    assert acceptance[\"coverage_status\"] == \"部分覆盖\"\nE   AssertionError: assert '缺失' == '部分覆盖'\nE     \nE     - 部分覆盖\nE     + 缺失",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_patent_license_with_follow_on_development::test_unilateral_acceptance_and_confidentiality_asymmetry_are_distinct_risks",
+      "message": "AssertionError: assert '双方在测试前书面确认' in '建议调整以下已确认的不利安排：影响验收结论的测试环境、测试数据、性能指标及验收方法由对方单方确定；补充明确双方事先书面确认测试方案及其变更的机制。'",
+      "trace": "backend\\tests\\test_patent_license_with_follow_on_development.py:150: in test_unilateral_acceptance_and_confidentiality_asymmetry_are_distinct_risks\n    assert \"双方在测试前书面确认\" in acceptance[\"suggested_clause_example\"]\nE   AssertionError: assert '双方在测试前书面确认' in '建议调整以下已确认的不利安排：影响验收结论的测试环境、测试数据、性能指标及验收方法由对方单方确定；补充明确双方事先书面确认测试方案及其变更的机制。'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_patent_license_with_follow_on_development::test_not_applicable_secret_rule_acknowledges_existing_secret_facts",
+      "message": "AssertionError: assert '已明确技术秘密范围' in '合同虽涉及技术秘密或保密资料，但当前交易不是以既有技术秘密转让、许可或独立使用费为核心标的，未形成以秘密性为独立对价基础的持续收费或秘密性丧失后的费用安排，因此本项不适用。'",
+      "trace": "backend\\tests\\test_patent_license_with_follow_on_development.py:164: in test_not_applicable_secret_rule_acknowledges_existing_secret_facts\n    assert \"已明确技术秘密范围\" in item[\"applicability\"][\"reason\"]\nE   AssertionError: assert '已明确技术秘密范围' in '合同虽涉及技术秘密或保密资料，但当前交易不是以既有技术秘密转让、许可或独立使用费为核心标的，未形成以秘密性为独立对价基础的持续收费或秘密性丧失后的费用安排，因此本项不适用。'",
+      "cluster": "交易分类、主体或条件适用性"
+    },
+    {
+      "test": "backend.tests.test_patent_license_with_follow_on_development::test_full_report_uses_grouped_calculation_and_aggregated_risk_themes",
+      "message": "assert 0 == 1\n +  where 0 = len([])",
+      "trace": "backend\\tests\\test_patent_license_with_follow_on_development.py:196: in test_full_report_uses_grouped_calculation_and_aggregated_risk_themes\n    assert len(improvement_themes) == 1\nE   assert 0 == 1\nE    +  where 0 = len([])",
+      "cluster": "聚合、统计与报告投影"
+    },
+    {
+      "test": "backend.tests.test_technical_service_contract_review::test_fixture_classification_context_and_applicability",
+      "message": "AssertionError: assert '部分覆盖' == '通过'\n  \n  - 通过\n  + 部分覆盖",
+      "trace": "backend\\tests\\test_technical_service_contract_review.py:90: in test_fixture_classification_context_and_applicability\n    assert by_id[\"TC-13-03\"][\"coverage_status\"] == \"通过\"\nE   AssertionError: assert '部分覆盖' == '通过'\nE     \nE     - 通过\nE     + 部分覆盖",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_technical_service_contract_review::test_fixture_formula_timeline_evidence_and_report_quality",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_technical_service_contract_review.py:131: in test_fixture_formula_timeline_evidence_and_report_quality\n    assert output[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_technical_service_contract_review::test_fixture_matches_frozen_gold_semantics",
+      "message": "assert False\n +  where False = all(<generator object test_fixture_matches_frozen_gold_semantics.<locals>.<genexpr> at 0x0000020522AE6EA0>)",
+      "trace": "backend\\tests\\test_technical_service_contract_review.py:148: in test_fixture_matches_frozen_gold_semantics\n    assert all(by_id[item_id][\"coverage_status\"] == \"通过\" for item_id in gold[\"required_attachment_review_ids\"])\nE   assert False\nE    +  where False = all(<generator object test_fixture_matches_frozen_gold_semantics.<locals>.<genexpr> at 0x0000020522AE6EA0>)",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_single_evidence_source::test_claim_level_bundles_are_complete_and_deduplicated",
+      "message": "KeyError: 'start_offset'",
+      "trace": "backend\\tests\\test_technical_service_single_evidence_source.py:44: in test_claim_level_bundles_are_complete_and_deduplicated\n    keys = [\nbackend\\tests\\test_technical_service_single_evidence_source.py:45: in <listcomp>\n    (row[\"clause_node_id\"], row[\"start_offset\"], row[\"end_offset\"], row[\"claim_id\"])\nE   KeyError: 'start_offset'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_technical_service_single_evidence_source::test_issue_types_describe_formula_conflict_validity_and_partial_gap",
+      "message": "AssertionError: assert 'MISSING' == 'PARTIAL'\n  \n  - PARTIAL\n  + MISSING",
+      "trace": "backend\\tests\\test_technical_service_single_evidence_source.py:88: in test_issue_types_describe_formula_conflict_validity_and_partial_gap\n    assert findings[\"personal_information_processing_gap\"][\"issue_type\"] == \"PARTIAL\"\nE   AssertionError: assert 'MISSING' == 'PARTIAL'\nE     \nE     - PARTIAL\nE     + MISSING",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_technical_service_single_evidence_source::test_applicability_display_uses_the_resolved_decision_reason",
+      "message": "AssertionError: assert '技术秘密丧失秘密性后的使用与费用处理' in '合同虽涉及技术秘密或保密资料，但当前交易不是以既有技术秘密转让、许可或独立使用费为核心标的，未形成以秘密性为独立对价基础的持续收费或秘密性丧失后的费用安排，因此本项不适用。'",
+      "trace": "backend\\tests\\test_technical_service_single_evidence_source.py:99: in test_applicability_display_uses_the_resolved_decision_reason\n    assert \"技术秘密丧失秘密性后的使用与费用处理\" in items[\"TC-12-03\"][\"applicability\"][\"user_reason\"]\nE   AssertionError: assert '技术秘密丧失秘密性后的使用与费用处理' in '合同虽涉及技术秘密或保密资料，但当前交易不是以既有技术秘密转让、许可或独立使用费为核心标的，未形成以秘密性为独立对价基础的持续收费或秘密性丧失后的费用安排，因此本项不适用。'",
+      "cluster": "交易分类、主体或条件适用性"
+    },
+    {
+      "test": "backend.tests.test_technology_relationship_risk_recall::test_real_loader_parser_pipeline_keeps_general_relationship_risks_for_consulting",
+      "message": "AssertionError: assert {'data_retent...ability', ...} <= {'acceptance_...on_risk', ...}\n  \n  Extra items in the left set:\n  'technical_uncapped_cumulative_liability'\n  'technical_background_ip_overtransfer'",
+      "trace": "backend\\tests\\test_technology_relationship_risk_recall.py:90: in test_real_loader_parser_pipeline_keeps_general_relationship_risks_for_consulting\n    assert {\nE   AssertionError: assert {'data_retent...ability', ...} <= {'acceptance_...on_risk', ...}\nE     \nE     Extra items in the left set:\nE     'technical_uncapped_cumulative_liability'\nE     'technical_background_ip_overtransfer'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technology_relationship_risk_recall::test_current_consulting_fixture_keeps_amount_only_node_without_false_formula_risk",
+      "message": "AssertionError: assert 2 == 1\n +  where 2 = len([{'fact_id': 'PAY-001-d3c760f377', 'source_document': 'f2ffe129f2769688cd89a8a48f2cce3748469f6a8e2a579d8a61fb9e03ba69b...ce3748469f6a8e2a579d8a61fb9e03ba69b9', 'source_clause': '（3）最终咨询报告验收通过后10个工作日内，甲方', 'source_location': 'line 88', ...}])",
+      "trace": "backend\\tests\\test_technology_relationship_risk_recall.py:139: in test_current_consulting_fixture_keeps_amount_only_node_without_false_formula_risk\n    assert len(payment[\"nodes\"]) == 1\nE   AssertionError: assert 2 == 1\nE    +  where 2 = len([{'fact_id': 'PAY-001-d3c760f377', 'source_document': 'f2ffe129f2769688cd89a8a48f2cce3748469f6a8e2a579d8a61fb9e03ba69b...ce3748469f6a8e2a579d8a61fb9e03ba69b9', 'source_clause': '（3）最终咨询报告验收通过后10个工作日内，甲方', 'source_location': 'line 88', ...}])",
+      "cluster": "精确引文、条款定位及证据标识不一致"
+    },
+    {
+      "test": "backend.tests.test_current_patent_license_evidence_recall::test_follow_on_improvement_clauses_are_recalled_and_split_by_element",
+      "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验",
+      "trace": "backend\\tests\\test_current_patent_license_evidence_recall.py:74: in test_follow_on_improvement_clauses_are_recalled_and_split_by_element\n    assert by_id[\"TC-10-01\"][\"coverage_status\"] == \"通过\"\nE   AssertionError: assert '待核验' == '通过'\nE     \nE     - 通过\nE     + 待核验",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_current_patent_license_evidence_recall::test_material_schedule_and_handover_confirmation_are_positive_facts",
+      "message": "AssertionError: assert '缺失' == '部分覆盖'\n  \n  - 部分覆盖\n  + 缺失",
+      "trace": "backend\\tests\\test_current_patent_license_evidence_recall.py:95: in test_material_schedule_and_handover_confirmation_are_positive_facts\n    assert item[\"coverage_status\"] == \"部分覆盖\"\nE   AssertionError: assert '缺失' == '部分覆盖'\nE     \nE     - 部分覆盖\nE     + 缺失",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_current_patent_license_evidence_recall::test_patent_proof_search_audit_uses_atomic_positive_fact_names",
+      "message": "AssertionError: assert ['专利当前法律状态', '专利年费缴纳状态'] == ['上游授权书', '再许...'专利质押登记', ...]\n  \n  At index 0 diff: '专利当前法律状态' != '上游授权书'\n  Right contains 7 more items, first extra item: '共有权人同意文件'\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_current_patent_license_evidence_recall.py:141: in test_patent_proof_search_audit_uses_atomic_positive_fact_names\n    assert audit[\"search_targets\"] == [\nE   AssertionError: assert ['专利当前法律状态', '专利年费缴纳状态'] == ['上游授权书', '再许...'专利质押登记', ...]\nE     \nE     At index 0 diff: '专利当前法律状态' != '上游授权书'\nE     Right contains 7 more items, first extra item: '共有权人同意文件'\nE     Use -v to get more diff",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_current_patent_license_evidence_recall::test_patent_proof_partial_summary_lists_only_unresolved_gaps",
+      "message": "AssertionError: assert '正文已约定许可方按时缴纳' not in '已有部分安排；仍需补足...及完整权利状态核验材料。'\n  \n  '正文已约定许可方按时缴纳' is contained here:\n    已有部分安排；仍需补足：正文已约定许可方按时缴纳专利费用、维持专利有效并就法律状态变化书面通知；当前未提供实际缴费状态或专利登记状态证明、当前材料尚不能核验共有权人、既有许可以及质押、查封等权利负担、《专利权证明文件》附件的实际内容及完整权利状态核验材料。\n  ?             ++++++++++++",
+      "trace": "backend\\tests\\test_current_patent_license_evidence_recall.py:155: in test_patent_proof_partial_summary_lists_only_unresolved_gaps\n    assert \"正文已约定许可方按时缴纳\" not in item[\"reasoning_summary\"]\nE   AssertionError: assert '正文已约定许可方按时缴纳' not in '已有部分安排；仍需补足...及完整权利状态核验材料。'\nE     \nE     '正文已约定许可方按时缴纳' is contained here:\nE       已有部分安排；仍需补足：正文已约定许可方按时缴纳专利费用、维持专利有效并就法律状态变化书面通知；当前未提供实际缴费状态或专利登记状态证明、当前材料尚不能核验共有权人、既有许可以及质押、查封等权利负担、《专利权证明文件》附件的实际内容及完整权利状态核验材料。\nE     ?             ++++++++++++",
+      "cluster": "聚合、统计与报告投影"
+    },
+    {
+      "test": "backend.tests.test_current_patent_license_evidence_recall::test_infringement_remedy_coordination_ignores_unrelated_payment_penalty",
+      "message": "AssertionError: assert [{'clause_id'...和经济责任。', ...}] == []\n  \n  Left contains one more item: {'clause_id': 'C0033', 'location': '6.1', 'title': '6.1 许可方保证是本合同涉及的一切专利技术和专利资料的合法持有者，并且有权向接受方授予本合同约定的许可权。如果在合同执行过程中发生...xt': '6.1 许可方保证是本合同涉及的一切专利技术和专利资料的合法持有者，并且有权向接受方授予本合同约定的许可权。如果在合同执行过程中发生第三方指控侵权，则由许可方负责与第三方交涉，并承担由此引起的一切法律和经济责任。', ...}\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_current_patent_license_evidence_recall.py:165: in test_infringement_remedy_coordination_ignores_unrelated_payment_penalty\n    assert item[\"evidence_clauses\"] == []\nE   AssertionError: assert [{'clause_id'...和经济责任。', ...}] == []\nE     \nE     Left contains one more item: {'clause_id': 'C0033', 'location': '6.1', 'title': '6.1 许可方保证是本合同涉及的一切专利技术和专利资料的合法持有者，并且有权向接受方授予本合同约定的许可权。如果在合同执行过程中发生...xt': '6.1 许可方保证是本合同涉及的一切专利技术和专利资料的合法持有者，并且有权向接受方授予本合同约定的许可权。如果在合同执行过程中发生第三方指控侵权，则由许可方负责与第三方交涉，并承担由此引起的一切法律和经济责任。', ...}\nE     Use -v to get more diff",
+      "cluster": "精确引文、条款定位及证据标识不一致"
+    },
+    {
+      "test": "backend.tests.test_current_patent_license_evidence_recall::test_audit_confidentiality_does_not_cover_general_technical_secret_rules",
+      "message": "AssertionError: assert '待核验' == 'INSUFFICIENT_CONTEXT'\n  \n  - INSUFFICIENT_CONTEXT\n  + 待核验",
+      "trace": "backend\\tests\\test_current_patent_license_evidence_recall.py:208: in test_audit_confidentiality_does_not_cover_general_technical_secret_rules\n    assert item[\"coverage_status\"] == \"INSUFFICIENT_CONTEXT\"\nE   AssertionError: assert '待核验' == 'INSUFFICIENT_CONTEXT'\nE     \nE     - INSUFFICIENT_CONTEXT\nE     + 待核验",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_current_patent_license_evidence_recall::test_major_risks_and_action_counts_share_the_final_result",
+      "message": "assert 1 == 0",
+      "trace": "backend\\tests\\test_current_patent_license_evidence_recall.py:230: in test_major_risks_and_action_counts_share_the_final_result\n    assert overview[\"major_risk\"] == 0\nE   assert 1 == 0",
+      "cluster": "聚合、统计与报告投影"
+    },
+    {
+      "test": "backend.tests.test_current_patent_license_evidence_recall::test_major_missing_rules_have_transaction_specific_recommendations",
+      "message": "AssertionError: assert '高' == '低'\n  \n  - 低\n  + 高",
+      "trace": "backend\\tests\\test_current_patent_license_evidence_recall.py:242: in test_major_missing_rules_have_transaction_specific_recommendations\n    assert over_scope[\"risk_level\"] == \"低\"\nE   AssertionError: assert '高' == '低'\nE     \nE     - 低\nE     + 高",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_current_patent_license_evidence_recall::test_confidentiality_liability_inherits_unresolved_family_applicability",
+      "message": "AssertionError: assert '待核验' == 'INSUFFICIENT_CONTEXT'\n  \n  - INSUFFICIENT_CONTEXT\n  + 待核验",
+      "trace": "backend\\tests\\test_current_patent_license_evidence_recall.py:261: in test_confidentiality_liability_inherits_unresolved_family_applicability\n    assert item[\"coverage_status\"] == \"INSUFFICIENT_CONTEXT\"\nE   AssertionError: assert '待核验' == 'INSUFFICIENT_CONTEXT'\nE     \nE     - INSUFFICIENT_CONTEXT\nE     + 待核验",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_current_patent_license_evidence_recall::test_third_party_claim_core_and_advanced_elements_are_separated",
+      "message": "AssertionError: assert 'MISSING' == 'COVERED'\n  \n  - COVERED\n  + MISSING",
+      "trace": "backend\\tests\\test_current_patent_license_evidence_recall.py:278: in test_third_party_claim_core_and_advanced_elements_are_separated\n    assert elements[\"damages_allocation\"][\"status\"] == \"COVERED\"\nE   AssertionError: assert 'MISSING' == 'COVERED'\nE     \nE     - COVERED\nE     + MISSING",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_current_patent_license_evidence_recall::test_cross_border_patent_license_uses_ordered_import_analysis",
+      "message": "AssertionError: assert '专利实施许可' in '已覆盖：境外许可方向中国被许可方提供技术的跨境方向、技术进口交易方向、跨境技术许可交易类型；尚需核验或补充：需查询现行技术进出口目录确认自由、限制或禁止属性、目录属性对应的禁止履行、进口许可或合同登记路径、提成合同首次登记及后续变更登...；补充明确技术进口合同登记及变更登记的具体办理责任方；补充明确技术进口相关手续的办理协作义务；补充明确及时提供办理所需文件和资料的义务；补充明确技术进口相关手续的办理期限或节点；补充明确合同主要内容变更后的重新登记、备案或许可办理机制。'",
+      "trace": "backend\\tests\\test_current_patent_license_evidence_recall.py:303: in test_cross_border_patent_license_uses_ordered_import_analysis\n    assert \"专利实施许可\" in rendered\nE   AssertionError: assert '专利实施许可' in '已覆盖：境外许可方向中国被许可方提供技术的跨境方向、技术进口交易方向、跨境技术许可交易类型；尚需核验或补充：需查询现行技术进出口目录确认自由、限制或禁止属性、目录属性对应的禁止履行、进口许可或合同登记路径、提成合同首次登记及后续变更登...；补充明确技术进口合同登记及变更登记的具体办理责任方；补充明确技术进口相关手续的办理协作义务；补充明确及时提供办理所需文件和资料的义务；补充明确技术进口相关手续的办理期限或节点；补充明确合同主要内容变更后的重新登记、备案或许可办理机制。'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_industrial_technical_service_routing_regression::test_b2b_industrial_service_uses_technical_service_route_and_roles",
+      "message": "AssertionError: assert 'SERVICE' == 'TECHNOLOGY'\n  \n  - TECHNOLOGY\n  + SERVICE",
+      "trace": "backend\\tests\\test_industrial_technical_service_routing_regression.py:60: in test_b2b_industrial_service_uses_technical_service_route_and_roles\n    assert result[\"domain_selection_resolution\"][\"selected_domain\"] == \"TECHNOLOGY\"\nE   AssertionError: assert 'SERVICE' == 'TECHNOLOGY'\nE     \nE     - TECHNOLOGY\nE     + SERVICE",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_industrial_technical_service_routing_regression::test_industrial_service_core_risks_survive_route_resolution",
+      "message": "AssertionError: assert {'confidentia...nership', ...} <= {'change_reco...consent', ...}\n  \n  Extra items in the left set:\n  'technical_timeline_conflict'\n  'technical_service_quality_acceptance'\n  'generic_liability_cap_validity'\n  'service_new_result_ownership'\n  'dispute_resolution_choice_conflict'...\n  \n  ...Full output truncated (4 lines hidden), use '-vv' to show",
+      "trace": "backend\\tests\\test_industrial_technical_service_routing_regression.py:72: in test_industrial_service_core_risks_survive_route_resolution\n    assert {\nE   AssertionError: assert {'confidentia...nership', ...} <= {'change_reco...consent', ...}\nE     \nE     Extra items in the left set:\nE     'technical_timeline_conflict'\nE     'technical_service_quality_acceptance'\nE     'generic_liability_cap_validity'\nE     'service_new_result_ownership'\nE     'dispute_resolution_choice_conflict'...\nE     \nE     ...Full output truncated (4 lines hidden), use '-vv' to show",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_industrial_technical_service_routing_regression::test_payment_and_timeline_are_bound_to_current_contract_facts",
+      "message": "KeyError: 'contract_total'",
+      "trace": "backend\\tests\\test_industrial_technical_service_routing_regression.py:95: in test_payment_and_timeline_are_bound_to_current_contract_facts\n    assert payment[\"contract_total\"] == 1000000\nE   KeyError: 'contract_total'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_industrial_technical_service_routing_regression::test_third_party_component_fact_is_shared_by_claim_and_proof_reviews",
+      "message": "KeyError: 'TC-03-04'",
+      "trace": "backend\\tests\\test_industrial_technical_service_routing_regression.py:111: in test_third_party_component_fact_is_shared_by_claim_and_proof_reviews\n    item = items[review_id]\nE   KeyError: 'TC-03-04'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_industrial_technical_service_routing_regression::test_service_current_project_outputs_do_not_activate_follow_on_improvement_rules",
+      "message": "KeyError: 'TC-10-01'",
+      "trace": "backend\\tests\\test_industrial_technical_service_routing_regression.py:133: in test_service_current_project_outputs_do_not_activate_follow_on_improvement_rules\n    assert items[review_id][\"coverage_status\"] == COVERAGE_NOT_APPLICABLE\nE   KeyError: 'TC-10-01'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_industrial_technical_service_routing_regression::test_explicit_service_follow_on_improvement_still_activates_tc10",
+      "message": "KeyError: 'TC-10-01'",
+      "trace": "backend\\tests\\test_industrial_technical_service_routing_regression.py:159: in test_explicit_service_follow_on_improvement_still_activates_tc10\n    assert items[review_id][\"applicability\"][\"applicable\"] is True\nE   KeyError: 'TC-10-01'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_industrial_technical_service_routing_regression::test_improvement_recommendation_does_not_invent_existing_mechanisms",
+      "message": "StopIteration",
+      "trace": "backend\\tests\\test_industrial_technical_service_routing_regression.py:170: in test_improvement_recommendation_does_not_invent_existing_mechanisms\n    sharing = next(row for row in result[\"items\"] if row[\"item_id\"] == \"TC-10-02\")\nE   StopIteration",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_industrial_technical_service_routing_regression::test_complete_review_rows_are_unique_and_partial_rows_have_real_gaps",
+      "message": "AssertionError: assert 0 == 1\n +  where 0 = <built-in method count of list object at 0x000001AC2C6FD540>('TECH-SHARED-03')\n +    where <built-in method count of list object at 0x000001AC2C6FD540> = ['SVC-01-01', 'SVC-01-02', 'SVC-01-03', 'SVC-01-04', 'SVC-02-01', 'SVC-02-02', ...].count",
+      "trace": "backend\\tests\\test_industrial_technical_service_routing_regression.py:184: in test_complete_review_rows_are_unique_and_partial_rows_have_real_gaps\n    assert item_ids.count(\"TECH-SHARED-03\") == 1\nE   AssertionError: assert 0 == 1\nE    +  where 0 = <built-in method count of list object at 0x000001AC2C6FD540>('TECH-SHARED-03')\nE    +    where <built-in method count of list object at 0x000001AC2C6FD540> = ['SVC-01-01', 'SVC-01-02', 'SVC-01-03', 'SVC-01-04', 'SVC-02-01', 'SVC-02-02', ...].count",
+      "cluster": "聚合、统计与报告投影"
+    },
+    {
+      "test": "backend.tests.test_patent_license_input_integrity_routing::test_complete_patent_license_uses_one_full_text_and_never_loads_sale_rules",
+      "message": "AssertionError: assert 'sale' == 'technology'\n  \n  - technology\n  + sale",
+      "trace": "backend\\tests\\test_patent_license_input_integrity_routing.py:277: in test_complete_patent_license_uses_one_full_text_and_never_loads_sale_rules\n    assert output[\"contract_type\"] == \"technology\"\nE   AssertionError: assert 'sale' == 'technology'\nE     \nE     - technology\nE     + sale",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_patent_right_transfer_contract_review::test_patent_transfer_golden_matrix_semantic_invariants",
+      "message": "AssertionError: assert {'通过': 7, '不适...部分覆盖': 5, ...} == {'通过': 17, '不... '缺失': 2, ...}\n  \n  Differing items:\n  {'部分覆盖': 5} != {'部分覆盖': 1}\n  {'缺失': 3} != {'缺失': 2}\n  {'风险条款': 9} != {'风险条款': 8}\n  {'通过': 7} != {'通过': 17}\n  {'不适用': 31} != {'不适用': 30}...\n  \n  ...Full output truncated (3 lines hidden), use '-vv' to show",
+      "trace": "backend\\tests\\test_patent_right_transfer_contract_review.py:111: in test_patent_transfer_golden_matrix_semantic_invariants\n    assert output[\"coverage_summary\"] == manifest[\"coverage_summary\"]\nE   AssertionError: assert {'通过': 7, '不适...部分覆盖': 5, ...} == {'通过': 17, '不... '缺失': 2, ...}\nE     \nE     Differing items:\nE     {'部分覆盖': 5} != {'部分覆盖': 1}\nE     {'缺失': 3} != {'缺失': 2}\nE     {'风险条款': 9} != {'风险条款': 8}\nE     {'通过': 7} != {'通过': 17}\nE     {'不适用': 31} != {'不适用': 30}...\nE     \nE     ...Full output truncated (3 lines hidden), use '-vv' to show",
+      "cluster": "交易分类、主体或条件适用性"
+    },
+    {
+      "test": "backend.tests.test_patent_right_transfer_contract_review::test_patent_transfer_coverage_distinguishes_presence_from_adverse_terms",
+      "message": "AssertionError: assert 'PARTIAL' == 'PRESENT'\n  \n  - PRESENT\n  + PARTIAL",
+      "trace": "backend\\tests\\test_patent_right_transfer_contract_review.py:183: in test_patent_transfer_coverage_distinguishes_presence_from_adverse_terms\n    assert by_id[item_id][\"coverage_presence\"] == \"PRESENT\"\nE   AssertionError: assert 'PARTIAL' == 'PRESENT'\nE     \nE     - PRESENT\nE     + PARTIAL",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_patent_right_transfer_contract_review::test_default_law_and_negative_assertions_for_patent_transfer",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_patent_right_transfer_contract_review.py:228: in test_default_law_and_negative_assertions_for_patent_transfer\n    assert output[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_patent_right_transfer_contract_review::test_patent_gold_closure_review_semantics_links_and_economic_impact",
+      "message": "AssertionError: assert 'transferee_infringement_liability_shift' in set()",
+      "trace": "backend\\tests\\test_patent_right_transfer_contract_review.py:304: in test_patent_gold_closure_review_semantics_links_and_economic_impact\n    assert \"transferee_infringement_liability_shift\" in linked_groups\nE   AssertionError: assert 'transferee_infringement_liability_shift' in set()",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_patent_right_transfer_contract_review::test_explicit_confidentiality_breach_liability_is_present_with_dedicated_fact_type",
+      "message": "AssertionError: assert 'MISSING' == 'PRESENT'\n  \n  - PRESENT\n  + MISSING",
+      "trace": "backend\\tests\\test_patent_right_transfer_contract_review.py:446: in test_explicit_confidentiality_breach_liability_is_present_with_dedicated_fact_type\n    assert item[\"coverage_presence\"] == \"PRESENT\"\nE   AssertionError: assert 'MISSING' == 'PRESENT'\nE     \nE     - PRESENT\nE     + MISSING",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_patent_right_transfer_contract_review::test_general_any_breach_liability_is_partial_without_confidentiality_link",
+      "message": "AssertionError: assert 'MISSING' == 'PARTIAL'\n  \n  - PARTIAL\n  + MISSING",
+      "trace": "backend\\tests\\test_patent_right_transfer_contract_review.py:456: in test_general_any_breach_liability_is_partial_without_confidentiality_link\n    assert item[\"coverage_presence\"] == \"PARTIAL\"\nE   AssertionError: assert 'MISSING' == 'PARTIAL'\nE     \nE     - PARTIAL\nE     + MISSING",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_patent_right_transfer_contract_review::test_partial_without_a_concrete_gap_is_promoted_to_pass_and_cannot_create_a_finding",
+      "message": "AssertionError: assert '缺失' == '通过'\n  \n  - 通过\n  + 缺失",
+      "trace": "backend\\tests\\test_patent_right_transfer_contract_review.py:505: in test_partial_without_a_concrete_gap_is_promoted_to_pass_and_cannot_create_a_finding\n    assert item.coverage_status == \"通过\"\nE   AssertionError: assert '缺失' == '通过'\nE     \nE     - 通过\nE     + 缺失",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_patent_right_transfer_contract_review::test_partial_with_a_concrete_missing_element_and_tc_11_04_evidence_remain_unchanged",
+      "message": "AssertionError: assert '缺失' == '部分覆盖'\n  \n  - 部分覆盖\n  + 缺失",
+      "trace": "backend\\tests\\test_patent_right_transfer_contract_review.py:542: in test_partial_with_a_concrete_missing_element_and_tc_11_04_evidence_remain_unchanged\n    assert item.coverage_status == \"部分覆盖\"\nE   AssertionError: assert '缺失' == '部分覆盖'\nE     \nE     - 部分覆盖\nE     + 缺失",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_patent_right_transfer_contract_review::test_patent_gold_confidentiality_liability_uses_a_complete_two_clause_evidence_chain",
+      "message": "AssertionError: assert 'MISSING' == 'PARTIAL'\n  \n  - PARTIAL\n  + MISSING",
+      "trace": "backend\\tests\\test_patent_right_transfer_contract_review.py:553: in test_patent_gold_confidentiality_liability_uses_a_complete_two_clause_evidence_chain\n    assert item[\"coverage_presence\"] == \"PARTIAL\"\nE   AssertionError: assert 'MISSING' == 'PARTIAL'\nE     \nE     - PARTIAL\nE     + MISSING",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_patent_right_transfer_contract_review::test_patent_gold_optional_recommendations_and_report_language_close_cleanly",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_patent_right_transfer_contract_review.py:643: in test_patent_gold_optional_recommendations_and_report_language_close_cleanly\n    assert output[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_patent_right_transfer_contract_review::test_current_patent_transfer_registration_feasibility_blocker_is_core_risk",
+      "message": "AssertionError: assert '缺失' == '部分覆盖'\n  \n  - 部分覆盖\n  + 缺失",
+      "trace": "backend\\tests\\test_patent_right_transfer_contract_review.py:672: in test_current_patent_transfer_registration_feasibility_blocker_is_core_risk\n    assert registration[\"coverage_status\"] == \"部分覆盖\"\nE   AssertionError: assert '缺失' == '部分覆盖'\nE     \nE     - 部分覆盖\nE     + 缺失",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_patent_right_transfer_contract_review::test_current_patent_transfer_ancillary_service_materials_and_domestic_scope_are_fact_driven",
+      "message": "AssertionError: assert '部分覆盖' == '通过'\n  \n  - 通过\n  + 部分覆盖",
+      "trace": "backend\\tests\\test_patent_right_transfer_contract_review.py:693: in test_current_patent_transfer_ancillary_service_materials_and_domestic_scope_are_fact_driven\n    assert by_id[\"TC-09-01\"][\"coverage_status\"] == \"通过\"\nE   AssertionError: assert '部分覆盖' == '通过'\nE     \nE     - 通过\nE     + 部分覆盖",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_patent_right_transfer_contract_review::test_report_missing_notice_is_conditionally_rendered_from_existing_coverage_summary",
+      "message": "AssertionError: assert 2 == 0\n +  where 2 = <built-in method get of dict object at 0x000001AC2C5E8080>('缺失', 0)\n +    where <built-in method get of dict object at 0x000001AC2C5E8080> = {'通过': 9, '不适用': 32, '待核验': 4, '部分覆盖': 7, ...}.get",
+      "trace": "backend\\tests\\test_patent_right_transfer_contract_review.py:780: in test_report_missing_notice_is_conditionally_rendered_from_existing_coverage_summary\n    assert current[\"coverage_summary\"].get(\"缺失\", 0) == 0\nE   AssertionError: assert 2 == 0\nE    +  where 2 = <built-in method get of dict object at 0x000001AC2C5E8080>('缺失', 0)\nE    +    where <built-in method get of dict object at 0x000001AC2C5E8080> = {'通过': 9, '不适用': 32, '待核验': 4, '部分覆盖': 7, ...}.get",
+      "cluster": "交易分类、主体或条件适用性"
+    },
+    {
+      "test": "backend.tests.test_technical_service_dynamic_roles_and_grounding::test_service_acceptance_and_new_result_core_facts_are_not_keyword_passes",
+      "message": "AssertionError: assert 'PARTIALLY_COVERED' == 'COVERED'\n  \n  - COVERED\n  + PARTIALLY_COVERED",
+      "trace": "backend\\tests\\test_technical_service_dynamic_roles_and_grounding.py:99: in test_service_acceptance_and_new_result_core_facts_are_not_keyword_passes\n    assert acceptance_elements[\"deemed_acceptance_arrangement\"] == \"COVERED\"\nE   AssertionError: assert 'PARTIALLY_COVERED' == 'COVERED'\nE     \nE     - COVERED\nE     + PARTIALLY_COVERED",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_technical_service_dynamic_roles_and_grounding::test_third_party_claim_direction_changes_between_provider_and_recipient",
+      "message": "AssertionError: assert '风险条款' == '部分覆盖'\n  \n  - 部分覆盖\n  + 风险条款",
+      "trace": "backend\\tests\\test_technical_service_dynamic_roles_and_grounding.py:244: in test_third_party_claim_direction_changes_between_provider_and_recipient\n    assert provider_item[\"coverage_status\"] == recipient_item[\"coverage_status\"] == \"部分覆盖\"\nE   AssertionError: assert '风险条款' == '部分覆盖'\nE     \nE     - 部分覆盖\nE     + 风险条款",
+      "cluster": "不利方向/冲突事实被覆盖或丢失"
+    },
+    {
+      "test": "backend.tests.test_technical_service_dynamic_roles_and_grounding::test_service_result_consequence_survives_finding_aggregation",
+      "message": "AssertionError: assert '项目定制成果的知识产权归属' in '建议补充明确尚未形成最终权属安排。'",
+      "trace": "backend\\tests\\test_technical_service_dynamic_roles_and_grounding.py:276: in test_service_result_consequence_survives_finding_aggregation\n    assert \"项目定制成果的知识产权归属\" in finding[\"recommendation\"]\nE   AssertionError: assert '项目定制成果的知识产权归属' in '建议补充明确尚未形成最终权属安排。'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_dynamic_roles_and_grounding::test_second_service_timeline_is_deterministic_and_binds_only_direct_dates",
+      "message": "AssertionError: assert ['VALIDITY_BE...FORE_SIGNING'] == ['SERVICE_BEFORE_SIGNING']\n  \n  At index 0 diff: 'VALIDITY_BEFORE_SIGNING' != 'SERVICE_BEFORE_SIGNING'\n  Left contains one more item: 'SERVICE_BEFORE_SIGNING'\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_technical_service_dynamic_roles_and_grounding.py:336: in test_second_service_timeline_is_deterministic_and_binds_only_direct_dates\n    assert timeline[\"conflict_types\"] == [\"SERVICE_BEFORE_SIGNING\"]\nE   AssertionError: assert ['VALIDITY_BE...FORE_SIGNING'] == ['SERVICE_BEFORE_SIGNING']\nE     \nE     At index 0 diff: 'VALIDITY_BEFORE_SIGNING' != 'SERVICE_BEFORE_SIGNING'\nE     Left contains one more item: 'SERVICE_BEFORE_SIGNING'\nE     Use -v to get more diff",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_dynamic_roles_and_grounding::test_second_service_scene_liability_limit_and_acceptance_disconnect_are_grounded",
+      "message": "AssertionError: assert '责任限制机制风险' == '服务方赔偿责任上限及免责范围过宽'\n  \n  - 服务方赔偿责任上限及免责范围过宽\n  + 责任限制机制风险",
+      "trace": "backend\\tests\\test_technical_service_dynamic_roles_and_grounding.py:400: in test_second_service_scene_liability_limit_and_acceptance_disconnect_are_grounded\n    assert liability[\"title\"] == \"服务方赔偿责任上限及免责范围过宽\"\nE   AssertionError: assert '责任限制机制风险' == '服务方赔偿责任上限及免责范围过宽'\nE     \nE     - 服务方赔偿责任上限及免责范围过宽\nE     + 责任限制机制风险",
+      "cluster": "不利方向/冲突事实被覆盖或丢失"
+    },
+    {
+      "test": "backend.tests.test_technical_service_dynamic_roles_and_grounding::test_second_service_attachment_acceptance_and_confidentiality_are_scenario_specific",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_technical_service_dynamic_roles_and_grounding.py:492: in test_second_service_attachment_acceptance_and_confidentiality_are_scenario_specific\n    assert output[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_technical_service_dynamic_roles_and_grounding::test_service_search_audit_and_material_attachment_follow_current_subtype_facts",
+      "message": "AssertionError: assert '未显示附件级技术资料清单已经实际形成' in '已有部分安排；仍需补足：数据、接口信息及相关技术资料的概括提供范围、现有合同证据未显示已经形成可核验的附件级技术资料清单、技术资料的文件名称、版本或编号尚未由现有附件固定。'",
+      "trace": "backend\\tests\\test_technical_service_dynamic_roles_and_grounding.py:535: in test_service_search_audit_and_material_attachment_follow_current_subtype_facts\n    assert \"未显示附件级技术资料清单已经实际形成\" in attachment[\"risk_point_description\"]\nE   AssertionError: assert '未显示附件级技术资料清单已经实际形成' in '已有部分安排；仍需补足：数据、接口信息及相关技术资料的概括提供范围、现有合同证据未显示已经形成可核验的附件级技术资料清单、技术资料的文件名称、版本或编号尚未由现有附件固定。'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_dynamic_roles_and_grounding::test_search_audit_preserves_scalar_scope_and_searches_positive_facts",
+      "message": "AssertionError: assert ['量化服务目标与最终验收合格条件之间的衔接'] == ['量化服务目标与最终验收...达到量化指标时的整改义务']\n  \n  Right contains one more item: '未达到量化指标时的整改义务'\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_technical_service_dynamic_roles_and_grounding.py:550: in test_search_audit_preserves_scalar_scope_and_searches_positive_facts\n    assert audit[\"required_elements\"] == [\nE   AssertionError: assert ['量化服务目标与最终验收合格条件之间的衔接'] == ['量化服务目标与最终验收...达到量化指标时的整改义务']\nE     \nE     Right contains one more item: '未达到量化指标时的整改义务'\nE     Use -v to get more diff",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_dynamic_roles_and_grounding::test_second_service_search_audits_classification_and_screening_are_semantically_consistent",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_technical_service_dynamic_roles_and_grounding.py:565: in test_second_service_search_audits_classification_and_screening_are_semantically_consistent\n    assert output[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_technical_service_dynamic_roles_and_grounding::test_service_confidentiality_period_and_scope_bind_direct_confidentiality_clauses",
+      "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验",
+      "trace": "backend\\tests\\test_technical_service_dynamic_roles_and_grounding.py:646: in test_service_confidentiality_period_and_scope_bind_direct_confidentiality_clauses\n    assert item[\"coverage_status\"] == \"通过\"\nE   AssertionError: assert '待核验' == '通过'\nE     \nE     - 通过\nE     + 待核验",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_technical_service_dynamic_roles_and_grounding::test_service_provider_confidentiality_breach_narrative_excludes_liability_expansion",
+      "message": "StopIteration",
+      "trace": "backend\\tests\\test_technical_service_dynamic_roles_and_grounding.py:668: in test_service_provider_confidentiality_breach_narrative_excludes_liability_expansion\n    finding = next(row for row in output[\"risk_findings\"] if \"TC-11-04\" in row[\"source_review_ids\"])\nE   StopIteration",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_technology_evidence_claim_ceiling::test_case_6_each_proof_element_requires_its_own_direct_evidence",
+      "message": "AssertionError: assert 'CONDITION_UNRESOLVED' == 'MISSING'\n  \n  - MISSING\n  + CONDITION_UNRESOLVED",
+      "trace": "backend\\tests\\test_technology_evidence_claim_ceiling.py:149: in test_case_6_each_proof_element_requires_its_own_direct_evidence\n    assert by_id[\"joint_holder_disclosure\"][\"status\"] == \"MISSING\"\nE   AssertionError: assert 'CONDITION_UNRESOLVED' == 'MISSING'\nE     \nE     - MISSING\nE     + CONDITION_UNRESOLVED",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_technology_review_checklist::test_review_v2_can_load_technology_checklist",
+      "message": "AssertionError: assert '技术合同—技术开发合同—委托开发合同' == '技术合同'\n  \n  - 技术合同\n  + 技术合同—技术开发合同—委托开发合同",
+      "trace": "backend\\tests\\test_technology_review_checklist.py:124: in test_review_v2_can_load_technology_checklist\n    assert output[\"contract_type_name\"] == \"技术合同\"\nE   AssertionError: assert '技术合同—技术开发合同—委托开发合同' == '技术合同'\nE     \nE     - 技术合同\nE     + 技术合同—技术开发合同—委托开发合同",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technology_review_checklist::test_technology_fixture_entrusted_development_filters_cooperative_points",
+      "message": "assert None is not None",
+      "trace": "backend\\tests\\test_technology_review_checklist.py:209: in test_technology_fixture_entrusted_development_filters_cooperative_points\n    assert fixture is not None\nE   assert None is not None",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_fact_direction_regressions::test_existing_failure_allocation_is_covered_adverse_not_missing",
+      "message": "AssertionError: assert '部分覆盖' == '风险条款'\n  \n  - 风险条款\n  + 部分覆盖",
+      "trace": "backend\\tests\\test_entrusted_development_fact_direction_regressions.py:59: in test_existing_failure_allocation_is_covered_adverse_not_missing\n    assert item[\"coverage_status\"] == \"风险条款\"\nE   AssertionError: assert '部分覆盖' == '风险条款'\nE     \nE     - 风险条款\nE     + 部分覆盖",
+      "cluster": "不利方向/冲突事实被覆盖或丢失"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_fact_direction_regressions::test_general_foreground_ip_does_not_override_specific_patent_right",
+      "message": "AssertionError: assert 'PARTIAL' == 'CONFLICTING'\n  \n  - CONFLICTING\n  + PARTIAL",
+      "trace": "backend\\tests\\test_entrusted_development_fact_direction_regressions.py:73: in test_general_foreground_ip_does_not_override_specific_patent_right\n    assert item[\"issue_type\"] == \"CONFLICTING\"\nE   AssertionError: assert 'PARTIAL' == 'CONFLICTING'\nE     \nE     - CONFLICTING\nE     + PARTIAL",
+      "cluster": "不利方向/冲突事实被覆盖或丢失"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_fact_direction_regressions::test_confidentiality_positive_facts_survive_search_audit",
+      "message": "AssertionError: assert 'MISSING' == 'COVERED'\n  \n  - COVERED\n  + MISSING",
+      "trace": "backend\\tests\\test_entrusted_development_fact_direction_regressions.py:94: in test_confidentiality_positive_facts_survive_search_audit\n    assert elements[element_id][\"status\"] == \"COVERED\"\nE   AssertionError: assert 'MISSING' == 'COVERED'\nE     \nE     - COVERED\nE     + MISSING",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_fact_direction_regressions::test_secondary_data_use_is_an_independent_adverse_risk",
+      "message": "KeyError: 'performance_purpose_limitation'",
+      "trace": "backend\\tests\\test_entrusted_development_fact_direction_regressions.py:119: in test_secondary_data_use_is_an_independent_adverse_risk\n    assert elements[element_id][\"status\"] == \"ADVERSE\"\nE   KeyError: 'performance_purpose_limitation'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_fact_direction_regressions::test_complete_source_delivery_is_checked_against_unilateral_carveout",
+      "message": "AssertionError: assert 'PARTIAL' == 'CONFLICTING'\n  \n  - CONFLICTING\n  + PARTIAL",
+      "trace": "backend\\tests\\test_entrusted_development_fact_direction_regressions.py:129: in test_complete_source_delivery_is_checked_against_unilateral_carveout\n    assert item[\"issue_type\"] == \"CONFLICTING\"\nE   AssertionError: assert 'PARTIAL' == 'CONFLICTING'\nE     \nE     - CONFLICTING\nE     + PARTIAL",
+      "cluster": "不利方向/冲突事实被覆盖或丢失"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_fact_direction_regressions::test_developer_controlled_component_risk_keeps_direction_and_procedure_separate",
+      "message": "KeyError: 'developer_component_selection_control'",
+      "trace": "backend\\tests\\test_entrusted_development_fact_direction_regressions.py:142: in test_developer_controlled_component_risk_keeps_direction_and_procedure_separate\n    assert elements[\"developer_component_selection_control\"][\"status\"] == \"COVERED\"\nE   KeyError: 'developer_component_selection_control'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_fact_direction_regressions::test_project_contact_material_change_authority_is_adverse",
+      "message": "KeyError: 'electronic_contact_confirmation'",
+      "trace": "backend\\tests\\test_entrusted_development_fact_direction_regressions.py:175: in test_project_contact_material_change_authority_is_adverse\n    assert elements[\"electronic_contact_confirmation\"][\"status\"] == \"COVERED\"\nE   KeyError: 'electronic_contact_confirmation'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_fact_direction_regressions::test_major_liability_cap_separates_statutory_validity_and_commercial_recovery_risks",
+      "message": "AssertionError: assert 'indemnity_and_liability_cap' == 'entrusted_ma...liability_cap'\n  \n  - entrusted_major_liability_cap\n  + indemnity_and_liability_cap",
+      "trace": "backend\\tests\\test_entrusted_development_fact_direction_regressions.py:214: in test_major_liability_cap_separates_statutory_validity_and_commercial_recovery_risks\n    assert commercial[\"risk_group\"] == \"entrusted_major_liability_cap\"\nE   AssertionError: assert 'indemnity_and_liability_cap' == 'entrusted_ma...liability_cap'\nE     \nE     - entrusted_major_liability_cap\nE     + indemnity_and_liability_cap",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_fact_direction_regressions::test_complex_project_short_deemed_acceptance_preserves_latent_defect_review",
+      "message": "KeyError: 'deemed_acceptance_clause'",
+      "trace": "backend\\tests\\test_entrusted_development_fact_direction_regressions.py:281: in test_complex_project_short_deemed_acceptance_preserves_latent_defect_review\n    assert elements[\"deemed_acceptance_clause\"][\"status\"] == \"ADVERSE\"\nE   KeyError: 'deemed_acceptance_clause'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_fact_direction_regressions::test_development_failure_full_price_exposure_is_direct_and_quantified",
+      "message": "AssertionError: assert {'C0003'} == {'C0003', 'C0004'}\n  \n  Extra items in the right set:\n  'C0004'\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_entrusted_development_fact_direction_regressions.py:330: in test_development_failure_full_price_exposure_is_direct_and_quantified\n    assert {row[\"clause_id\"] for row in item[\"evidence_clauses\"]} == {\"C0003\", \"C0004\"}\nE   AssertionError: assert {'C0003'} == {'C0003', 'C0004'}\nE     \nE     Extra items in the right set:\nE     'C0004'\nE     Use -v to get more diff",
+      "cluster": "精确引文、条款定位及证据标识不一致"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_fact_direction_regressions::test_confidentiality_covered_elements_bind_distinct_direct_evidence",
+      "message": "KeyError: 'confidentiality_obligation'",
+      "trace": "backend\\tests\\test_entrusted_development_fact_direction_regressions.py:348: in test_confidentiality_covered_elements_bind_distinct_direct_evidence\n    obligation_ids = elements[\"confidentiality_obligation\"][\"evidence_ids\"]\nE   KeyError: 'confidentiality_obligation'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_fact_direction_regressions::test_liability_cap_reference_alone_does_not_cover_confidentiality_damages",
+      "message": "KeyError: 'confidentiality_obligation'",
+      "trace": "backend\\tests\\test_entrusted_development_fact_direction_regressions.py:366: in test_liability_cap_reference_alone_does_not_cover_confidentiality_damages\n    assert elements[\"confidentiality_obligation\"][\"status\"] == \"COVERED\"\nE   KeyError: 'confidentiality_obligation'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_narrative_source_and_date_semantics::test_current_facts_publish_their_exact_sources",
+      "message": "AssertionError: [{'requirement': 'CROSS_REVIEW_FACT_CONFLICT', 'failure_stage': 'Review Post-processing', 'root_cause': 'ContractFactR..., 'root_cause': 'TC-01-01', 'evidence_id': 'SRC-88a8d8edbdbea6147736', 'reason': 'IRRELEVANT_PASS_EVIDENCE', ...}, ...]\nassert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_narrative_source_and_date_semantics.py:32: in test_current_facts_publish_their_exact_sources\n    assert current[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\", current[\"release_quality_gate\"][\"failures\"]\nE   AssertionError: [{'requirement': 'CROSS_REVIEW_FACT_CONFLICT', 'failure_stage': 'Review Post-processing', 'root_cause': 'ContractFactR..., 'root_cause': 'TC-01-01', 'evidence_id': 'SRC-88a8d8edbdbea6147736', 'reason': 'IRRELEVANT_PASS_EVIDENCE', ...}, ...]\nE   assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_patent_license_latest_report_regressions::test_material_delivery_method_is_covered_but_version_and_schedule_gaps_remain",
+      "message": "KeyError: 'delivery_method'",
+      "trace": "backend\\tests\\test_patent_license_latest_report_regressions.py:85: in test_material_delivery_method_is_covered_but_version_and_schedule_gaps_remain\n    assert elements[\"delivery_method\"][\"status\"] == \"COVERED\"\nE   KeyError: 'delivery_method'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_patent_license_latest_report_regressions::test_cross_reference_subject_mismatch_is_bound_to_source_and_target",
+      "message": "AssertionError: assert '按照第七条约定执行' in '合同未明确：验收标准；验收方法；测试用例要求；测试报告交付；验收记录要求；验收争议的第三方检测或复测机制。'",
+      "trace": "backend\\tests\\test_patent_license_latest_report_regressions.py:117: in test_cross_reference_subject_mismatch_is_bound_to_source_and_target\n    assert \"按照第七条约定执行\" in acceptance[\"risk_point_description\"]\nE   AssertionError: assert '按照第七条约定执行' in '合同未明确：验收标准；验收方法；测试用例要求；测试报告交付；验收记录要求；验收争议的第三方检测或复测机制。'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_patent_license_latest_report_regressions::test_tc1303_positive_elements_have_element_specific_direct_evidence",
+      "message": "KeyError: 'quantitative_metrics'",
+      "trace": "backend\\tests\\test_patent_license_latest_report_regressions.py:134: in test_tc1303_positive_elements_have_element_specific_direct_evidence\n    assert elements[\"quantitative_metrics\"][\"status\"] == \"MISSING\"\nE   KeyError: 'quantitative_metrics'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_patent_license_latest_report_regressions::test_tc1303_cross_reference_bundle_and_issue_type_are_consistent",
+      "message": "AssertionError: assert 'MISSING' == 'CONFLICTING'\n  \n  - CONFLICTING\n  + MISSING",
+      "trace": "backend\\tests\\test_patent_license_latest_report_regressions.py:151: in test_tc1303_cross_reference_bundle_and_issue_type_are_consistent\n    assert item[\"issue_type\"] == \"CONFLICTING\"\nE   AssertionError: assert 'MISSING' == 'CONFLICTING'\nE     \nE     - CONFLICTING\nE     + MISSING",
+      "cluster": "不利方向/冲突事实被覆盖或丢失"
+    },
+    {
+      "test": "backend.tests.test_patent_license_latest_report_regressions::test_tc1303_recommendation_does_not_invent_a_named_attachment",
+      "message": "AssertionError: assert '验收测试附件或专项测试方案' in '建议补充明确验收标准；补充明确验收方法；补充明确测试用例要求；补充明确测试报告交付；补充明确验收记录要求；约定测试结果争议时共同委托有资质的第三方检测机构复测，并明确检测结果的效力和费用承担。'",
+      "trace": "backend\\tests\\test_patent_license_latest_report_regressions.py:165: in test_tc1303_recommendation_does_not_invent_a_named_attachment\n    assert \"验收测试附件或专项测试方案\" in finding[\"recommendation\"]\nE   AssertionError: assert '验收测试附件或专项测试方案' in '建议补充明确验收标准；补充明确验收方法；补充明确测试用例要求；补充明确测试报告交付；补充明确验收记录要求；约定测试结果争议时共同委托有资质的第三方检测机构复测，并明确检测结果的效力和费用承担。'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_patent_license_latest_report_regressions::test_tc0201_final_claims_do_not_exceed_direct_evidence",
+      "message": "AssertionError: assert ['C0018'] == ['C0019']\n  \n  At index 0 diff: 'C0018' != 'C0019'\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_patent_license_latest_report_regressions.py:176: in test_tc0201_final_claims_do_not_exceed_direct_evidence\n    assert elements[\"forced_free_improvement_transfer\"][\"evidence_ids\"] == [\"C0019\"]\nE   AssertionError: assert ['C0018'] == ['C0019']\nE     \nE     At index 0 diff: 'C0018' != 'C0019'\nE     Use -v to get more diff",
+      "cluster": "精确引文、条款定位及证据标识不一致"
+    },
+    {
+      "test": "backend.tests.test_patent_license_latest_report_regressions::test_improvement_claims_bind_the_actual_forced_transfer_clause[TC-10-01-licensee_independent_improvement_ownership]",
+      "message": "StopIteration",
+      "trace": "backend\\tests\\test_patent_license_latest_report_regressions.py:207: in test_improvement_claims_bind_the_actual_forced_transfer_clause\n    source = next(row for row in item[\"evidence_clauses\"] if row.get(\"clause_id\") == \"C0019\")\nE   StopIteration",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_patent_license_latest_report_regressions::test_improvement_claims_bind_the_actual_forced_transfer_clause[TC-10-02-licensee_improvement_ownership]",
+      "message": "StopIteration",
+      "trace": "backend\\tests\\test_patent_license_latest_report_regressions.py:207: in test_improvement_claims_bind_the_actual_forced_transfer_clause\n    source = next(row for row in item[\"evidence_clauses\"] if row.get(\"clause_id\") == \"C0019\")\nE   StopIteration",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_patent_license_latest_report_regressions::test_improvement_claims_bind_the_actual_forced_transfer_clause[TC-10-04-forced_free_ownership_transfer]",
+      "message": "StopIteration",
+      "trace": "backend\\tests\\test_patent_license_latest_report_regressions.py:207: in test_improvement_claims_bind_the_actual_forced_transfer_clause\n    source = next(row for row in item[\"evidence_clauses\"] if row.get(\"clause_id\") == \"C0019\")\nE   StopIteration",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_patent_license_latest_report_regressions::test_aggregated_improvement_finding_has_a_complete_direct_evidence_bundle",
+      "message": "AssertionError: assert {'FREE_TRANSF...ship_written'} == {'FREE_TRANSF...HIP_TRANSFER'}\n  \n  Extra items in the left set:\n  'improvement_ownership_written'\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_patent_license_latest_report_regressions.py:223: in test_aggregated_improvement_finding_has_a_complete_direct_evidence_bundle\n    assert fact_types == {\nE   AssertionError: assert {'FREE_TRANSF...ship_written'} == {'FREE_TRANSF...HIP_TRANSFER'}\nE     \nE     Extra items in the left set:\nE     'improvement_ownership_written'\nE     Use -v to get more diff",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_patent_transfer_acquisition_and_remedies::test_current_existing_and_retained_license_reduce_full_scope_coverage",
+      "message": "AssertionError: assert '缺失' == '部分覆盖'\n  \n  - 部分覆盖\n  + 缺失",
+      "trace": "backend\\tests\\test_patent_transfer_acquisition_and_remedies.py:131: in test_current_existing_and_retained_license_reduce_full_scope_coverage\n    assert scope[\"coverage_status\"] == \"部分覆盖\"\nE   AssertionError: assert '缺失' == '部分覆盖'\nE     \nE     - 部分覆盖\nE     + 缺失",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_patent_transfer_acquisition_and_remedies::test_current_contract_passes_release_without_disabling_consistency_checks",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_patent_transfer_acquisition_and_remedies.py:144: in test_current_contract_passes_release_without_disabling_consistency_checks\n    assert result[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_patent_transfer_acquisition_and_remedies::test_current_proof_disclosures_are_atomic_and_never_independently_verified[TC-03-04]",
+      "message": "AssertionError: assert ['C0014', 'EV...b0e9c0874968'] == ['C0010']\n  \n  At index 0 diff: 'C0014' != 'C0010'\n  Left contains one more item: 'EV-5622b0e9c0874968'\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_patent_transfer_acquisition_and_remedies.py:177: in test_current_proof_disclosures_are_atomic_and_never_independently_verified\n    assert elements[\"patent_invalidity_proceeding_disclosure\"][\"evidence_ids\"] == [\"C0010\"]\nE   AssertionError: assert ['C0014', 'EV...b0e9c0874968'] == ['C0010']\nE     \nE     At index 0 diff: 'C0014' != 'C0010'\nE     Left contains one more item: 'EV-5622b0e9c0874968'\nE     Use -v to get more diff",
+      "cluster": "精确引文、条款定位及证据标识不一致"
+    },
+    {
+      "test": "backend.tests.test_patent_transfer_acquisition_and_remedies::test_current_proof_disclosures_are_atomic_and_never_independently_verified[TC-13-02]",
+      "message": "AssertionError: assert ['C0014', 'EV...b0e9c0874968'] == ['C0010']\n  \n  At index 0 diff: 'C0014' != 'C0010'\n  Left contains one more item: 'EV-5622b0e9c0874968'\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_patent_transfer_acquisition_and_remedies.py:177: in test_current_proof_disclosures_are_atomic_and_never_independently_verified\n    assert elements[\"patent_invalidity_proceeding_disclosure\"][\"evidence_ids\"] == [\"C0010\"]\nE   AssertionError: assert ['C0014', 'EV...b0e9c0874968'] == ['C0010']\nE     \nE     At index 0 diff: 'C0014' != 'C0010'\nE     Left contains one more item: 'EV-5622b0e9c0874968'\nE     Use -v to get more diff",
+      "cluster": "精确引文、条款定位及证据标识不一致"
+    },
+    {
+      "test": "backend.tests.test_patent_transfer_acquisition_and_remedies::test_current_file_upload_and_response_schema_preserve_passed_gate",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_patent_transfer_acquisition_and_remedies.py:266: in test_current_file_upload_and_response_schema_preserve_passed_gate\n    assert payload[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_patent_transfer_acquisition_and_remedies::test_current_claim_elements_reject_unrelated_remedies_and_share_real_evidence",
+      "message": "AssertionError: assert {'C0014'} == {'C0010'}\n  \n  Extra items in the left set:\n  'C0014'\n  Extra items in the right set:\n  'C0010'\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_patent_transfer_acquisition_and_remedies.py:288: in test_current_claim_elements_reject_unrelated_remedies_and_share_real_evidence\n    assert set(element[\"evidence_ids\"]) == {\"C0010\"}\nE   AssertionError: assert {'C0014'} == {'C0010'}\nE     \nE     Extra items in the left set:\nE     'C0014'\nE     Extra items in the right set:\nE     'C0010'\nE     Use -v to get more diff",
+      "cluster": "精确引文、条款定位及证据标识不一致"
+    },
+    {
+      "test": "backend.tests.test_patent_transfer_acquisition_and_remedies::test_current_material_types_do_not_depend_on_exhibit_completeness",
+      "message": "AssertionError: assert ['EV-8a8217b032c5b441'] == ['C0004']\n  \n  At index 0 diff: 'EV-8a8217b032c5b441' != 'C0004'\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_patent_transfer_acquisition_and_remedies.py:307: in test_current_material_types_do_not_depend_on_exhibit_completeness\n    assert elements[\"major_document_types\"][\"evidence_ids\"] == [\"C0004\"]\nE   AssertionError: assert ['EV-8a8217b032c5b441'] == ['C0004']\nE     \nE     At index 0 diff: 'EV-8a8217b032c5b441' != 'C0004'\nE     Use -v to get more diff",
+      "cluster": "精确引文、条款定位及证据标识不一致"
+    },
+    {
+      "test": "backend.tests.test_patent_transfer_acquisition_and_remedies::test_scope_narrative_does_not_invent_missing_territory_term_and_powers",
+      "message": "AssertionError: assert '商业排他性' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'",
+      "trace": "backend\\tests\\test_patent_transfer_acquisition_and_remedies.py:316: in test_scope_narrative_does_not_invent_missing_territory_term_and_powers\n    assert \"商业排他性\" in scope[\"risk_point_description\"]\nE   AssertionError: assert '商业排他性' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_technical_service_final_evidence_closure::test_clause_parser_keeps_body_appendix_references_and_signature_page_separate",
+      "message": "AssertionError: assert '三、资料的提供 / 甲方...6年9月5日前向乙方提供：' == '三、（一）'\n  \n  - 三、（一）\n  + 三、资料的提供 / 甲方应在2026年9月5日前向乙方提供：",
+      "trace": "backend\\tests\\test_technical_service_final_evidence_closure.py:53: in test_clause_parser_keeps_body_appendix_references_and_signature_page_separate\n    assert personal_data.location == \"三、（一）\"\nE   AssertionError: assert '三、资料的提供 / 甲方...6年9月5日前向乙方提供：' == '三、（一）'\nE     \nE     - 三、（一）\nE     + 三、资料的提供 / 甲方应在2026年9月5日前向乙方提供：",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_final_evidence_closure::test_every_final_risk_has_bundle_and_missing_risk_has_absence_evidence",
+      "message": "KeyError: 'related_trigger_clause_ids'",
+      "trace": "backend\\tests\\test_technical_service_final_evidence_closure.py:131: in test_every_final_risk_has_bundle_and_missing_risk_has_absence_evidence\n    assert absence[\"related_trigger_clause_ids\"]\nE   KeyError: 'related_trigger_clause_ids'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_technical_service_final_evidence_closure::test_covered_reviews_that_contribute_to_risk_are_not_keep",
+      "message": "AssertionError: assert 'NOT_APPLICABLE' == 'APPLICABLE'\n  \n  - APPLICABLE\n  + NOT_APPLICABLE\n  ? ++++",
+      "trace": "backend\\tests\\test_technical_service_final_evidence_closure.py:140: in test_covered_reviews_that_contribute_to_risk_are_not_keep\n    assert item[\"applicability\"][\"status\"] == \"APPLICABLE\"\nE   AssertionError: assert 'NOT_APPLICABLE' == 'APPLICABLE'\nE     \nE     - APPLICABLE\nE     + NOT_APPLICABLE\nE     ? ++++",
+      "cluster": "交易分类、主体或条件适用性"
+    },
+    {
+      "test": "backend.tests.test_technical_service_final_evidence_closure::test_gate_blocks_duplicate_span_and_missing_final_bundle",
+      "message": "TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'",
+      "trace": "backend\\tests\\test_technical_service_final_evidence_closure.py:163: in test_gate_blocks_duplicate_span_and_missing_final_bundle\n    items, findings, recommendations, dispositions = _integrity_inputs(output)\nbackend\\tests\\test_technical_service_final_evidence_closure.py:41: in _integrity_inputs\n    [Recommendation(**row) for row in output[\"recommendations\"]],\nbackend\\tests\\test_technical_service_final_evidence_closure.py:41: in <listcomp>\n    [Recommendation(**row) for row in output[\"recommendations\"]],\nE   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_final_evidence_closure::test_gate_blocks_missing_absence_evidence_and_invalid_clause_node",
+      "message": "TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'",
+      "trace": "backend\\tests\\test_technical_service_final_evidence_closure.py:175: in test_gate_blocks_missing_absence_evidence_and_invalid_clause_node\n    items, findings, recommendations, dispositions = _integrity_inputs(output)\nbackend\\tests\\test_technical_service_final_evidence_closure.py:41: in _integrity_inputs\n    [Recommendation(**row) for row in output[\"recommendations\"]],\nbackend\\tests\\test_technical_service_final_evidence_closure.py:41: in <listcomp>\n    [Recommendation(**row) for row in output[\"recommendations\"]],\nE   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_final_evidence_closure::test_gate_blocks_material_deadline_fact_role_mismatch",
+      "message": "TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'",
+      "trace": "backend\\tests\\test_technical_service_final_evidence_closure.py:187: in test_gate_blocks_material_deadline_fact_role_mismatch\n    items, findings, recommendations, dispositions = _integrity_inputs(output)\nbackend\\tests\\test_technical_service_final_evidence_closure.py:41: in _integrity_inputs\n    [Recommendation(**row) for row in output[\"recommendations\"]],\nbackend\\tests\\test_technical_service_final_evidence_closure.py:41: in <listcomp>\n    [Recommendation(**row) for row in output[\"recommendations\"]],\nE   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_final_evidence_closure::test_gate_blocks_linked_covered_review_that_reverts_to_keep",
+      "message": "TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'",
+      "trace": "backend\\tests\\test_technical_service_final_evidence_closure.py:198: in test_gate_blocks_linked_covered_review_that_reverts_to_keep\n    items, findings, recommendations, dispositions = _integrity_inputs(output)\nbackend\\tests\\test_technical_service_final_evidence_closure.py:41: in _integrity_inputs\n    [Recommendation(**row) for row in output[\"recommendations\"]],\nbackend\\tests\\test_technical_service_final_evidence_closure.py:41: in <listcomp>\n    [Recommendation(**row) for row in output[\"recommendations\"]],\nE   TypeError: Recommendation.__init__() got an unexpected keyword argument 'recommendation_topics'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technology_semantic_polarity_and_finding_consistency::test_prohibition_of_illegal_restriction_is_protective_not_risk",
+      "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验",
+      "trace": "backend\\tests\\test_technology_semantic_polarity_and_finding_consistency.py:38: in test_prohibition_of_illegal_restriction_is_protective_not_risk\n    assert item[\"coverage_status\"] == \"通过\"\nE   AssertionError: assert '待核验' == '通过'\nE     \nE     - 通过\nE     + 待核验",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_technology_semantic_polarity_and_finding_consistency::test_material_list_in_body_preserves_types_and_reports_only_remaining_delivery_metadata",
+      "message": "AssertionError: assert '版本号或文件编号' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'",
+      "trace": "backend\\tests\\test_technology_semantic_polarity_and_finding_consistency.py:125: in test_material_list_in_body_preserves_types_and_reports_only_remaining_delivery_metadata\n    assert \"版本号或文件编号\" in item[\"risk_point_description\"]\nE   AssertionError: assert '版本号或文件编号' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_technology_semantic_polarity_and_finding_consistency::test_vague_material_obligation_reports_specific_missing_elements",
+      "message": "AssertionError: assert '未列举主要技术资料文件类型' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'",
+      "trace": "backend\\tests\\test_technology_semantic_polarity_and_finding_consistency.py:133: in test_vague_material_obligation_reports_specific_missing_elements\n    assert \"未列举主要技术资料文件类型\" in item[\"risk_point_description\"]\nE   AssertionError: assert '未列举主要技术资料文件类型' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_advanced_regressions::test_cooperative_investment_and_work_facts_are_atomically_resolved",
+      "message": "AssertionError: assert [{'party': '甲...50000.0, ...}] == [{'party': '甲...: 50000, ...}]\n  \n  At index 0 diff: {'party': '甲方', 'nominal_investment': 1200000.0, 'payment_total': 850000.0, 'difference': -350000.0, 'nodes': [400000.0, 450000.0]} != {'party': '甲方', 'nominal_investment': 1200000, 'payment_total': 1250000, 'difference': 50000, 'nodes': [400000, 400000, 450000]}\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_cooperative_development_advanced_regressions.py:63: in test_cooperative_investment_and_work_facts_are_atomically_resolved\n    assert analysis[\"payment_conflicts\"] == [{\nE   AssertionError: assert [{'party': '甲...50000.0, ...}] == [{'party': '甲...: 50000, ...}]\nE     \nE     At index 0 diff: {'party': '甲方', 'nominal_investment': 1200000.0, 'payment_total': 850000.0, 'difference': -350000.0, 'nodes': [400000.0, 450000.0]} != {'party': '甲方', 'nominal_investment': 1200000, 'payment_total': 1250000, 'difference': 50000, 'nodes': [400000, 400000, 450000]}\nE     Use -v to get more diff",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_advanced_regressions::test_final_result_patent_license_and_revenue_rights_are_compared",
+      "message": "AssertionError: assert '收益归该许可方单独所有' in '合同存在以下有直接证据支持的不利安排：最终成果虽约定共同所有，但专利申请权归单一合作方，权属层级相互冲突；最终成果虽约定共同所有，但授权后的专利权归单一合作方，权属层级相互冲突；任何一方均可不经其他共有方同意单独对外许可最终成果；共有最终成果由单一合作方许可第三方后，许可收益归该技术提供方单独所有。'",
+      "trace": "backend\\tests\\test_cooperative_development_advanced_regressions.py:91: in test_final_result_patent_license_and_revenue_rights_are_compared\n    assert \"收益归该许可方单独所有\" in item[\"risk_point_description\"]\nE   AssertionError: assert '收益归该许可方单独所有' in '合同存在以下有直接证据支持的不利安排：最终成果虽约定共同所有，但专利申请权归单一合作方，权属层级相互冲突；最终成果虽约定共同所有，但授权后的专利权归单一合作方，权属层级相互冲突；任何一方均可不经其他共有方同意单独对外许可最终成果；共有最终成果由单一合作方许可第三方后，许可收益归该技术提供方单独所有。'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_advanced_regressions::test_governance_deadlock_silence_and_contact_authority_are_one_control_risk",
+      "message": "AssertionError: assert False\n +  where False = all(dict_values([True, True, True, '乙方', False, True, True]))\n +    where dict_values([True, True, True, '乙方', False, True, True]) = <built-in method values of dict object at 0x000002A1A26F4F80>()\n +      where <built-in method values of dict object at 0x000002A1A26F4F80> = {'unanimous_major_decisions': True, 'unilateral_deadlock_control': True, 'unilateral_major_matter_control': True, 'unilateral_major_matter_owner': '乙方', ...}.values",
+      "trace": "backend\\tests\\test_cooperative_development_advanced_regressions.py:121: in test_governance_deadlock_silence_and_contact_authority_are_one_control_risk\n    assert all(trace.values())\nE   AssertionError: assert False\nE    +  where False = all(dict_values([True, True, True, '乙方', False, True, True]))\nE    +    where dict_values([True, True, True, '乙方', False, True, True]) = <built-in method values of dict object at 0x000002A1A26F4F80>()\nE    +      where <built-in method values of dict object at 0x000002A1A26F4F80> = {'unanimous_major_decisions': True, 'unilateral_deadlock_control': True, 'unilateral_major_matter_control': True, 'unilateral_major_matter_owner': '乙方', ...}.values",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_advanced_regressions::test_shared_governance_and_creator_facts_survive_final_projection",
+      "message": "AssertionError: assert 'technology_g...ajor_decision' == 'technology.g...ajor_decision'\n  \n  - technology.governance.major_decision\n  ?           ^          ^\n  + technology_governance_major_decision\n  ?           ^          ^",
+      "trace": "backend\\tests\\test_cooperative_development_advanced_regressions.py:198: in test_shared_governance_and_creator_facts_survive_final_projection\n    assert major[\"required_fact_key\"] == \"technology.governance.major_decision\"\nE   AssertionError: assert 'technology_g...ajor_decision' == 'technology.g...ajor_decision'\nE     \nE     - technology.governance.major_decision\nE     ?           ^          ^\nE     + technology_governance_major_decision\nE     ?           ^          ^",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_advanced_regressions::test_attachment_reference_and_attachment_content_are_distinct_facts",
+      "message": "AssertionError: assert 'C0029' in ['C0034']",
+      "trace": "backend\\tests\\test_cooperative_development_advanced_regressions.py:220: in test_attachment_reference_and_attachment_content_are_distinct_facts\n    assert \"C0029\" in elements[\"actual_ip_proof_attachment\"][\"source_clause_ids\"]\nE   AssertionError: assert 'C0029' in ['C0034']",
+      "cluster": "精确引文、条款定位及证据标识不一致"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_advanced_regressions::test_confidentiality_evidence_is_not_expanded_beyond_the_quote",
+      "message": "StopIteration",
+      "trace": "backend\\tests\\test_cooperative_development_advanced_regressions.py:238: in test_confidentiality_evidence_is_not_expanded_beyond_the_quote\n    evidence = next(row for row in item[\"evidence_clauses\"] if row[\"clause_id\"] == \"C0015\")\nE   StopIteration",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_advanced_regressions::test_unrelated_breach_remedies_do_not_activate_infringement_coordination",
+      "message": "AssertionError: assert '合同虽存在侵权专项责任，...责任已排除，故本项不适用。' == 'SAME_LOSS_GE...EDY_NOT_FOUND'\n  \n  - SAME_LOSS_GENERAL_REMEDY_NOT_FOUND\n  + 合同虽存在侵权专项责任，但未同时存在可针对同一侵权损失适用的一般赔偿或违约救济；迟延付款、退出等其他违约责任已排除，故本项不适用。",
+      "trace": "backend\\tests\\test_cooperative_development_advanced_regressions.py:253: in test_unrelated_breach_remedies_do_not_activate_infringement_coordination\n    assert item[\"applicability\"][\"machine_reason\"] == \"SAME_LOSS_GENERAL_REMEDY_NOT_FOUND\"\nE   AssertionError: assert '合同虽存在侵权专项责任，...责任已排除，故本项不适用。' == 'SAME_LOSS_GE...EDY_NOT_FOUND'\nE     \nE     - SAME_LOSS_GENERAL_REMEDY_NOT_FOUND\nE     + 合同虽存在侵权专项责任，但未同时存在可针对同一侵权损失适用的一般赔偿或违约救济；迟延付款、退出等其他违约责任已排除，故本项不适用。",
+      "cluster": "交易分类、主体或条件适用性"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_advanced_regressions::test_registry_bound_risk_evidence_reuses_final_review_sources",
+      "message": "AssertionError: assert {'C0022', 'C0023', 'C0034'} == {'C0019', 'C0020', 'C0029'}\n  \n  Extra items in the left set:\n  'C0022'\n  'C0034'\n  'C0023'\n  Extra items in the right set:\n  'C0019'...\n  \n  ...Full output truncated (3 lines hidden), use '-vv' to show",
+      "trace": "backend\\tests\\test_cooperative_development_advanced_regressions.py:267: in test_registry_bound_risk_evidence_reuses_final_review_sources\n    assert {row.get(\"clause_id\") for row in body_rows} == {\"C0019\", \"C0020\", \"C0029\"}\nE   AssertionError: assert {'C0022', 'C0023', 'C0034'} == {'C0019', 'C0020', 'C0029'}\nE     \nE     Extra items in the left set:\nE     'C0022'\nE     'C0034'\nE     'C0023'\nE     Extra items in the right set:\nE     'C0019'...\nE     \nE     ...Full output truncated (3 lines hidden), use '-vv' to show",
+      "cluster": "精确引文、条款定位及证据标识不一致"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_advanced_regressions::test_referenced_attachments_are_material_pending_not_contract_defects",
+      "message": "AssertionError: assert 'RECOMMENDED' == 'MANUAL_REVIEW'\n  \n  - MANUAL_REVIEW\n  + RECOMMENDED",
+      "trace": "backend\\tests\\test_cooperative_development_advanced_regressions.py:289: in test_referenced_attachments_are_material_pending_not_contract_defects\n    assert item[\"recommended_action\"] == \"MANUAL_REVIEW\"\nE   AssertionError: assert 'RECOMMENDED' == 'MANUAL_REVIEW'\nE     \nE     - MANUAL_REVIEW\nE     + RECOMMENDED",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_advanced_regressions::test_search_audit_queries_are_positive_objective_facts",
+      "message": "AssertionError: assert '非履约使用须取得数据提供方事先书面同意' in ['各方背景技术及既有知识产权的保留和必要许可边界', '项目依赖型成果与各方独立成果的识别和权利承接边界', '其他合作方使用阶段成果的许可和费用', '合作终止后各方继续使用未公开成果的边界', '其余合作方接管项目、继续开发或委托第三方接续开发的权利', '第三方权利主张的通知期限、方式和资料要求', ...]",
+      "trace": "backend\\tests\\test_cooperative_development_advanced_regressions.py:331: in test_search_audit_queries_are_positive_objective_facts\n    assert \"非履约使用须取得数据提供方事先书面同意\" in targets\nE   AssertionError: assert '非履约使用须取得数据提供方事先书面同意' in ['各方背景技术及既有知识产权的保留和必要许可边界', '项目依赖型成果与各方独立成果的识别和权利承接边界', '其他合作方使用阶段成果的许可和费用', '合作终止后各方继续使用未公开成果的边界', '其余合作方接管项目、继续开发或委托第三方接续开发的权利', '第三方权利主张的通知期限、方式和资料要求', ...]",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_advanced_regressions::test_manual_review_records_are_executable_and_have_no_empty_formal_advice",
+      "message": "KeyError: 'TC-13-01'",
+      "trace": "backend\\tests\\test_cooperative_development_advanced_regressions.py:341: in test_manual_review_records_are_executable_and_have_no_empty_formal_advice\n    instruction = records[review_id][\"review_instruction\"]\nE   KeyError: 'TC-13-01'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_advanced_regressions::test_unprovided_attachment_narrative_does_not_assert_content_is_missing",
+      "message": "AssertionError: assert '已覆盖：测试报告交付已有...装资料交付；缺陷记录交付。' == '正文存在部分相关约定，但附件未提供，当前无法核验完整性。'\n  \n  - 正文存在部分相关约定，但附件未提供，当前无法核验完整性。\n  + 已覆盖：测试报告交付已有明确约定；尚未覆盖：源代码或可执行程序交付；技术文档交付；接口文档交付；架构文档交付；部署文档交付；用户或操作资料交付；安装资料交付；缺陷记录交付。",
+      "trace": "backend\\tests\\test_cooperative_development_advanced_regressions.py:358: in test_unprovided_attachment_narrative_does_not_assert_content_is_missing\n    assert judgment == \"正文存在部分相关约定，但附件未提供，当前无法核验完整性。\"\nE   AssertionError: assert '已覆盖：测试报告交付已有...装资料交付；缺陷记录交付。' == '正文存在部分相关约定，但附件未提供，当前无法核验完整性。'\nE     \nE     - 正文存在部分相关约定，但附件未提供，当前无法核验完整性。\nE     + 已覆盖：测试报告交付已有明确约定；尚未覆盖：源代码或可执行程序交付；技术文档交付；接口文档交付；架构文档交付；部署文档交付；用户或操作资料交付；安装资料交付；缺陷记录交付。",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_non_patent_technology_transfer_contract_review::test_case_k2_explicit_recordal_party_and_deadline_are_covered",
+      "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验",
+      "trace": "backend\\tests\\test_non_patent_technology_transfer_contract_review.py:210: in test_case_k2_explicit_recordal_party_and_deadline_are_covered\n    assert item[\"coverage_status\"] == \"通过\"\nE   AssertionError: assert '待核验' == '通过'\nE     \nE     - 通过\nE     + 待核验",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_non_patent_technology_transfer_contract_review::test_current_full_review_is_report_ready_and_uses_non_patent_transfer_language",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_non_patent_technology_transfer_contract_review.py:244: in test_current_full_review_is_report_ready_and_uses_non_patent_transfer_language\n    assert transfer_review[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_non_patent_technology_transfer_contract_review::test_current_transfer_report_respects_the_evidence_ceiling",
+      "message": "AssertionError: assert 'CONDITION_UNRESOLVED' == 'MISSING'\n  \n  - MISSING\n  + CONDITION_UNRESOLVED",
+      "trace": "backend\\tests\\test_non_patent_technology_transfer_contract_review.py:275: in test_current_transfer_report_respects_the_evidence_ceiling\n    assert proof[\"joint_holder_disclosure\"][\"status\"] == \"MISSING\"\nE   AssertionError: assert 'CONDITION_UNRESOLVED' == 'MISSING'\nE     \nE     - MISSING\nE     + CONDITION_UNRESOLVED",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_non_patent_technology_transfer_contract_review::test_partial_proof_narrative_does_not_claim_complete_disclosure",
+      "message": "AssertionError: assert '技术秘密的历史披露对象已有部分约定，但仍未完整列明' in '已覆盖：技术秘密的名称、技术边界、资料范围及交付内容可独立核验；仅部分明确：合同已披露部分第三方使用对象，但完整的历史披露对象清单尚不完整；合同已记载部分历史披露安排，但历史披露的具体技术内容和范围尚不完整；尚未覆盖：技术秘密研发来源...担保密义务的协议或承诺可供核验；既有许可情况披露；既有许可的相对方；既有许可期限；既有许可地域；测试使用安排披露；其他第三方使用安排披露；当前秘密性及既有披露影响的核验依据；转让前已经采取的保密制度、访问控制或其他保密措施有可核验依据。'",
+      "trace": "backend\\tests\\test_non_patent_technology_transfer_contract_review.py:295: in test_partial_proof_narrative_does_not_claim_complete_disclosure\n    assert \"技术秘密的历史披露对象已有部分约定，但仍未完整列明\" in judgment\nE   AssertionError: assert '技术秘密的历史披露对象已有部分约定，但仍未完整列明' in '已覆盖：技术秘密的名称、技术边界、资料范围及交付内容可独立核验；仅部分明确：合同已披露部分第三方使用对象，但完整的历史披露对象清单尚不完整；合同已记载部分历史披露安排，但历史披露的具体技术内容和范围尚不完整；尚未覆盖：技术秘密研发来源...担保密义务的协议或承诺可供核验；既有许可情况披露；既有许可的相对方；既有许可期限；既有许可地域；测试使用安排披露；其他第三方使用安排披露；当前秘密性及既有披露影响的核验依据；转让前已经采取的保密制度、访问控制或其他保密措施有可核验依据。'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_patent_license_liability_caps::test_current_contract_reports_asymmetric_caps_instead_of_missing_cap",
+      "message": "AssertionError: assert '重新平衡双方责任上限' in '建议补充明确第三方侵权直接损失或特定过错损失已有分配；调整以下已确认的不利安排：许可方责任上限已明确为已支付许可费的20%；补充明确被许可方承担的侵权损失责任未设置总额上限；调整以下已确认的不利安排：双方责任范围和责任上限明显不对等；明确故意、重大过失及未披露权利瑕疵等例外；明确退款、损失赔偿和违约金之间的抵扣或并用关系；明确各项侵权救济是否累计适用。'",
+      "trace": "backend\\tests\\test_patent_license_liability_caps.py:105: in test_current_contract_reports_asymmetric_caps_instead_of_missing_cap\n    assert \"重新平衡双方责任上限\" in item[\"suggested_clause_example\"]\nE   AssertionError: assert '重新平衡双方责任上限' in '建议补充明确第三方侵权直接损失或特定过错损失已有分配；调整以下已确认的不利安排：许可方责任上限已明确为已支付许可费的20%；补充明确被许可方承担的侵权损失责任未设置总额上限；调整以下已确认的不利安排：双方责任范围和责任上限明显不对等；明确故意、重大过失及未披露权利瑕疵等例外；明确退款、损失赔偿和违约金之间的抵扣或并用关系；明确各项侵权救济是否累计适用。'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_consulting_contract_review::test_consulting_attachments_and_release_gate",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_technical_consulting_contract_review.py:187: in test_consulting_attachments_and_release_gate\n    assert consulting_review[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_technical_consulting_contract_review::test_consulting_cross_section_evidence_recall_and_binding",
+      "message": "AssertionError: assert ('第七条' in '7.2 7.2 7.2 7.2 10.3 10.3 10.3')",
+      "trace": "backend\\tests\\test_technical_consulting_contract_review.py:417: in test_consulting_cross_section_evidence_recall_and_binding\n    assert \"第七条\" in remedy_locations and \"第十条\" in remedy_locations\nE   AssertionError: assert ('第七条' in '7.2 7.2 7.2 7.2 10.3 10.3 10.3')",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_consulting_contract_review::test_consulting_report_projects_seven_atomic_findings_into_three_themes",
+      "message": "AssertionError: assert '底层审查发现数：7' in '# 技术咨询合同审查报告\\n\\n\\n## 一、合同总体评价\\n\\n- 审查立场：甲方 / 委托方\\n- 使用场景：技术咨询\\n- 合同类型：技术合同—技术咨询合同\\n- 总体可签署性：可以签署，建议进一步完善\\n- 风险主题数（聚合后...论\\n- **处理建议**：不适用。\\n- 覆盖状态：不适用\\n- 【适用说明】：当前文本识别为技术咨询场景，未触发“技术进出口管制附件”的适用条件：仅在合同涉及技术进口、技术出口、跨境许可、跨境交付或数据出境时适用。\\n\\n---\\n'",
+      "trace": "backend\\tests\\test_technical_consulting_contract_review.py:502: in test_consulting_report_projects_seven_atomic_findings_into_three_themes\n    assert \"底层审查发现数：7\" in output[\"result\"]\nE   AssertionError: assert '底层审查发现数：7' in '# 技术咨询合同审查报告\\n\\n\\n## 一、合同总体评价\\n\\n- 审查立场：甲方 / 委托方\\n- 使用场景：技术咨询\\n- 合同类型：技术合同—技术咨询合同\\n- 总体可签署性：可以签署，建议进一步完善\\n- 风险主题数（聚合后...论\\n- **处理建议**：不适用。\\n- 覆盖状态：不适用\\n- 【适用说明】：当前文本识别为技术咨询场景，未触发“技术进出口管制附件”的适用条件：仅在合同涉及技术进口、技术出口、跨境许可、跨境交付或数据出境时适用。\\n\\n---\\n'",
+      "cluster": "交易分类、主体或条件适用性"
+    },
+    {
+      "test": "backend.tests.test_technical_consulting_contract_review::test_missing_consulting_data_provision_is_low_risk_but_should_change",
+      "message": "AssertionError: assert '建议明确委托方的合理资料...、因果证明和实际影响范围。' == '建议将委托方的资料提供和...免责仅限于实际受影响范围。'\n  \n  - 建议将委托方的资料提供和协作义务限定于开展咨询工作所合理必要的范围；咨询方发现资料缺失、矛盾或不适用时，应及时书面通知并说明具体影响。咨询方主张工期顺延、费用调整或免责的，应证明资料问题与受影响工作之间的因果关系，且顺延、调整或免责仅限于实际受影响范围。\n  + 建议明确委托方的合理资料和协作范围，以及咨询方发现资料问题后的书面通知、因果证明和实际影响范围。",
+      "trace": "backend\\tests\\test_technical_consulting_contract_review.py:536: in test_missing_consulting_data_provision_is_low_risk_but_should_change\n    assert finding[\"recommendation\"] == (\nE   AssertionError: assert '建议明确委托方的合理资料...、因果证明和实际影响范围。' == '建议将委托方的资料提供和...免责仅限于实际受影响范围。'\nE     \nE     - 建议将委托方的资料提供和协作义务限定于开展咨询工作所合理必要的范围；咨询方发现资料缺失、矛盾或不适用时，应及时书面通知并说明具体影响。咨询方主张工期顺延、费用调整或免责的，应证明资料问题与受影响工作之间的因果关系，且顺延、调整或免责仅限于实际受影响范围。\nE     + 建议明确委托方的合理资料和协作范围，以及咨询方发现资料问题后的书面通知、因果证明和实际影响范围。",
+      "cluster": "交易分类、主体或条件适用性"
+    },
+    {
+      "test": "backend.tests.test_technical_consulting_contract_review::test_simple_consulting_data_provision_is_partial_not_missing",
+      "message": "AssertionError: assert '及时书面通知' in '建议补充明确委托方的合理资料和协作范围尚未完整明确；明确咨询方发现资料问题后的书面通知、具体影响说明，以及主张顺延、费用调整或免责时的因果关系和实际影响范围。'",
+      "trace": "backend\\tests\\test_technical_consulting_contract_review.py:576: in test_simple_consulting_data_provision_is_partial_not_missing\n    assert \"及时书面通知\" in finding[\"recommendation\"]\nE   AssertionError: assert '及时书面通知' in '建议补充明确委托方的合理资料和协作范围尚未完整明确；明确咨询方发现资料问题后的书面通知、具体影响说明，以及主张顺延、费用调整或免责时的因果关系和实际影响范围。'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_consulting_contract_review::test_complete_consulting_confidentiality_produces_no_confidentiality_theme",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_technical_consulting_contract_review.py:640: in test_complete_consulting_confidentiality_produces_no_confidentiality_theme\n    assert output[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_technical_consulting_contract_review::test_consulting_confidentiality_elements_bind_to_actual_clause_evidence",
+      "message": "AssertionError: assert '保密信息仅可用于本合同约定的项目目的' in '仍需补足：未明确涉密人员范围、True、未明确未经许可不得复制保密资料、未明确访问控制、加密等必要安全措施。'",
+      "trace": "backend\\tests\\test_technical_consulting_contract_review.py:723: in test_consulting_confidentiality_elements_bind_to_actual_clause_evidence\n    assert \"保密信息仅可用于本合同约定的项目目的\" in tc1101_finding[\"issue\"]\nE   AssertionError: assert '保密信息仅可用于本合同约定的项目目的' in '仍需补足：未明确涉密人员范围、True、未明确未经许可不得复制保密资料、未明确访问控制、加密等必要安全措施。'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_consulting_contract_review::test_latest_consulting_docx_full_regression_has_no_subtype_or_evidence_regression",
+      "message": "AssertionError: assert '合同解除救济' in '已有部分安排；仍需补足：违反保密义务后的解除或其他补救已经约定，但专项损失赔偿机制仍不完整、未约定立即停止披露、未约定立即停止使用、未约定防止继续扩散的补救措施。'",
+      "trace": "backend\\tests\\test_technical_consulting_contract_review.py:1048: in test_latest_consulting_docx_full_regression_has_no_subtype_or_evidence_regression\n    assert \"合同解除救济\" in by_id[\"TC-11-04\"][\"risk_point_description\"]\nE   AssertionError: assert '合同解除救济' in '已有部分安排；仍需补足：违反保密义务后的解除或其他补救已经约定，但专项损失赔偿机制仍不完整、未约定立即停止披露、未约定立即停止使用、未约定防止继续扩散的补救措施。'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_latest_shared_fact_regressions::test_competition_and_improvement_facts_are_shared_across_rules",
+      "message": "assert False\n +  where False = any(<generator object test_competition_and_improvement_facts_are_shared_across_rules.<locals>.<genexpr> at 0x000002A19A2F0190>)",
+      "trace": "backend\\tests\\test_technical_service_latest_shared_fact_regressions.py:62: in test_competition_and_improvement_facts_are_shared_across_rules\n    assert any(\"不得自行开发\" in (row.get(\"text\") or \"\") for row in competition[\"evidence_clauses\"])\nE   assert False\nE    +  where False = any(<generator object test_competition_and_improvement_facts_are_shared_across_rules.<locals>.<genexpr> at 0x000002A19A2F0190>)",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_latest_shared_fact_regressions::test_acceptance_separates_test_control_authority_from_concrete_parameters",
+      "message": "KeyError: 'quantitative_performance_targets'",
+      "trace": "backend\\tests\\test_technical_service_latest_shared_fact_regressions.py:97: in test_acceptance_separates_test_control_authority_from_concrete_parameters\n    assert statuses[\"quantitative_performance_targets\"] == \"COVERED\"\nE   KeyError: 'quantitative_performance_targets'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_technical_service_latest_shared_fact_regressions::test_confidentiality_is_split_by_obligated_party_for_recipient_review",
+      "message": "AssertionError: assert '乙方违反保密、知识产权或者数据使用约定' in '第九条 违约责任\\n甲方逾期支付技术服务费的，每逾期一日，按照应付款金额的0.03%支付违约金。 第九条 违约责任\\n甲方逾期支付技术服务费的，每逾期一日，按照应付款金额的0.03%支付违约金。 第九条 违约责任\\n甲方逾期支付技术服...未公开技术资料。 第五条 保密义务\\n甲方\\n保密内容：\\n乙方提供的算法方案、技术报告、参数、技术文档及其他未公开技术资料。 第五条 保密义务\\n甲方\\n保密内容：\\n乙方提供的算法方案、技术报告、参数、技术文档及其他未公开技术资料。'",
+      "trace": "backend\\tests\\test_technical_service_latest_shared_fact_regressions.py:152: in test_confidentiality_is_split_by_obligated_party_for_recipient_review\n    assert \"乙方违反保密、知识产权或者数据使用约定\" in evidence_text\nE   AssertionError: assert '乙方违反保密、知识产权或者数据使用约定' in '第九条 违约责任\\n甲方逾期支付技术服务费的，每逾期一日，按照应付款金额的0.03%支付违约金。 第九条 违约责任\\n甲方逾期支付技术服务费的，每逾期一日，按照应付款金额的0.03%支付违约金。 第九条 违约责任\\n甲方逾期支付技术服...未公开技术资料。 第五条 保密义务\\n甲方\\n保密内容：\\n乙方提供的算法方案、技术报告、参数、技术文档及其他未公开技术资料。 第五条 保密义务\\n甲方\\n保密内容：\\n乙方提供的算法方案、技术报告、参数、技术文档及其他未公开技术资料。'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_latest_shared_fact_regressions::test_report_statistics_are_recomputed_from_final_findings_and_themes",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_technical_service_latest_shared_fact_regressions.py:196: in test_report_statistics_are_recomputed_from_final_findings_and_themes\n    assert output[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_technical_service_latest_shared_fact_regressions::test_counterparty_restrictions_are_projected_as_current_party_enforceability_risk",
+      "message": "KeyError: 'risk_to_current_party'",
+      "trace": "backend\\tests\\test_technical_service_latest_shared_fact_regressions.py:214: in test_counterparty_restrictions_are_projected_as_current_party_enforceability_risk\n    trace = item[\"decision_trace\"][\"risk_to_current_party\"]\nE   KeyError: 'risk_to_current_party'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_technical_service_latest_shared_fact_regressions::test_third_party_claim_consequence_and_advice_only_consume_residual_gaps",
+      "message": "AssertionError: assert ('通知期限' in '建议补充明确第三方软件或技术引发的知识产权纠纷责任被转由服务接受方承担；补充明确第三方权利主张发生后的通知义务明确；补充明确第三方权利主张通知期限明确；补充明确重大权利瑕疵导致无法继续使用时的解除救济明确；补充明确重大权利瑕疵后的退款或返还价款救济明确；补充明确抗辩决策及当前审查方参与机制仍未完整明确；补充明确第三方索赔律师选择机制明确；补充明确第三方索赔和解决策权限明确。' and '抗辩控制' in '建议补充明确第三方软件或技术引发的知识产权纠纷责任被转由服务接受方承担；补充明确第三方权利主张发生后的通知义务明确；补充明确第三方权利主张通知期限明确；补充明确重大权利瑕疵导致无法继续使用时的解除救济明确；补充明确重大权利瑕疵后的退款或返还价款救济明确；补充明确抗辩决策及当前审查方参与机制仍未完整明确；补充明确第三方索赔律师选择机制明确；补充明确第三方索赔和解决策权限明确。')",
+      "trace": "backend\\tests\\test_technical_service_latest_shared_fact_regressions.py:263: in test_third_party_claim_consequence_and_advice_only_consume_residual_gaps\n    assert \"通知期限\" in advice and \"抗辩控制\" in advice and \"解除权\" in advice\nE   AssertionError: assert ('通知期限' in '建议补充明确第三方软件或技术引发的知识产权纠纷责任被转由服务接受方承担；补充明确第三方权利主张发生后的通知义务明确；补充明确第三方权利主张通知期限明确；补充明确重大权利瑕疵导致无法继续使用时的解除救济明确；补充明确重大权利瑕疵后的退款或返还价款救济明确；补充明确抗辩决策及当前审查方参与机制仍未完整明确；补充明确第三方索赔律师选择机制明确；补充明确第三方索赔和解决策权限明确。' and '抗辩控制' in '建议补充明确第三方软件或技术引发的知识产权纠纷责任被转由服务接受方承担；补充明确第三方权利主张发生后的通知义务明确；补充明确第三方权利主张通知期限明确；补充明确重大权利瑕疵导致无法继续使用时的解除救济明确；补充明确重大权利瑕疵后的退款或返还价款救济明确；补充明确抗辩决策及当前审查方参与机制仍未完整明确；补充明确第三方索赔律师选择机制明确；补充明确第三方索赔和解决策权限明确。')",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_latest_shared_fact_regressions::test_referenced_but_unprovided_attachment_is_not_an_ordinary_missing_clause",
+      "message": "StopIteration",
+      "trace": "backend\\tests\\test_technical_service_latest_shared_fact_regressions.py:270: in test_referenced_but_unprovided_attachment_is_not_an_ordinary_missing_clause\n    attachment = next(\nE   StopIteration",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_technical_service_latest_shared_fact_regressions::test_na_reason_preserves_confirmed_confidential_information_fact",
+      "message": "AssertionError: assert '虽涉及技术秘密或保密资料' in '当前合同未形成可识别的技术秘密范围、限制使用或独立对价事实，技术秘密丧失秘密性后的使用与费用处理规则不适用。'",
+      "trace": "backend\\tests\\test_technical_service_latest_shared_fact_regressions.py:323: in test_na_reason_preserves_confirmed_confidential_information_fact\n    assert \"虽涉及技术秘密或保密资料\" in reason\nE   AssertionError: assert '虽涉及技术秘密或保密资料' in '当前合同未形成可识别的技术秘密范围、限制使用或独立对价事实，技术秘密丧失秘密性后的使用与费用处理规则不适用。'",
+      "cluster": "交易分类、主体或条件适用性"
+    },
+    {
+      "test": "backend.tests.test_technical_service_latest_shared_fact_regressions::test_report_actual_exposure_uses_party_aware_finding_consequence",
+      "message": "AssertionError: assert '影响甲方最终取得权利的稳定性和可执行性' in '# 技术服务合同审查报告\\n\\n\\n## 一、合同总体评价\\n\\n- 审查立场：甲方 / 服务接受方\\n- 使用场景：技术服务\\n- 合同类型：技术合同—技术服务合同\\n- 总体可签署性：建议修改后签署\\n- 风险主题数（聚合后）：1...期一日，按照合同总额的0.5%支付违约金\\n- 第九条 违约责任 [支持：违约金标准偏高及司法调减风险]: 乙方违反保密、知识产权或者数据使用约定的，应向甲方支付人民币300万元违约金，不足以弥补甲方损失的，应继续赔偿\\n\\n---\\n'",
+      "trace": "backend\\tests\\test_technical_service_latest_shared_fact_regressions.py:353: in test_report_actual_exposure_uses_party_aware_finding_consequence\n    assert \"影响甲方最终取得权利的稳定性和可执行性\" in report\nE   AssertionError: assert '影响甲方最终取得权利的稳定性和可执行性' in '# 技术服务合同审查报告\\n\\n\\n## 一、合同总体评价\\n\\n- 审查立场：甲方 / 服务接受方\\n- 使用场景：技术服务\\n- 合同类型：技术合同—技术服务合同\\n- 总体可签署性：建议修改后签署\\n- 风险主题数（聚合后）：1...期一日，按照合同总额的0.5%支付违约金\\n- 第九条 违约责任 [支持：违约金标准偏高及司法调减风险]: 乙方违反保密、知识产权或者数据使用约定的，应向甲方支付人民币300万元违约金，不足以弥补甲方损失的，应继续赔偿\\n\\n---\\n'",
+      "cluster": "不利方向/冲突事实被覆盖或丢失"
+    },
+    {
+      "test": "backend.tests.test_technical_service_latest_shared_fact_regressions::test_attachment_finding_only_describes_the_unprovided_referenced_material",
+      "message": "AssertionError: assert '附件正文未随本次审查材料提供' in '仍需补足：独立验收测试方案附件、固定测试数据集或样本、统计口径、测试记录和签认要求。'",
+      "trace": "backend\\tests\\test_technical_service_latest_shared_fact_regressions.py:361: in test_attachment_finding_only_describes_the_unprovided_referenced_material\n    assert \"附件正文未随本次审查材料提供\" in finding[\"issue\"]\nE   AssertionError: assert '附件正文未随本次审查材料提供' in '仍需补足：独立验收测试方案附件、固定测试数据集或样本、统计口径、测试记录和签认要求。'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_latest_shared_fact_regressions::test_ip_liability_and_general_remedies_jointly_trigger_tc1204",
+      "message": "AssertionError: assert 'NOT_APPLICABLE' == 'APPLICABLE'\n  \n  - APPLICABLE\n  + NOT_APPLICABLE\n  ? ++++",
+      "trace": "backend\\tests\\test_technical_service_latest_shared_fact_regressions.py:385: in test_ip_liability_and_general_remedies_jointly_trigger_tc1204\n    assert item[\"applicability\"][\"status\"] == \"APPLICABLE\"\nE   AssertionError: assert 'NOT_APPLICABLE' == 'APPLICABLE'\nE     \nE     - APPLICABLE\nE     + NOT_APPLICABLE\nE     ? ++++",
+      "cluster": "交易分类、主体或条件适用性"
+    },
+    {
+      "test": "backend.tests.test_technical_service_latest_shared_fact_regressions::test_excessive_liquidated_damages_are_flagged_as_adjustment_risk_not_invalidity",
+      "message": "AssertionError: assert '每日0.5%' in '当前审查方承担的高额违约金包括甲方违反保密义务的，应向乙方支付人民币200万元违约金；相对方承担、当前审查方受益的高额违约金包括乙方逾期完成任何阶段技术服务的，每逾期一日，按照合同总额的0.5%支付违约金；乙方违反保密、知识产权或者数据使用约定的，应向甲方支付人民币300万元违约金，不足以弥补甲方损失的，应继续赔偿。合同价比例仅用于识别异常，不等同于实际损失比例。'",
+      "trace": "backend\\tests\\test_technical_service_latest_shared_fact_regressions.py:448: in test_excessive_liquidated_damages_are_flagged_as_adjustment_risk_not_invalidity\n    assert \"每日0.5%\" in item[\"risk_point_description\"]\nE   AssertionError: assert '每日0.5%' in '当前审查方承担的高额违约金包括甲方违反保密义务的，应向乙方支付人民币200万元违约金；相对方承担、当前审查方受益的高额违约金包括乙方逾期完成任何阶段技术服务的，每逾期一日，按照合同总额的0.5%支付违约金；乙方违反保密、知识产权或者数据使用约定的，应向甲方支付人民币300万元违约金，不足以弥补甲方损失的，应继续赔偿。合同价比例仅用于识别异常，不等同于实际损失比例。'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technology_license_final_precision::test_vague_material_obligation_can_report_missing_file_types",
+      "message": "AssertionError: assert '未列举主要技术资料文件类型' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'",
+      "trace": "backend\\tests\\test_technology_license_final_precision.py:69: in test_vague_material_obligation_can_report_missing_file_types\n    assert \"未列举主要技术资料文件类型\" in item[\"risk_point_description\"]\nE   AssertionError: assert '未列举主要技术资料文件类型' in '未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。'",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_technology_license_final_precision::test_undefined_post_termination_royalty_is_the_only_lifecycle_risk",
+      "message": "AssertionError: assert 'LOW' == 'MEDIUM'\n  \n  - MEDIUM\n  + LOW",
+      "trace": "backend\\tests\\test_technology_license_final_precision.py:110: in test_undefined_post_termination_royalty_is_the_only_lifecycle_risk\n    assert finding[\"severity\"] == \"MEDIUM\"\nE   AssertionError: assert 'LOW' == 'MEDIUM'\nE     \nE     - MEDIUM\nE     + LOW",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technology_license_final_precision::test_cross_border_explicit_gaps_survive_fallback_and_keep_medium_severity",
+      "message": "AssertionError: assert 'final_missing_elements' == 'structured_missing_elements'\n  \n  - structured_missing_elements\n  + final_missing_elements",
+      "trace": "backend\\tests\\test_technology_license_final_precision.py:148: in test_cross_border_explicit_gaps_survive_fallback_and_keep_medium_severity\n    assert item[\"decision_trace\"][\"missing_element_resolution\"][\"selected_source\"] == \"structured_missing_elements\"\nE   AssertionError: assert 'final_missing_elements' == 'structured_missing_elements'\nE     \nE     - structured_missing_elements\nE     + final_missing_elements",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technology_license_final_precision::test_material_attachment_gaps_are_aggregated_into_one_low_risk_finding",
+      "message": "AssertionError: assert '主要类别已经明确' in '仍需补足：技术资料交付义务、技术资料交付形式、技术资料交付数量、技术资料签收或验收确认机制、最终附件级技术资料交付清单、最终交付文件版本号、最终交付文件编号。'",
+      "trace": "backend\\tests\\test_technology_license_final_precision.py:205: in test_material_attachment_gaps_are_aggregated_into_one_low_risk_finding\n    assert \"主要类别已经明确\" in findings[0][\"issue\"]\nE   AssertionError: assert '主要类别已经明确' in '仍需补足：技术资料交付义务、技术资料交付形式、技术资料交付数量、技术资料签收或验收确认机制、最终附件级技术资料交付清单、最终交付文件版本号、最终交付文件编号。'",
+      "cluster": "聚合、统计与报告投影"
+    },
+    {
+      "test": "backend.tests.test_technology_license_final_precision::test_license_third_party_claim_advanced_only_gap_is_not_a_required_risk",
+      "message": "AssertionError: assert ['defense_cost_allocation'] == []\n  \n  Left contains one more item: 'defense_cost_allocation'\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_technology_license_final_precision.py:249: in test_license_third_party_claim_advanced_only_gap_is_not_a_required_risk\n    assert tiers[\"necessary_protection_gaps\"] == []\nE   AssertionError: assert ['defense_cost_allocation'] == []\nE     \nE     Left contains one more item: 'defense_cost_allocation'\nE     Use -v to get more diff",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technology_license_final_precision::test_tc_13_04_uses_cross_border_consequence_mapping_not_ip_claim_fallback",
+      "message": "assert False\n +  where False = all(<generator object test_tc_13_04_uses_cross_border_consequence_mapping_not_ip_claim_fallback.<locals>.<genexpr> at 0x000002A19FF89EE0>)",
+      "trace": "backend\\tests\\test_technology_license_final_precision.py:277: in test_tc_13_04_uses_cross_border_consequence_mapping_not_ip_claim_fallback\n    assert all(term in finding[\"consequence\"] for term in (\"跨境交付\", \"许可履行\", \"付款结算\"))\nE   assert False\nE    +  where False = all(<generator object test_tc_13_04_uses_cross_border_consequence_mapping_not_ip_claim_fallback.<locals>.<genexpr> at 0x000002A19FF89EE0>)",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_contract_review::test_cooperative_development_classification",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_cooperative_development_contract_review.py:63: in test_cooperative_development_classification\n    assert cooperative_review[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_contract_review::test_single_manual_review_does_not_abort_report",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_cooperative_development_contract_review.py:208: in test_single_manual_review_does_not_abort_report\n    assert output[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_contract_review::test_cooperative_rules_use_operational_facts_and_direct_evidence",
+      "message": "AssertionError: assert '缺失' == '通过'\n  \n  - 通过\n  + 缺失",
+      "trace": "backend\\tests\\test_cooperative_development_contract_review.py:268: in test_cooperative_rules_use_operational_facts_and_direct_evidence\n    assert investment[\"coverage_status\"] == \"通过\"\nE   AssertionError: assert '缺失' == '通过'\nE     \nE     - 通过\nE     + 缺失",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_contract_review::test_final_evidence_covers_each_cooperative_risk_proposition",
+      "message": "KeyError: 'indemnity_and_liability_cap'",
+      "trace": "backend\\tests\\test_cooperative_development_contract_review.py:425: in test_final_evidence_covers_each_cooperative_risk_proposition\n    liability_cap = findings[\"indemnity_and_liability_cap\"][\"evidence_bundle\"][\"items\"]\nE   KeyError: 'indemnity_and_liability_cap'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_contract_review::test_cross_rule_and_partial_narratives_are_semantically_consistent",
+      "message": "AssertionError: assert ['acceptance_...ance_metrics'] == ['body_accept...d_and_report']\n  \n  At index 0 diff: 'acceptance_test_scene' != 'body_acceptance_metrics'\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_cooperative_development_contract_review.py:466: in test_cross_rule_and_partial_narratives_are_semantically_consistent\n    assert acceptance[\"covered_element_ids\"] == [\"body_acceptance_metrics\", \"test_method_and_report\"]\nE   AssertionError: assert ['acceptance_...ance_metrics'] == ['body_accept...d_and_report']\nE     \nE     At index 0 diff: 'acceptance_test_scene' != 'body_acceptance_metrics'\nE     Use -v to get more diff",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_cooperative_development_contract_review::test_minimal_cooperative_development_rules_and_report_are_consistent",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_cooperative_development_contract_review.py:507: in test_minimal_cooperative_development_rules_and_report_are_consistent\n    assert output[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_entrusted_cross_rule_consistency::test_shared_disposal_is_one_canonical_issue_in_the_production_report",
+      "message": "AssertionError: assert 2 == 1\n +  where 2 = len([{'finding_id': 'RF-004', 'risk_group': 'technical_secret_result_rights', 'title': '技术秘密成果使用转让', 'severity': 'MEDIUM',...ding_id': 'RF-009', 'risk_group': 'confidential_material_return_destroy', 'title': '保密资料返还销毁', 'severity': 'LOW', ...}])",
+      "trace": "backend\\tests\\test_entrusted_cross_rule_consistency.py:50: in test_shared_disposal_is_one_canonical_issue_in_the_production_report\n    assert len(matches) == 1\nE   AssertionError: assert 2 == 1\nE    +  where 2 = len([{'finding_id': 'RF-004', 'risk_group': 'technical_secret_result_rights', 'title': '技术秘密成果使用转让', 'severity': 'MEDIUM',...ding_id': 'RF-009', 'risk_group': 'confidential_material_return_destroy', 'title': '保密资料返还销毁', 'severity': 'LOW', ...}])",
+      "cluster": "聚合、统计与报告投影"
+    },
+    {
+      "test": "backend.tests.test_entrusted_cross_rule_consistency::test_completed_negative_check_does_not_leave_an_obsolete_manual_review",
+      "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验",
+      "trace": "backend\\tests\\test_entrusted_cross_rule_consistency.py:101: in test_completed_negative_check_does_not_leave_an_obsolete_manual_review\n    assert review[\"coverage_status\"] == \"通过\"\nE   AssertionError: assert '待核验' == '通过'\nE     \nE     - 通过\nE     + 待核验",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_entrusted_cross_rule_consistency::test_final_report_passes_all_original_and_new_gates",
+      "message": "AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'VERIFIED_PASS_ORIGINAL_GATE', 'root_cause': 'TC-02-02', 'evidence_...': {'status': 'PASS', 'failures': [], 'contract_type': 'technology', 'domain_pack': 'domain-pack-technology-1.0'}, ...}\nassert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_entrusted_cross_rule_consistency.py:190: in test_final_report_passes_all_original_and_new_gates\n    assert report[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\", report[\"release_quality_gate\"]\nE   AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'VERIFIED_PASS_ORIGINAL_GATE', 'root_cause': 'TC-02-02', 'evidence_...': {'status': 'PASS', 'failures': [], 'contract_type': 'technology', 'domain_pack': 'domain-pack-technology-1.0'}, ...}\nE   assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_production_closure::test_release_gate_passes_without_skipping_consistency",
+      "message": "AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'VERIFIED_PASS_ORIGINAL_GATE', 'root_cause': 'TC-02-02', 'evidence_...': {'status': 'PASS', 'failures': [], 'contract_type': 'technology', 'domain_pack': 'domain-pack-technology-1.0'}, ...}\nassert 'BLOCKED' in {'PASSED', 'REPORT_READY'}",
+      "trace": "backend\\tests\\test_entrusted_development_production_closure.py:75: in test_release_gate_passes_without_skipping_consistency\n    assert gate[\"status\"] in {\"PASSED\", \"REPORT_READY\"}, gate\nE   AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'VERIFIED_PASS_ORIGINAL_GATE', 'root_cause': 'TC-02-02', 'evidence_...': {'status': 'PASS', 'failures': [], 'contract_type': 'technology', 'domain_pack': 'domain-pack-technology-1.0'}, ...}\nE   assert 'BLOCKED' in {'PASSED', 'REPORT_READY'}",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_entrusted_development_production_closure::test_newly_active_development_branch_consumes_actual_claim_evidence",
+      "message": "KeyError: 'supporting_evidence'",
+      "trace": "backend\\tests\\test_entrusted_development_production_closure.py:90: in test_newly_active_development_branch_consumes_actual_claim_evidence\n    assert all(e[\"supporting_evidence\"] for e in nature[\"coverage_elements\"])\nbackend\\tests\\test_entrusted_development_production_closure.py:90: in <genexpr>\n    assert all(e[\"supporting_evidence\"] for e in nature[\"coverage_elements\"])\nE   KeyError: 'supporting_evidence'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_patent_application_transfer_consistency::test_report_release_and_positive_evidence_provenance",
+      "message": "AssertionError: [{'requirement': 'VERIFIED_PASS_ORIGINAL_GATE', 'root_cause': 'TC-01-01', 'evidence_id': 'SRC-81694db3df5469c84b64', '..., 'root_cause': 'TC-02-02', 'evidence_id': 'SRC-85755e98a3240370a307', 'reason': 'IRRELEVANT_PASS_EVIDENCE', ...}, ...]\nassert 'BLOCKED' != 'BLOCKED'",
+      "trace": "backend\\tests\\test_patent_application_transfer_consistency.py:100: in test_report_release_and_positive_evidence_provenance\n    assert result[\"release_quality_gate\"][\"status\"] != \"BLOCKED\", result[\"release_quality_gate\"][\"failures\"]\nE   AssertionError: [{'requirement': 'VERIFIED_PASS_ORIGINAL_GATE', 'root_cause': 'TC-01-01', 'evidence_id': 'SRC-81694db3df5469c84b64', '..., 'root_cause': 'TC-02-02', 'evidence_id': 'SRC-85755e98a3240370a307', 'reason': 'IRRELEVANT_PASS_EVIDENCE', ...}, ...]\nE   assert 'BLOCKED' != 'BLOCKED'",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_patent_license_subtransaction_fact_registry::test_existing_improvement_ownership_and_priority_arrangement_is_partial_not_missing",
+      "message": "AssertionError: assert '建议补充明确改进成果许可...成果商业使用及分许可条件。' == '建议在现有优先许可和另行...限、商业使用及分许可条件。'\n  \n  - 建议在现有优先许可和另行协商机制基础上，进一步明确许可费或定价机制、许可地域、期限、商业使用及分许可条件。\n  + 建议补充明确改进成果许可费或定价机制；补充明确改进成果许可地域；补充明确改进成果许可期限；补充明确改进成果商业使用及分许可条件。",
+      "trace": "backend\\tests\\test_patent_license_subtransaction_fact_registry.py:164: in test_existing_improvement_ownership_and_priority_arrangement_is_partial_not_missing\n    assert item[\"suggested_clause_example\"] == \"建议在现有优先许可和另行协商机制基础上，进一步明确许可费或定价机制、许可地域、期限、商业使用及分许可条件。\"\nE   AssertionError: assert '建议补充明确改进成果许可...成果商业使用及分许可条件。' == '建议在现有优先许可和另行...限、商业使用及分许可条件。'\nE     \nE     - 建议在现有优先许可和另行协商机制基础上，进一步明确许可费或定价机制、许可地域、期限、商业使用及分许可条件。\nE     + 建议补充明确改进成果许可费或定价机制；补充明确改进成果许可地域；补充明确改进成果许可期限；补充明确改进成果商业使用及分许可条件。",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_patent_license_subtransaction_fact_registry::test_coverage_evidence_is_bound_to_over_scope_and_material_delivery_clauses",
+      "message": "AssertionError: assert '超出许可范围' in ''",
+      "trace": "backend\\tests\\test_patent_license_subtransaction_fact_registry.py:177: in test_coverage_evidence_is_bound_to_over_scope_and_material_delivery_clauses\n    assert \"超出许可范围\" in over_scope_evidence\nE   AssertionError: assert '超出许可范围' in ''",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_patent_license_subtransaction_fact_registry::test_licence_with_secret_service_guidance_and_acceptance_activates_real_applicability_chain",
+      "message": "KeyError: 'technical_secret_use_boundary'",
+      "trace": "backend\\tests\\test_patent_license_subtransaction_fact_registry.py:207: in test_licence_with_secret_service_guidance_and_acceptance_activates_real_applicability_chain\n    assert _element_statuses(items[\"TC-12-03\"])[\"technical_secret_use_boundary\"] == \"COVERED\"\nE   KeyError: 'technical_secret_use_boundary'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_patent_license_subtransaction_fact_registry::test_third_person_claim_wording_flows_from_registry_to_all_tc12_consumers",
+      "message": "AssertionError: assert '缺失' == '部分覆盖'\n  \n  - 部分覆盖\n  + 缺失",
+      "trace": "backend\\tests\\test_patent_license_subtransaction_fact_registry.py:218: in test_third_person_claim_wording_flows_from_registry_to_all_tc12_consumers\n    assert items[\"TC-12-02\"][\"coverage_status\"] == \"部分覆盖\"\nE   AssertionError: assert '缺失' == '部分覆盖'\nE     \nE     - 部分覆盖\nE     + 缺失",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_patent_license_subtransaction_fact_registry::test_classification_ontology_is_not_a_required_contract_phrase",
+      "message": "AssertionError: assert '不适用' == '通过'\n  \n  - 通过\n  + 不适用",
+      "trace": "backend\\tests\\test_patent_license_subtransaction_fact_registry.py:251: in test_classification_ontology_is_not_a_required_contract_phrase\n    assert item[\"coverage_status\"] == \"通过\"\nE   AssertionError: assert '不适用' == '通过'\nE     \nE     - 通过\nE     + 不适用",
+      "cluster": "交易分类、主体或条件适用性"
+    },
+    {
+      "test": "backend.tests.test_patent_license_subtransaction_fact_registry::test_licensor_equal_to_named_patent_owner_does_not_require_upstream_chain",
+      "message": "AssertionError: assert '无需另行证明上游授权或再许可权限' in '合同已载明专利名称、专利号、专利权人、授权日期。\\n专利证书或专利登记簿副本等独立权属证明附件\\n许可方已在合同中作出其有权授予许可的陈述或保证。\\n上游授权链证明文件不适用。\\n建议核验合同是否允许被许可方分许可或再许可；如允许，再核验相应授权文件及权限。\\n许可方为专利权人或已提供必要授权证明；上游授权/再许可证明按适用条件处理。\\n专利法律状态、有效期限和年费缴纳情况有文件依据。\\n当前材料尚不能核验共有权人、既有许可以及质押、查封等权利负担'\n +  where '合同已载明专利名称、专利号、专利权人、授权日期。\\n专利证书或专利登记簿副本等独立权属证明附件\\n许可方已在合同中作出其有权授予许可的陈述或保证。\\n上游授权链证明文件不适用。\\n建议核验合同是否允许被许可方分许可或再许可；如允许，再核验相应授权文件及权限。\\n许可方为专利权人或已提供必要授权证明；上游授权/再许可证明按适用条件处理。\\n专利法律状态、有效期限和年费缴纳情况有文件依据。\\n当前材料尚不能核验共有权人、既有许可以及质押、查封等权利负担' = <built-in method join of str object at 0x000001D2D2DB4DF0>(<generator object test_licensor_equal_to_named_patent_owner_does_not_require_upstream_chain.<locals>.<genexpr> at 0x000001D2D6D28200>)\n +    where <built-in method join of str object at 0x000001D2D2DB4DF0> = '\\n'.join",
+      "trace": "backend\\tests\\test_patent_license_subtransaction_fact_registry.py:274: in test_licensor_equal_to_named_patent_owner_does_not_require_upstream_chain\n    assert \"无需另行证明上游授权或再许可权限\" in \"\\n\".join(\nE   AssertionError: assert '无需另行证明上游授权或再许可权限' in '合同已载明专利名称、专利号、专利权人、授权日期。\\n专利证书或专利登记簿副本等独立权属证明附件\\n许可方已在合同中作出其有权授予许可的陈述或保证。\\n上游授权链证明文件不适用。\\n建议核验合同是否允许被许可方分许可或再许可；如允许，再核验相应授权文件及权限。\\n许可方为专利权人或已提供必要授权证明；上游授权/再许可证明按适用条件处理。\\n专利法律状态、有效期限和年费缴纳情况有文件依据。\\n当前材料尚不能核验共有权人、既有许可以及质押、查封等权利负担'\nE    +  where '合同已载明专利名称、专利号、专利权人、授权日期。\\n专利证书或专利登记簿副本等独立权属证明附件\\n许可方已在合同中作出其有权授予许可的陈述或保证。\\n上游授权链证明文件不适用。\\n建议核验合同是否允许被许可方分许可或再许可；如允许，再核验相应授权文件及权限。\\n许可方为专利权人或已提供必要授权证明；上游授权/再许可证明按适用条件处理。\\n专利法律状态、有效期限和年费缴纳情况有文件依据。\\n当前材料尚不能核验共有权人、既有许可以及质押、查封等权利负担' = <built-in method join of str object at 0x000001D2D2DB4DF0>(<generator object test_licensor_equal_to_named_patent_owner_does_not_require_upstream_chain.<locals>.<genexpr> at 0x000001D2D6D28200>)\nE    +    where <built-in method join of str object at 0x000001D2D2DB4DF0> = '\\n'.join",
+      "cluster": "交易分类、主体或条件适用性"
+    },
+    {
+      "test": "backend.tests.test_patent_license_subtransaction_fact_registry::test_tc12_final_absence_audit_respects_registry_and_rule_ownership",
+      "message": "StopIteration",
+      "trace": "backend\\tests\\test_patent_license_subtransaction_fact_registry.py:315: in test_tc12_final_absence_audit_respects_registry_and_rule_ownership\n    indemnity = _finding(output, \"indemnity_and_liability_cap\")\nbackend\\tests\\test_patent_license_subtransaction_fact_registry.py:36: in _finding\n    return next(row for row in output[\"risk_findings\"] if row[\"risk_group\"] == group)\nE   StopIteration",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_patent_license_subtransaction_fact_registry::test_tc1201_combined_licensor_and_out_of_scope_liability_closes_boundary",
+      "message": "AssertionError: assert '风险条款' == '通过'\n  \n  - 通过\n  + 风险条款",
+      "trace": "backend\\tests\\test_patent_license_subtransaction_fact_registry.py:339: in test_tc1201_combined_licensor_and_out_of_scope_liability_closes_boundary\n    assert item[\"coverage_status\"] == \"通过\"\nE   AssertionError: assert '风险条款' == '通过'\nE     \nE     - 通过\nE     + 风险条款",
+      "cluster": "不利方向/冲突事实被覆盖或丢失"
+    },
+    {
+      "test": "backend.tests.test_patent_license_subtransaction_fact_registry::test_named_owner_with_only_independent_patent_proof_missing_is_low_optional",
+      "message": "AssertionError: assert ['patent_cert...t_disclosure'] == ['patent_cert...r_attachment']\n  \n  Left contains one more item: 'license_encumbrance_and_conflict_disclosure'\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_patent_license_subtransaction_fact_registry.py:352: in test_named_owner_with_only_independent_patent_proof_missing_is_low_optional\n    assert finding[\"missing_element_ids\"] == [\"patent_certificate_or_register_attachment\"]\nE   AssertionError: assert ['patent_cert...t_disclosure'] == ['patent_cert...r_attachment']\nE     \nE     Left contains one more item: 'license_encumbrance_and_conflict_disclosure'\nE     Use -v to get more diff",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_patent_license_subtransaction_fact_registry::test_actionable_secret_and_acceptance_recommendations_use_natural_contract_language",
+      "message": "AssertionError: assert '因非被许可方原因公开或丧失秘密性' in '建议补充明确技术秘密全部或部分公开、进入公共领域及许可方主动公开等触发情形；补充明确秘密性丧失后的通知义务；补充明确秘密性丧失后的通知期限；补充明确未通知或迟延通知造成损失的赔偿责任；补充明确秘密性丧失后尚未发生许可费的停止或调减规则；补充明确非因被许可方原因丧失秘密性后的解除权；补充明确完成且具有独立价值的技术服务分项结算。'",
+      "trace": "backend\\tests\\test_patent_license_subtransaction_fact_registry.py:407: in test_actionable_secret_and_acceptance_recommendations_use_natural_contract_language\n    assert \"因非被许可方原因公开或丧失秘密性\" in items[\"TC-12-03\"][\"suggested_clause_example\"]\nE   AssertionError: assert '因非被许可方原因公开或丧失秘密性' in '建议补充明确技术秘密全部或部分公开、进入公共领域及许可方主动公开等触发情形；补充明确秘密性丧失后的通知义务；补充明确秘密性丧失后的通知期限；补充明确未通知或迟延通知造成损失的赔偿责任；补充明确秘密性丧失后尚未发生许可费的停止或调减规则；补充明确非因被许可方原因丧失秘密性后的解除权；补充明确完成且具有独立价值的技术服务分项结算。'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_patent_license_subtransaction_fact_registry::test_user_report_distinguishes_cluster_topics_from_underlying_findings",
+      "message": "AssertionError: assert '- 风险主题数（聚合后）：9' in '# 专利实施许可合同审查报告\\n\\n\\n## 一、合同总体评价\\n\\n- 审查立场：甲方 / 许可方\\n- 使用场景：专利实施许可\\n- 合同类型：技术合同—技术许可合同—专利实施许可\\n- 总体可签署性：建议专业法律复核后决定\\n-...论\\n- **处理建议**：不适用。\\n- 覆盖状态：不适用\\n- 【适用说明】：当前文本识别为技术许可场景，未触发“技术进出口管制附件”的适用条件：仅在合同涉及技术进口、技术出口、跨境许可、跨境交付或数据出境时适用。\\n\\n---\\n'",
+      "trace": "backend\\tests\\test_patent_license_subtransaction_fact_registry.py:443: in test_user_report_distinguishes_cluster_topics_from_underlying_findings\n    assert f\"- 风险主题数（聚合后）：{clustered_count}\" in report\nE   AssertionError: assert '- 风险主题数（聚合后）：9' in '# 专利实施许可合同审查报告\\n\\n\\n## 一、合同总体评价\\n\\n- 审查立场：甲方 / 许可方\\n- 使用场景：专利实施许可\\n- 合同类型：技术合同—技术许可合同—专利实施许可\\n- 总体可签署性：建议专业法律复核后决定\\n-...论\\n- **处理建议**：不适用。\\n- 覆盖状态：不适用\\n- 【适用说明】：当前文本识别为技术许可场景，未触发“技术进出口管制附件”的适用条件：仅在合同涉及技术进口、技术出口、跨境许可、跨境交付或数据出境时适用。\\n\\n---\\n'",
+      "cluster": "交易分类、主体或条件适用性"
+    },
+    {
+      "test": "backend.tests.test_technical_secret_license_contract_review::test_current_secret_license_full_regression",
+      "message": "assert not True\n +  where True = any(<generator object test_current_secret_license_full_regression.<locals>.<genexpr> at 0x000001D2DBDEB760>)",
+      "trace": "backend\\tests\\test_technical_secret_license_contract_review.py:202: in test_current_secret_license_full_regression\n    assert not any(\nE   assert not True\nE    +  where True = any(<generator object test_current_secret_license_full_regression.<locals>.<genexpr> at 0x000001D2DBDEB760>)",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_secret_license_contract_review::test_over_scope_liability_d_reasonable_clause_can_pass_or_be_partial",
+      "message": "AssertionError: assert '待核验' in {'通过', '部分覆盖'}",
+      "trace": "backend\\tests\\test_technical_secret_license_contract_review.py:264: in test_over_scope_liability_d_reasonable_clause_can_pass_or_be_partial\n    assert item[\"coverage_status\"] in {\"通过\", \"部分覆盖\"}\nE   AssertionError: assert '待核验' in {'通过', '部分覆盖'}",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_route_and_protective_polarity",
+      "message": "AssertionError: assert {'C0047', 'C0048', 'C0049'} <= {'C0050', 'C0051', 'C0052'}\n  \n  Extra items in the left set:\n  'C0047'\n  'C0048'\n  'C0049'",
+      "trace": "backend\\tests\\test_technical_secret_license_contract_review.py:335: in test_latest_secret_license_route_and_protective_polarity\n    assert {\"C0047\", \"C0048\", \"C0049\"} <= _evidence_ids(competition)\nE   AssertionError: assert {'C0047', 'C0048', 'C0049'} <= {'C0050', 'C0051', 'C0052'}\nE     \nE     Extra items in the left set:\nE     'C0047'\nE     'C0048'\nE     'C0049'",
+      "cluster": "精确引文、条款定位及证据标识不一致"
+    },
+    {
+      "test": "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_shared_fee_improvement_and_claim_facts",
+      "message": "AssertionError: assert {'C0051', 'C0052'} <= {'C0054', 'C0055'}\n  \n  Extra items in the left set:\n  'C0051'\n  'C0052'",
+      "trace": "backend\\tests\\test_technical_secret_license_contract_review.py:354: in test_latest_secret_license_shared_fee_improvement_and_claim_facts\n    assert {\"C0051\", \"C0052\"} <= _evidence_ids(improvement)\nE   AssertionError: assert {'C0051', 'C0052'} <= {'C0054', 'C0055'}\nE     \nE     Extra items in the left set:\nE     'C0051'\nE     'C0052'",
+      "cluster": "精确引文、条款定位及证据标识不一致"
+    },
+    {
+      "test": "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_acceptance_evidence_is_subject_bound",
+      "message": "AssertionError: assert {'C0004', 'C0...046', 'C0047'} == {'C0004', 'C0...043', 'C0044'}\n  \n  Extra items in the left set:\n  'C0046'\n  'C0047'\n  'C0045'\n  Extra items in the right set:\n  'C0043'...\n  \n  ...Full output truncated (3 lines hidden), use '-vv' to show",
+      "trace": "backend\\tests\\test_technical_secret_license_contract_review.py:406: in test_latest_secret_license_acceptance_evidence_is_subject_bound\n    assert acceptance_ids == {\"C0004\", \"C0042\", \"C0043\", \"C0044\"}\nE   AssertionError: assert {'C0004', 'C0...046', 'C0047'} == {'C0004', 'C0...043', 'C0044'}\nE     \nE     Extra items in the left set:\nE     'C0046'\nE     'C0047'\nE     'C0045'\nE     Extra items in the right set:\nE     'C0043'...\nE     \nE     ...Full output truncated (3 lines hidden), use '-vv' to show",
+      "cluster": "精确引文、条款定位及证据标识不一致"
+    },
+    {
+      "test": "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_report_consistency_and_empty_template_gates",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_technical_secret_license_contract_review.py:414: in test_latest_secret_license_report_consistency_and_empty_template_gates\n    assert latest_review[\"technology_transaction_consistency_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_license_service_acceptance_uses_shared_subject_evidence",
+      "message": "AssertionError: assert '缺失' == '部分覆盖'\n  \n  - 部分覆盖\n  + 缺失",
+      "trace": "backend\\tests\\test_technical_secret_license_contract_review.py:457: in test_latest_secret_license_service_acceptance_uses_shared_subject_evidence\n    assert item[\"coverage_status\"] == \"部分覆盖\"\nE   AssertionError: assert '缺失' == '部分覆盖'\nE     \nE     - 部分覆盖\nE     + 缺失",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_technical_secret_license_contract_review::test_latest_secret_loss_positive_notice_facts_never_reenter_missing",
+      "message": "AssertionError: assert ['EV-ea306a4b851ff2a8'] == ['C0023']\n  \n  At index 0 diff: 'EV-ea306a4b851ff2a8' != 'C0023'\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_technical_secret_license_contract_review.py:566: in test_latest_secret_loss_positive_notice_facts_never_reenter_missing\n    assert elements[element_id].get(\"evidence_ids\") == [\"C0023\"]\nE   AssertionError: assert ['EV-ea306a4b851ff2a8'] == ['C0023']\nE     \nE     At index 0 diff: 'EV-ea306a4b851ff2a8' != 'C0023'\nE     Use -v to get more diff",
+      "cluster": "精确引文、条款定位及证据标识不一致"
+    },
+    {
+      "test": "backend.tests.test_technical_secret_license_contract_review::test_latest_improvement_notice_is_partial_with_only_residual_details",
+      "message": "AssertionError: assert ['EV-fa1bdbcc2b8db421'] == ['C0052']\n  \n  At index 0 diff: 'EV-fa1bdbcc2b8db421' != 'C0052'\n  Use -v to get more diff",
+      "trace": "backend\\tests\\test_technical_secret_license_contract_review.py:592: in test_latest_improvement_notice_is_partial_with_only_residual_details\n    assert elements[\"improvement_notice_trigger\"].get(\"evidence_ids\") == [\"C0052\"]\nE   AssertionError: assert ['EV-fa1bdbcc2b8db421'] == ['C0052']\nE     \nE     At index 0 diff: 'EV-fa1bdbcc2b8db421' != 'C0052'\nE     Use -v to get more diff",
+      "cluster": "精确引文、条款定位及证据标识不一致"
+    },
+    {
+      "test": "backend.tests.test_technical_service_maintenance_contract_review::test_maintenance_contract_context_and_task_role_are_preserved",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_technical_service_maintenance_contract_review.py:44: in test_maintenance_contract_context_and_task_role_are_preserved\n    assert maintenance_review[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_technical_service_maintenance_contract_review::test_maintenance_contract_uses_service_only_applicability",
+      "message": "assert False\n +  where False = all(<generator object test_maintenance_contract_uses_service_only_applicability.<locals>.<genexpr> at 0x000001D2E1740A50>)",
+      "trace": "backend\\tests\\test_technical_service_maintenance_contract_review.py:52: in test_maintenance_contract_uses_service_only_applicability\n    assert all(items[f\"TC-09-0{index}\"][\"coverage_status\"] == \"通过\" for index in range(1, 5))\nE   assert False\nE    +  where False = all(<generator object test_maintenance_contract_uses_service_only_applicability.<locals>.<genexpr> at 0x000001D2E1740A50>)",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_maintenance_contract_review::test_service_fee_payment_uses_article_four_not_breach_clause",
+      "message": "AssertionError: assert '技术服务费总额' in '（3）服务期届满并完成最终验收后10个工作日内支付人民币126,000元。\\n卖方开户银行名称、地址和账号为：\\n开户银行：中国建设银行上海张江支行\\n地址：上海市浦东新区张江路500号\\n账号：31050123456789001234'",
+      "trace": "backend\\tests\\test_technical_service_maintenance_contract_review.py:70: in test_service_fee_payment_uses_article_four_not_breach_clause\n    assert \"技术服务费总额\" in evidence[0][\"raw_text\"]\nE   AssertionError: assert '技术服务费总额' in '（3）服务期届满并完成最终验收后10个工作日内支付人民币126,000元。\\n卖方开户银行名称、地址和账号为：\\n开户银行：中国建设银行上海张江支行\\n地址：上海市浦东新区张江路500号\\n账号：31050123456789001234'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_maintenance_contract_review::test_service_confidentiality_has_precise_partial_evidence",
+      "message": "AssertionError: assert '违反保密义务' in '4．任何一方违反第五条保密义务的，应赔偿对方因此遭受的实际损失。'",
+      "trace": "backend\\tests\\test_technical_service_maintenance_contract_review.py:79: in test_service_confidentiality_has_precise_partial_evidence\n    assert \"违反保密义务\" in liability[\"evidence_clauses\"][0][\"raw_text\"]\nE   AssertionError: assert '违反保密义务' in '4．任何一方违反第五条保密义务的，应赔偿对方因此遭受的实际损失。'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_maintenance_contract_review::test_freeze_closure_uses_subtype_safe_wording_and_direct_evidence",
+      "message": "AssertionError: assert '系统开发' in '1．技术服务的目标\\n对买方现有智能仓储管理系统进行持续技术维护、性能优化和故障处理，提高系统运行稳定性、响应速度及业务连续性。'",
+      "trace": "backend\\tests\\test_technical_service_maintenance_contract_review.py:102: in test_freeze_closure_uses_subtype_safe_wording_and_direct_evidence\n    assert \"系统开发\" in subtype[\"evidence_clauses\"][0][\"raw_text\"]\nE   AssertionError: assert '系统开发' in '1．技术服务的目标\\n对买方现有智能仓储管理系统进行持续技术维护、性能优化和故障处理，提高系统运行稳定性、响应速度及业务连续性。'",
+      "cluster": "建议/判断文本及其他语义断言"
+    },
+    {
+      "test": "backend.tests.test_technical_service_maintenance_contract_review::test_third_party_actor_does_not_imply_third_party_ip[\\u5356\\u65b9\\u5c65\\u884c\\u670d\\u52a1\\u9700\\u8981\\u4f7f\\u7528\\u7b2c\\u4e09\\u65b9\\u6570\\u636e\\u5e93\\u7ec4\\u4ef6\\uff0c\\u5e76\\u4fdd\\u8bc1\\u5df2\\u53d6\\u5f97\\u5408\\u6cd5\\u6388\\u6743\\u3002-False-True-\\u7f3a\\u5931]",
+      "message": "AssertionError: assert '部分覆盖' == '缺失'\n  \n  - 缺失\n  + 部分覆盖",
+      "trace": "backend\\tests\\test_technical_service_maintenance_contract_review.py:160: in test_third_party_actor_does_not_imply_third_party_ip\n    assert items[review_id][\"coverage_status\"] == expected_status\nE   AssertionError: assert '部分覆盖' == '缺失'\nE     \nE     - 缺失\nE     + 部分覆盖",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_technology_license_primary_transaction::test_gold_routes_raw_docx_to_technology_license_not_sale",
+      "message": "KeyError: 'primary_transaction_model'",
+      "trace": "backend\\tests\\test_technology_license_primary_transaction.py:71: in test_gold_routes_raw_docx_to_technology_license_not_sale\n    model = classification[\"primary_transaction_model\"]\nE   KeyError: 'primary_transaction_model'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_technology_license_primary_transaction::test_gold_generic_calculations_and_relationship_risks_remain_active",
+      "message": "KeyError: 'status'",
+      "trace": "backend\\tests\\test_technology_license_primary_transaction.py:112: in test_gold_generic_calculations_and_relationship_risks_remain_active\n    assert payment[\"status\"] == \"INCONSISTENT\"\nE   KeyError: 'status'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_technology_license_primary_transaction::test_gold_semantic_facts_and_rendering_are_consistent",
+      "message": "KeyError: 'asymmetric_improvement_license'",
+      "trace": "backend\\tests\\test_technology_license_primary_transaction.py:144: in test_gold_semantic_facts_and_rendering_are_consistent\n    assert improvement[\"asymmetric_improvement_license\"] is True\nE   KeyError: 'asymmetric_improvement_license'",
+      "cluster": "事实节点/派生结果丢失或测试接口异常"
+    },
+    {
+      "test": "backend.tests.test_technology_subject_identity_consistency::test_patent_license_granted_transfer_and_application_transfer[27]",
+      "message": "AssertionError: assert '缺失' == '通过'\n  \n  - 通过\n  + 缺失",
+      "trace": "backend\\tests\\test_technology_subject_identity_consistency.py:91: in test_patent_license_granted_transfer_and_application_transfer\n    assert_consistent_identity(result)\nbackend\\tests\\test_technology_subject_identity_consistency.py:34: in assert_consistent_identity\n    assert item[\"coverage_status\"] == \"通过\"\nE   AssertionError: assert '缺失' == '通过'\nE     \nE     - 通过\nE     + 缺失",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_technology_subject_identity_consistency::test_patent_license_granted_transfer_and_application_transfer[43]",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_technology_subject_identity_consistency.py:92: in test_patent_license_granted_transfer_and_application_transfer\n    assert result[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_technology_subject_identity_consistency::test_patent_license_granted_transfer_and_application_transfer[44]",
+      "message": "AssertionError: assert 'BLOCKED' == 'REPORT_READY'\n  \n  - REPORT_READY\n  + BLOCKED",
+      "trace": "backend\\tests\\test_technology_subject_identity_consistency.py:92: in test_patent_license_granted_transfer_and_application_transfer\n    assert result[\"release_quality_gate\"][\"status\"] == \"REPORT_READY\"\nE   AssertionError: assert 'BLOCKED' == 'REPORT_READY'\nE     \nE     - REPORT_READY\nE     + BLOCKED",
+      "cluster": "发布门禁/要素证据链不完整"
+    },
+    {
+      "test": "backend.tests.test_technology_subject_identity_consistency::test_secret_transactions_do_not_acquire_patent_identifier_requirements[26]",
+      "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验",
+      "trace": "backend\\tests\\test_technology_subject_identity_consistency.py:99: in test_secret_transactions_do_not_acquire_patent_identifier_requirements\n    assert item[\"coverage_status\"] == \"通过\"\nE   AssertionError: assert '待核验' == '通过'\nE     \nE     - 通过\nE     + 待核验",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_technology_subject_identity_consistency::test_secret_transactions_do_not_acquire_patent_identifier_requirements[38]",
+      "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验",
+      "trace": "backend\\tests\\test_technology_subject_identity_consistency.py:99: in test_secret_transactions_do_not_acquire_patent_identifier_requirements\n    assert item[\"coverage_status\"] == \"通过\"\nE   AssertionError: assert '待核验' == '通过'\nE     \nE     - 通过\nE     + 待核验",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    },
+    {
+      "test": "backend.tests.test_technology_subject_identity_consistency::test_secret_transactions_do_not_acquire_patent_identifier_requirements[41]",
+      "message": "AssertionError: assert '待核验' == '通过'\n  \n  - 通过\n  + 待核验",
+      "trace": "backend\\tests\\test_technology_subject_identity_consistency.py:99: in test_secret_transactions_do_not_acquire_patent_identifier_requirements\n    assert item[\"coverage_status\"] == \"通过\"\nE   AssertionError: assert '待核验' == '通过'\nE     \nE     - 通过\nE     + 待核验",
+      "cluster": "正向事实召回与多要素覆盖归一"
+    }
+  ]
+}

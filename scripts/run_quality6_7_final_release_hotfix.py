@@ -155,7 +155,7 @@ async def main() -> int:
     }
     manifest = {
         "system_version": "contract-review-quality-6.7-final-release-hotfix",
-        "git_commit": git_commit(), "model_version": "qwen-doubao-cloud-fallback",
+        "git_commit": git_commit(), "model_version": "deepseek-cloud",
         "prompt_version": "quality-6.7-final-release-hotfix",
         "parser_version": "frozen-6.7", "domain_version": "frozen-6.7",
         "perspective_version": "frozen-6.7", "fact_graph_version": "frozen-6.7",

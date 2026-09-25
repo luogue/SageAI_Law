@@ -1,0 +1,9 @@
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+  warnings.warn(
+Traceback (most recent call last):
+HTTP 503
+  File "F:\ai\Sage\artifacts\dispatch-evidence-closure\run-fresh.py", line 14, in <module>
+    r.raise_for_status()
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\models.py", line 1021, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 503 Server Error: Service Unavailable for url: http://127.0.0.1:5173/review-v2/file

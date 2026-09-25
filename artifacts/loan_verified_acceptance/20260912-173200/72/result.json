@@ -1,0 +1,73 @@
+{
+  "file": "F:\\ai\\Sage\\test_data\\72 无抵押借款.docx",
+  "file_sha256": "6878e648ecd7c983c7103c54a67a43e901cd0ec820ff0ce5da60320c2ea64930",
+  "source_sha256": "e15a8bbc871a7f4e6a327794d545d35883885f52ac44f0809e51e46cc54b4735",
+  "source_characters": 1164,
+  "status": "BLOCKED",
+  "error": "FactExtractionError: FACT_VERIFICATION_REJECTED",
+  "diagnostics": [
+    {
+      "failed_stage": "UNIFIED_FACT_VALIDATION",
+      "fact_id": null,
+      "field": "checks",
+      "validation_rule": "FACT_VERIFICATION_REJECTED",
+      "model_raw_value": null,
+      "evidence": null,
+      "expected": null,
+      "actual": [
+        {
+          "fact_id": "CF-0b8b74347f079e56a28a3fb0",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-b0e8a1456d4cd0f51f3389bc",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-4b93682b5fc5ec882835d94c",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-8c51c9d204d62bb6d6aab747",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-c2e0f5174d51036372f073f6",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-bbddbc0e87107bd1a40e62ab",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-bfa60e0822881e66cae397d3",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-966ae91fc3c460114f4e65c9",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-ffde9c75479f6a8dec293913",
+          "supported": false,
+          "reason": "取值不支持：C0006约定“利率为年利率10.8%，按月计收，每月10日（与借款发放日同一日）支付”，已构成利息计算关系（本金×年利率10.8%×期间，按月计收），应提取loan.interest_formula，而非ABSENT。"
+        },
+        {
+          "fact_id": "CF-c3fd7b0fbd0bb9ebf266468e",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-81920f67219b4b2eab06b506",
+          "supported": true
+        },
+        {
+          "fact_id": "CF-9575a0dc9131e8a0d874b2b9",
+          "supported": true
+        }
+      ],
+      "disposition": "BLOCK"
+    }
+  ],
+  "attempts": [],
+  "calls": 29
+}

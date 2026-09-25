@@ -1,0 +1,3007 @@
+{
+  "item_id": "CE-05-03",
+  "node_id": "no_re_subcontract",
+  "title": "再分包",
+  "risk_level": "中",
+  "status": "缺失",
+  "risk_point_description": "未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。",
+  "suggested_clause_example": "建议改为：分包单位不得将其承包的工程再分包；违反的，承包人应负责纠正并承担由此造成的全部损失。",
+  "legal_basis_index": "《民法典》第791条；建设工程司法解释（一）第1条",
+  "legal_consequence_if_missing": "合同允许分包单位再分包，可能构成违法分包并放大质量、工期和付款风险。",
+  "applicable_if": "始终适用",
+  "matched_terms": [],
+  "coverage_status": "缺失",
+  "issue_type": "完全缺失",
+  "evidence_clauses": [],
+  "evidence_location": "",
+  "reasoning_summary": "未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。",
+  "judge_source": "rule_fallback",
+  "llm_confidence": "",
+  "llm_raw_reason": "",
+  "fallback_reason": "本次审查未启用大模型语义复核，使用规则判定",
+  "reasoning": "【推理过程】\n证据：未在正式合同条款或附件中召回可验证证据。\n↓\n规则：依据《民法典》第791条；建设工程司法解释（一）第1条，合同应围绕“再分包”明确权利义务、适用条件、履行标准和处理后果，避免履行及举证不确定。\n↓\n判断：合同未设置能够直接覆盖“再分包”的正式条款。该缺口对应的问题类型为“完全缺失”，会造成：合同允许分包单位再分包，可能构成违法分包并放大质量、工期和付款风险。\n↓\n结论：本项覆盖状态为“缺失”，处理优先级由关联风险发现和行动优先级统一决定。",
+  "citation": {
+    "evidence_status": "NO_SUPPORTING_CLAUSE",
+    "clause_number": "无对应条款",
+    "original_excerpt": "无正式条款证据",
+    "position_description": "合同正文及附件中未找到对应约定。"
+  },
+  "applicability": {
+    "review_id": "CE-05-03",
+    "applicable": true,
+    "trigger_facts": [],
+    "trigger_evidence": [],
+    "missing_triggers": [],
+    "reason": "未声明条件审查规则，默认适用于当前合同。",
+    "confidence": "high",
+    "status": "APPLICABLE",
+    "machine_reason": "未声明条件审查规则，默认适用于当前合同。",
+    "user_reason": "该审查事项适用于当前合同。",
+    "required_triggers": [],
+    "satisfied_triggers": [],
+    "unsatisfied_triggers": [],
+    "conflicting_triggers": [],
+    "trigger_fact_ids": [],
+    "trigger_evidence_ids": [],
+    "applicability_state": "REQUIRED_ALWAYS",
+    "premise_evidence": [],
+    "premise_fact_ids": [],
+    "condition": "ALWAYS_APPLICABLE",
+    "triggered": true
+  },
+  "economic_impact": "",
+  "economic_impact_detail": {},
+  "scenario_analysis": {},
+  "quality_flags": [],
+  "review_priority": "C_OPTIMIZATION",
+  "review_importance": "IMPORTANT",
+  "action_priority": "C_OPTIMIZATION",
+  "fact_dependencies": [],
+  "action_suggestion": "可选优化",
+  "evidence_type": "handover",
+  "semantic_entailment": true,
+  "high_risk_reason": "",
+  "needs_manual_review": false,
+  "quality_gate_failure_reason": "",
+  "review_status": "待处理",
+  "reviewer_note": "",
+  "claims": [],
+  "review_trace_id": "CR-20260910-095936-07BFC4-CE0503",
+  "risk_severity": "LOW",
+  "residual_risk": "未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。",
+  "related_reviews": [],
+  "related_risks": [
+    "RF-005"
+  ],
+  "risk_group": "no_re_subcontract",
+  "system_confidence": {
+    "level": "medium",
+    "parser_confidence": "high",
+    "document_integrity_confidence": "high",
+    "fact_confidence": "medium",
+    "retrieval_recall_confidence": "high",
+    "evidence_confidence": "medium",
+    "applicability_confidence": "high",
+    "legal_confidence": "low",
+    "legal_authority_confidence": "low",
+    "formula_confidence": "not_applicable",
+    "calculation_confidence": "not_applicable",
+    "verifier_confidence": "low",
+    "aggregation_confidence": "high",
+    "retrieval_strength": "not_found",
+    "evidence_entailment": true,
+    "rule_agreement": "agree",
+    "model_agreement": "not_used_or_agree",
+    "cross_review_agreement": "agree",
+    "quality_gate_flags": 0,
+    "confidence_bundle": {
+      "parser_confidence": "high",
+      "document_integrity_confidence": "high",
+      "fact_confidence": "medium",
+      "retrieval_recall_confidence": "high",
+      "evidence_confidence": "medium",
+      "applicability_confidence": "high",
+      "legal_confidence": "low",
+      "formula_confidence": "not_applicable",
+      "calculation_confidence": "not_applicable",
+      "verifier_confidence": "low",
+      "aggregation_confidence": "high",
+      "final_score": 0.85,
+      "final_confidence": "medium",
+      "limiting_factors": [
+        "verifier"
+      ],
+      "required_components": [
+        "parser",
+        "document_integrity",
+        "retrieval_recall",
+        "applicability",
+        "verifier",
+        "aggregation"
+      ],
+      "ignored_components": [
+        "fact",
+        "evidence",
+        "legal",
+        "formula",
+        "calculation"
+      ],
+      "component_scores": {
+        "parser": 0.95,
+        "document_integrity": 0.95,
+        "fact": 0.72,
+        "retrieval_recall": 0.95,
+        "evidence": 0.72,
+        "applicability": 0.95,
+        "legal": 0.35,
+        "formula": 1.0,
+        "calculation": 1.0,
+        "verifier": 0.35,
+        "aggregation": 0.95
+      },
+      "dependency": {
+        "requires_parser": true,
+        "requires_fact": false,
+        "requires_evidence": false,
+        "requires_applicability": true,
+        "requires_legal": false,
+        "requires_formula": false,
+        "requires_calculation": false,
+        "requires_verifier": true
+      },
+      "reason": "以下必需组件限制最终可靠度：verifier。"
+    },
+    "confidence_explanation": {
+      "final_confidence": "medium",
+      "required_components": [
+        "parser",
+        "document_integrity",
+        "retrieval_recall",
+        "applicability",
+        "verifier",
+        "aggregation"
+      ],
+      "ignored_components": [
+        "fact",
+        "evidence",
+        "legal",
+        "formula",
+        "calculation"
+      ],
+      "component_scores": {
+        "parser": 0.95,
+        "document_integrity": 0.95,
+        "fact": 0.72,
+        "retrieval_recall": 0.95,
+        "evidence": 0.72,
+        "applicability": 0.95,
+        "legal": 0.35,
+        "formula": 1.0,
+        "calculation": 1.0,
+        "verifier": 0.35,
+        "aggregation": 0.95
+      },
+      "limiting_factors": [
+        "verifier"
+      ],
+      "reason": "以下必需组件限制最终可靠度：verifier。"
+    }
+  },
+  "legal_references": [
+    {
+      "claim_id": "CE-05-03-LC-01",
+      "finding_id": "",
+      "review_id": "CE-05-03",
+      "proposition": "未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。",
+      "claim_type": "STATUTORY_RULE",
+      "authority_id": "",
+      "law_name": "",
+      "article": "",
+      "paragraph": "",
+      "support_type": "UNCERTAIN",
+      "support_scope": "",
+      "authority_links": [],
+      "confidence": "low",
+      "freshness_status": "NO_DIRECT_AUTHORITY",
+      "citation_existence_status": "NO_DIRECT_AUTHORITY",
+      "citation_entailment_status": "UNCERTAIN",
+      "authority": null,
+      "basis_text": "《民法典》第791条；建设工程司法解释（一）第1条"
+    }
+  ],
+  "decision_trace": {
+    "execution_context": {
+      "contract_context": {
+        "contract_family": "CONSTRUCTION",
+        "subject_matter": "GENERAL",
+        "contract_subtype": "LABOR_SUBCONTRACT",
+        "canonical_classification": {
+          "contract_family": "CONSTRUCTION",
+          "contract_subtype": "LABOR_SUBCONTRACT",
+          "party_roles": {
+            "甲方": "UPSTREAM_CONTRACTOR_OR_LABOR_CLIENT",
+            "乙方": "LABOR_SUBCONTRACTOR"
+          }
+        }
+      },
+      "domain_resolution": {
+        "contract_family": "CONSTRUCTION",
+        "subject_matter": "GENERAL",
+        "transaction_nature": "GENERAL_TRANSACTION",
+        "contract_subtype": "GENERAL_CONTRACT",
+        "asset_usage": "UNKNOWN",
+        "consideration_type": "UNKNOWN",
+        "ownership_transfer": false,
+        "possession_transfer": false,
+        "transaction_structure": "SINGLE_TRANSACTION",
+        "product_category": "NOT_APPLICABLE",
+        "transaction_purpose": "general_contract",
+        "jurisdiction": "CN",
+        "primary_subject": "GENERAL",
+        "accessory_subjects": [],
+        "selected_domain_packs": [
+          "shared"
+        ],
+        "rejected_domain_packs": [],
+        "confidence": "medium",
+        "evidence": [],
+        "domain_attributes": {}
+      },
+      "transaction_structure": "SINGLE_TRANSACTION",
+      "product_context": {},
+      "fact_graph_version": "contract-fact-graph-1.0",
+      "claim_graph_version": "canonical-claim-schema-1.0",
+      "applicable_default_law": "sale-default-law-6.4"
+    },
+    "fact_registry_snapshot_id": "CFR-A4970DA35375",
+    "contract_fact_registry_consumption": {
+      "snapshot_id": "CFR-A4970DA35375",
+      "required_fact_keys": [],
+      "facts": {},
+      "fact_source": {}
+    },
+    "review_mode": "ABSENCE_REQUIRED",
+    "review_polarity": "NEGATIVE_CLAUSE_CHECK",
+    "review_nature": "CONTRACTUAL_REQUIREMENT",
+    "linked_adverse_rules": [],
+    "requirement_medium": "CONTRACT_TEXT",
+    "legal_requirement_strength": "RISK_CONTROL",
+    "action_type": "CONTRACT_EDIT",
+    "domain_owner": "contract/common",
+    "material_group": "GENERAL",
+    "allowed_subject_matters": [],
+    "satisfaction_semantics": {
+      "polarity": "NEGATIVE_CLAUSE_CHECK",
+      "pass_meaning": "NO_ADVERSE_CLAUSE_FOUND",
+      "partial_meaning": "REQUIRES_FURTHER_REVIEW",
+      "missing_meaning": "REQUIRED_PROTECTION_ABSENT",
+      "risk_meaning": "ADVERSE_CLAUSE_FOUND",
+      "not_applicable_meaning": "TRIGGER_NOT_PRESENT"
+    },
+    "negative_clause_check": {
+      "review_id": "CE-05-03",
+      "query_semantics": "ADVERSE_CLAUSE_SEARCH",
+      "result": "NO_ADVERSE_CLAUSE_FOUND",
+      "description": "未发现对应禁止性/不利约定。",
+      "searched_scope": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009",
+        "C0010",
+        "C0011",
+        "C0012",
+        "C0013",
+        "C0014",
+        "C0015",
+        "C0016",
+        "C0017",
+        "C0018",
+        "C0019",
+        "C0020",
+        "C0021",
+        "C0022",
+        "C0023",
+        "C0024",
+        "C0025",
+        "C0026",
+        "C0027",
+        "C0028",
+        "C0029",
+        "C0030",
+        "C0031",
+        "C0032",
+        "C0033",
+        "C0034",
+        "C0035",
+        "C0036",
+        "C0037"
+      ],
+      "candidate_adverse_clauses": [],
+      "counter_evidence": [],
+      "search_coverage": "SUFFICIENT",
+      "adverse_clause_exists": false,
+      "confidence": "high",
+      "coverage_result": "缺失"
+    },
+    "user_perspective": "EMPLOYER",
+    "perspective_resolution": {
+      "requested_role": "发包人",
+      "previous_context_role": "",
+      "contract_family": "CONSTRUCTION",
+      "contract_subtype": "GENERAL_CONTRACT",
+      "party_side": "UNKNOWN",
+      "review_party_identity": "UNKNOWN",
+      "review_party_label": "",
+      "domain_role": "EMPLOYER",
+      "transaction_role": "EMPLOYER",
+      "canonical_role": "EMPLOYER",
+      "display_role": "发包人",
+      "transaction_type": "GENERAL_CONTRACT",
+      "review_party": "UNKNOWN",
+      "legal_role": "EMPLOYER",
+      "contract_display_role": "发包人",
+      "candidate_roles": [
+        "EMPLOYER"
+      ],
+      "rejected_roles": [],
+      "confidence": "high",
+      "reasons": [
+        "Resolved CONSTRUCTION/GENERAL_CONTRACT permits roles: EMPLOYER, CONTRACTOR, OTHER.",
+        "Party identity is retained separately from the canonical transaction role."
+      ]
+    },
+    "bargaining_power": "均衡方",
+    "risk_category": "performance",
+    "default_law_status": "UNCERTAIN_DEFAULT",
+    "default_law_assessment": {
+      "executed": true,
+      "default_law_relevant": false,
+      "status": "UNCERTAIN_DEFAULT",
+      "rule": null,
+      "applicability": "NOT_DECLARED",
+      "protection_scope": "",
+      "remaining_gap": "合同仍需自行明确业务流程和证据要求。",
+      "practical_uncertainty": "medium",
+      "residual_legal_risk": "medium",
+      "residual_operational_risk": "medium",
+      "direct_match": false,
+      "role_match": false,
+      "scenario_match": false,
+      "legal_effect_match": false,
+      "fallback_match": false,
+      "semantic_match": {
+        "direct_match": false,
+        "role_match": false,
+        "scenario_match": false,
+        "legal_effect_match": false,
+        "fallback_match": false,
+        "target_element_ids": [],
+        "supplied_element_ids": [],
+        "matched_element_ids": []
+      }
+    },
+    "effective_gap": {
+      "review_id": "CE-05-03",
+      "contract_coverage": "缺失",
+      "default_law_status": "UNCERTAIN_DEFAULT",
+      "default_protection": "",
+      "contract_context": {
+        "contract_type": "construction",
+        "risk_group": "no_re_subcontract",
+        "node_id": "no_re_subcontract"
+      },
+      "remaining_legal_gap": "合同仍需自行明确业务流程和证据要求。",
+      "operational_gap": "medium",
+      "economic_gap": "unknown",
+      "uncertainty": "medium",
+      "residual_risk": "合同仍需自行明确业务流程和证据要求。",
+      "default_law_checked": true,
+      "statutory_default": "UNCERTAIN_DEFAULT",
+      "default_rule_id": "",
+      "legal_proposition_id": "",
+      "statutory_protection_scope": "",
+      "remaining_gap": "合同仍需自行明确业务流程和证据要求。",
+      "practical_uncertainty": "medium",
+      "default_strength": "none",
+      "residual_legal_risk": "medium",
+      "residual_operational_risk": "medium",
+      "drafting_value": "risk_mitigation",
+      "contract_override_risk": "low",
+      "contractual_missing_elements": [],
+      "statutory_default_elements": [],
+      "supplied_element_ids": [],
+      "unsupplied_element_ids": [],
+      "still_unprotected_elements": [
+        "合同仍需自行明确业务流程和证据要求。"
+      ],
+      "practical_execution_gap": [
+        "合同仍需自行明确业务流程和证据要求。"
+      ],
+      "evidentiary_gap": [],
+      "authority_ids": [],
+      "citation_entailment": "NOT_APPLICABLE",
+      "legal_freshness": "NOT_APPLICABLE",
+      "default_rule_applicable": false,
+      "effective_gap_valid": true,
+      "residual_risk_exists": true,
+      "affected_effective_gap": false,
+      "default_law_result_id": "DLR-CE-05-03"
+    },
+    "aggregation_key": "performance|no_re_subcontract|facts=|clauses=|econ=",
+    "priority_assessment": {
+      "priority": "C_OPTIMIZATION",
+      "score": 0.0,
+      "reason": "no_actionable_signal",
+      "input": {
+        "finding_id": null,
+        "severity": "LOW",
+        "economic_impact": "none",
+        "probability": "MEDIUM",
+        "legal_impact": "LOW",
+        "operational_impact": "MEDIUM",
+        "safety_impact": "NONE",
+        "core_obligation": false,
+        "time_amplifying": false,
+        "uncapped": false,
+        "reversibility": "medium",
+        "recoverability": "medium",
+        "user_perspective": "EMPLOYER",
+        "user_directly_bears_risk": false,
+        "bargaining_power": "均衡方",
+        "contract_value": null,
+        "recurring_value": null,
+        "deposit_amount": null,
+        "prepaid_amount": null,
+        "remaining_obligation": null,
+        "recommendation_cost": "medium",
+        "recommendation_feasibility": "high",
+        "confidence": "medium",
+        "normalized_economic_exposure": {
+          "absolute_amount": null,
+          "monthly_payment_multiple": null,
+          "deposit_multiple": null,
+          "prepaid_amount_ratio": null,
+          "contract_total_ratio": null,
+          "remaining_obligation_ratio": null,
+          "batch_value_ratio": null,
+          "unpaid_amount_ratio": null,
+          "advance_payment_ratio": null,
+          "replacement_cost_ratio": null,
+          "delay_loss_ratio": null,
+          "time_amplifying": false,
+          "uncapped": false,
+          "level": "none"
+        },
+        "statutory_default_status": "UNCERTAIN_DEFAULT",
+        "default_protection_strength": "none",
+        "contract_override_risk": "low",
+        "practical_gap_after_default": "medium",
+        "user_impact": "medium"
+      },
+      "decision": {
+        "finding_id": "CE-05-03",
+        "severity": "LOW",
+        "priority": "C_OPTIMIZATION",
+        "drivers": [],
+        "mitigators": [],
+        "default_law_effect": "UNCERTAIN_DEFAULT",
+        "economic_effect": "none",
+        "explanation": "行动优先级由风险严重度、核心义务、经济暴露、发生概率、默认法保护、可恢复性和修复价值共同计算；驱动因素：none；缓释因素：none。"
+      }
+    },
+    "evidence_claim": {
+      "claim_id": "CE-05-03-EC-01",
+      "review_id": "CE-05-03",
+      "finding_id": "",
+      "proposition": "现有再分包限制存在条件限定，建议删除同意例外，明确劳务分包人不得以任何形式将劳务作业再次分包。",
+      "required_semantics": [
+        "no_re_subcontract",
+        "no_re_subcontract",
+        "再分包"
+      ],
+      "polarity": "positive",
+      "party": "",
+      "obligation": "",
+      "object": "no_re_subcontract",
+      "condition": "",
+      "consequence": "合同允许分包单位再分包，可能构成违法分包并放大质量、工期和付款风险。",
+      "confidence": "medium"
+    },
+    "evidence_candidates": [
+      {
+        "evidence_id": "C0008",
+        "source_document": "合同正文",
+        "clause_id": "C0008",
+        "sentence_id": 1,
+        "quote": "乙方负责以下劳务作业：\n主体结构钢筋绑扎、模板安装及拆除、混凝土浇筑辅助作业；\n砌体施工、二次结构施工；\n内墙普通抹灰施工；\n施工现场材料二次搬运；\n施工区域内成品保护、场地清理；\n配合甲方进行测量、隐蔽工程验收及竣工验收；\n甲方根据现场施工需要安排的其他零星劳务工作。\n未经甲方书面同意，乙方不得将本合同项下任何劳务作业转包或者再分包。",
+        "semantic_score": 0.55,
+        "entity_match": true,
+        "obligation_match": false,
+        "consequence_match": false,
+        "polarity_match": false,
+        "entailment_status": "PARTIAL_SUPPORT"
+      }
+    ],
+    "review_evidence_provenance": {
+      "claim_ids": [],
+      "evidence_ids": [
+        "C0008"
+      ],
+      "clause_ids": [
+        "C0008"
+      ],
+      "source_spans": [
+        "乙方负责以下劳务作业：\n主体结构钢筋绑扎、模板安装及拆除、混凝土浇筑辅助作业；\n砌体施工、二次结构施工；\n内墙普通抹灰施工；\n施工现场材料二次搬运；\n施工区域内成品保护、场地清理；\n配合甲方进行测量、隐蔽工程验收及竣工验收；\n甲方根据现场施工需要安排的其他零星劳务工作。\n未经甲方书面同意，乙方不得将本合同项下任何劳务作业转包或者再分包。"
+      ],
+      "primary_locations": [],
+      "supporting_locations": []
+    },
+    "coverage_claim": {
+      "review_id": "CE-05-03",
+      "required_elements": [
+        {
+          "element_id": "core_contract_arrangement",
+          "proposition": "合同存在可验证的“再分包”实质条款内容。",
+          "terms": [
+            "再分包"
+          ]
+        }
+      ],
+      "optional_elements": [],
+      "positive_claims": [
+        "合同存在可验证的“再分包”实质条款内容。"
+      ],
+      "negative_claims": [],
+      "minimum_pass_elements": 1,
+      "minimum_partial_elements": 1,
+      "satisfaction_paths": []
+    },
+    "coverage_elements": [
+      {
+        "review_id": "CE-05-03",
+        "element_id": "core_contract_arrangement",
+        "proposition": "合同存在可验证的“再分包”实质条款内容。",
+        "status": "UNCERTAIN",
+        "evidence_ids": [],
+        "entailment": "UNCERTAIN",
+        "verifier_confidence": "low",
+        "reason": "未找到可支撑该元素的合同证据。",
+        "claim_id": "",
+        "source_clause_ids": [],
+        "source_spans": [],
+        "source_locations": [],
+        "atomic": true,
+        "child_elements": [],
+        "legal_proposition_ids": [],
+        "required_fact_key": "",
+        "fact_status": "UNCERTAIN",
+        "fact_value": null,
+        "fact_evidence_refs": [],
+        "requirement_status": "UNCERTAIN",
+        "requirement_reason": "未找到可支撑该元素的合同证据。",
+        "evidence_refs": [],
+        "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+      }
+    ],
+    "element_evidence_truth": [
+      {
+        "element_id": "core_contract_arrangement",
+        "label": "合同存在可验证的“再分包”实质条款内容。",
+        "status": "UNCERTAIN",
+        "raw_status": "UNCERTAIN",
+        "evidence_ids": [],
+        "evidence_text": [],
+        "source_location": [],
+        "confidence": "low",
+        "resolution_reason": "未找到可支撑该元素的合同证据。"
+      }
+    ],
+    "fact_requirements": [],
+    "retrieval_trace": {
+      "review_id": "CE-05-03",
+      "fact_requirements": [],
+      "fact_clause_ids": [],
+      "structural_clause_ids": [],
+      "lexical_clause_ids": [
+        "C0008",
+        "C0032",
+        "C0033"
+      ],
+      "semantic_clause_ids": [],
+      "graph_clause_ids": [
+        "C0031",
+        "C0033",
+        "C0032",
+        "C0034",
+        "C0007",
+        "C0009"
+      ],
+      "candidate_clause_ids": [
+        "C0032",
+        "C0033",
+        "C0008"
+      ],
+      "selected_clause_ids": [
+        "C0032",
+        "C0033",
+        "C0008"
+      ],
+      "lexical_queries": [
+        "再分包",
+        "二次分包",
+        "层层分包",
+        "分包后再分包"
+      ],
+      "structural_queries": [
+        "再分包",
+        "二次分包",
+        "层层分包",
+        "分包后再分包"
+      ],
+      "semantic_queries": [
+        "合同中是否存在“再分包”类可能导致合同无效、价款结算失控或责任加重的风险表述？",
+        "再分包"
+      ],
+      "candidate_count": 3,
+      "latency_ms": 2.044
+    },
+    "missing_proof": {
+      "review_id": "CE-05-03",
+      "searched_fact_types": [],
+      "searched_sections": [
+        "全文",
+        "第一部分 协议书",
+        "一、合同主体",
+        "甲方（承包人）：深圳市华岭建设工程有限公司",
+        "乙方（劳务分包人）：深圳市恒建建筑劳务有限公司",
+        "二、工程概况",
+        "三、劳务作业范围和内容",
+        "三、劳务作业范围和内容 / 乙方负责以下劳务作业：",
+        "四、劳务作业工期",
+        "五、质量标准",
+        "六、合同价款",
+        "六、合同价款 / 含税签约合同价：",
+        "六、合同价款 / 其中：",
+        "七、合同文件组成",
+        "七、合同文件组成 / 以下文件均为本合同组成部分：",
+        "第二部分 专用条款",
+        "一、项目代表",
+        "二、实名制及工人工资",
+        "三、机械、设备和材料",
+        "三、机械、设备和材料 / 甲方负责提供：",
+        "三、机械、设备和材料 / 乙方负责提供：",
+        "四、安全文明施工",
+        "五、工程量计量",
+        "六、工程变更",
+        "七、工程款支付",
+        "八、完工结算",
+        "九、停工、窝工",
+        "十、索赔",
+        "十一、保险",
+        "十二、不可抗力",
+        "十二、不可抗力 / 下列事件可以认定为不可抗力：",
+        "十三、违约责任",
+        "十四、合同解除",
+        "十五、争议解决",
+        "第三部分 补充条款",
+        "甲方（盖章）：深圳市华岭建设工程有限公司",
+        "乙方（盖章）：深圳市恒建建筑劳务有限公司"
+      ],
+      "lexical_queries": [
+        "再分包",
+        "二次分包",
+        "层层分包",
+        "分包后再分包"
+      ],
+      "semantic_queries": [
+        "合同中是否存在“再分包”类可能导致合同无效、价款结算失控或责任加重的风险表述？",
+        "再分包"
+      ],
+      "cross_clause_queries": [
+        "C0031",
+        "C0033",
+        "C0032",
+        "C0034",
+        "C0007",
+        "C0009"
+      ],
+      "candidates_examined": [
+        "C0032",
+        "C0033",
+        "C0008"
+      ],
+      "possible_conflicts": [],
+      "exhaustive_enough": true,
+      "confidence": "high"
+    },
+    "evidence_assembly": {
+      "review_id": "CE-05-03",
+      "candidate_evidence": [
+        "C0032",
+        "C0033",
+        "C0008"
+      ],
+      "evidence_groups": [
+        {
+          "source": "FACT",
+          "clause_ids": []
+        },
+        {
+          "source": "STRUCTURAL",
+          "clause_ids": []
+        },
+        {
+          "source": "LEXICAL",
+          "clause_ids": [
+            "C0008",
+            "C0032",
+            "C0033"
+          ]
+        },
+        {
+          "source": "SEMANTIC",
+          "clause_ids": []
+        },
+        {
+          "source": "CLAUSE_GRAPH",
+          "clause_ids": [
+            "C0031",
+            "C0033",
+            "C0032",
+            "C0034",
+            "C0007",
+            "C0009"
+          ]
+        }
+      ],
+      "supporting_evidence": [
+        "C0008"
+      ],
+      "counter_evidence": [],
+      "missing_elements": []
+    },
+    "review_evidence_ownership": {
+      "review_evidence_supports_element_ids": [],
+      "review_evidence_relevance_score": 0.0,
+      "review_evidence_selection_reason": "Existing non-Registry evidence order was preserved and ownership metadata was attached in place."
+    },
+    "coverage_gap_consistency_guard": {
+      "resolution": "MISSING_NO_POSITIVE_EVIDENCE"
+    },
+    "missing_element_resolution": {
+      "priority": [
+        "explicit_missing_elements",
+        "structured_missing_elements",
+        "evidence_inferred_missing_elements",
+        "fallback_unknown"
+      ],
+      "selected_source": "structured_missing_elements",
+      "selected_elements": [
+        "合同存在可验证的“再分包”实质条款内容"
+      ]
+    },
+    "narrative_status_consistency": {
+      "status": "PASS"
+    },
+    "narrative_elements": {
+      "review_id": "CE-05-03",
+      "applicability": "APPLICABLE",
+      "polarity": "NEGATIVE_CLAUSE_CHECK",
+      "coverage_status": "缺失",
+      "covered_elements": [],
+      "partial_elements": [],
+      "missing_elements": [
+        "合同存在可验证的“再分包”实质条款内容"
+      ],
+      "adverse_elements": [],
+      "finding_exists": true,
+      "judgment": "合同未明确：“再分包”事项。",
+      "issue": "缺失：“再分包”事项。",
+      "consequence": "“再分包”事项不清时，责任边界不够明确。",
+      "recommendation": "",
+      "result": "合同未明确：“再分包”事项。",
+      "recommendation_ids": [
+        "REC-FINAL-RF-005"
+      ],
+      "recommendation_suppression_reason": []
+    },
+    "coverage_gap_type": "MISSING_WITH_STATUTORY_DEFAULT",
+    "legal_basis_runtime_trace": {
+      "stages": [
+        {
+          "STAGE": "AFTER_COVERAGE_BEFORE_CITATIONS",
+          "SOURCE_FILE": "backend/review_v2/engine.py",
+          "SOURCE_FIELD": "ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《民法典》第791条；建设工程司法解释（一）第1条",
+          "VALUE_AFTER": "《民法典》第791条；建设工程司法解释（一）第1条",
+          "legal_references": []
+        },
+        {
+          "STAGE": "AFTER_AUTHORITY_SELECTION",
+          "SOURCE_FILE": "backend/review_v2/engine.py",
+          "SOURCE_FIELD": "ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《民法典》第791条；建设工程司法解释（一）第1条",
+          "VALUE_AFTER": "《民法典》第791条；建设工程司法解释（一）第1条",
+          "legal_references": [
+            {
+              "article": "",
+              "proposition": "未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。",
+              "support_type": "UNCERTAIN",
+              "freshness_status": "NO_DIRECT_AUTHORITY",
+              "support_scope": ""
+            }
+          ]
+        },
+        {
+          "STAGE": "AFTER_RISK_AGGREGATION_RENDERER_INPUT",
+          "SOURCE_FILE": "backend/review_v2/engine.py",
+          "SOURCE_FIELD": "ReviewItemResult.legal_basis_index",
+          "VALUE_BEFORE": "《民法典》第791条；建设工程司法解释（一）第1条",
+          "VALUE_AFTER": "《民法典》第791条；建设工程司法解释（一）第1条",
+          "legal_references": [
+            {
+              "article": "",
+              "proposition": "未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。",
+              "support_type": "UNCERTAIN",
+              "freshness_status": "NO_DIRECT_AUTHORITY",
+              "support_scope": ""
+            }
+          ]
+        }
+      ],
+      "runtime_rule_metadata": {
+        "item_id": "CE-05-03",
+        "node_id": "no_re_subcontract",
+        "title": "再分包",
+        "kind": "forbidden",
+        "risk_level": "高",
+        "terms": [
+          "再分包",
+          "二次分包",
+          "层层分包",
+          "分包后再分包"
+        ],
+        "risk_point_missing": "合同暂未发现“再分包”类明显违法或不利表述，建议仍按建设工程强制性规范核对资质、招投标、转包分包和中标合同一致性。",
+        "risk_point_present": "合同允许分包单位再分包，可能构成违法分包并放大质量、工期和付款风险。",
+        "suggested_clause": "建议改为：分包单位不得将其承包的工程再分包；违反的，承包人应负责纠正并承担由此造成的全部损失。",
+        "legal_basis": "《民法典》第791条；建设工程司法解释（一）第1条",
+        "legal_consequence_if_missing": "合同允许分包单位再分包，可能构成违法分包并放大质量、工期和付款风险。",
+        "semantic_question": "合同中是否存在“再分包”类可能导致合同无效、价款结算失控或责任加重的风险表述？",
+        "evidence_scope": "正式合同条款及附件",
+        "pass_criteria": "正式合同条款及附件中未发现“再分包”类风险表述。",
+        "partial_criteria": "正式合同条款或附件中存在接近“再分包”的表述，需要人工复核其是否违反建设工程强制性规定，或是否有审批、授权、招投标和资质材料支持。",
+        "applicable_if": "始终适用",
+        "legal_basis_topics": [],
+        "legal_basis_domain": "",
+        "allowed_families": [],
+        "allowed_subject_matters": [],
+        "allowed_subtypes": [],
+        "prohibited_subject_matters": [],
+        "domain_owner": "contract/common",
+        "material_group": "GENERAL",
+        "applicability_triggers": [],
+        "claim_requirements": [],
+        "polarity": "NEGATIVE_CLAUSE_CHECK",
+        "review_nature": "CONTRACTUAL_REQUIREMENT",
+        "requirement_medium": "CONTRACT_TEXT",
+        "legal_requirement_strength": "RISK_CONTROL",
+        "action_type": "CONTRACT_EDIT",
+        "fact_concepts": [],
+        "optional_trigger_patterns": [],
+        "unless_fact_concepts": [],
+        "prerequisite_facts": [],
+        "linked_adverse_rules": []
+      },
+      "required_elements": [
+        {
+          "review_id": "CE-05-03",
+          "element_id": "core_contract_arrangement",
+          "proposition": "合同存在可验证的“再分包”实质条款内容。",
+          "status": "UNCERTAIN",
+          "evidence_ids": [],
+          "entailment": "UNCERTAIN",
+          "verifier_confidence": "low",
+          "reason": "未找到可支撑该元素的合同证据。",
+          "claim_id": "",
+          "source_clause_ids": [],
+          "source_spans": [],
+          "source_locations": [],
+          "atomic": true,
+          "child_elements": [],
+          "legal_proposition_ids": [],
+          "required_fact_key": "",
+          "fact_status": "UNCERTAIN",
+          "fact_value": null,
+          "fact_evidence_refs": [],
+          "requirement_status": "UNCERTAIN",
+          "requirement_reason": "未找到可支撑该元素的合同证据。",
+          "evidence_refs": [],
+          "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+        }
+      ],
+      "rule_source": {
+        "SOURCE_FILE": [],
+        "SOURCE_FIELD": "ReviewCheckpoint.legal_basis",
+        "VALUE_BEFORE": "《民法典》第791条；建设工程司法解释（一）第1条",
+        "VALUE_AFTER": "《民法典》第791条；建设工程司法解释（一）第1条"
+      },
+      "citation_specs": [
+        {
+          "proposition": "未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。",
+          "claim_type": "STATUTORY_RULE",
+          "references": [
+            {
+              "law_name": "民法典",
+              "article": "第791条",
+              "paragraph": ""
+            }
+          ]
+        }
+      ],
+      "legal_propositions": [
+        {
+          "proposition": "未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。",
+          "claim_type": "STATUTORY_RULE",
+          "references": [
+            {
+              "law_name": "民法典",
+              "article": "第791条",
+              "paragraph": ""
+            }
+          ]
+        }
+      ],
+      "final_markdown": {
+        "SOURCE_FILE": "backend/review_v2/engine.py::_format_markdown_v2",
+        "SOURCE_FIELD": "Markdown.法律依据",
+        "VALUE_BEFORE": "《民法典》第791条；建设工程司法解释（一）第1条",
+        "VALUE_AFTER": ""
+      },
+      "rendered_coverage_status": "缺失",
+      "expected_report_basis": null
+    },
+    "legal_authority_selection": {
+      "review_id": "CE-05-03",
+      "candidate_authorities": [
+        {
+          "claim_id": "CE-05-03-LC-01",
+          "finding_id": "",
+          "review_id": "CE-05-03",
+          "proposition": "未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。",
+          "claim_type": "STATUTORY_RULE",
+          "authority_id": "",
+          "law_name": "",
+          "article": "",
+          "paragraph": "",
+          "support_type": "UNCERTAIN",
+          "support_scope": "",
+          "authority_links": [],
+          "confidence": "low",
+          "freshness_status": "NO_DIRECT_AUTHORITY",
+          "citation_existence_status": "NO_DIRECT_AUTHORITY",
+          "citation_entailment_status": "UNCERTAIN",
+          "authority": null,
+          "basis_text": "《民法典》第791条；建设工程司法解释（一）第1条"
+        }
+      ],
+      "selected_authorities": [],
+      "rejected_authorities": [],
+      "duplicate_count": 0,
+      "entailment": [
+        {
+          "proposition_id": "CE-05-03-LC-01",
+          "statement": "未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。",
+          "authority_id": "",
+          "authority_rule_summary": "",
+          "entailment": "UNCERTAIN",
+          "reason": "Rejected because a stronger duplicate exists or the authority does not support the proposition."
+        }
+      ]
+    },
+    "legal_enrichment_boundary": {
+      "enabled": true,
+      "before": {
+        "item_id": "CE-05-03",
+        "node_id": "no_re_subcontract",
+        "title": "再分包",
+        "risk_level": "中",
+        "status": "缺失",
+        "risk_point_description": "未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。",
+        "suggested_clause_example": "建议改为：分包单位不得将其承包的工程再分包；违反的，承包人应负责纠正并承担由此造成的全部损失。",
+        "legal_consequence_if_missing": "合同允许分包单位再分包，可能构成违法分包并放大质量、工期和付款风险。",
+        "applicable_if": "始终适用",
+        "matched_terms": [],
+        "coverage_status": "缺失",
+        "issue_type": "完全缺失",
+        "evidence_clauses": [],
+        "evidence_location": "",
+        "reasoning_summary": "未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。",
+        "judge_source": "rule_fallback",
+        "llm_confidence": "",
+        "llm_raw_reason": "",
+        "fallback_reason": "本次审查未启用大模型语义复核，使用规则判定",
+        "reasoning": "",
+        "citation": {},
+        "applicability": {
+          "review_id": "CE-05-03",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "未声明条件审查规则，默认适用于当前合同。",
+          "confidence": "high",
+          "status": "APPLICABLE",
+          "machine_reason": "未声明条件审查规则，默认适用于当前合同。",
+          "user_reason": "该审查事项适用于当前合同。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "REQUIRED_ALWAYS",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "ALWAYS_APPLICABLE",
+          "triggered": true
+        },
+        "economic_impact": "",
+        "economic_impact_detail": {},
+        "scenario_analysis": {},
+        "quality_flags": [],
+        "review_priority": "C_OPTIMIZATION",
+        "review_importance": "IMPORTANT",
+        "action_priority": "C_OPTIMIZATION",
+        "fact_dependencies": [],
+        "action_suggestion": "可选优化",
+        "evidence_type": "handover",
+        "semantic_entailment": true,
+        "high_risk_reason": "",
+        "needs_manual_review": false,
+        "quality_gate_failure_reason": "",
+        "review_status": "待处理",
+        "reviewer_note": "",
+        "claims": [],
+        "review_trace_id": "CR-20260910-095936-07BFC4-CE0503",
+        "risk_severity": "LOW",
+        "residual_risk": "未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。",
+        "related_reviews": [],
+        "related_risks": [],
+        "risk_group": "no_re_subcontract",
+        "system_confidence": {
+          "level": "medium",
+          "parser_confidence": "high",
+          "document_integrity_confidence": "high",
+          "fact_confidence": "medium",
+          "retrieval_recall_confidence": "high",
+          "evidence_confidence": "medium",
+          "applicability_confidence": "high",
+          "legal_confidence": "not_applicable",
+          "legal_authority_confidence": "not_applicable",
+          "formula_confidence": "not_applicable",
+          "calculation_confidence": "not_applicable",
+          "verifier_confidence": "low",
+          "aggregation_confidence": "high",
+          "retrieval_strength": "not_found",
+          "evidence_entailment": true,
+          "rule_agreement": "agree",
+          "model_agreement": "not_used_or_agree",
+          "cross_review_agreement": "agree",
+          "quality_gate_flags": 0,
+          "confidence_bundle": {
+            "parser_confidence": "high",
+            "document_integrity_confidence": "high",
+            "fact_confidence": "medium",
+            "retrieval_recall_confidence": "high",
+            "evidence_confidence": "medium",
+            "applicability_confidence": "high",
+            "legal_confidence": "not_applicable",
+            "formula_confidence": "not_applicable",
+            "calculation_confidence": "not_applicable",
+            "verifier_confidence": "low",
+            "aggregation_confidence": "high",
+            "final_score": 0.85,
+            "final_confidence": "medium",
+            "limiting_factors": [
+              "verifier"
+            ],
+            "required_components": [
+              "parser",
+              "document_integrity",
+              "retrieval_recall",
+              "applicability",
+              "verifier",
+              "aggregation"
+            ],
+            "ignored_components": [
+              "fact",
+              "evidence",
+              "legal",
+              "formula",
+              "calculation"
+            ],
+            "component_scores": {
+              "parser": 0.95,
+              "document_integrity": 0.95,
+              "fact": 0.72,
+              "retrieval_recall": 0.95,
+              "evidence": 0.72,
+              "applicability": 0.95,
+              "legal": 1.0,
+              "formula": 1.0,
+              "calculation": 1.0,
+              "verifier": 0.35,
+              "aggregation": 0.95
+            },
+            "dependency": {
+              "requires_parser": true,
+              "requires_fact": false,
+              "requires_evidence": false,
+              "requires_applicability": true,
+              "requires_legal": false,
+              "requires_formula": false,
+              "requires_calculation": false,
+              "requires_verifier": true
+            },
+            "reason": "以下必需组件限制最终可靠度：verifier。"
+          },
+          "confidence_explanation": {
+            "final_confidence": "medium",
+            "required_components": [
+              "parser",
+              "document_integrity",
+              "retrieval_recall",
+              "applicability",
+              "verifier",
+              "aggregation"
+            ],
+            "ignored_components": [
+              "fact",
+              "evidence",
+              "legal",
+              "formula",
+              "calculation"
+            ],
+            "component_scores": {
+              "parser": 0.95,
+              "document_integrity": 0.95,
+              "fact": 0.72,
+              "retrieval_recall": 0.95,
+              "evidence": 0.72,
+              "applicability": 0.95,
+              "legal": 1.0,
+              "formula": 1.0,
+              "calculation": 1.0,
+              "verifier": 0.35,
+              "aggregation": 0.95
+            },
+            "limiting_factors": [
+              "verifier"
+            ],
+            "reason": "以下必需组件限制最终可靠度：verifier。"
+          }
+        },
+        "decision_trace": {
+          "execution_context": {
+            "contract_context": {
+              "contract_family": "CONSTRUCTION",
+              "subject_matter": "GENERAL",
+              "contract_subtype": "LABOR_SUBCONTRACT",
+              "canonical_classification": {
+                "contract_family": "CONSTRUCTION",
+                "contract_subtype": "LABOR_SUBCONTRACT",
+                "party_roles": {
+                  "甲方": "UPSTREAM_CONTRACTOR_OR_LABOR_CLIENT",
+                  "乙方": "LABOR_SUBCONTRACTOR"
+                }
+              }
+            },
+            "domain_resolution": {
+              "contract_family": "CONSTRUCTION",
+              "subject_matter": "GENERAL",
+              "transaction_nature": "GENERAL_TRANSACTION",
+              "contract_subtype": "GENERAL_CONTRACT",
+              "asset_usage": "UNKNOWN",
+              "consideration_type": "UNKNOWN",
+              "ownership_transfer": false,
+              "possession_transfer": false,
+              "transaction_structure": "SINGLE_TRANSACTION",
+              "product_category": "NOT_APPLICABLE",
+              "transaction_purpose": "general_contract",
+              "jurisdiction": "CN",
+              "primary_subject": "GENERAL",
+              "accessory_subjects": [],
+              "selected_domain_packs": [
+                "shared"
+              ],
+              "rejected_domain_packs": [],
+              "confidence": "medium",
+              "evidence": [],
+              "domain_attributes": {}
+            },
+            "transaction_structure": "SINGLE_TRANSACTION",
+            "product_context": {},
+            "fact_graph_version": "contract-fact-graph-1.0",
+            "claim_graph_version": "canonical-claim-schema-1.0",
+            "applicable_default_law": "sale-default-law-6.4"
+          },
+          "fact_registry_snapshot_id": "CFR-A4970DA35375",
+          "contract_fact_registry_consumption": {
+            "snapshot_id": "CFR-A4970DA35375",
+            "required_fact_keys": [],
+            "facts": {},
+            "fact_source": {}
+          },
+          "review_mode": "ABSENCE_REQUIRED",
+          "review_polarity": "NEGATIVE_CLAUSE_CHECK",
+          "review_nature": "CONTRACTUAL_REQUIREMENT",
+          "linked_adverse_rules": [],
+          "requirement_medium": "CONTRACT_TEXT",
+          "legal_requirement_strength": "RISK_CONTROL",
+          "action_type": "CONTRACT_EDIT",
+          "domain_owner": "contract/common",
+          "material_group": "GENERAL",
+          "allowed_subject_matters": [],
+          "satisfaction_semantics": {
+            "polarity": "NEGATIVE_CLAUSE_CHECK",
+            "pass_meaning": "NO_ADVERSE_CLAUSE_FOUND",
+            "partial_meaning": "REQUIRES_FURTHER_REVIEW",
+            "missing_meaning": "REQUIRED_PROTECTION_ABSENT",
+            "risk_meaning": "ADVERSE_CLAUSE_FOUND",
+            "not_applicable_meaning": "TRIGGER_NOT_PRESENT"
+          },
+          "negative_clause_check": {
+            "review_id": "CE-05-03",
+            "query_semantics": "ADVERSE_CLAUSE_SEARCH",
+            "result": "NO_ADVERSE_CLAUSE_FOUND",
+            "description": "未发现对应禁止性/不利约定。",
+            "searched_scope": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023",
+              "C0024",
+              "C0025",
+              "C0026",
+              "C0027",
+              "C0028",
+              "C0029",
+              "C0030",
+              "C0031",
+              "C0032",
+              "C0033",
+              "C0034",
+              "C0035",
+              "C0036",
+              "C0037"
+            ],
+            "candidate_adverse_clauses": [],
+            "counter_evidence": [],
+            "search_coverage": "SUFFICIENT",
+            "adverse_clause_exists": false,
+            "confidence": "high",
+            "coverage_result": "缺失"
+          },
+          "user_perspective": "EMPLOYER",
+          "perspective_resolution": {
+            "requested_role": "发包人",
+            "previous_context_role": "",
+            "contract_family": "CONSTRUCTION",
+            "contract_subtype": "GENERAL_CONTRACT",
+            "party_side": "UNKNOWN",
+            "review_party_identity": "UNKNOWN",
+            "review_party_label": "",
+            "domain_role": "EMPLOYER",
+            "transaction_role": "EMPLOYER",
+            "canonical_role": "EMPLOYER",
+            "display_role": "发包人",
+            "transaction_type": "GENERAL_CONTRACT",
+            "review_party": "UNKNOWN",
+            "legal_role": "EMPLOYER",
+            "contract_display_role": "发包人",
+            "candidate_roles": [
+              "EMPLOYER"
+            ],
+            "rejected_roles": [],
+            "confidence": "high",
+            "reasons": [
+              "Resolved CONSTRUCTION/GENERAL_CONTRACT permits roles: EMPLOYER, CONTRACTOR, OTHER.",
+              "Party identity is retained separately from the canonical transaction role."
+            ]
+          },
+          "bargaining_power": "均衡方",
+          "risk_category": "performance",
+          "default_law_status": "UNCERTAIN_DEFAULT",
+          "default_law_assessment": {
+            "executed": true,
+            "default_law_relevant": false,
+            "status": "UNCERTAIN_DEFAULT",
+            "rule": null,
+            "applicability": "NOT_DECLARED",
+            "protection_scope": "",
+            "remaining_gap": "合同仍需自行明确业务流程和证据要求。",
+            "practical_uncertainty": "medium",
+            "residual_legal_risk": "medium",
+            "residual_operational_risk": "medium",
+            "direct_match": false,
+            "role_match": false,
+            "scenario_match": false,
+            "legal_effect_match": false,
+            "fallback_match": false,
+            "semantic_match": {
+              "direct_match": false,
+              "role_match": false,
+              "scenario_match": false,
+              "legal_effect_match": false,
+              "fallback_match": false,
+              "target_element_ids": [],
+              "supplied_element_ids": [],
+              "matched_element_ids": []
+            }
+          },
+          "effective_gap": {
+            "review_id": "CE-05-03",
+            "contract_coverage": "缺失",
+            "default_law_status": "UNCERTAIN_DEFAULT",
+            "default_protection": "",
+            "contract_context": {
+              "contract_type": "construction",
+              "risk_group": "no_re_subcontract",
+              "node_id": "no_re_subcontract"
+            },
+            "remaining_legal_gap": "合同仍需自行明确业务流程和证据要求。",
+            "operational_gap": "medium",
+            "economic_gap": "unknown",
+            "uncertainty": "medium",
+            "residual_risk": "合同仍需自行明确业务流程和证据要求。",
+            "default_law_checked": true,
+            "statutory_default": "UNCERTAIN_DEFAULT",
+            "default_rule_id": "",
+            "legal_proposition_id": "",
+            "statutory_protection_scope": "",
+            "remaining_gap": "合同仍需自行明确业务流程和证据要求。",
+            "practical_uncertainty": "medium",
+            "default_strength": "none",
+            "residual_legal_risk": "medium",
+            "residual_operational_risk": "medium",
+            "drafting_value": "risk_mitigation",
+            "contract_override_risk": "low",
+            "contractual_missing_elements": [],
+            "statutory_default_elements": [],
+            "supplied_element_ids": [],
+            "unsupplied_element_ids": [],
+            "still_unprotected_elements": [
+              "合同仍需自行明确业务流程和证据要求。"
+            ],
+            "practical_execution_gap": [
+              "合同仍需自行明确业务流程和证据要求。"
+            ],
+            "evidentiary_gap": [],
+            "authority_ids": [],
+            "citation_entailment": "NOT_APPLICABLE",
+            "legal_freshness": "NOT_APPLICABLE",
+            "default_rule_applicable": false,
+            "effective_gap_valid": true,
+            "residual_risk_exists": true,
+            "affected_effective_gap": false,
+            "default_law_result_id": "DLR-CE-05-03"
+          },
+          "aggregation_key": "performance|no_re_subcontract|facts=|clauses=|econ=",
+          "priority_assessment": {
+            "priority": "C_OPTIMIZATION",
+            "score": 0.0,
+            "reason": "no_actionable_signal",
+            "input": {
+              "finding_id": null,
+              "severity": "LOW",
+              "economic_impact": "none",
+              "probability": "MEDIUM",
+              "legal_impact": "LOW",
+              "operational_impact": "MEDIUM",
+              "safety_impact": "NONE",
+              "core_obligation": false,
+              "time_amplifying": false,
+              "uncapped": false,
+              "reversibility": "medium",
+              "recoverability": "medium",
+              "user_perspective": "EMPLOYER",
+              "user_directly_bears_risk": false,
+              "bargaining_power": "均衡方",
+              "contract_value": null,
+              "recurring_value": null,
+              "deposit_amount": null,
+              "prepaid_amount": null,
+              "remaining_obligation": null,
+              "recommendation_cost": "medium",
+              "recommendation_feasibility": "high",
+              "confidence": "medium",
+              "normalized_economic_exposure": {
+                "absolute_amount": null,
+                "monthly_payment_multiple": null,
+                "deposit_multiple": null,
+                "prepaid_amount_ratio": null,
+                "contract_total_ratio": null,
+                "remaining_obligation_ratio": null,
+                "batch_value_ratio": null,
+                "unpaid_amount_ratio": null,
+                "advance_payment_ratio": null,
+                "replacement_cost_ratio": null,
+                "delay_loss_ratio": null,
+                "time_amplifying": false,
+                "uncapped": false,
+                "level": "none"
+              },
+              "statutory_default_status": "UNCERTAIN_DEFAULT",
+              "default_protection_strength": "none",
+              "contract_override_risk": "low",
+              "practical_gap_after_default": "medium",
+              "user_impact": "medium"
+            },
+            "decision": {
+              "finding_id": "CE-05-03",
+              "severity": "LOW",
+              "priority": "C_OPTIMIZATION",
+              "drivers": [],
+              "mitigators": [],
+              "default_law_effect": "UNCERTAIN_DEFAULT",
+              "economic_effect": "none",
+              "explanation": "行动优先级由风险严重度、核心义务、经济暴露、发生概率、默认法保护、可恢复性和修复价值共同计算；驱动因素：none；缓释因素：none。"
+            }
+          },
+          "evidence_claim": {
+            "claim_id": "CE-05-03-EC-01",
+            "review_id": "CE-05-03",
+            "finding_id": "",
+            "proposition": "现有再分包限制存在条件限定，建议删除同意例外，明确劳务分包人不得以任何形式将劳务作业再次分包。",
+            "required_semantics": [
+              "no_re_subcontract",
+              "no_re_subcontract",
+              "再分包"
+            ],
+            "polarity": "positive",
+            "party": "",
+            "obligation": "",
+            "object": "no_re_subcontract",
+            "condition": "",
+            "consequence": "合同允许分包单位再分包，可能构成违法分包并放大质量、工期和付款风险。",
+            "confidence": "medium"
+          },
+          "evidence_candidates": [
+            {
+              "evidence_id": "C0008",
+              "source_document": "合同正文",
+              "clause_id": "C0008",
+              "sentence_id": 1,
+              "quote": "乙方负责以下劳务作业：\n主体结构钢筋绑扎、模板安装及拆除、混凝土浇筑辅助作业；\n砌体施工、二次结构施工；\n内墙普通抹灰施工；\n施工现场材料二次搬运；\n施工区域内成品保护、场地清理；\n配合甲方进行测量、隐蔽工程验收及竣工验收；\n甲方根据现场施工需要安排的其他零星劳务工作。\n未经甲方书面同意，乙方不得将本合同项下任何劳务作业转包或者再分包。",
+              "semantic_score": 0.55,
+              "entity_match": true,
+              "obligation_match": false,
+              "consequence_match": false,
+              "polarity_match": false,
+              "entailment_status": "PARTIAL_SUPPORT"
+            }
+          ],
+          "review_evidence_provenance": {
+            "claim_ids": [],
+            "evidence_ids": [
+              "C0008"
+            ],
+            "clause_ids": [
+              "C0008"
+            ],
+            "source_spans": [
+              "乙方负责以下劳务作业：\n主体结构钢筋绑扎、模板安装及拆除、混凝土浇筑辅助作业；\n砌体施工、二次结构施工；\n内墙普通抹灰施工；\n施工现场材料二次搬运；\n施工区域内成品保护、场地清理；\n配合甲方进行测量、隐蔽工程验收及竣工验收；\n甲方根据现场施工需要安排的其他零星劳务工作。\n未经甲方书面同意，乙方不得将本合同项下任何劳务作业转包或者再分包。"
+            ],
+            "primary_locations": [],
+            "supporting_locations": []
+          },
+          "coverage_claim": {
+            "review_id": "CE-05-03",
+            "required_elements": [
+              {
+                "element_id": "core_contract_arrangement",
+                "proposition": "合同存在可验证的“再分包”实质条款内容。",
+                "terms": [
+                  "再分包"
+                ]
+              }
+            ],
+            "optional_elements": [],
+            "positive_claims": [
+              "合同存在可验证的“再分包”实质条款内容。"
+            ],
+            "negative_claims": [],
+            "minimum_pass_elements": 1,
+            "minimum_partial_elements": 1,
+            "satisfaction_paths": []
+          },
+          "coverage_elements": [
+            {
+              "review_id": "CE-05-03",
+              "element_id": "core_contract_arrangement",
+              "proposition": "合同存在可验证的“再分包”实质条款内容。",
+              "status": "UNCERTAIN",
+              "evidence_ids": [],
+              "entailment": "UNCERTAIN",
+              "verifier_confidence": "low",
+              "reason": "未找到可支撑该元素的合同证据。",
+              "claim_id": "",
+              "source_clause_ids": [],
+              "source_spans": [],
+              "source_locations": [],
+              "atomic": true,
+              "child_elements": [],
+              "legal_proposition_ids": [],
+              "required_fact_key": "",
+              "fact_status": "UNCERTAIN",
+              "fact_value": null,
+              "fact_evidence_refs": [],
+              "requirement_status": "UNCERTAIN",
+              "requirement_reason": "未找到可支撑该元素的合同证据。",
+              "evidence_refs": [],
+              "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+            }
+          ],
+          "element_evidence_truth": [
+            {
+              "element_id": "core_contract_arrangement",
+              "label": "合同存在可验证的“再分包”实质条款内容。",
+              "status": "UNCERTAIN",
+              "raw_status": "UNCERTAIN",
+              "evidence_ids": [],
+              "evidence_text": [],
+              "source_location": [],
+              "confidence": "low",
+              "resolution_reason": "未找到可支撑该元素的合同证据。"
+            }
+          ],
+          "fact_requirements": [],
+          "retrieval_trace": {
+            "review_id": "CE-05-03",
+            "fact_requirements": [],
+            "fact_clause_ids": [],
+            "structural_clause_ids": [],
+            "lexical_clause_ids": [
+              "C0008",
+              "C0032",
+              "C0033"
+            ],
+            "semantic_clause_ids": [],
+            "graph_clause_ids": [
+              "C0031",
+              "C0033",
+              "C0032",
+              "C0034",
+              "C0007",
+              "C0009"
+            ],
+            "candidate_clause_ids": [
+              "C0032",
+              "C0033",
+              "C0008"
+            ],
+            "selected_clause_ids": [
+              "C0032",
+              "C0033",
+              "C0008"
+            ],
+            "lexical_queries": [
+              "再分包",
+              "二次分包",
+              "层层分包",
+              "分包后再分包"
+            ],
+            "structural_queries": [
+              "再分包",
+              "二次分包",
+              "层层分包",
+              "分包后再分包"
+            ],
+            "semantic_queries": [
+              "合同中是否存在“再分包”类可能导致合同无效、价款结算失控或责任加重的风险表述？",
+              "再分包"
+            ],
+            "candidate_count": 3,
+            "latency_ms": 2.044
+          },
+          "missing_proof": {
+            "review_id": "CE-05-03",
+            "searched_fact_types": [],
+            "searched_sections": [
+              "全文",
+              "第一部分 协议书",
+              "一、合同主体",
+              "甲方（承包人）：深圳市华岭建设工程有限公司",
+              "乙方（劳务分包人）：深圳市恒建建筑劳务有限公司",
+              "二、工程概况",
+              "三、劳务作业范围和内容",
+              "三、劳务作业范围和内容 / 乙方负责以下劳务作业：",
+              "四、劳务作业工期",
+              "五、质量标准",
+              "六、合同价款",
+              "六、合同价款 / 含税签约合同价：",
+              "六、合同价款 / 其中：",
+              "七、合同文件组成",
+              "七、合同文件组成 / 以下文件均为本合同组成部分：",
+              "第二部分 专用条款",
+              "一、项目代表",
+              "二、实名制及工人工资",
+              "三、机械、设备和材料",
+              "三、机械、设备和材料 / 甲方负责提供：",
+              "三、机械、设备和材料 / 乙方负责提供：",
+              "四、安全文明施工",
+              "五、工程量计量",
+              "六、工程变更",
+              "七、工程款支付",
+              "八、完工结算",
+              "九、停工、窝工",
+              "十、索赔",
+              "十一、保险",
+              "十二、不可抗力",
+              "十二、不可抗力 / 下列事件可以认定为不可抗力：",
+              "十三、违约责任",
+              "十四、合同解除",
+              "十五、争议解决",
+              "第三部分 补充条款",
+              "甲方（盖章）：深圳市华岭建设工程有限公司",
+              "乙方（盖章）：深圳市恒建建筑劳务有限公司"
+            ],
+            "lexical_queries": [
+              "再分包",
+              "二次分包",
+              "层层分包",
+              "分包后再分包"
+            ],
+            "semantic_queries": [
+              "合同中是否存在“再分包”类可能导致合同无效、价款结算失控或责任加重的风险表述？",
+              "再分包"
+            ],
+            "cross_clause_queries": [
+              "C0031",
+              "C0033",
+              "C0032",
+              "C0034",
+              "C0007",
+              "C0009"
+            ],
+            "candidates_examined": [
+              "C0032",
+              "C0033",
+              "C0008"
+            ],
+            "possible_conflicts": [],
+            "exhaustive_enough": true,
+            "confidence": "high"
+          },
+          "evidence_assembly": {
+            "review_id": "CE-05-03",
+            "candidate_evidence": [
+              "C0032",
+              "C0033",
+              "C0008"
+            ],
+            "evidence_groups": [
+              {
+                "source": "FACT",
+                "clause_ids": []
+              },
+              {
+                "source": "STRUCTURAL",
+                "clause_ids": []
+              },
+              {
+                "source": "LEXICAL",
+                "clause_ids": [
+                  "C0008",
+                  "C0032",
+                  "C0033"
+                ]
+              },
+              {
+                "source": "SEMANTIC",
+                "clause_ids": []
+              },
+              {
+                "source": "CLAUSE_GRAPH",
+                "clause_ids": [
+                  "C0031",
+                  "C0033",
+                  "C0032",
+                  "C0034",
+                  "C0007",
+                  "C0009"
+                ]
+              }
+            ],
+            "supporting_evidence": [
+              "C0008"
+            ],
+            "counter_evidence": [],
+            "missing_elements": []
+          },
+          "review_evidence_ownership": {
+            "review_evidence_supports_element_ids": [],
+            "review_evidence_relevance_score": 0.0,
+            "review_evidence_selection_reason": "Existing non-Registry evidence order was preserved and ownership metadata was attached in place."
+          },
+          "coverage_gap_consistency_guard": {
+            "resolution": "MISSING_NO_POSITIVE_EVIDENCE"
+          },
+          "missing_element_resolution": {
+            "priority": [
+              "explicit_missing_elements",
+              "structured_missing_elements",
+              "evidence_inferred_missing_elements",
+              "fallback_unknown"
+            ],
+            "selected_source": "structured_missing_elements",
+            "selected_elements": [
+              "合同存在可验证的“再分包”实质条款内容"
+            ]
+          },
+          "narrative_status_consistency": {
+            "status": "PASS"
+          },
+          "narrative_elements": {
+            "review_id": "CE-05-03",
+            "applicability": "APPLICABLE",
+            "polarity": "NEGATIVE_CLAUSE_CHECK",
+            "coverage_status": "缺失",
+            "covered_elements": [],
+            "partial_elements": [],
+            "missing_elements": [
+              "合同存在可验证的“再分包”实质条款内容"
+            ],
+            "adverse_elements": [],
+            "finding_exists": true,
+            "judgment": "合同未明确：“再分包”事项。",
+            "issue": "缺失：“再分包”事项。",
+            "consequence": "“再分包”事项不清时，责任边界不够明确。",
+            "recommendation": "建议补充明确合同存在可验证的“再分包”实质条款内容。",
+            "result": "合同未明确：“再分包”事项。"
+          },
+          "coverage_gap_type": "MISSING_WITH_STATUTORY_DEFAULT"
+        },
+        "rule_evidence_package": {},
+        "coverage_elements": [
+          {
+            "review_id": "CE-05-03",
+            "element_id": "core_contract_arrangement",
+            "proposition": "合同存在可验证的“再分包”实质条款内容。",
+            "status": "UNCERTAIN",
+            "evidence_ids": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "low",
+            "reason": "未找到可支撑该元素的合同证据。",
+            "claim_id": "",
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "atomic": true,
+            "child_elements": [],
+            "legal_proposition_ids": [],
+            "required_fact_key": "",
+            "fact_status": "UNCERTAIN",
+            "fact_value": null,
+            "fact_evidence_refs": [],
+            "requirement_status": "UNCERTAIN",
+            "requirement_reason": "未找到可支撑该元素的合同证据。",
+            "evidence_refs": [],
+            "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+          }
+        ],
+        "review_evidence_provenance": {
+          "claim_ids": [],
+          "evidence_ids": [
+            "C0008"
+          ],
+          "clause_ids": [
+            "C0008"
+          ],
+          "source_spans": [
+            "乙方负责以下劳务作业：\n主体结构钢筋绑扎、模板安装及拆除、混凝土浇筑辅助作业；\n砌体施工、二次结构施工；\n内墙普通抹灰施工；\n施工现场材料二次搬运；\n施工区域内成品保护、场地清理；\n配合甲方进行测量、隐蔽工程验收及竣工验收；\n甲方根据现场施工需要安排的其他零星劳务工作。\n未经甲方书面同意，乙方不得将本合同项下任何劳务作业转包或者再分包。"
+          ],
+          "primary_locations": [],
+          "supporting_locations": []
+        },
+        "narrative_state": {
+          "review_id": "CE-05-03",
+          "applicability": "APPLICABLE",
+          "polarity": "NEGATIVE_CLAUSE_CHECK",
+          "coverage_status": "缺失",
+          "covered_elements": [],
+          "partial_elements": [],
+          "missing_elements": [
+            "合同存在可验证的“再分包”实质条款内容"
+          ],
+          "adverse_elements": [],
+          "finding_exists": true,
+          "judgment": "合同未明确：“再分包”事项。",
+          "issue": "缺失：“再分包”事项。",
+          "consequence": "“再分包”事项不清时，责任边界不够明确。",
+          "recommendation": "建议补充明确合同存在可验证的“再分包”实质条款内容。",
+          "result": "合同未明确：“再分包”事项。"
+        },
+        "review_evidence_supports_element_ids": [],
+        "review_evidence_relevance_score": 0.0,
+        "review_evidence_selection_reason": "Existing non-Registry evidence order was preserved and ownership metadata was attached in place.",
+        "coverage_presence": "",
+        "risk_status": "",
+        "recommended_action": "",
+        "review_risk_links": [],
+        "contract_allocation": "",
+        "risk_direction": {}
+      },
+      "after": {
+        "item_id": "CE-05-03",
+        "node_id": "no_re_subcontract",
+        "title": "再分包",
+        "risk_level": "中",
+        "status": "缺失",
+        "risk_point_description": "未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。",
+        "suggested_clause_example": "建议改为：分包单位不得将其承包的工程再分包；违反的，承包人应负责纠正并承担由此造成的全部损失。",
+        "legal_consequence_if_missing": "合同允许分包单位再分包，可能构成违法分包并放大质量、工期和付款风险。",
+        "applicable_if": "始终适用",
+        "matched_terms": [],
+        "coverage_status": "缺失",
+        "issue_type": "完全缺失",
+        "evidence_clauses": [],
+        "evidence_location": "",
+        "reasoning_summary": "未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。",
+        "judge_source": "rule_fallback",
+        "llm_confidence": "",
+        "llm_raw_reason": "",
+        "fallback_reason": "本次审查未启用大模型语义复核，使用规则判定",
+        "reasoning": "",
+        "citation": {},
+        "applicability": {
+          "review_id": "CE-05-03",
+          "applicable": true,
+          "trigger_facts": [],
+          "trigger_evidence": [],
+          "missing_triggers": [],
+          "reason": "未声明条件审查规则，默认适用于当前合同。",
+          "confidence": "high",
+          "status": "APPLICABLE",
+          "machine_reason": "未声明条件审查规则，默认适用于当前合同。",
+          "user_reason": "该审查事项适用于当前合同。",
+          "required_triggers": [],
+          "satisfied_triggers": [],
+          "unsatisfied_triggers": [],
+          "conflicting_triggers": [],
+          "trigger_fact_ids": [],
+          "trigger_evidence_ids": [],
+          "applicability_state": "REQUIRED_ALWAYS",
+          "premise_evidence": [],
+          "premise_fact_ids": [],
+          "condition": "ALWAYS_APPLICABLE",
+          "triggered": true
+        },
+        "economic_impact": "",
+        "economic_impact_detail": {},
+        "scenario_analysis": {},
+        "quality_flags": [],
+        "review_priority": "C_OPTIMIZATION",
+        "review_importance": "IMPORTANT",
+        "action_priority": "C_OPTIMIZATION",
+        "fact_dependencies": [],
+        "action_suggestion": "可选优化",
+        "evidence_type": "handover",
+        "semantic_entailment": true,
+        "high_risk_reason": "",
+        "needs_manual_review": false,
+        "quality_gate_failure_reason": "",
+        "review_status": "待处理",
+        "reviewer_note": "",
+        "claims": [],
+        "review_trace_id": "CR-20260910-095936-07BFC4-CE0503",
+        "risk_severity": "LOW",
+        "residual_risk": "未找到支持任何必要要素的可定位正向证据，不能认定部分覆盖。",
+        "related_reviews": [],
+        "related_risks": [],
+        "risk_group": "no_re_subcontract",
+        "system_confidence": {
+          "level": "medium",
+          "parser_confidence": "high",
+          "document_integrity_confidence": "high",
+          "fact_confidence": "medium",
+          "retrieval_recall_confidence": "high",
+          "evidence_confidence": "medium",
+          "applicability_confidence": "high",
+          "legal_confidence": "not_applicable",
+          "legal_authority_confidence": "not_applicable",
+          "formula_confidence": "not_applicable",
+          "calculation_confidence": "not_applicable",
+          "verifier_confidence": "low",
+          "aggregation_confidence": "high",
+          "retrieval_strength": "not_found",
+          "evidence_entailment": true,
+          "rule_agreement": "agree",
+          "model_agreement": "not_used_or_agree",
+          "cross_review_agreement": "agree",
+          "quality_gate_flags": 0,
+          "confidence_bundle": {
+            "parser_confidence": "high",
+            "document_integrity_confidence": "high",
+            "fact_confidence": "medium",
+            "retrieval_recall_confidence": "high",
+            "evidence_confidence": "medium",
+            "applicability_confidence": "high",
+            "legal_confidence": "not_applicable",
+            "formula_confidence": "not_applicable",
+            "calculation_confidence": "not_applicable",
+            "verifier_confidence": "low",
+            "aggregation_confidence": "high",
+            "final_score": 0.85,
+            "final_confidence": "medium",
+            "limiting_factors": [
+              "verifier"
+            ],
+            "required_components": [
+              "parser",
+              "document_integrity",
+              "retrieval_recall",
+              "applicability",
+              "verifier",
+              "aggregation"
+            ],
+            "ignored_components": [
+              "fact",
+              "evidence",
+              "legal",
+              "formula",
+              "calculation"
+            ],
+            "component_scores": {
+              "parser": 0.95,
+              "document_integrity": 0.95,
+              "fact": 0.72,
+              "retrieval_recall": 0.95,
+              "evidence": 0.72,
+              "applicability": 0.95,
+              "legal": 1.0,
+              "formula": 1.0,
+              "calculation": 1.0,
+              "verifier": 0.35,
+              "aggregation": 0.95
+            },
+            "dependency": {
+              "requires_parser": true,
+              "requires_fact": false,
+              "requires_evidence": false,
+              "requires_applicability": true,
+              "requires_legal": false,
+              "requires_formula": false,
+              "requires_calculation": false,
+              "requires_verifier": true
+            },
+            "reason": "以下必需组件限制最终可靠度：verifier。"
+          },
+          "confidence_explanation": {
+            "final_confidence": "medium",
+            "required_components": [
+              "parser",
+              "document_integrity",
+              "retrieval_recall",
+              "applicability",
+              "verifier",
+              "aggregation"
+            ],
+            "ignored_components": [
+              "fact",
+              "evidence",
+              "legal",
+              "formula",
+              "calculation"
+            ],
+            "component_scores": {
+              "parser": 0.95,
+              "document_integrity": 0.95,
+              "fact": 0.72,
+              "retrieval_recall": 0.95,
+              "evidence": 0.72,
+              "applicability": 0.95,
+              "legal": 1.0,
+              "formula": 1.0,
+              "calculation": 1.0,
+              "verifier": 0.35,
+              "aggregation": 0.95
+            },
+            "limiting_factors": [
+              "verifier"
+            ],
+            "reason": "以下必需组件限制最终可靠度：verifier。"
+          }
+        },
+        "decision_trace": {
+          "execution_context": {
+            "contract_context": {
+              "contract_family": "CONSTRUCTION",
+              "subject_matter": "GENERAL",
+              "contract_subtype": "LABOR_SUBCONTRACT",
+              "canonical_classification": {
+                "contract_family": "CONSTRUCTION",
+                "contract_subtype": "LABOR_SUBCONTRACT",
+                "party_roles": {
+                  "甲方": "UPSTREAM_CONTRACTOR_OR_LABOR_CLIENT",
+                  "乙方": "LABOR_SUBCONTRACTOR"
+                }
+              }
+            },
+            "domain_resolution": {
+              "contract_family": "CONSTRUCTION",
+              "subject_matter": "GENERAL",
+              "transaction_nature": "GENERAL_TRANSACTION",
+              "contract_subtype": "GENERAL_CONTRACT",
+              "asset_usage": "UNKNOWN",
+              "consideration_type": "UNKNOWN",
+              "ownership_transfer": false,
+              "possession_transfer": false,
+              "transaction_structure": "SINGLE_TRANSACTION",
+              "product_category": "NOT_APPLICABLE",
+              "transaction_purpose": "general_contract",
+              "jurisdiction": "CN",
+              "primary_subject": "GENERAL",
+              "accessory_subjects": [],
+              "selected_domain_packs": [
+                "shared"
+              ],
+              "rejected_domain_packs": [],
+              "confidence": "medium",
+              "evidence": [],
+              "domain_attributes": {}
+            },
+            "transaction_structure": "SINGLE_TRANSACTION",
+            "product_context": {},
+            "fact_graph_version": "contract-fact-graph-1.0",
+            "claim_graph_version": "canonical-claim-schema-1.0",
+            "applicable_default_law": "sale-default-law-6.4"
+          },
+          "fact_registry_snapshot_id": "CFR-A4970DA35375",
+          "contract_fact_registry_consumption": {
+            "snapshot_id": "CFR-A4970DA35375",
+            "required_fact_keys": [],
+            "facts": {},
+            "fact_source": {}
+          },
+          "review_mode": "ABSENCE_REQUIRED",
+          "review_polarity": "NEGATIVE_CLAUSE_CHECK",
+          "review_nature": "CONTRACTUAL_REQUIREMENT",
+          "linked_adverse_rules": [],
+          "requirement_medium": "CONTRACT_TEXT",
+          "legal_requirement_strength": "RISK_CONTROL",
+          "action_type": "CONTRACT_EDIT",
+          "domain_owner": "contract/common",
+          "material_group": "GENERAL",
+          "allowed_subject_matters": [],
+          "satisfaction_semantics": {
+            "polarity": "NEGATIVE_CLAUSE_CHECK",
+            "pass_meaning": "NO_ADVERSE_CLAUSE_FOUND",
+            "partial_meaning": "REQUIRES_FURTHER_REVIEW",
+            "missing_meaning": "REQUIRED_PROTECTION_ABSENT",
+            "risk_meaning": "ADVERSE_CLAUSE_FOUND",
+            "not_applicable_meaning": "TRIGGER_NOT_PRESENT"
+          },
+          "negative_clause_check": {
+            "review_id": "CE-05-03",
+            "query_semantics": "ADVERSE_CLAUSE_SEARCH",
+            "result": "NO_ADVERSE_CLAUSE_FOUND",
+            "description": "未发现对应禁止性/不利约定。",
+            "searched_scope": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022",
+              "C0023",
+              "C0024",
+              "C0025",
+              "C0026",
+              "C0027",
+              "C0028",
+              "C0029",
+              "C0030",
+              "C0031",
+              "C0032",
+              "C0033",
+              "C0034",
+              "C0035",
+              "C0036",
+              "C0037"
+            ],
+            "candidate_adverse_clauses": [],
+            "counter_evidence": [],
+            "search_coverage": "SUFFICIENT",
+            "adverse_clause_exists": false,
+            "confidence": "high",
+            "coverage_result": "缺失"
+          },
+          "user_perspective": "EMPLOYER",
+          "perspective_resolution": {
+            "requested_role": "发包人",
+            "previous_context_role": "",
+            "contract_family": "CONSTRUCTION",
+            "contract_subtype": "GENERAL_CONTRACT",
+            "party_side": "UNKNOWN",
+            "review_party_identity": "UNKNOWN",
+            "review_party_label": "",
+            "domain_role": "EMPLOYER",
+            "transaction_role": "EMPLOYER",
+            "canonical_role": "EMPLOYER",
+            "display_role": "发包人",
+            "transaction_type": "GENERAL_CONTRACT",
+            "review_party": "UNKNOWN",
+            "legal_role": "EMPLOYER",
+            "contract_display_role": "发包人",
+            "candidate_roles": [
+              "EMPLOYER"
+            ],
+            "rejected_roles": [],
+            "confidence": "high",
+            "reasons": [
+              "Resolved CONSTRUCTION/GENERAL_CONTRACT permits roles: EMPLOYER, CONTRACTOR, OTHER.",
+              "Party identity is retained separately from the canonical transaction role."
+            ]
+          },
+          "bargaining_power": "均衡方",
+          "risk_category": "performance",
+          "default_law_status": "UNCERTAIN_DEFAULT",
+          "default_law_assessment": {
+            "executed": true,
+            "default_law_relevant": false,
+            "status": "UNCERTAIN_DEFAULT",
+            "rule": null,
+            "applicability": "NOT_DECLARED",
+            "protection_scope": "",
+            "remaining_gap": "合同仍需自行明确业务流程和证据要求。",
+            "practical_uncertainty": "medium",
+            "residual_legal_risk": "medium",
+            "residual_operational_risk": "medium",
+            "direct_match": false,
+            "role_match": false,
+            "scenario_match": false,
+            "legal_effect_match": false,
+            "fallback_match": false,
+            "semantic_match": {
+              "direct_match": false,
+              "role_match": false,
+              "scenario_match": false,
+              "legal_effect_match": false,
+              "fallback_match": false,
+              "target_element_ids": [],
+              "supplied_element_ids": [],
+              "matched_element_ids": []
+            }
+          },
+          "effective_gap": {
+            "review_id": "CE-05-03",
+            "contract_coverage": "缺失",
+            "default_law_status": "UNCERTAIN_DEFAULT",
+            "default_protection": "",
+            "contract_context": {
+              "contract_type": "construction",
+              "risk_group": "no_re_subcontract",
+              "node_id": "no_re_subcontract"
+            },
+            "remaining_legal_gap": "合同仍需自行明确业务流程和证据要求。",
+            "operational_gap": "medium",
+            "economic_gap": "unknown",
+            "uncertainty": "medium",
+            "residual_risk": "合同仍需自行明确业务流程和证据要求。",
+            "default_law_checked": true,
+            "statutory_default": "UNCERTAIN_DEFAULT",
+            "default_rule_id": "",
+            "legal_proposition_id": "",
+            "statutory_protection_scope": "",
+            "remaining_gap": "合同仍需自行明确业务流程和证据要求。",
+            "practical_uncertainty": "medium",
+            "default_strength": "none",
+            "residual_legal_risk": "medium",
+            "residual_operational_risk": "medium",
+            "drafting_value": "risk_mitigation",
+            "contract_override_risk": "low",
+            "contractual_missing_elements": [],
+            "statutory_default_elements": [],
+            "supplied_element_ids": [],
+            "unsupplied_element_ids": [],
+            "still_unprotected_elements": [
+              "合同仍需自行明确业务流程和证据要求。"
+            ],
+            "practical_execution_gap": [
+              "合同仍需自行明确业务流程和证据要求。"
+            ],
+            "evidentiary_gap": [],
+            "authority_ids": [],
+            "citation_entailment": "NOT_APPLICABLE",
+            "legal_freshness": "NOT_APPLICABLE",
+            "default_rule_applicable": false,
+            "effective_gap_valid": true,
+            "residual_risk_exists": true,
+            "affected_effective_gap": false,
+            "default_law_result_id": "DLR-CE-05-03"
+          },
+          "aggregation_key": "performance|no_re_subcontract|facts=|clauses=|econ=",
+          "priority_assessment": {
+            "priority": "C_OPTIMIZATION",
+            "score": 0.0,
+            "reason": "no_actionable_signal",
+            "input": {
+              "finding_id": null,
+              "severity": "LOW",
+              "economic_impact": "none",
+              "probability": "MEDIUM",
+              "legal_impact": "LOW",
+              "operational_impact": "MEDIUM",
+              "safety_impact": "NONE",
+              "core_obligation": false,
+              "time_amplifying": false,
+              "uncapped": false,
+              "reversibility": "medium",
+              "recoverability": "medium",
+              "user_perspective": "EMPLOYER",
+              "user_directly_bears_risk": false,
+              "bargaining_power": "均衡方",
+              "contract_value": null,
+              "recurring_value": null,
+              "deposit_amount": null,
+              "prepaid_amount": null,
+              "remaining_obligation": null,
+              "recommendation_cost": "medium",
+              "recommendation_feasibility": "high",
+              "confidence": "medium",
+              "normalized_economic_exposure": {
+                "absolute_amount": null,
+                "monthly_payment_multiple": null,
+                "deposit_multiple": null,
+                "prepaid_amount_ratio": null,
+                "contract_total_ratio": null,
+                "remaining_obligation_ratio": null,
+                "batch_value_ratio": null,
+                "unpaid_amount_ratio": null,
+                "advance_payment_ratio": null,
+                "replacement_cost_ratio": null,
+                "delay_loss_ratio": null,
+                "time_amplifying": false,
+                "uncapped": false,
+                "level": "none"
+              },
+              "statutory_default_status": "UNCERTAIN_DEFAULT",
+              "default_protection_strength": "none",
+              "contract_override_risk": "low",
+              "practical_gap_after_default": "medium",
+              "user_impact": "medium"
+            },
+            "decision": {
+              "finding_id": "CE-05-03",
+              "severity": "LOW",
+              "priority": "C_OPTIMIZATION",
+              "drivers": [],
+              "mitigators": [],
+              "default_law_effect": "UNCERTAIN_DEFAULT",
+              "economic_effect": "none",
+              "explanation": "行动优先级由风险严重度、核心义务、经济暴露、发生概率、默认法保护、可恢复性和修复价值共同计算；驱动因素：none；缓释因素：none。"
+            }
+          },
+          "evidence_claim": {
+            "claim_id": "CE-05-03-EC-01",
+            "review_id": "CE-05-03",
+            "finding_id": "",
+            "proposition": "现有再分包限制存在条件限定，建议删除同意例外，明确劳务分包人不得以任何形式将劳务作业再次分包。",
+            "required_semantics": [
+              "no_re_subcontract",
+              "no_re_subcontract",
+              "再分包"
+            ],
+            "polarity": "positive",
+            "party": "",
+            "obligation": "",
+            "object": "no_re_subcontract",
+            "condition": "",
+            "consequence": "合同允许分包单位再分包，可能构成违法分包并放大质量、工期和付款风险。",
+            "confidence": "medium"
+          },
+          "evidence_candidates": [
+            {
+              "evidence_id": "C0008",
+              "source_document": "合同正文",
+              "clause_id": "C0008",
+              "sentence_id": 1,
+              "quote": "乙方负责以下劳务作业：\n主体结构钢筋绑扎、模板安装及拆除、混凝土浇筑辅助作业；\n砌体施工、二次结构施工；\n内墙普通抹灰施工；\n施工现场材料二次搬运；\n施工区域内成品保护、场地清理；\n配合甲方进行测量、隐蔽工程验收及竣工验收；\n甲方根据现场施工需要安排的其他零星劳务工作。\n未经甲方书面同意，乙方不得将本合同项下任何劳务作业转包或者再分包。",
+              "semantic_score": 0.55,
+              "entity_match": true,
+              "obligation_match": false,
+              "consequence_match": false,
+              "polarity_match": false,
+              "entailment_status": "PARTIAL_SUPPORT"
+            }
+          ],
+          "review_evidence_provenance": {
+            "claim_ids": [],
+            "evidence_ids": [
+              "C0008"
+            ],
+            "clause_ids": [
+              "C0008"
+            ],
+            "source_spans": [
+              "乙方负责以下劳务作业：\n主体结构钢筋绑扎、模板安装及拆除、混凝土浇筑辅助作业；\n砌体施工、二次结构施工；\n内墙普通抹灰施工；\n施工现场材料二次搬运；\n施工区域内成品保护、场地清理；\n配合甲方进行测量、隐蔽工程验收及竣工验收；\n甲方根据现场施工需要安排的其他零星劳务工作。\n未经甲方书面同意，乙方不得将本合同项下任何劳务作业转包或者再分包。"
+            ],
+            "primary_locations": [],
+            "supporting_locations": []
+          },
+          "coverage_claim": {
+            "review_id": "CE-05-03",
+            "required_elements": [
+              {
+                "element_id": "core_contract_arrangement",
+                "proposition": "合同存在可验证的“再分包”实质条款内容。",
+                "terms": [
+                  "再分包"
+                ]
+              }
+            ],
+            "optional_elements": [],
+            "positive_claims": [
+              "合同存在可验证的“再分包”实质条款内容。"
+            ],
+            "negative_claims": [],
+            "minimum_pass_elements": 1,
+            "minimum_partial_elements": 1,
+            "satisfaction_paths": []
+          },
+          "coverage_elements": [
+            {
+              "review_id": "CE-05-03",
+              "element_id": "core_contract_arrangement",
+              "proposition": "合同存在可验证的“再分包”实质条款内容。",
+              "status": "UNCERTAIN",
+              "evidence_ids": [],
+              "entailment": "UNCERTAIN",
+              "verifier_confidence": "low",
+              "reason": "未找到可支撑该元素的合同证据。",
+              "claim_id": "",
+              "source_clause_ids": [],
+              "source_spans": [],
+              "source_locations": [],
+              "atomic": true,
+              "child_elements": [],
+              "legal_proposition_ids": [],
+              "required_fact_key": "",
+              "fact_status": "UNCERTAIN",
+              "fact_value": null,
+              "fact_evidence_refs": [],
+              "requirement_status": "UNCERTAIN",
+              "requirement_reason": "未找到可支撑该元素的合同证据。",
+              "evidence_refs": [],
+              "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+            }
+          ],
+          "element_evidence_truth": [
+            {
+              "element_id": "core_contract_arrangement",
+              "label": "合同存在可验证的“再分包”实质条款内容。",
+              "status": "UNCERTAIN",
+              "raw_status": "UNCERTAIN",
+              "evidence_ids": [],
+              "evidence_text": [],
+              "source_location": [],
+              "confidence": "low",
+              "resolution_reason": "未找到可支撑该元素的合同证据。"
+            }
+          ],
+          "fact_requirements": [],
+          "retrieval_trace": {
+            "review_id": "CE-05-03",
+            "fact_requirements": [],
+            "fact_clause_ids": [],
+            "structural_clause_ids": [],
+            "lexical_clause_ids": [
+              "C0008",
+              "C0032",
+              "C0033"
+            ],
+            "semantic_clause_ids": [],
+            "graph_clause_ids": [
+              "C0031",
+              "C0033",
+              "C0032",
+              "C0034",
+              "C0007",
+              "C0009"
+            ],
+            "candidate_clause_ids": [
+              "C0032",
+              "C0033",
+              "C0008"
+            ],
+            "selected_clause_ids": [
+              "C0032",
+              "C0033",
+              "C0008"
+            ],
+            "lexical_queries": [
+              "再分包",
+              "二次分包",
+              "层层分包",
+              "分包后再分包"
+            ],
+            "structural_queries": [
+              "再分包",
+              "二次分包",
+              "层层分包",
+              "分包后再分包"
+            ],
+            "semantic_queries": [
+              "合同中是否存在“再分包”类可能导致合同无效、价款结算失控或责任加重的风险表述？",
+              "再分包"
+            ],
+            "candidate_count": 3,
+            "latency_ms": 2.044
+          },
+          "missing_proof": {
+            "review_id": "CE-05-03",
+            "searched_fact_types": [],
+            "searched_sections": [
+              "全文",
+              "第一部分 协议书",
+              "一、合同主体",
+              "甲方（承包人）：深圳市华岭建设工程有限公司",
+              "乙方（劳务分包人）：深圳市恒建建筑劳务有限公司",
+              "二、工程概况",
+              "三、劳务作业范围和内容",
+              "三、劳务作业范围和内容 / 乙方负责以下劳务作业：",
+              "四、劳务作业工期",
+              "五、质量标准",
+              "六、合同价款",
+              "六、合同价款 / 含税签约合同价：",
+              "六、合同价款 / 其中：",
+              "七、合同文件组成",
+              "七、合同文件组成 / 以下文件均为本合同组成部分：",
+              "第二部分 专用条款",
+              "一、项目代表",
+              "二、实名制及工人工资",
+              "三、机械、设备和材料",
+              "三、机械、设备和材料 / 甲方负责提供：",
+              "三、机械、设备和材料 / 乙方负责提供：",
+              "四、安全文明施工",
+              "五、工程量计量",
+              "六、工程变更",
+              "七、工程款支付",
+              "八、完工结算",
+              "九、停工、窝工",
+              "十、索赔",
+              "十一、保险",
+              "十二、不可抗力",
+              "十二、不可抗力 / 下列事件可以认定为不可抗力：",
+              "十三、违约责任",
+              "十四、合同解除",
+              "十五、争议解决",
+              "第三部分 补充条款",
+              "甲方（盖章）：深圳市华岭建设工程有限公司",
+              "乙方（盖章）：深圳市恒建建筑劳务有限公司"
+            ],
+            "lexical_queries": [
+              "再分包",
+              "二次分包",
+              "层层分包",
+              "分包后再分包"
+            ],
+            "semantic_queries": [
+              "合同中是否存在“再分包”类可能导致合同无效、价款结算失控或责任加重的风险表述？",
+              "再分包"
+            ],
+            "cross_clause_queries": [
+              "C0031",
+              "C0033",
+              "C0032",
+              "C0034",
+              "C0007",
+              "C0009"
+            ],
+            "candidates_examined": [
+              "C0032",
+              "C0033",
+              "C0008"
+            ],
+            "possible_conflicts": [],
+            "exhaustive_enough": true,
+            "confidence": "high"
+          },
+          "evidence_assembly": {
+            "review_id": "CE-05-03",
+            "candidate_evidence": [
+              "C0032",
+              "C0033",
+              "C0008"
+            ],
+            "evidence_groups": [
+              {
+                "source": "FACT",
+                "clause_ids": []
+              },
+              {
+                "source": "STRUCTURAL",
+                "clause_ids": []
+              },
+              {
+                "source": "LEXICAL",
+                "clause_ids": [
+                  "C0008",
+                  "C0032",
+                  "C0033"
+                ]
+              },
+              {
+                "source": "SEMANTIC",
+                "clause_ids": []
+              },
+              {
+                "source": "CLAUSE_GRAPH",
+                "clause_ids": [
+                  "C0031",
+                  "C0033",
+                  "C0032",
+                  "C0034",
+                  "C0007",
+                  "C0009"
+                ]
+              }
+            ],
+            "supporting_evidence": [
+              "C0008"
+            ],
+            "counter_evidence": [],
+            "missing_elements": []
+          },
+          "review_evidence_ownership": {
+            "review_evidence_supports_element_ids": [],
+            "review_evidence_relevance_score": 0.0,
+            "review_evidence_selection_reason": "Existing non-Registry evidence order was preserved and ownership metadata was attached in place."
+          },
+          "coverage_gap_consistency_guard": {
+            "resolution": "MISSING_NO_POSITIVE_EVIDENCE"
+          },
+          "missing_element_resolution": {
+            "priority": [
+              "explicit_missing_elements",
+              "structured_missing_elements",
+              "evidence_inferred_missing_elements",
+              "fallback_unknown"
+            ],
+            "selected_source": "structured_missing_elements",
+            "selected_elements": [
+              "合同存在可验证的“再分包”实质条款内容"
+            ]
+          },
+          "narrative_status_consistency": {
+            "status": "PASS"
+          },
+          "narrative_elements": {
+            "review_id": "CE-05-03",
+            "applicability": "APPLICABLE",
+            "polarity": "NEGATIVE_CLAUSE_CHECK",
+            "coverage_status": "缺失",
+            "covered_elements": [],
+            "partial_elements": [],
+            "missing_elements": [
+              "合同存在可验证的“再分包”实质条款内容"
+            ],
+            "adverse_elements": [],
+            "finding_exists": true,
+            "judgment": "合同未明确：“再分包”事项。",
+            "issue": "缺失：“再分包”事项。",
+            "consequence": "“再分包”事项不清时，责任边界不够明确。",
+            "recommendation": "建议补充明确合同存在可验证的“再分包”实质条款内容。",
+            "result": "合同未明确：“再分包”事项。"
+          },
+          "coverage_gap_type": "MISSING_WITH_STATUTORY_DEFAULT"
+        },
+        "rule_evidence_package": {},
+        "coverage_elements": [
+          {
+            "review_id": "CE-05-03",
+            "element_id": "core_contract_arrangement",
+            "proposition": "合同存在可验证的“再分包”实质条款内容。",
+            "status": "UNCERTAIN",
+            "evidence_ids": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "low",
+            "reason": "未找到可支撑该元素的合同证据。",
+            "claim_id": "",
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "atomic": true,
+            "child_elements": [],
+            "legal_proposition_ids": [],
+            "required_fact_key": "",
+            "fact_status": "UNCERTAIN",
+            "fact_value": null,
+            "fact_evidence_refs": [],
+            "requirement_status": "UNCERTAIN",
+            "requirement_reason": "未找到可支撑该元素的合同证据。",
+            "evidence_refs": [],
+            "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+          }
+        ],
+        "review_evidence_provenance": {
+          "claim_ids": [],
+          "evidence_ids": [
+            "C0008"
+          ],
+          "clause_ids": [
+            "C0008"
+          ],
+          "source_spans": [
+            "乙方负责以下劳务作业：\n主体结构钢筋绑扎、模板安装及拆除、混凝土浇筑辅助作业；\n砌体施工、二次结构施工；\n内墙普通抹灰施工；\n施工现场材料二次搬运；\n施工区域内成品保护、场地清理；\n配合甲方进行测量、隐蔽工程验收及竣工验收；\n甲方根据现场施工需要安排的其他零星劳务工作。\n未经甲方书面同意，乙方不得将本合同项下任何劳务作业转包或者再分包。"
+          ],
+          "primary_locations": [],
+          "supporting_locations": []
+        },
+        "narrative_state": {
+          "review_id": "CE-05-03",
+          "applicability": "APPLICABLE",
+          "polarity": "NEGATIVE_CLAUSE_CHECK",
+          "coverage_status": "缺失",
+          "covered_elements": [],
+          "partial_elements": [],
+          "missing_elements": [
+            "合同存在可验证的“再分包”实质条款内容"
+          ],
+          "adverse_elements": [],
+          "finding_exists": true,
+          "judgment": "合同未明确：“再分包”事项。",
+          "issue": "缺失：“再分包”事项。",
+          "consequence": "“再分包”事项不清时，责任边界不够明确。",
+          "recommendation": "建议补充明确合同存在可验证的“再分包”实质条款内容。",
+          "result": "合同未明确：“再分包”事项。"
+        },
+        "review_evidence_supports_element_ids": [],
+        "review_evidence_relevance_score": 0.0,
+        "review_evidence_selection_reason": "Existing non-Registry evidence order was preserved and ownership metadata was attached in place.",
+        "coverage_presence": "",
+        "risk_status": "",
+        "recommended_action": "",
+        "review_risk_links": [],
+        "contract_allocation": "",
+        "risk_direction": {}
+      },
+      "hash_before": "e95a2f6eb20670b94e05fdc6495aa2f95f2102bf89623ab943f7f2dcf3b5da52",
+      "hash_after": "e95a2f6eb20670b94e05fdc6495aa2f95f2102bf89623ab943f7f2dcf3b5da52",
+      "changed_fields": [],
+      "status": "PASS"
+    },
+    "element_absence_searches": [
+      {
+        "element_id": "core_contract_arrangement",
+        "review_id": "CE-05-03",
+        "search_targets": [
+          "合同存在可验证的“再分包”实质条款内容"
+        ],
+        "query_patterns": [
+          "合同存在可验证的“再分包”实质条款内容"
+        ],
+        "query_semantics": "POSITIVE_REQUIRED_FACT",
+        "search_mode": "OBJECTIVE_LITERAL_TARGET",
+        "searched_clause_ids": [
+          "C0001",
+          "C0002",
+          "C0003",
+          "C0004",
+          "C0005",
+          "C0006",
+          "C0007",
+          "C0008",
+          "C0009",
+          "C0010",
+          "C0011",
+          "C0012",
+          "C0013",
+          "C0014",
+          "C0015",
+          "C0016",
+          "C0017",
+          "C0018",
+          "C0019",
+          "C0020",
+          "C0021",
+          "C0022",
+          "C0023",
+          "C0024",
+          "C0025",
+          "C0026",
+          "C0027",
+          "C0028",
+          "C0029",
+          "C0030",
+          "C0031",
+          "C0032",
+          "C0033",
+          "C0034",
+          "C0035",
+          "C0036",
+          "C0037"
+        ],
+        "searched_document_hash": "b8f8740049398e5054d60f54bff630cad4a34647d36d7f0c5d8dd46b4968de24",
+        "result": "NOT_FOUND",
+        "supporting_evidence": []
+      }
+    ],
+    "field_provenance": {
+      "risk_description_source": "rule",
+      "legal_consequence_source": "rule",
+      "recommendation_source": "rule"
+    },
+    "finding_precondition": {
+      "applicability_valid": true,
+      "coverage_valid": true,
+      "evidence_valid": true,
+      "shared_claim_consistent": true,
+      "default_law_valid_if_required": true,
+      "effective_gap_valid": true,
+      "residual_risk_exists": true,
+      "party_direction_valid": true,
+      "actionable_recommendation_valid": true,
+      "all_required_conditions": true
+    },
+    "concrete_missing_element_gate": {
+      "status": "PASS",
+      "fatal": false
+    },
+    "final_dispositions": [
+      {
+        "risk_id": "RF-005",
+        "risk_title": "再分包",
+        "review_ids": [
+          "CE-05-03"
+        ],
+        "severity": "LOW",
+        "client_effect": "FAVORABLE",
+        "legal_default_protection": "PARTIAL",
+        "actionability": "ACTIONABLE",
+        "final_action": "OPTIONAL_IMPROVEMENT",
+        "final_reason": "候选修改未削弱当前审查立场下的既有合同或法定保护，可以进入最终修改建议。",
+        "recommendation": "建议明确“再分包”的安排。",
+        "recommendation_owner": "REVIEW",
+        "formal_recommendation": "建议明确“再分包”的安排。",
+        "include_in_top_risk": false,
+        "include_in_priority_changes": false,
+        "include_in_optional_improvements": true,
+        "review_instruction": "",
+        "source_recommendation_ids": [
+          "REC-FINAL-RF-005"
+        ],
+        "blocked_recommendation_ids": [],
+        "authority_ids": [],
+        "severity_action_alignment": "ALIGNED",
+        "downgrade_reason": "",
+        "final_missing_elements": [
+          {
+            "review_id": "CE-05-03",
+            "element_id": "core_contract_arrangement",
+            "proposition": "合同存在可验证的“再分包”实质条款内容。",
+            "status": "UNCERTAIN",
+            "evidence_ids": [],
+            "entailment": "UNCERTAIN",
+            "verifier_confidence": "low",
+            "reason": "未找到可支撑该元素的合同证据。",
+            "claim_id": "",
+            "source_clause_ids": [],
+            "source_spans": [],
+            "source_locations": [],
+            "atomic": true,
+            "child_elements": [],
+            "legal_proposition_ids": [],
+            "required_fact_key": "",
+            "fact_status": "UNCERTAIN",
+            "fact_value": null,
+            "fact_evidence_refs": [],
+            "requirement_status": "UNCERTAIN",
+            "requirement_reason": "未找到可支撑该元素的合同证据。",
+            "evidence_refs": [],
+            "evidence_selection_reason": "No direct supporting evidence was selected for this element.",
+            "source_review_id": "CE-05-03",
+            "direction": "",
+            "affected_party": "",
+            "obligated_party": "",
+            "evidence_strength": "UNKNOWN",
+            "minimum_evidence_strength": "UNKNOWN",
+            "required_fact": "",
+            "search_targets": []
+          }
+        ],
+        "final_missing_element_ids": [
+          "core_contract_arrangement"
+        ],
+        "excluded_missing_element_ids": [
+          "core_contract_arrangement"
+        ],
+        "excluded_reasons": {
+          "core_contract_arrangement": "Element is composite and has no concrete, source-backed drafting action."
+        },
+        "report_visibility": "VISIBLE",
+        "suppression_reason": ""
+      }
+    ],
+    "recommendation_display_state": {
+      "review_id": "CE-05-03",
+      "finding_ids": [
+        "RF-005"
+      ],
+      "recommendation_ids": [
+        "REC-FINAL-RF-005"
+      ],
+      "candidate_recommendation_ids": [
+        "REC-FINAL-RF-005"
+      ],
+      "active_recommendation_ids": [
+        "REC-FINAL-RF-005"
+      ],
+      "blocked_recommendation_ids": [],
+      "has_active_recommendation": true,
+      "action_priority": "C_OPTIMIZATION",
+      "user_message": "可选优化",
+      "suppression_reason": [],
+      "block_reasons": [],
+      "summary_recommendation_ids": [
+        "REC-FINAL-RF-005"
+      ],
+      "detail_recommendation_ids": [
+        "REC-FINAL-RF-005"
+      ],
+      "mismatch": false,
+      "formal_recommendations": [
+        "建议明确“再分包”的安排。"
+      ],
+      "review_instructions": [],
+      "final_actions": [
+        "OPTIONAL_IMPROVEMENT"
+      ],
+      "final_disposition_ids": [
+        "RF-005"
+      ],
+      "final_disposition_titles": [
+        "再分包"
+      ],
+      "final_recommendations": [
+        "建议明确“再分包”的安排。"
+      ],
+      "recommendation_owners": [
+        "REVIEW"
+      ]
+    },
+    "effective_gap_narrative": {
+      "review_id": "CE-05-03",
+      "contract_coverage": "缺失",
+      "contractual_missing_elements": [],
+      "default_law_status": "UNCERTAIN_DEFAULT",
+      "statutory_default_elements": [],
+      "residual_gap": [
+        "合同仍需自行明确业务流程和证据要求。"
+      ],
+      "practical_value": "合同仍需自行明确业务流程和证据要求。",
+      "generated_narrative": "合同未明确约定，且未识别到足以补足该缺口的明确法定默认规则。",
+      "contradiction": false
+    }
+  },
+  "rule_evidence_package": {},
+  "coverage_elements": [
+    {
+      "review_id": "CE-05-03",
+      "element_id": "core_contract_arrangement",
+      "proposition": "合同存在可验证的“再分包”实质条款内容。",
+      "status": "UNCERTAIN",
+      "evidence_ids": [],
+      "entailment": "UNCERTAIN",
+      "verifier_confidence": "low",
+      "reason": "未找到可支撑该元素的合同证据。",
+      "claim_id": "",
+      "source_clause_ids": [],
+      "source_spans": [],
+      "source_locations": [],
+      "atomic": true,
+      "child_elements": [],
+      "legal_proposition_ids": [],
+      "required_fact_key": "",
+      "fact_status": "UNCERTAIN",
+      "fact_value": null,
+      "fact_evidence_refs": [],
+      "requirement_status": "UNCERTAIN",
+      "requirement_reason": "未找到可支撑该元素的合同证据。",
+      "evidence_refs": [],
+      "evidence_selection_reason": "No direct supporting evidence was selected for this element."
+    }
+  ],
+  "review_evidence_provenance": {
+    "claim_ids": [],
+    "evidence_ids": [
+      "C0008"
+    ],
+    "clause_ids": [
+      "C0008"
+    ],
+    "source_spans": [
+      "乙方负责以下劳务作业：\n主体结构钢筋绑扎、模板安装及拆除、混凝土浇筑辅助作业；\n砌体施工、二次结构施工；\n内墙普通抹灰施工；\n施工现场材料二次搬运；\n施工区域内成品保护、场地清理；\n配合甲方进行测量、隐蔽工程验收及竣工验收；\n甲方根据现场施工需要安排的其他零星劳务工作。\n未经甲方书面同意，乙方不得将本合同项下任何劳务作业转包或者再分包。"
+    ],
+    "primary_locations": [],
+    "supporting_locations": []
+  },
+  "narrative_state": {
+    "review_id": "CE-05-03",
+    "applicability": "APPLICABLE",
+    "polarity": "NEGATIVE_CLAUSE_CHECK",
+    "coverage_status": "缺失",
+    "covered_elements": [],
+    "partial_elements": [],
+    "missing_elements": [
+      "合同存在可验证的“再分包”实质条款内容"
+    ],
+    "adverse_elements": [],
+    "finding_exists": true,
+    "judgment": "合同未明确：“再分包”事项。",
+    "issue": "缺失：“再分包”事项。",
+    "consequence": "“再分包”事项不清时，责任边界不够明确。",
+    "recommendation": "",
+    "result": "合同未明确：“再分包”事项。",
+    "recommendation_ids": [
+      "REC-FINAL-RF-005"
+    ],
+    "recommendation_suppression_reason": []
+  },
+  "review_evidence_supports_element_ids": [],
+  "review_evidence_relevance_score": 0.0,
+  "review_evidence_selection_reason": "Existing non-Registry evidence order was preserved and ownership metadata was attached in place.",
+  "coverage_presence": "",
+  "risk_status": "",
+  "recommended_action": "",
+  "review_risk_links": [],
+  "contract_allocation": "",
+  "risk_direction": {},
+  "presentation": {
+    "legal_consequence": "",
+    "evidence_clauses": [],
+    "element_citations": []
+  }
+}

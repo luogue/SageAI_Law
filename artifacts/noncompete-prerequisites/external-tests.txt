@@ -1,0 +1,108 @@
+F.....F..                                                                [100%]
+================================== FAILURES ===================================
+_____ test_prerequisites_final_report[False-18-False-\u5f85\u6838\u9a8c] ______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001FD51F7A590>
+actual = False, months = 18, all_staff = False, expected = '������'
+
+    @pytest.mark.parametrize('actual,months,all_staff,expected', [
+        (False,18,False,'������'),
+        (True,18,False,'ͨ��'),
+        (True,30,False,'��������'),
+        (True,18,True,'��������'),
+    ])
+    def test_prerequisites_final_report(monkeypatch,actual,months,all_staff,expected):
+        from review_v2 import employment_fact_pipeline as pipeline
+        from review_v2.engine import review_contract_v2
+        text='��ҵ����Э��\n��һ��\n˫��Լ����ְ��ҵ���ơ�\n������ԱΪ�з����ܡ���λ���ԽӴ����ܡ�\nԱ�������տͻ��׼ۺ�Դ���롣\n�ڶ���\n����ҵ��Ϊ���ݿ�����������Ϊ���ݡ�\n������\n��ҵ����Ϊ'+str(months)+'���¡�ÿ�²���6000Ԫ��\n������\n����Ա������е���ҵ���ơ�'
+        vals=[('non_compete.arrangement','EXISTS','˫��Լ����ְ��ҵ���ơ�'),
+              ('non_compete.personnel','�з�����','������ԱΪ�з����ܡ�'),
+              ('non_compete.access_capability',True,'��λ���ԽӴ����ܡ�'),
+              ('non_compete.businesses','���ݿ�����','����ҵ��Ϊ���ݿ�����������Ϊ���ݡ�'),
+              ('non_compete.territories','����','����ҵ��Ϊ���ݿ�����������Ϊ���ݡ�'),
+              ('non_compete.duration_months',months,'��ҵ����Ϊ'+str(months)+'���¡�'),
+              ('non_compete.compensation',{'amount_text':'6000','unit':'CNY/MONTH'},'ÿ�²���6000Ԫ��')]
+        if actual: vals.append(('non_compete.actual_access',True,'Ա�������տͻ��׼ۺ�Դ���롣'))
+        else: text=text.replace('Ա�������տͻ��׼ۺ�Դ���롣','')
+        if all_staff: vals.append(('non_compete.all_staff',True,'����Ա������е���ҵ���ơ�'))
+        else: text=text.replace('����Ա������е���ҵ���ơ�','')
+        cs=parse_contract_clauses(text)
+        monkeypatch.setattr(pipeline,'extract',lambda *a,**k:packet(cs,[fact(cs,c,v,q) for c,v,q in vals]))
+        monkeypatch.setattr(pipeline,'verify',verified_packet)
+        result=review_contract_v2(text,'non_compete')
+        rows={r['item_id']:r for r in result['items']}; nc=rows['NC-03-01']
+        assert nc['coverage_status']==expected
+        assert 'employment_noncompete_scope_1' not in result['result']
+        assert 'non_compete.actual_access' not in result['result']
+        if not actual:
+            assessment=nc['decision_trace']['noncompete_prerequisite_assessment']
+            assert len(assessment['missing_facts'])==1
+            assert 'ʵ�ʽӴ�' in assessment['missing_facts'][0]
+            assert sum(f['covered'] for f in assessment['facts'])==5
+            element=next(e for e in rows['NC-01-01']['coverage_elements'] if 'actual_access' in e['element_id'])
+            assert element['status']=='CONDITION_UNRESOLVED'
+>           assert rows['NC-01-01']['action_priority']=='C_OPTIMIZATION'
+E           AssertionError: assert 'NONE' == 'C_OPTIMIZATION'
+E             
+E             - C_OPTIMIZATION
+E             + NONE
+
+backend\tests\test_noncompete_prerequisite_report.py:41: AssertionError
+_ test_access_strength_report[\u4e59\u65b9\u5728\u5de5\u4f5c\u4e2d\u5df2\u5b9e\u9645\u63a5\u89e6\u5ba2\u6237\u5e95\u4ef7\u3001\u6e90\u4ee3\u7801\u7b49\u5546\u4e1a\u79d8\u5bc6\u3002-non_compete.actual_access-\u901a\u8fc7] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001FD4D1473D0>
+quote = '�ҷ��ڹ�������ʵ�ʽӴ��ͻ��׼ۡ�Դ�������ҵ���ܡ�', concept = 'non_compete.actual_access'
+expected = 'ͨ��'
+
+    @pytest.mark.parametrize('quote,concept,expected',[
+     ('�ҷ����ܽӴ���ҵ���ܡ�','non_compete.access_capability','������'),
+     ('�ҷ���λ�ܹ��Ӵ���ҵ���ܡ�','non_compete.access_capability','������'),
+     ('�ҷ��ڹ�������ʵ�ʽӴ��ͻ��׼ۡ�Դ�������ҵ���ܡ�','non_compete.actual_access','ͨ��'),
+    ])
+    def test_access_strength_report(monkeypatch,quote,concept,expected):
+     text='�Ͷ���ͬ\nԼ���ҷ��е���ҵ���ơ�\n������ԱΪ��������ʦ��\n��ҵҵ��������������������Ϊ�����С�\n'+quote
+     vals=[('non_compete.arrangement','EXISTS','Լ���ҷ��е���ҵ���ơ�'),('non_compete.personnel','��������ʦ','������ԱΪ��������ʦ��'),('non_compete.businesses','��������','��ҵҵ��������������������Ϊ�����С�'),('non_compete.territories','������','��ҵҵ��������������������Ϊ�����С�'),(concept,True,quote)]
+     rows=review(monkeypatch,text,vals);item=rows['NC-01-01']
+     assert item['coverage_status']==expected
+     actual=[e for e in item['coverage_elements'] if 'actual_access' in e['element_id']]
+>    assert actual
+E    assert []
+
+backend\tests\test_noncompete_access_strength.py:20: AssertionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_noncompete_prerequisite_report.py::test_prerequisites_final_report[False-18-False-\u5f85\u6838\u9a8c]
+FAILED backend/tests/test_noncompete_access_strength.py::test_access_strength_report[\u4e59\u65b9\u5728\u5de5\u4f5c\u4e2d\u5df2\u5b9e\u9645\u63a5\u89e6\u5ba2\u6237\u5e95\u4ef7\u3001\u6e90\u4ee3\u7801\u7b49\u5546\u4e1a\u79d8\u5bc6\u3002-non_compete.actual_access-\u901a\u8fc7]
+2 failed, 7 passed, 6 warnings in 16.25s

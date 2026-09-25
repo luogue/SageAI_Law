@@ -1,0 +1,56 @@
+{
+  "round": "Round43 consulting fact generalization",
+  "generated_at": "2026-09-24T13:39:13.256906+08:00",
+  "real_interface": {
+    "party_a": {
+      "review_run_id": "ebd2ebd7-55a0-483f-8795-31ede3c36ca2",
+      "gate": "REPORT_READY",
+      "gate_failure_count": 0,
+      "evidence_mismatch": 0,
+      "statuses": {
+        "TC-08-01": "通过",
+        "TC-08-03": "部分覆盖",
+        "TC-08-04": "通过",
+        "TC-08-05": "通过",
+        "COMMON-20-01": "通过"
+      }
+    },
+    "party_b": {
+      "review_run_id": "adf5cd3a-9700-483c-9cea-9f705c1b5213",
+      "gate": "REPORT_READY",
+      "gate_failure_count": 0,
+      "evidence_mismatch": 0,
+      "statuses": {
+        "TC-08-01": "通过",
+        "TC-08-03": "部分覆盖",
+        "TC-08-04": "通过",
+        "TC-08-05": "通过",
+        "COMMON-20-01": "通过"
+      }
+    }
+  },
+  "tests": {
+    "targeted": {
+      "passed": 156,
+      "failed": 0
+    },
+    "full_suite": "not run"
+  },
+  "regression": {
+    "new_failures": 0,
+    "old_pass_to_fail": 0
+  },
+  "constraints": {
+    "gate_lowered": false,
+    "verifier_lowered": false,
+    "fallback_restored": false,
+    "classification_modified": false,
+    "old_expectations_modified": false
+  },
+  "source_hashes": {
+    "backend/review_v2/consulting_element_facts.py": "ee1c94858430734cebd8b17047046562485a2ebf739f1e2bc472d97f4b714a9f",
+    "backend/review_v2/penalty_base.py": "1eb3702606a40c18efbcfd10bb20593767976c5639bf69d74cd256eebcdf7943",
+    "backend/tests/test_round43_consulting_fact_generalization.py": "c845381f5da4b9425a85bda04a7dc210ac2638525331ac29222672f9c31edec0",
+    "backend/tests/fixtures/round43_consulting_generalization.txt": "7039a2c77fb9212801ecec6241448aa7b2cc8715a926e142f5843559d432b096"
+  }
+}

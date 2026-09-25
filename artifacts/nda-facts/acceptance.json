@@ -1,0 +1,17 @@
+{
+  "trace_id": "CR-20260912-142233-996F5D",
+  "NDA-03": "PASS",
+  "NDA-01": "通过",
+  "EMP-14": "风险条款",
+  "information_flow": "甲方→乙方",
+  "employment_relationship": true,
+  "prior_exception": true,
+  "mandatory_exception": true,
+  "mandatory_source": [
+    "因法律法规、司法机关、行政机关或者其他有权机关依法要求，乙方必须披露相关保密信息的，不视为违反本协议。"
+  ],
+  "gate": "REPORT_READY",
+  "tests": "58 passed, 5 new",
+  "source_unchanged": true,
+  "expected_difference": "Current source explicitly contains mandatory disclosure exception in article 3; cannot report it missing. Two regression cases without such clause correctly report only mandatory exception missing."
+}

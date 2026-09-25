@@ -1,0 +1,51 @@
+{
+  "trace_id": "CR-20260911-172205-69A498",
+  "process_id": 17568,
+  "document_sha256": "4ab2eb2f3abfe4b689bcf84763427acb70f03ab04b8c1ab7777a820e105292a3",
+  "FACT_VERIFICATION": "PASS",
+  "DSP-10-01": "通过",
+  "return_terms": [
+    {
+      "value": {
+        "disposition": "LEGAL_REFERENCE_ONLY",
+        "reason": "发生法律法规规定可以退回被派遣劳动者的情形"
+      },
+      "evidence": [
+        "发生法律法规规定可以退回被派遣劳动者的情形时，用工单位可以依法将乙方退回甲方。"
+      ]
+    },
+    {
+      "value": {
+        "disposition": "PROHIBITED_RETURN_REASON",
+        "reason": "部门负责人认为乙方“配合度不足”",
+        "reason_type": "SUBJECTIVE_MISMATCH"
+      },
+      "evidence": [
+        "用工单位不得仅以部门负责人认为乙方“配合度不足”“不适合团队文化”等主观理由直接退回乙方。"
+      ]
+    },
+    {
+      "value": {
+        "disposition": "PROHIBITED_RETURN_REASON",
+        "reason": "部门负责人认为乙方“不适合团队文化”",
+        "reason_type": "SUBJECTIVE_MISMATCH"
+      },
+      "evidence": [
+        "用工单位不得仅以部门负责人认为乙方“配合度不足”“不适合团队文化”等主观理由直接退回乙方。"
+      ]
+    }
+  ],
+  "repair_attempts": [
+    [
+      1,
+      "BLOCKED"
+    ],
+    [
+      2,
+      "VALIDATED"
+    ]
+  ],
+  "release_quality_gate": "REPORT_READY",
+  "automated_tests": 208,
+  "live_deepseek_phrasing_cases": 5
+}

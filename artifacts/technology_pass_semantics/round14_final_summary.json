@@ -1,0 +1,886 @@
+{
+  "before_gate": "BLOCKED",
+  "original_blockers": [
+    {
+      "requirement": "MISSING_WITH_POSITIVE_EVIDENCE",
+      "failure_stage": "Technology Coverage Consistency",
+      "root_cause": "TC-12-02 已有同一审查事项的正向证据，禁止输出‘未找到对应约定’。",
+      "entity_type": "review",
+      "entity_id": "TC-12-02",
+      "source_clause_ids": [
+        "C0016"
+      ],
+      "severity": "blocking"
+    },
+    {
+      "requirement": "DOMAIN_SELECTION_CONSISTENCY_GATE",
+      "failure_stage": "Domain Selection",
+      "root_cause": "User selection conflicts with document classification without enough confidence for automatic override.",
+      "responsible_function": "resolve_domain_selection",
+      "current_status": "FAIL"
+    },
+    {
+      "requirement": "EXACT_ELEMENT_REPORT_INVARIANT",
+      "failure_stage": "Final Evidence Projection",
+      "root_cause": "最终要素、原文引文与报告事实不一致。",
+      "current_status": "FAIL",
+      "details": [
+        {
+          "review_id": "TC-12-03",
+          "reason": "NA_REASON_DENIES_CONFIRMED_PREREQUISITE",
+          "prerequisite_domain": "technical_secret",
+          "source_clause_ids": [
+            "C0017"
+          ],
+          "source_review_ids": [
+            "TC-11-01",
+            "TC-11-02",
+            "TC-11-03",
+            "TC-11-04"
+          ],
+          "reason_fields": [
+            "applicability.reason",
+            "applicability.machine_reason",
+            "applicability.user_reason",
+            "narrative.0",
+            "narrative.2",
+            "narrative.3"
+          ]
+        }
+      ]
+    }
+  ],
+  "gate": "REPORT_READY",
+  "raw_blockers": 0,
+  "expanded_blockers": 0,
+  "engine_hash": "58353a4b0ea9fbdf72a7f761438150dded970a6fa8550cdc1b881cb49986640d",
+  "live_engine_hash": "58353a4b0ea9fbdf72a7f761438150dded970a6fa8550cdc1b881cb49986640d",
+  "process_id": 3652,
+  "input_sha256": "0d435596e1bfc8def44bef5e7ed67520d2b7fe645a51a5ba5a484686816f2a15",
+  "business_modules": {
+    "engine.py": "58353a4b0ea9fbdf72a7f761438150dded970a6fa8550cdc1b881cb49986640d",
+    "obligation_detail_elements.py": "0b8f45f8cc719c52b14c785af1cd070da04b87896f93244b8d00c4f50ae5f426",
+    "development_exit.py": "77e637522780477d9c006a13bb6bb168dfb1d140c835e490f26b5c900bd87b2a",
+    "domain_selection.py": "05c327e5954f45823d6f584f61633389b9261730807b224562ba29d46d078ee0",
+    "technology_transaction_evidence.py": "4b4f7a83971fff4ae8d44988a499274b45451c4463b28c9509b629a90a46d613",
+    "technical_component_facts.py": "301d2e95e1772a9f6dab032bf21eebcf06d889c00ee7387c2f30fd06ee028ea9",
+    "technology_fact_ontology.py": "56dff1716a108d88378aa8d1b2b4e7296a59ef9b0eca517c36b012872381255e",
+    "report_state_consistency.py": "b41b546cc492aea2e7b65155bcb1a8b91a974145246391968ab74a22f65c52ab",
+    "element_evidence_projection.py": "91f4a00e493e6f3628a4db6412e01e8fb3fb4b07675d0bf7c12840c6b96ede47",
+    "entrusted_development_elements.py": "1b3e7add46dd0c1db79ffc6211a0fa05272a1f53f4def5f0d382aabb6d044b73",
+    "material_disposition.py": "3aead1a129b561680030d055b4aac56c8d2a2fc38fdc34c25b5f1a18eeb9dfc5"
+  },
+  "diff": [
+    {
+      "rule_id": "TC-04-01",
+      "before": "部分覆盖",
+      "after": "通过",
+      "elements": [
+        {
+          "element_id": "acceptance",
+          "before": "MISSING",
+          "after": "COVERED",
+          "clauses": [
+            "C0006"
+          ],
+          "spans": [
+            "在双方确认的测试集上，核心字段事实抽取准确率不低于90%。"
+          ],
+          "residual": "",
+          "fact_key": "technology.transaction.acceptance"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-04-02",
+      "before": "部分覆盖",
+      "after": "部分覆盖",
+      "elements": [
+        {
+          "element_id": "fee_adjustment",
+          "before": "MISSING",
+          "after": "COVERED",
+          "clauses": [
+            "C0008"
+          ],
+          "spans": [
+            "如甲方提出超出本合同既定范围的新增功能，双方应另行确认费用及工期。"
+          ],
+          "residual": "",
+          "fact_key": "technology.transaction.change_price"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-04-03",
+      "before": "部分覆盖",
+      "after": "缺失",
+      "elements": [
+        {
+          "element_id": "filing_cost_allocation",
+          "before": "PARTIALLY_COVERED",
+          "after": "MISSING",
+          "clauses": [],
+          "spans": [],
+          "residual": "专利申请费用承担",
+          "fact_key": "filing_cost_allocation"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-05-03",
+      "before": "部分覆盖",
+      "after": "部分覆盖",
+      "elements": [
+        {
+          "element_id": "commissioning_party_use_right",
+          "before": "MISSING",
+          "after": "PARTIALLY_COVERED",
+          "clauses": [
+            "C0014"
+          ],
+          "spans": [
+            "项目开发过程中形成的、具有独立通用价值的底层技术组件，如无法明确区分是否属于本项目专门成果，由乙方享有相关权利，但甲方享有永久、免费、不可撤销的项目使用权。"
+          ],
+          "residual": "委托方对专门开发成果的使用权限及使用范围",
+          "fact_key": "development_result.commissioning_party_use_right"
+        },
+        {
+          "element_id": "developer_use_restriction",
+          "before": "MISSING",
+          "after": "PARTIALLY_COVERED",
+          "clauses": [
+            "C0014"
+          ],
+          "spans": [
+            "乙方有权继续使用不包含甲方商业秘密、客户数据和专有规则的通用技术经验。"
+          ],
+          "residual": "开发方对项目专门成果的再使用条件及范围",
+          "fact_key": "development_result.developer_use_restriction"
+        },
+        {
+          "element_id": "material_disposition",
+          "before": null,
+          "after": "PARTIALLY_COVERED",
+          "clauses": [
+            "C0018",
+            "C0018"
+          ],
+          "spans": [
+            "项目结束后，乙方应返还或删除甲方提供的业务数据",
+            "项目结束后，乙方应返还或删除甲方提供的业务数据"
+          ],
+          "residual": "乙方对未纳入现有处置范围的项目资料及其他保存载体的处置安排",
+          "fact_key": "material_disposition"
+        },
+        {
+          "element_id": "copy_disposition",
+          "before": null,
+          "after": "MISSING",
+          "clauses": [],
+          "spans": [],
+          "residual": "乙方在项目结束后的复制件及副本返还、删除或销毁",
+          "fact_key": "copy_disposition"
+        },
+        {
+          "element_id": "backup_disposition",
+          "before": null,
+          "after": "MISSING",
+          "clauses": [],
+          "spans": [],
+          "residual": "乙方在项目结束后的备份资料返还、删除或销毁",
+          "fact_key": "backup_disposition"
+        },
+        {
+          "element_id": "material_disposal_confirmation",
+          "before": null,
+          "after": "MISSING",
+          "clauses": [],
+          "spans": [],
+          "residual": "乙方完成资料返还、删除或销毁后的书面处置确认",
+          "fact_key": "material_disposal_confirmation"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-05-04",
+      "before": "部分覆盖",
+      "after": "部分覆盖",
+      "elements": [
+        {
+          "element_id": "development_delay_liability",
+          "before": "MISSING",
+          "after": "COVERED",
+          "clauses": [
+            "C0019",
+            "C0019",
+            "C0019"
+          ],
+          "spans": [
+            "因乙方原因导致某一关键阶段延期超过10个工作日的，乙方应提交书面整改计划。",
+            "延期超过30日且仍未完成主要核心功能的，甲方有权解除合同。",
+            "因乙方违约造成甲方实际直接损失的，乙方应承担赔偿责任。"
+          ],
+          "residual": "",
+          "fact_key": "development_delay_liability"
+        },
+        {
+          "element_id": "exit_research_material_handover",
+          "before": "MISSING",
+          "after": "COVERED",
+          "clauses": [
+            "C0020"
+          ],
+          "spans": [
+            "合同解除后，乙方应在10个工作日内向甲方交付已经完成的源代码、技术文档及甲方提供的数据资料"
+          ],
+          "residual": "",
+          "fact_key": "exit_research_material_handover"
+        },
+        {
+          "element_id": "exit_sample_handover",
+          "before": "MISSING",
+          "after": "NOT_APPLICABLE",
+          "clauses": [],
+          "spans": [],
+          "residual": "",
+          "fact_key": "exit_sample_handover"
+        },
+        {
+          "element_id": "exit_stage_result_handover",
+          "before": "MISSING",
+          "after": "PARTIALLY_COVERED",
+          "clauses": [
+            "C0020"
+          ],
+          "spans": [
+            "合同解除后，乙方应在10个工作日内向甲方交付已经完成的源代码、技术文档及甲方提供的数据资料"
+          ],
+          "residual": "除已列明代码和文档外其他已完成阶段成果的交接范围",
+          "fact_key": "exit_stage_result_handover"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-10-01",
+      "before": "待核验",
+      "after": "部分覆盖",
+      "elements": [
+        {
+          "element_id": "licensee_improvement_ownership",
+          "before": null,
+          "after": "COVERED",
+          "clauses": [
+            "C0015"
+          ],
+          "spans": [
+            "甲方基于本项目自行形成的业务规则、数据模型及业务配置归甲方所有。"
+          ],
+          "residual": "",
+          "fact_key": "improvement.licensee_improvement_ownership"
+        },
+        {
+          "element_id": "licensor_improvement_ownership",
+          "before": null,
+          "after": "PARTIALLY_COVERED",
+          "clauses": [
+            "C0015"
+          ],
+          "spans": [
+            "乙方在本项目交付后独立开发的通用技术升级，不当然属于甲方所有。"
+          ],
+          "residual": "乙方或提供方独立改进成果归属",
+          "fact_key": "improvement.licensor_improvement_ownership"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-10-02",
+      "before": "部分覆盖",
+      "after": "部分覆盖",
+      "elements": [
+        {
+          "element_id": "licensee_improvement_ownership",
+          "before": "MISSING",
+          "after": "COVERED",
+          "clauses": [
+            "C0015"
+          ],
+          "spans": [
+            "甲方基于本项目自行形成的业务规则、数据模型及业务配置归甲方所有。"
+          ],
+          "residual": "",
+          "fact_key": "improvement.licensee_improvement_ownership"
+        },
+        {
+          "element_id": "licensor_improvement_ownership",
+          "before": "MISSING",
+          "after": "PARTIALLY_COVERED",
+          "clauses": [
+            "C0015"
+          ],
+          "spans": [
+            "乙方在本项目交付后独立开发的通用技术升级，不当然属于甲方所有。"
+          ],
+          "residual": "乙方或提供方独立改进成果归属",
+          "fact_key": "improvement.licensor_improvement_ownership"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-10-03",
+      "before": "待核验",
+      "after": "缺失",
+      "elements": []
+    },
+    {
+      "rule_id": "TC-11-02",
+      "before": "部分覆盖",
+      "after": "部分覆盖",
+      "elements": [
+        {
+          "element_id": "confidentiality_exceptions",
+          "before": "PARTIALLY_COVERED",
+          "after": "COVERED",
+          "clauses": [
+            "C0017",
+            "C0017",
+            "C0017",
+            "C0017"
+          ],
+          "spans": [
+            "下列信息不属于保密信息：\n已经合法公开的信息；",
+            "下列信息不属于保密信息：\n已经合法公开的信息；\n接收方在披露前已经合法掌握的信息；\n从无保密义务第三方合法取得的信息；",
+            "下列信息不属于保密信息：\n已经合法公开的信息；\n接收方在披露前已经合法掌握的信息；\n从无保密义务第三方合法取得的信息；\n接收方能够证明独立开发形成的信息；",
+            "下列信息不属于保密信息：\n已经合法公开的信息；\n接收方在披露前已经合法掌握的信息；\n从无保密义务第三方合法取得的信息；\n接收方能够证明独立开发形成的信息；\n根据法律法规或有权机关要求必须披露的信息。"
+          ],
+          "residual": "",
+          "fact_key": "confidentiality.exceptions"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-11-03",
+      "before": "缺失",
+      "after": "部分覆盖",
+      "elements": [
+        {
+          "element_id": "material_disposition",
+          "before": null,
+          "after": "PARTIALLY_COVERED",
+          "clauses": [
+            "C0018",
+            "C0018"
+          ],
+          "spans": [
+            "项目结束后，乙方应返还或删除甲方提供的业务数据",
+            "项目结束后，乙方应返还或删除甲方提供的业务数据"
+          ],
+          "residual": "乙方对未纳入现有处置范围的项目资料及其他保存载体的处置安排",
+          "fact_key": "material_disposition"
+        },
+        {
+          "element_id": "copy_disposition",
+          "before": null,
+          "after": "MISSING",
+          "clauses": [],
+          "spans": [],
+          "residual": "乙方在项目结束后的复制件及副本返还、删除或销毁",
+          "fact_key": "copy_disposition"
+        },
+        {
+          "element_id": "backup_disposition",
+          "before": null,
+          "after": "MISSING",
+          "clauses": [],
+          "spans": [],
+          "residual": "乙方在项目结束后的备份资料返还、删除或销毁",
+          "fact_key": "backup_disposition"
+        },
+        {
+          "element_id": "material_disposal_confirmation",
+          "before": null,
+          "after": "MISSING",
+          "clauses": [],
+          "spans": [],
+          "residual": "乙方完成资料返还、删除或销毁后的书面处置确认",
+          "fact_key": "material_disposal_confirmation"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-12-02",
+      "before": "缺失",
+      "after": "部分覆盖",
+      "elements": [
+        {
+          "element_id": "component_selection_control",
+          "before": null,
+          "after": "COVERED",
+          "clauses": [
+            "C0016"
+          ],
+          "spans": [
+            "乙方可根据项目需要使用合法的开源软件、数据库、中间件及第三方人工智能模型服务。"
+          ],
+          "residual": "",
+          "fact_key": "technology.components.component_selection_control"
+        },
+        {
+          "element_id": "component_commercial_license_compliance",
+          "before": null,
+          "after": "COVERED",
+          "clauses": [
+            "C0016"
+          ],
+          "spans": [
+            "乙方应避免使用明确禁止商业用途的开源许可证。"
+          ],
+          "residual": "",
+          "fact_key": "technology.components.component_commercial_license_compliance"
+        },
+        {
+          "element_id": "component_license_cost_allocation",
+          "before": null,
+          "after": "COVERED",
+          "clauses": [
+            "C0016",
+            "C0016"
+          ],
+          "spans": [
+            "第三方模型API费用在开发阶段由乙方承担。",
+            "项目正式上线后的第三方模型调用费用由甲方承担。"
+          ],
+          "residual": "",
+          "fact_key": "technology.components.component_license_cost_allocation"
+        },
+        {
+          "element_id": "component_service_continuity",
+          "before": null,
+          "after": "COVERED",
+          "clauses": [
+            "C0016"
+          ],
+          "spans": [
+            "如第三方模型供应商停止服务或调整接口，乙方应配合寻找替代方案。"
+          ],
+          "residual": "",
+          "fact_key": "technology.components.component_service_continuity"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-13-01",
+      "before": "部分覆盖",
+      "after": "部分覆盖",
+      "elements": [
+        {
+          "element_id": "operation_document_delivery",
+          "before": "MISSING",
+          "after": "COVERED",
+          "clauses": [
+            "C0012"
+          ],
+          "spans": [
+            "乙方最终应向甲方交付：\n系统可执行版本；\n项目完整源代码；\n数据库脚本；\nAPI接口文档；\n部署说明；\n用户使用说明；"
+          ],
+          "residual": "",
+          "fact_key": "development_documents.operation_document_delivery"
+        },
+        {
+          "element_id": "test_report_delivery",
+          "before": "MISSING",
+          "after": "COVERED",
+          "clauses": [
+            "C0012"
+          ],
+          "spans": [
+            "乙方最终应向甲方交付：\n系统可执行版本；\n项目完整源代码；\n数据库脚本；\nAPI接口文档；\n部署说明；\n用户使用说明；\n测试报告。"
+          ],
+          "residual": "",
+          "fact_key": "development_documents.test_report_delivery"
+        }
+      ]
+    },
+    {
+      "rule_id": "TC-13-03",
+      "before": "部分覆盖",
+      "after": "部分覆盖",
+      "elements": [
+        {
+          "element_id": "test_report_delivery",
+          "before": "MISSING",
+          "after": "COVERED",
+          "clauses": [
+            "C0012"
+          ],
+          "spans": [
+            "乙方最终应向甲方交付：\n系统可执行版本；\n项目完整源代码；\n数据库脚本；\nAPI接口文档；\n部署说明；\n用户使用说明；\n测试报告。"
+          ],
+          "residual": "",
+          "fact_key": "development_documents.test_report_delivery"
+        }
+      ]
+    }
+  ],
+  "tc1202": [
+    {
+      "review_id": "TC-12-02",
+      "element_id": "infringement_responsibility",
+      "claim_id": "TC-12-02-infringement_responsibility",
+      "proposition": "未明确乙方自行开发内容的侵权责任",
+      "status": "MISSING",
+      "evidence_ids": [],
+      "supporting_evidence_ids": [],
+      "source_clause_ids": [],
+      "source_spans": [],
+      "source_locations": [],
+      "entailment": "UNCERTAIN",
+      "verifier_confidence": "high",
+      "reason": "未明确乙方自行开发内容的侵权责任",
+      "evidence_strength": "EXPLICIT",
+      "minimum_evidence_strength": "UNKNOWN"
+    },
+    {
+      "review_id": "TC-12-02",
+      "element_id": "license_or_replacement_remedy",
+      "claim_id": "TC-12-02-license_or_replacement_remedy",
+      "proposition": "未约定取得授权或替换修复救济",
+      "status": "MISSING",
+      "evidence_ids": [],
+      "supporting_evidence_ids": [],
+      "source_clause_ids": [],
+      "source_spans": [],
+      "source_locations": [],
+      "entailment": "UNCERTAIN",
+      "verifier_confidence": "high",
+      "reason": "未约定取得授权或替换修复救济",
+      "evidence_strength": "EXPLICIT",
+      "minimum_evidence_strength": "UNKNOWN"
+    },
+    {
+      "review_id": "TC-12-02",
+      "element_id": "claim_notice",
+      "claim_id": "TC-12-02-claim_notice",
+      "proposition": "未约定第三方权利主张通知时限",
+      "status": "MISSING",
+      "evidence_ids": [],
+      "supporting_evidence_ids": [],
+      "source_clause_ids": [],
+      "source_spans": [],
+      "source_locations": [],
+      "entailment": "UNCERTAIN",
+      "verifier_confidence": "high",
+      "reason": "未约定第三方权利主张通知时限",
+      "evidence_strength": "EXPLICIT",
+      "minimum_evidence_strength": "UNKNOWN"
+    },
+    {
+      "review_id": "TC-12-02",
+      "element_id": "defense_and_settlement_control",
+      "claim_id": "TC-12-02-defense_and_settlement_control",
+      "proposition": "未约定抗辩控制、律师选择和和解决策",
+      "status": "MISSING",
+      "evidence_ids": [],
+      "supporting_evidence_ids": [],
+      "source_clause_ids": [],
+      "source_spans": [],
+      "source_locations": [],
+      "entailment": "UNCERTAIN",
+      "verifier_confidence": "high",
+      "reason": "未约定抗辩控制、律师选择和和解决策",
+      "evidence_strength": "EXPLICIT",
+      "minimum_evidence_strength": "UNKNOWN"
+    },
+    {
+      "review_id": "TC-12-02",
+      "element_id": "defense_cost_allocation",
+      "claim_id": "TC-12-02-defense_cost_allocation",
+      "proposition": "未约定抗辩费用承担机制",
+      "status": "MISSING",
+      "evidence_ids": [],
+      "supporting_evidence_ids": [],
+      "source_clause_ids": [],
+      "source_spans": [],
+      "source_locations": [],
+      "entailment": "UNCERTAIN",
+      "verifier_confidence": "high",
+      "reason": "未约定抗辩费用承担机制",
+      "evidence_strength": "EXPLICIT",
+      "minimum_evidence_strength": "UNKNOWN"
+    },
+    {
+      "review_id": "TC-12-02",
+      "element_id": "component_selection_control",
+      "claim_id": "TC-12-02-component_selection_control",
+      "proposition": "第三方组件选用权限已有明确约定。",
+      "status": "COVERED",
+      "evidence_ids": [
+        "EV-204e9933d8b60c1b"
+      ],
+      "supporting_evidence_ids": [
+        "EV-204e9933d8b60c1b"
+      ],
+      "source_clause_ids": [
+        "C0016"
+      ],
+      "source_spans": [
+        "乙方可根据项目需要使用合法的开源软件、数据库、中间件及第三方人工智能模型服务。"
+      ],
+      "source_locations": [
+        "第十三条 第三方软件及模型"
+      ],
+      "entailment": "SUPPORTS",
+      "verifier_confidence": "high",
+      "reason": "第三方组件选用权限已有明确约定。",
+      "evidence_strength": "EXPLICIT",
+      "minimum_evidence_strength": "UNKNOWN",
+      "risk_relevant": false,
+      "residual_gap": "",
+      "required_fact": "第三方组件选用权限",
+      "search_targets": [],
+      "supporting_evidence": [
+        {
+          "clause_id": "C0016",
+          "quote": "乙方可根据项目需要使用合法的开源软件、数据库、中间件及第三方人工智能模型服务。"
+        }
+      ],
+      "source_fact_key": "technology.components.component_selection_control",
+      "evidence_refs": [
+        "EV-204e9933d8b60c1b"
+      ]
+    },
+    {
+      "review_id": "TC-12-02",
+      "element_id": "component_commercial_license_compliance",
+      "claim_id": "TC-12-02-component_commercial_license_compliance",
+      "proposition": "第三方组件商业许可合规要求已有明确约定。",
+      "status": "COVERED",
+      "evidence_ids": [
+        "EV-c1563198132f14ea"
+      ],
+      "supporting_evidence_ids": [
+        "EV-c1563198132f14ea"
+      ],
+      "source_clause_ids": [
+        "C0016"
+      ],
+      "source_spans": [
+        "乙方应避免使用明确禁止商业用途的开源许可证。"
+      ],
+      "source_locations": [
+        "第十三条 第三方软件及模型"
+      ],
+      "entailment": "SUPPORTS",
+      "verifier_confidence": "high",
+      "reason": "第三方组件商业许可合规要求已有明确约定。",
+      "evidence_strength": "EXPLICIT",
+      "minimum_evidence_strength": "UNKNOWN",
+      "risk_relevant": false,
+      "residual_gap": "",
+      "required_fact": "第三方组件商业许可合规要求",
+      "search_targets": [],
+      "supporting_evidence": [
+        {
+          "clause_id": "C0016",
+          "quote": "乙方应避免使用明确禁止商业用途的开源许可证。"
+        }
+      ],
+      "source_fact_key": "technology.components.component_commercial_license_compliance",
+      "evidence_refs": [
+        "EV-c1563198132f14ea"
+      ]
+    },
+    {
+      "review_id": "TC-12-02",
+      "element_id": "component_license_cost_allocation",
+      "claim_id": "TC-12-02-component_license_cost_allocation",
+      "proposition": "第三方组件及模型使用费用承担已有明确约定。",
+      "status": "COVERED",
+      "evidence_ids": [
+        "EV-575a87ba9b9ddf06",
+        "EV-150a68c29416ce15"
+      ],
+      "supporting_evidence_ids": [
+        "EV-575a87ba9b9ddf06",
+        "EV-150a68c29416ce15"
+      ],
+      "source_clause_ids": [
+        "C0016",
+        "C0016"
+      ],
+      "source_spans": [
+        "第三方模型API费用在开发阶段由乙方承担。",
+        "项目正式上线后的第三方模型调用费用由甲方承担。"
+      ],
+      "source_locations": [
+        "第十三条 第三方软件及模型",
+        "第十三条 第三方软件及模型"
+      ],
+      "entailment": "SUPPORTS",
+      "verifier_confidence": "high",
+      "reason": "第三方组件及模型使用费用承担已有明确约定。",
+      "evidence_strength": "EXPLICIT",
+      "minimum_evidence_strength": "UNKNOWN",
+      "risk_relevant": false,
+      "residual_gap": "",
+      "required_fact": "第三方组件及模型使用费用承担",
+      "search_targets": [],
+      "supporting_evidence": [
+        {
+          "clause_id": "C0016",
+          "quote": "第三方模型API费用在开发阶段由乙方承担。"
+        },
+        {
+          "clause_id": "C0016",
+          "quote": "项目正式上线后的第三方模型调用费用由甲方承担。"
+        }
+      ],
+      "source_fact_key": "technology.components.component_license_cost_allocation",
+      "evidence_refs": [
+        "EV-575a87ba9b9ddf06",
+        "EV-150a68c29416ce15"
+      ]
+    },
+    {
+      "review_id": "TC-12-02",
+      "element_id": "component_service_continuity",
+      "claim_id": "TC-12-02-component_service_continuity",
+      "proposition": "第三方服务停止或变更后的替代安排已有明确约定。",
+      "status": "COVERED",
+      "evidence_ids": [
+        "EV-ce01a36672a525b6"
+      ],
+      "supporting_evidence_ids": [
+        "EV-ce01a36672a525b6"
+      ],
+      "source_clause_ids": [
+        "C0016"
+      ],
+      "source_spans": [
+        "如第三方模型供应商停止服务或调整接口，乙方应配合寻找替代方案。"
+      ],
+      "source_locations": [
+        "第十三条 第三方软件及模型"
+      ],
+      "entailment": "SUPPORTS",
+      "verifier_confidence": "high",
+      "reason": "第三方服务停止或变更后的替代安排已有明确约定。",
+      "evidence_strength": "EXPLICIT",
+      "minimum_evidence_strength": "UNKNOWN",
+      "risk_relevant": false,
+      "residual_gap": "",
+      "required_fact": "第三方服务停止或变更后的替代安排",
+      "search_targets": [],
+      "supporting_evidence": [
+        {
+          "clause_id": "C0016",
+          "quote": "如第三方模型供应商停止服务或调整接口，乙方应配合寻找替代方案。"
+        }
+      ],
+      "source_fact_key": "technology.components.component_service_continuity",
+      "evidence_refs": [
+        "EV-ce01a36672a525b6"
+      ]
+    }
+  ],
+  "false_partial": [],
+  "canonical_conflicts": {},
+  "guards": [
+    {
+      "reason": "Original 122 source replaced by cooperative input; original SHA256 e5463c90d88b68b07544d560894b0d0487b67aa4e163bb96e817c50206283ef5 not found.",
+      "sample": "guard",
+      "status": "NOT_VERIFIED"
+    },
+    {
+      "sample": "cooperative",
+      "gate": "REPORT_READY",
+      "blockers": [],
+      "engine_hash_matches": true,
+      "lost_risk_groups": [],
+      "changed_risks": {}
+    },
+    {
+      "sample": "cross_article",
+      "gate": "REPORT_READY",
+      "blockers": [],
+      "engine_hash_matches": true,
+      "lost_risk_groups": [],
+      "changed_risks": {}
+    },
+    {
+      "sample": "patent",
+      "gate": "REPORT_READY",
+      "blockers": [],
+      "engine_hash_matches": true,
+      "lost_risk_groups": [],
+      "changed_risks": {}
+    },
+    {
+      "sample": "consulting",
+      "gate": "REPORT_READY",
+      "blockers": [],
+      "engine_hash_matches": true,
+      "lost_risk_groups": [],
+      "changed_risks": {}
+    },
+    {
+      "sample": "provider",
+      "gate": "REPORT_READY",
+      "blockers": [],
+      "engine_hash_matches": true,
+      "lost_risk_groups": [],
+      "changed_risks": {}
+    },
+    {
+      "sample": "balanced",
+      "gate": "REPORT_READY",
+      "blockers": [],
+      "engine_hash_matches": true,
+      "lost_risk_groups": [],
+      "changed_risks": {}
+    },
+    {
+      "sample": "ancillary",
+      "gate": "REPORT_READY",
+      "blockers": [],
+      "engine_hash_matches": true,
+      "lost_risk_groups": [],
+      "changed_risks": {}
+    }
+  ],
+  "test_migrations": 0,
+  "tests": {
+    "pass_count": 948,
+    "fail_count": 251,
+    "recovered": [
+      "backend.tests.test_technology_exact_truth_pipeline::test_production_route_exit_has_exact_positive_and_separate_absence"
+    ],
+    "newly_failing": {},
+    "new_tests": {
+      "backend.tests.test_development_shared_list_mapping::test_absent_agreement_differs_from_future_consultation[\\u4e13\\u5229\\u7533\\u8bf7\\u8d39\\u7528\\u7531\\u53cc\\u65b9\\u53e6\\u884c\\u534f\\u5546\\u627f\\u62c5\\u3002-PARTIALLY_COVERED]": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_absent_agreement_differs_from_future_consultation[\\u53cc\\u65b9\\u672a\\u53e6\\u884c\\u7ea6\\u5b9a\\u4e13\\u5229\\u7533\\u8bf7\\u8d39\\u7528\\u627f\\u62c5\\u3002-MISSING]": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_absent_fee_basis_does_not_deny_secret_scope": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_added_scope_separate_price_is_fee_adjustment": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_bounded_use_rights_preserve_actor_object_and_scope": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_client_caused_delay_exemption_is_not_developer_remedy": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_component_outage_is_not_infringement_remedy": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_data_disposal_does_not_invent_backup_deletion": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_delivery_list_inherits_predicate_not_number_style[False]": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_delivery_list_inherits_predicate_not_number_style[True]": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_exceptions_keep_independent_development_and_last_member": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_explicit_nonagreement_is_not_positive_notice": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_improvement_negative_ownership_not_positive_assignment": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_improvement_notice_requires_actor_action_and_object": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_phase_delay_links_termination_without_penalty": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_positive_gate_requires_exact_element_ownership": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_scope_and_acceptance_consume_same_metric_span": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_software_deliverables_do_not_exclude_embodied_project_samples": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_third_party_testing_fee_is_not_component_fee": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_upload_preserves_partial_component_and_exact_gaps": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_upload_shared_lists_and_acceptance": "PASS",
+      "backend.tests.test_development_shared_list_mapping::test_whole_upload_gate": "PASS"
+    },
+    "removed": []
+  }
+}

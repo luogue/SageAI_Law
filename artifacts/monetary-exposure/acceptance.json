@@ -1,0 +1,36 @@
+{
+  "trace_id": "CR-20260912-083327-141A8E",
+  "process_id": 21364,
+  "source": "120 测试.docx",
+  "document_sha256": "2c5db196d3401befc3091f9f93c057182fb62159b1c147a6fa6d0de5cce2912e",
+  "EMP-14-01": {
+    "status": "风险条款",
+    "economic_impact": "直接涉及1000元违约金；同一责任不重复累计；是否实际发生取决于触发条件，不等同已经产生实际损失。",
+    "detail": {
+      "contractual_exposure": [
+        {
+          "fact_id": "EF-4d671448f73d4d66",
+          "scope": "ORDINARY_RESIGNATION",
+          "concept": "penalties.obligations",
+          "amount_expression": "1000元",
+          "fixed_amount_cny": "1000",
+          "calculation_basis": "人民币1,000元",
+          "kind": "CONTRACTUAL_PENALTY",
+          "evidence": [
+            {
+              "clause_id": "C0014",
+              "quote": "乙方未提前7日通知即停止工作的，应向甲方支付人民币1,000元作为违约金。"
+            }
+          ]
+        }
+      ],
+      "actual_loss": null,
+      "actual_loss_status": "NOT_ESTABLISHED",
+      "aggregation": "NO_SUMMATION_ACROSS_OBLIGATIONS"
+    }
+  },
+  "PT-07-01": "风险条款",
+  "PT-03-01": "通过",
+  "release_quality_gate": "REPORT_READY",
+  "regression_tests_passed": 105
+}

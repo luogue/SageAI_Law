@@ -1,0 +1,76 @@
+{
+  "file_sha256": "540f8c6c7f95c6b45d9938d79501c3a3841be1523a5e2ea8cac23ca54961397f",
+  "gate": "REPORT_READY",
+  "http_status": 200,
+  "training_state": {
+    "required_fact": "training.arrangement",
+    "factstore_state": "VERIFIED_ABSENT",
+    "verification_state": "VERIFIED_ABSENT",
+    "coverage_state": "ABSENT",
+    "verified_fact_ids": [],
+    "rejected_fact_ids": [
+      "EF-bf3fdfae58e1455d"
+    ],
+    "unresolved": false,
+    "model_coverage_advisory": null,
+    "extraction_state": "EXTRACTED",
+    "absence_audit": {
+      "concept": "training.arrangement",
+      "result": "ABSENT",
+      "reason": "全文仅约定办公安全、消防及相关工作培训，以及如涉及专项劳动保护时依法履行义务；未约定专项技术培训、培训费用、服务期或服务期违约金，也未明确不设服务期。",
+      "searched_concepts": [
+        "training.arrangement",
+        "training.technical",
+        "training.cost",
+        "training.duration_months",
+        "training.service_penalty"
+      ],
+      "reviewed_clause_ids": [
+        "C0001",
+        "C0002",
+        "C0003",
+        "C0004",
+        "C0005",
+        "C0006",
+        "C0007",
+        "C0008",
+        "C0009",
+        "C0010",
+        "C0011",
+        "C0012",
+        "C0013",
+        "C0014",
+        "C0015"
+      ]
+    },
+    "verified_absence_value": "NONE"
+  },
+  "rule_statuses": {
+    "EMP-01-01": "通过",
+    "EMP-04-01": "通过",
+    "EMP-08-01": "待核验",
+    "EMP-09-01": "不适用",
+    "EMP-12-01": "通过",
+    "EMP-14-01": "通过",
+    "NC-01-01": "不适用",
+    "NC-02-01": "不适用",
+    "NC-03-01": "不适用",
+    "EMP-IP-01": "通过",
+    "PT-01-01": "通过",
+    "PT-02-01": "通过",
+    "PT-03-01": "通过",
+    "PT-04-01": "通过",
+    "PT-05-01": "通过",
+    "PT-06-01": "通过",
+    "PT-07-01": "通过"
+  },
+  "source_files": {
+    "employment_fact_schema.py": "ebdd1401d8ad31181e66e835d1384028b3627c5038a9662a559e8587745425ea",
+    "deepseek_facts.py": "234f2050884f266472c51e0e4b21f429fea04ed594f3328d6b23d5a24110c0cf",
+    "fact_verification.py": "e8a198af08f93b6d1ad421af4f5b83abb4c3afb3cc427c9801c5da9ea4275e0e",
+    "employment_fact_store.py": "28d5ccfc29830106f939895d9518ece0e300725dd8402c43951163c37556ae93",
+    "employment_fact_pipeline.py": "a95e4ccea9c6457febe4d0fe135b80370c8cab00f2b360fca7791a87a4a8ddbc",
+    "domain_selection.py": "d6b5755ebd7860becacf15ae37d45d0f96bd1e928a50c8463e1b6a48fdc12d80"
+  },
+  "regression": "143 passed; expanded task-term run separately had EMP-11 expected PASS vs actual PARTIAL failure; not changed"
+}

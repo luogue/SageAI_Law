@@ -1,0 +1,4258 @@
+{
+  "code": "FACT_EXTRACTION_BLOCKED",
+  "release_quality_gate": "BLOCKED",
+  "provider": "deepseek",
+  "message": "事实校验失败：VERIFICATION_SCHEMA / checks.fact_id / INCOMPLETE_FACT_VERIFICATION；详见诊断。",
+  "reason": "INCOMPLETE_FACT_VERIFICATION",
+  "failed_stage": "VERIFICATION_SCHEMA",
+  "fact_id": null,
+  "field": "checks.fact_id",
+  "validation_rule": "INCOMPLETE_FACT_VERIFICATION",
+  "model_raw_value": [
+    "EF-bf758d75cdd0487e",
+    "EF-5b86bf474086efec",
+    "EF-9679850c407ff5ef",
+    "EF-fd51fd0757badc69",
+    "EF-38806451f0354ee9",
+    "EF-22d16812cf8e53a6",
+    "EF-3f5947cab264c710",
+    "EF-d5e07c7b7f7a74f8",
+    "EF-dd825508bf39d4c0",
+    "EF-1aa77bc667227cc4",
+    "EF-e36f2e735c8d5b6e",
+    "EF-6d032677852d36cc",
+    "EF-2aa44c51313ec612",
+    "EF-a14053b851cfc7ad",
+    "EF-7e8edfb42ba6cab7",
+    "EF-1cbfeeaff70ea088",
+    "EF-c6f0a967afaf811f",
+    "EF-8af54467481c6a7a",
+    "EF-290c1d098fec6b2e",
+    "EF-fce7e328cab416df",
+    "EF-45e3f6b6f4030517",
+    "EF-54d7029e59e010eb",
+    "EF-76a979012d3b17fd",
+    "EF-60e2701750168185",
+    "EF-d2188fc3a0b1c85e",
+    "EF-3e07a31ed0da5571",
+    "EF-d2a535841f5d1ea1",
+    "EF-28d4002f27f11176",
+    "EF-475b5ee57b9681c0",
+    "EF-0ea5afdf3241c2ef",
+    "EF-e355b564142b9c86",
+    "EF-ccbd759ea7f28ff7",
+    "EF-b230029375e38007",
+    "EF-f181421328d3e4f1",
+    "EF-7702291b38ba7404",
+    "EF-780c955bd130fa66",
+    "EF-0648bb4d02f13dd2",
+    "EF-9a97fed6bf92c45a",
+    "EF-0ea09547760ff093",
+    "EF-d39cadf45cd00dc0",
+    "EF-bfe99e07b4bc1f23",
+    "EF-f7053dbd44e06a67",
+    "EF-94e95d4b078679df",
+    "EF-476a4e7ffde02294",
+    "EF-73a8fc8ceb10aa43",
+    "EF-34db31473946310a",
+    "EF-fd6aec4b9e96a4fd",
+    "EF-e452f0db268c99de",
+    "EF-64ef0b0ffcae2de7",
+    "EF-cba72f4984dbc2ed",
+    "EF-99192beafa25ba8c",
+    "EF-d7161fd439ead0dd",
+    "EF-35d1f7689cea7cc1",
+    "EF-e07982ddaa5b9c1f",
+    "EF-89cabdfd8f079c3a",
+    "EF-60d9f8328d2ee5c1",
+    "EF-6977807e387688f0",
+    "EF-382886cddc613643",
+    "EF-93269b2640eaece9",
+    "EF-de42399b8549c0d4",
+    "EF-4c290ffeb5819951",
+    "EF-58310183e7686302",
+    "EF-4a7f7b00479f53ab"
+  ],
+  "evidence": null,
+  "expected": [
+    "EF-0648bb4d02f13dd2",
+    "EF-0ea09547760ff093",
+    "EF-0ea5afdf3241c2ef",
+    "EF-1aa77bc667227cc4",
+    "EF-1cbfeeaff70ea088",
+    "EF-22d16812cf8e53a6",
+    "EF-28d4002f27f11176",
+    "EF-290c1d098fec6b2e",
+    "EF-2aa44c51313ec612",
+    "EF-34db31473946310a",
+    "EF-35d1f7689cea7cc1",
+    "EF-382886cddc613643",
+    "EF-38806451f0354ee9",
+    "EF-3e07a31ed0da5571",
+    "EF-3f5947cab264c710",
+    "EF-45e3f6b6f4030517",
+    "EF-475b5ee57b9681c0",
+    "EF-476a4e7ffde02294",
+    "EF-4c290ffeb5819951",
+    "EF-54d7029e59e010eb",
+    "EF-58310183e7686302",
+    "EF-5b86bf474086efec",
+    "EF-60d9f8328d2ee5c1",
+    "EF-60e2701750168185",
+    "EF-64ef0b0ffcae2de7",
+    "EF-6977807e387688f0",
+    "EF-6d032677852d36cc",
+    "EF-73a8fc8ceb10aa43",
+    "EF-76a979012d3b17fd",
+    "EF-7702291b38ba7404",
+    "EF-780c955bd130fa66",
+    "EF-7e8edfb42ba6cab7",
+    "EF-89cabdfd8f079c3a",
+    "EF-8af54467481c6a7a",
+    "EF-93269b2640eaece9",
+    "EF-94e95d4b078679df",
+    "EF-9679850c407ff5ef",
+    "EF-99192beafa25ba8c",
+    "EF-9a97fed6bf92c45a",
+    "EF-a14053b851cfc7ad",
+    "EF-b230029375e38007",
+    "EF-bf758d75cdd0487e",
+    "EF-bfe99e07b4bc1f23",
+    "EF-c6f0a967afaf811f",
+    "EF-cba72f4984dbc2ed",
+    "EF-ccbd759ea7f28ff7",
+    "EF-d2188fc3a0b1c85e",
+    "EF-d2a535841f5d1ea1",
+    "EF-d39cadf45cd00dc0",
+    "EF-d5e07c7b7f7a74f8",
+    "EF-d7161fd439ead0dd",
+    "EF-dd825508bf39d4c0",
+    "EF-de42399b8549c0d4",
+    "EF-e07982ddaa5b9c1f",
+    "EF-e355b564142b9c86",
+    "EF-e36f2e735c8d5b6e",
+    "EF-e452f0db268c99de",
+    "EF-f181421328d3e4f1",
+    "EF-f7053dbd44e06a67",
+    "EF-fce7e328cab416df",
+    "EF-fd51fd0757badc69",
+    "EF-fd6aec4b9e96a4fd"
+  ],
+  "actual": [
+    "EF-bf758d75cdd0487e",
+    "EF-5b86bf474086efec",
+    "EF-9679850c407ff5ef",
+    "EF-fd51fd0757badc69",
+    "EF-38806451f0354ee9",
+    "EF-22d16812cf8e53a6",
+    "EF-3f5947cab264c710",
+    "EF-d5e07c7b7f7a74f8",
+    "EF-dd825508bf39d4c0",
+    "EF-1aa77bc667227cc4",
+    "EF-e36f2e735c8d5b6e",
+    "EF-6d032677852d36cc",
+    "EF-2aa44c51313ec612",
+    "EF-a14053b851cfc7ad",
+    "EF-7e8edfb42ba6cab7",
+    "EF-1cbfeeaff70ea088",
+    "EF-c6f0a967afaf811f",
+    "EF-8af54467481c6a7a",
+    "EF-290c1d098fec6b2e",
+    "EF-fce7e328cab416df",
+    "EF-45e3f6b6f4030517",
+    "EF-54d7029e59e010eb",
+    "EF-76a979012d3b17fd",
+    "EF-60e2701750168185",
+    "EF-d2188fc3a0b1c85e",
+    "EF-3e07a31ed0da5571",
+    "EF-d2a535841f5d1ea1",
+    "EF-28d4002f27f11176",
+    "EF-475b5ee57b9681c0",
+    "EF-0ea5afdf3241c2ef",
+    "EF-e355b564142b9c86",
+    "EF-ccbd759ea7f28ff7",
+    "EF-b230029375e38007",
+    "EF-f181421328d3e4f1",
+    "EF-7702291b38ba7404",
+    "EF-780c955bd130fa66",
+    "EF-0648bb4d02f13dd2",
+    "EF-9a97fed6bf92c45a",
+    "EF-0ea09547760ff093",
+    "EF-d39cadf45cd00dc0",
+    "EF-bfe99e07b4bc1f23",
+    "EF-f7053dbd44e06a67",
+    "EF-94e95d4b078679df",
+    "EF-476a4e7ffde02294",
+    "EF-73a8fc8ceb10aa43",
+    "EF-34db31473946310a",
+    "EF-fd6aec4b9e96a4fd",
+    "EF-e452f0db268c99de",
+    "EF-64ef0b0ffcae2de7",
+    "EF-cba72f4984dbc2ed",
+    "EF-99192beafa25ba8c",
+    "EF-d7161fd439ead0dd",
+    "EF-35d1f7689cea7cc1",
+    "EF-e07982ddaa5b9c1f",
+    "EF-89cabdfd8f079c3a",
+    "EF-60d9f8328d2ee5c1",
+    "EF-6977807e387688f0",
+    "EF-382886cddc613643",
+    "EF-93269b2640eaece9",
+    "EF-de42399b8549c0d4",
+    "EF-4c290ffeb5819951",
+    "EF-58310183e7686302",
+    "EF-4a7f7b00479f53ab"
+  ],
+  "disposition": "BLOCK",
+  "diagnostics": [
+    {
+      "failed_stage": "VERIFICATION_SCHEMA",
+      "fact_id": null,
+      "field": "checks.fact_id",
+      "validation_rule": "INCOMPLETE_FACT_VERIFICATION",
+      "model_raw_value": [
+        "EF-bf758d75cdd0487e",
+        "EF-5b86bf474086efec",
+        "EF-9679850c407ff5ef",
+        "EF-fd51fd0757badc69",
+        "EF-38806451f0354ee9",
+        "EF-22d16812cf8e53a6",
+        "EF-3f5947cab264c710",
+        "EF-d5e07c7b7f7a74f8",
+        "EF-dd825508bf39d4c0",
+        "EF-1aa77bc667227cc4",
+        "EF-e36f2e735c8d5b6e",
+        "EF-6d032677852d36cc",
+        "EF-2aa44c51313ec612",
+        "EF-a14053b851cfc7ad",
+        "EF-7e8edfb42ba6cab7",
+        "EF-1cbfeeaff70ea088",
+        "EF-c6f0a967afaf811f",
+        "EF-8af54467481c6a7a",
+        "EF-290c1d098fec6b2e",
+        "EF-fce7e328cab416df",
+        "EF-45e3f6b6f4030517",
+        "EF-54d7029e59e010eb",
+        "EF-76a979012d3b17fd",
+        "EF-60e2701750168185",
+        "EF-d2188fc3a0b1c85e",
+        "EF-3e07a31ed0da5571",
+        "EF-d2a535841f5d1ea1",
+        "EF-28d4002f27f11176",
+        "EF-475b5ee57b9681c0",
+        "EF-0ea5afdf3241c2ef",
+        "EF-e355b564142b9c86",
+        "EF-ccbd759ea7f28ff7",
+        "EF-b230029375e38007",
+        "EF-f181421328d3e4f1",
+        "EF-7702291b38ba7404",
+        "EF-780c955bd130fa66",
+        "EF-0648bb4d02f13dd2",
+        "EF-9a97fed6bf92c45a",
+        "EF-0ea09547760ff093",
+        "EF-d39cadf45cd00dc0",
+        "EF-bfe99e07b4bc1f23",
+        "EF-f7053dbd44e06a67",
+        "EF-94e95d4b078679df",
+        "EF-476a4e7ffde02294",
+        "EF-73a8fc8ceb10aa43",
+        "EF-34db31473946310a",
+        "EF-fd6aec4b9e96a4fd",
+        "EF-e452f0db268c99de",
+        "EF-64ef0b0ffcae2de7",
+        "EF-cba72f4984dbc2ed",
+        "EF-99192beafa25ba8c",
+        "EF-d7161fd439ead0dd",
+        "EF-35d1f7689cea7cc1",
+        "EF-e07982ddaa5b9c1f",
+        "EF-89cabdfd8f079c3a",
+        "EF-60d9f8328d2ee5c1",
+        "EF-6977807e387688f0",
+        "EF-382886cddc613643",
+        "EF-93269b2640eaece9",
+        "EF-de42399b8549c0d4",
+        "EF-4c290ffeb5819951",
+        "EF-58310183e7686302",
+        "EF-4a7f7b00479f53ab"
+      ],
+      "evidence": null,
+      "expected": [
+        "EF-0648bb4d02f13dd2",
+        "EF-0ea09547760ff093",
+        "EF-0ea5afdf3241c2ef",
+        "EF-1aa77bc667227cc4",
+        "EF-1cbfeeaff70ea088",
+        "EF-22d16812cf8e53a6",
+        "EF-28d4002f27f11176",
+        "EF-290c1d098fec6b2e",
+        "EF-2aa44c51313ec612",
+        "EF-34db31473946310a",
+        "EF-35d1f7689cea7cc1",
+        "EF-382886cddc613643",
+        "EF-38806451f0354ee9",
+        "EF-3e07a31ed0da5571",
+        "EF-3f5947cab264c710",
+        "EF-45e3f6b6f4030517",
+        "EF-475b5ee57b9681c0",
+        "EF-476a4e7ffde02294",
+        "EF-4c290ffeb5819951",
+        "EF-54d7029e59e010eb",
+        "EF-58310183e7686302",
+        "EF-5b86bf474086efec",
+        "EF-60d9f8328d2ee5c1",
+        "EF-60e2701750168185",
+        "EF-64ef0b0ffcae2de7",
+        "EF-6977807e387688f0",
+        "EF-6d032677852d36cc",
+        "EF-73a8fc8ceb10aa43",
+        "EF-76a979012d3b17fd",
+        "EF-7702291b38ba7404",
+        "EF-780c955bd130fa66",
+        "EF-7e8edfb42ba6cab7",
+        "EF-89cabdfd8f079c3a",
+        "EF-8af54467481c6a7a",
+        "EF-93269b2640eaece9",
+        "EF-94e95d4b078679df",
+        "EF-9679850c407ff5ef",
+        "EF-99192beafa25ba8c",
+        "EF-9a97fed6bf92c45a",
+        "EF-a14053b851cfc7ad",
+        "EF-b230029375e38007",
+        "EF-bf758d75cdd0487e",
+        "EF-bfe99e07b4bc1f23",
+        "EF-c6f0a967afaf811f",
+        "EF-cba72f4984dbc2ed",
+        "EF-ccbd759ea7f28ff7",
+        "EF-d2188fc3a0b1c85e",
+        "EF-d2a535841f5d1ea1",
+        "EF-d39cadf45cd00dc0",
+        "EF-d5e07c7b7f7a74f8",
+        "EF-d7161fd439ead0dd",
+        "EF-dd825508bf39d4c0",
+        "EF-de42399b8549c0d4",
+        "EF-e07982ddaa5b9c1f",
+        "EF-e355b564142b9c86",
+        "EF-e36f2e735c8d5b6e",
+        "EF-e452f0db268c99de",
+        "EF-f181421328d3e4f1",
+        "EF-f7053dbd44e06a67",
+        "EF-fce7e328cab416df",
+        "EF-fd51fd0757badc69",
+        "EF-fd6aec4b9e96a4fd"
+      ],
+      "actual": [
+        "EF-bf758d75cdd0487e",
+        "EF-5b86bf474086efec",
+        "EF-9679850c407ff5ef",
+        "EF-fd51fd0757badc69",
+        "EF-38806451f0354ee9",
+        "EF-22d16812cf8e53a6",
+        "EF-3f5947cab264c710",
+        "EF-d5e07c7b7f7a74f8",
+        "EF-dd825508bf39d4c0",
+        "EF-1aa77bc667227cc4",
+        "EF-e36f2e735c8d5b6e",
+        "EF-6d032677852d36cc",
+        "EF-2aa44c51313ec612",
+        "EF-a14053b851cfc7ad",
+        "EF-7e8edfb42ba6cab7",
+        "EF-1cbfeeaff70ea088",
+        "EF-c6f0a967afaf811f",
+        "EF-8af54467481c6a7a",
+        "EF-290c1d098fec6b2e",
+        "EF-fce7e328cab416df",
+        "EF-45e3f6b6f4030517",
+        "EF-54d7029e59e010eb",
+        "EF-76a979012d3b17fd",
+        "EF-60e2701750168185",
+        "EF-d2188fc3a0b1c85e",
+        "EF-3e07a31ed0da5571",
+        "EF-d2a535841f5d1ea1",
+        "EF-28d4002f27f11176",
+        "EF-475b5ee57b9681c0",
+        "EF-0ea5afdf3241c2ef",
+        "EF-e355b564142b9c86",
+        "EF-ccbd759ea7f28ff7",
+        "EF-b230029375e38007",
+        "EF-f181421328d3e4f1",
+        "EF-7702291b38ba7404",
+        "EF-780c955bd130fa66",
+        "EF-0648bb4d02f13dd2",
+        "EF-9a97fed6bf92c45a",
+        "EF-0ea09547760ff093",
+        "EF-d39cadf45cd00dc0",
+        "EF-bfe99e07b4bc1f23",
+        "EF-f7053dbd44e06a67",
+        "EF-94e95d4b078679df",
+        "EF-476a4e7ffde02294",
+        "EF-73a8fc8ceb10aa43",
+        "EF-34db31473946310a",
+        "EF-fd6aec4b9e96a4fd",
+        "EF-e452f0db268c99de",
+        "EF-64ef0b0ffcae2de7",
+        "EF-cba72f4984dbc2ed",
+        "EF-99192beafa25ba8c",
+        "EF-d7161fd439ead0dd",
+        "EF-35d1f7689cea7cc1",
+        "EF-e07982ddaa5b9c1f",
+        "EF-89cabdfd8f079c3a",
+        "EF-60d9f8328d2ee5c1",
+        "EF-6977807e387688f0",
+        "EF-382886cddc613643",
+        "EF-93269b2640eaece9",
+        "EF-de42399b8549c0d4",
+        "EF-4c290ffeb5819951",
+        "EF-58310183e7686302",
+        "EF-4a7f7b00479f53ab"
+      ],
+      "disposition": "BLOCK",
+      "stage": "VERIFICATION_SCHEMA",
+      "code": "INCOMPLETE_FACT_VERIFICATION",
+      "fact_key": null,
+      "raw_value": [
+        "EF-bf758d75cdd0487e",
+        "EF-5b86bf474086efec",
+        "EF-9679850c407ff5ef",
+        "EF-fd51fd0757badc69",
+        "EF-38806451f0354ee9",
+        "EF-22d16812cf8e53a6",
+        "EF-3f5947cab264c710",
+        "EF-d5e07c7b7f7a74f8",
+        "EF-dd825508bf39d4c0",
+        "EF-1aa77bc667227cc4",
+        "EF-e36f2e735c8d5b6e",
+        "EF-6d032677852d36cc",
+        "EF-2aa44c51313ec612",
+        "EF-a14053b851cfc7ad",
+        "EF-7e8edfb42ba6cab7",
+        "EF-1cbfeeaff70ea088",
+        "EF-c6f0a967afaf811f",
+        "EF-8af54467481c6a7a",
+        "EF-290c1d098fec6b2e",
+        "EF-fce7e328cab416df",
+        "EF-45e3f6b6f4030517",
+        "EF-54d7029e59e010eb",
+        "EF-76a979012d3b17fd",
+        "EF-60e2701750168185",
+        "EF-d2188fc3a0b1c85e",
+        "EF-3e07a31ed0da5571",
+        "EF-d2a535841f5d1ea1",
+        "EF-28d4002f27f11176",
+        "EF-475b5ee57b9681c0",
+        "EF-0ea5afdf3241c2ef",
+        "EF-e355b564142b9c86",
+        "EF-ccbd759ea7f28ff7",
+        "EF-b230029375e38007",
+        "EF-f181421328d3e4f1",
+        "EF-7702291b38ba7404",
+        "EF-780c955bd130fa66",
+        "EF-0648bb4d02f13dd2",
+        "EF-9a97fed6bf92c45a",
+        "EF-0ea09547760ff093",
+        "EF-d39cadf45cd00dc0",
+        "EF-bfe99e07b4bc1f23",
+        "EF-f7053dbd44e06a67",
+        "EF-94e95d4b078679df",
+        "EF-476a4e7ffde02294",
+        "EF-73a8fc8ceb10aa43",
+        "EF-34db31473946310a",
+        "EF-fd6aec4b9e96a4fd",
+        "EF-e452f0db268c99de",
+        "EF-64ef0b0ffcae2de7",
+        "EF-cba72f4984dbc2ed",
+        "EF-99192beafa25ba8c",
+        "EF-d7161fd439ead0dd",
+        "EF-35d1f7689cea7cc1",
+        "EF-e07982ddaa5b9c1f",
+        "EF-89cabdfd8f079c3a",
+        "EF-60d9f8328d2ee5c1",
+        "EF-6977807e387688f0",
+        "EF-382886cddc613643",
+        "EF-93269b2640eaece9",
+        "EF-de42399b8549c0d4",
+        "EF-4c290ffeb5819951",
+        "EF-58310183e7686302",
+        "EF-4a7f7b00479f53ab"
+      ],
+      "normalized_value": null,
+      "allowed_values": [
+        "EF-0648bb4d02f13dd2",
+        "EF-0ea09547760ff093",
+        "EF-0ea5afdf3241c2ef",
+        "EF-1aa77bc667227cc4",
+        "EF-1cbfeeaff70ea088",
+        "EF-22d16812cf8e53a6",
+        "EF-28d4002f27f11176",
+        "EF-290c1d098fec6b2e",
+        "EF-2aa44c51313ec612",
+        "EF-34db31473946310a",
+        "EF-35d1f7689cea7cc1",
+        "EF-382886cddc613643",
+        "EF-38806451f0354ee9",
+        "EF-3e07a31ed0da5571",
+        "EF-3f5947cab264c710",
+        "EF-45e3f6b6f4030517",
+        "EF-475b5ee57b9681c0",
+        "EF-476a4e7ffde02294",
+        "EF-4c290ffeb5819951",
+        "EF-54d7029e59e010eb",
+        "EF-58310183e7686302",
+        "EF-5b86bf474086efec",
+        "EF-60d9f8328d2ee5c1",
+        "EF-60e2701750168185",
+        "EF-64ef0b0ffcae2de7",
+        "EF-6977807e387688f0",
+        "EF-6d032677852d36cc",
+        "EF-73a8fc8ceb10aa43",
+        "EF-76a979012d3b17fd",
+        "EF-7702291b38ba7404",
+        "EF-780c955bd130fa66",
+        "EF-7e8edfb42ba6cab7",
+        "EF-89cabdfd8f079c3a",
+        "EF-8af54467481c6a7a",
+        "EF-93269b2640eaece9",
+        "EF-94e95d4b078679df",
+        "EF-9679850c407ff5ef",
+        "EF-99192beafa25ba8c",
+        "EF-9a97fed6bf92c45a",
+        "EF-a14053b851cfc7ad",
+        "EF-b230029375e38007",
+        "EF-bf758d75cdd0487e",
+        "EF-bfe99e07b4bc1f23",
+        "EF-c6f0a967afaf811f",
+        "EF-cba72f4984dbc2ed",
+        "EF-ccbd759ea7f28ff7",
+        "EF-d2188fc3a0b1c85e",
+        "EF-d2a535841f5d1ea1",
+        "EF-d39cadf45cd00dc0",
+        "EF-d5e07c7b7f7a74f8",
+        "EF-d7161fd439ead0dd",
+        "EF-dd825508bf39d4c0",
+        "EF-de42399b8549c0d4",
+        "EF-e07982ddaa5b9c1f",
+        "EF-e355b564142b9c86",
+        "EF-e36f2e735c8d5b6e",
+        "EF-e452f0db268c99de",
+        "EF-f181421328d3e4f1",
+        "EF-f7053dbd44e06a67",
+        "EF-fce7e328cab416df",
+        "EF-fd51fd0757badc69",
+        "EF-fd6aec4b9e96a4fd"
+      ],
+      "clause": null,
+      "message": "抽取值未通过事实类型、证据或语义校验；未生成报告，不能以默认值替代。",
+      "trace_id": "FACT-0b7d39c824ed4d51ba3eb5bba926a3b5"
+    }
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "BLOCKED",
+      "diagnostics": [
+        {
+          "failed_stage": "FACT_VERIFICATION",
+          "fact_id": [
+            "EF-4a7f7b00479f53ab"
+          ],
+          "field": "salary.withheld_for_handover",
+          "validation_rule": "CORE_FACT_VERIFICATION_FAILED",
+          "model_raw_value": [
+            {
+              "fact_id": "EF-4a7f7b00479f53ab",
+              "supported": false,
+              "reason": "引文仅允许从首月工资中扣除保证金，并非以未交接等理由扣留已挣得工资；该候选事实与引文语义不符。"
+            }
+          ],
+          "evidence": [
+            {
+              "clause_id": "C0009",
+              "location": "第六条 派遣管理费及保证金",
+              "title": "派遣管理费及保证金",
+              "text": "甲方可从乙方首月工资中直接扣除上述保证金。",
+              "section_type": "正式合同条款",
+              "level": 1,
+              "raw_text": "第六条 派遣管理费及保证金\n乙方入职后，应向甲方缴纳人民币1,500元岗位履约保证金。\n甲方可从乙方首月工资中直接扣除上述保证金。\n乙方正常办理离职并完成工作交接后，甲方在无其他争议的情况下退还保证金。\n用工单位不得另行向乙方收取派遣服务费。",
+              "normalized_text": "第六条派遣管理费及保证金乙方入职后，应向甲方缴纳人民币1,500元岗位履约保证金。甲方可从乙方首月工资中直接扣除上述保证金。乙方正常办理离职并完成工作交接后，甲方在无其他争议的情况下退还保证金。用工单位不得另行向乙方收取派遣服务费。",
+              "option_groups": [],
+              "source": "body",
+              "section_path": [
+                "正式合同条款",
+                "第六条 派遣管理费及保证金"
+              ],
+              "heading": "派遣管理费及保证金",
+              "clause_number": "第六条",
+              "paragraph_index": 8,
+              "block_type": "OPERATIVE_CLAUSE",
+              "parties": [
+                "乙方",
+                "甲方"
+              ],
+              "dates": [],
+              "amounts": [
+                "人民币1,500元"
+              ],
+              "percentages": [],
+              "durations": [],
+              "cross_references": [
+                "第六条"
+              ],
+              "node_id": "C0009",
+              "document_id": "contract_package/main",
+              "heading_path": [
+                "第六条 派遣管理费及保证金"
+              ],
+              "article_number": "第六条",
+              "section_number": "",
+              "item_number": "",
+              "sentence_index": 1,
+              "start_offset": 954,
+              "end_offset": 1075,
+              "source_type": "CONTRACT_TEXT",
+              "party_obligation": true,
+              "quote": "甲方可从乙方首月工资中直接扣除上述保证金。",
+              "original_excerpt": "甲方可从乙方首月工资中直接扣除上述保证金。",
+              "model_quote": "甲方可从乙方首月工资中直接扣除上述保证金。",
+              "alignment_mode": "EXACT",
+              "source_start": 44,
+              "source_end": 65,
+              "evidence_span": {
+                "basis": "clause.text",
+                "start": 44,
+                "end": 65
+              },
+              "document_span": {
+                "start": 998,
+                "end": 1019
+              },
+              "verified_original": true,
+              "fact_concept": "salary.withheld_for_handover",
+              "structured_fact_id": "EF-4a7f7b00479f53ab"
+            }
+          ],
+          "expected": "supported, source-bound core fact or a verified correction",
+          "actual": {
+            "required_fact": "salary.withheld_for_handover",
+            "factstore_state": "VERIFICATION_REJECTED",
+            "verification_state": "VERIFICATION_REJECTED",
+            "coverage_state": "UNCERTAIN",
+            "verified_fact_ids": [],
+            "rejected_fact_ids": [
+              "EF-4a7f7b00479f53ab"
+            ],
+            "unresolved": false,
+            "model_coverage_advisory": null,
+            "extraction_state": "EXTRACTED",
+            "absence_audit": null,
+            "verified_absence_value": null
+          },
+          "disposition": "BLOCK"
+        }
+      ],
+      "raw_extraction": [
+        {
+          "response": {
+            "schema_version": "employment-facts-1.0",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022"
+            ],
+            "searched_concepts": [
+              "identity.employer_name",
+              "identity.employer_address",
+              "identity.worker_name",
+              "identity.worker_id",
+              "contract.type",
+              "contract.start_date",
+              "contract.end_date",
+              "contract.duration_months",
+              "contract.task",
+              "contract.task_end",
+              "probation.arrangement",
+              "probation.start_date",
+              "probation.end_date",
+              "probation.duration_months",
+              "probation.salary",
+              "probation.repeated",
+              "job.position",
+              "job.duties",
+              "job.locations",
+              "working_hours.system",
+              "working_hours.hours_per_day",
+              "working_hours.hours_per_week",
+              "working_hours.rest",
+              "working_hours.rest_days_per_week",
+              "working_hours.rest_waived",
+              "working_hours.overtime",
+              "salary.regular",
+              "salary.payment_date",
+              "salary.payment_method",
+              "salary.withheld_for_handover",
+              "social_insurance.employer_enrolls",
+              "social_insurance.employer_pays",
+              "social_insurance.employee_withheld",
+              "social_insurance.cash_replacement",
+              "social_insurance.waived"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "identity.employer_name",
+                "value": "上海恒达人力资源有限公司",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：上海恒达人力资源有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.employer_address",
+                "value": "上海市浦东新区浦东南路1188号",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "住所：上海市浦东新区浦东南路1188号"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_name",
+                "value": "蒋晨宇",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方（劳动者）：蒋晨宇"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_id",
+                "value": "31011019970214XXXX",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "身份证号码：31011019970214XXXX"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.type",
+                "value": "FIXED",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "本协议自2027年4月1日起生效，期限至2029年3月31日止。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.start_date",
+                "value": "2027-04-01",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "本协议自2027年4月1日起生效，期限至2029年3月31日止。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.end_date",
+                "value": "2029-03-31",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "本协议自2027年4月1日起生效，期限至2029年3月31日止。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.duration_months",
+                "value": 24,
+                "confidence": 0.95,
+                "assertion": "INFERRED",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "本协议自2027年4月1日起生效，期限至2029年3月31日止。"
+                  }
+                ]
+              },
+              {
+                "concept": "probation.arrangement",
+                "value": "CURRENT",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "双方约定试用期2个月，自2027年4月1日起至2027年5月31日止。"
+                  }
+                ]
+              },
+              {
+                "concept": "probation.start_date",
+                "value": "2027-04-01",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "双方约定试用期2个月，自2027年4月1日起至2027年5月31日止。"
+                  }
+                ]
+              },
+              {
+                "concept": "probation.end_date",
+                "value": "2027-05-31",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "双方约定试用期2个月，自2027年4月1日起至2027年5月31日止。"
+                  }
+                ]
+              },
+              {
+                "concept": "probation.duration_months",
+                "value": 2,
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "双方约定试用期2个月，自2027年4月1日起至2027年5月31日止。"
+                  }
+                ]
+              },
+              {
+                "concept": "probation.salary",
+                "value": {
+                  "amount_text": "7,200",
+                  "unit": "CNY/MONTH",
+                  "component": "TOTAL"
+                },
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "乙方试用期工资为税前人民币7,200元/月。"
+                  }
+                ]
+              },
+              {
+                "concept": "job.position",
+                "value": "供应链数据专员",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "岗位：供应链数据专员"
+                  }
+                ]
+              },
+              {
+                "concept": "job.duties",
+                "value": [
+                  "供应链数据核对",
+                  "采购数据统计",
+                  "供应商台账维护",
+                  "库存报表制作",
+                  "相关业务支持"
+                ],
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "乙方主要负责供应链数据核对、采购数据统计、供应商台账维护、库存报表制作及相关业务支持。"
+                  }
+                ]
+              },
+              {
+                "concept": "job.locations",
+                "value": [
+                  "上海市闵行区申长路988号"
+                ],
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "工作地点：上海市闵行区申长路988号"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.system",
+                "value": "STANDARD",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "乙方实行标准工时制，每日工作8小时，每周工作40小时。"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.hours_per_day",
+                "value": 8,
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "乙方实行标准工时制，每日工作8小时，每周工作40小时。"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.hours_per_week",
+                "value": 40,
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "乙方实行标准工时制，每日工作8小时，每周工作40小时。"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.rest",
+                "value": "乙方依法享有法定节假日、年休假及其他法定休假。",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "乙方依法享有法定节假日、年休假及其他法定休假。"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.overtime",
+                "value": "STATUTORY",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "用工单位安排乙方加班的，应依法安排补休或者支付相应加班工资。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.regular",
+                "value": {
+                  "amount_text": "9,000",
+                  "unit": "CNY/MONTH",
+                  "component": "TOTAL"
+                },
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "试用期结束后，乙方固定工资为税前人民币9,000元/月。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.payment_date",
+                "value": "每月10日前",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "甲方于每月10日前通过银行转账方式支付乙方上月工资。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.payment_method",
+                "value": "BANK",
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "甲方于每月10日前通过银行转账方式支付乙方上月工资。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.withheld_for_handover",
+                "value": true,
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "甲方可从乙方首月工资中直接扣除上述保证金。"
+                  }
+                ]
+              },
+              {
+                "concept": "social_insurance.employer_enrolls",
+                "value": true,
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0011",
+                    "quote": "甲方依法为乙方办理社会保险及住房公积金手续。"
+                  }
+                ]
+              },
+              {
+                "concept": "social_insurance.employer_pays",
+                "value": true,
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0011",
+                    "quote": "依法应由甲方承担的缴费部分由甲方承担。"
+                  }
+                ]
+              },
+              {
+                "concept": "social_insurance.employee_withheld",
+                "value": true,
+                "confidence": 0.99,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0011",
+                    "quote": "乙方个人承担部分由甲方依法从工资中代扣代缴。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 4053,
+            "completion_tokens": 2086,
+            "total_tokens": 6139,
+            "prompt_tokens_details": {
+              "cached_tokens": 1792
+            },
+            "prompt_cache_hit_tokens": 1792,
+            "prompt_cache_miss_tokens": 2261
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.0",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022"
+            ],
+            "searched_concepts": [
+              "social_insurance.employer_share_shifted",
+              "social_insurance.employer_underpays",
+              "social_insurance.employer_liability_excluded",
+              "social_insurance.employee_remedy_excluded",
+              "labor_protection.measures",
+              "labor_protection.training",
+              "labor_protection.hazard_exists",
+              "labor_protection.hazard_protection",
+              "training.arrangement",
+              "training.technical",
+              "training.service_penalty",
+              "training.cost",
+              "training.duration_months",
+              "training.penalty_prorated",
+              "termination.grounds",
+              "termination.notice",
+              "termination.notice_days",
+              "termination.approval_required",
+              "termination.employee_right_waived",
+              "termination.employer_unrestricted",
+              "termination.handover",
+              "economic_compensation.statutory",
+              "economic_compensation.settlement_deadline",
+              "economic_compensation.waived",
+              "economic_compensation.reduced",
+              "economic_compensation.statutory_percentage",
+              "economic_compensation.payment_delay_months",
+              "dispute.arbitration",
+              "penalties.obligations",
+              "non_compete.arrangement",
+              "non_compete.personnel",
+              "non_compete.secret_access",
+              "non_compete.businesses",
+              "non_compete.territories",
+              "non_compete.duration_months"
+            ],
+            "unresolved_concepts": [
+              "social_insurance.employer_share_shifted",
+              "social_insurance.employer_underpays",
+              "social_insurance.employer_liability_excluded",
+              "social_insurance.employee_remedy_excluded",
+              "labor_protection.hazard_exists",
+              "labor_protection.hazard_protection",
+              "training.technical",
+              "training.service_penalty",
+              "training.cost",
+              "training.duration_months",
+              "training.penalty_prorated",
+              "termination.notice_days",
+              "termination.approval_required",
+              "termination.employee_right_waived",
+              "termination.employer_unrestricted",
+              "economic_compensation.waived",
+              "economic_compensation.reduced",
+              "economic_compensation.statutory_percentage",
+              "economic_compensation.payment_delay_months",
+              "non_compete.personnel",
+              "non_compete.secret_access",
+              "non_compete.businesses",
+              "non_compete.territories",
+              "non_compete.duration_months"
+            ],
+            "facts": [
+              {
+                "concept": "labor_protection.measures",
+                "value": "用工单位负责提供实际工作所需的办公环境、设备及劳动保护条件。",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "用工单位负责提供实际工作所需的办公环境、设备及劳动保护条件。"
+                  }
+                ]
+              },
+              {
+                "concept": "labor_protection.training",
+                "value": true,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "用工单位负责乙方工作岗位相关的业务培训、安全培训和现场管理。"
+                  }
+                ]
+              },
+              {
+                "concept": "training.arrangement",
+                "value": "NONE",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0017",
+                    "quote": "本协议不约定离职后的竞业限制。"
+                  }
+                ]
+              },
+              {
+                "concept": "termination.grounds",
+                "value": [
+                  "乙方存在法律规定可以退回的情形",
+                  "乙方连续两个季度绩效考核低于80分",
+                  "用工单位认为乙方与部门工作要求匹配程度不足",
+                  "用工单位因组织架构调整不再需要该岗位",
+                  "如乙方被用工单位退回后拒绝甲方安排的新派遣岗位，甲方有权视为乙方主动放弃继续履行劳动合同，并直接办理劳动关系终止手续"
+                ],
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0015",
+                    "quote": "发生下列情形之一时，用工单位可以将乙方退回甲方：\n乙方存在法律规定可以退回的情形；\n乙方连续两个季度绩效考核低于80分；\n用工单位认为乙方与部门工作要求匹配程度不足；\n用工单位因组织架构调整不再需要该岗位。"
+                  },
+                  {
+                    "clause_id": "C0016",
+                    "quote": "如乙方被用工单位退回后拒绝甲方安排的新派遣岗位，甲方有权视为乙方主动放弃继续履行劳动合同，并直接办理劳动关系终止手续。"
+                  }
+                ]
+              },
+              {
+                "concept": "termination.notice",
+                "value": "乙方解除本协议，应依法履行通知义务。",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0016",
+                    "quote": "乙方解除本协议，应依法履行通知义务。"
+                  }
+                ]
+              },
+              {
+                "concept": "termination.handover",
+                "value": "乙方正常办理离职并完成工作交接后，甲方在无其他争议的情况下退还保证金。",
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "乙方正常办理离职并完成工作交接后，甲方在无其他争议的情况下退还保证金。"
+                  }
+                ]
+              },
+              {
+                "concept": "economic_compensation.statutory",
+                "value": "依法需要支付经济补偿、赔偿金或者其他费用的，由甲方按照法律规定处理。",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0019",
+                    "quote": "依法需要支付经济补偿、赔偿金或者其他费用的，由甲方按照法律规定处理。"
+                  }
+                ]
+              },
+              {
+                "concept": "economic_compensation.settlement_deadline",
+                "value": "劳动合同依法解除或者终止后，甲方应依法结清乙方工资及其他应付款项。",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0019",
+                    "quote": "劳动合同依法解除或者终止后，甲方应依法结清乙方工资及其他应付款项。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispute.arbitration",
+                "value": true,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0020",
+                    "quote": "协商不成的，可以依法向有管辖权的劳动人事争议仲裁委员会申请仲裁。"
+                  }
+                ]
+              },
+              {
+                "concept": "penalties.obligations",
+                "value": {
+                  "scope": "ORDINARY_RESIGNATION",
+                  "amount_text": "1,500元",
+                  "imposed": true
+                },
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "乙方入职后，应向甲方缴纳人民币1,500元岗位履约保证金。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.arrangement",
+                "value": "NONE",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0017",
+                    "quote": "本协议不约定离职后的竞业限制。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 4400,
+            "completion_tokens": 2022,
+            "total_tokens": 6422,
+            "prompt_tokens_details": {
+              "cached_tokens": 2048
+            },
+            "prompt_cache_hit_tokens": 2048,
+            "prompt_cache_miss_tokens": 2352
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.0",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022"
+            ],
+            "searched_concepts": [
+              "non_compete.compensation",
+              "non_compete.compensation_deferred",
+              "non_compete.compensation_waived",
+              "non_compete.all_staff",
+              "ip.assignment_scope",
+              "ip.allocations",
+              "ip.personal_rights_waived",
+              "contract.employment_form",
+              "dispatch.agency",
+              "dispatch.host",
+              "dispatch.position",
+              "dispatch.period",
+              "dispatch.position_basis",
+              "dispatch.long_term_position",
+              "dispatch.temporary_duration_months",
+              "dispatch.equal_pay",
+              "dispatch.idle_pay",
+              "dispatch.worker_charges",
+              "dispatch.return_procedure",
+              "dispatch.reassignment_procedure",
+              "dispatch.refusal_termination",
+              "dispatch.refusal_compensation_waived",
+              "dispatch.host_direct_dismissal",
+              "dispatch.agreement_disclosure",
+              "dispatch.agency_obligations",
+              "dispatch.host_obligations",
+              "dispatch.obligations_waived",
+              "contract.term_limit_mode",
+              "contract.term_limit_date",
+              "contract.term_limit_months",
+              "capability.ground",
+              "capability.training",
+              "capability.reassignment",
+              "capability.reassessment",
+              "capability.notice"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "contract.employment_form",
+                "value": "DISPATCH",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：上海恒达人力资源有限公司"
+                  },
+                  {
+                    "clause_id": "C0005",
+                    "quote": "甲方安排乙方至以下合作单位工作：\n用工单位：上海启盛电子科技有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.agency",
+                "value": "上海恒达人力资源有限公司",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：上海恒达人力资源有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.host",
+                "value": "上海启盛电子科技有限公司",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "用工单位：上海启盛电子科技有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.position",
+                "value": "供应链数据专员",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "岗位：供应链数据专员"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.period",
+                "value": "2027年4月1日至2029年3月31日",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "派遣期限：2027年4月1日至2029年3月31日"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.position_basis",
+                "value": "REGULAR_CORE",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "该岗位属于用工单位日常主营业务运营体系中的常设岗位，不属于临时替岗岗位。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.long_term_position",
+                "value": true,
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "乙方所在岗位属于用工单位供应链管理中心的长期固定岗位。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.equal_pay",
+                "value": "LOWER_ALLOWED",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "双方确认，考虑到乙方属于外派人员，其薪酬体系可以与用工单位直接聘用员工有所区别，乙方对此不持异议。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.idle_pay",
+                "value": "MONTHLY_LOCAL_MINIMUM",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "乙方被用工单位依法退回甲方后，如甲方暂时不能安排新的派遣岗位，在等待重新派遣期间，甲方按照甲方所在地现行最低工资标准按月向乙方支付劳动报酬。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.worker_charges",
+                "value": "REQUIRED",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "乙方入职后，应向甲方缴纳人民币1,500元岗位履约保证金。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.return_procedure",
+                "value": "发生下列情形之一时，用工单位可以将乙方退回甲方：乙方存在法律规定可以退回的情形；乙方连续两个季度绩效考核低于80分；用工单位认为乙方与部门工作要求匹配程度不足；用工单位因组织架构调整不再需要该岗位。",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0015",
+                    "quote": "发生下列情形之一时，用工单位可以将乙方退回甲方：\n乙方存在法律规定可以退回的情形；\n乙方连续两个季度绩效考核低于80分；\n用工单位认为乙方与部门工作要求匹配程度不足；\n用工单位因组织架构调整不再需要该岗位。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.reassignment_procedure",
+                "value": "乙方被退回后，甲方可以根据现有岗位情况安排新的用工单位。",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0015",
+                    "quote": "乙方被退回后，甲方可以根据现有岗位情况安排新的用工单位。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.refusal_termination",
+                "value": "ANY_OFFER",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0016",
+                    "quote": "如乙方被用工单位退回后拒绝甲方安排的新派遣岗位，甲方有权视为乙方主动放弃继续履行劳动合同，并直接办理劳动关系终止手续。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.agreement_disclosure",
+                "value": false,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0013",
+                    "quote": "甲方与用工单位签订的劳务派遣协议属于双方商业文件，其中关于派遣服务价格、薪酬结算标准、退回条件及其他商务安排，甲方可以不向乙方披露。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.agency_obligations",
+                "value": [
+                  "依法为乙方办理社会保险及住房公积金手续",
+                  "依法从工资中代扣代缴乙方个人承担部分",
+                  "依法监督用工单位履行相应劳动保护义务",
+                  "按照甲方所在地现行最低工资标准按月向乙方支付劳动报酬",
+                  "依法结清乙方工资及其他应付款项",
+                  "依法为乙方出具解除或者终止劳动合同证明"
+                ],
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0011",
+                    "quote": "甲方依法为乙方办理社会保险及住房公积金手续。"
+                  },
+                  {
+                    "clause_id": "C0012",
+                    "quote": "甲方应依法监督用工单位履行相应劳动保护义务。"
+                  },
+                  {
+                    "clause_id": "C0010",
+                    "quote": "甲方按照甲方所在地现行最低工资标准按月向乙方支付劳动报酬。"
+                  },
+                  {
+                    "clause_id": "C0019",
+                    "quote": "劳动合同依法解除或者终止后，甲方应依法结清乙方工资及其他应付款项。"
+                  },
+                  {
+                    "clause_id": "C0019",
+                    "quote": "甲方应依法为乙方出具解除或者终止劳动合同证明。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.host_obligations",
+                "value": [
+                  "提供实际工作所需的办公环境、设备及劳动保护条件",
+                  "负责乙方工作岗位相关的业务培训、安全培训和现场管理",
+                  "依法安排补休或者支付相应加班工资"
+                ],
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "用工单位负责提供实际工作所需的办公环境、设备及劳动保护条件。"
+                  },
+                  {
+                    "clause_id": "C0012",
+                    "quote": "用工单位负责乙方工作岗位相关的业务培训、安全培训和现场管理。"
+                  },
+                  {
+                    "clause_id": "C0007",
+                    "quote": "用工单位安排乙方加班的，应依法安排补休或者支付相应加班工资。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.term_limit_mode",
+                "value": "CALENDAR_EXPIRY",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "本协议自2027年4月1日起生效，期限至2029年3月31日止。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.term_limit_date",
+                "value": "2029-03-31",
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "本协议自2027年4月1日起生效，期限至2029年3月31日止。"
+                  }
+                ]
+              },
+              {
+                "concept": "ip.assignment_scope",
+                "value": "DUTY_OR_RESOURCES",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0018",
+                    "quote": "乙方履行派遣岗位职责过程中形成的职务成果，其知识产权按照法律规定及依法有效的相关约定处理。"
+                  }
+                ]
+              },
+              {
+                "concept": "ip.allocations",
+                "value": {
+                  "scope": "DUTY_OR_RESOURCES",
+                  "beneficiary": "UNSPECIFIED",
+                  "mode": "STATUTORY"
+                },
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0018",
+                    "quote": "乙方履行派遣岗位职责过程中形成的职务成果，其知识产权按照法律规定及依法有效的相关约定处理。"
+                  }
+                ]
+              },
+              {
+                "concept": "ip.allocations",
+                "value": {
+                  "scope": "PRE_EXISTING",
+                  "beneficiary": "EMPLOYEE",
+                  "mode": "AUTOMATIC"
+                },
+                "confidence": 0.98,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0018",
+                    "quote": "乙方入职前已经拥有的个人作品、软件、专利及其他知识产权仍归乙方所有。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 4841,
+            "completion_tokens": 2778,
+            "total_tokens": 7619,
+            "prompt_tokens_details": {
+              "cached_tokens": 2560
+            },
+            "prompt_cache_hit_tokens": 2560,
+            "prompt_cache_miss_tokens": 2281
+          },
+          "provider": "deepseek"
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.0",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022"
+            ],
+            "searched_concepts": [
+              "capability.compensation",
+              "working_hours.days_per_week",
+              "salary.cycle_kind",
+              "salary.cycle_days",
+              "part_time.hourly_minimum",
+              "part_time.injury_insurance",
+              "part_time.employee_notice_days",
+              "part_time.employer_notice_days",
+              "part_time.exit_approval",
+              "job.change_terms",
+              "discipline.dismissal_terms"
+            ],
+            "unresolved_concepts": [],
+            "facts": [
+              {
+                "concept": "working_hours.days_per_week",
+                "value": 5,
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "正常工作时间原则上为周一至周五9:00至18:00，中午休息1小时。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.cycle_kind",
+                "value": "MONTHLY",
+                "confidence": 0.95,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "甲方于每月10日前通过银行转账方式支付乙方上月工资。"
+                  }
+                ]
+              },
+              {
+                "concept": "job.change_terms",
+                "value": {
+                  "consent": "NOT_REQUIRED",
+                  "unilateral_position": true,
+                  "position_scope": "BOUNDED"
+                },
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0014",
+                    "quote": "在派遣期间，用工单位可以根据业务需要合理调整乙方在本单位内部的具体工作内容。"
+                  }
+                ]
+              },
+              {
+                "concept": "job.change_terms",
+                "value": {
+                  "consent": "NOT_REQUIRED",
+                  "unilateral_position": true,
+                  "position_scope": "ANY"
+                },
+                "confidence": 0.9,
+                "assertion": "EXPLICIT",
+                "evidence": [
+                  {
+                    "clause_id": "C0014",
+                    "quote": "如用工单位的关联公司、子公司或者其他合作企业存在人员需求，用工单位可以直接安排乙方至上述企业继续工作，甲方对此视为原派遣安排的延续。"
+                  },
+                  {
+                    "clause_id": "C0014",
+                    "quote": "乙方应服从上述安排，无需重新签订派遣文件。"
+                  }
+                ]
+              }
+            ]
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 3703,
+            "completion_tokens": 527,
+            "total_tokens": 4230,
+            "prompt_tokens_details": {
+              "cached_tokens": 1408
+            },
+            "prompt_cache_hit_tokens": 1408,
+            "prompt_cache_miss_tokens": 2295
+          },
+          "provider": "deepseek"
+        }
+      ],
+      "raw_verification": {
+        "provider": "deepseek",
+        "model": "deepseek-flash",
+        "verification": {
+          "verification_schema_version": "fact-verification-2",
+          "checks": [
+            {
+              "fact_id": "EF-bf758d75cdd0487e",
+              "supported": true,
+              "reason": "引文明确载明甲方用人单位为上海恒达人力资源有限公司。"
+            },
+            {
+              "fact_id": "EF-5b86bf474086efec",
+              "supported": true,
+              "reason": "引文明确载明住所为上海市浦东新区浦东南路1188号。"
+            },
+            {
+              "fact_id": "EF-9679850c407ff5ef",
+              "supported": true,
+              "reason": "引文明确载明乙方劳动者为蒋晨宇。"
+            },
+            {
+              "fact_id": "EF-fd51fd0757badc69",
+              "supported": true,
+              "reason": "引文明确载明身份证号码31011019970214XXXX。"
+            },
+            {
+              "fact_id": "EF-38806451f0354ee9",
+              "supported": true,
+              "reason": "引文明确约定自2027年4月1日起至2029年3月31日止的固定期限。"
+            },
+            {
+              "fact_id": "EF-22d16812cf8e53a6",
+              "supported": true,
+              "reason": "引文明确载明协议自2027年4月1日起生效。"
+            },
+            {
+              "fact_id": "EF-3f5947cab264c710",
+              "supported": true,
+              "reason": "引文明确载明期限至2029年3月31日止。"
+            },
+            {
+              "fact_id": "EF-d5e07c7b7f7a74f8",
+              "supported": true,
+              "reason": "由2027-04-01至2029-03-31可计算为24个月，属对原文明确起止日期的归一化推断。"
+            },
+            {
+              "fact_id": "EF-dd825508bf39d4c0",
+              "supported": true,
+              "reason": "引文明确约定试用期2个月，属已实际约定。"
+            },
+            {
+              "fact_id": "EF-1aa77bc667227cc4",
+              "supported": true,
+              "reason": "引文明确试用期自2027年4月1日起。"
+            },
+            {
+              "fact_id": "EF-e36f2e735c8d5b6e",
+              "supported": true,
+              "reason": "引文明确试用期至2027年5月31日止。"
+            },
+            {
+              "fact_id": "EF-6d032677852d36cc",
+              "supported": true,
+              "reason": "引文明确约定试用期2个月。"
+            },
+            {
+              "fact_id": "EF-2aa44c51313ec612",
+              "supported": true,
+              "reason": "引文明确试用期工资为税前人民币7,200元/月。"
+            },
+            {
+              "fact_id": "EF-a14053b851cfc7ad",
+              "supported": true,
+              "reason": "引文明确岗位为供应链数据专员。"
+            },
+            {
+              "fact_id": "EF-7e8edfb42ba6cab7",
+              "supported": true,
+              "reason": "引文明确列明供应链数据核对、采购数据统计、供应商台账维护、库存报表制作及相关业务支持。"
+            },
+            {
+              "fact_id": "EF-1cbfeeaff70ea088",
+              "supported": true,
+              "reason": "引文明确工作地点为上海市闵行区申长路988号。"
+            },
+            {
+              "fact_id": "EF-c6f0a967afaf811f",
+              "supported": true,
+              "reason": "引文明确实行标准工时制。"
+            },
+            {
+              "fact_id": "EF-8af54467481c6a7a",
+              "supported": true,
+              "reason": "引文明确每日工作8小时。"
+            },
+            {
+              "fact_id": "EF-290c1d098fec6b2e",
+              "supported": true,
+              "reason": "引文明确每周工作40小时。"
+            },
+            {
+              "fact_id": "EF-fce7e328cab416df",
+              "supported": true,
+              "reason": "引文明确乙方依法享有法定节假日、年休假及其他法定休假。"
+            },
+            {
+              "fact_id": "EF-45e3f6b6f4030517",
+              "supported": true,
+              "reason": "引文明确加班应依法安排补休或支付加班工资，属法定待遇模式。"
+            },
+            {
+              "fact_id": "EF-54d7029e59e010eb",
+              "supported": true,
+              "reason": "引文明确试用期结束后固定工资为税前人民币9,000元/月。"
+            },
+            {
+              "fact_id": "EF-76a979012d3b17fd",
+              "supported": true,
+              "reason": "引文明确甲方于每月10日前支付上月工资。"
+            },
+            {
+              "fact_id": "EF-60e2701750168185",
+              "supported": true,
+              "reason": "引文明确通过银行转账方式支付。"
+            },
+            {
+              "fact_id": "EF-4a7f7b00479f53ab",
+              "supported": false,
+              "reason": "引文仅允许从首月工资中扣除保证金，并非以未交接等理由扣留已挣得工资；该候选事实与引文语义不符。"
+            },
+            {
+              "fact_id": "EF-d2188fc3a0b1c85e",
+              "supported": true,
+              "reason": "引文明确甲方依法为乙方办理社会保险及住房公积金手续。"
+            },
+            {
+              "fact_id": "EF-3e07a31ed0da5571",
+              "supported": true,
+              "reason": "引文明确依法应由甲方承担的缴费部分由甲方承担。"
+            },
+            {
+              "fact_id": "EF-d2a535841f5d1ea1",
+              "supported": true,
+              "reason": "引文明确乙方个人承担部分由甲方依法从工资中代扣代缴。"
+            },
+            {
+              "fact_id": "EF-28d4002f27f11176",
+              "supported": true,
+              "reason": "引文明确用工单位负责提供办公环境、设备及劳动保护条件。"
+            },
+            {
+              "fact_id": "EF-475b5ee57b9681c0",
+              "supported": true,
+              "reason": "引文明确用工单位负责安全培训，属已约定安全教育培训。"
+            },
+            {
+              "fact_id": "EF-db2ae99632323b65",
+              "supported": false,
+              "reason": "引文为不约定离职后竞业限制，与专项培训服务期无关，不能支持training.arrangement为NONE。"
+            },
+            {
+              "fact_id": "EF-0ea5afdf3241c2ef",
+              "supported": true,
+              "reason": "引文明确列明退回情形及拒绝新派遣岗位可终止劳动关系。"
+            },
+            {
+              "fact_id": "EF-e355b564142b9c86",
+              "supported": true,
+              "reason": "引文明确乙方解除协议应依法履行通知义务。"
+            },
+            {
+              "fact_id": "EF-ccbd759ea7f28ff7",
+              "supported": true,
+              "reason": "引文明确正常办理离职并完成工作交接后退还保证金。"
+            },
+            {
+              "fact_id": "EF-b230029375e38007",
+              "supported": true,
+              "reason": "引文明确依法需要支付经济补偿、赔偿金或其他费用的按法律规定处理。"
+            },
+            {
+              "fact_id": "EF-f181421328d3e4f1",
+              "supported": true,
+              "reason": "引文明确劳动合同依法解除或终止后甲方应依法结清工资及其他应付款项。"
+            },
+            {
+              "fact_id": "EF-7702291b38ba7404",
+              "supported": true,
+              "reason": "引文明确协商不成可依法申请劳动仲裁。"
+            },
+            {
+              "fact_id": "EF-780c955bd130fa66",
+              "supported": true,
+              "reason": "引文明确乙方入职后应向甲方缴纳1,500元岗位履约保证金，属实际施加的付款义务。"
+            },
+            {
+              "fact_id": "EF-0648bb4d02f13dd2",
+              "supported": true,
+              "reason": "引文明确本协议不约定离职后的竞业限制。"
+            },
+            {
+              "fact_id": "EF-9a97fed6bf92c45a",
+              "supported": true,
+              "reason": "引文明确甲方为用人单位并安排乙方至用工单位工作，属派遣用工关系。"
+            },
+            {
+              "fact_id": "EF-0ea09547760ff093",
+              "supported": true,
+              "reason": "引文明确甲方用人单位为上海恒达人力资源有限公司。"
+            },
+            {
+              "fact_id": "EF-d39cadf45cd00dc0",
+              "supported": true,
+              "reason": "引文明确用工单位为上海启盛电子科技有限公司。"
+            },
+            {
+              "fact_id": "EF-bfe99e07b4bc1f23",
+              "supported": true,
+              "reason": "引文明确派遣岗位为供应链数据专员。"
+            },
+            {
+              "fact_id": "EF-f7053dbd44e06a67",
+              "supported": true,
+              "reason": "引文明确派遣期限为2027年4月1日至2029年3月31日。"
+            },
+            {
+              "fact_id": "EF-94e95d4b078679df",
+              "supported": true,
+              "reason": "引文明确岗位属于日常主营业务运营体系中的常设岗位，可归为REGULAR_CORE。"
+            },
+            {
+              "fact_id": "EF-476a4e7ffde02294",
+              "supported": true,
+              "reason": "引文明确岗位属于长期固定岗位。"
+            },
+            {
+              "fact_id": "EF-73a8fc8ceb10aa43",
+              "supported": true,
+              "reason": "引文明确外派人员薪酬体系可与用工单位直接聘用员工有所区别，属允许低于同岗位的安排。"
+            },
+            {
+              "fact_id": "EF-34db31473946310a",
+              "supported": true,
+              "reason": "引文明确等待重新派遣期间按甲方所在地现行最低工资标准按月支付。"
+            },
+            {
+              "fact_id": "EF-fd6aec4b9e96a4fd",
+              "supported": true,
+              "reason": "引文明确乙方应向甲方缴纳1,500元岗位履约保证金，属明确收费安排。"
+            },
+            {
+              "fact_id": "EF-e452f0db268c99de",
+              "supported": true,
+              "reason": "引文明确列明用工单位可将乙方退回甲方的具体情形。"
+            },
+            {
+              "fact_id": "EF-64ef0b0ffcae2de7",
+              "supported": true,
+              "reason": "引文明确乙方被退回后甲方可根据现有岗位情况安排新的用工单位。"
+            },
+            {
+              "fact_id": "EF-cba72f4984dbc2ed",
+              "supported": true,
+              "reason": "引文明确拒绝甲方安排的新派遣岗位即可终止劳动关系，未限定维持或提高条件，属ANY_OFFER。"
+            },
+            {
+              "fact_id": "EF-99192beafa25ba8c",
+              "supported": true,
+              "reason": "引文明确甲方可以不向乙方披露派遣协议中商务安排，属未履行告知义务。"
+            },
+            {
+              "fact_id": "EF-d7161fd439ead0dd",
+              "supported": true,
+              "reason": "引文分别明确甲方办理社保公积金、代扣代缴、监督劳动保护、支付待派报酬、结清款项及出具证明等义务。"
+            },
+            {
+              "fact_id": "EF-35d1f7689cea7cc1",
+              "supported": true,
+              "reason": "引文分别明确用工单位提供劳动条件、培训管理及依法安排补休或支付加班工资等义务。"
+            },
+            {
+              "fact_id": "EF-e07982ddaa5b9c1f",
+              "supported": true,
+              "reason": "引文明确期限至2029年3月31日止，属日历到期终止。"
+            },
+            {
+              "fact_id": "EF-89cabdfd8f079c3a",
+              "supported": true,
+              "reason": "引文明确合同期限至2029年3月31日止。"
+            },
+            {
+              "fact_id": "EF-60d9f8328d2ee5c1",
+              "supported": true,
+              "reason": "引文明确履行派遣岗位职责过程中形成的职务成果，属DUTY_OR_RESOURCES范围。"
+            },
+            {
+              "fact_id": "EF-6977807e387688f0",
+              "supported": true,
+              "reason": "引文明确职务成果知识产权按法律规定及依法有效约定处理，属STATUTORY且未指定具体权利人。"
+            },
+            {
+              "fact_id": "EF-382886cddc613643",
+              "supported": true,
+              "reason": "引文明确入职前已拥有的个人作品、软件、专利及其他知识产权仍归乙方所有。"
+            },
+            {
+              "fact_id": "EF-93269b2640eaece9",
+              "supported": true,
+              "reason": "引文明确正常工作时间为周一至周五，可确认每周工作5天。"
+            },
+            {
+              "fact_id": "EF-de42399b8549c0d4",
+              "supported": true,
+              "reason": "引文明确每月10日前支付上月工资，属按月结算支付。"
+            },
+            {
+              "fact_id": "EF-4c290ffeb5819951",
+              "supported": true,
+              "reason": "引文明确用工单位可根据业务需要合理调整乙方在本单位内部具体工作内容，属单方、限定本单位范围。"
+            },
+            {
+              "fact_id": "EF-58310183e7686302",
+              "supported": true,
+              "reason": "引文明确用工单位可直接安排乙方至关联公司、子公司或其他合作企业继续工作且无需重新签订文件，属单方、范围不限于原单位。"
+            }
+          ],
+          "searched_concepts": [
+            "identity.employer_name",
+            "identity.employer_address",
+            "identity.worker_name",
+            "identity.worker_id",
+            "contract.type",
+            "contract.start_date",
+            "contract.end_date",
+            "contract.duration_months",
+            "contract.task",
+            "contract.task_end",
+            "probation.arrangement",
+            "probation.start_date",
+            "probation.end_date",
+            "probation.duration_months",
+            "probation.salary",
+            "probation.repeated",
+            "job.position",
+            "job.duties",
+            "job.locations",
+            "working_hours.system",
+            "working_hours.hours_per_day",
+            "working_hours.hours_per_week",
+            "working_hours.rest",
+            "working_hours.rest_days_per_week",
+            "working_hours.rest_waived",
+            "working_hours.overtime",
+            "salary.regular",
+            "salary.payment_date",
+            "salary.payment_method",
+            "salary.withheld_for_handover",
+            "social_insurance.employer_enrolls",
+            "social_insurance.employer_pays",
+            "social_insurance.employee_withheld",
+            "social_insurance.cash_replacement",
+            "social_insurance.waived",
+            "social_insurance.employer_share_shifted",
+            "social_insurance.employer_underpays",
+            "social_insurance.employer_liability_excluded",
+            "social_insurance.employee_remedy_excluded",
+            "labor_protection.measures",
+            "labor_protection.training",
+            "labor_protection.hazard_exists",
+            "labor_protection.hazard_protection",
+            "training.arrangement",
+            "training.technical",
+            "training.service_penalty",
+            "training.cost",
+            "training.duration_months",
+            "training.penalty_prorated",
+            "termination.grounds",
+            "termination.notice",
+            "termination.notice_days",
+            "termination.approval_required",
+            "termination.employee_right_waived",
+            "termination.employer_unrestricted",
+            "termination.handover",
+            "economic_compensation.statutory",
+            "economic_compensation.settlement_deadline",
+            "economic_compensation.waived",
+            "economic_compensation.reduced",
+            "economic_compensation.statutory_percentage",
+            "economic_compensation.payment_delay_months",
+            "dispute.arbitration",
+            "penalties.obligations",
+            "non_compete.arrangement",
+            "non_compete.personnel",
+            "non_compete.secret_access",
+            "non_compete.businesses",
+            "non_compete.territories",
+            "non_compete.duration_months",
+            "non_compete.compensation",
+            "non_compete.compensation_deferred",
+            "non_compete.compensation_waived",
+            "non_compete.all_staff",
+            "ip.assignment_scope",
+            "ip.allocations",
+            "ip.personal_rights_waived",
+            "contract.employment_form",
+            "dispatch.agency",
+            "dispatch.host",
+            "dispatch.position",
+            "dispatch.period",
+            "dispatch.position_basis",
+            "dispatch.long_term_position",
+            "dispatch.temporary_duration_months",
+            "dispatch.equal_pay",
+            "dispatch.idle_pay",
+            "dispatch.worker_charges",
+            "dispatch.return_procedure",
+            "dispatch.reassignment_procedure",
+            "dispatch.refusal_termination",
+            "dispatch.refusal_compensation_waived",
+            "dispatch.host_direct_dismissal",
+            "dispatch.agreement_disclosure",
+            "dispatch.agency_obligations",
+            "dispatch.host_obligations",
+            "dispatch.obligations_waived",
+            "contract.term_limit_mode",
+            "contract.term_limit_date",
+            "contract.term_limit_months",
+            "capability.ground",
+            "capability.training",
+            "capability.reassignment",
+            "capability.reassessment",
+            "capability.notice",
+            "capability.compensation",
+            "working_hours.days_per_week",
+            "salary.cycle_kind",
+            "salary.cycle_days",
+            "part_time.hourly_minimum",
+            "part_time.injury_insurance",
+            "part_time.employee_notice_days",
+            "part_time.employer_notice_days",
+            "part_time.exit_approval",
+            "job.change_terms",
+            "discipline.dismissal_terms"
+          ],
+          "unresolved_concepts": [],
+          "additional_facts": [],
+          "absence_audits": [
+            {
+              "concept": "training.arrangement",
+              "result": "ABSENT",
+              "reason": "全文仅出现用工单位负责业务培训、安全培训和现场管理，属于普通岗位与安全培训；未约定专项技术培训、培训费用、服务期或服务期违约金，也无明确不设服务期的原文。",
+              "searched_concepts": [
+                "training.arrangement",
+                "training.technical",
+                "training.cost",
+                "training.duration_months",
+                "training.service_penalty"
+              ],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020",
+                "C0021",
+                "C0022"
+              ]
+            }
+          ],
+          "reviewed_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011",
+            "C0012",
+            "C0013",
+            "C0014",
+            "C0015",
+            "C0016",
+            "C0017",
+            "C0018",
+            "C0019",
+            "C0020",
+            "C0021",
+            "C0022"
+          ]
+        },
+        "usage": {
+          "prompt_tokens": 14634,
+          "completion_tokens": 3640,
+          "total_tokens": 18274,
+          "prompt_tokens_details": {
+            "cached_tokens": 4480
+          },
+          "prompt_cache_hit_tokens": 4480,
+          "prompt_cache_miss_tokens": 10154
+        }
+      }
+    },
+    {
+      "attempt": 2,
+      "status": "BLOCKED",
+      "diagnostics": [
+        {
+          "failed_stage": "VERIFICATION_SCHEMA",
+          "fact_id": null,
+          "field": "checks.fact_id",
+          "validation_rule": "INCOMPLETE_FACT_VERIFICATION",
+          "model_raw_value": [
+            "EF-bf758d75cdd0487e",
+            "EF-5b86bf474086efec",
+            "EF-9679850c407ff5ef",
+            "EF-fd51fd0757badc69",
+            "EF-38806451f0354ee9",
+            "EF-22d16812cf8e53a6",
+            "EF-3f5947cab264c710",
+            "EF-d5e07c7b7f7a74f8",
+            "EF-dd825508bf39d4c0",
+            "EF-1aa77bc667227cc4",
+            "EF-e36f2e735c8d5b6e",
+            "EF-6d032677852d36cc",
+            "EF-2aa44c51313ec612",
+            "EF-a14053b851cfc7ad",
+            "EF-7e8edfb42ba6cab7",
+            "EF-1cbfeeaff70ea088",
+            "EF-c6f0a967afaf811f",
+            "EF-8af54467481c6a7a",
+            "EF-290c1d098fec6b2e",
+            "EF-fce7e328cab416df",
+            "EF-45e3f6b6f4030517",
+            "EF-54d7029e59e010eb",
+            "EF-76a979012d3b17fd",
+            "EF-60e2701750168185",
+            "EF-d2188fc3a0b1c85e",
+            "EF-3e07a31ed0da5571",
+            "EF-d2a535841f5d1ea1",
+            "EF-28d4002f27f11176",
+            "EF-475b5ee57b9681c0",
+            "EF-0ea5afdf3241c2ef",
+            "EF-e355b564142b9c86",
+            "EF-ccbd759ea7f28ff7",
+            "EF-b230029375e38007",
+            "EF-f181421328d3e4f1",
+            "EF-7702291b38ba7404",
+            "EF-780c955bd130fa66",
+            "EF-0648bb4d02f13dd2",
+            "EF-9a97fed6bf92c45a",
+            "EF-0ea09547760ff093",
+            "EF-d39cadf45cd00dc0",
+            "EF-bfe99e07b4bc1f23",
+            "EF-f7053dbd44e06a67",
+            "EF-94e95d4b078679df",
+            "EF-476a4e7ffde02294",
+            "EF-73a8fc8ceb10aa43",
+            "EF-34db31473946310a",
+            "EF-fd6aec4b9e96a4fd",
+            "EF-e452f0db268c99de",
+            "EF-64ef0b0ffcae2de7",
+            "EF-cba72f4984dbc2ed",
+            "EF-99192beafa25ba8c",
+            "EF-d7161fd439ead0dd",
+            "EF-35d1f7689cea7cc1",
+            "EF-e07982ddaa5b9c1f",
+            "EF-89cabdfd8f079c3a",
+            "EF-60d9f8328d2ee5c1",
+            "EF-6977807e387688f0",
+            "EF-382886cddc613643",
+            "EF-93269b2640eaece9",
+            "EF-de42399b8549c0d4",
+            "EF-4c290ffeb5819951",
+            "EF-58310183e7686302",
+            "EF-4a7f7b00479f53ab"
+          ],
+          "evidence": null,
+          "expected": [
+            "EF-0648bb4d02f13dd2",
+            "EF-0ea09547760ff093",
+            "EF-0ea5afdf3241c2ef",
+            "EF-1aa77bc667227cc4",
+            "EF-1cbfeeaff70ea088",
+            "EF-22d16812cf8e53a6",
+            "EF-28d4002f27f11176",
+            "EF-290c1d098fec6b2e",
+            "EF-2aa44c51313ec612",
+            "EF-34db31473946310a",
+            "EF-35d1f7689cea7cc1",
+            "EF-382886cddc613643",
+            "EF-38806451f0354ee9",
+            "EF-3e07a31ed0da5571",
+            "EF-3f5947cab264c710",
+            "EF-45e3f6b6f4030517",
+            "EF-475b5ee57b9681c0",
+            "EF-476a4e7ffde02294",
+            "EF-4c290ffeb5819951",
+            "EF-54d7029e59e010eb",
+            "EF-58310183e7686302",
+            "EF-5b86bf474086efec",
+            "EF-60d9f8328d2ee5c1",
+            "EF-60e2701750168185",
+            "EF-64ef0b0ffcae2de7",
+            "EF-6977807e387688f0",
+            "EF-6d032677852d36cc",
+            "EF-73a8fc8ceb10aa43",
+            "EF-76a979012d3b17fd",
+            "EF-7702291b38ba7404",
+            "EF-780c955bd130fa66",
+            "EF-7e8edfb42ba6cab7",
+            "EF-89cabdfd8f079c3a",
+            "EF-8af54467481c6a7a",
+            "EF-93269b2640eaece9",
+            "EF-94e95d4b078679df",
+            "EF-9679850c407ff5ef",
+            "EF-99192beafa25ba8c",
+            "EF-9a97fed6bf92c45a",
+            "EF-a14053b851cfc7ad",
+            "EF-b230029375e38007",
+            "EF-bf758d75cdd0487e",
+            "EF-bfe99e07b4bc1f23",
+            "EF-c6f0a967afaf811f",
+            "EF-cba72f4984dbc2ed",
+            "EF-ccbd759ea7f28ff7",
+            "EF-d2188fc3a0b1c85e",
+            "EF-d2a535841f5d1ea1",
+            "EF-d39cadf45cd00dc0",
+            "EF-d5e07c7b7f7a74f8",
+            "EF-d7161fd439ead0dd",
+            "EF-dd825508bf39d4c0",
+            "EF-de42399b8549c0d4",
+            "EF-e07982ddaa5b9c1f",
+            "EF-e355b564142b9c86",
+            "EF-e36f2e735c8d5b6e",
+            "EF-e452f0db268c99de",
+            "EF-f181421328d3e4f1",
+            "EF-f7053dbd44e06a67",
+            "EF-fce7e328cab416df",
+            "EF-fd51fd0757badc69",
+            "EF-fd6aec4b9e96a4fd"
+          ],
+          "actual": [
+            "EF-bf758d75cdd0487e",
+            "EF-5b86bf474086efec",
+            "EF-9679850c407ff5ef",
+            "EF-fd51fd0757badc69",
+            "EF-38806451f0354ee9",
+            "EF-22d16812cf8e53a6",
+            "EF-3f5947cab264c710",
+            "EF-d5e07c7b7f7a74f8",
+            "EF-dd825508bf39d4c0",
+            "EF-1aa77bc667227cc4",
+            "EF-e36f2e735c8d5b6e",
+            "EF-6d032677852d36cc",
+            "EF-2aa44c51313ec612",
+            "EF-a14053b851cfc7ad",
+            "EF-7e8edfb42ba6cab7",
+            "EF-1cbfeeaff70ea088",
+            "EF-c6f0a967afaf811f",
+            "EF-8af54467481c6a7a",
+            "EF-290c1d098fec6b2e",
+            "EF-fce7e328cab416df",
+            "EF-45e3f6b6f4030517",
+            "EF-54d7029e59e010eb",
+            "EF-76a979012d3b17fd",
+            "EF-60e2701750168185",
+            "EF-d2188fc3a0b1c85e",
+            "EF-3e07a31ed0da5571",
+            "EF-d2a535841f5d1ea1",
+            "EF-28d4002f27f11176",
+            "EF-475b5ee57b9681c0",
+            "EF-0ea5afdf3241c2ef",
+            "EF-e355b564142b9c86",
+            "EF-ccbd759ea7f28ff7",
+            "EF-b230029375e38007",
+            "EF-f181421328d3e4f1",
+            "EF-7702291b38ba7404",
+            "EF-780c955bd130fa66",
+            "EF-0648bb4d02f13dd2",
+            "EF-9a97fed6bf92c45a",
+            "EF-0ea09547760ff093",
+            "EF-d39cadf45cd00dc0",
+            "EF-bfe99e07b4bc1f23",
+            "EF-f7053dbd44e06a67",
+            "EF-94e95d4b078679df",
+            "EF-476a4e7ffde02294",
+            "EF-73a8fc8ceb10aa43",
+            "EF-34db31473946310a",
+            "EF-fd6aec4b9e96a4fd",
+            "EF-e452f0db268c99de",
+            "EF-64ef0b0ffcae2de7",
+            "EF-cba72f4984dbc2ed",
+            "EF-99192beafa25ba8c",
+            "EF-d7161fd439ead0dd",
+            "EF-35d1f7689cea7cc1",
+            "EF-e07982ddaa5b9c1f",
+            "EF-89cabdfd8f079c3a",
+            "EF-60d9f8328d2ee5c1",
+            "EF-6977807e387688f0",
+            "EF-382886cddc613643",
+            "EF-93269b2640eaece9",
+            "EF-de42399b8549c0d4",
+            "EF-4c290ffeb5819951",
+            "EF-58310183e7686302",
+            "EF-4a7f7b00479f53ab"
+          ],
+          "disposition": "BLOCK",
+          "stage": "VERIFICATION_SCHEMA",
+          "code": "INCOMPLETE_FACT_VERIFICATION",
+          "fact_key": null,
+          "raw_value": [
+            "EF-bf758d75cdd0487e",
+            "EF-5b86bf474086efec",
+            "EF-9679850c407ff5ef",
+            "EF-fd51fd0757badc69",
+            "EF-38806451f0354ee9",
+            "EF-22d16812cf8e53a6",
+            "EF-3f5947cab264c710",
+            "EF-d5e07c7b7f7a74f8",
+            "EF-dd825508bf39d4c0",
+            "EF-1aa77bc667227cc4",
+            "EF-e36f2e735c8d5b6e",
+            "EF-6d032677852d36cc",
+            "EF-2aa44c51313ec612",
+            "EF-a14053b851cfc7ad",
+            "EF-7e8edfb42ba6cab7",
+            "EF-1cbfeeaff70ea088",
+            "EF-c6f0a967afaf811f",
+            "EF-8af54467481c6a7a",
+            "EF-290c1d098fec6b2e",
+            "EF-fce7e328cab416df",
+            "EF-45e3f6b6f4030517",
+            "EF-54d7029e59e010eb",
+            "EF-76a979012d3b17fd",
+            "EF-60e2701750168185",
+            "EF-d2188fc3a0b1c85e",
+            "EF-3e07a31ed0da5571",
+            "EF-d2a535841f5d1ea1",
+            "EF-28d4002f27f11176",
+            "EF-475b5ee57b9681c0",
+            "EF-0ea5afdf3241c2ef",
+            "EF-e355b564142b9c86",
+            "EF-ccbd759ea7f28ff7",
+            "EF-b230029375e38007",
+            "EF-f181421328d3e4f1",
+            "EF-7702291b38ba7404",
+            "EF-780c955bd130fa66",
+            "EF-0648bb4d02f13dd2",
+            "EF-9a97fed6bf92c45a",
+            "EF-0ea09547760ff093",
+            "EF-d39cadf45cd00dc0",
+            "EF-bfe99e07b4bc1f23",
+            "EF-f7053dbd44e06a67",
+            "EF-94e95d4b078679df",
+            "EF-476a4e7ffde02294",
+            "EF-73a8fc8ceb10aa43",
+            "EF-34db31473946310a",
+            "EF-fd6aec4b9e96a4fd",
+            "EF-e452f0db268c99de",
+            "EF-64ef0b0ffcae2de7",
+            "EF-cba72f4984dbc2ed",
+            "EF-99192beafa25ba8c",
+            "EF-d7161fd439ead0dd",
+            "EF-35d1f7689cea7cc1",
+            "EF-e07982ddaa5b9c1f",
+            "EF-89cabdfd8f079c3a",
+            "EF-60d9f8328d2ee5c1",
+            "EF-6977807e387688f0",
+            "EF-382886cddc613643",
+            "EF-93269b2640eaece9",
+            "EF-de42399b8549c0d4",
+            "EF-4c290ffeb5819951",
+            "EF-58310183e7686302",
+            "EF-4a7f7b00479f53ab"
+          ],
+          "normalized_value": null,
+          "allowed_values": [
+            "EF-0648bb4d02f13dd2",
+            "EF-0ea09547760ff093",
+            "EF-0ea5afdf3241c2ef",
+            "EF-1aa77bc667227cc4",
+            "EF-1cbfeeaff70ea088",
+            "EF-22d16812cf8e53a6",
+            "EF-28d4002f27f11176",
+            "EF-290c1d098fec6b2e",
+            "EF-2aa44c51313ec612",
+            "EF-34db31473946310a",
+            "EF-35d1f7689cea7cc1",
+            "EF-382886cddc613643",
+            "EF-38806451f0354ee9",
+            "EF-3e07a31ed0da5571",
+            "EF-3f5947cab264c710",
+            "EF-45e3f6b6f4030517",
+            "EF-475b5ee57b9681c0",
+            "EF-476a4e7ffde02294",
+            "EF-4c290ffeb5819951",
+            "EF-54d7029e59e010eb",
+            "EF-58310183e7686302",
+            "EF-5b86bf474086efec",
+            "EF-60d9f8328d2ee5c1",
+            "EF-60e2701750168185",
+            "EF-64ef0b0ffcae2de7",
+            "EF-6977807e387688f0",
+            "EF-6d032677852d36cc",
+            "EF-73a8fc8ceb10aa43",
+            "EF-76a979012d3b17fd",
+            "EF-7702291b38ba7404",
+            "EF-780c955bd130fa66",
+            "EF-7e8edfb42ba6cab7",
+            "EF-89cabdfd8f079c3a",
+            "EF-8af54467481c6a7a",
+            "EF-93269b2640eaece9",
+            "EF-94e95d4b078679df",
+            "EF-9679850c407ff5ef",
+            "EF-99192beafa25ba8c",
+            "EF-9a97fed6bf92c45a",
+            "EF-a14053b851cfc7ad",
+            "EF-b230029375e38007",
+            "EF-bf758d75cdd0487e",
+            "EF-bfe99e07b4bc1f23",
+            "EF-c6f0a967afaf811f",
+            "EF-cba72f4984dbc2ed",
+            "EF-ccbd759ea7f28ff7",
+            "EF-d2188fc3a0b1c85e",
+            "EF-d2a535841f5d1ea1",
+            "EF-d39cadf45cd00dc0",
+            "EF-d5e07c7b7f7a74f8",
+            "EF-d7161fd439ead0dd",
+            "EF-dd825508bf39d4c0",
+            "EF-de42399b8549c0d4",
+            "EF-e07982ddaa5b9c1f",
+            "EF-e355b564142b9c86",
+            "EF-e36f2e735c8d5b6e",
+            "EF-e452f0db268c99de",
+            "EF-f181421328d3e4f1",
+            "EF-f7053dbd44e06a67",
+            "EF-fce7e328cab416df",
+            "EF-fd51fd0757badc69",
+            "EF-fd6aec4b9e96a4fd"
+          ],
+          "clause": null,
+          "message": "抽取值未通过事实类型、证据或语义校验；未生成报告，不能以默认值替代。",
+          "trace_id": "FACT-0b7d39c824ed4d51ba3eb5bba926a3b5"
+        }
+      ],
+      "raw_extraction": [
+        {
+          "provider": "deepseek",
+          "model": "deepseek-flash",
+          "kind": "VERIFIED_REPAIR_SEED",
+          "response": {
+            "schema_version": "employment-facts-1.0",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022"
+            ],
+            "searched_concepts": [
+              "identity.employer_name",
+              "identity.employer_address",
+              "identity.worker_name",
+              "identity.worker_id",
+              "contract.type",
+              "contract.start_date",
+              "contract.end_date",
+              "contract.duration_months",
+              "contract.task",
+              "contract.task_end",
+              "probation.arrangement",
+              "probation.start_date",
+              "probation.end_date",
+              "probation.duration_months",
+              "probation.salary",
+              "probation.repeated",
+              "job.position",
+              "job.duties",
+              "job.locations",
+              "working_hours.system",
+              "working_hours.hours_per_day",
+              "working_hours.hours_per_week",
+              "working_hours.rest",
+              "working_hours.rest_days_per_week",
+              "working_hours.rest_waived",
+              "working_hours.overtime",
+              "salary.regular",
+              "salary.payment_date",
+              "salary.payment_method",
+              "social_insurance.employer_enrolls",
+              "social_insurance.employer_pays",
+              "social_insurance.employee_withheld",
+              "social_insurance.cash_replacement",
+              "social_insurance.waived",
+              "social_insurance.employer_share_shifted",
+              "social_insurance.employer_underpays",
+              "social_insurance.employer_liability_excluded",
+              "social_insurance.employee_remedy_excluded",
+              "labor_protection.measures",
+              "labor_protection.training",
+              "labor_protection.hazard_exists",
+              "labor_protection.hazard_protection",
+              "training.arrangement",
+              "training.technical",
+              "training.service_penalty",
+              "training.cost",
+              "training.duration_months",
+              "training.penalty_prorated",
+              "termination.grounds",
+              "termination.notice",
+              "termination.notice_days",
+              "termination.approval_required",
+              "termination.employee_right_waived",
+              "termination.employer_unrestricted",
+              "termination.handover",
+              "economic_compensation.statutory",
+              "economic_compensation.settlement_deadline",
+              "economic_compensation.waived",
+              "economic_compensation.reduced",
+              "economic_compensation.statutory_percentage",
+              "economic_compensation.payment_delay_months",
+              "dispute.arbitration",
+              "penalties.obligations",
+              "non_compete.arrangement",
+              "non_compete.personnel",
+              "non_compete.secret_access",
+              "non_compete.businesses",
+              "non_compete.territories",
+              "non_compete.duration_months",
+              "non_compete.compensation",
+              "non_compete.compensation_deferred",
+              "non_compete.compensation_waived",
+              "non_compete.all_staff",
+              "ip.assignment_scope",
+              "ip.allocations",
+              "ip.personal_rights_waived",
+              "contract.employment_form",
+              "dispatch.agency",
+              "dispatch.host",
+              "dispatch.position",
+              "dispatch.period",
+              "dispatch.position_basis",
+              "dispatch.long_term_position",
+              "dispatch.temporary_duration_months",
+              "dispatch.equal_pay",
+              "dispatch.idle_pay",
+              "dispatch.worker_charges",
+              "dispatch.return_procedure",
+              "dispatch.reassignment_procedure",
+              "dispatch.refusal_termination",
+              "dispatch.refusal_compensation_waived",
+              "dispatch.host_direct_dismissal",
+              "dispatch.agreement_disclosure",
+              "dispatch.agency_obligations",
+              "dispatch.host_obligations",
+              "dispatch.obligations_waived",
+              "contract.term_limit_mode",
+              "contract.term_limit_date",
+              "contract.term_limit_months",
+              "capability.ground",
+              "capability.training",
+              "capability.reassignment",
+              "capability.reassessment",
+              "capability.notice",
+              "capability.compensation",
+              "working_hours.days_per_week",
+              "salary.cycle_kind",
+              "salary.cycle_days",
+              "part_time.hourly_minimum",
+              "part_time.injury_insurance",
+              "part_time.employee_notice_days",
+              "part_time.employer_notice_days",
+              "part_time.exit_approval",
+              "job.change_terms",
+              "discipline.dismissal_terms"
+            ],
+            "unresolved_concepts": [
+              "contract.duration_months"
+            ],
+            "facts": [
+              {
+                "concept": "identity.employer_name",
+                "value": "上海恒达人力资源有限公司",
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：上海恒达人力资源有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.employer_address",
+                "value": "上海市浦东新区浦东南路1188号",
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "住所：上海市浦东新区浦东南路1188号"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_name",
+                "value": "蒋晨宇",
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "乙方（劳动者）：蒋晨宇"
+                  }
+                ]
+              },
+              {
+                "concept": "identity.worker_id",
+                "value": "31011019970214XXXX",
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0003",
+                    "quote": "身份证号码：31011019970214XXXX"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.type",
+                "value": "FIXED",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "本协议自2027年4月1日起生效，期限至2029年3月31日止。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.start_date",
+                "value": "2027-04-01",
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "本协议自2027年4月1日起生效，期限至2029年3月31日止。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.end_date",
+                "value": "2029-03-31",
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "本协议自2027年4月1日起生效，期限至2029年3月31日止。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.duration_months",
+                "value": 24.0,
+                "assertion": "INFERRED",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "本协议自2027年4月1日起生效，期限至2029年3月31日止。"
+                  }
+                ]
+              },
+              {
+                "concept": "probation.arrangement",
+                "value": "CURRENT",
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "双方约定试用期2个月，自2027年4月1日起至2027年5月31日止。"
+                  }
+                ]
+              },
+              {
+                "concept": "probation.start_date",
+                "value": "2027-04-01",
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "双方约定试用期2个月，自2027年4月1日起至2027年5月31日止。"
+                  }
+                ]
+              },
+              {
+                "concept": "probation.end_date",
+                "value": "2027-05-31",
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "双方约定试用期2个月，自2027年4月1日起至2027年5月31日止。"
+                  }
+                ]
+              },
+              {
+                "concept": "probation.duration_months",
+                "value": 2.0,
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "双方约定试用期2个月，自2027年4月1日起至2027年5月31日止。"
+                  }
+                ]
+              },
+              {
+                "concept": "probation.salary",
+                "value": {
+                  "amount_text": "7,200",
+                  "unit": "CNY/MONTH",
+                  "component": "TOTAL",
+                  "amount": 7200.0,
+                  "determinate": true
+                },
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "乙方试用期工资为税前人民币7,200元/月。"
+                  }
+                ]
+              },
+              {
+                "concept": "job.position",
+                "value": "供应链数据专员",
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "岗位：供应链数据专员"
+                  }
+                ]
+              },
+              {
+                "concept": "job.duties",
+                "value": [
+                  "供应链数据核对",
+                  "采购数据统计",
+                  "供应商台账维护",
+                  "库存报表制作",
+                  "相关业务支持"
+                ],
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "乙方主要负责供应链数据核对、采购数据统计、供应商台账维护、库存报表制作及相关业务支持。"
+                  }
+                ]
+              },
+              {
+                "concept": "job.locations",
+                "value": [
+                  "上海市闵行区申长路988号"
+                ],
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "工作地点：上海市闵行区申长路988号"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.system",
+                "value": "STANDARD",
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "乙方实行标准工时制，每日工作8小时，每周工作40小时。"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.hours_per_day",
+                "value": 8.0,
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "乙方实行标准工时制，每日工作8小时，每周工作40小时。"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.hours_per_week",
+                "value": 40.0,
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "乙方实行标准工时制，每日工作8小时，每周工作40小时。"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.rest",
+                "value": "乙方依法享有法定节假日、年休假及其他法定休假。",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "乙方依法享有法定节假日、年休假及其他法定休假。"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.overtime",
+                "value": "STATUTORY",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "用工单位安排乙方加班的，应依法安排补休或者支付相应加班工资。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.regular",
+                "value": {
+                  "amount_text": "9,000",
+                  "unit": "CNY/MONTH",
+                  "component": "TOTAL",
+                  "amount": 9000.0,
+                  "determinate": true
+                },
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "试用期结束后，乙方固定工资为税前人民币9,000元/月。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.payment_date",
+                "value": "每月10日前",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "甲方于每月10日前通过银行转账方式支付乙方上月工资。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.payment_method",
+                "value": "BANK",
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "甲方于每月10日前通过银行转账方式支付乙方上月工资。"
+                  }
+                ]
+              },
+              {
+                "concept": "social_insurance.employer_enrolls",
+                "value": true,
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0011",
+                    "quote": "甲方依法为乙方办理社会保险及住房公积金手续。"
+                  }
+                ]
+              },
+              {
+                "concept": "social_insurance.employer_pays",
+                "value": true,
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0011",
+                    "quote": "依法应由甲方承担的缴费部分由甲方承担。"
+                  }
+                ]
+              },
+              {
+                "concept": "social_insurance.employee_withheld",
+                "value": true,
+                "assertion": "EXPLICIT",
+                "confidence": 0.99,
+                "evidence": [
+                  {
+                    "clause_id": "C0011",
+                    "quote": "乙方个人承担部分由甲方依法从工资中代扣代缴。"
+                  }
+                ]
+              },
+              {
+                "concept": "labor_protection.measures",
+                "value": "用工单位负责提供实际工作所需的办公环境、设备及劳动保护条件。",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "用工单位负责提供实际工作所需的办公环境、设备及劳动保护条件。"
+                  }
+                ]
+              },
+              {
+                "concept": "labor_protection.training",
+                "value": true,
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "用工单位负责乙方工作岗位相关的业务培训、安全培训和现场管理。"
+                  }
+                ]
+              },
+              {
+                "concept": "termination.grounds",
+                "value": [
+                  "乙方存在法律规定可以退回的情形",
+                  "乙方连续两个季度绩效考核低于80分",
+                  "用工单位认为乙方与部门工作要求匹配程度不足",
+                  "用工单位因组织架构调整不再需要该岗位",
+                  "如乙方被用工单位退回后拒绝甲方安排的新派遣岗位，甲方有权视为乙方主动放弃继续履行劳动合同，并直接办理劳动关系终止手续"
+                ],
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0015",
+                    "quote": "发生下列情形之一时，用工单位可以将乙方退回甲方：\n乙方存在法律规定可以退回的情形；\n乙方连续两个季度绩效考核低于80分；\n用工单位认为乙方与部门工作要求匹配程度不足；\n用工单位因组织架构调整不再需要该岗位。"
+                  },
+                  {
+                    "clause_id": "C0016",
+                    "quote": "如乙方被用工单位退回后拒绝甲方安排的新派遣岗位，甲方有权视为乙方主动放弃继续履行劳动合同，并直接办理劳动关系终止手续。"
+                  }
+                ]
+              },
+              {
+                "concept": "termination.notice",
+                "value": "乙方解除本协议，应依法履行通知义务。",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0016",
+                    "quote": "乙方解除本协议，应依法履行通知义务。"
+                  }
+                ]
+              },
+              {
+                "concept": "termination.handover",
+                "value": "乙方正常办理离职并完成工作交接后，甲方在无其他争议的情况下退还保证金。",
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "乙方正常办理离职并完成工作交接后，甲方在无其他争议的情况下退还保证金。"
+                  }
+                ]
+              },
+              {
+                "concept": "economic_compensation.statutory",
+                "value": "依法需要支付经济补偿、赔偿金或者其他费用的，由甲方按照法律规定处理。",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0019",
+                    "quote": "依法需要支付经济补偿、赔偿金或者其他费用的，由甲方按照法律规定处理。"
+                  }
+                ]
+              },
+              {
+                "concept": "economic_compensation.settlement_deadline",
+                "value": "劳动合同依法解除或者终止后，甲方应依法结清乙方工资及其他应付款项。",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0019",
+                    "quote": "劳动合同依法解除或者终止后，甲方应依法结清乙方工资及其他应付款项。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispute.arbitration",
+                "value": true,
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0020",
+                    "quote": "协商不成的，可以依法向有管辖权的劳动人事争议仲裁委员会申请仲裁。"
+                  }
+                ]
+              },
+              {
+                "concept": "penalties.obligations",
+                "value": {
+                  "scope": "ORDINARY_RESIGNATION",
+                  "amount_text": "1,500元",
+                  "imposed": true
+                },
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "乙方入职后，应向甲方缴纳人民币1,500元岗位履约保证金。"
+                  }
+                ]
+              },
+              {
+                "concept": "non_compete.arrangement",
+                "value": "NONE",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0017",
+                    "quote": "本协议不约定离职后的竞业限制。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.employment_form",
+                "value": "DISPATCH",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：上海恒达人力资源有限公司"
+                  },
+                  {
+                    "clause_id": "C0005",
+                    "quote": "甲方安排乙方至以下合作单位工作：\n用工单位：上海启盛电子科技有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.agency",
+                "value": "上海恒达人力资源有限公司",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0002",
+                    "quote": "甲方（用人单位）：上海恒达人力资源有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.host",
+                "value": "上海启盛电子科技有限公司",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "用工单位：上海启盛电子科技有限公司"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.position",
+                "value": "供应链数据专员",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "岗位：供应链数据专员"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.period",
+                "value": "2027年4月1日至2029年3月31日",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0005",
+                    "quote": "派遣期限：2027年4月1日至2029年3月31日"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.position_basis",
+                "value": "REGULAR_CORE",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "该岗位属于用工单位日常主营业务运营体系中的常设岗位，不属于临时替岗岗位。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.long_term_position",
+                "value": true,
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0006",
+                    "quote": "乙方所在岗位属于用工单位供应链管理中心的长期固定岗位。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.equal_pay",
+                "value": "LOWER_ALLOWED",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "双方确认，考虑到乙方属于外派人员，其薪酬体系可以与用工单位直接聘用员工有所区别，乙方对此不持异议。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.idle_pay",
+                "value": "MONTHLY_LOCAL_MINIMUM",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0010",
+                    "quote": "乙方被用工单位依法退回甲方后，如甲方暂时不能安排新的派遣岗位，在等待重新派遣期间，甲方按照甲方所在地现行最低工资标准按月向乙方支付劳动报酬。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.worker_charges",
+                "value": "REQUIRED",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0009",
+                    "quote": "乙方入职后，应向甲方缴纳人民币1,500元岗位履约保证金。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.return_procedure",
+                "value": "发生下列情形之一时，用工单位可以将乙方退回甲方：乙方存在法律规定可以退回的情形；乙方连续两个季度绩效考核低于80分；用工单位认为乙方与部门工作要求匹配程度不足；用工单位因组织架构调整不再需要该岗位。",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0015",
+                    "quote": "发生下列情形之一时，用工单位可以将乙方退回甲方：\n乙方存在法律规定可以退回的情形；\n乙方连续两个季度绩效考核低于80分；\n用工单位认为乙方与部门工作要求匹配程度不足；\n用工单位因组织架构调整不再需要该岗位。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.reassignment_procedure",
+                "value": "乙方被退回后，甲方可以根据现有岗位情况安排新的用工单位。",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0015",
+                    "quote": "乙方被退回后，甲方可以根据现有岗位情况安排新的用工单位。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.refusal_termination",
+                "value": "ANY_OFFER",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0016",
+                    "quote": "如乙方被用工单位退回后拒绝甲方安排的新派遣岗位，甲方有权视为乙方主动放弃继续履行劳动合同，并直接办理劳动关系终止手续。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.agreement_disclosure",
+                "value": false,
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0013",
+                    "quote": "甲方与用工单位签订的劳务派遣协议属于双方商业文件，其中关于派遣服务价格、薪酬结算标准、退回条件及其他商务安排，甲方可以不向乙方披露。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.agency_obligations",
+                "value": [
+                  "依法为乙方办理社会保险及住房公积金手续",
+                  "依法从工资中代扣代缴乙方个人承担部分",
+                  "依法监督用工单位履行相应劳动保护义务",
+                  "按照甲方所在地现行最低工资标准按月向乙方支付劳动报酬",
+                  "依法结清乙方工资及其他应付款项",
+                  "依法为乙方出具解除或者终止劳动合同证明"
+                ],
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0011",
+                    "quote": "甲方依法为乙方办理社会保险及住房公积金手续。"
+                  },
+                  {
+                    "clause_id": "C0012",
+                    "quote": "甲方应依法监督用工单位履行相应劳动保护义务。"
+                  },
+                  {
+                    "clause_id": "C0010",
+                    "quote": "甲方按照甲方所在地现行最低工资标准按月向乙方支付劳动报酬。"
+                  },
+                  {
+                    "clause_id": "C0019",
+                    "quote": "劳动合同依法解除或者终止后，甲方应依法结清乙方工资及其他应付款项。"
+                  },
+                  {
+                    "clause_id": "C0019",
+                    "quote": "甲方应依法为乙方出具解除或者终止劳动合同证明。"
+                  }
+                ]
+              },
+              {
+                "concept": "dispatch.host_obligations",
+                "value": [
+                  "提供实际工作所需的办公环境、设备及劳动保护条件",
+                  "负责乙方工作岗位相关的业务培训、安全培训和现场管理",
+                  "依法安排补休或者支付相应加班工资"
+                ],
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0012",
+                    "quote": "用工单位负责提供实际工作所需的办公环境、设备及劳动保护条件。"
+                  },
+                  {
+                    "clause_id": "C0012",
+                    "quote": "用工单位负责乙方工作岗位相关的业务培训、安全培训和现场管理。"
+                  },
+                  {
+                    "clause_id": "C0007",
+                    "quote": "用工单位安排乙方加班的，应依法安排补休或者支付相应加班工资。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.term_limit_mode",
+                "value": "CALENDAR_EXPIRY",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "本协议自2027年4月1日起生效，期限至2029年3月31日止。"
+                  }
+                ]
+              },
+              {
+                "concept": "contract.term_limit_date",
+                "value": "2029-03-31",
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0004",
+                    "quote": "本协议自2027年4月1日起生效，期限至2029年3月31日止。"
+                  }
+                ]
+              },
+              {
+                "concept": "ip.assignment_scope",
+                "value": "DUTY_OR_RESOURCES",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0018",
+                    "quote": "乙方履行派遣岗位职责过程中形成的职务成果，其知识产权按照法律规定及依法有效的相关约定处理。"
+                  }
+                ]
+              },
+              {
+                "concept": "ip.allocations",
+                "value": {
+                  "scope": "DUTY_OR_RESOURCES",
+                  "beneficiary": "UNSPECIFIED",
+                  "mode": "STATUTORY"
+                },
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0018",
+                    "quote": "乙方履行派遣岗位职责过程中形成的职务成果，其知识产权按照法律规定及依法有效的相关约定处理。"
+                  }
+                ]
+              },
+              {
+                "concept": "ip.allocations",
+                "value": {
+                  "scope": "PRE_EXISTING",
+                  "beneficiary": "EMPLOYEE",
+                  "mode": "AUTOMATIC"
+                },
+                "assertion": "EXPLICIT",
+                "confidence": 0.98,
+                "evidence": [
+                  {
+                    "clause_id": "C0018",
+                    "quote": "乙方入职前已经拥有的个人作品、软件、专利及其他知识产权仍归乙方所有。"
+                  }
+                ]
+              },
+              {
+                "concept": "working_hours.days_per_week",
+                "value": 5.0,
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0007",
+                    "quote": "正常工作时间原则上为周一至周五9:00至18:00，中午休息1小时。"
+                  }
+                ]
+              },
+              {
+                "concept": "salary.cycle_kind",
+                "value": "MONTHLY",
+                "assertion": "EXPLICIT",
+                "confidence": 0.95,
+                "evidence": [
+                  {
+                    "clause_id": "C0008",
+                    "quote": "甲方于每月10日前通过银行转账方式支付乙方上月工资。"
+                  }
+                ]
+              },
+              {
+                "concept": "job.change_terms",
+                "value": {
+                  "consent": "NOT_REQUIRED",
+                  "unilateral_position": true,
+                  "position_scope": "BOUNDED"
+                },
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0014",
+                    "quote": "在派遣期间，用工单位可以根据业务需要合理调整乙方在本单位内部的具体工作内容。"
+                  }
+                ]
+              },
+              {
+                "concept": "job.change_terms",
+                "value": {
+                  "consent": "NOT_REQUIRED",
+                  "unilateral_position": true,
+                  "position_scope": "ANY"
+                },
+                "assertion": "EXPLICIT",
+                "confidence": 0.9,
+                "evidence": [
+                  {
+                    "clause_id": "C0014",
+                    "quote": "如用工单位的关联公司、子公司或者其他合作企业存在人员需求，用工单位可以直接安排乙方至上述企业继续工作，甲方对此视为原派遣安排的延续。"
+                  },
+                  {
+                    "clause_id": "C0014",
+                    "quote": "乙方应服从上述安排，无需重新签订派遣文件。"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "response": {
+            "schema_version": "employment-facts-1.0",
+            "reviewed_clause_ids": [
+              "C0001",
+              "C0002",
+              "C0003",
+              "C0004",
+              "C0005",
+              "C0006",
+              "C0007",
+              "C0008",
+              "C0009",
+              "C0010",
+              "C0011",
+              "C0012",
+              "C0013",
+              "C0014",
+              "C0015",
+              "C0016",
+              "C0017",
+              "C0018",
+              "C0019",
+              "C0020",
+              "C0021",
+              "C0022"
+            ],
+            "searched_concepts": [
+              "salary.withheld_for_handover"
+            ],
+            "unresolved_concepts": [],
+            "facts": []
+          },
+          "model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 4075,
+            "completion_tokens": 135,
+            "total_tokens": 4210,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 3307
+          },
+          "provider": "deepseek"
+        }
+      ],
+      "raw_verification": {
+        "provider": "deepseek",
+        "model": "deepseek-flash",
+        "verification": {
+          "verification_schema_version": "fact-verification-2",
+          "checks": [
+            {
+              "fact_id": "EF-bf758d75cdd0487e",
+              "supported": true,
+              "reason": "引文明确载明甲方（用人单位）为上海恒达人力资源有限公司。"
+            },
+            {
+              "fact_id": "EF-5b86bf474086efec",
+              "supported": true,
+              "reason": "引文明确载明住所为上海市浦东新区浦东南路1188号。"
+            },
+            {
+              "fact_id": "EF-9679850c407ff5ef",
+              "supported": true,
+              "reason": "引文明确载明乙方（劳动者）为蒋晨宇。"
+            },
+            {
+              "fact_id": "EF-fd51fd0757badc69",
+              "supported": true,
+              "reason": "引文明确载明身份证号码为31011019970214XXXX。"
+            },
+            {
+              "fact_id": "EF-38806451f0354ee9",
+              "supported": true,
+              "reason": "引文明确约定自2027年4月1日起至2029年3月31日止的固定期限，可支持FIXED。"
+            },
+            {
+              "fact_id": "EF-22d16812cf8e53a6",
+              "supported": true,
+              "reason": "引文明确载明协议自2027年4月1日起生效。"
+            },
+            {
+              "fact_id": "EF-3f5947cab264c710",
+              "supported": true,
+              "reason": "引文明确载明期限至2029年3月31日止。"
+            },
+            {
+              "fact_id": "EF-d5e07c7b7f7a74f8",
+              "supported": true,
+              "reason": "由2027年4月1日至2029年3月31日可计算为24个月，属期限计算推断。"
+            },
+            {
+              "fact_id": "EF-dd825508bf39d4c0",
+              "supported": true,
+              "reason": "引文明确约定试用期2个月，属已实际约定CURRENT。"
+            },
+            {
+              "fact_id": "EF-1aa77bc667227cc4",
+              "supported": true,
+              "reason": "引文明确试用期自2027年4月1日起。"
+            },
+            {
+              "fact_id": "EF-e36f2e735c8d5b6e",
+              "supported": true,
+              "reason": "引文明确试用期至2027年5月31日止。"
+            },
+            {
+              "fact_id": "EF-6d032677852d36cc",
+              "supported": true,
+              "reason": "引文明确约定试用期2个月。"
+            },
+            {
+              "fact_id": "EF-2aa44c51313ec612",
+              "supported": true,
+              "reason": "引文明确试用期工资为税前人民币7,200元/月。"
+            },
+            {
+              "fact_id": "EF-a14053b851cfc7ad",
+              "supported": true,
+              "reason": "引文明确岗位为供应链数据专员。"
+            },
+            {
+              "fact_id": "EF-7e8edfb42ba6cab7",
+              "supported": true,
+              "reason": "引文明确列明供应链数据核对、采购数据统计、供应商台账维护、库存报表制作及相关业务支持。"
+            },
+            {
+              "fact_id": "EF-1cbfeeaff70ea088",
+              "supported": true,
+              "reason": "引文明确工作地点为上海市闵行区申长路988号。"
+            },
+            {
+              "fact_id": "EF-c6f0a967afaf811f",
+              "supported": true,
+              "reason": "引文明确实行标准工时制。"
+            },
+            {
+              "fact_id": "EF-8af54467481c6a7a",
+              "supported": true,
+              "reason": "引文明确每日工作8小时。"
+            },
+            {
+              "fact_id": "EF-290c1d098fec6b2e",
+              "supported": true,
+              "reason": "引文明确每周工作40小时。"
+            },
+            {
+              "fact_id": "EF-fce7e328cab416df",
+              "supported": true,
+              "reason": "引文明确乙方依法享有法定节假日、年休假及其他法定休假。"
+            },
+            {
+              "fact_id": "EF-45e3f6b6f4030517",
+              "supported": true,
+              "reason": "引文明确加班应依法安排补休或支付加班工资，属STATUTORY。"
+            },
+            {
+              "fact_id": "EF-54d7029e59e010eb",
+              "supported": true,
+              "reason": "引文明确试用期结束后固定工资为税前人民币9,000元/月。"
+            },
+            {
+              "fact_id": "EF-76a979012d3b17fd",
+              "supported": true,
+              "reason": "引文明确甲方于每月10日前支付上月工资。"
+            },
+            {
+              "fact_id": "EF-60e2701750168185",
+              "supported": true,
+              "reason": "引文明确通过银行转账方式支付。"
+            },
+            {
+              "fact_id": "EF-d2188fc3a0b1c85e",
+              "supported": true,
+              "reason": "引文明确甲方依法为乙方办理社会保险及住房公积金手续。"
+            },
+            {
+              "fact_id": "EF-3e07a31ed0da5571",
+              "supported": true,
+              "reason": "引文明确依法应由甲方承担的缴费部分由甲方承担。"
+            },
+            {
+              "fact_id": "EF-d2a535841f5d1ea1",
+              "supported": true,
+              "reason": "引文明确乙方个人承担部分由甲方依法从工资中代扣代缴。"
+            },
+            {
+              "fact_id": "EF-28d4002f27f11176",
+              "supported": true,
+              "reason": "引文明确用工单位负责提供办公环境、设备及劳动保护条件。"
+            },
+            {
+              "fact_id": "EF-475b5ee57b9681c0",
+              "supported": true,
+              "reason": "引文明确用工单位负责业务培训、安全培训和现场管理，属已约定安全教育培训。"
+            },
+            {
+              "fact_id": "EF-0ea5afdf3241c2ef",
+              "supported": true,
+              "reason": "引文明确列明退回情形及拒绝新派遣岗位可终止劳动关系。"
+            },
+            {
+              "fact_id": "EF-e355b564142b9c86",
+              "supported": true,
+              "reason": "引文明确乙方解除本协议应依法履行通知义务。"
+            },
+            {
+              "fact_id": "EF-ccbd759ea7f28ff7",
+              "supported": true,
+              "reason": "引文明确正常办理离职并完成工作交接后退还保证金。"
+            },
+            {
+              "fact_id": "EF-b230029375e38007",
+              "supported": true,
+              "reason": "引文明确依法需要支付经济补偿等由甲方按法律规定处理。"
+            },
+            {
+              "fact_id": "EF-f181421328d3e4f1",
+              "supported": true,
+              "reason": "引文明确解除或终止后甲方应依法结清工资及其他应付款项。"
+            },
+            {
+              "fact_id": "EF-7702291b38ba7404",
+              "supported": true,
+              "reason": "引文明确协商不成可依法申请劳动仲裁。"
+            },
+            {
+              "fact_id": "EF-780c955bd130fa66",
+              "supported": true,
+              "reason": "引文明确乙方入职后应向甲方缴纳1,500元岗位履约保证金，属实际施加的付款义务。"
+            },
+            {
+              "fact_id": "EF-0648bb4d02f13dd2",
+              "supported": true,
+              "reason": "引文明确本协议不约定离职后的竞业限制，属NONE。"
+            },
+            {
+              "fact_id": "EF-9a97fed6bf92c45a",
+              "supported": true,
+              "reason": "引文明确甲方为用人单位、安排乙方至用工单位工作，属派遣用工关系。"
+            },
+            {
+              "fact_id": "EF-0ea09547760ff093",
+              "supported": true,
+              "reason": "引文明确甲方上海恒达人力资源有限公司为用人单位即派遣单位。"
+            },
+            {
+              "fact_id": "EF-d39cadf45cd00dc0",
+              "supported": true,
+              "reason": "引文明确用工单位为上海启盛电子科技有限公司。"
+            },
+            {
+              "fact_id": "EF-bfe99e07b4bc1f23",
+              "supported": true,
+              "reason": "引文明确派遣岗位为供应链数据专员。"
+            },
+            {
+              "fact_id": "EF-f7053dbd44e06a67",
+              "supported": true,
+              "reason": "引文明确派遣期限为2027年4月1日至2029年3月31日。"
+            },
+            {
+              "fact_id": "EF-94e95d4b078679df",
+              "supported": true,
+              "reason": "引文明确岗位属于日常主营业务运营体系中的常设岗位，可支持REGULAR_CORE。"
+            },
+            {
+              "fact_id": "EF-476a4e7ffde02294",
+              "supported": true,
+              "reason": "引文明确岗位属于长期固定岗位。"
+            },
+            {
+              "fact_id": "EF-73a8fc8ceb10aa43",
+              "supported": true,
+              "reason": "引文明确外派人员薪酬体系可与用工单位直接聘用员工有所区别，乙方不持异议，可支持LOWER_ALLOWED。"
+            },
+            {
+              "fact_id": "EF-34db31473946310a",
+              "supported": true,
+              "reason": "引文明确等待重新派遣期间按甲方所在地现行最低工资标准按月支付。"
+            },
+            {
+              "fact_id": "EF-fd6aec4b9e96a4fd",
+              "supported": true,
+              "reason": "引文明确乙方入职后应向甲方缴纳1,500元岗位履约保证金，属向劳动者收费安排。"
+            },
+            {
+              "fact_id": "EF-e452f0db268c99de",
+              "supported": true,
+              "reason": "引文明确列明用工单位可将乙方退回甲方的具体情形。"
+            },
+            {
+              "fact_id": "EF-64ef0b0ffcae2de7",
+              "supported": true,
+              "reason": "引文明确乙方被退回后甲方可根据现有岗位情况安排新的用工单位。"
+            },
+            {
+              "fact_id": "EF-cba72f4984dbc2ed",
+              "supported": true,
+              "reason": "引文明确拒绝甲方安排的新派遣岗位即可被终止劳动关系，未限定维持原条件，可支持ANY_OFFER。"
+            },
+            {
+              "fact_id": "EF-99192beafa25ba8c",
+              "supported": true,
+              "reason": "引文明确甲方可以不向乙方披露派遣协议中商务安排，可支持未告知相关切身利益内容。"
+            },
+            {
+              "fact_id": "EF-d7161fd439ead0dd",
+              "supported": true,
+              "reason": "引文分别明确甲方办理社保公积金、代扣代缴、监督劳动保护、支付等待期报酬、结清款项及出具证明等义务。"
+            },
+            {
+              "fact_id": "EF-35d1f7689cea7cc1",
+              "supported": true,
+              "reason": "引文分别明确用工单位提供劳动条件、负责培训及现场管理、安排补休或支付加班工资等义务。"
+            },
+            {
+              "fact_id": "EF-e07982ddaa5b9c1f",
+              "supported": true,
+              "reason": "引文明确期限至2029年3月31日止，属日历到期终止。"
+            },
+            {
+              "fact_id": "EF-89cabdfd8f079c3a",
+              "supported": true,
+              "reason": "引文明确合同期限至2029年3月31日止。"
+            },
+            {
+              "fact_id": "EF-60d9f8328d2ee5c1",
+              "supported": true,
+              "reason": "引文明确履行派遣岗位职责过程中形成的职务成果，属DUTY_OR_RESOURCES范围。"
+            },
+            {
+              "fact_id": "EF-6977807e387688f0",
+              "supported": true,
+              "reason": "引文明确职务成果知识产权按法律规定及依法有效约定处理，可支持STATUTORY与UNSPECIFIED。"
+            },
+            {
+              "fact_id": "EF-382886cddc613643",
+              "supported": true,
+              "reason": "引文明确入职前已拥有的个人作品、软件、专利等仍归乙方所有。"
+            },
+            {
+              "fact_id": "EF-93269b2640eaece9",
+              "supported": true,
+              "reason": "引文明确正常工作时间原则上为周一至周五，可支持每周5天。"
+            },
+            {
+              "fact_id": "EF-de42399b8549c0d4",
+              "supported": true,
+              "reason": "引文明确每月10日前支付上月工资，属按月结算支付。"
+            },
+            {
+              "fact_id": "EF-4c290ffeb5819951",
+              "supported": true,
+              "reason": "引文明确用工单位可根据业务需要合理调整乙方在本单位内部具体工作内容，属单位内部有限范围单方调整。"
+            },
+            {
+              "fact_id": "EF-58310183e7686302",
+              "supported": true,
+              "reason": "引文明确可安排乙方至关联公司、子公司或其他合作企业继续工作且无需重新签订派遣文件，属范围较宽的单方安排。"
+            },
+            {
+              "fact_id": "EF-4a7f7b00479f53ab",
+              "supported": false,
+              "reason": "引文仅允许从首月工资中扣除保证金，并非以未交接等理由扣留已挣得工资，候选事实与引文语义不符。"
+            }
+          ],
+          "searched_concepts": [
+            "identity.employer_name",
+            "identity.employer_address",
+            "identity.worker_name",
+            "identity.worker_id",
+            "contract.type",
+            "contract.start_date",
+            "contract.end_date",
+            "contract.duration_months",
+            "contract.task",
+            "contract.task_end",
+            "probation.arrangement",
+            "probation.start_date",
+            "probation.end_date",
+            "probation.duration_months",
+            "probation.salary",
+            "probation.repeated",
+            "job.position",
+            "job.duties",
+            "job.locations",
+            "working_hours.system",
+            "working_hours.hours_per_day",
+            "working_hours.hours_per_week",
+            "working_hours.rest",
+            "working_hours.rest_days_per_week",
+            "working_hours.rest_waived",
+            "working_hours.overtime",
+            "salary.regular",
+            "salary.payment_date",
+            "salary.payment_method",
+            "salary.withheld_for_handover",
+            "social_insurance.employer_enrolls",
+            "social_insurance.employer_pays",
+            "social_insurance.employee_withheld",
+            "social_insurance.cash_replacement",
+            "social_insurance.waived",
+            "social_insurance.employer_share_shifted",
+            "social_insurance.employer_underpays",
+            "social_insurance.employer_liability_excluded",
+            "social_insurance.employee_remedy_excluded",
+            "labor_protection.measures",
+            "labor_protection.training",
+            "labor_protection.hazard_exists",
+            "labor_protection.hazard_protection",
+            "training.arrangement",
+            "training.technical",
+            "training.service_penalty",
+            "training.cost",
+            "training.duration_months",
+            "training.penalty_prorated",
+            "termination.grounds",
+            "termination.notice",
+            "termination.notice_days",
+            "termination.approval_required",
+            "termination.employee_right_waived",
+            "termination.employer_unrestricted",
+            "termination.handover",
+            "economic_compensation.statutory",
+            "economic_compensation.settlement_deadline",
+            "economic_compensation.waived",
+            "economic_compensation.reduced",
+            "economic_compensation.statutory_percentage",
+            "economic_compensation.payment_delay_months",
+            "dispute.arbitration",
+            "penalties.obligations",
+            "non_compete.arrangement",
+            "non_compete.personnel",
+            "non_compete.secret_access",
+            "non_compete.businesses",
+            "non_compete.territories",
+            "non_compete.duration_months",
+            "non_compete.compensation",
+            "non_compete.compensation_deferred",
+            "non_compete.compensation_waived",
+            "non_compete.all_staff",
+            "ip.assignment_scope",
+            "ip.allocations",
+            "ip.personal_rights_waived",
+            "contract.employment_form",
+            "dispatch.agency",
+            "dispatch.host",
+            "dispatch.position",
+            "dispatch.period",
+            "dispatch.position_basis",
+            "dispatch.long_term_position",
+            "dispatch.temporary_duration_months",
+            "dispatch.equal_pay",
+            "dispatch.idle_pay",
+            "dispatch.worker_charges",
+            "dispatch.return_procedure",
+            "dispatch.reassignment_procedure",
+            "dispatch.refusal_termination",
+            "dispatch.refusal_compensation_waived",
+            "dispatch.host_direct_dismissal",
+            "dispatch.agreement_disclosure",
+            "dispatch.agency_obligations",
+            "dispatch.host_obligations",
+            "dispatch.obligations_waived",
+            "contract.term_limit_mode",
+            "contract.term_limit_date",
+            "contract.term_limit_months",
+            "capability.ground",
+            "capability.training",
+            "capability.reassignment",
+            "capability.reassessment",
+            "capability.notice",
+            "capability.compensation",
+            "working_hours.days_per_week",
+            "salary.cycle_kind",
+            "salary.cycle_days",
+            "part_time.hourly_minimum",
+            "part_time.injury_insurance",
+            "part_time.employee_notice_days",
+            "part_time.employer_notice_days",
+            "part_time.exit_approval",
+            "job.change_terms",
+            "discipline.dismissal_terms"
+          ],
+          "unresolved_concepts": [],
+          "additional_facts": [],
+          "absence_audits": [
+            {
+              "concept": "training.arrangement",
+              "result": "ABSENT",
+              "reason": "全文仅约定用工单位负责岗位相关业务培训、安全培训和现场管理，属于普通安全/岗位培训；未约定专项技术培训、培训费用、服务期或服务期违约金，也无明确不设服务期的原文。",
+              "searched_concepts": [
+                "training.arrangement",
+                "training.technical",
+                "training.cost",
+                "training.duration_months",
+                "training.service_penalty"
+              ],
+              "reviewed_clause_ids": [
+                "C0001",
+                "C0002",
+                "C0003",
+                "C0004",
+                "C0005",
+                "C0006",
+                "C0007",
+                "C0008",
+                "C0009",
+                "C0010",
+                "C0011",
+                "C0012",
+                "C0013",
+                "C0014",
+                "C0015",
+                "C0016",
+                "C0017",
+                "C0018",
+                "C0019",
+                "C0020",
+                "C0021",
+                "C0022"
+              ]
+            }
+          ],
+          "reviewed_clause_ids": [
+            "C0001",
+            "C0002",
+            "C0003",
+            "C0004",
+            "C0005",
+            "C0006",
+            "C0007",
+            "C0008",
+            "C0009",
+            "C0010",
+            "C0011",
+            "C0012",
+            "C0013",
+            "C0014",
+            "C0015",
+            "C0016",
+            "C0017",
+            "C0018",
+            "C0019",
+            "C0020",
+            "C0021",
+            "C0022"
+          ]
+        },
+        "usage": {
+          "prompt_tokens": 15417,
+          "completion_tokens": 3620,
+          "total_tokens": 19037,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 14649
+        }
+      }
+    }
+  ],
+  "trace_id": "FACT-0b7d39c824ed4d51ba3eb5bba926a3b5"
+}

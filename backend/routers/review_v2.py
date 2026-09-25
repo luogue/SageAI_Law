@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 import html
+import json
 import hashlib
 import inspect
 import io
@@ -13,7 +14,7 @@ import logging
 import os
 import re
 from datetime import datetime
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 from urllib.parse import quote
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
@@ -45,7 +46,9 @@ from review_v2.engine import (
     review_contract_v2,
 )
 from review_v2.contract_registry import get_checklist_for_resolution
+from review_v2 import domain_packs as review_domain_packs_module
 from review_v2 import engine as review_engine_module
+from review_v2 import quality4 as review_quality4_module
 from review_v2.element_resolution import conditional_element
 from review_v2.clause_parser import strip_non_contract_tail
 from review_v2.input_integrity import (
@@ -59,6 +62,7 @@ from review_v2.technology_service_analysis import (
     extract_claim_response_facts,
 )
 from review_v2.llm_semantic_reviewer import get_llm_review_status
+from review_v2.loan_contract_checklist import get_loan_checklist
 from review_v2.user_profile import UserRiskProfile
 from review_v2.semantic_reviewer import (
     COVERAGE_MISSING,
@@ -97,8 +101,92 @@ def _runtime_source_identity(target: Any) -> Dict[str, Any]:
     }
 
 
+from review_v2.lease_semantics import apply as apply_lease_semantics
+from review_v2.commission_agency_evidence import apply as apply_commission_agency_evidence
+from review_v2.utility_supply_evidence import apply as apply_utility_supply_evidence, consistency_gate as utility_supply_consistency_gate
+from review_v2.parameter_validation import extract_parameters
+from review_v2.prerequisite_resolution import resolve_prerequisites
+from review_v2.evidence_compatibility import evidence_compatible
+from review_v2.utility_supply_applicability import extract_applicability_facts
+from review_v2.utility_supply_contract_checklist import get_utility_supply_checklist
+from review_v2.recommendation_children import child_set_gate as lease_child_set_gate
+from review_v2 import employment_contract_checklist, employment_facts, employment_exit, employment_rights, priority_contract_review
+from review_v2 import noncompete_semantics, noncompete_reasonableness
+from review_v2 import nda_semantics
+from review_v2 import primary_purpose
+from review_v2 import agency_facts
+from review_v2 import semantic_relations, semantic_consistency
+from review_v2 import penalty_base
+from review_v2 import equity_investment_checklist, equity_transaction_facts
+from review_v2 import company_formation_checklist, transaction_scope, priority_contract_types
+from review_v2 import termination_checklist, template_parser
+from review_v2 import brokerage_facts, brokerage_contract_checklist, brokerage_concepts
+from review_v2 import gift_evidence, gift_contract_checklist
+from review_v2 import service_scenarios, service_contract_checklist
+from review_v2 import guarantee_contract_facts, guarantee_party_facts, guarantee_prerequisites, guarantee_mode, guarantee_scope, guarantee_contract_checklist
+from review_v2 import guarantee_scenarios, guarantee_closure
+from review_v2 import narrative_composition
+from review_v2.final_snapshot import SnapshotStore, SnapshotError, FIELDS as SNAPSHOT_FIELDS
+
 _RUNTIME_SOURCE_TARGETS = {
+    'company_formation_checklist': company_formation_checklist,
+    'transaction_scope': transaction_scope,
+    'priority_contract_types': priority_contract_types,
+    'narrative_composition': narrative_composition,
+    'guarantee_scenarios': guarantee_scenarios,
+    'guarantee_closure': guarantee_closure,
+    'guarantee_facts': guarantee_contract_facts,
+    'guarantee_parties': guarantee_party_facts,
+    'guarantee_prerequisites': guarantee_prerequisites,
+    'guarantee_mode': guarantee_mode,
+    'guarantee_scope': guarantee_scope,
+    'guarantee_checklist': guarantee_contract_checklist,
+    'service_scenarios': service_scenarios,
+    'service_checklist': service_contract_checklist,
+    'gift_evidence': gift_evidence,
+    'gift_checklist': gift_contract_checklist,
+    'brokerage_facts': brokerage_facts,
+    'brokerage_concepts': brokerage_concepts,
+    'brokerage_checklist': brokerage_contract_checklist,
+    'employment_checklist': employment_contract_checklist,
+    'employment_facts': employment_facts,
+    'employment_exit': employment_exit,
+    'employment_rights': employment_rights,
+    'noncompete_semantics': noncompete_semantics,
+    'noncompete_reasonableness': noncompete_reasonableness,
+    'nda_semantics': nda_semantics,
+    'primary_purpose': primary_purpose,
+    'agency_facts': agency_facts,
+    'semantic_relations': semantic_relations,
+    'semantic_consistency': semantic_consistency,
+    'penalty_base': penalty_base,
+    'equity_checklist': equity_investment_checklist,
+    'equity_transaction_facts': equity_transaction_facts,
+    'termination_checklist': termination_checklist,
+    'template_parser': template_parser,
+    'priority_contract_review': priority_contract_review,
+    "commission_agency_evidence": apply_commission_agency_evidence,
+    "utility_supply_evidence": apply_utility_supply_evidence,
+    "utility_supply_consistency_gate": utility_supply_consistency_gate,
+    "parameter_validation": extract_parameters,
+    "prerequisite_resolution": resolve_prerequisites,
+    "evidence_compatibility": evidence_compatible,
+    "utility_supply_applicability": extract_applicability_facts,
+    "utility_supply_checklist": get_utility_supply_checklist,
+    "lease_semantics": apply_lease_semantics,
+    "lease_recommendation_children": lease_child_set_gate,
+    "lease_fact_graph": review_engine_module.extract_house_lease_facts,
+    "clause_parser": review_engine_module.parse_contract_clauses,
+    "domain_selection": review_engine_module.resolve_domain_selection,
+    "source_span_evidence": review_engine_module.extract_sale_evidence,
+    "work_evidence": review_engine_module.apply_work_evidence,
+    "finance_lease_facts": review_engine_module.FinanceLeaseFacts.__init__,
+    "loan_costs": review_engine_module.analyze_costs,
+    "loan_facts": review_engine_module.LoanFacts.from_clauses,
+    "loan_checklist": get_loan_checklist,
     "engine": review_contract_v2,
+    "domain_packs": review_domain_packs_module,
+    "quality4": review_quality4_module,
     "classifier": classify_technology_transaction,
     "registry": get_checklist_for_resolution,
     "document_parser": InputLayer.extract_text_with_diagnostics,
@@ -110,36 +198,185 @@ _RUNTIME_SOURCE_TARGETS = {
     "secret_proof_evaluation": review_engine_module._technical_secret_transfer_proof_results,
     "element_search": review_engine_module._resolve_final_element_searches,
     "recommendations": review_engine_module._finalize_element_recommendation_sources,
+    "liability_scope_consistency": review_engine_module.liability_scope_consistency_failures,
+    "requirement_key_normalization": review_engine_module.normalize_requirement_supports,
+    "development_exit_elements": review_engine_module.development_exit_elements,
+    "entrusted_patent_application_elements": review_engine_module.entrusted_patent_application_elements,
+    "development_failure_elements": review_engine_module.development_failure_elements,
+    "confidentiality_detail_elements": review_engine_module.confidentiality_detail_elements,
+    "ancillary_service_detail_elements": review_engine_module.ancillary_service_detail_elements,
+    "report_state_consistency_failures": review_engine_module.report_state_consistency_failures,
 }
+from review_v2 import security_property_checklist, security_context, security_semantic_aliases, requirement_kinds, shared_fact_concepts, safekeeping_contract_checklist, penalty_base
+_RUNTIME_SOURCE_TARGETS.update({
+    'shared_fact_concepts': shared_fact_concepts,
+    'safekeeping_contract_checklist': safekeeping_contract_checklist,
+    'penalty_base': penalty_base,
+    'security_property_checklist': security_property_checklist,
+    'security_context': security_context,
+    'security_semantic_aliases': security_semantic_aliases,
+    'requirement_kinds': requirement_kinds,
+})
+from review_v2 import company_governance_facts, contract_references, equity_common_checklist, adverse_theme_projection, report_statistics, shareholder_transaction_facts, formation_rule_semantics
+_RUNTIME_SOURCE_TARGETS.update({m.__name__: m for m in (company_governance_facts, contract_references, equity_common_checklist, adverse_theme_projection, report_statistics, shareholder_transaction_facts, formation_rule_semantics)})
+from review_v2 import legal_basis_selection, legal_basis_trace, legal_enrichment_boundary, verified_source, adverse_evidence, construction_evidence, construction_coverage, construction_applicability, construction_subtype
+from review_v2 import adverse_consistency, monetary_consequences, contract_effects, semantic_reviewer
+_RUNTIME_SOURCE_TARGETS.update(adverse_consistency=adverse_consistency, monetary_consequences=monetary_consequences,
+    contract_effects=contract_effects, semantic_reviewer=semantic_reviewer)
+_RUNTIME_SOURCE_TARGETS.update(legal_basis_selection=legal_basis_selection, legal_basis_trace=legal_basis_trace,
+                               legal_enrichment_boundary=legal_enrichment_boundary)
+_RUNTIME_SOURCE_TARGETS.update(verified_source=verified_source, adverse_evidence=adverse_evidence,
+    construction_evidence=construction_evidence, construction_coverage=construction_coverage)
+_RUNTIME_SOURCE_TARGETS.update(construction_applicability=construction_applicability)
+_RUNTIME_SOURCE_TARGETS.update(construction_subtype=construction_subtype)
+from review_v2 import prohibition_protection
+_RUNTIME_SOURCE_TARGETS.update(prohibition_protection=prohibition_protection)
+from review_v2 import employment_fact_schema, employment_fact_store, employment_fact_rules, employment_fact_pipeline, deepseek_facts, fact_validation, fact_verification
+from review_v2 import fact_routing, fact_module_registry, deepseek_transport, fact_number_normalization
+_FACT_FRAMEWORK_SOURCES = (fact_routing, fact_module_registry, deepseek_transport, fact_number_normalization)
+from review_v2.unified_facts import loan_pipeline, loan_rules, loan_bindings, loan_costs as verified_loan_costs, loan as loan_schema, pipeline as unified_pipeline, store as unified_store, normalization as unified_normalization, schema as unified_schema
+_FACT_FRAMEWORK_SOURCES += (loan_pipeline, loan_rules, loan_bindings, verified_loan_costs, loan_schema,
+    unified_pipeline, unified_store, unified_normalization, unified_schema)
+_RUNTIME_SOURCE_TARGETS.update({m.__name__: m for m in _FACT_FRAMEWORK_SOURCES})
+_RUNTIME_SOURCE_TARGETS.update({m.__name__: m for m in
+    (employment_fact_schema, employment_fact_store, employment_fact_rules, employment_fact_pipeline, deepseek_facts, fact_validation, fact_verification)})
 _LOADED_DEPENDENCY_SOURCES = {name: _runtime_source_identity(target)
                               for name, target in _RUNTIME_SOURCE_TARGETS.items()}
 
+_RUNTIME_SOURCE_CORE_DEPENDENCIES = {
+    'prohibition_protection',
+    'adverse_consistency','monetary_consequences','contract_effects','semantic_reviewer',
+    'legal_basis_selection', 'legal_basis_trace', 'legal_enrichment_boundary',
+    'verified_source','adverse_evidence','construction_evidence','construction_coverage','construction_applicability','construction_subtype',
+    'agency_facts',
+    'semantic_relations', 'semantic_consistency',
+    'security_property_checklist', 'security_context', 'security_semantic_aliases', 'requirement_kinds',
+    'shared_fact_concepts', 'safekeeping_contract_checklist', 'penalty_base',
+    'primary_purpose',
+    'penalty_base',
+    'equity_checklist', 'equity_transaction_facts',
+    'termination_checklist', 'template_parser',
+    'narrative_composition',
+    'service_scenarios', 'service_checklist',
+    'gift_evidence', 'gift_checklist',
+    "clause_parser",
+    "domain_selection",
+    "domain_packs",
+    "quality4",
+    "engine",
+    "classifier",
+    "registry",
+    "document_parser",
+    "normalization",
+    "conditional_elements",
+    "element_search",
+    "recommendations",
+    "report_state_consistency_failures",
+    "requirement_key_normalization",
+}
 
-def _runtime_source_drift_status() -> Dict[str, Any]:
+_RUNTIME_SOURCE_DOMAIN_DEPENDENCIES = {
+    'guarantee': {'guarantee_facts', 'guarantee_parties', 'guarantee_prerequisites', 'guarantee_mode', 'guarantee_scope', 'guarantee_checklist', 'lease_semantics', 'guarantee_scenarios', 'guarantee_closure'},
+    'brokerage': {'brokerage_facts', 'brokerage_checklist', 'brokerage_concepts', 'lease_semantics'},
+    "utility_supply": {"utility_supply_evidence", "utility_supply_consistency_gate", "parameter_validation",
+                       "prerequisite_resolution", "evidence_compatibility", "utility_supply_applicability", "utility_supply_checklist"},
+    "commission_agency": {"commission_agency_evidence"},
+    "house_lease": {
+        "lease_semantics",
+        "lease_recommendation_children",
+        "lease_fact_graph",
+    },
+    "lease": {
+        "lease_semantics",
+        "lease_recommendation_children",
+        "lease_fact_graph",
+    },
+    "sale": {"source_span_evidence"},
+    "work_contract": {"work_evidence"},
+    "finance_lease": {"finance_lease_facts"},
+    "loan": {"loan_costs", "loan_facts", "loan_checklist"},
+    "technology": {
+        "claim_evidence",
+        "claim_projection",
+        "license_evaluation",
+        "secret_proof_evaluation",
+        "liability_scope_consistency",
+        "development_exit_elements",
+        "entrusted_patent_application_elements",
+        "development_failure_elements",
+        "confidentiality_detail_elements",
+        "ancillary_service_detail_elements",
+    },
+    "labor": {"lease_semantics", "employment_checklist", "employment_facts", "employment_exit", "employment_rights", "priority_contract_review", "noncompete_semantics", "noncompete_reasonableness"},
+    "non_compete": {"lease_semantics", "employment_checklist", "employment_facts", "employment_rights", "priority_contract_review", "noncompete_semantics", "noncompete_reasonableness"},
+    "confidentiality": {"lease_semantics", "nda_semantics", "employment_checklist", "employment_facts", "priority_contract_review", "noncompete_semantics", "noncompete_reasonableness"},
+    "employment_termination": {"lease_semantics"},
+}
+
+
+def _runtime_source_dependency_scope(contract_type: str = "") -> set[str]:
+    requested = (contract_type or "").strip()
+    if not requested:
+        return set(_RUNTIME_SOURCE_TARGETS)
+    scope = set(_RUNTIME_SOURCE_CORE_DEPENDENCIES)
+    scope.update(m.__name__ for m in _FACT_FRAMEWORK_SOURCES)
+    from review_v2.contract_registry import get_contract_meta, UnsupportedContractTypeError
+    try:
+        requested = get_contract_meta(requested).response_key
+    except UnsupportedContractTypeError:
+        pass
+    scope.update(_RUNTIME_SOURCE_DOMAIN_DEPENDENCIES.get(requested, set()))
+    if requested in {'labor', 'non_compete', 'confidentiality'}:
+        scope.update(m.__name__ for m in (employment_fact_schema, employment_fact_store,
+                     employment_fact_rules, employment_fact_pipeline, deepseek_facts, fact_validation, fact_verification))
+    return scope
+
+
+def _runtime_source_drift_status(contract_type: str = "") -> Dict[str, Any]:
     """Fail closed when the running worker has older code than the workspace."""
     current = {name: _runtime_source_identity(target) for name, target in _RUNTIME_SOURCE_TARGETS.items()}
+    scoped_dependencies = _runtime_source_dependency_scope(contract_type)
     changed = [
         name for name, identity in current.items()
+        if name in scoped_dependencies
         if str(identity.get("sha256") or "")
         != str((_LOADED_DEPENDENCY_SOURCES.get(name) or {}).get("sha256") or "")
     ]
     return {
         "status": "STALE_RUNTIME" if changed else "CURRENT",
         "changed_dependencies": changed,
+        "checked_dependencies": sorted(scoped_dependencies),
         "loaded": _LOADED_DEPENDENCY_SOURCES,
         "current": current,
     }
 
 
 class ReviewV2Input(BaseModel):
+    review_task_id: Optional[str] = None
     contract_text: str = Field(..., min_length=1, description="合同文本")
-    contract_type: str = Field("house_lease", description="合同类型，当前支持 house_lease、sale、gift、deposit、work_contract、transportation、agency、loan、service、guarantee、finance_lease、warehouse、construction、technology、commission_agency、utility_supply、brokerage")
+    contract_type: str = Field("house_lease", description="合同类型；沿用已有类型，并支持 labor、non_compete、confidentiality、employment_termination、mortgage、movable_pledge、equity_pledge、rights_pledge、equity_transfer、capital_increase、investment、shareholders。")
     include_low_risk: bool = Field(True, description="是否返回低风险/已覆盖检查点")
     use_llm: bool = Field(True, description="是否启用大模型语义复核")
     profile: Dict[str, str] = Field(default_factory=dict, description="用户风险画像：{user_identity, contract_scenario, risk_appetite, bargaining_position}")
 
 
 class ReviewV2Result(BaseModel):
+    review_task_id: str = ""
+    review_run_id: str = ""
+    fact_snapshot_id: str = ""
+    rule_result_version: str = ""
+    report_version: str = ""
+    gate_version: str = ""
+    snapshot_hash: str = ""
+    export_version: Optional[str] = None
+    created_at: str = ""
+    updated_at: str = ""
+    final_review_snapshot: Dict[str, Any] = Field(default_factory=dict)
+    contract_type_flow: Dict[str, Any] = Field(default_factory=dict)
+    fact_migration: Dict[str, Any] = Field(default_factory=dict)
+    structured_fact_debug: Dict[str, Any] = Field(default_factory=dict)
+    employment_rule_adaptation: Dict[str, Any] = Field(default_factory=dict)
+    employment_classification: Dict[str, Any] = Field(default_factory=dict)
     success: bool
     contract_type: str
     selected_contract_type: str = ""
@@ -153,6 +390,12 @@ class ReviewV2Result(BaseModel):
     final_overview_summary: Dict[str, int] = Field(default_factory=dict)
     final_disposition_summary: Dict[str, int] = Field(default_factory=dict)
     coverage_summary: Dict[str, int] = Field(default_factory=dict)
+    all_rule_statuses: List[Dict[str, Any]] = Field(default_factory=list)
+    equity_corpus_consistency_gate: Dict[str, Any] = Field(default_factory=dict)
+    statistics_consistency_gate: Dict[str, Any] = Field(default_factory=dict)
+    recommendation_children_gate: Dict[str, Any] = Field(default_factory=dict)
+    technical_quality_gate: Dict[str, Any] = Field(default_factory=dict)
+    release_hold: Dict[str, Any] = Field(default_factory=dict)
     issue_type_summary: Dict[str, int] = Field(default_factory=dict)
     judge_source_summary: Dict[str, int] = Field(default_factory=dict)
     llm_enabled: bool = True
@@ -165,6 +408,7 @@ class ReviewV2Result(BaseModel):
     clause_count: int = 0
     formal_clause_count: int = 0
     contract_facts: Dict[str, Any] = Field(default_factory=dict)
+    loan_shared_fact_consistency_gate: Dict[str, Any] = Field(default_factory=dict)
     deterministic_analysis: Dict[str, Any] = Field(default_factory=dict)
     document_integrity: Dict[str, Any] = Field(default_factory=dict)
     input_integrity: Dict[str, Any] = Field(default_factory=dict)
@@ -173,6 +417,8 @@ class ReviewV2Result(BaseModel):
     risk_findings: List[Dict[str, Any]] = Field(default_factory=list)
     risk_themes: List[Dict[str, Any]] = Field(default_factory=list)
     risk_theme_count: int = 0
+    rule_risk_hit_count: Optional[int] = None
+    risk_clause_count: Optional[int] = None
     aggregated_risk_count: int = 0
     finding_count: int = 0
     risk_theme_summary: Dict[str, int] = Field(default_factory=dict)
@@ -213,6 +459,7 @@ class ReviewV2Result(BaseModel):
 
 
 class ReviewV2PdfInput(BaseModel):
+    final_review_snapshot: Dict[str, Any] = Field(default_factory=dict)
     filename: str = "合同审查报告"
     contract_type_name: str = "房屋租赁合同"
     result: str = ""
@@ -593,16 +840,10 @@ def _build_debug_pdf(payload: ReviewV2PdfInput) -> bytes:
                 Paragraph("覆盖状态统计", heading),
                 Table(
                     [
-                        ["通过", "部分覆盖", "缺失", "风险条款", "不适用"],
-                        [
-                            str(coverage_summary.get("通过", 0)),
-                            str(coverage_summary.get("部分覆盖", 0)),
-                            str(coverage_summary.get("缺失", 0)),
-                            str(coverage_summary.get("风险条款", 0)),
-                            str(coverage_summary.get(COVERAGE_NOT_APPLICABLE, 0)),
-                        ],
+                        [*coverage_summary.keys(), "总计"],
+                        [*[str(value) for value in coverage_summary.values()], str(sum(coverage_summary.values()))],
                     ],
-                    colWidths=[3.2 * cm, 3.2 * cm, 3.2 * cm, 3.2 * cm, 3.2 * cm],
+                    colWidths=[16 * cm / (len(coverage_summary) + 1)] * (len(coverage_summary) + 1),
                     style=TableStyle(
                         [
                             ("FONTNAME", (0, 0), (-1, -1), font_name),
@@ -775,14 +1016,8 @@ def _build_debug_docx(payload: ReviewV2PdfInput) -> bytes:
         doc.add_heading("覆盖状态统计", level=2)
         _add_docx_table(
             doc,
-            ["通过", "部分覆盖", "缺失", "风险条款", "不适用"],
-            [
-                coverage_summary.get("通过", 0),
-                coverage_summary.get("部分覆盖", 0),
-                coverage_summary.get("缺失", 0),
-                coverage_summary.get("风险条款", 0),
-                coverage_summary.get(COVERAGE_NOT_APPLICABLE, 0),
-            ],
+            [*coverage_summary.keys(), "总计"],
+            [*coverage_summary.values(), sum(coverage_summary.values())],
         )
 
     issue_type_summary = _issue_type_summary_from_items(payload.items)
@@ -887,11 +1122,57 @@ def _build_docx(payload: ReviewV2PdfInput) -> bytes:
 
 @router.get("/llm-status", response_model=ReviewV2LlmStatus, summary="合同审查第二版：大模型语义复核状态")
 async def review_v2_llm_status(
+    contract_type: str = '',
     current_user: dict = Depends(get_current_user),
 ):
     """返回审查第二版当前是否可以调用大模型语义复核。"""
 
+    from review_v2.contract_registry import get_contract_meta, UnsupportedContractTypeError
+    try:
+        canonical = get_contract_meta(contract_type).key.value if contract_type else ''
+    except UnsupportedContractTypeError:
+        canonical = ''
+    if canonical in {'labor', 'non_compete', 'confidentiality', 'loan'}:
+        status = deepseek_facts.status()
+        return {**status, 'enabled_by_env':True, 'has_model_key':status['available'], 'priority':'deepseek'}
     return get_llm_review_status()
+
+
+def _review_with_fact_errors(*args, **kwargs):
+    try:
+        return review_contract_v2(*args, **kwargs)
+    except deepseek_facts.FactExtractionError as exc:
+        logger.error('[FACT_EXTRACTION_BLOCKED] provider=deepseek reason=%s', str(exc))
+        first = next((d for d in exc.diagnostics if d['disposition']=='BLOCK'),exc.diagnostics[0])
+        detail = {'code':'FACT_EXTRACTION_BLOCKED',
+            'release_quality_gate':'BLOCKED', 'provider':'deepseek',
+            'message':f"事实校验失败：{first['failed_stage']} / {first['field']} / {first['validation_rule']}；详见诊断。",
+            'reason':str(exc), **first, 'diagnostics':exc.diagnostics, 'attempts':exc.attempts}
+        from uuid import uuid4
+        detail['trace_id'] = 'FACT-' + uuid4().hex
+        for diagnostic in detail['diagnostics']:
+            diagnostic.update(stage=diagnostic.get('failed_stage'), code=diagnostic.get('validation_rule'),
+                fact_key=diagnostic.get('fact_key') or diagnostic.get('concept'),
+                raw_value=diagnostic.get('raw_value', diagnostic.get('model_raw_value')),
+                normalized_value=diagnostic.get('normalized_value'),
+                allowed_values=diagnostic.get('allowed_values', diagnostic.get('expected')),
+                clause=diagnostic.get('source_clause'),
+                message='抽取值未通过事实类型、证据或语义校验；未生成报告，不能以默认值替代。',
+                trace_id=detail['trace_id'])
+        audit_dir = os.getenv('REVIEW_V2_RESULT_AUDIT_DIR')
+        if audit_dir:
+            from pathlib import Path
+            from uuid import uuid4
+            directory = Path(audit_dir)
+            directory.mkdir(parents=True,exist_ok=True)
+            (directory/f'fact-error-{uuid4().hex}.json').write_text(json.dumps(detail,ensure_ascii=False,indent=2),encoding='utf8')
+        raise HTTPException(503, detail=detail) from exc
+
+
+@router.get("/profile-options", summary="按合同类型提供风险画像选项")
+async def review_v2_profile_options(current_user: dict = Depends(get_current_user)):
+    from review_v2.profile_catalog import profile_catalog
+    return profile_catalog()
 
 
 @router.post("/litigation-analysis", summary="合同审查第二版：诉讼策略分析")
@@ -917,6 +1198,7 @@ async def review_v2_litigation_analysis(
     if not review_result.get("success"):
         return {"success": False, "message": review_result.get("message", "审查失败"), "items": [], "summary": {}}
 
+    profile = UserRiskProfile.from_dict(review_result["profile"])
     report = analyze_litigation_strategy(review_result["items"], profile)
     return {
         "success": True,
@@ -950,6 +1232,7 @@ async def review_v2_negotiation_analysis(
     if not review_result.get("success"):
         return {"success": False, "message": review_result.get("message", "审查失败"), "items": [], "overall_strategy": ""}
 
+    profile = UserRiskProfile.from_dict(review_result["profile"])
     report = analyze_negotiation_strategy(review_result["items"], profile)
     return {
         "success": True,
@@ -987,6 +1270,7 @@ async def review_v2_jurisdiction_prediction(
     if not review_result.get("success"):
         return {"success": False, "message": review_result.get("message", "审查失败"), "items": [], "environment_assessment": ""}
 
+    profile = UserRiskProfile.from_dict(review_result["profile"])
     report = analyze_jurisdiction_prediction(review_result["items"], profile, payload.contract_text)
     return {
         "success": True,
@@ -1009,13 +1293,107 @@ async def review_v2_checklist(
 
     profile = UserRiskProfile.from_dict(payload.profile) if payload.profile else UserRiskProfile.default()
 
-    return review_contract_v2(
+    store = SnapshotStore()
+    run = _begin_snapshot(store, current_user, payload.review_task_id)
+    result = _review_with_fact_errors(
         payload.contract_text,
         payload.contract_type,
         include_low_risk=payload.include_low_risk,
         use_llm=payload.use_llm,
         profile=profile,
     )
+    return store.complete(run, result)
+
+
+@router.post("/diagnostics/brokerage-recall")
+async def diagnose_brokerage_runtime(file: UploadFile = File(...), current_user: dict = Depends(get_current_user)):
+    """Authenticated in-worker evidence-only diagnostic; no report or LLM call."""
+    import sys
+    import uuid
+    import json
+    import subprocess
+    from dataclasses import asdict
+    from types import SimpleNamespace
+    from review_v2.lease_semantics import supports, corpus_facts
+    drift = _runtime_source_drift_status('brokerage')
+    if drift['status'] != 'CURRENT':
+        raise HTTPException(503, detail={'release_quality_gate': 'BLOCKED', 'runtime': drift})
+    text, diagnostics = input_layer.extract_text_with_diagnostics(file)
+    corpus = strip_non_contract_tail(text)
+    clauses = review_engine_module.parse_contract_clauses(corpus)
+    profiles = brokerage_facts.requirements(corpus)
+    targets = {'BR-04-02', 'BR-09-01'}
+    sentences = ['甲方有权要求乙方如实告知与订立合同有关的信息及情况',
+        '乙方应当尽到必要、审慎的核实义务，向甲方提供与订立合同有关的完整、准确、真实的信息及情况',
+        '甲方应当对乙方提供必要的协助', '甲方应当向乙方提供自身与订立合同有关的真实信息',
+        '乙方故意隐瞒与订立合同有关的重要事实或者提供虚假情况', '不得请求支付服务费用', '乙方应当承担损失赔偿责任']
+    rules = []
+    for rule in brokerage_contract_checklist.get_brokerage_checklist():
+        if rule.item_id not in targets:
+            continue
+        specs = profiles[rule.node_id]
+        item = SimpleNamespace(item_id=rule.item_id, node_id=rule.node_id, decision_trace={'semantic_requirements': specs})
+        audits = [review_engine_module._search_final_element(item, {**s, 'status': 'MISSING'}, clauses) for s in specs]
+        facts = corpus_facts(clauses, specs)
+        rules.append({'rule': asdict(rule), 'runtime_requirements': specs, 'audits': audits,
+            'accepted_evidence': facts, 'element_status': {k: 'COVERED' if v else 'MISSING' for k,v in facts.items()},
+            'status': 'PASS' if all(facts.values()) else 'PARTIAL' if any(facts.values()) else 'MISSING',
+            'threshold': None, 'role_check': 'embedded in patterns',
+            'score_note': 'Boolean supports(); audit score is post-decision, not a numeric acceptance threshold',
+            'adjudicator': 'not invoked; evidence-only diagnostic'})
+    sources = {f.__name__: _runtime_source_identity(f) for f in [supports, corpus_facts,
+        review_engine_module._search_final_element, brokerage_facts.requirements,
+        brokerage_contract_checklist.get_brokerage_checklist, input_layer.extract_text_with_diagnostics]}
+    version = hashlib.sha256(json.dumps(drift['loaded'], sort_keys=True).encode()).hexdigest()
+    run_id = str(uuid.uuid4())
+    result = {'run_id': run_id, 'task_id': run_id, 'worker_pid': os.getpid(), 'python': sys.executable,
+        'cwd': os.getcwd(), 'sys_path': sys.path, 'code_version': version, 'rule_version': RULE_VERSION,
+        'git_commit': subprocess.run(['git','rev-parse','HEAD'], capture_output=True,text=True).stdout.strip(),
+        'runtime': drift, 'sources': sources, 'contract_hash': hashlib.sha256(corpus.encode()).hexdigest(),
+        'corpus_length': len(corpus), 'corpus': corpus, 'extraction': diagnostics,
+        'substrings': [{'text': s, 'exists': s in corpus, 'index': corpus.find(s),
+            'chunks': [{'chunk_id': c.clause_id, 'text': c.text} for c in clauses if s in c.text]} for s in sentences],
+        'rules': rules, 'cache': 'No cache access; direct functions; LLM and report generation not invoked'}
+    logger.warning('[BROKERAGE_RUNTIME_DIAGNOSTIC] run_id=%s worker_pid=%s code_version=%s rule_version=%s', run_id, os.getpid(), version, RULE_VERSION)
+    return result
+
+
+@router.post("/diagnostics/input-trace", summary="显式生产输入诊断（不生成报告）")
+async def review_v2_input_trace(
+    file: UploadFile = File(...),
+    current_user: dict = Depends(get_current_user),
+):
+    """Only an explicit diagnostic URL may stop before report generation.
+
+    The legacy environment setting controls optional trace persistence, never
+    the execution mode of a normal upload (nor the next request in the worker).
+    """
+    import threading
+    trace = await diagnose_brokerage_runtime(file, current_user)
+    trace['entrypoint'] = _runtime_source_identity(review_v2_input_trace)
+    trace['thread_id'] = threading.get_ident()
+    trace['report_id'] = None
+    trace['report_generated'] = False
+    trace['run_mode'] = 'diagnostic'
+    diagnostic_output = os.environ.get("REVIEW_V2_ONCE_INPUT_TRACE", "")
+    if diagnostic_output:
+        import json
+        import threading
+        from pathlib import Path
+        trace['rules'] = [r for r in trace['rules'] if r['rule']['item_id'] in {'BR-04-02', 'BR-09-01'}]
+        trace['assertions'] = []
+        for phrase in ['甲方应当对乙方提供必要的协助',
+                       '故意隐瞒与订立合同有关的重要事实或者提供虚假情况',
+                       '不得请求支付服务费用', '承担损失赔偿责任']:
+            try:
+                assert phrase in trace['corpus'], 'PHRASE_NOT_IN_PRODUCTION_CORPUS'
+                assertion = 'PASS'
+            except AssertionError:
+                assertion = 'FAIL'
+            trace['assertions'].append({'phrase': phrase, 'result': assertion,
+                                        'index': trace['corpus'].find(phrase)})
+        Path(diagnostic_output).write_text(json.dumps(trace, ensure_ascii=False, indent=2), encoding='utf-8')
+    return trace
 
 
 @router.post("/file", response_model=ReviewV2Result, summary="合同审查第二版：文件上传审查")
@@ -1025,21 +1403,26 @@ async def review_v2_file(
     include_low_risk: bool = Form(True),
     use_llm: bool = Form(True),
     profile_json: str = Form("{}"),
+    diagnostic_only: bool = Form(False),
+    review_task_id: Optional[str] = Form(None),
     current_user: dict = Depends(get_current_user),
 ):
-    """接收 Word/PDF 合同文件，抽取文本后运行清单式审查。"""
+    """Normal uploads always run the full pipeline, independently of diagnostic settings."""
+    if diagnostic_only is True:
+        from fastapi.encoders import jsonable_encoder
+        from fastapi.responses import JSONResponse
+        trace = await review_v2_input_trace(file, current_user)
+        trace['entrypoint'] = _runtime_source_identity(review_v2_file)
+        return JSONResponse(content=jsonable_encoder(trace))
 
-    source_drift = _runtime_source_drift_status()
+    store = SnapshotStore()
+    run = _begin_snapshot(store, current_user, review_task_id if isinstance(review_task_id, str) else None)
+    source_drift = _runtime_source_drift_status(contract_type)
     if source_drift["status"] != "CURRENT":
-        logger.critical(
-            "[STALE_REVIEW_RUNTIME] dependencies=%s process_id=%s",
-            source_drift["changed_dependencies"],
-            os.getpid(),
-        )
-        raise HTTPException(
-            status_code=503,
-            detail="审查后端已加载旧代码，请重启本地服务后重新审查。",
-        )
+        logger.critical("[STALE_REVIEW_RUNTIME] dependencies=%s process_id=%s",
+                        source_drift["changed_dependencies"], os.getpid())
+        raise HTTPException(status_code=503,
+                            detail="审查后端已加载旧代码，请重启本地服务后重新审查。")
 
     filename = file.filename or ""
     if not filename.lower().endswith((".doc", ".docx", ".pdf")):
@@ -1084,7 +1467,12 @@ async def review_v2_file(
             },
         )
 
-    result = review_contract_v2(
+    runtime_audit = None
+    if os.getenv('REVIEW_V2_RUNTIME_AUDIT') == '1' and contract_type == 'rights_pledge':
+        from review_v2.runtime_security_audit import snapshot
+        runtime_audit = snapshot(contract_text, contract_type)
+        logger.warning('[LOADED_SECURITY_RULE_AUDIT] %s', _json.dumps(runtime_audit, ensure_ascii=False))
+    result = _review_with_fact_errors(
         contract_text,
         contract_type,
         include_low_risk=include_low_risk,
@@ -1106,9 +1494,20 @@ async def review_v2_file(
             actual_pipeline,
         )
         raise HTTPException(status_code=500, detail="技术合同审查未进入 canonical review-v2 pipeline")
+    if runtime_audit is not None:
+        runtime_audit['final_items'] = [i for i in result.get('items', []) if i.get('item_id') in {'RPL-01-01','RPL-02-01','SEC-03-01','S-00-03'}]
+        runtime_audit['report_text'] = result['result']
+        runtime_audit['release_quality_gate'] = result.get('release_quality_gate')
+        runtime_audit['report_sha256'] = hashlib.sha256(result['result'].encode('utf-8')).hexdigest()
+        from pathlib import Path
+        audit_path = Path(os.getenv('REVIEW_V2_RUNTIME_AUDIT_DIR', '../artifacts/rights-runtime-audit'))
+        audit_path.mkdir(parents=True, exist_ok=True)
+        (audit_path / ('run-' + str(os.getpid()) + '-' + __import__('uuid').uuid4().hex + '.json')).write_text(_json.dumps(runtime_audit, ensure_ascii=False, default=str, indent=2), encoding='utf-8')
+        logger.warning('[FINAL_SECURITY_ELEMENT_AUDIT] %s', _json.dumps([{ 'rule_id':i['item_id'],'elements':i.get('coverage_elements'),'coverage_status':i.get('coverage_status')} for i in runtime_audit['final_items']], ensure_ascii=False))
     result["filename"] = filename
     result["extracted_text_length"] = len(contract_text)
     result["production_path_trace"] = {
+        "run_mode": "review",
         "entrypoint": "routers.review_v2.review_v2_file",
         "entrypoint_file": inspect.getsourcefile(review_v2_file) or __file__,
         "entrypoint_line": review_v2_file.__code__.co_firstlineno,
@@ -1168,6 +1567,12 @@ async def review_v2_file(
             event.get("present", ""),
             event.get("rendered", ""),
         )
+    if os.getenv('REVIEW_V2_RESULT_AUDIT_DIR'):
+        from pathlib import Path
+        audit_dir = Path(os.environ['REVIEW_V2_RESULT_AUDIT_DIR'])
+        audit_dir.mkdir(parents=True, exist_ok=True)
+        (audit_dir / ('result-' + str(os.getpid()) + '-' + __import__('uuid').uuid4().hex + '.json')).write_text(
+            _json.dumps(result, ensure_ascii=False, default=str, indent=2), encoding='utf-8')
     logger.warning(
         "[TRACE_REVIEW_V2] pid=%s pipeline=%s classifier=%s evaluator=%s ruleset=%s "
         "entry=%s:%s engine=%s:%s subtype=%s classifier_executions=%s registry_id=%s "
@@ -1188,7 +1593,45 @@ async def review_v2_file(
         result["production_path_trace"]["document_hash"],
         result["production_path_trace"]["input_visibility"]["confidentiality_terms_present"],
     )
-    return result
+    logger.info(
+        "[REVIEW_RELEASE_GATE] review_id=%s pid=%s runtime=%s status=%s failures=%s",
+        result.get("contract_review_trace_id"), os.getpid(), source_drift["status"],
+        (result.get("release_quality_gate") or {}).get("status"),
+        [row.get("requirement") for row in (result.get("release_quality_gate") or {}).get("failures", [])],
+    )
+    return store.complete(run, result)
+
+
+def _begin_snapshot(store, owner, task_id):
+    try:
+        return store.begin(owner, task_id)
+    except SnapshotError as exc:
+        raise HTTPException(status_code=409, detail=exc.detail) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail='review_task_id 必须是 UUID。') from exc
+
+
+def _resolve_export(payload, owner):
+    supplied = payload.final_review_snapshot
+    result, binding = SnapshotStore().resolve_export(owner, supplied)
+    # A supplied browser body must agree, but the renderer always reads the
+    # immutable server copy. Browser annotations cannot rewrite reviewed facts.
+    if payload.result and payload.result != result.get('result'):
+        raise SnapshotError('导出正文与已通过质量门的报告不一致。',
+                            expected=binding, actual=supplied)
+    if payload.release_quality_gate and payload.release_quality_gate != result.get('release_quality_gate'):
+        raise SnapshotError('导出请求中的 Gate 诊断不属于该最终报告。', expected=binding, actual=supplied)
+    return ReviewV2PdfInput(**result), binding
+
+
+def _export_headers(binding):
+    return {'X-Review-Run-Id': binding['review_run_id'],
+            'X-Report-Version': binding['report_version'],
+            'X-Gate-Version': binding['gate_version'],
+            'X-Snapshot-Hash': binding['snapshot_hash'],
+            'X-Export-Version': binding['export_version'],
+            'X-Export-Artifact-Hash': binding['export_artifact_hash'],
+            'Access-Control-Expose-Headers': 'X-Review-Run-Id,X-Report-Version,X-Gate-Version,X-Snapshot-Hash,X-Export-Version,X-Export-Artifact-Hash'}
 
 
 @router.post("/export-pdf", summary="合同审查第二版：导出 PDF 报告")
@@ -1199,7 +1642,11 @@ async def review_v2_export_pdf(
     """将当前结构化审查报告导出为 PDF。"""
 
     try:
+        payload, binding = _resolve_export(payload, current_user)
         content = _build_pdf(payload)
+        exported = SnapshotStore().record_export(current_user, binding, 'pdf', content)
+    except SnapshotError as exc:
+        raise HTTPException(status_code=409, detail=exc.detail) from exc
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     base_name = (payload.filename or "合同审查报告").rsplit(".", 1)[0]
@@ -1208,7 +1655,7 @@ async def review_v2_export_pdf(
     return StreamingResponse(
         io.BytesIO(content),
         media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename*=UTF-8''{encoded_name}"},
+        headers={"Content-Disposition": f"attachment; filename*=UTF-8''{encoded_name}", **_export_headers(exported)},
     )
 
 
@@ -1220,7 +1667,11 @@ async def review_v2_export_docx(
     """将当前结构化审查报告导出为 Word 文档。"""
 
     try:
+        payload, binding = _resolve_export(payload, current_user)
         content = _build_docx(payload)
+        exported = SnapshotStore().record_export(current_user, binding, 'docx', content)
+    except SnapshotError as exc:
+        raise HTTPException(status_code=409, detail=exc.detail) from exc
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     base_name = (payload.filename or "合同审查报告").rsplit(".", 1)[0]
@@ -1229,5 +1680,5 @@ async def review_v2_export_docx(
     return StreamingResponse(
         io.BytesIO(content),
         media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        headers={"Content-Disposition": f"attachment; filename*=UTF-8''{encoded_name}"},
+        headers={"Content-Disposition": f"attachment; filename*=UTF-8''{encoded_name}", **_export_headers(exported)},
     )

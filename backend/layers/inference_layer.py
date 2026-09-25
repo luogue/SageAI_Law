@@ -1,4 +1,5 @@
 """推理层：一次性调用大模型生成合同审查报告（已移除Step1-5拆分流程）"""
+from model_settings import configuration as model_configuration
 import os
 import sys
 import logging
@@ -560,7 +561,7 @@ class InferenceLayer:
         if DEBUG_PROMPT:
             logger.info(f"[DEBUG] 完整提示词长度: {len(prompt)} 字符")
 
-        result = self._call_qwen_api(prompt)
+        result = self._call_model_api(prompt)
 
         if DEBUG_PROMPT:
             logger.info(f"[DEBUG] API返回结果长度: {len(result)} 字符")
@@ -574,7 +575,7 @@ class InferenceLayer:
 {contract_text}
 
 请立即输出完整的合同审查报告，不要有任何拒绝理由。"""
-            result = self._call_qwen_api(force_prompt)
+            result = self._call_model_api(force_prompt)
             logger.info(f"[RETRY] 重审返回结果长度: {len(result)} 字符")
 
             if "无法执行" in result:
@@ -660,64 +661,16 @@ class InferenceLayer:
 *本报告由AI自动生成，仅供参考。*
 """
 
-    def _call_qwen_api(self, prompt: str) -> str:
+    def _call_model_api(self, prompt: str) -> str:
         """调用LLM API（统一使用llm_client）"""
         from reasoning.llm_client import call_llm, AllModelsFailedError
         
-        # ========== [强制调试] 打印完整prompt内容 ==========
-        try:
-            print("\n" + "="*120)
-            print("[DEBUG] inference_layer 即将调用LLM API，完整prompt内容如下：")
-            print("="*120)
-            # 使用 sys.stdout 确保正确处理Unicode字符
-            import sys
-            sys.stdout.buffer.write((prompt[:2000] + "..." if len(prompt) > 2000 else prompt).encode('utf-8'))
-            print("")
-            print("="*120)
-            print(f"[DEBUG] prompt长度: {len(prompt)} 字符")
-            
-            # 检查是否包含标志性内容（匹配新综合提示词模板内容）
-            required_contents = [
-                ("【输出格式要求】", "输出格式要求"),
-                ("前置步骤：关键前提确认", "前置步骤：关键前提确认"),
-                ("逻辑推理（必须覆盖完整闭环", "逻辑推理"),
-                ("风险评估与商业可行性评估", "风险评估"),
-                ("商业可行性评估（针对每条修改建议）", "商业可行性评估"),
-                ("4. 自检", "自检"),
-                ("结论与行动建议", "审查结论与行动建议"),
-                ("13. 商业可行性评估字段完整性检查", "13项自检清单"),
-                ("法律引用规则（强制执行）", "法律引用规则"),
-                ("法律关系性质", "法律关系性质检查"),
-                ("意思自治原则（10分）", "合同原理权重"),
-                ("解除权推理规则", "解除权推理规则"),
-            ]
-            
-            print("\n[DEBUG] 检查标志性内容是否存在：")
-            all_found = True
-            for full_text, short_name in required_contents:
-                found = full_text in prompt
-                status = "[存在]" if found else "[缺失]"
-                print(f"  {status}: {short_name}")
-                if not found:
-                    all_found = False
-            
-            print("\n" + "="*120 + "\n")
-            
-            if not all_found:
-                logger.warning("[PROMPT_WARNING] inference_layer: 部分标志性内容缺失，可能影响输出质量！")
-        except Exception as e:
-            logger.error(f"[DEBUG] inference_layer 打印prompt失败: {e}")
-            # 改用日志记录关键信息
-            logger.info(f"[PROMPT_DEBUG] prompt长度: {len(prompt)}")
-            logger.info(f"[PROMPT_DEBUG] 核心基准约束存在: {'核心基准约束' in prompt}")
-            logger.info(f"[PROMPT_DEBUG] 强制输出顺序存在: {'强制输出顺序' in prompt}")
-            logger.info(f"[PROMPT_DEBUG] 前置步骤存在: {'前置步骤' in prompt}")
-        # ========== [强制调试结束] ==========
+
 
         try:
             if DEBUG_PROMPT:
                 logger.info("[DEBUG] 正在调用LLM API...")
-            # 使用多模型 llm_client（千问 -> 豆包 -> DeepSeek 智能降级）
+            # 使用唯一的 DeepSeek 客户端
             result = call_llm(prompt, response_format="text")
             if DEBUG_PROMPT:
                 logger.info(f"[DEBUG] API调用成功，返回结果长度: {len(result)} 字符")
@@ -740,7 +693,7 @@ class InferenceLayer:
             return {
                 "status": "success",
                 "raw_report": raw_report,
-                "model": "qwen-plus"
+                "model": model_configuration()["model"]
             }
 
         except AllModelsFailedError as e:

@@ -7,8 +7,7 @@
 ## 一、安全配置
 
 - [ ] 所有敏感配置已通过环境变量注入，无硬编码
-  - `ARK_API_KEY`、`ARK_ENDPOINT_ID`
-  - `ZHIPU_API_KEY`、`DASHSCOPE_API_KEY`、`DEEPSEEK_API_KEY`
+  - `DEEPSEEK_API_KEY`、`DEEPSEEK_MODEL`
   - `JWT_SECRET_KEY`（长度 >= 64 字符随机字符串）
   - `ADMIN_TOKEN`、`API_SECRET_KEY`
 - [ ] `CORS_ORIGINS` 已配置为实际域名（不允许 `*`）

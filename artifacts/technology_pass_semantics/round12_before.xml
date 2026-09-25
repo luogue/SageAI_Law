@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="7" time="15.420" timestamp="2026-09-14T18:07:30.540652+08:00" hostname="PC-202411042018"><testcase classname="backend.tests.test_cooperative_fact_projection_regression" name="test_fixed_confidentiality_term_survives_normal_upload" time="10.652"><failure message="AssertionError: {'review_id': 'TC-11-02', 'element_id': 'confidentiality_period', 'claim_id': 'TC-11-02-confidentiality_period', 'proposition': '保密义务的持续期间', ...}&#10;assert 'MISSING' == 'COVERED'&#10;  &#10;  - COVERED&#10;  + MISSING">backend\tests\test_cooperative_fact_projection_regression.py:40: in test_fixed_confidentiality_term_survives_normal_upload
+    assert row['status'] == 'COVERED', row
+E   AssertionError: {'review_id': 'TC-11-02', 'element_id': 'confidentiality_period', 'claim_id': 'TC-11-02-confidentiality_period', 'proposition': '保密义务的持续期间', ...}
+E   assert 'MISSING' == 'COVERED'
+E     
+E     - COVERED
+E     + MISSING</failure></testcase><testcase classname="backend.tests.test_cooperative_fact_projection_regression" name="test_delay_termination_and_damages_survive_normal_upload" time="0.001"><failure message="AssertionError: {'review_id': 'TC-05-04', 'element_id': 'development_delay_liability', 'claim_id': 'TC-05-04-development_delay_liability', 'proposition': '开发迟延的违约后果', ...}&#10;assert 'MISSING' == 'COVERED'&#10;  &#10;  - COVERED&#10;  + MISSING">backend\tests\test_cooperative_fact_projection_regression.py:47: in test_delay_termination_and_damages_survive_normal_upload
+    assert row['status'] == 'COVERED', row
+E   AssertionError: {'review_id': 'TC-05-04', 'element_id': 'development_delay_liability', 'claim_id': 'TC-05-04-development_delay_liability', 'proposition': '开发迟延的违约后果', ...}
+E   assert 'MISSING' == 'COVERED'
+E     
+E     - COVERED
+E     + MISSING</failure></testcase><testcase classname="backend.tests.test_cooperative_fact_projection_regression" name="test_development_delay_non_penalty_remedies[\u5b88\u7ea6\u65b9\u6709\u6743\u89e3\u9664\u5408\u540c]" time="0.002"><failure message="AssertionError: assert 'MISSING' == 'COVERED'&#10;  &#10;  - COVERED&#10;  + MISSING">backend\tests\test_cooperative_fact_projection_regression.py:58: in test_development_delay_non_penalty_remedies
+    assert rows['development_delay_liability']['status'] == 'COVERED'
+E   AssertionError: assert 'MISSING' == 'COVERED'
+E     
+E     - COVERED
+E     + MISSING</failure></testcase><testcase classname="backend.tests.test_cooperative_fact_projection_regression" name="test_development_delay_non_penalty_remedies[\u8fdd\u7ea6\u65b9\u5e94\u8d54\u507f\u76f4\u63a5\u7ecf\u6d4e\u635f\u5931]" time="0.002" /><testcase classname="backend.tests.test_cooperative_fact_projection_regression" name="test_linked_delay_remedies_keep_separate_spans" time="0.002"><failure message="AssertionError: assert 'MISSING' == 'COVERED'&#10;  &#10;  - COVERED&#10;  + MISSING">backend\tests\test_cooperative_fact_projection_regression.py:66: in test_linked_delay_remedies_keep_separate_spans
+    assert row['status'] == 'COVERED'
+E   AssertionError: assert 'MISSING' == 'COVERED'
+E     
+E     - COVERED
+E     + MISSING</failure></testcase><testcase classname="backend.tests.test_cooperative_fact_projection_regression" name="test_payment_delay_cannot_supply_development_delay_remedy" time="0.001" /><testcase classname="backend.tests.test_cooperative_fact_projection_regression" name="test_unrelated_damages_cannot_complete_delay_fact" time="0.001" /></testsuite></testsuites>

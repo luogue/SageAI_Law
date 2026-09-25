@@ -4,7 +4,7 @@ from types import SimpleNamespace
 import pytest
 
 from review_v2.clause_parser import parse_contract_clauses
-from review_v2.confidentiality_remedies import confidentiality_remedy_elements, confidentiality_binding_failures
+from review_v2.confidentiality_remedies import confidentiality_remedy_elements, confidentiality_binding_failures, party_narrative_failures
 from review_v2.element_resolution import unresolved_requirements
 from review_v2 import engine
 
@@ -71,3 +71,26 @@ def test_partial_without_residual_metadata_is_not_silently_discarded():
     assert '历史记录的具体范围' in finding.recommendation
     assert '历史记录的具体范围' in finding.issue
     assert '记录存在' not in finding.recommendation
+
+
+@pytest.mark.parametrize('a,b', [('买方', '卖方'), ('甲方', '乙方'), ('被许可方', '许可方')])
+def test_party_rollup_partial_does_not_relabel_covered_party_as_incomplete(a, b):
+    rows = remedies(f'第一条 泄密责任\n{a}违反保密义务应停止披露和使用，采取措施防止扩散并赔偿损失。\n'
+                    f'第二条 泄密责任\n{b}违反保密义务应停止披露和使用并赔偿损失。')
+    item = SimpleNamespace(coverage_elements=list(rows.values()), decision_trace={
+        'final_missing_element_ids': ['mitigation_obligation', 'incident_notification'],
+    })
+    covered, partial, missing, adverse = engine._coverage_element_groups(item)
+    expected = {b + '泄密后采取措施防止继续扩散或损失扩大',
+                a + '泄密后及时通知受影响方', b + '泄密后及时通知受影响方'}
+    assert set(missing) == expected
+    assert not partial and not adverse
+    assert any(text.startswith(a + '泄密后采取措施') for text in covered)
+    assert set(engine._prioritized_missing_elements(item)[0]) == expected
+    narrative = {'covered_elements': covered, 'partial_elements': partial, 'missing_elements': missing}
+    assert not party_narrative_failures(item.coverage_elements, narrative)
+    polluted = deepcopy(narrative)
+    polluted['partial_elements'].append(a + '泄密后采取措施防止继续扩散或损失扩大已有约定')
+    assert party_narrative_failures(item.coverage_elements, polluted)
+    assert party_narrative_failures(item.coverage_elements, narrative,
+                                   '建议补充' + a + '泄密后采取措施防止继续扩散或损失扩大')

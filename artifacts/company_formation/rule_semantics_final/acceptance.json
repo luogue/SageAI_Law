@@ -1,0 +1,92 @@
+{
+  "status": "PASS",
+  "checks": {
+    "deadline_present": true,
+    "deadline_risk": true,
+    "deadline_FOUND": true,
+    "old_transfer_source_risk": true,
+    "account_context_only": true,
+    "equity_total": true,
+    "capital_total": true,
+    "party_mismatch": true,
+    "dependent_dates": true,
+    "nonmonetary_applicable": true,
+    "personal_account_applicable": true,
+    "veto_and_unilateral_risk": true,
+    "restrictive_inspection": true,
+    "charter_conflict_FOUND": true,
+    "termination_FOUND": true,
+    "private_exit_not_company_return": true,
+    "unvouched_expenses": true,
+    "unequal_liability": true,
+    "no_sales_rules": true,
+    "release_quality_gate": true,
+    "original_unchanged": true
+  },
+  "files": [
+    "backend/review_v2/formation_rule_semantics.py",
+    "backend/review_v2/company_formation_checklist.py",
+    "backend/review_v2/priority_contract_review.py",
+    "backend/review_v2/employment_facts.py",
+    "backend/routers/review_v2.py",
+    "backend/tests/test_formation_rule_semantics.py"
+  ],
+  "source_sha256": "18b8312c90ad1b7e80970df7c71ac251af3d5b372b959739a9e522de5dfd2294",
+  "deadline_assessment": {
+    "contribution_deadline_present": true,
+    "contribution_deadline_compliant": false,
+    "status": "RISK",
+    "basis": "PLANNED_OPERATION_YEAR_INFERENCE",
+    "evidence": [
+      "各股东认缴的注册资本应于2035年12月31日前全部缴足"
+    ],
+    "legal_basis": "《公司法》第47条",
+    "deadline": "2035-12-31",
+    "establishment_evidence": "四、合作期限为8年，自2026年10月1日起至2034年9月30日止",
+    "establishment_range": [
+      "2026-01-01",
+      "2026-12-31"
+    ]
+  },
+  "context": {
+    "family": "EQUITY_INVESTMENT",
+    "subject_matter": "EQUITY",
+    "transaction_structure": "SHAREHOLDERS",
+    "subtype": "SHAREHOLDERS",
+    "product_category": "",
+    "asset_usage": "",
+    "perspective": "shareholder",
+    "user_role": "shareholder",
+    "contract_type_label": "股东合作协议",
+    "scenario_label": "股东合作协议",
+    "usage_scenario_label": "股东合作协议",
+    "report_title": "股东合作协议审查报告",
+    "contract_family": "EQUITY_INVESTMENT",
+    "contract_subtype": "SHAREHOLDERS"
+  },
+  "rules": 25,
+  "rule_findings": 16,
+  "risk_themes": 15,
+  "overview": {
+    "major_risk": 6,
+    "medium_risk": 5,
+    "low_risk": 4,
+    "priority_action": 4,
+    "recommended_action": 8,
+    "optional_action": 3,
+    "manual_review": 0
+  },
+  "tests": {
+    "new_cases": 16,
+    "regression_passed": 326,
+    "final_repeat_passed": 106,
+    "full_repository_run": false
+  },
+  "browser": {
+    "review_id": "CR-20260909-105421-717D0E",
+    "pid": 15692,
+    "runtime": "CURRENT",
+    "release_quality_gate": "REPORT_READY"
+  },
+  "release_quality_gate": "REPORT_READY"
+}

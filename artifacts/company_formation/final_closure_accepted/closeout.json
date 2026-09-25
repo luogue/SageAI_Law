@@ -1,0 +1,62 @@
+{
+  "stage_status": "PASSED_CURRENT_STAGE",
+  "scope": "股东合作协议 / 共同投资设立公司协议",
+  "rules": 26,
+  "findings": 21,
+  "themes": 19,
+  "overview": {
+    "major_risk": 8,
+    "medium_risk": 5,
+    "low_risk": 6,
+    "priority_action": 4,
+    "recommended_action": 9,
+    "optional_action": 6,
+    "manual_review": 0
+  },
+  "group_rule_ids": [
+    "CF-05-01",
+    "CF-12-01",
+    "CF-15-01"
+  ],
+  "group_evidence_ids": [
+    "C0031",
+    "C0034",
+    "EV-2bd20101092515c0",
+    "EV-4e09becc1e25f566",
+    "EV-b6f03439da5b93ac",
+    "SYN-14c0260d8f24bb0ebc73",
+    "SYN-555123a33a8e8b4754e1",
+    "SYN-e985064c2c3bc6143cf9",
+    "SYN-e9f89169ce186eb510a8"
+  ],
+  "group_evidence_package_count": 3,
+  "cf15_applicability": "同时涉及有限责任公司、存在多名股东且约定不设股东会机关时适用；一人公司、不召开会议或未约定该不利安排时不适用。",
+  "automated_tests": {
+    "main_passed": 259,
+    "equity_passed": 28,
+    "total_passed": 287,
+    "new_cases": 13,
+    "whole_repository_suite_run": false
+  },
+  "release_quality_gate": "REPORT_READY",
+  "files": {
+    "backend/review_v2/adverse_theme_projection.py": "63e5af7179793ad7f1c85de937b4188c2f72de551ee8d121b262ed04623c2091",
+    "backend/review_v2/company_governance_facts.py": "d5423281b7665a3e8ecd78994d3eba6fba9f1f0b34ad1f344f285840e577093e",
+    "backend/review_v2/company_formation_checklist.py": "d7e0821d32654312feceb71184b2166fa9e71be1c8a320a82f8364fd5aa6c1d5",
+    "backend/review_v2/priority_contract_review.py": "c655d0c5cfea8b3c001115e7e5a872cb43da6941a8569c1fabf96a0fb515529c",
+    "backend/review_v2/engine.py": "d5d14871aeacb05465b5d764936859888c318c8e070ce6cc51e376028e2ad152",
+    "backend/review_v2/report_statistics.py": "11f574a89512661c48d5f851aebab951deaf07889d3f3ad15b7725a63d5cb636",
+    "backend/routers/review_v2.py": "ea0cb4fdee5e97da56e8eb0dc0ef53ffecb23ddb81a181158abb2fae9897b3bd",
+    "backend/tests/test_adverse_theme_projection.py": "a893613d0e36b3e20632cf380dc923d34ecb4ff54a6a72cb415d5d3ab25f3ff9"
+  },
+  "actual_browser_verification": {
+    "review_id": "CR-20260909-075755-D8EF50",
+    "pid": 12920,
+    "runtime": "CURRENT",
+    "release_quality_gate": "REPORT_READY",
+    "normalized_sha256": "64c9da2ab188f47cb00625c2b9142d3bbad20e5fb9bc04084e36c4bb824311f8",
+    "overview_confirmed": true,
+    "front_end_port": 5173,
+    "back_end_port": 8016
+  }
+}

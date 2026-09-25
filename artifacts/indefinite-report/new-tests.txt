@@ -1,0 +1,69 @@
+.F..                                                                     [100%]
+================================== FAILURES ===================================
+_____________________ test_report_theme_levels_and_counts _____________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001B855217BE0>
+
+    def test_report_theme_levels_and_counts(monkeypatch):
+     text='劳动合同\n单位每月支付人民币2300元补贴替代社保缴纳。\n单位可随时任意解除并免除经济补偿。'
+     q=text.splitlines()[1];exit=text.splitlines()[2]
+>    rows=review(monkeypatch,text,[('social_insurance.cash_replacement',True,q),('termination.employer_unrestricted',True,exit),('economic_compensation.waived',True,exit)])
+
+backend\tests\test_indefinite_report_projection.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001B855217BE0>
+text = '劳动合同\n单位每月支付人民币2300元补贴替代社保缴纳。\n单位可随时任意解除并免除经济补偿。'
+values = [('social_insurance.cash_replacement', True, '单位每月支付人民币2300元补贴替代社保缴纳。'), ('termination.employer_unrestricted', True, '单位可随时任意解除并免除经济补偿。'), ('economic_compensation.waived', True, '单位可随时任意解除并免除经济补偿。')]
+
+    def review(monkeypatch, text, values):
+        from review_v2 import employment_fact_pipeline as pipeline
+        from review_v2.engine import review_contract_v2
+        cs = parse_contract_clauses(text)
+        monkeypatch.setattr(pipeline, 'extract', lambda *a, **k: packet(cs, [fact(cs, c, v, q) for c, v, q in values]))
+        monkeypatch.setattr(pipeline, 'verify', verified_packet)
+        result = review_contract_v2(text, 'labor')
+>       assert result['release_quality_gate']['status'] == 'REPORT_READY', result['release_quality_gate']
+E       AssertionError: {'status': 'BLOCKED', 'failures': [{'requirement': 'RENDERED_COVERAGE_CLOSURE', 'failure_stage': 'Final Summary Projec..._consistency': {'status': 'PASS', 'failures': [], 'contract_type': 'labor', 'domain_pack': 'priority-domain-1.0'}, ...}
+E       assert 'BLOCKED' == 'REPORT_READY'
+E         
+E         - REPORT_READY
+E         + BLOCKED
+
+backend\tests\test_part_time_proportionate_coverage.py:13: AssertionError
+============================== warnings summary ===============================
+backend\storage\database.py:72
+  F:\ai\Sage\backend\storage\database.py:72: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    Base = declarative_base()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.20) or chardet (7.4.3)/charset_normalizer (3.4.4) doesn't match a supported version!
+    warnings.warn(
+
+backend\main.py:158
+  F:\ai\Sage\backend\main.py:158: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495
+  C:\Users\Administrator\AppData\Roaming\Python\Python310\site-packages\fastapi\applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690
+  C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\httpx\_client.py:690: DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=WSGITransport(app=...)' instead.
+    warnings.warn(message, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend/tests/test_indefinite_report_projection.py::test_report_theme_levels_and_counts
+1 failed, 3 passed, 6 warnings in 7.50s

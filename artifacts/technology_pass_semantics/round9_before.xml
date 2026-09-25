@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="5" skipped="0" tests="9" time="15.491" timestamp="2026-09-14T15:06:33.883425+08:00" hostname="PC-202411042018"><testcase classname="backend.tests.test_license_term_upload_closure" name="test_license_term_uses_shared_duration_grammar_and_own_evidence[\u8bb8\u53ef\u671f\u9650\u4e94\u5e74\u3002-True]" time="0.132"><failure message="AssertionError: assert 'MISSING' == 'COVERED'&#10;  &#10;  - COVERED&#10;  + MISSING">backend\tests\test_license_term_upload_closure.py:33: in test_license_term_uses_shared_duration_grammar_and_own_evidence
+    assert element['status']==('COVERED' if covered else 'MISSING')
+E   AssertionError: assert 'MISSING' == 'COVERED'
+E     
+E     - COVERED
+E     + MISSING</failure></testcase><testcase classname="backend.tests.test_license_term_upload_closure" name="test_license_term_uses_shared_duration_grammar_and_own_evidence[\u8bb8\u53ef\u671f\u9650\u5341\u4e8c\u4e2a\u6708\u3002-True]" time="0.047"><failure message="AssertionError: assert 'MISSING' == 'COVERED'&#10;  &#10;  - COVERED&#10;  + MISSING">backend\tests\test_license_term_upload_closure.py:33: in test_license_term_uses_shared_duration_grammar_and_own_evidence
+    assert element['status']==('COVERED' if covered else 'MISSING')
+E   AssertionError: assert 'MISSING' == 'COVERED'
+E     
+E     - COVERED
+E     + MISSING</failure></testcase><testcase classname="backend.tests.test_license_term_upload_closure" name="test_license_term_uses_shared_duration_grammar_and_own_evidence[\u5b9e\u65bd\u671f\u9650\u4e3a\u4e24\u5e74\u3002-True]" time="0.030"><failure message="AssertionError: assert 'MISSING' == 'COVERED'&#10;  &#10;  - COVERED&#10;  + MISSING">backend\tests\test_license_term_upload_closure.py:33: in test_license_term_uses_shared_duration_grammar_and_own_evidence
+    assert element['status']==('COVERED' if covered else 'MISSING')
+E   AssertionError: assert 'MISSING' == 'COVERED'
+E     
+E     - COVERED
+E     + MISSING</failure></testcase><testcase classname="backend.tests.test_license_term_upload_closure" name="test_license_term_uses_shared_duration_grammar_and_own_evidence[\u5408\u540c\u6709\u6548\u671f\u4e3a2.5\u5e74\u3002-True]" time="0.009" /><testcase classname="backend.tests.test_license_term_upload_closure" name="test_license_term_uses_shared_duration_grammar_and_own_evidence[\u8bb8\u53ef\u671f\u9650\u81ea2026\u5e741\u67081\u65e5\u8d77\u81f32031\u5e741\u67081\u65e5\u3002-True]" time="0.009" /><testcase classname="backend.tests.test_license_term_upload_closure" name="test_license_term_uses_shared_duration_grammar_and_own_evidence[\u8bb8\u53ef\u671f\u9650\u4e09\u5341\u516d\u4e2a\u6708\u3002-True]" time="0.011"><failure message="AssertionError: assert 'MISSING' == 'COVERED'&#10;  &#10;  - COVERED&#10;  + MISSING">backend\tests\test_license_term_upload_closure.py:33: in test_license_term_uses_shared_duration_grammar_and_own_evidence
+    assert element['status']==('COVERED' if covered else 'MISSING')
+E   AssertionError: assert 'MISSING' == 'COVERED'
+E     
+E     - COVERED
+E     + MISSING</failure></testcase><testcase classname="backend.tests.test_license_term_upload_closure" name="test_license_term_uses_shared_duration_grammar_and_own_evidence[\u8bb8\u53ef\u671f\u9650____\u5e74\u3002-False]" time="0.010" /><testcase classname="backend.tests.test_license_term_upload_closure" name="test_license_term_uses_shared_duration_grammar_and_own_evidence[\u53cc\u65b9\u4fdd\u5bc6\u671f\u9650\u4e3a\u4e94\u5e74\u3002-False]" time="0.010" /><testcase classname="backend.tests.test_license_term_upload_closure" name="test_balanced_secret_license_authenticated_upload_is_publishable_with_real_gaps" time="10.140"><failure message="AssertionError: [{'requirement': 'EXACT_ELEMENT_REPORT_INVARIANT', 'failure_stage': 'Final Evidence Projection', 'root_cause': '最终要素、原文引文与报告事实不一致。', 'current_status': 'FAIL', ...}]&#10;assert 'BLOCKED' == 'REPORT_READY'&#10;  &#10;  - REPORT_READY&#10;  + BLOCKED">backend\tests\test_license_term_upload_closure.py:58: in test_balanced_secret_license_authenticated_upload_is_publishable_with_real_gaps
+    assert report['release_quality_gate']['status']=='REPORT_READY',report['release_quality_gate']['failures']
+E   AssertionError: [{'requirement': 'EXACT_ELEMENT_REPORT_INVARIANT', 'failure_stage': 'Final Evidence Projection', 'root_cause': '最终要素、原文引文与报告事实不一致。', 'current_status': 'FAIL', ...}]
+E   assert 'BLOCKED' == 'REPORT_READY'
+E     
+E     - REPORT_READY
+E     + BLOCKED</failure></testcase></testsuite></testsuites>
