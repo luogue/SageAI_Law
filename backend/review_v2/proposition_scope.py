@@ -139,6 +139,8 @@ def arrangement_matches(pattern, text, *, inherit_lists=False):
             gap = _GAP.search(quote, begin) or _UNRESOLVED.search(quote, begin)
             # "任何时候" contains the substring "何时" but is not an interrogative.
             # Exclude the quantifier reading so a real duty is not dropped.
+            # "任何时候" contains the substring "何时" but is not an interrogative.
+            # Exclude the quantifier reading so a real duty is not dropped.
             if re.search(r'是否|能否|要不要|(?<!任)何时|如何', quote[begin:match.end()]):
                 continue
             if gap and (gap.start() < match.end() or re.fullmatch(

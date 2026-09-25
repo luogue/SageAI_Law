@@ -1,0 +1,31 @@
+delivery_form pattern:
+  (?:提交|交付|提供).{0,25}(?:电子|纸质|书面).{0,25}(?:报告|成果)|(?:报告|成果).{0,25}(?:电子|纸质|书面)|(?:报告|文件|成果)[^。；]{0,30}(?:以|按|采用)[^。；]{0,25}(?:CIF|FOB|C&F|CFR|FCA|航空邮寄|挂号邮寄|快递)[^。；]{0,30}(?:交付|提交)
+
+含 CIF/邮寄 的 segments:
+
+clause=C0029 block=OPERATIVE_CLAUSE
+  title=4.1 前述技术咨询报告以CIF上海价格条件交付的最后期限为：
+  text=4.1前述技术咨询报告以CIF上海价格条件交付的最后期限为：A.分项一的技术咨询报告：合同生效后3个月内；
+  直接正则分支3=True
+  完整pattern finditer=['报告以CIF上海价格条件交付']
+  arrangement_matches=1
+    scoped: '4.1前述技术咨询报告以CIF上海价格条件交付的最后期限为：A.分项一的技术咨询报告：合同生效后3个月内；' polarity=AFFIRMATIVE inherited=False
+      match='报告以CIF上海价格条件交付' prefix='4.1前述技术咨询'
+        疑问词拦截=False
+        negation拦截=False
+
+clause=C0030 block=OPERATIVE_CLAUSE
+  title=4.2 咨询方在航空邮寄上述资料时应以传真方式将邮寄日期和航空提单号等通知委托方。委托方收到上述技术咨询报告后应及时通知
+  text=4.2咨询方在航空邮寄上述资料时应以传真方式将邮寄日期和航空提单号等通知委托方。
+  直接正则分支3=False
+  完整pattern finditer=[]
+  arrangement_matches=0
+    scoped: '4.2咨询方在航空邮寄上述资料时应以传真方式将邮寄日期和航空提单号等通知委托方。' polarity=AFFIRMATIVE inherited=False
+
+clause=C0031 block=OPERATIVE_CLAUSE
+  title=4.3 如果在邮寄过程中上述资料发生丢失、损坏，咨询方应在接到通知后两周内免费予以替换。
+  text=4.3如果在邮寄过程中上述资料发生丢失、损坏，咨询方应在接到通知后两周内免费予以替换。
+  直接正则分支3=False
+  完整pattern finditer=[]
+  arrangement_matches=0
+    scoped: '4.3如果在邮寄过程中上述资料发生丢失、损坏，咨询方应在接到通知后两周内免费予以替换。' polarity=AFFIRMATIVE inherited=False

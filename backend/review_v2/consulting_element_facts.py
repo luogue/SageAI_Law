@@ -21,7 +21,7 @@ FAMILIES = {
     'consulting_quality': (
         ('consulting_scope', '咨询事项和范围', r'(?:咨询(?:内容|范围|事项)[：:].+|(?:针对|对).{0,90}(?:分析|评估|论证))'),
         ('report_contents', '咨询报告内容', r'(?:报告|成果).{0,12}(?:应包括|须包括|包括|包含|完整覆盖).+'),
-        ('delivery_form', '咨询成果交付形式', r'(?:提交|交付|提供).{0,25}(?:电子|纸质|书面).{0,25}(?:报告|成果)|(?:报告|成果).{0,25}(?:电子|纸质|书面)'),
+        ('delivery_form', '咨询成果交付形式', r'(?:提交|交付|提供).{0,25}(?:电子|纸质|书面).{0,25}(?:报告|成果)|(?:报告|成果).{0,25}(?:电子|纸质|书面)|(?:报告|文件|成果)[^。；]{0,30}(?:以|按|采用)[^。；]{0,25}(?:CIF|FOB|C&F|CFR|FCA|航空邮寄|挂号邮寄|快递)[^。；]{0,30}(?:交付|提交)'),
         ('acceptance_standard', '咨询成果验收标准', r'(?:报告|成果).{0,20}(?:应|须).{0,30}(?:完整覆盖|符合|达到|具有对应关系|能够说明|作出分析回应).+|验收(?:标准|依据)[：:].+|验收.{0,20}(?:判断|检查|评价|考察).{0,30}(?:报告|成果).{0,20}(?:覆盖|符合|达到|完成|提交|列明|说明)'),
     ),
     'consulting_decision': (
@@ -67,7 +67,10 @@ for family, definitions in list(FAMILIES.items()):
                               for key,label,pattern in definitions)
 FAMILIES['consulting_decision'] += (
     ('consultant_fault_exception', '咨询方故意或重大过错的责任例外',
-     r'(?:乙方|咨询方|受托方)[^。；]{0,90}(?:故意|重大过失|重大过错)[^。；]{0,90}(?:承担|赔偿)|(?:乙方|咨询方|受托方)[^。；]{0,35}下列情形[^。；]{0,90}(?:承担|赔偿)'),)
+     r'(?:乙方|咨询方|受托方)[^。；]{0,90}(?:故意|重大过失|重大过错)[^。；]{0,90}(?:承担|赔偿)|(?:乙方|咨询方|受托方)[^。；]{0,35}下列情形[^。；]{0,90}(?:承担|赔偿)'
+     # A consultant's own professional error (material computation/data error,
+     # departure from accepted standards) is the same fault-based exception.
+     r'|(?:因|对因)[^。；]{0,60}(?:重大(?:计算|数据|处理)?错误|数据处理错误|违反[^。；]{0,25}技术标准|虚假数据|伪造)[^。；]{0,60}(?:造成|导致)[^。；]{0,40}(?:承担|赔偿)'),)
 FAMILIES['consulting_remedy'] += (
     ('reinspection_deadline', '补正完成后的再次验收期限',
      _DURATION+r'内[^。；]{0,20}(?:再次验收|重新验收|复验)'),)
@@ -408,8 +411,11 @@ def elements(family, clauses):
                 r'(?:通过|采用|以)[^。；]{0,25}(?:电子邮箱|电子邮件|项目协作平台|在线平台)[^。；]{0,25}(?:提交|交付)[^。；]{0,20}(?:报告|文件|成果)',
                 context=r'成果|报告|文件',
             ))
+            # A delivery form is not only electronic/paper: an Incoterm or a
+            # stated mailing/courier channel is an equally explicit form.
             sources = [source for source in sources if re.search(
-                r'电子(?:文档|文件|邮箱|邮件)|项目协作平台|在线平台|电子版|PDF|纸质(?:文件|文本|版|[^。；]{0,8}报告)|书面报告', source['quote'], re.I,
+                r'电子(?:文档|文件|邮箱|邮件)|项目协作平台|在线平台|电子版|PDF|纸质(?:文件|文本|版|[^。；]{0,8}报告)|书面报告'
+                r'|CIF|FOB|C&F|CFR|FCA|航空邮寄|挂号邮寄|快递', source['quote'], re.I,
             ) and not re.search(r'书面反馈|书面意见|书面提出', source['quote'])]
         if key == 'consulting_scope':
             from review_v2.technology_service_elements import sources as find
